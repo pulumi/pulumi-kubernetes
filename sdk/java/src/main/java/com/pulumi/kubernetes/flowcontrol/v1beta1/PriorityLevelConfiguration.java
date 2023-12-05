@@ -136,6 +136,7 @@ public class PriorityLevelConfiguration extends com.pulumi.resources.CustomResou
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .aliases(List.of(
+                Output.of(Alias.builder().type("kubernetes:flowcontrol.apiserver.k8s.io/v1:PriorityLevelConfiguration").build()),
                 Output.of(Alias.builder().type("kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:PriorityLevelConfiguration").build()),
                 Output.of(Alias.builder().type("kubernetes:flowcontrol.apiserver.k8s.io/v1beta2:PriorityLevelConfiguration").build()),
                 Output.of(Alias.builder().type("kubernetes:flowcontrol.apiserver.k8s.io/v1beta3:PriorityLevelConfiguration").build())

@@ -22,18 +22,48 @@ public final class PodAffinityTermPatchArgs extends com.pulumi.resources.Resourc
     public static final PodAffinityTermPatchArgs Empty = new PodAffinityTermPatchArgs();
 
     /**
-     * A label query over a set of resources, in this case pods.
+     * A label query over a set of resources, in this case pods. If it&#39;s null, this PodAffinityTerm matches with no Pods.
      * 
      */
     @Import(name="labelSelector")
     private @Nullable Output<LabelSelectorPatchArgs> labelSelector;
 
     /**
-     * @return A label query over a set of resources, in this case pods.
+     * @return A label query over a set of resources, in this case pods. If it&#39;s null, this PodAffinityTerm matches with no Pods.
      * 
      */
     public Optional<Output<LabelSelectorPatchArgs>> labelSelector() {
         return Optional.ofNullable(this.labelSelector);
+    }
+
+    /**
+     * MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `LabelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod&#39;s pod (anti) affinity. Keys that don&#39;t exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both MatchLabelKeys and LabelSelector. Also, MatchLabelKeys cannot be set when LabelSelector isn&#39;t set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
+     * 
+     */
+    @Import(name="matchLabelKeys")
+    private @Nullable Output<List<String>> matchLabelKeys;
+
+    /**
+     * @return MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `LabelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod&#39;s pod (anti) affinity. Keys that don&#39;t exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both MatchLabelKeys and LabelSelector. Also, MatchLabelKeys cannot be set when LabelSelector isn&#39;t set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
+     * 
+     */
+    public Optional<Output<List<String>>> matchLabelKeys() {
+        return Optional.ofNullable(this.matchLabelKeys);
+    }
+
+    /**
+     * MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `LabelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod&#39;s pod (anti) affinity. Keys that don&#39;t exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both MismatchLabelKeys and LabelSelector. Also, MismatchLabelKeys cannot be set when LabelSelector isn&#39;t set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
+     * 
+     */
+    @Import(name="mismatchLabelKeys")
+    private @Nullable Output<List<String>> mismatchLabelKeys;
+
+    /**
+     * @return MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `LabelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod&#39;s pod (anti) affinity. Keys that don&#39;t exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both MismatchLabelKeys and LabelSelector. Also, MismatchLabelKeys cannot be set when LabelSelector isn&#39;t set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
+     * 
+     */
+    public Optional<Output<List<String>>> mismatchLabelKeys() {
+        return Optional.ofNullable(this.mismatchLabelKeys);
     }
 
     /**
@@ -85,6 +115,8 @@ public final class PodAffinityTermPatchArgs extends com.pulumi.resources.Resourc
 
     private PodAffinityTermPatchArgs(PodAffinityTermPatchArgs $) {
         this.labelSelector = $.labelSelector;
+        this.matchLabelKeys = $.matchLabelKeys;
+        this.mismatchLabelKeys = $.mismatchLabelKeys;
         this.namespaceSelector = $.namespaceSelector;
         this.namespaces = $.namespaces;
         this.topologyKey = $.topologyKey;
@@ -109,7 +141,7 @@ public final class PodAffinityTermPatchArgs extends com.pulumi.resources.Resourc
         }
 
         /**
-         * @param labelSelector A label query over a set of resources, in this case pods.
+         * @param labelSelector A label query over a set of resources, in this case pods. If it&#39;s null, this PodAffinityTerm matches with no Pods.
          * 
          * @return builder
          * 
@@ -120,13 +152,75 @@ public final class PodAffinityTermPatchArgs extends com.pulumi.resources.Resourc
         }
 
         /**
-         * @param labelSelector A label query over a set of resources, in this case pods.
+         * @param labelSelector A label query over a set of resources, in this case pods. If it&#39;s null, this PodAffinityTerm matches with no Pods.
          * 
          * @return builder
          * 
          */
         public Builder labelSelector(LabelSelectorPatchArgs labelSelector) {
             return labelSelector(Output.of(labelSelector));
+        }
+
+        /**
+         * @param matchLabelKeys MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `LabelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod&#39;s pod (anti) affinity. Keys that don&#39;t exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both MatchLabelKeys and LabelSelector. Also, MatchLabelKeys cannot be set when LabelSelector isn&#39;t set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder matchLabelKeys(@Nullable Output<List<String>> matchLabelKeys) {
+            $.matchLabelKeys = matchLabelKeys;
+            return this;
+        }
+
+        /**
+         * @param matchLabelKeys MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `LabelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod&#39;s pod (anti) affinity. Keys that don&#39;t exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both MatchLabelKeys and LabelSelector. Also, MatchLabelKeys cannot be set when LabelSelector isn&#39;t set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder matchLabelKeys(List<String> matchLabelKeys) {
+            return matchLabelKeys(Output.of(matchLabelKeys));
+        }
+
+        /**
+         * @param matchLabelKeys MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `LabelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod&#39;s pod (anti) affinity. Keys that don&#39;t exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both MatchLabelKeys and LabelSelector. Also, MatchLabelKeys cannot be set when LabelSelector isn&#39;t set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder matchLabelKeys(String... matchLabelKeys) {
+            return matchLabelKeys(List.of(matchLabelKeys));
+        }
+
+        /**
+         * @param mismatchLabelKeys MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `LabelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod&#39;s pod (anti) affinity. Keys that don&#39;t exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both MismatchLabelKeys and LabelSelector. Also, MismatchLabelKeys cannot be set when LabelSelector isn&#39;t set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder mismatchLabelKeys(@Nullable Output<List<String>> mismatchLabelKeys) {
+            $.mismatchLabelKeys = mismatchLabelKeys;
+            return this;
+        }
+
+        /**
+         * @param mismatchLabelKeys MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `LabelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod&#39;s pod (anti) affinity. Keys that don&#39;t exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both MismatchLabelKeys and LabelSelector. Also, MismatchLabelKeys cannot be set when LabelSelector isn&#39;t set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder mismatchLabelKeys(List<String> mismatchLabelKeys) {
+            return mismatchLabelKeys(Output.of(mismatchLabelKeys));
+        }
+
+        /**
+         * @param mismatchLabelKeys MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `LabelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod&#39;s pod (anti) affinity. Keys that don&#39;t exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both MismatchLabelKeys and LabelSelector. Also, MismatchLabelKeys cannot be set when LabelSelector isn&#39;t set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder mismatchLabelKeys(String... mismatchLabelKeys) {
+            return mismatchLabelKeys(List.of(mismatchLabelKeys));
         }
 
         /**

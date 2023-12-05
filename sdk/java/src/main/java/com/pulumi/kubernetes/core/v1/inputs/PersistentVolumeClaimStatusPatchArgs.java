@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.core.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.kubernetes.core.v1.inputs.ModifyVolumeStatusPatchArgs;
 import com.pulumi.kubernetes.core.v1.inputs.PersistentVolumeClaimConditionPatchArgs;
 import java.lang.String;
 import java.util.List;
@@ -176,6 +177,36 @@ public final class PersistentVolumeClaimStatusPatchArgs extends com.pulumi.resou
     }
 
     /**
+     * currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim This is an alpha field and requires enabling VolumeAttributesClass feature.
+     * 
+     */
+    @Import(name="currentVolumeAttributesClassName")
+    private @Nullable Output<String> currentVolumeAttributesClassName;
+
+    /**
+     * @return currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim This is an alpha field and requires enabling VolumeAttributesClass feature.
+     * 
+     */
+    public Optional<Output<String>> currentVolumeAttributesClassName() {
+        return Optional.ofNullable(this.currentVolumeAttributesClassName);
+    }
+
+    /**
+     * ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted. This is an alpha field and requires enabling VolumeAttributesClass feature.
+     * 
+     */
+    @Import(name="modifyVolumeStatus")
+    private @Nullable Output<ModifyVolumeStatusPatchArgs> modifyVolumeStatus;
+
+    /**
+     * @return ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted. This is an alpha field and requires enabling VolumeAttributesClass feature.
+     * 
+     */
+    public Optional<Output<ModifyVolumeStatusPatchArgs>> modifyVolumeStatus() {
+        return Optional.ofNullable(this.modifyVolumeStatus);
+    }
+
+    /**
      * phase represents the current phase of PersistentVolumeClaim.
      * 
      */
@@ -213,6 +244,8 @@ public final class PersistentVolumeClaimStatusPatchArgs extends com.pulumi.resou
         this.allocatedResources = $.allocatedResources;
         this.capacity = $.capacity;
         this.conditions = $.conditions;
+        this.currentVolumeAttributesClassName = $.currentVolumeAttributesClassName;
+        this.modifyVolumeStatus = $.modifyVolumeStatus;
         this.phase = $.phase;
         this.resizeStatus = $.resizeStatus;
     }
@@ -436,6 +469,48 @@ public final class PersistentVolumeClaimStatusPatchArgs extends com.pulumi.resou
          */
         public Builder conditions(PersistentVolumeClaimConditionPatchArgs... conditions) {
             return conditions(List.of(conditions));
+        }
+
+        /**
+         * @param currentVolumeAttributesClassName currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim This is an alpha field and requires enabling VolumeAttributesClass feature.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder currentVolumeAttributesClassName(@Nullable Output<String> currentVolumeAttributesClassName) {
+            $.currentVolumeAttributesClassName = currentVolumeAttributesClassName;
+            return this;
+        }
+
+        /**
+         * @param currentVolumeAttributesClassName currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim This is an alpha field and requires enabling VolumeAttributesClass feature.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder currentVolumeAttributesClassName(String currentVolumeAttributesClassName) {
+            return currentVolumeAttributesClassName(Output.of(currentVolumeAttributesClassName));
+        }
+
+        /**
+         * @param modifyVolumeStatus ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted. This is an alpha field and requires enabling VolumeAttributesClass feature.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder modifyVolumeStatus(@Nullable Output<ModifyVolumeStatusPatchArgs> modifyVolumeStatus) {
+            $.modifyVolumeStatus = modifyVolumeStatus;
+            return this;
+        }
+
+        /**
+         * @param modifyVolumeStatus ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted. This is an alpha field and requires enabling VolumeAttributesClass feature.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder modifyVolumeStatus(ModifyVolumeStatusPatchArgs modifyVolumeStatus) {
+            return modifyVolumeStatus(Output.of(modifyVolumeStatus));
         }
 
         /**

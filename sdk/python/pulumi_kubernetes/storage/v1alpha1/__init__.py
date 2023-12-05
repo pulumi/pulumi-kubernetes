@@ -8,5 +8,8 @@ import typing
 from .VolumeAttachment import *
 from .VolumeAttachmentList import *
 from .VolumeAttachmentPatch import *
+from .VolumeAttributesClass import *
+from .VolumeAttributesClassList import *
+from .VolumeAttributesClassPatch import *
 from ._inputs import *
 from . import outputs

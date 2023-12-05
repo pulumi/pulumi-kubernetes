@@ -82,7 +82,7 @@ export class PriorityLevelConfiguration extends pulumi.CustomResource {
             resourceInputs["status"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
-        const aliasOpts = { aliases: [{ type: "kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:PriorityLevelConfiguration" }, { type: "kubernetes:flowcontrol.apiserver.k8s.io/v1beta2:PriorityLevelConfiguration" }, { type: "kubernetes:flowcontrol.apiserver.k8s.io/v1beta3:PriorityLevelConfiguration" }] };
+        const aliasOpts = { aliases: [{ type: "kubernetes:flowcontrol.apiserver.k8s.io/v1:PriorityLevelConfiguration" }, { type: "kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:PriorityLevelConfiguration" }, { type: "kubernetes:flowcontrol.apiserver.k8s.io/v1beta2:PriorityLevelConfiguration" }, { type: "kubernetes:flowcontrol.apiserver.k8s.io/v1beta3:PriorityLevelConfiguration" }] };
         opts = pulumi.mergeOptions(opts, aliasOpts);
         super(PriorityLevelConfiguration.__pulumiType, name, resourceInputs, opts);
     }

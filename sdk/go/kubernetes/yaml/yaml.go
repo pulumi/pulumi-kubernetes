@@ -57,6 +57,7 @@ import (
 	eventsv1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/events/v1"
 	eventsv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/events/v1beta1"
 	extensionsv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/extensions/v1beta1"
+	flowcontrolv1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/flowcontrol/v1"
 	flowcontrolv1alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/flowcontrol/v1alpha1"
 	flowcontrolv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/flowcontrol/v1beta1"
 	flowcontrolv1beta2 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/flowcontrol/v1beta2"
@@ -308,6 +309,8 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		"extensions/v1beta1/NetworkPolicyList",
 		"extensions/v1beta1/PodSecurityPolicyList",
 		"extensions/v1beta1/ReplicaSetList",
+		"flowcontrol.apiserver.k8s.io/v1/FlowSchemaList",
+		"flowcontrol.apiserver.k8s.io/v1/PriorityLevelConfigurationList",
 		"flowcontrol.apiserver.k8s.io/v1alpha1/FlowSchemaList",
 		"flowcontrol.apiserver.k8s.io/v1alpha1/PriorityLevelConfigurationList",
 		"flowcontrol.apiserver.k8s.io/v1beta1/FlowSchemaList",
@@ -321,6 +324,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		"networking.k8s.io/v1/NetworkPolicyList",
 		"networking.k8s.io/v1alpha1/ClusterCIDRList",
 		"networking.k8s.io/v1alpha1/IPAddressList",
+		"networking.k8s.io/v1alpha1/ServiceCIDRList",
 		"networking.k8s.io/v1beta1/IngressClassList",
 		"networking.k8s.io/v1beta1/IngressList",
 		"node.k8s.io/v1/RuntimeClassList",
@@ -359,6 +363,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		"storage.k8s.io/v1/StorageClassList",
 		"storage.k8s.io/v1/VolumeAttachmentList",
 		"storage.k8s.io/v1alpha1/VolumeAttachmentList",
+		"storage.k8s.io/v1alpha1/VolumeAttributesClassList",
 		"storage.k8s.io/v1beta1/CSIDriverList",
 		"storage.k8s.io/v1beta1/CSINodeList",
 		"storage.k8s.io/v1beta1/CSIStorageCapacityList",
@@ -874,6 +879,20 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resourceTuple{{Name: key, Resource: &res}}, nil
+	case "flowcontrol.apiserver.k8s.io/v1/FlowSchema":
+		var res flowcontrolv1.FlowSchema
+		err := ctx.RegisterResource("kubernetes:flowcontrol.apiserver.k8s.io/v1:FlowSchema", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
+	case "flowcontrol.apiserver.k8s.io/v1/PriorityLevelConfiguration":
+		var res flowcontrolv1.PriorityLevelConfiguration
+		err := ctx.RegisterResource("kubernetes:flowcontrol.apiserver.k8s.io/v1:PriorityLevelConfiguration", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "flowcontrol.apiserver.k8s.io/v1alpha1/FlowSchema":
 		var res flowcontrolv1alpha1.FlowSchema
 		err := ctx.RegisterResource("kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:FlowSchema", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
@@ -968,6 +987,13 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 	case "networking.k8s.io/v1alpha1/IPAddress":
 		var res networkingv1alpha1.IPAddress
 		err := ctx.RegisterResource("kubernetes:networking.k8s.io/v1alpha1:IPAddress", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
+	case "networking.k8s.io/v1alpha1/ServiceCIDR":
+		var res networkingv1alpha1.ServiceCIDR
+		err := ctx.RegisterResource("kubernetes:networking.k8s.io/v1alpha1:ServiceCIDR", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
@@ -1234,6 +1260,13 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 	case "storage.k8s.io/v1alpha1/VolumeAttachment":
 		var res storagev1alpha1.VolumeAttachment
 		err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1alpha1:VolumeAttachment", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
+	case "storage.k8s.io/v1alpha1/VolumeAttributesClass":
+		var res storagev1alpha1.VolumeAttributesClass
+		err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1alpha1:VolumeAttributesClass", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}

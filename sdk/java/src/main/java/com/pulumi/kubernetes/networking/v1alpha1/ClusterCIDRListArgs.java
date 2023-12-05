@@ -35,14 +35,14 @@ public final class ClusterCIDRListArgs extends com.pulumi.resources.ResourceArgs
     }
 
     /**
-     * items is the list of ClusterCIDRs.
+     * Items is the list of ClusterCIDRs.
      * 
      */
     @Import(name="items", required=true)
     private Output<List<ClusterCIDRArgs>> items;
 
     /**
-     * @return items is the list of ClusterCIDRs.
+     * @return Items is the list of ClusterCIDRs.
      * 
      */
     public Output<List<ClusterCIDRArgs>> items() {
@@ -128,7 +128,7 @@ public final class ClusterCIDRListArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param items items is the list of ClusterCIDRs.
+         * @param items Items is the list of ClusterCIDRs.
          * 
          * @return builder
          * 
@@ -139,7 +139,7 @@ public final class ClusterCIDRListArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param items items is the list of ClusterCIDRs.
+         * @param items Items is the list of ClusterCIDRs.
          * 
          * @return builder
          * 
@@ -149,7 +149,7 @@ public final class ClusterCIDRListArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param items items is the list of ClusterCIDRs.
+         * @param items Items is the list of ClusterCIDRs.
          * 
          * @return builder
          * 

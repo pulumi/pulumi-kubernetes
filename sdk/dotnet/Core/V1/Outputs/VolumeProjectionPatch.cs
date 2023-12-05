@@ -17,6 +17,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
     public sealed class VolumeProjectionPatch
     {
         /// <summary>
+        /// ClusterTrustBundle allows a pod to access the `.spec.trustBundle` field of ClusterTrustBundle objects in an auto-updating file.
+        /// 
+        /// Alpha, gated by the ClusterTrustBundleProjection feature gate.
+        /// 
+        /// ClusterTrustBundle objects can either be selected by name, or by the combination of signer name and a label selector.
+        /// 
+        /// Kubelet performs aggressive normalization of the PEM contents written into the pod filesystem.  Esoteric PEM features such as inter-block comments and block headers are stripped.  Certificates are deduplicated. The ordering of certificates within the file is arbitrary, and Kubelet may change the order over time.
+        /// </summary>
+        public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.ClusterTrustBundleProjectionPatch ClusterTrustBundle;
+        /// <summary>
         /// configMap information about the configMap data to project
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.ConfigMapProjectionPatch ConfigMap;
@@ -35,6 +45,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 
         [OutputConstructor]
         private VolumeProjectionPatch(
+            Pulumi.Kubernetes.Types.Outputs.Core.V1.ClusterTrustBundleProjectionPatch clusterTrustBundle,
+
             Pulumi.Kubernetes.Types.Outputs.Core.V1.ConfigMapProjectionPatch configMap,
 
             Pulumi.Kubernetes.Types.Outputs.Core.V1.DownwardAPIProjectionPatch downwardAPI,
@@ -43,6 +55,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 
             Pulumi.Kubernetes.Types.Outputs.Core.V1.ServiceAccountTokenProjectionPatch serviceAccountToken)
         {
+            ClusterTrustBundle = clusterTrustBundle;
             ConfigMap = configMap;
             DownwardAPI = downwardAPI;
             Secret = secret;

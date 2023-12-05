@@ -115,6 +115,18 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         }
 
         /// <summary>
+        /// currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim This is an alpha field and requires enabling VolumeAttributesClass feature.
+        /// </summary>
+        [Input("currentVolumeAttributesClassName")]
+        public Input<string>? CurrentVolumeAttributesClassName { get; set; }
+
+        /// <summary>
+        /// ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted. This is an alpha field and requires enabling VolumeAttributesClass feature.
+        /// </summary>
+        [Input("modifyVolumeStatus")]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.ModifyVolumeStatusArgs>? ModifyVolumeStatus { get; set; }
+
+        /// <summary>
         /// phase represents the current phase of PersistentVolumeClaim.
         /// </summary>
         [Input("phase")]

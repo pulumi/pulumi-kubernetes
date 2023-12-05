@@ -21,8 +21,8 @@ public final class PodFailurePolicyRule {
      *   running pods are terminated.
      * - FailIndex: indicates that the pod&#39;s index is marked as Failed and will
      *   not be restarted.
-     *   This value is alpha-level. It can be used when the
-     *   `JobBackoffLimitPerIndex` feature gate is enabled (disabled by default).
+     *   This value is beta-level. It can be used when the
+     *   `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
      * - Ignore: indicates that the counter towards the .backoffLimit is not
      *   incremented and a replacement pod is created.
      * - Count: indicates that the pod is handled in the default way - the
@@ -40,7 +40,7 @@ public final class PodFailurePolicyRule {
      * @return Represents the requirement on the pod conditions. The requirement is represented as a list of pod condition patterns. The requirement is satisfied if at least one pattern matches an actual pod condition. At most 20 elements are allowed.
      * 
      */
-    private List<PodFailurePolicyOnPodConditionsPattern> onPodConditions;
+    private @Nullable List<PodFailurePolicyOnPodConditionsPattern> onPodConditions;
 
     private PodFailurePolicyRule() {}
     /**
@@ -50,8 +50,8 @@ public final class PodFailurePolicyRule {
      *   running pods are terminated.
      * - FailIndex: indicates that the pod&#39;s index is marked as Failed and will
      *   not be restarted.
-     *   This value is alpha-level. It can be used when the
-     *   `JobBackoffLimitPerIndex` feature gate is enabled (disabled by default).
+     *   This value is beta-level. It can be used when the
+     *   `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
      * - Ignore: indicates that the counter towards the .backoffLimit is not
      *   incremented and a replacement pod is created.
      * - Count: indicates that the pod is handled in the default way - the
@@ -74,7 +74,7 @@ public final class PodFailurePolicyRule {
      * 
      */
     public List<PodFailurePolicyOnPodConditionsPattern> onPodConditions() {
-        return this.onPodConditions;
+        return this.onPodConditions == null ? List.of() : this.onPodConditions;
     }
 
     public static Builder builder() {
@@ -88,7 +88,7 @@ public final class PodFailurePolicyRule {
     public static final class Builder {
         private String action;
         private @Nullable PodFailurePolicyOnExitCodesRequirement onExitCodes;
-        private List<PodFailurePolicyOnPodConditionsPattern> onPodConditions;
+        private @Nullable List<PodFailurePolicyOnPodConditionsPattern> onPodConditions;
         public Builder() {}
         public Builder(PodFailurePolicyRule defaults) {
     	      Objects.requireNonNull(defaults);
@@ -108,8 +108,8 @@ public final class PodFailurePolicyRule {
             return this;
         }
         @CustomType.Setter
-        public Builder onPodConditions(List<PodFailurePolicyOnPodConditionsPattern> onPodConditions) {
-            this.onPodConditions = Objects.requireNonNull(onPodConditions);
+        public Builder onPodConditions(@Nullable List<PodFailurePolicyOnPodConditionsPattern> onPodConditions) {
+            this.onPodConditions = onPodConditions;
             return this;
         }
         public Builder onPodConditions(PodFailurePolicyOnPodConditionsPattern... onPodConditions) {

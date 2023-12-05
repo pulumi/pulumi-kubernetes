@@ -23,7 +23,7 @@ type ClusterCIDRType struct {
 	Kind *string `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
-	// spec is the desired state of the ClusterCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	// Spec is the desired state of the ClusterCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Spec *ClusterCIDRSpec `pulumi:"spec"`
 }
 
@@ -46,7 +46,7 @@ type ClusterCIDRTypeArgs struct {
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
-	// spec is the desired state of the ClusterCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	// Spec is the desired state of the ClusterCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Spec ClusterCIDRSpecPtrInput `pulumi:"spec"`
 }
 
@@ -117,7 +117,7 @@ func (o ClusterCIDRTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 	return o.ApplyT(func(v ClusterCIDRType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
-// spec is the desired state of the ClusterCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+// Spec is the desired state of the ClusterCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 func (o ClusterCIDRTypeOutput) Spec() ClusterCIDRSpecPtrOutput {
 	return o.ApplyT(func(v ClusterCIDRType) *ClusterCIDRSpec { return v.Spec }).(ClusterCIDRSpecPtrOutput)
 }
@@ -146,7 +146,7 @@ func (o ClusterCIDRTypeArrayOutput) Index(i pulumi.IntInput) ClusterCIDRTypeOutp
 type ClusterCIDRListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
-	// items is the list of ClusterCIDRs.
+	// Items is the list of ClusterCIDRs.
 	Items []ClusterCIDRType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
@@ -169,7 +169,7 @@ type ClusterCIDRListTypeInput interface {
 type ClusterCIDRListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	// items is the list of ClusterCIDRs.
+	// Items is the list of ClusterCIDRs.
 	Items ClusterCIDRTypeArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
@@ -209,7 +209,7 @@ func (o ClusterCIDRListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ClusterCIDRListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
-// items is the list of ClusterCIDRs.
+// Items is the list of ClusterCIDRs.
 func (o ClusterCIDRListTypeOutput) Items() ClusterCIDRTypeArrayOutput {
 	return o.ApplyT(func(v ClusterCIDRListType) []ClusterCIDRType { return v.Items }).(ClusterCIDRTypeArrayOutput)
 }
@@ -232,7 +232,7 @@ type ClusterCIDRPatchType struct {
 	Kind *string `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
-	// spec is the desired state of the ClusterCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	// Spec is the desired state of the ClusterCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Spec *ClusterCIDRSpecPatch `pulumi:"spec"`
 }
 
@@ -255,7 +255,7 @@ type ClusterCIDRPatchTypeArgs struct {
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
-	// spec is the desired state of the ClusterCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	// Spec is the desired state of the ClusterCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Spec ClusterCIDRSpecPatchPtrInput `pulumi:"spec"`
 }
 
@@ -301,20 +301,20 @@ func (o ClusterCIDRPatchTypeOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
 	return o.ApplyT(func(v ClusterCIDRPatchType) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
 }
 
-// spec is the desired state of the ClusterCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+// Spec is the desired state of the ClusterCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 func (o ClusterCIDRPatchTypeOutput) Spec() ClusterCIDRSpecPatchPtrOutput {
 	return o.ApplyT(func(v ClusterCIDRPatchType) *ClusterCIDRSpecPatch { return v.Spec }).(ClusterCIDRSpecPatchPtrOutput)
 }
 
 // ClusterCIDRSpec defines the desired state of ClusterCIDR.
 type ClusterCIDRSpec struct {
-	// ipv4 defines an IPv4 IP block in CIDR notation(e.g. "10.0.0.0/8"). At least one of ipv4 and ipv6 must be specified. This field is immutable.
+	// IPv4 defines an IPv4 IP block in CIDR notation(e.g. "10.0.0.0/8"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
 	Ipv4 *string `pulumi:"ipv4"`
-	// ipv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of ipv4 and ipv6 must be specified. This field is immutable.
+	// IPv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
 	Ipv6 *string `pulumi:"ipv6"`
-	// nodeSelector defines which nodes the config is applicable to. An empty or nil nodeSelector selects all nodes. This field is immutable.
+	// NodeSelector defines which nodes the config is applicable to. An empty or nil NodeSelector selects all nodes. This field is immutable.
 	NodeSelector *corev1.NodeSelector `pulumi:"nodeSelector"`
-	// perNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a /24 mask for IPv4 or a /120 for IPv6). Minimum value is 4 (16 IPs). This field is immutable.
+	// PerNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a /24 mask for IPv4 or a /120 for IPv6). Minimum value is 4 (16 IPs). This field is immutable.
 	PerNodeHostBits int `pulumi:"perNodeHostBits"`
 }
 
@@ -331,13 +331,13 @@ type ClusterCIDRSpecInput interface {
 
 // ClusterCIDRSpec defines the desired state of ClusterCIDR.
 type ClusterCIDRSpecArgs struct {
-	// ipv4 defines an IPv4 IP block in CIDR notation(e.g. "10.0.0.0/8"). At least one of ipv4 and ipv6 must be specified. This field is immutable.
+	// IPv4 defines an IPv4 IP block in CIDR notation(e.g. "10.0.0.0/8"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
 	Ipv4 pulumi.StringPtrInput `pulumi:"ipv4"`
-	// ipv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of ipv4 and ipv6 must be specified. This field is immutable.
+	// IPv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
 	Ipv6 pulumi.StringPtrInput `pulumi:"ipv6"`
-	// nodeSelector defines which nodes the config is applicable to. An empty or nil nodeSelector selects all nodes. This field is immutable.
+	// NodeSelector defines which nodes the config is applicable to. An empty or nil NodeSelector selects all nodes. This field is immutable.
 	NodeSelector corev1.NodeSelectorPtrInput `pulumi:"nodeSelector"`
-	// perNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a /24 mask for IPv4 or a /120 for IPv6). Minimum value is 4 (16 IPs). This field is immutable.
+	// PerNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a /24 mask for IPv4 or a /120 for IPv6). Minimum value is 4 (16 IPs). This field is immutable.
 	PerNodeHostBits pulumi.IntInput `pulumi:"perNodeHostBits"`
 }
 
@@ -419,22 +419,22 @@ func (o ClusterCIDRSpecOutput) ToClusterCIDRSpecPtrOutputWithContext(ctx context
 	}).(ClusterCIDRSpecPtrOutput)
 }
 
-// ipv4 defines an IPv4 IP block in CIDR notation(e.g. "10.0.0.0/8"). At least one of ipv4 and ipv6 must be specified. This field is immutable.
+// IPv4 defines an IPv4 IP block in CIDR notation(e.g. "10.0.0.0/8"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
 func (o ClusterCIDRSpecOutput) Ipv4() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ClusterCIDRSpec) *string { return v.Ipv4 }).(pulumi.StringPtrOutput)
 }
 
-// ipv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of ipv4 and ipv6 must be specified. This field is immutable.
+// IPv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
 func (o ClusterCIDRSpecOutput) Ipv6() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ClusterCIDRSpec) *string { return v.Ipv6 }).(pulumi.StringPtrOutput)
 }
 
-// nodeSelector defines which nodes the config is applicable to. An empty or nil nodeSelector selects all nodes. This field is immutable.
+// NodeSelector defines which nodes the config is applicable to. An empty or nil NodeSelector selects all nodes. This field is immutable.
 func (o ClusterCIDRSpecOutput) NodeSelector() corev1.NodeSelectorPtrOutput {
 	return o.ApplyT(func(v ClusterCIDRSpec) *corev1.NodeSelector { return v.NodeSelector }).(corev1.NodeSelectorPtrOutput)
 }
 
-// perNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a /24 mask for IPv4 or a /120 for IPv6). Minimum value is 4 (16 IPs). This field is immutable.
+// PerNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a /24 mask for IPv4 or a /120 for IPv6). Minimum value is 4 (16 IPs). This field is immutable.
 func (o ClusterCIDRSpecOutput) PerNodeHostBits() pulumi.IntOutput {
 	return o.ApplyT(func(v ClusterCIDRSpec) int { return v.PerNodeHostBits }).(pulumi.IntOutput)
 }
@@ -463,7 +463,7 @@ func (o ClusterCIDRSpecPtrOutput) Elem() ClusterCIDRSpecOutput {
 	}).(ClusterCIDRSpecOutput)
 }
 
-// ipv4 defines an IPv4 IP block in CIDR notation(e.g. "10.0.0.0/8"). At least one of ipv4 and ipv6 must be specified. This field is immutable.
+// IPv4 defines an IPv4 IP block in CIDR notation(e.g. "10.0.0.0/8"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
 func (o ClusterCIDRSpecPtrOutput) Ipv4() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ClusterCIDRSpec) *string {
 		if v == nil {
@@ -473,7 +473,7 @@ func (o ClusterCIDRSpecPtrOutput) Ipv4() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// ipv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of ipv4 and ipv6 must be specified. This field is immutable.
+// IPv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
 func (o ClusterCIDRSpecPtrOutput) Ipv6() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ClusterCIDRSpec) *string {
 		if v == nil {
@@ -483,7 +483,7 @@ func (o ClusterCIDRSpecPtrOutput) Ipv6() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// nodeSelector defines which nodes the config is applicable to. An empty or nil nodeSelector selects all nodes. This field is immutable.
+// NodeSelector defines which nodes the config is applicable to. An empty or nil NodeSelector selects all nodes. This field is immutable.
 func (o ClusterCIDRSpecPtrOutput) NodeSelector() corev1.NodeSelectorPtrOutput {
 	return o.ApplyT(func(v *ClusterCIDRSpec) *corev1.NodeSelector {
 		if v == nil {
@@ -493,7 +493,7 @@ func (o ClusterCIDRSpecPtrOutput) NodeSelector() corev1.NodeSelectorPtrOutput {
 	}).(corev1.NodeSelectorPtrOutput)
 }
 
-// perNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a /24 mask for IPv4 or a /120 for IPv6). Minimum value is 4 (16 IPs). This field is immutable.
+// PerNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a /24 mask for IPv4 or a /120 for IPv6). Minimum value is 4 (16 IPs). This field is immutable.
 func (o ClusterCIDRSpecPtrOutput) PerNodeHostBits() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *ClusterCIDRSpec) *int {
 		if v == nil {
@@ -505,13 +505,13 @@ func (o ClusterCIDRSpecPtrOutput) PerNodeHostBits() pulumi.IntPtrOutput {
 
 // ClusterCIDRSpec defines the desired state of ClusterCIDR.
 type ClusterCIDRSpecPatch struct {
-	// ipv4 defines an IPv4 IP block in CIDR notation(e.g. "10.0.0.0/8"). At least one of ipv4 and ipv6 must be specified. This field is immutable.
+	// IPv4 defines an IPv4 IP block in CIDR notation(e.g. "10.0.0.0/8"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
 	Ipv4 *string `pulumi:"ipv4"`
-	// ipv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of ipv4 and ipv6 must be specified. This field is immutable.
+	// IPv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
 	Ipv6 *string `pulumi:"ipv6"`
-	// nodeSelector defines which nodes the config is applicable to. An empty or nil nodeSelector selects all nodes. This field is immutable.
+	// NodeSelector defines which nodes the config is applicable to. An empty or nil NodeSelector selects all nodes. This field is immutable.
 	NodeSelector *corev1.NodeSelectorPatch `pulumi:"nodeSelector"`
-	// perNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a /24 mask for IPv4 or a /120 for IPv6). Minimum value is 4 (16 IPs). This field is immutable.
+	// PerNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a /24 mask for IPv4 or a /120 for IPv6). Minimum value is 4 (16 IPs). This field is immutable.
 	PerNodeHostBits *int `pulumi:"perNodeHostBits"`
 }
 
@@ -528,13 +528,13 @@ type ClusterCIDRSpecPatchInput interface {
 
 // ClusterCIDRSpec defines the desired state of ClusterCIDR.
 type ClusterCIDRSpecPatchArgs struct {
-	// ipv4 defines an IPv4 IP block in CIDR notation(e.g. "10.0.0.0/8"). At least one of ipv4 and ipv6 must be specified. This field is immutable.
+	// IPv4 defines an IPv4 IP block in CIDR notation(e.g. "10.0.0.0/8"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
 	Ipv4 pulumi.StringPtrInput `pulumi:"ipv4"`
-	// ipv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of ipv4 and ipv6 must be specified. This field is immutable.
+	// IPv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
 	Ipv6 pulumi.StringPtrInput `pulumi:"ipv6"`
-	// nodeSelector defines which nodes the config is applicable to. An empty or nil nodeSelector selects all nodes. This field is immutable.
+	// NodeSelector defines which nodes the config is applicable to. An empty or nil NodeSelector selects all nodes. This field is immutable.
 	NodeSelector corev1.NodeSelectorPatchPtrInput `pulumi:"nodeSelector"`
-	// perNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a /24 mask for IPv4 or a /120 for IPv6). Minimum value is 4 (16 IPs). This field is immutable.
+	// PerNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a /24 mask for IPv4 or a /120 for IPv6). Minimum value is 4 (16 IPs). This field is immutable.
 	PerNodeHostBits pulumi.IntPtrInput `pulumi:"perNodeHostBits"`
 }
 
@@ -616,22 +616,22 @@ func (o ClusterCIDRSpecPatchOutput) ToClusterCIDRSpecPatchPtrOutputWithContext(c
 	}).(ClusterCIDRSpecPatchPtrOutput)
 }
 
-// ipv4 defines an IPv4 IP block in CIDR notation(e.g. "10.0.0.0/8"). At least one of ipv4 and ipv6 must be specified. This field is immutable.
+// IPv4 defines an IPv4 IP block in CIDR notation(e.g. "10.0.0.0/8"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
 func (o ClusterCIDRSpecPatchOutput) Ipv4() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ClusterCIDRSpecPatch) *string { return v.Ipv4 }).(pulumi.StringPtrOutput)
 }
 
-// ipv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of ipv4 and ipv6 must be specified. This field is immutable.
+// IPv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
 func (o ClusterCIDRSpecPatchOutput) Ipv6() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ClusterCIDRSpecPatch) *string { return v.Ipv6 }).(pulumi.StringPtrOutput)
 }
 
-// nodeSelector defines which nodes the config is applicable to. An empty or nil nodeSelector selects all nodes. This field is immutable.
+// NodeSelector defines which nodes the config is applicable to. An empty or nil NodeSelector selects all nodes. This field is immutable.
 func (o ClusterCIDRSpecPatchOutput) NodeSelector() corev1.NodeSelectorPatchPtrOutput {
 	return o.ApplyT(func(v ClusterCIDRSpecPatch) *corev1.NodeSelectorPatch { return v.NodeSelector }).(corev1.NodeSelectorPatchPtrOutput)
 }
 
-// perNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a /24 mask for IPv4 or a /120 for IPv6). Minimum value is 4 (16 IPs). This field is immutable.
+// PerNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a /24 mask for IPv4 or a /120 for IPv6). Minimum value is 4 (16 IPs). This field is immutable.
 func (o ClusterCIDRSpecPatchOutput) PerNodeHostBits() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ClusterCIDRSpecPatch) *int { return v.PerNodeHostBits }).(pulumi.IntPtrOutput)
 }
@@ -660,7 +660,7 @@ func (o ClusterCIDRSpecPatchPtrOutput) Elem() ClusterCIDRSpecPatchOutput {
 	}).(ClusterCIDRSpecPatchOutput)
 }
 
-// ipv4 defines an IPv4 IP block in CIDR notation(e.g. "10.0.0.0/8"). At least one of ipv4 and ipv6 must be specified. This field is immutable.
+// IPv4 defines an IPv4 IP block in CIDR notation(e.g. "10.0.0.0/8"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
 func (o ClusterCIDRSpecPatchPtrOutput) Ipv4() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ClusterCIDRSpecPatch) *string {
 		if v == nil {
@@ -670,7 +670,7 @@ func (o ClusterCIDRSpecPatchPtrOutput) Ipv4() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// ipv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of ipv4 and ipv6 must be specified. This field is immutable.
+// IPv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
 func (o ClusterCIDRSpecPatchPtrOutput) Ipv6() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ClusterCIDRSpecPatch) *string {
 		if v == nil {
@@ -680,7 +680,7 @@ func (o ClusterCIDRSpecPatchPtrOutput) Ipv6() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// nodeSelector defines which nodes the config is applicable to. An empty or nil nodeSelector selects all nodes. This field is immutable.
+// NodeSelector defines which nodes the config is applicable to. An empty or nil NodeSelector selects all nodes. This field is immutable.
 func (o ClusterCIDRSpecPatchPtrOutput) NodeSelector() corev1.NodeSelectorPatchPtrOutput {
 	return o.ApplyT(func(v *ClusterCIDRSpecPatch) *corev1.NodeSelectorPatch {
 		if v == nil {
@@ -690,7 +690,7 @@ func (o ClusterCIDRSpecPatchPtrOutput) NodeSelector() corev1.NodeSelectorPatchPt
 	}).(corev1.NodeSelectorPatchPtrOutput)
 }
 
-// perNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a /24 mask for IPv4 or a /120 for IPv6). Minimum value is 4 (16 IPs). This field is immutable.
+// PerNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a /24 mask for IPv4 or a /120 for IPv6). Minimum value is 4 (16 IPs). This field is immutable.
 func (o ClusterCIDRSpecPatchPtrOutput) PerNodeHostBits() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *ClusterCIDRSpecPatch) *int {
 		if v == nil {
@@ -1703,6 +1703,875 @@ func (o ParentReferencePatchPtrOutput) Uid() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+// ServiceCIDR defines a range of IP addresses using CIDR format (e.g. 192.168.0.0/24 or 2001:db2::/64). This range is used to allocate ClusterIPs to Service objects.
+type ServiceCIDRType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	// spec is the desired state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Spec *ServiceCIDRSpec `pulumi:"spec"`
+	// status represents the current state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Status *ServiceCIDRStatus `pulumi:"status"`
+}
+
+// ServiceCIDRTypeInput is an input type that accepts ServiceCIDRTypeArgs and ServiceCIDRTypeOutput values.
+// You can construct a concrete instance of `ServiceCIDRTypeInput` via:
+//
+//	ServiceCIDRTypeArgs{...}
+type ServiceCIDRTypeInput interface {
+	pulumi.Input
+
+	ToServiceCIDRTypeOutput() ServiceCIDRTypeOutput
+	ToServiceCIDRTypeOutputWithContext(context.Context) ServiceCIDRTypeOutput
+}
+
+// ServiceCIDR defines a range of IP addresses using CIDR format (e.g. 192.168.0.0/24 or 2001:db2::/64). This range is used to allocate ClusterIPs to Service objects.
+type ServiceCIDRTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	// spec is the desired state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Spec ServiceCIDRSpecPtrInput `pulumi:"spec"`
+	// status represents the current state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Status ServiceCIDRStatusPtrInput `pulumi:"status"`
+}
+
+func (ServiceCIDRTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ServiceCIDRType)(nil)).Elem()
+}
+
+func (i ServiceCIDRTypeArgs) ToServiceCIDRTypeOutput() ServiceCIDRTypeOutput {
+	return i.ToServiceCIDRTypeOutputWithContext(context.Background())
+}
+
+func (i ServiceCIDRTypeArgs) ToServiceCIDRTypeOutputWithContext(ctx context.Context) ServiceCIDRTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ServiceCIDRTypeOutput)
+}
+
+// ServiceCIDRTypeArrayInput is an input type that accepts ServiceCIDRTypeArray and ServiceCIDRTypeArrayOutput values.
+// You can construct a concrete instance of `ServiceCIDRTypeArrayInput` via:
+//
+//	ServiceCIDRTypeArray{ ServiceCIDRTypeArgs{...} }
+type ServiceCIDRTypeArrayInput interface {
+	pulumi.Input
+
+	ToServiceCIDRTypeArrayOutput() ServiceCIDRTypeArrayOutput
+	ToServiceCIDRTypeArrayOutputWithContext(context.Context) ServiceCIDRTypeArrayOutput
+}
+
+type ServiceCIDRTypeArray []ServiceCIDRTypeInput
+
+func (ServiceCIDRTypeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ServiceCIDRType)(nil)).Elem()
+}
+
+func (i ServiceCIDRTypeArray) ToServiceCIDRTypeArrayOutput() ServiceCIDRTypeArrayOutput {
+	return i.ToServiceCIDRTypeArrayOutputWithContext(context.Background())
+}
+
+func (i ServiceCIDRTypeArray) ToServiceCIDRTypeArrayOutputWithContext(ctx context.Context) ServiceCIDRTypeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ServiceCIDRTypeArrayOutput)
+}
+
+// ServiceCIDR defines a range of IP addresses using CIDR format (e.g. 192.168.0.0/24 or 2001:db2::/64). This range is used to allocate ClusterIPs to Service objects.
+type ServiceCIDRTypeOutput struct{ *pulumi.OutputState }
+
+func (ServiceCIDRTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ServiceCIDRType)(nil)).Elem()
+}
+
+func (o ServiceCIDRTypeOutput) ToServiceCIDRTypeOutput() ServiceCIDRTypeOutput {
+	return o
+}
+
+func (o ServiceCIDRTypeOutput) ToServiceCIDRTypeOutputWithContext(ctx context.Context) ServiceCIDRTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o ServiceCIDRTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ServiceCIDRType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o ServiceCIDRTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ServiceCIDRType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o ServiceCIDRTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v ServiceCIDRType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// spec is the desired state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+func (o ServiceCIDRTypeOutput) Spec() ServiceCIDRSpecPtrOutput {
+	return o.ApplyT(func(v ServiceCIDRType) *ServiceCIDRSpec { return v.Spec }).(ServiceCIDRSpecPtrOutput)
+}
+
+// status represents the current state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+func (o ServiceCIDRTypeOutput) Status() ServiceCIDRStatusPtrOutput {
+	return o.ApplyT(func(v ServiceCIDRType) *ServiceCIDRStatus { return v.Status }).(ServiceCIDRStatusPtrOutput)
+}
+
+type ServiceCIDRTypeArrayOutput struct{ *pulumi.OutputState }
+
+func (ServiceCIDRTypeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ServiceCIDRType)(nil)).Elem()
+}
+
+func (o ServiceCIDRTypeArrayOutput) ToServiceCIDRTypeArrayOutput() ServiceCIDRTypeArrayOutput {
+	return o
+}
+
+func (o ServiceCIDRTypeArrayOutput) ToServiceCIDRTypeArrayOutputWithContext(ctx context.Context) ServiceCIDRTypeArrayOutput {
+	return o
+}
+
+func (o ServiceCIDRTypeArrayOutput) Index(i pulumi.IntInput) ServiceCIDRTypeOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ServiceCIDRType {
+		return vs[0].([]ServiceCIDRType)[vs[1].(int)]
+	}).(ServiceCIDRTypeOutput)
+}
+
+// ServiceCIDRList contains a list of ServiceCIDR objects.
+type ServiceCIDRListType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// items is the list of ServiceCIDRs.
+	Items []ServiceCIDRType `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
+}
+
+// ServiceCIDRListTypeInput is an input type that accepts ServiceCIDRListTypeArgs and ServiceCIDRListTypeOutput values.
+// You can construct a concrete instance of `ServiceCIDRListTypeInput` via:
+//
+//	ServiceCIDRListTypeArgs{...}
+type ServiceCIDRListTypeInput interface {
+	pulumi.Input
+
+	ToServiceCIDRListTypeOutput() ServiceCIDRListTypeOutput
+	ToServiceCIDRListTypeOutputWithContext(context.Context) ServiceCIDRListTypeOutput
+}
+
+// ServiceCIDRList contains a list of ServiceCIDR objects.
+type ServiceCIDRListTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// items is the list of ServiceCIDRs.
+	Items ServiceCIDRTypeArrayInput `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+}
+
+func (ServiceCIDRListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ServiceCIDRListType)(nil)).Elem()
+}
+
+func (i ServiceCIDRListTypeArgs) ToServiceCIDRListTypeOutput() ServiceCIDRListTypeOutput {
+	return i.ToServiceCIDRListTypeOutputWithContext(context.Background())
+}
+
+func (i ServiceCIDRListTypeArgs) ToServiceCIDRListTypeOutputWithContext(ctx context.Context) ServiceCIDRListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ServiceCIDRListTypeOutput)
+}
+
+// ServiceCIDRList contains a list of ServiceCIDR objects.
+type ServiceCIDRListTypeOutput struct{ *pulumi.OutputState }
+
+func (ServiceCIDRListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ServiceCIDRListType)(nil)).Elem()
+}
+
+func (o ServiceCIDRListTypeOutput) ToServiceCIDRListTypeOutput() ServiceCIDRListTypeOutput {
+	return o
+}
+
+func (o ServiceCIDRListTypeOutput) ToServiceCIDRListTypeOutputWithContext(ctx context.Context) ServiceCIDRListTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o ServiceCIDRListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ServiceCIDRListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// items is the list of ServiceCIDRs.
+func (o ServiceCIDRListTypeOutput) Items() ServiceCIDRTypeArrayOutput {
+	return o.ApplyT(func(v ServiceCIDRListType) []ServiceCIDRType { return v.Items }).(ServiceCIDRTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o ServiceCIDRListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ServiceCIDRListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o ServiceCIDRListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v ServiceCIDRListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+}
+
+// ServiceCIDR defines a range of IP addresses using CIDR format (e.g. 192.168.0.0/24 or 2001:db2::/64). This range is used to allocate ClusterIPs to Service objects.
+type ServiceCIDRPatchType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
+	// spec is the desired state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Spec *ServiceCIDRSpecPatch `pulumi:"spec"`
+	// status represents the current state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Status *ServiceCIDRStatusPatch `pulumi:"status"`
+}
+
+// ServiceCIDRPatchTypeInput is an input type that accepts ServiceCIDRPatchTypeArgs and ServiceCIDRPatchTypeOutput values.
+// You can construct a concrete instance of `ServiceCIDRPatchTypeInput` via:
+//
+//	ServiceCIDRPatchTypeArgs{...}
+type ServiceCIDRPatchTypeInput interface {
+	pulumi.Input
+
+	ToServiceCIDRPatchTypeOutput() ServiceCIDRPatchTypeOutput
+	ToServiceCIDRPatchTypeOutputWithContext(context.Context) ServiceCIDRPatchTypeOutput
+}
+
+// ServiceCIDR defines a range of IP addresses using CIDR format (e.g. 192.168.0.0/24 or 2001:db2::/64). This range is used to allocate ClusterIPs to Service objects.
+type ServiceCIDRPatchTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
+	// spec is the desired state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Spec ServiceCIDRSpecPatchPtrInput `pulumi:"spec"`
+	// status represents the current state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Status ServiceCIDRStatusPatchPtrInput `pulumi:"status"`
+}
+
+func (ServiceCIDRPatchTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ServiceCIDRPatchType)(nil)).Elem()
+}
+
+func (i ServiceCIDRPatchTypeArgs) ToServiceCIDRPatchTypeOutput() ServiceCIDRPatchTypeOutput {
+	return i.ToServiceCIDRPatchTypeOutputWithContext(context.Background())
+}
+
+func (i ServiceCIDRPatchTypeArgs) ToServiceCIDRPatchTypeOutputWithContext(ctx context.Context) ServiceCIDRPatchTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ServiceCIDRPatchTypeOutput)
+}
+
+// ServiceCIDR defines a range of IP addresses using CIDR format (e.g. 192.168.0.0/24 or 2001:db2::/64). This range is used to allocate ClusterIPs to Service objects.
+type ServiceCIDRPatchTypeOutput struct{ *pulumi.OutputState }
+
+func (ServiceCIDRPatchTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ServiceCIDRPatchType)(nil)).Elem()
+}
+
+func (o ServiceCIDRPatchTypeOutput) ToServiceCIDRPatchTypeOutput() ServiceCIDRPatchTypeOutput {
+	return o
+}
+
+func (o ServiceCIDRPatchTypeOutput) ToServiceCIDRPatchTypeOutputWithContext(ctx context.Context) ServiceCIDRPatchTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o ServiceCIDRPatchTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ServiceCIDRPatchType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o ServiceCIDRPatchTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ServiceCIDRPatchType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o ServiceCIDRPatchTypeOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
+	return o.ApplyT(func(v ServiceCIDRPatchType) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
+}
+
+// spec is the desired state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+func (o ServiceCIDRPatchTypeOutput) Spec() ServiceCIDRSpecPatchPtrOutput {
+	return o.ApplyT(func(v ServiceCIDRPatchType) *ServiceCIDRSpecPatch { return v.Spec }).(ServiceCIDRSpecPatchPtrOutput)
+}
+
+// status represents the current state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+func (o ServiceCIDRPatchTypeOutput) Status() ServiceCIDRStatusPatchPtrOutput {
+	return o.ApplyT(func(v ServiceCIDRPatchType) *ServiceCIDRStatusPatch { return v.Status }).(ServiceCIDRStatusPatchPtrOutput)
+}
+
+// ServiceCIDRSpec define the CIDRs the user wants to use for allocating ClusterIPs for Services.
+type ServiceCIDRSpec struct {
+	// CIDRs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
+	Cidrs []string `pulumi:"cidrs"`
+}
+
+// ServiceCIDRSpecInput is an input type that accepts ServiceCIDRSpecArgs and ServiceCIDRSpecOutput values.
+// You can construct a concrete instance of `ServiceCIDRSpecInput` via:
+//
+//	ServiceCIDRSpecArgs{...}
+type ServiceCIDRSpecInput interface {
+	pulumi.Input
+
+	ToServiceCIDRSpecOutput() ServiceCIDRSpecOutput
+	ToServiceCIDRSpecOutputWithContext(context.Context) ServiceCIDRSpecOutput
+}
+
+// ServiceCIDRSpec define the CIDRs the user wants to use for allocating ClusterIPs for Services.
+type ServiceCIDRSpecArgs struct {
+	// CIDRs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
+	Cidrs pulumi.StringArrayInput `pulumi:"cidrs"`
+}
+
+func (ServiceCIDRSpecArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ServiceCIDRSpec)(nil)).Elem()
+}
+
+func (i ServiceCIDRSpecArgs) ToServiceCIDRSpecOutput() ServiceCIDRSpecOutput {
+	return i.ToServiceCIDRSpecOutputWithContext(context.Background())
+}
+
+func (i ServiceCIDRSpecArgs) ToServiceCIDRSpecOutputWithContext(ctx context.Context) ServiceCIDRSpecOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ServiceCIDRSpecOutput)
+}
+
+func (i ServiceCIDRSpecArgs) ToServiceCIDRSpecPtrOutput() ServiceCIDRSpecPtrOutput {
+	return i.ToServiceCIDRSpecPtrOutputWithContext(context.Background())
+}
+
+func (i ServiceCIDRSpecArgs) ToServiceCIDRSpecPtrOutputWithContext(ctx context.Context) ServiceCIDRSpecPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ServiceCIDRSpecOutput).ToServiceCIDRSpecPtrOutputWithContext(ctx)
+}
+
+// ServiceCIDRSpecPtrInput is an input type that accepts ServiceCIDRSpecArgs, ServiceCIDRSpecPtr and ServiceCIDRSpecPtrOutput values.
+// You can construct a concrete instance of `ServiceCIDRSpecPtrInput` via:
+//
+//	        ServiceCIDRSpecArgs{...}
+//
+//	or:
+//
+//	        nil
+type ServiceCIDRSpecPtrInput interface {
+	pulumi.Input
+
+	ToServiceCIDRSpecPtrOutput() ServiceCIDRSpecPtrOutput
+	ToServiceCIDRSpecPtrOutputWithContext(context.Context) ServiceCIDRSpecPtrOutput
+}
+
+type serviceCIDRSpecPtrType ServiceCIDRSpecArgs
+
+func ServiceCIDRSpecPtr(v *ServiceCIDRSpecArgs) ServiceCIDRSpecPtrInput {
+	return (*serviceCIDRSpecPtrType)(v)
+}
+
+func (*serviceCIDRSpecPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ServiceCIDRSpec)(nil)).Elem()
+}
+
+func (i *serviceCIDRSpecPtrType) ToServiceCIDRSpecPtrOutput() ServiceCIDRSpecPtrOutput {
+	return i.ToServiceCIDRSpecPtrOutputWithContext(context.Background())
+}
+
+func (i *serviceCIDRSpecPtrType) ToServiceCIDRSpecPtrOutputWithContext(ctx context.Context) ServiceCIDRSpecPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ServiceCIDRSpecPtrOutput)
+}
+
+// ServiceCIDRSpec define the CIDRs the user wants to use for allocating ClusterIPs for Services.
+type ServiceCIDRSpecOutput struct{ *pulumi.OutputState }
+
+func (ServiceCIDRSpecOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ServiceCIDRSpec)(nil)).Elem()
+}
+
+func (o ServiceCIDRSpecOutput) ToServiceCIDRSpecOutput() ServiceCIDRSpecOutput {
+	return o
+}
+
+func (o ServiceCIDRSpecOutput) ToServiceCIDRSpecOutputWithContext(ctx context.Context) ServiceCIDRSpecOutput {
+	return o
+}
+
+func (o ServiceCIDRSpecOutput) ToServiceCIDRSpecPtrOutput() ServiceCIDRSpecPtrOutput {
+	return o.ToServiceCIDRSpecPtrOutputWithContext(context.Background())
+}
+
+func (o ServiceCIDRSpecOutput) ToServiceCIDRSpecPtrOutputWithContext(ctx context.Context) ServiceCIDRSpecPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ServiceCIDRSpec) *ServiceCIDRSpec {
+		return &v
+	}).(ServiceCIDRSpecPtrOutput)
+}
+
+// CIDRs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
+func (o ServiceCIDRSpecOutput) Cidrs() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v ServiceCIDRSpec) []string { return v.Cidrs }).(pulumi.StringArrayOutput)
+}
+
+type ServiceCIDRSpecPtrOutput struct{ *pulumi.OutputState }
+
+func (ServiceCIDRSpecPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ServiceCIDRSpec)(nil)).Elem()
+}
+
+func (o ServiceCIDRSpecPtrOutput) ToServiceCIDRSpecPtrOutput() ServiceCIDRSpecPtrOutput {
+	return o
+}
+
+func (o ServiceCIDRSpecPtrOutput) ToServiceCIDRSpecPtrOutputWithContext(ctx context.Context) ServiceCIDRSpecPtrOutput {
+	return o
+}
+
+func (o ServiceCIDRSpecPtrOutput) Elem() ServiceCIDRSpecOutput {
+	return o.ApplyT(func(v *ServiceCIDRSpec) ServiceCIDRSpec {
+		if v != nil {
+			return *v
+		}
+		var ret ServiceCIDRSpec
+		return ret
+	}).(ServiceCIDRSpecOutput)
+}
+
+// CIDRs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
+func (o ServiceCIDRSpecPtrOutput) Cidrs() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *ServiceCIDRSpec) []string {
+		if v == nil {
+			return nil
+		}
+		return v.Cidrs
+	}).(pulumi.StringArrayOutput)
+}
+
+// ServiceCIDRSpec define the CIDRs the user wants to use for allocating ClusterIPs for Services.
+type ServiceCIDRSpecPatch struct {
+	// CIDRs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
+	Cidrs []string `pulumi:"cidrs"`
+}
+
+// ServiceCIDRSpecPatchInput is an input type that accepts ServiceCIDRSpecPatchArgs and ServiceCIDRSpecPatchOutput values.
+// You can construct a concrete instance of `ServiceCIDRSpecPatchInput` via:
+//
+//	ServiceCIDRSpecPatchArgs{...}
+type ServiceCIDRSpecPatchInput interface {
+	pulumi.Input
+
+	ToServiceCIDRSpecPatchOutput() ServiceCIDRSpecPatchOutput
+	ToServiceCIDRSpecPatchOutputWithContext(context.Context) ServiceCIDRSpecPatchOutput
+}
+
+// ServiceCIDRSpec define the CIDRs the user wants to use for allocating ClusterIPs for Services.
+type ServiceCIDRSpecPatchArgs struct {
+	// CIDRs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
+	Cidrs pulumi.StringArrayInput `pulumi:"cidrs"`
+}
+
+func (ServiceCIDRSpecPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ServiceCIDRSpecPatch)(nil)).Elem()
+}
+
+func (i ServiceCIDRSpecPatchArgs) ToServiceCIDRSpecPatchOutput() ServiceCIDRSpecPatchOutput {
+	return i.ToServiceCIDRSpecPatchOutputWithContext(context.Background())
+}
+
+func (i ServiceCIDRSpecPatchArgs) ToServiceCIDRSpecPatchOutputWithContext(ctx context.Context) ServiceCIDRSpecPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ServiceCIDRSpecPatchOutput)
+}
+
+func (i ServiceCIDRSpecPatchArgs) ToServiceCIDRSpecPatchPtrOutput() ServiceCIDRSpecPatchPtrOutput {
+	return i.ToServiceCIDRSpecPatchPtrOutputWithContext(context.Background())
+}
+
+func (i ServiceCIDRSpecPatchArgs) ToServiceCIDRSpecPatchPtrOutputWithContext(ctx context.Context) ServiceCIDRSpecPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ServiceCIDRSpecPatchOutput).ToServiceCIDRSpecPatchPtrOutputWithContext(ctx)
+}
+
+// ServiceCIDRSpecPatchPtrInput is an input type that accepts ServiceCIDRSpecPatchArgs, ServiceCIDRSpecPatchPtr and ServiceCIDRSpecPatchPtrOutput values.
+// You can construct a concrete instance of `ServiceCIDRSpecPatchPtrInput` via:
+//
+//	        ServiceCIDRSpecPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type ServiceCIDRSpecPatchPtrInput interface {
+	pulumi.Input
+
+	ToServiceCIDRSpecPatchPtrOutput() ServiceCIDRSpecPatchPtrOutput
+	ToServiceCIDRSpecPatchPtrOutputWithContext(context.Context) ServiceCIDRSpecPatchPtrOutput
+}
+
+type serviceCIDRSpecPatchPtrType ServiceCIDRSpecPatchArgs
+
+func ServiceCIDRSpecPatchPtr(v *ServiceCIDRSpecPatchArgs) ServiceCIDRSpecPatchPtrInput {
+	return (*serviceCIDRSpecPatchPtrType)(v)
+}
+
+func (*serviceCIDRSpecPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ServiceCIDRSpecPatch)(nil)).Elem()
+}
+
+func (i *serviceCIDRSpecPatchPtrType) ToServiceCIDRSpecPatchPtrOutput() ServiceCIDRSpecPatchPtrOutput {
+	return i.ToServiceCIDRSpecPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *serviceCIDRSpecPatchPtrType) ToServiceCIDRSpecPatchPtrOutputWithContext(ctx context.Context) ServiceCIDRSpecPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ServiceCIDRSpecPatchPtrOutput)
+}
+
+// ServiceCIDRSpec define the CIDRs the user wants to use for allocating ClusterIPs for Services.
+type ServiceCIDRSpecPatchOutput struct{ *pulumi.OutputState }
+
+func (ServiceCIDRSpecPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ServiceCIDRSpecPatch)(nil)).Elem()
+}
+
+func (o ServiceCIDRSpecPatchOutput) ToServiceCIDRSpecPatchOutput() ServiceCIDRSpecPatchOutput {
+	return o
+}
+
+func (o ServiceCIDRSpecPatchOutput) ToServiceCIDRSpecPatchOutputWithContext(ctx context.Context) ServiceCIDRSpecPatchOutput {
+	return o
+}
+
+func (o ServiceCIDRSpecPatchOutput) ToServiceCIDRSpecPatchPtrOutput() ServiceCIDRSpecPatchPtrOutput {
+	return o.ToServiceCIDRSpecPatchPtrOutputWithContext(context.Background())
+}
+
+func (o ServiceCIDRSpecPatchOutput) ToServiceCIDRSpecPatchPtrOutputWithContext(ctx context.Context) ServiceCIDRSpecPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ServiceCIDRSpecPatch) *ServiceCIDRSpecPatch {
+		return &v
+	}).(ServiceCIDRSpecPatchPtrOutput)
+}
+
+// CIDRs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
+func (o ServiceCIDRSpecPatchOutput) Cidrs() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v ServiceCIDRSpecPatch) []string { return v.Cidrs }).(pulumi.StringArrayOutput)
+}
+
+type ServiceCIDRSpecPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (ServiceCIDRSpecPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ServiceCIDRSpecPatch)(nil)).Elem()
+}
+
+func (o ServiceCIDRSpecPatchPtrOutput) ToServiceCIDRSpecPatchPtrOutput() ServiceCIDRSpecPatchPtrOutput {
+	return o
+}
+
+func (o ServiceCIDRSpecPatchPtrOutput) ToServiceCIDRSpecPatchPtrOutputWithContext(ctx context.Context) ServiceCIDRSpecPatchPtrOutput {
+	return o
+}
+
+func (o ServiceCIDRSpecPatchPtrOutput) Elem() ServiceCIDRSpecPatchOutput {
+	return o.ApplyT(func(v *ServiceCIDRSpecPatch) ServiceCIDRSpecPatch {
+		if v != nil {
+			return *v
+		}
+		var ret ServiceCIDRSpecPatch
+		return ret
+	}).(ServiceCIDRSpecPatchOutput)
+}
+
+// CIDRs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
+func (o ServiceCIDRSpecPatchPtrOutput) Cidrs() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *ServiceCIDRSpecPatch) []string {
+		if v == nil {
+			return nil
+		}
+		return v.Cidrs
+	}).(pulumi.StringArrayOutput)
+}
+
+// ServiceCIDRStatus describes the current state of the ServiceCIDR.
+type ServiceCIDRStatus struct {
+	// conditions holds an array of metav1.Condition that describe the state of the ServiceCIDR. Current service state
+	Conditions []metav1.Condition `pulumi:"conditions"`
+}
+
+// ServiceCIDRStatusInput is an input type that accepts ServiceCIDRStatusArgs and ServiceCIDRStatusOutput values.
+// You can construct a concrete instance of `ServiceCIDRStatusInput` via:
+//
+//	ServiceCIDRStatusArgs{...}
+type ServiceCIDRStatusInput interface {
+	pulumi.Input
+
+	ToServiceCIDRStatusOutput() ServiceCIDRStatusOutput
+	ToServiceCIDRStatusOutputWithContext(context.Context) ServiceCIDRStatusOutput
+}
+
+// ServiceCIDRStatus describes the current state of the ServiceCIDR.
+type ServiceCIDRStatusArgs struct {
+	// conditions holds an array of metav1.Condition that describe the state of the ServiceCIDR. Current service state
+	Conditions metav1.ConditionArrayInput `pulumi:"conditions"`
+}
+
+func (ServiceCIDRStatusArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ServiceCIDRStatus)(nil)).Elem()
+}
+
+func (i ServiceCIDRStatusArgs) ToServiceCIDRStatusOutput() ServiceCIDRStatusOutput {
+	return i.ToServiceCIDRStatusOutputWithContext(context.Background())
+}
+
+func (i ServiceCIDRStatusArgs) ToServiceCIDRStatusOutputWithContext(ctx context.Context) ServiceCIDRStatusOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ServiceCIDRStatusOutput)
+}
+
+func (i ServiceCIDRStatusArgs) ToServiceCIDRStatusPtrOutput() ServiceCIDRStatusPtrOutput {
+	return i.ToServiceCIDRStatusPtrOutputWithContext(context.Background())
+}
+
+func (i ServiceCIDRStatusArgs) ToServiceCIDRStatusPtrOutputWithContext(ctx context.Context) ServiceCIDRStatusPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ServiceCIDRStatusOutput).ToServiceCIDRStatusPtrOutputWithContext(ctx)
+}
+
+// ServiceCIDRStatusPtrInput is an input type that accepts ServiceCIDRStatusArgs, ServiceCIDRStatusPtr and ServiceCIDRStatusPtrOutput values.
+// You can construct a concrete instance of `ServiceCIDRStatusPtrInput` via:
+//
+//	        ServiceCIDRStatusArgs{...}
+//
+//	or:
+//
+//	        nil
+type ServiceCIDRStatusPtrInput interface {
+	pulumi.Input
+
+	ToServiceCIDRStatusPtrOutput() ServiceCIDRStatusPtrOutput
+	ToServiceCIDRStatusPtrOutputWithContext(context.Context) ServiceCIDRStatusPtrOutput
+}
+
+type serviceCIDRStatusPtrType ServiceCIDRStatusArgs
+
+func ServiceCIDRStatusPtr(v *ServiceCIDRStatusArgs) ServiceCIDRStatusPtrInput {
+	return (*serviceCIDRStatusPtrType)(v)
+}
+
+func (*serviceCIDRStatusPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ServiceCIDRStatus)(nil)).Elem()
+}
+
+func (i *serviceCIDRStatusPtrType) ToServiceCIDRStatusPtrOutput() ServiceCIDRStatusPtrOutput {
+	return i.ToServiceCIDRStatusPtrOutputWithContext(context.Background())
+}
+
+func (i *serviceCIDRStatusPtrType) ToServiceCIDRStatusPtrOutputWithContext(ctx context.Context) ServiceCIDRStatusPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ServiceCIDRStatusPtrOutput)
+}
+
+// ServiceCIDRStatus describes the current state of the ServiceCIDR.
+type ServiceCIDRStatusOutput struct{ *pulumi.OutputState }
+
+func (ServiceCIDRStatusOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ServiceCIDRStatus)(nil)).Elem()
+}
+
+func (o ServiceCIDRStatusOutput) ToServiceCIDRStatusOutput() ServiceCIDRStatusOutput {
+	return o
+}
+
+func (o ServiceCIDRStatusOutput) ToServiceCIDRStatusOutputWithContext(ctx context.Context) ServiceCIDRStatusOutput {
+	return o
+}
+
+func (o ServiceCIDRStatusOutput) ToServiceCIDRStatusPtrOutput() ServiceCIDRStatusPtrOutput {
+	return o.ToServiceCIDRStatusPtrOutputWithContext(context.Background())
+}
+
+func (o ServiceCIDRStatusOutput) ToServiceCIDRStatusPtrOutputWithContext(ctx context.Context) ServiceCIDRStatusPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ServiceCIDRStatus) *ServiceCIDRStatus {
+		return &v
+	}).(ServiceCIDRStatusPtrOutput)
+}
+
+// conditions holds an array of metav1.Condition that describe the state of the ServiceCIDR. Current service state
+func (o ServiceCIDRStatusOutput) Conditions() metav1.ConditionArrayOutput {
+	return o.ApplyT(func(v ServiceCIDRStatus) []metav1.Condition { return v.Conditions }).(metav1.ConditionArrayOutput)
+}
+
+type ServiceCIDRStatusPtrOutput struct{ *pulumi.OutputState }
+
+func (ServiceCIDRStatusPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ServiceCIDRStatus)(nil)).Elem()
+}
+
+func (o ServiceCIDRStatusPtrOutput) ToServiceCIDRStatusPtrOutput() ServiceCIDRStatusPtrOutput {
+	return o
+}
+
+func (o ServiceCIDRStatusPtrOutput) ToServiceCIDRStatusPtrOutputWithContext(ctx context.Context) ServiceCIDRStatusPtrOutput {
+	return o
+}
+
+func (o ServiceCIDRStatusPtrOutput) Elem() ServiceCIDRStatusOutput {
+	return o.ApplyT(func(v *ServiceCIDRStatus) ServiceCIDRStatus {
+		if v != nil {
+			return *v
+		}
+		var ret ServiceCIDRStatus
+		return ret
+	}).(ServiceCIDRStatusOutput)
+}
+
+// conditions holds an array of metav1.Condition that describe the state of the ServiceCIDR. Current service state
+func (o ServiceCIDRStatusPtrOutput) Conditions() metav1.ConditionArrayOutput {
+	return o.ApplyT(func(v *ServiceCIDRStatus) []metav1.Condition {
+		if v == nil {
+			return nil
+		}
+		return v.Conditions
+	}).(metav1.ConditionArrayOutput)
+}
+
+// ServiceCIDRStatus describes the current state of the ServiceCIDR.
+type ServiceCIDRStatusPatch struct {
+	// conditions holds an array of metav1.Condition that describe the state of the ServiceCIDR. Current service state
+	Conditions []metav1.ConditionPatch `pulumi:"conditions"`
+}
+
+// ServiceCIDRStatusPatchInput is an input type that accepts ServiceCIDRStatusPatchArgs and ServiceCIDRStatusPatchOutput values.
+// You can construct a concrete instance of `ServiceCIDRStatusPatchInput` via:
+//
+//	ServiceCIDRStatusPatchArgs{...}
+type ServiceCIDRStatusPatchInput interface {
+	pulumi.Input
+
+	ToServiceCIDRStatusPatchOutput() ServiceCIDRStatusPatchOutput
+	ToServiceCIDRStatusPatchOutputWithContext(context.Context) ServiceCIDRStatusPatchOutput
+}
+
+// ServiceCIDRStatus describes the current state of the ServiceCIDR.
+type ServiceCIDRStatusPatchArgs struct {
+	// conditions holds an array of metav1.Condition that describe the state of the ServiceCIDR. Current service state
+	Conditions metav1.ConditionPatchArrayInput `pulumi:"conditions"`
+}
+
+func (ServiceCIDRStatusPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ServiceCIDRStatusPatch)(nil)).Elem()
+}
+
+func (i ServiceCIDRStatusPatchArgs) ToServiceCIDRStatusPatchOutput() ServiceCIDRStatusPatchOutput {
+	return i.ToServiceCIDRStatusPatchOutputWithContext(context.Background())
+}
+
+func (i ServiceCIDRStatusPatchArgs) ToServiceCIDRStatusPatchOutputWithContext(ctx context.Context) ServiceCIDRStatusPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ServiceCIDRStatusPatchOutput)
+}
+
+func (i ServiceCIDRStatusPatchArgs) ToServiceCIDRStatusPatchPtrOutput() ServiceCIDRStatusPatchPtrOutput {
+	return i.ToServiceCIDRStatusPatchPtrOutputWithContext(context.Background())
+}
+
+func (i ServiceCIDRStatusPatchArgs) ToServiceCIDRStatusPatchPtrOutputWithContext(ctx context.Context) ServiceCIDRStatusPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ServiceCIDRStatusPatchOutput).ToServiceCIDRStatusPatchPtrOutputWithContext(ctx)
+}
+
+// ServiceCIDRStatusPatchPtrInput is an input type that accepts ServiceCIDRStatusPatchArgs, ServiceCIDRStatusPatchPtr and ServiceCIDRStatusPatchPtrOutput values.
+// You can construct a concrete instance of `ServiceCIDRStatusPatchPtrInput` via:
+//
+//	        ServiceCIDRStatusPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type ServiceCIDRStatusPatchPtrInput interface {
+	pulumi.Input
+
+	ToServiceCIDRStatusPatchPtrOutput() ServiceCIDRStatusPatchPtrOutput
+	ToServiceCIDRStatusPatchPtrOutputWithContext(context.Context) ServiceCIDRStatusPatchPtrOutput
+}
+
+type serviceCIDRStatusPatchPtrType ServiceCIDRStatusPatchArgs
+
+func ServiceCIDRStatusPatchPtr(v *ServiceCIDRStatusPatchArgs) ServiceCIDRStatusPatchPtrInput {
+	return (*serviceCIDRStatusPatchPtrType)(v)
+}
+
+func (*serviceCIDRStatusPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ServiceCIDRStatusPatch)(nil)).Elem()
+}
+
+func (i *serviceCIDRStatusPatchPtrType) ToServiceCIDRStatusPatchPtrOutput() ServiceCIDRStatusPatchPtrOutput {
+	return i.ToServiceCIDRStatusPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *serviceCIDRStatusPatchPtrType) ToServiceCIDRStatusPatchPtrOutputWithContext(ctx context.Context) ServiceCIDRStatusPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ServiceCIDRStatusPatchPtrOutput)
+}
+
+// ServiceCIDRStatus describes the current state of the ServiceCIDR.
+type ServiceCIDRStatusPatchOutput struct{ *pulumi.OutputState }
+
+func (ServiceCIDRStatusPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ServiceCIDRStatusPatch)(nil)).Elem()
+}
+
+func (o ServiceCIDRStatusPatchOutput) ToServiceCIDRStatusPatchOutput() ServiceCIDRStatusPatchOutput {
+	return o
+}
+
+func (o ServiceCIDRStatusPatchOutput) ToServiceCIDRStatusPatchOutputWithContext(ctx context.Context) ServiceCIDRStatusPatchOutput {
+	return o
+}
+
+func (o ServiceCIDRStatusPatchOutput) ToServiceCIDRStatusPatchPtrOutput() ServiceCIDRStatusPatchPtrOutput {
+	return o.ToServiceCIDRStatusPatchPtrOutputWithContext(context.Background())
+}
+
+func (o ServiceCIDRStatusPatchOutput) ToServiceCIDRStatusPatchPtrOutputWithContext(ctx context.Context) ServiceCIDRStatusPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ServiceCIDRStatusPatch) *ServiceCIDRStatusPatch {
+		return &v
+	}).(ServiceCIDRStatusPatchPtrOutput)
+}
+
+// conditions holds an array of metav1.Condition that describe the state of the ServiceCIDR. Current service state
+func (o ServiceCIDRStatusPatchOutput) Conditions() metav1.ConditionPatchArrayOutput {
+	return o.ApplyT(func(v ServiceCIDRStatusPatch) []metav1.ConditionPatch { return v.Conditions }).(metav1.ConditionPatchArrayOutput)
+}
+
+type ServiceCIDRStatusPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (ServiceCIDRStatusPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ServiceCIDRStatusPatch)(nil)).Elem()
+}
+
+func (o ServiceCIDRStatusPatchPtrOutput) ToServiceCIDRStatusPatchPtrOutput() ServiceCIDRStatusPatchPtrOutput {
+	return o
+}
+
+func (o ServiceCIDRStatusPatchPtrOutput) ToServiceCIDRStatusPatchPtrOutputWithContext(ctx context.Context) ServiceCIDRStatusPatchPtrOutput {
+	return o
+}
+
+func (o ServiceCIDRStatusPatchPtrOutput) Elem() ServiceCIDRStatusPatchOutput {
+	return o.ApplyT(func(v *ServiceCIDRStatusPatch) ServiceCIDRStatusPatch {
+		if v != nil {
+			return *v
+		}
+		var ret ServiceCIDRStatusPatch
+		return ret
+	}).(ServiceCIDRStatusPatchOutput)
+}
+
+// conditions holds an array of metav1.Condition that describe the state of the ServiceCIDR. Current service state
+func (o ServiceCIDRStatusPatchPtrOutput) Conditions() metav1.ConditionPatchArrayOutput {
+	return o.ApplyT(func(v *ServiceCIDRStatusPatch) []metav1.ConditionPatch {
+		if v == nil {
+			return nil
+		}
+		return v.Conditions
+	}).(metav1.ConditionPatchArrayOutput)
+}
+
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterCIDRTypeInput)(nil)).Elem(), ClusterCIDRTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterCIDRTypeArrayInput)(nil)).Elem(), ClusterCIDRTypeArray{})
@@ -1724,6 +2593,18 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ParentReferencePtrInput)(nil)).Elem(), ParentReferenceArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ParentReferencePatchInput)(nil)).Elem(), ParentReferencePatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ParentReferencePatchPtrInput)(nil)).Elem(), ParentReferencePatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceCIDRTypeInput)(nil)).Elem(), ServiceCIDRTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceCIDRTypeArrayInput)(nil)).Elem(), ServiceCIDRTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceCIDRListTypeInput)(nil)).Elem(), ServiceCIDRListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceCIDRPatchTypeInput)(nil)).Elem(), ServiceCIDRPatchTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceCIDRSpecInput)(nil)).Elem(), ServiceCIDRSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceCIDRSpecPtrInput)(nil)).Elem(), ServiceCIDRSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceCIDRSpecPatchInput)(nil)).Elem(), ServiceCIDRSpecPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceCIDRSpecPatchPtrInput)(nil)).Elem(), ServiceCIDRSpecPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceCIDRStatusInput)(nil)).Elem(), ServiceCIDRStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceCIDRStatusPtrInput)(nil)).Elem(), ServiceCIDRStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceCIDRStatusPatchInput)(nil)).Elem(), ServiceCIDRStatusPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceCIDRStatusPatchPtrInput)(nil)).Elem(), ServiceCIDRStatusPatchArgs{})
 	pulumi.RegisterOutputType(ClusterCIDRTypeOutput{})
 	pulumi.RegisterOutputType(ClusterCIDRTypeArrayOutput{})
 	pulumi.RegisterOutputType(ClusterCIDRListTypeOutput{})
@@ -1744,4 +2625,16 @@ func init() {
 	pulumi.RegisterOutputType(ParentReferencePtrOutput{})
 	pulumi.RegisterOutputType(ParentReferencePatchOutput{})
 	pulumi.RegisterOutputType(ParentReferencePatchPtrOutput{})
+	pulumi.RegisterOutputType(ServiceCIDRTypeOutput{})
+	pulumi.RegisterOutputType(ServiceCIDRTypeArrayOutput{})
+	pulumi.RegisterOutputType(ServiceCIDRListTypeOutput{})
+	pulumi.RegisterOutputType(ServiceCIDRPatchTypeOutput{})
+	pulumi.RegisterOutputType(ServiceCIDRSpecOutput{})
+	pulumi.RegisterOutputType(ServiceCIDRSpecPtrOutput{})
+	pulumi.RegisterOutputType(ServiceCIDRSpecPatchOutput{})
+	pulumi.RegisterOutputType(ServiceCIDRSpecPatchPtrOutput{})
+	pulumi.RegisterOutputType(ServiceCIDRStatusOutput{})
+	pulumi.RegisterOutputType(ServiceCIDRStatusPtrOutput{})
+	pulumi.RegisterOutputType(ServiceCIDRStatusPatchOutput{})
+	pulumi.RegisterOutputType(ServiceCIDRStatusPatchPtrOutput{})
 }

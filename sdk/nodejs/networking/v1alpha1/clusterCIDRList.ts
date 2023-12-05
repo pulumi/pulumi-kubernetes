@@ -42,7 +42,7 @@ export class ClusterCIDRList extends pulumi.CustomResource {
      */
     public readonly apiVersion!: pulumi.Output<"networking.k8s.io/v1alpha1">;
     /**
-     * items is the list of ClusterCIDRs.
+     * Items is the list of ClusterCIDRs.
      */
     public readonly items!: pulumi.Output<outputs.networking.v1alpha1.ClusterCIDR[]>;
     /**
@@ -92,7 +92,7 @@ export interface ClusterCIDRListArgs {
      */
     apiVersion?: pulumi.Input<"networking.k8s.io/v1alpha1">;
     /**
-     * items is the list of ClusterCIDRs.
+     * Items is the list of ClusterCIDRs.
      */
     items: pulumi.Input<pulumi.Input<inputs.networking.v1alpha1.ClusterCIDR>[]>;
     /**

@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.kubernetes.core.v1.outputs.ClusterTrustBundleProjectionPatch;
 import com.pulumi.kubernetes.core.v1.outputs.ConfigMapProjectionPatch;
 import com.pulumi.kubernetes.core.v1.outputs.DownwardAPIProjectionPatch;
 import com.pulumi.kubernetes.core.v1.outputs.SecretProjectionPatch;
@@ -14,6 +15,17 @@ import javax.annotation.Nullable;
 
 @CustomType
 public final class VolumeProjectionPatch {
+    /**
+     * @return ClusterTrustBundle allows a pod to access the `.spec.trustBundle` field of ClusterTrustBundle objects in an auto-updating file.
+     * 
+     * Alpha, gated by the ClusterTrustBundleProjection feature gate.
+     * 
+     * ClusterTrustBundle objects can either be selected by name, or by the combination of signer name and a label selector.
+     * 
+     * Kubelet performs aggressive normalization of the PEM contents written into the pod filesystem.  Esoteric PEM features such as inter-block comments and block headers are stripped.  Certificates are deduplicated. The ordering of certificates within the file is arbitrary, and Kubelet may change the order over time.
+     * 
+     */
+    private @Nullable ClusterTrustBundleProjectionPatch clusterTrustBundle;
     /**
      * @return configMap information about the configMap data to project
      * 
@@ -36,6 +48,19 @@ public final class VolumeProjectionPatch {
     private @Nullable ServiceAccountTokenProjectionPatch serviceAccountToken;
 
     private VolumeProjectionPatch() {}
+    /**
+     * @return ClusterTrustBundle allows a pod to access the `.spec.trustBundle` field of ClusterTrustBundle objects in an auto-updating file.
+     * 
+     * Alpha, gated by the ClusterTrustBundleProjection feature gate.
+     * 
+     * ClusterTrustBundle objects can either be selected by name, or by the combination of signer name and a label selector.
+     * 
+     * Kubelet performs aggressive normalization of the PEM contents written into the pod filesystem.  Esoteric PEM features such as inter-block comments and block headers are stripped.  Certificates are deduplicated. The ordering of certificates within the file is arbitrary, and Kubelet may change the order over time.
+     * 
+     */
+    public Optional<ClusterTrustBundleProjectionPatch> clusterTrustBundle() {
+        return Optional.ofNullable(this.clusterTrustBundle);
+    }
     /**
      * @return configMap information about the configMap data to project
      * 
@@ -74,6 +99,7 @@ public final class VolumeProjectionPatch {
     }
     @CustomType.Builder
     public static final class Builder {
+        private @Nullable ClusterTrustBundleProjectionPatch clusterTrustBundle;
         private @Nullable ConfigMapProjectionPatch configMap;
         private @Nullable DownwardAPIProjectionPatch downwardAPI;
         private @Nullable SecretProjectionPatch secret;
@@ -81,12 +107,18 @@ public final class VolumeProjectionPatch {
         public Builder() {}
         public Builder(VolumeProjectionPatch defaults) {
     	      Objects.requireNonNull(defaults);
+    	      this.clusterTrustBundle = defaults.clusterTrustBundle;
     	      this.configMap = defaults.configMap;
     	      this.downwardAPI = defaults.downwardAPI;
     	      this.secret = defaults.secret;
     	      this.serviceAccountToken = defaults.serviceAccountToken;
         }
 
+        @CustomType.Setter
+        public Builder clusterTrustBundle(@Nullable ClusterTrustBundleProjectionPatch clusterTrustBundle) {
+            this.clusterTrustBundle = clusterTrustBundle;
+            return this;
+        }
         @CustomType.Setter
         public Builder configMap(@Nullable ConfigMapProjectionPatch configMap) {
             this.configMap = configMap;
@@ -109,6 +141,7 @@ public final class VolumeProjectionPatch {
         }
         public VolumeProjectionPatch build() {
             final var o = new VolumeProjectionPatch();
+            o.clusterTrustBundle = clusterTrustBundle;
             o.configMap = configMap;
             o.downwardAPI = downwardAPI;
             o.secret = secret;

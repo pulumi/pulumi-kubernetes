@@ -76,6 +76,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.PersistentVolumeClaimConditionPatch> Conditions;
         /// <summary>
+        /// currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim This is an alpha field and requires enabling VolumeAttributesClass feature.
+        /// </summary>
+        public readonly string CurrentVolumeAttributesClassName;
+        /// <summary>
+        /// ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted. This is an alpha field and requires enabling VolumeAttributesClass feature.
+        /// </summary>
+        public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.ModifyVolumeStatusPatch ModifyVolumeStatus;
+        /// <summary>
         /// phase represents the current phase of PersistentVolumeClaim.
         /// </summary>
         public readonly string Phase;
@@ -96,6 +104,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 
             ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.PersistentVolumeClaimConditionPatch> conditions,
 
+            string currentVolumeAttributesClassName,
+
+            Pulumi.Kubernetes.Types.Outputs.Core.V1.ModifyVolumeStatusPatch modifyVolumeStatus,
+
             string phase,
 
             string resizeStatus)
@@ -105,6 +117,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
             AllocatedResources = allocatedResources;
             Capacity = capacity;
             Conditions = conditions;
+            CurrentVolumeAttributesClassName = currentVolumeAttributesClassName;
+            ModifyVolumeStatus = modifyVolumeStatus;
             Phase = phase;
             ResizeStatus = resizeStatus;
         }

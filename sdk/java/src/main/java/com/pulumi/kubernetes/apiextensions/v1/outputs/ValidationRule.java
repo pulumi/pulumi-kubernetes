@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.apiextensions.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import java.lang.Boolean;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -26,6 +27,17 @@ public final class ValidationRule {
      * 
      */
     private @Nullable String messageExpression;
+    /**
+     * @return optionalOldSelf is used to opt a transition rule into evaluation even when the object is first created, or if the old object is missing the value.
+     * 
+     * When enabled `oldSelf` will be a CEL optional whose value will be `None` if there is no old value, or when the object is initially created.
+     * 
+     * You may check for presence of oldSelf using `oldSelf.hasValue()` and unwrap it after checking using `oldSelf.value()`. Check the CEL documentation for Optional types for more information: https://pkg.go.dev/github.com/google/cel-go/cel#OptionalTypes
+     * 
+     * May not be set unless `oldSelf` is used in `rule`.
+     * 
+     */
+    private @Nullable Boolean optionalOldSelf;
     /**
      * @return reason provides a machine-readable validation failure reason that is returned to the caller when a request fails this validation rule. The HTTP status code returned to the caller will match the reason of the reason of the first failed validation rule. The currently supported reasons are: &#34;FieldValueInvalid&#34;, &#34;FieldValueForbidden&#34;, &#34;FieldValueRequired&#34;, &#34;FieldValueDuplicate&#34;. If not set, default to use &#34;FieldValueInvalid&#34;. All future added reasons must be accepted by clients when reading this value and unknown reasons should be treated as FieldValueInvalid.
      * 
@@ -58,6 +70,14 @@ public final class ValidationRule {
      *     are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
      *     non-intersecting keys are appended, retaining their partial order.
      * 
+     * If `rule` makes use of the `oldSelf` variable it is implicitly a `transition rule`.
+     * 
+     * By default, the `oldSelf` variable is the same type as `self`. When `optionalOldSelf` is true, the `oldSelf` variable is a CEL optional
+     *  variable whose value() is the same type as `self`.
+     * See the documentation for the `optionalOldSelf` field for details.
+     * 
+     * Transition rules by default are applied only on UPDATE requests and are skipped if an old value could not be found. You can opt a transition rule into unconditional evaluation by setting `optionalOldSelf` to true.
+     * 
      */
     private String rule;
 
@@ -82,6 +102,19 @@ public final class ValidationRule {
      */
     public Optional<String> messageExpression() {
         return Optional.ofNullable(this.messageExpression);
+    }
+    /**
+     * @return optionalOldSelf is used to opt a transition rule into evaluation even when the object is first created, or if the old object is missing the value.
+     * 
+     * When enabled `oldSelf` will be a CEL optional whose value will be `None` if there is no old value, or when the object is initially created.
+     * 
+     * You may check for presence of oldSelf using `oldSelf.hasValue()` and unwrap it after checking using `oldSelf.value()`. Check the CEL documentation for Optional types for more information: https://pkg.go.dev/github.com/google/cel-go/cel#OptionalTypes
+     * 
+     * May not be set unless `oldSelf` is used in `rule`.
+     * 
+     */
+    public Optional<Boolean> optionalOldSelf() {
+        return Optional.ofNullable(this.optionalOldSelf);
     }
     /**
      * @return reason provides a machine-readable validation failure reason that is returned to the caller when a request fails this validation rule. The HTTP status code returned to the caller will match the reason of the reason of the first failed validation rule. The currently supported reasons are: &#34;FieldValueInvalid&#34;, &#34;FieldValueForbidden&#34;, &#34;FieldValueRequired&#34;, &#34;FieldValueDuplicate&#34;. If not set, default to use &#34;FieldValueInvalid&#34;. All future added reasons must be accepted by clients when reading this value and unknown reasons should be treated as FieldValueInvalid.
@@ -117,6 +150,14 @@ public final class ValidationRule {
      *     are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
      *     non-intersecting keys are appended, retaining their partial order.
      * 
+     * If `rule` makes use of the `oldSelf` variable it is implicitly a `transition rule`.
+     * 
+     * By default, the `oldSelf` variable is the same type as `self`. When `optionalOldSelf` is true, the `oldSelf` variable is a CEL optional
+     *  variable whose value() is the same type as `self`.
+     * See the documentation for the `optionalOldSelf` field for details.
+     * 
+     * Transition rules by default are applied only on UPDATE requests and are skipped if an old value could not be found. You can opt a transition rule into unconditional evaluation by setting `optionalOldSelf` to true.
+     * 
      */
     public String rule() {
         return this.rule;
@@ -134,6 +175,7 @@ public final class ValidationRule {
         private @Nullable String fieldPath;
         private @Nullable String message;
         private @Nullable String messageExpression;
+        private @Nullable Boolean optionalOldSelf;
         private @Nullable String reason;
         private String rule;
         public Builder() {}
@@ -142,6 +184,7 @@ public final class ValidationRule {
     	      this.fieldPath = defaults.fieldPath;
     	      this.message = defaults.message;
     	      this.messageExpression = defaults.messageExpression;
+    	      this.optionalOldSelf = defaults.optionalOldSelf;
     	      this.reason = defaults.reason;
     	      this.rule = defaults.rule;
         }
@@ -162,6 +205,11 @@ public final class ValidationRule {
             return this;
         }
         @CustomType.Setter
+        public Builder optionalOldSelf(@Nullable Boolean optionalOldSelf) {
+            this.optionalOldSelf = optionalOldSelf;
+            return this;
+        }
+        @CustomType.Setter
         public Builder reason(@Nullable String reason) {
             this.reason = reason;
             return this;
@@ -176,6 +224,7 @@ public final class ValidationRule {
             o.fieldPath = fieldPath;
             o.message = message;
             o.messageExpression = messageExpression;
+            o.optionalOldSelf = optionalOldSelf;
             o.reason = reason;
             o.rule = rule;
             return o;

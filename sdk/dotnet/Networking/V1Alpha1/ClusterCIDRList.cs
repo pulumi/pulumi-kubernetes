@@ -22,7 +22,7 @@ namespace Pulumi.Kubernetes.Networking.V1Alpha1
         public Output<string> ApiVersion { get; private set; } = null!;
 
         /// <summary>
-        /// items is the list of ClusterCIDRs.
+        /// Items is the list of ClusterCIDRs.
         /// </summary>
         [Output("items")]
         public Output<ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Networking.V1Alpha1.ClusterCIDR>> Items { get; private set; } = null!;
@@ -109,7 +109,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1Alpha1
         private InputList<Pulumi.Kubernetes.Types.Inputs.Networking.V1Alpha1.ClusterCIDRArgs>? _items;
 
         /// <summary>
-        /// items is the list of ClusterCIDRs.
+        /// Items is the list of ClusterCIDRs.
         /// </summary>
         public InputList<Pulumi.Kubernetes.Types.Inputs.Networking.V1Alpha1.ClusterCIDRArgs> Items
         {

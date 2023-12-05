@@ -178,6 +178,11 @@ public final class PersistentVolumeSpec {
      */
     private @Nullable StorageOSPersistentVolumeSource storageos;
     /**
+     * @return Name of VolumeAttributesClass to which this persistent volume belongs. Empty value is not allowed. When this field is not set, it indicates that this volume does not belong to any VolumeAttributesClass. This field is mutable and can be changed by the CSI driver after a volume has been updated successfully to a new class. For an unbound PersistentVolume, the volumeAttributesClassName will be matched with unbound PersistentVolumeClaims during the binding process. This is an alpha field and requires enabling VolumeAttributesClass feature.
+     * 
+     */
+    private @Nullable String volumeAttributesClassName;
+    /**
      * @return volumeMode defines if a volume is intended to be used with a formatted filesystem or to remain in raw block state. Value of Filesystem is implied when not included in spec.
      * 
      */
@@ -386,6 +391,13 @@ public final class PersistentVolumeSpec {
         return Optional.ofNullable(this.storageos);
     }
     /**
+     * @return Name of VolumeAttributesClass to which this persistent volume belongs. Empty value is not allowed. When this field is not set, it indicates that this volume does not belong to any VolumeAttributesClass. This field is mutable and can be changed by the CSI driver after a volume has been updated successfully to a new class. For an unbound PersistentVolume, the volumeAttributesClassName will be matched with unbound PersistentVolumeClaims during the binding process. This is an alpha field and requires enabling VolumeAttributesClass feature.
+     * 
+     */
+    public Optional<String> volumeAttributesClassName() {
+        return Optional.ofNullable(this.volumeAttributesClassName);
+    }
+    /**
      * @return volumeMode defines if a volume is intended to be used with a formatted filesystem or to remain in raw block state. Value of Filesystem is implied when not included in spec.
      * 
      */
@@ -437,6 +449,7 @@ public final class PersistentVolumeSpec {
         private @Nullable ScaleIOPersistentVolumeSource scaleIO;
         private @Nullable String storageClassName;
         private @Nullable StorageOSPersistentVolumeSource storageos;
+        private @Nullable String volumeAttributesClassName;
         private @Nullable String volumeMode;
         private @Nullable VsphereVirtualDiskVolumeSource vsphereVolume;
         public Builder() {}
@@ -470,6 +483,7 @@ public final class PersistentVolumeSpec {
     	      this.scaleIO = defaults.scaleIO;
     	      this.storageClassName = defaults.storageClassName;
     	      this.storageos = defaults.storageos;
+    	      this.volumeAttributesClassName = defaults.volumeAttributesClassName;
     	      this.volumeMode = defaults.volumeMode;
     	      this.vsphereVolume = defaults.vsphereVolume;
         }
@@ -621,6 +635,11 @@ public final class PersistentVolumeSpec {
             return this;
         }
         @CustomType.Setter
+        public Builder volumeAttributesClassName(@Nullable String volumeAttributesClassName) {
+            this.volumeAttributesClassName = volumeAttributesClassName;
+            return this;
+        }
+        @CustomType.Setter
         public Builder volumeMode(@Nullable String volumeMode) {
             this.volumeMode = volumeMode;
             return this;
@@ -660,6 +679,7 @@ public final class PersistentVolumeSpec {
             o.scaleIO = scaleIO;
             o.storageClassName = storageClassName;
             o.storageos = storageos;
+            o.volumeAttributesClassName = volumeAttributesClassName;
             o.volumeMode = volumeMode;
             o.vsphereVolume = vsphereVolume;
             return o;

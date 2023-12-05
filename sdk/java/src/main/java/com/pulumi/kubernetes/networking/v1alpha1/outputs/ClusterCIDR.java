@@ -29,7 +29,7 @@ public final class ClusterCIDR {
      */
     private @Nullable ObjectMeta metadata;
     /**
-     * @return spec is the desired state of the ClusterCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+     * @return Spec is the desired state of the ClusterCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
      */
     private @Nullable ClusterCIDRSpec spec;
@@ -57,7 +57,7 @@ public final class ClusterCIDR {
         return Optional.ofNullable(this.metadata);
     }
     /**
-     * @return spec is the desired state of the ClusterCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+     * @return Spec is the desired state of the ClusterCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
      */
     public Optional<ClusterCIDRSpec> spec() {

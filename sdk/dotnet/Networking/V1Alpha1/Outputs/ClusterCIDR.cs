@@ -29,7 +29,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking.V1Alpha1
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Meta.V1.ObjectMeta Metadata;
         /// <summary>
-        /// spec is the desired state of the ClusterCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        /// Spec is the desired state of the ClusterCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Networking.V1Alpha1.ClusterCIDRSpec Spec;
 

@@ -36,14 +36,14 @@ public class ClusterCIDRList extends com.pulumi.resources.CustomResource {
         return this.apiVersion;
     }
     /**
-     * items is the list of ClusterCIDRs.
+     * Items is the list of ClusterCIDRs.
      * 
      */
     @Export(name="items", refs={List.class,ClusterCIDR.class}, tree="[0,1]")
     private Output<List<ClusterCIDR>> items;
 
     /**
-     * @return items is the list of ClusterCIDRs.
+     * @return Items is the list of ClusterCIDRs.
      * 
      */
     public Output<List<ClusterCIDR>> items() {

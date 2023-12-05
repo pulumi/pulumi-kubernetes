@@ -52,6 +52,21 @@ public final class LoadBalancerIngressArgs extends com.pulumi.resources.Resource
     }
 
     /**
+     * IPMode specifies how the load-balancer IP behaves, and may only be specified when the ip field is specified. Setting this to &#34;VIP&#34; indicates that traffic is delivered to the node with the destination set to the load-balancer&#39;s IP and port. Setting this to &#34;Proxy&#34; indicates that traffic is delivered to the node or pod with the destination set to the node&#39;s IP and node port or the pod&#39;s IP and port. Service implementations may use this information to adjust traffic routing.
+     * 
+     */
+    @Import(name="ipMode")
+    private @Nullable Output<String> ipMode;
+
+    /**
+     * @return IPMode specifies how the load-balancer IP behaves, and may only be specified when the ip field is specified. Setting this to &#34;VIP&#34; indicates that traffic is delivered to the node with the destination set to the load-balancer&#39;s IP and port. Setting this to &#34;Proxy&#34; indicates that traffic is delivered to the node or pod with the destination set to the node&#39;s IP and node port or the pod&#39;s IP and port. Service implementations may use this information to adjust traffic routing.
+     * 
+     */
+    public Optional<Output<String>> ipMode() {
+        return Optional.ofNullable(this.ipMode);
+    }
+
+    /**
      * Ports is a list of records of service ports If used, every port defined in the service should have an entry in it
      * 
      */
@@ -71,6 +86,7 @@ public final class LoadBalancerIngressArgs extends com.pulumi.resources.Resource
     private LoadBalancerIngressArgs(LoadBalancerIngressArgs $) {
         this.hostname = $.hostname;
         this.ip = $.ip;
+        this.ipMode = $.ipMode;
         this.ports = $.ports;
     }
 
@@ -132,6 +148,27 @@ public final class LoadBalancerIngressArgs extends com.pulumi.resources.Resource
          */
         public Builder ip(String ip) {
             return ip(Output.of(ip));
+        }
+
+        /**
+         * @param ipMode IPMode specifies how the load-balancer IP behaves, and may only be specified when the ip field is specified. Setting this to &#34;VIP&#34; indicates that traffic is delivered to the node with the destination set to the load-balancer&#39;s IP and port. Setting this to &#34;Proxy&#34; indicates that traffic is delivered to the node or pod with the destination set to the node&#39;s IP and node port or the pod&#39;s IP and port. Service implementations may use this information to adjust traffic routing.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder ipMode(@Nullable Output<String> ipMode) {
+            $.ipMode = ipMode;
+            return this;
+        }
+
+        /**
+         * @param ipMode IPMode specifies how the load-balancer IP behaves, and may only be specified when the ip field is specified. Setting this to &#34;VIP&#34; indicates that traffic is delivered to the node with the destination set to the load-balancer&#39;s IP and port. Setting this to &#34;Proxy&#34; indicates that traffic is delivered to the node or pod with the destination set to the node&#39;s IP and node port or the pod&#39;s IP and port. Service implementations may use this information to adjust traffic routing.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder ipMode(String ipMode) {
+            return ipMode(Output.of(ipMode));
         }
 
         /**

@@ -45,6 +45,9 @@ func NewFlowSchemaPatch(ctx *pulumi.Context,
 	args.Kind = pulumi.StringPtr("FlowSchema")
 	aliases := pulumi.Aliases([]pulumi.Alias{
 		{
+			Type: pulumi.String("kubernetes:flowcontrol.apiserver.k8s.io/v1:FlowSchemaPatch"),
+		},
+		{
 			Type: pulumi.String("kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:FlowSchemaPatch"),
 		},
 		{

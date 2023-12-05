@@ -6,6 +6,7 @@ package com.pulumi.kubernetes.core.v1.outputs;
 import com.pulumi.core.annotations.CustomType;
 import com.pulumi.kubernetes.core.v1.outputs.ExecAction;
 import com.pulumi.kubernetes.core.v1.outputs.HTTPGetAction;
+import com.pulumi.kubernetes.core.v1.outputs.SleepAction;
 import com.pulumi.kubernetes.core.v1.outputs.TCPSocketAction;
 import java.util.Objects;
 import java.util.Optional;
@@ -23,6 +24,11 @@ public final class LifecycleHandler {
      * 
      */
     private @Nullable HTTPGetAction httpGet;
+    /**
+     * @return Sleep represents the duration that the container should sleep before being terminated.
+     * 
+     */
+    private @Nullable SleepAction sleep;
     /**
      * @return Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
      * 
@@ -45,6 +51,13 @@ public final class LifecycleHandler {
         return Optional.ofNullable(this.httpGet);
     }
     /**
+     * @return Sleep represents the duration that the container should sleep before being terminated.
+     * 
+     */
+    public Optional<SleepAction> sleep() {
+        return Optional.ofNullable(this.sleep);
+    }
+    /**
      * @return Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
      * 
      */
@@ -63,12 +76,14 @@ public final class LifecycleHandler {
     public static final class Builder {
         private @Nullable ExecAction exec;
         private @Nullable HTTPGetAction httpGet;
+        private @Nullable SleepAction sleep;
         private @Nullable TCPSocketAction tcpSocket;
         public Builder() {}
         public Builder(LifecycleHandler defaults) {
     	      Objects.requireNonNull(defaults);
     	      this.exec = defaults.exec;
     	      this.httpGet = defaults.httpGet;
+    	      this.sleep = defaults.sleep;
     	      this.tcpSocket = defaults.tcpSocket;
         }
 
@@ -83,6 +98,11 @@ public final class LifecycleHandler {
             return this;
         }
         @CustomType.Setter
+        public Builder sleep(@Nullable SleepAction sleep) {
+            this.sleep = sleep;
+            return this;
+        }
+        @CustomType.Setter
         public Builder tcpSocket(@Nullable TCPSocketAction tcpSocket) {
             this.tcpSocket = tcpSocket;
             return this;
@@ -91,6 +111,7 @@ public final class LifecycleHandler {
             final var o = new LifecycleHandler();
             o.exec = exec;
             o.httpGet = httpGet;
+            o.sleep = sleep;
             o.tcpSocket = tcpSocket;
             return o;
         }

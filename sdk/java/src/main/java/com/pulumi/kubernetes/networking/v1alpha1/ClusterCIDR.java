@@ -63,14 +63,14 @@ public class ClusterCIDR extends com.pulumi.resources.CustomResource {
         return this.metadata;
     }
     /**
-     * spec is the desired state of the ClusterCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+     * Spec is the desired state of the ClusterCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
      */
     @Export(name="spec", refs={ClusterCIDRSpec.class}, tree="[0]")
     private Output<ClusterCIDRSpec> spec;
 
     /**
-     * @return spec is the desired state of the ClusterCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+     * @return Spec is the desired state of the ClusterCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
      */
     public Output<ClusterCIDRSpec> spec() {

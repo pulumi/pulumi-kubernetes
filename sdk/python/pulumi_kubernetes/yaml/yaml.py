@@ -1251,6 +1251,30 @@ def _parse_yaml_object(
         return [identifier.apply(
             lambda x: (f"extensions/v1beta1/ReplicaSetList:{x}",
                        ReplicaSetList(f"{x}", opts, **obj)))]
+    if gvk == "flowcontrol.apiserver.k8s.io/v1/FlowSchema":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.flowcontrol.v1 import FlowSchema
+        return [identifier.apply(
+            lambda x: (f"flowcontrol.apiserver.k8s.io/v1/FlowSchema:{x}",
+                       FlowSchema(f"{x}", opts, **obj)))]
+    if gvk == "flowcontrol.apiserver.k8s.io/v1/FlowSchemaList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.flowcontrol.v1 import FlowSchemaList
+        return [identifier.apply(
+            lambda x: (f"flowcontrol.apiserver.k8s.io/v1/FlowSchemaList:{x}",
+                       FlowSchemaList(f"{x}", opts, **obj)))]
+    if gvk == "flowcontrol.apiserver.k8s.io/v1/PriorityLevelConfiguration":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.flowcontrol.v1 import PriorityLevelConfiguration
+        return [identifier.apply(
+            lambda x: (f"flowcontrol.apiserver.k8s.io/v1/PriorityLevelConfiguration:{x}",
+                       PriorityLevelConfiguration(f"{x}", opts, **obj)))]
+    if gvk == "flowcontrol.apiserver.k8s.io/v1/PriorityLevelConfigurationList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.flowcontrol.v1 import PriorityLevelConfigurationList
+        return [identifier.apply(
+            lambda x: (f"flowcontrol.apiserver.k8s.io/v1/PriorityLevelConfigurationList:{x}",
+                       PriorityLevelConfigurationList(f"{x}", opts, **obj)))]
     if gvk == "flowcontrol.apiserver.k8s.io/v1alpha1/FlowSchema":
         # Import locally to avoid name collisions.
         from pulumi_kubernetes.flowcontrol.v1alpha1 import FlowSchema
@@ -1413,6 +1437,18 @@ def _parse_yaml_object(
         return [identifier.apply(
             lambda x: (f"networking.k8s.io/v1alpha1/IPAddressList:{x}",
                        IPAddressList(f"{x}", opts, **obj)))]
+    if gvk == "networking.k8s.io/v1alpha1/ServiceCIDR":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.networking.v1alpha1 import ServiceCIDR
+        return [identifier.apply(
+            lambda x: (f"networking.k8s.io/v1alpha1/ServiceCIDR:{x}",
+                       ServiceCIDR(f"{x}", opts, **obj)))]
+    if gvk == "networking.k8s.io/v1alpha1/ServiceCIDRList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.networking.v1alpha1 import ServiceCIDRList
+        return [identifier.apply(
+            lambda x: (f"networking.k8s.io/v1alpha1/ServiceCIDRList:{x}",
+                       ServiceCIDRList(f"{x}", opts, **obj)))]
     if gvk == "networking.k8s.io/v1beta1/Ingress":
         # Import locally to avoid name collisions.
         from pulumi_kubernetes.networking.v1beta1 import Ingress
@@ -1869,6 +1905,18 @@ def _parse_yaml_object(
         return [identifier.apply(
             lambda x: (f"storage.k8s.io/v1alpha1/VolumeAttachmentList:{x}",
                        VolumeAttachmentList(f"{x}", opts, **obj)))]
+    if gvk == "storage.k8s.io/v1alpha1/VolumeAttributesClass":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.storage.v1alpha1 import VolumeAttributesClass
+        return [identifier.apply(
+            lambda x: (f"storage.k8s.io/v1alpha1/VolumeAttributesClass:{x}",
+                       VolumeAttributesClass(f"{x}", opts, **obj)))]
+    if gvk == "storage.k8s.io/v1alpha1/VolumeAttributesClassList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.storage.v1alpha1 import VolumeAttributesClassList
+        return [identifier.apply(
+            lambda x: (f"storage.k8s.io/v1alpha1/VolumeAttributesClassList:{x}",
+                       VolumeAttributesClassList(f"{x}", opts, **obj)))]
     if gvk == "storage.k8s.io/v1beta1/CSIDriver":
         # Import locally to avoid name collisions.
         from pulumi_kubernetes.storage.v1beta1 import CSIDriver

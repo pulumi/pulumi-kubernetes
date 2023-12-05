@@ -136,6 +136,8 @@ const (
 	Service                              Kind = "Service"
 	ServiceAccount                       Kind = "ServiceAccount"
 	ServiceAccountList                   Kind = "ServiceAccountList"
+	ServiceCIDR                          Kind = "ServiceCIDR"
+	ServiceCIDRList                      Kind = "ServiceCIDRList"
 	ServiceList                          Kind = "ServiceList"
 	StatefulSet                          Kind = "StatefulSet"
 	StatefulSetList                      Kind = "StatefulSetList"
@@ -150,6 +152,8 @@ const (
 	ValidatingWebhookConfigurationList   Kind = "ValidatingWebhookConfigurationList"
 	VolumeAttachment                     Kind = "VolumeAttachment"
 	VolumeAttachmentList                 Kind = "VolumeAttachmentList"
+	VolumeAttributesClass                Kind = "VolumeAttributesClass"
+	VolumeAttributesClassList            Kind = "VolumeAttributesClassList"
 )
 
 // Namespaced returns whether known resource Kinds are namespaced. If the Kind is unknown (such as CRD Kinds), the
@@ -252,6 +256,7 @@ const (
 	EventsV1                  groupVersion = "events.k8s.io/v1"
 	EventsV1B1                groupVersion = "events.k8s.io/v1beta1"
 	ExtensionsV1B1            groupVersion = "extensions/v1beta1"
+	FlowcontrolV1             groupVersion = "flowcontrol.apiserver.k8s.io/v1"
 	FlowcontrolV1A1           groupVersion = "flowcontrol.apiserver.k8s.io/v1alpha1"
 	FlowcontrolV1B1           groupVersion = "flowcontrol.apiserver.k8s.io/v1beta1"
 	FlowcontrolV1B2           groupVersion = "flowcontrol.apiserver.k8s.io/v1beta2"
@@ -322,6 +327,7 @@ var KnownGroupVersions = codegen.NewStringSet(
 	"events.k8s.io/v1",
 	"events.k8s.io/v1beta1",
 	"extensions/v1beta1",
+	"flowcontrol.apiserver.k8s.io/v1",
 	"flowcontrol.apiserver.k8s.io/v1alpha1",
 	"flowcontrol.apiserver.k8s.io/v1beta1",
 	"flowcontrol.apiserver.k8s.io/v1beta2",
@@ -418,6 +424,8 @@ var PatchQualifiedTypes = codegen.NewStringSet(
 	"kubernetes:extensions/v1beta1:NetworkPolicyPatch",
 	"kubernetes:extensions/v1beta1:PodSecurityPolicyPatch",
 	"kubernetes:extensions/v1beta1:ReplicaSetPatch",
+	"kubernetes:flowcontrol.apiserver.k8s.io/v1:FlowSchemaPatch",
+	"kubernetes:flowcontrol.apiserver.k8s.io/v1:PriorityLevelConfigurationPatch",
 	"kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:FlowSchemaPatch",
 	"kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:PriorityLevelConfigurationPatch",
 	"kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:FlowSchemaPatch",
@@ -432,6 +440,7 @@ var PatchQualifiedTypes = codegen.NewStringSet(
 	"kubernetes:networking.k8s.io/v1:NetworkPolicyPatch",
 	"kubernetes:networking.k8s.io/v1alpha1:ClusterCIDRPatch",
 	"kubernetes:networking.k8s.io/v1alpha1:IPAddressPatch",
+	"kubernetes:networking.k8s.io/v1alpha1:ServiceCIDRPatch",
 	"kubernetes:networking.k8s.io/v1beta1:IngressClassPatch",
 	"kubernetes:networking.k8s.io/v1beta1:IngressPatch",
 	"kubernetes:node.k8s.io/v1:RuntimeClassPatch",
@@ -470,6 +479,7 @@ var PatchQualifiedTypes = codegen.NewStringSet(
 	"kubernetes:storage.k8s.io/v1:StorageClassPatch",
 	"kubernetes:storage.k8s.io/v1:VolumeAttachmentPatch",
 	"kubernetes:storage.k8s.io/v1alpha1:VolumeAttachmentPatch",
+	"kubernetes:storage.k8s.io/v1alpha1:VolumeAttributesClassPatch",
 	"kubernetes:storage.k8s.io/v1beta1:CSIDriverPatch",
 	"kubernetes:storage.k8s.io/v1beta1:CSINodePatch",
 	"kubernetes:storage.k8s.io/v1beta1:CSIStorageCapacityPatch",
@@ -544,6 +554,8 @@ var ListQualifiedTypes = codegen.NewStringSet(
 	"kubernetes:extensions/v1beta1:NetworkPolicyList",
 	"kubernetes:extensions/v1beta1:PodSecurityPolicyList",
 	"kubernetes:extensions/v1beta1:ReplicaSetList",
+	"kubernetes:flowcontrol.apiserver.k8s.io/v1:FlowSchemaList",
+	"kubernetes:flowcontrol.apiserver.k8s.io/v1:PriorityLevelConfigurationList",
 	"kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:FlowSchemaList",
 	"kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:PriorityLevelConfigurationList",
 	"kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:FlowSchemaList",
@@ -557,6 +569,7 @@ var ListQualifiedTypes = codegen.NewStringSet(
 	"kubernetes:networking.k8s.io/v1:NetworkPolicyList",
 	"kubernetes:networking.k8s.io/v1alpha1:ClusterCIDRList",
 	"kubernetes:networking.k8s.io/v1alpha1:IPAddressList",
+	"kubernetes:networking.k8s.io/v1alpha1:ServiceCIDRList",
 	"kubernetes:networking.k8s.io/v1beta1:IngressClassList",
 	"kubernetes:networking.k8s.io/v1beta1:IngressList",
 	"kubernetes:node.k8s.io/v1:RuntimeClassList",
@@ -595,6 +608,7 @@ var ListQualifiedTypes = codegen.NewStringSet(
 	"kubernetes:storage.k8s.io/v1:StorageClassList",
 	"kubernetes:storage.k8s.io/v1:VolumeAttachmentList",
 	"kubernetes:storage.k8s.io/v1alpha1:VolumeAttachmentList",
+	"kubernetes:storage.k8s.io/v1alpha1:VolumeAttributesClassList",
 	"kubernetes:storage.k8s.io/v1beta1:CSIDriverList",
 	"kubernetes:storage.k8s.io/v1beta1:CSINodeList",
 	"kubernetes:storage.k8s.io/v1beta1:CSIStorageCapacityList",

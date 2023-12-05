@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.kubernetes.core.v1.outputs.ClusterTrustBundleProjection;
 import com.pulumi.kubernetes.core.v1.outputs.ConfigMapProjection;
 import com.pulumi.kubernetes.core.v1.outputs.DownwardAPIProjection;
 import com.pulumi.kubernetes.core.v1.outputs.SecretProjection;
@@ -14,6 +15,17 @@ import javax.annotation.Nullable;
 
 @CustomType
 public final class VolumeProjection {
+    /**
+     * @return ClusterTrustBundle allows a pod to access the `.spec.trustBundle` field of ClusterTrustBundle objects in an auto-updating file.
+     * 
+     * Alpha, gated by the ClusterTrustBundleProjection feature gate.
+     * 
+     * ClusterTrustBundle objects can either be selected by name, or by the combination of signer name and a label selector.
+     * 
+     * Kubelet performs aggressive normalization of the PEM contents written into the pod filesystem.  Esoteric PEM features such as inter-block comments and block headers are stripped.  Certificates are deduplicated. The ordering of certificates within the file is arbitrary, and Kubelet may change the order over time.
+     * 
+     */
+    private @Nullable ClusterTrustBundleProjection clusterTrustBundle;
     /**
      * @return configMap information about the configMap data to project
      * 
@@ -36,6 +48,19 @@ public final class VolumeProjection {
     private @Nullable ServiceAccountTokenProjection serviceAccountToken;
 
     private VolumeProjection() {}
+    /**
+     * @return ClusterTrustBundle allows a pod to access the `.spec.trustBundle` field of ClusterTrustBundle objects in an auto-updating file.
+     * 
+     * Alpha, gated by the ClusterTrustBundleProjection feature gate.
+     * 
+     * ClusterTrustBundle objects can either be selected by name, or by the combination of signer name and a label selector.
+     * 
+     * Kubelet performs aggressive normalization of the PEM contents written into the pod filesystem.  Esoteric PEM features such as inter-block comments and block headers are stripped.  Certificates are deduplicated. The ordering of certificates within the file is arbitrary, and Kubelet may change the order over time.
+     * 
+     */
+    public Optional<ClusterTrustBundleProjection> clusterTrustBundle() {
+        return Optional.ofNullable(this.clusterTrustBundle);
+    }
     /**
      * @return configMap information about the configMap data to project
      * 
@@ -74,6 +99,7 @@ public final class VolumeProjection {
     }
     @CustomType.Builder
     public static final class Builder {
+        private @Nullable ClusterTrustBundleProjection clusterTrustBundle;
         private @Nullable ConfigMapProjection configMap;
         private @Nullable DownwardAPIProjection downwardAPI;
         private @Nullable SecretProjection secret;
@@ -81,12 +107,18 @@ public final class VolumeProjection {
         public Builder() {}
         public Builder(VolumeProjection defaults) {
     	      Objects.requireNonNull(defaults);
+    	      this.clusterTrustBundle = defaults.clusterTrustBundle;
     	      this.configMap = defaults.configMap;
     	      this.downwardAPI = defaults.downwardAPI;
     	      this.secret = defaults.secret;
     	      this.serviceAccountToken = defaults.serviceAccountToken;
         }
 
+        @CustomType.Setter
+        public Builder clusterTrustBundle(@Nullable ClusterTrustBundleProjection clusterTrustBundle) {
+            this.clusterTrustBundle = clusterTrustBundle;
+            return this;
+        }
         @CustomType.Setter
         public Builder configMap(@Nullable ConfigMapProjection configMap) {
             this.configMap = configMap;
@@ -109,6 +141,7 @@ public final class VolumeProjection {
         }
         public VolumeProjection build() {
             final var o = new VolumeProjection();
+            o.clusterTrustBundle = clusterTrustBundle;
             o.configMap = configMap;
             o.downwardAPI = downwardAPI;
             o.secret = secret;
