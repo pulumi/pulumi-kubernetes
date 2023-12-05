@@ -63,12 +63,6 @@ var helmV3ChartResource = pschema.ResourceSpec{
 				},
 				Description: "Resources created by the Chart.",
 			},
-			"urn": {
-				TypeSpec: pschema.TypeSpec{
-					Type: "string",
-				},
-				Description: "The stable logical URN used to distinctly address a resource, both before and after deployments.",
-			},
 		},
 		Type: "object",
 	},
