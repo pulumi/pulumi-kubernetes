@@ -200,7 +200,7 @@ class Program
                                 new ContainerArgs
                                 {
                                     Name = "php-redis",
-                                    Image = "gcr.io/google-samples/gb-frontend:v4",
+                                    Image = "us-docker.pkg.dev/google-samples/containers/gke/gb-frontend:v5",
                                     Resources = new ResourceRequirementsArgs
                                     {
                                         Requests = {

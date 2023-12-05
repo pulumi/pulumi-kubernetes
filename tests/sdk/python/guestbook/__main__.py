@@ -178,7 +178,7 @@ frontend_deployment = Deployment(
             spec=PodSpecArgs(
                 containers=[ContainerArgs(
                     name="php-redis",
-                    image="gcr.io/google-samples/gb-frontend:v4",
+                    image="us-docker.pkg.dev/google-samples/containers/gke/gb-frontend:v5",
                     resources=ResourceRequirementsArgs(
                         requests={
                             "cpu": "100m",

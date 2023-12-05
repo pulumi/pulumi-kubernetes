@@ -2136,7 +2136,7 @@ func regressionDeploymentScaled3Input() *unstructured.Unstructured {
             "metadata": { "labels": { "app": "frontend" } },
             "spec": { "containers": [{
                 "name": "php-redis",
-                "image": "gcr.io/google-samples/gb-frontend:v4",
+                "image": "us-docker.pkg.dev/google-samples/containers/gke/gb-frontend:v5",
                 "resources": { "requests": { "cpu": "100m", "memory": "100Mi" } },
                 "env": [{ "name": "GET_HOSTS_FROM", "value": "dns" }],
                 "ports": [{ "containerPort": 80 }]
@@ -2202,7 +2202,7 @@ func regressionDeploymentScaled3() *unstructured.Unstructured {
                                 "value": "dns"
                             }
                         ],
-                        "image": "gcr.io/google-samples/gb-frontend:v4",
+                        "image": "us-docker.pkg.dev/google-samples/containers/gke/gb-frontend:v5",
                         "imagePullPolicy": "IfNotPresent",
                         "name": "php-redis",
                         "ports": [
@@ -2314,7 +2314,7 @@ func regressionDeploymentScaled5() *unstructured.Unstructured {
                                 "value": "dns"
                             }
                         ],
-                        "image": "gcr.io/google-samples/gb-frontend:v4",
+                        "image": "us-docker.pkg.dev/google-samples/containers/gke/gb-frontend:v5",
                         "imagePullPolicy": "IfNotPresent",
                         "name": "php-redis",
                         "ports": [
@@ -2432,7 +2432,7 @@ func regressionReplicaSetScaled3() *unstructured.Unstructured {
                                 "value": "dns"
                             }
                         ],
-                        "image": "gcr.io/google-samples/gb-frontend:v4",
+                        "image": "us-docker.pkg.dev/google-samples/containers/gke/gb-frontend:v5",
                         "imagePullPolicy": "IfNotPresent",
                         "name": "php-redis",
                         "ports": [
@@ -2531,7 +2531,7 @@ func regressionReplicaSetScaled5() *unstructured.Unstructured {
                                 "value": "dns"
                             }
                         ],
-                        "image": "gcr.io/google-samples/gb-frontend:v4",
+                        "image": "us-docker.pkg.dev/google-samples/containers/gke/gb-frontend:v5",
                         "imagePullPolicy": "IfNotPresent",
                         "name": "php-redis",
                         "ports": [

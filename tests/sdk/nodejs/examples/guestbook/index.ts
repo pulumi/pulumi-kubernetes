@@ -154,7 +154,7 @@ let frontendDeployment = new k8s.apps.v1.Deployment("frontend", {
             spec: {
                 containers: [{
                     name: "php-redis",
-                    image: "gcr.io/google-samples/gb-frontend:v4",
+                    image: "us-docker.pkg.dev/google-samples/containers/gke/gb-frontend:v5",
                     resources: {
                         requests: {
                             cpu: "100m",
