@@ -48,7 +48,7 @@ import (
 
 // ValidateAgainstSchema validates a document against the given schema.
 func ValidateAgainstSchema(
-	resources openapi.Resources, obj *unstructured.Unstructured,
+	resourcesGetter openapi.OpenAPIResourcesGetter, resources openapi.Resources, obj *unstructured.Unstructured,
 ) error {
 	bytes, err := obj.MarshalJSON()
 	if err != nil {
@@ -66,7 +66,7 @@ func ValidateAgainstSchema(
 	// validation errors when there are multiple errors for usability purposes.
 
 	// Validate resource against schema.
-	specValidator := validation.NewSchemaValidation(resources)
+	specValidator := validation.NewSchemaValidation(resourcesGetter)
 	return specValidator.ValidateBytes(bytes)
 }
 
