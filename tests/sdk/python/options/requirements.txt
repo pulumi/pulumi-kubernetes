@@ -1,0 +1,4 @@
+pulumi>=3.0.0,<4.0.0
+pulumi-kubernetes>=4.0.0,<5.0.0
+pulumiverse_time>=v0.0.16
+debugpy>=1.4.1

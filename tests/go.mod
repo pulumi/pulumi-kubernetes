@@ -13,6 +13,7 @@ require (
 	github.com/pulumi/pulumi/pkg/v3 v3.81.0
 	github.com/pulumi/pulumi/sdk/v3 v3.81.0
 	github.com/stretchr/testify v1.8.4
+	golang.org/x/exp v0.0.0-20220722155223-a9213eeb770e
 	helm.sh/helm/v3 v3.12.1
 	k8s.io/apimachinery v0.28.2
 	k8s.io/client-go v0.28.2
@@ -216,6 +217,7 @@ require (
 	github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822 // indirect
 	github.com/natefinch/atomic v1.0.1 // indirect
 	github.com/oklog/run v1.1.0 // indirect
+	github.com/onsi/gomega v1.27.7 // indirect
 	github.com/opencontainers/go-digest v1.0.0 // indirect
 	github.com/opencontainers/image-spec v1.1.0-rc2.0.20221005185240-3a7f492d3f1b // indirect
 	github.com/opentracing/basictracer-go v1.1.0 // indirect

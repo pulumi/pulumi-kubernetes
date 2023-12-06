@@ -1,0 +1,8 @@
+name: options-test
+runtime:
+  name: python
+  options:
+    virtualenv: venv
+description: A minimal Kubernetes Python Pulumi program
+config:
+  pulumi:disable-default-providers: [kubernetes]
