@@ -76,7 +76,7 @@ func TestGet(t *testing.T) {
 				NoParallel:           true,
 				EditDirs: []integration.EditDir{
 					{
-						Dir:      "step2",
+						Dir:      filepath.Join(cwd, dir, "step2"),
 						Additive: true,
 					},
 				},
