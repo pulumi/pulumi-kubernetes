@@ -48,8 +48,8 @@ def transform_k8s(obj, opts):
 # options: providers, aliases, depends_on, ignore_changes, protect, transformations
 # args: skip_await, transformations
 k8s.yaml.ConfigGroup(
-    "cg-a",
-    resource_prefix="cg-a",
+    "cg-options",
+    resource_prefix="cg-options",
     skip_await=True,
     transformations=[transform_k8s],
     files=["./testdata/options/configgroup/*.yaml"],
@@ -57,31 +57,33 @@ k8s.yaml.ConfigGroup(
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: cg-a-cm-1
+  name: cg-options-cm-1
     '''],
     opts=ResourceOptions(
         providers=[a_provider],
-        aliases=[Alias(name="cg-a-old")],
+        aliases=[Alias(name="cg-options-old")],
         ignore_changes=["ignored"],
         protect=True,
         depends_on=[sleep],
         transformations=[apply_alias],
     ),
 )
+
 # "provider" option
 k8s.yaml.ConfigGroup(
-    "cg-b",
-    resource_prefix="cg-b",
+    "cg-provider",
+    resource_prefix="cg-provider",
     yaml=['''
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: cg-b-cm-1
+  name: cg-provider-cm-1
     '''],
     opts=ResourceOptions(
         provider=b_provider,
     ),
 )
+
 # null opts
 k8s.yaml.ConfigGroup(
     "cg-nullopts",
@@ -98,35 +100,38 @@ metadata:
 # options: providers, aliases, depends_on, ignore_changes, protect, transformations
 # args: skip_await, transformations
 k8s.yaml.ConfigFile(
-    "cf-a",
+    "cf-options",
     file="./testdata/options/configfile/manifest.yaml",
-    resource_prefix="cf-a",
+    resource_prefix="cf-options",
     skip_await=True,
     transformations=[transform_k8s],
     opts=ResourceOptions(
         providers=[a_provider],
-        aliases=[Alias(name="cf-a-old")],
+        aliases=[Alias(name="cf-options-old")],
         ignore_changes=["ignored"],
         protect=True,
         depends_on=[sleep],
         transformations=[apply_alias],
     ),
 )
+
 # "provider" option
 k8s.yaml.ConfigFile(
-    "cf-b",
-    resource_prefix="cf-b",
+    "cf-provider",
+    resource_prefix="cf-provider",
     file="./testdata/options/configfile/manifest.yaml",
     opts=ResourceOptions(
         provider=b_provider,
     ),
 )
+
 # null opts
 k8s.yaml.ConfigFile(
     "cf-nullopts",
     resource_prefix="cf-nullopts",
     file="./testdata/options/configfile/manifest.yaml",
 )
+
 # empty manifests
 k8s.yaml.ConfigFile(
     "cf-empty",
@@ -141,28 +146,30 @@ k8s.yaml.ConfigFile(
 # options: providers, aliases, depends_on, ignore_changes, protect, transformations
 # args: transformations
 k8s.kustomize.Directory(
-    "kustomize-a",
+    "kustomize-options",
     directory="./testdata/options/kustomize",
-    resource_prefix="kustomize-a",
+    resource_prefix="kustomize-options",
     transformations=[transform_k8s],
     opts=ResourceOptions(
         providers=[a_provider],
-        aliases=[Alias(name="kustomize-a-old")],
+        aliases=[Alias(name="kustomize-options-old")],
         ignore_changes=["ignored"],
         protect=True,
         depends_on=[sleep],
         transformations=[apply_alias],
     ),
 )
+
 # "provider" option
 k8s.kustomize.Directory(
-    "kustomize-b",
+    "kustomize-provider",
     directory="./testdata/options/kustomize",
-    resource_prefix="kustomize-b",
+    resource_prefix="kustomize-provider",
     opts=ResourceOptions(
         provider=b_provider,
     ),
 )
+
 # null opts
 k8s.kustomize.Directory(
     "kustomize-nullopts",
@@ -174,33 +181,35 @@ k8s.kustomize.Directory(
 # options: providers, aliases, depends_on, ignore_changes, protect, transformations
 # args: transformations
 k8s.helm.v3.Chart(
-    "chart-a",
+    "chart-options",
     k8s.helm.v3.LocalChartOpts(
         path="./testdata/options/chart",
-        resource_prefix="chart-a",
+        resource_prefix="chart-options",
         transformations=[transform_k8s],
         skip_await=True,
     ),
     opts=ResourceOptions(
         providers=[a_provider],
-        aliases=[Alias(name="chart-a-old")],
+        aliases=[Alias(name="chart-options-old")],
         ignore_changes=["ignored"],
         protect=True,
         depends_on=[sleep],
         transformations=[apply_alias],
     ),
 )
+
 # "provider" option
 k8s.helm.v3.Chart(
-    "chart-b",
+    "chart-provider",
     k8s.helm.v3.LocalChartOpts(
         path="./testdata/options/chart",
-        resource_prefix="chart-b",
+        resource_prefix="chart-provider",
     ),
     opts=ResourceOptions(
         provider=b_provider,
     ),
 )
+
 # null opts
 k8s.helm.v3.Chart(
     "chart-nullopts",

@@ -593,12 +593,12 @@ func TestOptionPropagation(t *testing.T) {
 
 			// --- ConfigGroup ---
 
-			// ConfigGroup "cg-a" with most options
-			g.Expect(rr.Named(stackInfo.RootResource.URN, "kubernetes:yaml:ConfigGroup", "cg-a-cg-a")).To(HaveExactElements(
-				// quirk: Python SDK applies resource_prefix ("cg-a") to the component itself.
+			// ConfigGroup "cg-options" with most options
+			g.Expect(rr.Named(stackInfo.RootResource.URN, "kubernetes:yaml:ConfigGroup", "cg-options-cg-options")).To(HaveExactElements(
+				// quirk: Python SDK applies resource_prefix ("cg-options") to the component itself.
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases":      ConsistOf(Alias("cg-a-old"), Alias("cg-a-cg-a-aliased")),
+						"Aliases":      ConsistOf(Alias("cg-options-old"), Alias("cg-options-cg-options-aliased")),
 						"Protect":      BeTrue(),
 						"Dependencies": ConsistOf(string(sleep.URN)),
 						"Provider":     BeEmpty(),
@@ -610,10 +610,10 @@ func TestOptionPropagation(t *testing.T) {
 					}),
 				}),
 			))
-			g.Expect(rr.Named(urn("", "kubernetes:yaml:ConfigGroup", "cg-a-cg-a"), "kubernetes:core/v1:ConfigMap", "cg-a-cg-a-cm-1")).To(HaveExactElements(
+			g.Expect(rr.Named(urn("", "kubernetes:yaml:ConfigGroup", "cg-options-cg-options"), "kubernetes:core/v1:ConfigMap", "cg-options-cg-options-cm-1")).To(HaveExactElements(
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases":       ConsistOf(Alias("cg-a-cm-1-k8s-aliased"), Alias("cg-a-cg-a-cm-1-aliased")),
+						"Aliases":       ConsistOf(Alias("cg-options-cm-1-k8s-aliased"), Alias("cg-options-cg-options-cm-1-aliased")),
 						"Protect":       BeTrue(),
 						"Dependencies":  BeEmpty(),
 						"Provider":      BeEquivalentTo(providerUrn(providerA)),
@@ -622,17 +622,17 @@ func TestOptionPropagation(t *testing.T) {
 						"IgnoreChanges": BeEmpty(),
 						"Object": PointTo(ProtobufStruct(MatchKeys(IgnoreExtras, Keys{
 							"metadata": MatchKeys(IgnoreExtras, Keys{
-								"name":        Equal("cg-a-cm-1"),
+								"name":        Equal("cg-options-cm-1"),
 								"annotations": And(HaveKey("pulumi.com/skipAwait"), HaveKey("transformed")),
 							}),
 						}))),
 					}),
 				}),
 			))
-			g.Expect(rr.Named(urn("", "kubernetes:yaml:ConfigGroup", "cg-a-cg-a"), "kubernetes:yaml:ConfigFile", "cg-a-./testdata/options/configgroup/manifest.yaml")).To(HaveExactElements(
+			g.Expect(rr.Named(urn("", "kubernetes:yaml:ConfigGroup", "cg-options-cg-options"), "kubernetes:yaml:ConfigFile", "cg-options-./testdata/options/configgroup/manifest.yaml")).To(HaveExactElements(
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases":      ConsistOf(Alias("cg-a-./testdata/options/configgroup/manifest.yaml-aliased")),
+						"Aliases":      ConsistOf(Alias("cg-options-./testdata/options/configgroup/manifest.yaml-aliased")),
 						"Protect":      BeTrue(),
 						"Dependencies": BeEmpty(),
 						"Provider":     BeEmpty(),
@@ -643,10 +643,10 @@ func TestOptionPropagation(t *testing.T) {
 					}),
 				}),
 			))
-			g.Expect(rr.Named(urn("kubernetes:yaml:ConfigGroup", "kubernetes:yaml:ConfigFile", "cg-a-./testdata/options/configgroup/manifest.yaml"), "kubernetes:core/v1:ConfigMap", "cg-a-configgroup-cm-1")).To(HaveExactElements(
+			g.Expect(rr.Named(urn("kubernetes:yaml:ConfigGroup", "kubernetes:yaml:ConfigFile", "cg-options-./testdata/options/configgroup/manifest.yaml"), "kubernetes:core/v1:ConfigMap", "cg-options-configgroup-cm-1")).To(HaveExactElements(
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases":       ConsistOf(Alias("configgroup-cm-1-k8s-aliased"), Alias("cg-a-configgroup-cm-1-aliased")),
+						"Aliases":       ConsistOf(Alias("configgroup-cm-1-k8s-aliased"), Alias("cg-options-configgroup-cm-1-aliased")),
 						"Protect":       BeTrue(),
 						"Dependencies":  BeEmpty(),
 						"Provider":      BeEquivalentTo(providerUrn(providerA)),
@@ -663,8 +663,8 @@ func TestOptionPropagation(t *testing.T) {
 				}),
 			))
 
-			// ConfigGroup "cg-b" with "provider" option that should propagate to children.
-			g.Expect(rr.Named(stackInfo.RootResource.URN, "kubernetes:yaml:ConfigGroup", "cg-b-cg-b")).To(HaveExactElements(
+			// ConfigGroup "cg-provider" with "provider" option that should propagate to children.
+			g.Expect(rr.Named(stackInfo.RootResource.URN, "kubernetes:yaml:ConfigGroup", "cg-provider-cg-provider")).To(HaveExactElements(
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
 						"Provider": BeEmpty(),
@@ -691,12 +691,12 @@ func TestOptionPropagation(t *testing.T) {
 
 			// --- ConfigFile ---
 
-			// ConfigFile "cf-a" with most options
-			g.Expect(rr.Named(stackInfo.RootResource.URN, "kubernetes:yaml:ConfigFile", "cf-a-cf-a")).To(HaveExactElements(
-				// quirk: Python SDK applies resource_prefix ("cf-a") to the component itself.
+			// ConfigFile "cf-options" with most options
+			g.Expect(rr.Named(stackInfo.RootResource.URN, "kubernetes:yaml:ConfigFile", "cf-options-cf-options")).To(HaveExactElements(
+				// quirk: Python SDK applies resource_prefix ("cf-options") to the component itself.
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases":      ConsistOf(Alias("cf-a-old"), Alias("cf-a-cf-a-aliased")),
+						"Aliases":      ConsistOf(Alias("cf-options-old"), Alias("cf-options-cf-options-aliased")),
 						"Protect":      BeTrue(),
 						"Dependencies": ConsistOf(string(sleep.URN)),
 						"Provider":     BeEmpty(),
@@ -707,10 +707,10 @@ func TestOptionPropagation(t *testing.T) {
 					}),
 				}),
 			))
-			g.Expect(rr.Named(urn("", "kubernetes:yaml:ConfigFile", "cf-a-cf-a"), "kubernetes:core/v1:ConfigMap", "cf-a-configfile-cm-1")).To(HaveExactElements(
+			g.Expect(rr.Named(urn("", "kubernetes:yaml:ConfigFile", "cf-options-cf-options"), "kubernetes:core/v1:ConfigMap", "cf-options-configfile-cm-1")).To(HaveExactElements(
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases":       ConsistOf(Alias("configfile-cm-1-k8s-aliased"), Alias("cf-a-configfile-cm-1-aliased")),
+						"Aliases":       ConsistOf(Alias("configfile-cm-1-k8s-aliased"), Alias("cf-options-configfile-cm-1-aliased")),
 						"Protect":       BeTrue(),
 						"Dependencies":  BeEmpty(),
 						"Provider":      BeEquivalentTo(providerUrn(providerA)),
@@ -727,9 +727,9 @@ func TestOptionPropagation(t *testing.T) {
 				}),
 			))
 
-			// ConfigFile "cf-b" with "provider" option that should propagate to children.
-			g.Expect(rr.Named(stackInfo.RootResource.URN, "kubernetes:yaml:ConfigFile", "cf-b-cf-b")).To(HaveExactElements(
-				// quirk: Python SDK applies resource_prefix ("cf-b") to the component itself.
+			// ConfigFile "cf-provider" with "provider" option that should propagate to children.
+			g.Expect(rr.Named(stackInfo.RootResource.URN, "kubernetes:yaml:ConfigFile", "cf-provider-cf-provider")).To(HaveExactElements(
+				// quirk: Python SDK applies resource_prefix ("cf-provider") to the component itself.
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
 						"Provider": BeEmpty(),
@@ -740,7 +740,7 @@ func TestOptionPropagation(t *testing.T) {
 					}),
 				}),
 			))
-			g.Expect(rr.Named(urn("", "kubernetes:yaml:ConfigFile", "cf-b-cf-b"), "kubernetes:core/v1:ConfigMap", "cf-b-configfile-cm-1")).To(HaveExactElements(
+			g.Expect(rr.Named(urn("", "kubernetes:yaml:ConfigFile", "cf-provider-cf-provider"), "kubernetes:core/v1:ConfigMap", "cf-provider-configfile-cm-1")).To(HaveExactElements(
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
 						"Provider":  BeEquivalentTo(providerUrn(providerB)),
@@ -771,12 +771,12 @@ func TestOptionPropagation(t *testing.T) {
 
 			// --- Directory ---
 
-			// Directory "kustomize-a" with most options
-			g.Expect(rr.Named(stackInfo.RootResource.URN, "kubernetes:kustomize:Directory", "kustomize-a-kustomize-a")).To(HaveExactElements(
-				// quirk: Python SDK applies resource_prefix ("kustomize-a") to the component itself.
+			// Directory "kustomize-options" with most options
+			g.Expect(rr.Named(stackInfo.RootResource.URN, "kubernetes:kustomize:Directory", "kustomize-options-kustomize-options")).To(HaveExactElements(
+				// quirk: Python SDK applies resource_prefix ("kustomize-options") to the component itself.
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases":      ConsistOf(Alias("kustomize-a-old"), Alias("kustomize-a-kustomize-a-aliased")),
+						"Aliases":      ConsistOf(Alias("kustomize-options-old"), Alias("kustomize-options-kustomize-options-aliased")),
 						"Protect":      BeTrue(),
 						"Dependencies": ConsistOf(string(sleep.URN)),
 						"Provider":     BeEmpty(),
@@ -788,10 +788,10 @@ func TestOptionPropagation(t *testing.T) {
 					}),
 				}),
 			))
-			g.Expect(rr.Named(urn("", "kubernetes:kustomize:Directory", "kustomize-a-kustomize-a"), "kubernetes:core/v1:ConfigMap", "kustomize-a-kustomize-cm-1-2kkk4bthmg")).To(HaveExactElements(
+			g.Expect(rr.Named(urn("", "kubernetes:kustomize:Directory", "kustomize-options-kustomize-options"), "kubernetes:core/v1:ConfigMap", "kustomize-options-kustomize-cm-1-2kkk4bthmg")).To(HaveExactElements(
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases":       ConsistOf(Alias("kustomize-cm-1-2kkk4bthmg-k8s-aliased"), Alias("kustomize-a-kustomize-cm-1-2kkk4bthmg-aliased")),
+						"Aliases":       ConsistOf(Alias("kustomize-cm-1-2kkk4bthmg-k8s-aliased"), Alias("kustomize-options-kustomize-cm-1-2kkk4bthmg-aliased")),
 						"Protect":       BeTrue(),
 						"Dependencies":  BeEmpty(),
 						"Provider":      BeEquivalentTo(providerUrn(providerA)),
@@ -808,9 +808,9 @@ func TestOptionPropagation(t *testing.T) {
 				}),
 			))
 
-			// Directory "kustomize-b" with "provider" option that should propagate to children.
-			g.Expect(rr.Named(stackInfo.RootResource.URN, "kubernetes:kustomize:Directory", "kustomize-b-kustomize-b")).To(HaveExactElements(
-				// quirk: Python SDK applies resource_prefix ("kustomize-b") to the component itself.
+			// Directory "kustomize-provider" with "provider" option that should propagate to children.
+			g.Expect(rr.Named(stackInfo.RootResource.URN, "kubernetes:kustomize:Directory", "kustomize-provider-kustomize-provider")).To(HaveExactElements(
+				// quirk: Python SDK applies resource_prefix ("kustomize-provider") to the component itself.
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
 						"Provider": BeEmpty(),
@@ -821,7 +821,7 @@ func TestOptionPropagation(t *testing.T) {
 					}),
 				}),
 			))
-			g.Expect(rr.Named(urn("", "kubernetes:kustomize:Directory", "kustomize-b-kustomize-b"), "kubernetes:core/v1:ConfigMap", "kustomize-b-kustomize-cm-1-2kkk4bthmg")).To(HaveExactElements(
+			g.Expect(rr.Named(urn("", "kubernetes:kustomize:Directory", "kustomize-provider-kustomize-provider"), "kubernetes:core/v1:ConfigMap", "kustomize-provider-kustomize-cm-1-2kkk4bthmg")).To(HaveExactElements(
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
 						"Provider":  BeEquivalentTo(providerUrn(providerB)),
@@ -847,12 +847,12 @@ func TestOptionPropagation(t *testing.T) {
 
 			// --- Chart ---
 
-			// Chart "chart-a"
-			g.Expect(rr.Named(stackInfo.RootResource.URN, "kubernetes:helm.sh/v3:Chart", "chart-a-chart-a")).To(HaveExactElements(
-				// quirk: Python SDK applies resource_prefix ("chart-a") to the component itself.
+			// Chart "chart-options"
+			g.Expect(rr.Named(stackInfo.RootResource.URN, "kubernetes:helm.sh/v3:Chart", "chart-options-chart-options")).To(HaveExactElements(
+				// quirk: Python SDK applies resource_prefix ("chart-options") to the component itself.
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases":      ConsistOf(Alias("chart-a-old"), Alias("chart-a-chart-a-aliased"), AliasByType("kubernetes:helm.sh/v2:Chart")),
+						"Aliases":      ConsistOf(Alias("chart-options-old"), Alias("chart-options-chart-options-aliased"), AliasByType("kubernetes:helm.sh/v2:Chart")),
 						"Protect":      BeTrue(),
 						"Dependencies": ConsistOf(string(sleep.URN)),
 						"Provider":     BeEmpty(),
@@ -864,11 +864,11 @@ func TestOptionPropagation(t *testing.T) {
 					}),
 				}),
 			))
-			g.Expect(rr.Named(urn("", "kubernetes:helm.sh/v3:Chart", "chart-a-chart-a"), "kubernetes:core/v1:ConfigMap", "chart-a-chart-a-cm-1")).To(HaveExactElements(
+			g.Expect(rr.Named(urn("", "kubernetes:helm.sh/v3:Chart", "chart-options-chart-options"), "kubernetes:core/v1:ConfigMap", "chart-options-chart-options-cm-1")).To(HaveExactElements(
 				// quirk: Python SDK does NOT directly apply resource_prefix to the child resources (unlike other SDKs)
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases":       ConsistOf(Alias("chart-a-chart-a-cm-1-k8s-aliased"), Alias("chart-a-chart-a-cm-1-aliased")),
+						"Aliases":       ConsistOf(Alias("chart-options-chart-options-cm-1-k8s-aliased"), Alias("chart-options-chart-options-cm-1-aliased")),
 						"Protect":       BeTrue(),
 						"Dependencies":  BeEmpty(),
 						"Provider":      BeEquivalentTo(providerUrn(providerA)),
@@ -877,7 +877,7 @@ func TestOptionPropagation(t *testing.T) {
 						"IgnoreChanges": BeEmpty(),
 						"Object": PointTo(ProtobufStruct(MatchKeys(IgnoreExtras, Keys{
 							"metadata": MatchKeys(IgnoreExtras, Keys{
-								"name":        Equal("chart-a-chart-a-cm-1"), // note: based on the Helm Release name
+								"name":        Equal("chart-options-chart-options-cm-1"), // note: based on the Helm Release name
 								"annotations": And(HaveKey("pulumi.com/skipAwait")),
 							}),
 						}))),
@@ -885,9 +885,9 @@ func TestOptionPropagation(t *testing.T) {
 				}),
 			))
 
-			// Chart "chart-b" with "provider" option that should propagate to children.
-			g.Expect(rr.Named(stackInfo.RootResource.URN, "kubernetes:helm.sh/v3:Chart", "chart-b-chart-b")).To(HaveExactElements(
-				// quirk: Python SDK applies resource_prefix ("chart-b") to the component itself.
+			// Chart "chart-provider" with "provider" option that should propagate to children.
+			g.Expect(rr.Named(stackInfo.RootResource.URN, "kubernetes:helm.sh/v3:Chart", "chart-provider-chart-provider")).To(HaveExactElements(
+				// quirk: Python SDK applies resource_prefix ("chart-provider") to the component itself.
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
 						"Provider": BeEmpty(),
@@ -898,7 +898,7 @@ func TestOptionPropagation(t *testing.T) {
 					}),
 				}),
 			))
-			g.Expect(rr.Named(urn("", "kubernetes:helm.sh/v3:Chart", "chart-b-chart-b"), "kubernetes:core/v1:ConfigMap", "chart-b-chart-b-cm-1")).To(HaveExactElements(
+			g.Expect(rr.Named(urn("", "kubernetes:helm.sh/v3:Chart", "chart-provider-chart-provider"), "kubernetes:core/v1:ConfigMap", "chart-provider-chart-provider-cm-1")).To(HaveExactElements(
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
 						"Provider":  BeEquivalentTo(providerUrn(providerB)),
@@ -910,7 +910,7 @@ func TestOptionPropagation(t *testing.T) {
 
 			// Chart "chart-nullopts" with a stack transform to apply a "provider" option.
 			g.Expect(rr.Named(stackInfo.RootResource.URN, "kubernetes:helm.sh/v3:Chart", "chart-nullopts-chart-nullopts")).To(HaveExactElements(
-				// quirk: Python SDK applies resource_prefix ("chart-a") to the component itself.
+				// quirk: Python SDK applies resource_prefix ("chart-options") to the component itself.
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
 						"Provider": BeEmpty(),
