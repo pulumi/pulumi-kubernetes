@@ -74,6 +74,7 @@ nodejs_sdk::
 	$(WORKING_DIR)/bin/$(CODEGEN) -version=${VERSION} nodejs $(SCHEMA_FILE) $(CURDIR)
 	cd ${PACKDIR}/nodejs/ && \
 		echo "module fake_nodejs_module // Exclude this directory from Go tools\n\ngo 1.17" > go.mod && \
+		rm -rf node_modules yarn.lock && \
 		yarn install && \
 		yarn run tsc
 	cp README.md LICENSE ${PACKDIR}/nodejs/package.json ${PACKDIR}/nodejs/yarn.lock ${PACKDIR}/nodejs/bin/
