@@ -46,10 +46,19 @@ import (
 
 // --------------------------------------------------------------------------
 
+// openAPIResourcesGetter is a simple implementation of k8sopenapi.OpenAPIResourcesGetter that returns a fixed set of
+// resources. Our current use case already has the resources available, so we just need to wrap them in this struct to
+// satisfy the interface.
+type openAPIResourcesGetter struct {
+	resources openapi.Resources
+}
+
+func (o *openAPIResourcesGetter) OpenAPISchema() (openapi.Resources, error) {
+	return o.resources, nil
+}
+
 // ValidateAgainstSchema validates a document against the given schema.
-func ValidateAgainstSchema(
-	resourcesGetter openapi.OpenAPIResourcesGetter, resources openapi.Resources, obj *unstructured.Unstructured,
-) error {
+func ValidateAgainstSchema(resources openapi.Resources, obj *unstructured.Unstructured) error {
 	bytes, err := obj.MarshalJSON()
 	if err != nil {
 		return err
@@ -66,7 +75,7 @@ func ValidateAgainstSchema(
 	// validation errors when there are multiple errors for usability purposes.
 
 	// Validate resource against schema.
-	specValidator := validation.NewSchemaValidation(resourcesGetter)
+	specValidator := validation.NewSchemaValidation(&openAPIResourcesGetter{resources})
 	return specValidator.ValidateBytes(bytes)
 }
 

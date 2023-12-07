@@ -195,18 +195,6 @@ func (k *kubeProvider) getResources() (k8sopenapi.Resources, error) {
 	return k.resources, nil
 }
 
-type openAPIResourcesGetter struct {
-	k *kubeProvider
-}
-
-func (o *openAPIResourcesGetter) OpenAPISchema() (k8sopenapi.Resources, error) {
-	return o.k.getResources()
-}
-
-func (k *kubeProvider) getResourcesLazy() k8sopenapi.OpenAPIResourcesGetter {
-	return &openAPIResourcesGetter{k}
-}
-
 func (k *kubeProvider) invalidateResources() {
 	k.resourcesMutex.Lock()
 	defer k.resourcesMutex.Unlock()
@@ -1442,7 +1430,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		}
 
 		// Validate the object according to the OpenAPI schema for its GVK.
-		err = openapi.ValidateAgainstSchema(k.getResourcesLazy(), resources, newInputs)
+		err = openapi.ValidateAgainstSchema(resources, newInputs)
 		if err != nil {
 			resourceNotFound := apierrors.IsNotFound(err) ||
 				strings.Contains(err.Error(), "is not supported by the server")
