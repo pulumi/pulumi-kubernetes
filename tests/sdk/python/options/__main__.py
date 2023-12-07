@@ -5,17 +5,13 @@ from pulumi import ResourceOptions, ResourceTransformationResult, ResourceTransf
 import pulumi_kubernetes as k8s
 import pulumiverse_time as time
 
-import debugpy
-# debugpy.listen(5678)
-# debugpy.wait_for_client()
-
 bootstrap_provider = k8s.Provider("bootstrap")
+
+# create a set of providers across namespaces, simply to facilitate the reuse of manifests in the below tests.
 nullopts_ns = k8s.core.v1.Namespace("nullopts", opts=pulumi.ResourceOptions(provider=bootstrap_provider))
 a_ns = k8s.core.v1.Namespace("a", opts=pulumi.ResourceOptions(provider=bootstrap_provider))
 b_ns = k8s.core.v1.Namespace("b", opts=pulumi.ResourceOptions(provider=bootstrap_provider))
 nullopts_provider = k8s.Provider("nullopts", namespace=nullopts_ns.metadata["name"])
-
-# create a set of providers across namespaces, simply to facilitate the reuse of manifests in the below tests.
 a_provider = k8s.Provider("a", namespace=a_ns.metadata["name"])
 b_provider = k8s.Provider("b", namespace=b_ns.metadata["name"])
 
@@ -34,17 +30,14 @@ def apply_default_opts(args):
     return None
 pulumi.runtime.register_stack_transformation(apply_default_opts)
 
-# transform_pulumi is a Pulumi transformation that applies a unique alias to each resource.
-def transform_pulumi(args: ResourceTransformationArgs):
+# apply_alias is a Pulumi transformation that applies a unique alias to each resource.
+def apply_alias(args: ResourceTransformationArgs):
     return ResourceTransformationResult(
       props=args.props,
       opts=ResourceOptions.merge(args.opts, ResourceOptions(
         aliases=[Alias(name=f'{args.name}-aliased')],
       )),
     )
-
-def debugger(args: ResourceTransformationArgs):
-    return None
 
 # transform_k8s is a Kubernetes transformation that applies a unique alias and annotation to each resource.
 def transform_k8s(obj, opts):
@@ -64,7 +57,7 @@ k8s.yaml.ConfigGroup(
 apiVersion: v1
 kind: ConfigMap
 metadata:
-    name: cg-a-cm-1
+  name: cg-a-cm-1
     '''],
     opts=ResourceOptions(
         providers=[a_provider],
@@ -72,7 +65,7 @@ metadata:
         ignore_changes=["ignored"],
         protect=True,
         depends_on=[sleep],
-        transformations=[transform_pulumi],
+        transformations=[apply_alias],
     ),
 )
 # "provider" option
@@ -83,7 +76,7 @@ k8s.yaml.ConfigGroup(
 apiVersion: v1
 kind: ConfigMap
 metadata:
-    name: yaml-cm-1
+  name: cg-b-cm-1
     '''],
     opts=ResourceOptions(
         provider=b_provider,
@@ -97,7 +90,7 @@ k8s.yaml.ConfigGroup(
 apiVersion: v1
 kind: ConfigMap
 metadata:
-    name: yaml-cm-1
+  name: cg-nullopts-cm-1
     '''],
 )
 
@@ -116,7 +109,7 @@ k8s.yaml.ConfigFile(
         ignore_changes=["ignored"],
         protect=True,
         depends_on=[sleep],
-        transformations=[transform_pulumi],
+        transformations=[apply_alias],
     ),
 )
 # "provider" option
@@ -158,7 +151,7 @@ k8s.kustomize.Directory(
         ignore_changes=["ignored"],
         protect=True,
         depends_on=[sleep],
-        transformations=[transform_pulumi],
+        transformations=[apply_alias],
     ),
 )
 # "provider" option
@@ -194,7 +187,7 @@ k8s.helm.v3.Chart(
         ignore_changes=["ignored"],
         protect=True,
         depends_on=[sleep],
-        transformations=[transform_pulumi, debugger],
+        transformations=[apply_alias],
     ),
 )
 # "provider" option

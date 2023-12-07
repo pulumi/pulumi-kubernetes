@@ -622,6 +622,7 @@ func TestOptionPropagation(t *testing.T) {
 						"IgnoreChanges": BeEmpty(),
 						"Object": PointTo(ProtobufStruct(MatchKeys(IgnoreExtras, Keys{
 							"metadata": MatchKeys(IgnoreExtras, Keys{
+								"name":        Equal("cg-a-cm-1"),
 								"annotations": And(HaveKey("pulumi.com/skipAwait"), HaveKey("transformed")),
 							}),
 						}))),
@@ -654,6 +655,7 @@ func TestOptionPropagation(t *testing.T) {
 						"IgnoreChanges": BeEmpty(),
 						"Object": PointTo(ProtobufStruct(MatchKeys(IgnoreExtras, Keys{
 							"metadata": MatchKeys(IgnoreExtras, Keys{
+								"name":        Equal("configgroup-cm-1"),
 								"annotations": And(HaveKey("pulumi.com/skipAwait"), HaveKey("transformed")),
 							}),
 						}))),
@@ -717,6 +719,7 @@ func TestOptionPropagation(t *testing.T) {
 						"IgnoreChanges": BeEmpty(),
 						"Object": PointTo(ProtobufStruct(MatchKeys(IgnoreExtras, Keys{
 							"metadata": MatchKeys(IgnoreExtras, Keys{
+								"name":        Equal("configfile-cm-1"),
 								"annotations": And(HaveKey("pulumi.com/skipAwait"), HaveKey("transformed")),
 							}),
 						}))),
@@ -743,6 +746,11 @@ func TestOptionPropagation(t *testing.T) {
 						"Provider":  BeEquivalentTo(providerUrn(providerB)),
 						"Version":   Not(BeEmpty()),
 						"Providers": BeEmpty(),
+						"Object": PointTo(ProtobufStruct(MatchKeys(IgnoreExtras, Keys{
+							"metadata": MatchKeys(IgnoreExtras, Keys{
+								"name": Equal("configfile-cm-1"),
+							}),
+						}))),
 					}),
 				}),
 			))
@@ -792,6 +800,7 @@ func TestOptionPropagation(t *testing.T) {
 						"IgnoreChanges": BeEmpty(),
 						"Object": PointTo(ProtobufStruct(MatchKeys(IgnoreExtras, Keys{
 							"metadata": MatchKeys(IgnoreExtras, Keys{
+								"name":        Equal("kustomize-cm-1-2kkk4bthmg"),
 								"annotations": And(HaveKey("transformed")),
 							}),
 						}))),
@@ -856,6 +865,7 @@ func TestOptionPropagation(t *testing.T) {
 				}),
 			))
 			g.Expect(rr.Named(urn("", "kubernetes:helm.sh/v3:Chart", "chart-a-chart-a"), "kubernetes:core/v1:ConfigMap", "chart-a-chart-a-cm-1")).To(HaveExactElements(
+				// quirk: Python SDK does NOT directly apply resource_prefix to the child resources (unlike other SDKs)
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
 						"Aliases":       ConsistOf(Alias("chart-a-chart-a-cm-1-k8s-aliased"), Alias("chart-a-chart-a-cm-1-aliased")),
@@ -867,6 +877,7 @@ func TestOptionPropagation(t *testing.T) {
 						"IgnoreChanges": BeEmpty(),
 						"Object": PointTo(ProtobufStruct(MatchKeys(IgnoreExtras, Keys{
 							"metadata": MatchKeys(IgnoreExtras, Keys{
+								"name":        Equal("chart-a-chart-a-cm-1"), // note: based on the Helm Release name
 								"annotations": And(HaveKey("pulumi.com/skipAwait")),
 							}),
 						}))),
