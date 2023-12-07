@@ -865,6 +865,11 @@ func TestOptionPropagation(t *testing.T) {
 						"Version":       Not(BeEmpty()),
 						"Providers":     BeEmpty(),
 						"IgnoreChanges": BeEmpty(),
+						"Object": PointTo(ProtobufStruct(MatchKeys(IgnoreExtras, Keys{
+							"metadata": MatchKeys(IgnoreExtras, Keys{
+								"annotations": And(HaveKey("pulumi.com/skipAwait")),
+							}),
+						}))),
 					}),
 				}),
 			))
