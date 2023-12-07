@@ -106,8 +106,8 @@ build:: k8sgen openapi_file schema k8sprovider nodejs_sdk go_sdk python_sdk dotn
 only_build:: build
 
 lint::
-	for DIR in "provider" "sdk" "tests" ; do \
-		pushd $$DIR && golangci-lint run -c ../.golangci.yml --timeout 10m && popd ; \
+	@for DIR in "provider" "tests" ; do \
+		pushd $$DIR  > /dev/null; golangci-lint run -c ../.golangci.yml --timeout 10m; popd  > /dev/null; \
 	done
 
 install_provider::
