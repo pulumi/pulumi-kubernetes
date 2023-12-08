@@ -10,7 +10,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // PersistentVolumeClaim is a user's request for and claim to a persistent volume
@@ -116,12 +115,6 @@ func (i *PersistentVolumeClaim) ToPersistentVolumeClaimOutputWithContext(ctx con
 	return pulumi.ToOutputWithContext(ctx, i).(PersistentVolumeClaimOutput)
 }
 
-func (i *PersistentVolumeClaim) ToOutput(ctx context.Context) pulumix.Output[*PersistentVolumeClaim] {
-	return pulumix.Output[*PersistentVolumeClaim]{
-		OutputState: i.ToPersistentVolumeClaimOutputWithContext(ctx).OutputState,
-	}
-}
-
 // PersistentVolumeClaimArrayInput is an input type that accepts PersistentVolumeClaimArray and PersistentVolumeClaimArrayOutput values.
 // You can construct a concrete instance of `PersistentVolumeClaimArrayInput` via:
 //
@@ -145,12 +138,6 @@ func (i PersistentVolumeClaimArray) ToPersistentVolumeClaimArrayOutput() Persist
 
 func (i PersistentVolumeClaimArray) ToPersistentVolumeClaimArrayOutputWithContext(ctx context.Context) PersistentVolumeClaimArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(PersistentVolumeClaimArrayOutput)
-}
-
-func (i PersistentVolumeClaimArray) ToOutput(ctx context.Context) pulumix.Output[[]*PersistentVolumeClaim] {
-	return pulumix.Output[[]*PersistentVolumeClaim]{
-		OutputState: i.ToPersistentVolumeClaimArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // PersistentVolumeClaimMapInput is an input type that accepts PersistentVolumeClaimMap and PersistentVolumeClaimMapOutput values.
@@ -178,12 +165,6 @@ func (i PersistentVolumeClaimMap) ToPersistentVolumeClaimMapOutputWithContext(ct
 	return pulumi.ToOutputWithContext(ctx, i).(PersistentVolumeClaimMapOutput)
 }
 
-func (i PersistentVolumeClaimMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*PersistentVolumeClaim] {
-	return pulumix.Output[map[string]*PersistentVolumeClaim]{
-		OutputState: i.ToPersistentVolumeClaimMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type PersistentVolumeClaimOutput struct{ *pulumi.OutputState }
 
 func (PersistentVolumeClaimOutput) ElementType() reflect.Type {
@@ -196,12 +177,6 @@ func (o PersistentVolumeClaimOutput) ToPersistentVolumeClaimOutput() PersistentV
 
 func (o PersistentVolumeClaimOutput) ToPersistentVolumeClaimOutputWithContext(ctx context.Context) PersistentVolumeClaimOutput {
 	return o
-}
-
-func (o PersistentVolumeClaimOutput) ToOutput(ctx context.Context) pulumix.Output[*PersistentVolumeClaim] {
-	return pulumix.Output[*PersistentVolumeClaim]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -243,12 +218,6 @@ func (o PersistentVolumeClaimArrayOutput) ToPersistentVolumeClaimArrayOutputWith
 	return o
 }
 
-func (o PersistentVolumeClaimArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*PersistentVolumeClaim] {
-	return pulumix.Output[[]*PersistentVolumeClaim]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o PersistentVolumeClaimArrayOutput) Index(i pulumi.IntInput) PersistentVolumeClaimOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *PersistentVolumeClaim {
 		return vs[0].([]*PersistentVolumeClaim)[vs[1].(int)]
@@ -267,12 +236,6 @@ func (o PersistentVolumeClaimMapOutput) ToPersistentVolumeClaimMapOutput() Persi
 
 func (o PersistentVolumeClaimMapOutput) ToPersistentVolumeClaimMapOutputWithContext(ctx context.Context) PersistentVolumeClaimMapOutput {
 	return o
-}
-
-func (o PersistentVolumeClaimMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*PersistentVolumeClaim] {
-	return pulumix.Output[map[string]*PersistentVolumeClaim]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o PersistentVolumeClaimMapOutput) MapIndex(k pulumi.StringInput) PersistentVolumeClaimOutput {

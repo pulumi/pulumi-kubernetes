@@ -9,7 +9,6 @@ import (
 
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Status is a return value for calls that don't return other objects.
@@ -133,12 +132,6 @@ func (i *Status) ToStatusOutputWithContext(ctx context.Context) StatusOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(StatusOutput)
 }
 
-func (i *Status) ToOutput(ctx context.Context) pulumix.Output[*Status] {
-	return pulumix.Output[*Status]{
-		OutputState: i.ToStatusOutputWithContext(ctx).OutputState,
-	}
-}
-
 // StatusArrayInput is an input type that accepts StatusArray and StatusArrayOutput values.
 // You can construct a concrete instance of `StatusArrayInput` via:
 //
@@ -162,12 +155,6 @@ func (i StatusArray) ToStatusArrayOutput() StatusArrayOutput {
 
 func (i StatusArray) ToStatusArrayOutputWithContext(ctx context.Context) StatusArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(StatusArrayOutput)
-}
-
-func (i StatusArray) ToOutput(ctx context.Context) pulumix.Output[[]*Status] {
-	return pulumix.Output[[]*Status]{
-		OutputState: i.ToStatusArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // StatusMapInput is an input type that accepts StatusMap and StatusMapOutput values.
@@ -195,12 +182,6 @@ func (i StatusMap) ToStatusMapOutputWithContext(ctx context.Context) StatusMapOu
 	return pulumi.ToOutputWithContext(ctx, i).(StatusMapOutput)
 }
 
-func (i StatusMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*Status] {
-	return pulumix.Output[map[string]*Status]{
-		OutputState: i.ToStatusMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type StatusOutput struct{ *pulumi.OutputState }
 
 func (StatusOutput) ElementType() reflect.Type {
@@ -213,12 +194,6 @@ func (o StatusOutput) ToStatusOutput() StatusOutput {
 
 func (o StatusOutput) ToStatusOutputWithContext(ctx context.Context) StatusOutput {
 	return o
-}
-
-func (o StatusOutput) ToOutput(ctx context.Context) pulumix.Output[*Status] {
-	return pulumix.Output[*Status]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -275,12 +250,6 @@ func (o StatusArrayOutput) ToStatusArrayOutputWithContext(ctx context.Context) S
 	return o
 }
 
-func (o StatusArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*Status] {
-	return pulumix.Output[[]*Status]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o StatusArrayOutput) Index(i pulumi.IntInput) StatusOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *Status {
 		return vs[0].([]*Status)[vs[1].(int)]
@@ -299,12 +268,6 @@ func (o StatusMapOutput) ToStatusMapOutput() StatusMapOutput {
 
 func (o StatusMapOutput) ToStatusMapOutputWithContext(ctx context.Context) StatusMapOutput {
 	return o
-}
-
-func (o StatusMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*Status] {
-	return pulumix.Output[map[string]*Status]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o StatusMapOutput) MapIndex(k pulumi.StringInput) StatusOutput {

@@ -10,7 +10,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Patch resources are used to modify existing Kubernetes resources by using
@@ -128,12 +127,6 @@ func (i *PodDisruptionBudgetPatch) ToPodDisruptionBudgetPatchOutputWithContext(c
 	return pulumi.ToOutputWithContext(ctx, i).(PodDisruptionBudgetPatchOutput)
 }
 
-func (i *PodDisruptionBudgetPatch) ToOutput(ctx context.Context) pulumix.Output[*PodDisruptionBudgetPatch] {
-	return pulumix.Output[*PodDisruptionBudgetPatch]{
-		OutputState: i.ToPodDisruptionBudgetPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // PodDisruptionBudgetPatchArrayInput is an input type that accepts PodDisruptionBudgetPatchArray and PodDisruptionBudgetPatchArrayOutput values.
 // You can construct a concrete instance of `PodDisruptionBudgetPatchArrayInput` via:
 //
@@ -157,12 +150,6 @@ func (i PodDisruptionBudgetPatchArray) ToPodDisruptionBudgetPatchArrayOutput() P
 
 func (i PodDisruptionBudgetPatchArray) ToPodDisruptionBudgetPatchArrayOutputWithContext(ctx context.Context) PodDisruptionBudgetPatchArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(PodDisruptionBudgetPatchArrayOutput)
-}
-
-func (i PodDisruptionBudgetPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]*PodDisruptionBudgetPatch] {
-	return pulumix.Output[[]*PodDisruptionBudgetPatch]{
-		OutputState: i.ToPodDisruptionBudgetPatchArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // PodDisruptionBudgetPatchMapInput is an input type that accepts PodDisruptionBudgetPatchMap and PodDisruptionBudgetPatchMapOutput values.
@@ -190,12 +177,6 @@ func (i PodDisruptionBudgetPatchMap) ToPodDisruptionBudgetPatchMapOutputWithCont
 	return pulumi.ToOutputWithContext(ctx, i).(PodDisruptionBudgetPatchMapOutput)
 }
 
-func (i PodDisruptionBudgetPatchMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*PodDisruptionBudgetPatch] {
-	return pulumix.Output[map[string]*PodDisruptionBudgetPatch]{
-		OutputState: i.ToPodDisruptionBudgetPatchMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type PodDisruptionBudgetPatchOutput struct{ *pulumi.OutputState }
 
 func (PodDisruptionBudgetPatchOutput) ElementType() reflect.Type {
@@ -208,12 +189,6 @@ func (o PodDisruptionBudgetPatchOutput) ToPodDisruptionBudgetPatchOutput() PodDi
 
 func (o PodDisruptionBudgetPatchOutput) ToPodDisruptionBudgetPatchOutputWithContext(ctx context.Context) PodDisruptionBudgetPatchOutput {
 	return o
-}
-
-func (o PodDisruptionBudgetPatchOutput) ToOutput(ctx context.Context) pulumix.Output[*PodDisruptionBudgetPatch] {
-	return pulumix.Output[*PodDisruptionBudgetPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -255,12 +230,6 @@ func (o PodDisruptionBudgetPatchArrayOutput) ToPodDisruptionBudgetPatchArrayOutp
 	return o
 }
 
-func (o PodDisruptionBudgetPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*PodDisruptionBudgetPatch] {
-	return pulumix.Output[[]*PodDisruptionBudgetPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o PodDisruptionBudgetPatchArrayOutput) Index(i pulumi.IntInput) PodDisruptionBudgetPatchOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *PodDisruptionBudgetPatch {
 		return vs[0].([]*PodDisruptionBudgetPatch)[vs[1].(int)]
@@ -279,12 +248,6 @@ func (o PodDisruptionBudgetPatchMapOutput) ToPodDisruptionBudgetPatchMapOutput()
 
 func (o PodDisruptionBudgetPatchMapOutput) ToPodDisruptionBudgetPatchMapOutputWithContext(ctx context.Context) PodDisruptionBudgetPatchMapOutput {
 	return o
-}
-
-func (o PodDisruptionBudgetPatchMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*PodDisruptionBudgetPatch] {
-	return pulumix.Output[map[string]*PodDisruptionBudgetPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o PodDisruptionBudgetPatchMapOutput) MapIndex(k pulumi.StringInput) PodDisruptionBudgetPatchOutput {

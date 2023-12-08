@@ -10,7 +10,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // ValidatingAdmissionPolicyBinding binds the ValidatingAdmissionPolicy with paramerized resources. ValidatingAdmissionPolicyBinding and parameter CRDs together define how cluster administrators configure policies for clusters.
@@ -124,12 +123,6 @@ func (i *ValidatingAdmissionPolicyBinding) ToValidatingAdmissionPolicyBindingOut
 	return pulumi.ToOutputWithContext(ctx, i).(ValidatingAdmissionPolicyBindingOutput)
 }
 
-func (i *ValidatingAdmissionPolicyBinding) ToOutput(ctx context.Context) pulumix.Output[*ValidatingAdmissionPolicyBinding] {
-	return pulumix.Output[*ValidatingAdmissionPolicyBinding]{
-		OutputState: i.ToValidatingAdmissionPolicyBindingOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ValidatingAdmissionPolicyBindingArrayInput is an input type that accepts ValidatingAdmissionPolicyBindingArray and ValidatingAdmissionPolicyBindingArrayOutput values.
 // You can construct a concrete instance of `ValidatingAdmissionPolicyBindingArrayInput` via:
 //
@@ -153,12 +146,6 @@ func (i ValidatingAdmissionPolicyBindingArray) ToValidatingAdmissionPolicyBindin
 
 func (i ValidatingAdmissionPolicyBindingArray) ToValidatingAdmissionPolicyBindingArrayOutputWithContext(ctx context.Context) ValidatingAdmissionPolicyBindingArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ValidatingAdmissionPolicyBindingArrayOutput)
-}
-
-func (i ValidatingAdmissionPolicyBindingArray) ToOutput(ctx context.Context) pulumix.Output[[]*ValidatingAdmissionPolicyBinding] {
-	return pulumix.Output[[]*ValidatingAdmissionPolicyBinding]{
-		OutputState: i.ToValidatingAdmissionPolicyBindingArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // ValidatingAdmissionPolicyBindingMapInput is an input type that accepts ValidatingAdmissionPolicyBindingMap and ValidatingAdmissionPolicyBindingMapOutput values.
@@ -186,12 +173,6 @@ func (i ValidatingAdmissionPolicyBindingMap) ToValidatingAdmissionPolicyBindingM
 	return pulumi.ToOutputWithContext(ctx, i).(ValidatingAdmissionPolicyBindingMapOutput)
 }
 
-func (i ValidatingAdmissionPolicyBindingMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*ValidatingAdmissionPolicyBinding] {
-	return pulumix.Output[map[string]*ValidatingAdmissionPolicyBinding]{
-		OutputState: i.ToValidatingAdmissionPolicyBindingMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type ValidatingAdmissionPolicyBindingOutput struct{ *pulumi.OutputState }
 
 func (ValidatingAdmissionPolicyBindingOutput) ElementType() reflect.Type {
@@ -204,12 +185,6 @@ func (o ValidatingAdmissionPolicyBindingOutput) ToValidatingAdmissionPolicyBindi
 
 func (o ValidatingAdmissionPolicyBindingOutput) ToValidatingAdmissionPolicyBindingOutputWithContext(ctx context.Context) ValidatingAdmissionPolicyBindingOutput {
 	return o
-}
-
-func (o ValidatingAdmissionPolicyBindingOutput) ToOutput(ctx context.Context) pulumix.Output[*ValidatingAdmissionPolicyBinding] {
-	return pulumix.Output[*ValidatingAdmissionPolicyBinding]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -246,12 +221,6 @@ func (o ValidatingAdmissionPolicyBindingArrayOutput) ToValidatingAdmissionPolicy
 	return o
 }
 
-func (o ValidatingAdmissionPolicyBindingArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*ValidatingAdmissionPolicyBinding] {
-	return pulumix.Output[[]*ValidatingAdmissionPolicyBinding]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o ValidatingAdmissionPolicyBindingArrayOutput) Index(i pulumi.IntInput) ValidatingAdmissionPolicyBindingOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *ValidatingAdmissionPolicyBinding {
 		return vs[0].([]*ValidatingAdmissionPolicyBinding)[vs[1].(int)]
@@ -270,12 +239,6 @@ func (o ValidatingAdmissionPolicyBindingMapOutput) ToValidatingAdmissionPolicyBi
 
 func (o ValidatingAdmissionPolicyBindingMapOutput) ToValidatingAdmissionPolicyBindingMapOutputWithContext(ctx context.Context) ValidatingAdmissionPolicyBindingMapOutput {
 	return o
-}
-
-func (o ValidatingAdmissionPolicyBindingMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*ValidatingAdmissionPolicyBinding] {
-	return pulumix.Output[map[string]*ValidatingAdmissionPolicyBinding]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ValidatingAdmissionPolicyBindingMapOutput) MapIndex(k pulumi.StringInput) ValidatingAdmissionPolicyBindingOutput {

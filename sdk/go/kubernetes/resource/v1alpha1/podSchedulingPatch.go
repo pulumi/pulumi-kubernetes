@@ -10,7 +10,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Patch resources are used to modify existing Kubernetes resources by using
@@ -124,12 +123,6 @@ func (i *PodSchedulingPatch) ToPodSchedulingPatchOutputWithContext(ctx context.C
 	return pulumi.ToOutputWithContext(ctx, i).(PodSchedulingPatchOutput)
 }
 
-func (i *PodSchedulingPatch) ToOutput(ctx context.Context) pulumix.Output[*PodSchedulingPatch] {
-	return pulumix.Output[*PodSchedulingPatch]{
-		OutputState: i.ToPodSchedulingPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // PodSchedulingPatchArrayInput is an input type that accepts PodSchedulingPatchArray and PodSchedulingPatchArrayOutput values.
 // You can construct a concrete instance of `PodSchedulingPatchArrayInput` via:
 //
@@ -153,12 +146,6 @@ func (i PodSchedulingPatchArray) ToPodSchedulingPatchArrayOutput() PodScheduling
 
 func (i PodSchedulingPatchArray) ToPodSchedulingPatchArrayOutputWithContext(ctx context.Context) PodSchedulingPatchArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(PodSchedulingPatchArrayOutput)
-}
-
-func (i PodSchedulingPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]*PodSchedulingPatch] {
-	return pulumix.Output[[]*PodSchedulingPatch]{
-		OutputState: i.ToPodSchedulingPatchArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // PodSchedulingPatchMapInput is an input type that accepts PodSchedulingPatchMap and PodSchedulingPatchMapOutput values.
@@ -186,12 +173,6 @@ func (i PodSchedulingPatchMap) ToPodSchedulingPatchMapOutputWithContext(ctx cont
 	return pulumi.ToOutputWithContext(ctx, i).(PodSchedulingPatchMapOutput)
 }
 
-func (i PodSchedulingPatchMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*PodSchedulingPatch] {
-	return pulumix.Output[map[string]*PodSchedulingPatch]{
-		OutputState: i.ToPodSchedulingPatchMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type PodSchedulingPatchOutput struct{ *pulumi.OutputState }
 
 func (PodSchedulingPatchOutput) ElementType() reflect.Type {
@@ -204,12 +185,6 @@ func (o PodSchedulingPatchOutput) ToPodSchedulingPatchOutput() PodSchedulingPatc
 
 func (o PodSchedulingPatchOutput) ToPodSchedulingPatchOutputWithContext(ctx context.Context) PodSchedulingPatchOutput {
 	return o
-}
-
-func (o PodSchedulingPatchOutput) ToOutput(ctx context.Context) pulumix.Output[*PodSchedulingPatch] {
-	return pulumix.Output[*PodSchedulingPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -251,12 +226,6 @@ func (o PodSchedulingPatchArrayOutput) ToPodSchedulingPatchArrayOutputWithContex
 	return o
 }
 
-func (o PodSchedulingPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*PodSchedulingPatch] {
-	return pulumix.Output[[]*PodSchedulingPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o PodSchedulingPatchArrayOutput) Index(i pulumi.IntInput) PodSchedulingPatchOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *PodSchedulingPatch {
 		return vs[0].([]*PodSchedulingPatch)[vs[1].(int)]
@@ -275,12 +244,6 @@ func (o PodSchedulingPatchMapOutput) ToPodSchedulingPatchMapOutput() PodScheduli
 
 func (o PodSchedulingPatchMapOutput) ToPodSchedulingPatchMapOutputWithContext(ctx context.Context) PodSchedulingPatchMapOutput {
 	return o
-}
-
-func (o PodSchedulingPatchMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*PodSchedulingPatch] {
-	return pulumix.Output[map[string]*PodSchedulingPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o PodSchedulingPatchMapOutput) MapIndex(k pulumi.StringInput) PodSchedulingPatchOutput {

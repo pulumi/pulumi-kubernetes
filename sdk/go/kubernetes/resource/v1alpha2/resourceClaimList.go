@@ -11,7 +11,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // ResourceClaimList is a collection of claims.
@@ -118,12 +117,6 @@ func (i *ResourceClaimList) ToResourceClaimListOutputWithContext(ctx context.Con
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceClaimListOutput)
 }
 
-func (i *ResourceClaimList) ToOutput(ctx context.Context) pulumix.Output[*ResourceClaimList] {
-	return pulumix.Output[*ResourceClaimList]{
-		OutputState: i.ToResourceClaimListOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ResourceClaimListArrayInput is an input type that accepts ResourceClaimListArray and ResourceClaimListArrayOutput values.
 // You can construct a concrete instance of `ResourceClaimListArrayInput` via:
 //
@@ -147,12 +140,6 @@ func (i ResourceClaimListArray) ToResourceClaimListArrayOutput() ResourceClaimLi
 
 func (i ResourceClaimListArray) ToResourceClaimListArrayOutputWithContext(ctx context.Context) ResourceClaimListArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceClaimListArrayOutput)
-}
-
-func (i ResourceClaimListArray) ToOutput(ctx context.Context) pulumix.Output[[]*ResourceClaimList] {
-	return pulumix.Output[[]*ResourceClaimList]{
-		OutputState: i.ToResourceClaimListArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // ResourceClaimListMapInput is an input type that accepts ResourceClaimListMap and ResourceClaimListMapOutput values.
@@ -180,12 +167,6 @@ func (i ResourceClaimListMap) ToResourceClaimListMapOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceClaimListMapOutput)
 }
 
-func (i ResourceClaimListMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*ResourceClaimList] {
-	return pulumix.Output[map[string]*ResourceClaimList]{
-		OutputState: i.ToResourceClaimListMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type ResourceClaimListOutput struct{ *pulumi.OutputState }
 
 func (ResourceClaimListOutput) ElementType() reflect.Type {
@@ -198,12 +179,6 @@ func (o ResourceClaimListOutput) ToResourceClaimListOutput() ResourceClaimListOu
 
 func (o ResourceClaimListOutput) ToResourceClaimListOutputWithContext(ctx context.Context) ResourceClaimListOutput {
 	return o
-}
-
-func (o ResourceClaimListOutput) ToOutput(ctx context.Context) pulumix.Output[*ResourceClaimList] {
-	return pulumix.Output[*ResourceClaimList]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -240,12 +215,6 @@ func (o ResourceClaimListArrayOutput) ToResourceClaimListArrayOutputWithContext(
 	return o
 }
 
-func (o ResourceClaimListArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*ResourceClaimList] {
-	return pulumix.Output[[]*ResourceClaimList]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o ResourceClaimListArrayOutput) Index(i pulumi.IntInput) ResourceClaimListOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *ResourceClaimList {
 		return vs[0].([]*ResourceClaimList)[vs[1].(int)]
@@ -264,12 +233,6 @@ func (o ResourceClaimListMapOutput) ToResourceClaimListMapOutput() ResourceClaim
 
 func (o ResourceClaimListMapOutput) ToResourceClaimListMapOutputWithContext(ctx context.Context) ResourceClaimListMapOutput {
 	return o
-}
-
-func (o ResourceClaimListMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*ResourceClaimList] {
-	return pulumix.Output[map[string]*ResourceClaimList]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ResourceClaimListMapOutput) MapIndex(k pulumi.StringInput) ResourceClaimListOutput {

@@ -10,7 +10,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Patch resources are used to modify existing Kubernetes resources by using
@@ -122,12 +121,6 @@ func (i *ResourceQuotaPatch) ToResourceQuotaPatchOutputWithContext(ctx context.C
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceQuotaPatchOutput)
 }
 
-func (i *ResourceQuotaPatch) ToOutput(ctx context.Context) pulumix.Output[*ResourceQuotaPatch] {
-	return pulumix.Output[*ResourceQuotaPatch]{
-		OutputState: i.ToResourceQuotaPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ResourceQuotaPatchArrayInput is an input type that accepts ResourceQuotaPatchArray and ResourceQuotaPatchArrayOutput values.
 // You can construct a concrete instance of `ResourceQuotaPatchArrayInput` via:
 //
@@ -151,12 +144,6 @@ func (i ResourceQuotaPatchArray) ToResourceQuotaPatchArrayOutput() ResourceQuota
 
 func (i ResourceQuotaPatchArray) ToResourceQuotaPatchArrayOutputWithContext(ctx context.Context) ResourceQuotaPatchArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceQuotaPatchArrayOutput)
-}
-
-func (i ResourceQuotaPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]*ResourceQuotaPatch] {
-	return pulumix.Output[[]*ResourceQuotaPatch]{
-		OutputState: i.ToResourceQuotaPatchArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // ResourceQuotaPatchMapInput is an input type that accepts ResourceQuotaPatchMap and ResourceQuotaPatchMapOutput values.
@@ -184,12 +171,6 @@ func (i ResourceQuotaPatchMap) ToResourceQuotaPatchMapOutputWithContext(ctx cont
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceQuotaPatchMapOutput)
 }
 
-func (i ResourceQuotaPatchMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*ResourceQuotaPatch] {
-	return pulumix.Output[map[string]*ResourceQuotaPatch]{
-		OutputState: i.ToResourceQuotaPatchMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type ResourceQuotaPatchOutput struct{ *pulumi.OutputState }
 
 func (ResourceQuotaPatchOutput) ElementType() reflect.Type {
@@ -202,12 +183,6 @@ func (o ResourceQuotaPatchOutput) ToResourceQuotaPatchOutput() ResourceQuotaPatc
 
 func (o ResourceQuotaPatchOutput) ToResourceQuotaPatchOutputWithContext(ctx context.Context) ResourceQuotaPatchOutput {
 	return o
-}
-
-func (o ResourceQuotaPatchOutput) ToOutput(ctx context.Context) pulumix.Output[*ResourceQuotaPatch] {
-	return pulumix.Output[*ResourceQuotaPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -249,12 +224,6 @@ func (o ResourceQuotaPatchArrayOutput) ToResourceQuotaPatchArrayOutputWithContex
 	return o
 }
 
-func (o ResourceQuotaPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*ResourceQuotaPatch] {
-	return pulumix.Output[[]*ResourceQuotaPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o ResourceQuotaPatchArrayOutput) Index(i pulumi.IntInput) ResourceQuotaPatchOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *ResourceQuotaPatch {
 		return vs[0].([]*ResourceQuotaPatch)[vs[1].(int)]
@@ -273,12 +242,6 @@ func (o ResourceQuotaPatchMapOutput) ToResourceQuotaPatchMapOutput() ResourceQuo
 
 func (o ResourceQuotaPatchMapOutput) ToResourceQuotaPatchMapOutputWithContext(ctx context.Context) ResourceQuotaPatchMapOutput {
 	return o
-}
-
-func (o ResourceQuotaPatchMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*ResourceQuotaPatch] {
-	return pulumix.Output[map[string]*ResourceQuotaPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ResourceQuotaPatchMapOutput) MapIndex(k pulumi.StringInput) ResourceQuotaPatchOutput {

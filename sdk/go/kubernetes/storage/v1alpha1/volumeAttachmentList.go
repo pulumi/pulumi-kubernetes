@@ -11,7 +11,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // VolumeAttachmentList is a collection of VolumeAttachment objects.
@@ -118,12 +117,6 @@ func (i *VolumeAttachmentList) ToVolumeAttachmentListOutputWithContext(ctx conte
 	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttachmentListOutput)
 }
 
-func (i *VolumeAttachmentList) ToOutput(ctx context.Context) pulumix.Output[*VolumeAttachmentList] {
-	return pulumix.Output[*VolumeAttachmentList]{
-		OutputState: i.ToVolumeAttachmentListOutputWithContext(ctx).OutputState,
-	}
-}
-
 // VolumeAttachmentListArrayInput is an input type that accepts VolumeAttachmentListArray and VolumeAttachmentListArrayOutput values.
 // You can construct a concrete instance of `VolumeAttachmentListArrayInput` via:
 //
@@ -147,12 +140,6 @@ func (i VolumeAttachmentListArray) ToVolumeAttachmentListArrayOutput() VolumeAtt
 
 func (i VolumeAttachmentListArray) ToVolumeAttachmentListArrayOutputWithContext(ctx context.Context) VolumeAttachmentListArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttachmentListArrayOutput)
-}
-
-func (i VolumeAttachmentListArray) ToOutput(ctx context.Context) pulumix.Output[[]*VolumeAttachmentList] {
-	return pulumix.Output[[]*VolumeAttachmentList]{
-		OutputState: i.ToVolumeAttachmentListArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // VolumeAttachmentListMapInput is an input type that accepts VolumeAttachmentListMap and VolumeAttachmentListMapOutput values.
@@ -180,12 +167,6 @@ func (i VolumeAttachmentListMap) ToVolumeAttachmentListMapOutputWithContext(ctx 
 	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttachmentListMapOutput)
 }
 
-func (i VolumeAttachmentListMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*VolumeAttachmentList] {
-	return pulumix.Output[map[string]*VolumeAttachmentList]{
-		OutputState: i.ToVolumeAttachmentListMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type VolumeAttachmentListOutput struct{ *pulumi.OutputState }
 
 func (VolumeAttachmentListOutput) ElementType() reflect.Type {
@@ -198,12 +179,6 @@ func (o VolumeAttachmentListOutput) ToVolumeAttachmentListOutput() VolumeAttachm
 
 func (o VolumeAttachmentListOutput) ToVolumeAttachmentListOutputWithContext(ctx context.Context) VolumeAttachmentListOutput {
 	return o
-}
-
-func (o VolumeAttachmentListOutput) ToOutput(ctx context.Context) pulumix.Output[*VolumeAttachmentList] {
-	return pulumix.Output[*VolumeAttachmentList]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -240,12 +215,6 @@ func (o VolumeAttachmentListArrayOutput) ToVolumeAttachmentListArrayOutputWithCo
 	return o
 }
 
-func (o VolumeAttachmentListArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*VolumeAttachmentList] {
-	return pulumix.Output[[]*VolumeAttachmentList]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o VolumeAttachmentListArrayOutput) Index(i pulumi.IntInput) VolumeAttachmentListOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *VolumeAttachmentList {
 		return vs[0].([]*VolumeAttachmentList)[vs[1].(int)]
@@ -264,12 +233,6 @@ func (o VolumeAttachmentListMapOutput) ToVolumeAttachmentListMapOutput() VolumeA
 
 func (o VolumeAttachmentListMapOutput) ToVolumeAttachmentListMapOutputWithContext(ctx context.Context) VolumeAttachmentListMapOutput {
 	return o
-}
-
-func (o VolumeAttachmentListMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*VolumeAttachmentList] {
-	return pulumix.Output[map[string]*VolumeAttachmentList]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o VolumeAttachmentListMapOutput) MapIndex(k pulumi.StringInput) VolumeAttachmentListOutput {

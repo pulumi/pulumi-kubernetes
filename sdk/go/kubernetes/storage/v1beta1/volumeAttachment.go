@@ -11,7 +11,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // VolumeAttachment captures the intent to attach or detach the specified volume to/from the specified node.
@@ -131,12 +130,6 @@ func (i *VolumeAttachment) ToVolumeAttachmentOutputWithContext(ctx context.Conte
 	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttachmentOutput)
 }
 
-func (i *VolumeAttachment) ToOutput(ctx context.Context) pulumix.Output[*VolumeAttachment] {
-	return pulumix.Output[*VolumeAttachment]{
-		OutputState: i.ToVolumeAttachmentOutputWithContext(ctx).OutputState,
-	}
-}
-
 // VolumeAttachmentArrayInput is an input type that accepts VolumeAttachmentArray and VolumeAttachmentArrayOutput values.
 // You can construct a concrete instance of `VolumeAttachmentArrayInput` via:
 //
@@ -160,12 +153,6 @@ func (i VolumeAttachmentArray) ToVolumeAttachmentArrayOutput() VolumeAttachmentA
 
 func (i VolumeAttachmentArray) ToVolumeAttachmentArrayOutputWithContext(ctx context.Context) VolumeAttachmentArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttachmentArrayOutput)
-}
-
-func (i VolumeAttachmentArray) ToOutput(ctx context.Context) pulumix.Output[[]*VolumeAttachment] {
-	return pulumix.Output[[]*VolumeAttachment]{
-		OutputState: i.ToVolumeAttachmentArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // VolumeAttachmentMapInput is an input type that accepts VolumeAttachmentMap and VolumeAttachmentMapOutput values.
@@ -193,12 +180,6 @@ func (i VolumeAttachmentMap) ToVolumeAttachmentMapOutputWithContext(ctx context.
 	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttachmentMapOutput)
 }
 
-func (i VolumeAttachmentMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*VolumeAttachment] {
-	return pulumix.Output[map[string]*VolumeAttachment]{
-		OutputState: i.ToVolumeAttachmentMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type VolumeAttachmentOutput struct{ *pulumi.OutputState }
 
 func (VolumeAttachmentOutput) ElementType() reflect.Type {
@@ -211,12 +192,6 @@ func (o VolumeAttachmentOutput) ToVolumeAttachmentOutput() VolumeAttachmentOutpu
 
 func (o VolumeAttachmentOutput) ToVolumeAttachmentOutputWithContext(ctx context.Context) VolumeAttachmentOutput {
 	return o
-}
-
-func (o VolumeAttachmentOutput) ToOutput(ctx context.Context) pulumix.Output[*VolumeAttachment] {
-	return pulumix.Output[*VolumeAttachment]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -258,12 +233,6 @@ func (o VolumeAttachmentArrayOutput) ToVolumeAttachmentArrayOutputWithContext(ct
 	return o
 }
 
-func (o VolumeAttachmentArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*VolumeAttachment] {
-	return pulumix.Output[[]*VolumeAttachment]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o VolumeAttachmentArrayOutput) Index(i pulumi.IntInput) VolumeAttachmentOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *VolumeAttachment {
 		return vs[0].([]*VolumeAttachment)[vs[1].(int)]
@@ -282,12 +251,6 @@ func (o VolumeAttachmentMapOutput) ToVolumeAttachmentMapOutput() VolumeAttachmen
 
 func (o VolumeAttachmentMapOutput) ToVolumeAttachmentMapOutputWithContext(ctx context.Context) VolumeAttachmentMapOutput {
 	return o
-}
-
-func (o VolumeAttachmentMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*VolumeAttachment] {
-	return pulumix.Output[map[string]*VolumeAttachment]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o VolumeAttachmentMapOutput) MapIndex(k pulumi.StringInput) VolumeAttachmentOutput {

@@ -11,7 +11,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 var _ = utilities.GetEnvOrDefault
@@ -51,12 +50,6 @@ func (i AllowedCSIDriverArgs) ToAllowedCSIDriverOutputWithContext(ctx context.Co
 	return pulumi.ToOutputWithContext(ctx, i).(AllowedCSIDriverOutput)
 }
 
-func (i AllowedCSIDriverArgs) ToOutput(ctx context.Context) pulumix.Output[AllowedCSIDriver] {
-	return pulumix.Output[AllowedCSIDriver]{
-		OutputState: i.ToAllowedCSIDriverOutputWithContext(ctx).OutputState,
-	}
-}
-
 // AllowedCSIDriverArrayInput is an input type that accepts AllowedCSIDriverArray and AllowedCSIDriverArrayOutput values.
 // You can construct a concrete instance of `AllowedCSIDriverArrayInput` via:
 //
@@ -82,12 +75,6 @@ func (i AllowedCSIDriverArray) ToAllowedCSIDriverArrayOutputWithContext(ctx cont
 	return pulumi.ToOutputWithContext(ctx, i).(AllowedCSIDriverArrayOutput)
 }
 
-func (i AllowedCSIDriverArray) ToOutput(ctx context.Context) pulumix.Output[[]AllowedCSIDriver] {
-	return pulumix.Output[[]AllowedCSIDriver]{
-		OutputState: i.ToAllowedCSIDriverArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // AllowedCSIDriver represents a single inline CSI Driver that is allowed to be used.
 type AllowedCSIDriverOutput struct{ *pulumi.OutputState }
 
@@ -101,12 +88,6 @@ func (o AllowedCSIDriverOutput) ToAllowedCSIDriverOutput() AllowedCSIDriverOutpu
 
 func (o AllowedCSIDriverOutput) ToAllowedCSIDriverOutputWithContext(ctx context.Context) AllowedCSIDriverOutput {
 	return o
-}
-
-func (o AllowedCSIDriverOutput) ToOutput(ctx context.Context) pulumix.Output[AllowedCSIDriver] {
-	return pulumix.Output[AllowedCSIDriver]{
-		OutputState: o.OutputState,
-	}
 }
 
 // Name is the registered name of the CSI driver
@@ -126,12 +107,6 @@ func (o AllowedCSIDriverArrayOutput) ToAllowedCSIDriverArrayOutput() AllowedCSID
 
 func (o AllowedCSIDriverArrayOutput) ToAllowedCSIDriverArrayOutputWithContext(ctx context.Context) AllowedCSIDriverArrayOutput {
 	return o
-}
-
-func (o AllowedCSIDriverArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]AllowedCSIDriver] {
-	return pulumix.Output[[]AllowedCSIDriver]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o AllowedCSIDriverArrayOutput) Index(i pulumi.IntInput) AllowedCSIDriverOutput {
@@ -175,12 +150,6 @@ func (i AllowedCSIDriverPatchArgs) ToAllowedCSIDriverPatchOutputWithContext(ctx 
 	return pulumi.ToOutputWithContext(ctx, i).(AllowedCSIDriverPatchOutput)
 }
 
-func (i AllowedCSIDriverPatchArgs) ToOutput(ctx context.Context) pulumix.Output[AllowedCSIDriverPatch] {
-	return pulumix.Output[AllowedCSIDriverPatch]{
-		OutputState: i.ToAllowedCSIDriverPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // AllowedCSIDriverPatchArrayInput is an input type that accepts AllowedCSIDriverPatchArray and AllowedCSIDriverPatchArrayOutput values.
 // You can construct a concrete instance of `AllowedCSIDriverPatchArrayInput` via:
 //
@@ -206,12 +175,6 @@ func (i AllowedCSIDriverPatchArray) ToAllowedCSIDriverPatchArrayOutputWithContex
 	return pulumi.ToOutputWithContext(ctx, i).(AllowedCSIDriverPatchArrayOutput)
 }
 
-func (i AllowedCSIDriverPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]AllowedCSIDriverPatch] {
-	return pulumix.Output[[]AllowedCSIDriverPatch]{
-		OutputState: i.ToAllowedCSIDriverPatchArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // AllowedCSIDriver represents a single inline CSI Driver that is allowed to be used.
 type AllowedCSIDriverPatchOutput struct{ *pulumi.OutputState }
 
@@ -225,12 +188,6 @@ func (o AllowedCSIDriverPatchOutput) ToAllowedCSIDriverPatchOutput() AllowedCSID
 
 func (o AllowedCSIDriverPatchOutput) ToAllowedCSIDriverPatchOutputWithContext(ctx context.Context) AllowedCSIDriverPatchOutput {
 	return o
-}
-
-func (o AllowedCSIDriverPatchOutput) ToOutput(ctx context.Context) pulumix.Output[AllowedCSIDriverPatch] {
-	return pulumix.Output[AllowedCSIDriverPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // Name is the registered name of the CSI driver
@@ -250,12 +207,6 @@ func (o AllowedCSIDriverPatchArrayOutput) ToAllowedCSIDriverPatchArrayOutput() A
 
 func (o AllowedCSIDriverPatchArrayOutput) ToAllowedCSIDriverPatchArrayOutputWithContext(ctx context.Context) AllowedCSIDriverPatchArrayOutput {
 	return o
-}
-
-func (o AllowedCSIDriverPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]AllowedCSIDriverPatch] {
-	return pulumix.Output[[]AllowedCSIDriverPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o AllowedCSIDriverPatchArrayOutput) Index(i pulumi.IntInput) AllowedCSIDriverPatchOutput {
@@ -299,12 +250,6 @@ func (i AllowedFlexVolumeArgs) ToAllowedFlexVolumeOutputWithContext(ctx context.
 	return pulumi.ToOutputWithContext(ctx, i).(AllowedFlexVolumeOutput)
 }
 
-func (i AllowedFlexVolumeArgs) ToOutput(ctx context.Context) pulumix.Output[AllowedFlexVolume] {
-	return pulumix.Output[AllowedFlexVolume]{
-		OutputState: i.ToAllowedFlexVolumeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // AllowedFlexVolumeArrayInput is an input type that accepts AllowedFlexVolumeArray and AllowedFlexVolumeArrayOutput values.
 // You can construct a concrete instance of `AllowedFlexVolumeArrayInput` via:
 //
@@ -330,12 +275,6 @@ func (i AllowedFlexVolumeArray) ToAllowedFlexVolumeArrayOutputWithContext(ctx co
 	return pulumi.ToOutputWithContext(ctx, i).(AllowedFlexVolumeArrayOutput)
 }
 
-func (i AllowedFlexVolumeArray) ToOutput(ctx context.Context) pulumix.Output[[]AllowedFlexVolume] {
-	return pulumix.Output[[]AllowedFlexVolume]{
-		OutputState: i.ToAllowedFlexVolumeArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // AllowedFlexVolume represents a single Flexvolume that is allowed to be used.
 type AllowedFlexVolumeOutput struct{ *pulumi.OutputState }
 
@@ -349,12 +288,6 @@ func (o AllowedFlexVolumeOutput) ToAllowedFlexVolumeOutput() AllowedFlexVolumeOu
 
 func (o AllowedFlexVolumeOutput) ToAllowedFlexVolumeOutputWithContext(ctx context.Context) AllowedFlexVolumeOutput {
 	return o
-}
-
-func (o AllowedFlexVolumeOutput) ToOutput(ctx context.Context) pulumix.Output[AllowedFlexVolume] {
-	return pulumix.Output[AllowedFlexVolume]{
-		OutputState: o.OutputState,
-	}
 }
 
 // driver is the name of the Flexvolume driver.
@@ -374,12 +307,6 @@ func (o AllowedFlexVolumeArrayOutput) ToAllowedFlexVolumeArrayOutput() AllowedFl
 
 func (o AllowedFlexVolumeArrayOutput) ToAllowedFlexVolumeArrayOutputWithContext(ctx context.Context) AllowedFlexVolumeArrayOutput {
 	return o
-}
-
-func (o AllowedFlexVolumeArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]AllowedFlexVolume] {
-	return pulumix.Output[[]AllowedFlexVolume]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o AllowedFlexVolumeArrayOutput) Index(i pulumi.IntInput) AllowedFlexVolumeOutput {
@@ -423,12 +350,6 @@ func (i AllowedFlexVolumePatchArgs) ToAllowedFlexVolumePatchOutputWithContext(ct
 	return pulumi.ToOutputWithContext(ctx, i).(AllowedFlexVolumePatchOutput)
 }
 
-func (i AllowedFlexVolumePatchArgs) ToOutput(ctx context.Context) pulumix.Output[AllowedFlexVolumePatch] {
-	return pulumix.Output[AllowedFlexVolumePatch]{
-		OutputState: i.ToAllowedFlexVolumePatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // AllowedFlexVolumePatchArrayInput is an input type that accepts AllowedFlexVolumePatchArray and AllowedFlexVolumePatchArrayOutput values.
 // You can construct a concrete instance of `AllowedFlexVolumePatchArrayInput` via:
 //
@@ -454,12 +375,6 @@ func (i AllowedFlexVolumePatchArray) ToAllowedFlexVolumePatchArrayOutputWithCont
 	return pulumi.ToOutputWithContext(ctx, i).(AllowedFlexVolumePatchArrayOutput)
 }
 
-func (i AllowedFlexVolumePatchArray) ToOutput(ctx context.Context) pulumix.Output[[]AllowedFlexVolumePatch] {
-	return pulumix.Output[[]AllowedFlexVolumePatch]{
-		OutputState: i.ToAllowedFlexVolumePatchArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // AllowedFlexVolume represents a single Flexvolume that is allowed to be used.
 type AllowedFlexVolumePatchOutput struct{ *pulumi.OutputState }
 
@@ -473,12 +388,6 @@ func (o AllowedFlexVolumePatchOutput) ToAllowedFlexVolumePatchOutput() AllowedFl
 
 func (o AllowedFlexVolumePatchOutput) ToAllowedFlexVolumePatchOutputWithContext(ctx context.Context) AllowedFlexVolumePatchOutput {
 	return o
-}
-
-func (o AllowedFlexVolumePatchOutput) ToOutput(ctx context.Context) pulumix.Output[AllowedFlexVolumePatch] {
-	return pulumix.Output[AllowedFlexVolumePatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // driver is the name of the Flexvolume driver.
@@ -498,12 +407,6 @@ func (o AllowedFlexVolumePatchArrayOutput) ToAllowedFlexVolumePatchArrayOutput()
 
 func (o AllowedFlexVolumePatchArrayOutput) ToAllowedFlexVolumePatchArrayOutputWithContext(ctx context.Context) AllowedFlexVolumePatchArrayOutput {
 	return o
-}
-
-func (o AllowedFlexVolumePatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]AllowedFlexVolumePatch] {
-	return pulumix.Output[[]AllowedFlexVolumePatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o AllowedFlexVolumePatchArrayOutput) Index(i pulumi.IntInput) AllowedFlexVolumePatchOutput {
@@ -555,12 +458,6 @@ func (i AllowedHostPathArgs) ToAllowedHostPathOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(AllowedHostPathOutput)
 }
 
-func (i AllowedHostPathArgs) ToOutput(ctx context.Context) pulumix.Output[AllowedHostPath] {
-	return pulumix.Output[AllowedHostPath]{
-		OutputState: i.ToAllowedHostPathOutputWithContext(ctx).OutputState,
-	}
-}
-
 // AllowedHostPathArrayInput is an input type that accepts AllowedHostPathArray and AllowedHostPathArrayOutput values.
 // You can construct a concrete instance of `AllowedHostPathArrayInput` via:
 //
@@ -586,12 +483,6 @@ func (i AllowedHostPathArray) ToAllowedHostPathArrayOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(AllowedHostPathArrayOutput)
 }
 
-func (i AllowedHostPathArray) ToOutput(ctx context.Context) pulumix.Output[[]AllowedHostPath] {
-	return pulumix.Output[[]AllowedHostPath]{
-		OutputState: i.ToAllowedHostPathArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // AllowedHostPath defines the host volume conditions that will be enabled by a policy for pods to use. It requires the path prefix to be defined.
 type AllowedHostPathOutput struct{ *pulumi.OutputState }
 
@@ -605,12 +496,6 @@ func (o AllowedHostPathOutput) ToAllowedHostPathOutput() AllowedHostPathOutput {
 
 func (o AllowedHostPathOutput) ToAllowedHostPathOutputWithContext(ctx context.Context) AllowedHostPathOutput {
 	return o
-}
-
-func (o AllowedHostPathOutput) ToOutput(ctx context.Context) pulumix.Output[AllowedHostPath] {
-	return pulumix.Output[AllowedHostPath]{
-		OutputState: o.OutputState,
-	}
 }
 
 // pathPrefix is the path prefix that the host volume must match. It does not support `*`. Trailing slashes are trimmed when validating the path prefix with a host path.
@@ -637,12 +522,6 @@ func (o AllowedHostPathArrayOutput) ToAllowedHostPathArrayOutput() AllowedHostPa
 
 func (o AllowedHostPathArrayOutput) ToAllowedHostPathArrayOutputWithContext(ctx context.Context) AllowedHostPathArrayOutput {
 	return o
-}
-
-func (o AllowedHostPathArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]AllowedHostPath] {
-	return pulumix.Output[[]AllowedHostPath]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o AllowedHostPathArrayOutput) Index(i pulumi.IntInput) AllowedHostPathOutput {
@@ -694,12 +573,6 @@ func (i AllowedHostPathPatchArgs) ToAllowedHostPathPatchOutputWithContext(ctx co
 	return pulumi.ToOutputWithContext(ctx, i).(AllowedHostPathPatchOutput)
 }
 
-func (i AllowedHostPathPatchArgs) ToOutput(ctx context.Context) pulumix.Output[AllowedHostPathPatch] {
-	return pulumix.Output[AllowedHostPathPatch]{
-		OutputState: i.ToAllowedHostPathPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // AllowedHostPathPatchArrayInput is an input type that accepts AllowedHostPathPatchArray and AllowedHostPathPatchArrayOutput values.
 // You can construct a concrete instance of `AllowedHostPathPatchArrayInput` via:
 //
@@ -725,12 +598,6 @@ func (i AllowedHostPathPatchArray) ToAllowedHostPathPatchArrayOutputWithContext(
 	return pulumi.ToOutputWithContext(ctx, i).(AllowedHostPathPatchArrayOutput)
 }
 
-func (i AllowedHostPathPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]AllowedHostPathPatch] {
-	return pulumix.Output[[]AllowedHostPathPatch]{
-		OutputState: i.ToAllowedHostPathPatchArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // AllowedHostPath defines the host volume conditions that will be enabled by a policy for pods to use. It requires the path prefix to be defined.
 type AllowedHostPathPatchOutput struct{ *pulumi.OutputState }
 
@@ -744,12 +611,6 @@ func (o AllowedHostPathPatchOutput) ToAllowedHostPathPatchOutput() AllowedHostPa
 
 func (o AllowedHostPathPatchOutput) ToAllowedHostPathPatchOutputWithContext(ctx context.Context) AllowedHostPathPatchOutput {
 	return o
-}
-
-func (o AllowedHostPathPatchOutput) ToOutput(ctx context.Context) pulumix.Output[AllowedHostPathPatch] {
-	return pulumix.Output[AllowedHostPathPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // pathPrefix is the path prefix that the host volume must match. It does not support `*`. Trailing slashes are trimmed when validating the path prefix with a host path.
@@ -776,12 +637,6 @@ func (o AllowedHostPathPatchArrayOutput) ToAllowedHostPathPatchArrayOutput() All
 
 func (o AllowedHostPathPatchArrayOutput) ToAllowedHostPathPatchArrayOutputWithContext(ctx context.Context) AllowedHostPathPatchArrayOutput {
 	return o
-}
-
-func (o AllowedHostPathPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]AllowedHostPathPatch] {
-	return pulumix.Output[[]AllowedHostPathPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o AllowedHostPathPatchArrayOutput) Index(i pulumi.IntInput) AllowedHostPathPatchOutput {
@@ -837,12 +692,6 @@ func (i EvictionArgs) ToEvictionOutputWithContext(ctx context.Context) EvictionO
 	return pulumi.ToOutputWithContext(ctx, i).(EvictionOutput)
 }
 
-func (i EvictionArgs) ToOutput(ctx context.Context) pulumix.Output[Eviction] {
-	return pulumix.Output[Eviction]{
-		OutputState: i.ToEvictionOutputWithContext(ctx).OutputState,
-	}
-}
-
 // Eviction evicts a pod from its node subject to certain policies and safety constraints. This is a subresource of Pod.  A request to cause such an eviction is created by POSTing to .../pods/<pod name>/evictions.
 type EvictionOutput struct{ *pulumi.OutputState }
 
@@ -856,12 +705,6 @@ func (o EvictionOutput) ToEvictionOutput() EvictionOutput {
 
 func (o EvictionOutput) ToEvictionOutputWithContext(ctx context.Context) EvictionOutput {
 	return o
-}
-
-func (o EvictionOutput) ToOutput(ctx context.Context) pulumix.Output[Eviction] {
-	return pulumix.Output[Eviction]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -931,12 +774,6 @@ func (i EvictionPatchArgs) ToEvictionPatchOutputWithContext(ctx context.Context)
 	return pulumi.ToOutputWithContext(ctx, i).(EvictionPatchOutput)
 }
 
-func (i EvictionPatchArgs) ToOutput(ctx context.Context) pulumix.Output[EvictionPatch] {
-	return pulumix.Output[EvictionPatch]{
-		OutputState: i.ToEvictionPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // Eviction evicts a pod from its node subject to certain policies and safety constraints. This is a subresource of Pod.  A request to cause such an eviction is created by POSTing to .../pods/<pod name>/evictions.
 type EvictionPatchOutput struct{ *pulumi.OutputState }
 
@@ -950,12 +787,6 @@ func (o EvictionPatchOutput) ToEvictionPatchOutput() EvictionPatchOutput {
 
 func (o EvictionPatchOutput) ToEvictionPatchOutputWithContext(ctx context.Context) EvictionPatchOutput {
 	return o
-}
-
-func (o EvictionPatchOutput) ToOutput(ctx context.Context) pulumix.Output[EvictionPatch] {
-	return pulumix.Output[EvictionPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -1017,12 +848,6 @@ func (i FSGroupStrategyOptionsArgs) ToFSGroupStrategyOptionsOutputWithContext(ct
 	return pulumi.ToOutputWithContext(ctx, i).(FSGroupStrategyOptionsOutput)
 }
 
-func (i FSGroupStrategyOptionsArgs) ToOutput(ctx context.Context) pulumix.Output[FSGroupStrategyOptions] {
-	return pulumix.Output[FSGroupStrategyOptions]{
-		OutputState: i.ToFSGroupStrategyOptionsOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i FSGroupStrategyOptionsArgs) ToFSGroupStrategyOptionsPtrOutput() FSGroupStrategyOptionsPtrOutput {
 	return i.ToFSGroupStrategyOptionsPtrOutputWithContext(context.Background())
 }
@@ -1064,12 +889,6 @@ func (i *fsgroupStrategyOptionsPtrType) ToFSGroupStrategyOptionsPtrOutputWithCon
 	return pulumi.ToOutputWithContext(ctx, i).(FSGroupStrategyOptionsPtrOutput)
 }
 
-func (i *fsgroupStrategyOptionsPtrType) ToOutput(ctx context.Context) pulumix.Output[*FSGroupStrategyOptions] {
-	return pulumix.Output[*FSGroupStrategyOptions]{
-		OutputState: i.ToFSGroupStrategyOptionsPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // FSGroupStrategyOptions defines the strategy type and options used to create the strategy.
 type FSGroupStrategyOptionsOutput struct{ *pulumi.OutputState }
 
@@ -1095,12 +914,6 @@ func (o FSGroupStrategyOptionsOutput) ToFSGroupStrategyOptionsPtrOutputWithConte
 	}).(FSGroupStrategyOptionsPtrOutput)
 }
 
-func (o FSGroupStrategyOptionsOutput) ToOutput(ctx context.Context) pulumix.Output[FSGroupStrategyOptions] {
-	return pulumix.Output[FSGroupStrategyOptions]{
-		OutputState: o.OutputState,
-	}
-}
-
 // ranges are the allowed ranges of fs groups.  If you would like to force a single fs group then supply a single range with the same start and end. Required for MustRunAs.
 func (o FSGroupStrategyOptionsOutput) Ranges() IDRangeArrayOutput {
 	return o.ApplyT(func(v FSGroupStrategyOptions) []IDRange { return v.Ranges }).(IDRangeArrayOutput)
@@ -1123,12 +936,6 @@ func (o FSGroupStrategyOptionsPtrOutput) ToFSGroupStrategyOptionsPtrOutput() FSG
 
 func (o FSGroupStrategyOptionsPtrOutput) ToFSGroupStrategyOptionsPtrOutputWithContext(ctx context.Context) FSGroupStrategyOptionsPtrOutput {
 	return o
-}
-
-func (o FSGroupStrategyOptionsPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*FSGroupStrategyOptions] {
-	return pulumix.Output[*FSGroupStrategyOptions]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o FSGroupStrategyOptionsPtrOutput) Elem() FSGroupStrategyOptionsOutput {
@@ -1200,12 +1007,6 @@ func (i FSGroupStrategyOptionsPatchArgs) ToFSGroupStrategyOptionsPatchOutputWith
 	return pulumi.ToOutputWithContext(ctx, i).(FSGroupStrategyOptionsPatchOutput)
 }
 
-func (i FSGroupStrategyOptionsPatchArgs) ToOutput(ctx context.Context) pulumix.Output[FSGroupStrategyOptionsPatch] {
-	return pulumix.Output[FSGroupStrategyOptionsPatch]{
-		OutputState: i.ToFSGroupStrategyOptionsPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i FSGroupStrategyOptionsPatchArgs) ToFSGroupStrategyOptionsPatchPtrOutput() FSGroupStrategyOptionsPatchPtrOutput {
 	return i.ToFSGroupStrategyOptionsPatchPtrOutputWithContext(context.Background())
 }
@@ -1247,12 +1048,6 @@ func (i *fsgroupStrategyOptionsPatchPtrType) ToFSGroupStrategyOptionsPatchPtrOut
 	return pulumi.ToOutputWithContext(ctx, i).(FSGroupStrategyOptionsPatchPtrOutput)
 }
 
-func (i *fsgroupStrategyOptionsPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*FSGroupStrategyOptionsPatch] {
-	return pulumix.Output[*FSGroupStrategyOptionsPatch]{
-		OutputState: i.ToFSGroupStrategyOptionsPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // FSGroupStrategyOptions defines the strategy type and options used to create the strategy.
 type FSGroupStrategyOptionsPatchOutput struct{ *pulumi.OutputState }
 
@@ -1278,12 +1073,6 @@ func (o FSGroupStrategyOptionsPatchOutput) ToFSGroupStrategyOptionsPatchPtrOutpu
 	}).(FSGroupStrategyOptionsPatchPtrOutput)
 }
 
-func (o FSGroupStrategyOptionsPatchOutput) ToOutput(ctx context.Context) pulumix.Output[FSGroupStrategyOptionsPatch] {
-	return pulumix.Output[FSGroupStrategyOptionsPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 // ranges are the allowed ranges of fs groups.  If you would like to force a single fs group then supply a single range with the same start and end. Required for MustRunAs.
 func (o FSGroupStrategyOptionsPatchOutput) Ranges() IDRangePatchArrayOutput {
 	return o.ApplyT(func(v FSGroupStrategyOptionsPatch) []IDRangePatch { return v.Ranges }).(IDRangePatchArrayOutput)
@@ -1306,12 +1095,6 @@ func (o FSGroupStrategyOptionsPatchPtrOutput) ToFSGroupStrategyOptionsPatchPtrOu
 
 func (o FSGroupStrategyOptionsPatchPtrOutput) ToFSGroupStrategyOptionsPatchPtrOutputWithContext(ctx context.Context) FSGroupStrategyOptionsPatchPtrOutput {
 	return o
-}
-
-func (o FSGroupStrategyOptionsPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*FSGroupStrategyOptionsPatch] {
-	return pulumix.Output[*FSGroupStrategyOptionsPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o FSGroupStrategyOptionsPatchPtrOutput) Elem() FSGroupStrategyOptionsPatchOutput {
@@ -1383,12 +1166,6 @@ func (i HostPortRangeArgs) ToHostPortRangeOutputWithContext(ctx context.Context)
 	return pulumi.ToOutputWithContext(ctx, i).(HostPortRangeOutput)
 }
 
-func (i HostPortRangeArgs) ToOutput(ctx context.Context) pulumix.Output[HostPortRange] {
-	return pulumix.Output[HostPortRange]{
-		OutputState: i.ToHostPortRangeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // HostPortRangeArrayInput is an input type that accepts HostPortRangeArray and HostPortRangeArrayOutput values.
 // You can construct a concrete instance of `HostPortRangeArrayInput` via:
 //
@@ -1414,12 +1191,6 @@ func (i HostPortRangeArray) ToHostPortRangeArrayOutputWithContext(ctx context.Co
 	return pulumi.ToOutputWithContext(ctx, i).(HostPortRangeArrayOutput)
 }
 
-func (i HostPortRangeArray) ToOutput(ctx context.Context) pulumix.Output[[]HostPortRange] {
-	return pulumix.Output[[]HostPortRange]{
-		OutputState: i.ToHostPortRangeArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // HostPortRange defines a range of host ports that will be enabled by a policy for pods to use.  It requires both the start and end to be defined.
 type HostPortRangeOutput struct{ *pulumi.OutputState }
 
@@ -1433,12 +1204,6 @@ func (o HostPortRangeOutput) ToHostPortRangeOutput() HostPortRangeOutput {
 
 func (o HostPortRangeOutput) ToHostPortRangeOutputWithContext(ctx context.Context) HostPortRangeOutput {
 	return o
-}
-
-func (o HostPortRangeOutput) ToOutput(ctx context.Context) pulumix.Output[HostPortRange] {
-	return pulumix.Output[HostPortRange]{
-		OutputState: o.OutputState,
-	}
 }
 
 // max is the end of the range, inclusive.
@@ -1463,12 +1228,6 @@ func (o HostPortRangeArrayOutput) ToHostPortRangeArrayOutput() HostPortRangeArra
 
 func (o HostPortRangeArrayOutput) ToHostPortRangeArrayOutputWithContext(ctx context.Context) HostPortRangeArrayOutput {
 	return o
-}
-
-func (o HostPortRangeArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]HostPortRange] {
-	return pulumix.Output[[]HostPortRange]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o HostPortRangeArrayOutput) Index(i pulumi.IntInput) HostPortRangeOutput {
@@ -1516,12 +1275,6 @@ func (i HostPortRangePatchArgs) ToHostPortRangePatchOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(HostPortRangePatchOutput)
 }
 
-func (i HostPortRangePatchArgs) ToOutput(ctx context.Context) pulumix.Output[HostPortRangePatch] {
-	return pulumix.Output[HostPortRangePatch]{
-		OutputState: i.ToHostPortRangePatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // HostPortRangePatchArrayInput is an input type that accepts HostPortRangePatchArray and HostPortRangePatchArrayOutput values.
 // You can construct a concrete instance of `HostPortRangePatchArrayInput` via:
 //
@@ -1547,12 +1300,6 @@ func (i HostPortRangePatchArray) ToHostPortRangePatchArrayOutputWithContext(ctx 
 	return pulumi.ToOutputWithContext(ctx, i).(HostPortRangePatchArrayOutput)
 }
 
-func (i HostPortRangePatchArray) ToOutput(ctx context.Context) pulumix.Output[[]HostPortRangePatch] {
-	return pulumix.Output[[]HostPortRangePatch]{
-		OutputState: i.ToHostPortRangePatchArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // HostPortRange defines a range of host ports that will be enabled by a policy for pods to use.  It requires both the start and end to be defined.
 type HostPortRangePatchOutput struct{ *pulumi.OutputState }
 
@@ -1566,12 +1313,6 @@ func (o HostPortRangePatchOutput) ToHostPortRangePatchOutput() HostPortRangePatc
 
 func (o HostPortRangePatchOutput) ToHostPortRangePatchOutputWithContext(ctx context.Context) HostPortRangePatchOutput {
 	return o
-}
-
-func (o HostPortRangePatchOutput) ToOutput(ctx context.Context) pulumix.Output[HostPortRangePatch] {
-	return pulumix.Output[HostPortRangePatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // max is the end of the range, inclusive.
@@ -1596,12 +1337,6 @@ func (o HostPortRangePatchArrayOutput) ToHostPortRangePatchArrayOutput() HostPor
 
 func (o HostPortRangePatchArrayOutput) ToHostPortRangePatchArrayOutputWithContext(ctx context.Context) HostPortRangePatchArrayOutput {
 	return o
-}
-
-func (o HostPortRangePatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]HostPortRangePatch] {
-	return pulumix.Output[[]HostPortRangePatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o HostPortRangePatchArrayOutput) Index(i pulumi.IntInput) HostPortRangePatchOutput {
@@ -1649,12 +1384,6 @@ func (i IDRangeArgs) ToIDRangeOutputWithContext(ctx context.Context) IDRangeOutp
 	return pulumi.ToOutputWithContext(ctx, i).(IDRangeOutput)
 }
 
-func (i IDRangeArgs) ToOutput(ctx context.Context) pulumix.Output[IDRange] {
-	return pulumix.Output[IDRange]{
-		OutputState: i.ToIDRangeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // IDRangeArrayInput is an input type that accepts IDRangeArray and IDRangeArrayOutput values.
 // You can construct a concrete instance of `IDRangeArrayInput` via:
 //
@@ -1680,12 +1409,6 @@ func (i IDRangeArray) ToIDRangeArrayOutputWithContext(ctx context.Context) IDRan
 	return pulumi.ToOutputWithContext(ctx, i).(IDRangeArrayOutput)
 }
 
-func (i IDRangeArray) ToOutput(ctx context.Context) pulumix.Output[[]IDRange] {
-	return pulumix.Output[[]IDRange]{
-		OutputState: i.ToIDRangeArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // IDRange provides a min/max of an allowed range of IDs.
 type IDRangeOutput struct{ *pulumi.OutputState }
 
@@ -1699,12 +1422,6 @@ func (o IDRangeOutput) ToIDRangeOutput() IDRangeOutput {
 
 func (o IDRangeOutput) ToIDRangeOutputWithContext(ctx context.Context) IDRangeOutput {
 	return o
-}
-
-func (o IDRangeOutput) ToOutput(ctx context.Context) pulumix.Output[IDRange] {
-	return pulumix.Output[IDRange]{
-		OutputState: o.OutputState,
-	}
 }
 
 // max is the end of the range, inclusive.
@@ -1729,12 +1446,6 @@ func (o IDRangeArrayOutput) ToIDRangeArrayOutput() IDRangeArrayOutput {
 
 func (o IDRangeArrayOutput) ToIDRangeArrayOutputWithContext(ctx context.Context) IDRangeArrayOutput {
 	return o
-}
-
-func (o IDRangeArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]IDRange] {
-	return pulumix.Output[[]IDRange]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o IDRangeArrayOutput) Index(i pulumi.IntInput) IDRangeOutput {
@@ -1782,12 +1493,6 @@ func (i IDRangePatchArgs) ToIDRangePatchOutputWithContext(ctx context.Context) I
 	return pulumi.ToOutputWithContext(ctx, i).(IDRangePatchOutput)
 }
 
-func (i IDRangePatchArgs) ToOutput(ctx context.Context) pulumix.Output[IDRangePatch] {
-	return pulumix.Output[IDRangePatch]{
-		OutputState: i.ToIDRangePatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // IDRangePatchArrayInput is an input type that accepts IDRangePatchArray and IDRangePatchArrayOutput values.
 // You can construct a concrete instance of `IDRangePatchArrayInput` via:
 //
@@ -1813,12 +1518,6 @@ func (i IDRangePatchArray) ToIDRangePatchArrayOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(IDRangePatchArrayOutput)
 }
 
-func (i IDRangePatchArray) ToOutput(ctx context.Context) pulumix.Output[[]IDRangePatch] {
-	return pulumix.Output[[]IDRangePatch]{
-		OutputState: i.ToIDRangePatchArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // IDRange provides a min/max of an allowed range of IDs.
 type IDRangePatchOutput struct{ *pulumi.OutputState }
 
@@ -1832,12 +1531,6 @@ func (o IDRangePatchOutput) ToIDRangePatchOutput() IDRangePatchOutput {
 
 func (o IDRangePatchOutput) ToIDRangePatchOutputWithContext(ctx context.Context) IDRangePatchOutput {
 	return o
-}
-
-func (o IDRangePatchOutput) ToOutput(ctx context.Context) pulumix.Output[IDRangePatch] {
-	return pulumix.Output[IDRangePatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // max is the end of the range, inclusive.
@@ -1862,12 +1555,6 @@ func (o IDRangePatchArrayOutput) ToIDRangePatchArrayOutput() IDRangePatchArrayOu
 
 func (o IDRangePatchArrayOutput) ToIDRangePatchArrayOutputWithContext(ctx context.Context) IDRangePatchArrayOutput {
 	return o
-}
-
-func (o IDRangePatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]IDRangePatch] {
-	return pulumix.Output[[]IDRangePatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o IDRangePatchArrayOutput) Index(i pulumi.IntInput) IDRangePatchOutput {
@@ -1925,12 +1612,6 @@ func (i PodDisruptionBudgetTypeArgs) ToPodDisruptionBudgetTypeOutputWithContext(
 	return pulumi.ToOutputWithContext(ctx, i).(PodDisruptionBudgetTypeOutput)
 }
 
-func (i PodDisruptionBudgetTypeArgs) ToOutput(ctx context.Context) pulumix.Output[PodDisruptionBudgetType] {
-	return pulumix.Output[PodDisruptionBudgetType]{
-		OutputState: i.ToPodDisruptionBudgetTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // PodDisruptionBudgetTypeArrayInput is an input type that accepts PodDisruptionBudgetTypeArray and PodDisruptionBudgetTypeArrayOutput values.
 // You can construct a concrete instance of `PodDisruptionBudgetTypeArrayInput` via:
 //
@@ -1956,12 +1637,6 @@ func (i PodDisruptionBudgetTypeArray) ToPodDisruptionBudgetTypeArrayOutputWithCo
 	return pulumi.ToOutputWithContext(ctx, i).(PodDisruptionBudgetTypeArrayOutput)
 }
 
-func (i PodDisruptionBudgetTypeArray) ToOutput(ctx context.Context) pulumix.Output[[]PodDisruptionBudgetType] {
-	return pulumix.Output[[]PodDisruptionBudgetType]{
-		OutputState: i.ToPodDisruptionBudgetTypeArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // PodDisruptionBudget is an object to define the max disruption that can be caused to a collection of pods
 type PodDisruptionBudgetTypeOutput struct{ *pulumi.OutputState }
 
@@ -1975,12 +1650,6 @@ func (o PodDisruptionBudgetTypeOutput) ToPodDisruptionBudgetTypeOutput() PodDisr
 
 func (o PodDisruptionBudgetTypeOutput) ToPodDisruptionBudgetTypeOutputWithContext(ctx context.Context) PodDisruptionBudgetTypeOutput {
 	return o
-}
-
-func (o PodDisruptionBudgetTypeOutput) ToOutput(ctx context.Context) pulumix.Output[PodDisruptionBudgetType] {
-	return pulumix.Output[PodDisruptionBudgetType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -2019,12 +1688,6 @@ func (o PodDisruptionBudgetTypeArrayOutput) ToPodDisruptionBudgetTypeArrayOutput
 
 func (o PodDisruptionBudgetTypeArrayOutput) ToPodDisruptionBudgetTypeArrayOutputWithContext(ctx context.Context) PodDisruptionBudgetTypeArrayOutput {
 	return o
-}
-
-func (o PodDisruptionBudgetTypeArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]PodDisruptionBudgetType] {
-	return pulumix.Output[[]PodDisruptionBudgetType]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o PodDisruptionBudgetTypeArrayOutput) Index(i pulumi.IntInput) PodDisruptionBudgetTypeOutput {
@@ -2076,12 +1739,6 @@ func (i PodDisruptionBudgetListTypeArgs) ToPodDisruptionBudgetListTypeOutputWith
 	return pulumi.ToOutputWithContext(ctx, i).(PodDisruptionBudgetListTypeOutput)
 }
 
-func (i PodDisruptionBudgetListTypeArgs) ToOutput(ctx context.Context) pulumix.Output[PodDisruptionBudgetListType] {
-	return pulumix.Output[PodDisruptionBudgetListType]{
-		OutputState: i.ToPodDisruptionBudgetListTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // PodDisruptionBudgetList is a collection of PodDisruptionBudgets.
 type PodDisruptionBudgetListTypeOutput struct{ *pulumi.OutputState }
 
@@ -2095,12 +1752,6 @@ func (o PodDisruptionBudgetListTypeOutput) ToPodDisruptionBudgetListTypeOutput()
 
 func (o PodDisruptionBudgetListTypeOutput) ToPodDisruptionBudgetListTypeOutputWithContext(ctx context.Context) PodDisruptionBudgetListTypeOutput {
 	return o
-}
-
-func (o PodDisruptionBudgetListTypeOutput) ToOutput(ctx context.Context) pulumix.Output[PodDisruptionBudgetListType] {
-	return pulumix.Output[PodDisruptionBudgetListType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -2170,12 +1821,6 @@ func (i PodDisruptionBudgetPatchTypeArgs) ToPodDisruptionBudgetPatchTypeOutputWi
 	return pulumi.ToOutputWithContext(ctx, i).(PodDisruptionBudgetPatchTypeOutput)
 }
 
-func (i PodDisruptionBudgetPatchTypeArgs) ToOutput(ctx context.Context) pulumix.Output[PodDisruptionBudgetPatchType] {
-	return pulumix.Output[PodDisruptionBudgetPatchType]{
-		OutputState: i.ToPodDisruptionBudgetPatchTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // PodDisruptionBudget is an object to define the max disruption that can be caused to a collection of pods
 type PodDisruptionBudgetPatchTypeOutput struct{ *pulumi.OutputState }
 
@@ -2189,12 +1834,6 @@ func (o PodDisruptionBudgetPatchTypeOutput) ToPodDisruptionBudgetPatchTypeOutput
 
 func (o PodDisruptionBudgetPatchTypeOutput) ToPodDisruptionBudgetPatchTypeOutputWithContext(ctx context.Context) PodDisruptionBudgetPatchTypeOutput {
 	return o
-}
-
-func (o PodDisruptionBudgetPatchTypeOutput) ToOutput(ctx context.Context) pulumix.Output[PodDisruptionBudgetPatchType] {
-	return pulumix.Output[PodDisruptionBudgetPatchType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -2264,12 +1903,6 @@ func (i PodDisruptionBudgetSpecArgs) ToPodDisruptionBudgetSpecOutputWithContext(
 	return pulumi.ToOutputWithContext(ctx, i).(PodDisruptionBudgetSpecOutput)
 }
 
-func (i PodDisruptionBudgetSpecArgs) ToOutput(ctx context.Context) pulumix.Output[PodDisruptionBudgetSpec] {
-	return pulumix.Output[PodDisruptionBudgetSpec]{
-		OutputState: i.ToPodDisruptionBudgetSpecOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i PodDisruptionBudgetSpecArgs) ToPodDisruptionBudgetSpecPtrOutput() PodDisruptionBudgetSpecPtrOutput {
 	return i.ToPodDisruptionBudgetSpecPtrOutputWithContext(context.Background())
 }
@@ -2311,12 +1944,6 @@ func (i *podDisruptionBudgetSpecPtrType) ToPodDisruptionBudgetSpecPtrOutputWithC
 	return pulumi.ToOutputWithContext(ctx, i).(PodDisruptionBudgetSpecPtrOutput)
 }
 
-func (i *podDisruptionBudgetSpecPtrType) ToOutput(ctx context.Context) pulumix.Output[*PodDisruptionBudgetSpec] {
-	return pulumix.Output[*PodDisruptionBudgetSpec]{
-		OutputState: i.ToPodDisruptionBudgetSpecPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
 type PodDisruptionBudgetSpecOutput struct{ *pulumi.OutputState }
 
@@ -2340,12 +1967,6 @@ func (o PodDisruptionBudgetSpecOutput) ToPodDisruptionBudgetSpecPtrOutputWithCon
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodDisruptionBudgetSpec) *PodDisruptionBudgetSpec {
 		return &v
 	}).(PodDisruptionBudgetSpecPtrOutput)
-}
-
-func (o PodDisruptionBudgetSpecOutput) ToOutput(ctx context.Context) pulumix.Output[PodDisruptionBudgetSpec] {
-	return pulumix.Output[PodDisruptionBudgetSpec]{
-		OutputState: o.OutputState,
-	}
 }
 
 // An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
@@ -2375,12 +1996,6 @@ func (o PodDisruptionBudgetSpecPtrOutput) ToPodDisruptionBudgetSpecPtrOutput() P
 
 func (o PodDisruptionBudgetSpecPtrOutput) ToPodDisruptionBudgetSpecPtrOutputWithContext(ctx context.Context) PodDisruptionBudgetSpecPtrOutput {
 	return o
-}
-
-func (o PodDisruptionBudgetSpecPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*PodDisruptionBudgetSpec] {
-	return pulumix.Output[*PodDisruptionBudgetSpec]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o PodDisruptionBudgetSpecPtrOutput) Elem() PodDisruptionBudgetSpecOutput {
@@ -2466,12 +2081,6 @@ func (i PodDisruptionBudgetSpecPatchArgs) ToPodDisruptionBudgetSpecPatchOutputWi
 	return pulumi.ToOutputWithContext(ctx, i).(PodDisruptionBudgetSpecPatchOutput)
 }
 
-func (i PodDisruptionBudgetSpecPatchArgs) ToOutput(ctx context.Context) pulumix.Output[PodDisruptionBudgetSpecPatch] {
-	return pulumix.Output[PodDisruptionBudgetSpecPatch]{
-		OutputState: i.ToPodDisruptionBudgetSpecPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i PodDisruptionBudgetSpecPatchArgs) ToPodDisruptionBudgetSpecPatchPtrOutput() PodDisruptionBudgetSpecPatchPtrOutput {
 	return i.ToPodDisruptionBudgetSpecPatchPtrOutputWithContext(context.Background())
 }
@@ -2513,12 +2122,6 @@ func (i *podDisruptionBudgetSpecPatchPtrType) ToPodDisruptionBudgetSpecPatchPtrO
 	return pulumi.ToOutputWithContext(ctx, i).(PodDisruptionBudgetSpecPatchPtrOutput)
 }
 
-func (i *podDisruptionBudgetSpecPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*PodDisruptionBudgetSpecPatch] {
-	return pulumix.Output[*PodDisruptionBudgetSpecPatch]{
-		OutputState: i.ToPodDisruptionBudgetSpecPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
 type PodDisruptionBudgetSpecPatchOutput struct{ *pulumi.OutputState }
 
@@ -2542,12 +2145,6 @@ func (o PodDisruptionBudgetSpecPatchOutput) ToPodDisruptionBudgetSpecPatchPtrOut
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodDisruptionBudgetSpecPatch) *PodDisruptionBudgetSpecPatch {
 		return &v
 	}).(PodDisruptionBudgetSpecPatchPtrOutput)
-}
-
-func (o PodDisruptionBudgetSpecPatchOutput) ToOutput(ctx context.Context) pulumix.Output[PodDisruptionBudgetSpecPatch] {
-	return pulumix.Output[PodDisruptionBudgetSpecPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
@@ -2577,12 +2174,6 @@ func (o PodDisruptionBudgetSpecPatchPtrOutput) ToPodDisruptionBudgetSpecPatchPtr
 
 func (o PodDisruptionBudgetSpecPatchPtrOutput) ToPodDisruptionBudgetSpecPatchPtrOutputWithContext(ctx context.Context) PodDisruptionBudgetSpecPatchPtrOutput {
 	return o
-}
-
-func (o PodDisruptionBudgetSpecPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*PodDisruptionBudgetSpecPatch] {
-	return pulumix.Output[*PodDisruptionBudgetSpecPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o PodDisruptionBudgetSpecPatchPtrOutput) Elem() PodDisruptionBudgetSpecPatchOutput {
@@ -2680,12 +2271,6 @@ func (i PodDisruptionBudgetStatusArgs) ToPodDisruptionBudgetStatusOutputWithCont
 	return pulumi.ToOutputWithContext(ctx, i).(PodDisruptionBudgetStatusOutput)
 }
 
-func (i PodDisruptionBudgetStatusArgs) ToOutput(ctx context.Context) pulumix.Output[PodDisruptionBudgetStatus] {
-	return pulumix.Output[PodDisruptionBudgetStatus]{
-		OutputState: i.ToPodDisruptionBudgetStatusOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i PodDisruptionBudgetStatusArgs) ToPodDisruptionBudgetStatusPtrOutput() PodDisruptionBudgetStatusPtrOutput {
 	return i.ToPodDisruptionBudgetStatusPtrOutputWithContext(context.Background())
 }
@@ -2727,12 +2312,6 @@ func (i *podDisruptionBudgetStatusPtrType) ToPodDisruptionBudgetStatusPtrOutputW
 	return pulumi.ToOutputWithContext(ctx, i).(PodDisruptionBudgetStatusPtrOutput)
 }
 
-func (i *podDisruptionBudgetStatusPtrType) ToOutput(ctx context.Context) pulumix.Output[*PodDisruptionBudgetStatus] {
-	return pulumix.Output[*PodDisruptionBudgetStatus]{
-		OutputState: i.ToPodDisruptionBudgetStatusPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget. Status may trail the actual state of a system.
 type PodDisruptionBudgetStatusOutput struct{ *pulumi.OutputState }
 
@@ -2756,12 +2335,6 @@ func (o PodDisruptionBudgetStatusOutput) ToPodDisruptionBudgetStatusPtrOutputWit
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodDisruptionBudgetStatus) *PodDisruptionBudgetStatus {
 		return &v
 	}).(PodDisruptionBudgetStatusPtrOutput)
-}
-
-func (o PodDisruptionBudgetStatusOutput) ToOutput(ctx context.Context) pulumix.Output[PodDisruptionBudgetStatus] {
-	return pulumix.Output[PodDisruptionBudgetStatus]{
-		OutputState: o.OutputState,
-	}
 }
 
 // current number of healthy pods
@@ -2806,12 +2379,6 @@ func (o PodDisruptionBudgetStatusPtrOutput) ToPodDisruptionBudgetStatusPtrOutput
 
 func (o PodDisruptionBudgetStatusPtrOutput) ToPodDisruptionBudgetStatusPtrOutputWithContext(ctx context.Context) PodDisruptionBudgetStatusPtrOutput {
 	return o
-}
-
-func (o PodDisruptionBudgetStatusPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*PodDisruptionBudgetStatus] {
-	return pulumix.Output[*PodDisruptionBudgetStatus]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o PodDisruptionBudgetStatusPtrOutput) Elem() PodDisruptionBudgetStatusOutput {
@@ -2939,12 +2506,6 @@ func (i PodDisruptionBudgetStatusPatchArgs) ToPodDisruptionBudgetStatusPatchOutp
 	return pulumi.ToOutputWithContext(ctx, i).(PodDisruptionBudgetStatusPatchOutput)
 }
 
-func (i PodDisruptionBudgetStatusPatchArgs) ToOutput(ctx context.Context) pulumix.Output[PodDisruptionBudgetStatusPatch] {
-	return pulumix.Output[PodDisruptionBudgetStatusPatch]{
-		OutputState: i.ToPodDisruptionBudgetStatusPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i PodDisruptionBudgetStatusPatchArgs) ToPodDisruptionBudgetStatusPatchPtrOutput() PodDisruptionBudgetStatusPatchPtrOutput {
 	return i.ToPodDisruptionBudgetStatusPatchPtrOutputWithContext(context.Background())
 }
@@ -2986,12 +2547,6 @@ func (i *podDisruptionBudgetStatusPatchPtrType) ToPodDisruptionBudgetStatusPatch
 	return pulumi.ToOutputWithContext(ctx, i).(PodDisruptionBudgetStatusPatchPtrOutput)
 }
 
-func (i *podDisruptionBudgetStatusPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*PodDisruptionBudgetStatusPatch] {
-	return pulumix.Output[*PodDisruptionBudgetStatusPatch]{
-		OutputState: i.ToPodDisruptionBudgetStatusPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget. Status may trail the actual state of a system.
 type PodDisruptionBudgetStatusPatchOutput struct{ *pulumi.OutputState }
 
@@ -3015,12 +2570,6 @@ func (o PodDisruptionBudgetStatusPatchOutput) ToPodDisruptionBudgetStatusPatchPt
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodDisruptionBudgetStatusPatch) *PodDisruptionBudgetStatusPatch {
 		return &v
 	}).(PodDisruptionBudgetStatusPatchPtrOutput)
-}
-
-func (o PodDisruptionBudgetStatusPatchOutput) ToOutput(ctx context.Context) pulumix.Output[PodDisruptionBudgetStatusPatch] {
-	return pulumix.Output[PodDisruptionBudgetStatusPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // current number of healthy pods
@@ -3065,12 +2614,6 @@ func (o PodDisruptionBudgetStatusPatchPtrOutput) ToPodDisruptionBudgetStatusPatc
 
 func (o PodDisruptionBudgetStatusPatchPtrOutput) ToPodDisruptionBudgetStatusPatchPtrOutputWithContext(ctx context.Context) PodDisruptionBudgetStatusPatchPtrOutput {
 	return o
-}
-
-func (o PodDisruptionBudgetStatusPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*PodDisruptionBudgetStatusPatch] {
-	return pulumix.Output[*PodDisruptionBudgetStatusPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o PodDisruptionBudgetStatusPatchPtrOutput) Elem() PodDisruptionBudgetStatusPatchOutput {
@@ -3190,12 +2733,6 @@ func (i PodSecurityPolicyTypeArgs) ToPodSecurityPolicyTypeOutputWithContext(ctx 
 	return pulumi.ToOutputWithContext(ctx, i).(PodSecurityPolicyTypeOutput)
 }
 
-func (i PodSecurityPolicyTypeArgs) ToOutput(ctx context.Context) pulumix.Output[PodSecurityPolicyType] {
-	return pulumix.Output[PodSecurityPolicyType]{
-		OutputState: i.ToPodSecurityPolicyTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // PodSecurityPolicyTypeArrayInput is an input type that accepts PodSecurityPolicyTypeArray and PodSecurityPolicyTypeArrayOutput values.
 // You can construct a concrete instance of `PodSecurityPolicyTypeArrayInput` via:
 //
@@ -3221,12 +2758,6 @@ func (i PodSecurityPolicyTypeArray) ToPodSecurityPolicyTypeArrayOutputWithContex
 	return pulumi.ToOutputWithContext(ctx, i).(PodSecurityPolicyTypeArrayOutput)
 }
 
-func (i PodSecurityPolicyTypeArray) ToOutput(ctx context.Context) pulumix.Output[[]PodSecurityPolicyType] {
-	return pulumix.Output[[]PodSecurityPolicyType]{
-		OutputState: i.ToPodSecurityPolicyTypeArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container.
 type PodSecurityPolicyTypeOutput struct{ *pulumi.OutputState }
 
@@ -3240,12 +2771,6 @@ func (o PodSecurityPolicyTypeOutput) ToPodSecurityPolicyTypeOutput() PodSecurity
 
 func (o PodSecurityPolicyTypeOutput) ToPodSecurityPolicyTypeOutputWithContext(ctx context.Context) PodSecurityPolicyTypeOutput {
 	return o
-}
-
-func (o PodSecurityPolicyTypeOutput) ToOutput(ctx context.Context) pulumix.Output[PodSecurityPolicyType] {
-	return pulumix.Output[PodSecurityPolicyType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -3280,12 +2805,6 @@ func (o PodSecurityPolicyTypeArrayOutput) ToPodSecurityPolicyTypeArrayOutput() P
 
 func (o PodSecurityPolicyTypeArrayOutput) ToPodSecurityPolicyTypeArrayOutputWithContext(ctx context.Context) PodSecurityPolicyTypeArrayOutput {
 	return o
-}
-
-func (o PodSecurityPolicyTypeArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]PodSecurityPolicyType] {
-	return pulumix.Output[[]PodSecurityPolicyType]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o PodSecurityPolicyTypeArrayOutput) Index(i pulumi.IntInput) PodSecurityPolicyTypeOutput {
@@ -3341,12 +2860,6 @@ func (i PodSecurityPolicyListTypeArgs) ToPodSecurityPolicyListTypeOutputWithCont
 	return pulumi.ToOutputWithContext(ctx, i).(PodSecurityPolicyListTypeOutput)
 }
 
-func (i PodSecurityPolicyListTypeArgs) ToOutput(ctx context.Context) pulumix.Output[PodSecurityPolicyListType] {
-	return pulumix.Output[PodSecurityPolicyListType]{
-		OutputState: i.ToPodSecurityPolicyListTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // PodSecurityPolicyList is a list of PodSecurityPolicy objects.
 type PodSecurityPolicyListTypeOutput struct{ *pulumi.OutputState }
 
@@ -3360,12 +2873,6 @@ func (o PodSecurityPolicyListTypeOutput) ToPodSecurityPolicyListTypeOutput() Pod
 
 func (o PodSecurityPolicyListTypeOutput) ToPodSecurityPolicyListTypeOutputWithContext(ctx context.Context) PodSecurityPolicyListTypeOutput {
 	return o
-}
-
-func (o PodSecurityPolicyListTypeOutput) ToOutput(ctx context.Context) pulumix.Output[PodSecurityPolicyListType] {
-	return pulumix.Output[PodSecurityPolicyListType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -3435,12 +2942,6 @@ func (i PodSecurityPolicyPatchTypeArgs) ToPodSecurityPolicyPatchTypeOutputWithCo
 	return pulumi.ToOutputWithContext(ctx, i).(PodSecurityPolicyPatchTypeOutput)
 }
 
-func (i PodSecurityPolicyPatchTypeArgs) ToOutput(ctx context.Context) pulumix.Output[PodSecurityPolicyPatchType] {
-	return pulumix.Output[PodSecurityPolicyPatchType]{
-		OutputState: i.ToPodSecurityPolicyPatchTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container.
 type PodSecurityPolicyPatchTypeOutput struct{ *pulumi.OutputState }
 
@@ -3454,12 +2955,6 @@ func (o PodSecurityPolicyPatchTypeOutput) ToPodSecurityPolicyPatchTypeOutput() P
 
 func (o PodSecurityPolicyPatchTypeOutput) ToPodSecurityPolicyPatchTypeOutputWithContext(ctx context.Context) PodSecurityPolicyPatchTypeOutput {
 	return o
-}
-
-func (o PodSecurityPolicyPatchTypeOutput) ToOutput(ctx context.Context) pulumix.Output[PodSecurityPolicyPatchType] {
-	return pulumix.Output[PodSecurityPolicyPatchType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -3617,12 +3112,6 @@ func (i PodSecurityPolicySpecArgs) ToPodSecurityPolicySpecOutputWithContext(ctx 
 	return pulumi.ToOutputWithContext(ctx, i).(PodSecurityPolicySpecOutput)
 }
 
-func (i PodSecurityPolicySpecArgs) ToOutput(ctx context.Context) pulumix.Output[PodSecurityPolicySpec] {
-	return pulumix.Output[PodSecurityPolicySpec]{
-		OutputState: i.ToPodSecurityPolicySpecOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i PodSecurityPolicySpecArgs) ToPodSecurityPolicySpecPtrOutput() PodSecurityPolicySpecPtrOutput {
 	return i.ToPodSecurityPolicySpecPtrOutputWithContext(context.Background())
 }
@@ -3664,12 +3153,6 @@ func (i *podSecurityPolicySpecPtrType) ToPodSecurityPolicySpecPtrOutputWithConte
 	return pulumi.ToOutputWithContext(ctx, i).(PodSecurityPolicySpecPtrOutput)
 }
 
-func (i *podSecurityPolicySpecPtrType) ToOutput(ctx context.Context) pulumix.Output[*PodSecurityPolicySpec] {
-	return pulumix.Output[*PodSecurityPolicySpec]{
-		OutputState: i.ToPodSecurityPolicySpecPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // PodSecurityPolicySpec defines the policy enforced.
 type PodSecurityPolicySpecOutput struct{ *pulumi.OutputState }
 
@@ -3693,12 +3176,6 @@ func (o PodSecurityPolicySpecOutput) ToPodSecurityPolicySpecPtrOutputWithContext
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodSecurityPolicySpec) *PodSecurityPolicySpec {
 		return &v
 	}).(PodSecurityPolicySpecPtrOutput)
-}
-
-func (o PodSecurityPolicySpecOutput) ToOutput(ctx context.Context) pulumix.Output[PodSecurityPolicySpec] {
-	return pulumix.Output[PodSecurityPolicySpec]{
-		OutputState: o.OutputState,
-	}
 }
 
 // allowPrivilegeEscalation determines if a pod can request to allow privilege escalation. If unspecified, defaults to true.
@@ -3837,12 +3314,6 @@ func (o PodSecurityPolicySpecPtrOutput) ToPodSecurityPolicySpecPtrOutput() PodSe
 
 func (o PodSecurityPolicySpecPtrOutput) ToPodSecurityPolicySpecPtrOutputWithContext(ctx context.Context) PodSecurityPolicySpecPtrOutput {
 	return o
-}
-
-func (o PodSecurityPolicySpecPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*PodSecurityPolicySpec] {
-	return pulumix.Output[*PodSecurityPolicySpec]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o PodSecurityPolicySpecPtrOutput) Elem() PodSecurityPolicySpecOutput {
@@ -4234,12 +3705,6 @@ func (i PodSecurityPolicySpecPatchArgs) ToPodSecurityPolicySpecPatchOutputWithCo
 	return pulumi.ToOutputWithContext(ctx, i).(PodSecurityPolicySpecPatchOutput)
 }
 
-func (i PodSecurityPolicySpecPatchArgs) ToOutput(ctx context.Context) pulumix.Output[PodSecurityPolicySpecPatch] {
-	return pulumix.Output[PodSecurityPolicySpecPatch]{
-		OutputState: i.ToPodSecurityPolicySpecPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i PodSecurityPolicySpecPatchArgs) ToPodSecurityPolicySpecPatchPtrOutput() PodSecurityPolicySpecPatchPtrOutput {
 	return i.ToPodSecurityPolicySpecPatchPtrOutputWithContext(context.Background())
 }
@@ -4281,12 +3746,6 @@ func (i *podSecurityPolicySpecPatchPtrType) ToPodSecurityPolicySpecPatchPtrOutpu
 	return pulumi.ToOutputWithContext(ctx, i).(PodSecurityPolicySpecPatchPtrOutput)
 }
 
-func (i *podSecurityPolicySpecPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*PodSecurityPolicySpecPatch] {
-	return pulumix.Output[*PodSecurityPolicySpecPatch]{
-		OutputState: i.ToPodSecurityPolicySpecPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // PodSecurityPolicySpec defines the policy enforced.
 type PodSecurityPolicySpecPatchOutput struct{ *pulumi.OutputState }
 
@@ -4310,12 +3769,6 @@ func (o PodSecurityPolicySpecPatchOutput) ToPodSecurityPolicySpecPatchPtrOutputW
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodSecurityPolicySpecPatch) *PodSecurityPolicySpecPatch {
 		return &v
 	}).(PodSecurityPolicySpecPatchPtrOutput)
-}
-
-func (o PodSecurityPolicySpecPatchOutput) ToOutput(ctx context.Context) pulumix.Output[PodSecurityPolicySpecPatch] {
-	return pulumix.Output[PodSecurityPolicySpecPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // allowPrivilegeEscalation determines if a pod can request to allow privilege escalation. If unspecified, defaults to true.
@@ -4456,12 +3909,6 @@ func (o PodSecurityPolicySpecPatchPtrOutput) ToPodSecurityPolicySpecPatchPtrOutp
 
 func (o PodSecurityPolicySpecPatchPtrOutput) ToPodSecurityPolicySpecPatchPtrOutputWithContext(ctx context.Context) PodSecurityPolicySpecPatchPtrOutput {
 	return o
-}
-
-func (o PodSecurityPolicySpecPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*PodSecurityPolicySpecPatch] {
-	return pulumix.Output[*PodSecurityPolicySpecPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o PodSecurityPolicySpecPatchPtrOutput) Elem() PodSecurityPolicySpecPatchOutput {
@@ -4757,12 +4204,6 @@ func (i RunAsGroupStrategyOptionsArgs) ToRunAsGroupStrategyOptionsOutputWithCont
 	return pulumi.ToOutputWithContext(ctx, i).(RunAsGroupStrategyOptionsOutput)
 }
 
-func (i RunAsGroupStrategyOptionsArgs) ToOutput(ctx context.Context) pulumix.Output[RunAsGroupStrategyOptions] {
-	return pulumix.Output[RunAsGroupStrategyOptions]{
-		OutputState: i.ToRunAsGroupStrategyOptionsOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i RunAsGroupStrategyOptionsArgs) ToRunAsGroupStrategyOptionsPtrOutput() RunAsGroupStrategyOptionsPtrOutput {
 	return i.ToRunAsGroupStrategyOptionsPtrOutputWithContext(context.Background())
 }
@@ -4804,12 +4245,6 @@ func (i *runAsGroupStrategyOptionsPtrType) ToRunAsGroupStrategyOptionsPtrOutputW
 	return pulumi.ToOutputWithContext(ctx, i).(RunAsGroupStrategyOptionsPtrOutput)
 }
 
-func (i *runAsGroupStrategyOptionsPtrType) ToOutput(ctx context.Context) pulumix.Output[*RunAsGroupStrategyOptions] {
-	return pulumix.Output[*RunAsGroupStrategyOptions]{
-		OutputState: i.ToRunAsGroupStrategyOptionsPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // RunAsGroupStrategyOptions defines the strategy type and any options used to create the strategy.
 type RunAsGroupStrategyOptionsOutput struct{ *pulumi.OutputState }
 
@@ -4835,12 +4270,6 @@ func (o RunAsGroupStrategyOptionsOutput) ToRunAsGroupStrategyOptionsPtrOutputWit
 	}).(RunAsGroupStrategyOptionsPtrOutput)
 }
 
-func (o RunAsGroupStrategyOptionsOutput) ToOutput(ctx context.Context) pulumix.Output[RunAsGroupStrategyOptions] {
-	return pulumix.Output[RunAsGroupStrategyOptions]{
-		OutputState: o.OutputState,
-	}
-}
-
 // ranges are the allowed ranges of gids that may be used. If you would like to force a single gid then supply a single range with the same start and end. Required for MustRunAs.
 func (o RunAsGroupStrategyOptionsOutput) Ranges() IDRangeArrayOutput {
 	return o.ApplyT(func(v RunAsGroupStrategyOptions) []IDRange { return v.Ranges }).(IDRangeArrayOutput)
@@ -4863,12 +4292,6 @@ func (o RunAsGroupStrategyOptionsPtrOutput) ToRunAsGroupStrategyOptionsPtrOutput
 
 func (o RunAsGroupStrategyOptionsPtrOutput) ToRunAsGroupStrategyOptionsPtrOutputWithContext(ctx context.Context) RunAsGroupStrategyOptionsPtrOutput {
 	return o
-}
-
-func (o RunAsGroupStrategyOptionsPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*RunAsGroupStrategyOptions] {
-	return pulumix.Output[*RunAsGroupStrategyOptions]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o RunAsGroupStrategyOptionsPtrOutput) Elem() RunAsGroupStrategyOptionsOutput {
@@ -4940,12 +4363,6 @@ func (i RunAsGroupStrategyOptionsPatchArgs) ToRunAsGroupStrategyOptionsPatchOutp
 	return pulumi.ToOutputWithContext(ctx, i).(RunAsGroupStrategyOptionsPatchOutput)
 }
 
-func (i RunAsGroupStrategyOptionsPatchArgs) ToOutput(ctx context.Context) pulumix.Output[RunAsGroupStrategyOptionsPatch] {
-	return pulumix.Output[RunAsGroupStrategyOptionsPatch]{
-		OutputState: i.ToRunAsGroupStrategyOptionsPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i RunAsGroupStrategyOptionsPatchArgs) ToRunAsGroupStrategyOptionsPatchPtrOutput() RunAsGroupStrategyOptionsPatchPtrOutput {
 	return i.ToRunAsGroupStrategyOptionsPatchPtrOutputWithContext(context.Background())
 }
@@ -4987,12 +4404,6 @@ func (i *runAsGroupStrategyOptionsPatchPtrType) ToRunAsGroupStrategyOptionsPatch
 	return pulumi.ToOutputWithContext(ctx, i).(RunAsGroupStrategyOptionsPatchPtrOutput)
 }
 
-func (i *runAsGroupStrategyOptionsPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*RunAsGroupStrategyOptionsPatch] {
-	return pulumix.Output[*RunAsGroupStrategyOptionsPatch]{
-		OutputState: i.ToRunAsGroupStrategyOptionsPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // RunAsGroupStrategyOptions defines the strategy type and any options used to create the strategy.
 type RunAsGroupStrategyOptionsPatchOutput struct{ *pulumi.OutputState }
 
@@ -5018,12 +4429,6 @@ func (o RunAsGroupStrategyOptionsPatchOutput) ToRunAsGroupStrategyOptionsPatchPt
 	}).(RunAsGroupStrategyOptionsPatchPtrOutput)
 }
 
-func (o RunAsGroupStrategyOptionsPatchOutput) ToOutput(ctx context.Context) pulumix.Output[RunAsGroupStrategyOptionsPatch] {
-	return pulumix.Output[RunAsGroupStrategyOptionsPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 // ranges are the allowed ranges of gids that may be used. If you would like to force a single gid then supply a single range with the same start and end. Required for MustRunAs.
 func (o RunAsGroupStrategyOptionsPatchOutput) Ranges() IDRangePatchArrayOutput {
 	return o.ApplyT(func(v RunAsGroupStrategyOptionsPatch) []IDRangePatch { return v.Ranges }).(IDRangePatchArrayOutput)
@@ -5046,12 +4451,6 @@ func (o RunAsGroupStrategyOptionsPatchPtrOutput) ToRunAsGroupStrategyOptionsPatc
 
 func (o RunAsGroupStrategyOptionsPatchPtrOutput) ToRunAsGroupStrategyOptionsPatchPtrOutputWithContext(ctx context.Context) RunAsGroupStrategyOptionsPatchPtrOutput {
 	return o
-}
-
-func (o RunAsGroupStrategyOptionsPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*RunAsGroupStrategyOptionsPatch] {
-	return pulumix.Output[*RunAsGroupStrategyOptionsPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o RunAsGroupStrategyOptionsPatchPtrOutput) Elem() RunAsGroupStrategyOptionsPatchOutput {
@@ -5123,12 +4522,6 @@ func (i RunAsUserStrategyOptionsArgs) ToRunAsUserStrategyOptionsOutputWithContex
 	return pulumi.ToOutputWithContext(ctx, i).(RunAsUserStrategyOptionsOutput)
 }
 
-func (i RunAsUserStrategyOptionsArgs) ToOutput(ctx context.Context) pulumix.Output[RunAsUserStrategyOptions] {
-	return pulumix.Output[RunAsUserStrategyOptions]{
-		OutputState: i.ToRunAsUserStrategyOptionsOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i RunAsUserStrategyOptionsArgs) ToRunAsUserStrategyOptionsPtrOutput() RunAsUserStrategyOptionsPtrOutput {
 	return i.ToRunAsUserStrategyOptionsPtrOutputWithContext(context.Background())
 }
@@ -5170,12 +4563,6 @@ func (i *runAsUserStrategyOptionsPtrType) ToRunAsUserStrategyOptionsPtrOutputWit
 	return pulumi.ToOutputWithContext(ctx, i).(RunAsUserStrategyOptionsPtrOutput)
 }
 
-func (i *runAsUserStrategyOptionsPtrType) ToOutput(ctx context.Context) pulumix.Output[*RunAsUserStrategyOptions] {
-	return pulumix.Output[*RunAsUserStrategyOptions]{
-		OutputState: i.ToRunAsUserStrategyOptionsPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // RunAsUserStrategyOptions defines the strategy type and any options used to create the strategy.
 type RunAsUserStrategyOptionsOutput struct{ *pulumi.OutputState }
 
@@ -5201,12 +4588,6 @@ func (o RunAsUserStrategyOptionsOutput) ToRunAsUserStrategyOptionsPtrOutputWithC
 	}).(RunAsUserStrategyOptionsPtrOutput)
 }
 
-func (o RunAsUserStrategyOptionsOutput) ToOutput(ctx context.Context) pulumix.Output[RunAsUserStrategyOptions] {
-	return pulumix.Output[RunAsUserStrategyOptions]{
-		OutputState: o.OutputState,
-	}
-}
-
 // ranges are the allowed ranges of uids that may be used. If you would like to force a single uid then supply a single range with the same start and end. Required for MustRunAs.
 func (o RunAsUserStrategyOptionsOutput) Ranges() IDRangeArrayOutput {
 	return o.ApplyT(func(v RunAsUserStrategyOptions) []IDRange { return v.Ranges }).(IDRangeArrayOutput)
@@ -5229,12 +4610,6 @@ func (o RunAsUserStrategyOptionsPtrOutput) ToRunAsUserStrategyOptionsPtrOutput()
 
 func (o RunAsUserStrategyOptionsPtrOutput) ToRunAsUserStrategyOptionsPtrOutputWithContext(ctx context.Context) RunAsUserStrategyOptionsPtrOutput {
 	return o
-}
-
-func (o RunAsUserStrategyOptionsPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*RunAsUserStrategyOptions] {
-	return pulumix.Output[*RunAsUserStrategyOptions]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o RunAsUserStrategyOptionsPtrOutput) Elem() RunAsUserStrategyOptionsOutput {
@@ -5306,12 +4681,6 @@ func (i RunAsUserStrategyOptionsPatchArgs) ToRunAsUserStrategyOptionsPatchOutput
 	return pulumi.ToOutputWithContext(ctx, i).(RunAsUserStrategyOptionsPatchOutput)
 }
 
-func (i RunAsUserStrategyOptionsPatchArgs) ToOutput(ctx context.Context) pulumix.Output[RunAsUserStrategyOptionsPatch] {
-	return pulumix.Output[RunAsUserStrategyOptionsPatch]{
-		OutputState: i.ToRunAsUserStrategyOptionsPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i RunAsUserStrategyOptionsPatchArgs) ToRunAsUserStrategyOptionsPatchPtrOutput() RunAsUserStrategyOptionsPatchPtrOutput {
 	return i.ToRunAsUserStrategyOptionsPatchPtrOutputWithContext(context.Background())
 }
@@ -5353,12 +4722,6 @@ func (i *runAsUserStrategyOptionsPatchPtrType) ToRunAsUserStrategyOptionsPatchPt
 	return pulumi.ToOutputWithContext(ctx, i).(RunAsUserStrategyOptionsPatchPtrOutput)
 }
 
-func (i *runAsUserStrategyOptionsPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*RunAsUserStrategyOptionsPatch] {
-	return pulumix.Output[*RunAsUserStrategyOptionsPatch]{
-		OutputState: i.ToRunAsUserStrategyOptionsPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // RunAsUserStrategyOptions defines the strategy type and any options used to create the strategy.
 type RunAsUserStrategyOptionsPatchOutput struct{ *pulumi.OutputState }
 
@@ -5384,12 +4747,6 @@ func (o RunAsUserStrategyOptionsPatchOutput) ToRunAsUserStrategyOptionsPatchPtrO
 	}).(RunAsUserStrategyOptionsPatchPtrOutput)
 }
 
-func (o RunAsUserStrategyOptionsPatchOutput) ToOutput(ctx context.Context) pulumix.Output[RunAsUserStrategyOptionsPatch] {
-	return pulumix.Output[RunAsUserStrategyOptionsPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 // ranges are the allowed ranges of uids that may be used. If you would like to force a single uid then supply a single range with the same start and end. Required for MustRunAs.
 func (o RunAsUserStrategyOptionsPatchOutput) Ranges() IDRangePatchArrayOutput {
 	return o.ApplyT(func(v RunAsUserStrategyOptionsPatch) []IDRangePatch { return v.Ranges }).(IDRangePatchArrayOutput)
@@ -5412,12 +4769,6 @@ func (o RunAsUserStrategyOptionsPatchPtrOutput) ToRunAsUserStrategyOptionsPatchP
 
 func (o RunAsUserStrategyOptionsPatchPtrOutput) ToRunAsUserStrategyOptionsPatchPtrOutputWithContext(ctx context.Context) RunAsUserStrategyOptionsPatchPtrOutput {
 	return o
-}
-
-func (o RunAsUserStrategyOptionsPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*RunAsUserStrategyOptionsPatch] {
-	return pulumix.Output[*RunAsUserStrategyOptionsPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o RunAsUserStrategyOptionsPatchPtrOutput) Elem() RunAsUserStrategyOptionsPatchOutput {
@@ -5489,12 +4840,6 @@ func (i RuntimeClassStrategyOptionsArgs) ToRuntimeClassStrategyOptionsOutputWith
 	return pulumi.ToOutputWithContext(ctx, i).(RuntimeClassStrategyOptionsOutput)
 }
 
-func (i RuntimeClassStrategyOptionsArgs) ToOutput(ctx context.Context) pulumix.Output[RuntimeClassStrategyOptions] {
-	return pulumix.Output[RuntimeClassStrategyOptions]{
-		OutputState: i.ToRuntimeClassStrategyOptionsOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i RuntimeClassStrategyOptionsArgs) ToRuntimeClassStrategyOptionsPtrOutput() RuntimeClassStrategyOptionsPtrOutput {
 	return i.ToRuntimeClassStrategyOptionsPtrOutputWithContext(context.Background())
 }
@@ -5536,12 +4881,6 @@ func (i *runtimeClassStrategyOptionsPtrType) ToRuntimeClassStrategyOptionsPtrOut
 	return pulumi.ToOutputWithContext(ctx, i).(RuntimeClassStrategyOptionsPtrOutput)
 }
 
-func (i *runtimeClassStrategyOptionsPtrType) ToOutput(ctx context.Context) pulumix.Output[*RuntimeClassStrategyOptions] {
-	return pulumix.Output[*RuntimeClassStrategyOptions]{
-		OutputState: i.ToRuntimeClassStrategyOptionsPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // RuntimeClassStrategyOptions define the strategy that will dictate the allowable RuntimeClasses for a pod.
 type RuntimeClassStrategyOptionsOutput struct{ *pulumi.OutputState }
 
@@ -5567,12 +4906,6 @@ func (o RuntimeClassStrategyOptionsOutput) ToRuntimeClassStrategyOptionsPtrOutpu
 	}).(RuntimeClassStrategyOptionsPtrOutput)
 }
 
-func (o RuntimeClassStrategyOptionsOutput) ToOutput(ctx context.Context) pulumix.Output[RuntimeClassStrategyOptions] {
-	return pulumix.Output[RuntimeClassStrategyOptions]{
-		OutputState: o.OutputState,
-	}
-}
-
 // allowedRuntimeClassNames is a whitelist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
 func (o RuntimeClassStrategyOptionsOutput) AllowedRuntimeClassNames() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v RuntimeClassStrategyOptions) []string { return v.AllowedRuntimeClassNames }).(pulumi.StringArrayOutput)
@@ -5595,12 +4928,6 @@ func (o RuntimeClassStrategyOptionsPtrOutput) ToRuntimeClassStrategyOptionsPtrOu
 
 func (o RuntimeClassStrategyOptionsPtrOutput) ToRuntimeClassStrategyOptionsPtrOutputWithContext(ctx context.Context) RuntimeClassStrategyOptionsPtrOutput {
 	return o
-}
-
-func (o RuntimeClassStrategyOptionsPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*RuntimeClassStrategyOptions] {
-	return pulumix.Output[*RuntimeClassStrategyOptions]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o RuntimeClassStrategyOptionsPtrOutput) Elem() RuntimeClassStrategyOptionsOutput {
@@ -5672,12 +4999,6 @@ func (i RuntimeClassStrategyOptionsPatchArgs) ToRuntimeClassStrategyOptionsPatch
 	return pulumi.ToOutputWithContext(ctx, i).(RuntimeClassStrategyOptionsPatchOutput)
 }
 
-func (i RuntimeClassStrategyOptionsPatchArgs) ToOutput(ctx context.Context) pulumix.Output[RuntimeClassStrategyOptionsPatch] {
-	return pulumix.Output[RuntimeClassStrategyOptionsPatch]{
-		OutputState: i.ToRuntimeClassStrategyOptionsPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i RuntimeClassStrategyOptionsPatchArgs) ToRuntimeClassStrategyOptionsPatchPtrOutput() RuntimeClassStrategyOptionsPatchPtrOutput {
 	return i.ToRuntimeClassStrategyOptionsPatchPtrOutputWithContext(context.Background())
 }
@@ -5719,12 +5040,6 @@ func (i *runtimeClassStrategyOptionsPatchPtrType) ToRuntimeClassStrategyOptionsP
 	return pulumi.ToOutputWithContext(ctx, i).(RuntimeClassStrategyOptionsPatchPtrOutput)
 }
 
-func (i *runtimeClassStrategyOptionsPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*RuntimeClassStrategyOptionsPatch] {
-	return pulumix.Output[*RuntimeClassStrategyOptionsPatch]{
-		OutputState: i.ToRuntimeClassStrategyOptionsPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // RuntimeClassStrategyOptions define the strategy that will dictate the allowable RuntimeClasses for a pod.
 type RuntimeClassStrategyOptionsPatchOutput struct{ *pulumi.OutputState }
 
@@ -5750,12 +5065,6 @@ func (o RuntimeClassStrategyOptionsPatchOutput) ToRuntimeClassStrategyOptionsPat
 	}).(RuntimeClassStrategyOptionsPatchPtrOutput)
 }
 
-func (o RuntimeClassStrategyOptionsPatchOutput) ToOutput(ctx context.Context) pulumix.Output[RuntimeClassStrategyOptionsPatch] {
-	return pulumix.Output[RuntimeClassStrategyOptionsPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 // allowedRuntimeClassNames is a whitelist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
 func (o RuntimeClassStrategyOptionsPatchOutput) AllowedRuntimeClassNames() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v RuntimeClassStrategyOptionsPatch) []string { return v.AllowedRuntimeClassNames }).(pulumi.StringArrayOutput)
@@ -5778,12 +5087,6 @@ func (o RuntimeClassStrategyOptionsPatchPtrOutput) ToRuntimeClassStrategyOptions
 
 func (o RuntimeClassStrategyOptionsPatchPtrOutput) ToRuntimeClassStrategyOptionsPatchPtrOutputWithContext(ctx context.Context) RuntimeClassStrategyOptionsPatchPtrOutput {
 	return o
-}
-
-func (o RuntimeClassStrategyOptionsPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*RuntimeClassStrategyOptionsPatch] {
-	return pulumix.Output[*RuntimeClassStrategyOptionsPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o RuntimeClassStrategyOptionsPatchPtrOutput) Elem() RuntimeClassStrategyOptionsPatchOutput {
@@ -5855,12 +5158,6 @@ func (i SELinuxStrategyOptionsArgs) ToSELinuxStrategyOptionsOutputWithContext(ct
 	return pulumi.ToOutputWithContext(ctx, i).(SELinuxStrategyOptionsOutput)
 }
 
-func (i SELinuxStrategyOptionsArgs) ToOutput(ctx context.Context) pulumix.Output[SELinuxStrategyOptions] {
-	return pulumix.Output[SELinuxStrategyOptions]{
-		OutputState: i.ToSELinuxStrategyOptionsOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i SELinuxStrategyOptionsArgs) ToSELinuxStrategyOptionsPtrOutput() SELinuxStrategyOptionsPtrOutput {
 	return i.ToSELinuxStrategyOptionsPtrOutputWithContext(context.Background())
 }
@@ -5902,12 +5199,6 @@ func (i *selinuxStrategyOptionsPtrType) ToSELinuxStrategyOptionsPtrOutputWithCon
 	return pulumi.ToOutputWithContext(ctx, i).(SELinuxStrategyOptionsPtrOutput)
 }
 
-func (i *selinuxStrategyOptionsPtrType) ToOutput(ctx context.Context) pulumix.Output[*SELinuxStrategyOptions] {
-	return pulumix.Output[*SELinuxStrategyOptions]{
-		OutputState: i.ToSELinuxStrategyOptionsPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // SELinuxStrategyOptions defines the strategy type and any options used to create the strategy.
 type SELinuxStrategyOptionsOutput struct{ *pulumi.OutputState }
 
@@ -5933,12 +5224,6 @@ func (o SELinuxStrategyOptionsOutput) ToSELinuxStrategyOptionsPtrOutputWithConte
 	}).(SELinuxStrategyOptionsPtrOutput)
 }
 
-func (o SELinuxStrategyOptionsOutput) ToOutput(ctx context.Context) pulumix.Output[SELinuxStrategyOptions] {
-	return pulumix.Output[SELinuxStrategyOptions]{
-		OutputState: o.OutputState,
-	}
-}
-
 // rule is the strategy that will dictate the allowable labels that may be set.
 func (o SELinuxStrategyOptionsOutput) Rule() pulumi.StringOutput {
 	return o.ApplyT(func(v SELinuxStrategyOptions) string { return v.Rule }).(pulumi.StringOutput)
@@ -5961,12 +5246,6 @@ func (o SELinuxStrategyOptionsPtrOutput) ToSELinuxStrategyOptionsPtrOutput() SEL
 
 func (o SELinuxStrategyOptionsPtrOutput) ToSELinuxStrategyOptionsPtrOutputWithContext(ctx context.Context) SELinuxStrategyOptionsPtrOutput {
 	return o
-}
-
-func (o SELinuxStrategyOptionsPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*SELinuxStrategyOptions] {
-	return pulumix.Output[*SELinuxStrategyOptions]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o SELinuxStrategyOptionsPtrOutput) Elem() SELinuxStrategyOptionsOutput {
@@ -6038,12 +5317,6 @@ func (i SELinuxStrategyOptionsPatchArgs) ToSELinuxStrategyOptionsPatchOutputWith
 	return pulumi.ToOutputWithContext(ctx, i).(SELinuxStrategyOptionsPatchOutput)
 }
 
-func (i SELinuxStrategyOptionsPatchArgs) ToOutput(ctx context.Context) pulumix.Output[SELinuxStrategyOptionsPatch] {
-	return pulumix.Output[SELinuxStrategyOptionsPatch]{
-		OutputState: i.ToSELinuxStrategyOptionsPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i SELinuxStrategyOptionsPatchArgs) ToSELinuxStrategyOptionsPatchPtrOutput() SELinuxStrategyOptionsPatchPtrOutput {
 	return i.ToSELinuxStrategyOptionsPatchPtrOutputWithContext(context.Background())
 }
@@ -6085,12 +5358,6 @@ func (i *selinuxStrategyOptionsPatchPtrType) ToSELinuxStrategyOptionsPatchPtrOut
 	return pulumi.ToOutputWithContext(ctx, i).(SELinuxStrategyOptionsPatchPtrOutput)
 }
 
-func (i *selinuxStrategyOptionsPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*SELinuxStrategyOptionsPatch] {
-	return pulumix.Output[*SELinuxStrategyOptionsPatch]{
-		OutputState: i.ToSELinuxStrategyOptionsPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // SELinuxStrategyOptions defines the strategy type and any options used to create the strategy.
 type SELinuxStrategyOptionsPatchOutput struct{ *pulumi.OutputState }
 
@@ -6116,12 +5383,6 @@ func (o SELinuxStrategyOptionsPatchOutput) ToSELinuxStrategyOptionsPatchPtrOutpu
 	}).(SELinuxStrategyOptionsPatchPtrOutput)
 }
 
-func (o SELinuxStrategyOptionsPatchOutput) ToOutput(ctx context.Context) pulumix.Output[SELinuxStrategyOptionsPatch] {
-	return pulumix.Output[SELinuxStrategyOptionsPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 // rule is the strategy that will dictate the allowable labels that may be set.
 func (o SELinuxStrategyOptionsPatchOutput) Rule() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v SELinuxStrategyOptionsPatch) *string { return v.Rule }).(pulumi.StringPtrOutput)
@@ -6144,12 +5405,6 @@ func (o SELinuxStrategyOptionsPatchPtrOutput) ToSELinuxStrategyOptionsPatchPtrOu
 
 func (o SELinuxStrategyOptionsPatchPtrOutput) ToSELinuxStrategyOptionsPatchPtrOutputWithContext(ctx context.Context) SELinuxStrategyOptionsPatchPtrOutput {
 	return o
-}
-
-func (o SELinuxStrategyOptionsPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*SELinuxStrategyOptionsPatch] {
-	return pulumix.Output[*SELinuxStrategyOptionsPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o SELinuxStrategyOptionsPatchPtrOutput) Elem() SELinuxStrategyOptionsPatchOutput {
@@ -6221,12 +5476,6 @@ func (i SupplementalGroupsStrategyOptionsArgs) ToSupplementalGroupsStrategyOptio
 	return pulumi.ToOutputWithContext(ctx, i).(SupplementalGroupsStrategyOptionsOutput)
 }
 
-func (i SupplementalGroupsStrategyOptionsArgs) ToOutput(ctx context.Context) pulumix.Output[SupplementalGroupsStrategyOptions] {
-	return pulumix.Output[SupplementalGroupsStrategyOptions]{
-		OutputState: i.ToSupplementalGroupsStrategyOptionsOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i SupplementalGroupsStrategyOptionsArgs) ToSupplementalGroupsStrategyOptionsPtrOutput() SupplementalGroupsStrategyOptionsPtrOutput {
 	return i.ToSupplementalGroupsStrategyOptionsPtrOutputWithContext(context.Background())
 }
@@ -6268,12 +5517,6 @@ func (i *supplementalGroupsStrategyOptionsPtrType) ToSupplementalGroupsStrategyO
 	return pulumi.ToOutputWithContext(ctx, i).(SupplementalGroupsStrategyOptionsPtrOutput)
 }
 
-func (i *supplementalGroupsStrategyOptionsPtrType) ToOutput(ctx context.Context) pulumix.Output[*SupplementalGroupsStrategyOptions] {
-	return pulumix.Output[*SupplementalGroupsStrategyOptions]{
-		OutputState: i.ToSupplementalGroupsStrategyOptionsPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // SupplementalGroupsStrategyOptions defines the strategy type and options used to create the strategy.
 type SupplementalGroupsStrategyOptionsOutput struct{ *pulumi.OutputState }
 
@@ -6299,12 +5542,6 @@ func (o SupplementalGroupsStrategyOptionsOutput) ToSupplementalGroupsStrategyOpt
 	}).(SupplementalGroupsStrategyOptionsPtrOutput)
 }
 
-func (o SupplementalGroupsStrategyOptionsOutput) ToOutput(ctx context.Context) pulumix.Output[SupplementalGroupsStrategyOptions] {
-	return pulumix.Output[SupplementalGroupsStrategyOptions]{
-		OutputState: o.OutputState,
-	}
-}
-
 // ranges are the allowed ranges of supplemental groups.  If you would like to force a single supplemental group then supply a single range with the same start and end. Required for MustRunAs.
 func (o SupplementalGroupsStrategyOptionsOutput) Ranges() IDRangeArrayOutput {
 	return o.ApplyT(func(v SupplementalGroupsStrategyOptions) []IDRange { return v.Ranges }).(IDRangeArrayOutput)
@@ -6327,12 +5564,6 @@ func (o SupplementalGroupsStrategyOptionsPtrOutput) ToSupplementalGroupsStrategy
 
 func (o SupplementalGroupsStrategyOptionsPtrOutput) ToSupplementalGroupsStrategyOptionsPtrOutputWithContext(ctx context.Context) SupplementalGroupsStrategyOptionsPtrOutput {
 	return o
-}
-
-func (o SupplementalGroupsStrategyOptionsPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*SupplementalGroupsStrategyOptions] {
-	return pulumix.Output[*SupplementalGroupsStrategyOptions]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o SupplementalGroupsStrategyOptionsPtrOutput) Elem() SupplementalGroupsStrategyOptionsOutput {
@@ -6404,12 +5635,6 @@ func (i SupplementalGroupsStrategyOptionsPatchArgs) ToSupplementalGroupsStrategy
 	return pulumi.ToOutputWithContext(ctx, i).(SupplementalGroupsStrategyOptionsPatchOutput)
 }
 
-func (i SupplementalGroupsStrategyOptionsPatchArgs) ToOutput(ctx context.Context) pulumix.Output[SupplementalGroupsStrategyOptionsPatch] {
-	return pulumix.Output[SupplementalGroupsStrategyOptionsPatch]{
-		OutputState: i.ToSupplementalGroupsStrategyOptionsPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i SupplementalGroupsStrategyOptionsPatchArgs) ToSupplementalGroupsStrategyOptionsPatchPtrOutput() SupplementalGroupsStrategyOptionsPatchPtrOutput {
 	return i.ToSupplementalGroupsStrategyOptionsPatchPtrOutputWithContext(context.Background())
 }
@@ -6451,12 +5676,6 @@ func (i *supplementalGroupsStrategyOptionsPatchPtrType) ToSupplementalGroupsStra
 	return pulumi.ToOutputWithContext(ctx, i).(SupplementalGroupsStrategyOptionsPatchPtrOutput)
 }
 
-func (i *supplementalGroupsStrategyOptionsPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*SupplementalGroupsStrategyOptionsPatch] {
-	return pulumix.Output[*SupplementalGroupsStrategyOptionsPatch]{
-		OutputState: i.ToSupplementalGroupsStrategyOptionsPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // SupplementalGroupsStrategyOptions defines the strategy type and options used to create the strategy.
 type SupplementalGroupsStrategyOptionsPatchOutput struct{ *pulumi.OutputState }
 
@@ -6482,12 +5701,6 @@ func (o SupplementalGroupsStrategyOptionsPatchOutput) ToSupplementalGroupsStrate
 	}).(SupplementalGroupsStrategyOptionsPatchPtrOutput)
 }
 
-func (o SupplementalGroupsStrategyOptionsPatchOutput) ToOutput(ctx context.Context) pulumix.Output[SupplementalGroupsStrategyOptionsPatch] {
-	return pulumix.Output[SupplementalGroupsStrategyOptionsPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 // ranges are the allowed ranges of supplemental groups.  If you would like to force a single supplemental group then supply a single range with the same start and end. Required for MustRunAs.
 func (o SupplementalGroupsStrategyOptionsPatchOutput) Ranges() IDRangePatchArrayOutput {
 	return o.ApplyT(func(v SupplementalGroupsStrategyOptionsPatch) []IDRangePatch { return v.Ranges }).(IDRangePatchArrayOutput)
@@ -6510,12 +5723,6 @@ func (o SupplementalGroupsStrategyOptionsPatchPtrOutput) ToSupplementalGroupsStr
 
 func (o SupplementalGroupsStrategyOptionsPatchPtrOutput) ToSupplementalGroupsStrategyOptionsPatchPtrOutputWithContext(ctx context.Context) SupplementalGroupsStrategyOptionsPatchPtrOutput {
 	return o
-}
-
-func (o SupplementalGroupsStrategyOptionsPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*SupplementalGroupsStrategyOptionsPatch] {
-	return pulumix.Output[*SupplementalGroupsStrategyOptionsPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o SupplementalGroupsStrategyOptionsPatchPtrOutput) Elem() SupplementalGroupsStrategyOptionsPatchOutput {

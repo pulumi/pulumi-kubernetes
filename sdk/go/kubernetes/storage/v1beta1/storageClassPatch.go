@@ -11,7 +11,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Patch resources are used to modify existing Kubernetes resources by using
@@ -165,12 +164,6 @@ func (i *StorageClassPatch) ToStorageClassPatchOutputWithContext(ctx context.Con
 	return pulumi.ToOutputWithContext(ctx, i).(StorageClassPatchOutput)
 }
 
-func (i *StorageClassPatch) ToOutput(ctx context.Context) pulumix.Output[*StorageClassPatch] {
-	return pulumix.Output[*StorageClassPatch]{
-		OutputState: i.ToStorageClassPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // StorageClassPatchArrayInput is an input type that accepts StorageClassPatchArray and StorageClassPatchArrayOutput values.
 // You can construct a concrete instance of `StorageClassPatchArrayInput` via:
 //
@@ -194,12 +187,6 @@ func (i StorageClassPatchArray) ToStorageClassPatchArrayOutput() StorageClassPat
 
 func (i StorageClassPatchArray) ToStorageClassPatchArrayOutputWithContext(ctx context.Context) StorageClassPatchArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(StorageClassPatchArrayOutput)
-}
-
-func (i StorageClassPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]*StorageClassPatch] {
-	return pulumix.Output[[]*StorageClassPatch]{
-		OutputState: i.ToStorageClassPatchArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // StorageClassPatchMapInput is an input type that accepts StorageClassPatchMap and StorageClassPatchMapOutput values.
@@ -227,12 +214,6 @@ func (i StorageClassPatchMap) ToStorageClassPatchMapOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(StorageClassPatchMapOutput)
 }
 
-func (i StorageClassPatchMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*StorageClassPatch] {
-	return pulumix.Output[map[string]*StorageClassPatch]{
-		OutputState: i.ToStorageClassPatchMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type StorageClassPatchOutput struct{ *pulumi.OutputState }
 
 func (StorageClassPatchOutput) ElementType() reflect.Type {
@@ -245,12 +226,6 @@ func (o StorageClassPatchOutput) ToStorageClassPatchOutput() StorageClassPatchOu
 
 func (o StorageClassPatchOutput) ToStorageClassPatchOutputWithContext(ctx context.Context) StorageClassPatchOutput {
 	return o
-}
-
-func (o StorageClassPatchOutput) ToOutput(ctx context.Context) pulumix.Output[*StorageClassPatch] {
-	return pulumix.Output[*StorageClassPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // AllowVolumeExpansion shows whether the storage class allow volume expand
@@ -317,12 +292,6 @@ func (o StorageClassPatchArrayOutput) ToStorageClassPatchArrayOutputWithContext(
 	return o
 }
 
-func (o StorageClassPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*StorageClassPatch] {
-	return pulumix.Output[[]*StorageClassPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o StorageClassPatchArrayOutput) Index(i pulumi.IntInput) StorageClassPatchOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *StorageClassPatch {
 		return vs[0].([]*StorageClassPatch)[vs[1].(int)]
@@ -341,12 +310,6 @@ func (o StorageClassPatchMapOutput) ToStorageClassPatchMapOutput() StorageClassP
 
 func (o StorageClassPatchMapOutput) ToStorageClassPatchMapOutputWithContext(ctx context.Context) StorageClassPatchMapOutput {
 	return o
-}
-
-func (o StorageClassPatchMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*StorageClassPatch] {
-	return pulumix.Output[map[string]*StorageClassPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o StorageClassPatchMapOutput) MapIndex(k pulumi.StringInput) StorageClassPatchOutput {

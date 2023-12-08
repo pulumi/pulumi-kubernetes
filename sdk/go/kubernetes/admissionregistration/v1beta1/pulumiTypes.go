@@ -10,7 +10,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 var _ = utilities.GetEnvOrDefault
@@ -74,12 +73,6 @@ func (i AuditAnnotationArgs) ToAuditAnnotationOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(AuditAnnotationOutput)
 }
 
-func (i AuditAnnotationArgs) ToOutput(ctx context.Context) pulumix.Output[AuditAnnotation] {
-	return pulumix.Output[AuditAnnotation]{
-		OutputState: i.ToAuditAnnotationOutputWithContext(ctx).OutputState,
-	}
-}
-
 // AuditAnnotationArrayInput is an input type that accepts AuditAnnotationArray and AuditAnnotationArrayOutput values.
 // You can construct a concrete instance of `AuditAnnotationArrayInput` via:
 //
@@ -105,12 +98,6 @@ func (i AuditAnnotationArray) ToAuditAnnotationArrayOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(AuditAnnotationArrayOutput)
 }
 
-func (i AuditAnnotationArray) ToOutput(ctx context.Context) pulumix.Output[[]AuditAnnotation] {
-	return pulumix.Output[[]AuditAnnotation]{
-		OutputState: i.ToAuditAnnotationArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // AuditAnnotation describes how to produce an audit annotation for an API request.
 type AuditAnnotationOutput struct{ *pulumi.OutputState }
 
@@ -124,12 +111,6 @@ func (o AuditAnnotationOutput) ToAuditAnnotationOutput() AuditAnnotationOutput {
 
 func (o AuditAnnotationOutput) ToAuditAnnotationOutputWithContext(ctx context.Context) AuditAnnotationOutput {
 	return o
-}
-
-func (o AuditAnnotationOutput) ToOutput(ctx context.Context) pulumix.Output[AuditAnnotation] {
-	return pulumix.Output[AuditAnnotation]{
-		OutputState: o.OutputState,
-	}
 }
 
 // key specifies the audit annotation key. The audit annotation keys of a ValidatingAdmissionPolicy must be unique. The key must be a qualified name ([A-Za-z0-9][-A-Za-z0-9_.]*) no more than 63 bytes in length.
@@ -164,12 +145,6 @@ func (o AuditAnnotationArrayOutput) ToAuditAnnotationArrayOutput() AuditAnnotati
 
 func (o AuditAnnotationArrayOutput) ToAuditAnnotationArrayOutputWithContext(ctx context.Context) AuditAnnotationArrayOutput {
 	return o
-}
-
-func (o AuditAnnotationArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]AuditAnnotation] {
-	return pulumix.Output[[]AuditAnnotation]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o AuditAnnotationArrayOutput) Index(i pulumi.IntInput) AuditAnnotationOutput {
@@ -237,12 +212,6 @@ func (i AuditAnnotationPatchArgs) ToAuditAnnotationPatchOutputWithContext(ctx co
 	return pulumi.ToOutputWithContext(ctx, i).(AuditAnnotationPatchOutput)
 }
 
-func (i AuditAnnotationPatchArgs) ToOutput(ctx context.Context) pulumix.Output[AuditAnnotationPatch] {
-	return pulumix.Output[AuditAnnotationPatch]{
-		OutputState: i.ToAuditAnnotationPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // AuditAnnotationPatchArrayInput is an input type that accepts AuditAnnotationPatchArray and AuditAnnotationPatchArrayOutput values.
 // You can construct a concrete instance of `AuditAnnotationPatchArrayInput` via:
 //
@@ -268,12 +237,6 @@ func (i AuditAnnotationPatchArray) ToAuditAnnotationPatchArrayOutputWithContext(
 	return pulumi.ToOutputWithContext(ctx, i).(AuditAnnotationPatchArrayOutput)
 }
 
-func (i AuditAnnotationPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]AuditAnnotationPatch] {
-	return pulumix.Output[[]AuditAnnotationPatch]{
-		OutputState: i.ToAuditAnnotationPatchArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // AuditAnnotation describes how to produce an audit annotation for an API request.
 type AuditAnnotationPatchOutput struct{ *pulumi.OutputState }
 
@@ -287,12 +250,6 @@ func (o AuditAnnotationPatchOutput) ToAuditAnnotationPatchOutput() AuditAnnotati
 
 func (o AuditAnnotationPatchOutput) ToAuditAnnotationPatchOutputWithContext(ctx context.Context) AuditAnnotationPatchOutput {
 	return o
-}
-
-func (o AuditAnnotationPatchOutput) ToOutput(ctx context.Context) pulumix.Output[AuditAnnotationPatch] {
-	return pulumix.Output[AuditAnnotationPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // key specifies the audit annotation key. The audit annotation keys of a ValidatingAdmissionPolicy must be unique. The key must be a qualified name ([A-Za-z0-9][-A-Za-z0-9_.]*) no more than 63 bytes in length.
@@ -327,12 +284,6 @@ func (o AuditAnnotationPatchArrayOutput) ToAuditAnnotationPatchArrayOutput() Aud
 
 func (o AuditAnnotationPatchArrayOutput) ToAuditAnnotationPatchArrayOutputWithContext(ctx context.Context) AuditAnnotationPatchArrayOutput {
 	return o
-}
-
-func (o AuditAnnotationPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]AuditAnnotationPatch] {
-	return pulumix.Output[[]AuditAnnotationPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o AuditAnnotationPatchArrayOutput) Index(i pulumi.IntInput) AuditAnnotationPatchOutput {
@@ -380,12 +331,6 @@ func (i ExpressionWarningArgs) ToExpressionWarningOutputWithContext(ctx context.
 	return pulumi.ToOutputWithContext(ctx, i).(ExpressionWarningOutput)
 }
 
-func (i ExpressionWarningArgs) ToOutput(ctx context.Context) pulumix.Output[ExpressionWarning] {
-	return pulumix.Output[ExpressionWarning]{
-		OutputState: i.ToExpressionWarningOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ExpressionWarningArrayInput is an input type that accepts ExpressionWarningArray and ExpressionWarningArrayOutput values.
 // You can construct a concrete instance of `ExpressionWarningArrayInput` via:
 //
@@ -411,12 +356,6 @@ func (i ExpressionWarningArray) ToExpressionWarningArrayOutputWithContext(ctx co
 	return pulumi.ToOutputWithContext(ctx, i).(ExpressionWarningArrayOutput)
 }
 
-func (i ExpressionWarningArray) ToOutput(ctx context.Context) pulumix.Output[[]ExpressionWarning] {
-	return pulumix.Output[[]ExpressionWarning]{
-		OutputState: i.ToExpressionWarningArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ExpressionWarning is a warning information that targets a specific expression.
 type ExpressionWarningOutput struct{ *pulumi.OutputState }
 
@@ -430,12 +369,6 @@ func (o ExpressionWarningOutput) ToExpressionWarningOutput() ExpressionWarningOu
 
 func (o ExpressionWarningOutput) ToExpressionWarningOutputWithContext(ctx context.Context) ExpressionWarningOutput {
 	return o
-}
-
-func (o ExpressionWarningOutput) ToOutput(ctx context.Context) pulumix.Output[ExpressionWarning] {
-	return pulumix.Output[ExpressionWarning]{
-		OutputState: o.OutputState,
-	}
 }
 
 // The path to the field that refers the expression. For example, the reference to the expression of the first item of validations is "spec.validations[0].expression"
@@ -460,12 +393,6 @@ func (o ExpressionWarningArrayOutput) ToExpressionWarningArrayOutput() Expressio
 
 func (o ExpressionWarningArrayOutput) ToExpressionWarningArrayOutputWithContext(ctx context.Context) ExpressionWarningArrayOutput {
 	return o
-}
-
-func (o ExpressionWarningArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]ExpressionWarning] {
-	return pulumix.Output[[]ExpressionWarning]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ExpressionWarningArrayOutput) Index(i pulumi.IntInput) ExpressionWarningOutput {
@@ -513,12 +440,6 @@ func (i ExpressionWarningPatchArgs) ToExpressionWarningPatchOutputWithContext(ct
 	return pulumi.ToOutputWithContext(ctx, i).(ExpressionWarningPatchOutput)
 }
 
-func (i ExpressionWarningPatchArgs) ToOutput(ctx context.Context) pulumix.Output[ExpressionWarningPatch] {
-	return pulumix.Output[ExpressionWarningPatch]{
-		OutputState: i.ToExpressionWarningPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ExpressionWarningPatchArrayInput is an input type that accepts ExpressionWarningPatchArray and ExpressionWarningPatchArrayOutput values.
 // You can construct a concrete instance of `ExpressionWarningPatchArrayInput` via:
 //
@@ -544,12 +465,6 @@ func (i ExpressionWarningPatchArray) ToExpressionWarningPatchArrayOutputWithCont
 	return pulumi.ToOutputWithContext(ctx, i).(ExpressionWarningPatchArrayOutput)
 }
 
-func (i ExpressionWarningPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]ExpressionWarningPatch] {
-	return pulumix.Output[[]ExpressionWarningPatch]{
-		OutputState: i.ToExpressionWarningPatchArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ExpressionWarning is a warning information that targets a specific expression.
 type ExpressionWarningPatchOutput struct{ *pulumi.OutputState }
 
@@ -563,12 +478,6 @@ func (o ExpressionWarningPatchOutput) ToExpressionWarningPatchOutput() Expressio
 
 func (o ExpressionWarningPatchOutput) ToExpressionWarningPatchOutputWithContext(ctx context.Context) ExpressionWarningPatchOutput {
 	return o
-}
-
-func (o ExpressionWarningPatchOutput) ToOutput(ctx context.Context) pulumix.Output[ExpressionWarningPatch] {
-	return pulumix.Output[ExpressionWarningPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // The path to the field that refers the expression. For example, the reference to the expression of the first item of validations is "spec.validations[0].expression"
@@ -593,12 +502,6 @@ func (o ExpressionWarningPatchArrayOutput) ToExpressionWarningPatchArrayOutput()
 
 func (o ExpressionWarningPatchArrayOutput) ToExpressionWarningPatchArrayOutputWithContext(ctx context.Context) ExpressionWarningPatchArrayOutput {
 	return o
-}
-
-func (o ExpressionWarningPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]ExpressionWarningPatch] {
-	return pulumix.Output[[]ExpressionWarningPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ExpressionWarningPatchArrayOutput) Index(i pulumi.IntInput) ExpressionWarningPatchOutput {
@@ -666,12 +569,6 @@ func (i MatchConditionArgs) ToMatchConditionOutputWithContext(ctx context.Contex
 	return pulumi.ToOutputWithContext(ctx, i).(MatchConditionOutput)
 }
 
-func (i MatchConditionArgs) ToOutput(ctx context.Context) pulumix.Output[MatchCondition] {
-	return pulumix.Output[MatchCondition]{
-		OutputState: i.ToMatchConditionOutputWithContext(ctx).OutputState,
-	}
-}
-
 // MatchConditionArrayInput is an input type that accepts MatchConditionArray and MatchConditionArrayOutput values.
 // You can construct a concrete instance of `MatchConditionArrayInput` via:
 //
@@ -697,12 +594,6 @@ func (i MatchConditionArray) ToMatchConditionArrayOutputWithContext(ctx context.
 	return pulumi.ToOutputWithContext(ctx, i).(MatchConditionArrayOutput)
 }
 
-func (i MatchConditionArray) ToOutput(ctx context.Context) pulumix.Output[[]MatchCondition] {
-	return pulumix.Output[[]MatchCondition]{
-		OutputState: i.ToMatchConditionArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // MatchCondition represents a condition which must be fulfilled for a request to be sent to a webhook.
 type MatchConditionOutput struct{ *pulumi.OutputState }
 
@@ -716,12 +607,6 @@ func (o MatchConditionOutput) ToMatchConditionOutput() MatchConditionOutput {
 
 func (o MatchConditionOutput) ToMatchConditionOutputWithContext(ctx context.Context) MatchConditionOutput {
 	return o
-}
-
-func (o MatchConditionOutput) ToOutput(ctx context.Context) pulumix.Output[MatchCondition] {
-	return pulumix.Output[MatchCondition]{
-		OutputState: o.OutputState,
-	}
 }
 
 // Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
@@ -760,12 +645,6 @@ func (o MatchConditionArrayOutput) ToMatchConditionArrayOutput() MatchConditionA
 
 func (o MatchConditionArrayOutput) ToMatchConditionArrayOutputWithContext(ctx context.Context) MatchConditionArrayOutput {
 	return o
-}
-
-func (o MatchConditionArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]MatchCondition] {
-	return pulumix.Output[[]MatchCondition]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o MatchConditionArrayOutput) Index(i pulumi.IntInput) MatchConditionOutput {
@@ -833,12 +712,6 @@ func (i MatchConditionPatchArgs) ToMatchConditionPatchOutputWithContext(ctx cont
 	return pulumi.ToOutputWithContext(ctx, i).(MatchConditionPatchOutput)
 }
 
-func (i MatchConditionPatchArgs) ToOutput(ctx context.Context) pulumix.Output[MatchConditionPatch] {
-	return pulumix.Output[MatchConditionPatch]{
-		OutputState: i.ToMatchConditionPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // MatchConditionPatchArrayInput is an input type that accepts MatchConditionPatchArray and MatchConditionPatchArrayOutput values.
 // You can construct a concrete instance of `MatchConditionPatchArrayInput` via:
 //
@@ -864,12 +737,6 @@ func (i MatchConditionPatchArray) ToMatchConditionPatchArrayOutputWithContext(ct
 	return pulumi.ToOutputWithContext(ctx, i).(MatchConditionPatchArrayOutput)
 }
 
-func (i MatchConditionPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]MatchConditionPatch] {
-	return pulumix.Output[[]MatchConditionPatch]{
-		OutputState: i.ToMatchConditionPatchArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // MatchCondition represents a condition which must be fulfilled for a request to be sent to a webhook.
 type MatchConditionPatchOutput struct{ *pulumi.OutputState }
 
@@ -883,12 +750,6 @@ func (o MatchConditionPatchOutput) ToMatchConditionPatchOutput() MatchConditionP
 
 func (o MatchConditionPatchOutput) ToMatchConditionPatchOutputWithContext(ctx context.Context) MatchConditionPatchOutput {
 	return o
-}
-
-func (o MatchConditionPatchOutput) ToOutput(ctx context.Context) pulumix.Output[MatchConditionPatch] {
-	return pulumix.Output[MatchConditionPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
@@ -927,12 +788,6 @@ func (o MatchConditionPatchArrayOutput) ToMatchConditionPatchArrayOutput() Match
 
 func (o MatchConditionPatchArrayOutput) ToMatchConditionPatchArrayOutputWithContext(ctx context.Context) MatchConditionPatchArrayOutput {
 	return o
-}
-
-func (o MatchConditionPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]MatchConditionPatch] {
-	return pulumix.Output[[]MatchConditionPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o MatchConditionPatchArrayOutput) Index(i pulumi.IntInput) MatchConditionPatchOutput {
@@ -1064,12 +919,6 @@ func (i MatchResourcesArgs) ToMatchResourcesOutputWithContext(ctx context.Contex
 	return pulumi.ToOutputWithContext(ctx, i).(MatchResourcesOutput)
 }
 
-func (i MatchResourcesArgs) ToOutput(ctx context.Context) pulumix.Output[MatchResources] {
-	return pulumix.Output[MatchResources]{
-		OutputState: i.ToMatchResourcesOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i MatchResourcesArgs) ToMatchResourcesPtrOutput() MatchResourcesPtrOutput {
 	return i.ToMatchResourcesPtrOutputWithContext(context.Background())
 }
@@ -1111,12 +960,6 @@ func (i *matchResourcesPtrType) ToMatchResourcesPtrOutputWithContext(ctx context
 	return pulumi.ToOutputWithContext(ctx, i).(MatchResourcesPtrOutput)
 }
 
-func (i *matchResourcesPtrType) ToOutput(ctx context.Context) pulumix.Output[*MatchResources] {
-	return pulumix.Output[*MatchResources]{
-		OutputState: i.ToMatchResourcesPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // MatchResources decides whether to run the admission control policy on an object based on whether it meets the match criteria. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
 type MatchResourcesOutput struct{ *pulumi.OutputState }
 
@@ -1140,12 +983,6 @@ func (o MatchResourcesOutput) ToMatchResourcesPtrOutputWithContext(ctx context.C
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v MatchResources) *MatchResources {
 		return &v
 	}).(MatchResourcesPtrOutput)
-}
-
-func (o MatchResourcesOutput) ToOutput(ctx context.Context) pulumix.Output[MatchResources] {
-	return pulumix.Output[MatchResources]{
-		OutputState: o.OutputState,
-	}
 }
 
 // ExcludeResourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
@@ -1221,12 +1058,6 @@ func (o MatchResourcesPtrOutput) ToMatchResourcesPtrOutput() MatchResourcesPtrOu
 
 func (o MatchResourcesPtrOutput) ToMatchResourcesPtrOutputWithContext(ctx context.Context) MatchResourcesPtrOutput {
 	return o
-}
-
-func (o MatchResourcesPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*MatchResources] {
-	return pulumix.Output[*MatchResources]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o MatchResourcesPtrOutput) Elem() MatchResourcesOutput {
@@ -1448,12 +1279,6 @@ func (i MatchResourcesPatchArgs) ToMatchResourcesPatchOutputWithContext(ctx cont
 	return pulumi.ToOutputWithContext(ctx, i).(MatchResourcesPatchOutput)
 }
 
-func (i MatchResourcesPatchArgs) ToOutput(ctx context.Context) pulumix.Output[MatchResourcesPatch] {
-	return pulumix.Output[MatchResourcesPatch]{
-		OutputState: i.ToMatchResourcesPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i MatchResourcesPatchArgs) ToMatchResourcesPatchPtrOutput() MatchResourcesPatchPtrOutput {
 	return i.ToMatchResourcesPatchPtrOutputWithContext(context.Background())
 }
@@ -1495,12 +1320,6 @@ func (i *matchResourcesPatchPtrType) ToMatchResourcesPatchPtrOutputWithContext(c
 	return pulumi.ToOutputWithContext(ctx, i).(MatchResourcesPatchPtrOutput)
 }
 
-func (i *matchResourcesPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*MatchResourcesPatch] {
-	return pulumix.Output[*MatchResourcesPatch]{
-		OutputState: i.ToMatchResourcesPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // MatchResources decides whether to run the admission control policy on an object based on whether it meets the match criteria. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
 type MatchResourcesPatchOutput struct{ *pulumi.OutputState }
 
@@ -1524,12 +1343,6 @@ func (o MatchResourcesPatchOutput) ToMatchResourcesPatchPtrOutputWithContext(ctx
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v MatchResourcesPatch) *MatchResourcesPatch {
 		return &v
 	}).(MatchResourcesPatchPtrOutput)
-}
-
-func (o MatchResourcesPatchOutput) ToOutput(ctx context.Context) pulumix.Output[MatchResourcesPatch] {
-	return pulumix.Output[MatchResourcesPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // ExcludeResourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
@@ -1605,12 +1418,6 @@ func (o MatchResourcesPatchPtrOutput) ToMatchResourcesPatchPtrOutput() MatchReso
 
 func (o MatchResourcesPatchPtrOutput) ToMatchResourcesPatchPtrOutputWithContext(ctx context.Context) MatchResourcesPatchPtrOutput {
 	return o
-}
-
-func (o MatchResourcesPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*MatchResourcesPatch] {
-	return pulumix.Output[*MatchResourcesPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o MatchResourcesPatchPtrOutput) Elem() MatchResourcesPatchOutput {
@@ -1868,12 +1675,6 @@ func (i MutatingWebhookArgs) ToMutatingWebhookOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(MutatingWebhookOutput)
 }
 
-func (i MutatingWebhookArgs) ToOutput(ctx context.Context) pulumix.Output[MutatingWebhook] {
-	return pulumix.Output[MutatingWebhook]{
-		OutputState: i.ToMutatingWebhookOutputWithContext(ctx).OutputState,
-	}
-}
-
 // MutatingWebhookArrayInput is an input type that accepts MutatingWebhookArray and MutatingWebhookArrayOutput values.
 // You can construct a concrete instance of `MutatingWebhookArrayInput` via:
 //
@@ -1899,12 +1700,6 @@ func (i MutatingWebhookArray) ToMutatingWebhookArrayOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(MutatingWebhookArrayOutput)
 }
 
-func (i MutatingWebhookArray) ToOutput(ctx context.Context) pulumix.Output[[]MutatingWebhook] {
-	return pulumix.Output[[]MutatingWebhook]{
-		OutputState: i.ToMutatingWebhookArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // MutatingWebhook describes an admission webhook and the resources and operations it applies to.
 type MutatingWebhookOutput struct{ *pulumi.OutputState }
 
@@ -1918,12 +1713,6 @@ func (o MutatingWebhookOutput) ToMutatingWebhookOutput() MutatingWebhookOutput {
 
 func (o MutatingWebhookOutput) ToMutatingWebhookOutputWithContext(ctx context.Context) MutatingWebhookOutput {
 	return o
-}
-
-func (o MutatingWebhookOutput) ToOutput(ctx context.Context) pulumix.Output[MutatingWebhook] {
-	return pulumix.Output[MutatingWebhook]{
-		OutputState: o.OutputState,
-	}
 }
 
 // AdmissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the Webhook expects. API server will try to use first version in the list which it supports. If none of the versions specified in this list supported by API server, validation will fail for this object. If a persisted webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail and be subject to the failure policy. Default to `['v1beta1']`.
@@ -2037,12 +1826,6 @@ func (o MutatingWebhookArrayOutput) ToMutatingWebhookArrayOutputWithContext(ctx 
 	return o
 }
 
-func (o MutatingWebhookArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]MutatingWebhook] {
-	return pulumix.Output[[]MutatingWebhook]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o MutatingWebhookArrayOutput) Index(i pulumi.IntInput) MutatingWebhookOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) MutatingWebhook {
 		return vs[0].([]MutatingWebhook)[vs[1].(int)]
@@ -2096,12 +1879,6 @@ func (i MutatingWebhookConfigurationTypeArgs) ToMutatingWebhookConfigurationType
 	return pulumi.ToOutputWithContext(ctx, i).(MutatingWebhookConfigurationTypeOutput)
 }
 
-func (i MutatingWebhookConfigurationTypeArgs) ToOutput(ctx context.Context) pulumix.Output[MutatingWebhookConfigurationType] {
-	return pulumix.Output[MutatingWebhookConfigurationType]{
-		OutputState: i.ToMutatingWebhookConfigurationTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // MutatingWebhookConfigurationTypeArrayInput is an input type that accepts MutatingWebhookConfigurationTypeArray and MutatingWebhookConfigurationTypeArrayOutput values.
 // You can construct a concrete instance of `MutatingWebhookConfigurationTypeArrayInput` via:
 //
@@ -2127,12 +1904,6 @@ func (i MutatingWebhookConfigurationTypeArray) ToMutatingWebhookConfigurationTyp
 	return pulumi.ToOutputWithContext(ctx, i).(MutatingWebhookConfigurationTypeArrayOutput)
 }
 
-func (i MutatingWebhookConfigurationTypeArray) ToOutput(ctx context.Context) pulumix.Output[[]MutatingWebhookConfigurationType] {
-	return pulumix.Output[[]MutatingWebhookConfigurationType]{
-		OutputState: i.ToMutatingWebhookConfigurationTypeArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // MutatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and may change the object. Deprecated in v1.16, planned for removal in v1.19. Use admissionregistration.k8s.io/v1 MutatingWebhookConfiguration instead.
 type MutatingWebhookConfigurationTypeOutput struct{ *pulumi.OutputState }
 
@@ -2146,12 +1917,6 @@ func (o MutatingWebhookConfigurationTypeOutput) ToMutatingWebhookConfigurationTy
 
 func (o MutatingWebhookConfigurationTypeOutput) ToMutatingWebhookConfigurationTypeOutputWithContext(ctx context.Context) MutatingWebhookConfigurationTypeOutput {
 	return o
-}
-
-func (o MutatingWebhookConfigurationTypeOutput) ToOutput(ctx context.Context) pulumix.Output[MutatingWebhookConfigurationType] {
-	return pulumix.Output[MutatingWebhookConfigurationType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -2186,12 +1951,6 @@ func (o MutatingWebhookConfigurationTypeArrayOutput) ToMutatingWebhookConfigurat
 
 func (o MutatingWebhookConfigurationTypeArrayOutput) ToMutatingWebhookConfigurationTypeArrayOutputWithContext(ctx context.Context) MutatingWebhookConfigurationTypeArrayOutput {
 	return o
-}
-
-func (o MutatingWebhookConfigurationTypeArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]MutatingWebhookConfigurationType] {
-	return pulumix.Output[[]MutatingWebhookConfigurationType]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o MutatingWebhookConfigurationTypeArrayOutput) Index(i pulumi.IntInput) MutatingWebhookConfigurationTypeOutput {
@@ -2247,12 +2006,6 @@ func (i MutatingWebhookConfigurationListTypeArgs) ToMutatingWebhookConfiguration
 	return pulumi.ToOutputWithContext(ctx, i).(MutatingWebhookConfigurationListTypeOutput)
 }
 
-func (i MutatingWebhookConfigurationListTypeArgs) ToOutput(ctx context.Context) pulumix.Output[MutatingWebhookConfigurationListType] {
-	return pulumix.Output[MutatingWebhookConfigurationListType]{
-		OutputState: i.ToMutatingWebhookConfigurationListTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // MutatingWebhookConfigurationList is a list of MutatingWebhookConfiguration.
 type MutatingWebhookConfigurationListTypeOutput struct{ *pulumi.OutputState }
 
@@ -2266,12 +2019,6 @@ func (o MutatingWebhookConfigurationListTypeOutput) ToMutatingWebhookConfigurati
 
 func (o MutatingWebhookConfigurationListTypeOutput) ToMutatingWebhookConfigurationListTypeOutputWithContext(ctx context.Context) MutatingWebhookConfigurationListTypeOutput {
 	return o
-}
-
-func (o MutatingWebhookConfigurationListTypeOutput) ToOutput(ctx context.Context) pulumix.Output[MutatingWebhookConfigurationListType] {
-	return pulumix.Output[MutatingWebhookConfigurationListType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -2341,12 +2088,6 @@ func (i MutatingWebhookConfigurationPatchTypeArgs) ToMutatingWebhookConfiguratio
 	return pulumi.ToOutputWithContext(ctx, i).(MutatingWebhookConfigurationPatchTypeOutput)
 }
 
-func (i MutatingWebhookConfigurationPatchTypeArgs) ToOutput(ctx context.Context) pulumix.Output[MutatingWebhookConfigurationPatchType] {
-	return pulumix.Output[MutatingWebhookConfigurationPatchType]{
-		OutputState: i.ToMutatingWebhookConfigurationPatchTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // MutatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and may change the object. Deprecated in v1.16, planned for removal in v1.19. Use admissionregistration.k8s.io/v1 MutatingWebhookConfiguration instead.
 type MutatingWebhookConfigurationPatchTypeOutput struct{ *pulumi.OutputState }
 
@@ -2360,12 +2101,6 @@ func (o MutatingWebhookConfigurationPatchTypeOutput) ToMutatingWebhookConfigurat
 
 func (o MutatingWebhookConfigurationPatchTypeOutput) ToMutatingWebhookConfigurationPatchTypeOutputWithContext(ctx context.Context) MutatingWebhookConfigurationPatchTypeOutput {
 	return o
-}
-
-func (o MutatingWebhookConfigurationPatchTypeOutput) ToOutput(ctx context.Context) pulumix.Output[MutatingWebhookConfigurationPatchType] {
-	return pulumix.Output[MutatingWebhookConfigurationPatchType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -2547,12 +2282,6 @@ func (i MutatingWebhookPatchArgs) ToMutatingWebhookPatchOutputWithContext(ctx co
 	return pulumi.ToOutputWithContext(ctx, i).(MutatingWebhookPatchOutput)
 }
 
-func (i MutatingWebhookPatchArgs) ToOutput(ctx context.Context) pulumix.Output[MutatingWebhookPatch] {
-	return pulumix.Output[MutatingWebhookPatch]{
-		OutputState: i.ToMutatingWebhookPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // MutatingWebhookPatchArrayInput is an input type that accepts MutatingWebhookPatchArray and MutatingWebhookPatchArrayOutput values.
 // You can construct a concrete instance of `MutatingWebhookPatchArrayInput` via:
 //
@@ -2578,12 +2307,6 @@ func (i MutatingWebhookPatchArray) ToMutatingWebhookPatchArrayOutputWithContext(
 	return pulumi.ToOutputWithContext(ctx, i).(MutatingWebhookPatchArrayOutput)
 }
 
-func (i MutatingWebhookPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]MutatingWebhookPatch] {
-	return pulumix.Output[[]MutatingWebhookPatch]{
-		OutputState: i.ToMutatingWebhookPatchArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // MutatingWebhook describes an admission webhook and the resources and operations it applies to.
 type MutatingWebhookPatchOutput struct{ *pulumi.OutputState }
 
@@ -2597,12 +2320,6 @@ func (o MutatingWebhookPatchOutput) ToMutatingWebhookPatchOutput() MutatingWebho
 
 func (o MutatingWebhookPatchOutput) ToMutatingWebhookPatchOutputWithContext(ctx context.Context) MutatingWebhookPatchOutput {
 	return o
-}
-
-func (o MutatingWebhookPatchOutput) ToOutput(ctx context.Context) pulumix.Output[MutatingWebhookPatch] {
-	return pulumix.Output[MutatingWebhookPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // AdmissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the Webhook expects. API server will try to use first version in the list which it supports. If none of the versions specified in this list supported by API server, validation will fail for this object. If a persisted webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail and be subject to the failure policy. Default to `['v1beta1']`.
@@ -2716,12 +2433,6 @@ func (o MutatingWebhookPatchArrayOutput) ToMutatingWebhookPatchArrayOutputWithCo
 	return o
 }
 
-func (o MutatingWebhookPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]MutatingWebhookPatch] {
-	return pulumix.Output[[]MutatingWebhookPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o MutatingWebhookPatchArrayOutput) Index(i pulumi.IntInput) MutatingWebhookPatchOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) MutatingWebhookPatch {
 		return vs[0].([]MutatingWebhookPatch)[vs[1].(int)]
@@ -2795,12 +2506,6 @@ func (i NamedRuleWithOperationsArgs) ToNamedRuleWithOperationsOutputWithContext(
 	return pulumi.ToOutputWithContext(ctx, i).(NamedRuleWithOperationsOutput)
 }
 
-func (i NamedRuleWithOperationsArgs) ToOutput(ctx context.Context) pulumix.Output[NamedRuleWithOperations] {
-	return pulumix.Output[NamedRuleWithOperations]{
-		OutputState: i.ToNamedRuleWithOperationsOutputWithContext(ctx).OutputState,
-	}
-}
-
 // NamedRuleWithOperationsArrayInput is an input type that accepts NamedRuleWithOperationsArray and NamedRuleWithOperationsArrayOutput values.
 // You can construct a concrete instance of `NamedRuleWithOperationsArrayInput` via:
 //
@@ -2826,12 +2531,6 @@ func (i NamedRuleWithOperationsArray) ToNamedRuleWithOperationsArrayOutputWithCo
 	return pulumi.ToOutputWithContext(ctx, i).(NamedRuleWithOperationsArrayOutput)
 }
 
-func (i NamedRuleWithOperationsArray) ToOutput(ctx context.Context) pulumix.Output[[]NamedRuleWithOperations] {
-	return pulumix.Output[[]NamedRuleWithOperations]{
-		OutputState: i.ToNamedRuleWithOperationsArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // NamedRuleWithOperations is a tuple of Operations and Resources with ResourceNames.
 type NamedRuleWithOperationsOutput struct{ *pulumi.OutputState }
 
@@ -2845,12 +2544,6 @@ func (o NamedRuleWithOperationsOutput) ToNamedRuleWithOperationsOutput() NamedRu
 
 func (o NamedRuleWithOperationsOutput) ToNamedRuleWithOperationsOutputWithContext(ctx context.Context) NamedRuleWithOperationsOutput {
 	return o
-}
-
-func (o NamedRuleWithOperationsOutput) ToOutput(ctx context.Context) pulumix.Output[NamedRuleWithOperations] {
-	return pulumix.Output[NamedRuleWithOperations]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
@@ -2901,12 +2594,6 @@ func (o NamedRuleWithOperationsArrayOutput) ToNamedRuleWithOperationsArrayOutput
 
 func (o NamedRuleWithOperationsArrayOutput) ToNamedRuleWithOperationsArrayOutputWithContext(ctx context.Context) NamedRuleWithOperationsArrayOutput {
 	return o
-}
-
-func (o NamedRuleWithOperationsArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]NamedRuleWithOperations] {
-	return pulumix.Output[[]NamedRuleWithOperations]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o NamedRuleWithOperationsArrayOutput) Index(i pulumi.IntInput) NamedRuleWithOperationsOutput {
@@ -2982,12 +2669,6 @@ func (i NamedRuleWithOperationsPatchArgs) ToNamedRuleWithOperationsPatchOutputWi
 	return pulumi.ToOutputWithContext(ctx, i).(NamedRuleWithOperationsPatchOutput)
 }
 
-func (i NamedRuleWithOperationsPatchArgs) ToOutput(ctx context.Context) pulumix.Output[NamedRuleWithOperationsPatch] {
-	return pulumix.Output[NamedRuleWithOperationsPatch]{
-		OutputState: i.ToNamedRuleWithOperationsPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // NamedRuleWithOperationsPatchArrayInput is an input type that accepts NamedRuleWithOperationsPatchArray and NamedRuleWithOperationsPatchArrayOutput values.
 // You can construct a concrete instance of `NamedRuleWithOperationsPatchArrayInput` via:
 //
@@ -3013,12 +2694,6 @@ func (i NamedRuleWithOperationsPatchArray) ToNamedRuleWithOperationsPatchArrayOu
 	return pulumi.ToOutputWithContext(ctx, i).(NamedRuleWithOperationsPatchArrayOutput)
 }
 
-func (i NamedRuleWithOperationsPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]NamedRuleWithOperationsPatch] {
-	return pulumix.Output[[]NamedRuleWithOperationsPatch]{
-		OutputState: i.ToNamedRuleWithOperationsPatchArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // NamedRuleWithOperations is a tuple of Operations and Resources with ResourceNames.
 type NamedRuleWithOperationsPatchOutput struct{ *pulumi.OutputState }
 
@@ -3032,12 +2707,6 @@ func (o NamedRuleWithOperationsPatchOutput) ToNamedRuleWithOperationsPatchOutput
 
 func (o NamedRuleWithOperationsPatchOutput) ToNamedRuleWithOperationsPatchOutputWithContext(ctx context.Context) NamedRuleWithOperationsPatchOutput {
 	return o
-}
-
-func (o NamedRuleWithOperationsPatchOutput) ToOutput(ctx context.Context) pulumix.Output[NamedRuleWithOperationsPatch] {
-	return pulumix.Output[NamedRuleWithOperationsPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
@@ -3090,12 +2759,6 @@ func (o NamedRuleWithOperationsPatchArrayOutput) ToNamedRuleWithOperationsPatchA
 	return o
 }
 
-func (o NamedRuleWithOperationsPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]NamedRuleWithOperationsPatch] {
-	return pulumix.Output[[]NamedRuleWithOperationsPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o NamedRuleWithOperationsPatchArrayOutput) Index(i pulumi.IntInput) NamedRuleWithOperationsPatchOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) NamedRuleWithOperationsPatch {
 		return vs[0].([]NamedRuleWithOperationsPatch)[vs[1].(int)]
@@ -3141,12 +2804,6 @@ func (i ParamKindArgs) ToParamKindOutputWithContext(ctx context.Context) ParamKi
 	return pulumi.ToOutputWithContext(ctx, i).(ParamKindOutput)
 }
 
-func (i ParamKindArgs) ToOutput(ctx context.Context) pulumix.Output[ParamKind] {
-	return pulumix.Output[ParamKind]{
-		OutputState: i.ToParamKindOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i ParamKindArgs) ToParamKindPtrOutput() ParamKindPtrOutput {
 	return i.ToParamKindPtrOutputWithContext(context.Background())
 }
@@ -3188,12 +2845,6 @@ func (i *paramKindPtrType) ToParamKindPtrOutputWithContext(ctx context.Context) 
 	return pulumi.ToOutputWithContext(ctx, i).(ParamKindPtrOutput)
 }
 
-func (i *paramKindPtrType) ToOutput(ctx context.Context) pulumix.Output[*ParamKind] {
-	return pulumix.Output[*ParamKind]{
-		OutputState: i.ToParamKindPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ParamKind is a tuple of Group Kind and Version.
 type ParamKindOutput struct{ *pulumi.OutputState }
 
@@ -3219,12 +2870,6 @@ func (o ParamKindOutput) ToParamKindPtrOutputWithContext(ctx context.Context) Pa
 	}).(ParamKindPtrOutput)
 }
 
-func (o ParamKindOutput) ToOutput(ctx context.Context) pulumix.Output[ParamKind] {
-	return pulumix.Output[ParamKind]{
-		OutputState: o.OutputState,
-	}
-}
-
 // APIVersion is the API group version the resources belong to. In format of "group/version". Required.
 func (o ParamKindOutput) ApiVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ParamKind) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
@@ -3247,12 +2892,6 @@ func (o ParamKindPtrOutput) ToParamKindPtrOutput() ParamKindPtrOutput {
 
 func (o ParamKindPtrOutput) ToParamKindPtrOutputWithContext(ctx context.Context) ParamKindPtrOutput {
 	return o
-}
-
-func (o ParamKindPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*ParamKind] {
-	return pulumix.Output[*ParamKind]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ParamKindPtrOutput) Elem() ParamKindOutput {
@@ -3324,12 +2963,6 @@ func (i ParamKindPatchArgs) ToParamKindPatchOutputWithContext(ctx context.Contex
 	return pulumi.ToOutputWithContext(ctx, i).(ParamKindPatchOutput)
 }
 
-func (i ParamKindPatchArgs) ToOutput(ctx context.Context) pulumix.Output[ParamKindPatch] {
-	return pulumix.Output[ParamKindPatch]{
-		OutputState: i.ToParamKindPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i ParamKindPatchArgs) ToParamKindPatchPtrOutput() ParamKindPatchPtrOutput {
 	return i.ToParamKindPatchPtrOutputWithContext(context.Background())
 }
@@ -3371,12 +3004,6 @@ func (i *paramKindPatchPtrType) ToParamKindPatchPtrOutputWithContext(ctx context
 	return pulumi.ToOutputWithContext(ctx, i).(ParamKindPatchPtrOutput)
 }
 
-func (i *paramKindPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*ParamKindPatch] {
-	return pulumix.Output[*ParamKindPatch]{
-		OutputState: i.ToParamKindPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ParamKind is a tuple of Group Kind and Version.
 type ParamKindPatchOutput struct{ *pulumi.OutputState }
 
@@ -3402,12 +3029,6 @@ func (o ParamKindPatchOutput) ToParamKindPatchPtrOutputWithContext(ctx context.C
 	}).(ParamKindPatchPtrOutput)
 }
 
-func (o ParamKindPatchOutput) ToOutput(ctx context.Context) pulumix.Output[ParamKindPatch] {
-	return pulumix.Output[ParamKindPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 // APIVersion is the API group version the resources belong to. In format of "group/version". Required.
 func (o ParamKindPatchOutput) ApiVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ParamKindPatch) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
@@ -3430,12 +3051,6 @@ func (o ParamKindPatchPtrOutput) ToParamKindPatchPtrOutput() ParamKindPatchPtrOu
 
 func (o ParamKindPatchPtrOutput) ToParamKindPatchPtrOutputWithContext(ctx context.Context) ParamKindPatchPtrOutput {
 	return o
-}
-
-func (o ParamKindPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*ParamKindPatch] {
-	return pulumix.Output[*ParamKindPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ParamKindPatchPtrOutput) Elem() ParamKindPatchOutput {
@@ -3551,12 +3166,6 @@ func (i ParamRefArgs) ToParamRefOutputWithContext(ctx context.Context) ParamRefO
 	return pulumi.ToOutputWithContext(ctx, i).(ParamRefOutput)
 }
 
-func (i ParamRefArgs) ToOutput(ctx context.Context) pulumix.Output[ParamRef] {
-	return pulumix.Output[ParamRef]{
-		OutputState: i.ToParamRefOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i ParamRefArgs) ToParamRefPtrOutput() ParamRefPtrOutput {
 	return i.ToParamRefPtrOutputWithContext(context.Background())
 }
@@ -3598,12 +3207,6 @@ func (i *paramRefPtrType) ToParamRefPtrOutputWithContext(ctx context.Context) Pa
 	return pulumi.ToOutputWithContext(ctx, i).(ParamRefPtrOutput)
 }
 
-func (i *paramRefPtrType) ToOutput(ctx context.Context) pulumix.Output[*ParamRef] {
-	return pulumix.Output[*ParamRef]{
-		OutputState: i.ToParamRefPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ParamRef describes how to locate the params to be used as input to expressions of rules applied by a policy binding.
 type ParamRefOutput struct{ *pulumi.OutputState }
 
@@ -3627,12 +3230,6 @@ func (o ParamRefOutput) ToParamRefPtrOutputWithContext(ctx context.Context) Para
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v ParamRef) *ParamRef {
 		return &v
 	}).(ParamRefPtrOutput)
-}
-
-func (o ParamRefOutput) ToOutput(ctx context.Context) pulumix.Output[ParamRef] {
-	return pulumix.Output[ParamRef]{
-		OutputState: o.OutputState,
-	}
 }
 
 // name is the name of the resource being referenced.
@@ -3685,12 +3282,6 @@ func (o ParamRefPtrOutput) ToParamRefPtrOutput() ParamRefPtrOutput {
 
 func (o ParamRefPtrOutput) ToParamRefPtrOutputWithContext(ctx context.Context) ParamRefPtrOutput {
 	return o
-}
-
-func (o ParamRefPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*ParamRef] {
-	return pulumix.Output[*ParamRef]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ParamRefPtrOutput) Elem() ParamRefOutput {
@@ -3844,12 +3435,6 @@ func (i ParamRefPatchArgs) ToParamRefPatchOutputWithContext(ctx context.Context)
 	return pulumi.ToOutputWithContext(ctx, i).(ParamRefPatchOutput)
 }
 
-func (i ParamRefPatchArgs) ToOutput(ctx context.Context) pulumix.Output[ParamRefPatch] {
-	return pulumix.Output[ParamRefPatch]{
-		OutputState: i.ToParamRefPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i ParamRefPatchArgs) ToParamRefPatchPtrOutput() ParamRefPatchPtrOutput {
 	return i.ToParamRefPatchPtrOutputWithContext(context.Background())
 }
@@ -3891,12 +3476,6 @@ func (i *paramRefPatchPtrType) ToParamRefPatchPtrOutputWithContext(ctx context.C
 	return pulumi.ToOutputWithContext(ctx, i).(ParamRefPatchPtrOutput)
 }
 
-func (i *paramRefPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*ParamRefPatch] {
-	return pulumix.Output[*ParamRefPatch]{
-		OutputState: i.ToParamRefPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ParamRef describes how to locate the params to be used as input to expressions of rules applied by a policy binding.
 type ParamRefPatchOutput struct{ *pulumi.OutputState }
 
@@ -3920,12 +3499,6 @@ func (o ParamRefPatchOutput) ToParamRefPatchPtrOutputWithContext(ctx context.Con
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v ParamRefPatch) *ParamRefPatch {
 		return &v
 	}).(ParamRefPatchPtrOutput)
-}
-
-func (o ParamRefPatchOutput) ToOutput(ctx context.Context) pulumix.Output[ParamRefPatch] {
-	return pulumix.Output[ParamRefPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // name is the name of the resource being referenced.
@@ -3978,12 +3551,6 @@ func (o ParamRefPatchPtrOutput) ToParamRefPatchPtrOutput() ParamRefPatchPtrOutpu
 
 func (o ParamRefPatchPtrOutput) ToParamRefPatchPtrOutputWithContext(ctx context.Context) ParamRefPatchPtrOutput {
 	return o
-}
-
-func (o ParamRefPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*ParamRefPatch] {
-	return pulumix.Output[*ParamRefPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ParamRefPatchPtrOutput) Elem() ParamRefPatchOutput {
@@ -4117,12 +3684,6 @@ func (i RuleWithOperationsArgs) ToRuleWithOperationsOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(RuleWithOperationsOutput)
 }
 
-func (i RuleWithOperationsArgs) ToOutput(ctx context.Context) pulumix.Output[RuleWithOperations] {
-	return pulumix.Output[RuleWithOperations]{
-		OutputState: i.ToRuleWithOperationsOutputWithContext(ctx).OutputState,
-	}
-}
-
 // RuleWithOperationsArrayInput is an input type that accepts RuleWithOperationsArray and RuleWithOperationsArrayOutput values.
 // You can construct a concrete instance of `RuleWithOperationsArrayInput` via:
 //
@@ -4148,12 +3709,6 @@ func (i RuleWithOperationsArray) ToRuleWithOperationsArrayOutputWithContext(ctx 
 	return pulumi.ToOutputWithContext(ctx, i).(RuleWithOperationsArrayOutput)
 }
 
-func (i RuleWithOperationsArray) ToOutput(ctx context.Context) pulumix.Output[[]RuleWithOperations] {
-	return pulumix.Output[[]RuleWithOperations]{
-		OutputState: i.ToRuleWithOperationsArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // RuleWithOperations is a tuple of Operations and Resources. It is recommended to make sure that all the tuple expansions are valid.
 type RuleWithOperationsOutput struct{ *pulumi.OutputState }
 
@@ -4167,12 +3722,6 @@ func (o RuleWithOperationsOutput) ToRuleWithOperationsOutput() RuleWithOperation
 
 func (o RuleWithOperationsOutput) ToRuleWithOperationsOutputWithContext(ctx context.Context) RuleWithOperationsOutput {
 	return o
-}
-
-func (o RuleWithOperationsOutput) ToOutput(ctx context.Context) pulumix.Output[RuleWithOperations] {
-	return pulumix.Output[RuleWithOperations]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
@@ -4218,12 +3767,6 @@ func (o RuleWithOperationsArrayOutput) ToRuleWithOperationsArrayOutput() RuleWit
 
 func (o RuleWithOperationsArrayOutput) ToRuleWithOperationsArrayOutputWithContext(ctx context.Context) RuleWithOperationsArrayOutput {
 	return o
-}
-
-func (o RuleWithOperationsArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]RuleWithOperations] {
-	return pulumix.Output[[]RuleWithOperations]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o RuleWithOperationsArrayOutput) Index(i pulumi.IntInput) RuleWithOperationsOutput {
@@ -4295,12 +3838,6 @@ func (i RuleWithOperationsPatchArgs) ToRuleWithOperationsPatchOutputWithContext(
 	return pulumi.ToOutputWithContext(ctx, i).(RuleWithOperationsPatchOutput)
 }
 
-func (i RuleWithOperationsPatchArgs) ToOutput(ctx context.Context) pulumix.Output[RuleWithOperationsPatch] {
-	return pulumix.Output[RuleWithOperationsPatch]{
-		OutputState: i.ToRuleWithOperationsPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // RuleWithOperationsPatchArrayInput is an input type that accepts RuleWithOperationsPatchArray and RuleWithOperationsPatchArrayOutput values.
 // You can construct a concrete instance of `RuleWithOperationsPatchArrayInput` via:
 //
@@ -4326,12 +3863,6 @@ func (i RuleWithOperationsPatchArray) ToRuleWithOperationsPatchArrayOutputWithCo
 	return pulumi.ToOutputWithContext(ctx, i).(RuleWithOperationsPatchArrayOutput)
 }
 
-func (i RuleWithOperationsPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]RuleWithOperationsPatch] {
-	return pulumix.Output[[]RuleWithOperationsPatch]{
-		OutputState: i.ToRuleWithOperationsPatchArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // RuleWithOperations is a tuple of Operations and Resources. It is recommended to make sure that all the tuple expansions are valid.
 type RuleWithOperationsPatchOutput struct{ *pulumi.OutputState }
 
@@ -4345,12 +3876,6 @@ func (o RuleWithOperationsPatchOutput) ToRuleWithOperationsPatchOutput() RuleWit
 
 func (o RuleWithOperationsPatchOutput) ToRuleWithOperationsPatchOutputWithContext(ctx context.Context) RuleWithOperationsPatchOutput {
 	return o
-}
-
-func (o RuleWithOperationsPatchOutput) ToOutput(ctx context.Context) pulumix.Output[RuleWithOperationsPatch] {
-	return pulumix.Output[RuleWithOperationsPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
@@ -4396,12 +3921,6 @@ func (o RuleWithOperationsPatchArrayOutput) ToRuleWithOperationsPatchArrayOutput
 
 func (o RuleWithOperationsPatchArrayOutput) ToRuleWithOperationsPatchArrayOutputWithContext(ctx context.Context) RuleWithOperationsPatchArrayOutput {
 	return o
-}
-
-func (o RuleWithOperationsPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]RuleWithOperationsPatch] {
-	return pulumix.Output[[]RuleWithOperationsPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o RuleWithOperationsPatchArrayOutput) Index(i pulumi.IntInput) RuleWithOperationsPatchOutput {
@@ -4457,12 +3976,6 @@ func (i ServiceReferenceArgs) ToServiceReferenceOutputWithContext(ctx context.Co
 	return pulumi.ToOutputWithContext(ctx, i).(ServiceReferenceOutput)
 }
 
-func (i ServiceReferenceArgs) ToOutput(ctx context.Context) pulumix.Output[ServiceReference] {
-	return pulumix.Output[ServiceReference]{
-		OutputState: i.ToServiceReferenceOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i ServiceReferenceArgs) ToServiceReferencePtrOutput() ServiceReferencePtrOutput {
 	return i.ToServiceReferencePtrOutputWithContext(context.Background())
 }
@@ -4504,12 +4017,6 @@ func (i *serviceReferencePtrType) ToServiceReferencePtrOutputWithContext(ctx con
 	return pulumi.ToOutputWithContext(ctx, i).(ServiceReferencePtrOutput)
 }
 
-func (i *serviceReferencePtrType) ToOutput(ctx context.Context) pulumix.Output[*ServiceReference] {
-	return pulumix.Output[*ServiceReference]{
-		OutputState: i.ToServiceReferencePtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ServiceReference holds a reference to Service.legacy.k8s.io
 type ServiceReferenceOutput struct{ *pulumi.OutputState }
 
@@ -4533,12 +4040,6 @@ func (o ServiceReferenceOutput) ToServiceReferencePtrOutputWithContext(ctx conte
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v ServiceReference) *ServiceReference {
 		return &v
 	}).(ServiceReferencePtrOutput)
-}
-
-func (o ServiceReferenceOutput) ToOutput(ctx context.Context) pulumix.Output[ServiceReference] {
-	return pulumix.Output[ServiceReference]{
-		OutputState: o.OutputState,
-	}
 }
 
 // `name` is the name of the service. Required
@@ -4573,12 +4074,6 @@ func (o ServiceReferencePtrOutput) ToServiceReferencePtrOutput() ServiceReferenc
 
 func (o ServiceReferencePtrOutput) ToServiceReferencePtrOutputWithContext(ctx context.Context) ServiceReferencePtrOutput {
 	return o
-}
-
-func (o ServiceReferencePtrOutput) ToOutput(ctx context.Context) pulumix.Output[*ServiceReference] {
-	return pulumix.Output[*ServiceReference]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ServiceReferencePtrOutput) Elem() ServiceReferenceOutput {
@@ -4678,12 +4173,6 @@ func (i ServiceReferencePatchArgs) ToServiceReferencePatchOutputWithContext(ctx 
 	return pulumi.ToOutputWithContext(ctx, i).(ServiceReferencePatchOutput)
 }
 
-func (i ServiceReferencePatchArgs) ToOutput(ctx context.Context) pulumix.Output[ServiceReferencePatch] {
-	return pulumix.Output[ServiceReferencePatch]{
-		OutputState: i.ToServiceReferencePatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i ServiceReferencePatchArgs) ToServiceReferencePatchPtrOutput() ServiceReferencePatchPtrOutput {
 	return i.ToServiceReferencePatchPtrOutputWithContext(context.Background())
 }
@@ -4725,12 +4214,6 @@ func (i *serviceReferencePatchPtrType) ToServiceReferencePatchPtrOutputWithConte
 	return pulumi.ToOutputWithContext(ctx, i).(ServiceReferencePatchPtrOutput)
 }
 
-func (i *serviceReferencePatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*ServiceReferencePatch] {
-	return pulumix.Output[*ServiceReferencePatch]{
-		OutputState: i.ToServiceReferencePatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ServiceReference holds a reference to Service.legacy.k8s.io
 type ServiceReferencePatchOutput struct{ *pulumi.OutputState }
 
@@ -4754,12 +4237,6 @@ func (o ServiceReferencePatchOutput) ToServiceReferencePatchPtrOutputWithContext
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v ServiceReferencePatch) *ServiceReferencePatch {
 		return &v
 	}).(ServiceReferencePatchPtrOutput)
-}
-
-func (o ServiceReferencePatchOutput) ToOutput(ctx context.Context) pulumix.Output[ServiceReferencePatch] {
-	return pulumix.Output[ServiceReferencePatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // `name` is the name of the service. Required
@@ -4794,12 +4271,6 @@ func (o ServiceReferencePatchPtrOutput) ToServiceReferencePatchPtrOutput() Servi
 
 func (o ServiceReferencePatchPtrOutput) ToServiceReferencePatchPtrOutputWithContext(ctx context.Context) ServiceReferencePatchPtrOutput {
 	return o
-}
-
-func (o ServiceReferencePatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*ServiceReferencePatch] {
-	return pulumix.Output[*ServiceReferencePatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ServiceReferencePatchPtrOutput) Elem() ServiceReferencePatchOutput {
@@ -4887,12 +4358,6 @@ func (i TypeCheckingArgs) ToTypeCheckingOutputWithContext(ctx context.Context) T
 	return pulumi.ToOutputWithContext(ctx, i).(TypeCheckingOutput)
 }
 
-func (i TypeCheckingArgs) ToOutput(ctx context.Context) pulumix.Output[TypeChecking] {
-	return pulumix.Output[TypeChecking]{
-		OutputState: i.ToTypeCheckingOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i TypeCheckingArgs) ToTypeCheckingPtrOutput() TypeCheckingPtrOutput {
 	return i.ToTypeCheckingPtrOutputWithContext(context.Background())
 }
@@ -4934,12 +4399,6 @@ func (i *typeCheckingPtrType) ToTypeCheckingPtrOutputWithContext(ctx context.Con
 	return pulumi.ToOutputWithContext(ctx, i).(TypeCheckingPtrOutput)
 }
 
-func (i *typeCheckingPtrType) ToOutput(ctx context.Context) pulumix.Output[*TypeChecking] {
-	return pulumix.Output[*TypeChecking]{
-		OutputState: i.ToTypeCheckingPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // TypeChecking contains results of type checking the expressions in the ValidatingAdmissionPolicy
 type TypeCheckingOutput struct{ *pulumi.OutputState }
 
@@ -4965,12 +4424,6 @@ func (o TypeCheckingOutput) ToTypeCheckingPtrOutputWithContext(ctx context.Conte
 	}).(TypeCheckingPtrOutput)
 }
 
-func (o TypeCheckingOutput) ToOutput(ctx context.Context) pulumix.Output[TypeChecking] {
-	return pulumix.Output[TypeChecking]{
-		OutputState: o.OutputState,
-	}
-}
-
 // The type checking warnings for each expression.
 func (o TypeCheckingOutput) ExpressionWarnings() ExpressionWarningArrayOutput {
 	return o.ApplyT(func(v TypeChecking) []ExpressionWarning { return v.ExpressionWarnings }).(ExpressionWarningArrayOutput)
@@ -4988,12 +4441,6 @@ func (o TypeCheckingPtrOutput) ToTypeCheckingPtrOutput() TypeCheckingPtrOutput {
 
 func (o TypeCheckingPtrOutput) ToTypeCheckingPtrOutputWithContext(ctx context.Context) TypeCheckingPtrOutput {
 	return o
-}
-
-func (o TypeCheckingPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*TypeChecking] {
-	return pulumix.Output[*TypeChecking]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o TypeCheckingPtrOutput) Elem() TypeCheckingOutput {
@@ -5051,12 +4498,6 @@ func (i TypeCheckingPatchArgs) ToTypeCheckingPatchOutputWithContext(ctx context.
 	return pulumi.ToOutputWithContext(ctx, i).(TypeCheckingPatchOutput)
 }
 
-func (i TypeCheckingPatchArgs) ToOutput(ctx context.Context) pulumix.Output[TypeCheckingPatch] {
-	return pulumix.Output[TypeCheckingPatch]{
-		OutputState: i.ToTypeCheckingPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i TypeCheckingPatchArgs) ToTypeCheckingPatchPtrOutput() TypeCheckingPatchPtrOutput {
 	return i.ToTypeCheckingPatchPtrOutputWithContext(context.Background())
 }
@@ -5098,12 +4539,6 @@ func (i *typeCheckingPatchPtrType) ToTypeCheckingPatchPtrOutputWithContext(ctx c
 	return pulumi.ToOutputWithContext(ctx, i).(TypeCheckingPatchPtrOutput)
 }
 
-func (i *typeCheckingPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*TypeCheckingPatch] {
-	return pulumix.Output[*TypeCheckingPatch]{
-		OutputState: i.ToTypeCheckingPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // TypeChecking contains results of type checking the expressions in the ValidatingAdmissionPolicy
 type TypeCheckingPatchOutput struct{ *pulumi.OutputState }
 
@@ -5129,12 +4564,6 @@ func (o TypeCheckingPatchOutput) ToTypeCheckingPatchPtrOutputWithContext(ctx con
 	}).(TypeCheckingPatchPtrOutput)
 }
 
-func (o TypeCheckingPatchOutput) ToOutput(ctx context.Context) pulumix.Output[TypeCheckingPatch] {
-	return pulumix.Output[TypeCheckingPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 // The type checking warnings for each expression.
 func (o TypeCheckingPatchOutput) ExpressionWarnings() ExpressionWarningPatchArrayOutput {
 	return o.ApplyT(func(v TypeCheckingPatch) []ExpressionWarningPatch { return v.ExpressionWarnings }).(ExpressionWarningPatchArrayOutput)
@@ -5152,12 +4581,6 @@ func (o TypeCheckingPatchPtrOutput) ToTypeCheckingPatchPtrOutput() TypeCheckingP
 
 func (o TypeCheckingPatchPtrOutput) ToTypeCheckingPatchPtrOutputWithContext(ctx context.Context) TypeCheckingPatchPtrOutput {
 	return o
-}
-
-func (o TypeCheckingPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*TypeCheckingPatch] {
-	return pulumix.Output[*TypeCheckingPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o TypeCheckingPatchPtrOutput) Elem() TypeCheckingPatchOutput {
@@ -5231,12 +4654,6 @@ func (i ValidatingAdmissionPolicyTypeArgs) ToValidatingAdmissionPolicyTypeOutput
 	return pulumi.ToOutputWithContext(ctx, i).(ValidatingAdmissionPolicyTypeOutput)
 }
 
-func (i ValidatingAdmissionPolicyTypeArgs) ToOutput(ctx context.Context) pulumix.Output[ValidatingAdmissionPolicyType] {
-	return pulumix.Output[ValidatingAdmissionPolicyType]{
-		OutputState: i.ToValidatingAdmissionPolicyTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ValidatingAdmissionPolicyTypeArrayInput is an input type that accepts ValidatingAdmissionPolicyTypeArray and ValidatingAdmissionPolicyTypeArrayOutput values.
 // You can construct a concrete instance of `ValidatingAdmissionPolicyTypeArrayInput` via:
 //
@@ -5262,12 +4679,6 @@ func (i ValidatingAdmissionPolicyTypeArray) ToValidatingAdmissionPolicyTypeArray
 	return pulumi.ToOutputWithContext(ctx, i).(ValidatingAdmissionPolicyTypeArrayOutput)
 }
 
-func (i ValidatingAdmissionPolicyTypeArray) ToOutput(ctx context.Context) pulumix.Output[[]ValidatingAdmissionPolicyType] {
-	return pulumix.Output[[]ValidatingAdmissionPolicyType]{
-		OutputState: i.ToValidatingAdmissionPolicyTypeArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ValidatingAdmissionPolicy describes the definition of an admission validation policy that accepts or rejects an object without changing it.
 type ValidatingAdmissionPolicyTypeOutput struct{ *pulumi.OutputState }
 
@@ -5281,12 +4692,6 @@ func (o ValidatingAdmissionPolicyTypeOutput) ToValidatingAdmissionPolicyTypeOutp
 
 func (o ValidatingAdmissionPolicyTypeOutput) ToValidatingAdmissionPolicyTypeOutputWithContext(ctx context.Context) ValidatingAdmissionPolicyTypeOutput {
 	return o
-}
-
-func (o ValidatingAdmissionPolicyTypeOutput) ToOutput(ctx context.Context) pulumix.Output[ValidatingAdmissionPolicyType] {
-	return pulumix.Output[ValidatingAdmissionPolicyType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -5326,12 +4731,6 @@ func (o ValidatingAdmissionPolicyTypeArrayOutput) ToValidatingAdmissionPolicyTyp
 
 func (o ValidatingAdmissionPolicyTypeArrayOutput) ToValidatingAdmissionPolicyTypeArrayOutputWithContext(ctx context.Context) ValidatingAdmissionPolicyTypeArrayOutput {
 	return o
-}
-
-func (o ValidatingAdmissionPolicyTypeArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]ValidatingAdmissionPolicyType] {
-	return pulumix.Output[[]ValidatingAdmissionPolicyType]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ValidatingAdmissionPolicyTypeArrayOutput) Index(i pulumi.IntInput) ValidatingAdmissionPolicyTypeOutput {
@@ -5395,12 +4794,6 @@ func (i ValidatingAdmissionPolicyBindingTypeArgs) ToValidatingAdmissionPolicyBin
 	return pulumi.ToOutputWithContext(ctx, i).(ValidatingAdmissionPolicyBindingTypeOutput)
 }
 
-func (i ValidatingAdmissionPolicyBindingTypeArgs) ToOutput(ctx context.Context) pulumix.Output[ValidatingAdmissionPolicyBindingType] {
-	return pulumix.Output[ValidatingAdmissionPolicyBindingType]{
-		OutputState: i.ToValidatingAdmissionPolicyBindingTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ValidatingAdmissionPolicyBindingTypeArrayInput is an input type that accepts ValidatingAdmissionPolicyBindingTypeArray and ValidatingAdmissionPolicyBindingTypeArrayOutput values.
 // You can construct a concrete instance of `ValidatingAdmissionPolicyBindingTypeArrayInput` via:
 //
@@ -5426,12 +4819,6 @@ func (i ValidatingAdmissionPolicyBindingTypeArray) ToValidatingAdmissionPolicyBi
 	return pulumi.ToOutputWithContext(ctx, i).(ValidatingAdmissionPolicyBindingTypeArrayOutput)
 }
 
-func (i ValidatingAdmissionPolicyBindingTypeArray) ToOutput(ctx context.Context) pulumix.Output[[]ValidatingAdmissionPolicyBindingType] {
-	return pulumix.Output[[]ValidatingAdmissionPolicyBindingType]{
-		OutputState: i.ToValidatingAdmissionPolicyBindingTypeArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ValidatingAdmissionPolicyBinding binds the ValidatingAdmissionPolicy with paramerized resources. ValidatingAdmissionPolicyBinding and parameter CRDs together define how cluster administrators configure policies for clusters.
 //
 // For a given admission request, each binding will cause its policy to be evaluated N times, where N is 1 for policies/bindings that don't use params, otherwise N is the number of parameters selected by the binding.
@@ -5449,12 +4836,6 @@ func (o ValidatingAdmissionPolicyBindingTypeOutput) ToValidatingAdmissionPolicyB
 
 func (o ValidatingAdmissionPolicyBindingTypeOutput) ToValidatingAdmissionPolicyBindingTypeOutputWithContext(ctx context.Context) ValidatingAdmissionPolicyBindingTypeOutput {
 	return o
-}
-
-func (o ValidatingAdmissionPolicyBindingTypeOutput) ToOutput(ctx context.Context) pulumix.Output[ValidatingAdmissionPolicyBindingType] {
-	return pulumix.Output[ValidatingAdmissionPolicyBindingType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -5489,12 +4870,6 @@ func (o ValidatingAdmissionPolicyBindingTypeArrayOutput) ToValidatingAdmissionPo
 
 func (o ValidatingAdmissionPolicyBindingTypeArrayOutput) ToValidatingAdmissionPolicyBindingTypeArrayOutputWithContext(ctx context.Context) ValidatingAdmissionPolicyBindingTypeArrayOutput {
 	return o
-}
-
-func (o ValidatingAdmissionPolicyBindingTypeArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]ValidatingAdmissionPolicyBindingType] {
-	return pulumix.Output[[]ValidatingAdmissionPolicyBindingType]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ValidatingAdmissionPolicyBindingTypeArrayOutput) Index(i pulumi.IntInput) ValidatingAdmissionPolicyBindingTypeOutput {
@@ -5550,12 +4925,6 @@ func (i ValidatingAdmissionPolicyBindingListTypeArgs) ToValidatingAdmissionPolic
 	return pulumi.ToOutputWithContext(ctx, i).(ValidatingAdmissionPolicyBindingListTypeOutput)
 }
 
-func (i ValidatingAdmissionPolicyBindingListTypeArgs) ToOutput(ctx context.Context) pulumix.Output[ValidatingAdmissionPolicyBindingListType] {
-	return pulumix.Output[ValidatingAdmissionPolicyBindingListType]{
-		OutputState: i.ToValidatingAdmissionPolicyBindingListTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ValidatingAdmissionPolicyBindingList is a list of ValidatingAdmissionPolicyBinding.
 type ValidatingAdmissionPolicyBindingListTypeOutput struct{ *pulumi.OutputState }
 
@@ -5569,12 +4938,6 @@ func (o ValidatingAdmissionPolicyBindingListTypeOutput) ToValidatingAdmissionPol
 
 func (o ValidatingAdmissionPolicyBindingListTypeOutput) ToValidatingAdmissionPolicyBindingListTypeOutputWithContext(ctx context.Context) ValidatingAdmissionPolicyBindingListTypeOutput {
 	return o
-}
-
-func (o ValidatingAdmissionPolicyBindingListTypeOutput) ToOutput(ctx context.Context) pulumix.Output[ValidatingAdmissionPolicyBindingListType] {
-	return pulumix.Output[ValidatingAdmissionPolicyBindingListType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -5654,12 +5017,6 @@ func (i ValidatingAdmissionPolicyBindingPatchTypeArgs) ToValidatingAdmissionPoli
 	return pulumi.ToOutputWithContext(ctx, i).(ValidatingAdmissionPolicyBindingPatchTypeOutput)
 }
 
-func (i ValidatingAdmissionPolicyBindingPatchTypeArgs) ToOutput(ctx context.Context) pulumix.Output[ValidatingAdmissionPolicyBindingPatchType] {
-	return pulumix.Output[ValidatingAdmissionPolicyBindingPatchType]{
-		OutputState: i.ToValidatingAdmissionPolicyBindingPatchTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ValidatingAdmissionPolicyBinding binds the ValidatingAdmissionPolicy with paramerized resources. ValidatingAdmissionPolicyBinding and parameter CRDs together define how cluster administrators configure policies for clusters.
 //
 // For a given admission request, each binding will cause its policy to be evaluated N times, where N is 1 for policies/bindings that don't use params, otherwise N is the number of parameters selected by the binding.
@@ -5677,12 +5034,6 @@ func (o ValidatingAdmissionPolicyBindingPatchTypeOutput) ToValidatingAdmissionPo
 
 func (o ValidatingAdmissionPolicyBindingPatchTypeOutput) ToValidatingAdmissionPolicyBindingPatchTypeOutputWithContext(ctx context.Context) ValidatingAdmissionPolicyBindingPatchTypeOutput {
 	return o
-}
-
-func (o ValidatingAdmissionPolicyBindingPatchTypeOutput) ToOutput(ctx context.Context) pulumix.Output[ValidatingAdmissionPolicyBindingPatchType] {
-	return pulumix.Output[ValidatingAdmissionPolicyBindingPatchType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -5790,12 +5141,6 @@ func (i ValidatingAdmissionPolicyBindingSpecArgs) ToValidatingAdmissionPolicyBin
 	return pulumi.ToOutputWithContext(ctx, i).(ValidatingAdmissionPolicyBindingSpecOutput)
 }
 
-func (i ValidatingAdmissionPolicyBindingSpecArgs) ToOutput(ctx context.Context) pulumix.Output[ValidatingAdmissionPolicyBindingSpec] {
-	return pulumix.Output[ValidatingAdmissionPolicyBindingSpec]{
-		OutputState: i.ToValidatingAdmissionPolicyBindingSpecOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i ValidatingAdmissionPolicyBindingSpecArgs) ToValidatingAdmissionPolicyBindingSpecPtrOutput() ValidatingAdmissionPolicyBindingSpecPtrOutput {
 	return i.ToValidatingAdmissionPolicyBindingSpecPtrOutputWithContext(context.Background())
 }
@@ -5837,12 +5182,6 @@ func (i *validatingAdmissionPolicyBindingSpecPtrType) ToValidatingAdmissionPolic
 	return pulumi.ToOutputWithContext(ctx, i).(ValidatingAdmissionPolicyBindingSpecPtrOutput)
 }
 
-func (i *validatingAdmissionPolicyBindingSpecPtrType) ToOutput(ctx context.Context) pulumix.Output[*ValidatingAdmissionPolicyBindingSpec] {
-	return pulumix.Output[*ValidatingAdmissionPolicyBindingSpec]{
-		OutputState: i.ToValidatingAdmissionPolicyBindingSpecPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ValidatingAdmissionPolicyBindingSpec is the specification of the ValidatingAdmissionPolicyBinding.
 type ValidatingAdmissionPolicyBindingSpecOutput struct{ *pulumi.OutputState }
 
@@ -5866,12 +5205,6 @@ func (o ValidatingAdmissionPolicyBindingSpecOutput) ToValidatingAdmissionPolicyB
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v ValidatingAdmissionPolicyBindingSpec) *ValidatingAdmissionPolicyBindingSpec {
 		return &v
 	}).(ValidatingAdmissionPolicyBindingSpecPtrOutput)
-}
-
-func (o ValidatingAdmissionPolicyBindingSpecOutput) ToOutput(ctx context.Context) pulumix.Output[ValidatingAdmissionPolicyBindingSpec] {
-	return pulumix.Output[ValidatingAdmissionPolicyBindingSpec]{
-		OutputState: o.OutputState,
-	}
 }
 
 // MatchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy's matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
@@ -5924,12 +5257,6 @@ func (o ValidatingAdmissionPolicyBindingSpecPtrOutput) ToValidatingAdmissionPoli
 
 func (o ValidatingAdmissionPolicyBindingSpecPtrOutput) ToValidatingAdmissionPolicyBindingSpecPtrOutputWithContext(ctx context.Context) ValidatingAdmissionPolicyBindingSpecPtrOutput {
 	return o
-}
-
-func (o ValidatingAdmissionPolicyBindingSpecPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*ValidatingAdmissionPolicyBindingSpec] {
-	return pulumix.Output[*ValidatingAdmissionPolicyBindingSpec]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ValidatingAdmissionPolicyBindingSpecPtrOutput) Elem() ValidatingAdmissionPolicyBindingSpecOutput {
@@ -6083,12 +5410,6 @@ func (i ValidatingAdmissionPolicyBindingSpecPatchArgs) ToValidatingAdmissionPoli
 	return pulumi.ToOutputWithContext(ctx, i).(ValidatingAdmissionPolicyBindingSpecPatchOutput)
 }
 
-func (i ValidatingAdmissionPolicyBindingSpecPatchArgs) ToOutput(ctx context.Context) pulumix.Output[ValidatingAdmissionPolicyBindingSpecPatch] {
-	return pulumix.Output[ValidatingAdmissionPolicyBindingSpecPatch]{
-		OutputState: i.ToValidatingAdmissionPolicyBindingSpecPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i ValidatingAdmissionPolicyBindingSpecPatchArgs) ToValidatingAdmissionPolicyBindingSpecPatchPtrOutput() ValidatingAdmissionPolicyBindingSpecPatchPtrOutput {
 	return i.ToValidatingAdmissionPolicyBindingSpecPatchPtrOutputWithContext(context.Background())
 }
@@ -6130,12 +5451,6 @@ func (i *validatingAdmissionPolicyBindingSpecPatchPtrType) ToValidatingAdmission
 	return pulumi.ToOutputWithContext(ctx, i).(ValidatingAdmissionPolicyBindingSpecPatchPtrOutput)
 }
 
-func (i *validatingAdmissionPolicyBindingSpecPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*ValidatingAdmissionPolicyBindingSpecPatch] {
-	return pulumix.Output[*ValidatingAdmissionPolicyBindingSpecPatch]{
-		OutputState: i.ToValidatingAdmissionPolicyBindingSpecPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ValidatingAdmissionPolicyBindingSpec is the specification of the ValidatingAdmissionPolicyBinding.
 type ValidatingAdmissionPolicyBindingSpecPatchOutput struct{ *pulumi.OutputState }
 
@@ -6159,12 +5474,6 @@ func (o ValidatingAdmissionPolicyBindingSpecPatchOutput) ToValidatingAdmissionPo
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v ValidatingAdmissionPolicyBindingSpecPatch) *ValidatingAdmissionPolicyBindingSpecPatch {
 		return &v
 	}).(ValidatingAdmissionPolicyBindingSpecPatchPtrOutput)
-}
-
-func (o ValidatingAdmissionPolicyBindingSpecPatchOutput) ToOutput(ctx context.Context) pulumix.Output[ValidatingAdmissionPolicyBindingSpecPatch] {
-	return pulumix.Output[ValidatingAdmissionPolicyBindingSpecPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // MatchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy's matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
@@ -6217,12 +5526,6 @@ func (o ValidatingAdmissionPolicyBindingSpecPatchPtrOutput) ToValidatingAdmissio
 
 func (o ValidatingAdmissionPolicyBindingSpecPatchPtrOutput) ToValidatingAdmissionPolicyBindingSpecPatchPtrOutputWithContext(ctx context.Context) ValidatingAdmissionPolicyBindingSpecPatchPtrOutput {
 	return o
-}
-
-func (o ValidatingAdmissionPolicyBindingSpecPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*ValidatingAdmissionPolicyBindingSpecPatch] {
-	return pulumix.Output[*ValidatingAdmissionPolicyBindingSpecPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ValidatingAdmissionPolicyBindingSpecPatchPtrOutput) Elem() ValidatingAdmissionPolicyBindingSpecPatchOutput {
@@ -6340,12 +5643,6 @@ func (i ValidatingAdmissionPolicyListTypeArgs) ToValidatingAdmissionPolicyListTy
 	return pulumi.ToOutputWithContext(ctx, i).(ValidatingAdmissionPolicyListTypeOutput)
 }
 
-func (i ValidatingAdmissionPolicyListTypeArgs) ToOutput(ctx context.Context) pulumix.Output[ValidatingAdmissionPolicyListType] {
-	return pulumix.Output[ValidatingAdmissionPolicyListType]{
-		OutputState: i.ToValidatingAdmissionPolicyListTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ValidatingAdmissionPolicyList is a list of ValidatingAdmissionPolicy.
 type ValidatingAdmissionPolicyListTypeOutput struct{ *pulumi.OutputState }
 
@@ -6359,12 +5656,6 @@ func (o ValidatingAdmissionPolicyListTypeOutput) ToValidatingAdmissionPolicyList
 
 func (o ValidatingAdmissionPolicyListTypeOutput) ToValidatingAdmissionPolicyListTypeOutputWithContext(ctx context.Context) ValidatingAdmissionPolicyListTypeOutput {
 	return o
-}
-
-func (o ValidatingAdmissionPolicyListTypeOutput) ToOutput(ctx context.Context) pulumix.Output[ValidatingAdmissionPolicyListType] {
-	return pulumix.Output[ValidatingAdmissionPolicyListType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -6438,12 +5729,6 @@ func (i ValidatingAdmissionPolicyPatchTypeArgs) ToValidatingAdmissionPolicyPatch
 	return pulumi.ToOutputWithContext(ctx, i).(ValidatingAdmissionPolicyPatchTypeOutput)
 }
 
-func (i ValidatingAdmissionPolicyPatchTypeArgs) ToOutput(ctx context.Context) pulumix.Output[ValidatingAdmissionPolicyPatchType] {
-	return pulumix.Output[ValidatingAdmissionPolicyPatchType]{
-		OutputState: i.ToValidatingAdmissionPolicyPatchTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ValidatingAdmissionPolicy describes the definition of an admission validation policy that accepts or rejects an object without changing it.
 type ValidatingAdmissionPolicyPatchTypeOutput struct{ *pulumi.OutputState }
 
@@ -6457,12 +5742,6 @@ func (o ValidatingAdmissionPolicyPatchTypeOutput) ToValidatingAdmissionPolicyPat
 
 func (o ValidatingAdmissionPolicyPatchTypeOutput) ToValidatingAdmissionPolicyPatchTypeOutputWithContext(ctx context.Context) ValidatingAdmissionPolicyPatchTypeOutput {
 	return o
-}
-
-func (o ValidatingAdmissionPolicyPatchTypeOutput) ToOutput(ctx context.Context) pulumix.Output[ValidatingAdmissionPolicyPatchType] {
-	return pulumix.Output[ValidatingAdmissionPolicyPatchType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -6587,12 +5866,6 @@ func (i ValidatingAdmissionPolicySpecArgs) ToValidatingAdmissionPolicySpecOutput
 	return pulumi.ToOutputWithContext(ctx, i).(ValidatingAdmissionPolicySpecOutput)
 }
 
-func (i ValidatingAdmissionPolicySpecArgs) ToOutput(ctx context.Context) pulumix.Output[ValidatingAdmissionPolicySpec] {
-	return pulumix.Output[ValidatingAdmissionPolicySpec]{
-		OutputState: i.ToValidatingAdmissionPolicySpecOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i ValidatingAdmissionPolicySpecArgs) ToValidatingAdmissionPolicySpecPtrOutput() ValidatingAdmissionPolicySpecPtrOutput {
 	return i.ToValidatingAdmissionPolicySpecPtrOutputWithContext(context.Background())
 }
@@ -6634,12 +5907,6 @@ func (i *validatingAdmissionPolicySpecPtrType) ToValidatingAdmissionPolicySpecPt
 	return pulumi.ToOutputWithContext(ctx, i).(ValidatingAdmissionPolicySpecPtrOutput)
 }
 
-func (i *validatingAdmissionPolicySpecPtrType) ToOutput(ctx context.Context) pulumix.Output[*ValidatingAdmissionPolicySpec] {
-	return pulumix.Output[*ValidatingAdmissionPolicySpec]{
-		OutputState: i.ToValidatingAdmissionPolicySpecPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ValidatingAdmissionPolicySpec is the specification of the desired behavior of the AdmissionPolicy.
 type ValidatingAdmissionPolicySpecOutput struct{ *pulumi.OutputState }
 
@@ -6663,12 +5930,6 @@ func (o ValidatingAdmissionPolicySpecOutput) ToValidatingAdmissionPolicySpecPtrO
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v ValidatingAdmissionPolicySpec) *ValidatingAdmissionPolicySpec {
 		return &v
 	}).(ValidatingAdmissionPolicySpecPtrOutput)
-}
-
-func (o ValidatingAdmissionPolicySpecOutput) ToOutput(ctx context.Context) pulumix.Output[ValidatingAdmissionPolicySpec] {
-	return pulumix.Output[ValidatingAdmissionPolicySpec]{
-		OutputState: o.OutputState,
-	}
 }
 
 // auditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the API request. validations and auditAnnotations may not both be empty; a least one of validations or auditAnnotations is required.
@@ -6737,12 +5998,6 @@ func (o ValidatingAdmissionPolicySpecPtrOutput) ToValidatingAdmissionPolicySpecP
 
 func (o ValidatingAdmissionPolicySpecPtrOutput) ToValidatingAdmissionPolicySpecPtrOutputWithContext(ctx context.Context) ValidatingAdmissionPolicySpecPtrOutput {
 	return o
-}
-
-func (o ValidatingAdmissionPolicySpecPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*ValidatingAdmissionPolicySpec] {
-	return pulumix.Output[*ValidatingAdmissionPolicySpec]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ValidatingAdmissionPolicySpecPtrOutput) Elem() ValidatingAdmissionPolicySpecOutput {
@@ -6941,12 +6196,6 @@ func (i ValidatingAdmissionPolicySpecPatchArgs) ToValidatingAdmissionPolicySpecP
 	return pulumi.ToOutputWithContext(ctx, i).(ValidatingAdmissionPolicySpecPatchOutput)
 }
 
-func (i ValidatingAdmissionPolicySpecPatchArgs) ToOutput(ctx context.Context) pulumix.Output[ValidatingAdmissionPolicySpecPatch] {
-	return pulumix.Output[ValidatingAdmissionPolicySpecPatch]{
-		OutputState: i.ToValidatingAdmissionPolicySpecPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i ValidatingAdmissionPolicySpecPatchArgs) ToValidatingAdmissionPolicySpecPatchPtrOutput() ValidatingAdmissionPolicySpecPatchPtrOutput {
 	return i.ToValidatingAdmissionPolicySpecPatchPtrOutputWithContext(context.Background())
 }
@@ -6988,12 +6237,6 @@ func (i *validatingAdmissionPolicySpecPatchPtrType) ToValidatingAdmissionPolicyS
 	return pulumi.ToOutputWithContext(ctx, i).(ValidatingAdmissionPolicySpecPatchPtrOutput)
 }
 
-func (i *validatingAdmissionPolicySpecPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*ValidatingAdmissionPolicySpecPatch] {
-	return pulumix.Output[*ValidatingAdmissionPolicySpecPatch]{
-		OutputState: i.ToValidatingAdmissionPolicySpecPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ValidatingAdmissionPolicySpec is the specification of the desired behavior of the AdmissionPolicy.
 type ValidatingAdmissionPolicySpecPatchOutput struct{ *pulumi.OutputState }
 
@@ -7017,12 +6260,6 @@ func (o ValidatingAdmissionPolicySpecPatchOutput) ToValidatingAdmissionPolicySpe
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v ValidatingAdmissionPolicySpecPatch) *ValidatingAdmissionPolicySpecPatch {
 		return &v
 	}).(ValidatingAdmissionPolicySpecPatchPtrOutput)
-}
-
-func (o ValidatingAdmissionPolicySpecPatchOutput) ToOutput(ctx context.Context) pulumix.Output[ValidatingAdmissionPolicySpecPatch] {
-	return pulumix.Output[ValidatingAdmissionPolicySpecPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // auditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the API request. validations and auditAnnotations may not both be empty; a least one of validations or auditAnnotations is required.
@@ -7091,12 +6328,6 @@ func (o ValidatingAdmissionPolicySpecPatchPtrOutput) ToValidatingAdmissionPolicy
 
 func (o ValidatingAdmissionPolicySpecPatchPtrOutput) ToValidatingAdmissionPolicySpecPatchPtrOutputWithContext(ctx context.Context) ValidatingAdmissionPolicySpecPatchPtrOutput {
 	return o
-}
-
-func (o ValidatingAdmissionPolicySpecPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*ValidatingAdmissionPolicySpecPatch] {
-	return pulumix.Output[*ValidatingAdmissionPolicySpecPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ValidatingAdmissionPolicySpecPatchPtrOutput) Elem() ValidatingAdmissionPolicySpecPatchOutput {
@@ -7241,12 +6472,6 @@ func (i ValidatingAdmissionPolicyStatusArgs) ToValidatingAdmissionPolicyStatusOu
 	return pulumi.ToOutputWithContext(ctx, i).(ValidatingAdmissionPolicyStatusOutput)
 }
 
-func (i ValidatingAdmissionPolicyStatusArgs) ToOutput(ctx context.Context) pulumix.Output[ValidatingAdmissionPolicyStatus] {
-	return pulumix.Output[ValidatingAdmissionPolicyStatus]{
-		OutputState: i.ToValidatingAdmissionPolicyStatusOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i ValidatingAdmissionPolicyStatusArgs) ToValidatingAdmissionPolicyStatusPtrOutput() ValidatingAdmissionPolicyStatusPtrOutput {
 	return i.ToValidatingAdmissionPolicyStatusPtrOutputWithContext(context.Background())
 }
@@ -7288,12 +6513,6 @@ func (i *validatingAdmissionPolicyStatusPtrType) ToValidatingAdmissionPolicyStat
 	return pulumi.ToOutputWithContext(ctx, i).(ValidatingAdmissionPolicyStatusPtrOutput)
 }
 
-func (i *validatingAdmissionPolicyStatusPtrType) ToOutput(ctx context.Context) pulumix.Output[*ValidatingAdmissionPolicyStatus] {
-	return pulumix.Output[*ValidatingAdmissionPolicyStatus]{
-		OutputState: i.ToValidatingAdmissionPolicyStatusPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ValidatingAdmissionPolicyStatus represents the status of an admission validation policy.
 type ValidatingAdmissionPolicyStatusOutput struct{ *pulumi.OutputState }
 
@@ -7317,12 +6536,6 @@ func (o ValidatingAdmissionPolicyStatusOutput) ToValidatingAdmissionPolicyStatus
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v ValidatingAdmissionPolicyStatus) *ValidatingAdmissionPolicyStatus {
 		return &v
 	}).(ValidatingAdmissionPolicyStatusPtrOutput)
-}
-
-func (o ValidatingAdmissionPolicyStatusOutput) ToOutput(ctx context.Context) pulumix.Output[ValidatingAdmissionPolicyStatus] {
-	return pulumix.Output[ValidatingAdmissionPolicyStatus]{
-		OutputState: o.OutputState,
-	}
 }
 
 // The conditions represent the latest available observations of a policy's current state.
@@ -7352,12 +6565,6 @@ func (o ValidatingAdmissionPolicyStatusPtrOutput) ToValidatingAdmissionPolicySta
 
 func (o ValidatingAdmissionPolicyStatusPtrOutput) ToValidatingAdmissionPolicyStatusPtrOutputWithContext(ctx context.Context) ValidatingAdmissionPolicyStatusPtrOutput {
 	return o
-}
-
-func (o ValidatingAdmissionPolicyStatusPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*ValidatingAdmissionPolicyStatus] {
-	return pulumix.Output[*ValidatingAdmissionPolicyStatus]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ValidatingAdmissionPolicyStatusPtrOutput) Elem() ValidatingAdmissionPolicyStatusOutput {
@@ -7443,12 +6650,6 @@ func (i ValidatingAdmissionPolicyStatusPatchArgs) ToValidatingAdmissionPolicySta
 	return pulumi.ToOutputWithContext(ctx, i).(ValidatingAdmissionPolicyStatusPatchOutput)
 }
 
-func (i ValidatingAdmissionPolicyStatusPatchArgs) ToOutput(ctx context.Context) pulumix.Output[ValidatingAdmissionPolicyStatusPatch] {
-	return pulumix.Output[ValidatingAdmissionPolicyStatusPatch]{
-		OutputState: i.ToValidatingAdmissionPolicyStatusPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i ValidatingAdmissionPolicyStatusPatchArgs) ToValidatingAdmissionPolicyStatusPatchPtrOutput() ValidatingAdmissionPolicyStatusPatchPtrOutput {
 	return i.ToValidatingAdmissionPolicyStatusPatchPtrOutputWithContext(context.Background())
 }
@@ -7490,12 +6691,6 @@ func (i *validatingAdmissionPolicyStatusPatchPtrType) ToValidatingAdmissionPolic
 	return pulumi.ToOutputWithContext(ctx, i).(ValidatingAdmissionPolicyStatusPatchPtrOutput)
 }
 
-func (i *validatingAdmissionPolicyStatusPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*ValidatingAdmissionPolicyStatusPatch] {
-	return pulumix.Output[*ValidatingAdmissionPolicyStatusPatch]{
-		OutputState: i.ToValidatingAdmissionPolicyStatusPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ValidatingAdmissionPolicyStatus represents the status of an admission validation policy.
 type ValidatingAdmissionPolicyStatusPatchOutput struct{ *pulumi.OutputState }
 
@@ -7519,12 +6714,6 @@ func (o ValidatingAdmissionPolicyStatusPatchOutput) ToValidatingAdmissionPolicyS
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v ValidatingAdmissionPolicyStatusPatch) *ValidatingAdmissionPolicyStatusPatch {
 		return &v
 	}).(ValidatingAdmissionPolicyStatusPatchPtrOutput)
-}
-
-func (o ValidatingAdmissionPolicyStatusPatchOutput) ToOutput(ctx context.Context) pulumix.Output[ValidatingAdmissionPolicyStatusPatch] {
-	return pulumix.Output[ValidatingAdmissionPolicyStatusPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // The conditions represent the latest available observations of a policy's current state.
@@ -7554,12 +6743,6 @@ func (o ValidatingAdmissionPolicyStatusPatchPtrOutput) ToValidatingAdmissionPoli
 
 func (o ValidatingAdmissionPolicyStatusPatchPtrOutput) ToValidatingAdmissionPolicyStatusPatchPtrOutputWithContext(ctx context.Context) ValidatingAdmissionPolicyStatusPatchPtrOutput {
 	return o
-}
-
-func (o ValidatingAdmissionPolicyStatusPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*ValidatingAdmissionPolicyStatusPatch] {
-	return pulumix.Output[*ValidatingAdmissionPolicyStatusPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ValidatingAdmissionPolicyStatusPatchPtrOutput) Elem() ValidatingAdmissionPolicyStatusPatchOutput {
@@ -7745,12 +6928,6 @@ func (i ValidatingWebhookArgs) ToValidatingWebhookOutputWithContext(ctx context.
 	return pulumi.ToOutputWithContext(ctx, i).(ValidatingWebhookOutput)
 }
 
-func (i ValidatingWebhookArgs) ToOutput(ctx context.Context) pulumix.Output[ValidatingWebhook] {
-	return pulumix.Output[ValidatingWebhook]{
-		OutputState: i.ToValidatingWebhookOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ValidatingWebhookArrayInput is an input type that accepts ValidatingWebhookArray and ValidatingWebhookArrayOutput values.
 // You can construct a concrete instance of `ValidatingWebhookArrayInput` via:
 //
@@ -7776,12 +6953,6 @@ func (i ValidatingWebhookArray) ToValidatingWebhookArrayOutputWithContext(ctx co
 	return pulumi.ToOutputWithContext(ctx, i).(ValidatingWebhookArrayOutput)
 }
 
-func (i ValidatingWebhookArray) ToOutput(ctx context.Context) pulumix.Output[[]ValidatingWebhook] {
-	return pulumix.Output[[]ValidatingWebhook]{
-		OutputState: i.ToValidatingWebhookArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ValidatingWebhook describes an admission webhook and the resources and operations it applies to.
 type ValidatingWebhookOutput struct{ *pulumi.OutputState }
 
@@ -7795,12 +6966,6 @@ func (o ValidatingWebhookOutput) ToValidatingWebhookOutput() ValidatingWebhookOu
 
 func (o ValidatingWebhookOutput) ToValidatingWebhookOutputWithContext(ctx context.Context) ValidatingWebhookOutput {
 	return o
-}
-
-func (o ValidatingWebhookOutput) ToOutput(ctx context.Context) pulumix.Output[ValidatingWebhook] {
-	return pulumix.Output[ValidatingWebhook]{
-		OutputState: o.OutputState,
-	}
 }
 
 // AdmissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the Webhook expects. API server will try to use first version in the list which it supports. If none of the versions specified in this list supported by API server, validation will fail for this object. If a persisted webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail and be subject to the failure policy. Default to `['v1beta1']`.
@@ -7903,12 +7068,6 @@ func (o ValidatingWebhookArrayOutput) ToValidatingWebhookArrayOutputWithContext(
 	return o
 }
 
-func (o ValidatingWebhookArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]ValidatingWebhook] {
-	return pulumix.Output[[]ValidatingWebhook]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o ValidatingWebhookArrayOutput) Index(i pulumi.IntInput) ValidatingWebhookOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ValidatingWebhook {
 		return vs[0].([]ValidatingWebhook)[vs[1].(int)]
@@ -7962,12 +7121,6 @@ func (i ValidatingWebhookConfigurationTypeArgs) ToValidatingWebhookConfiguration
 	return pulumi.ToOutputWithContext(ctx, i).(ValidatingWebhookConfigurationTypeOutput)
 }
 
-func (i ValidatingWebhookConfigurationTypeArgs) ToOutput(ctx context.Context) pulumix.Output[ValidatingWebhookConfigurationType] {
-	return pulumix.Output[ValidatingWebhookConfigurationType]{
-		OutputState: i.ToValidatingWebhookConfigurationTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ValidatingWebhookConfigurationTypeArrayInput is an input type that accepts ValidatingWebhookConfigurationTypeArray and ValidatingWebhookConfigurationTypeArrayOutput values.
 // You can construct a concrete instance of `ValidatingWebhookConfigurationTypeArrayInput` via:
 //
@@ -7993,12 +7146,6 @@ func (i ValidatingWebhookConfigurationTypeArray) ToValidatingWebhookConfiguratio
 	return pulumi.ToOutputWithContext(ctx, i).(ValidatingWebhookConfigurationTypeArrayOutput)
 }
 
-func (i ValidatingWebhookConfigurationTypeArray) ToOutput(ctx context.Context) pulumix.Output[[]ValidatingWebhookConfigurationType] {
-	return pulumix.Output[[]ValidatingWebhookConfigurationType]{
-		OutputState: i.ToValidatingWebhookConfigurationTypeArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ValidatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and object without changing it. Deprecated in v1.16, planned for removal in v1.19. Use admissionregistration.k8s.io/v1 ValidatingWebhookConfiguration instead.
 type ValidatingWebhookConfigurationTypeOutput struct{ *pulumi.OutputState }
 
@@ -8012,12 +7159,6 @@ func (o ValidatingWebhookConfigurationTypeOutput) ToValidatingWebhookConfigurati
 
 func (o ValidatingWebhookConfigurationTypeOutput) ToValidatingWebhookConfigurationTypeOutputWithContext(ctx context.Context) ValidatingWebhookConfigurationTypeOutput {
 	return o
-}
-
-func (o ValidatingWebhookConfigurationTypeOutput) ToOutput(ctx context.Context) pulumix.Output[ValidatingWebhookConfigurationType] {
-	return pulumix.Output[ValidatingWebhookConfigurationType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -8052,12 +7193,6 @@ func (o ValidatingWebhookConfigurationTypeArrayOutput) ToValidatingWebhookConfig
 
 func (o ValidatingWebhookConfigurationTypeArrayOutput) ToValidatingWebhookConfigurationTypeArrayOutputWithContext(ctx context.Context) ValidatingWebhookConfigurationTypeArrayOutput {
 	return o
-}
-
-func (o ValidatingWebhookConfigurationTypeArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]ValidatingWebhookConfigurationType] {
-	return pulumix.Output[[]ValidatingWebhookConfigurationType]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ValidatingWebhookConfigurationTypeArrayOutput) Index(i pulumi.IntInput) ValidatingWebhookConfigurationTypeOutput {
@@ -8113,12 +7248,6 @@ func (i ValidatingWebhookConfigurationListTypeArgs) ToValidatingWebhookConfigura
 	return pulumi.ToOutputWithContext(ctx, i).(ValidatingWebhookConfigurationListTypeOutput)
 }
 
-func (i ValidatingWebhookConfigurationListTypeArgs) ToOutput(ctx context.Context) pulumix.Output[ValidatingWebhookConfigurationListType] {
-	return pulumix.Output[ValidatingWebhookConfigurationListType]{
-		OutputState: i.ToValidatingWebhookConfigurationListTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ValidatingWebhookConfigurationList is a list of ValidatingWebhookConfiguration.
 type ValidatingWebhookConfigurationListTypeOutput struct{ *pulumi.OutputState }
 
@@ -8132,12 +7261,6 @@ func (o ValidatingWebhookConfigurationListTypeOutput) ToValidatingWebhookConfigu
 
 func (o ValidatingWebhookConfigurationListTypeOutput) ToValidatingWebhookConfigurationListTypeOutputWithContext(ctx context.Context) ValidatingWebhookConfigurationListTypeOutput {
 	return o
-}
-
-func (o ValidatingWebhookConfigurationListTypeOutput) ToOutput(ctx context.Context) pulumix.Output[ValidatingWebhookConfigurationListType] {
-	return pulumix.Output[ValidatingWebhookConfigurationListType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -8207,12 +7330,6 @@ func (i ValidatingWebhookConfigurationPatchTypeArgs) ToValidatingWebhookConfigur
 	return pulumi.ToOutputWithContext(ctx, i).(ValidatingWebhookConfigurationPatchTypeOutput)
 }
 
-func (i ValidatingWebhookConfigurationPatchTypeArgs) ToOutput(ctx context.Context) pulumix.Output[ValidatingWebhookConfigurationPatchType] {
-	return pulumix.Output[ValidatingWebhookConfigurationPatchType]{
-		OutputState: i.ToValidatingWebhookConfigurationPatchTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ValidatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and object without changing it. Deprecated in v1.16, planned for removal in v1.19. Use admissionregistration.k8s.io/v1 ValidatingWebhookConfiguration instead.
 type ValidatingWebhookConfigurationPatchTypeOutput struct{ *pulumi.OutputState }
 
@@ -8226,12 +7343,6 @@ func (o ValidatingWebhookConfigurationPatchTypeOutput) ToValidatingWebhookConfig
 
 func (o ValidatingWebhookConfigurationPatchTypeOutput) ToValidatingWebhookConfigurationPatchTypeOutputWithContext(ctx context.Context) ValidatingWebhookConfigurationPatchTypeOutput {
 	return o
-}
-
-func (o ValidatingWebhookConfigurationPatchTypeOutput) ToOutput(ctx context.Context) pulumix.Output[ValidatingWebhookConfigurationPatchType] {
-	return pulumix.Output[ValidatingWebhookConfigurationPatchType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -8397,12 +7508,6 @@ func (i ValidatingWebhookPatchArgs) ToValidatingWebhookPatchOutputWithContext(ct
 	return pulumi.ToOutputWithContext(ctx, i).(ValidatingWebhookPatchOutput)
 }
 
-func (i ValidatingWebhookPatchArgs) ToOutput(ctx context.Context) pulumix.Output[ValidatingWebhookPatch] {
-	return pulumix.Output[ValidatingWebhookPatch]{
-		OutputState: i.ToValidatingWebhookPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ValidatingWebhookPatchArrayInput is an input type that accepts ValidatingWebhookPatchArray and ValidatingWebhookPatchArrayOutput values.
 // You can construct a concrete instance of `ValidatingWebhookPatchArrayInput` via:
 //
@@ -8428,12 +7533,6 @@ func (i ValidatingWebhookPatchArray) ToValidatingWebhookPatchArrayOutputWithCont
 	return pulumi.ToOutputWithContext(ctx, i).(ValidatingWebhookPatchArrayOutput)
 }
 
-func (i ValidatingWebhookPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]ValidatingWebhookPatch] {
-	return pulumix.Output[[]ValidatingWebhookPatch]{
-		OutputState: i.ToValidatingWebhookPatchArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ValidatingWebhook describes an admission webhook and the resources and operations it applies to.
 type ValidatingWebhookPatchOutput struct{ *pulumi.OutputState }
 
@@ -8447,12 +7546,6 @@ func (o ValidatingWebhookPatchOutput) ToValidatingWebhookPatchOutput() Validatin
 
 func (o ValidatingWebhookPatchOutput) ToValidatingWebhookPatchOutputWithContext(ctx context.Context) ValidatingWebhookPatchOutput {
 	return o
-}
-
-func (o ValidatingWebhookPatchOutput) ToOutput(ctx context.Context) pulumix.Output[ValidatingWebhookPatch] {
-	return pulumix.Output[ValidatingWebhookPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // AdmissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the Webhook expects. API server will try to use first version in the list which it supports. If none of the versions specified in this list supported by API server, validation will fail for this object. If a persisted webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail and be subject to the failure policy. Default to `['v1beta1']`.
@@ -8553,12 +7646,6 @@ func (o ValidatingWebhookPatchArrayOutput) ToValidatingWebhookPatchArrayOutput()
 
 func (o ValidatingWebhookPatchArrayOutput) ToValidatingWebhookPatchArrayOutputWithContext(ctx context.Context) ValidatingWebhookPatchArrayOutput {
 	return o
-}
-
-func (o ValidatingWebhookPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]ValidatingWebhookPatch] {
-	return pulumix.Output[[]ValidatingWebhookPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ValidatingWebhookPatchArrayOutput) Index(i pulumi.IntInput) ValidatingWebhookPatchOutput {
@@ -8664,12 +7751,6 @@ func (i ValidationArgs) ToValidationOutputWithContext(ctx context.Context) Valid
 	return pulumi.ToOutputWithContext(ctx, i).(ValidationOutput)
 }
 
-func (i ValidationArgs) ToOutput(ctx context.Context) pulumix.Output[Validation] {
-	return pulumix.Output[Validation]{
-		OutputState: i.ToValidationOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ValidationArrayInput is an input type that accepts ValidationArray and ValidationArrayOutput values.
 // You can construct a concrete instance of `ValidationArrayInput` via:
 //
@@ -8695,12 +7776,6 @@ func (i ValidationArray) ToValidationArrayOutputWithContext(ctx context.Context)
 	return pulumi.ToOutputWithContext(ctx, i).(ValidationArrayOutput)
 }
 
-func (i ValidationArray) ToOutput(ctx context.Context) pulumix.Output[[]Validation] {
-	return pulumix.Output[[]Validation]{
-		OutputState: i.ToValidationArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // Validation specifies the CEL expression which is used to apply the validation.
 type ValidationOutput struct{ *pulumi.OutputState }
 
@@ -8714,12 +7789,6 @@ func (o ValidationOutput) ToValidationOutput() ValidationOutput {
 
 func (o ValidationOutput) ToValidationOutputWithContext(ctx context.Context) ValidationOutput {
 	return o
-}
-
-func (o ValidationOutput) ToOutput(ctx context.Context) pulumix.Output[Validation] {
-	return pulumix.Output[Validation]{
-		OutputState: o.OutputState,
-	}
 }
 
 // Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
@@ -8781,12 +7850,6 @@ func (o ValidationArrayOutput) ToValidationArrayOutput() ValidationArrayOutput {
 
 func (o ValidationArrayOutput) ToValidationArrayOutputWithContext(ctx context.Context) ValidationArrayOutput {
 	return o
-}
-
-func (o ValidationArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]Validation] {
-	return pulumix.Output[[]Validation]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ValidationArrayOutput) Index(i pulumi.IntInput) ValidationOutput {
@@ -8892,12 +7955,6 @@ func (i ValidationPatchArgs) ToValidationPatchOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(ValidationPatchOutput)
 }
 
-func (i ValidationPatchArgs) ToOutput(ctx context.Context) pulumix.Output[ValidationPatch] {
-	return pulumix.Output[ValidationPatch]{
-		OutputState: i.ToValidationPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ValidationPatchArrayInput is an input type that accepts ValidationPatchArray and ValidationPatchArrayOutput values.
 // You can construct a concrete instance of `ValidationPatchArrayInput` via:
 //
@@ -8923,12 +7980,6 @@ func (i ValidationPatchArray) ToValidationPatchArrayOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(ValidationPatchArrayOutput)
 }
 
-func (i ValidationPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]ValidationPatch] {
-	return pulumix.Output[[]ValidationPatch]{
-		OutputState: i.ToValidationPatchArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // Validation specifies the CEL expression which is used to apply the validation.
 type ValidationPatchOutput struct{ *pulumi.OutputState }
 
@@ -8942,12 +7993,6 @@ func (o ValidationPatchOutput) ToValidationPatchOutput() ValidationPatchOutput {
 
 func (o ValidationPatchOutput) ToValidationPatchOutputWithContext(ctx context.Context) ValidationPatchOutput {
 	return o
-}
-
-func (o ValidationPatchOutput) ToOutput(ctx context.Context) pulumix.Output[ValidationPatch] {
-	return pulumix.Output[ValidationPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
@@ -9011,12 +8056,6 @@ func (o ValidationPatchArrayOutput) ToValidationPatchArrayOutputWithContext(ctx 
 	return o
 }
 
-func (o ValidationPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]ValidationPatch] {
-	return pulumix.Output[[]ValidationPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o ValidationPatchArrayOutput) Index(i pulumi.IntInput) ValidationPatchOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ValidationPatch {
 		return vs[0].([]ValidationPatch)[vs[1].(int)]
@@ -9062,12 +8101,6 @@ func (i VariableArgs) ToVariableOutputWithContext(ctx context.Context) VariableO
 	return pulumi.ToOutputWithContext(ctx, i).(VariableOutput)
 }
 
-func (i VariableArgs) ToOutput(ctx context.Context) pulumix.Output[Variable] {
-	return pulumix.Output[Variable]{
-		OutputState: i.ToVariableOutputWithContext(ctx).OutputState,
-	}
-}
-
 // VariableArrayInput is an input type that accepts VariableArray and VariableArrayOutput values.
 // You can construct a concrete instance of `VariableArrayInput` via:
 //
@@ -9093,12 +8126,6 @@ func (i VariableArray) ToVariableArrayOutputWithContext(ctx context.Context) Var
 	return pulumi.ToOutputWithContext(ctx, i).(VariableArrayOutput)
 }
 
-func (i VariableArray) ToOutput(ctx context.Context) pulumix.Output[[]Variable] {
-	return pulumix.Output[[]Variable]{
-		OutputState: i.ToVariableArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // Variable is the definition of a variable that is used for composition. A variable is defined as a named expression.
 type VariableOutput struct{ *pulumi.OutputState }
 
@@ -9112,12 +8139,6 @@ func (o VariableOutput) ToVariableOutput() VariableOutput {
 
 func (o VariableOutput) ToVariableOutputWithContext(ctx context.Context) VariableOutput {
 	return o
-}
-
-func (o VariableOutput) ToOutput(ctx context.Context) pulumix.Output[Variable] {
-	return pulumix.Output[Variable]{
-		OutputState: o.OutputState,
-	}
 }
 
 // Expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
@@ -9142,12 +8163,6 @@ func (o VariableArrayOutput) ToVariableArrayOutput() VariableArrayOutput {
 
 func (o VariableArrayOutput) ToVariableArrayOutputWithContext(ctx context.Context) VariableArrayOutput {
 	return o
-}
-
-func (o VariableArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]Variable] {
-	return pulumix.Output[[]Variable]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o VariableArrayOutput) Index(i pulumi.IntInput) VariableOutput {
@@ -9195,12 +8210,6 @@ func (i VariablePatchArgs) ToVariablePatchOutputWithContext(ctx context.Context)
 	return pulumi.ToOutputWithContext(ctx, i).(VariablePatchOutput)
 }
 
-func (i VariablePatchArgs) ToOutput(ctx context.Context) pulumix.Output[VariablePatch] {
-	return pulumix.Output[VariablePatch]{
-		OutputState: i.ToVariablePatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // VariablePatchArrayInput is an input type that accepts VariablePatchArray and VariablePatchArrayOutput values.
 // You can construct a concrete instance of `VariablePatchArrayInput` via:
 //
@@ -9226,12 +8235,6 @@ func (i VariablePatchArray) ToVariablePatchArrayOutputWithContext(ctx context.Co
 	return pulumi.ToOutputWithContext(ctx, i).(VariablePatchArrayOutput)
 }
 
-func (i VariablePatchArray) ToOutput(ctx context.Context) pulumix.Output[[]VariablePatch] {
-	return pulumix.Output[[]VariablePatch]{
-		OutputState: i.ToVariablePatchArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // Variable is the definition of a variable that is used for composition. A variable is defined as a named expression.
 type VariablePatchOutput struct{ *pulumi.OutputState }
 
@@ -9245,12 +8248,6 @@ func (o VariablePatchOutput) ToVariablePatchOutput() VariablePatchOutput {
 
 func (o VariablePatchOutput) ToVariablePatchOutputWithContext(ctx context.Context) VariablePatchOutput {
 	return o
-}
-
-func (o VariablePatchOutput) ToOutput(ctx context.Context) pulumix.Output[VariablePatch] {
-	return pulumix.Output[VariablePatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // Expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
@@ -9275,12 +8272,6 @@ func (o VariablePatchArrayOutput) ToVariablePatchArrayOutput() VariablePatchArra
 
 func (o VariablePatchArrayOutput) ToVariablePatchArrayOutputWithContext(ctx context.Context) VariablePatchArrayOutput {
 	return o
-}
-
-func (o VariablePatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]VariablePatch] {
-	return pulumix.Output[[]VariablePatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o VariablePatchArrayOutput) Index(i pulumi.IntInput) VariablePatchOutput {
@@ -9356,12 +8347,6 @@ func (i WebhookClientConfigArgs) ToWebhookClientConfigOutputWithContext(ctx cont
 	return pulumi.ToOutputWithContext(ctx, i).(WebhookClientConfigOutput)
 }
 
-func (i WebhookClientConfigArgs) ToOutput(ctx context.Context) pulumix.Output[WebhookClientConfig] {
-	return pulumix.Output[WebhookClientConfig]{
-		OutputState: i.ToWebhookClientConfigOutputWithContext(ctx).OutputState,
-	}
-}
-
 // WebhookClientConfig contains the information to make a TLS connection with the webhook
 type WebhookClientConfigOutput struct{ *pulumi.OutputState }
 
@@ -9375,12 +8360,6 @@ func (o WebhookClientConfigOutput) ToWebhookClientConfigOutput() WebhookClientCo
 
 func (o WebhookClientConfigOutput) ToWebhookClientConfigOutputWithContext(ctx context.Context) WebhookClientConfigOutput {
 	return o
-}
-
-func (o WebhookClientConfigOutput) ToOutput(ctx context.Context) pulumix.Output[WebhookClientConfig] {
-	return pulumix.Output[WebhookClientConfig]{
-		OutputState: o.OutputState,
-	}
 }
 
 // `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
@@ -9477,12 +8456,6 @@ func (i WebhookClientConfigPatchArgs) ToWebhookClientConfigPatchOutputWithContex
 	return pulumi.ToOutputWithContext(ctx, i).(WebhookClientConfigPatchOutput)
 }
 
-func (i WebhookClientConfigPatchArgs) ToOutput(ctx context.Context) pulumix.Output[WebhookClientConfigPatch] {
-	return pulumix.Output[WebhookClientConfigPatch]{
-		OutputState: i.ToWebhookClientConfigPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i WebhookClientConfigPatchArgs) ToWebhookClientConfigPatchPtrOutput() WebhookClientConfigPatchPtrOutput {
 	return i.ToWebhookClientConfigPatchPtrOutputWithContext(context.Background())
 }
@@ -9524,12 +8497,6 @@ func (i *webhookClientConfigPatchPtrType) ToWebhookClientConfigPatchPtrOutputWit
 	return pulumi.ToOutputWithContext(ctx, i).(WebhookClientConfigPatchPtrOutput)
 }
 
-func (i *webhookClientConfigPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*WebhookClientConfigPatch] {
-	return pulumix.Output[*WebhookClientConfigPatch]{
-		OutputState: i.ToWebhookClientConfigPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // WebhookClientConfig contains the information to make a TLS connection with the webhook
 type WebhookClientConfigPatchOutput struct{ *pulumi.OutputState }
 
@@ -9553,12 +8520,6 @@ func (o WebhookClientConfigPatchOutput) ToWebhookClientConfigPatchPtrOutputWithC
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v WebhookClientConfigPatch) *WebhookClientConfigPatch {
 		return &v
 	}).(WebhookClientConfigPatchPtrOutput)
-}
-
-func (o WebhookClientConfigPatchOutput) ToOutput(ctx context.Context) pulumix.Output[WebhookClientConfigPatch] {
-	return pulumix.Output[WebhookClientConfigPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
@@ -9600,12 +8561,6 @@ func (o WebhookClientConfigPatchPtrOutput) ToWebhookClientConfigPatchPtrOutput()
 
 func (o WebhookClientConfigPatchPtrOutput) ToWebhookClientConfigPatchPtrOutputWithContext(ctx context.Context) WebhookClientConfigPatchPtrOutput {
 	return o
-}
-
-func (o WebhookClientConfigPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*WebhookClientConfigPatch] {
-	return pulumix.Output[*WebhookClientConfigPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o WebhookClientConfigPatchPtrOutput) Elem() WebhookClientConfigPatchOutput {

@@ -10,7 +10,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Patch resources are used to modify existing Kubernetes resources by using
@@ -133,12 +132,6 @@ func (i *ReplicaSetPatch) ToReplicaSetPatchOutputWithContext(ctx context.Context
 	return pulumi.ToOutputWithContext(ctx, i).(ReplicaSetPatchOutput)
 }
 
-func (i *ReplicaSetPatch) ToOutput(ctx context.Context) pulumix.Output[*ReplicaSetPatch] {
-	return pulumix.Output[*ReplicaSetPatch]{
-		OutputState: i.ToReplicaSetPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ReplicaSetPatchArrayInput is an input type that accepts ReplicaSetPatchArray and ReplicaSetPatchArrayOutput values.
 // You can construct a concrete instance of `ReplicaSetPatchArrayInput` via:
 //
@@ -162,12 +155,6 @@ func (i ReplicaSetPatchArray) ToReplicaSetPatchArrayOutput() ReplicaSetPatchArra
 
 func (i ReplicaSetPatchArray) ToReplicaSetPatchArrayOutputWithContext(ctx context.Context) ReplicaSetPatchArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ReplicaSetPatchArrayOutput)
-}
-
-func (i ReplicaSetPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]*ReplicaSetPatch] {
-	return pulumix.Output[[]*ReplicaSetPatch]{
-		OutputState: i.ToReplicaSetPatchArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // ReplicaSetPatchMapInput is an input type that accepts ReplicaSetPatchMap and ReplicaSetPatchMapOutput values.
@@ -195,12 +182,6 @@ func (i ReplicaSetPatchMap) ToReplicaSetPatchMapOutputWithContext(ctx context.Co
 	return pulumi.ToOutputWithContext(ctx, i).(ReplicaSetPatchMapOutput)
 }
 
-func (i ReplicaSetPatchMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*ReplicaSetPatch] {
-	return pulumix.Output[map[string]*ReplicaSetPatch]{
-		OutputState: i.ToReplicaSetPatchMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type ReplicaSetPatchOutput struct{ *pulumi.OutputState }
 
 func (ReplicaSetPatchOutput) ElementType() reflect.Type {
@@ -213,12 +194,6 @@ func (o ReplicaSetPatchOutput) ToReplicaSetPatchOutput() ReplicaSetPatchOutput {
 
 func (o ReplicaSetPatchOutput) ToReplicaSetPatchOutputWithContext(ctx context.Context) ReplicaSetPatchOutput {
 	return o
-}
-
-func (o ReplicaSetPatchOutput) ToOutput(ctx context.Context) pulumix.Output[*ReplicaSetPatch] {
-	return pulumix.Output[*ReplicaSetPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -260,12 +235,6 @@ func (o ReplicaSetPatchArrayOutput) ToReplicaSetPatchArrayOutputWithContext(ctx 
 	return o
 }
 
-func (o ReplicaSetPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*ReplicaSetPatch] {
-	return pulumix.Output[[]*ReplicaSetPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o ReplicaSetPatchArrayOutput) Index(i pulumi.IntInput) ReplicaSetPatchOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *ReplicaSetPatch {
 		return vs[0].([]*ReplicaSetPatch)[vs[1].(int)]
@@ -284,12 +253,6 @@ func (o ReplicaSetPatchMapOutput) ToReplicaSetPatchMapOutput() ReplicaSetPatchMa
 
 func (o ReplicaSetPatchMapOutput) ToReplicaSetPatchMapOutputWithContext(ctx context.Context) ReplicaSetPatchMapOutput {
 	return o
-}
-
-func (o ReplicaSetPatchMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*ReplicaSetPatch] {
-	return pulumix.Output[map[string]*ReplicaSetPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ReplicaSetPatchMapOutput) MapIndex(k pulumi.StringInput) ReplicaSetPatchOutput {

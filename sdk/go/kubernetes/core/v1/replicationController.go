@@ -10,7 +10,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // ReplicationController represents the configuration of a replication controller.
@@ -116,12 +115,6 @@ func (i *ReplicationController) ToReplicationControllerOutputWithContext(ctx con
 	return pulumi.ToOutputWithContext(ctx, i).(ReplicationControllerOutput)
 }
 
-func (i *ReplicationController) ToOutput(ctx context.Context) pulumix.Output[*ReplicationController] {
-	return pulumix.Output[*ReplicationController]{
-		OutputState: i.ToReplicationControllerOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ReplicationControllerArrayInput is an input type that accepts ReplicationControllerArray and ReplicationControllerArrayOutput values.
 // You can construct a concrete instance of `ReplicationControllerArrayInput` via:
 //
@@ -145,12 +138,6 @@ func (i ReplicationControllerArray) ToReplicationControllerArrayOutput() Replica
 
 func (i ReplicationControllerArray) ToReplicationControllerArrayOutputWithContext(ctx context.Context) ReplicationControllerArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ReplicationControllerArrayOutput)
-}
-
-func (i ReplicationControllerArray) ToOutput(ctx context.Context) pulumix.Output[[]*ReplicationController] {
-	return pulumix.Output[[]*ReplicationController]{
-		OutputState: i.ToReplicationControllerArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // ReplicationControllerMapInput is an input type that accepts ReplicationControllerMap and ReplicationControllerMapOutput values.
@@ -178,12 +165,6 @@ func (i ReplicationControllerMap) ToReplicationControllerMapOutputWithContext(ct
 	return pulumi.ToOutputWithContext(ctx, i).(ReplicationControllerMapOutput)
 }
 
-func (i ReplicationControllerMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*ReplicationController] {
-	return pulumix.Output[map[string]*ReplicationController]{
-		OutputState: i.ToReplicationControllerMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type ReplicationControllerOutput struct{ *pulumi.OutputState }
 
 func (ReplicationControllerOutput) ElementType() reflect.Type {
@@ -196,12 +177,6 @@ func (o ReplicationControllerOutput) ToReplicationControllerOutput() Replication
 
 func (o ReplicationControllerOutput) ToReplicationControllerOutputWithContext(ctx context.Context) ReplicationControllerOutput {
 	return o
-}
-
-func (o ReplicationControllerOutput) ToOutput(ctx context.Context) pulumix.Output[*ReplicationController] {
-	return pulumix.Output[*ReplicationController]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -243,12 +218,6 @@ func (o ReplicationControllerArrayOutput) ToReplicationControllerArrayOutputWith
 	return o
 }
 
-func (o ReplicationControllerArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*ReplicationController] {
-	return pulumix.Output[[]*ReplicationController]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o ReplicationControllerArrayOutput) Index(i pulumi.IntInput) ReplicationControllerOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *ReplicationController {
 		return vs[0].([]*ReplicationController)[vs[1].(int)]
@@ -267,12 +236,6 @@ func (o ReplicationControllerMapOutput) ToReplicationControllerMapOutput() Repli
 
 func (o ReplicationControllerMapOutput) ToReplicationControllerMapOutputWithContext(ctx context.Context) ReplicationControllerMapOutput {
 	return o
-}
-
-func (o ReplicationControllerMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*ReplicationController] {
-	return pulumix.Output[map[string]*ReplicationController]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ReplicationControllerMapOutput) MapIndex(k pulumi.StringInput) ReplicationControllerOutput {

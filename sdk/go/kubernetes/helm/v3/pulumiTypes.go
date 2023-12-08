@@ -9,7 +9,6 @@ import (
 
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 var _ = utilities.GetEnvOrDefault
@@ -71,12 +70,6 @@ func (i ReleaseStatusArgs) ToReleaseStatusOutputWithContext(ctx context.Context)
 	return pulumi.ToOutputWithContext(ctx, i).(ReleaseStatusOutput)
 }
 
-func (i ReleaseStatusArgs) ToOutput(ctx context.Context) pulumix.Output[ReleaseStatus] {
-	return pulumix.Output[ReleaseStatus]{
-		OutputState: i.ToReleaseStatusOutputWithContext(ctx).OutputState,
-	}
-}
-
 type ReleaseStatusOutput struct{ *pulumi.OutputState }
 
 func (ReleaseStatusOutput) ElementType() reflect.Type {
@@ -89,12 +82,6 @@ func (o ReleaseStatusOutput) ToReleaseStatusOutput() ReleaseStatusOutput {
 
 func (o ReleaseStatusOutput) ToReleaseStatusOutputWithContext(ctx context.Context) ReleaseStatusOutput {
 	return o
-}
-
-func (o ReleaseStatusOutput) ToOutput(ctx context.Context) pulumix.Output[ReleaseStatus] {
-	return pulumix.Output[ReleaseStatus]{
-		OutputState: o.OutputState,
-	}
 }
 
 // The version number of the application being deployed.
@@ -187,12 +174,6 @@ func (i RepositoryOptsArgs) ToRepositoryOptsOutputWithContext(ctx context.Contex
 	return pulumi.ToOutputWithContext(ctx, i).(RepositoryOptsOutput)
 }
 
-func (i RepositoryOptsArgs) ToOutput(ctx context.Context) pulumix.Output[RepositoryOpts] {
-	return pulumix.Output[RepositoryOpts]{
-		OutputState: i.ToRepositoryOptsOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i RepositoryOptsArgs) ToRepositoryOptsPtrOutput() RepositoryOptsPtrOutput {
 	return i.ToRepositoryOptsPtrOutputWithContext(context.Background())
 }
@@ -234,12 +215,6 @@ func (i *repositoryOptsPtrType) ToRepositoryOptsPtrOutputWithContext(ctx context
 	return pulumi.ToOutputWithContext(ctx, i).(RepositoryOptsPtrOutput)
 }
 
-func (i *repositoryOptsPtrType) ToOutput(ctx context.Context) pulumix.Output[*RepositoryOpts] {
-	return pulumix.Output[*RepositoryOpts]{
-		OutputState: i.ToRepositoryOptsPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // Specification defining the Helm chart repository to use.
 type RepositoryOptsOutput struct{ *pulumi.OutputState }
 
@@ -263,12 +238,6 @@ func (o RepositoryOptsOutput) ToRepositoryOptsPtrOutputWithContext(ctx context.C
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v RepositoryOpts) *RepositoryOpts {
 		return &v
 	}).(RepositoryOptsPtrOutput)
-}
-
-func (o RepositoryOptsOutput) ToOutput(ctx context.Context) pulumix.Output[RepositoryOpts] {
-	return pulumix.Output[RepositoryOpts]{
-		OutputState: o.OutputState,
-	}
 }
 
 // The Repository's CA File
@@ -313,12 +282,6 @@ func (o RepositoryOptsPtrOutput) ToRepositoryOptsPtrOutput() RepositoryOptsPtrOu
 
 func (o RepositoryOptsPtrOutput) ToRepositoryOptsPtrOutputWithContext(ctx context.Context) RepositoryOptsPtrOutput {
 	return o
-}
-
-func (o RepositoryOptsPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*RepositoryOpts] {
-	return pulumix.Output[*RepositoryOpts]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o RepositoryOptsPtrOutput) Elem() RepositoryOptsOutput {

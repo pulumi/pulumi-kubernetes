@@ -10,7 +10,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Patch resources are used to modify existing Kubernetes resources by using
@@ -126,12 +125,6 @@ func (i *ValidatingWebhookConfigurationPatch) ToValidatingWebhookConfigurationPa
 	return pulumi.ToOutputWithContext(ctx, i).(ValidatingWebhookConfigurationPatchOutput)
 }
 
-func (i *ValidatingWebhookConfigurationPatch) ToOutput(ctx context.Context) pulumix.Output[*ValidatingWebhookConfigurationPatch] {
-	return pulumix.Output[*ValidatingWebhookConfigurationPatch]{
-		OutputState: i.ToValidatingWebhookConfigurationPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ValidatingWebhookConfigurationPatchArrayInput is an input type that accepts ValidatingWebhookConfigurationPatchArray and ValidatingWebhookConfigurationPatchArrayOutput values.
 // You can construct a concrete instance of `ValidatingWebhookConfigurationPatchArrayInput` via:
 //
@@ -155,12 +148,6 @@ func (i ValidatingWebhookConfigurationPatchArray) ToValidatingWebhookConfigurati
 
 func (i ValidatingWebhookConfigurationPatchArray) ToValidatingWebhookConfigurationPatchArrayOutputWithContext(ctx context.Context) ValidatingWebhookConfigurationPatchArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ValidatingWebhookConfigurationPatchArrayOutput)
-}
-
-func (i ValidatingWebhookConfigurationPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]*ValidatingWebhookConfigurationPatch] {
-	return pulumix.Output[[]*ValidatingWebhookConfigurationPatch]{
-		OutputState: i.ToValidatingWebhookConfigurationPatchArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // ValidatingWebhookConfigurationPatchMapInput is an input type that accepts ValidatingWebhookConfigurationPatchMap and ValidatingWebhookConfigurationPatchMapOutput values.
@@ -188,12 +175,6 @@ func (i ValidatingWebhookConfigurationPatchMap) ToValidatingWebhookConfiguration
 	return pulumi.ToOutputWithContext(ctx, i).(ValidatingWebhookConfigurationPatchMapOutput)
 }
 
-func (i ValidatingWebhookConfigurationPatchMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*ValidatingWebhookConfigurationPatch] {
-	return pulumix.Output[map[string]*ValidatingWebhookConfigurationPatch]{
-		OutputState: i.ToValidatingWebhookConfigurationPatchMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type ValidatingWebhookConfigurationPatchOutput struct{ *pulumi.OutputState }
 
 func (ValidatingWebhookConfigurationPatchOutput) ElementType() reflect.Type {
@@ -206,12 +187,6 @@ func (o ValidatingWebhookConfigurationPatchOutput) ToValidatingWebhookConfigurat
 
 func (o ValidatingWebhookConfigurationPatchOutput) ToValidatingWebhookConfigurationPatchOutputWithContext(ctx context.Context) ValidatingWebhookConfigurationPatchOutput {
 	return o
-}
-
-func (o ValidatingWebhookConfigurationPatchOutput) ToOutput(ctx context.Context) pulumix.Output[*ValidatingWebhookConfigurationPatch] {
-	return pulumix.Output[*ValidatingWebhookConfigurationPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -248,12 +223,6 @@ func (o ValidatingWebhookConfigurationPatchArrayOutput) ToValidatingWebhookConfi
 	return o
 }
 
-func (o ValidatingWebhookConfigurationPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*ValidatingWebhookConfigurationPatch] {
-	return pulumix.Output[[]*ValidatingWebhookConfigurationPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o ValidatingWebhookConfigurationPatchArrayOutput) Index(i pulumi.IntInput) ValidatingWebhookConfigurationPatchOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *ValidatingWebhookConfigurationPatch {
 		return vs[0].([]*ValidatingWebhookConfigurationPatch)[vs[1].(int)]
@@ -272,12 +241,6 @@ func (o ValidatingWebhookConfigurationPatchMapOutput) ToValidatingWebhookConfigu
 
 func (o ValidatingWebhookConfigurationPatchMapOutput) ToValidatingWebhookConfigurationPatchMapOutputWithContext(ctx context.Context) ValidatingWebhookConfigurationPatchMapOutput {
 	return o
-}
-
-func (o ValidatingWebhookConfigurationPatchMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*ValidatingWebhookConfigurationPatch] {
-	return pulumix.Output[map[string]*ValidatingWebhookConfigurationPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ValidatingWebhookConfigurationPatchMapOutput) MapIndex(k pulumi.StringInput) ValidatingWebhookConfigurationPatchOutput {

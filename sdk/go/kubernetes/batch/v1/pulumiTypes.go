@@ -11,7 +11,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 var _ = utilities.GetEnvOrDefault
@@ -67,12 +66,6 @@ func (i CronJobTypeArgs) ToCronJobTypeOutputWithContext(ctx context.Context) Cro
 	return pulumi.ToOutputWithContext(ctx, i).(CronJobTypeOutput)
 }
 
-func (i CronJobTypeArgs) ToOutput(ctx context.Context) pulumix.Output[CronJobType] {
-	return pulumix.Output[CronJobType]{
-		OutputState: i.ToCronJobTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // CronJobTypeArrayInput is an input type that accepts CronJobTypeArray and CronJobTypeArrayOutput values.
 // You can construct a concrete instance of `CronJobTypeArrayInput` via:
 //
@@ -98,12 +91,6 @@ func (i CronJobTypeArray) ToCronJobTypeArrayOutputWithContext(ctx context.Contex
 	return pulumi.ToOutputWithContext(ctx, i).(CronJobTypeArrayOutput)
 }
 
-func (i CronJobTypeArray) ToOutput(ctx context.Context) pulumix.Output[[]CronJobType] {
-	return pulumix.Output[[]CronJobType]{
-		OutputState: i.ToCronJobTypeArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // CronJob represents the configuration of a single cron job.
 type CronJobTypeOutput struct{ *pulumi.OutputState }
 
@@ -117,12 +104,6 @@ func (o CronJobTypeOutput) ToCronJobTypeOutput() CronJobTypeOutput {
 
 func (o CronJobTypeOutput) ToCronJobTypeOutputWithContext(ctx context.Context) CronJobTypeOutput {
 	return o
-}
-
-func (o CronJobTypeOutput) ToOutput(ctx context.Context) pulumix.Output[CronJobType] {
-	return pulumix.Output[CronJobType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -162,12 +143,6 @@ func (o CronJobTypeArrayOutput) ToCronJobTypeArrayOutput() CronJobTypeArrayOutpu
 
 func (o CronJobTypeArrayOutput) ToCronJobTypeArrayOutputWithContext(ctx context.Context) CronJobTypeArrayOutput {
 	return o
-}
-
-func (o CronJobTypeArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]CronJobType] {
-	return pulumix.Output[[]CronJobType]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o CronJobTypeArrayOutput) Index(i pulumi.IntInput) CronJobTypeOutput {
@@ -223,12 +198,6 @@ func (i CronJobListTypeArgs) ToCronJobListTypeOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(CronJobListTypeOutput)
 }
 
-func (i CronJobListTypeArgs) ToOutput(ctx context.Context) pulumix.Output[CronJobListType] {
-	return pulumix.Output[CronJobListType]{
-		OutputState: i.ToCronJobListTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // CronJobList is a collection of cron jobs.
 type CronJobListTypeOutput struct{ *pulumi.OutputState }
 
@@ -242,12 +211,6 @@ func (o CronJobListTypeOutput) ToCronJobListTypeOutput() CronJobListTypeOutput {
 
 func (o CronJobListTypeOutput) ToCronJobListTypeOutputWithContext(ctx context.Context) CronJobListTypeOutput {
 	return o
-}
-
-func (o CronJobListTypeOutput) ToOutput(ctx context.Context) pulumix.Output[CronJobListType] {
-	return pulumix.Output[CronJobListType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -321,12 +284,6 @@ func (i CronJobPatchTypeArgs) ToCronJobPatchTypeOutputWithContext(ctx context.Co
 	return pulumi.ToOutputWithContext(ctx, i).(CronJobPatchTypeOutput)
 }
 
-func (i CronJobPatchTypeArgs) ToOutput(ctx context.Context) pulumix.Output[CronJobPatchType] {
-	return pulumix.Output[CronJobPatchType]{
-		OutputState: i.ToCronJobPatchTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // CronJob represents the configuration of a single cron job.
 type CronJobPatchTypeOutput struct{ *pulumi.OutputState }
 
@@ -340,12 +297,6 @@ func (o CronJobPatchTypeOutput) ToCronJobPatchTypeOutput() CronJobPatchTypeOutpu
 
 func (o CronJobPatchTypeOutput) ToCronJobPatchTypeOutputWithContext(ctx context.Context) CronJobPatchTypeOutput {
 	return o
-}
-
-func (o CronJobPatchTypeOutput) ToOutput(ctx context.Context) pulumix.Output[CronJobPatchType] {
-	return pulumix.Output[CronJobPatchType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -440,12 +391,6 @@ func (i CronJobSpecArgs) ToCronJobSpecOutputWithContext(ctx context.Context) Cro
 	return pulumi.ToOutputWithContext(ctx, i).(CronJobSpecOutput)
 }
 
-func (i CronJobSpecArgs) ToOutput(ctx context.Context) pulumix.Output[CronJobSpec] {
-	return pulumix.Output[CronJobSpec]{
-		OutputState: i.ToCronJobSpecOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i CronJobSpecArgs) ToCronJobSpecPtrOutput() CronJobSpecPtrOutput {
 	return i.ToCronJobSpecPtrOutputWithContext(context.Background())
 }
@@ -487,12 +432,6 @@ func (i *cronJobSpecPtrType) ToCronJobSpecPtrOutputWithContext(ctx context.Conte
 	return pulumi.ToOutputWithContext(ctx, i).(CronJobSpecPtrOutput)
 }
 
-func (i *cronJobSpecPtrType) ToOutput(ctx context.Context) pulumix.Output[*CronJobSpec] {
-	return pulumix.Output[*CronJobSpec]{
-		OutputState: i.ToCronJobSpecPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // CronJobSpec describes how the job execution will look like and when it will actually run.
 type CronJobSpecOutput struct{ *pulumi.OutputState }
 
@@ -516,12 +455,6 @@ func (o CronJobSpecOutput) ToCronJobSpecPtrOutputWithContext(ctx context.Context
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v CronJobSpec) *CronJobSpec {
 		return &v
 	}).(CronJobSpecPtrOutput)
-}
-
-func (o CronJobSpecOutput) ToOutput(ctx context.Context) pulumix.Output[CronJobSpec] {
-	return pulumix.Output[CronJobSpec]{
-		OutputState: o.OutputState,
-	}
 }
 
 // Specifies how to treat concurrent executions of a Job. Valid values are:
@@ -578,12 +511,6 @@ func (o CronJobSpecPtrOutput) ToCronJobSpecPtrOutput() CronJobSpecPtrOutput {
 
 func (o CronJobSpecPtrOutput) ToCronJobSpecPtrOutputWithContext(ctx context.Context) CronJobSpecPtrOutput {
 	return o
-}
-
-func (o CronJobSpecPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*CronJobSpec] {
-	return pulumix.Output[*CronJobSpec]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o CronJobSpecPtrOutput) Elem() CronJobSpecOutput {
@@ -745,12 +672,6 @@ func (i CronJobSpecPatchArgs) ToCronJobSpecPatchOutputWithContext(ctx context.Co
 	return pulumi.ToOutputWithContext(ctx, i).(CronJobSpecPatchOutput)
 }
 
-func (i CronJobSpecPatchArgs) ToOutput(ctx context.Context) pulumix.Output[CronJobSpecPatch] {
-	return pulumix.Output[CronJobSpecPatch]{
-		OutputState: i.ToCronJobSpecPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i CronJobSpecPatchArgs) ToCronJobSpecPatchPtrOutput() CronJobSpecPatchPtrOutput {
 	return i.ToCronJobSpecPatchPtrOutputWithContext(context.Background())
 }
@@ -792,12 +713,6 @@ func (i *cronJobSpecPatchPtrType) ToCronJobSpecPatchPtrOutputWithContext(ctx con
 	return pulumi.ToOutputWithContext(ctx, i).(CronJobSpecPatchPtrOutput)
 }
 
-func (i *cronJobSpecPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*CronJobSpecPatch] {
-	return pulumix.Output[*CronJobSpecPatch]{
-		OutputState: i.ToCronJobSpecPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // CronJobSpec describes how the job execution will look like and when it will actually run.
 type CronJobSpecPatchOutput struct{ *pulumi.OutputState }
 
@@ -821,12 +736,6 @@ func (o CronJobSpecPatchOutput) ToCronJobSpecPatchPtrOutputWithContext(ctx conte
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v CronJobSpecPatch) *CronJobSpecPatch {
 		return &v
 	}).(CronJobSpecPatchPtrOutput)
-}
-
-func (o CronJobSpecPatchOutput) ToOutput(ctx context.Context) pulumix.Output[CronJobSpecPatch] {
-	return pulumix.Output[CronJobSpecPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // Specifies how to treat concurrent executions of a Job. Valid values are:
@@ -883,12 +792,6 @@ func (o CronJobSpecPatchPtrOutput) ToCronJobSpecPatchPtrOutput() CronJobSpecPatc
 
 func (o CronJobSpecPatchPtrOutput) ToCronJobSpecPatchPtrOutputWithContext(ctx context.Context) CronJobSpecPatchPtrOutput {
 	return o
-}
-
-func (o CronJobSpecPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*CronJobSpecPatch] {
-	return pulumix.Output[*CronJobSpecPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o CronJobSpecPatchPtrOutput) Elem() CronJobSpecPatchOutput {
@@ -1026,12 +929,6 @@ func (i CronJobStatusArgs) ToCronJobStatusOutputWithContext(ctx context.Context)
 	return pulumi.ToOutputWithContext(ctx, i).(CronJobStatusOutput)
 }
 
-func (i CronJobStatusArgs) ToOutput(ctx context.Context) pulumix.Output[CronJobStatus] {
-	return pulumix.Output[CronJobStatus]{
-		OutputState: i.ToCronJobStatusOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i CronJobStatusArgs) ToCronJobStatusPtrOutput() CronJobStatusPtrOutput {
 	return i.ToCronJobStatusPtrOutputWithContext(context.Background())
 }
@@ -1073,12 +970,6 @@ func (i *cronJobStatusPtrType) ToCronJobStatusPtrOutputWithContext(ctx context.C
 	return pulumi.ToOutputWithContext(ctx, i).(CronJobStatusPtrOutput)
 }
 
-func (i *cronJobStatusPtrType) ToOutput(ctx context.Context) pulumix.Output[*CronJobStatus] {
-	return pulumix.Output[*CronJobStatus]{
-		OutputState: i.ToCronJobStatusPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // CronJobStatus represents the current state of a cron job.
 type CronJobStatusOutput struct{ *pulumi.OutputState }
 
@@ -1102,12 +993,6 @@ func (o CronJobStatusOutput) ToCronJobStatusPtrOutputWithContext(ctx context.Con
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v CronJobStatus) *CronJobStatus {
 		return &v
 	}).(CronJobStatusPtrOutput)
-}
-
-func (o CronJobStatusOutput) ToOutput(ctx context.Context) pulumix.Output[CronJobStatus] {
-	return pulumix.Output[CronJobStatus]{
-		OutputState: o.OutputState,
-	}
 }
 
 // A list of pointers to currently running jobs.
@@ -1137,12 +1022,6 @@ func (o CronJobStatusPtrOutput) ToCronJobStatusPtrOutput() CronJobStatusPtrOutpu
 
 func (o CronJobStatusPtrOutput) ToCronJobStatusPtrOutputWithContext(ctx context.Context) CronJobStatusPtrOutput {
 	return o
-}
-
-func (o CronJobStatusPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*CronJobStatus] {
-	return pulumix.Output[*CronJobStatus]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o CronJobStatusPtrOutput) Elem() CronJobStatusOutput {
@@ -1228,12 +1107,6 @@ func (i CronJobStatusPatchArgs) ToCronJobStatusPatchOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(CronJobStatusPatchOutput)
 }
 
-func (i CronJobStatusPatchArgs) ToOutput(ctx context.Context) pulumix.Output[CronJobStatusPatch] {
-	return pulumix.Output[CronJobStatusPatch]{
-		OutputState: i.ToCronJobStatusPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i CronJobStatusPatchArgs) ToCronJobStatusPatchPtrOutput() CronJobStatusPatchPtrOutput {
 	return i.ToCronJobStatusPatchPtrOutputWithContext(context.Background())
 }
@@ -1275,12 +1148,6 @@ func (i *cronJobStatusPatchPtrType) ToCronJobStatusPatchPtrOutputWithContext(ctx
 	return pulumi.ToOutputWithContext(ctx, i).(CronJobStatusPatchPtrOutput)
 }
 
-func (i *cronJobStatusPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*CronJobStatusPatch] {
-	return pulumix.Output[*CronJobStatusPatch]{
-		OutputState: i.ToCronJobStatusPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // CronJobStatus represents the current state of a cron job.
 type CronJobStatusPatchOutput struct{ *pulumi.OutputState }
 
@@ -1304,12 +1171,6 @@ func (o CronJobStatusPatchOutput) ToCronJobStatusPatchPtrOutputWithContext(ctx c
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v CronJobStatusPatch) *CronJobStatusPatch {
 		return &v
 	}).(CronJobStatusPatchPtrOutput)
-}
-
-func (o CronJobStatusPatchOutput) ToOutput(ctx context.Context) pulumix.Output[CronJobStatusPatch] {
-	return pulumix.Output[CronJobStatusPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // A list of pointers to currently running jobs.
@@ -1339,12 +1200,6 @@ func (o CronJobStatusPatchPtrOutput) ToCronJobStatusPatchPtrOutput() CronJobStat
 
 func (o CronJobStatusPatchPtrOutput) ToCronJobStatusPatchPtrOutputWithContext(ctx context.Context) CronJobStatusPatchPtrOutput {
 	return o
-}
-
-func (o CronJobStatusPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*CronJobStatusPatch] {
-	return pulumix.Output[*CronJobStatusPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o CronJobStatusPatchPtrOutput) Elem() CronJobStatusPatchOutput {
@@ -1478,12 +1333,6 @@ func (i JobTypeArgs) ToJobTypeOutputWithContext(ctx context.Context) JobTypeOutp
 	return pulumi.ToOutputWithContext(ctx, i).(JobTypeOutput)
 }
 
-func (i JobTypeArgs) ToOutput(ctx context.Context) pulumix.Output[JobType] {
-	return pulumix.Output[JobType]{
-		OutputState: i.ToJobTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // JobTypeArrayInput is an input type that accepts JobTypeArray and JobTypeArrayOutput values.
 // You can construct a concrete instance of `JobTypeArrayInput` via:
 //
@@ -1507,12 +1356,6 @@ func (i JobTypeArray) ToJobTypeArrayOutput() JobTypeArrayOutput {
 
 func (i JobTypeArray) ToJobTypeArrayOutputWithContext(ctx context.Context) JobTypeArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(JobTypeArrayOutput)
-}
-
-func (i JobTypeArray) ToOutput(ctx context.Context) pulumix.Output[[]JobType] {
-	return pulumix.Output[[]JobType]{
-		OutputState: i.ToJobTypeArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // Job represents the configuration of a single job.
@@ -1548,12 +1391,6 @@ func (o JobTypeOutput) ToJobTypeOutput() JobTypeOutput {
 
 func (o JobTypeOutput) ToJobTypeOutputWithContext(ctx context.Context) JobTypeOutput {
 	return o
-}
-
-func (o JobTypeOutput) ToOutput(ctx context.Context) pulumix.Output[JobType] {
-	return pulumix.Output[JobType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -1593,12 +1430,6 @@ func (o JobTypeArrayOutput) ToJobTypeArrayOutput() JobTypeArrayOutput {
 
 func (o JobTypeArrayOutput) ToJobTypeArrayOutputWithContext(ctx context.Context) JobTypeArrayOutput {
 	return o
-}
-
-func (o JobTypeArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]JobType] {
-	return pulumix.Output[[]JobType]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o JobTypeArrayOutput) Index(i pulumi.IntInput) JobTypeOutput {
@@ -1662,12 +1493,6 @@ func (i JobConditionArgs) ToJobConditionOutputWithContext(ctx context.Context) J
 	return pulumi.ToOutputWithContext(ctx, i).(JobConditionOutput)
 }
 
-func (i JobConditionArgs) ToOutput(ctx context.Context) pulumix.Output[JobCondition] {
-	return pulumix.Output[JobCondition]{
-		OutputState: i.ToJobConditionOutputWithContext(ctx).OutputState,
-	}
-}
-
 // JobConditionArrayInput is an input type that accepts JobConditionArray and JobConditionArrayOutput values.
 // You can construct a concrete instance of `JobConditionArrayInput` via:
 //
@@ -1693,12 +1518,6 @@ func (i JobConditionArray) ToJobConditionArrayOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(JobConditionArrayOutput)
 }
 
-func (i JobConditionArray) ToOutput(ctx context.Context) pulumix.Output[[]JobCondition] {
-	return pulumix.Output[[]JobCondition]{
-		OutputState: i.ToJobConditionArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // JobCondition describes current state of a job.
 type JobConditionOutput struct{ *pulumi.OutputState }
 
@@ -1712,12 +1531,6 @@ func (o JobConditionOutput) ToJobConditionOutput() JobConditionOutput {
 
 func (o JobConditionOutput) ToJobConditionOutputWithContext(ctx context.Context) JobConditionOutput {
 	return o
-}
-
-func (o JobConditionOutput) ToOutput(ctx context.Context) pulumix.Output[JobCondition] {
-	return pulumix.Output[JobCondition]{
-		OutputState: o.OutputState,
-	}
 }
 
 // Last time the condition was checked.
@@ -1762,12 +1575,6 @@ func (o JobConditionArrayOutput) ToJobConditionArrayOutput() JobConditionArrayOu
 
 func (o JobConditionArrayOutput) ToJobConditionArrayOutputWithContext(ctx context.Context) JobConditionArrayOutput {
 	return o
-}
-
-func (o JobConditionArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]JobCondition] {
-	return pulumix.Output[[]JobCondition]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o JobConditionArrayOutput) Index(i pulumi.IntInput) JobConditionOutput {
@@ -1831,12 +1638,6 @@ func (i JobConditionPatchArgs) ToJobConditionPatchOutputWithContext(ctx context.
 	return pulumi.ToOutputWithContext(ctx, i).(JobConditionPatchOutput)
 }
 
-func (i JobConditionPatchArgs) ToOutput(ctx context.Context) pulumix.Output[JobConditionPatch] {
-	return pulumix.Output[JobConditionPatch]{
-		OutputState: i.ToJobConditionPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // JobConditionPatchArrayInput is an input type that accepts JobConditionPatchArray and JobConditionPatchArrayOutput values.
 // You can construct a concrete instance of `JobConditionPatchArrayInput` via:
 //
@@ -1862,12 +1663,6 @@ func (i JobConditionPatchArray) ToJobConditionPatchArrayOutputWithContext(ctx co
 	return pulumi.ToOutputWithContext(ctx, i).(JobConditionPatchArrayOutput)
 }
 
-func (i JobConditionPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]JobConditionPatch] {
-	return pulumix.Output[[]JobConditionPatch]{
-		OutputState: i.ToJobConditionPatchArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // JobCondition describes current state of a job.
 type JobConditionPatchOutput struct{ *pulumi.OutputState }
 
@@ -1881,12 +1676,6 @@ func (o JobConditionPatchOutput) ToJobConditionPatchOutput() JobConditionPatchOu
 
 func (o JobConditionPatchOutput) ToJobConditionPatchOutputWithContext(ctx context.Context) JobConditionPatchOutput {
 	return o
-}
-
-func (o JobConditionPatchOutput) ToOutput(ctx context.Context) pulumix.Output[JobConditionPatch] {
-	return pulumix.Output[JobConditionPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // Last time the condition was checked.
@@ -1931,12 +1720,6 @@ func (o JobConditionPatchArrayOutput) ToJobConditionPatchArrayOutput() JobCondit
 
 func (o JobConditionPatchArrayOutput) ToJobConditionPatchArrayOutputWithContext(ctx context.Context) JobConditionPatchArrayOutput {
 	return o
-}
-
-func (o JobConditionPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]JobConditionPatch] {
-	return pulumix.Output[[]JobConditionPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o JobConditionPatchArrayOutput) Index(i pulumi.IntInput) JobConditionPatchOutput {
@@ -1992,12 +1775,6 @@ func (i JobListTypeArgs) ToJobListTypeOutputWithContext(ctx context.Context) Job
 	return pulumi.ToOutputWithContext(ctx, i).(JobListTypeOutput)
 }
 
-func (i JobListTypeArgs) ToOutput(ctx context.Context) pulumix.Output[JobListType] {
-	return pulumix.Output[JobListType]{
-		OutputState: i.ToJobListTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // JobList is a collection of jobs.
 type JobListTypeOutput struct{ *pulumi.OutputState }
 
@@ -2011,12 +1788,6 @@ func (o JobListTypeOutput) ToJobListTypeOutput() JobListTypeOutput {
 
 func (o JobListTypeOutput) ToJobListTypeOutputWithContext(ctx context.Context) JobListTypeOutput {
 	return o
-}
-
-func (o JobListTypeOutput) ToOutput(ctx context.Context) pulumix.Output[JobListType] {
-	return pulumix.Output[JobListType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -2130,12 +1901,6 @@ func (i JobPatchTypeArgs) ToJobPatchTypeOutputWithContext(ctx context.Context) J
 	return pulumi.ToOutputWithContext(ctx, i).(JobPatchTypeOutput)
 }
 
-func (i JobPatchTypeArgs) ToOutput(ctx context.Context) pulumix.Output[JobPatchType] {
-	return pulumix.Output[JobPatchType]{
-		OutputState: i.ToJobPatchTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // Job represents the configuration of a single job.
 //
 // This resource waits until its status is ready before registering success
@@ -2169,12 +1934,6 @@ func (o JobPatchTypeOutput) ToJobPatchTypeOutput() JobPatchTypeOutput {
 
 func (o JobPatchTypeOutput) ToJobPatchTypeOutputWithContext(ctx context.Context) JobPatchTypeOutput {
 	return o
-}
-
-func (o JobPatchTypeOutput) ToOutput(ctx context.Context) pulumix.Output[JobPatchType] {
-	return pulumix.Output[JobPatchType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -2315,12 +2074,6 @@ func (i JobSpecArgs) ToJobSpecOutputWithContext(ctx context.Context) JobSpecOutp
 	return pulumi.ToOutputWithContext(ctx, i).(JobSpecOutput)
 }
 
-func (i JobSpecArgs) ToOutput(ctx context.Context) pulumix.Output[JobSpec] {
-	return pulumix.Output[JobSpec]{
-		OutputState: i.ToJobSpecOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i JobSpecArgs) ToJobSpecPtrOutput() JobSpecPtrOutput {
 	return i.ToJobSpecPtrOutputWithContext(context.Background())
 }
@@ -2362,12 +2115,6 @@ func (i *jobSpecPtrType) ToJobSpecPtrOutputWithContext(ctx context.Context) JobS
 	return pulumi.ToOutputWithContext(ctx, i).(JobSpecPtrOutput)
 }
 
-func (i *jobSpecPtrType) ToOutput(ctx context.Context) pulumix.Output[*JobSpec] {
-	return pulumix.Output[*JobSpec]{
-		OutputState: i.ToJobSpecPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // JobSpec describes how the job execution will look like.
 type JobSpecOutput struct{ *pulumi.OutputState }
 
@@ -2391,12 +2138,6 @@ func (o JobSpecOutput) ToJobSpecPtrOutputWithContext(ctx context.Context) JobSpe
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v JobSpec) *JobSpec {
 		return &v
 	}).(JobSpecPtrOutput)
-}
-
-func (o JobSpecOutput) ToOutput(ctx context.Context) pulumix.Output[JobSpec] {
-	return pulumix.Output[JobSpec]{
-		OutputState: o.OutputState,
-	}
 }
 
 // Specifies the duration in seconds relative to the startTime that the job may be continuously active before the system tries to terminate it; value must be positive integer. If a Job is suspended (at creation or through an update), this timer will effectively be stopped and reset when the Job is resumed again.
@@ -2495,12 +2236,6 @@ func (o JobSpecPtrOutput) ToJobSpecPtrOutput() JobSpecPtrOutput {
 
 func (o JobSpecPtrOutput) ToJobSpecPtrOutputWithContext(ctx context.Context) JobSpecPtrOutput {
 	return o
-}
-
-func (o JobSpecPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*JobSpec] {
-	return pulumix.Output[*JobSpec]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o JobSpecPtrOutput) Elem() JobSpecOutput {
@@ -2780,12 +2515,6 @@ func (i JobSpecPatchArgs) ToJobSpecPatchOutputWithContext(ctx context.Context) J
 	return pulumi.ToOutputWithContext(ctx, i).(JobSpecPatchOutput)
 }
 
-func (i JobSpecPatchArgs) ToOutput(ctx context.Context) pulumix.Output[JobSpecPatch] {
-	return pulumix.Output[JobSpecPatch]{
-		OutputState: i.ToJobSpecPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i JobSpecPatchArgs) ToJobSpecPatchPtrOutput() JobSpecPatchPtrOutput {
 	return i.ToJobSpecPatchPtrOutputWithContext(context.Background())
 }
@@ -2827,12 +2556,6 @@ func (i *jobSpecPatchPtrType) ToJobSpecPatchPtrOutputWithContext(ctx context.Con
 	return pulumi.ToOutputWithContext(ctx, i).(JobSpecPatchPtrOutput)
 }
 
-func (i *jobSpecPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*JobSpecPatch] {
-	return pulumix.Output[*JobSpecPatch]{
-		OutputState: i.ToJobSpecPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // JobSpec describes how the job execution will look like.
 type JobSpecPatchOutput struct{ *pulumi.OutputState }
 
@@ -2856,12 +2579,6 @@ func (o JobSpecPatchOutput) ToJobSpecPatchPtrOutputWithContext(ctx context.Conte
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v JobSpecPatch) *JobSpecPatch {
 		return &v
 	}).(JobSpecPatchPtrOutput)
-}
-
-func (o JobSpecPatchOutput) ToOutput(ctx context.Context) pulumix.Output[JobSpecPatch] {
-	return pulumix.Output[JobSpecPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // Specifies the duration in seconds relative to the startTime that the job may be continuously active before the system tries to terminate it; value must be positive integer. If a Job is suspended (at creation or through an update), this timer will effectively be stopped and reset when the Job is resumed again.
@@ -2960,12 +2677,6 @@ func (o JobSpecPatchPtrOutput) ToJobSpecPatchPtrOutput() JobSpecPatchPtrOutput {
 
 func (o JobSpecPatchPtrOutput) ToJobSpecPatchPtrOutputWithContext(ctx context.Context) JobSpecPatchPtrOutput {
 	return o
-}
-
-func (o JobSpecPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*JobSpecPatch] {
-	return pulumix.Output[*JobSpecPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o JobSpecPatchPtrOutput) Elem() JobSpecPatchOutput {
@@ -3229,12 +2940,6 @@ func (i JobStatusArgs) ToJobStatusOutputWithContext(ctx context.Context) JobStat
 	return pulumi.ToOutputWithContext(ctx, i).(JobStatusOutput)
 }
 
-func (i JobStatusArgs) ToOutput(ctx context.Context) pulumix.Output[JobStatus] {
-	return pulumix.Output[JobStatus]{
-		OutputState: i.ToJobStatusOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i JobStatusArgs) ToJobStatusPtrOutput() JobStatusPtrOutput {
 	return i.ToJobStatusPtrOutputWithContext(context.Background())
 }
@@ -3276,12 +2981,6 @@ func (i *jobStatusPtrType) ToJobStatusPtrOutputWithContext(ctx context.Context) 
 	return pulumi.ToOutputWithContext(ctx, i).(JobStatusPtrOutput)
 }
 
-func (i *jobStatusPtrType) ToOutput(ctx context.Context) pulumix.Output[*JobStatus] {
-	return pulumix.Output[*JobStatus]{
-		OutputState: i.ToJobStatusPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // JobStatus represents the current state of a Job.
 type JobStatusOutput struct{ *pulumi.OutputState }
 
@@ -3305,12 +3004,6 @@ func (o JobStatusOutput) ToJobStatusPtrOutputWithContext(ctx context.Context) Jo
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v JobStatus) *JobStatus {
 		return &v
 	}).(JobStatusPtrOutput)
-}
-
-func (o JobStatusOutput) ToOutput(ctx context.Context) pulumix.Output[JobStatus] {
-	return pulumix.Output[JobStatus]{
-		OutputState: o.OutputState,
-	}
 }
 
 // The number of pending and running pods.
@@ -3391,12 +3084,6 @@ func (o JobStatusPtrOutput) ToJobStatusPtrOutput() JobStatusPtrOutput {
 
 func (o JobStatusPtrOutput) ToJobStatusPtrOutputWithContext(ctx context.Context) JobStatusPtrOutput {
 	return o
-}
-
-func (o JobStatusPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*JobStatus] {
-	return pulumix.Output[*JobStatus]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o JobStatusPtrOutput) Elem() JobStatusOutput {
@@ -3627,12 +3314,6 @@ func (i JobStatusPatchArgs) ToJobStatusPatchOutputWithContext(ctx context.Contex
 	return pulumi.ToOutputWithContext(ctx, i).(JobStatusPatchOutput)
 }
 
-func (i JobStatusPatchArgs) ToOutput(ctx context.Context) pulumix.Output[JobStatusPatch] {
-	return pulumix.Output[JobStatusPatch]{
-		OutputState: i.ToJobStatusPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i JobStatusPatchArgs) ToJobStatusPatchPtrOutput() JobStatusPatchPtrOutput {
 	return i.ToJobStatusPatchPtrOutputWithContext(context.Background())
 }
@@ -3674,12 +3355,6 @@ func (i *jobStatusPatchPtrType) ToJobStatusPatchPtrOutputWithContext(ctx context
 	return pulumi.ToOutputWithContext(ctx, i).(JobStatusPatchPtrOutput)
 }
 
-func (i *jobStatusPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*JobStatusPatch] {
-	return pulumix.Output[*JobStatusPatch]{
-		OutputState: i.ToJobStatusPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // JobStatus represents the current state of a Job.
 type JobStatusPatchOutput struct{ *pulumi.OutputState }
 
@@ -3703,12 +3378,6 @@ func (o JobStatusPatchOutput) ToJobStatusPatchPtrOutputWithContext(ctx context.C
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v JobStatusPatch) *JobStatusPatch {
 		return &v
 	}).(JobStatusPatchPtrOutput)
-}
-
-func (o JobStatusPatchOutput) ToOutput(ctx context.Context) pulumix.Output[JobStatusPatch] {
-	return pulumix.Output[JobStatusPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // The number of pending and running pods.
@@ -3789,12 +3458,6 @@ func (o JobStatusPatchPtrOutput) ToJobStatusPatchPtrOutput() JobStatusPatchPtrOu
 
 func (o JobStatusPatchPtrOutput) ToJobStatusPatchPtrOutputWithContext(ctx context.Context) JobStatusPatchPtrOutput {
 	return o
-}
-
-func (o JobStatusPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*JobStatusPatch] {
-	return pulumix.Output[*JobStatusPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o JobStatusPatchPtrOutput) Elem() JobStatusPatchOutput {
@@ -3967,12 +3630,6 @@ func (i JobTemplateSpecArgs) ToJobTemplateSpecOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(JobTemplateSpecOutput)
 }
 
-func (i JobTemplateSpecArgs) ToOutput(ctx context.Context) pulumix.Output[JobTemplateSpec] {
-	return pulumix.Output[JobTemplateSpec]{
-		OutputState: i.ToJobTemplateSpecOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i JobTemplateSpecArgs) ToJobTemplateSpecPtrOutput() JobTemplateSpecPtrOutput {
 	return i.ToJobTemplateSpecPtrOutputWithContext(context.Background())
 }
@@ -4014,12 +3671,6 @@ func (i *jobTemplateSpecPtrType) ToJobTemplateSpecPtrOutputWithContext(ctx conte
 	return pulumi.ToOutputWithContext(ctx, i).(JobTemplateSpecPtrOutput)
 }
 
-func (i *jobTemplateSpecPtrType) ToOutput(ctx context.Context) pulumix.Output[*JobTemplateSpec] {
-	return pulumix.Output[*JobTemplateSpec]{
-		OutputState: i.ToJobTemplateSpecPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // JobTemplateSpec describes the data a Job should have when created from a template
 type JobTemplateSpecOutput struct{ *pulumi.OutputState }
 
@@ -4045,12 +3696,6 @@ func (o JobTemplateSpecOutput) ToJobTemplateSpecPtrOutputWithContext(ctx context
 	}).(JobTemplateSpecPtrOutput)
 }
 
-func (o JobTemplateSpecOutput) ToOutput(ctx context.Context) pulumix.Output[JobTemplateSpec] {
-	return pulumix.Output[JobTemplateSpec]{
-		OutputState: o.OutputState,
-	}
-}
-
 // Standard object's metadata of the jobs created from this template. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o JobTemplateSpecOutput) Metadata() metav1.ObjectMetaPtrOutput {
 	return o.ApplyT(func(v JobTemplateSpec) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
@@ -4073,12 +3718,6 @@ func (o JobTemplateSpecPtrOutput) ToJobTemplateSpecPtrOutput() JobTemplateSpecPt
 
 func (o JobTemplateSpecPtrOutput) ToJobTemplateSpecPtrOutputWithContext(ctx context.Context) JobTemplateSpecPtrOutput {
 	return o
-}
-
-func (o JobTemplateSpecPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*JobTemplateSpec] {
-	return pulumix.Output[*JobTemplateSpec]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o JobTemplateSpecPtrOutput) Elem() JobTemplateSpecOutput {
@@ -4150,12 +3789,6 @@ func (i JobTemplateSpecPatchArgs) ToJobTemplateSpecPatchOutputWithContext(ctx co
 	return pulumi.ToOutputWithContext(ctx, i).(JobTemplateSpecPatchOutput)
 }
 
-func (i JobTemplateSpecPatchArgs) ToOutput(ctx context.Context) pulumix.Output[JobTemplateSpecPatch] {
-	return pulumix.Output[JobTemplateSpecPatch]{
-		OutputState: i.ToJobTemplateSpecPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i JobTemplateSpecPatchArgs) ToJobTemplateSpecPatchPtrOutput() JobTemplateSpecPatchPtrOutput {
 	return i.ToJobTemplateSpecPatchPtrOutputWithContext(context.Background())
 }
@@ -4197,12 +3830,6 @@ func (i *jobTemplateSpecPatchPtrType) ToJobTemplateSpecPatchPtrOutputWithContext
 	return pulumi.ToOutputWithContext(ctx, i).(JobTemplateSpecPatchPtrOutput)
 }
 
-func (i *jobTemplateSpecPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*JobTemplateSpecPatch] {
-	return pulumix.Output[*JobTemplateSpecPatch]{
-		OutputState: i.ToJobTemplateSpecPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // JobTemplateSpec describes the data a Job should have when created from a template
 type JobTemplateSpecPatchOutput struct{ *pulumi.OutputState }
 
@@ -4228,12 +3855,6 @@ func (o JobTemplateSpecPatchOutput) ToJobTemplateSpecPatchPtrOutputWithContext(c
 	}).(JobTemplateSpecPatchPtrOutput)
 }
 
-func (o JobTemplateSpecPatchOutput) ToOutput(ctx context.Context) pulumix.Output[JobTemplateSpecPatch] {
-	return pulumix.Output[JobTemplateSpecPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 // Standard object's metadata of the jobs created from this template. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o JobTemplateSpecPatchOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
 	return o.ApplyT(func(v JobTemplateSpecPatch) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
@@ -4256,12 +3877,6 @@ func (o JobTemplateSpecPatchPtrOutput) ToJobTemplateSpecPatchPtrOutput() JobTemp
 
 func (o JobTemplateSpecPatchPtrOutput) ToJobTemplateSpecPatchPtrOutputWithContext(ctx context.Context) JobTemplateSpecPatchPtrOutput {
 	return o
-}
-
-func (o JobTemplateSpecPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*JobTemplateSpecPatch] {
-	return pulumix.Output[*JobTemplateSpecPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o JobTemplateSpecPatchPtrOutput) Elem() JobTemplateSpecPatchOutput {
@@ -4329,12 +3944,6 @@ func (i PodFailurePolicyArgs) ToPodFailurePolicyOutputWithContext(ctx context.Co
 	return pulumi.ToOutputWithContext(ctx, i).(PodFailurePolicyOutput)
 }
 
-func (i PodFailurePolicyArgs) ToOutput(ctx context.Context) pulumix.Output[PodFailurePolicy] {
-	return pulumix.Output[PodFailurePolicy]{
-		OutputState: i.ToPodFailurePolicyOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i PodFailurePolicyArgs) ToPodFailurePolicyPtrOutput() PodFailurePolicyPtrOutput {
 	return i.ToPodFailurePolicyPtrOutputWithContext(context.Background())
 }
@@ -4376,12 +3985,6 @@ func (i *podFailurePolicyPtrType) ToPodFailurePolicyPtrOutputWithContext(ctx con
 	return pulumi.ToOutputWithContext(ctx, i).(PodFailurePolicyPtrOutput)
 }
 
-func (i *podFailurePolicyPtrType) ToOutput(ctx context.Context) pulumix.Output[*PodFailurePolicy] {
-	return pulumix.Output[*PodFailurePolicy]{
-		OutputState: i.ToPodFailurePolicyPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // PodFailurePolicy describes how failed pods influence the backoffLimit.
 type PodFailurePolicyOutput struct{ *pulumi.OutputState }
 
@@ -4407,12 +4010,6 @@ func (o PodFailurePolicyOutput) ToPodFailurePolicyPtrOutputWithContext(ctx conte
 	}).(PodFailurePolicyPtrOutput)
 }
 
-func (o PodFailurePolicyOutput) ToOutput(ctx context.Context) pulumix.Output[PodFailurePolicy] {
-	return pulumix.Output[PodFailurePolicy]{
-		OutputState: o.OutputState,
-	}
-}
-
 // A list of pod failure policy rules. The rules are evaluated in order. Once a rule matches a Pod failure, the remaining of the rules are ignored. When no rule matches the Pod failure, the default handling applies - the counter of pod failures is incremented and it is checked against the backoffLimit. At most 20 elements are allowed.
 func (o PodFailurePolicyOutput) Rules() PodFailurePolicyRuleArrayOutput {
 	return o.ApplyT(func(v PodFailurePolicy) []PodFailurePolicyRule { return v.Rules }).(PodFailurePolicyRuleArrayOutput)
@@ -4430,12 +4027,6 @@ func (o PodFailurePolicyPtrOutput) ToPodFailurePolicyPtrOutput() PodFailurePolic
 
 func (o PodFailurePolicyPtrOutput) ToPodFailurePolicyPtrOutputWithContext(ctx context.Context) PodFailurePolicyPtrOutput {
 	return o
-}
-
-func (o PodFailurePolicyPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*PodFailurePolicy] {
-	return pulumix.Output[*PodFailurePolicy]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o PodFailurePolicyPtrOutput) Elem() PodFailurePolicyOutput {
@@ -4517,12 +4108,6 @@ func (i PodFailurePolicyOnExitCodesRequirementArgs) ToPodFailurePolicyOnExitCode
 	return pulumi.ToOutputWithContext(ctx, i).(PodFailurePolicyOnExitCodesRequirementOutput)
 }
 
-func (i PodFailurePolicyOnExitCodesRequirementArgs) ToOutput(ctx context.Context) pulumix.Output[PodFailurePolicyOnExitCodesRequirement] {
-	return pulumix.Output[PodFailurePolicyOnExitCodesRequirement]{
-		OutputState: i.ToPodFailurePolicyOnExitCodesRequirementOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i PodFailurePolicyOnExitCodesRequirementArgs) ToPodFailurePolicyOnExitCodesRequirementPtrOutput() PodFailurePolicyOnExitCodesRequirementPtrOutput {
 	return i.ToPodFailurePolicyOnExitCodesRequirementPtrOutputWithContext(context.Background())
 }
@@ -4564,12 +4149,6 @@ func (i *podFailurePolicyOnExitCodesRequirementPtrType) ToPodFailurePolicyOnExit
 	return pulumi.ToOutputWithContext(ctx, i).(PodFailurePolicyOnExitCodesRequirementPtrOutput)
 }
 
-func (i *podFailurePolicyOnExitCodesRequirementPtrType) ToOutput(ctx context.Context) pulumix.Output[*PodFailurePolicyOnExitCodesRequirement] {
-	return pulumix.Output[*PodFailurePolicyOnExitCodesRequirement]{
-		OutputState: i.ToPodFailurePolicyOnExitCodesRequirementPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // PodFailurePolicyOnExitCodesRequirement describes the requirement for handling a failed pod based on its container exit codes. In particular, it lookups the .state.terminated.exitCode for each app container and init container status, represented by the .status.containerStatuses and .status.initContainerStatuses fields in the Pod status, respectively. Containers completed with success (exit code 0) are excluded from the requirement check.
 type PodFailurePolicyOnExitCodesRequirementOutput struct{ *pulumi.OutputState }
 
@@ -4593,12 +4172,6 @@ func (o PodFailurePolicyOnExitCodesRequirementOutput) ToPodFailurePolicyOnExitCo
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodFailurePolicyOnExitCodesRequirement) *PodFailurePolicyOnExitCodesRequirement {
 		return &v
 	}).(PodFailurePolicyOnExitCodesRequirementPtrOutput)
-}
-
-func (o PodFailurePolicyOnExitCodesRequirementOutput) ToOutput(ctx context.Context) pulumix.Output[PodFailurePolicyOnExitCodesRequirement] {
-	return pulumix.Output[PodFailurePolicyOnExitCodesRequirement]{
-		OutputState: o.OutputState,
-	}
 }
 
 // Restricts the check for exit codes to the container with the specified name. When null, the rule applies to all containers. When specified, it should match one the container or initContainer names in the pod template.
@@ -4636,12 +4209,6 @@ func (o PodFailurePolicyOnExitCodesRequirementPtrOutput) ToPodFailurePolicyOnExi
 
 func (o PodFailurePolicyOnExitCodesRequirementPtrOutput) ToPodFailurePolicyOnExitCodesRequirementPtrOutputWithContext(ctx context.Context) PodFailurePolicyOnExitCodesRequirementPtrOutput {
 	return o
-}
-
-func (o PodFailurePolicyOnExitCodesRequirementPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*PodFailurePolicyOnExitCodesRequirement] {
-	return pulumix.Output[*PodFailurePolicyOnExitCodesRequirement]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o PodFailurePolicyOnExitCodesRequirementPtrOutput) Elem() PodFailurePolicyOnExitCodesRequirementOutput {
@@ -4751,12 +4318,6 @@ func (i PodFailurePolicyOnExitCodesRequirementPatchArgs) ToPodFailurePolicyOnExi
 	return pulumi.ToOutputWithContext(ctx, i).(PodFailurePolicyOnExitCodesRequirementPatchOutput)
 }
 
-func (i PodFailurePolicyOnExitCodesRequirementPatchArgs) ToOutput(ctx context.Context) pulumix.Output[PodFailurePolicyOnExitCodesRequirementPatch] {
-	return pulumix.Output[PodFailurePolicyOnExitCodesRequirementPatch]{
-		OutputState: i.ToPodFailurePolicyOnExitCodesRequirementPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i PodFailurePolicyOnExitCodesRequirementPatchArgs) ToPodFailurePolicyOnExitCodesRequirementPatchPtrOutput() PodFailurePolicyOnExitCodesRequirementPatchPtrOutput {
 	return i.ToPodFailurePolicyOnExitCodesRequirementPatchPtrOutputWithContext(context.Background())
 }
@@ -4798,12 +4359,6 @@ func (i *podFailurePolicyOnExitCodesRequirementPatchPtrType) ToPodFailurePolicyO
 	return pulumi.ToOutputWithContext(ctx, i).(PodFailurePolicyOnExitCodesRequirementPatchPtrOutput)
 }
 
-func (i *podFailurePolicyOnExitCodesRequirementPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*PodFailurePolicyOnExitCodesRequirementPatch] {
-	return pulumix.Output[*PodFailurePolicyOnExitCodesRequirementPatch]{
-		OutputState: i.ToPodFailurePolicyOnExitCodesRequirementPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // PodFailurePolicyOnExitCodesRequirement describes the requirement for handling a failed pod based on its container exit codes. In particular, it lookups the .state.terminated.exitCode for each app container and init container status, represented by the .status.containerStatuses and .status.initContainerStatuses fields in the Pod status, respectively. Containers completed with success (exit code 0) are excluded from the requirement check.
 type PodFailurePolicyOnExitCodesRequirementPatchOutput struct{ *pulumi.OutputState }
 
@@ -4827,12 +4382,6 @@ func (o PodFailurePolicyOnExitCodesRequirementPatchOutput) ToPodFailurePolicyOnE
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodFailurePolicyOnExitCodesRequirementPatch) *PodFailurePolicyOnExitCodesRequirementPatch {
 		return &v
 	}).(PodFailurePolicyOnExitCodesRequirementPatchPtrOutput)
-}
-
-func (o PodFailurePolicyOnExitCodesRequirementPatchOutput) ToOutput(ctx context.Context) pulumix.Output[PodFailurePolicyOnExitCodesRequirementPatch] {
-	return pulumix.Output[PodFailurePolicyOnExitCodesRequirementPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // Restricts the check for exit codes to the container with the specified name. When null, the rule applies to all containers. When specified, it should match one the container or initContainer names in the pod template.
@@ -4870,12 +4419,6 @@ func (o PodFailurePolicyOnExitCodesRequirementPatchPtrOutput) ToPodFailurePolicy
 
 func (o PodFailurePolicyOnExitCodesRequirementPatchPtrOutput) ToPodFailurePolicyOnExitCodesRequirementPatchPtrOutputWithContext(ctx context.Context) PodFailurePolicyOnExitCodesRequirementPatchPtrOutput {
 	return o
-}
-
-func (o PodFailurePolicyOnExitCodesRequirementPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*PodFailurePolicyOnExitCodesRequirementPatch] {
-	return pulumix.Output[*PodFailurePolicyOnExitCodesRequirementPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o PodFailurePolicyOnExitCodesRequirementPatchPtrOutput) Elem() PodFailurePolicyOnExitCodesRequirementPatchOutput {
@@ -4965,12 +4508,6 @@ func (i PodFailurePolicyOnPodConditionsPatternArgs) ToPodFailurePolicyOnPodCondi
 	return pulumi.ToOutputWithContext(ctx, i).(PodFailurePolicyOnPodConditionsPatternOutput)
 }
 
-func (i PodFailurePolicyOnPodConditionsPatternArgs) ToOutput(ctx context.Context) pulumix.Output[PodFailurePolicyOnPodConditionsPattern] {
-	return pulumix.Output[PodFailurePolicyOnPodConditionsPattern]{
-		OutputState: i.ToPodFailurePolicyOnPodConditionsPatternOutputWithContext(ctx).OutputState,
-	}
-}
-
 // PodFailurePolicyOnPodConditionsPatternArrayInput is an input type that accepts PodFailurePolicyOnPodConditionsPatternArray and PodFailurePolicyOnPodConditionsPatternArrayOutput values.
 // You can construct a concrete instance of `PodFailurePolicyOnPodConditionsPatternArrayInput` via:
 //
@@ -4996,12 +4533,6 @@ func (i PodFailurePolicyOnPodConditionsPatternArray) ToPodFailurePolicyOnPodCond
 	return pulumi.ToOutputWithContext(ctx, i).(PodFailurePolicyOnPodConditionsPatternArrayOutput)
 }
 
-func (i PodFailurePolicyOnPodConditionsPatternArray) ToOutput(ctx context.Context) pulumix.Output[[]PodFailurePolicyOnPodConditionsPattern] {
-	return pulumix.Output[[]PodFailurePolicyOnPodConditionsPattern]{
-		OutputState: i.ToPodFailurePolicyOnPodConditionsPatternArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // PodFailurePolicyOnPodConditionsPattern describes a pattern for matching an actual pod condition type.
 type PodFailurePolicyOnPodConditionsPatternOutput struct{ *pulumi.OutputState }
 
@@ -5015,12 +4546,6 @@ func (o PodFailurePolicyOnPodConditionsPatternOutput) ToPodFailurePolicyOnPodCon
 
 func (o PodFailurePolicyOnPodConditionsPatternOutput) ToPodFailurePolicyOnPodConditionsPatternOutputWithContext(ctx context.Context) PodFailurePolicyOnPodConditionsPatternOutput {
 	return o
-}
-
-func (o PodFailurePolicyOnPodConditionsPatternOutput) ToOutput(ctx context.Context) pulumix.Output[PodFailurePolicyOnPodConditionsPattern] {
-	return pulumix.Output[PodFailurePolicyOnPodConditionsPattern]{
-		OutputState: o.OutputState,
-	}
 }
 
 // Specifies the required Pod condition status. To match a pod condition it is required that the specified status equals the pod condition status. Defaults to True.
@@ -5045,12 +4570,6 @@ func (o PodFailurePolicyOnPodConditionsPatternArrayOutput) ToPodFailurePolicyOnP
 
 func (o PodFailurePolicyOnPodConditionsPatternArrayOutput) ToPodFailurePolicyOnPodConditionsPatternArrayOutputWithContext(ctx context.Context) PodFailurePolicyOnPodConditionsPatternArrayOutput {
 	return o
-}
-
-func (o PodFailurePolicyOnPodConditionsPatternArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]PodFailurePolicyOnPodConditionsPattern] {
-	return pulumix.Output[[]PodFailurePolicyOnPodConditionsPattern]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o PodFailurePolicyOnPodConditionsPatternArrayOutput) Index(i pulumi.IntInput) PodFailurePolicyOnPodConditionsPatternOutput {
@@ -5098,12 +4617,6 @@ func (i PodFailurePolicyOnPodConditionsPatternPatchArgs) ToPodFailurePolicyOnPod
 	return pulumi.ToOutputWithContext(ctx, i).(PodFailurePolicyOnPodConditionsPatternPatchOutput)
 }
 
-func (i PodFailurePolicyOnPodConditionsPatternPatchArgs) ToOutput(ctx context.Context) pulumix.Output[PodFailurePolicyOnPodConditionsPatternPatch] {
-	return pulumix.Output[PodFailurePolicyOnPodConditionsPatternPatch]{
-		OutputState: i.ToPodFailurePolicyOnPodConditionsPatternPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // PodFailurePolicyOnPodConditionsPatternPatchArrayInput is an input type that accepts PodFailurePolicyOnPodConditionsPatternPatchArray and PodFailurePolicyOnPodConditionsPatternPatchArrayOutput values.
 // You can construct a concrete instance of `PodFailurePolicyOnPodConditionsPatternPatchArrayInput` via:
 //
@@ -5129,12 +4642,6 @@ func (i PodFailurePolicyOnPodConditionsPatternPatchArray) ToPodFailurePolicyOnPo
 	return pulumi.ToOutputWithContext(ctx, i).(PodFailurePolicyOnPodConditionsPatternPatchArrayOutput)
 }
 
-func (i PodFailurePolicyOnPodConditionsPatternPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]PodFailurePolicyOnPodConditionsPatternPatch] {
-	return pulumix.Output[[]PodFailurePolicyOnPodConditionsPatternPatch]{
-		OutputState: i.ToPodFailurePolicyOnPodConditionsPatternPatchArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // PodFailurePolicyOnPodConditionsPattern describes a pattern for matching an actual pod condition type.
 type PodFailurePolicyOnPodConditionsPatternPatchOutput struct{ *pulumi.OutputState }
 
@@ -5148,12 +4655,6 @@ func (o PodFailurePolicyOnPodConditionsPatternPatchOutput) ToPodFailurePolicyOnP
 
 func (o PodFailurePolicyOnPodConditionsPatternPatchOutput) ToPodFailurePolicyOnPodConditionsPatternPatchOutputWithContext(ctx context.Context) PodFailurePolicyOnPodConditionsPatternPatchOutput {
 	return o
-}
-
-func (o PodFailurePolicyOnPodConditionsPatternPatchOutput) ToOutput(ctx context.Context) pulumix.Output[PodFailurePolicyOnPodConditionsPatternPatch] {
-	return pulumix.Output[PodFailurePolicyOnPodConditionsPatternPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // Specifies the required Pod condition status. To match a pod condition it is required that the specified status equals the pod condition status. Defaults to True.
@@ -5178,12 +4679,6 @@ func (o PodFailurePolicyOnPodConditionsPatternPatchArrayOutput) ToPodFailurePoli
 
 func (o PodFailurePolicyOnPodConditionsPatternPatchArrayOutput) ToPodFailurePolicyOnPodConditionsPatternPatchArrayOutputWithContext(ctx context.Context) PodFailurePolicyOnPodConditionsPatternPatchArrayOutput {
 	return o
-}
-
-func (o PodFailurePolicyOnPodConditionsPatternPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]PodFailurePolicyOnPodConditionsPatternPatch] {
-	return pulumix.Output[[]PodFailurePolicyOnPodConditionsPatternPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o PodFailurePolicyOnPodConditionsPatternPatchArrayOutput) Index(i pulumi.IntInput) PodFailurePolicyOnPodConditionsPatternPatchOutput {
@@ -5227,12 +4722,6 @@ func (i PodFailurePolicyPatchArgs) ToPodFailurePolicyPatchOutputWithContext(ctx 
 	return pulumi.ToOutputWithContext(ctx, i).(PodFailurePolicyPatchOutput)
 }
 
-func (i PodFailurePolicyPatchArgs) ToOutput(ctx context.Context) pulumix.Output[PodFailurePolicyPatch] {
-	return pulumix.Output[PodFailurePolicyPatch]{
-		OutputState: i.ToPodFailurePolicyPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i PodFailurePolicyPatchArgs) ToPodFailurePolicyPatchPtrOutput() PodFailurePolicyPatchPtrOutput {
 	return i.ToPodFailurePolicyPatchPtrOutputWithContext(context.Background())
 }
@@ -5274,12 +4763,6 @@ func (i *podFailurePolicyPatchPtrType) ToPodFailurePolicyPatchPtrOutputWithConte
 	return pulumi.ToOutputWithContext(ctx, i).(PodFailurePolicyPatchPtrOutput)
 }
 
-func (i *podFailurePolicyPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*PodFailurePolicyPatch] {
-	return pulumix.Output[*PodFailurePolicyPatch]{
-		OutputState: i.ToPodFailurePolicyPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // PodFailurePolicy describes how failed pods influence the backoffLimit.
 type PodFailurePolicyPatchOutput struct{ *pulumi.OutputState }
 
@@ -5305,12 +4788,6 @@ func (o PodFailurePolicyPatchOutput) ToPodFailurePolicyPatchPtrOutputWithContext
 	}).(PodFailurePolicyPatchPtrOutput)
 }
 
-func (o PodFailurePolicyPatchOutput) ToOutput(ctx context.Context) pulumix.Output[PodFailurePolicyPatch] {
-	return pulumix.Output[PodFailurePolicyPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 // A list of pod failure policy rules. The rules are evaluated in order. Once a rule matches a Pod failure, the remaining of the rules are ignored. When no rule matches the Pod failure, the default handling applies - the counter of pod failures is incremented and it is checked against the backoffLimit. At most 20 elements are allowed.
 func (o PodFailurePolicyPatchOutput) Rules() PodFailurePolicyRulePatchArrayOutput {
 	return o.ApplyT(func(v PodFailurePolicyPatch) []PodFailurePolicyRulePatch { return v.Rules }).(PodFailurePolicyRulePatchArrayOutput)
@@ -5328,12 +4805,6 @@ func (o PodFailurePolicyPatchPtrOutput) ToPodFailurePolicyPatchPtrOutput() PodFa
 
 func (o PodFailurePolicyPatchPtrOutput) ToPodFailurePolicyPatchPtrOutputWithContext(ctx context.Context) PodFailurePolicyPatchPtrOutput {
 	return o
-}
-
-func (o PodFailurePolicyPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*PodFailurePolicyPatch] {
-	return pulumix.Output[*PodFailurePolicyPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o PodFailurePolicyPatchPtrOutput) Elem() PodFailurePolicyPatchOutput {
@@ -5423,12 +4894,6 @@ func (i PodFailurePolicyRuleArgs) ToPodFailurePolicyRuleOutputWithContext(ctx co
 	return pulumi.ToOutputWithContext(ctx, i).(PodFailurePolicyRuleOutput)
 }
 
-func (i PodFailurePolicyRuleArgs) ToOutput(ctx context.Context) pulumix.Output[PodFailurePolicyRule] {
-	return pulumix.Output[PodFailurePolicyRule]{
-		OutputState: i.ToPodFailurePolicyRuleOutputWithContext(ctx).OutputState,
-	}
-}
-
 // PodFailurePolicyRuleArrayInput is an input type that accepts PodFailurePolicyRuleArray and PodFailurePolicyRuleArrayOutput values.
 // You can construct a concrete instance of `PodFailurePolicyRuleArrayInput` via:
 //
@@ -5454,12 +4919,6 @@ func (i PodFailurePolicyRuleArray) ToPodFailurePolicyRuleArrayOutputWithContext(
 	return pulumi.ToOutputWithContext(ctx, i).(PodFailurePolicyRuleArrayOutput)
 }
 
-func (i PodFailurePolicyRuleArray) ToOutput(ctx context.Context) pulumix.Output[[]PodFailurePolicyRule] {
-	return pulumix.Output[[]PodFailurePolicyRule]{
-		OutputState: i.ToPodFailurePolicyRuleArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // PodFailurePolicyRule describes how a pod failure is handled when the requirements are met. One of onExitCodes and onPodConditions, but not both, can be used in each rule.
 type PodFailurePolicyRuleOutput struct{ *pulumi.OutputState }
 
@@ -5473,12 +4932,6 @@ func (o PodFailurePolicyRuleOutput) ToPodFailurePolicyRuleOutput() PodFailurePol
 
 func (o PodFailurePolicyRuleOutput) ToPodFailurePolicyRuleOutputWithContext(ctx context.Context) PodFailurePolicyRuleOutput {
 	return o
-}
-
-func (o PodFailurePolicyRuleOutput) ToOutput(ctx context.Context) pulumix.Output[PodFailurePolicyRule] {
-	return pulumix.Output[PodFailurePolicyRule]{
-		OutputState: o.OutputState,
-	}
 }
 
 // Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are:
@@ -5520,12 +4973,6 @@ func (o PodFailurePolicyRuleArrayOutput) ToPodFailurePolicyRuleArrayOutput() Pod
 
 func (o PodFailurePolicyRuleArrayOutput) ToPodFailurePolicyRuleArrayOutputWithContext(ctx context.Context) PodFailurePolicyRuleArrayOutput {
 	return o
-}
-
-func (o PodFailurePolicyRuleArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]PodFailurePolicyRule] {
-	return pulumix.Output[[]PodFailurePolicyRule]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o PodFailurePolicyRuleArrayOutput) Index(i pulumi.IntInput) PodFailurePolicyRuleOutput {
@@ -5601,12 +5048,6 @@ func (i PodFailurePolicyRulePatchArgs) ToPodFailurePolicyRulePatchOutputWithCont
 	return pulumi.ToOutputWithContext(ctx, i).(PodFailurePolicyRulePatchOutput)
 }
 
-func (i PodFailurePolicyRulePatchArgs) ToOutput(ctx context.Context) pulumix.Output[PodFailurePolicyRulePatch] {
-	return pulumix.Output[PodFailurePolicyRulePatch]{
-		OutputState: i.ToPodFailurePolicyRulePatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // PodFailurePolicyRulePatchArrayInput is an input type that accepts PodFailurePolicyRulePatchArray and PodFailurePolicyRulePatchArrayOutput values.
 // You can construct a concrete instance of `PodFailurePolicyRulePatchArrayInput` via:
 //
@@ -5632,12 +5073,6 @@ func (i PodFailurePolicyRulePatchArray) ToPodFailurePolicyRulePatchArrayOutputWi
 	return pulumi.ToOutputWithContext(ctx, i).(PodFailurePolicyRulePatchArrayOutput)
 }
 
-func (i PodFailurePolicyRulePatchArray) ToOutput(ctx context.Context) pulumix.Output[[]PodFailurePolicyRulePatch] {
-	return pulumix.Output[[]PodFailurePolicyRulePatch]{
-		OutputState: i.ToPodFailurePolicyRulePatchArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // PodFailurePolicyRule describes how a pod failure is handled when the requirements are met. One of onExitCodes and onPodConditions, but not both, can be used in each rule.
 type PodFailurePolicyRulePatchOutput struct{ *pulumi.OutputState }
 
@@ -5651,12 +5086,6 @@ func (o PodFailurePolicyRulePatchOutput) ToPodFailurePolicyRulePatchOutput() Pod
 
 func (o PodFailurePolicyRulePatchOutput) ToPodFailurePolicyRulePatchOutputWithContext(ctx context.Context) PodFailurePolicyRulePatchOutput {
 	return o
-}
-
-func (o PodFailurePolicyRulePatchOutput) ToOutput(ctx context.Context) pulumix.Output[PodFailurePolicyRulePatch] {
-	return pulumix.Output[PodFailurePolicyRulePatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are:
@@ -5700,12 +5129,6 @@ func (o PodFailurePolicyRulePatchArrayOutput) ToPodFailurePolicyRulePatchArrayOu
 
 func (o PodFailurePolicyRulePatchArrayOutput) ToPodFailurePolicyRulePatchArrayOutputWithContext(ctx context.Context) PodFailurePolicyRulePatchArrayOutput {
 	return o
-}
-
-func (o PodFailurePolicyRulePatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]PodFailurePolicyRulePatch] {
-	return pulumix.Output[[]PodFailurePolicyRulePatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o PodFailurePolicyRulePatchArrayOutput) Index(i pulumi.IntInput) PodFailurePolicyRulePatchOutput {
@@ -5753,12 +5176,6 @@ func (i UncountedTerminatedPodsArgs) ToUncountedTerminatedPodsOutputWithContext(
 	return pulumi.ToOutputWithContext(ctx, i).(UncountedTerminatedPodsOutput)
 }
 
-func (i UncountedTerminatedPodsArgs) ToOutput(ctx context.Context) pulumix.Output[UncountedTerminatedPods] {
-	return pulumix.Output[UncountedTerminatedPods]{
-		OutputState: i.ToUncountedTerminatedPodsOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i UncountedTerminatedPodsArgs) ToUncountedTerminatedPodsPtrOutput() UncountedTerminatedPodsPtrOutput {
 	return i.ToUncountedTerminatedPodsPtrOutputWithContext(context.Background())
 }
@@ -5800,12 +5217,6 @@ func (i *uncountedTerminatedPodsPtrType) ToUncountedTerminatedPodsPtrOutputWithC
 	return pulumi.ToOutputWithContext(ctx, i).(UncountedTerminatedPodsPtrOutput)
 }
 
-func (i *uncountedTerminatedPodsPtrType) ToOutput(ctx context.Context) pulumix.Output[*UncountedTerminatedPods] {
-	return pulumix.Output[*UncountedTerminatedPods]{
-		OutputState: i.ToUncountedTerminatedPodsPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // UncountedTerminatedPods holds UIDs of Pods that have terminated but haven't been accounted in Job status counters.
 type UncountedTerminatedPodsOutput struct{ *pulumi.OutputState }
 
@@ -5831,12 +5242,6 @@ func (o UncountedTerminatedPodsOutput) ToUncountedTerminatedPodsPtrOutputWithCon
 	}).(UncountedTerminatedPodsPtrOutput)
 }
 
-func (o UncountedTerminatedPodsOutput) ToOutput(ctx context.Context) pulumix.Output[UncountedTerminatedPods] {
-	return pulumix.Output[UncountedTerminatedPods]{
-		OutputState: o.OutputState,
-	}
-}
-
 // failed holds UIDs of failed Pods.
 func (o UncountedTerminatedPodsOutput) Failed() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v UncountedTerminatedPods) []string { return v.Failed }).(pulumi.StringArrayOutput)
@@ -5859,12 +5264,6 @@ func (o UncountedTerminatedPodsPtrOutput) ToUncountedTerminatedPodsPtrOutput() U
 
 func (o UncountedTerminatedPodsPtrOutput) ToUncountedTerminatedPodsPtrOutputWithContext(ctx context.Context) UncountedTerminatedPodsPtrOutput {
 	return o
-}
-
-func (o UncountedTerminatedPodsPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*UncountedTerminatedPods] {
-	return pulumix.Output[*UncountedTerminatedPods]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o UncountedTerminatedPodsPtrOutput) Elem() UncountedTerminatedPodsOutput {
@@ -5936,12 +5335,6 @@ func (i UncountedTerminatedPodsPatchArgs) ToUncountedTerminatedPodsPatchOutputWi
 	return pulumi.ToOutputWithContext(ctx, i).(UncountedTerminatedPodsPatchOutput)
 }
 
-func (i UncountedTerminatedPodsPatchArgs) ToOutput(ctx context.Context) pulumix.Output[UncountedTerminatedPodsPatch] {
-	return pulumix.Output[UncountedTerminatedPodsPatch]{
-		OutputState: i.ToUncountedTerminatedPodsPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i UncountedTerminatedPodsPatchArgs) ToUncountedTerminatedPodsPatchPtrOutput() UncountedTerminatedPodsPatchPtrOutput {
 	return i.ToUncountedTerminatedPodsPatchPtrOutputWithContext(context.Background())
 }
@@ -5983,12 +5376,6 @@ func (i *uncountedTerminatedPodsPatchPtrType) ToUncountedTerminatedPodsPatchPtrO
 	return pulumi.ToOutputWithContext(ctx, i).(UncountedTerminatedPodsPatchPtrOutput)
 }
 
-func (i *uncountedTerminatedPodsPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*UncountedTerminatedPodsPatch] {
-	return pulumix.Output[*UncountedTerminatedPodsPatch]{
-		OutputState: i.ToUncountedTerminatedPodsPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // UncountedTerminatedPods holds UIDs of Pods that have terminated but haven't been accounted in Job status counters.
 type UncountedTerminatedPodsPatchOutput struct{ *pulumi.OutputState }
 
@@ -6014,12 +5401,6 @@ func (o UncountedTerminatedPodsPatchOutput) ToUncountedTerminatedPodsPatchPtrOut
 	}).(UncountedTerminatedPodsPatchPtrOutput)
 }
 
-func (o UncountedTerminatedPodsPatchOutput) ToOutput(ctx context.Context) pulumix.Output[UncountedTerminatedPodsPatch] {
-	return pulumix.Output[UncountedTerminatedPodsPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 // failed holds UIDs of failed Pods.
 func (o UncountedTerminatedPodsPatchOutput) Failed() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v UncountedTerminatedPodsPatch) []string { return v.Failed }).(pulumi.StringArrayOutput)
@@ -6042,12 +5423,6 @@ func (o UncountedTerminatedPodsPatchPtrOutput) ToUncountedTerminatedPodsPatchPtr
 
 func (o UncountedTerminatedPodsPatchPtrOutput) ToUncountedTerminatedPodsPatchPtrOutputWithContext(ctx context.Context) UncountedTerminatedPodsPatchPtrOutput {
 	return o
-}
-
-func (o UncountedTerminatedPodsPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*UncountedTerminatedPodsPatch] {
-	return pulumix.Output[*UncountedTerminatedPodsPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o UncountedTerminatedPodsPatchPtrOutput) Elem() UncountedTerminatedPodsPatchOutput {

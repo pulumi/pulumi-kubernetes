@@ -10,7 +10,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // APIService represents a server for a particular GroupVersion. Name must be "version.group".
@@ -125,12 +124,6 @@ func (i *APIService) ToAPIServiceOutputWithContext(ctx context.Context) APIServi
 	return pulumi.ToOutputWithContext(ctx, i).(APIServiceOutput)
 }
 
-func (i *APIService) ToOutput(ctx context.Context) pulumix.Output[*APIService] {
-	return pulumix.Output[*APIService]{
-		OutputState: i.ToAPIServiceOutputWithContext(ctx).OutputState,
-	}
-}
-
 // APIServiceArrayInput is an input type that accepts APIServiceArray and APIServiceArrayOutput values.
 // You can construct a concrete instance of `APIServiceArrayInput` via:
 //
@@ -154,12 +147,6 @@ func (i APIServiceArray) ToAPIServiceArrayOutput() APIServiceArrayOutput {
 
 func (i APIServiceArray) ToAPIServiceArrayOutputWithContext(ctx context.Context) APIServiceArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(APIServiceArrayOutput)
-}
-
-func (i APIServiceArray) ToOutput(ctx context.Context) pulumix.Output[[]*APIService] {
-	return pulumix.Output[[]*APIService]{
-		OutputState: i.ToAPIServiceArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // APIServiceMapInput is an input type that accepts APIServiceMap and APIServiceMapOutput values.
@@ -187,12 +174,6 @@ func (i APIServiceMap) ToAPIServiceMapOutputWithContext(ctx context.Context) API
 	return pulumi.ToOutputWithContext(ctx, i).(APIServiceMapOutput)
 }
 
-func (i APIServiceMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*APIService] {
-	return pulumix.Output[map[string]*APIService]{
-		OutputState: i.ToAPIServiceMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type APIServiceOutput struct{ *pulumi.OutputState }
 
 func (APIServiceOutput) ElementType() reflect.Type {
@@ -205,12 +186,6 @@ func (o APIServiceOutput) ToAPIServiceOutput() APIServiceOutput {
 
 func (o APIServiceOutput) ToAPIServiceOutputWithContext(ctx context.Context) APIServiceOutput {
 	return o
-}
-
-func (o APIServiceOutput) ToOutput(ctx context.Context) pulumix.Output[*APIService] {
-	return pulumix.Output[*APIService]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -251,12 +226,6 @@ func (o APIServiceArrayOutput) ToAPIServiceArrayOutputWithContext(ctx context.Co
 	return o
 }
 
-func (o APIServiceArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*APIService] {
-	return pulumix.Output[[]*APIService]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o APIServiceArrayOutput) Index(i pulumi.IntInput) APIServiceOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *APIService {
 		return vs[0].([]*APIService)[vs[1].(int)]
@@ -275,12 +244,6 @@ func (o APIServiceMapOutput) ToAPIServiceMapOutput() APIServiceMapOutput {
 
 func (o APIServiceMapOutput) ToAPIServiceMapOutputWithContext(ctx context.Context) APIServiceMapOutput {
 	return o
-}
-
-func (o APIServiceMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*APIService] {
-	return pulumix.Output[map[string]*APIService]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o APIServiceMapOutput) MapIndex(k pulumi.StringInput) APIServiceOutput {

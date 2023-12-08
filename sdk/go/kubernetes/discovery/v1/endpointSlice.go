@@ -11,7 +11,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // EndpointSlice represents a subset of the endpoints that implement a service. For a given service there may be multiple EndpointSlice objects, selected by labels, which must be joined to produce the full set of endpoints.
@@ -139,12 +138,6 @@ func (i *EndpointSlice) ToEndpointSliceOutputWithContext(ctx context.Context) En
 	return pulumi.ToOutputWithContext(ctx, i).(EndpointSliceOutput)
 }
 
-func (i *EndpointSlice) ToOutput(ctx context.Context) pulumix.Output[*EndpointSlice] {
-	return pulumix.Output[*EndpointSlice]{
-		OutputState: i.ToEndpointSliceOutputWithContext(ctx).OutputState,
-	}
-}
-
 // EndpointSliceArrayInput is an input type that accepts EndpointSliceArray and EndpointSliceArrayOutput values.
 // You can construct a concrete instance of `EndpointSliceArrayInput` via:
 //
@@ -168,12 +161,6 @@ func (i EndpointSliceArray) ToEndpointSliceArrayOutput() EndpointSliceArrayOutpu
 
 func (i EndpointSliceArray) ToEndpointSliceArrayOutputWithContext(ctx context.Context) EndpointSliceArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(EndpointSliceArrayOutput)
-}
-
-func (i EndpointSliceArray) ToOutput(ctx context.Context) pulumix.Output[[]*EndpointSlice] {
-	return pulumix.Output[[]*EndpointSlice]{
-		OutputState: i.ToEndpointSliceArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // EndpointSliceMapInput is an input type that accepts EndpointSliceMap and EndpointSliceMapOutput values.
@@ -201,12 +188,6 @@ func (i EndpointSliceMap) ToEndpointSliceMapOutputWithContext(ctx context.Contex
 	return pulumi.ToOutputWithContext(ctx, i).(EndpointSliceMapOutput)
 }
 
-func (i EndpointSliceMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*EndpointSlice] {
-	return pulumix.Output[map[string]*EndpointSlice]{
-		OutputState: i.ToEndpointSliceMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type EndpointSliceOutput struct{ *pulumi.OutputState }
 
 func (EndpointSliceOutput) ElementType() reflect.Type {
@@ -219,12 +200,6 @@ func (o EndpointSliceOutput) ToEndpointSliceOutput() EndpointSliceOutput {
 
 func (o EndpointSliceOutput) ToEndpointSliceOutputWithContext(ctx context.Context) EndpointSliceOutput {
 	return o
-}
-
-func (o EndpointSliceOutput) ToOutput(ctx context.Context) pulumix.Output[*EndpointSlice] {
-	return pulumix.Output[*EndpointSlice]{
-		OutputState: o.OutputState,
-	}
 }
 
 // addressType specifies the type of address carried by this EndpointSlice. All addresses in this slice must be the same type. This field is immutable after creation. The following address types are currently supported: * IPv4: Represents an IPv4 Address. * IPv6: Represents an IPv6 Address. * FQDN: Represents a Fully Qualified Domain Name.
@@ -271,12 +246,6 @@ func (o EndpointSliceArrayOutput) ToEndpointSliceArrayOutputWithContext(ctx cont
 	return o
 }
 
-func (o EndpointSliceArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*EndpointSlice] {
-	return pulumix.Output[[]*EndpointSlice]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o EndpointSliceArrayOutput) Index(i pulumi.IntInput) EndpointSliceOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *EndpointSlice {
 		return vs[0].([]*EndpointSlice)[vs[1].(int)]
@@ -295,12 +264,6 @@ func (o EndpointSliceMapOutput) ToEndpointSliceMapOutput() EndpointSliceMapOutpu
 
 func (o EndpointSliceMapOutput) ToEndpointSliceMapOutputWithContext(ctx context.Context) EndpointSliceMapOutput {
 	return o
-}
-
-func (o EndpointSliceMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*EndpointSlice] {
-	return pulumix.Output[map[string]*EndpointSlice]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o EndpointSliceMapOutput) MapIndex(k pulumi.StringInput) EndpointSliceOutput {

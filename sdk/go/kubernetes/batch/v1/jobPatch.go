@@ -10,7 +10,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Patch resources are used to modify existing Kubernetes resources by using
@@ -142,12 +141,6 @@ func (i *JobPatch) ToJobPatchOutputWithContext(ctx context.Context) JobPatchOutp
 	return pulumi.ToOutputWithContext(ctx, i).(JobPatchOutput)
 }
 
-func (i *JobPatch) ToOutput(ctx context.Context) pulumix.Output[*JobPatch] {
-	return pulumix.Output[*JobPatch]{
-		OutputState: i.ToJobPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // JobPatchArrayInput is an input type that accepts JobPatchArray and JobPatchArrayOutput values.
 // You can construct a concrete instance of `JobPatchArrayInput` via:
 //
@@ -171,12 +164,6 @@ func (i JobPatchArray) ToJobPatchArrayOutput() JobPatchArrayOutput {
 
 func (i JobPatchArray) ToJobPatchArrayOutputWithContext(ctx context.Context) JobPatchArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(JobPatchArrayOutput)
-}
-
-func (i JobPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]*JobPatch] {
-	return pulumix.Output[[]*JobPatch]{
-		OutputState: i.ToJobPatchArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // JobPatchMapInput is an input type that accepts JobPatchMap and JobPatchMapOutput values.
@@ -204,12 +191,6 @@ func (i JobPatchMap) ToJobPatchMapOutputWithContext(ctx context.Context) JobPatc
 	return pulumi.ToOutputWithContext(ctx, i).(JobPatchMapOutput)
 }
 
-func (i JobPatchMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*JobPatch] {
-	return pulumix.Output[map[string]*JobPatch]{
-		OutputState: i.ToJobPatchMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type JobPatchOutput struct{ *pulumi.OutputState }
 
 func (JobPatchOutput) ElementType() reflect.Type {
@@ -222,12 +203,6 @@ func (o JobPatchOutput) ToJobPatchOutput() JobPatchOutput {
 
 func (o JobPatchOutput) ToJobPatchOutputWithContext(ctx context.Context) JobPatchOutput {
 	return o
-}
-
-func (o JobPatchOutput) ToOutput(ctx context.Context) pulumix.Output[*JobPatch] {
-	return pulumix.Output[*JobPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -269,12 +244,6 @@ func (o JobPatchArrayOutput) ToJobPatchArrayOutputWithContext(ctx context.Contex
 	return o
 }
 
-func (o JobPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*JobPatch] {
-	return pulumix.Output[[]*JobPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o JobPatchArrayOutput) Index(i pulumi.IntInput) JobPatchOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *JobPatch {
 		return vs[0].([]*JobPatch)[vs[1].(int)]
@@ -293,12 +262,6 @@ func (o JobPatchMapOutput) ToJobPatchMapOutput() JobPatchMapOutput {
 
 func (o JobPatchMapOutput) ToJobPatchMapOutputWithContext(ctx context.Context) JobPatchMapOutput {
 	return o
-}
-
-func (o JobPatchMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*JobPatch] {
-	return pulumix.Output[map[string]*JobPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o JobPatchMapOutput) MapIndex(k pulumi.StringInput) JobPatchOutput {

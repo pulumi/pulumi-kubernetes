@@ -10,7 +10,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 var _ = utilities.GetEnvOrDefault
@@ -62,12 +61,6 @@ func (i LeaseTypeArgs) ToLeaseTypeOutputWithContext(ctx context.Context) LeaseTy
 	return pulumi.ToOutputWithContext(ctx, i).(LeaseTypeOutput)
 }
 
-func (i LeaseTypeArgs) ToOutput(ctx context.Context) pulumix.Output[LeaseType] {
-	return pulumix.Output[LeaseType]{
-		OutputState: i.ToLeaseTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // LeaseTypeArrayInput is an input type that accepts LeaseTypeArray and LeaseTypeArrayOutput values.
 // You can construct a concrete instance of `LeaseTypeArrayInput` via:
 //
@@ -93,12 +86,6 @@ func (i LeaseTypeArray) ToLeaseTypeArrayOutputWithContext(ctx context.Context) L
 	return pulumi.ToOutputWithContext(ctx, i).(LeaseTypeArrayOutput)
 }
 
-func (i LeaseTypeArray) ToOutput(ctx context.Context) pulumix.Output[[]LeaseType] {
-	return pulumix.Output[[]LeaseType]{
-		OutputState: i.ToLeaseTypeArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // Lease defines a lease concept.
 type LeaseTypeOutput struct{ *pulumi.OutputState }
 
@@ -112,12 +99,6 @@ func (o LeaseTypeOutput) ToLeaseTypeOutput() LeaseTypeOutput {
 
 func (o LeaseTypeOutput) ToLeaseTypeOutputWithContext(ctx context.Context) LeaseTypeOutput {
 	return o
-}
-
-func (o LeaseTypeOutput) ToOutput(ctx context.Context) pulumix.Output[LeaseType] {
-	return pulumix.Output[LeaseType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -152,12 +133,6 @@ func (o LeaseTypeArrayOutput) ToLeaseTypeArrayOutput() LeaseTypeArrayOutput {
 
 func (o LeaseTypeArrayOutput) ToLeaseTypeArrayOutputWithContext(ctx context.Context) LeaseTypeArrayOutput {
 	return o
-}
-
-func (o LeaseTypeArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]LeaseType] {
-	return pulumix.Output[[]LeaseType]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o LeaseTypeArrayOutput) Index(i pulumi.IntInput) LeaseTypeOutput {
@@ -213,12 +188,6 @@ func (i LeaseListTypeArgs) ToLeaseListTypeOutputWithContext(ctx context.Context)
 	return pulumi.ToOutputWithContext(ctx, i).(LeaseListTypeOutput)
 }
 
-func (i LeaseListTypeArgs) ToOutput(ctx context.Context) pulumix.Output[LeaseListType] {
-	return pulumix.Output[LeaseListType]{
-		OutputState: i.ToLeaseListTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // LeaseList is a list of Lease objects.
 type LeaseListTypeOutput struct{ *pulumi.OutputState }
 
@@ -232,12 +201,6 @@ func (o LeaseListTypeOutput) ToLeaseListTypeOutput() LeaseListTypeOutput {
 
 func (o LeaseListTypeOutput) ToLeaseListTypeOutputWithContext(ctx context.Context) LeaseListTypeOutput {
 	return o
-}
-
-func (o LeaseListTypeOutput) ToOutput(ctx context.Context) pulumix.Output[LeaseListType] {
-	return pulumix.Output[LeaseListType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -307,12 +270,6 @@ func (i LeasePatchTypeArgs) ToLeasePatchTypeOutputWithContext(ctx context.Contex
 	return pulumi.ToOutputWithContext(ctx, i).(LeasePatchTypeOutput)
 }
 
-func (i LeasePatchTypeArgs) ToOutput(ctx context.Context) pulumix.Output[LeasePatchType] {
-	return pulumix.Output[LeasePatchType]{
-		OutputState: i.ToLeasePatchTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // Lease defines a lease concept.
 type LeasePatchTypeOutput struct{ *pulumi.OutputState }
 
@@ -326,12 +283,6 @@ func (o LeasePatchTypeOutput) ToLeasePatchTypeOutput() LeasePatchTypeOutput {
 
 func (o LeasePatchTypeOutput) ToLeasePatchTypeOutputWithContext(ctx context.Context) LeasePatchTypeOutput {
 	return o
-}
-
-func (o LeasePatchTypeOutput) ToOutput(ctx context.Context) pulumix.Output[LeasePatchType] {
-	return pulumix.Output[LeasePatchType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -405,12 +356,6 @@ func (i LeaseSpecArgs) ToLeaseSpecOutputWithContext(ctx context.Context) LeaseSp
 	return pulumi.ToOutputWithContext(ctx, i).(LeaseSpecOutput)
 }
 
-func (i LeaseSpecArgs) ToOutput(ctx context.Context) pulumix.Output[LeaseSpec] {
-	return pulumix.Output[LeaseSpec]{
-		OutputState: i.ToLeaseSpecOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i LeaseSpecArgs) ToLeaseSpecPtrOutput() LeaseSpecPtrOutput {
 	return i.ToLeaseSpecPtrOutputWithContext(context.Background())
 }
@@ -452,12 +397,6 @@ func (i *leaseSpecPtrType) ToLeaseSpecPtrOutputWithContext(ctx context.Context) 
 	return pulumi.ToOutputWithContext(ctx, i).(LeaseSpecPtrOutput)
 }
 
-func (i *leaseSpecPtrType) ToOutput(ctx context.Context) pulumix.Output[*LeaseSpec] {
-	return pulumix.Output[*LeaseSpec]{
-		OutputState: i.ToLeaseSpecPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // LeaseSpec is a specification of a Lease.
 type LeaseSpecOutput struct{ *pulumi.OutputState }
 
@@ -481,12 +420,6 @@ func (o LeaseSpecOutput) ToLeaseSpecPtrOutputWithContext(ctx context.Context) Le
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v LeaseSpec) *LeaseSpec {
 		return &v
 	}).(LeaseSpecPtrOutput)
-}
-
-func (o LeaseSpecOutput) ToOutput(ctx context.Context) pulumix.Output[LeaseSpec] {
-	return pulumix.Output[LeaseSpec]{
-		OutputState: o.OutputState,
-	}
 }
 
 // acquireTime is a time when the current lease was acquired.
@@ -526,12 +459,6 @@ func (o LeaseSpecPtrOutput) ToLeaseSpecPtrOutput() LeaseSpecPtrOutput {
 
 func (o LeaseSpecPtrOutput) ToLeaseSpecPtrOutputWithContext(ctx context.Context) LeaseSpecPtrOutput {
 	return o
-}
-
-func (o LeaseSpecPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*LeaseSpec] {
-	return pulumix.Output[*LeaseSpec]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o LeaseSpecPtrOutput) Elem() LeaseSpecOutput {
@@ -645,12 +572,6 @@ func (i LeaseSpecPatchArgs) ToLeaseSpecPatchOutputWithContext(ctx context.Contex
 	return pulumi.ToOutputWithContext(ctx, i).(LeaseSpecPatchOutput)
 }
 
-func (i LeaseSpecPatchArgs) ToOutput(ctx context.Context) pulumix.Output[LeaseSpecPatch] {
-	return pulumix.Output[LeaseSpecPatch]{
-		OutputState: i.ToLeaseSpecPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i LeaseSpecPatchArgs) ToLeaseSpecPatchPtrOutput() LeaseSpecPatchPtrOutput {
 	return i.ToLeaseSpecPatchPtrOutputWithContext(context.Background())
 }
@@ -692,12 +613,6 @@ func (i *leaseSpecPatchPtrType) ToLeaseSpecPatchPtrOutputWithContext(ctx context
 	return pulumi.ToOutputWithContext(ctx, i).(LeaseSpecPatchPtrOutput)
 }
 
-func (i *leaseSpecPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*LeaseSpecPatch] {
-	return pulumix.Output[*LeaseSpecPatch]{
-		OutputState: i.ToLeaseSpecPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // LeaseSpec is a specification of a Lease.
 type LeaseSpecPatchOutput struct{ *pulumi.OutputState }
 
@@ -721,12 +636,6 @@ func (o LeaseSpecPatchOutput) ToLeaseSpecPatchPtrOutputWithContext(ctx context.C
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v LeaseSpecPatch) *LeaseSpecPatch {
 		return &v
 	}).(LeaseSpecPatchPtrOutput)
-}
-
-func (o LeaseSpecPatchOutput) ToOutput(ctx context.Context) pulumix.Output[LeaseSpecPatch] {
-	return pulumix.Output[LeaseSpecPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // acquireTime is a time when the current lease was acquired.
@@ -766,12 +675,6 @@ func (o LeaseSpecPatchPtrOutput) ToLeaseSpecPatchPtrOutput() LeaseSpecPatchPtrOu
 
 func (o LeaseSpecPatchPtrOutput) ToLeaseSpecPatchPtrOutputWithContext(ctx context.Context) LeaseSpecPatchPtrOutput {
 	return o
-}
-
-func (o LeaseSpecPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*LeaseSpecPatch] {
-	return pulumix.Output[*LeaseSpecPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o LeaseSpecPatchPtrOutput) Elem() LeaseSpecPatchOutput {

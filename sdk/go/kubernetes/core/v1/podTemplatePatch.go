@@ -10,7 +10,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Patch resources are used to modify existing Kubernetes resources by using
@@ -120,12 +119,6 @@ func (i *PodTemplatePatch) ToPodTemplatePatchOutputWithContext(ctx context.Conte
 	return pulumi.ToOutputWithContext(ctx, i).(PodTemplatePatchOutput)
 }
 
-func (i *PodTemplatePatch) ToOutput(ctx context.Context) pulumix.Output[*PodTemplatePatch] {
-	return pulumix.Output[*PodTemplatePatch]{
-		OutputState: i.ToPodTemplatePatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // PodTemplatePatchArrayInput is an input type that accepts PodTemplatePatchArray and PodTemplatePatchArrayOutput values.
 // You can construct a concrete instance of `PodTemplatePatchArrayInput` via:
 //
@@ -149,12 +142,6 @@ func (i PodTemplatePatchArray) ToPodTemplatePatchArrayOutput() PodTemplatePatchA
 
 func (i PodTemplatePatchArray) ToPodTemplatePatchArrayOutputWithContext(ctx context.Context) PodTemplatePatchArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(PodTemplatePatchArrayOutput)
-}
-
-func (i PodTemplatePatchArray) ToOutput(ctx context.Context) pulumix.Output[[]*PodTemplatePatch] {
-	return pulumix.Output[[]*PodTemplatePatch]{
-		OutputState: i.ToPodTemplatePatchArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // PodTemplatePatchMapInput is an input type that accepts PodTemplatePatchMap and PodTemplatePatchMapOutput values.
@@ -182,12 +169,6 @@ func (i PodTemplatePatchMap) ToPodTemplatePatchMapOutputWithContext(ctx context.
 	return pulumi.ToOutputWithContext(ctx, i).(PodTemplatePatchMapOutput)
 }
 
-func (i PodTemplatePatchMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*PodTemplatePatch] {
-	return pulumix.Output[map[string]*PodTemplatePatch]{
-		OutputState: i.ToPodTemplatePatchMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type PodTemplatePatchOutput struct{ *pulumi.OutputState }
 
 func (PodTemplatePatchOutput) ElementType() reflect.Type {
@@ -200,12 +181,6 @@ func (o PodTemplatePatchOutput) ToPodTemplatePatchOutput() PodTemplatePatchOutpu
 
 func (o PodTemplatePatchOutput) ToPodTemplatePatchOutputWithContext(ctx context.Context) PodTemplatePatchOutput {
 	return o
-}
-
-func (o PodTemplatePatchOutput) ToOutput(ctx context.Context) pulumix.Output[*PodTemplatePatch] {
-	return pulumix.Output[*PodTemplatePatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -242,12 +217,6 @@ func (o PodTemplatePatchArrayOutput) ToPodTemplatePatchArrayOutputWithContext(ct
 	return o
 }
 
-func (o PodTemplatePatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*PodTemplatePatch] {
-	return pulumix.Output[[]*PodTemplatePatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o PodTemplatePatchArrayOutput) Index(i pulumi.IntInput) PodTemplatePatchOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *PodTemplatePatch {
 		return vs[0].([]*PodTemplatePatch)[vs[1].(int)]
@@ -266,12 +235,6 @@ func (o PodTemplatePatchMapOutput) ToPodTemplatePatchMapOutput() PodTemplatePatc
 
 func (o PodTemplatePatchMapOutput) ToPodTemplatePatchMapOutputWithContext(ctx context.Context) PodTemplatePatchMapOutput {
 	return o
-}
-
-func (o PodTemplatePatchMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*PodTemplatePatch] {
-	return pulumix.Output[map[string]*PodTemplatePatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o PodTemplatePatchMapOutput) MapIndex(k pulumi.StringInput) PodTemplatePatchOutput {

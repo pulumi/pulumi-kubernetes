@@ -11,7 +11,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // PersistentVolumeList is a list of PersistentVolume items.
@@ -118,12 +117,6 @@ func (i *PersistentVolumeList) ToPersistentVolumeListOutputWithContext(ctx conte
 	return pulumi.ToOutputWithContext(ctx, i).(PersistentVolumeListOutput)
 }
 
-func (i *PersistentVolumeList) ToOutput(ctx context.Context) pulumix.Output[*PersistentVolumeList] {
-	return pulumix.Output[*PersistentVolumeList]{
-		OutputState: i.ToPersistentVolumeListOutputWithContext(ctx).OutputState,
-	}
-}
-
 // PersistentVolumeListArrayInput is an input type that accepts PersistentVolumeListArray and PersistentVolumeListArrayOutput values.
 // You can construct a concrete instance of `PersistentVolumeListArrayInput` via:
 //
@@ -147,12 +140,6 @@ func (i PersistentVolumeListArray) ToPersistentVolumeListArrayOutput() Persisten
 
 func (i PersistentVolumeListArray) ToPersistentVolumeListArrayOutputWithContext(ctx context.Context) PersistentVolumeListArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(PersistentVolumeListArrayOutput)
-}
-
-func (i PersistentVolumeListArray) ToOutput(ctx context.Context) pulumix.Output[[]*PersistentVolumeList] {
-	return pulumix.Output[[]*PersistentVolumeList]{
-		OutputState: i.ToPersistentVolumeListArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // PersistentVolumeListMapInput is an input type that accepts PersistentVolumeListMap and PersistentVolumeListMapOutput values.
@@ -180,12 +167,6 @@ func (i PersistentVolumeListMap) ToPersistentVolumeListMapOutputWithContext(ctx 
 	return pulumi.ToOutputWithContext(ctx, i).(PersistentVolumeListMapOutput)
 }
 
-func (i PersistentVolumeListMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*PersistentVolumeList] {
-	return pulumix.Output[map[string]*PersistentVolumeList]{
-		OutputState: i.ToPersistentVolumeListMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type PersistentVolumeListOutput struct{ *pulumi.OutputState }
 
 func (PersistentVolumeListOutput) ElementType() reflect.Type {
@@ -198,12 +179,6 @@ func (o PersistentVolumeListOutput) ToPersistentVolumeListOutput() PersistentVol
 
 func (o PersistentVolumeListOutput) ToPersistentVolumeListOutputWithContext(ctx context.Context) PersistentVolumeListOutput {
 	return o
-}
-
-func (o PersistentVolumeListOutput) ToOutput(ctx context.Context) pulumix.Output[*PersistentVolumeList] {
-	return pulumix.Output[*PersistentVolumeList]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -240,12 +215,6 @@ func (o PersistentVolumeListArrayOutput) ToPersistentVolumeListArrayOutputWithCo
 	return o
 }
 
-func (o PersistentVolumeListArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*PersistentVolumeList] {
-	return pulumix.Output[[]*PersistentVolumeList]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o PersistentVolumeListArrayOutput) Index(i pulumi.IntInput) PersistentVolumeListOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *PersistentVolumeList {
 		return vs[0].([]*PersistentVolumeList)[vs[1].(int)]
@@ -264,12 +233,6 @@ func (o PersistentVolumeListMapOutput) ToPersistentVolumeListMapOutput() Persist
 
 func (o PersistentVolumeListMapOutput) ToPersistentVolumeListMapOutputWithContext(ctx context.Context) PersistentVolumeListMapOutput {
 	return o
-}
-
-func (o PersistentVolumeListMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*PersistentVolumeList] {
-	return pulumix.Output[map[string]*PersistentVolumeList]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o PersistentVolumeListMapOutput) MapIndex(k pulumi.StringInput) PersistentVolumeListOutput {

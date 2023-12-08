@@ -9,7 +9,6 @@ import (
 
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Patch resources are used to modify existing Kubernetes resources by using
@@ -139,12 +138,6 @@ func (i *StatusPatch) ToStatusPatchOutputWithContext(ctx context.Context) Status
 	return pulumi.ToOutputWithContext(ctx, i).(StatusPatchOutput)
 }
 
-func (i *StatusPatch) ToOutput(ctx context.Context) pulumix.Output[*StatusPatch] {
-	return pulumix.Output[*StatusPatch]{
-		OutputState: i.ToStatusPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // StatusPatchArrayInput is an input type that accepts StatusPatchArray and StatusPatchArrayOutput values.
 // You can construct a concrete instance of `StatusPatchArrayInput` via:
 //
@@ -168,12 +161,6 @@ func (i StatusPatchArray) ToStatusPatchArrayOutput() StatusPatchArrayOutput {
 
 func (i StatusPatchArray) ToStatusPatchArrayOutputWithContext(ctx context.Context) StatusPatchArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(StatusPatchArrayOutput)
-}
-
-func (i StatusPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]*StatusPatch] {
-	return pulumix.Output[[]*StatusPatch]{
-		OutputState: i.ToStatusPatchArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // StatusPatchMapInput is an input type that accepts StatusPatchMap and StatusPatchMapOutput values.
@@ -201,12 +188,6 @@ func (i StatusPatchMap) ToStatusPatchMapOutputWithContext(ctx context.Context) S
 	return pulumi.ToOutputWithContext(ctx, i).(StatusPatchMapOutput)
 }
 
-func (i StatusPatchMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*StatusPatch] {
-	return pulumix.Output[map[string]*StatusPatch]{
-		OutputState: i.ToStatusPatchMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type StatusPatchOutput struct{ *pulumi.OutputState }
 
 func (StatusPatchOutput) ElementType() reflect.Type {
@@ -219,12 +200,6 @@ func (o StatusPatchOutput) ToStatusPatchOutput() StatusPatchOutput {
 
 func (o StatusPatchOutput) ToStatusPatchOutputWithContext(ctx context.Context) StatusPatchOutput {
 	return o
-}
-
-func (o StatusPatchOutput) ToOutput(ctx context.Context) pulumix.Output[*StatusPatch] {
-	return pulumix.Output[*StatusPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -281,12 +256,6 @@ func (o StatusPatchArrayOutput) ToStatusPatchArrayOutputWithContext(ctx context.
 	return o
 }
 
-func (o StatusPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*StatusPatch] {
-	return pulumix.Output[[]*StatusPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o StatusPatchArrayOutput) Index(i pulumi.IntInput) StatusPatchOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *StatusPatch {
 		return vs[0].([]*StatusPatch)[vs[1].(int)]
@@ -305,12 +274,6 @@ func (o StatusPatchMapOutput) ToStatusPatchMapOutput() StatusPatchMapOutput {
 
 func (o StatusPatchMapOutput) ToStatusPatchMapOutputWithContext(ctx context.Context) StatusPatchMapOutput {
 	return o
-}
-
-func (o StatusPatchMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*StatusPatch] {
-	return pulumix.Output[map[string]*StatusPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o StatusPatchMapOutput) MapIndex(k pulumi.StringInput) StatusPatchOutput {

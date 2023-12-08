@@ -10,7 +10,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 var _ = utilities.GetEnvOrDefault
@@ -60,12 +59,6 @@ func (i AuditSinkTypeArgs) ToAuditSinkTypeOutputWithContext(ctx context.Context)
 	return pulumi.ToOutputWithContext(ctx, i).(AuditSinkTypeOutput)
 }
 
-func (i AuditSinkTypeArgs) ToOutput(ctx context.Context) pulumix.Output[AuditSinkType] {
-	return pulumix.Output[AuditSinkType]{
-		OutputState: i.ToAuditSinkTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // AuditSinkTypeArrayInput is an input type that accepts AuditSinkTypeArray and AuditSinkTypeArrayOutput values.
 // You can construct a concrete instance of `AuditSinkTypeArrayInput` via:
 //
@@ -91,12 +84,6 @@ func (i AuditSinkTypeArray) ToAuditSinkTypeArrayOutputWithContext(ctx context.Co
 	return pulumi.ToOutputWithContext(ctx, i).(AuditSinkTypeArrayOutput)
 }
 
-func (i AuditSinkTypeArray) ToOutput(ctx context.Context) pulumix.Output[[]AuditSinkType] {
-	return pulumix.Output[[]AuditSinkType]{
-		OutputState: i.ToAuditSinkTypeArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // AuditSink represents a cluster level audit sink
 type AuditSinkTypeOutput struct{ *pulumi.OutputState }
 
@@ -110,12 +97,6 @@ func (o AuditSinkTypeOutput) ToAuditSinkTypeOutput() AuditSinkTypeOutput {
 
 func (o AuditSinkTypeOutput) ToAuditSinkTypeOutputWithContext(ctx context.Context) AuditSinkTypeOutput {
 	return o
-}
-
-func (o AuditSinkTypeOutput) ToOutput(ctx context.Context) pulumix.Output[AuditSinkType] {
-	return pulumix.Output[AuditSinkType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -149,12 +130,6 @@ func (o AuditSinkTypeArrayOutput) ToAuditSinkTypeArrayOutput() AuditSinkTypeArra
 
 func (o AuditSinkTypeArrayOutput) ToAuditSinkTypeArrayOutputWithContext(ctx context.Context) AuditSinkTypeArrayOutput {
 	return o
-}
-
-func (o AuditSinkTypeArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]AuditSinkType] {
-	return pulumix.Output[[]AuditSinkType]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o AuditSinkTypeArrayOutput) Index(i pulumi.IntInput) AuditSinkTypeOutput {
@@ -208,12 +183,6 @@ func (i AuditSinkListTypeArgs) ToAuditSinkListTypeOutputWithContext(ctx context.
 	return pulumi.ToOutputWithContext(ctx, i).(AuditSinkListTypeOutput)
 }
 
-func (i AuditSinkListTypeArgs) ToOutput(ctx context.Context) pulumix.Output[AuditSinkListType] {
-	return pulumix.Output[AuditSinkListType]{
-		OutputState: i.ToAuditSinkListTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // AuditSinkList is a list of AuditSink items.
 type AuditSinkListTypeOutput struct{ *pulumi.OutputState }
 
@@ -227,12 +196,6 @@ func (o AuditSinkListTypeOutput) ToAuditSinkListTypeOutput() AuditSinkListTypeOu
 
 func (o AuditSinkListTypeOutput) ToAuditSinkListTypeOutputWithContext(ctx context.Context) AuditSinkListTypeOutput {
 	return o
-}
-
-func (o AuditSinkListTypeOutput) ToOutput(ctx context.Context) pulumix.Output[AuditSinkListType] {
-	return pulumix.Output[AuditSinkListType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -299,12 +262,6 @@ func (i AuditSinkPatchTypeArgs) ToAuditSinkPatchTypeOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(AuditSinkPatchTypeOutput)
 }
 
-func (i AuditSinkPatchTypeArgs) ToOutput(ctx context.Context) pulumix.Output[AuditSinkPatchType] {
-	return pulumix.Output[AuditSinkPatchType]{
-		OutputState: i.ToAuditSinkPatchTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // AuditSink represents a cluster level audit sink
 type AuditSinkPatchTypeOutput struct{ *pulumi.OutputState }
 
@@ -318,12 +275,6 @@ func (o AuditSinkPatchTypeOutput) ToAuditSinkPatchTypeOutput() AuditSinkPatchTyp
 
 func (o AuditSinkPatchTypeOutput) ToAuditSinkPatchTypeOutputWithContext(ctx context.Context) AuditSinkPatchTypeOutput {
 	return o
-}
-
-func (o AuditSinkPatchTypeOutput) ToOutput(ctx context.Context) pulumix.Output[AuditSinkPatchType] {
-	return pulumix.Output[AuditSinkPatchType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -384,12 +335,6 @@ func (i AuditSinkSpecArgs) ToAuditSinkSpecOutputWithContext(ctx context.Context)
 	return pulumi.ToOutputWithContext(ctx, i).(AuditSinkSpecOutput)
 }
 
-func (i AuditSinkSpecArgs) ToOutput(ctx context.Context) pulumix.Output[AuditSinkSpec] {
-	return pulumix.Output[AuditSinkSpec]{
-		OutputState: i.ToAuditSinkSpecOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i AuditSinkSpecArgs) ToAuditSinkSpecPtrOutput() AuditSinkSpecPtrOutput {
 	return i.ToAuditSinkSpecPtrOutputWithContext(context.Background())
 }
@@ -431,12 +376,6 @@ func (i *auditSinkSpecPtrType) ToAuditSinkSpecPtrOutputWithContext(ctx context.C
 	return pulumi.ToOutputWithContext(ctx, i).(AuditSinkSpecPtrOutput)
 }
 
-func (i *auditSinkSpecPtrType) ToOutput(ctx context.Context) pulumix.Output[*AuditSinkSpec] {
-	return pulumix.Output[*AuditSinkSpec]{
-		OutputState: i.ToAuditSinkSpecPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // AuditSinkSpec holds the spec for the audit sink
 type AuditSinkSpecOutput struct{ *pulumi.OutputState }
 
@@ -462,12 +401,6 @@ func (o AuditSinkSpecOutput) ToAuditSinkSpecPtrOutputWithContext(ctx context.Con
 	}).(AuditSinkSpecPtrOutput)
 }
 
-func (o AuditSinkSpecOutput) ToOutput(ctx context.Context) pulumix.Output[AuditSinkSpec] {
-	return pulumix.Output[AuditSinkSpec]{
-		OutputState: o.OutputState,
-	}
-}
-
 // Policy defines the policy for selecting which events should be sent to the webhook required
 func (o AuditSinkSpecOutput) Policy() PolicyOutput {
 	return o.ApplyT(func(v AuditSinkSpec) Policy { return v.Policy }).(PolicyOutput)
@@ -490,12 +423,6 @@ func (o AuditSinkSpecPtrOutput) ToAuditSinkSpecPtrOutput() AuditSinkSpecPtrOutpu
 
 func (o AuditSinkSpecPtrOutput) ToAuditSinkSpecPtrOutputWithContext(ctx context.Context) AuditSinkSpecPtrOutput {
 	return o
-}
-
-func (o AuditSinkSpecPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*AuditSinkSpec] {
-	return pulumix.Output[*AuditSinkSpec]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o AuditSinkSpecPtrOutput) Elem() AuditSinkSpecOutput {
@@ -567,12 +494,6 @@ func (i AuditSinkSpecPatchArgs) ToAuditSinkSpecPatchOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(AuditSinkSpecPatchOutput)
 }
 
-func (i AuditSinkSpecPatchArgs) ToOutput(ctx context.Context) pulumix.Output[AuditSinkSpecPatch] {
-	return pulumix.Output[AuditSinkSpecPatch]{
-		OutputState: i.ToAuditSinkSpecPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i AuditSinkSpecPatchArgs) ToAuditSinkSpecPatchPtrOutput() AuditSinkSpecPatchPtrOutput {
 	return i.ToAuditSinkSpecPatchPtrOutputWithContext(context.Background())
 }
@@ -614,12 +535,6 @@ func (i *auditSinkSpecPatchPtrType) ToAuditSinkSpecPatchPtrOutputWithContext(ctx
 	return pulumi.ToOutputWithContext(ctx, i).(AuditSinkSpecPatchPtrOutput)
 }
 
-func (i *auditSinkSpecPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*AuditSinkSpecPatch] {
-	return pulumix.Output[*AuditSinkSpecPatch]{
-		OutputState: i.ToAuditSinkSpecPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // AuditSinkSpec holds the spec for the audit sink
 type AuditSinkSpecPatchOutput struct{ *pulumi.OutputState }
 
@@ -645,12 +560,6 @@ func (o AuditSinkSpecPatchOutput) ToAuditSinkSpecPatchPtrOutputWithContext(ctx c
 	}).(AuditSinkSpecPatchPtrOutput)
 }
 
-func (o AuditSinkSpecPatchOutput) ToOutput(ctx context.Context) pulumix.Output[AuditSinkSpecPatch] {
-	return pulumix.Output[AuditSinkSpecPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 // Policy defines the policy for selecting which events should be sent to the webhook required
 func (o AuditSinkSpecPatchOutput) Policy() PolicyPatchPtrOutput {
 	return o.ApplyT(func(v AuditSinkSpecPatch) *PolicyPatch { return v.Policy }).(PolicyPatchPtrOutput)
@@ -673,12 +582,6 @@ func (o AuditSinkSpecPatchPtrOutput) ToAuditSinkSpecPatchPtrOutput() AuditSinkSp
 
 func (o AuditSinkSpecPatchPtrOutput) ToAuditSinkSpecPatchPtrOutputWithContext(ctx context.Context) AuditSinkSpecPatchPtrOutput {
 	return o
-}
-
-func (o AuditSinkSpecPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*AuditSinkSpecPatch] {
-	return pulumix.Output[*AuditSinkSpecPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o AuditSinkSpecPatchPtrOutput) Elem() AuditSinkSpecPatchOutput {
@@ -750,12 +653,6 @@ func (i PolicyArgs) ToPolicyOutputWithContext(ctx context.Context) PolicyOutput 
 	return pulumi.ToOutputWithContext(ctx, i).(PolicyOutput)
 }
 
-func (i PolicyArgs) ToOutput(ctx context.Context) pulumix.Output[Policy] {
-	return pulumix.Output[Policy]{
-		OutputState: i.ToPolicyOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i PolicyArgs) ToPolicyPtrOutput() PolicyPtrOutput {
 	return i.ToPolicyPtrOutputWithContext(context.Background())
 }
@@ -797,12 +694,6 @@ func (i *policyPtrType) ToPolicyPtrOutputWithContext(ctx context.Context) Policy
 	return pulumi.ToOutputWithContext(ctx, i).(PolicyPtrOutput)
 }
 
-func (i *policyPtrType) ToOutput(ctx context.Context) pulumix.Output[*Policy] {
-	return pulumix.Output[*Policy]{
-		OutputState: i.ToPolicyPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // Policy defines the configuration of how audit events are logged
 type PolicyOutput struct{ *pulumi.OutputState }
 
@@ -828,12 +719,6 @@ func (o PolicyOutput) ToPolicyPtrOutputWithContext(ctx context.Context) PolicyPt
 	}).(PolicyPtrOutput)
 }
 
-func (o PolicyOutput) ToOutput(ctx context.Context) pulumix.Output[Policy] {
-	return pulumix.Output[Policy]{
-		OutputState: o.OutputState,
-	}
-}
-
 // The Level that all requests are recorded at. available options: None, Metadata, Request, RequestResponse required
 func (o PolicyOutput) Level() pulumi.StringOutput {
 	return o.ApplyT(func(v Policy) string { return v.Level }).(pulumi.StringOutput)
@@ -856,12 +741,6 @@ func (o PolicyPtrOutput) ToPolicyPtrOutput() PolicyPtrOutput {
 
 func (o PolicyPtrOutput) ToPolicyPtrOutputWithContext(ctx context.Context) PolicyPtrOutput {
 	return o
-}
-
-func (o PolicyPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*Policy] {
-	return pulumix.Output[*Policy]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o PolicyPtrOutput) Elem() PolicyOutput {
@@ -933,12 +812,6 @@ func (i PolicyPatchArgs) ToPolicyPatchOutputWithContext(ctx context.Context) Pol
 	return pulumi.ToOutputWithContext(ctx, i).(PolicyPatchOutput)
 }
 
-func (i PolicyPatchArgs) ToOutput(ctx context.Context) pulumix.Output[PolicyPatch] {
-	return pulumix.Output[PolicyPatch]{
-		OutputState: i.ToPolicyPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i PolicyPatchArgs) ToPolicyPatchPtrOutput() PolicyPatchPtrOutput {
 	return i.ToPolicyPatchPtrOutputWithContext(context.Background())
 }
@@ -980,12 +853,6 @@ func (i *policyPatchPtrType) ToPolicyPatchPtrOutputWithContext(ctx context.Conte
 	return pulumi.ToOutputWithContext(ctx, i).(PolicyPatchPtrOutput)
 }
 
-func (i *policyPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*PolicyPatch] {
-	return pulumix.Output[*PolicyPatch]{
-		OutputState: i.ToPolicyPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // Policy defines the configuration of how audit events are logged
 type PolicyPatchOutput struct{ *pulumi.OutputState }
 
@@ -1011,12 +878,6 @@ func (o PolicyPatchOutput) ToPolicyPatchPtrOutputWithContext(ctx context.Context
 	}).(PolicyPatchPtrOutput)
 }
 
-func (o PolicyPatchOutput) ToOutput(ctx context.Context) pulumix.Output[PolicyPatch] {
-	return pulumix.Output[PolicyPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 // The Level that all requests are recorded at. available options: None, Metadata, Request, RequestResponse required
 func (o PolicyPatchOutput) Level() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PolicyPatch) *string { return v.Level }).(pulumi.StringPtrOutput)
@@ -1039,12 +900,6 @@ func (o PolicyPatchPtrOutput) ToPolicyPatchPtrOutput() PolicyPatchPtrOutput {
 
 func (o PolicyPatchPtrOutput) ToPolicyPatchPtrOutputWithContext(ctx context.Context) PolicyPatchPtrOutput {
 	return o
-}
-
-func (o PolicyPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*PolicyPatch] {
-	return pulumix.Output[*PolicyPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o PolicyPatchPtrOutput) Elem() PolicyPatchOutput {
@@ -1124,12 +979,6 @@ func (i ServiceReferenceArgs) ToServiceReferenceOutputWithContext(ctx context.Co
 	return pulumi.ToOutputWithContext(ctx, i).(ServiceReferenceOutput)
 }
 
-func (i ServiceReferenceArgs) ToOutput(ctx context.Context) pulumix.Output[ServiceReference] {
-	return pulumix.Output[ServiceReference]{
-		OutputState: i.ToServiceReferenceOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i ServiceReferenceArgs) ToServiceReferencePtrOutput() ServiceReferencePtrOutput {
 	return i.ToServiceReferencePtrOutputWithContext(context.Background())
 }
@@ -1171,12 +1020,6 @@ func (i *serviceReferencePtrType) ToServiceReferencePtrOutputWithContext(ctx con
 	return pulumi.ToOutputWithContext(ctx, i).(ServiceReferencePtrOutput)
 }
 
-func (i *serviceReferencePtrType) ToOutput(ctx context.Context) pulumix.Output[*ServiceReference] {
-	return pulumix.Output[*ServiceReference]{
-		OutputState: i.ToServiceReferencePtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ServiceReference holds a reference to Service.legacy.k8s.io
 type ServiceReferenceOutput struct{ *pulumi.OutputState }
 
@@ -1200,12 +1043,6 @@ func (o ServiceReferenceOutput) ToServiceReferencePtrOutputWithContext(ctx conte
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v ServiceReference) *ServiceReference {
 		return &v
 	}).(ServiceReferencePtrOutput)
-}
-
-func (o ServiceReferenceOutput) ToOutput(ctx context.Context) pulumix.Output[ServiceReference] {
-	return pulumix.Output[ServiceReference]{
-		OutputState: o.OutputState,
-	}
 }
 
 // `name` is the name of the service. Required
@@ -1240,12 +1077,6 @@ func (o ServiceReferencePtrOutput) ToServiceReferencePtrOutput() ServiceReferenc
 
 func (o ServiceReferencePtrOutput) ToServiceReferencePtrOutputWithContext(ctx context.Context) ServiceReferencePtrOutput {
 	return o
-}
-
-func (o ServiceReferencePtrOutput) ToOutput(ctx context.Context) pulumix.Output[*ServiceReference] {
-	return pulumix.Output[*ServiceReference]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ServiceReferencePtrOutput) Elem() ServiceReferenceOutput {
@@ -1345,12 +1176,6 @@ func (i ServiceReferencePatchArgs) ToServiceReferencePatchOutputWithContext(ctx 
 	return pulumi.ToOutputWithContext(ctx, i).(ServiceReferencePatchOutput)
 }
 
-func (i ServiceReferencePatchArgs) ToOutput(ctx context.Context) pulumix.Output[ServiceReferencePatch] {
-	return pulumix.Output[ServiceReferencePatch]{
-		OutputState: i.ToServiceReferencePatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i ServiceReferencePatchArgs) ToServiceReferencePatchPtrOutput() ServiceReferencePatchPtrOutput {
 	return i.ToServiceReferencePatchPtrOutputWithContext(context.Background())
 }
@@ -1392,12 +1217,6 @@ func (i *serviceReferencePatchPtrType) ToServiceReferencePatchPtrOutputWithConte
 	return pulumi.ToOutputWithContext(ctx, i).(ServiceReferencePatchPtrOutput)
 }
 
-func (i *serviceReferencePatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*ServiceReferencePatch] {
-	return pulumix.Output[*ServiceReferencePatch]{
-		OutputState: i.ToServiceReferencePatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ServiceReference holds a reference to Service.legacy.k8s.io
 type ServiceReferencePatchOutput struct{ *pulumi.OutputState }
 
@@ -1421,12 +1240,6 @@ func (o ServiceReferencePatchOutput) ToServiceReferencePatchPtrOutputWithContext
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v ServiceReferencePatch) *ServiceReferencePatch {
 		return &v
 	}).(ServiceReferencePatchPtrOutput)
-}
-
-func (o ServiceReferencePatchOutput) ToOutput(ctx context.Context) pulumix.Output[ServiceReferencePatch] {
-	return pulumix.Output[ServiceReferencePatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // `name` is the name of the service. Required
@@ -1461,12 +1274,6 @@ func (o ServiceReferencePatchPtrOutput) ToServiceReferencePatchPtrOutput() Servi
 
 func (o ServiceReferencePatchPtrOutput) ToServiceReferencePatchPtrOutputWithContext(ctx context.Context) ServiceReferencePatchPtrOutput {
 	return o
-}
-
-func (o ServiceReferencePatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*ServiceReferencePatch] {
-	return pulumix.Output[*ServiceReferencePatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ServiceReferencePatchPtrOutput) Elem() ServiceReferencePatchOutput {
@@ -1558,12 +1365,6 @@ func (i WebhookArgs) ToWebhookOutputWithContext(ctx context.Context) WebhookOutp
 	return pulumi.ToOutputWithContext(ctx, i).(WebhookOutput)
 }
 
-func (i WebhookArgs) ToOutput(ctx context.Context) pulumix.Output[Webhook] {
-	return pulumix.Output[Webhook]{
-		OutputState: i.ToWebhookOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i WebhookArgs) ToWebhookPtrOutput() WebhookPtrOutput {
 	return i.ToWebhookPtrOutputWithContext(context.Background())
 }
@@ -1605,12 +1406,6 @@ func (i *webhookPtrType) ToWebhookPtrOutputWithContext(ctx context.Context) Webh
 	return pulumi.ToOutputWithContext(ctx, i).(WebhookPtrOutput)
 }
 
-func (i *webhookPtrType) ToOutput(ctx context.Context) pulumix.Output[*Webhook] {
-	return pulumix.Output[*Webhook]{
-		OutputState: i.ToWebhookPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // Webhook holds the configuration of the webhook
 type WebhookOutput struct{ *pulumi.OutputState }
 
@@ -1636,12 +1431,6 @@ func (o WebhookOutput) ToWebhookPtrOutputWithContext(ctx context.Context) Webhoo
 	}).(WebhookPtrOutput)
 }
 
-func (o WebhookOutput) ToOutput(ctx context.Context) pulumix.Output[Webhook] {
-	return pulumix.Output[Webhook]{
-		OutputState: o.OutputState,
-	}
-}
-
 // ClientConfig holds the connection parameters for the webhook required
 func (o WebhookOutput) ClientConfig() WebhookClientConfigOutput {
 	return o.ApplyT(func(v Webhook) WebhookClientConfig { return v.ClientConfig }).(WebhookClientConfigOutput)
@@ -1664,12 +1453,6 @@ func (o WebhookPtrOutput) ToWebhookPtrOutput() WebhookPtrOutput {
 
 func (o WebhookPtrOutput) ToWebhookPtrOutputWithContext(ctx context.Context) WebhookPtrOutput {
 	return o
-}
-
-func (o WebhookPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*Webhook] {
-	return pulumix.Output[*Webhook]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o WebhookPtrOutput) Elem() WebhookOutput {
@@ -1769,12 +1552,6 @@ func (i WebhookClientConfigArgs) ToWebhookClientConfigOutputWithContext(ctx cont
 	return pulumi.ToOutputWithContext(ctx, i).(WebhookClientConfigOutput)
 }
 
-func (i WebhookClientConfigArgs) ToOutput(ctx context.Context) pulumix.Output[WebhookClientConfig] {
-	return pulumix.Output[WebhookClientConfig]{
-		OutputState: i.ToWebhookClientConfigOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i WebhookClientConfigArgs) ToWebhookClientConfigPtrOutput() WebhookClientConfigPtrOutput {
 	return i.ToWebhookClientConfigPtrOutputWithContext(context.Background())
 }
@@ -1816,12 +1593,6 @@ func (i *webhookClientConfigPtrType) ToWebhookClientConfigPtrOutputWithContext(c
 	return pulumi.ToOutputWithContext(ctx, i).(WebhookClientConfigPtrOutput)
 }
 
-func (i *webhookClientConfigPtrType) ToOutput(ctx context.Context) pulumix.Output[*WebhookClientConfig] {
-	return pulumix.Output[*WebhookClientConfig]{
-		OutputState: i.ToWebhookClientConfigPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // WebhookClientConfig contains the information to make a connection with the webhook
 type WebhookClientConfigOutput struct{ *pulumi.OutputState }
 
@@ -1845,12 +1616,6 @@ func (o WebhookClientConfigOutput) ToWebhookClientConfigPtrOutputWithContext(ctx
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v WebhookClientConfig) *WebhookClientConfig {
 		return &v
 	}).(WebhookClientConfigPtrOutput)
-}
-
-func (o WebhookClientConfigOutput) ToOutput(ctx context.Context) pulumix.Output[WebhookClientConfig] {
-	return pulumix.Output[WebhookClientConfig]{
-		OutputState: o.OutputState,
-	}
 }
 
 // `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
@@ -1892,12 +1657,6 @@ func (o WebhookClientConfigPtrOutput) ToWebhookClientConfigPtrOutput() WebhookCl
 
 func (o WebhookClientConfigPtrOutput) ToWebhookClientConfigPtrOutputWithContext(ctx context.Context) WebhookClientConfigPtrOutput {
 	return o
-}
-
-func (o WebhookClientConfigPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*WebhookClientConfig] {
-	return pulumix.Output[*WebhookClientConfig]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o WebhookClientConfigPtrOutput) Elem() WebhookClientConfigOutput {
@@ -2019,12 +1778,6 @@ func (i WebhookClientConfigPatchArgs) ToWebhookClientConfigPatchOutputWithContex
 	return pulumi.ToOutputWithContext(ctx, i).(WebhookClientConfigPatchOutput)
 }
 
-func (i WebhookClientConfigPatchArgs) ToOutput(ctx context.Context) pulumix.Output[WebhookClientConfigPatch] {
-	return pulumix.Output[WebhookClientConfigPatch]{
-		OutputState: i.ToWebhookClientConfigPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i WebhookClientConfigPatchArgs) ToWebhookClientConfigPatchPtrOutput() WebhookClientConfigPatchPtrOutput {
 	return i.ToWebhookClientConfigPatchPtrOutputWithContext(context.Background())
 }
@@ -2066,12 +1819,6 @@ func (i *webhookClientConfigPatchPtrType) ToWebhookClientConfigPatchPtrOutputWit
 	return pulumi.ToOutputWithContext(ctx, i).(WebhookClientConfigPatchPtrOutput)
 }
 
-func (i *webhookClientConfigPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*WebhookClientConfigPatch] {
-	return pulumix.Output[*WebhookClientConfigPatch]{
-		OutputState: i.ToWebhookClientConfigPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // WebhookClientConfig contains the information to make a connection with the webhook
 type WebhookClientConfigPatchOutput struct{ *pulumi.OutputState }
 
@@ -2095,12 +1842,6 @@ func (o WebhookClientConfigPatchOutput) ToWebhookClientConfigPatchPtrOutputWithC
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v WebhookClientConfigPatch) *WebhookClientConfigPatch {
 		return &v
 	}).(WebhookClientConfigPatchPtrOutput)
-}
-
-func (o WebhookClientConfigPatchOutput) ToOutput(ctx context.Context) pulumix.Output[WebhookClientConfigPatch] {
-	return pulumix.Output[WebhookClientConfigPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
@@ -2142,12 +1883,6 @@ func (o WebhookClientConfigPatchPtrOutput) ToWebhookClientConfigPatchPtrOutput()
 
 func (o WebhookClientConfigPatchPtrOutput) ToWebhookClientConfigPatchPtrOutputWithContext(ctx context.Context) WebhookClientConfigPatchPtrOutput {
 	return o
-}
-
-func (o WebhookClientConfigPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*WebhookClientConfigPatch] {
-	return pulumix.Output[*WebhookClientConfigPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o WebhookClientConfigPatchPtrOutput) Elem() WebhookClientConfigPatchOutput {
@@ -2241,12 +1976,6 @@ func (i WebhookPatchArgs) ToWebhookPatchOutputWithContext(ctx context.Context) W
 	return pulumi.ToOutputWithContext(ctx, i).(WebhookPatchOutput)
 }
 
-func (i WebhookPatchArgs) ToOutput(ctx context.Context) pulumix.Output[WebhookPatch] {
-	return pulumix.Output[WebhookPatch]{
-		OutputState: i.ToWebhookPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i WebhookPatchArgs) ToWebhookPatchPtrOutput() WebhookPatchPtrOutput {
 	return i.ToWebhookPatchPtrOutputWithContext(context.Background())
 }
@@ -2288,12 +2017,6 @@ func (i *webhookPatchPtrType) ToWebhookPatchPtrOutputWithContext(ctx context.Con
 	return pulumi.ToOutputWithContext(ctx, i).(WebhookPatchPtrOutput)
 }
 
-func (i *webhookPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*WebhookPatch] {
-	return pulumix.Output[*WebhookPatch]{
-		OutputState: i.ToWebhookPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // Webhook holds the configuration of the webhook
 type WebhookPatchOutput struct{ *pulumi.OutputState }
 
@@ -2319,12 +2042,6 @@ func (o WebhookPatchOutput) ToWebhookPatchPtrOutputWithContext(ctx context.Conte
 	}).(WebhookPatchPtrOutput)
 }
 
-func (o WebhookPatchOutput) ToOutput(ctx context.Context) pulumix.Output[WebhookPatch] {
-	return pulumix.Output[WebhookPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 // ClientConfig holds the connection parameters for the webhook required
 func (o WebhookPatchOutput) ClientConfig() WebhookClientConfigPatchPtrOutput {
 	return o.ApplyT(func(v WebhookPatch) *WebhookClientConfigPatch { return v.ClientConfig }).(WebhookClientConfigPatchPtrOutput)
@@ -2347,12 +2064,6 @@ func (o WebhookPatchPtrOutput) ToWebhookPatchPtrOutput() WebhookPatchPtrOutput {
 
 func (o WebhookPatchPtrOutput) ToWebhookPatchPtrOutputWithContext(ctx context.Context) WebhookPatchPtrOutput {
 	return o
-}
-
-func (o WebhookPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*WebhookPatch] {
-	return pulumix.Output[*WebhookPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o WebhookPatchPtrOutput) Elem() WebhookPatchOutput {
@@ -2424,12 +2135,6 @@ func (i WebhookThrottleConfigArgs) ToWebhookThrottleConfigOutputWithContext(ctx 
 	return pulumi.ToOutputWithContext(ctx, i).(WebhookThrottleConfigOutput)
 }
 
-func (i WebhookThrottleConfigArgs) ToOutput(ctx context.Context) pulumix.Output[WebhookThrottleConfig] {
-	return pulumix.Output[WebhookThrottleConfig]{
-		OutputState: i.ToWebhookThrottleConfigOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i WebhookThrottleConfigArgs) ToWebhookThrottleConfigPtrOutput() WebhookThrottleConfigPtrOutput {
 	return i.ToWebhookThrottleConfigPtrOutputWithContext(context.Background())
 }
@@ -2471,12 +2176,6 @@ func (i *webhookThrottleConfigPtrType) ToWebhookThrottleConfigPtrOutputWithConte
 	return pulumi.ToOutputWithContext(ctx, i).(WebhookThrottleConfigPtrOutput)
 }
 
-func (i *webhookThrottleConfigPtrType) ToOutput(ctx context.Context) pulumix.Output[*WebhookThrottleConfig] {
-	return pulumix.Output[*WebhookThrottleConfig]{
-		OutputState: i.ToWebhookThrottleConfigPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // WebhookThrottleConfig holds the configuration for throttling events
 type WebhookThrottleConfigOutput struct{ *pulumi.OutputState }
 
@@ -2502,12 +2201,6 @@ func (o WebhookThrottleConfigOutput) ToWebhookThrottleConfigPtrOutputWithContext
 	}).(WebhookThrottleConfigPtrOutput)
 }
 
-func (o WebhookThrottleConfigOutput) ToOutput(ctx context.Context) pulumix.Output[WebhookThrottleConfig] {
-	return pulumix.Output[WebhookThrottleConfig]{
-		OutputState: o.OutputState,
-	}
-}
-
 // ThrottleBurst is the maximum number of events sent at the same moment default 15 QPS
 func (o WebhookThrottleConfigOutput) Burst() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v WebhookThrottleConfig) *int { return v.Burst }).(pulumi.IntPtrOutput)
@@ -2530,12 +2223,6 @@ func (o WebhookThrottleConfigPtrOutput) ToWebhookThrottleConfigPtrOutput() Webho
 
 func (o WebhookThrottleConfigPtrOutput) ToWebhookThrottleConfigPtrOutputWithContext(ctx context.Context) WebhookThrottleConfigPtrOutput {
 	return o
-}
-
-func (o WebhookThrottleConfigPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*WebhookThrottleConfig] {
-	return pulumix.Output[*WebhookThrottleConfig]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o WebhookThrottleConfigPtrOutput) Elem() WebhookThrottleConfigOutput {
@@ -2607,12 +2294,6 @@ func (i WebhookThrottleConfigPatchArgs) ToWebhookThrottleConfigPatchOutputWithCo
 	return pulumi.ToOutputWithContext(ctx, i).(WebhookThrottleConfigPatchOutput)
 }
 
-func (i WebhookThrottleConfigPatchArgs) ToOutput(ctx context.Context) pulumix.Output[WebhookThrottleConfigPatch] {
-	return pulumix.Output[WebhookThrottleConfigPatch]{
-		OutputState: i.ToWebhookThrottleConfigPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i WebhookThrottleConfigPatchArgs) ToWebhookThrottleConfigPatchPtrOutput() WebhookThrottleConfigPatchPtrOutput {
 	return i.ToWebhookThrottleConfigPatchPtrOutputWithContext(context.Background())
 }
@@ -2654,12 +2335,6 @@ func (i *webhookThrottleConfigPatchPtrType) ToWebhookThrottleConfigPatchPtrOutpu
 	return pulumi.ToOutputWithContext(ctx, i).(WebhookThrottleConfigPatchPtrOutput)
 }
 
-func (i *webhookThrottleConfigPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*WebhookThrottleConfigPatch] {
-	return pulumix.Output[*WebhookThrottleConfigPatch]{
-		OutputState: i.ToWebhookThrottleConfigPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // WebhookThrottleConfig holds the configuration for throttling events
 type WebhookThrottleConfigPatchOutput struct{ *pulumi.OutputState }
 
@@ -2685,12 +2360,6 @@ func (o WebhookThrottleConfigPatchOutput) ToWebhookThrottleConfigPatchPtrOutputW
 	}).(WebhookThrottleConfigPatchPtrOutput)
 }
 
-func (o WebhookThrottleConfigPatchOutput) ToOutput(ctx context.Context) pulumix.Output[WebhookThrottleConfigPatch] {
-	return pulumix.Output[WebhookThrottleConfigPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 // ThrottleBurst is the maximum number of events sent at the same moment default 15 QPS
 func (o WebhookThrottleConfigPatchOutput) Burst() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v WebhookThrottleConfigPatch) *int { return v.Burst }).(pulumi.IntPtrOutput)
@@ -2713,12 +2382,6 @@ func (o WebhookThrottleConfigPatchPtrOutput) ToWebhookThrottleConfigPatchPtrOutp
 
 func (o WebhookThrottleConfigPatchPtrOutput) ToWebhookThrottleConfigPatchPtrOutputWithContext(ctx context.Context) WebhookThrottleConfigPatchPtrOutput {
 	return o
-}
-
-func (o WebhookThrottleConfigPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*WebhookThrottleConfigPatch] {
-	return pulumix.Output[*WebhookThrottleConfigPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o WebhookThrottleConfigPatchPtrOutput) Elem() WebhookThrottleConfigPatchOutput {
