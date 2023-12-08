@@ -11,6 +11,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 	"google.golang.org/protobuf/encoding/protojson"
+	"google.golang.org/protobuf/proto"
 
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
 )
@@ -109,6 +110,9 @@ func FormatDebugInterceptorLog(value interface{}) (string, bool) {
 		return protojson.Format(&m), true
 	}
 	if m, ok := value.(pulumirpc.RegisterResourceResponse); ok {
+		return protojson.Format(&m), true
+	}
+	if m, ok := value.(pulumirpc.Alias); ok {
 		return protojson.Format(&m), true
 	}
 	return "", false

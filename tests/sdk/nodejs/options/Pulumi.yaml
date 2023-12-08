@@ -1,0 +1,5 @@
+name: options-test
+runtime: nodejs
+description: A minimal Kubernetes TypeScript Pulumi program
+config:
+  pulumi:disable-default-providers: [kubernetes]
