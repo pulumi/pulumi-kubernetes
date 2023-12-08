@@ -76,7 +76,7 @@ namespace Pulumi.Kubernetes.ApiRegistration.V1
                 Version = Utilities.Version,
                 Aliases =
                 {
-                    new global::Pulumi.Alias { Type = "kubernetes:apiregistration/v1:APIServiceList"},
+                    new global::Pulumi.Alias { Type = "kubernetes:apiregistration/v1:APIServiceList" },
                 },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);

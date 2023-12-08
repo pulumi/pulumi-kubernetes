@@ -82,9 +82,9 @@ namespace Pulumi.Kubernetes.ApiRegistration.V1
                 Version = Utilities.Version,
                 Aliases =
                 {
-                    new global::Pulumi.Alias { Type = "kubernetes:apiregistration.k8s.io/v1beta1:APIService"},
-                    new global::Pulumi.Alias { Type = "kubernetes:apiregistration/v1beta1:APIService"},
-                    new global::Pulumi.Alias { Type = "kubernetes:apiregistration/v1:APIService"},
+                    new global::Pulumi.Alias { Type = "kubernetes:apiregistration.k8s.io/v1beta1:APIService" },
+                    new global::Pulumi.Alias { Type = "kubernetes:apiregistration/v1beta1:APIService" },
+                    new global::Pulumi.Alias { Type = "kubernetes:apiregistration/v1:APIService" },
                 },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);

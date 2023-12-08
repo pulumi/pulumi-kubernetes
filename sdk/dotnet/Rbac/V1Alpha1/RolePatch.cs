@@ -82,8 +82,8 @@ namespace Pulumi.Kubernetes.Rbac.V1Alpha1
                 Version = Utilities.Version,
                 Aliases =
                 {
-                    new global::Pulumi.Alias { Type = "kubernetes:rbac.authorization.k8s.io/v1:RolePatch"},
-                    new global::Pulumi.Alias { Type = "kubernetes:rbac.authorization.k8s.io/v1beta1:RolePatch"},
+                    new global::Pulumi.Alias { Type = "kubernetes:rbac.authorization.k8s.io/v1:RolePatch" },
+                    new global::Pulumi.Alias { Type = "kubernetes:rbac.authorization.k8s.io/v1beta1:RolePatch" },
                 },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);

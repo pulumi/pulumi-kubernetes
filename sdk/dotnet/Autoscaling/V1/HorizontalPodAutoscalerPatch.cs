@@ -88,9 +88,9 @@ namespace Pulumi.Kubernetes.Autoscaling.V1
                 Version = Utilities.Version,
                 Aliases =
                 {
-                    new global::Pulumi.Alias { Type = "kubernetes:autoscaling/v2:HorizontalPodAutoscalerPatch"},
-                    new global::Pulumi.Alias { Type = "kubernetes:autoscaling/v2beta1:HorizontalPodAutoscalerPatch"},
-                    new global::Pulumi.Alias { Type = "kubernetes:autoscaling/v2beta2:HorizontalPodAutoscalerPatch"},
+                    new global::Pulumi.Alias { Type = "kubernetes:autoscaling/v2:HorizontalPodAutoscalerPatch" },
+                    new global::Pulumi.Alias { Type = "kubernetes:autoscaling/v2beta1:HorizontalPodAutoscalerPatch" },
+                    new global::Pulumi.Alias { Type = "kubernetes:autoscaling/v2beta2:HorizontalPodAutoscalerPatch" },
                 },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);

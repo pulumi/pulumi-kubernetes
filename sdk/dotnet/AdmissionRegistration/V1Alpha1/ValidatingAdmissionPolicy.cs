@@ -82,7 +82,7 @@ namespace Pulumi.Kubernetes.AdmissionRegistration.V1Alpha1
                 Version = Utilities.Version,
                 Aliases =
                 {
-                    new global::Pulumi.Alias { Type = "kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingAdmissionPolicy"},
+                    new global::Pulumi.Alias { Type = "kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingAdmissionPolicy" },
                 },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);

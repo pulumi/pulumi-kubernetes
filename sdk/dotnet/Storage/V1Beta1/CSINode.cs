@@ -77,7 +77,7 @@ namespace Pulumi.Kubernetes.Storage.V1Beta1
                 Version = Utilities.Version,
                 Aliases =
                 {
-                    new global::Pulumi.Alias { Type = "kubernetes:storage.k8s.io/v1:CSINode"},
+                    new global::Pulumi.Alias { Type = "kubernetes:storage.k8s.io/v1:CSINode" },
                 },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);

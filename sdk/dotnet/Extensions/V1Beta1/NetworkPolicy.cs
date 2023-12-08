@@ -76,7 +76,7 @@ namespace Pulumi.Kubernetes.Extensions.V1Beta1
                 Version = Utilities.Version,
                 Aliases =
                 {
-                    new global::Pulumi.Alias { Type = "kubernetes:networking.k8s.io/v1:NetworkPolicy"},
+                    new global::Pulumi.Alias { Type = "kubernetes:networking.k8s.io/v1:NetworkPolicy" },
                 },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);

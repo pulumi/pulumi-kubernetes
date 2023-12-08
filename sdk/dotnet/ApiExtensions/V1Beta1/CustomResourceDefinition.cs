@@ -79,7 +79,7 @@ namespace Pulumi.Kubernetes.ApiExtensions.V1Beta1
                 Version = Utilities.Version,
                 Aliases =
                 {
-                    new global::Pulumi.Alias { Type = "kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition"},
+                    new global::Pulumi.Alias { Type = "kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition" },
                 },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);

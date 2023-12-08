@@ -88,7 +88,7 @@ namespace Pulumi.Kubernetes.Policy.V1
                 Version = Utilities.Version,
                 Aliases =
                 {
-                    new global::Pulumi.Alias { Type = "kubernetes:policy/v1beta1:PodDisruptionBudgetPatch"},
+                    new global::Pulumi.Alias { Type = "kubernetes:policy/v1beta1:PodDisruptionBudgetPatch" },
                 },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);

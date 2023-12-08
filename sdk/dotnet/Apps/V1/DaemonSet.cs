@@ -82,8 +82,8 @@ namespace Pulumi.Kubernetes.Apps.V1
                 Version = Utilities.Version,
                 Aliases =
                 {
-                    new global::Pulumi.Alias { Type = "kubernetes:apps/v1beta2:DaemonSet"},
-                    new global::Pulumi.Alias { Type = "kubernetes:extensions/v1beta1:DaemonSet"},
+                    new global::Pulumi.Alias { Type = "kubernetes:apps/v1beta2:DaemonSet" },
+                    new global::Pulumi.Alias { Type = "kubernetes:extensions/v1beta1:DaemonSet" },
                 },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
