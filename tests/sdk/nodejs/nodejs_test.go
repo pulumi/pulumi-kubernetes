@@ -2029,14 +2029,14 @@ func TestFieldManagerPatchResources(t *testing.T) {
 		_, err := tests.Kubectl("create namespace", ns)
 		require.NoError(t, err)
 		t.Cleanup(func() {
-			tests.Kubectl("delete namespace", ns)
+			_, _ = tests.Kubectl("delete namespace", ns)
 		})
 
 		// Create nginx deployment.
 		_, err = tests.Kubectl("apply -f", filepath.Join(testFolder, "deployment.yaml"), "-n", ns)
 		require.NoError(t, err)
 		t.Cleanup(func() {
-			tests.Kubectl("delete namespace", ns)
+			_, _ = tests.Kubectl("delete namespace", ns)
 		})
 
 		return ns
