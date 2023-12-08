@@ -155,7 +155,7 @@ export class Chart extends yaml.CollectionComponentResource {
         if (config.resourcePrefix !== undefined) {
             releaseName = `${config.resourcePrefix}-${releaseName}`
         }
-        const aliasOpts: pulumi.ComponentResourceOptions = {...opts, aliases: [{type: "kubernetes:helm.sh/v2:Chart"}]}
+        const aliasOpts: pulumi.ComponentResourceOptions = {...opts, aliases: [{type: "kubernetes:helm.sh/v2:Chart"}, ...(opts?.aliases ?? [])]}
         super(Chart.__pulumiType, releaseName, config, aliasOpts);
 
         const allConfig = pulumi.output(config);
