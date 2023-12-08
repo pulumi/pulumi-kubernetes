@@ -1064,7 +1064,7 @@ func (r *helmReleaseProvider) Read(ctx context.Context, req *pulumirpc.ReadReque
 	liveInputsPM := r.serializeImportInputs(existingRelease)
 
 	inputs, err := plugin.MarshalProperties(liveInputsPM, plugin.MarshalOptions{
-		Label: label + ".inputs", KeepUnknowns: true, SkipNulls: true, KeepSecrets: r.enableSecrets,
+		Label: label + ".inputs", KeepUnknowns: true, SkipNulls: true, KeepSecrets: r.enableSecrets, //nolint:goconst
 	})
 	if err != nil {
 		return nil, err
