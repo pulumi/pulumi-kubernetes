@@ -29,7 +29,7 @@ env:
   JAVAVERSION: "11"
   AWS_REGION: us-west-2
   PULUMI_TEST_OWNER: moolumi
-  GOLANGCI_LINT_VERSION: v1.55.2
+  GOLANGCI_LINT_VERSION: v1.52.2
   GOLANGCI_LINT_TIMEOUT: 10m
   GOOGLE_CI_SERVICE_ACCOUNT_EMAIL: pulumi-ci@pulumi-k8s-provider.iam.gserviceaccount.com
   GOOGLE_CI_WORKLOAD_IDENTITY_POOL: pulumi-ci
