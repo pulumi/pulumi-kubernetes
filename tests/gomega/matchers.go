@@ -40,7 +40,7 @@ func (matcher *aliasNameMatcher) Match(actual interface{}) (success bool, err er
 	if alias, ok := actual.(*pulumirpc.Alias); ok {
 		return alias.GetSpec() != nil && alias.GetSpec().Name == string(matcher.Name), nil
 	}
-	return false, fmt.Errorf("aliasNameMatcher matcher expects a pulumirpc.Alias")
+	return false, fmt.Errorf("aliasNameMatcher matcher expects a *pulumirpc.Alias")
 }
 
 func (matcher *aliasNameMatcher) FailureMessage(actual interface{}) (message string) {
@@ -61,7 +61,7 @@ func (matcher *aliasTypeMatcher) Match(actual interface{}) (success bool, err er
 	if alias, ok := actual.(*pulumirpc.Alias); ok {
 		return alias.GetSpec() != nil && alias.GetSpec().Type == string(matcher.Type), nil
 	}
-	return false, fmt.Errorf("aliasTypeMatcher matcher expects a pulumirpc.Alias")
+	return false, fmt.Errorf("aliasTypeMatcher matcher expects a *pulumirpc.Alias")
 }
 
 func (matcher *aliasTypeMatcher) FailureMessage(actual interface{}) (message string) {
