@@ -36,8 +36,7 @@ class YamlStack : Stack
     {
         return new ConfigFile(name, new ConfigFileArgs
         {
-            // TODO: Switch back to master branch once the guestbook.yaml file is merged into mainline branch.
-            File = "https://raw.githubusercontent.com/pulumi/pulumi-kubernetes/ba8fac3f69fc8de02695da56e3f557c90be20446/tests/sdk/nodejs/examples/yaml-guestbook/yaml/guestbook.yaml",
+            File = "https://raw.githubusercontent.com/pulumi/pulumi-kubernetes/master/tests/sdk/nodejs/examples/yaml-guestbook/yaml/guestbook.yaml",
             ResourcePrefix = resourcePrefix,
             Transformations =
             {

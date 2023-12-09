@@ -22,8 +22,7 @@ const namespace2 = new k8s.core.v1.Namespace("test-namespace2", {}, {provider});
 
 function configFile(name: string, namespace: string, resourcePrefix?: string): k8s.yaml.ConfigFile {
     return new k8s.yaml.ConfigFile(name, {
-        // TODO: Switch back to master branch once the guestbook.yaml file is merged into mainline branch.
-        file: "https://raw.githubusercontent.com/pulumi/pulumi-kubernetes/ba8fac3f69fc8de02695da56e3f557c90be20446/tests/sdk/nodejs/examples/yaml-guestbook/yaml/guestbook.yaml",
+        file: "https://raw.githubusercontent.com/pulumi/pulumi-kubernetes/master/tests/sdk/nodejs/examples/yaml-guestbook/yaml/guestbook.yaml",
         resourcePrefix: resourcePrefix,
         transformations: [
             (obj: any) => {
