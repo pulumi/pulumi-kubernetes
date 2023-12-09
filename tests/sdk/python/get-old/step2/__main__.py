@@ -14,7 +14,7 @@
 
 import pulumi
 from pulumi_kubernetes.apiextensions.CustomResource import CustomResource
-from pulumi_kubernetes.apiextensions.v1beta1.CustomResourceDefinition import CustomResourceDefinition
+from pulumi_kubernetes.apiextensions.v1.CustomResourceDefinition import CustomResourceDefinition
 from pulumi_kubernetes.core.v1 import Service
 from pulumi_kubernetes.core.v1.Namespace import Namespace
 
@@ -22,7 +22,7 @@ service = Service.get("kube-api", "kubernetes")
 
 crd = CustomResourceDefinition(
     resource_name="foo",
-    metadata={"name": "gettests.python.test"},
+    metadata={"name": "gettestolds.python.test"},
     spec={
         "group": "python.test",
         "versions": [{
@@ -47,9 +47,9 @@ crd = CustomResourceDefinition(
         }],
         "scope": "Namespaced",
         "names": {
-            "plural": "gettests",
-            "singular": "gettest",
-            "kind": "GetTest",
+            "plural": "gettestolds",
+            "singular": "gettestold",
+            "kind": "GetTestOld",
         }
     })
 
@@ -58,9 +58,9 @@ ns = Namespace("ns")
 cr = CustomResource(
     resource_name="foo",
     api_version="python.test/v1",
-    kind="GetTest",
+    kind="GetTestOld",
     metadata={"namespace": ns.metadata["name"]},
     spec={"foo": "bar"},
     opts=pulumi.ResourceOptions(depends_on=[crd]))
 
-cr_get = CustomResource.get(resource_name="bar", api_version="python.test/v1", kind="GetTest", id=cr.id)
+cr_get = CustomResource.get(resource_name="bar", api_version="python.test/v1", kind="GetTestOld", id=cr.id)
