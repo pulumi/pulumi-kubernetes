@@ -88,8 +88,8 @@ namespace Pulumi.Kubernetes.Rbac.V1Alpha1
                 Version = Utilities.Version,
                 Aliases =
                 {
-                    new global::Pulumi.Alias { Type = "kubernetes:rbac.authorization.k8s.io/v1:ClusterRoleBindingPatch"},
-                    new global::Pulumi.Alias { Type = "kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRoleBindingPatch"},
+                    new global::Pulumi.Alias { Type = "kubernetes:rbac.authorization.k8s.io/v1:ClusterRoleBindingPatch" },
+                    new global::Pulumi.Alias { Type = "kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRoleBindingPatch" },
                 },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);

@@ -82,7 +82,7 @@ namespace Pulumi.Kubernetes.Policy.V1Beta1
                 Version = Utilities.Version,
                 Aliases =
                 {
-                    new global::Pulumi.Alias { Type = "kubernetes:extensions/v1beta1:PodSecurityPolicyPatch"},
+                    new global::Pulumi.Alias { Type = "kubernetes:extensions/v1beta1:PodSecurityPolicyPatch" },
                 },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);

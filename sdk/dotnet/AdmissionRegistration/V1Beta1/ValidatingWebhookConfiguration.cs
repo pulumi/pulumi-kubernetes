@@ -76,7 +76,7 @@ namespace Pulumi.Kubernetes.AdmissionRegistration.V1Beta1
                 Version = Utilities.Version,
                 Aliases =
                 {
-                    new global::Pulumi.Alias { Type = "kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfiguration"},
+                    new global::Pulumi.Alias { Type = "kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfiguration" },
                 },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);

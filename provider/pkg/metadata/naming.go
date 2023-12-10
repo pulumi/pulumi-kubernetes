@@ -23,7 +23,7 @@ import (
 // AssignNameIfAutonamable generates a name for an object. Uses DNS-1123-compliant characters.
 // All auto-named resources get the annotation `pulumi.com/autonamed` for tooling purposes.
 func AssignNameIfAutonamable(randomSeed []byte, obj *unstructured.Unstructured, propMap resource.PropertyMap, urn resource.URN) {
-	contract.Assertf(urn.Name().String() != "", "expected non-empty name in URN: %s", urn)
+	contract.Assertf(urn.Name() != "", "expected non-empty name in URN: %s", urn)
 	// Check if the .metadata.name is set and is a computed value. If so, do not auto-name.
 	if md, ok := propMap["metadata"].V.(resource.PropertyMap); ok {
 		if name, ok := md["name"]; ok && name.IsComputed() {
@@ -32,7 +32,7 @@ func AssignNameIfAutonamable(randomSeed []byte, obj *unstructured.Unstructured, 
 	}
 
 	if obj.GetName() == "" {
-		prefix := urn.Name().String() + "-"
+		prefix := urn.Name() + "-"
 		autoname, err := resource.NewUniqueName(randomSeed, prefix, 0, 0, nil)
 		contract.AssertNoErrorf(err, "unexpected error while creating NewUniqueName")
 		obj.SetName(autoname)

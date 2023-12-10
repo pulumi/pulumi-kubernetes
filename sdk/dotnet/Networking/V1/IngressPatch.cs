@@ -102,8 +102,8 @@ namespace Pulumi.Kubernetes.Networking.V1
                 Version = Utilities.Version,
                 Aliases =
                 {
-                    new global::Pulumi.Alias { Type = "kubernetes:extensions/v1beta1:IngressPatch"},
-                    new global::Pulumi.Alias { Type = "kubernetes:networking.k8s.io/v1beta1:IngressPatch"},
+                    new global::Pulumi.Alias { Type = "kubernetes:extensions/v1beta1:IngressPatch" },
+                    new global::Pulumi.Alias { Type = "kubernetes:networking.k8s.io/v1beta1:IngressPatch" },
                 },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);

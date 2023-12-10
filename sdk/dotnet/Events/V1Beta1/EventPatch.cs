@@ -157,8 +157,8 @@ namespace Pulumi.Kubernetes.Events.V1Beta1
                 Version = Utilities.Version,
                 Aliases =
                 {
-                    new global::Pulumi.Alias { Type = "kubernetes:core/v1:EventPatch"},
-                    new global::Pulumi.Alias { Type = "kubernetes:events.k8s.io/v1:EventPatch"},
+                    new global::Pulumi.Alias { Type = "kubernetes:core/v1:EventPatch" },
+                    new global::Pulumi.Alias { Type = "kubernetes:events.k8s.io/v1:EventPatch" },
                 },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);

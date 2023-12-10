@@ -94,7 +94,7 @@ namespace Pulumi.Kubernetes.Discovery.V1Beta1
                 Version = Utilities.Version,
                 Aliases =
                 {
-                    new global::Pulumi.Alias { Type = "kubernetes:discovery.k8s.io/v1:EndpointSlicePatch"},
+                    new global::Pulumi.Alias { Type = "kubernetes:discovery.k8s.io/v1:EndpointSlicePatch" },
                 },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);

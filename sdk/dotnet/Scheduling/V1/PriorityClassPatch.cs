@@ -100,8 +100,8 @@ namespace Pulumi.Kubernetes.Scheduling.V1
                 Version = Utilities.Version,
                 Aliases =
                 {
-                    new global::Pulumi.Alias { Type = "kubernetes:scheduling.k8s.io/v1alpha1:PriorityClassPatch"},
-                    new global::Pulumi.Alias { Type = "kubernetes:scheduling.k8s.io/v1beta1:PriorityClassPatch"},
+                    new global::Pulumi.Alias { Type = "kubernetes:scheduling.k8s.io/v1alpha1:PriorityClassPatch" },
+                    new global::Pulumi.Alias { Type = "kubernetes:scheduling.k8s.io/v1beta1:PriorityClassPatch" },
                 },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
