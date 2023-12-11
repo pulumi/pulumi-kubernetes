@@ -2036,7 +2036,7 @@ func TestOptionPropagation(t *testing.T) {
 		t.FailNow()
 	}
 
-	grpcLog, err := pulumirpctesting.NewDebugInterceptorLog()
+	grpcLog, err := pulumirpctesting.NewDebugInterceptorLog(t)
 	require.NoError(t, err)
 
 	options := baseOptions.With(integration.ProgramTestOptions{

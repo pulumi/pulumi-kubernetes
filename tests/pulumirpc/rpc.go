@@ -6,6 +6,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"path/filepath"
+	"testing"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
@@ -31,12 +33,19 @@ type DebugInterceptorLog struct {
 	LogPath string
 }
 
-func NewDebugInterceptorLog() (*DebugInterceptorLog, error) {
+func NewDebugInterceptorLog(t *testing.T) (*DebugInterceptorLog, error) {
 	f, err := os.CreateTemp("", "pulumi-grpc-debug-")
 	if err != nil {
 		return nil, fmt.Errorf("failed to create GRPC debug log file: %v", err)
 	}
 	defer contract.IgnoreClose(f)
+	path, _ := filepath.Abs(f.Name())
+	t.Logf("GRPC debug log file: %s", path)
+	t.Cleanup(func() {
+		if !t.Failed() {
+			os.Remove(path)
+		}
+	})
 	return &DebugInterceptorLog{LogPath: f.Name()}, nil
 }
 

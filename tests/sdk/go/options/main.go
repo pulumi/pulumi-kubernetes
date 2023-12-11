@@ -79,13 +79,11 @@ func main() {
 
 		// transform_k8s is a Kubernetes transformation that applies a unique alias and annotation to each resource.
 		transformK8s := func(state map[string]interface{}, opts ...pulumi.ResourceOption) {
-			if state["kind"] == "Service" {
-				metadata := state["metadata"].(map[string]interface{})
-				metadata["annotations"] = map[string]interface{}{"transformed": "true"}
+			metadata := state["metadata"].(map[string]interface{})
+			metadata["annotations"] = map[string]interface{}{"transformed": "true"}
 
-				// note: pulumi-kubernetes Go SDK doesn't provide a way to mutate the options (e.g. to add a "-k8s-aliased" alias)
-				// https://github.com/pulumi/pulumi-kubernetes/issues/2666
-			}
+			// note: pulumi-kubernetes Go SDK doesn't provide a way to mutate the options (e.g. to add a "-k8s-aliased" alias)
+			// https://github.com/pulumi/pulumi-kubernetes/issues/2666
 		}
 
 		// --- ConfigGroup ---
@@ -111,10 +109,6 @@ metadata:
 		)
 		if err != nil {
 			return err
-		}
-
-		if true {
-			return nil
 		}
 
 		// "provider" option
