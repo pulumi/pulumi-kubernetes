@@ -545,7 +545,7 @@ func testRancher(t *testing.T) {
 	tests.SkipIfShort(t)
 	test := getBaseOptions(t).
 		With(integration.ProgramTestOptions{
-			Dir:         filepath.Join(getCwd(t), "rancher", "step1"),
+			Dir:         filepath.Join(getCwd(t), "helm-local-panic", "step1"),
 			SkipRefresh: true,
 			Verbose:     true,
 			NoParallel:  true,
@@ -557,7 +557,7 @@ func testRancher(t *testing.T) {
 			},
 			EditDirs: []integration.EditDir{
 				{
-					Dir:      filepath.Join(getCwd(t), "rancher", "step2"),
+					Dir:      filepath.Join(getCwd(t), "helm-local-panic", "step2"),
 					Additive: true,
 				},
 			},
