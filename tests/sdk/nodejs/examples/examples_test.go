@@ -306,7 +306,7 @@ func TestAccHelmLocal(t *testing.T) {
 	integration.ProgramTest(t, &test)
 }
 
-func testAccPrometheusOperator(t *testing.T) {
+func TestAccPrometheusOperator(t *testing.T) {
 	tests.SkipIfShort(t)
 	test := getBaseOptions(t).
 		With(integration.ProgramTestOptions{
@@ -540,9 +540,11 @@ func TestHelmReleaseRedis(t *testing.T) {
 	integration.ProgramTest(t, &test)
 }
 
-func testRancher(t *testing.T) {
-	// Validate fix for https://github.com/pulumi/pulumi-kubernetes/issues/1848
-	tests.SkipIfShort(t)
+// TestHelmTemplatePanic validates the fix for https://github.com/pulumi/pulumi-kubernetes/issues/1848.
+// The issue was caused by a panic when a Helm chart has conditional formatting to include/exclude a resource
+// gvk based on capabilities. The panic was caused by the Helm provider not correctly handling the case where
+// the resource was templated, but not included in the final manifest applied to the cluster.
+func TestHelmTemplatePanic(t *testing.T) {
 	test := getBaseOptions(t).
 		With(integration.ProgramTestOptions{
 			Dir:         filepath.Join(getCwd(t), "helm-local-panic", "step1"),
@@ -563,14 +565,6 @@ func testRancher(t *testing.T) {
 			},
 		})
 	integration.ProgramTest(t, &test)
-}
-
-// TestCRDs runs 2 sub tests that cannot be parallelized as they touch
-// the same cluster-scoped CRD. This is required until we can run tests
-// in parallel with different clusters (tracked by: https://github.com/pulumi/pulumi-kubernetes/issues/2243).
-func TestCRDs(t *testing.T) {
-	t.Run("testAccPrometheusOperator", testAccPrometheusOperator)
-	t.Run("testRancher", testRancher)
 }
 
 func getCwd(t *testing.T) string {
