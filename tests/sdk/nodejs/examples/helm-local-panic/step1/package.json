@@ -1,5 +1,5 @@
 {
-    "name": "rancher",
+    "name": "local-chart-panic",
     "devDependencies": {
         "@types/node": "^10.0.0"
     },
