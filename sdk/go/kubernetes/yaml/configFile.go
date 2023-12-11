@@ -163,7 +163,7 @@ func NewConfigFile(ctx *pulumi.Context,
 		}
 		rs, err := parseDecodeYamlFiles(ctx, &ConfigGroupArgs{
 			Files:           []string{args.File},
-			Transformations: args.Transformations,
+			Transformations: transformations,
 			ResourcePrefix:  args.ResourcePrefix,
 		}, false, parseOpts...)
 		if err != nil {
