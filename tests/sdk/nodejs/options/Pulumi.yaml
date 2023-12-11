@@ -1,5 +1,5 @@
 name: options-test
 runtime: nodejs
-description: A minimal Kubernetes TypeScript Pulumi program
+description: Test options propagation with component resources.
 config:
   pulumi:disable-default-providers: [kubernetes]

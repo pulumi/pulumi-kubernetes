@@ -27,7 +27,7 @@ func SortResourcesByURN(stackInfo integration.RuntimeValidationStackInfo) {
 	})
 }
 
-func SearchResourcesByName(stackInfo integration.RuntimeValidationStackInfo, parent resource.URN, typ tokens.Type, name tokens.QName) *apitype.ResourceV3 {
+func SearchResourcesByName(stackInfo integration.RuntimeValidationStackInfo, parent resource.URN, typ tokens.Type, name string) *apitype.ResourceV3 {
 	i := slices.IndexFunc(stackInfo.Deployment.Resources, func(r apitype.ResourceV3) bool {
 		return r.Type == typ && r.URN.Name() == name && (parent == "" || r.Parent == parent)
 	})

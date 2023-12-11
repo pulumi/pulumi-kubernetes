@@ -2060,7 +2060,7 @@ func TestOptionPropagation(t *testing.T) {
 			providerUrn := func(prov *apitype.ResourceV3) resource.URN {
 				return prov.URN + resource.URNNameDelimiter + resource.URN(prov.ID)
 			}
-			urn := func(parentType, baseType tokens.Type, name tokens.QName) resource.URN {
+			urn := func(parentType, baseType tokens.Type, name string) resource.URN {
 				return resource.NewURN(stackInfo.StackName, "options-test", parentType, baseType, name)
 			}
 

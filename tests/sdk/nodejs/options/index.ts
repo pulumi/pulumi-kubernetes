@@ -38,7 +38,6 @@ function applyAlias(args: pulumi.ResourceTransformationArgs): pulumi.ResourceTra
         props: args.props,
         opts: pulumi.mergeOptions(args.opts, {
             aliases: [{ name: `${args.name}-aliased` }],
-            // aliases: [{ name: `${args.name}-aliased` }, ...(args.opts.aliases ?? [])],
         }),
     };
 }
