@@ -351,9 +351,23 @@ func (c *Chart) GetResource(gvk, name, namespace string) pulumi.AnyOutput {
 	if len(namespace) > 0 && namespace != "default" {
 		id = fmt.Sprintf("%s/%s", namespace, name)
 	}
+
 	key := fmt.Sprintf("%s::%s", gvk, id)
+
 	return c.Resources.ApplyT(func(x interface{}) interface{} {
 		resources := x.(map[string]pulumi.Resource)
-		return resources[key]
+		if r, ok := resources[key]; ok {
+			return r
+		}
+
+		// Some resources in the default namespace do not adhere to the name only pattern, so we need to fallback
+		// to searching for the resource by namespace and name. This occurs when the Helm template manifest explicitly
+		// sets the namespace field on the resource.
+		if namespace == "default" || namespace == "" {
+			return resources[fmt.Sprintf("%s::default/%s", gvk, name)]
+		}
+
+		return nil
+
 	}).(pulumi.AnyOutput)
 }

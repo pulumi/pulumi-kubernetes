@@ -749,4 +749,21 @@ func TestGo(t *testing.T) {
 		})
 		integration.ProgramTest(t, &test)
 	})
+
+	// Test to ensure that we can get a resource from the default namespace. This uses the wordpress chart as it requires the
+	// default namespace to be present in the GVK get request.
+	t.Run("ChartGetResource", func(t *testing.T) {
+		options := baseOptions.With(integration.ProgramTestOptions{
+			Dir:   filepath.Join(cwd, "helm-get-default-namespace", "step1"),
+			Quick: true,
+			EditDirs: []integration.EditDir{
+				{
+					Dir:             filepath.Join(cwd, "helm-get-default-namespace", "step2"),
+					Additive:        true,
+					ExpectNoChanges: false,
+				},
+			},
+		})
+		integration.ProgramTest(t, &options)
+	})
 }
