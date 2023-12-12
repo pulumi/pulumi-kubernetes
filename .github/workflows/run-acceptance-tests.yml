@@ -377,7 +377,7 @@ jobs:
       run: >
         curl -LO
         https://storage.googleapis.com/kubernetes-release/release/$(curl -s
-        https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+        https://storage.googleapis.com/kubernetes-release/release/stable-1.28.txt)/bin/linux/amd64/kubectl
 
         chmod +x ./kubectl
 
@@ -461,7 +461,7 @@ jobs:
       run: >
         curl -LO
         https://storage.googleapis.com/kubernetes-release/release/$(curl -s
-        https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+        https://storage.googleapis.com/kubernetes-release/release/stable-1.28.txt)/bin/linux/amd64/kubectl
 
         chmod +x ./kubectl
 
@@ -527,7 +527,7 @@ jobs:
       run: >
         curl -LO
         https://storage.googleapis.com/kubernetes-release/release/$(curl -s
-        https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+        https://storage.googleapis.com/kubernetes-release/release/stable-1.28.txt)/bin/linux/amd64/kubectl
 
         chmod +x ./kubectl
 
