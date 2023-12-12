@@ -67,17 +67,6 @@ func (d *DebugInterceptorLog) ReadAll() (DebugInterceptorLogEntryList, error) {
 
 type DebugInterceptorLogEntryList []DebugInterceptorLogEntry
 
-// ListRegisterResource lists the RegisterResource calls in the log.
-func (l DebugInterceptorLogEntryList) ListRegisterResource() RegisterResourceList {
-	var results []RegisterResource
-	for _, entry := range l {
-		if r, ok := ParseRegisterResource(entry); ok {
-			results = append(results, *r)
-		}
-	}
-	return results
-}
-
 // ReadDebugInterceptorLogFile parses the gRPC log file produced by the PULUMI_DEBUG_GRPC environment variable.
 func ReadDebugInterceptorLogFile(name string) ([]DebugInterceptorLogEntry, error) {
 	f, err := os.Open(name)
@@ -123,7 +112,24 @@ func FormatDebugInterceptorLog(value interface{}) (string, bool) {
 	if m, ok := value.(pulumirpc.Alias); ok {
 		return protojson.Format(&m), true
 	}
+	if m, ok := value.(pulumirpc.ResourceInvokeRequest); ok {
+		return protojson.Format(&m), true
+	}
+	if m, ok := value.(pulumirpc.InvokeResponse); ok {
+		return protojson.Format(&m), true
+	}
 	return "", false
+}
+
+// ListRegisterResource lists the RegisterResource calls in the log.
+func (l DebugInterceptorLogEntryList) ListRegisterResource() RegisterResourceList {
+	var results []RegisterResource
+	for _, entry := range l {
+		if r, ok := ParseRegisterResource(entry); ok {
+			results = append(results, *r)
+		}
+	}
+	return results
 }
 
 // RegisterResource is a decoded "/pulumirpc.ResourceMonitor/RegisterResource" RPC call.
@@ -163,6 +169,73 @@ func ParseRegisterResource(entry DebugInterceptorLogEntry) (*RegisterResource, b
 		return nil, false
 	}
 	result := RegisterResource{
+		Request:  *request,
+		Response: *response,
+		Errors:   entry.Errors,
+		Metadata: entry.Metadata,
+	}
+	return &result, true
+}
+
+// Invokes lists the Invoke calls in the log.
+func (l DebugInterceptorLogEntryList) Invokes() InvokeList {
+	var results []Invoke
+	for _, entry := range l {
+		if r, ok := ParseInvoke(entry); ok {
+			results = append(results, *r)
+		}
+	}
+	return results
+}
+
+// Invoke is a decoded "/pulumirpc.ResourceMonitor/Invoke" RPC call.
+type Invoke struct {
+	Request  pulumirpc.ResourceInvokeRequest
+	Response pulumirpc.InvokeResponse
+	Errors   []string    `json:"errors,omitempty"`
+	Metadata interface{} `json:"metadata,omitempty"`
+}
+
+type InvokeList []Invoke
+
+// Lookup returns Invoke entries matching the given token (operation).
+func (l InvokeList) Tok(tok string) InvokeList {
+	var results []Invoke
+	for _, v := range l {
+		if v.Request.Tok == tok {
+			results = append(results, v)
+		}
+	}
+	return results
+}
+
+// Lookup returns Invoke entries matching the given provider and token (operation).
+func (l InvokeList) ByProvider(providerUrn resource.URN) InvokeList {
+	var results []Invoke
+	for _, v := range l {
+		if resource.URN(v.Request.Provider) == providerUrn {
+			results = append(results, v)
+		}
+	}
+	return results
+}
+
+// ParseInvoke parses a log entry as a Invoke call.
+func ParseInvoke(entry DebugInterceptorLogEntry) (*Invoke, bool) {
+	if entry.Method != "/pulumirpc.ResourceMonitor/Invoke" {
+		return nil, false
+	}
+	request := &pulumirpc.ResourceInvokeRequest{}
+	err := protojson.Unmarshal(entry.Request, request)
+	if err != nil {
+		return nil, false
+	}
+	response := &pulumirpc.InvokeResponse{}
+	err = protojson.Unmarshal(entry.Response, response)
+	if err != nil {
+		return nil, false
+	}
+	result := Invoke{
 		Request:  *request,
 		Response: *response,
 		Errors:   entry.Errors,

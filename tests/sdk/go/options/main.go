@@ -15,12 +15,6 @@ import (
 func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
 
-		_, err := corev1.NewNamespace(ctx, "version", &corev1.NamespaceArgs{},
-			pulumi.Version("1.2.3"), pulumi.PluginDownloadURL("https://example.com"))
-		if err != nil {
-			return err
-		}
-
 		bootstrapProvider, err := kubernetes.NewProvider(ctx, "bootstrap", &kubernetes.ProviderArgs{})
 		if err != nil {
 			return err
@@ -106,6 +100,8 @@ metadata:
 			pulumi.Protect(true),
 			pulumi.DependsOn([]pulumi.Resource{sleep}),
 			pulumi.Transformations([]pulumi.ResourceTransformation{applyAlias}),
+			pulumi.Version("1.2.3"),
+			pulumi.PluginDownloadURL("https://a.pulumi.test"),
 		)
 		if err != nil {
 			return err
@@ -139,20 +135,6 @@ metadata:
 			return err
 		}
 
-		// version
-		_, err = yaml.NewConfigGroup(ctx, "cg-version", &yaml.ConfigGroupArgs{
-			ResourcePrefix: "cg-version",
-			YAML: []string{`
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: cg-version-cm-1
-`},
-		}, pulumi.Provider(nulloptsProvider), pulumi.Version("1.2.3"), pulumi.PluginDownloadURL("https://example.com"))
-		if err != nil {
-			return err
-		}
-
 		//  --- ConfigFile ---
 		_, err = yaml.NewConfigFile(ctx, "cf-options", &yaml.ConfigFileArgs{
 			ResourcePrefix:  "cf-options",
@@ -166,6 +148,8 @@ metadata:
 			pulumi.Protect(true),
 			pulumi.DependsOn([]pulumi.Resource{sleep}),
 			pulumi.Transformations([]pulumi.ResourceTransformation{applyAlias}),
+			pulumi.Version("1.2.3"),
+			pulumi.PluginDownloadURL("https://a.pulumi.test"),
 		)
 		if err != nil {
 			return err
@@ -210,6 +194,8 @@ metadata:
 			pulumi.Protect(true),
 			pulumi.DependsOn([]pulumi.Resource{sleep}),
 			pulumi.Transformations([]pulumi.ResourceTransformation{applyAlias}),
+			pulumi.Version("1.2.3"),
+			pulumi.PluginDownloadURL("https://a.pulumi.test"),
 		)
 		if err != nil {
 			return err
@@ -246,6 +232,8 @@ metadata:
 			pulumi.Protect(true),
 			pulumi.DependsOn([]pulumi.Resource{sleep}),
 			pulumi.Transformations([]pulumi.ResourceTransformation{applyAlias}),
+			pulumi.Version("1.2.3"),
+			pulumi.PluginDownloadURL("https://a.pulumi.test"),
 		)
 		if err != nil {
 			return err

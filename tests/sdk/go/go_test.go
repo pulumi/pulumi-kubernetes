@@ -489,19 +489,34 @@ func TestOptionPropagation(t *testing.T) {
 			logEntries, err := grpcLog.ReadAll()
 			require.NoError(t, err)
 			rr := logEntries.ListRegisterResource()
+			invokes := logEntries.Invokes()
+
+			// Verify that the invokes for provider A contain version info across-the-board.
+			// The Version and PluginDownloadURL options normally serve as hints when selecting
+			// a default provider, and should be propagated. For testing purposes, we set the provider explicitly to avoid
+			// any attempt to use the fake version/url.
+			g.Expect(invokes.ByProvider(providerUrn(providerA))).To(HaveEach(
+				MatchFields(IgnoreExtras, Fields{
+					"Request": MatchFields(IgnoreExtras, Fields{
+						"Version":           Equal("1.2.3"),
+						"PluginDownloadURL": Equal("https://a.pulumi.test"),
+					}),
+				}),
+			))
 
 			// --- ConfigGroup ---
 
-			// ConfigGroup "cg-options" with most options
+			// ConfigGroup "cg-options" with most options.
 			g.Expect(rr.Named("",
 				"kubernetes:yaml:ConfigGroup", "cg-options")).To(HaveExactElements(
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases":      HaveExactElements(Alias("cg-options-old"), Alias("cg-options-aliased")),
-						"Protect":      BeTrue(),
-						"Dependencies": HaveExactElements(string(sleep.URN)),
-						"Provider":     BeEquivalentTo(providerUrn(providerA)),
-						"Version":      BeEmpty(),
+						"Aliases":           HaveExactElements(Alias("cg-options-old"), Alias("cg-options-aliased")),
+						"Protect":           BeTrue(),
+						"Dependencies":      HaveExactElements(string(sleep.URN)),
+						"Provider":          BeEquivalentTo(providerUrn(providerA)),
+						"Version":           Equal("1.2.3"),
+						"PluginDownloadURL": Equal("https://a.pulumi.test"),
 						"Providers": MatchAllKeys(Keys{
 							"kubernetes": BeEquivalentTo(providerUrn(providerA)),
 						}),
@@ -513,13 +528,14 @@ func TestOptionPropagation(t *testing.T) {
 				"kubernetes:core/v1:ConfigMap", "cg-options-cg-options-cm-1")).To(HaveExactElements(
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases":       HaveExactElements(Alias("cg-options-cg-options-cm-1-aliased")),
-						"Protect":       BeFalse(),
-						"Dependencies":  BeEmpty(),
-						"Provider":      BeEquivalentTo(providerUrn(providerA)),
-						"Version":       BeEmpty(),
-						"Providers":     BeEmpty(),
-						"IgnoreChanges": BeEmpty(),
+						"Aliases":           HaveExactElements(Alias("cg-options-cg-options-cm-1-aliased")),
+						"Protect":           BeFalse(),
+						"Dependencies":      BeEmpty(),
+						"Provider":          BeEquivalentTo(providerUrn(providerA)),
+						"Version":           Equal("1.2.3"),
+						"PluginDownloadURL": Equal("https://a.pulumi.test"),
+						"Providers":         BeEmpty(),
+						"IgnoreChanges":     BeEmpty(),
 						"Object": PointTo(ProtobufStruct(MatchKeys(IgnoreExtras, Keys{
 							"metadata": MatchKeys(IgnoreExtras, Keys{
 								"name":        Equal("cg-options-cm-1"),
@@ -534,13 +550,14 @@ func TestOptionPropagation(t *testing.T) {
 				"kubernetes:core/v1:ConfigMap", "cg-options-configgroup-cm-1")).To(HaveExactElements(
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases":       HaveExactElements(Alias("cg-options-configgroup-cm-1-aliased")),
-						"Protect":       BeFalse(),
-						"Dependencies":  BeEmpty(),
-						"Provider":      BeEquivalentTo(providerUrn(providerA)),
-						"Version":       BeEmpty(),
-						"Providers":     BeEmpty(),
-						"IgnoreChanges": BeEmpty(),
+						"Aliases":           HaveExactElements(Alias("cg-options-configgroup-cm-1-aliased")),
+						"Protect":           BeFalse(),
+						"Dependencies":      BeEmpty(),
+						"Provider":          BeEquivalentTo(providerUrn(providerA)),
+						"Version":           Equal("1.2.3"),
+						"PluginDownloadURL": Equal("https://a.pulumi.test"),
+						"Providers":         BeEmpty(),
+						"IgnoreChanges":     BeEmpty(),
 						"Object": PointTo(ProtobufStruct(MatchKeys(IgnoreExtras, Keys{
 							"metadata": MatchKeys(IgnoreExtras, Keys{
 								"name":        Equal("configgroup-cm-1"),
@@ -586,11 +603,12 @@ func TestOptionPropagation(t *testing.T) {
 				"kubernetes:yaml:ConfigFile", "cf-options")).To(HaveExactElements(
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases":      HaveExactElements(Alias("cf-options-old"), Alias("cf-options-aliased")),
-						"Protect":      BeTrue(),
-						"Dependencies": HaveExactElements(string(sleep.URN)),
-						"Provider":     BeEquivalentTo(providerUrn(providerA)),
-						"Version":      BeEmpty(),
+						"Aliases":           HaveExactElements(Alias("cf-options-old"), Alias("cf-options-aliased")),
+						"Protect":           BeTrue(),
+						"Dependencies":      HaveExactElements(string(sleep.URN)),
+						"Provider":          BeEquivalentTo(providerUrn(providerA)),
+						"Version":           Equal("1.2.3"),
+						"PluginDownloadURL": Equal("https://a.pulumi.test"),
 						"Providers": MatchAllKeys(Keys{
 							"kubernetes": BeEquivalentTo(providerUrn(providerA)),
 						}),
@@ -601,13 +619,14 @@ func TestOptionPropagation(t *testing.T) {
 				"kubernetes:core/v1:ConfigMap", "cf-options-configfile-cm-1")).To(HaveExactElements(
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases":       HaveExactElements(Alias("cf-options-configfile-cm-1-aliased")),
-						"Protect":       BeFalse(),
-						"Dependencies":  BeEmpty(),
-						"Provider":      BeEquivalentTo(providerUrn(providerA)),
-						"Version":       BeEmpty(),
-						"Providers":     BeEmpty(),
-						"IgnoreChanges": BeEmpty(),
+						"Aliases":           HaveExactElements(Alias("cf-options-configfile-cm-1-aliased")),
+						"Protect":           BeFalse(),
+						"Dependencies":      BeEmpty(),
+						"Provider":          BeEquivalentTo(providerUrn(providerA)),
+						"Version":           Equal("1.2.3"),
+						"PluginDownloadURL": Equal("https://a.pulumi.test"),
+						"Providers":         BeEmpty(),
+						"IgnoreChanges":     BeEmpty(),
 						"Object": PointTo(ProtobufStruct(MatchKeys(IgnoreExtras, Keys{
 							"metadata": MatchKeys(IgnoreExtras, Keys{
 								"name":        Equal("configfile-cm-1"),
@@ -669,11 +688,12 @@ func TestOptionPropagation(t *testing.T) {
 				// quirk: NodeJS SDK applies resource_prefix ("kustomize-options") to the component itself.
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases":      HaveExactElements(Alias("kustomize-options-old"), Alias("kustomize-options-aliased")),
-						"Protect":      BeTrue(),
-						"Dependencies": HaveExactElements(string(sleep.URN)),
-						"Provider":     BeEquivalentTo(providerUrn(providerA)),
-						"Version":      BeEmpty(),
+						"Aliases":           HaveExactElements(Alias("kustomize-options-old"), Alias("kustomize-options-aliased")),
+						"Protect":           BeTrue(),
+						"Dependencies":      HaveExactElements(string(sleep.URN)),
+						"Provider":          BeEquivalentTo(providerUrn(providerA)),
+						"Version":           Equal("1.2.3"),
+						"PluginDownloadURL": Equal("https://a.pulumi.test"),
 						"Providers": MatchAllKeys(Keys{
 							"kubernetes": BeEquivalentTo(providerUrn(providerA)),
 						}),
@@ -685,13 +705,14 @@ func TestOptionPropagation(t *testing.T) {
 				"kubernetes:core/v1:ConfigMap", "kustomize-options-kustomize-cm-1-2kkk4bthmg")).To(HaveExactElements(
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases":       HaveExactElements(Alias("kustomize-options-kustomize-cm-1-2kkk4bthmg-aliased")),
-						"Protect":       BeFalse(),
-						"Dependencies":  BeEmpty(),
-						"Provider":      BeEquivalentTo(providerUrn(providerA)),
-						"Version":       BeEmpty(),
-						"Providers":     BeEmpty(),
-						"IgnoreChanges": BeEmpty(),
+						"Aliases":           HaveExactElements(Alias("kustomize-options-kustomize-cm-1-2kkk4bthmg-aliased")),
+						"Protect":           BeFalse(),
+						"Dependencies":      BeEmpty(),
+						"Provider":          BeEquivalentTo(providerUrn(providerA)),
+						"Version":           Equal("1.2.3"),
+						"PluginDownloadURL": Equal("https://a.pulumi.test"),
+						"Providers":         BeEmpty(),
+						"IgnoreChanges":     BeEmpty(),
 						"Object": PointTo(ProtobufStruct(MatchKeys(IgnoreExtras, Keys{
 							"metadata": MatchKeys(IgnoreExtras, Keys{
 								"name":        Equal("kustomize-cm-1-2kkk4bthmg"),
@@ -750,11 +771,12 @@ func TestOptionPropagation(t *testing.T) {
 				// quirk: NodeJS SDK applies resource_prefix ("chart-options") to the component itself.
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases":      HaveExactElements(Alias("chart-options-old"), AliasByType("kubernetes:helm.sh/v2:Chart"), Alias("chart-options-aliased")),
-						"Protect":      BeTrue(),
-						"Dependencies": HaveExactElements(string(sleep.URN)),
-						"Provider":     BeEquivalentTo(providerUrn(providerA)),
-						"Version":      BeEmpty(),
+						"Aliases":           HaveExactElements(Alias("chart-options-old"), AliasByType("kubernetes:helm.sh/v2:Chart"), Alias("chart-options-aliased")),
+						"Protect":           BeTrue(),
+						"Dependencies":      HaveExactElements(string(sleep.URN)),
+						"Provider":          BeEquivalentTo(providerUrn(providerA)),
+						"Version":           Equal("1.2.3"),
+						"PluginDownloadURL": Equal("https://a.pulumi.test"),
 						"Providers": MatchAllKeys(Keys{
 							"kubernetes": BeEquivalentTo(providerUrn(providerA)),
 						}),
@@ -766,13 +788,14 @@ func TestOptionPropagation(t *testing.T) {
 				"kubernetes:core/v1:ConfigMap", "chart-options-chart-options-chart-options-cm-1")).To(HaveExactElements(
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases":       HaveExactElements(Alias("chart-options-chart-options-chart-options-cm-1-aliased")),
-						"Protect":       BeFalse(),
-						"Dependencies":  BeEmpty(),
-						"Provider":      BeEquivalentTo(providerUrn(providerA)),
-						"Version":       BeEmpty(),
-						"Providers":     BeEmpty(),
-						"IgnoreChanges": BeEmpty(),
+						"Aliases":           HaveExactElements(Alias("chart-options-chart-options-chart-options-cm-1-aliased")),
+						"Protect":           BeFalse(),
+						"Dependencies":      BeEmpty(),
+						"Provider":          BeEquivalentTo(providerUrn(providerA)),
+						"Version":           Equal("1.2.3"),
+						"PluginDownloadURL": Equal("https://a.pulumi.test"),
+						"Providers":         BeEmpty(),
+						"IgnoreChanges":     BeEmpty(),
 						"Object": PointTo(ProtobufStruct(MatchKeys(IgnoreExtras, Keys{
 							"metadata": MatchKeys(IgnoreExtras, Keys{
 								"name":        Equal("chart-options-chart-options-cm-1"), // note: based on the Helm Release name

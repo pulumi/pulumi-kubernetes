@@ -86,7 +86,17 @@ import (
 )
 
 func GetChildOptions(parent pulumi.Resource, opts []pulumi.ResourceOption) ([]pulumi.ResourceOption, error) {
+	snapshot, err := pulumi.NewResourceOptions(opts...)
+	if err != nil {
+		return nil, err
+	}
 	childOpts := []pulumi.ResourceOption{pulumi.Parent(parent)}
+	if snapshot.Version != "" {
+		childOpts = append(childOpts, pulumi.Version(snapshot.Version))
+	}
+	if snapshot.PluginDownloadURL != "" {
+		childOpts = append(childOpts, pulumi.PluginDownloadURL(snapshot.PluginDownloadURL))
+	}
 	return childOpts, nil
 }
 
