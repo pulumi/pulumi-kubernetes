@@ -1,10 +1,8 @@
 ## Unreleased
 - Fix: Helm OCI chart deployment fails in Windows (https://github.com/pulumi/pulumi-kubernetes/pull/2648)
-
 - Fix: compute version field in Check for content detection (https://github.com/pulumi/pulumi-kubernetes/pull/2672)
-
 - Fix: Fix: Helm Release fails with "the server could not find the requested resource" (https://github.com/pulumi/pulumi-kubernetes/pull/2677)
-
+- Fix Helm Chart resource lookup key handling for objects in default namespace (https://github.com/pulumi/pulumi-kubernetes/pull/2655)
 
 ## 4.5.5 (November 28, 2023)
 - Fix: Make the invoke calls for Helm charts and YAML config resilient to the value being None or an empty dict (https://github.com/pulumi/pulumi-kubernetes/pull/2665)
