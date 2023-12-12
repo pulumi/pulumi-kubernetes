@@ -1,4 +1,5 @@
 ## Unreleased
+- Fix option propagation in component resources (Go SDK) (https://github.com/pulumi/pulumi-kubernetes/pull/2709)
 
 ## 4.6.1 (December 14, 2023)
 - Fix: Refine URN lookup by using its core type for more accurate resource identification (https://github.com/pulumi/pulumi-kubernetes/issues/2719)
