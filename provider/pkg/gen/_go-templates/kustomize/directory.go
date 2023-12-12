@@ -160,14 +160,12 @@ func NewDirectory(ctx *pulumi.Context,
 		return nil, err
 	}
 
-	// Honor the resource name prefix if specified.
-	if args.ResourcePrefix != "" {
-		name = args.ResourcePrefix + "-" + name
+	parseOpts, err := yaml.GetChildOptions(chart, opts)
+	if err != nil {
+		return nil, err
 	}
-
-	parseOpts := append(opts, pulumi.Parent(chart))
 	resources := args.ToDirectoryArgsOutput().ApplyT(func(args directoryArgs) (map[string]pulumi.Resource, error) {
-		return parseDirectory(ctx, name, args, parseOpts...)
+		return parseDirectory(ctx, args, parseOpts...)
 	})
 	chart.Resources = resources
 
@@ -182,7 +180,7 @@ func NewDirectory(ctx *pulumi.Context,
 	return chart, nil
 }
 
-func parseDirectory(ctx *pulumi.Context, name string, args directoryArgs, opts ...pulumi.ResourceOption,
+func parseDirectory(ctx *pulumi.Context, args directoryArgs, opts ...pulumi.ResourceOption,
 ) (map[string]pulumi.Resource, error) {
 	invokeArgs := struct {
 		Directory string `pulumi:"directory"`
@@ -191,14 +189,10 @@ func parseDirectory(ctx *pulumi.Context, name string, args directoryArgs, opts .
 		Result []map[string]interface{} `pulumi:"result"`
 	}
 
-	// Find options which are also Invoke options, and prepare them to pass to Invoke functions
-	var invokeOpts []pulumi.InvokeOption
-	for _, opt := range opts {
-		if invokeOpt, ok := opt.(pulumi.InvokeOption); ok {
-			invokeOpts = append(invokeOpts, invokeOpt)
-		}
+	invokeOpts, err := yaml.GetInvokeOptions(opts)
+	if err != nil {
+		return nil, err
 	}
-
 	if err := ctx.Invoke("kubernetes:kustomize:directory", &invokeArgs, &ret, invokeOpts...); err != nil {
 		return nil, errors.Wrap(err, "kustomize invoke failed")
 	}

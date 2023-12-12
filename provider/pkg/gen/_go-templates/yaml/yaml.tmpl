@@ -34,6 +34,42 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
+func GetChildOptions(parent pulumi.Resource, opts []pulumi.ResourceOption) ([]pulumi.ResourceOption, error) {
+	snapshot, err := pulumi.NewResourceOptions(opts...)
+	if err != nil {
+		return nil, err
+	}
+	childOpts := []pulumi.ResourceOption{pulumi.Parent(parent)}
+	if snapshot.Version != "" {
+		childOpts = append(childOpts, pulumi.Version(snapshot.Version))
+	}
+	if snapshot.PluginDownloadURL != "" {
+		childOpts = append(childOpts, pulumi.PluginDownloadURL(snapshot.PluginDownloadURL))
+	}
+	return childOpts, nil
+}
+
+func GetInvokeOptions(opts []pulumi.ResourceOption) ([]pulumi.InvokeOption, error) {
+	snapshot, err := pulumi.NewResourceOptions(opts...)
+	if err != nil {
+		return nil, err
+	}
+	var invokeOpts []pulumi.InvokeOption
+	if snapshot.Parent != nil {
+		invokeOpts = append(invokeOpts, pulumi.Parent(snapshot.Parent))
+	}
+	if snapshot.Provider != nil {
+		invokeOpts = append(invokeOpts, pulumi.Provider(snapshot.Provider))
+	}
+	if snapshot.Version != "" {
+		invokeOpts = append(invokeOpts, pulumi.Version(snapshot.Version))
+	}
+	if snapshot.PluginDownloadURL != "" {
+		invokeOpts = append(invokeOpts, pulumi.PluginDownloadURL(snapshot.PluginDownloadURL))
+	}
+	return invokeOpts, nil
+}
+
 func parseDecodeYamlFiles(ctx *pulumi.Context, args *ConfigGroupArgs, glob bool, opts ...pulumi.ResourceOption,
 ) (map[string]pulumi.Resource, error) {
 
@@ -80,15 +116,11 @@ func parseDecodeYamlFiles(ctx *pulumi.Context, args *ConfigGroupArgs, glob bool,
 		}
 	}
 
-  // Find options which are also Invoke options, and prepare them to pass to Invoke functions
-	var invokeOpts []pulumi.InvokeOption
-	for _, opt := range opts {
-		if invokeOpt, ok := opt.(pulumi.InvokeOption); ok {
-			invokeOpts = append(invokeOpts, invokeOpt)
-		}
-	}
-
 	// Next parse all YAML documents into objects.
+	invokeOpts, err := GetInvokeOptions(opts)
+	if err != nil {
+		return nil, err
+	}
 	for _, yaml := range yamls {
 		// Parse the resulting YAML bytes and turn them into raw Kubernetes objects.
 		dec, err := yamlDecode(ctx, yaml, invokeOpts...)
