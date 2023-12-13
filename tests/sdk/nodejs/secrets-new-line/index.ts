@@ -21,7 +21,7 @@ const provider = new k8s.Provider("k8s");
 
 const newlineSecret = new k8s.core.v1.Secret("newline", {
     data: {
-        password: " \n dGhpcyBpcyBhIHRlc3Qgc3RyaW5n\n\n\n", // "decoded base64 value: 'this is a test string'"
+        password: "dGhpcyBpcyBhIHRlc3Qgc3RyaW5n\n\n\n", // "decoded base64 value: 'this is a test string'"
     }
 }, {provider});
 

@@ -17,7 +17,6 @@ package clients
 import (
 	"encoding/base64"
 	"fmt"
-	"strings"
 
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
@@ -154,7 +153,19 @@ func normalizeSecretData(uns *unstructured.Unstructured) *unstructured.Unstructu
 
 	for k, v := range data {
 		if s, ok := v.(string); ok {
-			data[k] = strings.TrimSpace(s)
+			// Trim whitespace from the string value, for consistency with the apiserver which
+			// does the decoding and re-encoding to validate the value provided is valid base64.
+			// See: https://github.com/kubernetes/kubernetes/blob/41890534532931742770a7dc98f78bcdc59b1a6f/staging/src/k8s.io/apimachinery/pkg/runtime/codec.go#L212-L260
+			base64Decoded, err := base64.StdEncoding.DecodeString(s)
+			if err != nil {
+				// TODO: propagate error upwards to parent Normalize function to fail early. It is safe to
+				// ignore this error for now, since the apiserver will reject the resource if the value cannot
+				// be decoded.
+				continue
+			}
+			base64ReEncoded := base64.StdEncoding.EncodeToString(base64Decoded)
+
+			data[k] = base64ReEncoded
 		}
 	}
 
