@@ -1,4 +1,6 @@
 ## Unreleased
+
+## 4.6.0 (December 13, 2023)
 - Fix: Helm OCI chart deployment fails in Windows (https://github.com/pulumi/pulumi-kubernetes/pull/2648)
 - Fix: compute version field in Check for content detection (https://github.com/pulumi/pulumi-kubernetes/pull/2672)
 - Fix: Fix: Helm Release fails with "the server could not find the requested resource" (https://github.com/pulumi/pulumi-kubernetes/pull/2677)
@@ -6,6 +8,26 @@
 - Update Kubernetes schemas and libraries to v1.29.0 (https://github.com/pulumi/pulumi-kubernetes/pull/2690)
 - Fix panic when using `PULUMI_KUBERNETES_MANAGED_BY_LABEL` env var with SSA created objects (https://github.com/pulumi/pulumi-kubernetes/pull/2711)
 - Fix normalization of base64 encoded secrets.data values to strip whitespace (https://github.com/pulumi/pulumi-kubernetes/issues/2715)
+
+### Resources Renamed:
+- `#/types/kubernetes:core/v1:ResourceRequirements`
+  - renamed to: `#/types/kubernetes:core/v1:VolumeResourceRequirements`
+- `#/types/kubernetes:core/v1:ResourceRequirementsPatch`
+  - renamed to: `#/types/kubernetes:core/v1:VolumeResourceRequirementsPatch`
+
+### New Resources:
+- `flowcontrol.apiserver.k8s.io/v1.FlowSchema`
+- `flowcontrol.apiserver.k8s.io/v1.FlowSchemaList`
+- `flowcontrol.apiserver.k8s.io/v1.FlowSchemaPatch`
+- `flowcontrol.apiserver.k8s.io/v1.PriorityLevelConfiguration`
+- `flowcontrol.apiserver.k8s.io/v1.PriorityLevelConfigurationList`
+- `flowcontrol.apiserver.k8s.io/v1.PriorityLevelConfigurationPatch`
+- `networking.k8s.io/v1alpha1.ServiceCIDR`
+- `networking.k8s.io/v1alpha1.ServiceCIDRList`
+- `networking.k8s.io/v1alpha1.ServiceCIDRPatch`
+- `storage.k8s.io/v1alpha1.VolumeAttributesClass`
+- `storage.k8s.io/v1alpha1.VolumeAttributesClassList`
+- `storage.k8s.io/v1alpha1.VolumeAttributesClassPatch`
 
 ## 4.5.5 (November 28, 2023)
 - Fix: Make the invoke calls for Helm charts and YAML config resilient to the value being None or an empty dict (https://github.com/pulumi/pulumi-kubernetes/pull/2665)
