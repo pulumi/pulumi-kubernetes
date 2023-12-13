@@ -4,7 +4,7 @@
 from typing import Any, Callable, Optional, Sequence
 
 import pulumi.runtime
-import pulumi_kubernetes as k8s
+from pulumi_kubernetes.yaml.yaml import _get_child_options, _get_invoke_options, _parse_yaml_document
 
 from .. import _utilities, _tables
 
@@ -98,6 +98,8 @@ class Directory(pulumi.ComponentResource):
             raise TypeError('Missing resource name argument (for URN creation)')
         if not isinstance(name, str):
             raise TypeError('Expected resource name to be a string')
+        if opts is None:
+            opts = pulumi.ResourceOptions()
         if opts and not isinstance(opts, pulumi.ResourceOptions):
             raise TypeError('Expected resource options to be a ResourceOptions instance')
 
@@ -107,13 +109,9 @@ class Directory(pulumi.ComponentResource):
             name = f"{resource_prefix}-{name}"
         super(Directory, self).__init__("kubernetes:kustomize:Directory", name, __props__, opts)
 
-        opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(parent=self))
-
-        # Rather than using the default provider for the following invoke call, use the version specified
-        # in package.json.
-        invoke_opts = pulumi.InvokeOptions(version=_utilities.get_version(),
-                                           provider=opts.provider if opts.provider else None)
-
+        child_opts = _get_child_options(self, opts)
+        invoke_opts = _get_invoke_options(child_opts)
+        
         __ret__ = pulumi.runtime.invoke(
             'kubernetes:kustomize:directory', {'directory': directory}, invoke_opts)
 
@@ -124,7 +122,7 @@ class Directory(pulumi.ComponentResource):
         # Note: Unlike NodeJS, Python requires that we "pull" on our futures in order to get them scheduled for
         # execution. In order to do this, we leverage the engine's RegisterResourceOutputs to wait for the
         # resolution of all resources that this YAML document created.
-        self.resources = k8s.yaml.yaml._parse_yaml_document(result, opts, transformations, resource_prefix)
+        self.resources = _parse_yaml_document(result, child_opts, transformations, resource_prefix)
         self.register_outputs({"resources": self.resources})
 
     def translate_output_property(self, prop: str) -> str:

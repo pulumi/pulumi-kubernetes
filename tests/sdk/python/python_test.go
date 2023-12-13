@@ -25,20 +25,33 @@ import (
 	"strings"
 	"testing"
 
-	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
-
+	. "github.com/onsi/gomega"
+	"github.com/onsi/gomega/format"
+	. "github.com/onsi/gomega/gstruct"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/openapi"
+	"github.com/pulumi/pulumi-kubernetes/tests/v4"
+	. "github.com/pulumi/pulumi-kubernetes/tests/v4/gomega"
+	pulumirpctesting "github.com/pulumi/pulumi-kubernetes/tests/v4/pulumirpc"
+	"github.com/pulumi/pulumi/pkg/v3/engine"
 	"github.com/pulumi/pulumi/pkg/v3/resource/deploy/providers"
 	"github.com/pulumi/pulumi/pkg/v3/testing/integration"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/apitype"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/util/fsutil"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
+	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
 var baseOptions = &integration.ProgramTestOptions{
 	Verbose: true,
 	Dependencies: []string{
 		filepath.Join("..", "..", "..", "sdk", "python", "bin"),
+	},
+	PostPrepareProject: func(p *engine.Projinfo) error {
+		return fsutil.CopyFile(filepath.Join(p.Root, "testdata"), filepath.Join("..", "..", "testdata"), nil)
 	},
 	Env: []string{
 		"PULUMI_K8S_CLIENT_BURST=200",
@@ -608,4 +621,449 @@ func TestServerSideApply(t *testing.T) {
 		},
 	})
 	integration.ProgramTest(t, &options)
+}
+
+// TestOptionPropagation tests the handling of resource options by the various compoonent resources.
+// Component resources are responsible for implementing option propagation logic when creating
+// child resources.
+func TestOptionPropagation(t *testing.T) {
+	g := NewWithT(t)
+	format.MaxLength = 0
+	format.RegisterCustomFormatter(pulumirpctesting.FormatDebugInterceptorLog)
+
+	cwd, err := os.Getwd()
+	if !assert.NoError(t, err) {
+		t.FailNow()
+	}
+
+	grpcLog, err := pulumirpctesting.NewDebugInterceptorLog(t)
+	require.NoError(t, err)
+
+	options := baseOptions.With(integration.ProgramTestOptions{
+		Dir:                  filepath.Join(cwd, "options"),
+		Env:                  []string{grpcLog.Env()},
+		Quick:                true,
+		ExpectRefreshChanges: false,
+		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+
+			// lookup some resources for later use
+			providerA := tests.SearchResourcesByName(stackInfo, "", "pulumi:providers:kubernetes", "a")
+			require.NotNil(t, providerA)
+			providerB := tests.SearchResourcesByName(stackInfo, "", "pulumi:providers:kubernetes", "b")
+			require.NotNil(t, providerB)
+			providerNullOpts := tests.SearchResourcesByName(stackInfo, "", "pulumi:providers:kubernetes", "nullopts")
+			require.NotNil(t, providerNullOpts)
+			sleep := tests.SearchResourcesByName(stackInfo, "", "time:index/sleep:Sleep", "sleep")
+			require.NotNil(t, sleep)
+
+			// some helper functions for naming purposes
+			providerUrn := func(prov *apitype.ResourceV3) resource.URN {
+				return prov.URN + resource.URNNameDelimiter + resource.URN(prov.ID)
+			}
+			urn := func(parentType, baseType tokens.Type, name string) resource.URN {
+				return resource.NewURN(stackInfo.StackName, "options-test", parentType, baseType, name)
+			}
+
+			// read the GRPC log file to inspect the RegisterResource calls, since they provide
+			// the most detailed view of the resource's options as determined by the SDK.
+			logEntries, err := grpcLog.ReadAll()
+			require.NoError(t, err)
+			rr := logEntries.ListRegisterResource()
+			invokes := logEntries.Invokes()
+
+			// Verify that the invokes for provider A contain version info across-the-board.
+			// The Version and PluginDownloadURL options normally serve as hints when selecting
+			// a default provider, and should be propagated. For testing purposes, we set the provider explicitly to avoid
+			// any attempt to use the fake version/url.
+			g.Expect(invokes.ByProvider(providerUrn(providerA))).To(HaveEach(
+				MatchFields(IgnoreExtras, Fields{
+					"Request": MatchFields(IgnoreExtras, Fields{
+						"Version":           Equal("1.2.3"),
+						"PluginDownloadURL": Equal("https://a.pulumi.test"),
+					}),
+				}),
+			))
+
+			// --- ConfigGroup ---
+
+			// ConfigGroup "cg-options" with most options
+			g.Expect(rr.Named(stackInfo.RootResource.URN,
+				"kubernetes:yaml:ConfigGroup", "cg-options-cg-options")).To(HaveExactElements(
+				// quirk: Python SDK applies resource_prefix ("cg-options") to the component itself.
+				MatchFields(IgnoreExtras, Fields{
+					"Request": MatchFields(IgnoreExtras, Fields{
+						"Aliases":           ConsistOf(Alias("cg-options-old"), Alias("cg-options-cg-options-aliased")),
+						"Protect":           BeTrue(),
+						"Dependencies":      ConsistOf(string(sleep.URN)),
+						"Provider":          BeEmpty(),
+						"Version":           Equal("1.2.3"),
+						"PluginDownloadURL": Equal("https://a.pulumi.test"),
+						"Providers": MatchAllKeys(Keys{
+							"kubernetes": BeEquivalentTo(providerUrn(providerA)),
+						}),
+						"IgnoreChanges": ConsistOf("ignored"),
+					}),
+				}),
+			))
+			g.Expect(rr.Named(urn("", "kubernetes:yaml:ConfigGroup", "cg-options-cg-options"),
+				"kubernetes:core/v1:ConfigMap", "cg-options-cg-options-cm-1")).To(HaveExactElements(
+				MatchFields(IgnoreExtras, Fields{
+					"Request": MatchFields(IgnoreExtras, Fields{
+						"Aliases":           ConsistOf(Alias("cg-options-cm-1-k8s-aliased"), Alias("cg-options-cg-options-cm-1-aliased")),
+						"Protect":           BeTrue(),
+						"Dependencies":      BeEmpty(),
+						"Provider":          BeEquivalentTo(providerUrn(providerA)),
+						"Version":           Equal("1.2.3"),
+						"PluginDownloadURL": Equal("https://a.pulumi.test"),
+						"Providers":         BeEmpty(),
+						"IgnoreChanges":     BeEmpty(),
+						"Object": PointTo(ProtobufStruct(MatchKeys(IgnoreExtras, Keys{
+							"metadata": MatchKeys(IgnoreExtras, Keys{
+								"name":        Equal("cg-options-cm-1"),
+								"annotations": And(HaveKey("pulumi.com/skipAwait"), HaveKey("transformed")),
+							}),
+						}))),
+					}),
+				}),
+			))
+			g.Expect(rr.Named(urn("", "kubernetes:yaml:ConfigGroup", "cg-options-cg-options"),
+				"kubernetes:yaml:ConfigFile", "cg-options-./testdata/options/configgroup/manifest.yaml")).To(HaveExactElements(
+				MatchFields(IgnoreExtras, Fields{
+					"Request": MatchFields(IgnoreExtras, Fields{
+						"Aliases":           ConsistOf(Alias("cg-options-./testdata/options/configgroup/manifest.yaml-aliased")),
+						"Protect":           BeTrue(),
+						"Dependencies":      BeEmpty(),
+						"Provider":          BeEmpty(),
+						"Version":           Equal("1.2.3"),
+						"PluginDownloadURL": Equal("https://a.pulumi.test"),
+						"Providers": MatchAllKeys(Keys{
+							"kubernetes": BeEquivalentTo(providerUrn(providerA)),
+						}),
+					}),
+				}),
+			))
+			g.Expect(rr.Named(urn("kubernetes:yaml:ConfigGroup", "kubernetes:yaml:ConfigFile", "cg-options-./testdata/options/configgroup/manifest.yaml"),
+				"kubernetes:core/v1:ConfigMap", "cg-options-configgroup-cm-1")).To(HaveExactElements(
+				MatchFields(IgnoreExtras, Fields{
+					"Request": MatchFields(IgnoreExtras, Fields{
+						"Aliases":           ConsistOf(Alias("configgroup-cm-1-k8s-aliased"), Alias("cg-options-configgroup-cm-1-aliased")),
+						"Protect":           BeTrue(),
+						"Dependencies":      BeEmpty(),
+						"Provider":          BeEquivalentTo(providerUrn(providerA)),
+						"Version":           Equal("1.2.3"),
+						"PluginDownloadURL": Equal("https://a.pulumi.test"),
+						"Providers":         BeEmpty(),
+						"IgnoreChanges":     BeEmpty(),
+						"Object": PointTo(ProtobufStruct(MatchKeys(IgnoreExtras, Keys{
+							"metadata": MatchKeys(IgnoreExtras, Keys{
+								"name":        Equal("configgroup-cm-1"),
+								"annotations": And(HaveKey("pulumi.com/skipAwait"), HaveKey("transformed")),
+							}),
+						}))),
+					}),
+				}),
+			))
+
+			// ConfigGroup "cg-provider" with "provider" option that should propagate to children.
+			g.Expect(rr.Named(stackInfo.RootResource.URN,
+				"kubernetes:yaml:ConfigGroup", "cg-provider-cg-provider")).To(HaveExactElements(
+				MatchFields(IgnoreExtras, Fields{
+					"Request": MatchFields(IgnoreExtras, Fields{
+						"Provider": BeEmpty(),
+						"Version":  BeEmpty(),
+						"Providers": MatchAllKeys(Keys{
+							"kubernetes": BeEquivalentTo(providerUrn(providerB)),
+						}),
+					}),
+				}),
+			))
+
+			// ConfigGroup "cg-nullopts" with a stack transform to apply a "provider" option.
+			g.Expect(rr.Named(stackInfo.RootResource.URN,
+				"kubernetes:yaml:ConfigGroup", "cg-nullopts-cg-nullopts")).To(HaveExactElements(
+				MatchFields(IgnoreExtras, Fields{
+					"Request": MatchFields(IgnoreExtras, Fields{
+						"Provider": BeEmpty(),
+						"Version":  BeEmpty(),
+						"Providers": MatchAllKeys(Keys{
+							"kubernetes": BeEquivalentTo(providerUrn(providerNullOpts)),
+						}),
+					}),
+				}),
+			))
+
+			// --- ConfigFile ---
+
+			// ConfigFile "cf-options" with most options
+			g.Expect(rr.Named(stackInfo.RootResource.URN,
+				"kubernetes:yaml:ConfigFile", "cf-options-cf-options")).To(HaveExactElements(
+				// quirk: Python SDK applies resource_prefix ("cf-options") to the component itself.
+				MatchFields(IgnoreExtras, Fields{
+					"Request": MatchFields(IgnoreExtras, Fields{
+						"Aliases":           ConsistOf(Alias("cf-options-old"), Alias("cf-options-cf-options-aliased")),
+						"Protect":           BeTrue(),
+						"Dependencies":      ConsistOf(string(sleep.URN)),
+						"Provider":          BeEmpty(),
+						"Version":           Equal("1.2.3"),
+						"PluginDownloadURL": Equal("https://a.pulumi.test"),
+						"Providers": MatchAllKeys(Keys{
+							"kubernetes": BeEquivalentTo(providerUrn(providerA)),
+						}),
+					}),
+				}),
+			))
+			g.Expect(rr.Named(urn("", "kubernetes:yaml:ConfigFile", "cf-options-cf-options"),
+				"kubernetes:core/v1:ConfigMap", "cf-options-configfile-cm-1")).To(HaveExactElements(
+				MatchFields(IgnoreExtras, Fields{
+					"Request": MatchFields(IgnoreExtras, Fields{
+						"Aliases":           ConsistOf(Alias("configfile-cm-1-k8s-aliased"), Alias("cf-options-configfile-cm-1-aliased")),
+						"Protect":           BeTrue(),
+						"Dependencies":      BeEmpty(),
+						"Provider":          BeEquivalentTo(providerUrn(providerA)),
+						"Version":           Equal("1.2.3"),
+						"PluginDownloadURL": Equal("https://a.pulumi.test"),
+						"Providers":         BeEmpty(),
+						"IgnoreChanges":     BeEmpty(),
+						"Object": PointTo(ProtobufStruct(MatchKeys(IgnoreExtras, Keys{
+							"metadata": MatchKeys(IgnoreExtras, Keys{
+								"name":        Equal("configfile-cm-1"),
+								"annotations": And(HaveKey("pulumi.com/skipAwait"), HaveKey("transformed")),
+							}),
+						}))),
+					}),
+				}),
+			))
+
+			// ConfigFile "cf-provider" with "provider" option that should propagate to children.
+			g.Expect(rr.Named(stackInfo.RootResource.URN,
+				"kubernetes:yaml:ConfigFile", "cf-provider-cf-provider")).To(HaveExactElements(
+				// quirk: Python SDK applies resource_prefix ("cf-provider") to the component itself.
+				MatchFields(IgnoreExtras, Fields{
+					"Request": MatchFields(IgnoreExtras, Fields{
+						"Provider": BeEmpty(),
+						"Version":  BeEmpty(),
+						"Providers": MatchAllKeys(Keys{
+							"kubernetes": BeEquivalentTo(providerUrn(providerB)),
+						}),
+					}),
+				}),
+			))
+			g.Expect(rr.Named(urn("", "kubernetes:yaml:ConfigFile", "cf-provider-cf-provider"),
+				"kubernetes:core/v1:ConfigMap", "cf-provider-configfile-cm-1")).To(HaveExactElements(
+				MatchFields(IgnoreExtras, Fields{
+					"Request": MatchFields(IgnoreExtras, Fields{
+						"Provider":  BeEquivalentTo(providerUrn(providerB)),
+						"Version":   Not(BeEmpty()),
+						"Providers": BeEmpty(),
+						"Object": PointTo(ProtobufStruct(MatchKeys(IgnoreExtras, Keys{
+							"metadata": MatchKeys(IgnoreExtras, Keys{
+								"name": Equal("configfile-cm-1"),
+							}),
+						}))),
+					}),
+				}),
+			))
+
+			// ConfigFile "cf-nullopts" with a stack transform to apply a "provider" option.
+			g.Expect(rr.Named(stackInfo.RootResource.URN,
+				"kubernetes:yaml:ConfigFile", "cf-nullopts-cf-nullopts")).To(HaveExactElements(
+				// quirk: Python SDK applies resource_prefix ("cf-nullopts") to the component itself.
+				MatchFields(IgnoreExtras, Fields{
+					"Request": MatchFields(IgnoreExtras, Fields{
+						"Provider": BeEmpty(),
+						"Version":  BeEmpty(),
+						"Providers": MatchAllKeys(Keys{
+							"kubernetes": BeEquivalentTo(providerUrn(providerNullOpts)),
+						}),
+					}),
+				}),
+			))
+
+			// --- Directory ---
+
+			// Directory "kustomize-options" with most options
+			g.Expect(rr.Named(stackInfo.RootResource.URN,
+				"kubernetes:kustomize:Directory", "kustomize-options-kustomize-options")).To(HaveExactElements(
+				// quirk: Python SDK applies resource_prefix ("kustomize-options") to the component itself.
+				MatchFields(IgnoreExtras, Fields{
+					"Request": MatchFields(IgnoreExtras, Fields{
+						"Aliases":           ConsistOf(Alias("kustomize-options-old"), Alias("kustomize-options-kustomize-options-aliased")),
+						"Protect":           BeTrue(),
+						"Dependencies":      ConsistOf(string(sleep.URN)),
+						"Provider":          BeEmpty(),
+						"Version":           Equal("1.2.3"),
+						"PluginDownloadURL": Equal("https://a.pulumi.test"),
+						"Providers": MatchAllKeys(Keys{
+							"kubernetes": BeEquivalentTo(providerUrn(providerA)),
+						}),
+						"IgnoreChanges": ConsistOf("ignored"),
+					}),
+				}),
+			))
+			g.Expect(rr.Named(urn("", "kubernetes:kustomize:Directory", "kustomize-options-kustomize-options"),
+				"kubernetes:core/v1:ConfigMap", "kustomize-options-kustomize-cm-1-2kkk4bthmg")).To(HaveExactElements(
+				MatchFields(IgnoreExtras, Fields{
+					"Request": MatchFields(IgnoreExtras, Fields{
+						"Aliases":           ConsistOf(Alias("kustomize-cm-1-2kkk4bthmg-k8s-aliased"), Alias("kustomize-options-kustomize-cm-1-2kkk4bthmg-aliased")),
+						"Protect":           BeTrue(),
+						"Dependencies":      BeEmpty(),
+						"Provider":          BeEquivalentTo(providerUrn(providerA)),
+						"Version":           Equal("1.2.3"),
+						"PluginDownloadURL": Equal("https://a.pulumi.test"),
+						"Providers":         BeEmpty(),
+						"IgnoreChanges":     BeEmpty(),
+						"Object": PointTo(ProtobufStruct(MatchKeys(IgnoreExtras, Keys{
+							"metadata": MatchKeys(IgnoreExtras, Keys{
+								"name":        Equal("kustomize-cm-1-2kkk4bthmg"),
+								"annotations": And(HaveKey("transformed")),
+							}),
+						}))),
+					}),
+				}),
+			))
+
+			// Directory "kustomize-provider" with "provider" option that should propagate to children.
+			g.Expect(rr.Named(stackInfo.RootResource.URN,
+				"kubernetes:kustomize:Directory", "kustomize-provider-kustomize-provider")).To(HaveExactElements(
+				// quirk: Python SDK applies resource_prefix ("kustomize-provider") to the component itself.
+				MatchFields(IgnoreExtras, Fields{
+					"Request": MatchFields(IgnoreExtras, Fields{
+						"Provider": BeEmpty(),
+						"Version":  BeEmpty(),
+						"Providers": MatchAllKeys(Keys{
+							"kubernetes": BeEquivalentTo(providerUrn(providerB)),
+						}),
+					}),
+				}),
+			))
+			g.Expect(rr.Named(urn("", "kubernetes:kustomize:Directory", "kustomize-provider-kustomize-provider"),
+				"kubernetes:core/v1:ConfigMap", "kustomize-provider-kustomize-cm-1-2kkk4bthmg")).To(HaveExactElements(
+				MatchFields(IgnoreExtras, Fields{
+					"Request": MatchFields(IgnoreExtras, Fields{
+						"Provider":  BeEquivalentTo(providerUrn(providerB)),
+						"Version":   Not(BeEmpty()),
+						"Providers": BeEmpty(),
+					}),
+				}),
+			))
+
+			// Directory "kustomize-nullopts" with a stack transform to apply a "provider" option.
+			g.Expect(rr.Named(stackInfo.RootResource.URN,
+				"kubernetes:kustomize:Directory", "kustomize-nullopts-kustomize-nullopts")).To(HaveExactElements(
+				// quirk: Python SDK applies resource_prefix ("kustomize-nullopts") to the component itself.
+				MatchFields(IgnoreExtras, Fields{
+					"Request": MatchFields(IgnoreExtras, Fields{
+						"Provider": BeEmpty(),
+						"Version":  BeEmpty(),
+						"Providers": MatchAllKeys(Keys{
+							"kubernetes": BeEquivalentTo(providerUrn(providerNullOpts)),
+						}),
+					}),
+				}),
+			))
+
+			// --- Chart ---
+
+			// Chart "chart-options"
+			g.Expect(rr.Named(stackInfo.RootResource.URN,
+				"kubernetes:helm.sh/v3:Chart", "chart-options-chart-options")).To(HaveExactElements(
+				// quirk: Python SDK applies resource_prefix ("chart-options") to the component itself.
+				MatchFields(IgnoreExtras, Fields{
+					"Request": MatchFields(IgnoreExtras, Fields{
+						"Aliases":           ConsistOf(Alias("chart-options-old"), Alias("chart-options-chart-options-aliased"), AliasByType("kubernetes:helm.sh/v2:Chart")),
+						"Protect":           BeTrue(),
+						"Dependencies":      ConsistOf(string(sleep.URN)),
+						"Provider":          BeEmpty(),
+						"Version":           Equal("1.2.3"),
+						"PluginDownloadURL": Equal("https://a.pulumi.test"),
+						"Providers": MatchAllKeys(Keys{
+							"kubernetes": BeEquivalentTo(providerUrn(providerA)),
+						}),
+						"IgnoreChanges": ConsistOf("ignored"),
+					}),
+				}),
+			))
+			g.Expect(rr.Named(urn("", "kubernetes:helm.sh/v3:Chart", "chart-options-chart-options"),
+				"kubernetes:core/v1:ConfigMap", "chart-options-chart-options-cm-1")).To(HaveExactElements(
+				// quirk: Python SDK does NOT directly apply resource_prefix to the child resources (unlike other SDKs)
+				MatchFields(IgnoreExtras, Fields{
+					"Request": MatchFields(IgnoreExtras, Fields{
+						"Aliases":           ConsistOf(Alias("chart-options-chart-options-cm-1-k8s-aliased"), Alias("chart-options-chart-options-cm-1-aliased")),
+						"Protect":           BeTrue(),
+						"Dependencies":      BeEmpty(),
+						"Provider":          BeEquivalentTo(providerUrn(providerA)),
+						"Version":           Equal("1.2.3"),
+						"PluginDownloadURL": Equal("https://a.pulumi.test"),
+						"Providers":         BeEmpty(),
+						"IgnoreChanges":     BeEmpty(),
+						"Object": PointTo(ProtobufStruct(MatchKeys(IgnoreExtras, Keys{
+							"metadata": MatchKeys(IgnoreExtras, Keys{
+								"name":        Equal("chart-options-chart-options-cm-1"), // note: based on the Helm Release name
+								"annotations": And(HaveKey("pulumi.com/skipAwait")),
+							}),
+						}))),
+					}),
+				}),
+			))
+
+			// Chart "chart-provider" with "provider" option that should propagate to children.
+			g.Expect(rr.Named(stackInfo.RootResource.URN,
+				"kubernetes:helm.sh/v3:Chart", "chart-provider-chart-provider")).To(HaveExactElements(
+				// quirk: Python SDK applies resource_prefix ("chart-provider") to the component itself.
+				MatchFields(IgnoreExtras, Fields{
+					"Request": MatchFields(IgnoreExtras, Fields{
+						"Provider": BeEmpty(),
+						"Version":  BeEmpty(),
+						"Providers": MatchAllKeys(Keys{
+							"kubernetes": BeEquivalentTo(providerUrn(providerB)),
+						}),
+					}),
+				}),
+			))
+			g.Expect(rr.Named(urn("", "kubernetes:helm.sh/v3:Chart", "chart-provider-chart-provider"),
+				"kubernetes:core/v1:ConfigMap", "chart-provider-chart-provider-cm-1")).To(HaveExactElements(
+				MatchFields(IgnoreExtras, Fields{
+					"Request": MatchFields(IgnoreExtras, Fields{
+						"Provider":  BeEquivalentTo(providerUrn(providerB)),
+						"Version":   Not(BeEmpty()),
+						"Providers": BeEmpty(),
+					}),
+				}),
+			))
+
+			// Chart "chart-nullopts" with a stack transform to apply a "provider" option.
+			g.Expect(rr.Named(stackInfo.RootResource.URN,
+				"kubernetes:helm.sh/v3:Chart", "chart-nullopts-chart-nullopts")).To(HaveExactElements(
+				// quirk: Python SDK applies resource_prefix ("chart-options") to the component itself.
+				MatchFields(IgnoreExtras, Fields{
+					"Request": MatchFields(IgnoreExtras, Fields{
+						"Provider": BeEmpty(),
+						"Version":  BeEmpty(),
+						"Providers": MatchAllKeys(Keys{
+							"kubernetes": BeEquivalentTo(providerUrn(providerNullOpts)),
+						}),
+					}),
+				}),
+			))
+		},
+	})
+
+	pt := integration.ProgramTestManualLifeCycle(t, &options)
+
+	err = pt.TestLifeCyclePrepare()
+	require.NoError(t, err)
+	t.Cleanup(pt.TestCleanUp)
+	err = pt.TestLifeCycleInitialize()
+	require.NoError(t, err)
+	t.Cleanup(func() {
+		// to ensure cleanup, we need to unprotected all resources
+		err = pt.RunPulumiCommand("state", "unprotect", "--all", "-y")
+		contract.IgnoreError(err)
+
+		destroyErr := pt.TestLifeCycleDestroy()
+		contract.IgnoreError(destroyErr)
+	})
+
+	err = pt.TestPreviewUpdateAndEdits()
+	require.NoError(t, err)
 }
