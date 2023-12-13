@@ -107,17 +107,12 @@ func HasManagedByLabel(obj *unstructured.Unstructured) bool {
 		return true
 	}
 
-	// Check if the value is a string/exists.
+	labelVal := "pulumi"
+	if env, exists := os.LookupEnv("PULUMI_KUBERNETES_MANAGED_BY_LABEL"); exists {
+		labelVal = env
+	}
+
 	valStr, ok := val.(string)
-	if !ok {
-		return false
-	}
 
-	// Compare the obtained value with the value of `PULUMI_KUBERNETES_MANAGED_BY_LABEL` EnvVar if it exists.
-	labelVal, exists := os.LookupEnv("PULUMI_KUBERNETES_MANAGED_BY_LABEL")
-	if exists {
-		return labelVal == valStr
-	}
-
-	return valStr == "pulumi"
+	return ok && valStr == labelVal
 }
