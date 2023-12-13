@@ -92,3 +92,88 @@ func TestSetLabel(t *testing.T) {
 		})
 	}
 }
+
+func TestHasManagedByLabel(t *testing.T) {
+	tests := []struct {
+		name           string
+		obj            *unstructured.Unstructured
+		managedByLabel string
+		want           bool
+	}{
+		{
+			"Has pulumi manager - happy path",
+			&unstructured.Unstructured{Object: map[string]any{
+				"metadata": map[string]any{
+					"labels": map[string]any{
+						"app.kubernetes.io/managed-by": "pulumi",
+					},
+				},
+			}},
+			"",
+			true,
+		},
+		{
+			"Has pulumi manager - happy path with env matching",
+			&unstructured.Unstructured{Object: map[string]any{
+				"metadata": map[string]any{
+					"labels": map[string]any{
+						"app.kubernetes.io/managed-by": "pulumi",
+					},
+				},
+			}},
+			"pulumi",
+			true,
+		},
+		{
+			"Has non-pulumi manager - happy path with env matching",
+			&unstructured.Unstructured{Object: map[string]any{
+				"metadata": map[string]any{
+					"labels": map[string]any{
+						"app.kubernetes.io/managed-by": "fake-mgr",
+					},
+				},
+			}},
+			"fake-mgr",
+			true,
+		},
+		{
+			"Has non-pulumi manager - with mismatch env",
+			&unstructured.Unstructured{Object: map[string]any{
+				"metadata": map[string]any{
+					"labels": map[string]any{
+						"app.kubernetes.io/managed-by": "pulumi-mgr",
+					},
+				},
+			}},
+			"fake-mgr",
+			false,
+		},
+		{
+			"Has no manager label - with set env",
+			&unstructured.Unstructured{Object: map[string]any{
+				"metadata": map[string]any{},
+			}},
+			"fake-mgr",
+			false,
+		},
+		{
+			"Has no manager label - without env",
+			&unstructured.Unstructured{Object: map[string]any{
+				"metadata": map[string]any{},
+			}},
+			"",
+			false,
+		},
+	}
+	for _, tc := range tests {
+		t.Run(tc.name, func(t *testing.T) {
+			if tc.managedByLabel != "" {
+				t.Setenv("PULUMI_KUBERNETES_MANAGED_BY_LABEL", tc.managedByLabel)
+			}
+
+			if got := HasManagedByLabel(tc.obj); got != tc.want {
+				t.Errorf("HasManagedByLabel() = %v, want %v", got, tc.want)
+			}
+		})
+	}
+}

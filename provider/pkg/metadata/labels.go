@@ -106,12 +106,13 @@ func HasManagedByLabel(obj *unstructured.Unstructured) bool {
 	if isComputedValue(val) {
 		return true
 	}
-	// now we should check to see if the user has specified a label via EnvVar
-	// we should also check to see if that value is the same as what is in the metadata
-	labelVal, exists := os.LookupEnv("PULUMI_KUBERNETES_MANAGED_BY_LABEL")
-	if exists {
-		return labelVal == val.(string)
+
+	labelVal := "pulumi"
+	if env, exists := os.LookupEnv("PULUMI_KUBERNETES_MANAGED_BY_LABEL"); exists {
+		labelVal = env
 	}
-	str, ok := val.(string)
-	return ok && str == "pulumi"
+
+	valStr, ok := val.(string)
+
+	return ok && valStr == labelVal
 }
