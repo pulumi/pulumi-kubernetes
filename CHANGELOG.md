@@ -4,6 +4,7 @@
 - Fix: Fix: Helm Release fails with "the server could not find the requested resource" (https://github.com/pulumi/pulumi-kubernetes/pull/2677)
 - Fix Helm Chart resource lookup key handling for objects in default namespace (https://github.com/pulumi/pulumi-kubernetes/pull/2655)
 - Update Kubernetes schemas and libraries to v1.29.0 (https://github.com/pulumi/pulumi-kubernetes/pull/2690)
+- Fix panic when using `PULUMI_KUBERNETES_MANAGED_BY_LABEL` env var with SSA created objects (https://github.com/pulumi/pulumi-kubernetes/pull/2711)
 
 ## 4.5.5 (November 28, 2023)
 - Fix: Make the invoke calls for Helm charts and YAML config resilient to the value being None or an empty dict (https://github.com/pulumi/pulumi-kubernetes/pull/2665)
