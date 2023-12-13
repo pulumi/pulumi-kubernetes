@@ -3037,7 +3037,8 @@ export class ConfigGroup extends CollectionComponentResource {
      */
     constructor(name: string, config: ConfigGroupOpts, opts?: pulumi.ComponentResourceOptions) {
         super("kubernetes:yaml:ConfigGroup", name, config, opts);
-        this.resources = parse(config, {...opts, parent: this});
+        const childOpts = getChildOpts(this, opts);
+        this.resources = parse(config, childOpts);
     }
 }
 
@@ -3126,13 +3127,14 @@ export class ConfigFile extends CollectionComponentResource {
             transformations.push(skipAwait);
         }
 
-       this.resources = pulumi.output(text.then(t => {
+        const childOpts = getChildOpts(this, opts);
+        this.resources = pulumi.output(text.then(t => {
             try {
                 const parsed = parseYamlDocument({
-                    objs: yamlLoadAll(t, opts),
+                    objs: yamlLoadAll(t, childOpts),
                     transformations,
                     resourcePrefix: config && config.resourcePrefix || undefined
-                }, {...opts, parent: this});
+                }, childOpts);
                 // If the provider is not fully initialized, the engine skips invoking on the provider and returns an
                 // empty result. This may change based on how https://github.com/pulumi/pulumi/issues/10209 is addressed.
                 parsed.apply(p => {
@@ -3218,9 +3220,26 @@ export interface ConfigOpts {
     resourcePrefix?: string;
 }
 
-/** @ignore */ function yamlLoadAll(text: string, opts?: pulumi.ComponentResourceOptions): Promise<any[]> {
-    let invokeOpts: pulumi.InvokeOptions = { async: true, version: getVersion(), provider: opts?.provider };
+/** @ignore */ export function getChildOpts(parent: pulumi.Resource, opts?: pulumi.ComponentResourceOptions): pulumi.CustomResourceOptions {
+    return {
+        parent: parent,
+        ...opts?.version && {version: opts.version},
+        ...opts?.pluginDownloadURL && {pluginDownloadURL: opts.pluginDownloadURL}
+    };
+}
 
+/** @ignore */ export function getInvokeOpts(opts?: pulumi.CustomResourceOptions): pulumi.InvokeOptions {
+    return {
+        parent: opts?.parent,
+        provider: opts?.provider,
+        version: opts?.version ?? getVersion(),
+        pluginDownloadURL: opts?.pluginDownloadURL,
+        async: true
+    };
+}
+
+/** @ignore */ function yamlLoadAll(text: string, opts?: pulumi.CustomResourceOptions): Promise<any[]> {
+    const invokeOpts = getInvokeOpts(opts);
     return pulumi.runtime.invoke("kubernetes:yaml:decode", {text}, invokeOpts)
         .then(p => p.result);
 }
