@@ -17,6 +17,7 @@ package clients
 import (
 	"encoding/base64"
 	"fmt"
+	"strings"
 
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
@@ -115,10 +116,15 @@ func normalizeSecret(uns *unstructured.Unstructured) *unstructured.Unstructured 
 	contract.Assertf(IsSecret(uns), "normalizeSecret called on a non-Secret resource: %s:%s", uns.GetAPIVersion(), uns.GetKind())
 
 	stringData, found, err := unstructured.NestedStringMap(uns.Object, "stringData")
-	if err != nil || !found {
-		return uns
+	if err != nil || !found || len(stringData) == 0 {
+		// Normalize the .data field if .stringData is not present or empty.
+		return normalizeSecretData(uns)
 	}
 
+	return normalizeSecretStringData(stringData, uns)
+}
+
+func normalizeSecretStringData(stringData map[string]string, uns *unstructured.Unstructured) *unstructured.Unstructured {
 	data, found, err := unstructured.NestedMap(uns.Object, "data")
 	if err != nil || !found {
 		data = map[string]any{}
@@ -134,6 +140,25 @@ func normalizeSecret(uns *unstructured.Unstructured) *unstructured.Unstructured 
 		contract.IgnoreError(unstructured.SetNestedMap(uns.Object, data, "data"))
 		unstructured.RemoveNestedField(uns.Object, "stringData")
 	}
+
+	return uns
+}
+
+// normalizeSecretData normalizes the .data field of a Secret resource by trimming whitespace from string values.
+// This is necessary because the apiserver will trim whitespace from the .data field values, but the provider does not.
+func normalizeSecretData(uns *unstructured.Unstructured) *unstructured.Unstructured {
+	data, found, err := unstructured.NestedMap(uns.Object, "data")
+	if err != nil || !found || len(data) == 0 {
+		return uns
+	}
+
+	for k, v := range data {
+		if s, ok := v.(string); ok {
+			data[k] = strings.TrimSpace(s)
+		}
+	}
+
+	contract.IgnoreError(unstructured.SetNestedMap(uns.Object, data, "data"))
 
 	return uns
 }
