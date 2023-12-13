@@ -24,6 +24,11 @@ public final class LoadBalancerIngress {
      */
     private @Nullable String ip;
     /**
+     * @return IPMode specifies how the load-balancer IP behaves, and may only be specified when the ip field is specified. Setting this to &#34;VIP&#34; indicates that traffic is delivered to the node with the destination set to the load-balancer&#39;s IP and port. Setting this to &#34;Proxy&#34; indicates that traffic is delivered to the node or pod with the destination set to the node&#39;s IP and node port or the pod&#39;s IP and port. Service implementations may use this information to adjust traffic routing.
+     * 
+     */
+    private @Nullable String ipMode;
+    /**
      * @return Ports is a list of records of service ports If used, every port defined in the service should have an entry in it
      * 
      */
@@ -45,6 +50,13 @@ public final class LoadBalancerIngress {
         return Optional.ofNullable(this.ip);
     }
     /**
+     * @return IPMode specifies how the load-balancer IP behaves, and may only be specified when the ip field is specified. Setting this to &#34;VIP&#34; indicates that traffic is delivered to the node with the destination set to the load-balancer&#39;s IP and port. Setting this to &#34;Proxy&#34; indicates that traffic is delivered to the node or pod with the destination set to the node&#39;s IP and node port or the pod&#39;s IP and port. Service implementations may use this information to adjust traffic routing.
+     * 
+     */
+    public Optional<String> ipMode() {
+        return Optional.ofNullable(this.ipMode);
+    }
+    /**
      * @return Ports is a list of records of service ports If used, every port defined in the service should have an entry in it
      * 
      */
@@ -63,12 +75,14 @@ public final class LoadBalancerIngress {
     public static final class Builder {
         private @Nullable String hostname;
         private @Nullable String ip;
+        private @Nullable String ipMode;
         private @Nullable List<PortStatus> ports;
         public Builder() {}
         public Builder(LoadBalancerIngress defaults) {
     	      Objects.requireNonNull(defaults);
     	      this.hostname = defaults.hostname;
     	      this.ip = defaults.ip;
+    	      this.ipMode = defaults.ipMode;
     	      this.ports = defaults.ports;
         }
 
@@ -83,6 +97,11 @@ public final class LoadBalancerIngress {
             return this;
         }
         @CustomType.Setter
+        public Builder ipMode(@Nullable String ipMode) {
+            this.ipMode = ipMode;
+            return this;
+        }
+        @CustomType.Setter
         public Builder ports(@Nullable List<PortStatus> ports) {
             this.ports = ports;
             return this;
@@ -94,6 +113,7 @@ public final class LoadBalancerIngress {
             final var o = new LoadBalancerIngress();
             o.hostname = hostname;
             o.ip = ip;
+            o.ipMode = ipMode;
             o.ports = ports;
             return o;
         }

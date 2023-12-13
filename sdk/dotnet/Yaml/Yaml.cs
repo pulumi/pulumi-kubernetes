@@ -446,6 +446,18 @@ namespace Pulumi.Kubernetes.Yaml
                 case var t when t == typeof(Extensions.V1Beta1.ReplicaSetList):
                     groupVersionKind = "extensions/v1beta1/ReplicaSetList";
                     break;
+                case var t when t == typeof(FlowControl.V1.FlowSchema):
+                    groupVersionKind = "flowcontrol.apiserver.k8s.io/v1/FlowSchema";
+                    break;
+                case var t when t == typeof(FlowControl.V1.FlowSchemaList):
+                    groupVersionKind = "flowcontrol.apiserver.k8s.io/v1/FlowSchemaList";
+                    break;
+                case var t when t == typeof(FlowControl.V1.PriorityLevelConfiguration):
+                    groupVersionKind = "flowcontrol.apiserver.k8s.io/v1/PriorityLevelConfiguration";
+                    break;
+                case var t when t == typeof(FlowControl.V1.PriorityLevelConfigurationList):
+                    groupVersionKind = "flowcontrol.apiserver.k8s.io/v1/PriorityLevelConfigurationList";
+                    break;
                 case var t when t == typeof(FlowControl.V1Alpha1.FlowSchema):
                     groupVersionKind = "flowcontrol.apiserver.k8s.io/v1alpha1/FlowSchema";
                     break;
@@ -526,6 +538,12 @@ namespace Pulumi.Kubernetes.Yaml
                     break;
                 case var t when t == typeof(Networking.V1Alpha1.IPAddressList):
                     groupVersionKind = "networking.k8s.io/v1alpha1/IPAddressList";
+                    break;
+                case var t when t == typeof(Networking.V1Alpha1.ServiceCIDR):
+                    groupVersionKind = "networking.k8s.io/v1alpha1/ServiceCIDR";
+                    break;
+                case var t when t == typeof(Networking.V1Alpha1.ServiceCIDRList):
+                    groupVersionKind = "networking.k8s.io/v1alpha1/ServiceCIDRList";
                     break;
                 case var t when t == typeof(Networking.V1Beta1.Ingress):
                     groupVersionKind = "networking.k8s.io/v1beta1/Ingress";
@@ -754,6 +772,12 @@ namespace Pulumi.Kubernetes.Yaml
                     break;
                 case var t when t == typeof(Storage.V1Alpha1.VolumeAttachmentList):
                     groupVersionKind = "storage.k8s.io/v1alpha1/VolumeAttachmentList";
+                    break;
+                case var t when t == typeof(Storage.V1Alpha1.VolumeAttributesClass):
+                    groupVersionKind = "storage.k8s.io/v1alpha1/VolumeAttributesClass";
+                    break;
+                case var t when t == typeof(Storage.V1Alpha1.VolumeAttributesClassList):
+                    groupVersionKind = "storage.k8s.io/v1alpha1/VolumeAttributesClassList";
                     break;
                 case var t when t == typeof(Storage.V1Beta1.CSIDriver):
                     groupVersionKind = "storage.k8s.io/v1beta1/CSIDriver";
@@ -1057,6 +1081,8 @@ namespace Pulumi.Kubernetes.Yaml
                 || gvk == "extensions/v1beta1/NetworkPolicyList"
                 || gvk == "extensions/v1beta1/PodSecurityPolicyList"
                 || gvk == "extensions/v1beta1/ReplicaSetList"
+                || gvk == "flowcontrol.apiserver.k8s.io/v1/FlowSchemaList"
+                || gvk == "flowcontrol.apiserver.k8s.io/v1/PriorityLevelConfigurationList"
                 || gvk == "flowcontrol.apiserver.k8s.io/v1alpha1/FlowSchemaList"
                 || gvk == "flowcontrol.apiserver.k8s.io/v1alpha1/PriorityLevelConfigurationList"
                 || gvk == "flowcontrol.apiserver.k8s.io/v1beta1/FlowSchemaList"
@@ -1070,6 +1096,7 @@ namespace Pulumi.Kubernetes.Yaml
                 || gvk == "networking.k8s.io/v1/NetworkPolicyList"
                 || gvk == "networking.k8s.io/v1alpha1/ClusterCIDRList"
                 || gvk == "networking.k8s.io/v1alpha1/IPAddressList"
+                || gvk == "networking.k8s.io/v1alpha1/ServiceCIDRList"
                 || gvk == "networking.k8s.io/v1beta1/IngressClassList"
                 || gvk == "networking.k8s.io/v1beta1/IngressList"
                 || gvk == "node.k8s.io/v1/RuntimeClassList"
@@ -1108,6 +1135,7 @@ namespace Pulumi.Kubernetes.Yaml
                 || gvk == "storage.k8s.io/v1/StorageClassList"
                 || gvk == "storage.k8s.io/v1/VolumeAttachmentList"
                 || gvk == "storage.k8s.io/v1alpha1/VolumeAttachmentList"
+                || gvk == "storage.k8s.io/v1alpha1/VolumeAttributesClassList"
                 || gvk == "storage.k8s.io/v1beta1/CSIDriverList"
                 || gvk == "storage.k8s.io/v1beta1/CSINodeList"
                 || gvk == "storage.k8s.io/v1beta1/CSIStorageCapacityList"
@@ -1542,6 +1570,18 @@ namespace Pulumi.Kubernetes.Yaml
                             id.Apply(id => ($"extensions/v1beta1/ReplicaSet::{id}",
                                 new Extensions.V1Beta1.ReplicaSet(id, obj!, opts) as KubernetesResource))
                         };
+                    case "flowcontrol.apiserver.k8s.io/v1/FlowSchema":
+                        return new[]
+                        {
+                            id.Apply(id => ($"flowcontrol.apiserver.k8s.io/v1/FlowSchema::{id}",
+                                new FlowControl.V1.FlowSchema(id, obj!, opts) as KubernetesResource))
+                        };
+                    case "flowcontrol.apiserver.k8s.io/v1/PriorityLevelConfiguration":
+                        return new[]
+                        {
+                            id.Apply(id => ($"flowcontrol.apiserver.k8s.io/v1/PriorityLevelConfiguration::{id}",
+                                new FlowControl.V1.PriorityLevelConfiguration(id, obj!, opts) as KubernetesResource))
+                        };
                     case "flowcontrol.apiserver.k8s.io/v1alpha1/FlowSchema":
                         return new[]
                         {
@@ -1625,6 +1665,12 @@ namespace Pulumi.Kubernetes.Yaml
                         {
                             id.Apply(id => ($"networking.k8s.io/v1alpha1/IPAddress::{id}",
                                 new Networking.V1Alpha1.IPAddress(id, obj!, opts) as KubernetesResource))
+                        };
+                    case "networking.k8s.io/v1alpha1/ServiceCIDR":
+                        return new[]
+                        {
+                            id.Apply(id => ($"networking.k8s.io/v1alpha1/ServiceCIDR::{id}",
+                                new Networking.V1Alpha1.ServiceCIDR(id, obj!, opts) as KubernetesResource))
                         };
                     case "networking.k8s.io/v1beta1/Ingress":
                         return new[]
@@ -1853,6 +1899,12 @@ namespace Pulumi.Kubernetes.Yaml
                         {
                             id.Apply(id => ($"storage.k8s.io/v1alpha1/VolumeAttachment::{id}",
                                 new Storage.V1Alpha1.VolumeAttachment(id, obj!, opts) as KubernetesResource))
+                        };
+                    case "storage.k8s.io/v1alpha1/VolumeAttributesClass":
+                        return new[]
+                        {
+                            id.Apply(id => ($"storage.k8s.io/v1alpha1/VolumeAttributesClass::{id}",
+                                new Storage.V1Alpha1.VolumeAttributesClass(id, obj!, opts) as KubernetesResource))
                         };
                     case "storage.k8s.io/v1beta1/CSIDriver":
                         return new[]

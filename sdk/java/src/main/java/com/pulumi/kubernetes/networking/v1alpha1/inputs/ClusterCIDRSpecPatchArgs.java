@@ -22,14 +22,14 @@ public final class ClusterCIDRSpecPatchArgs extends com.pulumi.resources.Resourc
     public static final ClusterCIDRSpecPatchArgs Empty = new ClusterCIDRSpecPatchArgs();
 
     /**
-     * ipv4 defines an IPv4 IP block in CIDR notation(e.g. &#34;10.0.0.0/8&#34;). At least one of ipv4 and ipv6 must be specified. This field is immutable.
+     * IPv4 defines an IPv4 IP block in CIDR notation(e.g. &#34;10.0.0.0/8&#34;). At least one of IPv4 and IPv6 must be specified. This field is immutable.
      * 
      */
     @Import(name="ipv4")
     private @Nullable Output<String> ipv4;
 
     /**
-     * @return ipv4 defines an IPv4 IP block in CIDR notation(e.g. &#34;10.0.0.0/8&#34;). At least one of ipv4 and ipv6 must be specified. This field is immutable.
+     * @return IPv4 defines an IPv4 IP block in CIDR notation(e.g. &#34;10.0.0.0/8&#34;). At least one of IPv4 and IPv6 must be specified. This field is immutable.
      * 
      */
     public Optional<Output<String>> ipv4() {
@@ -37,14 +37,14 @@ public final class ClusterCIDRSpecPatchArgs extends com.pulumi.resources.Resourc
     }
 
     /**
-     * ipv6 defines an IPv6 IP block in CIDR notation(e.g. &#34;2001:db8::/64&#34;). At least one of ipv4 and ipv6 must be specified. This field is immutable.
+     * IPv6 defines an IPv6 IP block in CIDR notation(e.g. &#34;2001:db8::/64&#34;). At least one of IPv4 and IPv6 must be specified. This field is immutable.
      * 
      */
     @Import(name="ipv6")
     private @Nullable Output<String> ipv6;
 
     /**
-     * @return ipv6 defines an IPv6 IP block in CIDR notation(e.g. &#34;2001:db8::/64&#34;). At least one of ipv4 and ipv6 must be specified. This field is immutable.
+     * @return IPv6 defines an IPv6 IP block in CIDR notation(e.g. &#34;2001:db8::/64&#34;). At least one of IPv4 and IPv6 must be specified. This field is immutable.
      * 
      */
     public Optional<Output<String>> ipv6() {
@@ -52,14 +52,14 @@ public final class ClusterCIDRSpecPatchArgs extends com.pulumi.resources.Resourc
     }
 
     /**
-     * nodeSelector defines which nodes the config is applicable to. An empty or nil nodeSelector selects all nodes. This field is immutable.
+     * NodeSelector defines which nodes the config is applicable to. An empty or nil NodeSelector selects all nodes. This field is immutable.
      * 
      */
     @Import(name="nodeSelector")
     private @Nullable Output<NodeSelectorPatchArgs> nodeSelector;
 
     /**
-     * @return nodeSelector defines which nodes the config is applicable to. An empty or nil nodeSelector selects all nodes. This field is immutable.
+     * @return NodeSelector defines which nodes the config is applicable to. An empty or nil NodeSelector selects all nodes. This field is immutable.
      * 
      */
     public Optional<Output<NodeSelectorPatchArgs>> nodeSelector() {
@@ -67,14 +67,14 @@ public final class ClusterCIDRSpecPatchArgs extends com.pulumi.resources.Resourc
     }
 
     /**
-     * perNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a /24 mask for IPv4 or a /120 for IPv6). Minimum value is 4 (16 IPs). This field is immutable.
+     * PerNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a /24 mask for IPv4 or a /120 for IPv6). Minimum value is 4 (16 IPs). This field is immutable.
      * 
      */
     @Import(name="perNodeHostBits")
     private @Nullable Output<Integer> perNodeHostBits;
 
     /**
-     * @return perNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a /24 mask for IPv4 or a /120 for IPv6). Minimum value is 4 (16 IPs). This field is immutable.
+     * @return PerNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a /24 mask for IPv4 or a /120 for IPv6). Minimum value is 4 (16 IPs). This field is immutable.
      * 
      */
     public Optional<Output<Integer>> perNodeHostBits() {
@@ -109,7 +109,7 @@ public final class ClusterCIDRSpecPatchArgs extends com.pulumi.resources.Resourc
         }
 
         /**
-         * @param ipv4 ipv4 defines an IPv4 IP block in CIDR notation(e.g. &#34;10.0.0.0/8&#34;). At least one of ipv4 and ipv6 must be specified. This field is immutable.
+         * @param ipv4 IPv4 defines an IPv4 IP block in CIDR notation(e.g. &#34;10.0.0.0/8&#34;). At least one of IPv4 and IPv6 must be specified. This field is immutable.
          * 
          * @return builder
          * 
@@ -120,7 +120,7 @@ public final class ClusterCIDRSpecPatchArgs extends com.pulumi.resources.Resourc
         }
 
         /**
-         * @param ipv4 ipv4 defines an IPv4 IP block in CIDR notation(e.g. &#34;10.0.0.0/8&#34;). At least one of ipv4 and ipv6 must be specified. This field is immutable.
+         * @param ipv4 IPv4 defines an IPv4 IP block in CIDR notation(e.g. &#34;10.0.0.0/8&#34;). At least one of IPv4 and IPv6 must be specified. This field is immutable.
          * 
          * @return builder
          * 
@@ -130,7 +130,7 @@ public final class ClusterCIDRSpecPatchArgs extends com.pulumi.resources.Resourc
         }
 
         /**
-         * @param ipv6 ipv6 defines an IPv6 IP block in CIDR notation(e.g. &#34;2001:db8::/64&#34;). At least one of ipv4 and ipv6 must be specified. This field is immutable.
+         * @param ipv6 IPv6 defines an IPv6 IP block in CIDR notation(e.g. &#34;2001:db8::/64&#34;). At least one of IPv4 and IPv6 must be specified. This field is immutable.
          * 
          * @return builder
          * 
@@ -141,7 +141,7 @@ public final class ClusterCIDRSpecPatchArgs extends com.pulumi.resources.Resourc
         }
 
         /**
-         * @param ipv6 ipv6 defines an IPv6 IP block in CIDR notation(e.g. &#34;2001:db8::/64&#34;). At least one of ipv4 and ipv6 must be specified. This field is immutable.
+         * @param ipv6 IPv6 defines an IPv6 IP block in CIDR notation(e.g. &#34;2001:db8::/64&#34;). At least one of IPv4 and IPv6 must be specified. This field is immutable.
          * 
          * @return builder
          * 
@@ -151,7 +151,7 @@ public final class ClusterCIDRSpecPatchArgs extends com.pulumi.resources.Resourc
         }
 
         /**
-         * @param nodeSelector nodeSelector defines which nodes the config is applicable to. An empty or nil nodeSelector selects all nodes. This field is immutable.
+         * @param nodeSelector NodeSelector defines which nodes the config is applicable to. An empty or nil NodeSelector selects all nodes. This field is immutable.
          * 
          * @return builder
          * 
@@ -162,7 +162,7 @@ public final class ClusterCIDRSpecPatchArgs extends com.pulumi.resources.Resourc
         }
 
         /**
-         * @param nodeSelector nodeSelector defines which nodes the config is applicable to. An empty or nil nodeSelector selects all nodes. This field is immutable.
+         * @param nodeSelector NodeSelector defines which nodes the config is applicable to. An empty or nil NodeSelector selects all nodes. This field is immutable.
          * 
          * @return builder
          * 
@@ -172,7 +172,7 @@ public final class ClusterCIDRSpecPatchArgs extends com.pulumi.resources.Resourc
         }
 
         /**
-         * @param perNodeHostBits perNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a /24 mask for IPv4 or a /120 for IPv6). Minimum value is 4 (16 IPs). This field is immutable.
+         * @param perNodeHostBits PerNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a /24 mask for IPv4 or a /120 for IPv6). Minimum value is 4 (16 IPs). This field is immutable.
          * 
          * @return builder
          * 
@@ -183,7 +183,7 @@ public final class ClusterCIDRSpecPatchArgs extends com.pulumi.resources.Resourc
         }
 
         /**
-         * @param perNodeHostBits perNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a /24 mask for IPv4 or a /120 for IPv6). Minimum value is 4 (16 IPs). This field is immutable.
+         * @param perNodeHostBits PerNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a /24 mask for IPv4 or a /120 for IPv6). Minimum value is 4 (16 IPs). This field is immutable.
          * 
          * @return builder
          * 

@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.kubernetes.core.v1.outputs.ModifyVolumeStatus;
 import com.pulumi.kubernetes.core.v1.outputs.PersistentVolumeClaimCondition;
 import java.lang.String;
 import java.util.List;
@@ -78,6 +79,16 @@ public final class PersistentVolumeClaimStatus {
      * 
      */
     private @Nullable List<PersistentVolumeClaimCondition> conditions;
+    /**
+     * @return currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim This is an alpha field and requires enabling VolumeAttributesClass feature.
+     * 
+     */
+    private @Nullable String currentVolumeAttributesClassName;
+    /**
+     * @return ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted. This is an alpha field and requires enabling VolumeAttributesClass feature.
+     * 
+     */
+    private @Nullable ModifyVolumeStatus modifyVolumeStatus;
     /**
      * @return phase represents the current phase of PersistentVolumeClaim.
      * 
@@ -165,6 +176,20 @@ public final class PersistentVolumeClaimStatus {
         return this.conditions == null ? List.of() : this.conditions;
     }
     /**
+     * @return currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim This is an alpha field and requires enabling VolumeAttributesClass feature.
+     * 
+     */
+    public Optional<String> currentVolumeAttributesClassName() {
+        return Optional.ofNullable(this.currentVolumeAttributesClassName);
+    }
+    /**
+     * @return ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted. This is an alpha field and requires enabling VolumeAttributesClass feature.
+     * 
+     */
+    public Optional<ModifyVolumeStatus> modifyVolumeStatus() {
+        return Optional.ofNullable(this.modifyVolumeStatus);
+    }
+    /**
      * @return phase represents the current phase of PersistentVolumeClaim.
      * 
      */
@@ -193,6 +218,8 @@ public final class PersistentVolumeClaimStatus {
         private @Nullable Map<String,String> allocatedResources;
         private @Nullable Map<String,String> capacity;
         private @Nullable List<PersistentVolumeClaimCondition> conditions;
+        private @Nullable String currentVolumeAttributesClassName;
+        private @Nullable ModifyVolumeStatus modifyVolumeStatus;
         private @Nullable String phase;
         private @Nullable String resizeStatus;
         public Builder() {}
@@ -203,6 +230,8 @@ public final class PersistentVolumeClaimStatus {
     	      this.allocatedResources = defaults.allocatedResources;
     	      this.capacity = defaults.capacity;
     	      this.conditions = defaults.conditions;
+    	      this.currentVolumeAttributesClassName = defaults.currentVolumeAttributesClassName;
+    	      this.modifyVolumeStatus = defaults.modifyVolumeStatus;
     	      this.phase = defaults.phase;
     	      this.resizeStatus = defaults.resizeStatus;
         }
@@ -239,6 +268,16 @@ public final class PersistentVolumeClaimStatus {
             return conditions(List.of(conditions));
         }
         @CustomType.Setter
+        public Builder currentVolumeAttributesClassName(@Nullable String currentVolumeAttributesClassName) {
+            this.currentVolumeAttributesClassName = currentVolumeAttributesClassName;
+            return this;
+        }
+        @CustomType.Setter
+        public Builder modifyVolumeStatus(@Nullable ModifyVolumeStatus modifyVolumeStatus) {
+            this.modifyVolumeStatus = modifyVolumeStatus;
+            return this;
+        }
+        @CustomType.Setter
         public Builder phase(@Nullable String phase) {
             this.phase = phase;
             return this;
@@ -255,6 +294,8 @@ public final class PersistentVolumeClaimStatus {
             o.allocatedResources = allocatedResources;
             o.capacity = capacity;
             o.conditions = conditions;
+            o.currentVolumeAttributesClassName = currentVolumeAttributesClassName;
+            o.modifyVolumeStatus = modifyVolumeStatus;
             o.phase = phase;
             o.resizeStatus = resizeStatus;
             return o;

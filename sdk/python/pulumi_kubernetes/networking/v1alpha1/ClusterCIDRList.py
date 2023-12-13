@@ -24,7 +24,7 @@ class ClusterCIDRListArgs:
                  metadata: Optional[pulumi.Input['_meta.v1.ListMetaArgs']] = None):
         """
         The set of arguments for constructing a ClusterCIDRList resource.
-        :param pulumi.Input[Sequence[pulumi.Input['ClusterCIDRArgs']]] items: items is the list of ClusterCIDRs.
+        :param pulumi.Input[Sequence[pulumi.Input['ClusterCIDRArgs']]] items: Items is the list of ClusterCIDRs.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ListMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -41,7 +41,7 @@ class ClusterCIDRListArgs:
     @pulumi.getter
     def items(self) -> pulumi.Input[Sequence[pulumi.Input['ClusterCIDRArgs']]]:
         """
-        items is the list of ClusterCIDRs.
+        Items is the list of ClusterCIDRs.
         """
         return pulumi.get(self, "items")
 
@@ -102,7 +102,7 @@ class ClusterCIDRList(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['ClusterCIDRArgs']]]] items: items is the list of ClusterCIDRs.
+        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['ClusterCIDRArgs']]]] items: Items is the list of ClusterCIDRs.
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input[pulumi.InputType['_meta.v1.ListMetaArgs']] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
@@ -189,7 +189,7 @@ class ClusterCIDRList(pulumi.CustomResource):
     @pulumi.getter
     def items(self) -> pulumi.Output[Sequence['outputs.ClusterCIDR']]:
         """
-        items is the list of ClusterCIDRs.
+        Items is the list of ClusterCIDRs.
         """
         return pulumi.get(self, "items")
 

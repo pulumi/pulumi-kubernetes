@@ -492,6 +492,19 @@ _utilities.register(
  },
  {
   "pkg": "kubernetes",
+  "mod": "flowcontrol.apiserver.k8s.io/v1",
+  "fqn": "pulumi_kubernetes.flowcontrol.v1",
+  "classes": {
+   "kubernetes:flowcontrol.apiserver.k8s.io/v1:FlowSchema": "FlowSchema",
+   "kubernetes:flowcontrol.apiserver.k8s.io/v1:FlowSchemaList": "FlowSchemaList",
+   "kubernetes:flowcontrol.apiserver.k8s.io/v1:FlowSchemaPatch": "FlowSchemaPatch",
+   "kubernetes:flowcontrol.apiserver.k8s.io/v1:PriorityLevelConfiguration": "PriorityLevelConfiguration",
+   "kubernetes:flowcontrol.apiserver.k8s.io/v1:PriorityLevelConfigurationList": "PriorityLevelConfigurationList",
+   "kubernetes:flowcontrol.apiserver.k8s.io/v1:PriorityLevelConfigurationPatch": "PriorityLevelConfigurationPatch"
+  }
+ },
+ {
+  "pkg": "kubernetes",
   "mod": "flowcontrol.apiserver.k8s.io/v1alpha1",
   "fqn": "pulumi_kubernetes.flowcontrol.v1alpha1",
   "classes": {
@@ -585,7 +598,10 @@ _utilities.register(
    "kubernetes:networking.k8s.io/v1alpha1:ClusterCIDRPatch": "ClusterCIDRPatch",
    "kubernetes:networking.k8s.io/v1alpha1:IPAddress": "IPAddress",
    "kubernetes:networking.k8s.io/v1alpha1:IPAddressList": "IPAddressList",
-   "kubernetes:networking.k8s.io/v1alpha1:IPAddressPatch": "IPAddressPatch"
+   "kubernetes:networking.k8s.io/v1alpha1:IPAddressPatch": "IPAddressPatch",
+   "kubernetes:networking.k8s.io/v1alpha1:ServiceCIDR": "ServiceCIDR",
+   "kubernetes:networking.k8s.io/v1alpha1:ServiceCIDRList": "ServiceCIDRList",
+   "kubernetes:networking.k8s.io/v1alpha1:ServiceCIDRPatch": "ServiceCIDRPatch"
   }
  },
  {
@@ -818,7 +834,10 @@ _utilities.register(
   "classes": {
    "kubernetes:storage.k8s.io/v1alpha1:VolumeAttachment": "VolumeAttachment",
    "kubernetes:storage.k8s.io/v1alpha1:VolumeAttachmentList": "VolumeAttachmentList",
-   "kubernetes:storage.k8s.io/v1alpha1:VolumeAttachmentPatch": "VolumeAttachmentPatch"
+   "kubernetes:storage.k8s.io/v1alpha1:VolumeAttachmentPatch": "VolumeAttachmentPatch",
+   "kubernetes:storage.k8s.io/v1alpha1:VolumeAttributesClass": "VolumeAttributesClass",
+   "kubernetes:storage.k8s.io/v1alpha1:VolumeAttributesClassList": "VolumeAttributesClassList",
+   "kubernetes:storage.k8s.io/v1alpha1:VolumeAttributesClassPatch": "VolumeAttributesClassPatch"
   }
  },
  {

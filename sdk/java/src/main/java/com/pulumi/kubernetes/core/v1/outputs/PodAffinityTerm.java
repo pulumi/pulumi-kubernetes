@@ -14,10 +14,20 @@ import javax.annotation.Nullable;
 @CustomType
 public final class PodAffinityTerm {
     /**
-     * @return A label query over a set of resources, in this case pods.
+     * @return A label query over a set of resources, in this case pods. If it&#39;s null, this PodAffinityTerm matches with no Pods.
      * 
      */
     private @Nullable LabelSelector labelSelector;
+    /**
+     * @return MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `LabelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod&#39;s pod (anti) affinity. Keys that don&#39;t exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both MatchLabelKeys and LabelSelector. Also, MatchLabelKeys cannot be set when LabelSelector isn&#39;t set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
+     * 
+     */
+    private @Nullable List<String> matchLabelKeys;
+    /**
+     * @return MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `LabelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod&#39;s pod (anti) affinity. Keys that don&#39;t exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both MismatchLabelKeys and LabelSelector. Also, MismatchLabelKeys cannot be set when LabelSelector isn&#39;t set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
+     * 
+     */
+    private @Nullable List<String> mismatchLabelKeys;
     /**
      * @return A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means &#34;this pod&#39;s namespace&#34;. An empty selector ({}) matches all namespaces.
      * 
@@ -36,11 +46,25 @@ public final class PodAffinityTerm {
 
     private PodAffinityTerm() {}
     /**
-     * @return A label query over a set of resources, in this case pods.
+     * @return A label query over a set of resources, in this case pods. If it&#39;s null, this PodAffinityTerm matches with no Pods.
      * 
      */
     public Optional<LabelSelector> labelSelector() {
         return Optional.ofNullable(this.labelSelector);
+    }
+    /**
+     * @return MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `LabelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod&#39;s pod (anti) affinity. Keys that don&#39;t exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both MatchLabelKeys and LabelSelector. Also, MatchLabelKeys cannot be set when LabelSelector isn&#39;t set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
+     * 
+     */
+    public List<String> matchLabelKeys() {
+        return this.matchLabelKeys == null ? List.of() : this.matchLabelKeys;
+    }
+    /**
+     * @return MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `LabelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod&#39;s pod (anti) affinity. Keys that don&#39;t exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both MismatchLabelKeys and LabelSelector. Also, MismatchLabelKeys cannot be set when LabelSelector isn&#39;t set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
+     * 
+     */
+    public List<String> mismatchLabelKeys() {
+        return this.mismatchLabelKeys == null ? List.of() : this.mismatchLabelKeys;
     }
     /**
      * @return A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means &#34;this pod&#39;s namespace&#34;. An empty selector ({}) matches all namespaces.
@@ -74,6 +98,8 @@ public final class PodAffinityTerm {
     @CustomType.Builder
     public static final class Builder {
         private @Nullable LabelSelector labelSelector;
+        private @Nullable List<String> matchLabelKeys;
+        private @Nullable List<String> mismatchLabelKeys;
         private @Nullable LabelSelector namespaceSelector;
         private @Nullable List<String> namespaces;
         private String topologyKey;
@@ -81,6 +107,8 @@ public final class PodAffinityTerm {
         public Builder(PodAffinityTerm defaults) {
     	      Objects.requireNonNull(defaults);
     	      this.labelSelector = defaults.labelSelector;
+    	      this.matchLabelKeys = defaults.matchLabelKeys;
+    	      this.mismatchLabelKeys = defaults.mismatchLabelKeys;
     	      this.namespaceSelector = defaults.namespaceSelector;
     	      this.namespaces = defaults.namespaces;
     	      this.topologyKey = defaults.topologyKey;
@@ -90,6 +118,22 @@ public final class PodAffinityTerm {
         public Builder labelSelector(@Nullable LabelSelector labelSelector) {
             this.labelSelector = labelSelector;
             return this;
+        }
+        @CustomType.Setter
+        public Builder matchLabelKeys(@Nullable List<String> matchLabelKeys) {
+            this.matchLabelKeys = matchLabelKeys;
+            return this;
+        }
+        public Builder matchLabelKeys(String... matchLabelKeys) {
+            return matchLabelKeys(List.of(matchLabelKeys));
+        }
+        @CustomType.Setter
+        public Builder mismatchLabelKeys(@Nullable List<String> mismatchLabelKeys) {
+            this.mismatchLabelKeys = mismatchLabelKeys;
+            return this;
+        }
+        public Builder mismatchLabelKeys(String... mismatchLabelKeys) {
+            return mismatchLabelKeys(List.of(mismatchLabelKeys));
         }
         @CustomType.Setter
         public Builder namespaceSelector(@Nullable LabelSelector namespaceSelector) {
@@ -112,6 +156,8 @@ public final class PodAffinityTerm {
         public PodAffinityTerm build() {
             final var o = new PodAffinityTerm();
             o.labelSelector = labelSelector;
+            o.matchLabelKeys = matchLabelKeys;
+            o.mismatchLabelKeys = mismatchLabelKeys;
             o.namespaceSelector = namespaceSelector;
             o.namespaces = namespaces;
             o.topologyKey = topologyKey;

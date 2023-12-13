@@ -7,6 +7,7 @@ import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.kubernetes.core.v1.inputs.ExecActionPatchArgs;
 import com.pulumi.kubernetes.core.v1.inputs.HTTPGetActionPatchArgs;
+import com.pulumi.kubernetes.core.v1.inputs.SleepActionPatchArgs;
 import com.pulumi.kubernetes.core.v1.inputs.TCPSocketActionPatchArgs;
 import java.util.Objects;
 import java.util.Optional;
@@ -52,6 +53,21 @@ public final class LifecycleHandlerPatchArgs extends com.pulumi.resources.Resour
     }
 
     /**
+     * Sleep represents the duration that the container should sleep before being terminated.
+     * 
+     */
+    @Import(name="sleep")
+    private @Nullable Output<SleepActionPatchArgs> sleep;
+
+    /**
+     * @return Sleep represents the duration that the container should sleep before being terminated.
+     * 
+     */
+    public Optional<Output<SleepActionPatchArgs>> sleep() {
+        return Optional.ofNullable(this.sleep);
+    }
+
+    /**
      * Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
      * 
      */
@@ -71,6 +87,7 @@ public final class LifecycleHandlerPatchArgs extends com.pulumi.resources.Resour
     private LifecycleHandlerPatchArgs(LifecycleHandlerPatchArgs $) {
         this.exec = $.exec;
         this.httpGet = $.httpGet;
+        this.sleep = $.sleep;
         this.tcpSocket = $.tcpSocket;
     }
 
@@ -132,6 +149,27 @@ public final class LifecycleHandlerPatchArgs extends com.pulumi.resources.Resour
          */
         public Builder httpGet(HTTPGetActionPatchArgs httpGet) {
             return httpGet(Output.of(httpGet));
+        }
+
+        /**
+         * @param sleep Sleep represents the duration that the container should sleep before being terminated.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder sleep(@Nullable Output<SleepActionPatchArgs> sleep) {
+            $.sleep = sleep;
+            return this;
+        }
+
+        /**
+         * @param sleep Sleep represents the duration that the container should sleep before being terminated.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder sleep(SleepActionPatchArgs sleep) {
+            return sleep(Output.of(sleep));
         }
 
         /**

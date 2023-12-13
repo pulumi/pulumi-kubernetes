@@ -41,14 +41,12 @@ public final class JobStatusPatch {
      */
     private @Nullable Integer failed;
     /**
-     * @return FailedIndexes holds the failed indexes when backoffLimitPerIndex=true. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as &#34;1,3-5,7&#34;. This field is alpha-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (disabled by default).
+     * @return FailedIndexes holds the failed indexes when backoffLimitPerIndex=true. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as &#34;1,3-5,7&#34;. This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
      * 
      */
     private @Nullable String failedIndexes;
     /**
      * @return The number of pods which have a Ready condition.
-     * 
-     * This field is beta-level. The job controller populates the field when the feature gate JobReadyPods is enabled (enabled by default).
      * 
      */
     private @Nullable Integer ready;
@@ -65,7 +63,7 @@ public final class JobStatusPatch {
     /**
      * @return The number of pods which are terminating (in phase Pending or Running and have a deletionTimestamp).
      * 
-     * This field is alpha-level. The job controller populates the field when the feature gate JobPodReplacementPolicy is enabled (disabled by default).
+     * This field is beta-level. The job controller populates the field when the feature gate JobPodReplacementPolicy is enabled (enabled by default).
      * 
      */
     private @Nullable Integer terminating;
@@ -119,7 +117,7 @@ public final class JobStatusPatch {
         return Optional.ofNullable(this.failed);
     }
     /**
-     * @return FailedIndexes holds the failed indexes when backoffLimitPerIndex=true. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as &#34;1,3-5,7&#34;. This field is alpha-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (disabled by default).
+     * @return FailedIndexes holds the failed indexes when backoffLimitPerIndex=true. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as &#34;1,3-5,7&#34;. This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
      * 
      */
     public Optional<String> failedIndexes() {
@@ -127,8 +125,6 @@ public final class JobStatusPatch {
     }
     /**
      * @return The number of pods which have a Ready condition.
-     * 
-     * This field is beta-level. The job controller populates the field when the feature gate JobReadyPods is enabled (enabled by default).
      * 
      */
     public Optional<Integer> ready() {
@@ -151,7 +147,7 @@ public final class JobStatusPatch {
     /**
      * @return The number of pods which are terminating (in phase Pending or Running and have a deletionTimestamp).
      * 
-     * This field is alpha-level. The job controller populates the field when the feature gate JobPodReplacementPolicy is enabled (disabled by default).
+     * This field is beta-level. The job controller populates the field when the feature gate JobPodReplacementPolicy is enabled (enabled by default).
      * 
      */
     public Optional<Integer> terminating() {

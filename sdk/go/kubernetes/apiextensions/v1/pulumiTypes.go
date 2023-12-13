@@ -6421,6 +6421,14 @@ type ValidationRule struct {
 	Message *string `pulumi:"message"`
 	// MessageExpression declares a CEL expression that evaluates to the validation failure message that is returned when this rule fails. Since messageExpression is used as a failure message, it must evaluate to a string. If both message and messageExpression are present on a rule, then messageExpression will be used if validation fails. If messageExpression results in a runtime error, the runtime error is logged, and the validation failure message is produced as if the messageExpression field were unset. If messageExpression evaluates to an empty string, a string with only spaces, or a string that contains line breaks, then the validation failure message will also be produced as if the messageExpression field were unset, and the fact that messageExpression produced an empty string/string with only spaces/string with line breaks will be logged. messageExpression has access to all the same variables as the rule; the only difference is the return type. Example: "x must be less than max ("+string(self.max)+")"
 	MessageExpression *string `pulumi:"messageExpression"`
+	// optionalOldSelf is used to opt a transition rule into evaluation even when the object is first created, or if the old object is missing the value.
+	//
+	// When enabled `oldSelf` will be a CEL optional whose value will be `None` if there is no old value, or when the object is initially created.
+	//
+	// You may check for presence of oldSelf using `oldSelf.hasValue()` and unwrap it after checking using `oldSelf.value()`. Check the CEL documentation for Optional types for more information: https://pkg.go.dev/github.com/google/cel-go/cel#OptionalTypes
+	//
+	// May not be set unless `oldSelf` is used in `rule`.
+	OptionalOldSelf *bool `pulumi:"optionalOldSelf"`
 	// reason provides a machine-readable validation failure reason that is returned to the caller when a request fails this validation rule. The HTTP status code returned to the caller will match the reason of the reason of the first failed validation rule. The currently supported reasons are: "FieldValueInvalid", "FieldValueForbidden", "FieldValueRequired", "FieldValueDuplicate". If not set, default to use "FieldValueInvalid". All future added reasons must be accepted by clients when reading this value and unknown reasons should be treated as FieldValueInvalid.
 	Reason *string `pulumi:"reason"`
 	// Rule represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec The Rule is scoped to the location of the x-kubernetes-validations extension in the schema. The `self` variable in the CEL expression is bound to the scoped value. Example: - Rule scoped to the root of a resource with a status subresource: {"rule": "self.status.actual <= self.spec.maxDesired"}
@@ -6448,6 +6456,14 @@ type ValidationRule struct {
 	//   - 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
 	//     are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
 	//     non-intersecting keys are appended, retaining their partial order.
+	//
+	// If `rule` makes use of the `oldSelf` variable it is implicitly a `transition rule`.
+	//
+	// By default, the `oldSelf` variable is the same type as `self`. When `optionalOldSelf` is true, the `oldSelf` variable is a CEL optional
+	//  variable whose value() is the same type as `self`.
+	// See the documentation for the `optionalOldSelf` field for details.
+	//
+	// Transition rules by default are applied only on UPDATE requests and are skipped if an old value could not be found. You can opt a transition rule into unconditional evaluation by setting `optionalOldSelf` to true.
 	Rule string `pulumi:"rule"`
 }
 
@@ -6470,6 +6486,14 @@ type ValidationRuleArgs struct {
 	Message pulumi.StringPtrInput `pulumi:"message"`
 	// MessageExpression declares a CEL expression that evaluates to the validation failure message that is returned when this rule fails. Since messageExpression is used as a failure message, it must evaluate to a string. If both message and messageExpression are present on a rule, then messageExpression will be used if validation fails. If messageExpression results in a runtime error, the runtime error is logged, and the validation failure message is produced as if the messageExpression field were unset. If messageExpression evaluates to an empty string, a string with only spaces, or a string that contains line breaks, then the validation failure message will also be produced as if the messageExpression field were unset, and the fact that messageExpression produced an empty string/string with only spaces/string with line breaks will be logged. messageExpression has access to all the same variables as the rule; the only difference is the return type. Example: "x must be less than max ("+string(self.max)+")"
 	MessageExpression pulumi.StringPtrInput `pulumi:"messageExpression"`
+	// optionalOldSelf is used to opt a transition rule into evaluation even when the object is first created, or if the old object is missing the value.
+	//
+	// When enabled `oldSelf` will be a CEL optional whose value will be `None` if there is no old value, or when the object is initially created.
+	//
+	// You may check for presence of oldSelf using `oldSelf.hasValue()` and unwrap it after checking using `oldSelf.value()`. Check the CEL documentation for Optional types for more information: https://pkg.go.dev/github.com/google/cel-go/cel#OptionalTypes
+	//
+	// May not be set unless `oldSelf` is used in `rule`.
+	OptionalOldSelf pulumi.BoolPtrInput `pulumi:"optionalOldSelf"`
 	// reason provides a machine-readable validation failure reason that is returned to the caller when a request fails this validation rule. The HTTP status code returned to the caller will match the reason of the reason of the first failed validation rule. The currently supported reasons are: "FieldValueInvalid", "FieldValueForbidden", "FieldValueRequired", "FieldValueDuplicate". If not set, default to use "FieldValueInvalid". All future added reasons must be accepted by clients when reading this value and unknown reasons should be treated as FieldValueInvalid.
 	Reason pulumi.StringPtrInput `pulumi:"reason"`
 	// Rule represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec The Rule is scoped to the location of the x-kubernetes-validations extension in the schema. The `self` variable in the CEL expression is bound to the scoped value. Example: - Rule scoped to the root of a resource with a status subresource: {"rule": "self.status.actual <= self.spec.maxDesired"}
@@ -6497,6 +6521,14 @@ type ValidationRuleArgs struct {
 	//   - 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
 	//     are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
 	//     non-intersecting keys are appended, retaining their partial order.
+	//
+	// If `rule` makes use of the `oldSelf` variable it is implicitly a `transition rule`.
+	//
+	// By default, the `oldSelf` variable is the same type as `self`. When `optionalOldSelf` is true, the `oldSelf` variable is a CEL optional
+	//  variable whose value() is the same type as `self`.
+	// See the documentation for the `optionalOldSelf` field for details.
+	//
+	// Transition rules by default are applied only on UPDATE requests and are skipped if an old value could not be found. You can opt a transition rule into unconditional evaluation by setting `optionalOldSelf` to true.
 	Rule pulumi.StringInput `pulumi:"rule"`
 }
 
@@ -6567,6 +6599,17 @@ func (o ValidationRuleOutput) MessageExpression() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ValidationRule) *string { return v.MessageExpression }).(pulumi.StringPtrOutput)
 }
 
+// optionalOldSelf is used to opt a transition rule into evaluation even when the object is first created, or if the old object is missing the value.
+//
+// When enabled `oldSelf` will be a CEL optional whose value will be `None` if there is no old value, or when the object is initially created.
+//
+// You may check for presence of oldSelf using `oldSelf.hasValue()` and unwrap it after checking using `oldSelf.value()`. Check the CEL documentation for Optional types for more information: https://pkg.go.dev/github.com/google/cel-go/cel#OptionalTypes
+//
+// May not be set unless `oldSelf` is used in `rule`.
+func (o ValidationRuleOutput) OptionalOldSelf() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ValidationRule) *bool { return v.OptionalOldSelf }).(pulumi.BoolPtrOutput)
+}
+
 // reason provides a machine-readable validation failure reason that is returned to the caller when a request fails this validation rule. The HTTP status code returned to the caller will match the reason of the reason of the first failed validation rule. The currently supported reasons are: "FieldValueInvalid", "FieldValueForbidden", "FieldValueRequired", "FieldValueDuplicate". If not set, default to use "FieldValueInvalid". All future added reasons must be accepted by clients when reading this value and unknown reasons should be treated as FieldValueInvalid.
 func (o ValidationRuleOutput) Reason() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ValidationRule) *string { return v.Reason }).(pulumi.StringPtrOutput)
@@ -6599,6 +6642,16 @@ func (o ValidationRuleOutput) Reason() pulumi.StringPtrOutput {
 //   - 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
 //     are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
 //     non-intersecting keys are appended, retaining their partial order.
+//
+// If `rule` makes use of the `oldSelf` variable it is implicitly a `transition rule`.
+//
+// By default, the `oldSelf` variable is the same type as `self`. When `optionalOldSelf` is true, the `oldSelf` variable is a CEL optional
+//
+//	variable whose value() is the same type as `self`.
+//
+// See the documentation for the `optionalOldSelf` field for details.
+//
+// Transition rules by default are applied only on UPDATE requests and are skipped if an old value could not be found. You can opt a transition rule into unconditional evaluation by setting `optionalOldSelf` to true.
 func (o ValidationRuleOutput) Rule() pulumi.StringOutput {
 	return o.ApplyT(func(v ValidationRule) string { return v.Rule }).(pulumi.StringOutput)
 }
@@ -6631,6 +6684,14 @@ type ValidationRulePatch struct {
 	Message *string `pulumi:"message"`
 	// MessageExpression declares a CEL expression that evaluates to the validation failure message that is returned when this rule fails. Since messageExpression is used as a failure message, it must evaluate to a string. If both message and messageExpression are present on a rule, then messageExpression will be used if validation fails. If messageExpression results in a runtime error, the runtime error is logged, and the validation failure message is produced as if the messageExpression field were unset. If messageExpression evaluates to an empty string, a string with only spaces, or a string that contains line breaks, then the validation failure message will also be produced as if the messageExpression field were unset, and the fact that messageExpression produced an empty string/string with only spaces/string with line breaks will be logged. messageExpression has access to all the same variables as the rule; the only difference is the return type. Example: "x must be less than max ("+string(self.max)+")"
 	MessageExpression *string `pulumi:"messageExpression"`
+	// optionalOldSelf is used to opt a transition rule into evaluation even when the object is first created, or if the old object is missing the value.
+	//
+	// When enabled `oldSelf` will be a CEL optional whose value will be `None` if there is no old value, or when the object is initially created.
+	//
+	// You may check for presence of oldSelf using `oldSelf.hasValue()` and unwrap it after checking using `oldSelf.value()`. Check the CEL documentation for Optional types for more information: https://pkg.go.dev/github.com/google/cel-go/cel#OptionalTypes
+	//
+	// May not be set unless `oldSelf` is used in `rule`.
+	OptionalOldSelf *bool `pulumi:"optionalOldSelf"`
 	// reason provides a machine-readable validation failure reason that is returned to the caller when a request fails this validation rule. The HTTP status code returned to the caller will match the reason of the reason of the first failed validation rule. The currently supported reasons are: "FieldValueInvalid", "FieldValueForbidden", "FieldValueRequired", "FieldValueDuplicate". If not set, default to use "FieldValueInvalid". All future added reasons must be accepted by clients when reading this value and unknown reasons should be treated as FieldValueInvalid.
 	Reason *string `pulumi:"reason"`
 	// Rule represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec The Rule is scoped to the location of the x-kubernetes-validations extension in the schema. The `self` variable in the CEL expression is bound to the scoped value. Example: - Rule scoped to the root of a resource with a status subresource: {"rule": "self.status.actual <= self.spec.maxDesired"}
@@ -6658,6 +6719,14 @@ type ValidationRulePatch struct {
 	//   - 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
 	//     are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
 	//     non-intersecting keys are appended, retaining their partial order.
+	//
+	// If `rule` makes use of the `oldSelf` variable it is implicitly a `transition rule`.
+	//
+	// By default, the `oldSelf` variable is the same type as `self`. When `optionalOldSelf` is true, the `oldSelf` variable is a CEL optional
+	//  variable whose value() is the same type as `self`.
+	// See the documentation for the `optionalOldSelf` field for details.
+	//
+	// Transition rules by default are applied only on UPDATE requests and are skipped if an old value could not be found. You can opt a transition rule into unconditional evaluation by setting `optionalOldSelf` to true.
 	Rule *string `pulumi:"rule"`
 }
 
@@ -6680,6 +6749,14 @@ type ValidationRulePatchArgs struct {
 	Message pulumi.StringPtrInput `pulumi:"message"`
 	// MessageExpression declares a CEL expression that evaluates to the validation failure message that is returned when this rule fails. Since messageExpression is used as a failure message, it must evaluate to a string. If both message and messageExpression are present on a rule, then messageExpression will be used if validation fails. If messageExpression results in a runtime error, the runtime error is logged, and the validation failure message is produced as if the messageExpression field were unset. If messageExpression evaluates to an empty string, a string with only spaces, or a string that contains line breaks, then the validation failure message will also be produced as if the messageExpression field were unset, and the fact that messageExpression produced an empty string/string with only spaces/string with line breaks will be logged. messageExpression has access to all the same variables as the rule; the only difference is the return type. Example: "x must be less than max ("+string(self.max)+")"
 	MessageExpression pulumi.StringPtrInput `pulumi:"messageExpression"`
+	// optionalOldSelf is used to opt a transition rule into evaluation even when the object is first created, or if the old object is missing the value.
+	//
+	// When enabled `oldSelf` will be a CEL optional whose value will be `None` if there is no old value, or when the object is initially created.
+	//
+	// You may check for presence of oldSelf using `oldSelf.hasValue()` and unwrap it after checking using `oldSelf.value()`. Check the CEL documentation for Optional types for more information: https://pkg.go.dev/github.com/google/cel-go/cel#OptionalTypes
+	//
+	// May not be set unless `oldSelf` is used in `rule`.
+	OptionalOldSelf pulumi.BoolPtrInput `pulumi:"optionalOldSelf"`
 	// reason provides a machine-readable validation failure reason that is returned to the caller when a request fails this validation rule. The HTTP status code returned to the caller will match the reason of the reason of the first failed validation rule. The currently supported reasons are: "FieldValueInvalid", "FieldValueForbidden", "FieldValueRequired", "FieldValueDuplicate". If not set, default to use "FieldValueInvalid". All future added reasons must be accepted by clients when reading this value and unknown reasons should be treated as FieldValueInvalid.
 	Reason pulumi.StringPtrInput `pulumi:"reason"`
 	// Rule represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec The Rule is scoped to the location of the x-kubernetes-validations extension in the schema. The `self` variable in the CEL expression is bound to the scoped value. Example: - Rule scoped to the root of a resource with a status subresource: {"rule": "self.status.actual <= self.spec.maxDesired"}
@@ -6707,6 +6784,14 @@ type ValidationRulePatchArgs struct {
 	//   - 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
 	//     are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
 	//     non-intersecting keys are appended, retaining their partial order.
+	//
+	// If `rule` makes use of the `oldSelf` variable it is implicitly a `transition rule`.
+	//
+	// By default, the `oldSelf` variable is the same type as `self`. When `optionalOldSelf` is true, the `oldSelf` variable is a CEL optional
+	//  variable whose value() is the same type as `self`.
+	// See the documentation for the `optionalOldSelf` field for details.
+	//
+	// Transition rules by default are applied only on UPDATE requests and are skipped if an old value could not be found. You can opt a transition rule into unconditional evaluation by setting `optionalOldSelf` to true.
 	Rule pulumi.StringPtrInput `pulumi:"rule"`
 }
 
@@ -6777,6 +6862,17 @@ func (o ValidationRulePatchOutput) MessageExpression() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ValidationRulePatch) *string { return v.MessageExpression }).(pulumi.StringPtrOutput)
 }
 
+// optionalOldSelf is used to opt a transition rule into evaluation even when the object is first created, or if the old object is missing the value.
+//
+// When enabled `oldSelf` will be a CEL optional whose value will be `None` if there is no old value, or when the object is initially created.
+//
+// You may check for presence of oldSelf using `oldSelf.hasValue()` and unwrap it after checking using `oldSelf.value()`. Check the CEL documentation for Optional types for more information: https://pkg.go.dev/github.com/google/cel-go/cel#OptionalTypes
+//
+// May not be set unless `oldSelf` is used in `rule`.
+func (o ValidationRulePatchOutput) OptionalOldSelf() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ValidationRulePatch) *bool { return v.OptionalOldSelf }).(pulumi.BoolPtrOutput)
+}
+
 // reason provides a machine-readable validation failure reason that is returned to the caller when a request fails this validation rule. The HTTP status code returned to the caller will match the reason of the reason of the first failed validation rule. The currently supported reasons are: "FieldValueInvalid", "FieldValueForbidden", "FieldValueRequired", "FieldValueDuplicate". If not set, default to use "FieldValueInvalid". All future added reasons must be accepted by clients when reading this value and unknown reasons should be treated as FieldValueInvalid.
 func (o ValidationRulePatchOutput) Reason() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ValidationRulePatch) *string { return v.Reason }).(pulumi.StringPtrOutput)
@@ -6809,6 +6905,16 @@ func (o ValidationRulePatchOutput) Reason() pulumi.StringPtrOutput {
 //   - 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
 //     are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
 //     non-intersecting keys are appended, retaining their partial order.
+//
+// If `rule` makes use of the `oldSelf` variable it is implicitly a `transition rule`.
+//
+// By default, the `oldSelf` variable is the same type as `self`. When `optionalOldSelf` is true, the `oldSelf` variable is a CEL optional
+//
+//	variable whose value() is the same type as `self`.
+//
+// See the documentation for the `optionalOldSelf` field for details.
+//
+// Transition rules by default are applied only on UPDATE requests and are skipped if an old value could not be found. You can opt a transition rule into unconditional evaluation by setting `optionalOldSelf` to true.
 func (o ValidationRulePatchOutput) Rule() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ValidationRulePatch) *string { return v.Rule }).(pulumi.StringPtrOutput)
 }

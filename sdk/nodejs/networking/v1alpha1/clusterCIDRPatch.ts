@@ -56,7 +56,7 @@ export class ClusterCIDRPatch extends pulumi.CustomResource {
      */
     public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMetaPatch>;
     /**
-     * spec is the desired state of the ClusterCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+     * Spec is the desired state of the ClusterCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      */
     public readonly spec!: pulumi.Output<outputs.networking.v1alpha1.ClusterCIDRSpecPatch>;
 
@@ -103,7 +103,7 @@ export interface ClusterCIDRPatchArgs {
      */
     metadata?: pulumi.Input<inputs.meta.v1.ObjectMetaPatch>;
     /**
-     * spec is the desired state of the ClusterCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+     * Spec is the desired state of the ClusterCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      */
     spec?: pulumi.Input<inputs.networking.v1alpha1.ClusterCIDRSpecPatch>;
 }

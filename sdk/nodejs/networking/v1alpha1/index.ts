@@ -35,6 +35,21 @@ export type IPAddressPatch = import("./ipaddressPatch").IPAddressPatch;
 export const IPAddressPatch: typeof import("./ipaddressPatch").IPAddressPatch = null as any;
 utilities.lazyLoad(exports, ["IPAddressPatch"], () => require("./ipaddressPatch"));
 
+export { ServiceCIDRArgs } from "./serviceCIDR";
+export type ServiceCIDR = import("./serviceCIDR").ServiceCIDR;
+export const ServiceCIDR: typeof import("./serviceCIDR").ServiceCIDR = null as any;
+utilities.lazyLoad(exports, ["ServiceCIDR"], () => require("./serviceCIDR"));
+
+export { ServiceCIDRListArgs } from "./serviceCIDRList";
+export type ServiceCIDRList = import("./serviceCIDRList").ServiceCIDRList;
+export const ServiceCIDRList: typeof import("./serviceCIDRList").ServiceCIDRList = null as any;
+utilities.lazyLoad(exports, ["ServiceCIDRList"], () => require("./serviceCIDRList"));
+
+export { ServiceCIDRPatchArgs } from "./serviceCIDRPatch";
+export type ServiceCIDRPatch = import("./serviceCIDRPatch").ServiceCIDRPatch;
+export const ServiceCIDRPatch: typeof import("./serviceCIDRPatch").ServiceCIDRPatch = null as any;
+utilities.lazyLoad(exports, ["ServiceCIDRPatch"], () => require("./serviceCIDRPatch"));
+
 
 const _module = {
     version: utilities.getVersion(),
@@ -52,6 +67,12 @@ const _module = {
                 return new IPAddressList(name, <any>undefined, { urn })
             case "kubernetes:networking.k8s.io/v1alpha1:IPAddressPatch":
                 return new IPAddressPatch(name, <any>undefined, { urn })
+            case "kubernetes:networking.k8s.io/v1alpha1:ServiceCIDR":
+                return new ServiceCIDR(name, <any>undefined, { urn })
+            case "kubernetes:networking.k8s.io/v1alpha1:ServiceCIDRList":
+                return new ServiceCIDRList(name, <any>undefined, { urn })
+            case "kubernetes:networking.k8s.io/v1alpha1:ServiceCIDRPatch":
+                return new ServiceCIDRPatch(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }

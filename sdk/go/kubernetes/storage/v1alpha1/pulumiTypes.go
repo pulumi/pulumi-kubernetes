@@ -1204,6 +1204,327 @@ func (o VolumeAttachmentStatusPatchPtrOutput) DetachError() VolumeErrorPatchPtrO
 	}).(VolumeErrorPatchPtrOutput)
 }
 
+// VolumeAttributesClass represents a specification of mutable volume attributes defined by the CSI driver. The class can be specified during dynamic provisioning of PersistentVolumeClaims, and changed in the PersistentVolumeClaim spec after provisioning.
+type VolumeAttributesClassType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Name of the CSI driver This field is immutable.
+	DriverName string `pulumi:"driverName"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	// parameters hold volume attributes defined by the CSI driver. These values are opaque to the Kubernetes and are passed directly to the CSI driver. The underlying storage provider supports changing these attributes on an existing volume, however the parameters field itself is immutable. To invoke a volume update, a new VolumeAttributesClass should be created with new parameters, and the PersistentVolumeClaim should be updated to reference the new VolumeAttributesClass.
+	//
+	// This field is required and must contain at least one key/value pair. The keys cannot be empty, and the maximum number of parameters is 512, with a cumulative max size of 256K. If the CSI driver rejects invalid parameters, the target PersistentVolumeClaim will be set to an "Infeasible" state in the modifyVolumeStatus field.
+	Parameters map[string]string `pulumi:"parameters"`
+}
+
+// VolumeAttributesClassTypeInput is an input type that accepts VolumeAttributesClassTypeArgs and VolumeAttributesClassTypeOutput values.
+// You can construct a concrete instance of `VolumeAttributesClassTypeInput` via:
+//
+//	VolumeAttributesClassTypeArgs{...}
+type VolumeAttributesClassTypeInput interface {
+	pulumi.Input
+
+	ToVolumeAttributesClassTypeOutput() VolumeAttributesClassTypeOutput
+	ToVolumeAttributesClassTypeOutputWithContext(context.Context) VolumeAttributesClassTypeOutput
+}
+
+// VolumeAttributesClass represents a specification of mutable volume attributes defined by the CSI driver. The class can be specified during dynamic provisioning of PersistentVolumeClaims, and changed in the PersistentVolumeClaim spec after provisioning.
+type VolumeAttributesClassTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Name of the CSI driver This field is immutable.
+	DriverName pulumi.StringInput `pulumi:"driverName"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	// parameters hold volume attributes defined by the CSI driver. These values are opaque to the Kubernetes and are passed directly to the CSI driver. The underlying storage provider supports changing these attributes on an existing volume, however the parameters field itself is immutable. To invoke a volume update, a new VolumeAttributesClass should be created with new parameters, and the PersistentVolumeClaim should be updated to reference the new VolumeAttributesClass.
+	//
+	// This field is required and must contain at least one key/value pair. The keys cannot be empty, and the maximum number of parameters is 512, with a cumulative max size of 256K. If the CSI driver rejects invalid parameters, the target PersistentVolumeClaim will be set to an "Infeasible" state in the modifyVolumeStatus field.
+	Parameters pulumi.StringMapInput `pulumi:"parameters"`
+}
+
+func (VolumeAttributesClassTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*VolumeAttributesClassType)(nil)).Elem()
+}
+
+func (i VolumeAttributesClassTypeArgs) ToVolumeAttributesClassTypeOutput() VolumeAttributesClassTypeOutput {
+	return i.ToVolumeAttributesClassTypeOutputWithContext(context.Background())
+}
+
+func (i VolumeAttributesClassTypeArgs) ToVolumeAttributesClassTypeOutputWithContext(ctx context.Context) VolumeAttributesClassTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttributesClassTypeOutput)
+}
+
+// VolumeAttributesClassTypeArrayInput is an input type that accepts VolumeAttributesClassTypeArray and VolumeAttributesClassTypeArrayOutput values.
+// You can construct a concrete instance of `VolumeAttributesClassTypeArrayInput` via:
+//
+//	VolumeAttributesClassTypeArray{ VolumeAttributesClassTypeArgs{...} }
+type VolumeAttributesClassTypeArrayInput interface {
+	pulumi.Input
+
+	ToVolumeAttributesClassTypeArrayOutput() VolumeAttributesClassTypeArrayOutput
+	ToVolumeAttributesClassTypeArrayOutputWithContext(context.Context) VolumeAttributesClassTypeArrayOutput
+}
+
+type VolumeAttributesClassTypeArray []VolumeAttributesClassTypeInput
+
+func (VolumeAttributesClassTypeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]VolumeAttributesClassType)(nil)).Elem()
+}
+
+func (i VolumeAttributesClassTypeArray) ToVolumeAttributesClassTypeArrayOutput() VolumeAttributesClassTypeArrayOutput {
+	return i.ToVolumeAttributesClassTypeArrayOutputWithContext(context.Background())
+}
+
+func (i VolumeAttributesClassTypeArray) ToVolumeAttributesClassTypeArrayOutputWithContext(ctx context.Context) VolumeAttributesClassTypeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttributesClassTypeArrayOutput)
+}
+
+// VolumeAttributesClass represents a specification of mutable volume attributes defined by the CSI driver. The class can be specified during dynamic provisioning of PersistentVolumeClaims, and changed in the PersistentVolumeClaim spec after provisioning.
+type VolumeAttributesClassTypeOutput struct{ *pulumi.OutputState }
+
+func (VolumeAttributesClassTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*VolumeAttributesClassType)(nil)).Elem()
+}
+
+func (o VolumeAttributesClassTypeOutput) ToVolumeAttributesClassTypeOutput() VolumeAttributesClassTypeOutput {
+	return o
+}
+
+func (o VolumeAttributesClassTypeOutput) ToVolumeAttributesClassTypeOutputWithContext(ctx context.Context) VolumeAttributesClassTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o VolumeAttributesClassTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v VolumeAttributesClassType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Name of the CSI driver This field is immutable.
+func (o VolumeAttributesClassTypeOutput) DriverName() pulumi.StringOutput {
+	return o.ApplyT(func(v VolumeAttributesClassType) string { return v.DriverName }).(pulumi.StringOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o VolumeAttributesClassTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v VolumeAttributesClassType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o VolumeAttributesClassTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v VolumeAttributesClassType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// parameters hold volume attributes defined by the CSI driver. These values are opaque to the Kubernetes and are passed directly to the CSI driver. The underlying storage provider supports changing these attributes on an existing volume, however the parameters field itself is immutable. To invoke a volume update, a new VolumeAttributesClass should be created with new parameters, and the PersistentVolumeClaim should be updated to reference the new VolumeAttributesClass.
+//
+// This field is required and must contain at least one key/value pair. The keys cannot be empty, and the maximum number of parameters is 512, with a cumulative max size of 256K. If the CSI driver rejects invalid parameters, the target PersistentVolumeClaim will be set to an "Infeasible" state in the modifyVolumeStatus field.
+func (o VolumeAttributesClassTypeOutput) Parameters() pulumi.StringMapOutput {
+	return o.ApplyT(func(v VolumeAttributesClassType) map[string]string { return v.Parameters }).(pulumi.StringMapOutput)
+}
+
+type VolumeAttributesClassTypeArrayOutput struct{ *pulumi.OutputState }
+
+func (VolumeAttributesClassTypeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]VolumeAttributesClassType)(nil)).Elem()
+}
+
+func (o VolumeAttributesClassTypeArrayOutput) ToVolumeAttributesClassTypeArrayOutput() VolumeAttributesClassTypeArrayOutput {
+	return o
+}
+
+func (o VolumeAttributesClassTypeArrayOutput) ToVolumeAttributesClassTypeArrayOutputWithContext(ctx context.Context) VolumeAttributesClassTypeArrayOutput {
+	return o
+}
+
+func (o VolumeAttributesClassTypeArrayOutput) Index(i pulumi.IntInput) VolumeAttributesClassTypeOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) VolumeAttributesClassType {
+		return vs[0].([]VolumeAttributesClassType)[vs[1].(int)]
+	}).(VolumeAttributesClassTypeOutput)
+}
+
+// VolumeAttributesClassList is a collection of VolumeAttributesClass objects.
+type VolumeAttributesClassListType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// items is the list of VolumeAttributesClass objects.
+	Items []VolumeAttributesClassType `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
+}
+
+// VolumeAttributesClassListTypeInput is an input type that accepts VolumeAttributesClassListTypeArgs and VolumeAttributesClassListTypeOutput values.
+// You can construct a concrete instance of `VolumeAttributesClassListTypeInput` via:
+//
+//	VolumeAttributesClassListTypeArgs{...}
+type VolumeAttributesClassListTypeInput interface {
+	pulumi.Input
+
+	ToVolumeAttributesClassListTypeOutput() VolumeAttributesClassListTypeOutput
+	ToVolumeAttributesClassListTypeOutputWithContext(context.Context) VolumeAttributesClassListTypeOutput
+}
+
+// VolumeAttributesClassList is a collection of VolumeAttributesClass objects.
+type VolumeAttributesClassListTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// items is the list of VolumeAttributesClass objects.
+	Items VolumeAttributesClassTypeArrayInput `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+}
+
+func (VolumeAttributesClassListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*VolumeAttributesClassListType)(nil)).Elem()
+}
+
+func (i VolumeAttributesClassListTypeArgs) ToVolumeAttributesClassListTypeOutput() VolumeAttributesClassListTypeOutput {
+	return i.ToVolumeAttributesClassListTypeOutputWithContext(context.Background())
+}
+
+func (i VolumeAttributesClassListTypeArgs) ToVolumeAttributesClassListTypeOutputWithContext(ctx context.Context) VolumeAttributesClassListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttributesClassListTypeOutput)
+}
+
+// VolumeAttributesClassList is a collection of VolumeAttributesClass objects.
+type VolumeAttributesClassListTypeOutput struct{ *pulumi.OutputState }
+
+func (VolumeAttributesClassListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*VolumeAttributesClassListType)(nil)).Elem()
+}
+
+func (o VolumeAttributesClassListTypeOutput) ToVolumeAttributesClassListTypeOutput() VolumeAttributesClassListTypeOutput {
+	return o
+}
+
+func (o VolumeAttributesClassListTypeOutput) ToVolumeAttributesClassListTypeOutputWithContext(ctx context.Context) VolumeAttributesClassListTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o VolumeAttributesClassListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v VolumeAttributesClassListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// items is the list of VolumeAttributesClass objects.
+func (o VolumeAttributesClassListTypeOutput) Items() VolumeAttributesClassTypeArrayOutput {
+	return o.ApplyT(func(v VolumeAttributesClassListType) []VolumeAttributesClassType { return v.Items }).(VolumeAttributesClassTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o VolumeAttributesClassListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v VolumeAttributesClassListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o VolumeAttributesClassListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v VolumeAttributesClassListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+}
+
+// VolumeAttributesClass represents a specification of mutable volume attributes defined by the CSI driver. The class can be specified during dynamic provisioning of PersistentVolumeClaims, and changed in the PersistentVolumeClaim spec after provisioning.
+type VolumeAttributesClassPatchType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Name of the CSI driver This field is immutable.
+	DriverName *string `pulumi:"driverName"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
+	// parameters hold volume attributes defined by the CSI driver. These values are opaque to the Kubernetes and are passed directly to the CSI driver. The underlying storage provider supports changing these attributes on an existing volume, however the parameters field itself is immutable. To invoke a volume update, a new VolumeAttributesClass should be created with new parameters, and the PersistentVolumeClaim should be updated to reference the new VolumeAttributesClass.
+	//
+	// This field is required and must contain at least one key/value pair. The keys cannot be empty, and the maximum number of parameters is 512, with a cumulative max size of 256K. If the CSI driver rejects invalid parameters, the target PersistentVolumeClaim will be set to an "Infeasible" state in the modifyVolumeStatus field.
+	Parameters map[string]string `pulumi:"parameters"`
+}
+
+// VolumeAttributesClassPatchTypeInput is an input type that accepts VolumeAttributesClassPatchTypeArgs and VolumeAttributesClassPatchTypeOutput values.
+// You can construct a concrete instance of `VolumeAttributesClassPatchTypeInput` via:
+//
+//	VolumeAttributesClassPatchTypeArgs{...}
+type VolumeAttributesClassPatchTypeInput interface {
+	pulumi.Input
+
+	ToVolumeAttributesClassPatchTypeOutput() VolumeAttributesClassPatchTypeOutput
+	ToVolumeAttributesClassPatchTypeOutputWithContext(context.Context) VolumeAttributesClassPatchTypeOutput
+}
+
+// VolumeAttributesClass represents a specification of mutable volume attributes defined by the CSI driver. The class can be specified during dynamic provisioning of PersistentVolumeClaims, and changed in the PersistentVolumeClaim spec after provisioning.
+type VolumeAttributesClassPatchTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Name of the CSI driver This field is immutable.
+	DriverName pulumi.StringPtrInput `pulumi:"driverName"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
+	// parameters hold volume attributes defined by the CSI driver. These values are opaque to the Kubernetes and are passed directly to the CSI driver. The underlying storage provider supports changing these attributes on an existing volume, however the parameters field itself is immutable. To invoke a volume update, a new VolumeAttributesClass should be created with new parameters, and the PersistentVolumeClaim should be updated to reference the new VolumeAttributesClass.
+	//
+	// This field is required and must contain at least one key/value pair. The keys cannot be empty, and the maximum number of parameters is 512, with a cumulative max size of 256K. If the CSI driver rejects invalid parameters, the target PersistentVolumeClaim will be set to an "Infeasible" state in the modifyVolumeStatus field.
+	Parameters pulumi.StringMapInput `pulumi:"parameters"`
+}
+
+func (VolumeAttributesClassPatchTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*VolumeAttributesClassPatchType)(nil)).Elem()
+}
+
+func (i VolumeAttributesClassPatchTypeArgs) ToVolumeAttributesClassPatchTypeOutput() VolumeAttributesClassPatchTypeOutput {
+	return i.ToVolumeAttributesClassPatchTypeOutputWithContext(context.Background())
+}
+
+func (i VolumeAttributesClassPatchTypeArgs) ToVolumeAttributesClassPatchTypeOutputWithContext(ctx context.Context) VolumeAttributesClassPatchTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttributesClassPatchTypeOutput)
+}
+
+// VolumeAttributesClass represents a specification of mutable volume attributes defined by the CSI driver. The class can be specified during dynamic provisioning of PersistentVolumeClaims, and changed in the PersistentVolumeClaim spec after provisioning.
+type VolumeAttributesClassPatchTypeOutput struct{ *pulumi.OutputState }
+
+func (VolumeAttributesClassPatchTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*VolumeAttributesClassPatchType)(nil)).Elem()
+}
+
+func (o VolumeAttributesClassPatchTypeOutput) ToVolumeAttributesClassPatchTypeOutput() VolumeAttributesClassPatchTypeOutput {
+	return o
+}
+
+func (o VolumeAttributesClassPatchTypeOutput) ToVolumeAttributesClassPatchTypeOutputWithContext(ctx context.Context) VolumeAttributesClassPatchTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o VolumeAttributesClassPatchTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v VolumeAttributesClassPatchType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Name of the CSI driver This field is immutable.
+func (o VolumeAttributesClassPatchTypeOutput) DriverName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v VolumeAttributesClassPatchType) *string { return v.DriverName }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o VolumeAttributesClassPatchTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v VolumeAttributesClassPatchType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o VolumeAttributesClassPatchTypeOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
+	return o.ApplyT(func(v VolumeAttributesClassPatchType) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
+}
+
+// parameters hold volume attributes defined by the CSI driver. These values are opaque to the Kubernetes and are passed directly to the CSI driver. The underlying storage provider supports changing these attributes on an existing volume, however the parameters field itself is immutable. To invoke a volume update, a new VolumeAttributesClass should be created with new parameters, and the PersistentVolumeClaim should be updated to reference the new VolumeAttributesClass.
+//
+// This field is required and must contain at least one key/value pair. The keys cannot be empty, and the maximum number of parameters is 512, with a cumulative max size of 256K. If the CSI driver rejects invalid parameters, the target PersistentVolumeClaim will be set to an "Infeasible" state in the modifyVolumeStatus field.
+func (o VolumeAttributesClassPatchTypeOutput) Parameters() pulumi.StringMapOutput {
+	return o.ApplyT(func(v VolumeAttributesClassPatchType) map[string]string { return v.Parameters }).(pulumi.StringMapOutput)
+}
+
 // VolumeError captures an error encountered during a volume operation.
 type VolumeError struct {
 	// String detailing the error encountered during Attach or Detach operation. This string maybe logged, so it should not contain sensitive information.
@@ -1537,6 +1858,10 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*VolumeAttachmentStatusPtrInput)(nil)).Elem(), VolumeAttachmentStatusArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*VolumeAttachmentStatusPatchInput)(nil)).Elem(), VolumeAttachmentStatusPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*VolumeAttachmentStatusPatchPtrInput)(nil)).Elem(), VolumeAttachmentStatusPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VolumeAttributesClassTypeInput)(nil)).Elem(), VolumeAttributesClassTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VolumeAttributesClassTypeArrayInput)(nil)).Elem(), VolumeAttributesClassTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VolumeAttributesClassListTypeInput)(nil)).Elem(), VolumeAttributesClassListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VolumeAttributesClassPatchTypeInput)(nil)).Elem(), VolumeAttributesClassPatchTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*VolumeErrorInput)(nil)).Elem(), VolumeErrorArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*VolumeErrorPtrInput)(nil)).Elem(), VolumeErrorArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*VolumeErrorPatchInput)(nil)).Elem(), VolumeErrorPatchArgs{})
@@ -1555,6 +1880,10 @@ func init() {
 	pulumi.RegisterOutputType(VolumeAttachmentStatusPtrOutput{})
 	pulumi.RegisterOutputType(VolumeAttachmentStatusPatchOutput{})
 	pulumi.RegisterOutputType(VolumeAttachmentStatusPatchPtrOutput{})
+	pulumi.RegisterOutputType(VolumeAttributesClassTypeOutput{})
+	pulumi.RegisterOutputType(VolumeAttributesClassTypeArrayOutput{})
+	pulumi.RegisterOutputType(VolumeAttributesClassListTypeOutput{})
+	pulumi.RegisterOutputType(VolumeAttributesClassPatchTypeOutput{})
 	pulumi.RegisterOutputType(VolumeErrorOutput{})
 	pulumi.RegisterOutputType(VolumeErrorPtrOutput{})
 	pulumi.RegisterOutputType(VolumeErrorPatchOutput{})

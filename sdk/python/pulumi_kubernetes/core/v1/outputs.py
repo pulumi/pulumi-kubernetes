@@ -43,6 +43,8 @@ __all__ = [
     'ClaimSourcePatch',
     'ClientIPConfig',
     'ClientIPConfigPatch',
+    'ClusterTrustBundleProjection',
+    'ClusterTrustBundleProjectionPatch',
     'ConfigMap',
     'ConfigMapEnvSource',
     'ConfigMapEnvSourcePatch',
@@ -157,6 +159,8 @@ __all__ = [
     'LocalObjectReferencePatch',
     'LocalVolumeSource',
     'LocalVolumeSourcePatch',
+    'ModifyVolumeStatus',
+    'ModifyVolumeStatusPatch',
     'NFSVolumeSource',
     'NFSVolumeSourcePatch',
     'Namespace',
@@ -319,6 +323,8 @@ __all__ = [
     'ServiceStatusPatch',
     'SessionAffinityConfig',
     'SessionAffinityConfigPatch',
+    'SleepAction',
+    'SleepActionPatch',
     'StorageOSPersistentVolumeSource',
     'StorageOSPersistentVolumeSourcePatch',
     'StorageOSVolumeSource',
@@ -351,6 +357,8 @@ __all__ = [
     'VolumePatch',
     'VolumeProjection',
     'VolumeProjectionPatch',
+    'VolumeResourceRequirements',
+    'VolumeResourceRequirementsPatch',
     'VsphereVirtualDiskVolumeSource',
     'VsphereVirtualDiskVolumeSourcePatch',
     'WeightedPodAffinityTerm',
@@ -1330,7 +1338,7 @@ class CSIPersistentVolumeSource(dict):
         :param 'SecretReferenceArgs' controller_expand_secret_ref: controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         :param 'SecretReferenceArgs' controller_publish_secret_ref: controllerPublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerPublishVolume and ControllerUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         :param str fs_type: fsType to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs".
-        :param 'SecretReferenceArgs' node_expand_secret_ref: nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is a beta field which is enabled default by CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+        :param 'SecretReferenceArgs' node_expand_secret_ref: nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         :param 'SecretReferenceArgs' node_publish_secret_ref: nodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         :param 'SecretReferenceArgs' node_stage_secret_ref: nodeStageSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeStageVolume and NodeStageVolume and NodeUnstageVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         :param bool read_only: readOnly value to pass to ControllerPublishVolumeRequest. Defaults to false (read/write).
@@ -1399,7 +1407,7 @@ class CSIPersistentVolumeSource(dict):
     @pulumi.getter(name="nodeExpandSecretRef")
     def node_expand_secret_ref(self) -> Optional['outputs.SecretReference']:
         """
-        nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is a beta field which is enabled default by CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+        nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         """
         return pulumi.get(self, "node_expand_secret_ref")
 
@@ -1491,7 +1499,7 @@ class CSIPersistentVolumeSourcePatch(dict):
         :param 'SecretReferencePatchArgs' controller_publish_secret_ref: controllerPublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerPublishVolume and ControllerUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         :param str driver: driver is the name of the driver to use for this volume. Required.
         :param str fs_type: fsType to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs".
-        :param 'SecretReferencePatchArgs' node_expand_secret_ref: nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is a beta field which is enabled default by CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+        :param 'SecretReferencePatchArgs' node_expand_secret_ref: nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         :param 'SecretReferencePatchArgs' node_publish_secret_ref: nodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         :param 'SecretReferencePatchArgs' node_stage_secret_ref: nodeStageSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeStageVolume and NodeStageVolume and NodeUnstageVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         :param bool read_only: readOnly value to pass to ControllerPublishVolumeRequest. Defaults to false (read/write).
@@ -1555,7 +1563,7 @@ class CSIPersistentVolumeSourcePatch(dict):
     @pulumi.getter(name="nodeExpandSecretRef")
     def node_expand_secret_ref(self) -> Optional['outputs.SecretReferencePatch']:
         """
-        nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is a beta field which is enabled default by CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+        nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         """
         return pulumi.get(self, "node_expand_secret_ref")
 
@@ -2807,6 +2815,185 @@ class ClientIPConfigPatch(dict):
         timeoutSeconds specifies the seconds of ClientIP type session sticky time. The value must be >0 && <=86400(for 1 day) if ServiceAffinity == "ClientIP". Default value is 10800(for 3 hours).
         """
         return pulumi.get(self, "timeout_seconds")
+
+
+@pulumi.output_type
+class ClusterTrustBundleProjection(dict):
+    """
+    ClusterTrustBundleProjection describes how to select a set of ClusterTrustBundle objects and project their contents into the pod filesystem.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "labelSelector":
+            suggest = "label_selector"
+        elif key == "signerName":
+            suggest = "signer_name"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ClusterTrustBundleProjection. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ClusterTrustBundleProjection.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ClusterTrustBundleProjection.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 path: str,
+                 label_selector: Optional['_meta.v1.outputs.LabelSelector'] = None,
+                 name: Optional[str] = None,
+                 optional: Optional[bool] = None,
+                 signer_name: Optional[str] = None):
+        """
+        ClusterTrustBundleProjection describes how to select a set of ClusterTrustBundle objects and project their contents into the pod filesystem.
+        :param str path: Relative path from the volume root to write the bundle.
+        :param '_meta.v1.LabelSelectorArgs' label_selector: Select all ClusterTrustBundles that match this label selector.  Only has effect if signerName is set.  Mutually-exclusive with name.  If unset, interpreted as "match nothing".  If set but empty, interpreted as "match everything".
+        :param str name: Select a single ClusterTrustBundle by object name.  Mutually-exclusive with signerName and labelSelector.
+        :param bool optional: If true, don't block pod startup if the referenced ClusterTrustBundle(s) aren't available.  If using name, then the named ClusterTrustBundle is allowed not to exist.  If using signerName, then the combination of signerName and labelSelector is allowed to match zero ClusterTrustBundles.
+        :param str signer_name: Select all ClusterTrustBundles that match this signer name. Mutually-exclusive with name.  The contents of all selected ClusterTrustBundles will be unified and deduplicated.
+        """
+        pulumi.set(__self__, "path", path)
+        if label_selector is not None:
+            pulumi.set(__self__, "label_selector", label_selector)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if optional is not None:
+            pulumi.set(__self__, "optional", optional)
+        if signer_name is not None:
+            pulumi.set(__self__, "signer_name", signer_name)
+
+    @property
+    @pulumi.getter
+    def path(self) -> str:
+        """
+        Relative path from the volume root to write the bundle.
+        """
+        return pulumi.get(self, "path")
+
+    @property
+    @pulumi.getter(name="labelSelector")
+    def label_selector(self) -> Optional['_meta.v1.outputs.LabelSelector']:
+        """
+        Select all ClusterTrustBundles that match this label selector.  Only has effect if signerName is set.  Mutually-exclusive with name.  If unset, interpreted as "match nothing".  If set but empty, interpreted as "match everything".
+        """
+        return pulumi.get(self, "label_selector")
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[str]:
+        """
+        Select a single ClusterTrustBundle by object name.  Mutually-exclusive with signerName and labelSelector.
+        """
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def optional(self) -> Optional[bool]:
+        """
+        If true, don't block pod startup if the referenced ClusterTrustBundle(s) aren't available.  If using name, then the named ClusterTrustBundle is allowed not to exist.  If using signerName, then the combination of signerName and labelSelector is allowed to match zero ClusterTrustBundles.
+        """
+        return pulumi.get(self, "optional")
+
+    @property
+    @pulumi.getter(name="signerName")
+    def signer_name(self) -> Optional[str]:
+        """
+        Select all ClusterTrustBundles that match this signer name. Mutually-exclusive with name.  The contents of all selected ClusterTrustBundles will be unified and deduplicated.
+        """
+        return pulumi.get(self, "signer_name")
+
+
+@pulumi.output_type
+class ClusterTrustBundleProjectionPatch(dict):
+    """
+    ClusterTrustBundleProjection describes how to select a set of ClusterTrustBundle objects and project their contents into the pod filesystem.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "labelSelector":
+            suggest = "label_selector"
+        elif key == "signerName":
+            suggest = "signer_name"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ClusterTrustBundleProjectionPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ClusterTrustBundleProjectionPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ClusterTrustBundleProjectionPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 label_selector: Optional['_meta.v1.outputs.LabelSelectorPatch'] = None,
+                 name: Optional[str] = None,
+                 optional: Optional[bool] = None,
+                 path: Optional[str] = None,
+                 signer_name: Optional[str] = None):
+        """
+        ClusterTrustBundleProjection describes how to select a set of ClusterTrustBundle objects and project their contents into the pod filesystem.
+        :param '_meta.v1.LabelSelectorPatchArgs' label_selector: Select all ClusterTrustBundles that match this label selector.  Only has effect if signerName is set.  Mutually-exclusive with name.  If unset, interpreted as "match nothing".  If set but empty, interpreted as "match everything".
+        :param str name: Select a single ClusterTrustBundle by object name.  Mutually-exclusive with signerName and labelSelector.
+        :param bool optional: If true, don't block pod startup if the referenced ClusterTrustBundle(s) aren't available.  If using name, then the named ClusterTrustBundle is allowed not to exist.  If using signerName, then the combination of signerName and labelSelector is allowed to match zero ClusterTrustBundles.
+        :param str path: Relative path from the volume root to write the bundle.
+        :param str signer_name: Select all ClusterTrustBundles that match this signer name. Mutually-exclusive with name.  The contents of all selected ClusterTrustBundles will be unified and deduplicated.
+        """
+        if label_selector is not None:
+            pulumi.set(__self__, "label_selector", label_selector)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if optional is not None:
+            pulumi.set(__self__, "optional", optional)
+        if path is not None:
+            pulumi.set(__self__, "path", path)
+        if signer_name is not None:
+            pulumi.set(__self__, "signer_name", signer_name)
+
+    @property
+    @pulumi.getter(name="labelSelector")
+    def label_selector(self) -> Optional['_meta.v1.outputs.LabelSelectorPatch']:
+        """
+        Select all ClusterTrustBundles that match this label selector.  Only has effect if signerName is set.  Mutually-exclusive with name.  If unset, interpreted as "match nothing".  If set but empty, interpreted as "match everything".
+        """
+        return pulumi.get(self, "label_selector")
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[str]:
+        """
+        Select a single ClusterTrustBundle by object name.  Mutually-exclusive with signerName and labelSelector.
+        """
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def optional(self) -> Optional[bool]:
+        """
+        If true, don't block pod startup if the referenced ClusterTrustBundle(s) aren't available.  If using name, then the named ClusterTrustBundle is allowed not to exist.  If using signerName, then the combination of signerName and labelSelector is allowed to match zero ClusterTrustBundles.
+        """
+        return pulumi.get(self, "optional")
+
+    @property
+    @pulumi.getter
+    def path(self) -> Optional[str]:
+        """
+        Relative path from the volume root to write the bundle.
+        """
+        return pulumi.get(self, "path")
+
+    @property
+    @pulumi.getter(name="signerName")
+    def signer_name(self) -> Optional[str]:
+        """
+        Select all ClusterTrustBundles that match this signer name. Mutually-exclusive with name.  The contents of all selected ClusterTrustBundles will be unified and deduplicated.
+        """
+        return pulumi.get(self, "signer_name")
 
 
 @pulumi.output_type
@@ -6092,7 +6279,7 @@ class EndpointPort(dict):
                * Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).
                
                * Kubernetes-defined prefixed names:
-                 * 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540
+                 * 'kubernetes.io/h2c' - HTTP/2 prior knowledge over cleartext as described in https://www.rfc-editor.org/rfc/rfc9113.html#name-starting-http-2-with-prior-
                  * 'kubernetes.io/ws'  - WebSocket over cleartext as described in https://www.rfc-editor.org/rfc/rfc6455
                  * 'kubernetes.io/wss' - WebSocket over TLS as described in https://www.rfc-editor.org/rfc/rfc6455
                
@@ -6125,7 +6312,7 @@ class EndpointPort(dict):
         * Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).
 
         * Kubernetes-defined prefixed names:
-          * 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540
+          * 'kubernetes.io/h2c' - HTTP/2 prior knowledge over cleartext as described in https://www.rfc-editor.org/rfc/rfc9113.html#name-starting-http-2-with-prior-
           * 'kubernetes.io/ws'  - WebSocket over cleartext as described in https://www.rfc-editor.org/rfc/rfc6455
           * 'kubernetes.io/wss' - WebSocket over TLS as described in https://www.rfc-editor.org/rfc/rfc6455
 
@@ -6184,7 +6371,7 @@ class EndpointPortPatch(dict):
                * Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).
                
                * Kubernetes-defined prefixed names:
-                 * 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540
+                 * 'kubernetes.io/h2c' - HTTP/2 prior knowledge over cleartext as described in https://www.rfc-editor.org/rfc/rfc9113.html#name-starting-http-2-with-prior-
                  * 'kubernetes.io/ws'  - WebSocket over cleartext as described in https://www.rfc-editor.org/rfc/rfc6455
                  * 'kubernetes.io/wss' - WebSocket over TLS as described in https://www.rfc-editor.org/rfc/rfc6455
                
@@ -6211,7 +6398,7 @@ class EndpointPortPatch(dict):
         * Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).
 
         * Kubernetes-defined prefixed names:
-          * 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540
+          * 'kubernetes.io/h2c' - HTTP/2 prior knowledge over cleartext as described in https://www.rfc-editor.org/rfc/rfc9113.html#name-starting-http-2-with-prior-
           * 'kubernetes.io/ws'  - WebSocket over cleartext as described in https://www.rfc-editor.org/rfc/rfc6455
           * 'kubernetes.io/wss' - WebSocket over TLS as described in https://www.rfc-editor.org/rfc/rfc6455
 
@@ -10848,17 +11035,21 @@ class LifecycleHandler(dict):
     def __init__(__self__, *,
                  exec_: Optional['outputs.ExecAction'] = None,
                  http_get: Optional['outputs.HTTPGetAction'] = None,
+                 sleep: Optional['outputs.SleepAction'] = None,
                  tcp_socket: Optional['outputs.TCPSocketAction'] = None):
         """
         LifecycleHandler defines a specific action that should be taken in a lifecycle hook. One and only one of the fields, except TCPSocket must be specified.
         :param 'ExecActionArgs' exec_: Exec specifies the action to take.
         :param 'HTTPGetActionArgs' http_get: HTTPGet specifies the http request to perform.
+        :param 'SleepActionArgs' sleep: Sleep represents the duration that the container should sleep before being terminated.
         :param 'TCPSocketActionArgs' tcp_socket: Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
         """
         if exec_ is not None:
             pulumi.set(__self__, "exec_", exec_)
         if http_get is not None:
             pulumi.set(__self__, "http_get", http_get)
+        if sleep is not None:
+            pulumi.set(__self__, "sleep", sleep)
         if tcp_socket is not None:
             pulumi.set(__self__, "tcp_socket", tcp_socket)
 
@@ -10877,6 +11068,14 @@ class LifecycleHandler(dict):
         HTTPGet specifies the http request to perform.
         """
         return pulumi.get(self, "http_get")
+
+    @property
+    @pulumi.getter
+    def sleep(self) -> Optional['outputs.SleepAction']:
+        """
+        Sleep represents the duration that the container should sleep before being terminated.
+        """
+        return pulumi.get(self, "sleep")
 
     @property
     @pulumi.getter(name="tcpSocket")
@@ -10916,17 +11115,21 @@ class LifecycleHandlerPatch(dict):
     def __init__(__self__, *,
                  exec_: Optional['outputs.ExecActionPatch'] = None,
                  http_get: Optional['outputs.HTTPGetActionPatch'] = None,
+                 sleep: Optional['outputs.SleepActionPatch'] = None,
                  tcp_socket: Optional['outputs.TCPSocketActionPatch'] = None):
         """
         LifecycleHandler defines a specific action that should be taken in a lifecycle hook. One and only one of the fields, except TCPSocket must be specified.
         :param 'ExecActionPatchArgs' exec_: Exec specifies the action to take.
         :param 'HTTPGetActionPatchArgs' http_get: HTTPGet specifies the http request to perform.
+        :param 'SleepActionPatchArgs' sleep: Sleep represents the duration that the container should sleep before being terminated.
         :param 'TCPSocketActionPatchArgs' tcp_socket: Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
         """
         if exec_ is not None:
             pulumi.set(__self__, "exec_", exec_)
         if http_get is not None:
             pulumi.set(__self__, "http_get", http_get)
+        if sleep is not None:
+            pulumi.set(__self__, "sleep", sleep)
         if tcp_socket is not None:
             pulumi.set(__self__, "tcp_socket", tcp_socket)
 
@@ -10945,6 +11148,14 @@ class LifecycleHandlerPatch(dict):
         HTTPGet specifies the http request to perform.
         """
         return pulumi.get(self, "http_get")
+
+    @property
+    @pulumi.getter
+    def sleep(self) -> Optional['outputs.SleepActionPatch']:
+        """
+        Sleep represents the duration that the container should sleep before being terminated.
+        """
+        return pulumi.get(self, "sleep")
 
     @property
     @pulumi.getter(name="tcpSocket")
@@ -11338,20 +11549,41 @@ class LoadBalancerIngress(dict):
     """
     LoadBalancerIngress represents the status of a load-balancer ingress point: traffic intended for the service should be sent to an ingress point.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "ipMode":
+            suggest = "ip_mode"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in LoadBalancerIngress. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        LoadBalancerIngress.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        LoadBalancerIngress.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  hostname: Optional[str] = None,
                  ip: Optional[str] = None,
+                 ip_mode: Optional[str] = None,
                  ports: Optional[Sequence['outputs.PortStatus']] = None):
         """
         LoadBalancerIngress represents the status of a load-balancer ingress point: traffic intended for the service should be sent to an ingress point.
         :param str hostname: Hostname is set for load-balancer ingress points that are DNS based (typically AWS load-balancers)
         :param str ip: IP is set for load-balancer ingress points that are IP based (typically GCE or OpenStack load-balancers)
+        :param str ip_mode: IPMode specifies how the load-balancer IP behaves, and may only be specified when the ip field is specified. Setting this to "VIP" indicates that traffic is delivered to the node with the destination set to the load-balancer's IP and port. Setting this to "Proxy" indicates that traffic is delivered to the node or pod with the destination set to the node's IP and node port or the pod's IP and port. Service implementations may use this information to adjust traffic routing.
         :param Sequence['PortStatusArgs'] ports: Ports is a list of records of service ports If used, every port defined in the service should have an entry in it
         """
         if hostname is not None:
             pulumi.set(__self__, "hostname", hostname)
         if ip is not None:
             pulumi.set(__self__, "ip", ip)
+        if ip_mode is not None:
+            pulumi.set(__self__, "ip_mode", ip_mode)
         if ports is not None:
             pulumi.set(__self__, "ports", ports)
 
@@ -11370,6 +11602,14 @@ class LoadBalancerIngress(dict):
         IP is set for load-balancer ingress points that are IP based (typically GCE or OpenStack load-balancers)
         """
         return pulumi.get(self, "ip")
+
+    @property
+    @pulumi.getter(name="ipMode")
+    def ip_mode(self) -> Optional[str]:
+        """
+        IPMode specifies how the load-balancer IP behaves, and may only be specified when the ip field is specified. Setting this to "VIP" indicates that traffic is delivered to the node with the destination set to the load-balancer's IP and port. Setting this to "Proxy" indicates that traffic is delivered to the node or pod with the destination set to the node's IP and node port or the pod's IP and port. Service implementations may use this information to adjust traffic routing.
+        """
+        return pulumi.get(self, "ip_mode")
 
     @property
     @pulumi.getter
@@ -11385,20 +11625,41 @@ class LoadBalancerIngressPatch(dict):
     """
     LoadBalancerIngress represents the status of a load-balancer ingress point: traffic intended for the service should be sent to an ingress point.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "ipMode":
+            suggest = "ip_mode"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in LoadBalancerIngressPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        LoadBalancerIngressPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        LoadBalancerIngressPatch.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  hostname: Optional[str] = None,
                  ip: Optional[str] = None,
+                 ip_mode: Optional[str] = None,
                  ports: Optional[Sequence['outputs.PortStatusPatch']] = None):
         """
         LoadBalancerIngress represents the status of a load-balancer ingress point: traffic intended for the service should be sent to an ingress point.
         :param str hostname: Hostname is set for load-balancer ingress points that are DNS based (typically AWS load-balancers)
         :param str ip: IP is set for load-balancer ingress points that are IP based (typically GCE or OpenStack load-balancers)
+        :param str ip_mode: IPMode specifies how the load-balancer IP behaves, and may only be specified when the ip field is specified. Setting this to "VIP" indicates that traffic is delivered to the node with the destination set to the load-balancer's IP and port. Setting this to "Proxy" indicates that traffic is delivered to the node or pod with the destination set to the node's IP and node port or the pod's IP and port. Service implementations may use this information to adjust traffic routing.
         :param Sequence['PortStatusPatchArgs'] ports: Ports is a list of records of service ports If used, every port defined in the service should have an entry in it
         """
         if hostname is not None:
             pulumi.set(__self__, "hostname", hostname)
         if ip is not None:
             pulumi.set(__self__, "ip", ip)
+        if ip_mode is not None:
+            pulumi.set(__self__, "ip_mode", ip_mode)
         if ports is not None:
             pulumi.set(__self__, "ports", ports)
 
@@ -11417,6 +11678,14 @@ class LoadBalancerIngressPatch(dict):
         IP is set for load-balancer ingress points that are IP based (typically GCE or OpenStack load-balancers)
         """
         return pulumi.get(self, "ip")
+
+    @property
+    @pulumi.getter(name="ipMode")
+    def ip_mode(self) -> Optional[str]:
+        """
+        IPMode specifies how the load-balancer IP behaves, and may only be specified when the ip field is specified. Setting this to "VIP" indicates that traffic is delivered to the node with the destination set to the load-balancer's IP and port. Setting this to "Proxy" indicates that traffic is delivered to the node or pod with the destination set to the node's IP and node port or the pod's IP and port. Service implementations may use this information to adjust traffic routing.
+        """
+        return pulumi.get(self, "ip_mode")
 
     @property
     @pulumi.getter
@@ -11620,6 +11889,145 @@ class LocalVolumeSourcePatch(dict):
         path of the full path to the volume on the node. It can be either a directory or block device (disk, partition, ...).
         """
         return pulumi.get(self, "path")
+
+
+@pulumi.output_type
+class ModifyVolumeStatus(dict):
+    """
+    ModifyVolumeStatus represents the status object of ControllerModifyVolume operation
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "targetVolumeAttributesClassName":
+            suggest = "target_volume_attributes_class_name"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ModifyVolumeStatus. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ModifyVolumeStatus.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ModifyVolumeStatus.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 status: str,
+                 target_volume_attributes_class_name: Optional[str] = None):
+        """
+        ModifyVolumeStatus represents the status object of ControllerModifyVolume operation
+        :param str status: status is the status of the ControllerModifyVolume operation. It can be in any of following states:
+                - Pending
+                  Pending indicates that the PersistentVolumeClaim cannot be modified due to unmet requirements, such as
+                  the specified VolumeAttributesClass not existing.
+                - InProgress
+                  InProgress indicates that the volume is being modified.
+                - Infeasible
+                 Infeasible indicates that the request has been rejected as invalid by the CSI driver. To
+               	  resolve the error, a valid VolumeAttributesClass needs to be specified.
+               Note: New statuses can be added in the future. Consumers should check for unknown statuses and fail appropriately.
+        :param str target_volume_attributes_class_name: targetVolumeAttributesClassName is the name of the VolumeAttributesClass the PVC currently being reconciled
+        """
+        pulumi.set(__self__, "status", status)
+        if target_volume_attributes_class_name is not None:
+            pulumi.set(__self__, "target_volume_attributes_class_name", target_volume_attributes_class_name)
+
+    @property
+    @pulumi.getter
+    def status(self) -> str:
+        """
+        status is the status of the ControllerModifyVolume operation. It can be in any of following states:
+         - Pending
+           Pending indicates that the PersistentVolumeClaim cannot be modified due to unmet requirements, such as
+           the specified VolumeAttributesClass not existing.
+         - InProgress
+           InProgress indicates that the volume is being modified.
+         - Infeasible
+          Infeasible indicates that the request has been rejected as invalid by the CSI driver. To
+        	  resolve the error, a valid VolumeAttributesClass needs to be specified.
+        Note: New statuses can be added in the future. Consumers should check for unknown statuses and fail appropriately.
+        """
+        return pulumi.get(self, "status")
+
+    @property
+    @pulumi.getter(name="targetVolumeAttributesClassName")
+    def target_volume_attributes_class_name(self) -> Optional[str]:
+        """
+        targetVolumeAttributesClassName is the name of the VolumeAttributesClass the PVC currently being reconciled
+        """
+        return pulumi.get(self, "target_volume_attributes_class_name")
+
+
+@pulumi.output_type
+class ModifyVolumeStatusPatch(dict):
+    """
+    ModifyVolumeStatus represents the status object of ControllerModifyVolume operation
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "targetVolumeAttributesClassName":
+            suggest = "target_volume_attributes_class_name"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ModifyVolumeStatusPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ModifyVolumeStatusPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ModifyVolumeStatusPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 status: Optional[str] = None,
+                 target_volume_attributes_class_name: Optional[str] = None):
+        """
+        ModifyVolumeStatus represents the status object of ControllerModifyVolume operation
+        :param str status: status is the status of the ControllerModifyVolume operation. It can be in any of following states:
+                - Pending
+                  Pending indicates that the PersistentVolumeClaim cannot be modified due to unmet requirements, such as
+                  the specified VolumeAttributesClass not existing.
+                - InProgress
+                  InProgress indicates that the volume is being modified.
+                - Infeasible
+                 Infeasible indicates that the request has been rejected as invalid by the CSI driver. To
+               	  resolve the error, a valid VolumeAttributesClass needs to be specified.
+               Note: New statuses can be added in the future. Consumers should check for unknown statuses and fail appropriately.
+        :param str target_volume_attributes_class_name: targetVolumeAttributesClassName is the name of the VolumeAttributesClass the PVC currently being reconciled
+        """
+        if status is not None:
+            pulumi.set(__self__, "status", status)
+        if target_volume_attributes_class_name is not None:
+            pulumi.set(__self__, "target_volume_attributes_class_name", target_volume_attributes_class_name)
+
+    @property
+    @pulumi.getter
+    def status(self) -> Optional[str]:
+        """
+        status is the status of the ControllerModifyVolume operation. It can be in any of following states:
+         - Pending
+           Pending indicates that the PersistentVolumeClaim cannot be modified due to unmet requirements, such as
+           the specified VolumeAttributesClass not existing.
+         - InProgress
+           InProgress indicates that the volume is being modified.
+         - Infeasible
+          Infeasible indicates that the request has been rejected as invalid by the CSI driver. To
+        	  resolve the error, a valid VolumeAttributesClass needs to be specified.
+        Note: New statuses can be added in the future. Consumers should check for unknown statuses and fail appropriately.
+        """
+        return pulumi.get(self, "status")
+
+    @property
+    @pulumi.getter(name="targetVolumeAttributesClassName")
+    def target_volume_attributes_class_name(self) -> Optional[str]:
+        """
+        targetVolumeAttributesClassName is the name of the VolumeAttributesClass the PVC currently being reconciled
+        """
+        return pulumi.get(self, "target_volume_attributes_class_name")
 
 
 @pulumi.output_type
@@ -14854,6 +15262,8 @@ class PersistentVolumeClaimSpec(dict):
             suggest = "data_source_ref"
         elif key == "storageClassName":
             suggest = "storage_class_name"
+        elif key == "volumeAttributesClassName":
+            suggest = "volume_attributes_class_name"
         elif key == "volumeMode":
             suggest = "volume_mode"
         elif key == "volumeName":
@@ -14874,9 +15284,10 @@ class PersistentVolumeClaimSpec(dict):
                  access_modes: Optional[Sequence[str]] = None,
                  data_source: Optional['outputs.TypedLocalObjectReference'] = None,
                  data_source_ref: Optional['outputs.TypedObjectReference'] = None,
-                 resources: Optional['outputs.ResourceRequirements'] = None,
+                 resources: Optional['outputs.VolumeResourceRequirements'] = None,
                  selector: Optional['_meta.v1.outputs.LabelSelector'] = None,
                  storage_class_name: Optional[str] = None,
+                 volume_attributes_class_name: Optional[str] = None,
                  volume_mode: Optional[str] = None,
                  volume_name: Optional[str] = None):
         """
@@ -14891,9 +15302,10 @@ class PersistentVolumeClaimSpec(dict):
                * While dataSource only allows local objects, dataSourceRef allows objects
                  in any namespaces.
                (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled. (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
-        :param 'ResourceRequirementsArgs' resources: resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
+        :param 'VolumeResourceRequirementsArgs' resources: resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
         :param '_meta.v1.LabelSelectorArgs' selector: selector is a label query over volumes to consider for binding.
         :param str storage_class_name: storageClassName is the name of the StorageClass required by the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1
+        :param str volume_attributes_class_name: volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string value means that no VolumeAttributesClass will be applied to the claim but it's not allowed to reset this field to empty string once it is set. If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass will be set by the persistentvolume controller if it exists. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#volumeattributesclass (Alpha) Using this field requires the VolumeAttributesClass feature gate to be enabled.
         :param str volume_mode: volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
         :param str volume_name: volumeName is the binding reference to the PersistentVolume backing this claim.
         """
@@ -14909,6 +15321,8 @@ class PersistentVolumeClaimSpec(dict):
             pulumi.set(__self__, "selector", selector)
         if storage_class_name is not None:
             pulumi.set(__self__, "storage_class_name", storage_class_name)
+        if volume_attributes_class_name is not None:
+            pulumi.set(__self__, "volume_attributes_class_name", volume_attributes_class_name)
         if volume_mode is not None:
             pulumi.set(__self__, "volume_mode", volume_mode)
         if volume_name is not None:
@@ -14947,7 +15361,7 @@ class PersistentVolumeClaimSpec(dict):
 
     @property
     @pulumi.getter
-    def resources(self) -> Optional['outputs.ResourceRequirements']:
+    def resources(self) -> Optional['outputs.VolumeResourceRequirements']:
         """
         resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
         """
@@ -14968,6 +15382,14 @@ class PersistentVolumeClaimSpec(dict):
         storageClassName is the name of the StorageClass required by the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1
         """
         return pulumi.get(self, "storage_class_name")
+
+    @property
+    @pulumi.getter(name="volumeAttributesClassName")
+    def volume_attributes_class_name(self) -> Optional[str]:
+        """
+        volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string value means that no VolumeAttributesClass will be applied to the claim but it's not allowed to reset this field to empty string once it is set. If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass will be set by the persistentvolume controller if it exists. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#volumeattributesclass (Alpha) Using this field requires the VolumeAttributesClass feature gate to be enabled.
+        """
+        return pulumi.get(self, "volume_attributes_class_name")
 
     @property
     @pulumi.getter(name="volumeMode")
@@ -15002,6 +15424,8 @@ class PersistentVolumeClaimSpecPatch(dict):
             suggest = "data_source_ref"
         elif key == "storageClassName":
             suggest = "storage_class_name"
+        elif key == "volumeAttributesClassName":
+            suggest = "volume_attributes_class_name"
         elif key == "volumeMode":
             suggest = "volume_mode"
         elif key == "volumeName":
@@ -15022,9 +15446,10 @@ class PersistentVolumeClaimSpecPatch(dict):
                  access_modes: Optional[Sequence[str]] = None,
                  data_source: Optional['outputs.TypedLocalObjectReferencePatch'] = None,
                  data_source_ref: Optional['outputs.TypedObjectReferencePatch'] = None,
-                 resources: Optional['outputs.ResourceRequirementsPatch'] = None,
+                 resources: Optional['outputs.VolumeResourceRequirementsPatch'] = None,
                  selector: Optional['_meta.v1.outputs.LabelSelectorPatch'] = None,
                  storage_class_name: Optional[str] = None,
+                 volume_attributes_class_name: Optional[str] = None,
                  volume_mode: Optional[str] = None,
                  volume_name: Optional[str] = None):
         """
@@ -15039,9 +15464,10 @@ class PersistentVolumeClaimSpecPatch(dict):
                * While dataSource only allows local objects, dataSourceRef allows objects
                  in any namespaces.
                (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled. (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
-        :param 'ResourceRequirementsPatchArgs' resources: resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
+        :param 'VolumeResourceRequirementsPatchArgs' resources: resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
         :param '_meta.v1.LabelSelectorPatchArgs' selector: selector is a label query over volumes to consider for binding.
         :param str storage_class_name: storageClassName is the name of the StorageClass required by the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1
+        :param str volume_attributes_class_name: volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string value means that no VolumeAttributesClass will be applied to the claim but it's not allowed to reset this field to empty string once it is set. If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass will be set by the persistentvolume controller if it exists. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#volumeattributesclass (Alpha) Using this field requires the VolumeAttributesClass feature gate to be enabled.
         :param str volume_mode: volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
         :param str volume_name: volumeName is the binding reference to the PersistentVolume backing this claim.
         """
@@ -15057,6 +15483,8 @@ class PersistentVolumeClaimSpecPatch(dict):
             pulumi.set(__self__, "selector", selector)
         if storage_class_name is not None:
             pulumi.set(__self__, "storage_class_name", storage_class_name)
+        if volume_attributes_class_name is not None:
+            pulumi.set(__self__, "volume_attributes_class_name", volume_attributes_class_name)
         if volume_mode is not None:
             pulumi.set(__self__, "volume_mode", volume_mode)
         if volume_name is not None:
@@ -15095,7 +15523,7 @@ class PersistentVolumeClaimSpecPatch(dict):
 
     @property
     @pulumi.getter
-    def resources(self) -> Optional['outputs.ResourceRequirementsPatch']:
+    def resources(self) -> Optional['outputs.VolumeResourceRequirementsPatch']:
         """
         resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
         """
@@ -15116,6 +15544,14 @@ class PersistentVolumeClaimSpecPatch(dict):
         storageClassName is the name of the StorageClass required by the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1
         """
         return pulumi.get(self, "storage_class_name")
+
+    @property
+    @pulumi.getter(name="volumeAttributesClassName")
+    def volume_attributes_class_name(self) -> Optional[str]:
+        """
+        volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string value means that no VolumeAttributesClass will be applied to the claim but it's not allowed to reset this field to empty string once it is set. If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass will be set by the persistentvolume controller if it exists. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#volumeattributesclass (Alpha) Using this field requires the VolumeAttributesClass feature gate to be enabled.
+        """
+        return pulumi.get(self, "volume_attributes_class_name")
 
     @property
     @pulumi.getter(name="volumeMode")
@@ -15148,6 +15584,10 @@ class PersistentVolumeClaimStatus(dict):
             suggest = "allocated_resource_statuses"
         elif key == "allocatedResources":
             suggest = "allocated_resources"
+        elif key == "currentVolumeAttributesClassName":
+            suggest = "current_volume_attributes_class_name"
+        elif key == "modifyVolumeStatus":
+            suggest = "modify_volume_status"
         elif key == "resizeStatus":
             suggest = "resize_status"
 
@@ -15168,6 +15608,8 @@ class PersistentVolumeClaimStatus(dict):
                  allocated_resources: Optional[Mapping[str, str]] = None,
                  capacity: Optional[Mapping[str, str]] = None,
                  conditions: Optional[Sequence['outputs.PersistentVolumeClaimCondition']] = None,
+                 current_volume_attributes_class_name: Optional[str] = None,
+                 modify_volume_status: Optional['outputs.ModifyVolumeStatus'] = None,
                  phase: Optional[str] = None,
                  resize_status: Optional[str] = None):
         """
@@ -15216,6 +15658,8 @@ class PersistentVolumeClaimStatus(dict):
                This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
         :param Mapping[str, str] capacity: capacity represents the actual resources of the underlying volume.
         :param Sequence['PersistentVolumeClaimConditionArgs'] conditions: conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'ResizeStarted'.
+        :param str current_volume_attributes_class_name: currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim This is an alpha field and requires enabling VolumeAttributesClass feature.
+        :param 'ModifyVolumeStatusArgs' modify_volume_status: ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted. This is an alpha field and requires enabling VolumeAttributesClass feature.
         :param str phase: phase represents the current phase of PersistentVolumeClaim.
         :param str resize_status: resizeStatus stores status of resize operation. ResizeStatus is not set by default but when expansion is complete resizeStatus is set to empty string by resize controller or kubelet. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
         """
@@ -15229,6 +15673,10 @@ class PersistentVolumeClaimStatus(dict):
             pulumi.set(__self__, "capacity", capacity)
         if conditions is not None:
             pulumi.set(__self__, "conditions", conditions)
+        if current_volume_attributes_class_name is not None:
+            pulumi.set(__self__, "current_volume_attributes_class_name", current_volume_attributes_class_name)
+        if modify_volume_status is not None:
+            pulumi.set(__self__, "modify_volume_status", modify_volume_status)
         if phase is not None:
             pulumi.set(__self__, "phase", phase)
         if resize_status is not None:
@@ -15314,6 +15762,22 @@ class PersistentVolumeClaimStatus(dict):
         return pulumi.get(self, "conditions")
 
     @property
+    @pulumi.getter(name="currentVolumeAttributesClassName")
+    def current_volume_attributes_class_name(self) -> Optional[str]:
+        """
+        currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim This is an alpha field and requires enabling VolumeAttributesClass feature.
+        """
+        return pulumi.get(self, "current_volume_attributes_class_name")
+
+    @property
+    @pulumi.getter(name="modifyVolumeStatus")
+    def modify_volume_status(self) -> Optional['outputs.ModifyVolumeStatus']:
+        """
+        ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted. This is an alpha field and requires enabling VolumeAttributesClass feature.
+        """
+        return pulumi.get(self, "modify_volume_status")
+
+    @property
     @pulumi.getter
     def phase(self) -> Optional[str]:
         """
@@ -15344,6 +15808,10 @@ class PersistentVolumeClaimStatusPatch(dict):
             suggest = "allocated_resource_statuses"
         elif key == "allocatedResources":
             suggest = "allocated_resources"
+        elif key == "currentVolumeAttributesClassName":
+            suggest = "current_volume_attributes_class_name"
+        elif key == "modifyVolumeStatus":
+            suggest = "modify_volume_status"
         elif key == "resizeStatus":
             suggest = "resize_status"
 
@@ -15364,6 +15832,8 @@ class PersistentVolumeClaimStatusPatch(dict):
                  allocated_resources: Optional[Mapping[str, str]] = None,
                  capacity: Optional[Mapping[str, str]] = None,
                  conditions: Optional[Sequence['outputs.PersistentVolumeClaimConditionPatch']] = None,
+                 current_volume_attributes_class_name: Optional[str] = None,
+                 modify_volume_status: Optional['outputs.ModifyVolumeStatusPatch'] = None,
                  phase: Optional[str] = None,
                  resize_status: Optional[str] = None):
         """
@@ -15412,6 +15882,8 @@ class PersistentVolumeClaimStatusPatch(dict):
                This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
         :param Mapping[str, str] capacity: capacity represents the actual resources of the underlying volume.
         :param Sequence['PersistentVolumeClaimConditionPatchArgs'] conditions: conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'ResizeStarted'.
+        :param str current_volume_attributes_class_name: currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim This is an alpha field and requires enabling VolumeAttributesClass feature.
+        :param 'ModifyVolumeStatusPatchArgs' modify_volume_status: ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted. This is an alpha field and requires enabling VolumeAttributesClass feature.
         :param str phase: phase represents the current phase of PersistentVolumeClaim.
         :param str resize_status: resizeStatus stores status of resize operation. ResizeStatus is not set by default but when expansion is complete resizeStatus is set to empty string by resize controller or kubelet. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
         """
@@ -15425,6 +15897,10 @@ class PersistentVolumeClaimStatusPatch(dict):
             pulumi.set(__self__, "capacity", capacity)
         if conditions is not None:
             pulumi.set(__self__, "conditions", conditions)
+        if current_volume_attributes_class_name is not None:
+            pulumi.set(__self__, "current_volume_attributes_class_name", current_volume_attributes_class_name)
+        if modify_volume_status is not None:
+            pulumi.set(__self__, "modify_volume_status", modify_volume_status)
         if phase is not None:
             pulumi.set(__self__, "phase", phase)
         if resize_status is not None:
@@ -15508,6 +15984,22 @@ class PersistentVolumeClaimStatusPatch(dict):
         conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'ResizeStarted'.
         """
         return pulumi.get(self, "conditions")
+
+    @property
+    @pulumi.getter(name="currentVolumeAttributesClassName")
+    def current_volume_attributes_class_name(self) -> Optional[str]:
+        """
+        currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim This is an alpha field and requires enabling VolumeAttributesClass feature.
+        """
+        return pulumi.get(self, "current_volume_attributes_class_name")
+
+    @property
+    @pulumi.getter(name="modifyVolumeStatus")
+    def modify_volume_status(self) -> Optional['outputs.ModifyVolumeStatusPatch']:
+        """
+        ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted. This is an alpha field and requires enabling VolumeAttributesClass feature.
+        """
+        return pulumi.get(self, "modify_volume_status")
 
     @property
     @pulumi.getter
@@ -15740,6 +16232,8 @@ class PersistentVolumeSpec(dict):
             suggest = "scale_io"
         elif key == "storageClassName":
             suggest = "storage_class_name"
+        elif key == "volumeAttributesClassName":
+            suggest = "volume_attributes_class_name"
         elif key == "volumeMode":
             suggest = "volume_mode"
         elif key == "vsphereVolume":
@@ -15785,6 +16279,7 @@ class PersistentVolumeSpec(dict):
                  scale_io: Optional['outputs.ScaleIOPersistentVolumeSource'] = None,
                  storage_class_name: Optional[str] = None,
                  storageos: Optional['outputs.StorageOSPersistentVolumeSource'] = None,
+                 volume_attributes_class_name: Optional[str] = None,
                  volume_mode: Optional[str] = None,
                  vsphere_volume: Optional['outputs.VsphereVirtualDiskVolumeSource'] = None):
         """
@@ -15817,6 +16312,7 @@ class PersistentVolumeSpec(dict):
         :param 'ScaleIOPersistentVolumeSourceArgs' scale_io: scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
         :param str storage_class_name: storageClassName is the name of StorageClass to which this persistent volume belongs. Empty value means that this volume does not belong to any StorageClass.
         :param 'StorageOSPersistentVolumeSourceArgs' storageos: storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod More info: https://examples.k8s.io/volumes/storageos/README.md
+        :param str volume_attributes_class_name: Name of VolumeAttributesClass to which this persistent volume belongs. Empty value is not allowed. When this field is not set, it indicates that this volume does not belong to any VolumeAttributesClass. This field is mutable and can be changed by the CSI driver after a volume has been updated successfully to a new class. For an unbound PersistentVolume, the volumeAttributesClassName will be matched with unbound PersistentVolumeClaims during the binding process. This is an alpha field and requires enabling VolumeAttributesClass feature.
         :param str volume_mode: volumeMode defines if a volume is intended to be used with a formatted filesystem or to remain in raw block state. Value of Filesystem is implied when not included in spec.
         :param 'VsphereVirtualDiskVolumeSourceArgs' vsphere_volume: vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
         """
@@ -15876,6 +16372,8 @@ class PersistentVolumeSpec(dict):
             pulumi.set(__self__, "storage_class_name", storage_class_name)
         if storageos is not None:
             pulumi.set(__self__, "storageos", storageos)
+        if volume_attributes_class_name is not None:
+            pulumi.set(__self__, "volume_attributes_class_name", volume_attributes_class_name)
         if volume_mode is not None:
             pulumi.set(__self__, "volume_mode", volume_mode)
         if vsphere_volume is not None:
@@ -16106,6 +16604,14 @@ class PersistentVolumeSpec(dict):
         return pulumi.get(self, "storageos")
 
     @property
+    @pulumi.getter(name="volumeAttributesClassName")
+    def volume_attributes_class_name(self) -> Optional[str]:
+        """
+        Name of VolumeAttributesClass to which this persistent volume belongs. Empty value is not allowed. When this field is not set, it indicates that this volume does not belong to any VolumeAttributesClass. This field is mutable and can be changed by the CSI driver after a volume has been updated successfully to a new class. For an unbound PersistentVolume, the volumeAttributesClassName will be matched with unbound PersistentVolumeClaims during the binding process. This is an alpha field and requires enabling VolumeAttributesClass feature.
+        """
+        return pulumi.get(self, "volume_attributes_class_name")
+
+    @property
     @pulumi.getter(name="volumeMode")
     def volume_mode(self) -> Optional[str]:
         """
@@ -16160,6 +16666,8 @@ class PersistentVolumeSpecPatch(dict):
             suggest = "scale_io"
         elif key == "storageClassName":
             suggest = "storage_class_name"
+        elif key == "volumeAttributesClassName":
+            suggest = "volume_attributes_class_name"
         elif key == "volumeMode":
             suggest = "volume_mode"
         elif key == "vsphereVolume":
@@ -16205,6 +16713,7 @@ class PersistentVolumeSpecPatch(dict):
                  scale_io: Optional['outputs.ScaleIOPersistentVolumeSourcePatch'] = None,
                  storage_class_name: Optional[str] = None,
                  storageos: Optional['outputs.StorageOSPersistentVolumeSourcePatch'] = None,
+                 volume_attributes_class_name: Optional[str] = None,
                  volume_mode: Optional[str] = None,
                  vsphere_volume: Optional['outputs.VsphereVirtualDiskVolumeSourcePatch'] = None):
         """
@@ -16237,6 +16746,7 @@ class PersistentVolumeSpecPatch(dict):
         :param 'ScaleIOPersistentVolumeSourcePatchArgs' scale_io: scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
         :param str storage_class_name: storageClassName is the name of StorageClass to which this persistent volume belongs. Empty value means that this volume does not belong to any StorageClass.
         :param 'StorageOSPersistentVolumeSourcePatchArgs' storageos: storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod More info: https://examples.k8s.io/volumes/storageos/README.md
+        :param str volume_attributes_class_name: Name of VolumeAttributesClass to which this persistent volume belongs. Empty value is not allowed. When this field is not set, it indicates that this volume does not belong to any VolumeAttributesClass. This field is mutable and can be changed by the CSI driver after a volume has been updated successfully to a new class. For an unbound PersistentVolume, the volumeAttributesClassName will be matched with unbound PersistentVolumeClaims during the binding process. This is an alpha field and requires enabling VolumeAttributesClass feature.
         :param str volume_mode: volumeMode defines if a volume is intended to be used with a formatted filesystem or to remain in raw block state. Value of Filesystem is implied when not included in spec.
         :param 'VsphereVirtualDiskVolumeSourcePatchArgs' vsphere_volume: vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
         """
@@ -16296,6 +16806,8 @@ class PersistentVolumeSpecPatch(dict):
             pulumi.set(__self__, "storage_class_name", storage_class_name)
         if storageos is not None:
             pulumi.set(__self__, "storageos", storageos)
+        if volume_attributes_class_name is not None:
+            pulumi.set(__self__, "volume_attributes_class_name", volume_attributes_class_name)
         if volume_mode is not None:
             pulumi.set(__self__, "volume_mode", volume_mode)
         if vsphere_volume is not None:
@@ -16524,6 +17036,14 @@ class PersistentVolumeSpecPatch(dict):
         storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod More info: https://examples.k8s.io/volumes/storageos/README.md
         """
         return pulumi.get(self, "storageos")
+
+    @property
+    @pulumi.getter(name="volumeAttributesClassName")
+    def volume_attributes_class_name(self) -> Optional[str]:
+        """
+        Name of VolumeAttributesClass to which this persistent volume belongs. Empty value is not allowed. When this field is not set, it indicates that this volume does not belong to any VolumeAttributesClass. This field is mutable and can be changed by the CSI driver after a volume has been updated successfully to a new class. For an unbound PersistentVolume, the volumeAttributesClassName will be matched with unbound PersistentVolumeClaims during the binding process. This is an alpha field and requires enabling VolumeAttributesClass feature.
+        """
+        return pulumi.get(self, "volume_attributes_class_name")
 
     @property
     @pulumi.getter(name="volumeMode")
@@ -17039,6 +17559,10 @@ class PodAffinityTerm(dict):
             suggest = "topology_key"
         elif key == "labelSelector":
             suggest = "label_selector"
+        elif key == "matchLabelKeys":
+            suggest = "match_label_keys"
+        elif key == "mismatchLabelKeys":
+            suggest = "mismatch_label_keys"
         elif key == "namespaceSelector":
             suggest = "namespace_selector"
 
@@ -17056,18 +17580,26 @@ class PodAffinityTerm(dict):
     def __init__(__self__, *,
                  topology_key: str,
                  label_selector: Optional['_meta.v1.outputs.LabelSelector'] = None,
+                 match_label_keys: Optional[Sequence[str]] = None,
+                 mismatch_label_keys: Optional[Sequence[str]] = None,
                  namespace_selector: Optional['_meta.v1.outputs.LabelSelector'] = None,
                  namespaces: Optional[Sequence[str]] = None):
         """
         Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key <topologyKey> matches that of any node on which a pod of the set of pods is running
         :param str topology_key: This pod should be co-located (affinity) or not co-located (anti-affinity) with the pods matching the labelSelector in the specified namespaces, where co-located is defined as running on a node whose value of the label with key topologyKey matches that of any node on which any of the selected pods is running. Empty topologyKey is not allowed.
-        :param '_meta.v1.LabelSelectorArgs' label_selector: A label query over a set of resources, in this case pods.
+        :param '_meta.v1.LabelSelectorArgs' label_selector: A label query over a set of resources, in this case pods. If it's null, this PodAffinityTerm matches with no Pods.
+        :param Sequence[str] match_label_keys: MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `LabelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both MatchLabelKeys and LabelSelector. Also, MatchLabelKeys cannot be set when LabelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
+        :param Sequence[str] mismatch_label_keys: MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `LabelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both MismatchLabelKeys and LabelSelector. Also, MismatchLabelKeys cannot be set when LabelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
         :param '_meta.v1.LabelSelectorArgs' namespace_selector: A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces.
         :param Sequence[str] namespaces: namespaces specifies a static list of namespace names that the term applies to. The term is applied to the union of the namespaces listed in this field and the ones selected by namespaceSelector. null or empty namespaces list and null namespaceSelector means "this pod's namespace".
         """
         pulumi.set(__self__, "topology_key", topology_key)
         if label_selector is not None:
             pulumi.set(__self__, "label_selector", label_selector)
+        if match_label_keys is not None:
+            pulumi.set(__self__, "match_label_keys", match_label_keys)
+        if mismatch_label_keys is not None:
+            pulumi.set(__self__, "mismatch_label_keys", mismatch_label_keys)
         if namespace_selector is not None:
             pulumi.set(__self__, "namespace_selector", namespace_selector)
         if namespaces is not None:
@@ -17085,9 +17617,25 @@ class PodAffinityTerm(dict):
     @pulumi.getter(name="labelSelector")
     def label_selector(self) -> Optional['_meta.v1.outputs.LabelSelector']:
         """
-        A label query over a set of resources, in this case pods.
+        A label query over a set of resources, in this case pods. If it's null, this PodAffinityTerm matches with no Pods.
         """
         return pulumi.get(self, "label_selector")
+
+    @property
+    @pulumi.getter(name="matchLabelKeys")
+    def match_label_keys(self) -> Optional[Sequence[str]]:
+        """
+        MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `LabelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both MatchLabelKeys and LabelSelector. Also, MatchLabelKeys cannot be set when LabelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
+        """
+        return pulumi.get(self, "match_label_keys")
+
+    @property
+    @pulumi.getter(name="mismatchLabelKeys")
+    def mismatch_label_keys(self) -> Optional[Sequence[str]]:
+        """
+        MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `LabelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both MismatchLabelKeys and LabelSelector. Also, MismatchLabelKeys cannot be set when LabelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
+        """
+        return pulumi.get(self, "mismatch_label_keys")
 
     @property
     @pulumi.getter(name="namespaceSelector")
@@ -17116,6 +17664,10 @@ class PodAffinityTermPatch(dict):
         suggest = None
         if key == "labelSelector":
             suggest = "label_selector"
+        elif key == "matchLabelKeys":
+            suggest = "match_label_keys"
+        elif key == "mismatchLabelKeys":
+            suggest = "mismatch_label_keys"
         elif key == "namespaceSelector":
             suggest = "namespace_selector"
         elif key == "topologyKey":
@@ -17134,18 +17686,26 @@ class PodAffinityTermPatch(dict):
 
     def __init__(__self__, *,
                  label_selector: Optional['_meta.v1.outputs.LabelSelectorPatch'] = None,
+                 match_label_keys: Optional[Sequence[str]] = None,
+                 mismatch_label_keys: Optional[Sequence[str]] = None,
                  namespace_selector: Optional['_meta.v1.outputs.LabelSelectorPatch'] = None,
                  namespaces: Optional[Sequence[str]] = None,
                  topology_key: Optional[str] = None):
         """
         Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key <topologyKey> matches that of any node on which a pod of the set of pods is running
-        :param '_meta.v1.LabelSelectorPatchArgs' label_selector: A label query over a set of resources, in this case pods.
+        :param '_meta.v1.LabelSelectorPatchArgs' label_selector: A label query over a set of resources, in this case pods. If it's null, this PodAffinityTerm matches with no Pods.
+        :param Sequence[str] match_label_keys: MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `LabelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both MatchLabelKeys and LabelSelector. Also, MatchLabelKeys cannot be set when LabelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
+        :param Sequence[str] mismatch_label_keys: MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `LabelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both MismatchLabelKeys and LabelSelector. Also, MismatchLabelKeys cannot be set when LabelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
         :param '_meta.v1.LabelSelectorPatchArgs' namespace_selector: A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces.
         :param Sequence[str] namespaces: namespaces specifies a static list of namespace names that the term applies to. The term is applied to the union of the namespaces listed in this field and the ones selected by namespaceSelector. null or empty namespaces list and null namespaceSelector means "this pod's namespace".
         :param str topology_key: This pod should be co-located (affinity) or not co-located (anti-affinity) with the pods matching the labelSelector in the specified namespaces, where co-located is defined as running on a node whose value of the label with key topologyKey matches that of any node on which any of the selected pods is running. Empty topologyKey is not allowed.
         """
         if label_selector is not None:
             pulumi.set(__self__, "label_selector", label_selector)
+        if match_label_keys is not None:
+            pulumi.set(__self__, "match_label_keys", match_label_keys)
+        if mismatch_label_keys is not None:
+            pulumi.set(__self__, "mismatch_label_keys", mismatch_label_keys)
         if namespace_selector is not None:
             pulumi.set(__self__, "namespace_selector", namespace_selector)
         if namespaces is not None:
@@ -17157,9 +17717,25 @@ class PodAffinityTermPatch(dict):
     @pulumi.getter(name="labelSelector")
     def label_selector(self) -> Optional['_meta.v1.outputs.LabelSelectorPatch']:
         """
-        A label query over a set of resources, in this case pods.
+        A label query over a set of resources, in this case pods. If it's null, this PodAffinityTerm matches with no Pods.
         """
         return pulumi.get(self, "label_selector")
+
+    @property
+    @pulumi.getter(name="matchLabelKeys")
+    def match_label_keys(self) -> Optional[Sequence[str]]:
+        """
+        MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `LabelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both MatchLabelKeys and LabelSelector. Also, MatchLabelKeys cannot be set when LabelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
+        """
+        return pulumi.get(self, "match_label_keys")
+
+    @property
+    @pulumi.getter(name="mismatchLabelKeys")
+    def mismatch_label_keys(self) -> Optional[Sequence[str]]:
+        """
+        MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `LabelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both MismatchLabelKeys and LabelSelector. Also, MismatchLabelKeys cannot be set when LabelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
+        """
+        return pulumi.get(self, "mismatch_label_keys")
 
     @property
     @pulumi.getter(name="namespaceSelector")
@@ -25289,7 +25865,7 @@ class ServicePort(dict):
                * Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).
                
                * Kubernetes-defined prefixed names:
-                 * 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540
+                 * 'kubernetes.io/h2c' - HTTP/2 prior knowledge over cleartext as described in https://www.rfc-editor.org/rfc/rfc9113.html#name-starting-http-2-with-prior-
                  * 'kubernetes.io/ws'  - WebSocket over cleartext as described in https://www.rfc-editor.org/rfc/rfc6455
                  * 'kubernetes.io/wss' - WebSocket over TLS as described in https://www.rfc-editor.org/rfc/rfc6455
                
@@ -25328,7 +25904,7 @@ class ServicePort(dict):
         * Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).
 
         * Kubernetes-defined prefixed names:
-          * 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540
+          * 'kubernetes.io/h2c' - HTTP/2 prior knowledge over cleartext as described in https://www.rfc-editor.org/rfc/rfc9113.html#name-starting-http-2-with-prior-
           * 'kubernetes.io/ws'  - WebSocket over cleartext as described in https://www.rfc-editor.org/rfc/rfc6455
           * 'kubernetes.io/wss' - WebSocket over TLS as described in https://www.rfc-editor.org/rfc/rfc6455
 
@@ -25409,7 +25985,7 @@ class ServicePortPatch(dict):
                * Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).
                
                * Kubernetes-defined prefixed names:
-                 * 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540
+                 * 'kubernetes.io/h2c' - HTTP/2 prior knowledge over cleartext as described in https://www.rfc-editor.org/rfc/rfc9113.html#name-starting-http-2-with-prior-
                  * 'kubernetes.io/ws'  - WebSocket over cleartext as described in https://www.rfc-editor.org/rfc/rfc6455
                  * 'kubernetes.io/wss' - WebSocket over TLS as described in https://www.rfc-editor.org/rfc/rfc6455
                
@@ -25442,7 +26018,7 @@ class ServicePortPatch(dict):
         * Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).
 
         * Kubernetes-defined prefixed names:
-          * 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540
+          * 'kubernetes.io/h2c' - HTTP/2 prior knowledge over cleartext as described in https://www.rfc-editor.org/rfc/rfc9113.html#name-starting-http-2-with-prior-
           * 'kubernetes.io/ws'  - WebSocket over cleartext as described in https://www.rfc-editor.org/rfc/rfc6455
           * 'kubernetes.io/wss' - WebSocket over TLS as described in https://www.rfc-editor.org/rfc/rfc6455
 
@@ -26317,6 +26893,51 @@ class SessionAffinityConfigPatch(dict):
         clientIP contains the configurations of Client IP based session affinity.
         """
         return pulumi.get(self, "client_ip")
+
+
+@pulumi.output_type
+class SleepAction(dict):
+    """
+    SleepAction describes a "sleep" action.
+    """
+    def __init__(__self__, *,
+                 seconds: int):
+        """
+        SleepAction describes a "sleep" action.
+        :param int seconds: Seconds is the number of seconds to sleep.
+        """
+        pulumi.set(__self__, "seconds", seconds)
+
+    @property
+    @pulumi.getter
+    def seconds(self) -> int:
+        """
+        Seconds is the number of seconds to sleep.
+        """
+        return pulumi.get(self, "seconds")
+
+
+@pulumi.output_type
+class SleepActionPatch(dict):
+    """
+    SleepAction describes a "sleep" action.
+    """
+    def __init__(__self__, *,
+                 seconds: Optional[int] = None):
+        """
+        SleepAction describes a "sleep" action.
+        :param int seconds: Seconds is the number of seconds to sleep.
+        """
+        if seconds is not None:
+            pulumi.set(__self__, "seconds", seconds)
+
+    @property
+    @pulumi.getter
+    def seconds(self) -> Optional[int]:
+        """
+        Seconds is the number of seconds to sleep.
+        """
+        return pulumi.get(self, "seconds")
 
 
 @pulumi.output_type
@@ -29160,7 +29781,9 @@ class VolumeProjection(dict):
     @staticmethod
     def __key_warning(key: str):
         suggest = None
-        if key == "configMap":
+        if key == "clusterTrustBundle":
+            suggest = "cluster_trust_bundle"
+        elif key == "configMap":
             suggest = "config_map"
         elif key == "downwardAPI":
             suggest = "downward_api"
@@ -29179,17 +29802,27 @@ class VolumeProjection(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
+                 cluster_trust_bundle: Optional['outputs.ClusterTrustBundleProjection'] = None,
                  config_map: Optional['outputs.ConfigMapProjection'] = None,
                  downward_api: Optional['outputs.DownwardAPIProjection'] = None,
                  secret: Optional['outputs.SecretProjection'] = None,
                  service_account_token: Optional['outputs.ServiceAccountTokenProjection'] = None):
         """
         Projection that may be projected along with other supported volume types
+        :param 'ClusterTrustBundleProjectionArgs' cluster_trust_bundle: ClusterTrustBundle allows a pod to access the `.spec.trustBundle` field of ClusterTrustBundle objects in an auto-updating file.
+               
+               Alpha, gated by the ClusterTrustBundleProjection feature gate.
+               
+               ClusterTrustBundle objects can either be selected by name, or by the combination of signer name and a label selector.
+               
+               Kubelet performs aggressive normalization of the PEM contents written into the pod filesystem.  Esoteric PEM features such as inter-block comments and block headers are stripped.  Certificates are deduplicated. The ordering of certificates within the file is arbitrary, and Kubelet may change the order over time.
         :param 'ConfigMapProjectionArgs' config_map: configMap information about the configMap data to project
         :param 'DownwardAPIProjectionArgs' downward_api: downwardAPI information about the downwardAPI data to project
         :param 'SecretProjectionArgs' secret: secret information about the secret data to project
         :param 'ServiceAccountTokenProjectionArgs' service_account_token: serviceAccountToken is information about the serviceAccountToken data to project
         """
+        if cluster_trust_bundle is not None:
+            pulumi.set(__self__, "cluster_trust_bundle", cluster_trust_bundle)
         if config_map is not None:
             pulumi.set(__self__, "config_map", config_map)
         if downward_api is not None:
@@ -29198,6 +29831,20 @@ class VolumeProjection(dict):
             pulumi.set(__self__, "secret", secret)
         if service_account_token is not None:
             pulumi.set(__self__, "service_account_token", service_account_token)
+
+    @property
+    @pulumi.getter(name="clusterTrustBundle")
+    def cluster_trust_bundle(self) -> Optional['outputs.ClusterTrustBundleProjection']:
+        """
+        ClusterTrustBundle allows a pod to access the `.spec.trustBundle` field of ClusterTrustBundle objects in an auto-updating file.
+
+        Alpha, gated by the ClusterTrustBundleProjection feature gate.
+
+        ClusterTrustBundle objects can either be selected by name, or by the combination of signer name and a label selector.
+
+        Kubelet performs aggressive normalization of the PEM contents written into the pod filesystem.  Esoteric PEM features such as inter-block comments and block headers are stripped.  Certificates are deduplicated. The ordering of certificates within the file is arbitrary, and Kubelet may change the order over time.
+        """
+        return pulumi.get(self, "cluster_trust_bundle")
 
     @property
     @pulumi.getter(name="configMap")
@@ -29240,7 +29887,9 @@ class VolumeProjectionPatch(dict):
     @staticmethod
     def __key_warning(key: str):
         suggest = None
-        if key == "configMap":
+        if key == "clusterTrustBundle":
+            suggest = "cluster_trust_bundle"
+        elif key == "configMap":
             suggest = "config_map"
         elif key == "downwardAPI":
             suggest = "downward_api"
@@ -29259,17 +29908,27 @@ class VolumeProjectionPatch(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
+                 cluster_trust_bundle: Optional['outputs.ClusterTrustBundleProjectionPatch'] = None,
                  config_map: Optional['outputs.ConfigMapProjectionPatch'] = None,
                  downward_api: Optional['outputs.DownwardAPIProjectionPatch'] = None,
                  secret: Optional['outputs.SecretProjectionPatch'] = None,
                  service_account_token: Optional['outputs.ServiceAccountTokenProjectionPatch'] = None):
         """
         Projection that may be projected along with other supported volume types
+        :param 'ClusterTrustBundleProjectionPatchArgs' cluster_trust_bundle: ClusterTrustBundle allows a pod to access the `.spec.trustBundle` field of ClusterTrustBundle objects in an auto-updating file.
+               
+               Alpha, gated by the ClusterTrustBundleProjection feature gate.
+               
+               ClusterTrustBundle objects can either be selected by name, or by the combination of signer name and a label selector.
+               
+               Kubelet performs aggressive normalization of the PEM contents written into the pod filesystem.  Esoteric PEM features such as inter-block comments and block headers are stripped.  Certificates are deduplicated. The ordering of certificates within the file is arbitrary, and Kubelet may change the order over time.
         :param 'ConfigMapProjectionPatchArgs' config_map: configMap information about the configMap data to project
         :param 'DownwardAPIProjectionPatchArgs' downward_api: downwardAPI information about the downwardAPI data to project
         :param 'SecretProjectionPatchArgs' secret: secret information about the secret data to project
         :param 'ServiceAccountTokenProjectionPatchArgs' service_account_token: serviceAccountToken is information about the serviceAccountToken data to project
         """
+        if cluster_trust_bundle is not None:
+            pulumi.set(__self__, "cluster_trust_bundle", cluster_trust_bundle)
         if config_map is not None:
             pulumi.set(__self__, "config_map", config_map)
         if downward_api is not None:
@@ -29278,6 +29937,20 @@ class VolumeProjectionPatch(dict):
             pulumi.set(__self__, "secret", secret)
         if service_account_token is not None:
             pulumi.set(__self__, "service_account_token", service_account_token)
+
+    @property
+    @pulumi.getter(name="clusterTrustBundle")
+    def cluster_trust_bundle(self) -> Optional['outputs.ClusterTrustBundleProjectionPatch']:
+        """
+        ClusterTrustBundle allows a pod to access the `.spec.trustBundle` field of ClusterTrustBundle objects in an auto-updating file.
+
+        Alpha, gated by the ClusterTrustBundleProjection feature gate.
+
+        ClusterTrustBundle objects can either be selected by name, or by the combination of signer name and a label selector.
+
+        Kubelet performs aggressive normalization of the PEM contents written into the pod filesystem.  Esoteric PEM features such as inter-block comments and block headers are stripped.  Certificates are deduplicated. The ordering of certificates within the file is arbitrary, and Kubelet may change the order over time.
+        """
+        return pulumi.get(self, "cluster_trust_bundle")
 
     @property
     @pulumi.getter(name="configMap")
@@ -29310,6 +29983,76 @@ class VolumeProjectionPatch(dict):
         serviceAccountToken is information about the serviceAccountToken data to project
         """
         return pulumi.get(self, "service_account_token")
+
+
+@pulumi.output_type
+class VolumeResourceRequirements(dict):
+    """
+    VolumeResourceRequirements describes the storage resource requirements for a volume.
+    """
+    def __init__(__self__, *,
+                 limits: Optional[Mapping[str, str]] = None,
+                 requests: Optional[Mapping[str, str]] = None):
+        """
+        VolumeResourceRequirements describes the storage resource requirements for a volume.
+        :param Mapping[str, str] limits: Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+        :param Mapping[str, str] requests: Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. Requests cannot exceed Limits. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+        """
+        if limits is not None:
+            pulumi.set(__self__, "limits", limits)
+        if requests is not None:
+            pulumi.set(__self__, "requests", requests)
+
+    @property
+    @pulumi.getter
+    def limits(self) -> Optional[Mapping[str, str]]:
+        """
+        Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+        """
+        return pulumi.get(self, "limits")
+
+    @property
+    @pulumi.getter
+    def requests(self) -> Optional[Mapping[str, str]]:
+        """
+        Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. Requests cannot exceed Limits. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+        """
+        return pulumi.get(self, "requests")
+
+
+@pulumi.output_type
+class VolumeResourceRequirementsPatch(dict):
+    """
+    VolumeResourceRequirements describes the storage resource requirements for a volume.
+    """
+    def __init__(__self__, *,
+                 limits: Optional[Mapping[str, str]] = None,
+                 requests: Optional[Mapping[str, str]] = None):
+        """
+        VolumeResourceRequirements describes the storage resource requirements for a volume.
+        :param Mapping[str, str] limits: Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+        :param Mapping[str, str] requests: Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. Requests cannot exceed Limits. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+        """
+        if limits is not None:
+            pulumi.set(__self__, "limits", limits)
+        if requests is not None:
+            pulumi.set(__self__, "requests", requests)
+
+    @property
+    @pulumi.getter
+    def limits(self) -> Optional[Mapping[str, str]]:
+        """
+        Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+        """
+        return pulumi.get(self, "limits")
+
+    @property
+    @pulumi.getter
+    def requests(self) -> Optional[Mapping[str, str]]:
+        """
+        Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. Requests cannot exceed Limits. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+        """
+        return pulumi.get(self, "requests")
 
 
 @pulumi.output_type

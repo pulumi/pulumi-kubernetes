@@ -2388,7 +2388,7 @@ type CSIPersistentVolumeSource struct {
 	Driver string `pulumi:"driver"`
 	// fsType to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs".
 	FsType *string `pulumi:"fsType"`
-	// nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is a beta field which is enabled default by CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+	// nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 	NodeExpandSecretRef *SecretReference `pulumi:"nodeExpandSecretRef"`
 	// nodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 	NodePublishSecretRef *SecretReference `pulumi:"nodePublishSecretRef"`
@@ -2423,7 +2423,7 @@ type CSIPersistentVolumeSourceArgs struct {
 	Driver pulumi.StringInput `pulumi:"driver"`
 	// fsType to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs".
 	FsType pulumi.StringPtrInput `pulumi:"fsType"`
-	// nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is a beta field which is enabled default by CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+	// nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 	NodeExpandSecretRef SecretReferencePtrInput `pulumi:"nodeExpandSecretRef"`
 	// nodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 	NodePublishSecretRef SecretReferencePtrInput `pulumi:"nodePublishSecretRef"`
@@ -2535,7 +2535,7 @@ func (o CSIPersistentVolumeSourceOutput) FsType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CSIPersistentVolumeSource) *string { return v.FsType }).(pulumi.StringPtrOutput)
 }
 
-// nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is a beta field which is enabled default by CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+// nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 func (o CSIPersistentVolumeSourceOutput) NodeExpandSecretRef() SecretReferencePtrOutput {
 	return o.ApplyT(func(v CSIPersistentVolumeSource) *SecretReference { return v.NodeExpandSecretRef }).(SecretReferencePtrOutput)
 }
@@ -2629,7 +2629,7 @@ func (o CSIPersistentVolumeSourcePtrOutput) FsType() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is a beta field which is enabled default by CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+// nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 func (o CSIPersistentVolumeSourcePtrOutput) NodeExpandSecretRef() SecretReferencePtrOutput {
 	return o.ApplyT(func(v *CSIPersistentVolumeSource) *SecretReference {
 		if v == nil {
@@ -2699,7 +2699,7 @@ type CSIPersistentVolumeSourcePatch struct {
 	Driver *string `pulumi:"driver"`
 	// fsType to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs".
 	FsType *string `pulumi:"fsType"`
-	// nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is a beta field which is enabled default by CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+	// nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 	NodeExpandSecretRef *SecretReferencePatch `pulumi:"nodeExpandSecretRef"`
 	// nodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 	NodePublishSecretRef *SecretReferencePatch `pulumi:"nodePublishSecretRef"`
@@ -2734,7 +2734,7 @@ type CSIPersistentVolumeSourcePatchArgs struct {
 	Driver pulumi.StringPtrInput `pulumi:"driver"`
 	// fsType to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs".
 	FsType pulumi.StringPtrInput `pulumi:"fsType"`
-	// nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is a beta field which is enabled default by CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+	// nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 	NodeExpandSecretRef SecretReferencePatchPtrInput `pulumi:"nodeExpandSecretRef"`
 	// nodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 	NodePublishSecretRef SecretReferencePatchPtrInput `pulumi:"nodePublishSecretRef"`
@@ -2846,7 +2846,7 @@ func (o CSIPersistentVolumeSourcePatchOutput) FsType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CSIPersistentVolumeSourcePatch) *string { return v.FsType }).(pulumi.StringPtrOutput)
 }
 
-// nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is a beta field which is enabled default by CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+// nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 func (o CSIPersistentVolumeSourcePatchOutput) NodeExpandSecretRef() SecretReferencePatchPtrOutput {
 	return o.ApplyT(func(v CSIPersistentVolumeSourcePatch) *SecretReferencePatch { return v.NodeExpandSecretRef }).(SecretReferencePatchPtrOutput)
 }
@@ -2940,7 +2940,7 @@ func (o CSIPersistentVolumeSourcePatchPtrOutput) FsType() pulumi.StringPtrOutput
 	}).(pulumi.StringPtrOutput)
 }
 
-// nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is a beta field which is enabled default by CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+// nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 func (o CSIPersistentVolumeSourcePatchPtrOutput) NodeExpandSecretRef() SecretReferencePatchPtrOutput {
 	return o.ApplyT(func(v *CSIPersistentVolumeSourcePatch) *SecretReferencePatch {
 		if v == nil {
@@ -6118,6 +6118,438 @@ func (o ClientIPConfigPatchPtrOutput) TimeoutSeconds() pulumi.IntPtrOutput {
 		}
 		return v.TimeoutSeconds
 	}).(pulumi.IntPtrOutput)
+}
+
+// ClusterTrustBundleProjection describes how to select a set of ClusterTrustBundle objects and project their contents into the pod filesystem.
+type ClusterTrustBundleProjection struct {
+	// Select all ClusterTrustBundles that match this label selector.  Only has effect if signerName is set.  Mutually-exclusive with name.  If unset, interpreted as "match nothing".  If set but empty, interpreted as "match everything".
+	LabelSelector *metav1.LabelSelector `pulumi:"labelSelector"`
+	// Select a single ClusterTrustBundle by object name.  Mutually-exclusive with signerName and labelSelector.
+	Name *string `pulumi:"name"`
+	// If true, don't block pod startup if the referenced ClusterTrustBundle(s) aren't available.  If using name, then the named ClusterTrustBundle is allowed not to exist.  If using signerName, then the combination of signerName and labelSelector is allowed to match zero ClusterTrustBundles.
+	Optional *bool `pulumi:"optional"`
+	// Relative path from the volume root to write the bundle.
+	Path string `pulumi:"path"`
+	// Select all ClusterTrustBundles that match this signer name. Mutually-exclusive with name.  The contents of all selected ClusterTrustBundles will be unified and deduplicated.
+	SignerName *string `pulumi:"signerName"`
+}
+
+// ClusterTrustBundleProjectionInput is an input type that accepts ClusterTrustBundleProjectionArgs and ClusterTrustBundleProjectionOutput values.
+// You can construct a concrete instance of `ClusterTrustBundleProjectionInput` via:
+//
+//	ClusterTrustBundleProjectionArgs{...}
+type ClusterTrustBundleProjectionInput interface {
+	pulumi.Input
+
+	ToClusterTrustBundleProjectionOutput() ClusterTrustBundleProjectionOutput
+	ToClusterTrustBundleProjectionOutputWithContext(context.Context) ClusterTrustBundleProjectionOutput
+}
+
+// ClusterTrustBundleProjection describes how to select a set of ClusterTrustBundle objects and project their contents into the pod filesystem.
+type ClusterTrustBundleProjectionArgs struct {
+	// Select all ClusterTrustBundles that match this label selector.  Only has effect if signerName is set.  Mutually-exclusive with name.  If unset, interpreted as "match nothing".  If set but empty, interpreted as "match everything".
+	LabelSelector metav1.LabelSelectorPtrInput `pulumi:"labelSelector"`
+	// Select a single ClusterTrustBundle by object name.  Mutually-exclusive with signerName and labelSelector.
+	Name pulumi.StringPtrInput `pulumi:"name"`
+	// If true, don't block pod startup if the referenced ClusterTrustBundle(s) aren't available.  If using name, then the named ClusterTrustBundle is allowed not to exist.  If using signerName, then the combination of signerName and labelSelector is allowed to match zero ClusterTrustBundles.
+	Optional pulumi.BoolPtrInput `pulumi:"optional"`
+	// Relative path from the volume root to write the bundle.
+	Path pulumi.StringInput `pulumi:"path"`
+	// Select all ClusterTrustBundles that match this signer name. Mutually-exclusive with name.  The contents of all selected ClusterTrustBundles will be unified and deduplicated.
+	SignerName pulumi.StringPtrInput `pulumi:"signerName"`
+}
+
+func (ClusterTrustBundleProjectionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ClusterTrustBundleProjection)(nil)).Elem()
+}
+
+func (i ClusterTrustBundleProjectionArgs) ToClusterTrustBundleProjectionOutput() ClusterTrustBundleProjectionOutput {
+	return i.ToClusterTrustBundleProjectionOutputWithContext(context.Background())
+}
+
+func (i ClusterTrustBundleProjectionArgs) ToClusterTrustBundleProjectionOutputWithContext(ctx context.Context) ClusterTrustBundleProjectionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterTrustBundleProjectionOutput)
+}
+
+func (i ClusterTrustBundleProjectionArgs) ToClusterTrustBundleProjectionPtrOutput() ClusterTrustBundleProjectionPtrOutput {
+	return i.ToClusterTrustBundleProjectionPtrOutputWithContext(context.Background())
+}
+
+func (i ClusterTrustBundleProjectionArgs) ToClusterTrustBundleProjectionPtrOutputWithContext(ctx context.Context) ClusterTrustBundleProjectionPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterTrustBundleProjectionOutput).ToClusterTrustBundleProjectionPtrOutputWithContext(ctx)
+}
+
+// ClusterTrustBundleProjectionPtrInput is an input type that accepts ClusterTrustBundleProjectionArgs, ClusterTrustBundleProjectionPtr and ClusterTrustBundleProjectionPtrOutput values.
+// You can construct a concrete instance of `ClusterTrustBundleProjectionPtrInput` via:
+//
+//	        ClusterTrustBundleProjectionArgs{...}
+//
+//	or:
+//
+//	        nil
+type ClusterTrustBundleProjectionPtrInput interface {
+	pulumi.Input
+
+	ToClusterTrustBundleProjectionPtrOutput() ClusterTrustBundleProjectionPtrOutput
+	ToClusterTrustBundleProjectionPtrOutputWithContext(context.Context) ClusterTrustBundleProjectionPtrOutput
+}
+
+type clusterTrustBundleProjectionPtrType ClusterTrustBundleProjectionArgs
+
+func ClusterTrustBundleProjectionPtr(v *ClusterTrustBundleProjectionArgs) ClusterTrustBundleProjectionPtrInput {
+	return (*clusterTrustBundleProjectionPtrType)(v)
+}
+
+func (*clusterTrustBundleProjectionPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ClusterTrustBundleProjection)(nil)).Elem()
+}
+
+func (i *clusterTrustBundleProjectionPtrType) ToClusterTrustBundleProjectionPtrOutput() ClusterTrustBundleProjectionPtrOutput {
+	return i.ToClusterTrustBundleProjectionPtrOutputWithContext(context.Background())
+}
+
+func (i *clusterTrustBundleProjectionPtrType) ToClusterTrustBundleProjectionPtrOutputWithContext(ctx context.Context) ClusterTrustBundleProjectionPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterTrustBundleProjectionPtrOutput)
+}
+
+// ClusterTrustBundleProjection describes how to select a set of ClusterTrustBundle objects and project their contents into the pod filesystem.
+type ClusterTrustBundleProjectionOutput struct{ *pulumi.OutputState }
+
+func (ClusterTrustBundleProjectionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ClusterTrustBundleProjection)(nil)).Elem()
+}
+
+func (o ClusterTrustBundleProjectionOutput) ToClusterTrustBundleProjectionOutput() ClusterTrustBundleProjectionOutput {
+	return o
+}
+
+func (o ClusterTrustBundleProjectionOutput) ToClusterTrustBundleProjectionOutputWithContext(ctx context.Context) ClusterTrustBundleProjectionOutput {
+	return o
+}
+
+func (o ClusterTrustBundleProjectionOutput) ToClusterTrustBundleProjectionPtrOutput() ClusterTrustBundleProjectionPtrOutput {
+	return o.ToClusterTrustBundleProjectionPtrOutputWithContext(context.Background())
+}
+
+func (o ClusterTrustBundleProjectionOutput) ToClusterTrustBundleProjectionPtrOutputWithContext(ctx context.Context) ClusterTrustBundleProjectionPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ClusterTrustBundleProjection) *ClusterTrustBundleProjection {
+		return &v
+	}).(ClusterTrustBundleProjectionPtrOutput)
+}
+
+// Select all ClusterTrustBundles that match this label selector.  Only has effect if signerName is set.  Mutually-exclusive with name.  If unset, interpreted as "match nothing".  If set but empty, interpreted as "match everything".
+func (o ClusterTrustBundleProjectionOutput) LabelSelector() metav1.LabelSelectorPtrOutput {
+	return o.ApplyT(func(v ClusterTrustBundleProjection) *metav1.LabelSelector { return v.LabelSelector }).(metav1.LabelSelectorPtrOutput)
+}
+
+// Select a single ClusterTrustBundle by object name.  Mutually-exclusive with signerName and labelSelector.
+func (o ClusterTrustBundleProjectionOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ClusterTrustBundleProjection) *string { return v.Name }).(pulumi.StringPtrOutput)
+}
+
+// If true, don't block pod startup if the referenced ClusterTrustBundle(s) aren't available.  If using name, then the named ClusterTrustBundle is allowed not to exist.  If using signerName, then the combination of signerName and labelSelector is allowed to match zero ClusterTrustBundles.
+func (o ClusterTrustBundleProjectionOutput) Optional() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ClusterTrustBundleProjection) *bool { return v.Optional }).(pulumi.BoolPtrOutput)
+}
+
+// Relative path from the volume root to write the bundle.
+func (o ClusterTrustBundleProjectionOutput) Path() pulumi.StringOutput {
+	return o.ApplyT(func(v ClusterTrustBundleProjection) string { return v.Path }).(pulumi.StringOutput)
+}
+
+// Select all ClusterTrustBundles that match this signer name. Mutually-exclusive with name.  The contents of all selected ClusterTrustBundles will be unified and deduplicated.
+func (o ClusterTrustBundleProjectionOutput) SignerName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ClusterTrustBundleProjection) *string { return v.SignerName }).(pulumi.StringPtrOutput)
+}
+
+type ClusterTrustBundleProjectionPtrOutput struct{ *pulumi.OutputState }
+
+func (ClusterTrustBundleProjectionPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ClusterTrustBundleProjection)(nil)).Elem()
+}
+
+func (o ClusterTrustBundleProjectionPtrOutput) ToClusterTrustBundleProjectionPtrOutput() ClusterTrustBundleProjectionPtrOutput {
+	return o
+}
+
+func (o ClusterTrustBundleProjectionPtrOutput) ToClusterTrustBundleProjectionPtrOutputWithContext(ctx context.Context) ClusterTrustBundleProjectionPtrOutput {
+	return o
+}
+
+func (o ClusterTrustBundleProjectionPtrOutput) Elem() ClusterTrustBundleProjectionOutput {
+	return o.ApplyT(func(v *ClusterTrustBundleProjection) ClusterTrustBundleProjection {
+		if v != nil {
+			return *v
+		}
+		var ret ClusterTrustBundleProjection
+		return ret
+	}).(ClusterTrustBundleProjectionOutput)
+}
+
+// Select all ClusterTrustBundles that match this label selector.  Only has effect if signerName is set.  Mutually-exclusive with name.  If unset, interpreted as "match nothing".  If set but empty, interpreted as "match everything".
+func (o ClusterTrustBundleProjectionPtrOutput) LabelSelector() metav1.LabelSelectorPtrOutput {
+	return o.ApplyT(func(v *ClusterTrustBundleProjection) *metav1.LabelSelector {
+		if v == nil {
+			return nil
+		}
+		return v.LabelSelector
+	}).(metav1.LabelSelectorPtrOutput)
+}
+
+// Select a single ClusterTrustBundle by object name.  Mutually-exclusive with signerName and labelSelector.
+func (o ClusterTrustBundleProjectionPtrOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ClusterTrustBundleProjection) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Name
+	}).(pulumi.StringPtrOutput)
+}
+
+// If true, don't block pod startup if the referenced ClusterTrustBundle(s) aren't available.  If using name, then the named ClusterTrustBundle is allowed not to exist.  If using signerName, then the combination of signerName and labelSelector is allowed to match zero ClusterTrustBundles.
+func (o ClusterTrustBundleProjectionPtrOutput) Optional() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *ClusterTrustBundleProjection) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Optional
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Relative path from the volume root to write the bundle.
+func (o ClusterTrustBundleProjectionPtrOutput) Path() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ClusterTrustBundleProjection) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Path
+	}).(pulumi.StringPtrOutput)
+}
+
+// Select all ClusterTrustBundles that match this signer name. Mutually-exclusive with name.  The contents of all selected ClusterTrustBundles will be unified and deduplicated.
+func (o ClusterTrustBundleProjectionPtrOutput) SignerName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ClusterTrustBundleProjection) *string {
+		if v == nil {
+			return nil
+		}
+		return v.SignerName
+	}).(pulumi.StringPtrOutput)
+}
+
+// ClusterTrustBundleProjection describes how to select a set of ClusterTrustBundle objects and project their contents into the pod filesystem.
+type ClusterTrustBundleProjectionPatch struct {
+	// Select all ClusterTrustBundles that match this label selector.  Only has effect if signerName is set.  Mutually-exclusive with name.  If unset, interpreted as "match nothing".  If set but empty, interpreted as "match everything".
+	LabelSelector *metav1.LabelSelectorPatch `pulumi:"labelSelector"`
+	// Select a single ClusterTrustBundle by object name.  Mutually-exclusive with signerName and labelSelector.
+	Name *string `pulumi:"name"`
+	// If true, don't block pod startup if the referenced ClusterTrustBundle(s) aren't available.  If using name, then the named ClusterTrustBundle is allowed not to exist.  If using signerName, then the combination of signerName and labelSelector is allowed to match zero ClusterTrustBundles.
+	Optional *bool `pulumi:"optional"`
+	// Relative path from the volume root to write the bundle.
+	Path *string `pulumi:"path"`
+	// Select all ClusterTrustBundles that match this signer name. Mutually-exclusive with name.  The contents of all selected ClusterTrustBundles will be unified and deduplicated.
+	SignerName *string `pulumi:"signerName"`
+}
+
+// ClusterTrustBundleProjectionPatchInput is an input type that accepts ClusterTrustBundleProjectionPatchArgs and ClusterTrustBundleProjectionPatchOutput values.
+// You can construct a concrete instance of `ClusterTrustBundleProjectionPatchInput` via:
+//
+//	ClusterTrustBundleProjectionPatchArgs{...}
+type ClusterTrustBundleProjectionPatchInput interface {
+	pulumi.Input
+
+	ToClusterTrustBundleProjectionPatchOutput() ClusterTrustBundleProjectionPatchOutput
+	ToClusterTrustBundleProjectionPatchOutputWithContext(context.Context) ClusterTrustBundleProjectionPatchOutput
+}
+
+// ClusterTrustBundleProjection describes how to select a set of ClusterTrustBundle objects and project their contents into the pod filesystem.
+type ClusterTrustBundleProjectionPatchArgs struct {
+	// Select all ClusterTrustBundles that match this label selector.  Only has effect if signerName is set.  Mutually-exclusive with name.  If unset, interpreted as "match nothing".  If set but empty, interpreted as "match everything".
+	LabelSelector metav1.LabelSelectorPatchPtrInput `pulumi:"labelSelector"`
+	// Select a single ClusterTrustBundle by object name.  Mutually-exclusive with signerName and labelSelector.
+	Name pulumi.StringPtrInput `pulumi:"name"`
+	// If true, don't block pod startup if the referenced ClusterTrustBundle(s) aren't available.  If using name, then the named ClusterTrustBundle is allowed not to exist.  If using signerName, then the combination of signerName and labelSelector is allowed to match zero ClusterTrustBundles.
+	Optional pulumi.BoolPtrInput `pulumi:"optional"`
+	// Relative path from the volume root to write the bundle.
+	Path pulumi.StringPtrInput `pulumi:"path"`
+	// Select all ClusterTrustBundles that match this signer name. Mutually-exclusive with name.  The contents of all selected ClusterTrustBundles will be unified and deduplicated.
+	SignerName pulumi.StringPtrInput `pulumi:"signerName"`
+}
+
+func (ClusterTrustBundleProjectionPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ClusterTrustBundleProjectionPatch)(nil)).Elem()
+}
+
+func (i ClusterTrustBundleProjectionPatchArgs) ToClusterTrustBundleProjectionPatchOutput() ClusterTrustBundleProjectionPatchOutput {
+	return i.ToClusterTrustBundleProjectionPatchOutputWithContext(context.Background())
+}
+
+func (i ClusterTrustBundleProjectionPatchArgs) ToClusterTrustBundleProjectionPatchOutputWithContext(ctx context.Context) ClusterTrustBundleProjectionPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterTrustBundleProjectionPatchOutput)
+}
+
+func (i ClusterTrustBundleProjectionPatchArgs) ToClusterTrustBundleProjectionPatchPtrOutput() ClusterTrustBundleProjectionPatchPtrOutput {
+	return i.ToClusterTrustBundleProjectionPatchPtrOutputWithContext(context.Background())
+}
+
+func (i ClusterTrustBundleProjectionPatchArgs) ToClusterTrustBundleProjectionPatchPtrOutputWithContext(ctx context.Context) ClusterTrustBundleProjectionPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterTrustBundleProjectionPatchOutput).ToClusterTrustBundleProjectionPatchPtrOutputWithContext(ctx)
+}
+
+// ClusterTrustBundleProjectionPatchPtrInput is an input type that accepts ClusterTrustBundleProjectionPatchArgs, ClusterTrustBundleProjectionPatchPtr and ClusterTrustBundleProjectionPatchPtrOutput values.
+// You can construct a concrete instance of `ClusterTrustBundleProjectionPatchPtrInput` via:
+//
+//	        ClusterTrustBundleProjectionPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type ClusterTrustBundleProjectionPatchPtrInput interface {
+	pulumi.Input
+
+	ToClusterTrustBundleProjectionPatchPtrOutput() ClusterTrustBundleProjectionPatchPtrOutput
+	ToClusterTrustBundleProjectionPatchPtrOutputWithContext(context.Context) ClusterTrustBundleProjectionPatchPtrOutput
+}
+
+type clusterTrustBundleProjectionPatchPtrType ClusterTrustBundleProjectionPatchArgs
+
+func ClusterTrustBundleProjectionPatchPtr(v *ClusterTrustBundleProjectionPatchArgs) ClusterTrustBundleProjectionPatchPtrInput {
+	return (*clusterTrustBundleProjectionPatchPtrType)(v)
+}
+
+func (*clusterTrustBundleProjectionPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ClusterTrustBundleProjectionPatch)(nil)).Elem()
+}
+
+func (i *clusterTrustBundleProjectionPatchPtrType) ToClusterTrustBundleProjectionPatchPtrOutput() ClusterTrustBundleProjectionPatchPtrOutput {
+	return i.ToClusterTrustBundleProjectionPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *clusterTrustBundleProjectionPatchPtrType) ToClusterTrustBundleProjectionPatchPtrOutputWithContext(ctx context.Context) ClusterTrustBundleProjectionPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterTrustBundleProjectionPatchPtrOutput)
+}
+
+// ClusterTrustBundleProjection describes how to select a set of ClusterTrustBundle objects and project their contents into the pod filesystem.
+type ClusterTrustBundleProjectionPatchOutput struct{ *pulumi.OutputState }
+
+func (ClusterTrustBundleProjectionPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ClusterTrustBundleProjectionPatch)(nil)).Elem()
+}
+
+func (o ClusterTrustBundleProjectionPatchOutput) ToClusterTrustBundleProjectionPatchOutput() ClusterTrustBundleProjectionPatchOutput {
+	return o
+}
+
+func (o ClusterTrustBundleProjectionPatchOutput) ToClusterTrustBundleProjectionPatchOutputWithContext(ctx context.Context) ClusterTrustBundleProjectionPatchOutput {
+	return o
+}
+
+func (o ClusterTrustBundleProjectionPatchOutput) ToClusterTrustBundleProjectionPatchPtrOutput() ClusterTrustBundleProjectionPatchPtrOutput {
+	return o.ToClusterTrustBundleProjectionPatchPtrOutputWithContext(context.Background())
+}
+
+func (o ClusterTrustBundleProjectionPatchOutput) ToClusterTrustBundleProjectionPatchPtrOutputWithContext(ctx context.Context) ClusterTrustBundleProjectionPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ClusterTrustBundleProjectionPatch) *ClusterTrustBundleProjectionPatch {
+		return &v
+	}).(ClusterTrustBundleProjectionPatchPtrOutput)
+}
+
+// Select all ClusterTrustBundles that match this label selector.  Only has effect if signerName is set.  Mutually-exclusive with name.  If unset, interpreted as "match nothing".  If set but empty, interpreted as "match everything".
+func (o ClusterTrustBundleProjectionPatchOutput) LabelSelector() metav1.LabelSelectorPatchPtrOutput {
+	return o.ApplyT(func(v ClusterTrustBundleProjectionPatch) *metav1.LabelSelectorPatch { return v.LabelSelector }).(metav1.LabelSelectorPatchPtrOutput)
+}
+
+// Select a single ClusterTrustBundle by object name.  Mutually-exclusive with signerName and labelSelector.
+func (o ClusterTrustBundleProjectionPatchOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ClusterTrustBundleProjectionPatch) *string { return v.Name }).(pulumi.StringPtrOutput)
+}
+
+// If true, don't block pod startup if the referenced ClusterTrustBundle(s) aren't available.  If using name, then the named ClusterTrustBundle is allowed not to exist.  If using signerName, then the combination of signerName and labelSelector is allowed to match zero ClusterTrustBundles.
+func (o ClusterTrustBundleProjectionPatchOutput) Optional() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ClusterTrustBundleProjectionPatch) *bool { return v.Optional }).(pulumi.BoolPtrOutput)
+}
+
+// Relative path from the volume root to write the bundle.
+func (o ClusterTrustBundleProjectionPatchOutput) Path() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ClusterTrustBundleProjectionPatch) *string { return v.Path }).(pulumi.StringPtrOutput)
+}
+
+// Select all ClusterTrustBundles that match this signer name. Mutually-exclusive with name.  The contents of all selected ClusterTrustBundles will be unified and deduplicated.
+func (o ClusterTrustBundleProjectionPatchOutput) SignerName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ClusterTrustBundleProjectionPatch) *string { return v.SignerName }).(pulumi.StringPtrOutput)
+}
+
+type ClusterTrustBundleProjectionPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (ClusterTrustBundleProjectionPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ClusterTrustBundleProjectionPatch)(nil)).Elem()
+}
+
+func (o ClusterTrustBundleProjectionPatchPtrOutput) ToClusterTrustBundleProjectionPatchPtrOutput() ClusterTrustBundleProjectionPatchPtrOutput {
+	return o
+}
+
+func (o ClusterTrustBundleProjectionPatchPtrOutput) ToClusterTrustBundleProjectionPatchPtrOutputWithContext(ctx context.Context) ClusterTrustBundleProjectionPatchPtrOutput {
+	return o
+}
+
+func (o ClusterTrustBundleProjectionPatchPtrOutput) Elem() ClusterTrustBundleProjectionPatchOutput {
+	return o.ApplyT(func(v *ClusterTrustBundleProjectionPatch) ClusterTrustBundleProjectionPatch {
+		if v != nil {
+			return *v
+		}
+		var ret ClusterTrustBundleProjectionPatch
+		return ret
+	}).(ClusterTrustBundleProjectionPatchOutput)
+}
+
+// Select all ClusterTrustBundles that match this label selector.  Only has effect if signerName is set.  Mutually-exclusive with name.  If unset, interpreted as "match nothing".  If set but empty, interpreted as "match everything".
+func (o ClusterTrustBundleProjectionPatchPtrOutput) LabelSelector() metav1.LabelSelectorPatchPtrOutput {
+	return o.ApplyT(func(v *ClusterTrustBundleProjectionPatch) *metav1.LabelSelectorPatch {
+		if v == nil {
+			return nil
+		}
+		return v.LabelSelector
+	}).(metav1.LabelSelectorPatchPtrOutput)
+}
+
+// Select a single ClusterTrustBundle by object name.  Mutually-exclusive with signerName and labelSelector.
+func (o ClusterTrustBundleProjectionPatchPtrOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ClusterTrustBundleProjectionPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Name
+	}).(pulumi.StringPtrOutput)
+}
+
+// If true, don't block pod startup if the referenced ClusterTrustBundle(s) aren't available.  If using name, then the named ClusterTrustBundle is allowed not to exist.  If using signerName, then the combination of signerName and labelSelector is allowed to match zero ClusterTrustBundles.
+func (o ClusterTrustBundleProjectionPatchPtrOutput) Optional() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *ClusterTrustBundleProjectionPatch) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Optional
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Relative path from the volume root to write the bundle.
+func (o ClusterTrustBundleProjectionPatchPtrOutput) Path() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ClusterTrustBundleProjectionPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Path
+	}).(pulumi.StringPtrOutput)
+}
+
+// Select all ClusterTrustBundles that match this signer name. Mutually-exclusive with name.  The contents of all selected ClusterTrustBundles will be unified and deduplicated.
+func (o ClusterTrustBundleProjectionPatchPtrOutput) SignerName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ClusterTrustBundleProjectionPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.SignerName
+	}).(pulumi.StringPtrOutput)
 }
 
 // Information about the condition of a component.
@@ -13771,7 +14203,7 @@ type EndpointPort struct {
 	// * Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).
 	//
 	// * Kubernetes-defined prefixed names:
-	//   * 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540
+	//   * 'kubernetes.io/h2c' - HTTP/2 prior knowledge over cleartext as described in https://www.rfc-editor.org/rfc/rfc9113.html#name-starting-http-2-with-prior-
 	//   * 'kubernetes.io/ws'  - WebSocket over cleartext as described in https://www.rfc-editor.org/rfc/rfc6455
 	//   * 'kubernetes.io/wss' - WebSocket over TLS as described in https://www.rfc-editor.org/rfc/rfc6455
 	//
@@ -13803,7 +14235,7 @@ type EndpointPortArgs struct {
 	// * Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).
 	//
 	// * Kubernetes-defined prefixed names:
-	//   * 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540
+	//   * 'kubernetes.io/h2c' - HTTP/2 prior knowledge over cleartext as described in https://www.rfc-editor.org/rfc/rfc9113.html#name-starting-http-2-with-prior-
 	//   * 'kubernetes.io/ws'  - WebSocket over cleartext as described in https://www.rfc-editor.org/rfc/rfc6455
 	//   * 'kubernetes.io/wss' - WebSocket over TLS as described in https://www.rfc-editor.org/rfc/rfc6455
 	//
@@ -13874,7 +14306,7 @@ func (o EndpointPortOutput) ToEndpointPortOutputWithContext(ctx context.Context)
 // * Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).
 //
 // * Kubernetes-defined prefixed names:
-//   - 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540
+//   - 'kubernetes.io/h2c' - HTTP/2 prior knowledge over cleartext as described in https://www.rfc-editor.org/rfc/rfc9113.html#name-starting-http-2-with-prior-
 //   - 'kubernetes.io/ws'  - WebSocket over cleartext as described in https://www.rfc-editor.org/rfc/rfc6455
 //   - 'kubernetes.io/wss' - WebSocket over TLS as described in https://www.rfc-editor.org/rfc/rfc6455
 //
@@ -13925,7 +14357,7 @@ type EndpointPortPatch struct {
 	// * Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).
 	//
 	// * Kubernetes-defined prefixed names:
-	//   * 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540
+	//   * 'kubernetes.io/h2c' - HTTP/2 prior knowledge over cleartext as described in https://www.rfc-editor.org/rfc/rfc9113.html#name-starting-http-2-with-prior-
 	//   * 'kubernetes.io/ws'  - WebSocket over cleartext as described in https://www.rfc-editor.org/rfc/rfc6455
 	//   * 'kubernetes.io/wss' - WebSocket over TLS as described in https://www.rfc-editor.org/rfc/rfc6455
 	//
@@ -13957,7 +14389,7 @@ type EndpointPortPatchArgs struct {
 	// * Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).
 	//
 	// * Kubernetes-defined prefixed names:
-	//   * 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540
+	//   * 'kubernetes.io/h2c' - HTTP/2 prior knowledge over cleartext as described in https://www.rfc-editor.org/rfc/rfc9113.html#name-starting-http-2-with-prior-
 	//   * 'kubernetes.io/ws'  - WebSocket over cleartext as described in https://www.rfc-editor.org/rfc/rfc6455
 	//   * 'kubernetes.io/wss' - WebSocket over TLS as described in https://www.rfc-editor.org/rfc/rfc6455
 	//
@@ -14028,7 +14460,7 @@ func (o EndpointPortPatchOutput) ToEndpointPortPatchOutputWithContext(ctx contex
 // * Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).
 //
 // * Kubernetes-defined prefixed names:
-//   - 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540
+//   - 'kubernetes.io/h2c' - HTTP/2 prior knowledge over cleartext as described in https://www.rfc-editor.org/rfc/rfc9113.html#name-starting-http-2-with-prior-
 //   - 'kubernetes.io/ws'  - WebSocket over cleartext as described in https://www.rfc-editor.org/rfc/rfc6455
 //   - 'kubernetes.io/wss' - WebSocket over TLS as described in https://www.rfc-editor.org/rfc/rfc6455
 //
@@ -24817,6 +25249,8 @@ type LifecycleHandler struct {
 	Exec *ExecAction `pulumi:"exec"`
 	// HTTPGet specifies the http request to perform.
 	HttpGet *HTTPGetAction `pulumi:"httpGet"`
+	// Sleep represents the duration that the container should sleep before being terminated.
+	Sleep *SleepAction `pulumi:"sleep"`
 	// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
 	TcpSocket *TCPSocketAction `pulumi:"tcpSocket"`
 }
@@ -24838,6 +25272,8 @@ type LifecycleHandlerArgs struct {
 	Exec ExecActionPtrInput `pulumi:"exec"`
 	// HTTPGet specifies the http request to perform.
 	HttpGet HTTPGetActionPtrInput `pulumi:"httpGet"`
+	// Sleep represents the duration that the container should sleep before being terminated.
+	Sleep SleepActionPtrInput `pulumi:"sleep"`
 	// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
 	TcpSocket TCPSocketActionPtrInput `pulumi:"tcpSocket"`
 }
@@ -24930,6 +25366,11 @@ func (o LifecycleHandlerOutput) HttpGet() HTTPGetActionPtrOutput {
 	return o.ApplyT(func(v LifecycleHandler) *HTTPGetAction { return v.HttpGet }).(HTTPGetActionPtrOutput)
 }
 
+// Sleep represents the duration that the container should sleep before being terminated.
+func (o LifecycleHandlerOutput) Sleep() SleepActionPtrOutput {
+	return o.ApplyT(func(v LifecycleHandler) *SleepAction { return v.Sleep }).(SleepActionPtrOutput)
+}
+
 // Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
 func (o LifecycleHandlerOutput) TcpSocket() TCPSocketActionPtrOutput {
 	return o.ApplyT(func(v LifecycleHandler) *TCPSocketAction { return v.TcpSocket }).(TCPSocketActionPtrOutput)
@@ -24979,6 +25420,16 @@ func (o LifecycleHandlerPtrOutput) HttpGet() HTTPGetActionPtrOutput {
 	}).(HTTPGetActionPtrOutput)
 }
 
+// Sleep represents the duration that the container should sleep before being terminated.
+func (o LifecycleHandlerPtrOutput) Sleep() SleepActionPtrOutput {
+	return o.ApplyT(func(v *LifecycleHandler) *SleepAction {
+		if v == nil {
+			return nil
+		}
+		return v.Sleep
+	}).(SleepActionPtrOutput)
+}
+
 // Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
 func (o LifecycleHandlerPtrOutput) TcpSocket() TCPSocketActionPtrOutput {
 	return o.ApplyT(func(v *LifecycleHandler) *TCPSocketAction {
@@ -24995,6 +25446,8 @@ type LifecycleHandlerPatch struct {
 	Exec *ExecActionPatch `pulumi:"exec"`
 	// HTTPGet specifies the http request to perform.
 	HttpGet *HTTPGetActionPatch `pulumi:"httpGet"`
+	// Sleep represents the duration that the container should sleep before being terminated.
+	Sleep *SleepActionPatch `pulumi:"sleep"`
 	// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
 	TcpSocket *TCPSocketActionPatch `pulumi:"tcpSocket"`
 }
@@ -25016,6 +25469,8 @@ type LifecycleHandlerPatchArgs struct {
 	Exec ExecActionPatchPtrInput `pulumi:"exec"`
 	// HTTPGet specifies the http request to perform.
 	HttpGet HTTPGetActionPatchPtrInput `pulumi:"httpGet"`
+	// Sleep represents the duration that the container should sleep before being terminated.
+	Sleep SleepActionPatchPtrInput `pulumi:"sleep"`
 	// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
 	TcpSocket TCPSocketActionPatchPtrInput `pulumi:"tcpSocket"`
 }
@@ -25108,6 +25563,11 @@ func (o LifecycleHandlerPatchOutput) HttpGet() HTTPGetActionPatchPtrOutput {
 	return o.ApplyT(func(v LifecycleHandlerPatch) *HTTPGetActionPatch { return v.HttpGet }).(HTTPGetActionPatchPtrOutput)
 }
 
+// Sleep represents the duration that the container should sleep before being terminated.
+func (o LifecycleHandlerPatchOutput) Sleep() SleepActionPatchPtrOutput {
+	return o.ApplyT(func(v LifecycleHandlerPatch) *SleepActionPatch { return v.Sleep }).(SleepActionPatchPtrOutput)
+}
+
 // Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
 func (o LifecycleHandlerPatchOutput) TcpSocket() TCPSocketActionPatchPtrOutput {
 	return o.ApplyT(func(v LifecycleHandlerPatch) *TCPSocketActionPatch { return v.TcpSocket }).(TCPSocketActionPatchPtrOutput)
@@ -25155,6 +25615,16 @@ func (o LifecycleHandlerPatchPtrOutput) HttpGet() HTTPGetActionPatchPtrOutput {
 		}
 		return v.HttpGet
 	}).(HTTPGetActionPatchPtrOutput)
+}
+
+// Sleep represents the duration that the container should sleep before being terminated.
+func (o LifecycleHandlerPatchPtrOutput) Sleep() SleepActionPatchPtrOutput {
+	return o.ApplyT(func(v *LifecycleHandlerPatch) *SleepActionPatch {
+		if v == nil {
+			return nil
+		}
+		return v.Sleep
+	}).(SleepActionPatchPtrOutput)
 }
 
 // Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
@@ -26193,6 +26663,8 @@ type LoadBalancerIngress struct {
 	Hostname *string `pulumi:"hostname"`
 	// IP is set for load-balancer ingress points that are IP based (typically GCE or OpenStack load-balancers)
 	Ip *string `pulumi:"ip"`
+	// IPMode specifies how the load-balancer IP behaves, and may only be specified when the ip field is specified. Setting this to "VIP" indicates that traffic is delivered to the node with the destination set to the load-balancer's IP and port. Setting this to "Proxy" indicates that traffic is delivered to the node or pod with the destination set to the node's IP and node port or the pod's IP and port. Service implementations may use this information to adjust traffic routing.
+	IpMode *string `pulumi:"ipMode"`
 	// Ports is a list of records of service ports If used, every port defined in the service should have an entry in it
 	Ports []PortStatus `pulumi:"ports"`
 }
@@ -26214,6 +26686,8 @@ type LoadBalancerIngressArgs struct {
 	Hostname pulumi.StringPtrInput `pulumi:"hostname"`
 	// IP is set for load-balancer ingress points that are IP based (typically GCE or OpenStack load-balancers)
 	Ip pulumi.StringPtrInput `pulumi:"ip"`
+	// IPMode specifies how the load-balancer IP behaves, and may only be specified when the ip field is specified. Setting this to "VIP" indicates that traffic is delivered to the node with the destination set to the load-balancer's IP and port. Setting this to "Proxy" indicates that traffic is delivered to the node or pod with the destination set to the node's IP and node port or the pod's IP and port. Service implementations may use this information to adjust traffic routing.
+	IpMode pulumi.StringPtrInput `pulumi:"ipMode"`
 	// Ports is a list of records of service ports If used, every port defined in the service should have an entry in it
 	Ports PortStatusArrayInput `pulumi:"ports"`
 }
@@ -26280,6 +26754,11 @@ func (o LoadBalancerIngressOutput) Ip() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LoadBalancerIngress) *string { return v.Ip }).(pulumi.StringPtrOutput)
 }
 
+// IPMode specifies how the load-balancer IP behaves, and may only be specified when the ip field is specified. Setting this to "VIP" indicates that traffic is delivered to the node with the destination set to the load-balancer's IP and port. Setting this to "Proxy" indicates that traffic is delivered to the node or pod with the destination set to the node's IP and node port or the pod's IP and port. Service implementations may use this information to adjust traffic routing.
+func (o LoadBalancerIngressOutput) IpMode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v LoadBalancerIngress) *string { return v.IpMode }).(pulumi.StringPtrOutput)
+}
+
 // Ports is a list of records of service ports If used, every port defined in the service should have an entry in it
 func (o LoadBalancerIngressOutput) Ports() PortStatusArrayOutput {
 	return o.ApplyT(func(v LoadBalancerIngress) []PortStatus { return v.Ports }).(PortStatusArrayOutput)
@@ -26311,6 +26790,8 @@ type LoadBalancerIngressPatch struct {
 	Hostname *string `pulumi:"hostname"`
 	// IP is set for load-balancer ingress points that are IP based (typically GCE or OpenStack load-balancers)
 	Ip *string `pulumi:"ip"`
+	// IPMode specifies how the load-balancer IP behaves, and may only be specified when the ip field is specified. Setting this to "VIP" indicates that traffic is delivered to the node with the destination set to the load-balancer's IP and port. Setting this to "Proxy" indicates that traffic is delivered to the node or pod with the destination set to the node's IP and node port or the pod's IP and port. Service implementations may use this information to adjust traffic routing.
+	IpMode *string `pulumi:"ipMode"`
 	// Ports is a list of records of service ports If used, every port defined in the service should have an entry in it
 	Ports []PortStatusPatch `pulumi:"ports"`
 }
@@ -26332,6 +26813,8 @@ type LoadBalancerIngressPatchArgs struct {
 	Hostname pulumi.StringPtrInput `pulumi:"hostname"`
 	// IP is set for load-balancer ingress points that are IP based (typically GCE or OpenStack load-balancers)
 	Ip pulumi.StringPtrInput `pulumi:"ip"`
+	// IPMode specifies how the load-balancer IP behaves, and may only be specified when the ip field is specified. Setting this to "VIP" indicates that traffic is delivered to the node with the destination set to the load-balancer's IP and port. Setting this to "Proxy" indicates that traffic is delivered to the node or pod with the destination set to the node's IP and node port or the pod's IP and port. Service implementations may use this information to adjust traffic routing.
+	IpMode pulumi.StringPtrInput `pulumi:"ipMode"`
 	// Ports is a list of records of service ports If used, every port defined in the service should have an entry in it
 	Ports PortStatusPatchArrayInput `pulumi:"ports"`
 }
@@ -26396,6 +26879,11 @@ func (o LoadBalancerIngressPatchOutput) Hostname() pulumi.StringPtrOutput {
 // IP is set for load-balancer ingress points that are IP based (typically GCE or OpenStack load-balancers)
 func (o LoadBalancerIngressPatchOutput) Ip() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LoadBalancerIngressPatch) *string { return v.Ip }).(pulumi.StringPtrOutput)
+}
+
+// IPMode specifies how the load-balancer IP behaves, and may only be specified when the ip field is specified. Setting this to "VIP" indicates that traffic is delivered to the node with the destination set to the load-balancer's IP and port. Setting this to "Proxy" indicates that traffic is delivered to the node or pod with the destination set to the node's IP and node port or the pod's IP and port. Service implementations may use this information to adjust traffic routing.
+func (o LoadBalancerIngressPatchOutput) IpMode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v LoadBalancerIngressPatch) *string { return v.IpMode }).(pulumi.StringPtrOutput)
 }
 
 // Ports is a list of records of service ports If used, every port defined in the service should have an entry in it
@@ -27388,6 +27876,396 @@ func (o LocalVolumeSourcePatchPtrOutput) Path() pulumi.StringPtrOutput {
 			return nil
 		}
 		return v.Path
+	}).(pulumi.StringPtrOutput)
+}
+
+// ModifyVolumeStatus represents the status object of ControllerModifyVolume operation
+type ModifyVolumeStatus struct {
+	// status is the status of the ControllerModifyVolume operation. It can be in any of following states:
+	//  - Pending
+	//    Pending indicates that the PersistentVolumeClaim cannot be modified due to unmet requirements, such as
+	//    the specified VolumeAttributesClass not existing.
+	//  - InProgress
+	//    InProgress indicates that the volume is being modified.
+	//  - Infeasible
+	//      Infeasible indicates that the request has been rejected as invalid by the CSI driver. To
+	//       resolve the error, a valid VolumeAttributesClass needs to be specified.
+	//    Note: New statuses can be added in the future. Consumers should check for unknown statuses and fail appropriately.
+	Status string `pulumi:"status"`
+	// targetVolumeAttributesClassName is the name of the VolumeAttributesClass the PVC currently being reconciled
+	TargetVolumeAttributesClassName *string `pulumi:"targetVolumeAttributesClassName"`
+}
+
+// ModifyVolumeStatusInput is an input type that accepts ModifyVolumeStatusArgs and ModifyVolumeStatusOutput values.
+// You can construct a concrete instance of `ModifyVolumeStatusInput` via:
+//
+//	ModifyVolumeStatusArgs{...}
+type ModifyVolumeStatusInput interface {
+	pulumi.Input
+
+	ToModifyVolumeStatusOutput() ModifyVolumeStatusOutput
+	ToModifyVolumeStatusOutputWithContext(context.Context) ModifyVolumeStatusOutput
+}
+
+// ModifyVolumeStatus represents the status object of ControllerModifyVolume operation
+type ModifyVolumeStatusArgs struct {
+	// status is the status of the ControllerModifyVolume operation. It can be in any of following states:
+	//  - Pending
+	//    Pending indicates that the PersistentVolumeClaim cannot be modified due to unmet requirements, such as
+	//    the specified VolumeAttributesClass not existing.
+	//  - InProgress
+	//    InProgress indicates that the volume is being modified.
+	//  - Infeasible
+	//      Infeasible indicates that the request has been rejected as invalid by the CSI driver. To
+	//       resolve the error, a valid VolumeAttributesClass needs to be specified.
+	//    Note: New statuses can be added in the future. Consumers should check for unknown statuses and fail appropriately.
+	Status pulumi.StringInput `pulumi:"status"`
+	// targetVolumeAttributesClassName is the name of the VolumeAttributesClass the PVC currently being reconciled
+	TargetVolumeAttributesClassName pulumi.StringPtrInput `pulumi:"targetVolumeAttributesClassName"`
+}
+
+func (ModifyVolumeStatusArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ModifyVolumeStatus)(nil)).Elem()
+}
+
+func (i ModifyVolumeStatusArgs) ToModifyVolumeStatusOutput() ModifyVolumeStatusOutput {
+	return i.ToModifyVolumeStatusOutputWithContext(context.Background())
+}
+
+func (i ModifyVolumeStatusArgs) ToModifyVolumeStatusOutputWithContext(ctx context.Context) ModifyVolumeStatusOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ModifyVolumeStatusOutput)
+}
+
+func (i ModifyVolumeStatusArgs) ToModifyVolumeStatusPtrOutput() ModifyVolumeStatusPtrOutput {
+	return i.ToModifyVolumeStatusPtrOutputWithContext(context.Background())
+}
+
+func (i ModifyVolumeStatusArgs) ToModifyVolumeStatusPtrOutputWithContext(ctx context.Context) ModifyVolumeStatusPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ModifyVolumeStatusOutput).ToModifyVolumeStatusPtrOutputWithContext(ctx)
+}
+
+// ModifyVolumeStatusPtrInput is an input type that accepts ModifyVolumeStatusArgs, ModifyVolumeStatusPtr and ModifyVolumeStatusPtrOutput values.
+// You can construct a concrete instance of `ModifyVolumeStatusPtrInput` via:
+//
+//	        ModifyVolumeStatusArgs{...}
+//
+//	or:
+//
+//	        nil
+type ModifyVolumeStatusPtrInput interface {
+	pulumi.Input
+
+	ToModifyVolumeStatusPtrOutput() ModifyVolumeStatusPtrOutput
+	ToModifyVolumeStatusPtrOutputWithContext(context.Context) ModifyVolumeStatusPtrOutput
+}
+
+type modifyVolumeStatusPtrType ModifyVolumeStatusArgs
+
+func ModifyVolumeStatusPtr(v *ModifyVolumeStatusArgs) ModifyVolumeStatusPtrInput {
+	return (*modifyVolumeStatusPtrType)(v)
+}
+
+func (*modifyVolumeStatusPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ModifyVolumeStatus)(nil)).Elem()
+}
+
+func (i *modifyVolumeStatusPtrType) ToModifyVolumeStatusPtrOutput() ModifyVolumeStatusPtrOutput {
+	return i.ToModifyVolumeStatusPtrOutputWithContext(context.Background())
+}
+
+func (i *modifyVolumeStatusPtrType) ToModifyVolumeStatusPtrOutputWithContext(ctx context.Context) ModifyVolumeStatusPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ModifyVolumeStatusPtrOutput)
+}
+
+// ModifyVolumeStatus represents the status object of ControllerModifyVolume operation
+type ModifyVolumeStatusOutput struct{ *pulumi.OutputState }
+
+func (ModifyVolumeStatusOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ModifyVolumeStatus)(nil)).Elem()
+}
+
+func (o ModifyVolumeStatusOutput) ToModifyVolumeStatusOutput() ModifyVolumeStatusOutput {
+	return o
+}
+
+func (o ModifyVolumeStatusOutput) ToModifyVolumeStatusOutputWithContext(ctx context.Context) ModifyVolumeStatusOutput {
+	return o
+}
+
+func (o ModifyVolumeStatusOutput) ToModifyVolumeStatusPtrOutput() ModifyVolumeStatusPtrOutput {
+	return o.ToModifyVolumeStatusPtrOutputWithContext(context.Background())
+}
+
+func (o ModifyVolumeStatusOutput) ToModifyVolumeStatusPtrOutputWithContext(ctx context.Context) ModifyVolumeStatusPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ModifyVolumeStatus) *ModifyVolumeStatus {
+		return &v
+	}).(ModifyVolumeStatusPtrOutput)
+}
+
+// status is the status of the ControllerModifyVolume operation. It can be in any of following states:
+//   - Pending
+//     Pending indicates that the PersistentVolumeClaim cannot be modified due to unmet requirements, such as
+//     the specified VolumeAttributesClass not existing.
+//   - InProgress
+//     InProgress indicates that the volume is being modified.
+//   - Infeasible
+//     Infeasible indicates that the request has been rejected as invalid by the CSI driver. To
+//     resolve the error, a valid VolumeAttributesClass needs to be specified.
+//     Note: New statuses can be added in the future. Consumers should check for unknown statuses and fail appropriately.
+func (o ModifyVolumeStatusOutput) Status() pulumi.StringOutput {
+	return o.ApplyT(func(v ModifyVolumeStatus) string { return v.Status }).(pulumi.StringOutput)
+}
+
+// targetVolumeAttributesClassName is the name of the VolumeAttributesClass the PVC currently being reconciled
+func (o ModifyVolumeStatusOutput) TargetVolumeAttributesClassName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ModifyVolumeStatus) *string { return v.TargetVolumeAttributesClassName }).(pulumi.StringPtrOutput)
+}
+
+type ModifyVolumeStatusPtrOutput struct{ *pulumi.OutputState }
+
+func (ModifyVolumeStatusPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ModifyVolumeStatus)(nil)).Elem()
+}
+
+func (o ModifyVolumeStatusPtrOutput) ToModifyVolumeStatusPtrOutput() ModifyVolumeStatusPtrOutput {
+	return o
+}
+
+func (o ModifyVolumeStatusPtrOutput) ToModifyVolumeStatusPtrOutputWithContext(ctx context.Context) ModifyVolumeStatusPtrOutput {
+	return o
+}
+
+func (o ModifyVolumeStatusPtrOutput) Elem() ModifyVolumeStatusOutput {
+	return o.ApplyT(func(v *ModifyVolumeStatus) ModifyVolumeStatus {
+		if v != nil {
+			return *v
+		}
+		var ret ModifyVolumeStatus
+		return ret
+	}).(ModifyVolumeStatusOutput)
+}
+
+// status is the status of the ControllerModifyVolume operation. It can be in any of following states:
+//   - Pending
+//     Pending indicates that the PersistentVolumeClaim cannot be modified due to unmet requirements, such as
+//     the specified VolumeAttributesClass not existing.
+//   - InProgress
+//     InProgress indicates that the volume is being modified.
+//   - Infeasible
+//     Infeasible indicates that the request has been rejected as invalid by the CSI driver. To
+//     resolve the error, a valid VolumeAttributesClass needs to be specified.
+//     Note: New statuses can be added in the future. Consumers should check for unknown statuses and fail appropriately.
+func (o ModifyVolumeStatusPtrOutput) Status() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ModifyVolumeStatus) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Status
+	}).(pulumi.StringPtrOutput)
+}
+
+// targetVolumeAttributesClassName is the name of the VolumeAttributesClass the PVC currently being reconciled
+func (o ModifyVolumeStatusPtrOutput) TargetVolumeAttributesClassName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ModifyVolumeStatus) *string {
+		if v == nil {
+			return nil
+		}
+		return v.TargetVolumeAttributesClassName
+	}).(pulumi.StringPtrOutput)
+}
+
+// ModifyVolumeStatus represents the status object of ControllerModifyVolume operation
+type ModifyVolumeStatusPatch struct {
+	// status is the status of the ControllerModifyVolume operation. It can be in any of following states:
+	//  - Pending
+	//    Pending indicates that the PersistentVolumeClaim cannot be modified due to unmet requirements, such as
+	//    the specified VolumeAttributesClass not existing.
+	//  - InProgress
+	//    InProgress indicates that the volume is being modified.
+	//  - Infeasible
+	//      Infeasible indicates that the request has been rejected as invalid by the CSI driver. To
+	//       resolve the error, a valid VolumeAttributesClass needs to be specified.
+	//    Note: New statuses can be added in the future. Consumers should check for unknown statuses and fail appropriately.
+	Status *string `pulumi:"status"`
+	// targetVolumeAttributesClassName is the name of the VolumeAttributesClass the PVC currently being reconciled
+	TargetVolumeAttributesClassName *string `pulumi:"targetVolumeAttributesClassName"`
+}
+
+// ModifyVolumeStatusPatchInput is an input type that accepts ModifyVolumeStatusPatchArgs and ModifyVolumeStatusPatchOutput values.
+// You can construct a concrete instance of `ModifyVolumeStatusPatchInput` via:
+//
+//	ModifyVolumeStatusPatchArgs{...}
+type ModifyVolumeStatusPatchInput interface {
+	pulumi.Input
+
+	ToModifyVolumeStatusPatchOutput() ModifyVolumeStatusPatchOutput
+	ToModifyVolumeStatusPatchOutputWithContext(context.Context) ModifyVolumeStatusPatchOutput
+}
+
+// ModifyVolumeStatus represents the status object of ControllerModifyVolume operation
+type ModifyVolumeStatusPatchArgs struct {
+	// status is the status of the ControllerModifyVolume operation. It can be in any of following states:
+	//  - Pending
+	//    Pending indicates that the PersistentVolumeClaim cannot be modified due to unmet requirements, such as
+	//    the specified VolumeAttributesClass not existing.
+	//  - InProgress
+	//    InProgress indicates that the volume is being modified.
+	//  - Infeasible
+	//      Infeasible indicates that the request has been rejected as invalid by the CSI driver. To
+	//       resolve the error, a valid VolumeAttributesClass needs to be specified.
+	//    Note: New statuses can be added in the future. Consumers should check for unknown statuses and fail appropriately.
+	Status pulumi.StringPtrInput `pulumi:"status"`
+	// targetVolumeAttributesClassName is the name of the VolumeAttributesClass the PVC currently being reconciled
+	TargetVolumeAttributesClassName pulumi.StringPtrInput `pulumi:"targetVolumeAttributesClassName"`
+}
+
+func (ModifyVolumeStatusPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ModifyVolumeStatusPatch)(nil)).Elem()
+}
+
+func (i ModifyVolumeStatusPatchArgs) ToModifyVolumeStatusPatchOutput() ModifyVolumeStatusPatchOutput {
+	return i.ToModifyVolumeStatusPatchOutputWithContext(context.Background())
+}
+
+func (i ModifyVolumeStatusPatchArgs) ToModifyVolumeStatusPatchOutputWithContext(ctx context.Context) ModifyVolumeStatusPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ModifyVolumeStatusPatchOutput)
+}
+
+func (i ModifyVolumeStatusPatchArgs) ToModifyVolumeStatusPatchPtrOutput() ModifyVolumeStatusPatchPtrOutput {
+	return i.ToModifyVolumeStatusPatchPtrOutputWithContext(context.Background())
+}
+
+func (i ModifyVolumeStatusPatchArgs) ToModifyVolumeStatusPatchPtrOutputWithContext(ctx context.Context) ModifyVolumeStatusPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ModifyVolumeStatusPatchOutput).ToModifyVolumeStatusPatchPtrOutputWithContext(ctx)
+}
+
+// ModifyVolumeStatusPatchPtrInput is an input type that accepts ModifyVolumeStatusPatchArgs, ModifyVolumeStatusPatchPtr and ModifyVolumeStatusPatchPtrOutput values.
+// You can construct a concrete instance of `ModifyVolumeStatusPatchPtrInput` via:
+//
+//	        ModifyVolumeStatusPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type ModifyVolumeStatusPatchPtrInput interface {
+	pulumi.Input
+
+	ToModifyVolumeStatusPatchPtrOutput() ModifyVolumeStatusPatchPtrOutput
+	ToModifyVolumeStatusPatchPtrOutputWithContext(context.Context) ModifyVolumeStatusPatchPtrOutput
+}
+
+type modifyVolumeStatusPatchPtrType ModifyVolumeStatusPatchArgs
+
+func ModifyVolumeStatusPatchPtr(v *ModifyVolumeStatusPatchArgs) ModifyVolumeStatusPatchPtrInput {
+	return (*modifyVolumeStatusPatchPtrType)(v)
+}
+
+func (*modifyVolumeStatusPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ModifyVolumeStatusPatch)(nil)).Elem()
+}
+
+func (i *modifyVolumeStatusPatchPtrType) ToModifyVolumeStatusPatchPtrOutput() ModifyVolumeStatusPatchPtrOutput {
+	return i.ToModifyVolumeStatusPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *modifyVolumeStatusPatchPtrType) ToModifyVolumeStatusPatchPtrOutputWithContext(ctx context.Context) ModifyVolumeStatusPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ModifyVolumeStatusPatchPtrOutput)
+}
+
+// ModifyVolumeStatus represents the status object of ControllerModifyVolume operation
+type ModifyVolumeStatusPatchOutput struct{ *pulumi.OutputState }
+
+func (ModifyVolumeStatusPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ModifyVolumeStatusPatch)(nil)).Elem()
+}
+
+func (o ModifyVolumeStatusPatchOutput) ToModifyVolumeStatusPatchOutput() ModifyVolumeStatusPatchOutput {
+	return o
+}
+
+func (o ModifyVolumeStatusPatchOutput) ToModifyVolumeStatusPatchOutputWithContext(ctx context.Context) ModifyVolumeStatusPatchOutput {
+	return o
+}
+
+func (o ModifyVolumeStatusPatchOutput) ToModifyVolumeStatusPatchPtrOutput() ModifyVolumeStatusPatchPtrOutput {
+	return o.ToModifyVolumeStatusPatchPtrOutputWithContext(context.Background())
+}
+
+func (o ModifyVolumeStatusPatchOutput) ToModifyVolumeStatusPatchPtrOutputWithContext(ctx context.Context) ModifyVolumeStatusPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ModifyVolumeStatusPatch) *ModifyVolumeStatusPatch {
+		return &v
+	}).(ModifyVolumeStatusPatchPtrOutput)
+}
+
+// status is the status of the ControllerModifyVolume operation. It can be in any of following states:
+//   - Pending
+//     Pending indicates that the PersistentVolumeClaim cannot be modified due to unmet requirements, such as
+//     the specified VolumeAttributesClass not existing.
+//   - InProgress
+//     InProgress indicates that the volume is being modified.
+//   - Infeasible
+//     Infeasible indicates that the request has been rejected as invalid by the CSI driver. To
+//     resolve the error, a valid VolumeAttributesClass needs to be specified.
+//     Note: New statuses can be added in the future. Consumers should check for unknown statuses and fail appropriately.
+func (o ModifyVolumeStatusPatchOutput) Status() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ModifyVolumeStatusPatch) *string { return v.Status }).(pulumi.StringPtrOutput)
+}
+
+// targetVolumeAttributesClassName is the name of the VolumeAttributesClass the PVC currently being reconciled
+func (o ModifyVolumeStatusPatchOutput) TargetVolumeAttributesClassName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ModifyVolumeStatusPatch) *string { return v.TargetVolumeAttributesClassName }).(pulumi.StringPtrOutput)
+}
+
+type ModifyVolumeStatusPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (ModifyVolumeStatusPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ModifyVolumeStatusPatch)(nil)).Elem()
+}
+
+func (o ModifyVolumeStatusPatchPtrOutput) ToModifyVolumeStatusPatchPtrOutput() ModifyVolumeStatusPatchPtrOutput {
+	return o
+}
+
+func (o ModifyVolumeStatusPatchPtrOutput) ToModifyVolumeStatusPatchPtrOutputWithContext(ctx context.Context) ModifyVolumeStatusPatchPtrOutput {
+	return o
+}
+
+func (o ModifyVolumeStatusPatchPtrOutput) Elem() ModifyVolumeStatusPatchOutput {
+	return o.ApplyT(func(v *ModifyVolumeStatusPatch) ModifyVolumeStatusPatch {
+		if v != nil {
+			return *v
+		}
+		var ret ModifyVolumeStatusPatch
+		return ret
+	}).(ModifyVolumeStatusPatchOutput)
+}
+
+// status is the status of the ControllerModifyVolume operation. It can be in any of following states:
+//   - Pending
+//     Pending indicates that the PersistentVolumeClaim cannot be modified due to unmet requirements, such as
+//     the specified VolumeAttributesClass not existing.
+//   - InProgress
+//     InProgress indicates that the volume is being modified.
+//   - Infeasible
+//     Infeasible indicates that the request has been rejected as invalid by the CSI driver. To
+//     resolve the error, a valid VolumeAttributesClass needs to be specified.
+//     Note: New statuses can be added in the future. Consumers should check for unknown statuses and fail appropriately.
+func (o ModifyVolumeStatusPatchPtrOutput) Status() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ModifyVolumeStatusPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Status
+	}).(pulumi.StringPtrOutput)
+}
+
+// targetVolumeAttributesClassName is the name of the VolumeAttributesClass the PVC currently being reconciled
+func (o ModifyVolumeStatusPatchPtrOutput) TargetVolumeAttributesClassName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ModifyVolumeStatusPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.TargetVolumeAttributesClassName
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -35320,11 +36198,13 @@ type PersistentVolumeClaimSpec struct {
 	//   (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled. (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
 	DataSourceRef *TypedObjectReference `pulumi:"dataSourceRef"`
 	// resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
-	Resources *ResourceRequirements `pulumi:"resources"`
+	Resources *VolumeResourceRequirements `pulumi:"resources"`
 	// selector is a label query over volumes to consider for binding.
 	Selector *metav1.LabelSelector `pulumi:"selector"`
 	// storageClassName is the name of the StorageClass required by the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1
 	StorageClassName *string `pulumi:"storageClassName"`
+	// volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string value means that no VolumeAttributesClass will be applied to the claim but it's not allowed to reset this field to empty string once it is set. If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass will be set by the persistentvolume controller if it exists. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#volumeattributesclass (Alpha) Using this field requires the VolumeAttributesClass feature gate to be enabled.
+	VolumeAttributesClassName *string `pulumi:"volumeAttributesClassName"`
 	// volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
 	VolumeMode *string `pulumi:"volumeMode"`
 	// volumeName is the binding reference to the PersistentVolume backing this claim.
@@ -35358,11 +36238,13 @@ type PersistentVolumeClaimSpecArgs struct {
 	//   (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled. (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
 	DataSourceRef TypedObjectReferencePtrInput `pulumi:"dataSourceRef"`
 	// resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
-	Resources ResourceRequirementsPtrInput `pulumi:"resources"`
+	Resources VolumeResourceRequirementsPtrInput `pulumi:"resources"`
 	// selector is a label query over volumes to consider for binding.
 	Selector metav1.LabelSelectorPtrInput `pulumi:"selector"`
 	// storageClassName is the name of the StorageClass required by the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1
 	StorageClassName pulumi.StringPtrInput `pulumi:"storageClassName"`
+	// volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string value means that no VolumeAttributesClass will be applied to the claim but it's not allowed to reset this field to empty string once it is set. If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass will be set by the persistentvolume controller if it exists. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#volumeattributesclass (Alpha) Using this field requires the VolumeAttributesClass feature gate to be enabled.
+	VolumeAttributesClassName pulumi.StringPtrInput `pulumi:"volumeAttributesClassName"`
 	// volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
 	VolumeMode pulumi.StringPtrInput `pulumi:"volumeMode"`
 	// volumeName is the binding reference to the PersistentVolume backing this claim.
@@ -35471,8 +36353,8 @@ func (o PersistentVolumeClaimSpecOutput) DataSourceRef() TypedObjectReferencePtr
 }
 
 // resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
-func (o PersistentVolumeClaimSpecOutput) Resources() ResourceRequirementsPtrOutput {
-	return o.ApplyT(func(v PersistentVolumeClaimSpec) *ResourceRequirements { return v.Resources }).(ResourceRequirementsPtrOutput)
+func (o PersistentVolumeClaimSpecOutput) Resources() VolumeResourceRequirementsPtrOutput {
+	return o.ApplyT(func(v PersistentVolumeClaimSpec) *VolumeResourceRequirements { return v.Resources }).(VolumeResourceRequirementsPtrOutput)
 }
 
 // selector is a label query over volumes to consider for binding.
@@ -35483,6 +36365,11 @@ func (o PersistentVolumeClaimSpecOutput) Selector() metav1.LabelSelectorPtrOutpu
 // storageClassName is the name of the StorageClass required by the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1
 func (o PersistentVolumeClaimSpecOutput) StorageClassName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeClaimSpec) *string { return v.StorageClassName }).(pulumi.StringPtrOutput)
+}
+
+// volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string value means that no VolumeAttributesClass will be applied to the claim but it's not allowed to reset this field to empty string once it is set. If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass will be set by the persistentvolume controller if it exists. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#volumeattributesclass (Alpha) Using this field requires the VolumeAttributesClass feature gate to be enabled.
+func (o PersistentVolumeClaimSpecOutput) VolumeAttributesClassName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PersistentVolumeClaimSpec) *string { return v.VolumeAttributesClassName }).(pulumi.StringPtrOutput)
 }
 
 // volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
@@ -35558,13 +36445,13 @@ func (o PersistentVolumeClaimSpecPtrOutput) DataSourceRef() TypedObjectReference
 }
 
 // resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
-func (o PersistentVolumeClaimSpecPtrOutput) Resources() ResourceRequirementsPtrOutput {
-	return o.ApplyT(func(v *PersistentVolumeClaimSpec) *ResourceRequirements {
+func (o PersistentVolumeClaimSpecPtrOutput) Resources() VolumeResourceRequirementsPtrOutput {
+	return o.ApplyT(func(v *PersistentVolumeClaimSpec) *VolumeResourceRequirements {
 		if v == nil {
 			return nil
 		}
 		return v.Resources
-	}).(ResourceRequirementsPtrOutput)
+	}).(VolumeResourceRequirementsPtrOutput)
 }
 
 // selector is a label query over volumes to consider for binding.
@@ -35584,6 +36471,16 @@ func (o PersistentVolumeClaimSpecPtrOutput) StorageClassName() pulumi.StringPtrO
 			return nil
 		}
 		return v.StorageClassName
+	}).(pulumi.StringPtrOutput)
+}
+
+// volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string value means that no VolumeAttributesClass will be applied to the claim but it's not allowed to reset this field to empty string once it is set. If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass will be set by the persistentvolume controller if it exists. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#volumeattributesclass (Alpha) Using this field requires the VolumeAttributesClass feature gate to be enabled.
+func (o PersistentVolumeClaimSpecPtrOutput) VolumeAttributesClassName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PersistentVolumeClaimSpec) *string {
+		if v == nil {
+			return nil
+		}
+		return v.VolumeAttributesClassName
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -35623,11 +36520,13 @@ type PersistentVolumeClaimSpecPatch struct {
 	//   (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled. (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
 	DataSourceRef *TypedObjectReferencePatch `pulumi:"dataSourceRef"`
 	// resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
-	Resources *ResourceRequirementsPatch `pulumi:"resources"`
+	Resources *VolumeResourceRequirementsPatch `pulumi:"resources"`
 	// selector is a label query over volumes to consider for binding.
 	Selector *metav1.LabelSelectorPatch `pulumi:"selector"`
 	// storageClassName is the name of the StorageClass required by the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1
 	StorageClassName *string `pulumi:"storageClassName"`
+	// volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string value means that no VolumeAttributesClass will be applied to the claim but it's not allowed to reset this field to empty string once it is set. If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass will be set by the persistentvolume controller if it exists. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#volumeattributesclass (Alpha) Using this field requires the VolumeAttributesClass feature gate to be enabled.
+	VolumeAttributesClassName *string `pulumi:"volumeAttributesClassName"`
 	// volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
 	VolumeMode *string `pulumi:"volumeMode"`
 	// volumeName is the binding reference to the PersistentVolume backing this claim.
@@ -35661,11 +36560,13 @@ type PersistentVolumeClaimSpecPatchArgs struct {
 	//   (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled. (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
 	DataSourceRef TypedObjectReferencePatchPtrInput `pulumi:"dataSourceRef"`
 	// resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
-	Resources ResourceRequirementsPatchPtrInput `pulumi:"resources"`
+	Resources VolumeResourceRequirementsPatchPtrInput `pulumi:"resources"`
 	// selector is a label query over volumes to consider for binding.
 	Selector metav1.LabelSelectorPatchPtrInput `pulumi:"selector"`
 	// storageClassName is the name of the StorageClass required by the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1
 	StorageClassName pulumi.StringPtrInput `pulumi:"storageClassName"`
+	// volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string value means that no VolumeAttributesClass will be applied to the claim but it's not allowed to reset this field to empty string once it is set. If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass will be set by the persistentvolume controller if it exists. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#volumeattributesclass (Alpha) Using this field requires the VolumeAttributesClass feature gate to be enabled.
+	VolumeAttributesClassName pulumi.StringPtrInput `pulumi:"volumeAttributesClassName"`
 	// volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
 	VolumeMode pulumi.StringPtrInput `pulumi:"volumeMode"`
 	// volumeName is the binding reference to the PersistentVolume backing this claim.
@@ -35774,8 +36675,8 @@ func (o PersistentVolumeClaimSpecPatchOutput) DataSourceRef() TypedObjectReferen
 }
 
 // resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
-func (o PersistentVolumeClaimSpecPatchOutput) Resources() ResourceRequirementsPatchPtrOutput {
-	return o.ApplyT(func(v PersistentVolumeClaimSpecPatch) *ResourceRequirementsPatch { return v.Resources }).(ResourceRequirementsPatchPtrOutput)
+func (o PersistentVolumeClaimSpecPatchOutput) Resources() VolumeResourceRequirementsPatchPtrOutput {
+	return o.ApplyT(func(v PersistentVolumeClaimSpecPatch) *VolumeResourceRequirementsPatch { return v.Resources }).(VolumeResourceRequirementsPatchPtrOutput)
 }
 
 // selector is a label query over volumes to consider for binding.
@@ -35786,6 +36687,11 @@ func (o PersistentVolumeClaimSpecPatchOutput) Selector() metav1.LabelSelectorPat
 // storageClassName is the name of the StorageClass required by the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1
 func (o PersistentVolumeClaimSpecPatchOutput) StorageClassName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeClaimSpecPatch) *string { return v.StorageClassName }).(pulumi.StringPtrOutput)
+}
+
+// volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string value means that no VolumeAttributesClass will be applied to the claim but it's not allowed to reset this field to empty string once it is set. If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass will be set by the persistentvolume controller if it exists. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#volumeattributesclass (Alpha) Using this field requires the VolumeAttributesClass feature gate to be enabled.
+func (o PersistentVolumeClaimSpecPatchOutput) VolumeAttributesClassName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PersistentVolumeClaimSpecPatch) *string { return v.VolumeAttributesClassName }).(pulumi.StringPtrOutput)
 }
 
 // volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
@@ -35861,13 +36767,13 @@ func (o PersistentVolumeClaimSpecPatchPtrOutput) DataSourceRef() TypedObjectRefe
 }
 
 // resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
-func (o PersistentVolumeClaimSpecPatchPtrOutput) Resources() ResourceRequirementsPatchPtrOutput {
-	return o.ApplyT(func(v *PersistentVolumeClaimSpecPatch) *ResourceRequirementsPatch {
+func (o PersistentVolumeClaimSpecPatchPtrOutput) Resources() VolumeResourceRequirementsPatchPtrOutput {
+	return o.ApplyT(func(v *PersistentVolumeClaimSpecPatch) *VolumeResourceRequirementsPatch {
 		if v == nil {
 			return nil
 		}
 		return v.Resources
-	}).(ResourceRequirementsPatchPtrOutput)
+	}).(VolumeResourceRequirementsPatchPtrOutput)
 }
 
 // selector is a label query over volumes to consider for binding.
@@ -35887,6 +36793,16 @@ func (o PersistentVolumeClaimSpecPatchPtrOutput) StorageClassName() pulumi.Strin
 			return nil
 		}
 		return v.StorageClassName
+	}).(pulumi.StringPtrOutput)
+}
+
+// volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string value means that no VolumeAttributesClass will be applied to the claim but it's not allowed to reset this field to empty string once it is set. If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass will be set by the persistentvolume controller if it exists. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#volumeattributesclass (Alpha) Using this field requires the VolumeAttributesClass feature gate to be enabled.
+func (o PersistentVolumeClaimSpecPatchPtrOutput) VolumeAttributesClassName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PersistentVolumeClaimSpecPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.VolumeAttributesClassName
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -35961,6 +36877,10 @@ type PersistentVolumeClaimStatus struct {
 	Capacity map[string]string `pulumi:"capacity"`
 	// conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'ResizeStarted'.
 	Conditions []PersistentVolumeClaimCondition `pulumi:"conditions"`
+	// currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim This is an alpha field and requires enabling VolumeAttributesClass feature.
+	CurrentVolumeAttributesClassName *string `pulumi:"currentVolumeAttributesClassName"`
+	// ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted. This is an alpha field and requires enabling VolumeAttributesClass feature.
+	ModifyVolumeStatus *ModifyVolumeStatus `pulumi:"modifyVolumeStatus"`
 	// phase represents the current phase of PersistentVolumeClaim.
 	Phase *string `pulumi:"phase"`
 	// resizeStatus stores status of resize operation. ResizeStatus is not set by default but when expansion is complete resizeStatus is set to empty string by resize controller or kubelet. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
@@ -36029,6 +36949,10 @@ type PersistentVolumeClaimStatusArgs struct {
 	Capacity pulumi.StringMapInput `pulumi:"capacity"`
 	// conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'ResizeStarted'.
 	Conditions PersistentVolumeClaimConditionArrayInput `pulumi:"conditions"`
+	// currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim This is an alpha field and requires enabling VolumeAttributesClass feature.
+	CurrentVolumeAttributesClassName pulumi.StringPtrInput `pulumi:"currentVolumeAttributesClassName"`
+	// ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted. This is an alpha field and requires enabling VolumeAttributesClass feature.
+	ModifyVolumeStatus ModifyVolumeStatusPtrInput `pulumi:"modifyVolumeStatus"`
 	// phase represents the current phase of PersistentVolumeClaim.
 	Phase pulumi.StringPtrInput `pulumi:"phase"`
 	// resizeStatus stores status of resize operation. ResizeStatus is not set by default but when expansion is complete resizeStatus is set to empty string by resize controller or kubelet. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
@@ -36181,6 +37105,16 @@ func (o PersistentVolumeClaimStatusOutput) Conditions() PersistentVolumeClaimCon
 	return o.ApplyT(func(v PersistentVolumeClaimStatus) []PersistentVolumeClaimCondition { return v.Conditions }).(PersistentVolumeClaimConditionArrayOutput)
 }
 
+// currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim This is an alpha field and requires enabling VolumeAttributesClass feature.
+func (o PersistentVolumeClaimStatusOutput) CurrentVolumeAttributesClassName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PersistentVolumeClaimStatus) *string { return v.CurrentVolumeAttributesClassName }).(pulumi.StringPtrOutput)
+}
+
+// ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted. This is an alpha field and requires enabling VolumeAttributesClass feature.
+func (o PersistentVolumeClaimStatusOutput) ModifyVolumeStatus() ModifyVolumeStatusPtrOutput {
+	return o.ApplyT(func(v PersistentVolumeClaimStatus) *ModifyVolumeStatus { return v.ModifyVolumeStatus }).(ModifyVolumeStatusPtrOutput)
+}
+
 // phase represents the current phase of PersistentVolumeClaim.
 func (o PersistentVolumeClaimStatusOutput) Phase() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeClaimStatus) *string { return v.Phase }).(pulumi.StringPtrOutput)
@@ -36308,6 +37242,26 @@ func (o PersistentVolumeClaimStatusPtrOutput) Conditions() PersistentVolumeClaim
 	}).(PersistentVolumeClaimConditionArrayOutput)
 }
 
+// currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim This is an alpha field and requires enabling VolumeAttributesClass feature.
+func (o PersistentVolumeClaimStatusPtrOutput) CurrentVolumeAttributesClassName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PersistentVolumeClaimStatus) *string {
+		if v == nil {
+			return nil
+		}
+		return v.CurrentVolumeAttributesClassName
+	}).(pulumi.StringPtrOutput)
+}
+
+// ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted. This is an alpha field and requires enabling VolumeAttributesClass feature.
+func (o PersistentVolumeClaimStatusPtrOutput) ModifyVolumeStatus() ModifyVolumeStatusPtrOutput {
+	return o.ApplyT(func(v *PersistentVolumeClaimStatus) *ModifyVolumeStatus {
+		if v == nil {
+			return nil
+		}
+		return v.ModifyVolumeStatus
+	}).(ModifyVolumeStatusPtrOutput)
+}
+
 // phase represents the current phase of PersistentVolumeClaim.
 func (o PersistentVolumeClaimStatusPtrOutput) Phase() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeClaimStatus) *string {
@@ -36379,6 +37333,10 @@ type PersistentVolumeClaimStatusPatch struct {
 	Capacity map[string]string `pulumi:"capacity"`
 	// conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'ResizeStarted'.
 	Conditions []PersistentVolumeClaimConditionPatch `pulumi:"conditions"`
+	// currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim This is an alpha field and requires enabling VolumeAttributesClass feature.
+	CurrentVolumeAttributesClassName *string `pulumi:"currentVolumeAttributesClassName"`
+	// ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted. This is an alpha field and requires enabling VolumeAttributesClass feature.
+	ModifyVolumeStatus *ModifyVolumeStatusPatch `pulumi:"modifyVolumeStatus"`
 	// phase represents the current phase of PersistentVolumeClaim.
 	Phase *string `pulumi:"phase"`
 	// resizeStatus stores status of resize operation. ResizeStatus is not set by default but when expansion is complete resizeStatus is set to empty string by resize controller or kubelet. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
@@ -36447,6 +37405,10 @@ type PersistentVolumeClaimStatusPatchArgs struct {
 	Capacity pulumi.StringMapInput `pulumi:"capacity"`
 	// conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'ResizeStarted'.
 	Conditions PersistentVolumeClaimConditionPatchArrayInput `pulumi:"conditions"`
+	// currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim This is an alpha field and requires enabling VolumeAttributesClass feature.
+	CurrentVolumeAttributesClassName pulumi.StringPtrInput `pulumi:"currentVolumeAttributesClassName"`
+	// ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted. This is an alpha field and requires enabling VolumeAttributesClass feature.
+	ModifyVolumeStatus ModifyVolumeStatusPatchPtrInput `pulumi:"modifyVolumeStatus"`
 	// phase represents the current phase of PersistentVolumeClaim.
 	Phase pulumi.StringPtrInput `pulumi:"phase"`
 	// resizeStatus stores status of resize operation. ResizeStatus is not set by default but when expansion is complete resizeStatus is set to empty string by resize controller or kubelet. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
@@ -36599,6 +37561,16 @@ func (o PersistentVolumeClaimStatusPatchOutput) Conditions() PersistentVolumeCla
 	return o.ApplyT(func(v PersistentVolumeClaimStatusPatch) []PersistentVolumeClaimConditionPatch { return v.Conditions }).(PersistentVolumeClaimConditionPatchArrayOutput)
 }
 
+// currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim This is an alpha field and requires enabling VolumeAttributesClass feature.
+func (o PersistentVolumeClaimStatusPatchOutput) CurrentVolumeAttributesClassName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PersistentVolumeClaimStatusPatch) *string { return v.CurrentVolumeAttributesClassName }).(pulumi.StringPtrOutput)
+}
+
+// ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted. This is an alpha field and requires enabling VolumeAttributesClass feature.
+func (o PersistentVolumeClaimStatusPatchOutput) ModifyVolumeStatus() ModifyVolumeStatusPatchPtrOutput {
+	return o.ApplyT(func(v PersistentVolumeClaimStatusPatch) *ModifyVolumeStatusPatch { return v.ModifyVolumeStatus }).(ModifyVolumeStatusPatchPtrOutput)
+}
+
 // phase represents the current phase of PersistentVolumeClaim.
 func (o PersistentVolumeClaimStatusPatchOutput) Phase() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeClaimStatusPatch) *string { return v.Phase }).(pulumi.StringPtrOutput)
@@ -36724,6 +37696,26 @@ func (o PersistentVolumeClaimStatusPatchPtrOutput) Conditions() PersistentVolume
 		}
 		return v.Conditions
 	}).(PersistentVolumeClaimConditionPatchArrayOutput)
+}
+
+// currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim This is an alpha field and requires enabling VolumeAttributesClass feature.
+func (o PersistentVolumeClaimStatusPatchPtrOutput) CurrentVolumeAttributesClassName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PersistentVolumeClaimStatusPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.CurrentVolumeAttributesClassName
+	}).(pulumi.StringPtrOutput)
+}
+
+// ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted. This is an alpha field and requires enabling VolumeAttributesClass feature.
+func (o PersistentVolumeClaimStatusPatchPtrOutput) ModifyVolumeStatus() ModifyVolumeStatusPatchPtrOutput {
+	return o.ApplyT(func(v *PersistentVolumeClaimStatusPatch) *ModifyVolumeStatusPatch {
+		if v == nil {
+			return nil
+		}
+		return v.ModifyVolumeStatus
+	}).(ModifyVolumeStatusPatchPtrOutput)
 }
 
 // phase represents the current phase of PersistentVolumeClaim.
@@ -37613,6 +38605,8 @@ type PersistentVolumeSpec struct {
 	StorageClassName *string `pulumi:"storageClassName"`
 	// storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod More info: https://examples.k8s.io/volumes/storageos/README.md
 	Storageos *StorageOSPersistentVolumeSource `pulumi:"storageos"`
+	// Name of VolumeAttributesClass to which this persistent volume belongs. Empty value is not allowed. When this field is not set, it indicates that this volume does not belong to any VolumeAttributesClass. This field is mutable and can be changed by the CSI driver after a volume has been updated successfully to a new class. For an unbound PersistentVolume, the volumeAttributesClassName will be matched with unbound PersistentVolumeClaims during the binding process. This is an alpha field and requires enabling VolumeAttributesClass feature.
+	VolumeAttributesClassName *string `pulumi:"volumeAttributesClassName"`
 	// volumeMode defines if a volume is intended to be used with a formatted filesystem or to remain in raw block state. Value of Filesystem is implied when not included in spec.
 	VolumeMode *string `pulumi:"volumeMode"`
 	// vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
@@ -37688,6 +38682,8 @@ type PersistentVolumeSpecArgs struct {
 	StorageClassName pulumi.StringPtrInput `pulumi:"storageClassName"`
 	// storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod More info: https://examples.k8s.io/volumes/storageos/README.md
 	Storageos StorageOSPersistentVolumeSourcePtrInput `pulumi:"storageos"`
+	// Name of VolumeAttributesClass to which this persistent volume belongs. Empty value is not allowed. When this field is not set, it indicates that this volume does not belong to any VolumeAttributesClass. This field is mutable and can be changed by the CSI driver after a volume has been updated successfully to a new class. For an unbound PersistentVolume, the volumeAttributesClassName will be matched with unbound PersistentVolumeClaims during the binding process. This is an alpha field and requires enabling VolumeAttributesClass feature.
+	VolumeAttributesClassName pulumi.StringPtrInput `pulumi:"volumeAttributesClassName"`
 	// volumeMode defines if a volume is intended to be used with a formatted filesystem or to remain in raw block state. Value of Filesystem is implied when not included in spec.
 	VolumeMode pulumi.StringPtrInput `pulumi:"volumeMode"`
 	// vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
@@ -37910,6 +38906,11 @@ func (o PersistentVolumeSpecOutput) StorageClassName() pulumi.StringPtrOutput {
 // storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod More info: https://examples.k8s.io/volumes/storageos/README.md
 func (o PersistentVolumeSpecOutput) Storageos() StorageOSPersistentVolumeSourcePtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) *StorageOSPersistentVolumeSource { return v.Storageos }).(StorageOSPersistentVolumeSourcePtrOutput)
+}
+
+// Name of VolumeAttributesClass to which this persistent volume belongs. Empty value is not allowed. When this field is not set, it indicates that this volume does not belong to any VolumeAttributesClass. This field is mutable and can be changed by the CSI driver after a volume has been updated successfully to a new class. For an unbound PersistentVolume, the volumeAttributesClassName will be matched with unbound PersistentVolumeClaims during the binding process. This is an alpha field and requires enabling VolumeAttributesClass feature.
+func (o PersistentVolumeSpecOutput) VolumeAttributesClassName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PersistentVolumeSpec) *string { return v.VolumeAttributesClassName }).(pulumi.StringPtrOutput)
 }
 
 // volumeMode defines if a volume is intended to be used with a formatted filesystem or to remain in raw block state. Value of Filesystem is implied when not included in spec.
@@ -38226,6 +39227,16 @@ func (o PersistentVolumeSpecPtrOutput) Storageos() StorageOSPersistentVolumeSour
 	}).(StorageOSPersistentVolumeSourcePtrOutput)
 }
 
+// Name of VolumeAttributesClass to which this persistent volume belongs. Empty value is not allowed. When this field is not set, it indicates that this volume does not belong to any VolumeAttributesClass. This field is mutable and can be changed by the CSI driver after a volume has been updated successfully to a new class. For an unbound PersistentVolume, the volumeAttributesClassName will be matched with unbound PersistentVolumeClaims during the binding process. This is an alpha field and requires enabling VolumeAttributesClass feature.
+func (o PersistentVolumeSpecPtrOutput) VolumeAttributesClassName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PersistentVolumeSpec) *string {
+		if v == nil {
+			return nil
+		}
+		return v.VolumeAttributesClassName
+	}).(pulumi.StringPtrOutput)
+}
+
 // volumeMode defines if a volume is intended to be used with a formatted filesystem or to remain in raw block state. Value of Filesystem is implied when not included in spec.
 func (o PersistentVolumeSpecPtrOutput) VolumeMode() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpec) *string {
@@ -38304,6 +39315,8 @@ type PersistentVolumeSpecPatch struct {
 	StorageClassName *string `pulumi:"storageClassName"`
 	// storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod More info: https://examples.k8s.io/volumes/storageos/README.md
 	Storageos *StorageOSPersistentVolumeSourcePatch `pulumi:"storageos"`
+	// Name of VolumeAttributesClass to which this persistent volume belongs. Empty value is not allowed. When this field is not set, it indicates that this volume does not belong to any VolumeAttributesClass. This field is mutable and can be changed by the CSI driver after a volume has been updated successfully to a new class. For an unbound PersistentVolume, the volumeAttributesClassName will be matched with unbound PersistentVolumeClaims during the binding process. This is an alpha field and requires enabling VolumeAttributesClass feature.
+	VolumeAttributesClassName *string `pulumi:"volumeAttributesClassName"`
 	// volumeMode defines if a volume is intended to be used with a formatted filesystem or to remain in raw block state. Value of Filesystem is implied when not included in spec.
 	VolumeMode *string `pulumi:"volumeMode"`
 	// vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
@@ -38379,6 +39392,8 @@ type PersistentVolumeSpecPatchArgs struct {
 	StorageClassName pulumi.StringPtrInput `pulumi:"storageClassName"`
 	// storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod More info: https://examples.k8s.io/volumes/storageos/README.md
 	Storageos StorageOSPersistentVolumeSourcePatchPtrInput `pulumi:"storageos"`
+	// Name of VolumeAttributesClass to which this persistent volume belongs. Empty value is not allowed. When this field is not set, it indicates that this volume does not belong to any VolumeAttributesClass. This field is mutable and can be changed by the CSI driver after a volume has been updated successfully to a new class. For an unbound PersistentVolume, the volumeAttributesClassName will be matched with unbound PersistentVolumeClaims during the binding process. This is an alpha field and requires enabling VolumeAttributesClass feature.
+	VolumeAttributesClassName pulumi.StringPtrInput `pulumi:"volumeAttributesClassName"`
 	// volumeMode defines if a volume is intended to be used with a formatted filesystem or to remain in raw block state. Value of Filesystem is implied when not included in spec.
 	VolumeMode pulumi.StringPtrInput `pulumi:"volumeMode"`
 	// vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
@@ -38605,6 +39620,11 @@ func (o PersistentVolumeSpecPatchOutput) StorageClassName() pulumi.StringPtrOutp
 // storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod More info: https://examples.k8s.io/volumes/storageos/README.md
 func (o PersistentVolumeSpecPatchOutput) Storageos() StorageOSPersistentVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpecPatch) *StorageOSPersistentVolumeSourcePatch { return v.Storageos }).(StorageOSPersistentVolumeSourcePatchPtrOutput)
+}
+
+// Name of VolumeAttributesClass to which this persistent volume belongs. Empty value is not allowed. When this field is not set, it indicates that this volume does not belong to any VolumeAttributesClass. This field is mutable and can be changed by the CSI driver after a volume has been updated successfully to a new class. For an unbound PersistentVolume, the volumeAttributesClassName will be matched with unbound PersistentVolumeClaims during the binding process. This is an alpha field and requires enabling VolumeAttributesClass feature.
+func (o PersistentVolumeSpecPatchOutput) VolumeAttributesClassName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PersistentVolumeSpecPatch) *string { return v.VolumeAttributesClassName }).(pulumi.StringPtrOutput)
 }
 
 // volumeMode defines if a volume is intended to be used with a formatted filesystem or to remain in raw block state. Value of Filesystem is implied when not included in spec.
@@ -38919,6 +39939,16 @@ func (o PersistentVolumeSpecPatchPtrOutput) Storageos() StorageOSPersistentVolum
 		}
 		return v.Storageos
 	}).(StorageOSPersistentVolumeSourcePatchPtrOutput)
+}
+
+// Name of VolumeAttributesClass to which this persistent volume belongs. Empty value is not allowed. When this field is not set, it indicates that this volume does not belong to any VolumeAttributesClass. This field is mutable and can be changed by the CSI driver after a volume has been updated successfully to a new class. For an unbound PersistentVolume, the volumeAttributesClassName will be matched with unbound PersistentVolumeClaims during the binding process. This is an alpha field and requires enabling VolumeAttributesClass feature.
+func (o PersistentVolumeSpecPatchPtrOutput) VolumeAttributesClassName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PersistentVolumeSpecPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.VolumeAttributesClassName
+	}).(pulumi.StringPtrOutput)
 }
 
 // volumeMode defines if a volume is intended to be used with a formatted filesystem or to remain in raw block state. Value of Filesystem is implied when not included in spec.
@@ -40160,8 +41190,12 @@ func (o PodAffinityPatchPtrOutput) RequiredDuringSchedulingIgnoredDuringExecutio
 
 // Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key <topologyKey> matches that of any node on which a pod of the set of pods is running
 type PodAffinityTerm struct {
-	// A label query over a set of resources, in this case pods.
+	// A label query over a set of resources, in this case pods. If it's null, this PodAffinityTerm matches with no Pods.
 	LabelSelector *metav1.LabelSelector `pulumi:"labelSelector"`
+	// MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `LabelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both MatchLabelKeys and LabelSelector. Also, MatchLabelKeys cannot be set when LabelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
+	MatchLabelKeys []string `pulumi:"matchLabelKeys"`
+	// MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `LabelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both MismatchLabelKeys and LabelSelector. Also, MismatchLabelKeys cannot be set when LabelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
+	MismatchLabelKeys []string `pulumi:"mismatchLabelKeys"`
 	// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces.
 	NamespaceSelector *metav1.LabelSelector `pulumi:"namespaceSelector"`
 	// namespaces specifies a static list of namespace names that the term applies to. The term is applied to the union of the namespaces listed in this field and the ones selected by namespaceSelector. null or empty namespaces list and null namespaceSelector means "this pod's namespace".
@@ -40183,8 +41217,12 @@ type PodAffinityTermInput interface {
 
 // Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key <topologyKey> matches that of any node on which a pod of the set of pods is running
 type PodAffinityTermArgs struct {
-	// A label query over a set of resources, in this case pods.
+	// A label query over a set of resources, in this case pods. If it's null, this PodAffinityTerm matches with no Pods.
 	LabelSelector metav1.LabelSelectorPtrInput `pulumi:"labelSelector"`
+	// MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `LabelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both MatchLabelKeys and LabelSelector. Also, MatchLabelKeys cannot be set when LabelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
+	MatchLabelKeys pulumi.StringArrayInput `pulumi:"matchLabelKeys"`
+	// MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `LabelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both MismatchLabelKeys and LabelSelector. Also, MismatchLabelKeys cannot be set when LabelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
+	MismatchLabelKeys pulumi.StringArrayInput `pulumi:"mismatchLabelKeys"`
 	// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces.
 	NamespaceSelector metav1.LabelSelectorPtrInput `pulumi:"namespaceSelector"`
 	// namespaces specifies a static list of namespace names that the term applies to. The term is applied to the union of the namespaces listed in this field and the ones selected by namespaceSelector. null or empty namespaces list and null namespaceSelector means "this pod's namespace".
@@ -40245,9 +41283,19 @@ func (o PodAffinityTermOutput) ToPodAffinityTermOutputWithContext(ctx context.Co
 	return o
 }
 
-// A label query over a set of resources, in this case pods.
+// A label query over a set of resources, in this case pods. If it's null, this PodAffinityTerm matches with no Pods.
 func (o PodAffinityTermOutput) LabelSelector() metav1.LabelSelectorPtrOutput {
 	return o.ApplyT(func(v PodAffinityTerm) *metav1.LabelSelector { return v.LabelSelector }).(metav1.LabelSelectorPtrOutput)
+}
+
+// MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `LabelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both MatchLabelKeys and LabelSelector. Also, MatchLabelKeys cannot be set when LabelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
+func (o PodAffinityTermOutput) MatchLabelKeys() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v PodAffinityTerm) []string { return v.MatchLabelKeys }).(pulumi.StringArrayOutput)
+}
+
+// MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `LabelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both MismatchLabelKeys and LabelSelector. Also, MismatchLabelKeys cannot be set when LabelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
+func (o PodAffinityTermOutput) MismatchLabelKeys() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v PodAffinityTerm) []string { return v.MismatchLabelKeys }).(pulumi.StringArrayOutput)
 }
 
 // A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces.
@@ -40287,8 +41335,12 @@ func (o PodAffinityTermArrayOutput) Index(i pulumi.IntInput) PodAffinityTermOutp
 
 // Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key <topologyKey> matches that of any node on which a pod of the set of pods is running
 type PodAffinityTermPatch struct {
-	// A label query over a set of resources, in this case pods.
+	// A label query over a set of resources, in this case pods. If it's null, this PodAffinityTerm matches with no Pods.
 	LabelSelector *metav1.LabelSelectorPatch `pulumi:"labelSelector"`
+	// MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `LabelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both MatchLabelKeys and LabelSelector. Also, MatchLabelKeys cannot be set when LabelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
+	MatchLabelKeys []string `pulumi:"matchLabelKeys"`
+	// MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `LabelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both MismatchLabelKeys and LabelSelector. Also, MismatchLabelKeys cannot be set when LabelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
+	MismatchLabelKeys []string `pulumi:"mismatchLabelKeys"`
 	// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces.
 	NamespaceSelector *metav1.LabelSelectorPatch `pulumi:"namespaceSelector"`
 	// namespaces specifies a static list of namespace names that the term applies to. The term is applied to the union of the namespaces listed in this field and the ones selected by namespaceSelector. null or empty namespaces list and null namespaceSelector means "this pod's namespace".
@@ -40310,8 +41362,12 @@ type PodAffinityTermPatchInput interface {
 
 // Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key <topologyKey> matches that of any node on which a pod of the set of pods is running
 type PodAffinityTermPatchArgs struct {
-	// A label query over a set of resources, in this case pods.
+	// A label query over a set of resources, in this case pods. If it's null, this PodAffinityTerm matches with no Pods.
 	LabelSelector metav1.LabelSelectorPatchPtrInput `pulumi:"labelSelector"`
+	// MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `LabelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both MatchLabelKeys and LabelSelector. Also, MatchLabelKeys cannot be set when LabelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
+	MatchLabelKeys pulumi.StringArrayInput `pulumi:"matchLabelKeys"`
+	// MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `LabelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both MismatchLabelKeys and LabelSelector. Also, MismatchLabelKeys cannot be set when LabelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
+	MismatchLabelKeys pulumi.StringArrayInput `pulumi:"mismatchLabelKeys"`
 	// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces.
 	NamespaceSelector metav1.LabelSelectorPatchPtrInput `pulumi:"namespaceSelector"`
 	// namespaces specifies a static list of namespace names that the term applies to. The term is applied to the union of the namespaces listed in this field and the ones selected by namespaceSelector. null or empty namespaces list and null namespaceSelector means "this pod's namespace".
@@ -40423,9 +41479,19 @@ func (o PodAffinityTermPatchOutput) ToPodAffinityTermPatchPtrOutputWithContext(c
 	}).(PodAffinityTermPatchPtrOutput)
 }
 
-// A label query over a set of resources, in this case pods.
+// A label query over a set of resources, in this case pods. If it's null, this PodAffinityTerm matches with no Pods.
 func (o PodAffinityTermPatchOutput) LabelSelector() metav1.LabelSelectorPatchPtrOutput {
 	return o.ApplyT(func(v PodAffinityTermPatch) *metav1.LabelSelectorPatch { return v.LabelSelector }).(metav1.LabelSelectorPatchPtrOutput)
+}
+
+// MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `LabelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both MatchLabelKeys and LabelSelector. Also, MatchLabelKeys cannot be set when LabelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
+func (o PodAffinityTermPatchOutput) MatchLabelKeys() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v PodAffinityTermPatch) []string { return v.MatchLabelKeys }).(pulumi.StringArrayOutput)
+}
+
+// MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `LabelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both MismatchLabelKeys and LabelSelector. Also, MismatchLabelKeys cannot be set when LabelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
+func (o PodAffinityTermPatchOutput) MismatchLabelKeys() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v PodAffinityTermPatch) []string { return v.MismatchLabelKeys }).(pulumi.StringArrayOutput)
 }
 
 // A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces.
@@ -40467,7 +41533,7 @@ func (o PodAffinityTermPatchPtrOutput) Elem() PodAffinityTermPatchOutput {
 	}).(PodAffinityTermPatchOutput)
 }
 
-// A label query over a set of resources, in this case pods.
+// A label query over a set of resources, in this case pods. If it's null, this PodAffinityTerm matches with no Pods.
 func (o PodAffinityTermPatchPtrOutput) LabelSelector() metav1.LabelSelectorPatchPtrOutput {
 	return o.ApplyT(func(v *PodAffinityTermPatch) *metav1.LabelSelectorPatch {
 		if v == nil {
@@ -40475,6 +41541,26 @@ func (o PodAffinityTermPatchPtrOutput) LabelSelector() metav1.LabelSelectorPatch
 		}
 		return v.LabelSelector
 	}).(metav1.LabelSelectorPatchPtrOutput)
+}
+
+// MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `LabelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both MatchLabelKeys and LabelSelector. Also, MatchLabelKeys cannot be set when LabelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
+func (o PodAffinityTermPatchPtrOutput) MatchLabelKeys() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *PodAffinityTermPatch) []string {
+		if v == nil {
+			return nil
+		}
+		return v.MatchLabelKeys
+	}).(pulumi.StringArrayOutput)
+}
+
+// MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `LabelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both MismatchLabelKeys and LabelSelector. Also, MismatchLabelKeys cannot be set when LabelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
+func (o PodAffinityTermPatchPtrOutput) MismatchLabelKeys() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *PodAffinityTermPatch) []string {
+		if v == nil {
+			return nil
+		}
+		return v.MismatchLabelKeys
+	}).(pulumi.StringArrayOutput)
 }
 
 // A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces.
@@ -60386,7 +61472,7 @@ type ServicePort struct {
 	// * Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).
 	//
 	// * Kubernetes-defined prefixed names:
-	//   * 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540
+	//   * 'kubernetes.io/h2c' - HTTP/2 prior knowledge over cleartext as described in https://www.rfc-editor.org/rfc/rfc9113.html#name-starting-http-2-with-prior-
 	//   * 'kubernetes.io/ws'  - WebSocket over cleartext as described in https://www.rfc-editor.org/rfc/rfc6455
 	//   * 'kubernetes.io/wss' - WebSocket over TLS as described in https://www.rfc-editor.org/rfc/rfc6455
 	//
@@ -60422,7 +61508,7 @@ type ServicePortArgs struct {
 	// * Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).
 	//
 	// * Kubernetes-defined prefixed names:
-	//   * 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540
+	//   * 'kubernetes.io/h2c' - HTTP/2 prior knowledge over cleartext as described in https://www.rfc-editor.org/rfc/rfc9113.html#name-starting-http-2-with-prior-
 	//   * 'kubernetes.io/ws'  - WebSocket over cleartext as described in https://www.rfc-editor.org/rfc/rfc6455
 	//   * 'kubernetes.io/wss' - WebSocket over TLS as described in https://www.rfc-editor.org/rfc/rfc6455
 	//
@@ -60497,7 +61583,7 @@ func (o ServicePortOutput) ToServicePortOutputWithContext(ctx context.Context) S
 // * Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).
 //
 // * Kubernetes-defined prefixed names:
-//   - 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540
+//   - 'kubernetes.io/h2c' - HTTP/2 prior knowledge over cleartext as described in https://www.rfc-editor.org/rfc/rfc9113.html#name-starting-http-2-with-prior-
 //   - 'kubernetes.io/ws'  - WebSocket over cleartext as described in https://www.rfc-editor.org/rfc/rfc6455
 //   - 'kubernetes.io/wss' - WebSocket over TLS as described in https://www.rfc-editor.org/rfc/rfc6455
 //
@@ -60558,7 +61644,7 @@ type ServicePortPatch struct {
 	// * Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).
 	//
 	// * Kubernetes-defined prefixed names:
-	//   * 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540
+	//   * 'kubernetes.io/h2c' - HTTP/2 prior knowledge over cleartext as described in https://www.rfc-editor.org/rfc/rfc9113.html#name-starting-http-2-with-prior-
 	//   * 'kubernetes.io/ws'  - WebSocket over cleartext as described in https://www.rfc-editor.org/rfc/rfc6455
 	//   * 'kubernetes.io/wss' - WebSocket over TLS as described in https://www.rfc-editor.org/rfc/rfc6455
 	//
@@ -60594,7 +61680,7 @@ type ServicePortPatchArgs struct {
 	// * Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).
 	//
 	// * Kubernetes-defined prefixed names:
-	//   * 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540
+	//   * 'kubernetes.io/h2c' - HTTP/2 prior knowledge over cleartext as described in https://www.rfc-editor.org/rfc/rfc9113.html#name-starting-http-2-with-prior-
 	//   * 'kubernetes.io/ws'  - WebSocket over cleartext as described in https://www.rfc-editor.org/rfc/rfc6455
 	//   * 'kubernetes.io/wss' - WebSocket over TLS as described in https://www.rfc-editor.org/rfc/rfc6455
 	//
@@ -60669,7 +61755,7 @@ func (o ServicePortPatchOutput) ToServicePortPatchOutputWithContext(ctx context.
 // * Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).
 //
 // * Kubernetes-defined prefixed names:
-//   - 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540
+//   - 'kubernetes.io/h2c' - HTTP/2 prior knowledge over cleartext as described in https://www.rfc-editor.org/rfc/rfc9113.html#name-starting-http-2-with-prior-
 //   - 'kubernetes.io/ws'  - WebSocket over cleartext as described in https://www.rfc-editor.org/rfc/rfc6455
 //   - 'kubernetes.io/wss' - WebSocket over TLS as described in https://www.rfc-editor.org/rfc/rfc6455
 //
@@ -62391,6 +63477,286 @@ func (o SessionAffinityConfigPatchPtrOutput) ClientIP() ClientIPConfigPatchPtrOu
 		}
 		return v.ClientIP
 	}).(ClientIPConfigPatchPtrOutput)
+}
+
+// SleepAction describes a "sleep" action.
+type SleepAction struct {
+	// Seconds is the number of seconds to sleep.
+	Seconds int `pulumi:"seconds"`
+}
+
+// SleepActionInput is an input type that accepts SleepActionArgs and SleepActionOutput values.
+// You can construct a concrete instance of `SleepActionInput` via:
+//
+//	SleepActionArgs{...}
+type SleepActionInput interface {
+	pulumi.Input
+
+	ToSleepActionOutput() SleepActionOutput
+	ToSleepActionOutputWithContext(context.Context) SleepActionOutput
+}
+
+// SleepAction describes a "sleep" action.
+type SleepActionArgs struct {
+	// Seconds is the number of seconds to sleep.
+	Seconds pulumi.IntInput `pulumi:"seconds"`
+}
+
+func (SleepActionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*SleepAction)(nil)).Elem()
+}
+
+func (i SleepActionArgs) ToSleepActionOutput() SleepActionOutput {
+	return i.ToSleepActionOutputWithContext(context.Background())
+}
+
+func (i SleepActionArgs) ToSleepActionOutputWithContext(ctx context.Context) SleepActionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SleepActionOutput)
+}
+
+func (i SleepActionArgs) ToSleepActionPtrOutput() SleepActionPtrOutput {
+	return i.ToSleepActionPtrOutputWithContext(context.Background())
+}
+
+func (i SleepActionArgs) ToSleepActionPtrOutputWithContext(ctx context.Context) SleepActionPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SleepActionOutput).ToSleepActionPtrOutputWithContext(ctx)
+}
+
+// SleepActionPtrInput is an input type that accepts SleepActionArgs, SleepActionPtr and SleepActionPtrOutput values.
+// You can construct a concrete instance of `SleepActionPtrInput` via:
+//
+//	        SleepActionArgs{...}
+//
+//	or:
+//
+//	        nil
+type SleepActionPtrInput interface {
+	pulumi.Input
+
+	ToSleepActionPtrOutput() SleepActionPtrOutput
+	ToSleepActionPtrOutputWithContext(context.Context) SleepActionPtrOutput
+}
+
+type sleepActionPtrType SleepActionArgs
+
+func SleepActionPtr(v *SleepActionArgs) SleepActionPtrInput {
+	return (*sleepActionPtrType)(v)
+}
+
+func (*sleepActionPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**SleepAction)(nil)).Elem()
+}
+
+func (i *sleepActionPtrType) ToSleepActionPtrOutput() SleepActionPtrOutput {
+	return i.ToSleepActionPtrOutputWithContext(context.Background())
+}
+
+func (i *sleepActionPtrType) ToSleepActionPtrOutputWithContext(ctx context.Context) SleepActionPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SleepActionPtrOutput)
+}
+
+// SleepAction describes a "sleep" action.
+type SleepActionOutput struct{ *pulumi.OutputState }
+
+func (SleepActionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*SleepAction)(nil)).Elem()
+}
+
+func (o SleepActionOutput) ToSleepActionOutput() SleepActionOutput {
+	return o
+}
+
+func (o SleepActionOutput) ToSleepActionOutputWithContext(ctx context.Context) SleepActionOutput {
+	return o
+}
+
+func (o SleepActionOutput) ToSleepActionPtrOutput() SleepActionPtrOutput {
+	return o.ToSleepActionPtrOutputWithContext(context.Background())
+}
+
+func (o SleepActionOutput) ToSleepActionPtrOutputWithContext(ctx context.Context) SleepActionPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SleepAction) *SleepAction {
+		return &v
+	}).(SleepActionPtrOutput)
+}
+
+// Seconds is the number of seconds to sleep.
+func (o SleepActionOutput) Seconds() pulumi.IntOutput {
+	return o.ApplyT(func(v SleepAction) int { return v.Seconds }).(pulumi.IntOutput)
+}
+
+type SleepActionPtrOutput struct{ *pulumi.OutputState }
+
+func (SleepActionPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**SleepAction)(nil)).Elem()
+}
+
+func (o SleepActionPtrOutput) ToSleepActionPtrOutput() SleepActionPtrOutput {
+	return o
+}
+
+func (o SleepActionPtrOutput) ToSleepActionPtrOutputWithContext(ctx context.Context) SleepActionPtrOutput {
+	return o
+}
+
+func (o SleepActionPtrOutput) Elem() SleepActionOutput {
+	return o.ApplyT(func(v *SleepAction) SleepAction {
+		if v != nil {
+			return *v
+		}
+		var ret SleepAction
+		return ret
+	}).(SleepActionOutput)
+}
+
+// Seconds is the number of seconds to sleep.
+func (o SleepActionPtrOutput) Seconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *SleepAction) *int {
+		if v == nil {
+			return nil
+		}
+		return &v.Seconds
+	}).(pulumi.IntPtrOutput)
+}
+
+// SleepAction describes a "sleep" action.
+type SleepActionPatch struct {
+	// Seconds is the number of seconds to sleep.
+	Seconds *int `pulumi:"seconds"`
+}
+
+// SleepActionPatchInput is an input type that accepts SleepActionPatchArgs and SleepActionPatchOutput values.
+// You can construct a concrete instance of `SleepActionPatchInput` via:
+//
+//	SleepActionPatchArgs{...}
+type SleepActionPatchInput interface {
+	pulumi.Input
+
+	ToSleepActionPatchOutput() SleepActionPatchOutput
+	ToSleepActionPatchOutputWithContext(context.Context) SleepActionPatchOutput
+}
+
+// SleepAction describes a "sleep" action.
+type SleepActionPatchArgs struct {
+	// Seconds is the number of seconds to sleep.
+	Seconds pulumi.IntPtrInput `pulumi:"seconds"`
+}
+
+func (SleepActionPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*SleepActionPatch)(nil)).Elem()
+}
+
+func (i SleepActionPatchArgs) ToSleepActionPatchOutput() SleepActionPatchOutput {
+	return i.ToSleepActionPatchOutputWithContext(context.Background())
+}
+
+func (i SleepActionPatchArgs) ToSleepActionPatchOutputWithContext(ctx context.Context) SleepActionPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SleepActionPatchOutput)
+}
+
+func (i SleepActionPatchArgs) ToSleepActionPatchPtrOutput() SleepActionPatchPtrOutput {
+	return i.ToSleepActionPatchPtrOutputWithContext(context.Background())
+}
+
+func (i SleepActionPatchArgs) ToSleepActionPatchPtrOutputWithContext(ctx context.Context) SleepActionPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SleepActionPatchOutput).ToSleepActionPatchPtrOutputWithContext(ctx)
+}
+
+// SleepActionPatchPtrInput is an input type that accepts SleepActionPatchArgs, SleepActionPatchPtr and SleepActionPatchPtrOutput values.
+// You can construct a concrete instance of `SleepActionPatchPtrInput` via:
+//
+//	        SleepActionPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type SleepActionPatchPtrInput interface {
+	pulumi.Input
+
+	ToSleepActionPatchPtrOutput() SleepActionPatchPtrOutput
+	ToSleepActionPatchPtrOutputWithContext(context.Context) SleepActionPatchPtrOutput
+}
+
+type sleepActionPatchPtrType SleepActionPatchArgs
+
+func SleepActionPatchPtr(v *SleepActionPatchArgs) SleepActionPatchPtrInput {
+	return (*sleepActionPatchPtrType)(v)
+}
+
+func (*sleepActionPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**SleepActionPatch)(nil)).Elem()
+}
+
+func (i *sleepActionPatchPtrType) ToSleepActionPatchPtrOutput() SleepActionPatchPtrOutput {
+	return i.ToSleepActionPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *sleepActionPatchPtrType) ToSleepActionPatchPtrOutputWithContext(ctx context.Context) SleepActionPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SleepActionPatchPtrOutput)
+}
+
+// SleepAction describes a "sleep" action.
+type SleepActionPatchOutput struct{ *pulumi.OutputState }
+
+func (SleepActionPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*SleepActionPatch)(nil)).Elem()
+}
+
+func (o SleepActionPatchOutput) ToSleepActionPatchOutput() SleepActionPatchOutput {
+	return o
+}
+
+func (o SleepActionPatchOutput) ToSleepActionPatchOutputWithContext(ctx context.Context) SleepActionPatchOutput {
+	return o
+}
+
+func (o SleepActionPatchOutput) ToSleepActionPatchPtrOutput() SleepActionPatchPtrOutput {
+	return o.ToSleepActionPatchPtrOutputWithContext(context.Background())
+}
+
+func (o SleepActionPatchOutput) ToSleepActionPatchPtrOutputWithContext(ctx context.Context) SleepActionPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SleepActionPatch) *SleepActionPatch {
+		return &v
+	}).(SleepActionPatchPtrOutput)
+}
+
+// Seconds is the number of seconds to sleep.
+func (o SleepActionPatchOutput) Seconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v SleepActionPatch) *int { return v.Seconds }).(pulumi.IntPtrOutput)
+}
+
+type SleepActionPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (SleepActionPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**SleepActionPatch)(nil)).Elem()
+}
+
+func (o SleepActionPatchPtrOutput) ToSleepActionPatchPtrOutput() SleepActionPatchPtrOutput {
+	return o
+}
+
+func (o SleepActionPatchPtrOutput) ToSleepActionPatchPtrOutputWithContext(ctx context.Context) SleepActionPatchPtrOutput {
+	return o
+}
+
+func (o SleepActionPatchPtrOutput) Elem() SleepActionPatchOutput {
+	return o.ApplyT(func(v *SleepActionPatch) SleepActionPatch {
+		if v != nil {
+			return *v
+		}
+		var ret SleepActionPatch
+		return ret
+	}).(SleepActionPatchOutput)
+}
+
+// Seconds is the number of seconds to sleep.
+func (o SleepActionPatchPtrOutput) Seconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *SleepActionPatch) *int {
+		if v == nil {
+			return nil
+		}
+		return v.Seconds
+	}).(pulumi.IntPtrOutput)
 }
 
 // Represents a StorageOS persistent volume resource.
@@ -67487,6 +68853,14 @@ func (o VolumePatchArrayOutput) Index(i pulumi.IntInput) VolumePatchOutput {
 
 // Projection that may be projected along with other supported volume types
 type VolumeProjection struct {
+	// ClusterTrustBundle allows a pod to access the `.spec.trustBundle` field of ClusterTrustBundle objects in an auto-updating file.
+	//
+	// Alpha, gated by the ClusterTrustBundleProjection feature gate.
+	//
+	// ClusterTrustBundle objects can either be selected by name, or by the combination of signer name and a label selector.
+	//
+	// Kubelet performs aggressive normalization of the PEM contents written into the pod filesystem.  Esoteric PEM features such as inter-block comments and block headers are stripped.  Certificates are deduplicated. The ordering of certificates within the file is arbitrary, and Kubelet may change the order over time.
+	ClusterTrustBundle *ClusterTrustBundleProjection `pulumi:"clusterTrustBundle"`
 	// configMap information about the configMap data to project
 	ConfigMap *ConfigMapProjection `pulumi:"configMap"`
 	// downwardAPI information about the downwardAPI data to project
@@ -67510,6 +68884,14 @@ type VolumeProjectionInput interface {
 
 // Projection that may be projected along with other supported volume types
 type VolumeProjectionArgs struct {
+	// ClusterTrustBundle allows a pod to access the `.spec.trustBundle` field of ClusterTrustBundle objects in an auto-updating file.
+	//
+	// Alpha, gated by the ClusterTrustBundleProjection feature gate.
+	//
+	// ClusterTrustBundle objects can either be selected by name, or by the combination of signer name and a label selector.
+	//
+	// Kubelet performs aggressive normalization of the PEM contents written into the pod filesystem.  Esoteric PEM features such as inter-block comments and block headers are stripped.  Certificates are deduplicated. The ordering of certificates within the file is arbitrary, and Kubelet may change the order over time.
+	ClusterTrustBundle ClusterTrustBundleProjectionPtrInput `pulumi:"clusterTrustBundle"`
 	// configMap information about the configMap data to project
 	ConfigMap ConfigMapProjectionPtrInput `pulumi:"configMap"`
 	// downwardAPI information about the downwardAPI data to project
@@ -67572,6 +68954,17 @@ func (o VolumeProjectionOutput) ToVolumeProjectionOutputWithContext(ctx context.
 	return o
 }
 
+// ClusterTrustBundle allows a pod to access the `.spec.trustBundle` field of ClusterTrustBundle objects in an auto-updating file.
+//
+// Alpha, gated by the ClusterTrustBundleProjection feature gate.
+//
+// ClusterTrustBundle objects can either be selected by name, or by the combination of signer name and a label selector.
+//
+// Kubelet performs aggressive normalization of the PEM contents written into the pod filesystem.  Esoteric PEM features such as inter-block comments and block headers are stripped.  Certificates are deduplicated. The ordering of certificates within the file is arbitrary, and Kubelet may change the order over time.
+func (o VolumeProjectionOutput) ClusterTrustBundle() ClusterTrustBundleProjectionPtrOutput {
+	return o.ApplyT(func(v VolumeProjection) *ClusterTrustBundleProjection { return v.ClusterTrustBundle }).(ClusterTrustBundleProjectionPtrOutput)
+}
+
 // configMap information about the configMap data to project
 func (o VolumeProjectionOutput) ConfigMap() ConfigMapProjectionPtrOutput {
 	return o.ApplyT(func(v VolumeProjection) *ConfigMapProjection { return v.ConfigMap }).(ConfigMapProjectionPtrOutput)
@@ -67614,6 +69007,14 @@ func (o VolumeProjectionArrayOutput) Index(i pulumi.IntInput) VolumeProjectionOu
 
 // Projection that may be projected along with other supported volume types
 type VolumeProjectionPatch struct {
+	// ClusterTrustBundle allows a pod to access the `.spec.trustBundle` field of ClusterTrustBundle objects in an auto-updating file.
+	//
+	// Alpha, gated by the ClusterTrustBundleProjection feature gate.
+	//
+	// ClusterTrustBundle objects can either be selected by name, or by the combination of signer name and a label selector.
+	//
+	// Kubelet performs aggressive normalization of the PEM contents written into the pod filesystem.  Esoteric PEM features such as inter-block comments and block headers are stripped.  Certificates are deduplicated. The ordering of certificates within the file is arbitrary, and Kubelet may change the order over time.
+	ClusterTrustBundle *ClusterTrustBundleProjectionPatch `pulumi:"clusterTrustBundle"`
 	// configMap information about the configMap data to project
 	ConfigMap *ConfigMapProjectionPatch `pulumi:"configMap"`
 	// downwardAPI information about the downwardAPI data to project
@@ -67637,6 +69038,14 @@ type VolumeProjectionPatchInput interface {
 
 // Projection that may be projected along with other supported volume types
 type VolumeProjectionPatchArgs struct {
+	// ClusterTrustBundle allows a pod to access the `.spec.trustBundle` field of ClusterTrustBundle objects in an auto-updating file.
+	//
+	// Alpha, gated by the ClusterTrustBundleProjection feature gate.
+	//
+	// ClusterTrustBundle objects can either be selected by name, or by the combination of signer name and a label selector.
+	//
+	// Kubelet performs aggressive normalization of the PEM contents written into the pod filesystem.  Esoteric PEM features such as inter-block comments and block headers are stripped.  Certificates are deduplicated. The ordering of certificates within the file is arbitrary, and Kubelet may change the order over time.
+	ClusterTrustBundle ClusterTrustBundleProjectionPatchPtrInput `pulumi:"clusterTrustBundle"`
 	// configMap information about the configMap data to project
 	ConfigMap ConfigMapProjectionPatchPtrInput `pulumi:"configMap"`
 	// downwardAPI information about the downwardAPI data to project
@@ -67699,6 +69108,17 @@ func (o VolumeProjectionPatchOutput) ToVolumeProjectionPatchOutputWithContext(ct
 	return o
 }
 
+// ClusterTrustBundle allows a pod to access the `.spec.trustBundle` field of ClusterTrustBundle objects in an auto-updating file.
+//
+// Alpha, gated by the ClusterTrustBundleProjection feature gate.
+//
+// ClusterTrustBundle objects can either be selected by name, or by the combination of signer name and a label selector.
+//
+// Kubelet performs aggressive normalization of the PEM contents written into the pod filesystem.  Esoteric PEM features such as inter-block comments and block headers are stripped.  Certificates are deduplicated. The ordering of certificates within the file is arbitrary, and Kubelet may change the order over time.
+func (o VolumeProjectionPatchOutput) ClusterTrustBundle() ClusterTrustBundleProjectionPatchPtrOutput {
+	return o.ApplyT(func(v VolumeProjectionPatch) *ClusterTrustBundleProjectionPatch { return v.ClusterTrustBundle }).(ClusterTrustBundleProjectionPatchPtrOutput)
+}
+
 // configMap information about the configMap data to project
 func (o VolumeProjectionPatchOutput) ConfigMap() ConfigMapProjectionPatchPtrOutput {
 	return o.ApplyT(func(v VolumeProjectionPatch) *ConfigMapProjectionPatch { return v.ConfigMap }).(ConfigMapProjectionPatchPtrOutput)
@@ -67737,6 +69157,324 @@ func (o VolumeProjectionPatchArrayOutput) Index(i pulumi.IntInput) VolumeProject
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) VolumeProjectionPatch {
 		return vs[0].([]VolumeProjectionPatch)[vs[1].(int)]
 	}).(VolumeProjectionPatchOutput)
+}
+
+// VolumeResourceRequirements describes the storage resource requirements for a volume.
+type VolumeResourceRequirements struct {
+	// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+	Limits map[string]string `pulumi:"limits"`
+	// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. Requests cannot exceed Limits. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+	Requests map[string]string `pulumi:"requests"`
+}
+
+// VolumeResourceRequirementsInput is an input type that accepts VolumeResourceRequirementsArgs and VolumeResourceRequirementsOutput values.
+// You can construct a concrete instance of `VolumeResourceRequirementsInput` via:
+//
+//	VolumeResourceRequirementsArgs{...}
+type VolumeResourceRequirementsInput interface {
+	pulumi.Input
+
+	ToVolumeResourceRequirementsOutput() VolumeResourceRequirementsOutput
+	ToVolumeResourceRequirementsOutputWithContext(context.Context) VolumeResourceRequirementsOutput
+}
+
+// VolumeResourceRequirements describes the storage resource requirements for a volume.
+type VolumeResourceRequirementsArgs struct {
+	// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+	Limits pulumi.StringMapInput `pulumi:"limits"`
+	// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. Requests cannot exceed Limits. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+	Requests pulumi.StringMapInput `pulumi:"requests"`
+}
+
+func (VolumeResourceRequirementsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*VolumeResourceRequirements)(nil)).Elem()
+}
+
+func (i VolumeResourceRequirementsArgs) ToVolumeResourceRequirementsOutput() VolumeResourceRequirementsOutput {
+	return i.ToVolumeResourceRequirementsOutputWithContext(context.Background())
+}
+
+func (i VolumeResourceRequirementsArgs) ToVolumeResourceRequirementsOutputWithContext(ctx context.Context) VolumeResourceRequirementsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(VolumeResourceRequirementsOutput)
+}
+
+func (i VolumeResourceRequirementsArgs) ToVolumeResourceRequirementsPtrOutput() VolumeResourceRequirementsPtrOutput {
+	return i.ToVolumeResourceRequirementsPtrOutputWithContext(context.Background())
+}
+
+func (i VolumeResourceRequirementsArgs) ToVolumeResourceRequirementsPtrOutputWithContext(ctx context.Context) VolumeResourceRequirementsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(VolumeResourceRequirementsOutput).ToVolumeResourceRequirementsPtrOutputWithContext(ctx)
+}
+
+// VolumeResourceRequirementsPtrInput is an input type that accepts VolumeResourceRequirementsArgs, VolumeResourceRequirementsPtr and VolumeResourceRequirementsPtrOutput values.
+// You can construct a concrete instance of `VolumeResourceRequirementsPtrInput` via:
+//
+//	        VolumeResourceRequirementsArgs{...}
+//
+//	or:
+//
+//	        nil
+type VolumeResourceRequirementsPtrInput interface {
+	pulumi.Input
+
+	ToVolumeResourceRequirementsPtrOutput() VolumeResourceRequirementsPtrOutput
+	ToVolumeResourceRequirementsPtrOutputWithContext(context.Context) VolumeResourceRequirementsPtrOutput
+}
+
+type volumeResourceRequirementsPtrType VolumeResourceRequirementsArgs
+
+func VolumeResourceRequirementsPtr(v *VolumeResourceRequirementsArgs) VolumeResourceRequirementsPtrInput {
+	return (*volumeResourceRequirementsPtrType)(v)
+}
+
+func (*volumeResourceRequirementsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**VolumeResourceRequirements)(nil)).Elem()
+}
+
+func (i *volumeResourceRequirementsPtrType) ToVolumeResourceRequirementsPtrOutput() VolumeResourceRequirementsPtrOutput {
+	return i.ToVolumeResourceRequirementsPtrOutputWithContext(context.Background())
+}
+
+func (i *volumeResourceRequirementsPtrType) ToVolumeResourceRequirementsPtrOutputWithContext(ctx context.Context) VolumeResourceRequirementsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(VolumeResourceRequirementsPtrOutput)
+}
+
+// VolumeResourceRequirements describes the storage resource requirements for a volume.
+type VolumeResourceRequirementsOutput struct{ *pulumi.OutputState }
+
+func (VolumeResourceRequirementsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*VolumeResourceRequirements)(nil)).Elem()
+}
+
+func (o VolumeResourceRequirementsOutput) ToVolumeResourceRequirementsOutput() VolumeResourceRequirementsOutput {
+	return o
+}
+
+func (o VolumeResourceRequirementsOutput) ToVolumeResourceRequirementsOutputWithContext(ctx context.Context) VolumeResourceRequirementsOutput {
+	return o
+}
+
+func (o VolumeResourceRequirementsOutput) ToVolumeResourceRequirementsPtrOutput() VolumeResourceRequirementsPtrOutput {
+	return o.ToVolumeResourceRequirementsPtrOutputWithContext(context.Background())
+}
+
+func (o VolumeResourceRequirementsOutput) ToVolumeResourceRequirementsPtrOutputWithContext(ctx context.Context) VolumeResourceRequirementsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v VolumeResourceRequirements) *VolumeResourceRequirements {
+		return &v
+	}).(VolumeResourceRequirementsPtrOutput)
+}
+
+// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+func (o VolumeResourceRequirementsOutput) Limits() pulumi.StringMapOutput {
+	return o.ApplyT(func(v VolumeResourceRequirements) map[string]string { return v.Limits }).(pulumi.StringMapOutput)
+}
+
+// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. Requests cannot exceed Limits. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+func (o VolumeResourceRequirementsOutput) Requests() pulumi.StringMapOutput {
+	return o.ApplyT(func(v VolumeResourceRequirements) map[string]string { return v.Requests }).(pulumi.StringMapOutput)
+}
+
+type VolumeResourceRequirementsPtrOutput struct{ *pulumi.OutputState }
+
+func (VolumeResourceRequirementsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**VolumeResourceRequirements)(nil)).Elem()
+}
+
+func (o VolumeResourceRequirementsPtrOutput) ToVolumeResourceRequirementsPtrOutput() VolumeResourceRequirementsPtrOutput {
+	return o
+}
+
+func (o VolumeResourceRequirementsPtrOutput) ToVolumeResourceRequirementsPtrOutputWithContext(ctx context.Context) VolumeResourceRequirementsPtrOutput {
+	return o
+}
+
+func (o VolumeResourceRequirementsPtrOutput) Elem() VolumeResourceRequirementsOutput {
+	return o.ApplyT(func(v *VolumeResourceRequirements) VolumeResourceRequirements {
+		if v != nil {
+			return *v
+		}
+		var ret VolumeResourceRequirements
+		return ret
+	}).(VolumeResourceRequirementsOutput)
+}
+
+// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+func (o VolumeResourceRequirementsPtrOutput) Limits() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *VolumeResourceRequirements) map[string]string {
+		if v == nil {
+			return nil
+		}
+		return v.Limits
+	}).(pulumi.StringMapOutput)
+}
+
+// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. Requests cannot exceed Limits. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+func (o VolumeResourceRequirementsPtrOutput) Requests() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *VolumeResourceRequirements) map[string]string {
+		if v == nil {
+			return nil
+		}
+		return v.Requests
+	}).(pulumi.StringMapOutput)
+}
+
+// VolumeResourceRequirements describes the storage resource requirements for a volume.
+type VolumeResourceRequirementsPatch struct {
+	// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+	Limits map[string]string `pulumi:"limits"`
+	// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. Requests cannot exceed Limits. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+	Requests map[string]string `pulumi:"requests"`
+}
+
+// VolumeResourceRequirementsPatchInput is an input type that accepts VolumeResourceRequirementsPatchArgs and VolumeResourceRequirementsPatchOutput values.
+// You can construct a concrete instance of `VolumeResourceRequirementsPatchInput` via:
+//
+//	VolumeResourceRequirementsPatchArgs{...}
+type VolumeResourceRequirementsPatchInput interface {
+	pulumi.Input
+
+	ToVolumeResourceRequirementsPatchOutput() VolumeResourceRequirementsPatchOutput
+	ToVolumeResourceRequirementsPatchOutputWithContext(context.Context) VolumeResourceRequirementsPatchOutput
+}
+
+// VolumeResourceRequirements describes the storage resource requirements for a volume.
+type VolumeResourceRequirementsPatchArgs struct {
+	// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+	Limits pulumi.StringMapInput `pulumi:"limits"`
+	// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. Requests cannot exceed Limits. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+	Requests pulumi.StringMapInput `pulumi:"requests"`
+}
+
+func (VolumeResourceRequirementsPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*VolumeResourceRequirementsPatch)(nil)).Elem()
+}
+
+func (i VolumeResourceRequirementsPatchArgs) ToVolumeResourceRequirementsPatchOutput() VolumeResourceRequirementsPatchOutput {
+	return i.ToVolumeResourceRequirementsPatchOutputWithContext(context.Background())
+}
+
+func (i VolumeResourceRequirementsPatchArgs) ToVolumeResourceRequirementsPatchOutputWithContext(ctx context.Context) VolumeResourceRequirementsPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(VolumeResourceRequirementsPatchOutput)
+}
+
+func (i VolumeResourceRequirementsPatchArgs) ToVolumeResourceRequirementsPatchPtrOutput() VolumeResourceRequirementsPatchPtrOutput {
+	return i.ToVolumeResourceRequirementsPatchPtrOutputWithContext(context.Background())
+}
+
+func (i VolumeResourceRequirementsPatchArgs) ToVolumeResourceRequirementsPatchPtrOutputWithContext(ctx context.Context) VolumeResourceRequirementsPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(VolumeResourceRequirementsPatchOutput).ToVolumeResourceRequirementsPatchPtrOutputWithContext(ctx)
+}
+
+// VolumeResourceRequirementsPatchPtrInput is an input type that accepts VolumeResourceRequirementsPatchArgs, VolumeResourceRequirementsPatchPtr and VolumeResourceRequirementsPatchPtrOutput values.
+// You can construct a concrete instance of `VolumeResourceRequirementsPatchPtrInput` via:
+//
+//	        VolumeResourceRequirementsPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type VolumeResourceRequirementsPatchPtrInput interface {
+	pulumi.Input
+
+	ToVolumeResourceRequirementsPatchPtrOutput() VolumeResourceRequirementsPatchPtrOutput
+	ToVolumeResourceRequirementsPatchPtrOutputWithContext(context.Context) VolumeResourceRequirementsPatchPtrOutput
+}
+
+type volumeResourceRequirementsPatchPtrType VolumeResourceRequirementsPatchArgs
+
+func VolumeResourceRequirementsPatchPtr(v *VolumeResourceRequirementsPatchArgs) VolumeResourceRequirementsPatchPtrInput {
+	return (*volumeResourceRequirementsPatchPtrType)(v)
+}
+
+func (*volumeResourceRequirementsPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**VolumeResourceRequirementsPatch)(nil)).Elem()
+}
+
+func (i *volumeResourceRequirementsPatchPtrType) ToVolumeResourceRequirementsPatchPtrOutput() VolumeResourceRequirementsPatchPtrOutput {
+	return i.ToVolumeResourceRequirementsPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *volumeResourceRequirementsPatchPtrType) ToVolumeResourceRequirementsPatchPtrOutputWithContext(ctx context.Context) VolumeResourceRequirementsPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(VolumeResourceRequirementsPatchPtrOutput)
+}
+
+// VolumeResourceRequirements describes the storage resource requirements for a volume.
+type VolumeResourceRequirementsPatchOutput struct{ *pulumi.OutputState }
+
+func (VolumeResourceRequirementsPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*VolumeResourceRequirementsPatch)(nil)).Elem()
+}
+
+func (o VolumeResourceRequirementsPatchOutput) ToVolumeResourceRequirementsPatchOutput() VolumeResourceRequirementsPatchOutput {
+	return o
+}
+
+func (o VolumeResourceRequirementsPatchOutput) ToVolumeResourceRequirementsPatchOutputWithContext(ctx context.Context) VolumeResourceRequirementsPatchOutput {
+	return o
+}
+
+func (o VolumeResourceRequirementsPatchOutput) ToVolumeResourceRequirementsPatchPtrOutput() VolumeResourceRequirementsPatchPtrOutput {
+	return o.ToVolumeResourceRequirementsPatchPtrOutputWithContext(context.Background())
+}
+
+func (o VolumeResourceRequirementsPatchOutput) ToVolumeResourceRequirementsPatchPtrOutputWithContext(ctx context.Context) VolumeResourceRequirementsPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v VolumeResourceRequirementsPatch) *VolumeResourceRequirementsPatch {
+		return &v
+	}).(VolumeResourceRequirementsPatchPtrOutput)
+}
+
+// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+func (o VolumeResourceRequirementsPatchOutput) Limits() pulumi.StringMapOutput {
+	return o.ApplyT(func(v VolumeResourceRequirementsPatch) map[string]string { return v.Limits }).(pulumi.StringMapOutput)
+}
+
+// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. Requests cannot exceed Limits. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+func (o VolumeResourceRequirementsPatchOutput) Requests() pulumi.StringMapOutput {
+	return o.ApplyT(func(v VolumeResourceRequirementsPatch) map[string]string { return v.Requests }).(pulumi.StringMapOutput)
+}
+
+type VolumeResourceRequirementsPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (VolumeResourceRequirementsPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**VolumeResourceRequirementsPatch)(nil)).Elem()
+}
+
+func (o VolumeResourceRequirementsPatchPtrOutput) ToVolumeResourceRequirementsPatchPtrOutput() VolumeResourceRequirementsPatchPtrOutput {
+	return o
+}
+
+func (o VolumeResourceRequirementsPatchPtrOutput) ToVolumeResourceRequirementsPatchPtrOutputWithContext(ctx context.Context) VolumeResourceRequirementsPatchPtrOutput {
+	return o
+}
+
+func (o VolumeResourceRequirementsPatchPtrOutput) Elem() VolumeResourceRequirementsPatchOutput {
+	return o.ApplyT(func(v *VolumeResourceRequirementsPatch) VolumeResourceRequirementsPatch {
+		if v != nil {
+			return *v
+		}
+		var ret VolumeResourceRequirementsPatch
+		return ret
+	}).(VolumeResourceRequirementsPatchOutput)
+}
+
+// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+func (o VolumeResourceRequirementsPatchPtrOutput) Limits() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *VolumeResourceRequirementsPatch) map[string]string {
+		if v == nil {
+			return nil
+		}
+		return v.Limits
+	}).(pulumi.StringMapOutput)
+}
+
+// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. Requests cannot exceed Limits. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+func (o VolumeResourceRequirementsPatchPtrOutput) Requests() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *VolumeResourceRequirementsPatch) map[string]string {
+		if v == nil {
+			return nil
+		}
+		return v.Requests
+	}).(pulumi.StringMapOutput)
 }
 
 // Represents a vSphere volume resource.
@@ -68808,6 +70546,10 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ClientIPConfigPtrInput)(nil)).Elem(), ClientIPConfigArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClientIPConfigPatchInput)(nil)).Elem(), ClientIPConfigPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClientIPConfigPatchPtrInput)(nil)).Elem(), ClientIPConfigPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ClusterTrustBundleProjectionInput)(nil)).Elem(), ClusterTrustBundleProjectionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ClusterTrustBundleProjectionPtrInput)(nil)).Elem(), ClusterTrustBundleProjectionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ClusterTrustBundleProjectionPatchInput)(nil)).Elem(), ClusterTrustBundleProjectionPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ClusterTrustBundleProjectionPatchPtrInput)(nil)).Elem(), ClusterTrustBundleProjectionPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ComponentConditionInput)(nil)).Elem(), ComponentConditionArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ComponentConditionArrayInput)(nil)).Elem(), ComponentConditionArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ComponentConditionPatchInput)(nil)).Elem(), ComponentConditionPatchArgs{})
@@ -69056,6 +70798,10 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*LocalVolumeSourcePtrInput)(nil)).Elem(), LocalVolumeSourceArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*LocalVolumeSourcePatchInput)(nil)).Elem(), LocalVolumeSourcePatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*LocalVolumeSourcePatchPtrInput)(nil)).Elem(), LocalVolumeSourcePatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ModifyVolumeStatusInput)(nil)).Elem(), ModifyVolumeStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ModifyVolumeStatusPtrInput)(nil)).Elem(), ModifyVolumeStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ModifyVolumeStatusPatchInput)(nil)).Elem(), ModifyVolumeStatusPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ModifyVolumeStatusPatchPtrInput)(nil)).Elem(), ModifyVolumeStatusPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NFSVolumeSourceInput)(nil)).Elem(), NFSVolumeSourceArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NFSVolumeSourcePtrInput)(nil)).Elem(), NFSVolumeSourceArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NFSVolumeSourcePatchInput)(nil)).Elem(), NFSVolumeSourcePatchArgs{})
@@ -69405,6 +71151,10 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*SessionAffinityConfigPtrInput)(nil)).Elem(), SessionAffinityConfigArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SessionAffinityConfigPatchInput)(nil)).Elem(), SessionAffinityConfigPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SessionAffinityConfigPatchPtrInput)(nil)).Elem(), SessionAffinityConfigPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SleepActionInput)(nil)).Elem(), SleepActionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SleepActionPtrInput)(nil)).Elem(), SleepActionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SleepActionPatchInput)(nil)).Elem(), SleepActionPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SleepActionPatchPtrInput)(nil)).Elem(), SleepActionPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*StorageOSPersistentVolumeSourceInput)(nil)).Elem(), StorageOSPersistentVolumeSourceArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*StorageOSPersistentVolumeSourcePtrInput)(nil)).Elem(), StorageOSPersistentVolumeSourceArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*StorageOSPersistentVolumeSourcePatchInput)(nil)).Elem(), StorageOSPersistentVolumeSourcePatchArgs{})
@@ -69469,6 +71219,10 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*VolumeProjectionArrayInput)(nil)).Elem(), VolumeProjectionArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*VolumeProjectionPatchInput)(nil)).Elem(), VolumeProjectionPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*VolumeProjectionPatchArrayInput)(nil)).Elem(), VolumeProjectionPatchArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VolumeResourceRequirementsInput)(nil)).Elem(), VolumeResourceRequirementsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VolumeResourceRequirementsPtrInput)(nil)).Elem(), VolumeResourceRequirementsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VolumeResourceRequirementsPatchInput)(nil)).Elem(), VolumeResourceRequirementsPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VolumeResourceRequirementsPatchPtrInput)(nil)).Elem(), VolumeResourceRequirementsPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*VsphereVirtualDiskVolumeSourceInput)(nil)).Elem(), VsphereVirtualDiskVolumeSourceArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*VsphereVirtualDiskVolumeSourcePtrInput)(nil)).Elem(), VsphereVirtualDiskVolumeSourceArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*VsphereVirtualDiskVolumeSourcePatchInput)(nil)).Elem(), VsphereVirtualDiskVolumeSourcePatchArgs{})
@@ -69543,6 +71297,10 @@ func init() {
 	pulumi.RegisterOutputType(ClientIPConfigPtrOutput{})
 	pulumi.RegisterOutputType(ClientIPConfigPatchOutput{})
 	pulumi.RegisterOutputType(ClientIPConfigPatchPtrOutput{})
+	pulumi.RegisterOutputType(ClusterTrustBundleProjectionOutput{})
+	pulumi.RegisterOutputType(ClusterTrustBundleProjectionPtrOutput{})
+	pulumi.RegisterOutputType(ClusterTrustBundleProjectionPatchOutput{})
+	pulumi.RegisterOutputType(ClusterTrustBundleProjectionPatchPtrOutput{})
 	pulumi.RegisterOutputType(ComponentConditionOutput{})
 	pulumi.RegisterOutputType(ComponentConditionArrayOutput{})
 	pulumi.RegisterOutputType(ComponentConditionPatchOutput{})
@@ -69791,6 +71549,10 @@ func init() {
 	pulumi.RegisterOutputType(LocalVolumeSourcePtrOutput{})
 	pulumi.RegisterOutputType(LocalVolumeSourcePatchOutput{})
 	pulumi.RegisterOutputType(LocalVolumeSourcePatchPtrOutput{})
+	pulumi.RegisterOutputType(ModifyVolumeStatusOutput{})
+	pulumi.RegisterOutputType(ModifyVolumeStatusPtrOutput{})
+	pulumi.RegisterOutputType(ModifyVolumeStatusPatchOutput{})
+	pulumi.RegisterOutputType(ModifyVolumeStatusPatchPtrOutput{})
 	pulumi.RegisterOutputType(NFSVolumeSourceOutput{})
 	pulumi.RegisterOutputType(NFSVolumeSourcePtrOutput{})
 	pulumi.RegisterOutputType(NFSVolumeSourcePatchOutput{})
@@ -70140,6 +71902,10 @@ func init() {
 	pulumi.RegisterOutputType(SessionAffinityConfigPtrOutput{})
 	pulumi.RegisterOutputType(SessionAffinityConfigPatchOutput{})
 	pulumi.RegisterOutputType(SessionAffinityConfigPatchPtrOutput{})
+	pulumi.RegisterOutputType(SleepActionOutput{})
+	pulumi.RegisterOutputType(SleepActionPtrOutput{})
+	pulumi.RegisterOutputType(SleepActionPatchOutput{})
+	pulumi.RegisterOutputType(SleepActionPatchPtrOutput{})
 	pulumi.RegisterOutputType(StorageOSPersistentVolumeSourceOutput{})
 	pulumi.RegisterOutputType(StorageOSPersistentVolumeSourcePtrOutput{})
 	pulumi.RegisterOutputType(StorageOSPersistentVolumeSourcePatchOutput{})
@@ -70204,6 +71970,10 @@ func init() {
 	pulumi.RegisterOutputType(VolumeProjectionArrayOutput{})
 	pulumi.RegisterOutputType(VolumeProjectionPatchOutput{})
 	pulumi.RegisterOutputType(VolumeProjectionPatchArrayOutput{})
+	pulumi.RegisterOutputType(VolumeResourceRequirementsOutput{})
+	pulumi.RegisterOutputType(VolumeResourceRequirementsPtrOutput{})
+	pulumi.RegisterOutputType(VolumeResourceRequirementsPatchOutput{})
+	pulumi.RegisterOutputType(VolumeResourceRequirementsPatchPtrOutput{})
 	pulumi.RegisterOutputType(VsphereVirtualDiskVolumeSourceOutput{})
 	pulumi.RegisterOutputType(VsphereVirtualDiskVolumeSourcePtrOutput{})
 	pulumi.RegisterOutputType(VsphereVirtualDiskVolumeSourcePatchOutput{})

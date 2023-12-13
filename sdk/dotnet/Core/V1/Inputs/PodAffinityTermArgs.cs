@@ -16,10 +16,34 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     public class PodAffinityTermArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// A label query over a set of resources, in this case pods.
+        /// A label query over a set of resources, in this case pods. If it's null, this PodAffinityTerm matches with no Pods.
         /// </summary>
         [Input("labelSelector")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.LabelSelectorArgs>? LabelSelector { get; set; }
+
+        [Input("matchLabelKeys")]
+        private InputList<string>? _matchLabelKeys;
+
+        /// <summary>
+        /// MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `LabelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both MatchLabelKeys and LabelSelector. Also, MatchLabelKeys cannot be set when LabelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
+        /// </summary>
+        public InputList<string> MatchLabelKeys
+        {
+            get => _matchLabelKeys ?? (_matchLabelKeys = new InputList<string>());
+            set => _matchLabelKeys = value;
+        }
+
+        [Input("mismatchLabelKeys")]
+        private InputList<string>? _mismatchLabelKeys;
+
+        /// <summary>
+        /// MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `LabelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both MismatchLabelKeys and LabelSelector. Also, MismatchLabelKeys cannot be set when LabelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
+        /// </summary>
+        public InputList<string> MismatchLabelKeys
+        {
+            get => _mismatchLabelKeys ?? (_mismatchLabelKeys = new InputList<string>());
+            set => _mismatchLabelKeys = value;
+        }
 
         /// <summary>
         /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces.

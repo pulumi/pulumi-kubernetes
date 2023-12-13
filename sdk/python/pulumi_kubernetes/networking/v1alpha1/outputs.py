@@ -21,6 +21,11 @@ __all__ = [
     'IPAddressSpecPatch',
     'ParentReference',
     'ParentReferencePatch',
+    'ServiceCIDR',
+    'ServiceCIDRSpec',
+    'ServiceCIDRSpecPatch',
+    'ServiceCIDRStatus',
+    'ServiceCIDRStatusPatch',
 ]
 
 @pulumi.output_type
@@ -55,7 +60,7 @@ class ClusterCIDR(dict):
         :param str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param '_meta.v1.ObjectMetaArgs' metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param 'ClusterCIDRSpecArgs' spec: spec is the desired state of the ClusterCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        :param 'ClusterCIDRSpecArgs' spec: Spec is the desired state of the ClusterCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
         if api_version is not None:
             pulumi.set(__self__, "api_version", 'networking.k8s.io/v1alpha1')
@@ -94,7 +99,7 @@ class ClusterCIDR(dict):
     @pulumi.getter
     def spec(self) -> Optional['outputs.ClusterCIDRSpec']:
         """
-        spec is the desired state of the ClusterCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        Spec is the desired state of the ClusterCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
         return pulumi.get(self, "spec")
 
@@ -130,10 +135,10 @@ class ClusterCIDRSpec(dict):
                  node_selector: Optional['_core.v1.outputs.NodeSelector'] = None):
         """
         ClusterCIDRSpec defines the desired state of ClusterCIDR.
-        :param int per_node_host_bits: perNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a /24 mask for IPv4 or a /120 for IPv6). Minimum value is 4 (16 IPs). This field is immutable.
-        :param str ipv4: ipv4 defines an IPv4 IP block in CIDR notation(e.g. "10.0.0.0/8"). At least one of ipv4 and ipv6 must be specified. This field is immutable.
-        :param str ipv6: ipv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of ipv4 and ipv6 must be specified. This field is immutable.
-        :param '_core.v1.NodeSelectorArgs' node_selector: nodeSelector defines which nodes the config is applicable to. An empty or nil nodeSelector selects all nodes. This field is immutable.
+        :param int per_node_host_bits: PerNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a /24 mask for IPv4 or a /120 for IPv6). Minimum value is 4 (16 IPs). This field is immutable.
+        :param str ipv4: IPv4 defines an IPv4 IP block in CIDR notation(e.g. "10.0.0.0/8"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
+        :param str ipv6: IPv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
+        :param '_core.v1.NodeSelectorArgs' node_selector: NodeSelector defines which nodes the config is applicable to. An empty or nil NodeSelector selects all nodes. This field is immutable.
         """
         pulumi.set(__self__, "per_node_host_bits", per_node_host_bits)
         if ipv4 is not None:
@@ -147,7 +152,7 @@ class ClusterCIDRSpec(dict):
     @pulumi.getter(name="perNodeHostBits")
     def per_node_host_bits(self) -> int:
         """
-        perNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a /24 mask for IPv4 or a /120 for IPv6). Minimum value is 4 (16 IPs). This field is immutable.
+        PerNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a /24 mask for IPv4 or a /120 for IPv6). Minimum value is 4 (16 IPs). This field is immutable.
         """
         return pulumi.get(self, "per_node_host_bits")
 
@@ -155,7 +160,7 @@ class ClusterCIDRSpec(dict):
     @pulumi.getter
     def ipv4(self) -> Optional[str]:
         """
-        ipv4 defines an IPv4 IP block in CIDR notation(e.g. "10.0.0.0/8"). At least one of ipv4 and ipv6 must be specified. This field is immutable.
+        IPv4 defines an IPv4 IP block in CIDR notation(e.g. "10.0.0.0/8"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
         """
         return pulumi.get(self, "ipv4")
 
@@ -163,7 +168,7 @@ class ClusterCIDRSpec(dict):
     @pulumi.getter
     def ipv6(self) -> Optional[str]:
         """
-        ipv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of ipv4 and ipv6 must be specified. This field is immutable.
+        IPv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
         """
         return pulumi.get(self, "ipv6")
 
@@ -171,7 +176,7 @@ class ClusterCIDRSpec(dict):
     @pulumi.getter(name="nodeSelector")
     def node_selector(self) -> Optional['_core.v1.outputs.NodeSelector']:
         """
-        nodeSelector defines which nodes the config is applicable to. An empty or nil nodeSelector selects all nodes. This field is immutable.
+        NodeSelector defines which nodes the config is applicable to. An empty or nil NodeSelector selects all nodes. This field is immutable.
         """
         return pulumi.get(self, "node_selector")
 
@@ -207,10 +212,10 @@ class ClusterCIDRSpecPatch(dict):
                  per_node_host_bits: Optional[int] = None):
         """
         ClusterCIDRSpec defines the desired state of ClusterCIDR.
-        :param str ipv4: ipv4 defines an IPv4 IP block in CIDR notation(e.g. "10.0.0.0/8"). At least one of ipv4 and ipv6 must be specified. This field is immutable.
-        :param str ipv6: ipv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of ipv4 and ipv6 must be specified. This field is immutable.
-        :param '_core.v1.NodeSelectorPatchArgs' node_selector: nodeSelector defines which nodes the config is applicable to. An empty or nil nodeSelector selects all nodes. This field is immutable.
-        :param int per_node_host_bits: perNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a /24 mask for IPv4 or a /120 for IPv6). Minimum value is 4 (16 IPs). This field is immutable.
+        :param str ipv4: IPv4 defines an IPv4 IP block in CIDR notation(e.g. "10.0.0.0/8"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
+        :param str ipv6: IPv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
+        :param '_core.v1.NodeSelectorPatchArgs' node_selector: NodeSelector defines which nodes the config is applicable to. An empty or nil NodeSelector selects all nodes. This field is immutable.
+        :param int per_node_host_bits: PerNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a /24 mask for IPv4 or a /120 for IPv6). Minimum value is 4 (16 IPs). This field is immutable.
         """
         if ipv4 is not None:
             pulumi.set(__self__, "ipv4", ipv4)
@@ -225,7 +230,7 @@ class ClusterCIDRSpecPatch(dict):
     @pulumi.getter
     def ipv4(self) -> Optional[str]:
         """
-        ipv4 defines an IPv4 IP block in CIDR notation(e.g. "10.0.0.0/8"). At least one of ipv4 and ipv6 must be specified. This field is immutable.
+        IPv4 defines an IPv4 IP block in CIDR notation(e.g. "10.0.0.0/8"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
         """
         return pulumi.get(self, "ipv4")
 
@@ -233,7 +238,7 @@ class ClusterCIDRSpecPatch(dict):
     @pulumi.getter
     def ipv6(self) -> Optional[str]:
         """
-        ipv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of ipv4 and ipv6 must be specified. This field is immutable.
+        IPv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
         """
         return pulumi.get(self, "ipv6")
 
@@ -241,7 +246,7 @@ class ClusterCIDRSpecPatch(dict):
     @pulumi.getter(name="nodeSelector")
     def node_selector(self) -> Optional['_core.v1.outputs.NodeSelectorPatch']:
         """
-        nodeSelector defines which nodes the config is applicable to. An empty or nil nodeSelector selects all nodes. This field is immutable.
+        NodeSelector defines which nodes the config is applicable to. An empty or nil NodeSelector selects all nodes. This field is immutable.
         """
         return pulumi.get(self, "node_selector")
 
@@ -249,7 +254,7 @@ class ClusterCIDRSpecPatch(dict):
     @pulumi.getter(name="perNodeHostBits")
     def per_node_host_bits(self) -> Optional[int]:
         """
-        perNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a /24 mask for IPv4 or a /120 for IPv6). Minimum value is 4 (16 IPs). This field is immutable.
+        PerNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a /24 mask for IPv4 or a /120 for IPv6). Minimum value is 4 (16 IPs). This field is immutable.
         """
         return pulumi.get(self, "per_node_host_bits")
 
@@ -550,5 +555,185 @@ class ParentReferencePatch(dict):
         UID is the uid of the object being referenced.
         """
         return pulumi.get(self, "uid")
+
+
+@pulumi.output_type
+class ServiceCIDR(dict):
+    """
+    ServiceCIDR defines a range of IP addresses using CIDR format (e.g. 192.168.0.0/24 or 2001:db2::/64). This range is used to allocate ClusterIPs to Service objects.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ServiceCIDR. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ServiceCIDR.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ServiceCIDR.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 api_version: Optional[str] = None,
+                 kind: Optional[str] = None,
+                 metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
+                 spec: Optional['outputs.ServiceCIDRSpec'] = None,
+                 status: Optional['outputs.ServiceCIDRStatus'] = None):
+        """
+        ServiceCIDR defines a range of IP addresses using CIDR format (e.g. 192.168.0.0/24 or 2001:db2::/64). This range is used to allocate ClusterIPs to Service objects.
+        :param str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        :param str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param '_meta.v1.ObjectMetaArgs' metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        :param 'ServiceCIDRSpecArgs' spec: spec is the desired state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        :param 'ServiceCIDRStatusArgs' status: status represents the current state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        """
+        if api_version is not None:
+            pulumi.set(__self__, "api_version", 'networking.k8s.io/v1alpha1')
+        if kind is not None:
+            pulumi.set(__self__, "kind", 'ServiceCIDR')
+        if metadata is not None:
+            pulumi.set(__self__, "metadata", metadata)
+        if spec is not None:
+            pulumi.set(__self__, "spec", spec)
+        if status is not None:
+            pulumi.set(__self__, "status", status)
+
+    @property
+    @pulumi.getter(name="apiVersion")
+    def api_version(self) -> Optional[str]:
+        """
+        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        """
+        return pulumi.get(self, "api_version")
+
+    @property
+    @pulumi.getter
+    def kind(self) -> Optional[str]:
+        """
+        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        """
+        return pulumi.get(self, "kind")
+
+    @property
+    @pulumi.getter
+    def metadata(self) -> Optional['_meta.v1.outputs.ObjectMeta']:
+        """
+        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        """
+        return pulumi.get(self, "metadata")
+
+    @property
+    @pulumi.getter
+    def spec(self) -> Optional['outputs.ServiceCIDRSpec']:
+        """
+        spec is the desired state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        """
+        return pulumi.get(self, "spec")
+
+    @property
+    @pulumi.getter
+    def status(self) -> Optional['outputs.ServiceCIDRStatus']:
+        """
+        status represents the current state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        """
+        return pulumi.get(self, "status")
+
+
+@pulumi.output_type
+class ServiceCIDRSpec(dict):
+    """
+    ServiceCIDRSpec define the CIDRs the user wants to use for allocating ClusterIPs for Services.
+    """
+    def __init__(__self__, *,
+                 cidrs: Optional[Sequence[str]] = None):
+        """
+        ServiceCIDRSpec define the CIDRs the user wants to use for allocating ClusterIPs for Services.
+        :param Sequence[str] cidrs: CIDRs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
+        """
+        if cidrs is not None:
+            pulumi.set(__self__, "cidrs", cidrs)
+
+    @property
+    @pulumi.getter
+    def cidrs(self) -> Optional[Sequence[str]]:
+        """
+        CIDRs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
+        """
+        return pulumi.get(self, "cidrs")
+
+
+@pulumi.output_type
+class ServiceCIDRSpecPatch(dict):
+    """
+    ServiceCIDRSpec define the CIDRs the user wants to use for allocating ClusterIPs for Services.
+    """
+    def __init__(__self__, *,
+                 cidrs: Optional[Sequence[str]] = None):
+        """
+        ServiceCIDRSpec define the CIDRs the user wants to use for allocating ClusterIPs for Services.
+        :param Sequence[str] cidrs: CIDRs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
+        """
+        if cidrs is not None:
+            pulumi.set(__self__, "cidrs", cidrs)
+
+    @property
+    @pulumi.getter
+    def cidrs(self) -> Optional[Sequence[str]]:
+        """
+        CIDRs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
+        """
+        return pulumi.get(self, "cidrs")
+
+
+@pulumi.output_type
+class ServiceCIDRStatus(dict):
+    """
+    ServiceCIDRStatus describes the current state of the ServiceCIDR.
+    """
+    def __init__(__self__, *,
+                 conditions: Optional[Sequence['_meta.v1.outputs.Condition']] = None):
+        """
+        ServiceCIDRStatus describes the current state of the ServiceCIDR.
+        :param Sequence['_meta.v1.ConditionArgs'] conditions: conditions holds an array of metav1.Condition that describe the state of the ServiceCIDR. Current service state
+        """
+        if conditions is not None:
+            pulumi.set(__self__, "conditions", conditions)
+
+    @property
+    @pulumi.getter
+    def conditions(self) -> Optional[Sequence['_meta.v1.outputs.Condition']]:
+        """
+        conditions holds an array of metav1.Condition that describe the state of the ServiceCIDR. Current service state
+        """
+        return pulumi.get(self, "conditions")
+
+
+@pulumi.output_type
+class ServiceCIDRStatusPatch(dict):
+    """
+    ServiceCIDRStatus describes the current state of the ServiceCIDR.
+    """
+    def __init__(__self__, *,
+                 conditions: Optional[Sequence['_meta.v1.outputs.ConditionPatch']] = None):
+        """
+        ServiceCIDRStatus describes the current state of the ServiceCIDR.
+        :param Sequence['_meta.v1.ConditionPatchArgs'] conditions: conditions holds an array of metav1.Condition that describe the state of the ServiceCIDR. Current service state
+        """
+        if conditions is not None:
+            pulumi.set(__self__, "conditions", conditions)
+
+    @property
+    @pulumi.getter
+    def conditions(self) -> Optional[Sequence['_meta.v1.outputs.ConditionPatch']]:
+        """
+        conditions holds an array of metav1.Condition that describe the state of the ServiceCIDR. Current service state
+        """
+        return pulumi.get(self, "conditions")
 
 

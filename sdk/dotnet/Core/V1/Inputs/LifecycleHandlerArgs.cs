@@ -28,6 +28,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.HTTPGetActionArgs>? HttpGet { get; set; }
 
         /// <summary>
+        /// Sleep represents the duration that the container should sleep before being terminated.
+        /// </summary>
+        [Input("sleep")]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.SleepActionArgs>? Sleep { get; set; }
+
+        /// <summary>
         /// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
         /// </summary>
         [Input("tcpSocket")]

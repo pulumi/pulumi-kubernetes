@@ -142,6 +142,7 @@ public class FlowSchemaPatch extends com.pulumi.resources.CustomResource {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .aliases(List.of(
+                Output.of(Alias.builder().type("kubernetes:flowcontrol.apiserver.k8s.io/v1:FlowSchemaPatch").build()),
                 Output.of(Alias.builder().type("kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:FlowSchemaPatch").build()),
                 Output.of(Alias.builder().type("kubernetes:flowcontrol.apiserver.k8s.io/v1beta2:FlowSchemaPatch").build()),
                 Output.of(Alias.builder().type("kubernetes:flowcontrol.apiserver.k8s.io/v1beta3:FlowSchemaPatch").build())

@@ -82,6 +82,7 @@ namespace Pulumi.Kubernetes.FlowControl.V1Beta3
                 Version = Utilities.Version,
                 Aliases =
                 {
+                    new global::Pulumi.Alias { Type = "kubernetes:flowcontrol.apiserver.k8s.io/v1:FlowSchema" },
                     new global::Pulumi.Alias { Type = "kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:FlowSchema" },
                     new global::Pulumi.Alias { Type = "kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:FlowSchema" },
                     new global::Pulumi.Alias { Type = "kubernetes:flowcontrol.apiserver.k8s.io/v1beta2:FlowSchema" },

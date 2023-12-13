@@ -4,9 +4,9 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
-import com.pulumi.kubernetes.core.v1.outputs.ResourceRequirements;
 import com.pulumi.kubernetes.core.v1.outputs.TypedLocalObjectReference;
 import com.pulumi.kubernetes.core.v1.outputs.TypedObjectReference;
+import com.pulumi.kubernetes.core.v1.outputs.VolumeResourceRequirements;
 import com.pulumi.kubernetes.meta.v1.outputs.LabelSelector;
 import java.lang.String;
 import java.util.List;
@@ -42,7 +42,7 @@ public final class PersistentVolumeClaimSpec {
      * @return resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
      * 
      */
-    private @Nullable ResourceRequirements resources;
+    private @Nullable VolumeResourceRequirements resources;
     /**
      * @return selector is a label query over volumes to consider for binding.
      * 
@@ -53,6 +53,11 @@ public final class PersistentVolumeClaimSpec {
      * 
      */
     private @Nullable String storageClassName;
+    /**
+     * @return volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string value means that no VolumeAttributesClass will be applied to the claim but it&#39;s not allowed to reset this field to empty string once it is set. If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass will be set by the persistentvolume controller if it exists. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#volumeattributesclass (Alpha) Using this field requires the VolumeAttributesClass feature gate to be enabled.
+     * 
+     */
+    private @Nullable String volumeAttributesClassName;
     /**
      * @return volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
      * 
@@ -97,7 +102,7 @@ public final class PersistentVolumeClaimSpec {
      * @return resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
      * 
      */
-    public Optional<ResourceRequirements> resources() {
+    public Optional<VolumeResourceRequirements> resources() {
         return Optional.ofNullable(this.resources);
     }
     /**
@@ -113,6 +118,13 @@ public final class PersistentVolumeClaimSpec {
      */
     public Optional<String> storageClassName() {
         return Optional.ofNullable(this.storageClassName);
+    }
+    /**
+     * @return volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string value means that no VolumeAttributesClass will be applied to the claim but it&#39;s not allowed to reset this field to empty string once it is set. If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass will be set by the persistentvolume controller if it exists. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#volumeattributesclass (Alpha) Using this field requires the VolumeAttributesClass feature gate to be enabled.
+     * 
+     */
+    public Optional<String> volumeAttributesClassName() {
+        return Optional.ofNullable(this.volumeAttributesClassName);
     }
     /**
      * @return volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
@@ -141,9 +153,10 @@ public final class PersistentVolumeClaimSpec {
         private @Nullable List<String> accessModes;
         private @Nullable TypedLocalObjectReference dataSource;
         private @Nullable TypedObjectReference dataSourceRef;
-        private @Nullable ResourceRequirements resources;
+        private @Nullable VolumeResourceRequirements resources;
         private @Nullable LabelSelector selector;
         private @Nullable String storageClassName;
+        private @Nullable String volumeAttributesClassName;
         private @Nullable String volumeMode;
         private @Nullable String volumeName;
         public Builder() {}
@@ -155,6 +168,7 @@ public final class PersistentVolumeClaimSpec {
     	      this.resources = defaults.resources;
     	      this.selector = defaults.selector;
     	      this.storageClassName = defaults.storageClassName;
+    	      this.volumeAttributesClassName = defaults.volumeAttributesClassName;
     	      this.volumeMode = defaults.volumeMode;
     	      this.volumeName = defaults.volumeName;
         }
@@ -178,7 +192,7 @@ public final class PersistentVolumeClaimSpec {
             return this;
         }
         @CustomType.Setter
-        public Builder resources(@Nullable ResourceRequirements resources) {
+        public Builder resources(@Nullable VolumeResourceRequirements resources) {
             this.resources = resources;
             return this;
         }
@@ -190,6 +204,11 @@ public final class PersistentVolumeClaimSpec {
         @CustomType.Setter
         public Builder storageClassName(@Nullable String storageClassName) {
             this.storageClassName = storageClassName;
+            return this;
+        }
+        @CustomType.Setter
+        public Builder volumeAttributesClassName(@Nullable String volumeAttributesClassName) {
+            this.volumeAttributesClassName = volumeAttributesClassName;
             return this;
         }
         @CustomType.Setter
@@ -210,6 +229,7 @@ public final class PersistentVolumeClaimSpec {
             o.resources = resources;
             o.selector = selector;
             o.storageClassName = storageClassName;
+            o.volumeAttributesClassName = volumeAttributesClassName;
             o.volumeMode = volumeMode;
             o.volumeName = volumeName;
             return o;

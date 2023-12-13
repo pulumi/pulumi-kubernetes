@@ -17,9 +17,17 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
     public sealed class PodAffinityTermPatch
     {
         /// <summary>
-        /// A label query over a set of resources, in this case pods.
+        /// A label query over a set of resources, in this case pods. If it's null, this PodAffinityTerm matches with no Pods.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Meta.V1.LabelSelectorPatch LabelSelector;
+        /// <summary>
+        /// MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `LabelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both MatchLabelKeys and LabelSelector. Also, MatchLabelKeys cannot be set when LabelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
+        /// </summary>
+        public readonly ImmutableArray<string> MatchLabelKeys;
+        /// <summary>
+        /// MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `LabelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both MismatchLabelKeys and LabelSelector. Also, MismatchLabelKeys cannot be set when LabelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
+        /// </summary>
+        public readonly ImmutableArray<string> MismatchLabelKeys;
         /// <summary>
         /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces.
         /// </summary>
@@ -37,6 +45,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         private PodAffinityTermPatch(
             Pulumi.Kubernetes.Types.Outputs.Meta.V1.LabelSelectorPatch labelSelector,
 
+            ImmutableArray<string> matchLabelKeys,
+
+            ImmutableArray<string> mismatchLabelKeys,
+
             Pulumi.Kubernetes.Types.Outputs.Meta.V1.LabelSelectorPatch namespaceSelector,
 
             ImmutableArray<string> namespaces,
@@ -44,6 +56,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
             string topologyKey)
         {
             LabelSelector = labelSelector;
+            MatchLabelKeys = matchLabelKeys;
+            MismatchLabelKeys = mismatchLabelKeys;
             NamespaceSelector = namespaceSelector;
             Namespaces = namespaces;
             TopologyKey = topologyKey;

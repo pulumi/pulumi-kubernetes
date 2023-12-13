@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.apiextensions.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import java.lang.Boolean;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -65,6 +66,33 @@ public final class ValidationRulePatchArgs extends com.pulumi.resources.Resource
     }
 
     /**
+     * optionalOldSelf is used to opt a transition rule into evaluation even when the object is first created, or if the old object is missing the value.
+     * 
+     * When enabled `oldSelf` will be a CEL optional whose value will be `None` if there is no old value, or when the object is initially created.
+     * 
+     * You may check for presence of oldSelf using `oldSelf.hasValue()` and unwrap it after checking using `oldSelf.value()`. Check the CEL documentation for Optional types for more information: https://pkg.go.dev/github.com/google/cel-go/cel#OptionalTypes
+     * 
+     * May not be set unless `oldSelf` is used in `rule`.
+     * 
+     */
+    @Import(name="optionalOldSelf")
+    private @Nullable Output<Boolean> optionalOldSelf;
+
+    /**
+     * @return optionalOldSelf is used to opt a transition rule into evaluation even when the object is first created, or if the old object is missing the value.
+     * 
+     * When enabled `oldSelf` will be a CEL optional whose value will be `None` if there is no old value, or when the object is initially created.
+     * 
+     * You may check for presence of oldSelf using `oldSelf.hasValue()` and unwrap it after checking using `oldSelf.value()`. Check the CEL documentation for Optional types for more information: https://pkg.go.dev/github.com/google/cel-go/cel#OptionalTypes
+     * 
+     * May not be set unless `oldSelf` is used in `rule`.
+     * 
+     */
+    public Optional<Output<Boolean>> optionalOldSelf() {
+        return Optional.ofNullable(this.optionalOldSelf);
+    }
+
+    /**
      * reason provides a machine-readable validation failure reason that is returned to the caller when a request fails this validation rule. The HTTP status code returned to the caller will match the reason of the reason of the first failed validation rule. The currently supported reasons are: &#34;FieldValueInvalid&#34;, &#34;FieldValueForbidden&#34;, &#34;FieldValueRequired&#34;, &#34;FieldValueDuplicate&#34;. If not set, default to use &#34;FieldValueInvalid&#34;. All future added reasons must be accepted by clients when reading this value and unknown reasons should be treated as FieldValueInvalid.
      * 
      */
@@ -106,6 +134,14 @@ public final class ValidationRulePatchArgs extends com.pulumi.resources.Resource
      *     are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
      *     non-intersecting keys are appended, retaining their partial order.
      * 
+     * If `rule` makes use of the `oldSelf` variable it is implicitly a `transition rule`.
+     * 
+     * By default, the `oldSelf` variable is the same type as `self`. When `optionalOldSelf` is true, the `oldSelf` variable is a CEL optional
+     *  variable whose value() is the same type as `self`.
+     * See the documentation for the `optionalOldSelf` field for details.
+     * 
+     * Transition rules by default are applied only on UPDATE requests and are skipped if an old value could not be found. You can opt a transition rule into unconditional evaluation by setting `optionalOldSelf` to true.
+     * 
      */
     @Import(name="rule")
     private @Nullable Output<String> rule;
@@ -137,6 +173,14 @@ public final class ValidationRulePatchArgs extends com.pulumi.resources.Resource
      *     are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
      *     non-intersecting keys are appended, retaining their partial order.
      * 
+     * If `rule` makes use of the `oldSelf` variable it is implicitly a `transition rule`.
+     * 
+     * By default, the `oldSelf` variable is the same type as `self`. When `optionalOldSelf` is true, the `oldSelf` variable is a CEL optional
+     *  variable whose value() is the same type as `self`.
+     * See the documentation for the `optionalOldSelf` field for details.
+     * 
+     * Transition rules by default are applied only on UPDATE requests and are skipped if an old value could not be found. You can opt a transition rule into unconditional evaluation by setting `optionalOldSelf` to true.
+     * 
      */
     public Optional<Output<String>> rule() {
         return Optional.ofNullable(this.rule);
@@ -148,6 +192,7 @@ public final class ValidationRulePatchArgs extends com.pulumi.resources.Resource
         this.fieldPath = $.fieldPath;
         this.message = $.message;
         this.messageExpression = $.messageExpression;
+        this.optionalOldSelf = $.optionalOldSelf;
         this.reason = $.reason;
         this.rule = $.rule;
     }
@@ -234,6 +279,39 @@ public final class ValidationRulePatchArgs extends com.pulumi.resources.Resource
         }
 
         /**
+         * @param optionalOldSelf optionalOldSelf is used to opt a transition rule into evaluation even when the object is first created, or if the old object is missing the value.
+         * 
+         * When enabled `oldSelf` will be a CEL optional whose value will be `None` if there is no old value, or when the object is initially created.
+         * 
+         * You may check for presence of oldSelf using `oldSelf.hasValue()` and unwrap it after checking using `oldSelf.value()`. Check the CEL documentation for Optional types for more information: https://pkg.go.dev/github.com/google/cel-go/cel#OptionalTypes
+         * 
+         * May not be set unless `oldSelf` is used in `rule`.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder optionalOldSelf(@Nullable Output<Boolean> optionalOldSelf) {
+            $.optionalOldSelf = optionalOldSelf;
+            return this;
+        }
+
+        /**
+         * @param optionalOldSelf optionalOldSelf is used to opt a transition rule into evaluation even when the object is first created, or if the old object is missing the value.
+         * 
+         * When enabled `oldSelf` will be a CEL optional whose value will be `None` if there is no old value, or when the object is initially created.
+         * 
+         * You may check for presence of oldSelf using `oldSelf.hasValue()` and unwrap it after checking using `oldSelf.value()`. Check the CEL documentation for Optional types for more information: https://pkg.go.dev/github.com/google/cel-go/cel#OptionalTypes
+         * 
+         * May not be set unless `oldSelf` is used in `rule`.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder optionalOldSelf(Boolean optionalOldSelf) {
+            return optionalOldSelf(Output.of(optionalOldSelf));
+        }
+
+        /**
          * @param reason reason provides a machine-readable validation failure reason that is returned to the caller when a request fails this validation rule. The HTTP status code returned to the caller will match the reason of the reason of the first failed validation rule. The currently supported reasons are: &#34;FieldValueInvalid&#34;, &#34;FieldValueForbidden&#34;, &#34;FieldValueRequired&#34;, &#34;FieldValueDuplicate&#34;. If not set, default to use &#34;FieldValueInvalid&#34;. All future added reasons must be accepted by clients when reading this value and unknown reasons should be treated as FieldValueInvalid.
          * 
          * @return builder
@@ -281,6 +359,14 @@ public final class ValidationRulePatchArgs extends com.pulumi.resources.Resource
          *     are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
          *     non-intersecting keys are appended, retaining their partial order.
          * 
+         * If `rule` makes use of the `oldSelf` variable it is implicitly a `transition rule`.
+         * 
+         * By default, the `oldSelf` variable is the same type as `self`. When `optionalOldSelf` is true, the `oldSelf` variable is a CEL optional
+         *  variable whose value() is the same type as `self`.
+         * See the documentation for the `optionalOldSelf` field for details.
+         * 
+         * Transition rules by default are applied only on UPDATE requests and are skipped if an old value could not be found. You can opt a transition rule into unconditional evaluation by setting `optionalOldSelf` to true.
+         * 
          * @return builder
          * 
          */
@@ -315,6 +401,14 @@ public final class ValidationRulePatchArgs extends com.pulumi.resources.Resource
          *   - &#39;map&#39;: `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
          *     are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
          *     non-intersecting keys are appended, retaining their partial order.
+         * 
+         * If `rule` makes use of the `oldSelf` variable it is implicitly a `transition rule`.
+         * 
+         * By default, the `oldSelf` variable is the same type as `self`. When `optionalOldSelf` is true, the `oldSelf` variable is a CEL optional
+         *  variable whose value() is the same type as `self`.
+         * See the documentation for the `optionalOldSelf` field for details.
+         * 
+         * Transition rules by default are applied only on UPDATE requests and are skipped if an old value could not be found. You can opt a transition rule into unconditional evaluation by setting `optionalOldSelf` to true.
          * 
          * @return builder
          * 

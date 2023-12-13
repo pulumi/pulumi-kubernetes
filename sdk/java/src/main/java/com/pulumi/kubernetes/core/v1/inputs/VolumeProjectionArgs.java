@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.core.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.kubernetes.core.v1.inputs.ClusterTrustBundleProjectionArgs;
 import com.pulumi.kubernetes.core.v1.inputs.ConfigMapProjectionArgs;
 import com.pulumi.kubernetes.core.v1.inputs.DownwardAPIProjectionArgs;
 import com.pulumi.kubernetes.core.v1.inputs.SecretProjectionArgs;
@@ -21,6 +22,33 @@ import javax.annotation.Nullable;
 public final class VolumeProjectionArgs extends com.pulumi.resources.ResourceArgs {
 
     public static final VolumeProjectionArgs Empty = new VolumeProjectionArgs();
+
+    /**
+     * ClusterTrustBundle allows a pod to access the `.spec.trustBundle` field of ClusterTrustBundle objects in an auto-updating file.
+     * 
+     * Alpha, gated by the ClusterTrustBundleProjection feature gate.
+     * 
+     * ClusterTrustBundle objects can either be selected by name, or by the combination of signer name and a label selector.
+     * 
+     * Kubelet performs aggressive normalization of the PEM contents written into the pod filesystem.  Esoteric PEM features such as inter-block comments and block headers are stripped.  Certificates are deduplicated. The ordering of certificates within the file is arbitrary, and Kubelet may change the order over time.
+     * 
+     */
+    @Import(name="clusterTrustBundle")
+    private @Nullable Output<ClusterTrustBundleProjectionArgs> clusterTrustBundle;
+
+    /**
+     * @return ClusterTrustBundle allows a pod to access the `.spec.trustBundle` field of ClusterTrustBundle objects in an auto-updating file.
+     * 
+     * Alpha, gated by the ClusterTrustBundleProjection feature gate.
+     * 
+     * ClusterTrustBundle objects can either be selected by name, or by the combination of signer name and a label selector.
+     * 
+     * Kubelet performs aggressive normalization of the PEM contents written into the pod filesystem.  Esoteric PEM features such as inter-block comments and block headers are stripped.  Certificates are deduplicated. The ordering of certificates within the file is arbitrary, and Kubelet may change the order over time.
+     * 
+     */
+    public Optional<Output<ClusterTrustBundleProjectionArgs>> clusterTrustBundle() {
+        return Optional.ofNullable(this.clusterTrustBundle);
+    }
 
     /**
      * configMap information about the configMap data to project
@@ -85,6 +113,7 @@ public final class VolumeProjectionArgs extends com.pulumi.resources.ResourceArg
     private VolumeProjectionArgs() {}
 
     private VolumeProjectionArgs(VolumeProjectionArgs $) {
+        this.clusterTrustBundle = $.clusterTrustBundle;
         this.configMap = $.configMap;
         this.downwardAPI = $.downwardAPI;
         this.secret = $.secret;
@@ -107,6 +136,39 @@ public final class VolumeProjectionArgs extends com.pulumi.resources.ResourceArg
 
         public Builder(VolumeProjectionArgs defaults) {
             $ = new VolumeProjectionArgs(Objects.requireNonNull(defaults));
+        }
+
+        /**
+         * @param clusterTrustBundle ClusterTrustBundle allows a pod to access the `.spec.trustBundle` field of ClusterTrustBundle objects in an auto-updating file.
+         * 
+         * Alpha, gated by the ClusterTrustBundleProjection feature gate.
+         * 
+         * ClusterTrustBundle objects can either be selected by name, or by the combination of signer name and a label selector.
+         * 
+         * Kubelet performs aggressive normalization of the PEM contents written into the pod filesystem.  Esoteric PEM features such as inter-block comments and block headers are stripped.  Certificates are deduplicated. The ordering of certificates within the file is arbitrary, and Kubelet may change the order over time.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder clusterTrustBundle(@Nullable Output<ClusterTrustBundleProjectionArgs> clusterTrustBundle) {
+            $.clusterTrustBundle = clusterTrustBundle;
+            return this;
+        }
+
+        /**
+         * @param clusterTrustBundle ClusterTrustBundle allows a pod to access the `.spec.trustBundle` field of ClusterTrustBundle objects in an auto-updating file.
+         * 
+         * Alpha, gated by the ClusterTrustBundleProjection feature gate.
+         * 
+         * ClusterTrustBundle objects can either be selected by name, or by the combination of signer name and a label selector.
+         * 
+         * Kubelet performs aggressive normalization of the PEM contents written into the pod filesystem.  Esoteric PEM features such as inter-block comments and block headers are stripped.  Certificates are deduplicated. The ordering of certificates within the file is arbitrary, and Kubelet may change the order over time.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder clusterTrustBundle(ClusterTrustBundleProjectionArgs clusterTrustBundle) {
+            return clusterTrustBundle(Output.of(clusterTrustBundle));
         }
 
         /**

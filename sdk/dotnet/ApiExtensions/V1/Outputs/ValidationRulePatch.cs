@@ -29,6 +29,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions.V1
         /// </summary>
         public readonly string MessageExpression;
         /// <summary>
+        /// optionalOldSelf is used to opt a transition rule into evaluation even when the object is first created, or if the old object is missing the value.
+        /// 
+        /// When enabled `oldSelf` will be a CEL optional whose value will be `None` if there is no old value, or when the object is initially created.
+        /// 
+        /// You may check for presence of oldSelf using `oldSelf.hasValue()` and unwrap it after checking using `oldSelf.value()`. Check the CEL documentation for Optional types for more information: https://pkg.go.dev/github.com/google/cel-go/cel#OptionalTypes
+        /// 
+        /// May not be set unless `oldSelf` is used in `rule`.
+        /// </summary>
+        public readonly bool OptionalOldSelf;
+        /// <summary>
         /// reason provides a machine-readable validation failure reason that is returned to the caller when a request fails this validation rule. The HTTP status code returned to the caller will match the reason of the reason of the first failed validation rule. The currently supported reasons are: "FieldValueInvalid", "FieldValueForbidden", "FieldValueRequired", "FieldValueDuplicate". If not set, default to use "FieldValueInvalid". All future added reasons must be accepted by clients when reading this value and unknown reasons should be treated as FieldValueInvalid.
         /// </summary>
         public readonly string Reason;
@@ -58,6 +68,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions.V1
         ///   - 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
         ///     are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
         ///     non-intersecting keys are appended, retaining their partial order.
+        /// 
+        /// If `rule` makes use of the `oldSelf` variable it is implicitly a `transition rule`.
+        /// 
+        /// By default, the `oldSelf` variable is the same type as `self`. When `optionalOldSelf` is true, the `oldSelf` variable is a CEL optional
+        ///  variable whose value() is the same type as `self`.
+        /// See the documentation for the `optionalOldSelf` field for details.
+        /// 
+        /// Transition rules by default are applied only on UPDATE requests and are skipped if an old value could not be found. You can opt a transition rule into unconditional evaluation by setting `optionalOldSelf` to true.
         /// </summary>
         public readonly string Rule;
 
@@ -69,6 +87,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions.V1
 
             string messageExpression,
 
+            bool optionalOldSelf,
+
             string reason,
 
             string rule)
@@ -76,6 +96,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions.V1
             FieldPath = fieldPath;
             Message = message;
             MessageExpression = messageExpression;
+            OptionalOldSelf = optionalOldSelf;
             Reason = reason;
             Rule = rule;
         }

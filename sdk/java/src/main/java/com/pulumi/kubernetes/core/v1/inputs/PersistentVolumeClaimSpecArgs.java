@@ -5,9 +5,9 @@ package com.pulumi.kubernetes.core.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
-import com.pulumi.kubernetes.core.v1.inputs.ResourceRequirementsArgs;
 import com.pulumi.kubernetes.core.v1.inputs.TypedLocalObjectReferenceArgs;
 import com.pulumi.kubernetes.core.v1.inputs.TypedObjectReferenceArgs;
+import com.pulumi.kubernetes.core.v1.inputs.VolumeResourceRequirementsArgs;
 import com.pulumi.kubernetes.meta.v1.inputs.LabelSelectorArgs;
 import java.lang.String;
 import java.util.List;
@@ -88,13 +88,13 @@ public final class PersistentVolumeClaimSpecArgs extends com.pulumi.resources.Re
      * 
      */
     @Import(name="resources")
-    private @Nullable Output<ResourceRequirementsArgs> resources;
+    private @Nullable Output<VolumeResourceRequirementsArgs> resources;
 
     /**
      * @return resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
      * 
      */
-    public Optional<Output<ResourceRequirementsArgs>> resources() {
+    public Optional<Output<VolumeResourceRequirementsArgs>> resources() {
         return Optional.ofNullable(this.resources);
     }
 
@@ -126,6 +126,21 @@ public final class PersistentVolumeClaimSpecArgs extends com.pulumi.resources.Re
      */
     public Optional<Output<String>> storageClassName() {
         return Optional.ofNullable(this.storageClassName);
+    }
+
+    /**
+     * volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string value means that no VolumeAttributesClass will be applied to the claim but it&#39;s not allowed to reset this field to empty string once it is set. If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass will be set by the persistentvolume controller if it exists. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#volumeattributesclass (Alpha) Using this field requires the VolumeAttributesClass feature gate to be enabled.
+     * 
+     */
+    @Import(name="volumeAttributesClassName")
+    private @Nullable Output<String> volumeAttributesClassName;
+
+    /**
+     * @return volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string value means that no VolumeAttributesClass will be applied to the claim but it&#39;s not allowed to reset this field to empty string once it is set. If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass will be set by the persistentvolume controller if it exists. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#volumeattributesclass (Alpha) Using this field requires the VolumeAttributesClass feature gate to be enabled.
+     * 
+     */
+    public Optional<Output<String>> volumeAttributesClassName() {
+        return Optional.ofNullable(this.volumeAttributesClassName);
     }
 
     /**
@@ -167,6 +182,7 @@ public final class PersistentVolumeClaimSpecArgs extends com.pulumi.resources.Re
         this.resources = $.resources;
         this.selector = $.selector;
         this.storageClassName = $.storageClassName;
+        this.volumeAttributesClassName = $.volumeAttributesClassName;
         this.volumeMode = $.volumeMode;
         this.volumeName = $.volumeName;
     }
@@ -282,7 +298,7 @@ public final class PersistentVolumeClaimSpecArgs extends com.pulumi.resources.Re
          * @return builder
          * 
          */
-        public Builder resources(@Nullable Output<ResourceRequirementsArgs> resources) {
+        public Builder resources(@Nullable Output<VolumeResourceRequirementsArgs> resources) {
             $.resources = resources;
             return this;
         }
@@ -293,7 +309,7 @@ public final class PersistentVolumeClaimSpecArgs extends com.pulumi.resources.Re
          * @return builder
          * 
          */
-        public Builder resources(ResourceRequirementsArgs resources) {
+        public Builder resources(VolumeResourceRequirementsArgs resources) {
             return resources(Output.of(resources));
         }
 
@@ -337,6 +353,27 @@ public final class PersistentVolumeClaimSpecArgs extends com.pulumi.resources.Re
          */
         public Builder storageClassName(String storageClassName) {
             return storageClassName(Output.of(storageClassName));
+        }
+
+        /**
+         * @param volumeAttributesClassName volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string value means that no VolumeAttributesClass will be applied to the claim but it&#39;s not allowed to reset this field to empty string once it is set. If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass will be set by the persistentvolume controller if it exists. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#volumeattributesclass (Alpha) Using this field requires the VolumeAttributesClass feature gate to be enabled.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder volumeAttributesClassName(@Nullable Output<String> volumeAttributesClassName) {
+            $.volumeAttributesClassName = volumeAttributesClassName;
+            return this;
+        }
+
+        /**
+         * @param volumeAttributesClassName volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string value means that no VolumeAttributesClass will be applied to the claim but it&#39;s not allowed to reset this field to empty string once it is set. If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass will be set by the persistentvolume controller if it exists. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#volumeattributesclass (Alpha) Using this field requires the VolumeAttributesClass feature gate to be enabled.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder volumeAttributesClassName(String volumeAttributesClassName) {
+            return volumeAttributesClassName(Output.of(volumeAttributesClassName));
         }
 
         /**
