@@ -1133,6 +1133,42 @@ func TestSecrets(t *testing.T) {
 	integration.ProgramTest(t, &test)
 }
 
+// TestSecretDataNewLine tests that secrets with new lines in the base64 encoding are handled correctly.
+// See: https://github.com/pulumi/pulumi-kubernetes/issues/2681
+func TestSecretDataNewLine(t *testing.T) {
+	test := baseOptions.With(integration.ProgramTestOptions{
+		Dir:                  "secrets-new-line",
+		ExpectRefreshChanges: false,
+		SkipRefresh:          false,
+		OrderedConfig: []integration.ConfigValue{
+			{
+				Key:   "pulumi:disable-default-providers[0]",
+				Value: "kubernetes",
+				Path:  true,
+			},
+		},
+		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+			assert.NotNil(t, stackInfo.Deployment)
+
+			data, ok := stackInfo.Outputs["data"]
+			assert.Truef(t, ok, "missing expected output \"data\"")
+
+			stringData, ok := stackInfo.Outputs["stringData"]
+			assert.Falsef(t, ok, "unexpected non-empty output: \"stringData\"")
+
+			assert.NotEmptyf(t, data, "data field is empty")
+			assert.Emptyf(t, stringData, "stringData field is not empty")
+
+		},
+		EditDirs: []integration.EditDir{{
+			Dir:             "secrets-new-line",
+			ExpectNoChanges: true, // Re-running the same program should not cause any changes.
+			Additive:        true,
+		}},
+	})
+	integration.ProgramTest(t, &test)
+}
+
 func TestServerSideApply(t *testing.T) {
 	test := baseOptions.With(integration.ProgramTestOptions{
 		Dir:                  filepath.Join("server-side-apply", "step1"),
