@@ -1,5 +1,7 @@
 ## Unreleased
-- Fix: Refine URN lookup by implementing suffix search for more accurate resource identification (https://github.com/pulumi/pulumi-kubernetes/issues/2719)
+
+## 4.6.1 (December 14, 2023)
+- Fix: Refine URN lookup by using its core type for more accurate resource identification (https://github.com/pulumi/pulumi-kubernetes/issues/2719)
 
 ## 4.6.0 (December 13, 2023)
 - Fix: Helm OCI chart deployment fails in Windows (https://github.com/pulumi/pulumi-kubernetes/pull/2648)
