@@ -1295,14 +1295,14 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		return k.helmReleaseProvider.Check(ctx, req)
 	}
 
-	if isListURN(urn) {
+	if kinds.IsListURN(urn) {
 		// TODO: It might be possible to automatically expand List resources into a list of the underlying resources.
 		//       Until then, return a descriptive error message. https://github.com/pulumi/pulumi-kubernetes/issues/2494
 		return nil, fmt.Errorf("list resources exist for compatibility with YAML manifests and Helm charts, " +
 			"and cannot be created directly. Use the underlying resource type instead")
 	}
 
-	if !k.serverSideApplyMode && isPatchURN(urn) {
+	if !k.serverSideApplyMode && kinds.IsPatchURN(urn) {
 		return nil, fmt.Errorf("patch resources require Server-side Apply mode, which is enabled using the " +
 			"`enableServerSideApply` Provider config")
 	}
@@ -1341,7 +1341,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		return nil, err
 	}
 
-	if k.serverSideApplyMode && isPatchURN(urn) {
+	if k.serverSideApplyMode && kinds.IsPatchURN(urn) {
 		if len(newInputs.GetName()) == 0 {
 			return nil, fmt.Errorf("patch resources require the resource `.metadata.name` to be set")
 		}
@@ -1635,7 +1635,7 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 	if len(patchObj) != 0 {
 		// Changing the identity of the resource always causes a replacement.
 		forceNewFields := []string{".metadata.name", ".metadata.namespace"}
-		if !isPatchURN(urn) { // Patch resources can be updated in place for all other properties.
+		if !kinds.IsPatchURN(urn) { // Patch resources can be updated in place for all other properties.
 			forceNewFields = k.forceNewProperties(newInputs)
 		}
 		if detailedDiff, err = convertPatchToDiff(patchObj, patchBase, newInputs.Object, oldLivePruned.Object, forceNewFields...); err != nil {
@@ -1781,7 +1781,7 @@ func (k *kubeProvider) Create(
 	// 2: The resource GVK does not exist
 	// 3: The resource is a Patch resource
 	// 4: We are in client-side-apply mode
-	skipPreview := hasComputedValue(newInputs) || !k.gvkExists(newInputs) || isPatchURN(urn) || !k.serverSideApplyMode
+	skipPreview := hasComputedValue(newInputs) || !k.gvkExists(newInputs) || kinds.IsPatchURN(urn) || !k.serverSideApplyMode
 	// If this is a preview and the input meets one of the skip criteria, then return them as-is. This is compatible
 	// with prior behavior implemented by the Pulumi engine.
 	if req.GetPreview() && skipPreview {
@@ -2495,7 +2495,7 @@ func (k *kubeProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest)
 			// to consider the CR to be deleted as well in this case.
 			return &pbempty.Empty{}, nil
 		}
-		if isPatchURN(urn) && await.IsDeleteRequiredFieldErr(awaitErr) {
+		if kinds.IsPatchURN(urn) && await.IsDeleteRequiredFieldErr(awaitErr) {
 			if cause, ok := apierrors.StatusCause(awaitErr, metav1.CauseTypeFieldValueRequired); ok {
 				awaitErr = fmt.Errorf(
 					"this Patch resource is currently managing a required field, so it can't be deleted "+
@@ -2528,16 +2528,6 @@ func (k *kubeProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest)
 	}
 
 	return &pbempty.Empty{}, nil
-}
-
-// isPatchURN returns true if the URN is for a Patch resource.
-func isPatchURN(urn resource.URN) bool {
-	return kinds.PatchQualifiedTypes.Has(urn.QualifiedType().String())
-}
-
-// isListURN returns true if the URN is for a List resource.
-func isListURN(urn resource.URN) bool {
-	return kinds.ListQualifiedTypes.Has(urn.QualifiedType().String())
 }
 
 // GetPluginInfo returns generic information about this plugin, like its version.
