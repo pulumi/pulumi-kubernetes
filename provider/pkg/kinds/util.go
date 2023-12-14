@@ -6,9 +6,9 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 )
 
-func suffixSearch(urnS string, suffixes []string) bool {
+func suffixSearch(s string, suffixes []string) bool {
 	for _, suffix := range suffixes {
-		if strings.HasSuffix(urnS, suffix) {
+		if strings.HasSuffix(s, suffix) {
 			return true
 		}
 	}

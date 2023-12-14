@@ -54,7 +54,7 @@ func TestIsListURN(t *testing.T) {
 			true,
 		},
 		{
-			"Non-Patch DaemonSet resource",
+			"Non-List DaemonSet resource",
 			resource.URN("urn:pulumi:dev::kubernetes-ts::kubernetes:apps/v1:DaemonSet::k8s-daemonset"),
 			false,
 		},
