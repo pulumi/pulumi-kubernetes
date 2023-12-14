@@ -17,6 +17,7 @@ package provider
 import (
 	"testing"
 
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/stretchr/testify/assert"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
@@ -187,7 +188,7 @@ func Test_isPatchURN(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			assert.Equalf(t, tt.want, isPatchURN(tt.args.urn), "isPatchURN(%v)", tt.args.urn)
+			assert.Equalf(t, tt.want, kinds.IsPatchURN(tt.args.urn), "isPatchURN(%v)", tt.args.urn)
 		})
 	}
 }
@@ -225,7 +226,7 @@ func Test_isListURN(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			assert.Equalf(t, tt.want, isListURN(tt.args.urn), "isListURN(%v)", tt.args.urn)
+			assert.Equalf(t, tt.want, kinds.IsListURN(tt.args.urn), "isListURN(%v)", tt.args.urn)
 		})
 	}
 }
