@@ -1,4 +1,5 @@
 ## Unreleased
+- Fix: Refine URN lookup by using its core type for more accurate resource identification (https://github.com/pulumi/pulumi-kubernetes/issues/2719)
 
 ## 4.5.5 (November 28, 2023)
 - Fix: Make the invoke calls for Helm charts and YAML config resilient to the value being None or an empty dict (https://github.com/pulumi/pulumi-kubernetes/pull/2665)
