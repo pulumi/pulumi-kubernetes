@@ -125,8 +125,8 @@ namespace Pulumi.Kubernetes.Yaml
             : base("kubernetes:yaml:ConfigFile", MakeName(args, name), options)
         {
             name = MakeName(args, name);
-            options ??= new ComponentResourceOptions();
-            options.Parent ??= this;
+            var childOpts = GetChildOptions(this, null, options);
+            var invokeOpts = GetInvokeOptions(childOpts);
 
 			var transformations = args?.Transformations ?? new List<TransformationAction>();
 			if (args?.SkipAwait == true)
@@ -153,15 +153,15 @@ namespace Pulumi.Kubernetes.Yaml
             }).Apply(text =>
                 Parser.ParseYamlDocument(new ParseArgs
                 {
-                    Objs = Invokes.YamlDecode(new YamlDecodeArgs { Text = text }, new InvokeOptions { Provider = options?.Provider }),
+                    Objs = Invokes.YamlDecode(new YamlDecodeArgs { Text = text }, invokeOpts),
                     Transformations = transformations,
                     ResourcePrefix = args?.ResourcePrefix
-                }, options));
+                }, childOpts));
 
             RegisterResources(resources);
         }
 
-        private static string MakeName(ConfigFileArgs? args, string name)
+        internal static string MakeName(ConfigFileArgs? args, string name)
             => args?.ResourcePrefix != null ? $"{args.ResourcePrefix}-{name}" : name;
     }
 

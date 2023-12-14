@@ -139,7 +139,7 @@ namespace Pulumi.Kubernetes.Helm
 
                     var yaml = ExecuteCommand("helm", flags);
                     return ParseTemplate(
-                        yaml, cfgBase.Transformations, cfgBase.ResourcePrefix, dependencies, cfgBase.Namespace, options?.Provider);
+                        yaml, cfgBase.Transformations, cfgBase.ResourcePrefix, dependencies, cfgBase.Namespace, options);
                 }
                 catch (Exception e)
                 {
@@ -261,20 +261,20 @@ namespace Pulumi.Kubernetes.Helm
 
         private Output<ImmutableDictionary<string, KubernetesResource>> ParseTemplate(string text,
             List<TransformationAction> transformations, string? resourcePrefix, ImmutableHashSet<Pu.Resource> dependsOn,
-            string? defaultNamespace, Pu.ProviderResource provider)
+            string? defaultNamespace, ComponentResourceOptions? options)
         {
+            var childOpts = GetChildOptions(this, dependsOn.ToArray(), options);
+            var invokeOpts = GetInvokeOptions(childOpts);
             return Yaml.Invokes
-                .YamlDecode(new YamlDecodeArgs { Text = text, DefaultNamespace = defaultNamespace }, new InvokeOptions { Provider = provider })
+                .YamlDecode(new YamlDecodeArgs { Text = text, DefaultNamespace = defaultNamespace }, invokeOpts)
                 .Apply(objs =>
                 {
-                    var args = new ConfigGroupArgs
+                    return Parser.ParseYamlDocument(new ParseArgs
                     {
-                        ResourcePrefix = resourcePrefix,
                         Objs = objs,
-                        Transformations = transformations
-                    };
-                    var opts = new ComponentResourceOptions { Parent = this, DependsOn = dependsOn.ToArray(), Provider = provider };
-                    return Parser.Parse(args, opts);
+                        Transformations = transformations,
+                        ResourcePrefix = resourcePrefix
+                    }, childOpts);
                 });
         }
 

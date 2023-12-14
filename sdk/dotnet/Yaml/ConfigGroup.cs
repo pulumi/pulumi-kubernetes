@@ -205,9 +205,8 @@ namespace Pulumi.Kubernetes.Yaml
         public ConfigGroup(string name, ConfigGroupArgs config, ComponentResourceOptions? options = null)
             : base("kubernetes:yaml:ConfigGroup", name, options)
         {
-            options ??= new ComponentResourceOptions();
-            options.Parent ??= this;
-            RegisterResources(Parser.Parse(config, options));
+            var childOpts = GetChildOptions(this, null, options);
+            RegisterResources(Parser.Parse(config, childOpts));
         }
     }
 
