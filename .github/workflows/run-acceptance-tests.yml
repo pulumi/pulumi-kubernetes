@@ -10,6 +10,7 @@ on:
     - master
     - main
     - v4
+    - release/**
     paths-ignore:
     - CHANGELOG.md
   workflow_dispatch: {}
@@ -78,7 +79,7 @@ jobs:
         path: ci-scripts
         repository: pulumi/scripts
     - name: Unshallow clone for tags
-      run: git fetch --prune --unshallow --tags
+      run: git fetch --prune --unshallow --tags --force
     - name: Install Go
       uses: actions/setup-go@v3
       with:
@@ -180,7 +181,7 @@ jobs:
         path: ci-scripts
         repository: pulumi/scripts
     - name: Unshallow clone for tags
-      run: git fetch --prune --unshallow --tags
+      run: git fetch --prune --unshallow --tags --force
     - name: Install Go
       uses: actions/setup-go@v3
       with:
@@ -279,7 +280,7 @@ jobs:
         path: ci-scripts
         repository: pulumi/scripts
     - name: Unshallow clone for tags
-      run: git fetch --prune --unshallow --tags
+      run: git fetch --prune --unshallow --tags --force
     - name: Install Go
       uses: actions/setup-go@v3
       with:

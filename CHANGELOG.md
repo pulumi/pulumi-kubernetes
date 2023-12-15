@@ -1,4 +1,6 @@
 ## Unreleased
+
+## 4.5.6 (December 15, 2023)
 - Fix: Refine URN lookup by using its core type for more accurate resource identification (https://github.com/pulumi/pulumi-kubernetes/issues/2719)
 - Fix Helm Chart resource lookup key handling for objects in default namespace (https://github.com/pulumi/pulumi-kubernetes/pull/2655)
 - Fix panic when using `PULUMI_KUBERNETES_MANAGED_BY_LABEL` env var with SSA created objects (https://github.com/pulumi/pulumi-kubernetes/pull/2711)
