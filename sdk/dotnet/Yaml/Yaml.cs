@@ -861,17 +861,19 @@ namespace Pulumi.Kubernetes.Yaml
             };
         }
 
-        internal static ComponentResourceOptions ConvertChildOptions(CustomResourceOptions? options)
+        internal static ComponentResourceOptions ConvertChildOptions(CustomResourceOptions options)
         {
             var dependsOn = new InputList<Pu.Resource>();
             if (options is not null)
                 dependsOn.AddRange(options.DependsOn);
             return new ComponentResourceOptions
             {
-                Parent = options?.Parent,
+                Aliases = options.Aliases.ToList(),
                 DependsOn = dependsOn,
-                Version = options?.Version,
-                PluginDownloadURL = options?.PluginDownloadURL,
+                Parent = options.Parent,
+                ResourceTransformations = options.ResourceTransformations.ToList(),
+                Version = options.Version,
+                PluginDownloadURL = options.PluginDownloadURL,
             };
         }
 
@@ -884,11 +886,41 @@ namespace Pulumi.Kubernetes.Yaml
                 PluginDownloadURL = options?.PluginDownloadURL,
             }.WithDefaults();
         }
+
+        internal static ResourceTransformation Aliased(Pulumi.Resource parent, Pulumi.Resource? oldParent = null) {
+            return new ResourceTransformation((args) => {
+                if (!Object.ReferenceEquals(args.Options?.Parent, parent)) {
+                    return null;
+                }
+
+                var alias = new Alias { 
+                    Parent = oldParent,
+                    Name = args.Resource.GetResourceName(),
+                    Type = args.Resource.GetResourceType(),
+                };
+                if (args.Options is ComponentResourceOptions options1)
+                {
+                    var options = ComponentResourceOptions.Merge(
+                        options1,
+                        new ComponentResourceOptions { Aliases = {alias} });
+                    return new ResourceTransformationResult(args.Args, options);
+                }
+                if (args.Options is CustomResourceOptions options2)
+                {
+                    var options = CustomResourceOptions.Merge(
+                        options2,
+                        new CustomResourceOptions { Aliases = {alias} });
+                    return new ResourceTransformationResult(args.Args, options);
+                }
+                return null;
+            });
+        }
     }
 
     internal static class Parser
     {
-        public static Output<ImmutableDictionary<string, KubernetesResource>> Parse(ConfigGroupArgs config, CustomResourceOptions? options)
+        public static Output<ImmutableDictionary<string, KubernetesResource>> Parse(ConfigGroupArgs config, CustomResourceOptions options,
+            Pulumi.Resource? aliasParent = null)
         {
             var resources = Output.Create(ImmutableDictionary.Create<string, KubernetesResource>());
 
@@ -919,7 +951,7 @@ namespace Pulumi.Kubernetes.Yaml
                         ResourcePrefix = config.ResourcePrefix
                     };
 
-                    var cf = new ConfigFile(file, cfArgs, cfOptions);
+                    var cf = new ConfigFile(file, cfArgs, cfOptions, aliasParent);
                     resources = Output.Tuple(resources, cf.Resources).Apply(vs => vs.Item1.AddRange(vs.Item2));
                 }
             }
