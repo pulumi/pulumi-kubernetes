@@ -370,9 +370,8 @@ func TestOptionPropagation(t *testing.T) {
 			g.Expect(invokes.ByProvider(providerUrn(providerA))).To(HaveEach(
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
-						"Version": Equal("1.2.3"),
-						// bug: https://github.com/pulumi/pulumi/issues/14839
-						// "PluginDownloadURL": Equal("https://a.pulumi.test"),
+						"Version":           Equal("1.2.3"),
+						"PluginDownloadURL": Equal("https://a.pulumi.test"),
 					}),
 				}),
 			))
