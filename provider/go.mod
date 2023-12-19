@@ -15,7 +15,7 @@ require (
 	github.com/pulumi/pulumi/pkg/v3 v3.96.2
 	github.com/pulumi/pulumi/sdk/v3 v3.96.2
 	github.com/stretchr/testify v1.8.4
-	golang.org/x/crypto v0.15.0
+	golang.org/x/crypto v0.17.0
 	google.golang.org/grpc v1.58.3
 	gopkg.in/yaml.v3 v3.0.1
 	helm.sh/helm/v3 v3.12.1
@@ -200,8 +200,8 @@ require (
 	golang.org/x/net v0.18.0 // indirect
 	golang.org/x/oauth2 v0.12.0 // indirect
 	golang.org/x/sync v0.5.0 // indirect
-	golang.org/x/sys v0.14.0 // indirect
-	golang.org/x/term v0.14.0 // indirect
+	golang.org/x/sys v0.15.0 // indirect
+	golang.org/x/term v0.15.0 // indirect
 	golang.org/x/text v0.14.0
 	golang.org/x/time v0.3.0 // indirect
 	golang.org/x/xerrors v0.0.0-20220907171357-04be3eba64a2 // indirect
