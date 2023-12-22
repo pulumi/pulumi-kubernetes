@@ -111,6 +111,7 @@ func main() {
 					pulumi.ID(fmt.Sprintf("%s/%s", *namespace, *name)), &apiextensions.CustomResourceState{
 						ApiVersion: cr.ApiVersion,
 						Kind:       cr.Kind,
+						Metadata:   cr.Metadata,
 					},
 					pulumi.Provider(provider))
 				if err != nil {
