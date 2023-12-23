@@ -139,10 +139,13 @@ func (o ServiceSpecTypePtrOutput) ToStringPtrOutputWithContext(ctx context.Conte
 	}).(pulumi.StringPtrOutput)
 }
 
-// ServiceSpecTypeInput is an input type that accepts ServiceSpecTypeArgs and ServiceSpecTypeOutput values.
-// You can construct a concrete instance of `ServiceSpecTypeInput` via:
+// ServiceSpecTypeInput is an input type that accepts values of the ServiceSpecType enum
+// A concrete instance of `ServiceSpecTypeInput` can be one of the following:
 //
-//	ServiceSpecTypeArgs{...}
+//	ServiceSpecTypeExternalName
+//	ServiceSpecTypeClusterIP
+//	ServiceSpecTypeNodePort
+//	ServiceSpecTypeLoadBalancer
 type ServiceSpecTypeInput interface {
 	pulumi.Input
 
