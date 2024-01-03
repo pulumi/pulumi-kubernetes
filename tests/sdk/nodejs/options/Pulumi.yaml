@@ -1,0 +1,5 @@
+name: options-test
+runtime: nodejs
+description: Test options propagation with component resources.
+config:
+  pulumi:disable-default-providers: [kubernetes]

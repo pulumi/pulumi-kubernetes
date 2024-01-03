@@ -155,7 +155,7 @@ export class Chart extends yaml.CollectionComponentResource {
         if (config.resourcePrefix !== undefined) {
             releaseName = `${config.resourcePrefix}-${releaseName}`
         }
-        const aliasOpts: pulumi.ComponentResourceOptions = {...opts, aliases: [{type: "kubernetes:helm.sh/v2:Chart"}]}
+        const aliasOpts: pulumi.ComponentResourceOptions = {...opts, aliases: [{type: "kubernetes:helm.sh/v2:Chart"}, ...(opts?.aliases ?? [])]}
         super(Chart.__pulumiType, releaseName, config, aliasOpts);
 
         const allConfig = pulumi.output(config);
@@ -242,14 +242,8 @@ export class Chart extends yaml.CollectionComponentResource {
             transformations.push(yaml.skipAwait);
         }
 
-        // Rather than using the default provider for the following invoke call, use the version specified
-        // in package.json.
-        let invokeOpts: pulumi.InvokeOptions = {
-            async: true,
-            version: opts?.version ?? getVersion(),
-            provider: opts?.provider,
-            parent: opts?.parent
-        };
+        const childOpts = yaml.getChildOpts(this, opts);
+        const invokeOpts = yaml.getInvokeOpts(childOpts);
 
         const promise = pulumi.runtime.invoke("kubernetes:helm:template", {jsonOpts}, invokeOpts);
         return pulumi.output(promise).apply<{ [key: string]: pulumi.CustomResource }>(p => yaml.parse(
@@ -258,7 +252,7 @@ export class Chart extends yaml.CollectionComponentResource {
                 objs: p.result,
                 transformations,
             },
-            {parent: this}
+            childOpts
         ));
     }
 }

@@ -1,4 +1,5 @@
 ## Unreleased
+- Fix option propagation in component resources (NodeJS SDK) (https://github.com/pulumi/pulumi-kubernetes/pull/2713)
 - Fix option propagation in component resources (Go SDK) (https://github.com/pulumi/pulumi-kubernetes/pull/2709)
 
 ## 4.6.1 (December 14, 2023)
