@@ -7,12 +7,14 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"reflect"
 	"testing"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 	"google.golang.org/protobuf/encoding/protojson"
+	"google.golang.org/protobuf/proto"
 
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
 )
@@ -103,21 +105,19 @@ func FormatDebugInterceptorLog(value interface{}) (string, bool) {
 		}
 		return string(json), true
 	}
-	if m, ok := value.(pulumirpc.RegisterResourceRequest); ok {
-		return protojson.Format(&m), true
+
+	val := reflect.ValueOf(value)
+	switch val.Kind() {
+	case reflect.Struct:
+		// obtain a pointer to the struct in order to call a method on the pointer receiver
+		vp := reflect.New(val.Type())
+		vp.Elem().Set(val)
+		value = vp.Interface()
 	}
-	if m, ok := value.(pulumirpc.RegisterResourceResponse); ok {
-		return protojson.Format(&m), true
+	if m, ok := value.(proto.Message); ok {
+		return protojson.Format(m), true
 	}
-	if m, ok := value.(pulumirpc.Alias); ok {
-		return protojson.Format(&m), true
-	}
-	if m, ok := value.(pulumirpc.ResourceInvokeRequest); ok {
-		return protojson.Format(&m), true
-	}
-	if m, ok := value.(pulumirpc.InvokeResponse); ok {
-		return protojson.Format(&m), true
-	}
+
 	return "", false
 }
 
