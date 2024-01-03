@@ -1,0 +1,7 @@
+commonLabels:
+  app: testapp
+
+configMapGenerator:
+- name: kustomize-cm-1
+  files:
+  - application.properties
