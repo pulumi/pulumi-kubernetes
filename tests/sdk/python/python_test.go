@@ -970,7 +970,10 @@ func TestOptionPropagation(t *testing.T) {
 				// quirk: Python SDK applies resource_prefix ("chart-options") to the component itself.
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases":           ConsistOf(Alias("chart-options-old"), Alias("chart-options-chart-options-aliased"), AliasByType("kubernetes:helm.sh/v2:Chart")),
+						"Aliases":           ConsistOf(
+							Alias("chart-options-old"), 
+							Alias("chart-options-chart-options-aliased"), 
+							Alias(tokens.Type("kubernetes:helm.sh/v2:Chart"))),
 						"Protect":           BeTrue(),
 						"Dependencies":      ConsistOf(string(sleep.URN)),
 						"Provider":          BeEmpty(),
