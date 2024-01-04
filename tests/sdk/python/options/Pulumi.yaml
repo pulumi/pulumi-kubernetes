@@ -1,0 +1,8 @@
+name: options-test
+runtime:
+  name: python
+  options:
+    virtualenv: venv
+description: Test options propagation with component resources.
+config:
+  pulumi:disable-default-providers: [kubernetes]

@@ -1,4 +1,5 @@
 ## Unreleased
+- Fix option propagation in component resources (Python SDK) (https://github.com/pulumi/pulumi-kubernetes/pull/2717)
 - Fix option propagation in component resources (.NET SDK) (https://github.com/pulumi/pulumi-kubernetes/pull/2720)
 - Fix option propagation in component resources (NodeJS SDK) (https://github.com/pulumi/pulumi-kubernetes/pull/2713)
 - Fix option propagation in component resources (Go SDK) (https://github.com/pulumi/pulumi-kubernetes/pull/2709)
