@@ -1132,7 +1132,10 @@ func TestOptionPropagation(t *testing.T) {
 				// quirk: NodeJS SDK applies resource_prefix ("chart-options") to the component itself.
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases":           HaveExactElements(Alias("chart-options-old"), AliasByType("kubernetes:helm.sh/v2:Chart"), Alias("chart-options-aliased")),
+						"Aliases": HaveExactElements(
+							Alias("chart-options-old"),
+							Alias(tokens.Type("kubernetes:helm.sh/v2:Chart")),
+							Alias("chart-options-aliased")),
 						"Protect":           BeTrue(),
 						"Dependencies":      HaveExactElements(string(sleep.URN)),
 						"Provider":          BeEquivalentTo(providerUrn(providerA)),

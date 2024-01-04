@@ -141,27 +141,19 @@ namespace Pulumi.Kubernetes.Kustomize
         public Directory(string name, DirectoryArgs args, ComponentResourceOptions? options = null)
             : base("kubernetes:kustomize:Directory", MakeName(args, name), options)
         {
-            name = GetName(args, name);
-            var objs = Invokes.KustomizeDirectory(new KustomizeDirectoryArgs { Directory = args.Directory }, new InvokeOptions  { Provider = options?.Provider });
-            var configGroupArgs = new ConfigGroupArgs
-            {
-                ResourcePrefix = args.ResourcePrefix,
-                Objs = objs,
-                Transformations = args.Transformations
-            };
-            var opts = ComponentResourceOptions.Merge(options, new ComponentResourceOptions { Parent = this });
-            var resources = Parser.Parse(configGroupArgs, opts);
+            var childOpts = GetChildOptions(this, null, options);
+            var invokeOpts = GetInvokeOptions(childOpts);
+            var objs = Invokes.KustomizeDirectory(new KustomizeDirectoryArgs { Directory = args.Directory }, invokeOpts);
+            var resources = Parser.ParseYamlDocument(new ParseArgs
+                {
+                    Objs = objs,
+                    Transformations = args.Transformations,
+                    ResourcePrefix = args.ResourcePrefix
+                }, childOpts);
             RegisterResources(resources);
         }
         private static string MakeName(DirectoryArgs? args, string name)
             => args?.ResourcePrefix != null ? $"{args.ResourcePrefix}-{name}" : name;
-
-        private static string GetName(DirectoryArgs config, string releaseName)
-        {
-            var prefix = config.ResourcePrefix;
-            return string.IsNullOrEmpty(prefix) ? releaseName : $"{prefix}-{releaseName}";
-        }
-
     }
 
     /// <summary>

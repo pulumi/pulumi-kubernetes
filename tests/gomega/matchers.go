@@ -3,9 +3,11 @@ package gomega
 
 import (
 	"fmt"
+	"strings"
 
 	. "github.com/onsi/gomega"
 	gomegatypes "github.com/onsi/gomega/types"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
 	structpb "google.golang.org/protobuf/types/known/structpb"
 
@@ -20,54 +22,92 @@ func ProtobufStruct(matcher gomegatypes.GomegaMatcher) gomegatypes.GomegaMatcher
 	}, matcher)
 }
 
-// Alias matches an Alias by its name.
-func Alias(name tokens.QName) gomegatypes.GomegaMatcher {
-	return &aliasNameMatcher{Name: name}
+// Alias matches an Alias by name, type, and/or parent.
+// The following option types are supported:
+// - resource.URN - matches the parent URN
+// - tokens.Type - matches the type
+// - tokens.QName - matches the name
+// - string - matches the name
+func Alias(opts ...any) gomegatypes.GomegaMatcher {
+	m := AliasMatcher{}
+	for len(opts) > 0 {
+		switch v := opts[0].(type) {
+		case resource.URN:
+			m.ParentURN = &v
+		case tokens.Type:
+			m.Type = &v
+		case tokens.QName:
+			m.Name = &v
+		case string:
+			q := tokens.QName(v)
+			m.Name = &q
+		default:
+		}
+		opts = opts[1:]
+	}
+	return &m
 }
 
-// AliasByType matches an Alias by its type.
-func AliasByType(typ tokens.Type) gomegatypes.GomegaMatcher {
-	return &aliasTypeMatcher{Type: typ}
+type AliasMatcher struct {
+	Name      *tokens.QName
+	Type      *tokens.Type
+	ParentURN *resource.URN
+	NoParent  *bool
 }
 
-type aliasNameMatcher struct {
-	Name tokens.QName
-}
+var _ gomegatypes.GomegaMatcher = &AliasMatcher{}
 
-var _ gomegatypes.GomegaMatcher = &aliasNameMatcher{}
-
-func (matcher *aliasNameMatcher) Match(actual interface{}) (success bool, err error) {
+func (matcher *AliasMatcher) Match(actual interface{}) (success bool, err error) {
 	if alias, ok := actual.(*pulumirpc.Alias); ok {
-		return alias.GetSpec() != nil && alias.GetSpec().Name == string(matcher.Name), nil
+		if matcher.Name != nil && alias.GetSpec().GetName() != string(*matcher.Name) {
+			return false, nil
+		}
+		if matcher.Type != nil && alias.GetSpec().GetType() != string(*matcher.Type) {
+			return false, nil
+		}
+		if matcher.ParentURN != nil && alias.GetSpec().GetParentUrn() != string(*matcher.ParentURN) {
+			return false, nil
+		}
+		if matcher.NoParent != nil && alias.GetSpec().GetNoParent() != *matcher.NoParent {
+			return false, nil
+		}
+		return true, nil
 	}
 	return false, fmt.Errorf("aliasNameMatcher matcher expects a *pulumirpc.Alias")
 }
 
-func (matcher *aliasNameMatcher) FailureMessage(actual interface{}) (message string) {
-	return fmt.Sprintf("Expected:\n\t%#v\nto have name %q", actual, matcher.Name)
-}
-
-func (matcher *aliasNameMatcher) NegatedFailureMessage(actual interface{}) (message string) {
-	return fmt.Sprintf("Expected:\n\t%#v\nnot to have name %q", actual, matcher.Name)
-}
-
-type aliasTypeMatcher struct {
-	Type tokens.Type
-}
-
-var _ gomegatypes.GomegaMatcher = &aliasTypeMatcher{}
-
-func (matcher *aliasTypeMatcher) Match(actual interface{}) (success bool, err error) {
-	if alias, ok := actual.(*pulumirpc.Alias); ok {
-		return alias.GetSpec() != nil && alias.GetSpec().Type == string(matcher.Type), nil
+func (matcher *AliasMatcher) FailureMessage(actual interface{}) (message string) {
+	var msg strings.Builder
+	fmt.Fprintf(&msg, "Expected:\n\t%#v\nto have ", actual)
+	if matcher.Name != nil {
+		fmt.Fprintf(&msg, "name=%q", *matcher.Name)
 	}
-	return false, fmt.Errorf("aliasTypeMatcher matcher expects a *pulumirpc.Alias")
+	if matcher.Type != nil {
+		fmt.Fprintf(&msg, "type=%q", *matcher.Type)
+	}
+	if matcher.ParentURN != nil {
+		fmt.Fprintf(&msg, "parentURN=%q", *matcher.ParentURN)
+	}
+	if matcher.NoParent != nil {
+		fmt.Fprintf(&msg, "noParent=%t", *matcher.NoParent)
+	}
+	return msg.String()
 }
 
-func (matcher *aliasTypeMatcher) FailureMessage(actual interface{}) (message string) {
-	return fmt.Sprintf("Expected:\n\t%#v\nto have type %q", actual, matcher.Type)
-}
-
-func (matcher *aliasTypeMatcher) NegatedFailureMessage(actual interface{}) (message string) {
-	return fmt.Sprintf("Expected:\n\t%#v\nnot to have type %q", actual, matcher.Type)
+func (matcher *AliasMatcher) NegatedFailureMessage(actual interface{}) (message string) {
+	var msg strings.Builder
+	fmt.Fprintf(&msg, "Expected:\n\t%#v\nto not have ", actual)
+	if matcher.Name != nil {
+		fmt.Fprintf(&msg, "name=%q", *matcher.Name)
+	}
+	if matcher.Type != nil {
+		fmt.Fprintf(&msg, "type=%q", *matcher.Type)
+	}
+	if matcher.ParentURN != nil {
+		fmt.Fprintf(&msg, "parentURN=%q", *matcher.ParentURN)
+	}
+	if matcher.NoParent != nil {
+		fmt.Fprintf(&msg, "noParent=%t", *matcher.NoParent)
+	}
+	return msg.String()
 }

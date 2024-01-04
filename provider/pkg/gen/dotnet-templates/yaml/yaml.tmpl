@@ -100,11 +100,82 @@ namespace Pulumi.Kubernetes.Yaml
             var id = namespaceName != null ? $"{namespaceName}/{name}" : name;
             return Resources.Apply(r => (CustomResource)r[$"{groupVersionKind}::{id}"]);
         }
+
+        internal static CustomResourceOptions GetChildOptions(Pu.Resource parent, InputList<Pu.Resource>? extraDependsOn, ComponentResourceOptions? options)
+        {
+            // Create resource options based on component resource options.
+            var dependsOn = new InputList<Pu.Resource>();
+            if (extraDependsOn is not null)
+                dependsOn.AddRange(extraDependsOn);
+            return new CustomResourceOptions
+            {
+                Parent = parent,
+                DependsOn = dependsOn,
+                Version = options?.Version,
+                PluginDownloadURL = options?.PluginDownloadURL,
+            };
+        }
+
+        internal static ComponentResourceOptions ConvertChildOptions(CustomResourceOptions options)
+        {
+            var dependsOn = new InputList<Pu.Resource>();
+            if (options is not null)
+                dependsOn.AddRange(options.DependsOn);
+            return new ComponentResourceOptions
+            {
+                Aliases = options.Aliases.ToList(),
+                DependsOn = dependsOn,
+                Parent = options.Parent,
+                ResourceTransformations = options.ResourceTransformations.ToList(),
+                Version = options.Version,
+                PluginDownloadURL = options.PluginDownloadURL,
+            };
+        }
+
+        internal static InvokeOptions GetInvokeOptions(CustomResourceOptions? options)
+        {
+            return new InvokeOptions { 
+                Parent = options?.Parent,
+                Provider = options?.Provider,
+                Version = options?.Version,
+                PluginDownloadURL = options?.PluginDownloadURL,
+            }.WithDefaults();
+        }
+
+        internal static ResourceTransformation Aliased(Pulumi.Resource parent, Pulumi.Resource? oldParent = null) {
+            return new ResourceTransformation((args) => {
+                if (!Object.ReferenceEquals(args.Options?.Parent, parent)) {
+                    return null;
+                }
+
+                var alias = new Alias { 
+                    Parent = oldParent,
+                    Name = args.Resource.GetResourceName(),
+                    Type = args.Resource.GetResourceType(),
+                };
+                if (args.Options is ComponentResourceOptions options1)
+                {
+                    var options = ComponentResourceOptions.Merge(
+                        options1,
+                        new ComponentResourceOptions { Aliases = {alias} });
+                    return new ResourceTransformationResult(args.Args, options);
+                }
+                if (args.Options is CustomResourceOptions options2)
+                {
+                    var options = CustomResourceOptions.Merge(
+                        options2,
+                        new CustomResourceOptions { Aliases = {alias} });
+                    return new ResourceTransformationResult(args.Args, options);
+                }
+                return null;
+            });
+        }
     }
 
     internal static class Parser
     {
-        public static Output<ImmutableDictionary<string, KubernetesResource>> Parse(ConfigGroupArgs config, ComponentResourceOptions? options)
+        public static Output<ImmutableDictionary<string, KubernetesResource>> Parse(ConfigGroupArgs config, CustomResourceOptions options,
+            Pulumi.Resource? aliasParent = null)
         {
             var resources = Output.Create(ImmutableDictionary.Create<string, KubernetesResource>());
 
@@ -127,28 +198,29 @@ namespace Pulumi.Kubernetes.Yaml
 
                 foreach (var file in files)
                 {
-                    var cf = new ConfigFile(
-                        file,
-                        new ConfigFileArgs
-                        {
-                            File = file,
-                            Transformations = transformations,
-                            ResourcePrefix = config.ResourcePrefix
-                        },
-                        options);
+                    var cfOptions = CollectionComponentResource.ConvertChildOptions(options);
+                    var cfArgs = new ConfigFileArgs
+                    {
+                        File = file,
+                        Transformations = transformations,
+                        ResourcePrefix = config.ResourcePrefix
+                    };
+
+                    var cf = new ConfigFile(file, cfArgs, cfOptions, aliasParent);
                     resources = Output.Tuple(resources, cf.Resources).Apply(vs => vs.Item1.AddRange(vs.Item2));
                 }
             }
 
             if (config.Yaml != null)
             {
+                var invokeOpts = CollectionComponentResource.GetInvokeOptions(options);
                 var yamlResources = config.Yaml.ToOutput().Apply(texts =>
                 {
                     var yamls = texts
                         .Select(text =>
                             ParseYamlDocument(new ParseArgs
                             {
-                                Objs = Invokes.YamlDecode(new YamlDecodeArgs { Text = text }, new InvokeOptions { Provider = options?.Provider }),
+                                Objs = Invokes.YamlDecode(new YamlDecodeArgs { Text = text }, invokeOpts),
                                 Transformations = transformations,
                                 ResourcePrefix = config.ResourcePrefix
                             }, options))
@@ -207,7 +279,7 @@ namespace Pulumi.Kubernetes.Yaml
             => s.StartsWith("http://", StringComparison.Ordinal) || s.StartsWith("https://", StringComparison.Ordinal);
 
         internal static Output<ImmutableDictionary<string, KubernetesResource>> ParseYamlDocument(ParseArgs config,
-            ComponentResourceOptions? options = null)
+            CustomResourceOptions? options = null)
         {
             return config.Objs.ToOutput().Apply(objs =>
             {
@@ -225,21 +297,13 @@ namespace Pulumi.Kubernetes.Yaml
         }
 
         private static Output<(string, KubernetesResource)>[] ParseYamlObject(ImmutableDictionary<string, object> obj,
-            List<TransformationAction>? transformations, string? resourcePrefix, ComponentResourceOptions? options = null)
+            List<TransformationAction>? transformations, string? resourcePrefix, CustomResourceOptions? options = null)
         {
             if (obj == null || obj.Count == 0)
                 return new Output<(string, KubernetesResource)>[0];
 
-            // Create custom resource options based on component resource options.
-            var opts = new CustomResourceOptions
-            {
-                Parent = options?.Parent,
-                DependsOn = options?.DependsOn ?? new InputList<Pu.Resource>(),
-                IgnoreChanges = options?.IgnoreChanges ?? new List<string>(),
-                Version = options?.Version,
-                Provider = options?.Provider,
-                CustomTimeouts = options?.CustomTimeouts
-            };
+            // Create a copy of options to pass into potentially mutating transforms that will be applied to this resource.
+            var opts = CustomResourceOptions.Merge(null, options);
 
             // Allow users to change API objects before any validation.
             if (transformations != null)
@@ -281,7 +345,7 @@ namespace Pulumi.Kubernetes.Yaml
                 if (obj["items"] is IEnumerable<ImmutableDictionary<string, object>> items)
                 {
                     foreach (var item in items)
-                        objs.AddRange(Parser.ParseYamlObject(item, transformations, resourcePrefix));
+                        objs.AddRange(Parser.ParseYamlObject(item, transformations, resourcePrefix, opts));
                 }
                 return objs.ToArray();
             }

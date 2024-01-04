@@ -122,11 +122,21 @@ namespace Pulumi.Kubernetes.Yaml
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public ConfigFile(string name, ConfigFileArgs? args = null, ComponentResourceOptions? options = null)
+            : this(name, args, options, options?.Parent)
+        {
+        }
+
+        internal ConfigFile(string name, ConfigFileArgs? args = null, ComponentResourceOptions? options = null, Pulumi.Resource? aliasParent = null)
             : base("kubernetes:yaml:ConfigFile", MakeName(args, name), options)
         {
             name = MakeName(args, name);
-            options ??= new ComponentResourceOptions();
-            options.Parent ??= this;
+            var childOpts = GetChildOptions(this, null, options);
+            // https://github.com/pulumi/pulumi-kubernetes/issues/1214
+            if (aliasParent is not null) {
+                childOpts.ResourceTransformations ??= new List<ResourceTransformation>();
+                childOpts.ResourceTransformations.Add(Aliased(this, aliasParent));
+            }
+            var invokeOpts = GetInvokeOptions(childOpts);
 
 			var transformations = args?.Transformations ?? new List<TransformationAction>();
 			if (args?.SkipAwait == true)
@@ -153,15 +163,15 @@ namespace Pulumi.Kubernetes.Yaml
             }).Apply(text =>
                 Parser.ParseYamlDocument(new ParseArgs
                 {
-                    Objs = Invokes.YamlDecode(new YamlDecodeArgs { Text = text }, new InvokeOptions { Provider = options?.Provider }),
+                    Objs = Invokes.YamlDecode(new YamlDecodeArgs { Text = text }, invokeOpts),
                     Transformations = transformations,
                     ResourcePrefix = args?.ResourcePrefix
-                }, options));
+                }, childOpts));
 
             RegisterResources(resources);
         }
 
-        private static string MakeName(ConfigFileArgs? args, string name)
+        internal static string MakeName(ConfigFileArgs? args, string name)
             => args?.ResourcePrefix != null ? $"{args.ResourcePrefix}-{name}" : name;
     }
 
