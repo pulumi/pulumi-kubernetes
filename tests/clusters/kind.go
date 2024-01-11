@@ -1,15 +1,12 @@
-package cluster
+package clusters
 
 import (
-	"crypto/rand"
-	"encoding/base32"
+	"fmt"
+	"log"
 	"os"
 	"path/filepath"
-	"strings"
-	"testing"
 	"time"
 
-	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 	"sigs.k8s.io/kind/pkg/cluster"
 )
 
@@ -28,82 +25,75 @@ const (
 	maxCreateTries = 5
 )
 
+type KindCluster struct {
+	name           string
+	kubeconfigPath string
+	teardownFn     func() error
+}
+
+func (c KindCluster) Name() string {
+	return c.name
+}
+
+func (c KindCluster) KubeconfigPath() string {
+	return c.kubeconfigPath
+}
+
+func (c KindCluster) Connect() error {
+	return nil
+}
+
+func (c KindCluster) Delete() error {
+	return c.teardownFn()
+}
+
 // newKindCluster creates a new Kind cluster for use in testing with the specified name. The version
 // parameter is variadic and defaults to the latest version of Kind if not provided.
-func NewKindCluster(t *testing.T, name string, version ...KindVersion) string {
-	t.Helper()
-
+func NewKindCluster(name string, version ...KindVersion) (Cluster, error) {
 	v := Kind1_29
 	if len(version) > 0 {
 		v = version[0]
 	}
 
 	// Create a new tmpdir to store the kubeconfig.
-	t.Logf("Creating new Kind cluster with image %q", v)
+	log.Printf("Creating new Kind cluster with image %q", v)
 	tmpDir, err := os.MkdirTemp("", "pulumi-test-kind")
 	if err != nil {
-		t.Fatalf("failed to create tmpdir: %v", err)
+		return nil, err
 	}
-	t.Cleanup(func() {
-		contract.Assertf(os.RemoveAll(tmpDir) == nil, "failed to remove tmpdir %q", tmpDir)
-	})
 
 	KubeconfigPath := filepath.Join(tmpDir, KubeconfigFilename)
 
 	p := cluster.NewProvider()
 
 	name = normalizeName(name + "-" + randString())
-	t.Logf("Creating Kind cluster %q", name)
-	teardownFn, err := createKindCluster(t, p, name, KubeconfigPath, v)
+	log.Printf("Creating Kind cluster %q", name)
+	teardownFn, err := createKindCluster(p, name, tmpDir, KubeconfigPath, v)
 	if err != nil {
-		t.Fatalf("failed to create Kind cluster: %v", err)
+		return nil, err
 	}
 
-	t.Cleanup(teardownFn)
-
-	// return restConfig(t, KubeconfigPath), shutdown
-	return KubeconfigPath
+	return &KindCluster{name: name, kubeconfigPath: KubeconfigPath, teardownFn: teardownFn}, nil
 
 }
 
-// normalizeName returns a normalized name for the cluster that adheres
-// to the Kubernetes naming restrictions.
-func normalizeName(name string) string {
-	name = strings.ToLower(name)
-	name = strings.ReplaceAll(name, " ", "-")
-	name = strings.ReplaceAll(name, ".", "-")
-	name = strings.ReplaceAll(name, "_", "-")
-
-	// Shorten the name if necessary
-	if len(name) > 63 {
-		name = name[:63]
-	}
-
-	return name
-}
-
-// randString returns a random string of length 6.
-func randString() string {
-	c := 10
-	b := make([]byte, c)
-	rand.Read(b)
-	length := 6
-	return strings.ToLower(base32.StdEncoding.EncodeToString(b)[:length])
-}
-
-// createKindCluster attempts to create a Kind cluster with retry.
-func createKindCluster(t *testing.T, p *cluster.Provider, name, kcfgPath string, version KindVersion) (func(), error) {
+// createKindCluster attempts to create a KinD cluster with retry.
+func createKindCluster(p *cluster.Provider, name, tmpDir, kcfgPath string, version KindVersion) (func() error, error) {
 	var err error
 	for i := 0; i < maxCreateTries; i++ {
-		t.Logf("Creating Kind cluster, attempt: %d", i+1)
+		log.Printf("Creating Kind cluster, attempt: %d", i+1)
 		err = p.Create(name,
 			cluster.CreateWithKubeconfigPath(kcfgPath),
 			cluster.CreateWithNodeImage(string(version)),
 			cluster.CreateWithWaitForReady(20*time.Second),
 		)
 		if err == nil {
-			return func() {
-				deleteKindCluster(p, name, kcfgPath)
+			return func() error {
+				if err := deleteKindCluster(p, name, kcfgPath); err != nil {
+					return fmt.Errorf("unable to delete Kind cluster %q: %v", name, err)
+				}
+
+				return os.RemoveAll(tmpDir)
 			}, nil
 		}
 	}
