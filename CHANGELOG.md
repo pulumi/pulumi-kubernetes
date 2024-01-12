@@ -1,4 +1,5 @@
 ## Unreleased
+- Fix JSON encoding of KubeVersion and Version on Chart resource (.NET SDK) (https://github.com/pulumi/pulumi-kubernetes/pull/2740)
 - Fix option propagation in component resources (Python SDK) (https://github.com/pulumi/pulumi-kubernetes/pull/2717)
 - Fix option propagation in component resources (.NET SDK) (https://github.com/pulumi/pulumi-kubernetes/pull/2720)
 - Fix option propagation in component resources (NodeJS SDK) (https://github.com/pulumi/pulumi-kubernetes/pull/2713)
