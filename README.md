@@ -154,7 +154,7 @@ import * as k8s from "@pulumi/kubernetes";
 const cluster = new eks.Cluster("my-cluster");
 
 // Deploy Wordpress into our cluster.
-const wordpress = new k8s.helm.v2.Chart("wordpress", {
+const wordpress = new k8s.helm.v3.Chart("wordpress", {
     repo: "stable",
     chart: "wordpress",
     values: {
