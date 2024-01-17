@@ -37,7 +37,7 @@ const (
 func Test_Apps_Deployment(t *testing.T) {
 	tests := []struct {
 		description   string
-		do            func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time)
+		do            func(deployments, timeout chan time.Time)
 		expectedError error
 	}{
 		{
@@ -580,16 +580,13 @@ func Test_Apps_Deployment(t *testing.T) {
 				createAwaitConfig: mockAwaitConfig(deploymentInput(inputNamespace, deploymentInputName)),
 			})
 		deployments := make(chan watch.Event)
-		replicaSets := make(chan watch.Event)
-		pods := make(chan watch.Event)
-		pvcs := make(chan watch.Event)
 
 		timeout := make(chan time.Time)
 		period := make(chan time.Time)
-		go test.do(deployments, replicaSets, pods, timeout)
+		go test.do(deployments, timeout)
 
 		err := awaiter.await(
-			deployments, replicaSets, pods, pvcs, timeout, period)
+			deployments, timeout, period)
 		assert.Equal(t, test.expectedError, err, test.description)
 	}
 }
