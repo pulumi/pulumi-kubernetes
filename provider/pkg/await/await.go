@@ -163,8 +163,6 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 	// nolint
 	// https://github.com/kubernetes/kubernetes/blob/54889d581a35acf940d52a8a384cccaa0b597ddc/pkg/kubectl/cmd/apply/apply.go#L94
 
-	patchResource := kinds.PatchQualifiedTypes.Has(c.URN.QualifiedType().String())
-
 	var outputs *unstructured.Unstructured
 	var client dynamic.ResourceInterface
 	err := retry.SleepingRetry(
@@ -190,7 +188,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 				}
 			}
 
-			if c.ServerSideApply && patchResource {
+			if c.ServerSideApply {
 				force := patchForce(c.Inputs, nil, c.Preview)
 				options := metav1.PatchOptions{
 					FieldManager:    c.FieldManager,
