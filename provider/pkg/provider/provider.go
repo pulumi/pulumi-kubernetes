@@ -1566,6 +1566,7 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 	newInputs := propMapToUnstructured(newResInputs)
 
 	oldInputs, oldLive := parseCheckpointObject(oldState)
+	contract.Assertf(oldLive.GetName() != "", "expected live object name to be nonempty: %v", oldLive)
 
 	oldInputs, err = normalizeInputs(oldInputs)
 	if err != nil {
@@ -1890,7 +1891,6 @@ func (k *kubeProvider) Create(
 		partialErr, isPartialErr := awaitErr.(await.PartialError)
 		if !isPartialErr {
 			// Object creation failed.
-
 			return nil, pkgerrors.Wrapf(
 				awaitErr,
 				"resource %s was not successfully created by the Kubernetes API server ", urn.Name())
@@ -1899,6 +1899,7 @@ func (k *kubeProvider) Create(
 		// Resource was created, but failed to become fully initialized.
 		initialized = partialErr.Object()
 	}
+	contract.Assertf(initialized.GetName() != "", "expected live object name to be nonempty: %v", initialized)
 
 	// We need to delete the empty status field returned from the API server if we are in
 	// preview mode. Having the status field set will cause a panic during preview if the Pulumi
@@ -2616,6 +2617,7 @@ func (k *kubeProvider) gvkFromURN(urn resource.URN) (schema.GroupVersionKind, er
 }
 
 func (k *kubeProvider) readLiveObject(obj *unstructured.Unstructured) (*unstructured.Unstructured, error) {
+	contract.Assertf(obj.GetName() != "", "expected object name to be nonempty: %v", obj)
 	rc, err := k.clientSet.ResourceClientForObject(obj)
 	if err != nil {
 		return nil, err
