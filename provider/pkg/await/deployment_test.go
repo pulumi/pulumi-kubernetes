@@ -702,31 +702,26 @@ func Test_Apps_Deployment_Without_PersistentVolumeClaims(t *testing.T) {
 	}
 }
 
-type setLastInputs func(obj *unstructured.Unstructured)
-
 func Test_Apps_Deployment_MultipleUpdates(t *testing.T) {
 	tests := []struct {
-		description string
-		inputs      func() *unstructured.Unstructured
-		outputs     func() *unstructured.Unstructured
-		firstUpdate func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time,
-			setLast setLastInputs)
+		description   string
+		inputs        func() *unstructured.Unstructured
+		outputs       func() *unstructured.Unstructured
+		firstUpdate   func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time)
 		secondUpdate  func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time)
 		expectedError error
 	}{
 		{
 			description: "Should succeed if replicas are scaled",
 			inputs:      regressionDeploymentScaled3Input,
-			outputs:     regressionDeploymentScaled3,
+			outputs:     regressionDeploymentScaled3Output,
 			firstUpdate: func(
 				deployments, replicaSets, pods chan watch.Event, timeout chan time.Time,
-				setLast setLastInputs,
 			) {
 				computed := regressionDeploymentScaled3()
 				deployments <- watchAddedEvent(computed)
 				replicaSets <- watchAddedEvent(regressionReplicaSetScaled3())
 
-				setLast(regressionDeploymentScaled3())
 				// Timeout. Success.
 				timeout <- time.Now()
 			},
@@ -745,6 +740,7 @@ func Test_Apps_Deployment_MultipleUpdates(t *testing.T) {
 			updateAwaitConfig{
 				createAwaitConfig: mockAwaitConfig(test.inputs()),
 				lastOutputs:       test.outputs(),
+				lastInputs:        test.inputs(),
 			})
 		deployments := make(chan watch.Event)
 		replicaSets := make(chan watch.Event)
@@ -753,10 +749,7 @@ func Test_Apps_Deployment_MultipleUpdates(t *testing.T) {
 
 		timeout := make(chan time.Time)
 		period := make(chan time.Time)
-		go test.firstUpdate(deployments, replicaSets, pods, timeout,
-			func(obj *unstructured.Unstructured) {
-				awaiter.config.lastInputs = obj
-			})
+		go test.firstUpdate(deployments, replicaSets, pods, timeout)
 
 		err := awaiter.await(deployments, replicaSets, pods, pvcs, timeout, period)
 		assert.Nil(t, err, test.description)
