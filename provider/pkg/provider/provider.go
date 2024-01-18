@@ -1303,7 +1303,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 	}
 
 	if !k.serverSideApplyMode && kinds.IsPatchURN(urn) {
-		return nil, fmt.Errorf("patch resources require Server-side Apply mode, which is enabled using the " +
+		return nil, fmt.Errorf("patch resources require Server-Side Apply mode, which is enabled using the " +
 			"`enableServerSideApply` Provider config")
 	}
 
@@ -1343,8 +1343,14 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 
 	if k.serverSideApplyMode && kinds.IsPatchURN(urn) {
 		if len(newInputs.GetName()) == 0 {
-			return nil, fmt.Errorf("patch resources require the resource `.metadata.name` to be set")
+			return nil, fmt.Errorf("patch resources require the `.metadata.name` field to be set")
 		}
+	}
+	if k.serverSideApplyMode && newInputs.GetGenerateName() != "" {
+		return nil, fmt.Errorf("the `.metadata.generateName` field is not supported in Server-Side Apply mode")
+	}
+	if k.yamlRenderMode && newInputs.GetGenerateName() != "" {
+		return nil, fmt.Errorf("the `.metadata.generateName` field is not supported in YAML rendering mode")
 	}
 
 	var failures []*pulumirpc.CheckFailure
@@ -1359,7 +1365,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 	// `Create` will allocate it a new name later.
 	if len(oldInputs.Object) > 0 {
 		// NOTE: If old inputs exist, they MAY have a name, either provided by the user or filled in with a
-		// previous run of `Check`.
+		// previous run of `Check`. They wouldn't have a name if `generateName` was used.
 		metadata.AdoptOldAutonameIfUnnamed(newInputs, oldInputs)
 
 		// If the resource has existing state, we only set the "managed-by: pulumi" label if it is already present. This
@@ -1616,15 +1622,15 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 	patch, err = k.inputPatch(oldLivePruned, newInputs)
 	if err != nil {
 		return nil, pkgerrors.Wrapf(
-			err, "Failed to check for changes in resource %s/%s", newInputs.GetNamespace(), newInputs.GetName())
+			err, "Failed to check for changes in resource %s", urn.Name())
 	}
 
 	patchObj := map[string]any{}
 	if err = json.Unmarshal(patch, &patchObj); err != nil {
 		return nil, pkgerrors.Wrapf(
-			err, "Failed to check for changes in resource %s/%s because of an error serializing "+
+			err, "Failed to check for changes in resource %s because of an error serializing "+
 				"the JSON patch describing resource changes",
-			newInputs.GetNamespace(), newInputs.GetName())
+			urn.Name())
 	}
 
 	hasChanges := pulumirpc.DiffResponse_DIFF_NONE
@@ -1639,9 +1645,9 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 		}
 		if detailedDiff, err = convertPatchToDiff(patchObj, patchBase, newInputs.Object, oldLivePruned.Object, forceNewFields...); err != nil {
 			return nil, pkgerrors.Wrapf(
-				err, "Failed to check for changes in resource %s/%s because of an error "+
+				err, "Failed to check for changes in resource %s because of an error "+
 					"converting JSON patch describing resource changes to a diff",
-				newInputs.GetNamespace(), newInputs.GetName())
+				urn.Name())
 		}
 
 		// Remove any ignored changes from the computed diff.
@@ -1871,10 +1877,15 @@ func (k *kubeProvider) Create(
 			// If it's a "no match" error, this is probably a CustomResource with no corresponding
 			// CustomResourceDefinition. This usually happens if the CRD was not created, and we
 			// print a more useful error message in this case.
+			gvk, err := k.gvkFromURN(urn)
+			if err != nil {
+				return nil, err
+			}
+			gvkStr := gvk.GroupVersion().String() + "/" + gvk.Kind
 			return nil, pkgerrors.Wrapf(
-				awaitErr, "creation of resource %s failed because the Kubernetes API server "+
+				awaitErr, "creation of resource %s with kind %s failed because the Kubernetes API server "+
 					"reported that the apiVersion for this resource does not exist. "+
-					"Verify that any required CRDs have been created", fqObjName(newInputs))
+					"Verify that any required CRDs have been created", urn.Name(), gvkStr)
 		}
 		partialErr, isPartialErr := awaitErr.(await.PartialError)
 		if !isPartialErr {
@@ -1882,7 +1893,7 @@ func (k *kubeProvider) Create(
 
 			return nil, pkgerrors.Wrapf(
 				awaitErr,
-				"resource %s was not successfully created by the Kubernetes API server ", fqObjName(newInputs))
+				"resource %s was not successfully created by the Kubernetes API server ", urn.Name())
 		}
 
 		// Resource was created, but failed to become fully initialized.
@@ -1915,7 +1926,7 @@ func (k *kubeProvider) Create(
 			fqObjName(initialized),
 			pkgerrors.Wrapf(
 				awaitErr, "resource %s was successfully created, but the Kubernetes API server "+
-					"reported that it failed to fully initialize or become live", fqObjName(newInputs)),
+					"reported that it failed to fully initialize or become live", urn.Name()),
 			inputsAndComputed,
 			nil)
 	}
@@ -2349,7 +2360,7 @@ func (k *kubeProvider) Update(
 			return nil, pkgerrors.Wrapf(
 				awaitErr, "update of resource %s failed because the Kubernetes API server "+
 					"reported that the apiVersion for this resource does not exist. "+
-					"Verify that any required CRDs have been created", fqObjName(newInputs))
+					"Verify that any required CRDs have been created", urn.Name())
 		}
 
 		var getErr error
@@ -2358,7 +2369,7 @@ func (k *kubeProvider) Update(
 			// Object update/creation failed.
 			return nil, pkgerrors.Wrapf(
 				awaitErr, "update of resource %s failed because the Kubernetes API server "+
-					"reported that it failed to fully initialize or become live", fqObjName(oldLive))
+					"reported that it failed to fully initialize or become live", urn.Name())
 		}
 		// If we get here, resource successfully registered with the API server, but failed to
 		// initialize.
@@ -3236,6 +3247,7 @@ func renderYaml(resource *unstructured.Unstructured, yamlDirectory string) error
 
 // renderPathForResource determines the appropriate YAML render path depending on the resource kind.
 func renderPathForResource(resource *unstructured.Unstructured, yamlDirectory string) string {
+	contract.Assertf(resource.GetName() != "", "expected object name to be nonempty: %v", resource)
 	crdDirectory := filepath.Join(yamlDirectory, "0-crd")
 	manifestDirectory := filepath.Join(yamlDirectory, "1-manifest")
 

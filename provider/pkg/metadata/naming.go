@@ -24,20 +24,17 @@ import (
 // All auto-named resources get the annotation `pulumi.com/autonamed` for tooling purposes.
 func AssignNameIfAutonamable(randomSeed []byte, obj *unstructured.Unstructured, propMap resource.PropertyMap, urn resource.URN) {
 	contract.Assertf(urn.Name() != "", "expected non-empty name in URN: %s", urn)
-	// Check if the .metadata.name is set and is a computed value. If so, do not auto-name.
 	if md, ok := propMap["metadata"].V.(resource.PropertyMap); ok {
+		// Check if the .metadata.name is set and is a computed value. If so, do not auto-name.
 		if name, ok := md["name"]; ok && name.IsComputed() {
 			return
 		}
+		// Check if the .metadata.generateName is set and is a computed value. If so, do not auto-name.
+		if name, ok := md["generateName"]; ok && name.IsComputed() {
+			return
+		}
 	}
-
-	if obj.GetGenerateName() != "" {
-		// let the Kubernetes API server produce a name.
-		// TODO assign a computed output?
-		return
-	}
-
-	if obj.GetName() == "" {
+	if obj.GetGenerateName() == "" && obj.GetName() == "" {
 		prefix := urn.Name() + "-"
 		autoname, err := resource.NewUniqueName(randomSeed, prefix, 0, 0, nil)
 		contract.AssertNoErrorf(err, "unexpected error while creating NewUniqueName")
