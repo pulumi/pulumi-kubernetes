@@ -1566,7 +1566,9 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 	newInputs := propMapToUnstructured(newResInputs)
 
 	oldInputs, oldLive := parseCheckpointObject(oldState)
-	contract.Assertf(oldLive.GetName() != "", "expected live object name to be nonempty: %v", oldLive)
+	if !isHelmRelease(urn) {
+		contract.Assertf(oldLive.GetName() != "", "expected live object name to be nonempty: %v", oldLive)
+	}
 
 	oldInputs, err = normalizeInputs(oldInputs)
 	if err != nil {
@@ -2134,6 +2136,7 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 		// If we get here, resource successfully registered with the API server, but failed to
 		// initialize.
 	}
+	contract.Assertf(liveObj.GetName() != "", "expected live object name to be nonempty: %v", liveObj)
 
 	// Prune the live inputs to remove properties that are not present in the program inputs.
 	liveInputs := pruneLiveState(liveObj, oldInputs)
@@ -2381,6 +2384,8 @@ func (k *kubeProvider) Update(
 		// If we get here, resource successfully registered with the API server, but failed to
 		// initialize.
 	}
+	contract.Assertf(initialized.GetName() != "", "expected live object name to be nonempty: %v", initialized)
+
 	// Return a new "checkpoint object".
 	obj := checkpointObject(newInputs, initialized, newResInputs, initialAPIVersion, fieldManager)
 	inputsAndComputed, err := plugin.MarshalProperties(
