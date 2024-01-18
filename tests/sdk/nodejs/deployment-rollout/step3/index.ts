@@ -16,10 +16,6 @@ import * as k8s from "@pulumi/kubernetes";
 
 export const namespace = new k8s.core.v1.Namespace("test-namespace");
 
-//
-// Change the image to trigger an update.
-//
-
 const appLabels = { app: "nginx" };
 new k8s.apps.v1.Deployment("nginx", {
   metadata: { namespace: namespace.metadata.name },
