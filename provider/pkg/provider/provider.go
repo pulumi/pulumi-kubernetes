@@ -1615,6 +1615,12 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 	if k.serverSideApplyMode && len(oldLivePruned.GetResourceVersion()) > 0 {
 		oldLivePruned.SetResourceVersion("")
 	}
+	// If a name was specified in the new inputs, be sure that the old live object has the previous name.
+	// This makes it possible to update the program to set `.metadata.name` to the name that was
+	// made by `.metadata.generateName` without triggering replacement.
+	if newInputs.GetName() != "" {
+		oldLivePruned.SetName(oldLive.GetName())
+	}
 
 	var patch []byte
 	patchBase := oldLivePruned.Object
@@ -1719,8 +1725,8 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 		// 1. We know resource must be replaced.
 		len(replaces) > 0 &&
 			// 2. Object is NOT autonamed (i.e., user manually named it, and therefore we can't
-			// auto-generate the name).
-			!(metadata.IsAutonamed(newInputs) || newInputs.GetGenerateName() != "") &&
+			// auto-generate the name on client or server).
+			!(metadata.IsAutonamed(newInputs) || (newInputs.GetGenerateName() != "" && newInputs.GetName() == "")) &&
 			// 3. The new, user-specified name is the same as the old name.
 			newInputs.GetName() == oldLive.GetName() &&
 			// 4. The resource is being deployed to the same namespace (i.e., we aren't creating the

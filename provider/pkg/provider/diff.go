@@ -206,7 +206,6 @@ var statefulSet = append(
 func metadataForceNewProperties(prefix string) properties {
 	return properties{
 		prefix + ".name",
-		prefix + ".generateName",
 		prefix + ".namespace",
 	}
 }
