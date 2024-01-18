@@ -464,6 +464,38 @@ func TestDeploymentRollout(t *testing.T) {
 					assert.Equal(t, image.(string), "nginx:stable")
 				},
 			},
+			{
+				// This is a deployment spec update that causes a no-op replica set update.
+				Dir:      filepath.Join("deployment-rollout", "step3"),
+				Additive: true,
+				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+					assert.NotNil(t, stackInfo.Deployment)
+					assert.Equal(t, 4, len(stackInfo.Deployment.Resources))
+
+					tests.SortResourcesByURN(stackInfo)
+
+					appsv1Deploy := stackInfo.Deployment.Resources[0]
+					namespace := stackInfo.Deployment.Resources[1]
+					provRes := stackInfo.Deployment.Resources[2]
+					stackRes := stackInfo.Deployment.Resources[3]
+
+					assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
+					assert.True(t, providers.IsProviderType(provRes.URN.Type()))
+
+					assert.Equal(t, tokens.Type("kubernetes:core/v1:Namespace"), namespace.URN.Type())
+
+					//
+					// Assert deployment is updated successfully.
+					//
+
+					name, _ := openapi.Pluck(appsv1Deploy.Outputs, "metadata", "name")
+					assert.True(t, strings.Contains(name.(string), "nginx"))
+					containers, _ := openapi.Pluck(appsv1Deploy.Outputs, "spec", "template", "spec", "containers")
+					containerStatus := containers.([]any)[0].(map[string]any)
+					image := containerStatus["image"]
+					assert.Equal(t, image.(string), "nginx:stable")
+				},
+			},
 		},
 	})
 	integration.ProgramTest(t, &test)
