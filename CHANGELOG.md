@@ -1,5 +1,7 @@
 ## Unreleased
 
+- Fix deployment await logic for accurate rollout detection
+
 ## 4.7.0 (January 17, 2024)
 - Fix JSON encoding of KubeVersion and Version on Chart resource (.NET SDK) (https://github.com/pulumi/pulumi-kubernetes/pull/2740)
 - Fix option propagation in component resources (Python SDK) (https://github.com/pulumi/pulumi-kubernetes/pull/2717)
