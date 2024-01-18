@@ -708,6 +708,7 @@ func Test_Apps_Deployment_MultipleUpdates(t *testing.T) {
 	tests := []struct {
 		description string
 		inputs      func() *unstructured.Unstructured
+		outputs     func() *unstructured.Unstructured
 		firstUpdate func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time,
 			setLast setLastInputs)
 		secondUpdate  func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time)
@@ -716,6 +717,7 @@ func Test_Apps_Deployment_MultipleUpdates(t *testing.T) {
 		{
 			description: "Should succeed if replicas are scaled",
 			inputs:      regressionDeploymentScaled3Input,
+			outputs:     regressionDeploymentScaled3,
 			firstUpdate: func(
 				deployments, replicaSets, pods chan watch.Event, timeout chan time.Time,
 				setLast setLastInputs,
@@ -724,7 +726,7 @@ func Test_Apps_Deployment_MultipleUpdates(t *testing.T) {
 				deployments <- watchAddedEvent(computed)
 				replicaSets <- watchAddedEvent(regressionReplicaSetScaled3())
 
-				setLast(regressionDeploymentScaled3Input())
+				setLast(regressionDeploymentScaled3())
 				// Timeout. Success.
 				timeout <- time.Now()
 			},
@@ -742,6 +744,7 @@ func Test_Apps_Deployment_MultipleUpdates(t *testing.T) {
 		awaiter := makeDeploymentInitAwaiter(
 			updateAwaitConfig{
 				createAwaitConfig: mockAwaitConfig(test.inputs()),
+				lastOutputs:       test.outputs(),
 			})
 		deployments := make(chan watch.Event)
 		replicaSets := make(chan watch.Event)
@@ -2128,6 +2131,38 @@ func regressionDeploymentScaled3Input() *unstructured.Unstructured {
     "metadata": {
         "name": "frontend-ur1fwk62",
         "namespace": "default"
+    },
+    "spec": {
+        "selector": { "matchLabels": { "app": "frontend" } },
+        "replicas": 3,
+        "template": {
+            "metadata": { "labels": { "app": "frontend" } },
+            "spec": { "containers": [{
+                "name": "php-redis",
+                "image": "us-docker.pkg.dev/google-samples/containers/gke/gb-frontend:v5",
+                "resources": { "requests": { "cpu": "100m", "memory": "100Mi" } },
+                "env": [{ "name": "GET_HOSTS_FROM", "value": "dns" }],
+                "ports": [{ "containerPort": 80 }]
+            }] }
+        }
+    }
+}`)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+func regressionDeploymentScaled3Output() *unstructured.Unstructured {
+	obj, err := decodeUnstructured(`{
+    "apiVersion": "apps/v1",
+    "kind": "Deployment",
+    "metadata": {
+        "name": "frontend-ur1fwk62",
+        "namespace": "default",
+        "annotations": {
+            "deployment.kubernetes.io/revision": "1"
+        }
     },
     "spec": {
         "selector": { "matchLabels": { "app": "frontend" } },
