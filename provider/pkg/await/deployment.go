@@ -683,23 +683,15 @@ func (dia *deploymentInitAwaiter) checkReplicaSetStatus() {
 	}
 }
 
+// changeTriggeredRollout returns true if the current deployment has a different revision than the last deployment.
+// This is used to determine whether the deployment is rolling out a new revision, which in turn, creates/updates a
+// replica set.
 func (dia *deploymentInitAwaiter) changeTriggeredRollout() bool {
 	if dia.config.lastInputs == nil {
 		return true
 	}
 
-	fields, err := openapi.PropertiesChanged(
-		dia.config.lastInputs.Object, dia.config.currentInputs.Object,
-		[]string{
-			".spec.template.spec",
-		})
-	if err != nil {
-		logger.V(3).Infof("Failed to check whether Pod template for Deployment %q changed",
-			dia.config.currentOutputs.GetName())
-		return false
-	}
-
-	return len(fields) > 0
+	return dia.deployment.GetAnnotations()[revision] != dia.config.lastOutputs.GetAnnotations()[revision]
 }
 
 func (dia *deploymentInitAwaiter) checkPersistentVolumeClaimStatus() {

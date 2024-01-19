@@ -80,19 +80,7 @@ jobs:
 
         git checkout -b update-pulumi/${{ github.run_id }}-${{ github.run_number }}
 
-        cd provider
-
-        go get github.com/pulumi/pulumi/pkg/v3
-
-        go get github.com/pulumi/pulumi/sdk/v3
-
-        cd ../sdk
-
-        go get github.com/pulumi/pulumi/sdk/v3
-
-        cd ..
-
-        make ensure
+        for MODFILE in $(find . -name go.mod); do pushd $(dirname $MODFILE); go get github.com/pulumi/pulumi/pkg/v3 github.com/pulumi/pulumi/sdk/v3; go mod tidy; popd; done
 
         git update-index -q --refresh
 

@@ -263,10 +263,9 @@ func Test_Apps_StatefulSet(t *testing.T) {
 
 func Test_Apps_StatefulSet_MultipleUpdates(t *testing.T) {
 	tests := []struct {
-		description string
-		inputs      func() *unstructured.Unstructured
-		firstUpdate func(statefulsets, pods chan watch.Event, timeout chan time.Time,
-			setLast setLastInputs)
+		description         string
+		inputs              func() *unstructured.Unstructured
+		firstUpdate         func(statefulsets, pods chan watch.Event, timeout chan time.Time)
 		secondUpdate        func(statefulsets, pods chan watch.Event, timeout chan time.Time)
 		firstExpectedError  error
 		secondExpectedError error
@@ -276,11 +275,9 @@ func Test_Apps_StatefulSet_MultipleUpdates(t *testing.T) {
 			inputs:      statefulsetFailed,
 			firstUpdate: func(
 				statefulsets, pods chan watch.Event, timeout chan time.Time,
-				setLast setLastInputs,
 			) {
 				statefulsets <- watchAddedEvent(statefulsetFailed())
 
-				setLast(statefulsetFailed())
 				// Timeout. Failed.
 				timeout <- time.Now()
 			},
@@ -303,16 +300,14 @@ func Test_Apps_StatefulSet_MultipleUpdates(t *testing.T) {
 		awaiter := makeStatefulSetInitAwaiter(
 			updateAwaitConfig{
 				createAwaitConfig: mockAwaitConfig(test.inputs()),
+				lastInputs:        statefulsetFailed(),
 			})
 		statefulsets := make(chan watch.Event)
 		pods := make(chan watch.Event)
 
 		timeout := make(chan time.Time)
 		period := make(chan time.Time)
-		go test.firstUpdate(statefulsets, pods, timeout,
-			func(obj *unstructured.Unstructured) {
-				awaiter.config.lastInputs = obj
-			})
+		go test.firstUpdate(statefulsets, pods, timeout)
 
 		err := awaiter.await(statefulsets, pods, timeout, period)
 		assert.Equal(t, test.firstExpectedError, err, test.description)
