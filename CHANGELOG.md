@@ -1,5 +1,7 @@
 ## Unreleased
 
+## 4.7.1 (January 17, 2024)
+
 - Fix deployment await logic for accurate rollout detection
 
 ## 4.7.0 (January 17, 2024)
