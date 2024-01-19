@@ -1,4 +1,5 @@
 ## Unreleased
+- Support for metadata.generateName (https://github.com/pulumi/pulumi-kubernetes/pull/2594)
 
 ## 4.7.1 (January 17, 2024)
 
