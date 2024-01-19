@@ -266,7 +266,7 @@ func Test_Apps_StatefulSet_MultipleUpdates(t *testing.T) {
 		description string
 		inputs      func() *unstructured.Unstructured
 		firstUpdate func(statefulsets, pods chan watch.Event, timeout chan time.Time,
-			setLast setLastOutputs)
+			setLast setLastInputs)
 		secondUpdate        func(statefulsets, pods chan watch.Event, timeout chan time.Time)
 		firstExpectedError  error
 		secondExpectedError error
@@ -276,7 +276,7 @@ func Test_Apps_StatefulSet_MultipleUpdates(t *testing.T) {
 			inputs:      statefulsetFailed,
 			firstUpdate: func(
 				statefulsets, pods chan watch.Event, timeout chan time.Time,
-				setLast setLastOutputs,
+				setLast setLastInputs,
 			) {
 				statefulsets <- watchAddedEvent(statefulsetFailed())
 
@@ -311,7 +311,7 @@ func Test_Apps_StatefulSet_MultipleUpdates(t *testing.T) {
 		period := make(chan time.Time)
 		go test.firstUpdate(statefulsets, pods, timeout,
 			func(obj *unstructured.Unstructured) {
-				awaiter.config.lastOutputs = obj
+				awaiter.config.lastInputs = obj
 			})
 
 		err := awaiter.await(statefulsets, pods, timeout, period)

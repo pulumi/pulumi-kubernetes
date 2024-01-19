@@ -101,6 +101,7 @@ type UpdateConfig struct {
 
 type DeleteConfig struct {
 	ProviderConfig
+	Inputs  *unstructured.Unstructured
 	Outputs *unstructured.Unstructured
 	Name    string
 	Timeout float64
@@ -261,6 +262,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 					urn:               c.URN,
 					initialAPIVersion: c.InitialAPIVersion,
 					clientSet:         c.ClientSet,
+					currentInputs:     c.Inputs,
 					currentOutputs:    outputs,
 					logger:            c.DedupLogger,
 					timeout:           c.Timeout,
@@ -315,6 +317,7 @@ func Read(c ReadConfig) (*unstructured.Unstructured, error) {
 					urn:               c.URN,
 					initialAPIVersion: c.InitialAPIVersion,
 					clientSet:         c.ClientSet,
+					currentInputs:     c.Inputs,
 					currentOutputs:    outputs,
 					logger:            c.DedupLogger,
 					clusterVersion:    c.ClusterVersion,
@@ -389,11 +392,13 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 						urn:               c.URN,
 						initialAPIVersion: c.InitialAPIVersion,
 						clientSet:         c.ClientSet,
+						currentInputs:     c.Inputs,
 						currentOutputs:    currentOutputs,
 						logger:            c.DedupLogger,
 						timeout:           c.Timeout,
 						clusterVersion:    c.ClusterVersion,
 					},
+					lastInputs:  c.OldInputs,
 					lastOutputs: liveOldObj,
 				}
 				waitErr := awaiter.awaitUpdate(conf)
@@ -714,7 +719,7 @@ func Deletion(c DeleteConfig) error {
 		return err
 	}
 
-	timeout := metadata.TimeoutDuration(c.Timeout, c.Outputs, 300)
+	timeout := metadata.TimeoutDuration(c.Timeout, c.Inputs, 300)
 	timeoutSeconds := int64(timeout.Seconds())
 	listOpts := metav1.ListOptions{
 		FieldSelector:  fields.OneTermEqualSelector("metadata.name", c.Name).String(),
@@ -738,7 +743,7 @@ func Deletion(c DeleteConfig) error {
 	var waitErr error
 	id := fmt.Sprintf("%s/%s", c.Outputs.GetAPIVersion(), c.Outputs.GetKind())
 	if awaiter, exists := awaiters[id]; exists && awaiter.awaitDeletion != nil {
-		if metadata.SkipAwaitLogic(c.Outputs) {
+		if metadata.SkipAwaitLogic(c.Inputs) {
 			logger.V(1).Infof("Skipping await logic for %v", c.Name)
 		} else {
 			waitErr = awaiter.awaitDeletion(deleteAwaitConfig{
@@ -748,6 +753,7 @@ func Deletion(c DeleteConfig) error {
 					urn:               c.URN,
 					initialAPIVersion: c.InitialAPIVersion,
 					clientSet:         c.ClientSet,
+					currentInputs:     c.Inputs,
 					currentOutputs:    c.Outputs,
 					logger:            c.DedupLogger,
 					timeout:           c.Timeout,

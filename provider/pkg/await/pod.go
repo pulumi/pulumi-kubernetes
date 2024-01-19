@@ -160,7 +160,7 @@ func (pia *podInitAwaiter) Await() error {
 	}
 	go podInformer.Informer().Run(stopper)
 
-	timeout := metadata.TimeoutDuration(pia.config.timeout, pia.config.currentOutputs, DefaultPodTimeoutMins*60)
+	timeout := metadata.TimeoutDuration(pia.config.timeout, pia.config.currentInputs, DefaultPodTimeoutMins*60)
 	for {
 		if pia.ready {
 			return nil

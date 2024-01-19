@@ -156,7 +156,7 @@ func (sia *serviceInitAwaiter) Await() error {
 
 	version := cluster.TryGetServerVersion(sia.config.clientSet.DiscoveryClientCached)
 
-	timeout := metadata.TimeoutDuration(sia.config.timeout, sia.config.currentOutputs, DefaultServiceTimeoutMins*60)
+	timeout := metadata.TimeoutDuration(sia.config.timeout, sia.config.currentInputs, DefaultServiceTimeoutMins*60)
 	return sia.await(serviceEvents, endpointsEvents, time.After(timeout), make(chan struct{}), version)
 }
 
@@ -273,7 +273,7 @@ func (sia *serviceInitAwaiter) await(
 }
 
 func (sia *serviceInitAwaiter) processServiceEvent(event watch.Event) {
-	serviceName := sia.config.currentOutputs.GetName()
+	inputServiceName := sia.config.currentOutputs.GetName()
 
 	service, isUnstructured := event.Object.(*unstructured.Unstructured)
 	if !isUnstructured {
@@ -283,7 +283,7 @@ func (sia *serviceInitAwaiter) processServiceEvent(event watch.Event) {
 	}
 
 	// Do nothing if this is not the service we're waiting for.
-	if service.GetName() != serviceName {
+	if service.GetName() != inputServiceName {
 		return
 	}
 
@@ -302,14 +302,14 @@ func (sia *serviceInitAwaiter) processServiceEvent(event watch.Event) {
 		lbIngress, _ := openapi.Pluck(service.Object, "status", "loadBalancer", "ingress")
 		status, _ := openapi.Pluck(service.Object, "status")
 
-		logger.V(3).Infof("Received status for service %q: %#v", serviceName, status)
+		logger.V(3).Infof("Received status for service %q: %#v", inputServiceName, status)
 		ing, isSlice := lbIngress.([]any)
 
 		// Update status of service object so that we can check success.
 		sia.serviceReady = isSlice && len(ing) > 0
 
 		logger.V(3).Infof("Waiting for service %q to assign IP/hostname for a load balancer",
-			serviceName)
+			inputServiceName)
 	} else {
 		// If it's not type `LoadBalancer`, report success.
 		sia.serviceReady = true

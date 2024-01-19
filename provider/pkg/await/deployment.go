@@ -228,7 +228,7 @@ func (dia *deploymentInitAwaiter) Await() error {
 	aggregateErrorTicker := time.NewTicker(10 * time.Second)
 	defer aggregateErrorTicker.Stop()
 
-	timeout := metadata.TimeoutDuration(dia.config.timeout, dia.config.currentOutputs, DefaultDeploymentTimeoutMins*60)
+	timeout := metadata.TimeoutDuration(dia.config.timeout, dia.config.currentInputs, DefaultDeploymentTimeoutMins*60)
 
 	return dia.await(
 		deploymentEvents,
@@ -416,7 +416,7 @@ func (dia *deploymentInitAwaiter) checkAndLogStatus() bool {
 }
 
 func (dia *deploymentInitAwaiter) processDeploymentEvent(event watch.Event) {
-	currentDeploymentName := dia.config.currentOutputs.GetName()
+	inputDeploymentName := dia.config.currentOutputs.GetName()
 
 	deployment, isUnstructured := event.Object.(*unstructured.Unstructured)
 	if !isUnstructured {
@@ -429,7 +429,7 @@ func (dia *deploymentInitAwaiter) processDeploymentEvent(event watch.Event) {
 	dia.deploymentErrors = map[string]string{}
 
 	// Do nothing if this is not the Deployment we're waiting for.
-	if deployment.GetName() != currentDeploymentName {
+	if deployment.GetName() != inputDeploymentName {
 		return
 	}
 
@@ -560,9 +560,7 @@ func (dia *deploymentInitAwaiter) processReplicaSetEvent(event watch.Event) {
 }
 
 func (dia *deploymentInitAwaiter) checkReplicaSetStatus() {
-	outputs := dia.config.currentOutputs
-
-	logger.V(3).Infof("Checking ReplicaSet status for Deployment %q", outputs.GetName())
+	logger.V(3).Infof("Checking ReplicaSet status for Deployment %q", dia.config.currentOutputs.GetName())
 
 	rs, updatedReplicaSetCreated := dia.replicaSets[dia.replicaSetGeneration]
 	if dia.replicaSetGeneration == "0" || !updatedReplicaSetCreated {
@@ -570,14 +568,14 @@ func (dia *deploymentInitAwaiter) checkReplicaSetStatus() {
 	}
 
 	logger.V(3).Infof("Deployment %q has generation %q, which corresponds to ReplicaSet %q",
-		outputs.GetName(), dia.replicaSetGeneration, rs.GetName())
+		dia.config.currentOutputs.GetName(), dia.replicaSetGeneration, rs.GetName())
 
 	var lastRevision string
 	if outputs := dia.config.lastOutputs; outputs != nil {
 		lastRevision = outputs.GetAnnotations()[revision]
 	}
 
-	logger.V(3).Infof("The last generation of Deployment %q was %q", outputs.GetName(), lastRevision)
+	logger.V(3).Infof("The last generation of Deployment %q was %q", dia.config.currentOutputs.GetName(), lastRevision)
 
 	// NOTE: Check `.spec.replicas` in the live `ReplicaSet` instead of the last input `Deployment`,
 	// since this is the plan of record. This protects against (e.g.) a user running `kubectl scale`
@@ -686,12 +684,12 @@ func (dia *deploymentInitAwaiter) checkReplicaSetStatus() {
 }
 
 func (dia *deploymentInitAwaiter) changeTriggeredRollout() bool {
-	if dia.config.lastOutputs == nil {
+	if dia.config.lastInputs == nil {
 		return true
 	}
 
 	fields, err := openapi.PropertiesChanged(
-		dia.config.lastOutputs.Object, dia.config.currentOutputs.Object,
+		dia.config.lastInputs.Object, dia.config.currentInputs.Object,
 		[]string{
 			".spec.template.spec",
 		})
@@ -705,9 +703,7 @@ func (dia *deploymentInitAwaiter) changeTriggeredRollout() bool {
 }
 
 func (dia *deploymentInitAwaiter) checkPersistentVolumeClaimStatus() {
-	currentOutputs := dia.config.currentOutputs
-
-	logger.V(3).Infof("Checking PersistentVolumeClaims status for Deployment %q", currentOutputs.GetName())
+	logger.V(3).Infof("Checking PersistentVolumeClaims status for Deployment %q", dia.config.currentOutputs.GetName())
 
 	allPVCsReady := true
 	for _, pvc := range dia.pvcs {

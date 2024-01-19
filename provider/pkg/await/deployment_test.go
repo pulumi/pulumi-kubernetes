@@ -702,14 +702,14 @@ func Test_Apps_Deployment_Without_PersistentVolumeClaims(t *testing.T) {
 	}
 }
 
-type setLastOutputs func(obj *unstructured.Unstructured)
+type setLastInputs func(obj *unstructured.Unstructured)
 
 func Test_Apps_Deployment_MultipleUpdates(t *testing.T) {
 	tests := []struct {
 		description string
 		inputs      func() *unstructured.Unstructured
 		firstUpdate func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time,
-			setLast setLastOutputs)
+			setLast setLastInputs)
 		secondUpdate  func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time)
 		expectedError error
 	}{
@@ -718,13 +718,13 @@ func Test_Apps_Deployment_MultipleUpdates(t *testing.T) {
 			inputs:      regressionDeploymentScaled3Input,
 			firstUpdate: func(
 				deployments, replicaSets, pods chan watch.Event, timeout chan time.Time,
-				setLast setLastOutputs,
+				setLast setLastInputs,
 			) {
 				computed := regressionDeploymentScaled3()
 				deployments <- watchAddedEvent(computed)
 				replicaSets <- watchAddedEvent(regressionReplicaSetScaled3())
 
-				setLast(computed)
+				setLast(regressionDeploymentScaled3Input())
 				// Timeout. Success.
 				timeout <- time.Now()
 			},
@@ -752,7 +752,7 @@ func Test_Apps_Deployment_MultipleUpdates(t *testing.T) {
 		period := make(chan time.Time)
 		go test.firstUpdate(deployments, replicaSets, pods, timeout,
 			func(obj *unstructured.Unstructured) {
-				awaiter.config.lastOutputs = obj
+				awaiter.config.lastInputs = obj
 			})
 
 		err := awaiter.await(deployments, replicaSets, pods, pvcs, timeout, period)
