@@ -23,7 +23,7 @@ const namespace = new k8s.core.v1.Namespace("test-namespace");
 // The `.metadata.generateName` field has changed, but Pulumi does NOT automatically replace in that situation.
 //
 
-export const pod = new k8s.core.v1.Pod("generatename-test", {
+const pod = new k8s.core.v1.Pod("generatename-test", {
   metadata: {
     namespace: namespace.metadata.name,
     generateName: "generatename-test-modified-",

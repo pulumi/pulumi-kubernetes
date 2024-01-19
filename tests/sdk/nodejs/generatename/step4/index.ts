@@ -24,7 +24,7 @@ const namespace = new k8s.core.v1.Namespace("test-namespace");
 // in-place, and the name should not be changed.
 //
 
-export const pod = new k8s.core.v1.Pod("generatename-test", {
+const pod = new k8s.core.v1.Pod("generatename-test", {
   metadata: {
     namespace: namespace.metadata.name,
     generateName: "generatename-test-modified-",

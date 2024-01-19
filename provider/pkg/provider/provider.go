@@ -1346,12 +1346,6 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 			return nil, fmt.Errorf("patch resources require the `.metadata.name` field to be set")
 		}
 	}
-	if k.serverSideApplyMode && newInputs.GetGenerateName() != "" {
-		return nil, fmt.Errorf("the `.metadata.generateName` field is not supported in Server-Side Apply mode")
-	}
-	if k.yamlRenderMode && newInputs.GetGenerateName() != "" {
-		return nil, fmt.Errorf("the `.metadata.generateName` field is not supported in YAML rendering mode")
-	}
 
 	var failures []*pulumirpc.CheckFailure
 
@@ -1364,9 +1358,9 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 	// needs to be `DeleteBeforeReplace`'d. If the resource is marked `DeleteBeforeReplace`, then
 	// `Create` will allocate it a new name later.
 	if len(oldInputs.Object) > 0 {
-		// NOTE: If old inputs exist, they MAY have a name, either provided by the user or filled in with a
-		// previous run of `Check`. They wouldn't have a name if `generateName` was used.
-		metadata.AdoptOldAutonameIfUnnamed(newInputs, oldInputs)
+		// NOTE: If old inputs exist, they MAY have a name, either provided by the user, or based on generateName,
+		// or filled in with a previous run of `Check`.
+		metadata.AdoptOldAutonameIfUnnamed(newInputs, oldInputs, news)
 
 		// If the resource has existing state, we only set the "managed-by: pulumi" label if it is already present. This
 		// avoids causing diffs for cases where the resource is being imported, or was created using SSA. The goal in
@@ -1389,6 +1383,14 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 				return nil, pkgerrors.Wrapf(err,
 					"Failed to create object because of a problem setting managed-by labels")
 			}
+		}
+	}
+	if metadata.IsGenerateName(newInputs, news) {
+		if k.serverSideApplyMode {
+			return nil, fmt.Errorf("the `.metadata.generateName` field is not supported in Server-Side Apply mode")
+		}
+		if k.yamlRenderMode {
+			return nil, fmt.Errorf("the `.metadata.generateName` field is not supported in YAML rendering mode")
 		}
 	}
 
@@ -1728,7 +1730,7 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 		len(replaces) > 0 &&
 			// 2. Object is NOT autonamed (i.e., user manually named it, and therefore we can't
 			// auto-generate the name on client or server).
-			!(metadata.IsAutonamed(newInputs) || (newInputs.GetGenerateName() != "" && newInputs.GetName() == "")) &&
+			!(metadata.IsAutonamed(newInputs) || metadata.IsGenerateName(newInputs, newResInputs)) &&
 			// 3. The new, user-specified name is the same as the old name.
 			newInputs.GetName() == oldLive.GetName() &&
 			// 4. The resource is being deployed to the same namespace (i.e., we aren't creating the

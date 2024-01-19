@@ -14,14 +14,14 @@
 
 import * as k8s from "@pulumi/kubernetes";
 
-export const namespace = new k8s.core.v1.Namespace("test-namespace");
+const namespace = new k8s.core.v1.Namespace("test-namespace");
 
 //
 // Only the labels have changed, so no replace is triggered. Pulumi should update the object
 // in-place, and the name should not be changed.
 //
 
-const pod = new k8s.core.v1.Pod("autonaming-test", {
+export const pod = new k8s.core.v1.Pod("autonaming-test", {
   metadata: {
     namespace: namespace.metadata.name,
     labels: {app: "autonaming-test"},

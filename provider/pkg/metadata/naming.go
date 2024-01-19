@@ -45,14 +45,45 @@ func AssignNameIfAutonamable(randomSeed []byte, obj *unstructured.Unstructured, 
 
 // AdoptOldAutonameIfUnnamed checks if `newObj` has a name, and if not, "adopts" the name of `oldObj`
 // instead. If `oldObj` was autonamed, then we mark `newObj` as autonamed, too.
-func AdoptOldAutonameIfUnnamed(newObj, oldObj *unstructured.Unstructured) {
-	if newObj.GetName() == "" && newObj.GetGenerateName() == "" && IsAutonamed(oldObj) {
+// Note that autonaming is preferred over generateName for backwards compatibility.
+func AdoptOldAutonameIfUnnamed(newObj, oldObj *unstructured.Unstructured, newObjMap resource.PropertyMap) {
+	if md, ok := newObjMap["metadata"].V.(resource.PropertyMap); ok {
+		// Check if the .metadata.name is set and is a computed value. If so, do not auto-name.
+		if name, ok := md["name"]; ok && name.IsComputed() {
+			return
+		}
+	}
+	if newObj.GetName() == "" && IsAutonamed(oldObj) {
 		contract.Assertf(oldObj.GetName() != "", "expected nonempty name for object: %s", oldObj)
 		newObj.SetName(oldObj.GetName())
 		SetAnnotationTrue(newObj, AnnotationAutonamed)
 	}
 }
 
+// IsAutonamed checks if the object is auto-named by Pulumi.
 func IsAutonamed(obj *unstructured.Unstructured) bool {
 	return IsAnnotationTrue(obj, AnnotationAutonamed)
+}
+
+// IsGenerateName checks if the object is auto-named by Kubernetes.
+func IsGenerateName(obj *unstructured.Unstructured, propMap resource.PropertyMap) bool {
+	if IsNamed(obj, propMap) {
+		return false
+	}
+	if md, ok := propMap["metadata"].V.(resource.PropertyMap); ok {
+		if name, ok := md["generateName"]; ok && name.IsComputed() {
+			return true
+		}
+	}
+	return obj.GetGenerateName() != ""
+}
+
+// IsNamed checks if the object has an assigned name (may be a known or computed value).
+func IsNamed(obj *unstructured.Unstructured, propMap resource.PropertyMap) bool {
+	if md, ok := propMap["metadata"].V.(resource.PropertyMap); ok {
+		if name, ok := md["name"]; ok && name.IsComputed() {
+			return true
+		}
+	}
+	return obj.GetName() != ""
 }

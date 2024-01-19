@@ -112,6 +112,7 @@ func TestAutonaming(t *testing.T) {
 	var step1Name any
 	var step2Name any
 	var step3Name any
+	var step4Name any
 
 	test := baseOptions.With(integration.ProgramTestOptions{
 		Dir:   filepath.Join("autonaming", "step1"),
@@ -203,6 +204,36 @@ func TestAutonaming(t *testing.T) {
 			},
 			{
 				Dir:      filepath.Join("autonaming", "step4"),
+				Additive: true,
+				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+					assert.NotNil(t, stackInfo.Deployment)
+					assert.Equal(t, 4, len(stackInfo.Deployment.Resources))
+
+					tests.SortResourcesByURN(stackInfo)
+
+					stackRes := stackInfo.Deployment.Resources[3]
+					assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
+
+					provRes := stackInfo.Deployment.Resources[2]
+					assert.True(t, providers.IsProviderType(provRes.URN.Type()))
+
+					//
+					// Assert Pod was NOT replaced, and has the same name, previously allocated by Pulumi.
+					//
+
+					pod := stackInfo.Deployment.Resources[1]
+					assert.Equal(t, "autonaming-test", string(pod.URN.Name()))
+					step4Name, _ = openapi.Pluck(pod.Outputs, "metadata", "name")
+					assert.True(t, strings.HasPrefix(step4Name.(string), "autonaming-test-"))
+
+					autonamed, _ := openapi.Pluck(pod.Outputs, "metadata", "annotations", "pulumi.com/autonamed")
+					assert.Equal(t, "true", autonamed)
+
+					assert.Equal(t, step3Name, step4Name)
+				},
+			},
+			{
+				Dir:      filepath.Join("autonaming", "step5"),
 				Additive: true,
 				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 					assert.NotNil(t, stackInfo.Deployment)

@@ -21,10 +21,10 @@ const namespace = new k8s.core.v1.Namespace("test-namespace");
 
 //
 // User has now specified `.metadata.name`, so Pulumi should replace the resource, and NOT allocate
-// a name to it.
+// a name to it.  Note that `.metadata.generateName` is ignored.
 //
 
-export const pod = new k8s.core.v1.Pod("generatename-test", {
+const pod = new k8s.core.v1.Pod("generatename-test", {
   metadata: {
     namespace: namespace.metadata.name,
     generateName: "generatename-test-modified-",

@@ -25,7 +25,7 @@ const namespace = new k8s.core.v1.Namespace("test-namespace");
 // Pulumi will proceed with replace-before-delete.
 //
 
-export const pod = new k8s.core.v1.Pod("generatename-test", {
+const pod = new k8s.core.v1.Pod("generatename-test", {
   metadata: {
     namespace: namespace.metadata.name,
     generateName: "generatename-test-modified-",
