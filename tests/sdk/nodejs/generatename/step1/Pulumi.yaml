@@ -1,0 +1,5 @@
+name: generatename-test
+description: A program that tests support for `.metadata.generateName`.
+runtime: nodejs
+config:
+  kubernetes:enableServerSideApply: false
