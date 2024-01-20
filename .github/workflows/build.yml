@@ -603,7 +603,7 @@ jobs:
       run: gcloud --quiet auth configure-docker
     - name: Set stack name in output
       id: stackname
-      run: echo '::set-output name=stack-name::${{ env.PULUMI_TEST_OWNER }}/${{
+      run: echo 'stack-name=${{ env.PULUMI_TEST_OWNER }}/${{ >> "$GITHUB_OUTPUT"
         github.sha }}-${{ github.run_id }}-${{ github.run_attempt }}'
     - name: Create test infrastructure
       run: ./scripts/ci-cluster-create.sh ${{ steps.stackname.outputs.stack-name }}
