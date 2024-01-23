@@ -159,7 +159,7 @@ var _ pulumirpc.ResourceProviderServer = (*kubeProvider)(nil)
 
 func makeKubeProvider(
 	host *provider.HostClient, name, version string, pulumiSchema, terraformMapping []byte,
-) (pulumirpc.ResourceProviderServer, error) {
+) (*kubeProvider, error) {
 	return &kubeProvider{
 		host:                        host,
 		canceler:                    makeCancellationContext(),

@@ -26,3 +26,5 @@ sdk/java/gradlew
 sdk/java/gradlew.bat
 
 sdk/python/venv
+
+coverage/
