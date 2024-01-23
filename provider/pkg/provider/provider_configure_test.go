@@ -152,7 +152,7 @@ var _ = Describe("RPC:Configure", func() {
 	})
 
 	It("should return a response detailing the provider's capabilities", func() {
-		r, err := k.Configure(context.Background(), &pulumirpc.ConfigureRequest{})
+		r, err := k.Configure(context.Background(), req)
 		Expect(err).ShouldNot(HaveOccurred())
 		Expect(r.AcceptSecrets).Should(BeTrue())
 		Expect(r.SupportsPreview).Should(BeTrue())
