@@ -20,32 +20,31 @@ import (
 	_ "embed"
 	"fmt"
 	"log"
-	"os"
 	"os/user"
 	"path/filepath"
+	"testing"
 
 	pbempty "github.com/golang/protobuf/ptypes/empty"
-	. "github.com/onsi/ginkgo/v2"
-	. "github.com/onsi/gomega"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"google.golang.org/grpc"
 	"k8s.io/client-go/tools/clientcmd"
 
 	"github.com/pulumi/pulumi/pkg/v3/resource/provider"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/rpcutil"
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
-	clientcmdapi "k8s.io/client-go/tools/clientcmd/api"
 )
 
 // A mock engine for test purposes.
 type mockEngine struct {
 	pulumirpc.UnsafeEngineServer
-	t            TestingTB
+	t            testing.TB
 	logger       *log.Logger
 	rootResource string
 }
 
 // Log logs a global message in the engine, including errors and warnings.
-func (m *mockEngine) Log(ctx context.Context, in *pulumirpc.LogRequest) (*pbempty.Empty, error) {
+func (m *mockEngine) Log(_ context.Context, in *pulumirpc.LogRequest) (*pbempty.Empty, error) {
 	m.t.Logf("%s: %s", in.GetSeverity(), in.GetMessage())
 	if m.logger != nil {
 		m.logger.Printf("%s: %s", in.GetSeverity(), in.GetMessage())
@@ -55,14 +54,14 @@ func (m *mockEngine) Log(ctx context.Context, in *pulumirpc.LogRequest) (*pbempt
 
 // GetRootResource gets the URN of the root resource, the resource that should be the root of all
 // otherwise-unparented resources.
-func (m *mockEngine) GetRootResource(ctx context.Context, in *pulumirpc.GetRootResourceRequest) (*pulumirpc.GetRootResourceResponse, error) {
+func (m *mockEngine) GetRootResource(_ context.Context, _ *pulumirpc.GetRootResourceRequest) (*pulumirpc.GetRootResourceResponse, error) {
 	return &pulumirpc.GetRootResourceResponse{
 		Urn: m.rootResource,
 	}, nil
 }
 
 // SetRootResource sets the URN of the root resource.
-func (m *mockEngine) SetRootResource(ctx context.Context, in *pulumirpc.SetRootResourceRequest) (*pulumirpc.SetRootResourceResponse, error) {
+func (m *mockEngine) SetRootResource(_ context.Context, in *pulumirpc.SetRootResourceRequest) (*pulumirpc.SetRootResourceResponse, error) {
 	m.rootResource = in.GetUrn()
 	return &pulumirpc.SetRootResourceResponse{}, nil
 }
@@ -102,224 +101,167 @@ func newMockHost(ctx context.Context, engine pulumirpc.EngineServer) *provider.H
 	return hostClient
 }
 
-type providerTestContext struct {
-	engine *mockEngine
-	host   *provider.HostClient
-}
-
-func (c *providerTestContext) NewProvider() (*kubeProvider, error) {
-	var pulumiSchema []byte
-	var terraformMapping []byte
-	return makeKubeProvider(c.host, "kubernetes", "v0.0.0", pulumiSchema, terraformMapping)
-}
-
-var pctx *providerTestContext
-
-var _ = BeforeSuite(func() {
+func newProvider(t *testing.T) *kubeProvider {
 	var buff bytes.Buffer
 	engine := &mockEngine{
-		t:      GinkgoT(),
+		t:      t,
 		logger: log.New(&buff, "\t", 0),
 	}
-	// t.Cleanup(func() {
-	// 	log.Default().Printf("Engine Log:\n%s", buff.String())
-	// })
+	t.Cleanup(func() {
+		log.Default().Printf("Engine Log:\n%s", buff.String())
+	})
 	ctx, cancel := context.WithCancel(context.Background())
+	t.Cleanup(cancel)
+
 	host := newMockHost(ctx, engine)
-	DeferCleanup(func() {
-		cancel()
-	})
 
-	pctx = &providerTestContext{
-		engine: engine,
-		host:   host,
-	}
-})
+	var terraformMapping []byte
+	var pulumiSchema []byte
+	k, err := makeKubeProvider(host, "kubernetes", "v0.0.0", pulumiSchema, terraformMapping)
+	require.NoError(t, err)
+	return k
+}
 
-var _ = Describe("RPC:Configure", func() {
-	var k *kubeProvider
-	var req *pulumirpc.ConfigureRequest
+func TestConfigure(t *testing.T) {
+	t.Run("should return a response detailing the provider's capabilities", func(t *testing.T) {
+		t.Parallel()
 
-	BeforeEach(func() {
-		var err error
-		k, err = pctx.NewProvider()
-		Expect(err).ShouldNot(HaveOccurred())
-
-		req = &pulumirpc.ConfigureRequest{
-			AcceptSecrets: true,
-			Variables:     map[string]string{},
-		}
-	})
-
-	It("should return a response detailing the provider's capabilities", func() {
+		k := newProvider(t)
 		r, err := k.Configure(context.Background(), &pulumirpc.ConfigureRequest{})
-		Expect(err).ShouldNot(HaveOccurred())
-		Expect(r.AcceptSecrets).Should(BeTrue())
-		Expect(r.SupportsPreview).Should(BeTrue())
-		Expect(r.AcceptResources).Should(BeFalse())
-		Expect(r.AcceptOutputs).Should(BeFalse())
+		assert.NoError(t, err)
+		assert.True(t, r.AcceptSecrets)
+		assert.True(t, r.SupportsPreview)
+		assert.True(t, r.AcceptResources)
+		assert.True(t, r.AcceptOutputs)
 	})
 
-	Describe("Secrets Support", func() {
-		Context("when configured to support secrets", func() {
-			BeforeEach(func() {
-				req.AcceptSecrets = true
-			})
-			It("should enable secrets support in subsequent RPC methods", func() {
-				_, err := k.Configure(context.Background(), req)
-				Expect(err).ShouldNot(HaveOccurred())
-				Expect(k.enableSecrets).Should(BeTrue())
-			})
-		})
+	t.Run("secret support", func(t *testing.T) {
+		t.Parallel()
 
-		Context("when configured to NOT support secrets", func() {
-			BeforeEach(func() {
-				req.AcceptSecrets = false
-			})
-			It("should not enable secrets support in subsequent RPC methods", func() {
-				_, err := k.Configure(context.Background(), req)
-				Expect(err).ShouldNot(HaveOccurred())
-				Expect(k.enableSecrets).Should(BeFalse())
-			})
-		})
+		tests := []struct {
+			name string
+			req  *pulumirpc.ConfigureRequest
+			want bool
+		}{
+			{
+				name: "should persist true",
+				req:  &pulumirpc.ConfigureRequest{AcceptSecrets: true},
+				want: true,
+			},
+			{
+				name: "should persist false",
+				req:  &pulumirpc.ConfigureRequest{AcceptSecrets: false},
+				want: false,
+			},
+		}
+		for _, tt := range tests {
+			k := newProvider(t)
+			_, err := k.Configure(context.Background(), tt.req)
+			assert.NoError(t, err)
+			assert.Equal(t, tt.want, k.enableSecrets)
+		}
 	})
 
-	Describe("Connectivity", func() {
-		var config *clientcmdapi.Config
+	t.Run("connectivity", func(t *testing.T) {
+		t.Parallel()
 
-		BeforeEach(func() {
-			var err error
-			homeDir := func() string {
-				// Ignore errors. The filepath will be checked later, so we can handle failures there.
-				usr, _ := user.Current()
-				return usr.HomeDir
-			}
-			// load the ambient kubeconfig for test purposes
-			config, err = clientcmd.LoadFromFile(filepath.Join(homeDir(), "/.kube/config"))
-			Expect(err).ToNot(HaveOccurred())
-		})
+		homeDir := func() string {
+			// Ignore errors. The filepath will be checked later, so we can handle failures there.
+			usr, _ := user.Current()
+			return usr.HomeDir
+		}
+		// load the ambient kubeconfig for test purposes
+		config, err := clientcmd.LoadFromFile(filepath.Join(homeDir(), "/.kube/config"))
+		require.NoError(t, err)
+		contents, err := clientcmd.Write(*config)
+		require.NoError(t, err)
 
-		commonChecks := func() {
-			Context("when configured to use a particular namespace", func() {
-				JustBeforeEach(func() {
-					req.Variables["kubernetes:config:namespace"] = "testns"
-				})
-				It("should use the configured namespace as the default namespace", func() {
-					_, err := k.Configure(context.Background(), req)
-					Expect(err).ShouldNot(HaveOccurred())
-					Expect(k.defaultNamespace).To(Equal("testns"))
-				})
-			})
+		tests := []struct {
+			name            string
+			req             *pulumirpc.ConfigureRequest
+			wantUnreachable bool
+		}{
+			{
+				name: "ambient kubeconfig",
+				req:  &pulumirpc.ConfigureRequest{},
+			},
+			{
+				name: "invalid kubeconfig literal",
+				req: &pulumirpc.ConfigureRequest{
+					Variables: map[string]string{"kubernetes:config:kubeconfig": "invalid"},
+				},
+				wantUnreachable: true,
+			},
+			{
+				name: "valid kubeconfig literal",
+
+				req: &pulumirpc.ConfigureRequest{
+					Variables: map[string]string{"kubernetes:config:kubeconfig": string(contents)},
+				},
+			},
+			{
+				name: "non-existent config file",
+				req: &pulumirpc.ConfigureRequest{
+					Variables: map[string]string{"kubernetes:config:kubeconfig": "./nosuchfile"},
+				},
+				wantUnreachable: true,
+			},
+			{
+				name: "invalid config file",
+				req: &pulumirpc.ConfigureRequest{
+					Variables: map[string]string{"kubernetes:config:kubeconfig": "./testdata/invalid.kubeconfig"},
+				},
+				wantUnreachable: true,
+			},
+			{
+				name: "valid config file",
+				req: &pulumirpc.ConfigureRequest{
+					Variables: map[string]string{"kubernetes:config:kubeconfig": "~/.kube/config"},
+				},
+			},
 		}
 
-		clientChecks := func() {
-			It("should have an initialized client", func() {
-				_, err := k.Configure(context.Background(), req)
-				Expect(err).ShouldNot(HaveOccurred())
+		for _, tt := range tests {
+			k := newProvider(t)
 
-				By("creating a client-go config")
-				Expect(k.config).ToNot(BeNil())
-				Expect(k.kubeconfig).ToNot(BeNil())
+			if tt.req.Variables == nil {
+				tt.req.Variables = map[string]string{}
+			}
+			tt.req.Variables["kubernetes:config:namespace"] = "testns"
+			_, err := k.Configure(context.Background(), tt.req)
+			assert.NoError(t, err)
 
-				By("creating strongly-typed clients")
-				Expect(k.clientSet).ToNot(BeNil())
-				Expect(k.logClient).ToNot(BeNil())
+			// common checks
+			assert.Equal(t, "testns", k.defaultNamespace, "should use the configured namespace as the default")
 
-				By("discovering the server version")
-				Expect(k.k8sVersion).ToNot(BeNil())
-			})
+			if tt.wantUnreachable {
+				// clusterUnreachableChecks
+				assert.True(t, k.clusterUnreachable)
+				assert.Nil(t, k.config)
+				assert.Nil(t, k.kubeconfig)
+				assert.Nil(t, k.clientSet)
+				assert.Nil(t, k.logClient)
+			} else {
+				// clientChecks
+				assert.NotNil(t, k.config)
+				assert.NotNil(t, k.kubeconfig)
+				assert.NotNil(t, k.clientSet)
+				assert.NotNil(t, k.logClient)
+				assert.NotNil(t, k.k8sVersion)
+				assert.NotNil(t, k.resources)
 
-			It("should provide a resource cache", func() {
-				_, err := k.Configure(context.Background(), req)
-				Expect(err).ShouldNot(HaveOccurred())
-
-				By("discovering the server resources")
-				Expect(k.resources).ToNot(BeNil())
-
-				By("supporting invalidation")
 				k.invalidateResources()
-				Expect(k.resources).To(BeNil())
-				Expect(k.getResources()).ToNot(BeNil())
-			})
+				assert.Nil(t, k.resources)
+				resources, err := k.getResources()
+				require.NoError(t, err)
+				assert.NotNil(t, resources)
 
-			It("should use the context namespace as the default namespace", func() {
-				_, err := k.Configure(context.Background(), req)
-				Expect(err).ShouldNot(HaveOccurred())
 				ns := config.Contexts[config.CurrentContext].Namespace
 				if ns == "" {
 					ns = "default"
 				}
-				Expect(k.defaultNamespace).To(Equal(ns))
-			})
+				assert.Equal(t, ns, k.defaultNamespace, "should use default namespace")
+			}
 		}
-
-		clusterUnreachableChecks := func() {
-			It("should be in clusterUnreachable mode", func() {
-				_, err := k.Configure(context.Background(), req)
-				Expect(err).ShouldNot(HaveOccurred())
-				Expect(k.clusterUnreachable).To(BeTrue())
-				Expect(k.config).To(BeNil())
-				Expect(k.kubeconfig).To(BeNil())
-				Expect(k.clientSet).To(BeNil())
-				Expect(k.logClient).To(BeNil())
-			})
-		}
-
-		Describe("ambient kubeconfig", func() {
-			commonChecks()
-			clientChecks()
-		})
-
-		Describe("kubeconfig literal", func() {
-			Context("with an invalid value", func() {
-				JustBeforeEach(func() {
-					req.Variables["kubernetes:config:kubeconfig"] = "invalid"
-				})
-				commonChecks()
-				clusterUnreachableChecks()
-			})
-
-			Context("with a valid kubeconfig as a literal value", func() {
-				JustBeforeEach(func() {
-					contents, err := clientcmd.Write(*config)
-					Expect(err).ToNot(HaveOccurred())
-					req.Variables["kubernetes:config:kubeconfig"] = string(contents)
-				})
-				commonChecks()
-				clientChecks()
-			})
-		})
-
-		Describe("kubeconfig path", func() {
-			Context("with a non-existent config file", func() {
-				BeforeEach(func() {
-					req.Variables["kubernetes:config:kubeconfig"] = "./nosuchfile"
-				})
-				commonChecks()
-				clusterUnreachableChecks()
-			})
-
-			Context("with an invalid config file", func() {
-				BeforeEach(func() {
-					f, _ := os.CreateTemp("", "kubeconfig-")
-					DeferCleanup(func() {
-						os.Remove(f.Name())
-					})
-					f.WriteString("invalid")
-					f.Close()
-					req.Variables["kubernetes:config:kubeconfig"] = f.Name()
-				})
-				commonChecks()
-				clusterUnreachableChecks()
-			})
-
-			Context("with a valid config file", func() {
-				BeforeEach(func() {
-					req.Variables["kubernetes:config:kubeconfig"] = "~/.kube/config"
-				})
-				commonChecks()
-				clientChecks()
-			})
-		})
 	})
-})
+}
