@@ -25,18 +25,11 @@ import (
 	"k8s.io/client-go/tools/clientcmd"
 	clientcmdapi "k8s.io/client-go/tools/clientcmd/api"
 
-	gomegatypes "github.com/onsi/gomega/types"
 	"github.com/pulumi/pulumi/pkg/v3/resource/deploy/providers"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource/plugin"
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
 )
-
-func MatchCheckFailure(prop string) gomegatypes.GomegaMatcher {
-	return WithTransform(func(failure *pulumirpc.CheckFailure) string {
-		return failure.GetProperty()
-	}, Equal(prop))
-}
 
 var _ = Describe("RPC:CheckConfig", func() {
 	var k *kubeProvider
@@ -90,7 +83,8 @@ var _ = Describe("RPC:CheckConfig", func() {
 			It("should fail because strict mode prohibits default provider", func() {
 				resp, err := k.CheckConfig(context.Background(), req)
 				Expect(err).ToNot(HaveOccurred())
-				Expect(resp.Failures).To(HaveExactElements(MatchCheckFailure("")))
+				Expect(resp.Failures).To(HaveExactElements(
+					CheckFailure("", Equal(`strict mode prohibits default provider`))))
 			})
 		})
 
@@ -101,7 +95,8 @@ var _ = Describe("RPC:CheckConfig", func() {
 			It("should fail because strict mode requires kubeconfig", func() {
 				resp, err := k.CheckConfig(context.Background(), req)
 				Expect(err).ToNot(HaveOccurred())
-				Expect(resp.Failures).To(HaveExactElements(MatchCheckFailure("kubeconfig")))
+				Expect(resp.Failures).To(HaveExactElements(
+					CheckFailure("kubeconfig", Equal(`strict mode requires Provider "kubeconfig" argument`))))
 			})
 		})
 
@@ -112,7 +107,8 @@ var _ = Describe("RPC:CheckConfig", func() {
 			It("should fail because strict mode requires context", func() {
 				resp, err := k.CheckConfig(context.Background(), req)
 				Expect(err).ToNot(HaveOccurred())
-				Expect(resp.Failures).To(HaveExactElements(MatchCheckFailure("context")))
+				Expect(resp.Failures).To(HaveExactElements(
+					CheckFailure("context", Equal(`strict mode requires Provider "context" argument`))))
 			})
 		})
 
@@ -137,7 +133,8 @@ var _ = Describe("RPC:CheckConfig", func() {
 			It("should fail because yaml mode disallows kubeconfig", func() {
 				resp, err := k.CheckConfig(context.Background(), req)
 				Expect(err).ToNot(HaveOccurred())
-				Expect(resp.Failures).To(HaveExactElements(MatchCheckFailure("kubeconfig")))
+				Expect(resp.Failures).To(HaveExactElements(
+					CheckFailure("kubeconfig", Equal(`"kubeconfig" arg is not compatible with "renderYamlToDirectory" arg`))))
 			})
 		})
 
@@ -148,7 +145,8 @@ var _ = Describe("RPC:CheckConfig", func() {
 			It("should fail because yaml mode disallows context", func() {
 				resp, err := k.CheckConfig(context.Background(), req)
 				Expect(err).ToNot(HaveOccurred())
-				Expect(resp.Failures).To(HaveExactElements(MatchCheckFailure("context")))
+				Expect(resp.Failures).To(HaveExactElements(
+					CheckFailure("context", Equal(`"context" arg is not compatible with "renderYamlToDirectory" arg`))))
 			})
 		})
 
@@ -159,7 +157,8 @@ var _ = Describe("RPC:CheckConfig", func() {
 			It("should fail because yaml mode disallows cluster", func() {
 				resp, err := k.CheckConfig(context.Background(), req)
 				Expect(err).ToNot(HaveOccurred())
-				Expect(resp.Failures).To(HaveExactElements(MatchCheckFailure("cluster")))
+				Expect(resp.Failures).To(HaveExactElements(
+					CheckFailure("cluster", Equal(`"cluster" arg is not compatible with "renderYamlToDirectory" arg`))))
 			})
 		})
 

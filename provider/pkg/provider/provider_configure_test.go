@@ -15,123 +15,19 @@
 package provider
 
 import (
-	"bytes"
 	"context"
 	_ "embed"
-	"fmt"
-	"log"
 	"os"
 	"os/user"
 	"path/filepath"
 
-	pbempty "github.com/golang/protobuf/ptypes/empty"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
-	"google.golang.org/grpc"
 	"k8s.io/client-go/tools/clientcmd"
 
-	"github.com/pulumi/pulumi/pkg/v3/resource/provider"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/util/rpcutil"
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
 	clientcmdapi "k8s.io/client-go/tools/clientcmd/api"
 )
-
-// A mock engine for test purposes.
-type mockEngine struct {
-	pulumirpc.UnsafeEngineServer
-	t            TestingTB
-	logger       *log.Logger
-	rootResource string
-}
-
-// Log logs a global message in the engine, including errors and warnings.
-func (m *mockEngine) Log(ctx context.Context, in *pulumirpc.LogRequest) (*pbempty.Empty, error) {
-	m.t.Logf("%s: %s", in.GetSeverity(), in.GetMessage())
-	if m.logger != nil {
-		m.logger.Printf("%s: %s", in.GetSeverity(), in.GetMessage())
-	}
-	return &pbempty.Empty{}, nil
-}
-
-// GetRootResource gets the URN of the root resource, the resource that should be the root of all
-// otherwise-unparented resources.
-func (m *mockEngine) GetRootResource(ctx context.Context, in *pulumirpc.GetRootResourceRequest) (*pulumirpc.GetRootResourceResponse, error) {
-	return &pulumirpc.GetRootResourceResponse{
-		Urn: m.rootResource,
-	}, nil
-}
-
-// SetRootResource sets the URN of the root resource.
-func (m *mockEngine) SetRootResource(ctx context.Context, in *pulumirpc.SetRootResourceRequest) (*pulumirpc.SetRootResourceResponse, error) {
-	m.rootResource = in.GetUrn()
-	return &pulumirpc.SetRootResourceResponse{}, nil
-}
-
-// newMockHost creates a mock host for test purposes and returns a client.
-// Dispatches Engine RPC calls to the given engine.
-func newMockHost(ctx context.Context, engine pulumirpc.EngineServer) *provider.HostClient {
-	cancel := make(chan bool)
-	go func() {
-		<-ctx.Done()
-		close(cancel)
-	}()
-	handle, err := rpcutil.ServeWithOptions(rpcutil.ServeOptions{
-		Cancel: cancel,
-		Init: func(srv *grpc.Server) error {
-			pulumirpc.RegisterEngineServer(srv, engine)
-			return nil
-		},
-		Options: rpcutil.OpenTracingServerInterceptorOptions(nil),
-	})
-	if err != nil {
-		panic(fmt.Errorf("could not start host engine service: %v", err))
-	}
-
-	go func() {
-		err := <-handle.Done
-		if err != nil {
-			panic(fmt.Errorf("host engine service failed: %v", err))
-		}
-	}()
-
-	address := fmt.Sprintf("127.0.0.1:%v", handle.Port)
-	hostClient, err := provider.NewHostClient(address)
-	if err != nil {
-		panic(fmt.Errorf("could not connect to host engine service: %v", err))
-	}
-	return hostClient
-}
-
-type providerTestContext struct {
-	engine *mockEngine
-	host   *provider.HostClient
-}
-
-func (c *providerTestContext) NewProvider() (*kubeProvider, error) {
-	var pulumiSchema []byte
-	var terraformMapping []byte
-	return makeKubeProvider(c.host, "kubernetes", "v0.0.0", pulumiSchema, terraformMapping)
-}
-
-var pctx *providerTestContext
-
-var _ = BeforeSuite(func() {
-	var buff bytes.Buffer
-	engine := &mockEngine{
-		t:      GinkgoT(),
-		logger: log.New(&buff, "\t", 0),
-	}
-	ctx, cancel := context.WithCancel(context.Background())
-	host := newMockHost(ctx, engine)
-	DeferCleanup(func() {
-		cancel()
-	})
-
-	pctx = &providerTestContext{
-		engine: engine,
-		host:   host,
-	}
-})
 
 var _ = Describe("RPC:Configure", func() {
 	var k *kubeProvider
@@ -279,9 +175,7 @@ var _ = Describe("RPC:Configure", func() {
 
 			Context("with a valid kubeconfig as a literal value", func() {
 				JustBeforeEach(func() {
-					contents, err := clientcmd.Write(*config)
-					Expect(err).ToNot(HaveOccurred())
-					req.Variables["kubernetes:config:kubeconfig"] = string(contents)
+					req.Variables["kubernetes:config:kubeconfig"] = KubeconfigAsFile(config)
 				})
 				commonChecks()
 				clientChecks()

@@ -17,7 +17,6 @@ package provider
 import (
 	"context"
 	_ "embed"
-	"os"
 	"os/user"
 	"path/filepath"
 
@@ -30,23 +29,6 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource/plugin"
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
 )
-
-func KubeconfigAsString(config *clientcmdapi.Config) string {
-	contents, err := clientcmd.Write(*config)
-	Expect(err).ToNot(HaveOccurred())
-	return string(contents)
-}
-
-func KubeconfigAsFile(config *clientcmdapi.Config) string {
-	f, _ := os.CreateTemp("", "kubeconfig-")
-	f.Close()
-	DeferCleanup(func() {
-		os.Remove(f.Name())
-	})
-	err := clientcmd.WriteToFile(*config, f.Name())
-	Expect(err).ToNot(HaveOccurred())
-	return f.Name()
-}
 
 var _ = Describe("RPC:DiffConfig", func() {
 	var k *kubeProvider
