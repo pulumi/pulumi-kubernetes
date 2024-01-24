@@ -58,15 +58,16 @@ var _ = Describe("RPC:CheckConfig", func() {
 		config, err = clientcmd.LoadFromFile(filepath.Join(homeDir(), "/.kube/config"))
 		Expect(err).ToNot(HaveOccurred())
 
+		// initialize the CheckRequest to be customized in nested BeforeEach blocks
 		req = &pulumirpc.CheckRequest{
 			Urn: "urn:pulumi:test::test::pulumi:providers:kubernetes::k8s",
 		}
+		// initialize the 'new' PropertyMap to be serialized into the request in JustBeforeEach
 		news = make(resource.PropertyMap)
 	})
 
 	JustBeforeEach(func() {
 		var err error
-		// serialize the new values into the request
 		Expect(err).ShouldNot(HaveOccurred())
 		req.News, err = plugin.MarshalProperties(news, plugin.MarshalOptions{
 			Label: "news", KeepUnknowns: true, SkipNulls: true,

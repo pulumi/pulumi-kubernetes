@@ -142,6 +142,7 @@ var _ = Describe("RPC:Configure", func() {
 		k, err = pctx.NewProvider()
 		Expect(err).ShouldNot(HaveOccurred())
 
+		// initialize the ConfigureRequest to be customized in nested BeforeEach blocks
 		req = &pulumirpc.ConfigureRequest{
 			AcceptSecrets: true,
 			Variables:     map[string]string{},

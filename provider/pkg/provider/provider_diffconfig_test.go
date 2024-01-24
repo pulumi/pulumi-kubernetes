@@ -70,16 +70,17 @@ var _ = Describe("RPC:DiffConfig", func() {
 		newConfig, err = clientcmd.LoadFromFile(filepath.Join(homeDir(), "/.kube/config"))
 		Expect(err).ToNot(HaveOccurred())
 
+		// initialize the DiffRequest to be customized in nested BeforeEach blocks
 		req = &pulumirpc.DiffRequest{
 			Urn: "urn:pulumi:test::test::pulumi:providers:kubernetes::k8s",
 		}
+		// initialize the 'old'/'new' PropertyMaps to be serialized into the request in JustBeforeEach
 		olds = make(resource.PropertyMap)
 		news = make(resource.PropertyMap)
 	})
 
 	JustBeforeEach(func() {
 		var err error
-		// serialize the old/new values into the request
 		req.Olds, err = plugin.MarshalProperties(olds, plugin.MarshalOptions{
 			Label: "olds", KeepUnknowns: true, SkipNulls: true,
 		})
