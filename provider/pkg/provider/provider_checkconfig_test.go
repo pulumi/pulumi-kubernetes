@@ -32,42 +32,6 @@ import (
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
 )
 
-// type CheckFailureMatcher struct {
-// 	Property string
-// 	Reason   string
-// }
-
-// var _ gomegatypes.GomegaMatcher = &CheckFailureMatcher{}
-
-// func (matcher *CheckFailureMatcher) Match(actual interface{}) (success bool, err error) {
-// 	if failure, ok := actual.(*pulumirpc.CheckFailure); ok {
-// 		if failure.GetProperty() != matcher.Property {
-// 			return false, nil
-// 		}
-// 		if failure.GetReason() != matcher.Reason {
-// 			return false, nil
-// 		}
-// 		return true, nil
-// 	}
-// 	return false, fmt.Errorf("CheckFailureMatcher matcher expects a *pulumirpc.CheckFailure")
-// }
-
-// func (matcher *CheckFailureMatcher) FailureMessage(actual interface{}) (message string) {
-// 	var msg strings.Builder
-// 	fmt.Fprintf(&msg, "Expected:\n\t%#v\nto have ", actual)
-// 	fmt.Fprintf(&msg, "property=%q", matcher.Property)
-// 	fmt.Fprintf(&msg, "reason=%q", matcher.Reason)
-// 	return msg.String()
-// }
-
-// func (matcher *CheckFailureMatcher) NegatedFailureMessage(actual interface{}) (message string) {
-// 	var msg strings.Builder
-// 	fmt.Fprintf(&msg, "Expected:\n\t%#v\nto not have ", actual)
-// 	fmt.Fprintf(&msg, "property=%q", matcher.Property)
-// 	fmt.Fprintf(&msg, "reason=%q", matcher.Reason)
-// 	return msg.String()
-// }
-
 func MatchCheckFailure(prop string) gomegatypes.GomegaMatcher {
 	return WithTransform(func(failure *pulumirpc.CheckFailure) string {
 		return failure.GetProperty()

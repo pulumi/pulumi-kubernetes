@@ -121,9 +121,6 @@ var _ = BeforeSuite(func() {
 		t:      GinkgoT(),
 		logger: log.New(&buff, "\t", 0),
 	}
-	// t.Cleanup(func() {
-	// 	log.Default().Printf("Engine Log:\n%s", buff.String())
-	// })
 	ctx, cancel := context.WithCancel(context.Background())
 	host := newMockHost(ctx, engine)
 	DeferCleanup(func() {
