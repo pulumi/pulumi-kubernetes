@@ -145,8 +145,6 @@ type kubeProvider struct {
 	clusterUnreachable       bool   // Kubernetes cluster is unreachable.
 	clusterUnreachableReason string // Detailed error message if cluster is unreachable.
 
-	config     *rest.Config // Cluster config, e.g., through $KUBECONFIG file.
-	kubeconfig clientcmd.ClientConfig
 	clientSet  *clients.DynamicClientSet
 	logClient  *clients.LogClient
 	k8sVersion cluster.ServerVersion
@@ -742,12 +740,15 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	}
 
 	// Attempt to load the configuration from the provided kubeconfig. If this fails, mark the cluster as unreachable.
+	var config *rest.Config
 	if !k.clusterUnreachable {
-		config, err := kubeconfig.ClientConfig()
+		var err error
+		config, err = kubeconfig.ClientConfig()
 		if err != nil {
 			k.clusterUnreachable = true
 			k.clusterUnreachableReason = fmt.Sprintf("unable to load Kubernetes client configuration from kubeconfig file. Make sure you have: \n\n"+
 				" \t • set up the provider as per https://www.pulumi.com/registry/packages/kubernetes/installation-configuration/ \n\n %v", err)
+			config = nil
 		} else {
 			if kubeClientSettings.Burst != nil {
 				config.Burst = *kubeClientSettings.Burst
@@ -763,19 +764,19 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 			}
 			warningConfig := rest.CopyConfig(config)
 			warningConfig.WarningHandler = rest.NoWarnings{}
-			k.config = warningConfig
-			k.kubeconfig = kubeconfig
+			config = warningConfig
 		}
 	}
 
 	// These operations require a reachable cluster.
 	if !k.clusterUnreachable {
-		cs, err := clients.NewDynamicClientSet(k.config)
+		contract.Assertf(config != nil, "expected config to be initialized")
+		cs, err := clients.NewDynamicClientSet(config)
 		if err != nil {
 			return nil, err
 		}
 		k.clientSet = cs
-		lc, err := clients.NewLogClient(k.canceler.context, k.config)
+		lc, err := clients.NewLogClient(k.canceler.context, config)
 		if err != nil {
 			return nil, err
 		}
@@ -801,7 +802,7 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		k.canceler,
 		apiConfig,
 		overrides,
-		k.config,
+		config,
 		k.clientSet,
 		k.helmDriver,
 		k.defaultNamespace,

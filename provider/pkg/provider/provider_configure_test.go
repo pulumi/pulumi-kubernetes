@@ -114,10 +114,6 @@ var _ = Describe("RPC:Configure", func() {
 				_, err := k.Configure(context.Background(), req)
 				Expect(err).ShouldNot(HaveOccurred())
 
-				By("creating a client-go config")
-				Expect(k.config).ToNot(BeNil())
-				Expect(k.kubeconfig).ToNot(BeNil())
-
 				By("creating strongly-typed clients")
 				Expect(k.clientSet).ToNot(BeNil())
 				Expect(k.logClient).ToNot(BeNil())
@@ -155,8 +151,6 @@ var _ = Describe("RPC:Configure", func() {
 				_, err := k.Configure(context.Background(), req)
 				Expect(err).ShouldNot(HaveOccurred())
 				Expect(k.clusterUnreachable).To(BeTrue())
-				Expect(k.config).To(BeNil())
-				Expect(k.kubeconfig).To(BeNil())
 				Expect(k.clientSet).To(BeNil())
 				Expect(k.logClient).To(BeNil())
 			})
