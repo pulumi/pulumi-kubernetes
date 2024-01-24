@@ -197,8 +197,8 @@ var _ = Describe("RPC:Configure", func() {
 					DeferCleanup(func() {
 						os.Remove(f.Name())
 					})
-					f.WriteString("invalid")
-					f.Close()
+					_, _ = f.WriteString("invalid")
+					_ = f.Close()
 					req.Variables["kubernetes:config:kubeconfig"] = f.Name()
 				})
 				commonChecks()
