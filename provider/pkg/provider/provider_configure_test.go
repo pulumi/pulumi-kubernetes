@@ -93,6 +93,9 @@ var _ = Describe("RPC:Configure", func() {
 			Expect(err).ToNot(HaveOccurred())
 		})
 
+		// Define some "shared behaviors" that will be used to test various use cases.
+		// pattern: https://onsi.github.io/ginkgo/#shared-behaviors
+
 		commonChecks := func() {
 			Context("when configured to use a particular namespace", func() {
 				JustBeforeEach(func() {
@@ -106,7 +109,7 @@ var _ = Describe("RPC:Configure", func() {
 			})
 		}
 
-		clientChecks := func() {
+		connectedChecks := func() {
 			It("should have an initialized client", func() {
 				_, err := k.Configure(context.Background(), req)
 				Expect(err).ShouldNot(HaveOccurred())
@@ -159,12 +162,12 @@ var _ = Describe("RPC:Configure", func() {
 			})
 		}
 
-		Describe("ambient kubeconfig", func() {
+		Describe("use case: ambient kubeconfig", func() {
 			commonChecks()
-			clientChecks()
+			connectedChecks()
 		})
 
-		Describe("kubeconfig literal", func() {
+		Describe("use case: kubeconfig string", func() {
 			Context("with an invalid value", func() {
 				JustBeforeEach(func() {
 					req.Variables["kubernetes:config:kubeconfig"] = "invalid"
@@ -173,16 +176,16 @@ var _ = Describe("RPC:Configure", func() {
 				clusterUnreachableChecks()
 			})
 
-			Context("with a valid kubeconfig as a literal value", func() {
+			Context("with a valid kubeconfig as a string value", func() {
 				JustBeforeEach(func() {
 					req.Variables["kubernetes:config:kubeconfig"] = KubeconfigAsFile(config)
 				})
 				commonChecks()
-				clientChecks()
+				connectedChecks()
 			})
 		})
 
-		Describe("kubeconfig path", func() {
+		Describe("use case: kubeconfig file", func() {
 			Context("with a non-existent config file", func() {
 				BeforeEach(func() {
 					req.Variables["kubernetes:config:kubeconfig"] = "./nosuchfile"
@@ -210,7 +213,7 @@ var _ = Describe("RPC:Configure", func() {
 					req.Variables["kubernetes:config:kubeconfig"] = "~/.kube/config"
 				})
 				commonChecks()
-				clientChecks()
+				connectedChecks()
 			})
 		})
 	})
