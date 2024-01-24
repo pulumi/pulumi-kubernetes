@@ -145,6 +145,7 @@ type kubeProvider struct {
 	clusterUnreachable       bool   // Kubernetes cluster is unreachable.
 	clusterUnreachableReason string // Detailed error message if cluster is unreachable.
 
+	makeClient func(context.Context, *rest.Config) (*clients.DynamicClientSet, *clients.LogClient, error)
 	clientSet  *clients.DynamicClientSet
 	logClient  *clients.LogClient
 	k8sVersion cluster.ServerVersion
@@ -170,7 +171,22 @@ func makeKubeProvider(
 		suppressDeprecationWarnings: false,
 		deleteUnreachable:           false,
 		skipUpdateUnreachable:       false,
+		makeClient:                  makeClient,
 	}, nil
+}
+
+// makeClient makes a client to connect to a Kubernetes cluster using the given config.
+// ctx is a cancellation context that may be used to cancel any subsequent requests made by the clients.
+func makeClient(ctx context.Context, config *rest.Config) (*clients.DynamicClientSet, *clients.LogClient, error) {
+	cs, err := clients.NewDynamicClientSet(config)
+	if err != nil {
+		return nil, nil, err
+	}
+	lc, err := clients.MakeLogClient(ctx, config)
+	if err != nil {
+		return nil, nil, err
+	}
+	return cs, lc, err
 }
 
 func (k *kubeProvider) getResources() (k8sopenapi.Resources, error) {
@@ -742,6 +758,7 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	// Attempt to load the configuration from the provided kubeconfig. If this fails, mark the cluster as unreachable.
 	var config *rest.Config
 	if !k.clusterUnreachable {
+		contract.Assertf(kubeconfig != nil, "expected kubeconfig to be initialized")
 		var err error
 		config, err = kubeconfig.ClientConfig()
 		if err != nil {
@@ -771,18 +788,13 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	// These operations require a reachable cluster.
 	if !k.clusterUnreachable {
 		contract.Assertf(config != nil, "expected config to be initialized")
-		cs, err := clients.NewDynamicClientSet(config)
+		var err error
+		k.clientSet, k.logClient, err = k.makeClient(k.canceler.context, config)
 		if err != nil {
 			return nil, err
 		}
-		k.clientSet = cs
-		lc, err := clients.NewLogClient(k.canceler.context, config)
-		if err != nil {
-			return nil, err
-		}
-		k.logClient = lc
 
-		k.k8sVersion = cluster.TryGetServerVersion(cs.DiscoveryClientCached)
+		k.k8sVersion = cluster.TryGetServerVersion(k.clientSet.DiscoveryClientCached)
 
 		if k.k8sVersion.Compare(cluster.ServerVersion{Major: 1, Minor: 13}) < 0 {
 			return nil, fmt.Errorf("minimum supported cluster version is v1.13. found v%s", k.k8sVersion)
