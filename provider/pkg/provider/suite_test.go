@@ -20,6 +20,12 @@ import (
 	clientcmdapi "k8s.io/client-go/tools/clientcmd/api"
 )
 
+const (
+	testPluginVersion    = "v0.0.0"
+	testPulumiSchema     = "{}"
+	testTerraformMapping = "{}"
+)
+
 func TestSuite(t *testing.T) {
 	RegisterFailHandler(Fail)
 	RunSpecs(t, "provider/pkg/provider")
@@ -137,9 +143,7 @@ type providerTestContext struct {
 }
 
 func (c *providerTestContext) NewProvider() (*kubeProvider, error) {
-	var pulumiSchema []byte
-	var terraformMapping []byte
-	return makeKubeProvider(c.host, "kubernetes", "v0.0.0", pulumiSchema, terraformMapping)
+	return makeKubeProvider(c.host, "kubernetes", testPluginVersion, []byte(testPulumiSchema), []byte(testTerraformMapping))
 }
 
 var pctx *providerTestContext

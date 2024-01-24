@@ -21,6 +21,7 @@ import (
 	pbempty "github.com/golang/protobuf/ptypes/empty"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
+	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
 )
 
 var _ = Describe("RPC:Cancel", func() {
@@ -36,5 +37,96 @@ var _ = Describe("RPC:Cancel", func() {
 		_, err := k.Cancel(context.Background(), &pbempty.Empty{})
 		Expect(err).ShouldNot(HaveOccurred())
 		Expect(k.canceler.context.Done()).Should(BeClosed())
+	})
+})
+
+var _ = Describe("RPC:GetPluginInfo", func() {
+	var k *kubeProvider
+
+	BeforeEach(func() {
+		var err error
+		k, err = pctx.NewProvider()
+		Expect(err).ShouldNot(HaveOccurred())
+	})
+
+	It("should return plugin info", func() {
+		resp, err := k.GetPluginInfo(context.Background(), &pbempty.Empty{})
+		Expect(err).ShouldNot(HaveOccurred())
+		Expect(resp.Version).Should(Equal(testPluginVersion))
+	})
+})
+
+var _ = Describe("RPC:GetSchema", func() {
+	var k *kubeProvider
+	var req *pulumirpc.GetSchemaRequest
+	BeforeEach(func() {
+		var err error
+		k, err = pctx.NewProvider()
+		Expect(err).ShouldNot(HaveOccurred())
+
+		// initialize the GetSchemaRequest to be customized in nested BeforeEach blocks
+		req = &pulumirpc.GetSchemaRequest{}
+	})
+
+	Context("when the requested version is 0", func() {
+		BeforeEach(func() {
+			req.Version = 0
+		})
+
+		It("should return Pulumi schema info", func() {
+			resp, err := k.GetSchema(context.Background(), req)
+			Expect(err).ShouldNot(HaveOccurred())
+			Expect(resp.Schema).Should(Equal(testPulumiSchema))
+		})
+	})
+
+	Context("when the requested version is not 0", func() {
+		BeforeEach(func() {
+			req.Version = 1
+		})
+
+		It("should fail with an invalid schema version", func() {
+			_, err := k.GetSchema(context.Background(), req)
+			Expect(err).Should(HaveOccurred())
+		})
+	})
+})
+
+var _ = Describe("RPC:GetMapping", func() {
+	var k *kubeProvider
+	var req *pulumirpc.GetMappingRequest
+	BeforeEach(func() {
+		var err error
+		k, err = pctx.NewProvider()
+		Expect(err).ShouldNot(HaveOccurred())
+
+		// initialize the GetMappingRequest to be customized in nested BeforeEach blocks
+		req = &pulumirpc.GetMappingRequest{}
+	})
+
+	Context("when the requested mapping is for terraform", func() {
+		BeforeEach(func() {
+			req.Key = "terraform"
+		})
+
+		It("should return terraform mapping info", func() {
+			resp, err := k.GetMapping(context.Background(), req)
+			Expect(err).ShouldNot(HaveOccurred())
+			Expect(resp.Provider).Should(Equal("kubernetes"))
+			Expect(resp.Data).Should(Equal([]byte(testTerraformMapping)))
+		})
+	})
+
+	Context("when the requested mapping is not for terraform", func() {
+		BeforeEach(func() {
+			req.Key = "foo"
+		})
+
+		It("should return empty mapping info", func() {
+			resp, err := k.GetMapping(context.Background(), req)
+			Expect(err).ShouldNot(HaveOccurred())
+			Expect(resp.Provider).Should(BeEmpty())
+			Expect(resp.Data).Should(BeEmpty())
+		})
 	})
 })
