@@ -26,11 +26,6 @@ const (
 	testTerraformMapping = "{}"
 )
 
-func TestSuite(t *testing.T) {
-	RegisterFailHandler(Fail)
-	RunSpecs(t, "provider/pkg/provider")
-}
-
 // TestingTB is an interface that describes the implementation of the testing object.
 // Using an interface that describes testing.TB instead of the actual implementation
 // makes testutil usable in a wider variety of contexts (e.g. use with ginkgo : https://godoc.org/github.com/onsi/ginkgo#GinkgoT)
@@ -149,22 +144,28 @@ func (c *providerTestContext) NewProvider() (*kubeProvider, error) {
 var pctx *providerTestContext
 
 var _ = BeforeSuite(func() {
-	// mock engine
+	// make a mock engine that simply buffers the log messages.
 	var buff bytes.Buffer
 	engine := &mockEngine{
 		t:      GinkgoT(),
 		logger: log.New(&buff, "\t", 0),
 	}
 
-	// mock host
+	// make a mock host as an RPC server for the mock engine.
 	ctx, cancel := context.WithCancel(context.Background())
 	host := newMockHost(ctx, engine)
 	DeferCleanup(func() {
 		cancel()
 	})
 
+	// make a suite-level context for use in test specs, e.g. to make a provider instance.
 	pctx = &providerTestContext{
 		engine: engine,
 		host:   host,
 	}
 })
+
+func TestSuite(t *testing.T) {
+	RegisterFailHandler(Fail)
+	RunSpecs(t, "provider/pkg/provider")
+}
