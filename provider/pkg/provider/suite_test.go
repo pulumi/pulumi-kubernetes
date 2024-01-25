@@ -42,16 +42,6 @@ var (
 	testServerVersion = kubeversion.Info{Major: "1", Minor: "29"}
 )
 
-// TestingTB is an interface that describes the implementation of the testing object.
-// Using an interface that describes testing.TB instead of the actual implementation
-// makes testutil usable in a wider variety of contexts (e.g. use with ginkgo : https://godoc.org/github.com/onsi/ginkgo#GinkgoT)
-type TestingTB interface {
-	Cleanup(func())
-	Failed() bool
-	Logf(format string, args ...interface{})
-	Name() string
-}
-
 // CheckFailure matches a CheckFailure by property and reason.
 func CheckFailure(prop string, reason gomegatypes.GomegaMatcher) gomegatypes.GomegaMatcher {
 	return And(
@@ -85,7 +75,7 @@ func WriteKubeconfigToFile(config *clientcmdapi.Config) string {
 // A mock engine for test purposes.
 type mockEngine struct {
 	pulumirpc.UnsafeEngineServer
-	t            TestingTB
+	t            testing.TB
 	logger       *log.Logger
 	rootResource string
 }
@@ -214,7 +204,9 @@ func (c *providerTestContext) NewConfig(opts ...NewConfigOption) *clientcmdapi.C
 			"user1": {
 				Token: "secret",
 			},
-			"user2": {},
+			"user2": {
+				Token: "secret",
+			},
 		},
 		Contexts: map[string]*clientcmdapi.Context{
 			"context1": {
@@ -309,7 +301,7 @@ var _ = BeforeSuite(func() {
 	// make a mock engine that simply buffers the log messages.
 	var buff bytes.Buffer
 	engine := &mockEngine{
-		t:      GinkgoT(),
+		t:      GinkgoTB(),
 		logger: log.New(&buff, "\t", 0),
 	}
 
