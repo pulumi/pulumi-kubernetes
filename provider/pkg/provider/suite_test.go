@@ -63,15 +63,15 @@ func CheckFailure(prop string, reason gomegatypes.GomegaMatcher) gomegatypes.Gom
 		}, reason))
 }
 
-// KubeconfigAsString converts a Kubernetes configuration to a string.
-func KubeconfigAsString(config *clientcmdapi.Config) string {
+// WriteKubeconfigToString converts a clientcmdapi.Config to a string.
+func WriteKubeconfigToString(config *clientcmdapi.Config) string {
 	contents, err := clientcmd.Write(*config)
 	Expect(err).ToNot(HaveOccurred())
 	return string(contents)
 }
 
-// KubeconfigAsFile converts a Kubernetes configuration to a string.
-func KubeconfigAsFile(config *clientcmdapi.Config) string {
+// WriteKubeconfigToFile converts a clientcmdapi.Config to a temporary file.
+func WriteKubeconfigToFile(config *clientcmdapi.Config) string {
 	f, _ := os.CreateTemp("", "kubeconfig-")
 	DeferCleanup(func() {
 		os.Remove(f.Name())
@@ -173,6 +173,69 @@ type providerTestContext struct {
 	host   *provider.HostClient
 }
 
+type NewConfigOption func(*newConfigOptions)
+
+type newConfigOptions struct {
+	CurrentContext   string
+	CurrentNamespace string
+}
+
+func WithContext(context string) NewConfigOption {
+	return func(options *newConfigOptions) {
+		options.CurrentContext = context
+	}
+}
+
+func WithNamespace(namespace string) NewConfigOption {
+	return func(options *newConfigOptions) {
+		options.CurrentNamespace = namespace
+	}
+}
+
+func (c *providerTestContext) NewConfig(opts ...NewConfigOption) *clientcmdapi.Config {
+	options := newConfigOptions{
+		CurrentContext: "context1",
+	}
+	for _, opt := range opts {
+		opt(&options)
+	}
+
+	config := &clientcmdapi.Config{
+		Kind: "Config",
+		Clusters: map[string]*clientcmdapi.Cluster{
+			"cluster1": {
+				Server: "https://cluster1.test",
+			},
+			"cluster2": {
+				Server: "https://cluster2.test",
+			},
+		},
+		AuthInfos: map[string]*clientcmdapi.AuthInfo{
+			"user1": {
+				Token: "secret",
+			},
+			"user2": {},
+		},
+		Contexts: map[string]*clientcmdapi.Context{
+			"context1": {
+				Cluster:  "cluster1",
+				AuthInfo: "user1",
+			},
+			"context2": {
+				Cluster:  "cluster2",
+				AuthInfo: "user2",
+			},
+		},
+		CurrentContext: options.CurrentContext,
+	}
+
+	if options.CurrentNamespace != "" {
+		config.Contexts[options.CurrentContext].Namespace = options.CurrentNamespace
+	}
+
+	return config
+}
+
 type NewProviderOption func(*newProviderOptions)
 
 type newProviderOptions struct {
@@ -181,14 +244,14 @@ type newProviderOptions struct {
 }
 
 func WithObjects(objects ...runtime.Object) NewProviderOption {
-	return func(opts *newProviderOptions) {
-		opts.Objects = append(opts.Objects, objects...)
+	return func(options *newProviderOptions) {
+		options.Objects = append(options.Objects, objects...)
 	}
 }
 
 func WithServerVersion(version kubeversion.Info) NewProviderOption {
-	return func(opts *newProviderOptions) {
-		opts.ServerVersion = version
+	return func(options *newProviderOptions) {
+		options.ServerVersion = version
 	}
 }
 

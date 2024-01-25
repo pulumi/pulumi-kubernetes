@@ -17,12 +17,9 @@ package provider
 import (
 	"context"
 	_ "embed"
-	"os/user"
-	"path/filepath"
 
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
-	"k8s.io/client-go/tools/clientcmd"
 	clientcmdapi "k8s.io/client-go/tools/clientcmd/api"
 
 	"github.com/pulumi/pulumi/pkg/v3/resource/deploy/providers"
@@ -39,17 +36,10 @@ var _ = Describe("RPC:CheckConfig", func() {
 	var config *clientcmdapi.Config
 
 	BeforeEach(func() {
-		var err error
 		opts = []NewProviderOption{}
 
-		// load the ambient kubeconfig for test purposes
-		homeDir := func() string {
-			// Ignore errors. The filepath will be checked later, so we can handle failures there.
-			usr, _ := user.Current()
-			return usr.HomeDir
-		}
-		config, err = clientcmd.LoadFromFile(filepath.Join(homeDir(), "/.kube/config"))
-		Expect(err).ToNot(HaveOccurred())
+		// make a (fake) kubeconfig.
+		config = pctx.NewConfig()
 
 		// initialize the CheckRequest to be customized in nested BeforeEach blocks
 		req = &pulumirpc.CheckRequest{
@@ -72,7 +62,7 @@ var _ = Describe("RPC:CheckConfig", func() {
 	Describe("Strict Mode", func() {
 		BeforeEach(func() {
 			news["strictMode"] = resource.NewStringProperty("true")
-			news["kubeconfig"] = resource.NewStringProperty(KubeconfigAsString(config))
+			news["kubeconfig"] = resource.NewStringProperty(WriteKubeconfigToString(config))
 			news["context"] = resource.NewStringProperty(config.CurrentContext)
 		})
 
@@ -129,7 +119,7 @@ var _ = Describe("RPC:CheckConfig", func() {
 
 		Context("when kubeconfig is specified", func() {
 			BeforeEach(func() {
-				news["kubeconfig"] = resource.NewStringProperty(KubeconfigAsString(config))
+				news["kubeconfig"] = resource.NewStringProperty(WriteKubeconfigToString(config))
 			})
 			It("should fail because yaml mode disallows kubeconfig", func() {
 				resp, err := k.CheckConfig(context.Background(), req)

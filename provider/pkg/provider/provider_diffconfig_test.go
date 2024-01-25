@@ -17,12 +17,9 @@ package provider
 import (
 	"context"
 	_ "embed"
-	"os/user"
-	"path/filepath"
 
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
-	"k8s.io/client-go/tools/clientcmd"
 	clientcmdapi "k8s.io/client-go/tools/clientcmd/api"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
@@ -38,19 +35,11 @@ var _ = Describe("RPC:DiffConfig", func() {
 	var oldConfig, newConfig *clientcmdapi.Config
 
 	BeforeEach(func() {
-		var err error
 		opts = []NewProviderOption{}
 
-		// load the ambient kubeconfig for test purposes
-		homeDir := func() string {
-			// Ignore errors. The filepath will be checked later, so we can handle failures there.
-			usr, _ := user.Current()
-			return usr.HomeDir
-		}
-		oldConfig, err = clientcmd.LoadFromFile(filepath.Join(homeDir(), "/.kube/config"))
-		Expect(err).ToNot(HaveOccurred())
-		newConfig, err = clientcmd.LoadFromFile(filepath.Join(homeDir(), "/.kube/config"))
-		Expect(err).ToNot(HaveOccurred())
+		// make a pair of (fake) kubeconfigs.
+		oldConfig = pctx.NewConfig()
+		newConfig = pctx.NewConfig()
 
 		// initialize the DiffRequest to be customized in nested BeforeEach blocks
 		req = &pulumirpc.DiffRequest{
@@ -78,7 +67,7 @@ var _ = Describe("RPC:DiffConfig", func() {
 	Describe("Kubeconfig Parsing", func() {
 		Context("when kubeconfig is a computed value", func() {
 			BeforeEach(func() {
-				olds["kubeconfig"] = resource.NewStringProperty(KubeconfigAsString(oldConfig))
+				olds["kubeconfig"] = resource.NewStringProperty(WriteKubeconfigToString(oldConfig))
 				news["kubeconfig"] = resource.MakeComputed(resource.NewStringProperty(""))
 			})
 
@@ -93,8 +82,8 @@ var _ = Describe("RPC:DiffConfig", func() {
 
 		Context("when kubeconfig is a string value", func() {
 			BeforeEach(func() {
-				olds["kubeconfig"] = resource.NewStringProperty(KubeconfigAsString(oldConfig))
-				news["kubeconfig"] = resource.NewStringProperty(KubeconfigAsString(newConfig))
+				olds["kubeconfig"] = resource.NewStringProperty(WriteKubeconfigToString(oldConfig))
+				news["kubeconfig"] = resource.NewStringProperty(WriteKubeconfigToString(newConfig))
 			})
 
 			It("should return an empty diff", func() {
@@ -108,8 +97,8 @@ var _ = Describe("RPC:DiffConfig", func() {
 
 		Context("when kubeconfig is a file", func() {
 			BeforeEach(func() {
-				olds["kubeconfig"] = resource.NewStringProperty(KubeconfigAsFile(oldConfig))
-				news["kubeconfig"] = resource.NewStringProperty(KubeconfigAsFile(newConfig))
+				olds["kubeconfig"] = resource.NewStringProperty(WriteKubeconfigToFile(oldConfig))
+				news["kubeconfig"] = resource.NewStringProperty(WriteKubeconfigToFile(newConfig))
 			})
 
 			XIt("should return an empty diff", func() {
@@ -132,10 +121,10 @@ var _ = Describe("RPC:DiffConfig", func() {
 		Context("when the cluster info has changed", func() {
 			BeforeEach(func() {
 				clusterName := newConfig.Contexts[newConfig.CurrentContext].Cluster
-				newConfig.Clusters[clusterName].Server = "https://updated.invalid"
+				newConfig.Clusters[clusterName].Server = "https://updated.test"
 
-				olds["kubeconfig"] = resource.NewStringProperty(KubeconfigAsString(oldConfig))
-				news["kubeconfig"] = resource.NewStringProperty(KubeconfigAsString(newConfig))
+				olds["kubeconfig"] = resource.NewStringProperty(WriteKubeconfigToString(oldConfig))
+				news["kubeconfig"] = resource.NewStringProperty(WriteKubeconfigToString(newConfig))
 			})
 
 			It("should suggest replacement since the cluster itself may have been replaced", func() {

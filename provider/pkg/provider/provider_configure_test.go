@@ -18,14 +18,11 @@ import (
 	"context"
 	_ "embed"
 	"os"
-	"os/user"
-	"path/filepath"
 
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
 	kubeversion "k8s.io/apimachinery/pkg/version"
-	"k8s.io/client-go/tools/clientcmd"
 	clientcmdapi "k8s.io/client-go/tools/clientcmd/api"
 )
 
@@ -33,6 +30,7 @@ var _ = Describe("RPC:Configure", func() {
 	var opts []NewProviderOption
 	var k *kubeProvider
 	var req *pulumirpc.ConfigureRequest
+	var ambient *clientcmdapi.Config
 
 	BeforeEach(func() {
 		opts = []NewProviderOption{}
@@ -42,10 +40,20 @@ var _ = Describe("RPC:Configure", func() {
 			AcceptSecrets: true,
 			Variables:     map[string]string{},
 		}
+
+		// initialize a fake ambient kubeconfig
+		ambient = pctx.NewConfig(WithContext("context1"))
 	})
 
 	JustBeforeEach(func() {
 		k = pctx.NewProvider(opts...)
+
+		// set the KUBECONFIG environment variable
+		path := WriteKubeconfigToFile(ambient)
+		os.Setenv("KUBECONFIG", path)
+		DeferCleanup(func() {
+			os.Unsetenv("KUBECONFIG")
+		})
 	})
 
 	It("should return a response detailing the provider's capabilities", func() {
@@ -82,18 +90,11 @@ var _ = Describe("RPC:Configure", func() {
 	})
 
 	Describe("Kubeconfig Parsing", func() {
-		var config *clientcmdapi.Config
+		var other *clientcmdapi.Config
 
 		BeforeEach(func() {
-			var err error
-			homeDir := func() string {
-				// Ignore errors. The filepath will be checked later, so we can handle failures there.
-				usr, _ := user.Current()
-				return usr.HomeDir
-			}
-			// load the ambient kubeconfig for test purposes
-			config, err = clientcmd.LoadFromFile(filepath.Join(homeDir(), "/.kube/config"))
-			Expect(err).ToNot(HaveOccurred())
+			// make a (fake) kubeconfig to serve as the value of the 'kubeconfig' provider property
+			other = pctx.NewConfig(WithContext("context2"), WithNamespace("other"))
 		})
 
 		// Define some "shared behaviors" that will be used to test various use cases.
@@ -102,17 +103,17 @@ var _ = Describe("RPC:Configure", func() {
 		commonChecks := func() {
 			Context("when configured to use a particular namespace", func() {
 				JustBeforeEach(func() {
-					req.Variables["kubernetes:config:namespace"] = "testns"
+					req.Variables["kubernetes:config:namespace"] = "pulumi"
 				})
 				It("should use the configured namespace as the default namespace", func() {
 					_, err := k.Configure(context.Background(), req)
 					Expect(err).ShouldNot(HaveOccurred())
-					Expect(k.defaultNamespace).To(Equal("testns"))
+					Expect(k.defaultNamespace).To(Equal("pulumi"))
 				})
 			})
 		}
 
-		connectedChecks := func() {
+		connectedChecks := func(expectedNS string) {
 			It("should have an initialized client", func() {
 				_, err := k.Configure(context.Background(), req)
 				Expect(err).ShouldNot(HaveOccurred())
@@ -120,17 +121,12 @@ var _ = Describe("RPC:Configure", func() {
 				By("creating strongly-typed clients")
 				Expect(k.clientSet).ToNot(BeNil())
 				Expect(k.logClient).ToNot(BeNil())
-
 			})
 
 			It("should use the context namespace as the default namespace", func() {
 				_, err := k.Configure(context.Background(), req)
 				Expect(err).ShouldNot(HaveOccurred())
-				ns := config.Contexts[config.CurrentContext].Namespace
-				if ns == "" {
-					ns = "default"
-				}
-				Expect(k.defaultNamespace).To(Equal(ns))
+				Expect(k.defaultNamespace).To(Equal(expectedNS))
 			})
 		}
 
@@ -146,7 +142,7 @@ var _ = Describe("RPC:Configure", func() {
 
 		Describe("use case: ambient kubeconfig", func() {
 			commonChecks()
-			connectedChecks()
+			connectedChecks("default")
 		})
 
 		Describe("use case: kubeconfig string", func() {
@@ -160,10 +156,10 @@ var _ = Describe("RPC:Configure", func() {
 
 			Context("with a valid kubeconfig as a string value", func() {
 				JustBeforeEach(func() {
-					req.Variables["kubernetes:config:kubeconfig"] = KubeconfigAsFile(config)
+					req.Variables["kubernetes:config:kubeconfig"] = WriteKubeconfigToString(other)
 				})
 				commonChecks()
-				connectedChecks()
+				connectedChecks("other")
 			})
 		})
 
@@ -192,10 +188,10 @@ var _ = Describe("RPC:Configure", func() {
 
 			Context("with a valid config file", func() {
 				BeforeEach(func() {
-					req.Variables["kubernetes:config:kubeconfig"] = "~/.kube/config"
+					req.Variables["kubernetes:config:kubeconfig"] = WriteKubeconfigToFile(other)
 				})
 				commonChecks()
-				connectedChecks()
+				connectedChecks("other")
 			})
 		})
 	})
