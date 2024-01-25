@@ -118,7 +118,12 @@ var _ = Describe("RPC:Configure", func() {
 				Expect(k.clientSet).ToNot(BeNil())
 				Expect(k.logClient).ToNot(BeNil())
 
-				By("discovering the server version")
+			})
+
+			It("should check the server version", func() {
+				_, err := k.Configure(context.Background(), req)
+				Expect(err).ShouldNot(HaveOccurred())
+
 				Expect(k.k8sVersion).ToNot(BeNil())
 			})
 
