@@ -23,26 +23,29 @@ import (
 
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
-	"k8s.io/client-go/tools/clientcmd"
-
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
+	kubeversion "k8s.io/apimachinery/pkg/version"
+	"k8s.io/client-go/tools/clientcmd"
 	clientcmdapi "k8s.io/client-go/tools/clientcmd/api"
 )
 
 var _ = Describe("RPC:Configure", func() {
+	var opts []NewProviderOption
 	var k *kubeProvider
 	var req *pulumirpc.ConfigureRequest
 
 	BeforeEach(func() {
-		var err error
-		k, err = pctx.NewProvider()
-		Expect(err).ShouldNot(HaveOccurred())
+		opts = []NewProviderOption{}
 
 		// initialize the ConfigureRequest to be customized in nested BeforeEach blocks
 		req = &pulumirpc.ConfigureRequest{
 			AcceptSecrets: true,
 			Variables:     map[string]string{},
 		}
+	})
+
+	JustBeforeEach(func() {
+		k = pctx.NewProvider(opts...)
 	})
 
 	It("should return a response detailing the provider's capabilities", func() {
@@ -78,7 +81,7 @@ var _ = Describe("RPC:Configure", func() {
 		})
 	})
 
-	Describe("Connectivity", func() {
+	Describe("Kubeconfig Parsing", func() {
 		var config *clientcmdapi.Config
 
 		BeforeEach(func() {
@@ -118,26 +121,6 @@ var _ = Describe("RPC:Configure", func() {
 				Expect(k.clientSet).ToNot(BeNil())
 				Expect(k.logClient).ToNot(BeNil())
 
-			})
-
-			It("should check the server version", func() {
-				_, err := k.Configure(context.Background(), req)
-				Expect(err).ShouldNot(HaveOccurred())
-
-				Expect(k.k8sVersion).ToNot(BeNil())
-			})
-
-			It("should provide a resource cache", func() {
-				_, err := k.Configure(context.Background(), req)
-				Expect(err).ShouldNot(HaveOccurred())
-
-				By("discovering the server resources")
-				Expect(k.resources).ToNot(BeNil())
-
-				By("supporting invalidation")
-				k.invalidateResources()
-				Expect(k.resources).To(BeNil())
-				Expect(k.getResources()).ToNot(BeNil())
 			})
 
 			It("should use the context namespace as the default namespace", func() {
@@ -213,6 +196,38 @@ var _ = Describe("RPC:Configure", func() {
 				})
 				commonChecks()
 				connectedChecks()
+			})
+		})
+	})
+
+	Describe("Discovery", func() {
+		It("should record the server version for use in subsequent RPC methods", func() {
+			_, err := k.Configure(context.Background(), req)
+			Expect(err).ShouldNot(HaveOccurred())
+			Expect(k.k8sVersion).ToNot(BeNil())
+		})
+
+		It("should initialize a resource cache", func() {
+			_, err := k.Configure(context.Background(), req)
+			Expect(err).ShouldNot(HaveOccurred())
+
+			By("discovering the server resources")
+			Expect(k.resources).ToNot(BeNil())
+
+			By("supporting invalidation")
+			k.invalidateResources()
+			Expect(k.resources).To(BeNil())
+			Expect(k.getResources()).ToNot(BeNil())
+		})
+
+		Context("when the server version is < 1.13", func() {
+			BeforeEach(func() {
+				opts = append(opts, WithServerVersion(kubeversion.Info{Major: "1", Minor: "12"}))
+			})
+
+			It("should fail to configure", func() {
+				_, err := k.Configure(context.Background(), req)
+				Expect(err).Should(HaveOccurred())
 			})
 		})
 	})

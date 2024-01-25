@@ -27,10 +27,8 @@ import (
 var _ = Describe("RPC:Cancel", func() {
 	var k *kubeProvider
 
-	BeforeEach(func() {
-		var err error
-		k, err = pctx.NewProvider()
-		Expect(err).ShouldNot(HaveOccurred())
+	JustBeforeEach(func() {
+		k = pctx.NewProvider()
 	})
 
 	It("should cancel any future operations", func() {
@@ -43,10 +41,8 @@ var _ = Describe("RPC:Cancel", func() {
 var _ = Describe("RPC:GetPluginInfo", func() {
 	var k *kubeProvider
 
-	BeforeEach(func() {
-		var err error
-		k, err = pctx.NewProvider()
-		Expect(err).ShouldNot(HaveOccurred())
+	JustBeforeEach(func() {
+		k = pctx.NewProvider()
 	})
 
 	It("should return plugin info", func() {
@@ -59,13 +55,14 @@ var _ = Describe("RPC:GetPluginInfo", func() {
 var _ = Describe("RPC:GetSchema", func() {
 	var k *kubeProvider
 	var req *pulumirpc.GetSchemaRequest
-	BeforeEach(func() {
-		var err error
-		k, err = pctx.NewProvider()
-		Expect(err).ShouldNot(HaveOccurred())
 
+	BeforeEach(func() {
 		// initialize the GetSchemaRequest to be customized in nested BeforeEach blocks
 		req = &pulumirpc.GetSchemaRequest{}
+	})
+
+	JustBeforeEach(func() {
+		k = pctx.NewProvider()
 	})
 
 	Context("when the requested version is 0", func() {
@@ -95,13 +92,14 @@ var _ = Describe("RPC:GetSchema", func() {
 var _ = Describe("RPC:GetMapping", func() {
 	var k *kubeProvider
 	var req *pulumirpc.GetMappingRequest
-	BeforeEach(func() {
-		var err error
-		k, err = pctx.NewProvider()
-		Expect(err).ShouldNot(HaveOccurred())
 
+	BeforeEach(func() {
 		// initialize the GetMappingRequest to be customized in nested BeforeEach blocks
 		req = &pulumirpc.GetMappingRequest{}
+	})
+
+	JustBeforeEach(func() {
+		k = pctx.NewProvider()
 	})
 
 	Context("when the requested mapping is for terraform", func() {

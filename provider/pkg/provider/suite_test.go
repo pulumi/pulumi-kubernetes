@@ -173,20 +173,46 @@ type providerTestContext struct {
 	host   *provider.HostClient
 }
 
-func (c *providerTestContext) NewProvider(objects ...runtime.Object) (*kubeProvider, error) {
-	k, err := makeKubeProvider(c.host, "kubernetes", testPluginVersion, []byte(testPulumiSchema), []byte(testTerraformMapping))
-	if err != nil {
-		return nil, err
+type NewProviderOption func(*newProviderOptions)
+
+type newProviderOptions struct {
+	ServerVersion kubeversion.Info
+	Objects       []runtime.Object
+}
+
+func WithObjects(objects ...runtime.Object) NewProviderOption {
+	return func(opts *newProviderOptions) {
+		opts.Objects = append(opts.Objects, objects...)
 	}
+}
+
+func WithServerVersion(version kubeversion.Info) NewProviderOption {
+	return func(opts *newProviderOptions) {
+		opts.ServerVersion = version
+	}
+}
+
+func (c *providerTestContext) NewProvider(opts ...NewProviderOption) *kubeProvider {
+	options := newProviderOptions{
+		ServerVersion: testServerVersion,
+		Objects:       []runtime.Object{},
+	}
+	for _, opt := range opts {
+		opt(&options)
+	}
+
+	k, err := makeKubeProvider(c.host, "kubernetes", testPluginVersion, []byte(testPulumiSchema), []byte(testTerraformMapping))
+	Expect(err).ShouldNot(HaveOccurred())
+
 	k.makeClient = func(ctx context.Context, config *rest.Config) (*clients.DynamicClientSet, *clients.LogClient, error) {
 		// make a fake clientset for testing purposes, backed by an testing.ObjectTracker with pre-populated objects.
 		// see also: https://github.com/kubernetes/client-go/blob/kubernetes-1.29.0/examples/fake-client/main_test.go
 		disco := &discoveryfake.FakeDiscovery{
 			Fake:               &kubetesting.Fake{},
-			FakedServerVersion: &testServerVersion,
+			FakedServerVersion: &options.ServerVersion,
 		}
 		mapper := meta.NewDefaultRESTMapper([]schema.GroupVersion{})
-		client := dynamicfake.NewSimpleDynamicClient(scheme.Scheme, objects...)
+		client := dynamicfake.NewSimpleDynamicClient(scheme.Scheme, options.Objects...)
 		cs := &clients.DynamicClientSet{
 			GenericClient:         client,
 			DiscoveryClientCached: &mockCachedDiscoveryClient{DiscoveryInterface: disco},
@@ -194,12 +220,12 @@ func (c *providerTestContext) NewProvider(objects ...runtime.Object) (*kubeProvi
 		}
 
 		// make a fake log client for testing purposes.
-		clientset := fake.NewSimpleClientset(objects...)
+		clientset := fake.NewSimpleClientset(options.Objects...)
 		lc := clients.NewLogClient(ctx, clientset.CoreV1())
 
 		return cs, lc, nil
 	}
-	return k, nil
+	return k
 }
 
 // getDiscoveryClient returns the fake discovery client that the provider is using.

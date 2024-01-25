@@ -31,6 +31,7 @@ import (
 )
 
 var _ = Describe("RPC:DiffConfig", func() {
+	var opts []NewProviderOption
 	var k *kubeProvider
 	var req *pulumirpc.DiffRequest
 	var olds, news resource.PropertyMap
@@ -38,8 +39,7 @@ var _ = Describe("RPC:DiffConfig", func() {
 
 	BeforeEach(func() {
 		var err error
-		k, err = pctx.NewProvider()
-		Expect(err).ShouldNot(HaveOccurred())
+		opts = []NewProviderOption{}
 
 		// load the ambient kubeconfig for test purposes
 		homeDir := func() string {
@@ -63,6 +63,8 @@ var _ = Describe("RPC:DiffConfig", func() {
 
 	JustBeforeEach(func() {
 		var err error
+		k = pctx.NewProvider(opts...)
+
 		req.Olds, err = plugin.MarshalProperties(olds, plugin.MarshalOptions{
 			Label: "olds", KeepUnknowns: true, SkipNulls: true,
 		})

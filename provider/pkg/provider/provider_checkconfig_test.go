@@ -32,6 +32,7 @@ import (
 )
 
 var _ = Describe("RPC:CheckConfig", func() {
+	var opts []NewProviderOption
 	var k *kubeProvider
 	var req *pulumirpc.CheckRequest
 	var news resource.PropertyMap
@@ -39,8 +40,7 @@ var _ = Describe("RPC:CheckConfig", func() {
 
 	BeforeEach(func() {
 		var err error
-		k, err = pctx.NewProvider()
-		Expect(err).ShouldNot(HaveOccurred())
+		opts = []NewProviderOption{}
 
 		// load the ambient kubeconfig for test purposes
 		homeDir := func() string {
@@ -61,7 +61,8 @@ var _ = Describe("RPC:CheckConfig", func() {
 
 	JustBeforeEach(func() {
 		var err error
-		Expect(err).ShouldNot(HaveOccurred())
+		k = pctx.NewProvider(opts...)
+
 		req.News, err = plugin.MarshalProperties(news, plugin.MarshalOptions{
 			Label: "news", KeepUnknowns: true, SkipNulls: true,
 		})
