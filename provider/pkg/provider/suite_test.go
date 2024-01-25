@@ -291,15 +291,15 @@ func (c *providerTestContext) NewProvider(opts ...NewProviderOption) *kubeProvid
 	return k
 }
 
-// getDiscoveryClient returns the fake discovery client that the provider is using.
+// GetDiscoveryClient returns the fake discovery client that the provider is using.
 // use the Resources field to populate the server resources.
-func getDiscoveryClient(k *kubeProvider) *discoveryfake.FakeDiscovery {
+func GetDiscoveryClient(k *kubeProvider) *discoveryfake.FakeDiscovery {
 	return k.clientSet.DiscoveryClientCached.(*mockCachedDiscoveryClient).DiscoveryInterface.(*discoveryfake.FakeDiscovery)
 }
 
-// getDynamicClient returns the fake dynamic client that the provider is using.
-// Use the Tracker() method to inject fake objects.
-func getDynamicClient(k *kubeProvider) *dynamicfake.FakeDynamicClient {
+// GetDynamicClient returns the fake dynamic client that the provider is using.
+// Use the Tracker() accessor to inject fake objects.
+func GetDynamicClient(k *kubeProvider) *dynamicfake.FakeDynamicClient {
 	return k.clientSet.GenericClient.(*dynamicfake.FakeDynamicClient)
 }
 
