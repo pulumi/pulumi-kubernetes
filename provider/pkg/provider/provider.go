@@ -186,7 +186,7 @@ func makeClient(ctx context.Context, config *rest.Config) (*clients.DynamicClien
 	if err != nil {
 		return nil, nil, err
 	}
-	return cs, lc, err
+	return cs, lc, nil
 }
 
 func (k *kubeProvider) getResources() (k8sopenapi.Resources, error) {
@@ -779,9 +779,7 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 				config.Timeout = time.Duration(*kubeClientSettings.Timeout) * time.Second
 				logger.V(9).Infof("kube client timeout set to %v", config.Timeout)
 			}
-			warningConfig := rest.CopyConfig(config)
-			warningConfig.WarningHandler = rest.NoWarnings{}
-			config = warningConfig
+			config.WarningHandler = rest.NoWarnings{}
 		}
 	}
 

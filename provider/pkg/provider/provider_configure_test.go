@@ -1,4 +1,4 @@
-// Copyright 2016-2023, Pulumi Corporation.
+// Copyright 2016-2024, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -174,12 +174,15 @@ var _ = Describe("RPC:Configure", func() {
 
 			Context("with an invalid config file", func() {
 				BeforeEach(func() {
-					f, _ := os.CreateTemp("", "kubeconfig-")
+					f, err := os.CreateTemp("", "kubeconfig-")
+					Expect(err).ToNot(HaveOccurred())
 					DeferCleanup(func() {
 						os.Remove(f.Name())
 					})
-					_, _ = f.WriteString("invalid")
-					_ = f.Close()
+					_, err = f.WriteString("invalid")
+					Expect(err).ToNot(HaveOccurred())
+					err = f.Close()
+					Expect(err).ToNot(HaveOccurred())
 					req.Variables["kubernetes:config:kubeconfig"] = f.Name()
 				})
 				commonChecks()
