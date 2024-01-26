@@ -65,21 +65,6 @@ var _ = Describe("RPC:DiffConfig", func() {
 	})
 
 	Describe("Kubeconfig Parsing", func() {
-		Context("when kubeconfig is a computed value", func() {
-			BeforeEach(func() {
-				olds["kubeconfig"] = resource.NewStringProperty(WriteKubeconfigToString(oldConfig))
-				news["kubeconfig"] = resource.MakeComputed(resource.NewStringProperty(""))
-			})
-
-			It("should suggest replacement since a detailed diff cannot be performed", func() {
-				resp, err := k.DiffConfig(context.Background(), req)
-				Expect(err).ShouldNot(HaveOccurred())
-				Expect(resp.Changes).To(Equal(pulumirpc.DiffResponse_DIFF_SOME))
-				Expect(resp.Diffs).To(ContainElements("kubeconfig"))
-				Expect(resp.Replaces).To(ContainElements("kubeconfig"))
-			})
-		})
-
 		Context("when kubeconfig is a string value", func() {
 			BeforeEach(func() {
 				olds["kubeconfig"] = resource.NewStringProperty(WriteKubeconfigToString(oldConfig))
@@ -97,42 +82,190 @@ var _ = Describe("RPC:DiffConfig", func() {
 
 		Context("when kubeconfig is a file", func() {
 			BeforeEach(func() {
-				olds["kubeconfig"] = resource.NewStringProperty(WriteKubeconfigToFile(oldConfig))
-				news["kubeconfig"] = resource.NewStringProperty(WriteKubeconfigToFile(newConfig))
+				file := WriteKubeconfigToFile(newConfig)
+				olds["kubeconfig"] = resource.NewStringProperty(file)
+				news["kubeconfig"] = resource.NewStringProperty(file)
 			})
 
-			XIt("should return an empty diff", func() {
+			It("should return an empty diff", func() {
 				resp, err := k.DiffConfig(context.Background(), req)
 				Expect(err).ShouldNot(HaveOccurred())
 				Expect(resp.Changes).To(Equal(pulumirpc.DiffResponse_DIFF_NONE))
 				Expect(resp.Diffs).To(BeEmpty())
 				Expect(resp.Replaces).To(BeEmpty())
 			})
-
-			It("should fail due to pulumi/pulumi-kubernetes#2663", func() {
-				_, err := k.DiffConfig(context.Background(), req)
-				Expect(err).Should(HaveOccurred())
-			})
 		})
 	})
 
 	Describe("Cluster Change Detection", func() {
 
-		Context("when the cluster info has changed", func() {
-			BeforeEach(func() {
-				clusterName := newConfig.Contexts[newConfig.CurrentContext].Cluster
-				newConfig.Clusters[clusterName].Server = "https://updated.test"
+		Describe("kubeconfig", func() {
+			Context("when kubeconfig is a computed value", func() {
+				BeforeEach(func() {
+					olds["kubeconfig"] = resource.NewStringProperty(WriteKubeconfigToString(oldConfig))
+					news["kubeconfig"] = resource.MakeComputed(resource.NewStringProperty(""))
+				})
 
-				olds["kubeconfig"] = resource.NewStringProperty(WriteKubeconfigToString(oldConfig))
-				news["kubeconfig"] = resource.NewStringProperty(WriteKubeconfigToString(newConfig))
+				It("should suggest replacement since a detailed diff cannot be performed", func() {
+					resp, err := k.DiffConfig(context.Background(), req)
+					Expect(err).ShouldNot(HaveOccurred())
+					Expect(resp.Changes).To(Equal(pulumirpc.DiffResponse_DIFF_SOME))
+					Expect(resp.Diffs).To(ContainElements("kubeconfig"))
+					Expect(resp.Replaces).To(ContainElements("kubeconfig"))
+				})
 			})
 
-			It("should suggest replacement since the cluster itself may have been replaced", func() {
-				resp, err := k.DiffConfig(context.Background(), req)
-				Expect(err).ShouldNot(HaveOccurred())
-				Expect(resp.Changes).To(Equal(pulumirpc.DiffResponse_DIFF_SOME))
-				Expect(resp.Diffs).To(ContainElements("kubeconfig"))
-				Expect(resp.Replaces).To(ContainElements("kubeconfig"))
+			Context("when kubeconfig is ambient (not specified)", func() {
+				BeforeEach(func() {
+					olds["kubeconfig"] = resource.NewStringProperty(WriteKubeconfigToString(oldConfig))
+					delete(news, "kubeconfig")
+				})
+
+				It("should report a diff (no replace) on the kubeconfig property", func() {
+					resp, err := k.DiffConfig(context.Background(), req)
+					Expect(err).ShouldNot(HaveOccurred())
+					Expect(resp.Changes).To(Equal(pulumirpc.DiffResponse_DIFF_SOME))
+					Expect(resp.Diffs).To(ContainElements("kubeconfig"))
+					Expect(resp.Replaces).To(BeEmpty())
+				})
+			})
+
+			Context("when the file path is changed", func() {
+				BeforeEach(func() {
+					olds["kubeconfig"] = resource.NewStringProperty(WriteKubeconfigToFile(oldConfig))
+					news["kubeconfig"] = resource.NewStringProperty(WriteKubeconfigToFile(newConfig))
+				})
+
+				It("should report a diff (no replace) on the kubeconfig property", func() {
+					resp, err := k.DiffConfig(context.Background(), req)
+					Expect(err).ShouldNot(HaveOccurred())
+					Expect(resp.Changes).To(Equal(pulumirpc.DiffResponse_DIFF_SOME))
+					Expect(resp.Diffs).To(ContainElements("kubeconfig"))
+					Expect(resp.Replaces).To(BeEmpty())
+				})
+			})
+
+			Context("when the cluster info has changed", func() {
+				BeforeEach(func() {
+					clusterName := newConfig.Contexts[newConfig.CurrentContext].Cluster
+					newConfig.Clusters[clusterName].Server = "https://updated.test"
+					olds["kubeconfig"] = resource.NewStringProperty(WriteKubeconfigToFile(oldConfig))
+					news["kubeconfig"] = resource.NewStringProperty(WriteKubeconfigToFile(newConfig))
+				})
+
+				It("should suggest replacement since the underlying cluster may be different", func() {
+					resp, err := k.DiffConfig(context.Background(), req)
+					Expect(err).ShouldNot(HaveOccurred())
+					Expect(resp.Changes).To(Equal(pulumirpc.DiffResponse_DIFF_SOME))
+					Expect(resp.Diffs).To(ContainElements("kubeconfig"))
+					Expect(resp.Replaces).To(ContainElements("kubeconfig"))
+				})
+			})
+		})
+
+		Describe("context", func() {
+			BeforeEach(func() {
+				kubeconfig := WriteKubeconfigToFile(oldConfig)
+				olds["kubeconfig"] = resource.NewStringProperty(kubeconfig)
+				news["kubeconfig"] = resource.NewStringProperty(kubeconfig)
+			})
+
+			Context("when context is a computed value", func() {
+				BeforeEach(func() {
+					olds["context"] = resource.NewStringProperty("context1")
+					news["context"] = resource.MakeComputed(resource.NewStringProperty(""))
+				})
+
+				It("should suggest replacement since a detailed diff cannot be performed", func() {
+					resp, err := k.DiffConfig(context.Background(), req)
+					Expect(err).ShouldNot(HaveOccurred())
+					Expect(resp.Changes).To(Equal(pulumirpc.DiffResponse_DIFF_SOME))
+					Expect(resp.Diffs).To(ContainElements("context"))
+					Expect(resp.Replaces).To(ContainElements("context"))
+				})
+			})
+
+			Context("when the context is changed to refer to an invalid value", func() {
+				BeforeEach(func() {
+					olds["context"] = resource.NewStringProperty("context1")
+					news["context"] = resource.NewStringProperty("other")
+				})
+
+				It("should report a diff (no replace) on the context property", func() {
+					resp, err := k.DiffConfig(context.Background(), req)
+					Expect(err).ShouldNot(HaveOccurred())
+					Expect(resp.Changes).To(Equal(pulumirpc.DiffResponse_DIFF_SOME))
+					Expect(resp.Diffs).To(ContainElements("context"))
+					Expect(resp.Replaces).To(BeEmpty())
+				})
+			})
+
+			Context("when the context is changed to refer to a different cluster", func() {
+				BeforeEach(func() {
+					olds["context"] = resource.NewStringProperty("context1")
+					news["context"] = resource.NewStringProperty("context2")
+				})
+
+				It("should suggest replacement since the underlying cluster may be different", func() {
+					resp, err := k.DiffConfig(context.Background(), req)
+					Expect(err).ShouldNot(HaveOccurred())
+					Expect(resp.Changes).To(Equal(pulumirpc.DiffResponse_DIFF_SOME))
+					Expect(resp.Diffs).To(ContainElements("context"))
+					Expect(resp.Replaces).To(ContainElements("context"))
+				})
+			})
+		})
+
+		Describe("cluster", func() {
+			BeforeEach(func() {
+				kubeconfig := WriteKubeconfigToFile(oldConfig)
+				olds["kubeconfig"] = resource.NewStringProperty(kubeconfig)
+				news["kubeconfig"] = resource.NewStringProperty(kubeconfig)
+			})
+
+			Context("when cluster is a computed value", func() {
+				BeforeEach(func() {
+					olds["cluster"] = resource.NewStringProperty("cluster1")
+					news["cluster"] = resource.MakeComputed(resource.NewStringProperty(""))
+				})
+
+				It("should suggest replacement since a detailed diff cannot be performed", func() {
+					resp, err := k.DiffConfig(context.Background(), req)
+					Expect(err).ShouldNot(HaveOccurred())
+					Expect(resp.Changes).To(Equal(pulumirpc.DiffResponse_DIFF_SOME))
+					Expect(resp.Diffs).To(ContainElements("cluster"))
+					Expect(resp.Replaces).To(ContainElements("cluster"))
+				})
+			})
+
+			Context("when the cluster is changed to refer to an invalid value", func() {
+				BeforeEach(func() {
+					olds["cluster"] = resource.NewStringProperty("cluster1")
+					news["cluster"] = resource.NewStringProperty("other")
+				})
+
+				It("should report a diff (no replace) on the cluster property", func() {
+					resp, err := k.DiffConfig(context.Background(), req)
+					Expect(err).ShouldNot(HaveOccurred())
+					Expect(resp.Changes).To(Equal(pulumirpc.DiffResponse_DIFF_SOME))
+					Expect(resp.Diffs).To(ContainElements("cluster"))
+					Expect(resp.Replaces).To(BeEmpty())
+				})
+			})
+
+			Context("when the cluster is changed to refer to a different cluster", func() {
+				BeforeEach(func() {
+					olds["cluster"] = resource.NewStringProperty("cluster1")
+					news["cluster"] = resource.NewStringProperty("cluster2")
+				})
+
+				It("should suggest replacement since the underlying cluster may be different", func() {
+					resp, err := k.DiffConfig(context.Background(), req)
+					Expect(err).ShouldNot(HaveOccurred())
+					Expect(resp.Changes).To(Equal(pulumirpc.DiffResponse_DIFF_SOME))
+					Expect(resp.Diffs).To(ContainElements("cluster"))
+					Expect(resp.Replaces).To(ContainElements("cluster"))
+				})
 			})
 		})
 	})

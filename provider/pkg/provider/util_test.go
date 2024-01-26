@@ -261,6 +261,7 @@ v0dohqdVlO32gd6+BQNF8fP29o0dOCAjV/4wBbccuHubvBgu4rqHsHog371ETul/
 		name string
 		args args
 		want *clientapi.Cluster
+		ok   bool
 	}{
 		{
 			name: "nil",
@@ -269,6 +270,7 @@ v0dohqdVlO32gd6+BQNF8fP29o0dOCAjV/4wBbccuHubvBgu4rqHsHog371ETul/
 				overrides: map[resource.PropertyKey]resource.PropertyValue{},
 			},
 			want: &clientapi.Cluster{},
+			ok:   false,
 		},
 		{
 			name: "valid",
@@ -281,6 +283,7 @@ v0dohqdVlO32gd6+BQNF8fP29o0dOCAjV/4wBbccuHubvBgu4rqHsHog371ETul/
 				CertificateAuthorityData: certAuthData,
 				Extensions:               map[string]runtime.Object{},
 			},
+			ok: true,
 		},
 		{
 			name: "invalid_context_override",
@@ -291,6 +294,7 @@ v0dohqdVlO32gd6+BQNF8fP29o0dOCAjV/4wBbccuHubvBgu4rqHsHog371ETul/
 				},
 			},
 			want: &clientapi.Cluster{},
+			ok:   false,
 		},
 		{
 			name: "invalid_cluster_override",
@@ -301,6 +305,7 @@ v0dohqdVlO32gd6+BQNF8fP29o0dOCAjV/4wBbccuHubvBgu4rqHsHog371ETul/
 				},
 			},
 			want: &clientapi.Cluster{},
+			ok:   false,
 		},
 		{
 			name: "outdented_context_name",
@@ -309,11 +314,16 @@ v0dohqdVlO32gd6+BQNF8fP29o0dOCAjV/4wBbccuHubvBgu4rqHsHog371ETul/
 				overrides: map[resource.PropertyKey]resource.PropertyValue{},
 			},
 			want: &clientapi.Cluster{},
+			ok:   false,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := getActiveClusterFromConfig(tt.args.config, tt.args.overrides); !reflect.DeepEqual(got, tt.want) {
+			got, ok := getActiveClusterFromConfig(tt.args.config, tt.args.overrides)
+			if ok != tt.ok {
+				t.Errorf("getActiveClusterFromConfig() = %v, ok %v", ok, tt.ok)
+			}
+			if ok && !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("getActiveClusterFromConfig() = %v, want %v", got, tt.want)
 			}
 		})
