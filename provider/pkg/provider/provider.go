@@ -145,8 +145,7 @@ type kubeProvider struct {
 	clusterUnreachable       bool   // Kubernetes cluster is unreachable.
 	clusterUnreachableReason string // Detailed error message if cluster is unreachable.
 
-	config     *rest.Config // Cluster config, e.g., through $KUBECONFIG file.
-	kubeconfig clientcmd.ClientConfig
+	makeClient func(context.Context, *rest.Config) (*clients.DynamicClientSet, *clients.LogClient, error)
 	clientSet  *clients.DynamicClientSet
 	logClient  *clients.LogClient
 	k8sVersion cluster.ServerVersion
@@ -159,7 +158,7 @@ var _ pulumirpc.ResourceProviderServer = (*kubeProvider)(nil)
 
 func makeKubeProvider(
 	host *provider.HostClient, name, version string, pulumiSchema, terraformMapping []byte,
-) (pulumirpc.ResourceProviderServer, error) {
+) (*kubeProvider, error) {
 	return &kubeProvider{
 		host:                        host,
 		canceler:                    makeCancellationContext(),
@@ -172,7 +171,22 @@ func makeKubeProvider(
 		suppressDeprecationWarnings: false,
 		deleteUnreachable:           false,
 		skipUpdateUnreachable:       false,
+		makeClient:                  makeClient,
 	}, nil
+}
+
+// makeClient makes a client to connect to a Kubernetes cluster using the given config.
+// ctx is a cancellation context that may be used to cancel any subsequent requests made by the clients.
+func makeClient(ctx context.Context, config *rest.Config) (*clients.DynamicClientSet, *clients.LogClient, error) {
+	cs, err := clients.NewDynamicClientSet(config)
+	if err != nil {
+		return nil, nil, err
+	}
+	lc, err := clients.MakeLogClient(ctx, config)
+	if err != nil {
+		return nil, nil, err
+	}
+	return cs, lc, nil
 }
 
 func (k *kubeProvider) getResources() (k8sopenapi.Resources, error) {
@@ -742,12 +756,16 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	}
 
 	// Attempt to load the configuration from the provided kubeconfig. If this fails, mark the cluster as unreachable.
+	var config *rest.Config
 	if !k.clusterUnreachable {
-		config, err := kubeconfig.ClientConfig()
+		contract.Assertf(kubeconfig != nil, "expected kubeconfig to be initialized")
+		var err error
+		config, err = kubeconfig.ClientConfig()
 		if err != nil {
 			k.clusterUnreachable = true
 			k.clusterUnreachableReason = fmt.Sprintf("unable to load Kubernetes client configuration from kubeconfig file. Make sure you have: \n\n"+
 				" \t • set up the provider as per https://www.pulumi.com/registry/packages/kubernetes/installation-configuration/ \n\n %v", err)
+			config = nil
 		} else {
 			if kubeClientSettings.Burst != nil {
 				config.Burst = *kubeClientSettings.Burst
@@ -761,27 +779,20 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 				config.Timeout = time.Duration(*kubeClientSettings.Timeout) * time.Second
 				logger.V(9).Infof("kube client timeout set to %v", config.Timeout)
 			}
-			warningConfig := rest.CopyConfig(config)
-			warningConfig.WarningHandler = rest.NoWarnings{}
-			k.config = warningConfig
-			k.kubeconfig = kubeconfig
+			config.WarningHandler = rest.NoWarnings{}
 		}
 	}
 
 	// These operations require a reachable cluster.
 	if !k.clusterUnreachable {
-		cs, err := clients.NewDynamicClientSet(k.config)
+		contract.Assertf(config != nil, "expected config to be initialized")
+		var err error
+		k.clientSet, k.logClient, err = k.makeClient(k.canceler.context, config)
 		if err != nil {
 			return nil, err
 		}
-		k.clientSet = cs
-		lc, err := clients.NewLogClient(k.canceler.context, k.config)
-		if err != nil {
-			return nil, err
-		}
-		k.logClient = lc
 
-		k.k8sVersion = cluster.TryGetServerVersion(cs.DiscoveryClientCached)
+		k.k8sVersion = cluster.TryGetServerVersion(k.clientSet.DiscoveryClientCached)
 
 		if k.k8sVersion.Compare(cluster.ServerVersion{Major: 1, Minor: 13}) < 0 {
 			return nil, fmt.Errorf("minimum supported cluster version is v1.13. found v%s", k.k8sVersion)
@@ -801,7 +812,7 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		k.canceler,
 		apiConfig,
 		overrides,
-		k.config,
+		config,
 		k.clientSet,
 		k.helmDriver,
 		k.defaultNamespace,
