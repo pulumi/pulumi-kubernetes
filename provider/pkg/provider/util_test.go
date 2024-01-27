@@ -16,6 +16,9 @@ package provider
 
 import (
 	"encoding/json"
+	"os"
+	"os/user"
+	"path"
 	"reflect"
 	"testing"
 
@@ -25,6 +28,8 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/client-go/tools/clientcmd"
 	clientapi "k8s.io/client-go/tools/clientcmd/api"
+	clientcmdapi "k8s.io/client-go/tools/clientcmd/api"
+	"sigs.k8s.io/yaml"
 )
 
 func TestHasComputedValue(t *testing.T) {
@@ -188,8 +193,8 @@ func TestFqName(t *testing.T) {
 	}
 }
 
-func Test_getActiveClusterFromConfig(t *testing.T) {
-	const validKubeconfig = `apiVersion: v1
+var (
+	validKubeconfig = `apiVersion: v1
 clusters:
 - cluster:
     certificate-authority-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUM1ekNDQWMrZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFWTVJNd0VRWURWUVFERXdwcmRXSmwKY201bGRHVnpNQjRYRFRJeE1EUXlOekUxTkRjd05Wb1hEVE14TURReU5URTFORGN3TlZvd0ZURVRNQkVHQTFVRQpBeE1LYTNWaVpYSnVaWFJsY3pDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBTmVoCkJNOUowSVkrZFI5UmZVSjI5SlRxYjF2U3QwZUsxNDN1aVBxZElJR3hiWFFvVmV6ZDhRUXloSUFsUG91Z0VWS0gKUjRoTFRreEZJS01XQ1F0dGNCdkVaRnZBRmtyeVBzWU81RWgxRjZHdzJNbDYvNWtvU1psM1hTMDVyN1hnTUdWTQp5cVJRaDMvVWJFcVZkWkRlRWlBSnh6N3JQSUMxc1FUSlVqVTZUY2JaRFVYVkdGMVZMck9uRkJlUmg1NkwwN2RiCjJTeGd3dFhmNVNTMEFlYnJrT0REYzUwUUdYc250UkZONzE5YnlhblZCc3VzWm5mZnZIRWs1bnE1NUFMdGE0bjcKNkZDR2pRNHhYY2hsYTVvMWlreityN2pMenJ5NlNsdHJQWU5ML2VYNHgvRU0xUFFuVktlUWloRTJoNzRyakhLcApibDRwNjZPSjhseWRGa0VKQWVNQ0F3RUFBYU5DTUVBd0RnWURWUjBQQVFIL0JBUURBZ0trTUE4R0ExVWRFd0VCCi93UUZNQU1CQWY4d0hRWURWUjBPQkJZRUZJWHlrY0tnZGI0SlhEM0tSelNKSG4rdlRCeXlNQTBHQ1NxR1NJYjMKRFFFQkN3VUFBNElCQVFBd1M1WjZvV056WnRhNE1EeWczNWJmcjVRaTlIdG5WN2c5Y2VOdmNUSStxd0d4VUhZUApnZzJSb1Q0ZU5MMkVQV1lBUmRrZVNtU3JYMGtFL1QydFRueGJFWENNdEI2TjhPRnZiQ3VnVzZPK1pwSDNwNHR0ClVFQ0UxT3ZiWHd5MkMvdmkyaXJuOWtEd3I3SkFVQ2FGRVppcmVPTWNDbGp6ZURNTDBDOUpqQlJOUmRqWHVscmIKSlRwL0RiWVJ0OFVJNW0zaVFIa2luakRHVkVhVHIzamVCTTZQakl1L25sakNlK1ovV0wyb3pFbzgydzN2cHpONQp2MGRvaHFkVmxPMzJnZDYrQlFORjhmUDI5bzBkT0NBalYvNHdCYmNjdUh1YnZCZ3U0cnFIc0hvZzM3MUVUdWwvCjlJbHFrZ2FmemVydVBzNms1UGFaUE1iK25nbzNZRG5ndkhuSAotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
@@ -209,28 +214,8 @@ users:
     client-certificate-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURGVENDQWYyZ0F3SUJBZ0lJWnBUZjVmbTZDQW93RFFZSktvWklodmNOQVFFTEJRQXdGVEVUTUJFR0ExVUUKQXhNS2EzVmlaWEp1WlhSbGN6QWVGdzB5TVRBME1qY3hOVFEzTURWYUZ3MHlNakExTVRJeU16SXdNVEphTURZeApGekFWQmdOVkJBb1REbk41YzNSbGJUcHRZWE4wWlhKek1Sc3dHUVlEVlFRREV4SmtiMk5yWlhJdFptOXlMV1JsCmMydDBiM0F3Z2dFaU1BMEdDU3FHU0liM0RRRUJBUVVBQTRJQkR3QXdnZ0VLQW9JQkFRRENMaDZ3MWV5WGpOQ3AKSzI5ZFJJQ3o3eHd3K1ZPVXVYYlh2R2NJTEFxaElUdlR3WTJqUmVaTFFXK3B5Wm9XUUdWZm5EYVZ5TGxmUUVaOQpXQm9IcEkvWGVvVWl4Uy9mWmVPN1RTeXA1bFpLcExzaXBMSE1RazN1NHp2d1RqelJITFJ4Q3k3b2RWTUVxVWFyCkkveUxiVUMxL1RkaGc3WkVZTFVrbEE4bWVhWFpHMGx5ZjA4UEdTdTVLUUJuTFVlbXk5OHNqV2U3YTBvdlRZd3kKTUhveUhyS0VGV0xCTmYrTm5TMTY3ZFBONzhTNCtENThobGxZTmZEZDVHbXJYYUFBYzVxeHhCSW5VcmhkSDJQawo2YUZkZXduQjFRQlV6OWVlVUJEVlFoQmwwbXNoMmRUSWF3cGlnbENrTnR1RlhoTEhGMitaRjFCSzN5VnZaYURsCmsyOTNnanlwQWdNQkFBR2pTREJHTUE0R0ExVWREd0VCL3dRRUF3SUZvREFUQmdOVkhTVUVEREFLQmdnckJnRUYKQlFjREFqQWZCZ05WSFNNRUdEQVdnQlNGOHBIQ29IVytDVnc5eWtjMGlSNS9yMHdjc2pBTkJna3Foa2lHOXcwQgpBUXNGQUFPQ0FRRUFnT1dxR2Q0TnlCRzFDOUovb1NVTmxzdkxSWXp4eEluZ0VsT09MUmlNN2t2dTduRXV6SHBYCkViODh3di9SSU1qWlFlbDFOTmdLWFJvb0hOSmpXcVppOG5aMEIxangySnNmaldrZWlPUE1aTjZqNzhzdDBqWmsKZDErSW5Oem1raEo4ck92UjVCd2xFcDNUcUtTN3J6dzF4MnphRkxUVWtZblh6Wnp4TkU3VGZuZVJVSG4zVyt4SwpXMFFaS3RkUlcvV0M5M3AvckcvZXp2Z0o5dCthenZwa2V1bklTUm5lbFpGQzgrZTR3ZXdoZm15TmRtUFVySThkCnQyMzhxeVhaNzZMTERKTFFDSTRieFRSVVpJM2NDdFY4bzU0UThnVHAvNklaRXVkV3dPbEdXa0FackdaMXNCN2QKQ1RRbjRVTVBXV0JmTzBPcFdZS3hGcVg4U1FpQndQaWhDdz09Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
     client-key-data: LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlFcEFJQkFBS0NBUUVBd2k0ZXNOWHNsNHpRcVN0dlhVU0FzKzhjTVBsVGxMbDIxN3huQ0N3S29TRTcwOEdOCm8wWG1TMEZ2cWNtYUZrQmxYNXcybGNpNVgwQkdmVmdhQjZTUDEzcUZJc1V2MzJYanUwMHNxZVpXU3FTN0lxU3gKekVKTjd1TTc4RTQ4MFJ5MGNRc3U2SFZUQktsR3F5UDhpMjFBdGYwM1lZTzJSR0MxSkpRUEpubWwyUnRKY245UApEeGtydVNrQVp5MUhwc3ZmTEkxbnUydEtMMDJNTWpCNk1oNnloQlZpd1RYL2paMHRldTNUemUvRXVQZytmSVpaCldEWHczZVJwcTEyZ0FIT2FzY1FTSjFLNFhSOWo1T21oWFhzSndkVUFWTS9YbmxBUTFVSVFaZEpySWRuVXlHc0sKWW9KUXBEYmJoVjRTeHhkdm1SZFFTdDhsYjJXZzVaTnZkNEk4cVFJREFRQUJBb0lCQVFDeitSY05BMW1EcFVvSQpZVytZWEZPRmNnc0pBUzJNWE5GZlp3bC9zNEl1a2FUbndTOUxzdytkbElxd0xXQ1pXeG9hSWFrZDdxcVJNL3VoClZUVGEvSlV0UEN1RmJJblFYcGxTRWxkaEtWRzFZVFRwQ1FpWnJxS1kxUmZLeEZqdDM5TUdLejFReXQwbEp0ZU8KNjQyNGxJd3pvUHZoYjdoUmEraTRmRm9HYVIxa09KN1dGcFNwM2pUa0pZckFpQWViL2IxUlZ5Rk9sNm9IcEozcQo3dmxoaHZibklJcXdrMHp4VU1ya1ArTDR2azhLdjhEcVZZMTg1M1B5UWJ3cm1EUnBkNWYvTmRwZ0lrMWNjUURZCk1OUUxPd3NaRThsdTJZMW9PcTVpRmhZZEFmM2o2Ykt2Vi92WFAxdXhtdlZSMEZ6eWU0L2JuaXBUcWdNYUI1ZnQKQWJ5MVJsL2hBb0dCQU5vRnBLVExmTGYvQUFqNGw4TmlvdjJ2OXhVWmlrQVhNL0NPREpDVzVEU2hZakNZV0tDNApYNm8vdlJ6bHF3NWNaMDEvKzBYZ2lRa0tBQUdacXlzRnRsYjgveDdkYThnVWVDRVhGcDUzNlRiZXdHaXJlSlRoCkNCSnhlQ0x1cjdLVmp6RnpHdFZlTzY4VzRHRjg0ZmlQaUk0ZVJETlExN0pYVVR2cGtZTGNCQ2RsQW9HQkFPUUIKU05hdS9GYVdHVG5DbkVKa2pqRm9JdWFGbnVLaHphd1FIUHVFSFV6TFMzT1Fqem54MVRmMGU5aWxkRHBoekJ0SQpoNUgrbzFvUmhNYlN5Z2g1SGQ5aE1nekM3cjcrNmdPU2hMOEdnNjJwNU13YzhSVUhnZWhOWmkxSEJaeUh0VGFFCmg3LzA2YjBOV3lyMDRVcGNSZXJIME44TWdSWXI2emZ4K25MblpGWDFBb0dBSE1kLzYwejlJcUNqbFl1VEpQU0IKUlhHVDhSSVZBTTdQU1dMRzM5TTdQb05MSGRVT1pmRFFsLzJmN2crWEcrY3dyN2RFS1A0eHVLSzhTM25JY1g1bwppbVVOSERyb1Bsb05YWGpad0lOZG9xT1d6SHBPQ1lFRytzQkZ0bjdCYkpaM2QzU1ZSek1RTjlXU091d3NQQTVlClhUdzdqbmFPY25rNlBPbGhEdUFTSUUwQ2dZRUFuNGpHam5DaDMzUG04cU5ZOHB1cFlxaWF3dkY3MnRlY01XaVUKM3VmeUdHbW13WlhFb2FhMHFoSkhGYSt2UTZwcVJpelpyeTJjM3NpalB2citvaThjMTlBS1ZTT1FLZFB6cWN3NwpWZTRZOU1xTGJNWlRhWU4zUWpQbDZvaG5STDh2N0pXTzVxRlhheENOV2VFK1FlbU9nbGlOcllQeVRyRXNSRmpzCkJMb2pXb0VDZ1lCaWMrWjJvSzNTTmpzL3J5ZFU1Lzg3T3NVbExHamxKbDI1NE0xaGl3RmVsd3pUWjNXWjFuZlkKcS80Mm5GR3VRQUQ3RFFwSTBCSnFWVTJCQlZySmlSeFhROVlXUStCb3Q5VU4yRVJQQmhFeityU0Y0MnhybnZobApsZTU2NHVmK3VBdCt2K2ZjZUtYVnVDRDN1ZGdxL2d5ejNCaHN5VkJxZkFoNy9oNndOTmhIb3c9PQotLS0tLUVORCBSU0EgUFJJVkFURSBLRVktLS0tLQo=
 `
-	// Outdented contexts[0].context.name
-	const invalidKubeconfig = `apiVersion: v1
-clusters:
-- cluster:
-    certificate-authority-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUM1ekNDQWMrZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFWTVJNd0VRWURWUVFERXdwcmRXSmwKY201bGRHVnpNQjRYRFRJeE1EUXlOekUxTkRjd05Wb1hEVE14TURReU5URTFORGN3TlZvd0ZURVRNQkVHQTFVRQpBeE1LYTNWaVpYSnVaWFJsY3pDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBTmVoCkJNOUowSVkrZFI5UmZVSjI5SlRxYjF2U3QwZUsxNDN1aVBxZElJR3hiWFFvVmV6ZDhRUXloSUFsUG91Z0VWS0gKUjRoTFRreEZJS01XQ1F0dGNCdkVaRnZBRmtyeVBzWU81RWgxRjZHdzJNbDYvNWtvU1psM1hTMDVyN1hnTUdWTQp5cVJRaDMvVWJFcVZkWkRlRWlBSnh6N3JQSUMxc1FUSlVqVTZUY2JaRFVYVkdGMVZMck9uRkJlUmg1NkwwN2RiCjJTeGd3dFhmNVNTMEFlYnJrT0REYzUwUUdYc250UkZONzE5YnlhblZCc3VzWm5mZnZIRWs1bnE1NUFMdGE0bjcKNkZDR2pRNHhYY2hsYTVvMWlreityN2pMenJ5NlNsdHJQWU5ML2VYNHgvRU0xUFFuVktlUWloRTJoNzRyakhLcApibDRwNjZPSjhseWRGa0VKQWVNQ0F3RUFBYU5DTUVBd0RnWURWUjBQQVFIL0JBUURBZ0trTUE4R0ExVWRFd0VCCi93UUZNQU1CQWY4d0hRWURWUjBPQkJZRUZJWHlrY0tnZGI0SlhEM0tSelNKSG4rdlRCeXlNQTBHQ1NxR1NJYjMKRFFFQkN3VUFBNElCQVFBd1M1WjZvV056WnRhNE1EeWczNWJmcjVRaTlIdG5WN2c5Y2VOdmNUSStxd0d4VUhZUApnZzJSb1Q0ZU5MMkVQV1lBUmRrZVNtU3JYMGtFL1QydFRueGJFWENNdEI2TjhPRnZiQ3VnVzZPK1pwSDNwNHR0ClVFQ0UxT3ZiWHd5MkMvdmkyaXJuOWtEd3I3SkFVQ2FGRVppcmVPTWNDbGp6ZURNTDBDOUpqQlJOUmRqWHVscmIKSlRwL0RiWVJ0OFVJNW0zaVFIa2luakRHVkVhVHIzamVCTTZQakl1L25sakNlK1ovV0wyb3pFbzgydzN2cHpONQp2MGRvaHFkVmxPMzJnZDYrQlFORjhmUDI5bzBkT0NBalYvNHdCYmNjdUh1YnZCZ3U0cnFIc0hvZzM3MUVUdWwvCjlJbHFrZ2FmemVydVBzNms1UGFaUE1iK25nbzNZRG5ndkhuSAotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
-    server: https://kubernetes.docker.internal:6443
-  name: docker-desktop
-contexts:
-- context:
-    cluster: docker-desktop
-    user: docker-desktop
-name: docker-desktop
-current-context: docker-desktop
-kind: Config
-preferences: {}
-users:
-- name: docker-desktop
-  user:
-    client-certificate-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURGVENDQWYyZ0F3SUJBZ0lJWnBUZjVmbTZDQW93RFFZSktvWklodmNOQVFFTEJRQXdGVEVUTUJFR0ExVUUKQXhNS2EzVmlaWEp1WlhSbGN6QWVGdzB5TVRBME1qY3hOVFEzTURWYUZ3MHlNakExTVRJeU16SXdNVEphTURZeApGekFWQmdOVkJBb1REbk41YzNSbGJUcHRZWE4wWlhKek1Sc3dHUVlEVlFRREV4SmtiMk5yWlhJdFptOXlMV1JsCmMydDBiM0F3Z2dFaU1BMEdDU3FHU0liM0RRRUJBUVVBQTRJQkR3QXdnZ0VLQW9JQkFRRENMaDZ3MWV5WGpOQ3AKSzI5ZFJJQ3o3eHd3K1ZPVXVYYlh2R2NJTEFxaElUdlR3WTJqUmVaTFFXK3B5Wm9XUUdWZm5EYVZ5TGxmUUVaOQpXQm9IcEkvWGVvVWl4Uy9mWmVPN1RTeXA1bFpLcExzaXBMSE1RazN1NHp2d1RqelJITFJ4Q3k3b2RWTUVxVWFyCkkveUxiVUMxL1RkaGc3WkVZTFVrbEE4bWVhWFpHMGx5ZjA4UEdTdTVLUUJuTFVlbXk5OHNqV2U3YTBvdlRZd3kKTUhveUhyS0VGV0xCTmYrTm5TMTY3ZFBONzhTNCtENThobGxZTmZEZDVHbXJYYUFBYzVxeHhCSW5VcmhkSDJQawo2YUZkZXduQjFRQlV6OWVlVUJEVlFoQmwwbXNoMmRUSWF3cGlnbENrTnR1RlhoTEhGMitaRjFCSzN5VnZaYURsCmsyOTNnanlwQWdNQkFBR2pTREJHTUE0R0ExVWREd0VCL3dRRUF3SUZvREFUQmdOVkhTVUVEREFLQmdnckJnRUYKQlFjREFqQWZCZ05WSFNNRUdEQVdnQlNGOHBIQ29IVytDVnc5eWtjMGlSNS9yMHdjc2pBTkJna3Foa2lHOXcwQgpBUXNGQUFPQ0FRRUFnT1dxR2Q0TnlCRzFDOUovb1NVTmxzdkxSWXp4eEluZ0VsT09MUmlNN2t2dTduRXV6SHBYCkViODh3di9SSU1qWlFlbDFOTmdLWFJvb0hOSmpXcVppOG5aMEIxangySnNmaldrZWlPUE1aTjZqNzhzdDBqWmsKZDErSW5Oem1raEo4ck92UjVCd2xFcDNUcUtTN3J6dzF4MnphRkxUVWtZblh6Wnp4TkU3VGZuZVJVSG4zVyt4SwpXMFFaS3RkUlcvV0M5M3AvckcvZXp2Z0o5dCthenZwa2V1bklTUm5lbFpGQzgrZTR3ZXdoZm15TmRtUFVySThkCnQyMzhxeVhaNzZMTERKTFFDSTRieFRSVVpJM2NDdFY4bzU0UThnVHAvNklaRXVkV3dPbEdXa0FackdaMXNCN2QKQ1RRbjRVTVBXV0JmTzBPcFdZS3hGcVg4U1FpQndQaWhDdz09Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
-    client-key-data: LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlFcEFJQkFBS0NBUUVBd2k0ZXNOWHNsNHpRcVN0dlhVU0FzKzhjTVBsVGxMbDIxN3huQ0N3S29TRTcwOEdOCm8wWG1TMEZ2cWNtYUZrQmxYNXcybGNpNVgwQkdmVmdhQjZTUDEzcUZJc1V2MzJYanUwMHNxZVpXU3FTN0lxU3gKekVKTjd1TTc4RTQ4MFJ5MGNRc3U2SFZUQktsR3F5UDhpMjFBdGYwM1lZTzJSR0MxSkpRUEpubWwyUnRKY245UApEeGtydVNrQVp5MUhwc3ZmTEkxbnUydEtMMDJNTWpCNk1oNnloQlZpd1RYL2paMHRldTNUemUvRXVQZytmSVpaCldEWHczZVJwcTEyZ0FIT2FzY1FTSjFLNFhSOWo1T21oWFhzSndkVUFWTS9YbmxBUTFVSVFaZEpySWRuVXlHc0sKWW9KUXBEYmJoVjRTeHhkdm1SZFFTdDhsYjJXZzVaTnZkNEk4cVFJREFRQUJBb0lCQVFDeitSY05BMW1EcFVvSQpZVytZWEZPRmNnc0pBUzJNWE5GZlp3bC9zNEl1a2FUbndTOUxzdytkbElxd0xXQ1pXeG9hSWFrZDdxcVJNL3VoClZUVGEvSlV0UEN1RmJJblFYcGxTRWxkaEtWRzFZVFRwQ1FpWnJxS1kxUmZLeEZqdDM5TUdLejFReXQwbEp0ZU8KNjQyNGxJd3pvUHZoYjdoUmEraTRmRm9HYVIxa09KN1dGcFNwM2pUa0pZckFpQWViL2IxUlZ5Rk9sNm9IcEozcQo3dmxoaHZibklJcXdrMHp4VU1ya1ArTDR2azhLdjhEcVZZMTg1M1B5UWJ3cm1EUnBkNWYvTmRwZ0lrMWNjUURZCk1OUUxPd3NaRThsdTJZMW9PcTVpRmhZZEFmM2o2Ykt2Vi92WFAxdXhtdlZSMEZ6eWU0L2JuaXBUcWdNYUI1ZnQKQWJ5MVJsL2hBb0dCQU5vRnBLVExmTGYvQUFqNGw4TmlvdjJ2OXhVWmlrQVhNL0NPREpDVzVEU2hZakNZV0tDNApYNm8vdlJ6bHF3NWNaMDEvKzBYZ2lRa0tBQUdacXlzRnRsYjgveDdkYThnVWVDRVhGcDUzNlRiZXdHaXJlSlRoCkNCSnhlQ0x1cjdLVmp6RnpHdFZlTzY4VzRHRjg0ZmlQaUk0ZVJETlExN0pYVVR2cGtZTGNCQ2RsQW9HQkFPUUIKU05hdS9GYVdHVG5DbkVKa2pqRm9JdWFGbnVLaHphd1FIUHVFSFV6TFMzT1Fqem54MVRmMGU5aWxkRHBoekJ0SQpoNUgrbzFvUmhNYlN5Z2g1SGQ5aE1nekM3cjcrNmdPU2hMOEdnNjJwNU13YzhSVUhnZWhOWmkxSEJaeUh0VGFFCmg3LzA2YjBOV3lyMDRVcGNSZXJIME44TWdSWXI2emZ4K25MblpGWDFBb0dBSE1kLzYwejlJcUNqbFl1VEpQU0IKUlhHVDhSSVZBTTdQU1dMRzM5TTdQb05MSGRVT1pmRFFsLzJmN2crWEcrY3dyN2RFS1A0eHVLSzhTM25JY1g1bwppbVVOSERyb1Bsb05YWGpad0lOZG9xT1d6SHBPQ1lFRytzQkZ0bjdCYkpaM2QzU1ZSek1RTjlXU091d3NQQTVlClhUdzdqbmFPY25rNlBPbGhEdUFTSUUwQ2dZRUFuNGpHam5DaDMzUG04cU5ZOHB1cFlxaWF3dkY3MnRlY01XaVUKM3VmeUdHbW13WlhFb2FhMHFoSkhGYSt2UTZwcVJpelpyeTJjM3NpalB2citvaThjMTlBS1ZTT1FLZFB6cWN3NwpWZTRZOU1xTGJNWlRhWU4zUWpQbDZvaG5STDh2N0pXTzVxRlhheENOV2VFK1FlbU9nbGlOcllQeVRyRXNSRmpzCkJMb2pXb0VDZ1lCaWMrWjJvSzNTTmpzL3J5ZFU1Lzg3T3NVbExHamxKbDI1NE0xaGl3RmVsd3pUWjNXWjFuZlkKcS80Mm5GR3VRQUQ3RFFwSTBCSnFWVTJCQlZySmlSeFhROVlXUStCb3Q5VU4yRVJQQmhFeityU0Y0MnhybnZobApsZTU2NHVmK3VBdCt2K2ZjZUtYVnVDRDN1ZGdxL2d5ejNCaHN5VkJxZkFoNy9oNndOTmhIb3c9PQotLS0tLUVORCBSU0EgUFJJVkFURSBLRVktLS0tLQo=
-`
-	certAuthData := []byte(`-----BEGIN CERTIFICATE-----
+
+	certAuthData = []byte(`-----BEGIN CERTIFICATE-----
 MIIC5zCCAc+gAwIBAgIBADANBgkqhkiG9w0BAQsFADAVMRMwEQYDVQQDEwprdWJl
 cm5ldGVzMB4XDTIxMDQyNzE1NDcwNVoXDTMxMDQyNTE1NDcwNVowFTETMBEGA1UE
 AxMKa3ViZXJuZXRlczCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBANeh
@@ -249,9 +234,143 @@ v0dohqdVlO32gd6+BQNF8fP29o0dOCAjV/4wBbccuHubvBgu4rqHsHog371ETul/
 9IlqkgafzeruPs6k5PaZPMb+ngo3YDngvHnH
 -----END CERTIFICATE-----
 `)
+)
 
+func writeKubeConfig(t *testing.T, dir string, config *clientcmdapi.Config) string {
+	f, err := os.CreateTemp(dir, "kubeconfig-")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = f.Close(); err != nil {
+		t.Fatal(err)
+	}
+	if err = clientcmd.WriteToFile(*config, f.Name()); err != nil {
+		t.Fatal(err)
+	}
+	t.Cleanup(func() {
+		if err = os.Remove(f.Name()); err != nil {
+			t.Fatal(err)
+		}
+	})
+	return f.Name()
+}
+
+func Test_parseKubeconfigString(t *testing.T) {
+	// write out a valid kubeconfig into the home directory
+	usr, err := user.Current()
+	assert.NoError(t, err)
 	validConfig, _ := clientcmd.Load([]byte(validKubeconfig))
-	outdentedConfig, _ := clientcmd.Load([]byte(invalidKubeconfig))
+	validConfigFile := writeKubeConfig(t, usr.HomeDir, validConfig)
+
+	tests := []struct {
+		name           string
+		pathOrContents string
+		want           *clientapi.Config
+		wantErr        string
+	}{
+		{
+			name:           "empty",
+			pathOrContents: "",
+			want:           &clientapi.Config{},
+		},
+		{
+			name:           "invalid",
+			pathOrContents: "invalid",
+			wantErr:        "json parse error",
+		},
+		{
+			name:           "string",
+			pathOrContents: validKubeconfig,
+			want:           validConfig,
+		},
+		{
+			name:           "home_dir",
+			pathOrContents: "~",
+			wantErr:        "is a directory",
+		},
+		{
+			name:           "home_file",
+			pathOrContents: path.Join("~", path.Base(validConfigFile)),
+			want:           validConfig,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := parseKubeconfigString(tt.pathOrContents)
+			if tt.wantErr != "" {
+				assert.ErrorContains(t, err, tt.wantErr)
+			} else if assert.NoError(t, err) {
+				if !reflect.DeepEqual(got, tt.want) {
+					t.Errorf("parseKubeconfigString() = %v, want %v", got, tt.want)
+				}
+			}
+		})
+	}
+}
+
+func Test_parseKubeconfigPropertyValue(t *testing.T) {
+	validConfig, _ := clientcmd.Load([]byte(validKubeconfig))
+
+	// convert the kubeconfig (YAML) to a JSON representation similar to:
+	// https://github.com/pulumi/pulumi-eks/blob/160a7531e7377d6e8e41d3dbc62d2cee8703e630/nodejs/eks/cluster.ts#L199-L261
+	validConfigJSON, _ := yaml.YAMLToJSON([]byte(validKubeconfig))
+	validConfigObject := make(map[string]interface{})
+	_ = json.Unmarshal(validConfigJSON, &validConfigObject)
+
+	tests := []struct {
+		name       string
+		kubeconfig resource.PropertyValue
+		want       *clientapi.Config
+		wantErr    string
+	}{
+		{
+			name:       "null",
+			kubeconfig: resource.NewNullProperty(),
+			want:       &clientapi.Config{},
+		},
+		{
+			name:       "invalid",
+			kubeconfig: resource.NewStringProperty("invalid"),
+			wantErr:    "json parse error",
+		},
+		{
+			name:       "empty",
+			kubeconfig: resource.NewStringProperty(""),
+			want:       &clientapi.Config{},
+		},
+		{
+			name:       "string",
+			kubeconfig: resource.NewStringProperty(validKubeconfig),
+			want:       validConfig,
+		},
+		{
+			name:       "object",
+			kubeconfig: resource.NewObjectProperty(resource.NewPropertyMapFromMap(validConfigObject)),
+			want:       validConfig,
+		},
+		{
+			name:       "unsupported_resource_type",
+			kubeconfig: resource.NewBoolProperty(true),
+			wantErr:    "unexpected kubeconfig format",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := parseKubeconfigPropertyValue(tt.kubeconfig)
+			if tt.wantErr != "" {
+				assert.ErrorContains(t, err, tt.wantErr)
+			} else if assert.NoError(t, err) {
+				if !reflect.DeepEqual(got, tt.want) {
+					t.Errorf("parseKubeconfigPropertyValue() = %v, want %v", got, tt.want)
+				}
+			}
+		})
+	}
+
+}
+
+func Test_getActiveClusterFromConfig(t *testing.T) {
+	validConfig, _ := clientcmd.Load([]byte(validKubeconfig))
 
 	type args struct {
 		config    *clientapi.Config
@@ -261,6 +380,7 @@ v0dohqdVlO32gd6+BQNF8fP29o0dOCAjV/4wBbccuHubvBgu4rqHsHog371ETul/
 		name string
 		args args
 		want *clientapi.Cluster
+		ok   bool
 	}{
 		{
 			name: "nil",
@@ -269,6 +389,16 @@ v0dohqdVlO32gd6+BQNF8fP29o0dOCAjV/4wBbccuHubvBgu4rqHsHog371ETul/
 				overrides: map[resource.PropertyKey]resource.PropertyValue{},
 			},
 			want: &clientapi.Cluster{},
+			ok:   false,
+		},
+		{
+			name: "empty",
+			args: args{
+				config:    &clientapi.Config{},
+				overrides: map[resource.PropertyKey]resource.PropertyValue{},
+			},
+			want: &clientapi.Cluster{},
+			ok:   false,
 		},
 		{
 			name: "valid",
@@ -281,6 +411,7 @@ v0dohqdVlO32gd6+BQNF8fP29o0dOCAjV/4wBbccuHubvBgu4rqHsHog371ETul/
 				CertificateAuthorityData: certAuthData,
 				Extensions:               map[string]runtime.Object{},
 			},
+			ok: true,
 		},
 		{
 			name: "invalid_context_override",
@@ -291,6 +422,7 @@ v0dohqdVlO32gd6+BQNF8fP29o0dOCAjV/4wBbccuHubvBgu4rqHsHog371ETul/
 				},
 			},
 			want: &clientapi.Cluster{},
+			ok:   false,
 		},
 		{
 			name: "invalid_cluster_override",
@@ -301,19 +433,16 @@ v0dohqdVlO32gd6+BQNF8fP29o0dOCAjV/4wBbccuHubvBgu4rqHsHog371ETul/
 				},
 			},
 			want: &clientapi.Cluster{},
-		},
-		{
-			name: "outdented_context_name",
-			args: args{
-				config:    outdentedConfig,
-				overrides: map[resource.PropertyKey]resource.PropertyValue{},
-			},
-			want: &clientapi.Cluster{},
+			ok:   false,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := getActiveClusterFromConfig(tt.args.config, tt.args.overrides); !reflect.DeepEqual(got, tt.want) {
+			got, ok := getActiveClusterFromConfig(tt.args.config, tt.args.overrides)
+			if ok != tt.ok {
+				t.Errorf("getActiveClusterFromConfig() = %v, ok %v", ok, tt.ok)
+			}
+			if ok && !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("getActiveClusterFromConfig() = %v, want %v", got, tt.want)
 			}
 		})

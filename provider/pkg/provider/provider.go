@@ -22,10 +22,10 @@ import (
 	"net/http"
 	"net/url"
 	"os"
-	"os/user"
 	"path/filepath"
 	"reflect"
 	"regexp"
+	"slices"
 	"strconv"
 	"strings"
 	"sync"
@@ -374,13 +374,15 @@ func (k *kubeProvider) DiffConfig(ctx context.Context, req *pulumirpc.DiffReques
 	}
 
 	// We can't tell for sure if a computed value has changed, so we make the conservative choice
-	// and force a replacement.
-	if news["kubeconfig"].IsComputed() {
-		return &pulumirpc.DiffResponse{
-			Changes:  pulumirpc.DiffResponse_DIFF_SOME,
-			Diffs:    []string{"kubeconfig"},
-			Replaces: []string{"kubeconfig"},
-		}, nil
+	// and force a replacement. Note that getActiveClusterFromConfig relies on all three of the below properties.
+	for _, key := range []resource.PropertyKey{"kubeconfig", "context", "cluster"} {
+		if news[key].IsComputed() {
+			return &pulumirpc.DiffResponse{
+				Changes:  pulumirpc.DiffResponse_DIFF_SOME,
+				Diffs:    []string{string(key)},
+				Replaces: []string{string(key)},
+			}, nil
+		}
 	}
 
 	var diffs, replaces []string
@@ -419,10 +421,17 @@ func (k *kubeProvider) DiffConfig(ctx context.Context, req *pulumirpc.DiffReques
 	// The alternative of ignoring changes to the kubeconfig is untenable; if the k8s cluster has
 	// changed, any dependent resources must be recreated, and ignoring changes prevents that from
 	// happening.
-	oldActiveCluster := getActiveClusterFromConfig(oldConfig, olds)
-	activeCluster := getActiveClusterFromConfig(newConfig, news)
-	if !reflect.DeepEqual(oldActiveCluster, activeCluster) {
-		replaces = diffs
+	oldActiveCluster, oldFound := getActiveClusterFromConfig(oldConfig, olds)
+	activeCluster, found := getActiveClusterFromConfig(newConfig, news)
+	if !oldFound || !found {
+		// The config is either ambient or invalid, so we can't draw any conclusions.
+	} else if !reflect.DeepEqual(oldActiveCluster, activeCluster) {
+		// one of these properties must have changed for the active cluster to change.
+		for _, key := range []string{"kubeconfig", "context", "cluster"} {
+			if slices.Contains(diffs, key) {
+				replaces = append(replaces, key)
+			}
+		}
 	}
 	logger.V(7).Infof("%s: diffs %v / replaces %v", label, diffs, replaces)
 
@@ -660,39 +669,9 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 
 	var kubeconfig clientcmd.ClientConfig
 	var apiConfig *clientapi.Config
-	homeDir := func() string {
-		// Ignore errors. The filepath will be checked later, so we can handle failures there.
-		usr, _ := user.Current()
-		return usr.HomeDir
-	}
 	// Note: the Python SDK was setting the kubeconfig value to "" by default, so explicitly check for empty string.
 	if pathOrContents, ok := vars["kubernetes:config:kubeconfig"]; ok && pathOrContents != "" {
-		var contents string
-
-		// Handle the '~' character if it is set in the config string. Normally, this would be expanded by the shell
-		// into the user's home directory, but we have to do that manually if it is set in a config value.
-		if pathOrContents == "~" {
-			// In case of "~", which won't be caught by the "else if"
-			pathOrContents = homeDir()
-		} else if strings.HasPrefix(pathOrContents, "~/") {
-			pathOrContents = filepath.Join(homeDir(), pathOrContents[2:])
-		}
-
-		// If the variable is a valid filepath, load the file and parse the contents as a k8s config.
-		_, err := os.Stat(pathOrContents)
-		if err == nil {
-			b, err := os.ReadFile(pathOrContents)
-			if err != nil {
-				unreachableCluster(err)
-			} else {
-				contents = string(b)
-			}
-		} else { // Assume the contents are a k8s config.
-			contents = pathOrContents
-		}
-
-		// Load the contents of the k8s config.
-		apiConfig, err = clientcmd.Load([]byte(contents))
+		apiConfig, err := parseKubeconfigString(pathOrContents)
 		if err != nil {
 			unreachableCluster(err)
 		} else {
