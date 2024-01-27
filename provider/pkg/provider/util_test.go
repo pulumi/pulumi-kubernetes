@@ -315,7 +315,7 @@ func Test_parseKubeconfigPropertyValue(t *testing.T) {
 	// https://github.com/pulumi/pulumi-eks/blob/160a7531e7377d6e8e41d3dbc62d2cee8703e630/nodejs/eks/cluster.ts#L199-L261
 	validConfigJSON, _ := yaml.YAMLToJSON([]byte(validKubeconfig))
 	validConfigObject := make(map[string]interface{})
-	json.Unmarshal([]byte(validConfigJSON), &validConfigObject)
+	_ = json.Unmarshal([]byte(validConfigJSON), &validConfigObject)
 
 	tests := []struct {
 		name       string

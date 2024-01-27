@@ -64,39 +64,6 @@ var _ = Describe("RPC:DiffConfig", func() {
 		Expect(err).ShouldNot(HaveOccurred())
 	})
 
-	Describe("Kubeconfig Parsing", func() {
-		Context("when kubeconfig is a string value", func() {
-			BeforeEach(func() {
-				olds["kubeconfig"] = resource.NewStringProperty(WriteKubeconfigToString(oldConfig))
-				news["kubeconfig"] = resource.NewStringProperty(WriteKubeconfigToString(newConfig))
-			})
-
-			It("should return an empty diff", func() {
-				resp, err := k.DiffConfig(context.Background(), req)
-				Expect(err).ShouldNot(HaveOccurred())
-				Expect(resp.Changes).To(Equal(pulumirpc.DiffResponse_DIFF_NONE))
-				Expect(resp.Diffs).To(BeEmpty())
-				Expect(resp.Replaces).To(BeEmpty())
-			})
-		})
-
-		Context("when kubeconfig is a file", func() {
-			BeforeEach(func() {
-				file := WriteKubeconfigToFile(newConfig)
-				olds["kubeconfig"] = resource.NewStringProperty(file)
-				news["kubeconfig"] = resource.NewStringProperty(file)
-			})
-
-			It("should return an empty diff", func() {
-				resp, err := k.DiffConfig(context.Background(), req)
-				Expect(err).ShouldNot(HaveOccurred())
-				Expect(resp.Changes).To(Equal(pulumirpc.DiffResponse_DIFF_NONE))
-				Expect(resp.Diffs).To(BeEmpty())
-				Expect(resp.Replaces).To(BeEmpty())
-			})
-		})
-	})
-
 	Describe("Cluster Change Detection", func() {
 
 		Describe("kubeconfig", func() {
@@ -115,10 +82,25 @@ var _ = Describe("RPC:DiffConfig", func() {
 				})
 			})
 
-			Context("when kubeconfig is ambient (not specified)", func() {
+			Context("when kubeconfig is ambient", func() {
 				BeforeEach(func() {
-					olds["kubeconfig"] = resource.NewStringProperty(WriteKubeconfigToString(oldConfig))
+					delete(olds, "kubeconfig")
 					delete(news, "kubeconfig")
+				})
+
+				It("should report no diffs", func() {
+					resp, err := k.DiffConfig(context.Background(), req)
+					Expect(err).ShouldNot(HaveOccurred())
+					Expect(resp.Changes).To(Equal(pulumirpc.DiffResponse_DIFF_NONE))
+					Expect(resp.Diffs).To(BeEmpty())
+					Expect(resp.Replaces).To(BeEmpty())
+				})
+			})
+
+			Context("when kubeconfig is changed from ambient to explicit", func() {
+				BeforeEach(func() {
+					delete(olds, "kubeconfig")
+					news["kubeconfig"] = resource.NewStringProperty(WriteKubeconfigToString(newConfig))
 				})
 
 				It("should report a diff (no replace) on the kubeconfig property", func() {
