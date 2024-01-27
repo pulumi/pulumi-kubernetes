@@ -87,6 +87,10 @@ func fqName(namespace, name string) string {
 func parseKubeconfigString(pathOrContents string) (*clientapi.Config, error) {
 	var contents string
 
+	if pathOrContents == "" {
+		return &clientapi.Config{}, nil
+	}
+
 	// Handle the '~' character if it is set in the config string. Normally, this would be expanded by the shell
 	// into the user's home directory, but we have to do that manually if it is set in a config value.
 	homeDir := func() string {
