@@ -26,3 +26,7 @@ sdk/java/gradlew
 sdk/java/gradlew.bat
 
 sdk/python/venv
+
+coverage/
+coverage.txt
+ginkgo.report

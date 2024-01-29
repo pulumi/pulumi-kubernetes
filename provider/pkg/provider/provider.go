@@ -22,10 +22,10 @@ import (
 	"net/http"
 	"net/url"
 	"os"
-	"os/user"
 	"path/filepath"
 	"reflect"
 	"regexp"
+	"slices"
 	"strconv"
 	"strings"
 	"sync"
@@ -145,8 +145,7 @@ type kubeProvider struct {
 	clusterUnreachable       bool   // Kubernetes cluster is unreachable.
 	clusterUnreachableReason string // Detailed error message if cluster is unreachable.
 
-	config     *rest.Config // Cluster config, e.g., through $KUBECONFIG file.
-	kubeconfig clientcmd.ClientConfig
+	makeClient func(context.Context, *rest.Config) (*clients.DynamicClientSet, *clients.LogClient, error)
 	clientSet  *clients.DynamicClientSet
 	logClient  *clients.LogClient
 	k8sVersion cluster.ServerVersion
@@ -159,7 +158,7 @@ var _ pulumirpc.ResourceProviderServer = (*kubeProvider)(nil)
 
 func makeKubeProvider(
 	host *provider.HostClient, name, version string, pulumiSchema, terraformMapping []byte,
-) (pulumirpc.ResourceProviderServer, error) {
+) (*kubeProvider, error) {
 	return &kubeProvider{
 		host:                        host,
 		canceler:                    makeCancellationContext(),
@@ -172,7 +171,22 @@ func makeKubeProvider(
 		suppressDeprecationWarnings: false,
 		deleteUnreachable:           false,
 		skipUpdateUnreachable:       false,
+		makeClient:                  makeClient,
 	}, nil
+}
+
+// makeClient makes a client to connect to a Kubernetes cluster using the given config.
+// ctx is a cancellation context that may be used to cancel any subsequent requests made by the clients.
+func makeClient(ctx context.Context, config *rest.Config) (*clients.DynamicClientSet, *clients.LogClient, error) {
+	cs, err := clients.NewDynamicClientSet(config)
+	if err != nil {
+		return nil, nil, err
+	}
+	lc, err := clients.MakeLogClient(ctx, config)
+	if err != nil {
+		return nil, nil, err
+	}
+	return cs, lc, nil
 }
 
 func (k *kubeProvider) getResources() (k8sopenapi.Resources, error) {
@@ -360,13 +374,15 @@ func (k *kubeProvider) DiffConfig(ctx context.Context, req *pulumirpc.DiffReques
 	}
 
 	// We can't tell for sure if a computed value has changed, so we make the conservative choice
-	// and force a replacement.
-	if news["kubeconfig"].IsComputed() {
-		return &pulumirpc.DiffResponse{
-			Changes:  pulumirpc.DiffResponse_DIFF_SOME,
-			Diffs:    []string{"kubeconfig"},
-			Replaces: []string{"kubeconfig"},
-		}, nil
+	// and force a replacement. Note that getActiveClusterFromConfig relies on all three of the below properties.
+	for _, key := range []resource.PropertyKey{"kubeconfig", "context", "cluster"} {
+		if news[key].IsComputed() {
+			return &pulumirpc.DiffResponse{
+				Changes:  pulumirpc.DiffResponse_DIFF_SOME,
+				Diffs:    []string{string(key)},
+				Replaces: []string{string(key)},
+			}, nil
+		}
 	}
 
 	var diffs, replaces []string
@@ -405,10 +421,17 @@ func (k *kubeProvider) DiffConfig(ctx context.Context, req *pulumirpc.DiffReques
 	// The alternative of ignoring changes to the kubeconfig is untenable; if the k8s cluster has
 	// changed, any dependent resources must be recreated, and ignoring changes prevents that from
 	// happening.
-	oldActiveCluster := getActiveClusterFromConfig(oldConfig, olds)
-	activeCluster := getActiveClusterFromConfig(newConfig, news)
-	if !reflect.DeepEqual(oldActiveCluster, activeCluster) {
-		replaces = diffs
+	oldActiveCluster, oldFound := getActiveClusterFromConfig(oldConfig, olds)
+	activeCluster, found := getActiveClusterFromConfig(newConfig, news)
+	if !oldFound || !found {
+		// The config is either ambient or invalid, so we can't draw any conclusions.
+	} else if !reflect.DeepEqual(oldActiveCluster, activeCluster) {
+		// one of these properties must have changed for the active cluster to change.
+		for _, key := range []string{"kubeconfig", "context", "cluster"} {
+			if slices.Contains(diffs, key) {
+				replaces = append(replaces, key)
+			}
+		}
 	}
 	logger.V(7).Infof("%s: diffs %v / replaces %v", label, diffs, replaces)
 
@@ -646,39 +669,9 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 
 	var kubeconfig clientcmd.ClientConfig
 	var apiConfig *clientapi.Config
-	homeDir := func() string {
-		// Ignore errors. The filepath will be checked later, so we can handle failures there.
-		usr, _ := user.Current()
-		return usr.HomeDir
-	}
 	// Note: the Python SDK was setting the kubeconfig value to "" by default, so explicitly check for empty string.
 	if pathOrContents, ok := vars["kubernetes:config:kubeconfig"]; ok && pathOrContents != "" {
-		var contents string
-
-		// Handle the '~' character if it is set in the config string. Normally, this would be expanded by the shell
-		// into the user's home directory, but we have to do that manually if it is set in a config value.
-		if pathOrContents == "~" {
-			// In case of "~", which won't be caught by the "else if"
-			pathOrContents = homeDir()
-		} else if strings.HasPrefix(pathOrContents, "~/") {
-			pathOrContents = filepath.Join(homeDir(), pathOrContents[2:])
-		}
-
-		// If the variable is a valid filepath, load the file and parse the contents as a k8s config.
-		_, err := os.Stat(pathOrContents)
-		if err == nil {
-			b, err := os.ReadFile(pathOrContents)
-			if err != nil {
-				unreachableCluster(err)
-			} else {
-				contents = string(b)
-			}
-		} else { // Assume the contents are a k8s config.
-			contents = pathOrContents
-		}
-
-		// Load the contents of the k8s config.
-		apiConfig, err = clientcmd.Load([]byte(contents))
+		apiConfig, err := parseKubeconfigString(pathOrContents)
 		if err != nil {
 			unreachableCluster(err)
 		} else {
@@ -742,12 +735,16 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	}
 
 	// Attempt to load the configuration from the provided kubeconfig. If this fails, mark the cluster as unreachable.
+	var config *rest.Config
 	if !k.clusterUnreachable {
-		config, err := kubeconfig.ClientConfig()
+		contract.Assertf(kubeconfig != nil, "expected kubeconfig to be initialized")
+		var err error
+		config, err = kubeconfig.ClientConfig()
 		if err != nil {
 			k.clusterUnreachable = true
 			k.clusterUnreachableReason = fmt.Sprintf("unable to load Kubernetes client configuration from kubeconfig file. Make sure you have: \n\n"+
 				" \t • set up the provider as per https://www.pulumi.com/registry/packages/kubernetes/installation-configuration/ \n\n %v", err)
+			config = nil
 		} else {
 			if kubeClientSettings.Burst != nil {
 				config.Burst = *kubeClientSettings.Burst
@@ -761,27 +758,20 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 				config.Timeout = time.Duration(*kubeClientSettings.Timeout) * time.Second
 				logger.V(9).Infof("kube client timeout set to %v", config.Timeout)
 			}
-			warningConfig := rest.CopyConfig(config)
-			warningConfig.WarningHandler = rest.NoWarnings{}
-			k.config = warningConfig
-			k.kubeconfig = kubeconfig
+			config.WarningHandler = rest.NoWarnings{}
 		}
 	}
 
 	// These operations require a reachable cluster.
 	if !k.clusterUnreachable {
-		cs, err := clients.NewDynamicClientSet(k.config)
+		contract.Assertf(config != nil, "expected config to be initialized")
+		var err error
+		k.clientSet, k.logClient, err = k.makeClient(k.canceler.context, config)
 		if err != nil {
 			return nil, err
 		}
-		k.clientSet = cs
-		lc, err := clients.NewLogClient(k.canceler.context, k.config)
-		if err != nil {
-			return nil, err
-		}
-		k.logClient = lc
 
-		k.k8sVersion = cluster.TryGetServerVersion(cs.DiscoveryClientCached)
+		k.k8sVersion = cluster.TryGetServerVersion(k.clientSet.DiscoveryClientCached)
 
 		if k.k8sVersion.Compare(cluster.ServerVersion{Major: 1, Minor: 13}) < 0 {
 			return nil, fmt.Errorf("minimum supported cluster version is v1.13. found v%s", k.k8sVersion)
@@ -801,7 +791,7 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		k.canceler,
 		apiConfig,
 		overrides,
-		k.config,
+		config,
 		k.clientSet,
 		k.helmDriver,
 		k.defaultNamespace,

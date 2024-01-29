@@ -22,12 +22,14 @@ import (
 
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
 	corev1 "k8s.io/api/core/v1"
+	"k8s.io/apimachinery/pkg/api/meta"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/client-go/discovery"
 	"k8s.io/client-go/dynamic"
 	"k8s.io/client-go/kubernetes"
+	clientcorev1 "k8s.io/client-go/kubernetes/typed/core/v1"
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/restmapper"
 )
@@ -49,7 +51,7 @@ func ResourceClient(kind kinds.Kind, namespace string, client *DynamicClientSet)
 type DynamicClientSet struct {
 	GenericClient         dynamic.Interface
 	DiscoveryClientCached discovery.CachedDiscoveryInterface
-	RESTMapper            *restmapper.DeferredDiscoveryRESTMapper
+	RESTMapper            meta.ResettableRESTMapper
 }
 
 func NewDynamicClientSet(clientConfig *rest.Config) (*DynamicClientSet, error) {
@@ -192,23 +194,27 @@ func IsNamespacedKind(gvk schema.GroupVersionKind, clientSet *DynamicClientSet) 
 }
 
 type LogClient struct {
-	clientset *kubernetes.Clientset
-	ctx       context.Context
+	client clientcorev1.CoreV1Interface
+	ctx    context.Context
 }
 
-func NewLogClient(ctx context.Context, clientConfig *rest.Config) (*LogClient, error) {
+func NewLogClient(ctx context.Context, client clientcorev1.CoreV1Interface) *LogClient {
+	return &LogClient{client: client, ctx: ctx}
+}
+
+func MakeLogClient(ctx context.Context, clientConfig *rest.Config) (*LogClient, error) {
 	// creates the clientset
 	clientset, err := kubernetes.NewForConfig(clientConfig)
 	if err != nil {
 		return nil, err
 	}
 
-	return &LogClient{clientset: clientset, ctx: ctx}, nil
+	return NewLogClient(ctx, clientset.CoreV1()), nil
 }
 
 func (lc *LogClient) Logs(namespace, name string) (io.ReadCloser, error) {
 	podLogOpts := corev1.PodLogOptions{Follow: true}
-	req := lc.clientset.CoreV1().Pods(namespace).GetLogs(name, &podLogOpts)
+	req := lc.client.Pods(namespace).GetLogs(name, &podLogOpts)
 	return req.Stream(lc.ctx)
 }
 

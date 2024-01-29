@@ -1,6 +1,8 @@
 ## Unreleased
 - Support for metadata.generateName (https://github.com/pulumi/pulumi-kubernetes/pull/2594)
 
+- Fix DiffConfig issue when when provider's kubeconfig is set to file path (https://github.com/pulumi/pulumi-kubernetes/pull/2771)
+
 ## 4.7.1 (January 17, 2024)
 
 - Fix deployment await logic for accurate rollout detection
