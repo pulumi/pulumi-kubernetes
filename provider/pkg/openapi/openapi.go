@@ -105,19 +105,19 @@ func PatchForResourceUpdate(
 	if knownGV := kinds.KnownGroupVersions.Has(lastSubmitted.GetAPIVersion()); !knownGV {
 		// Use a JSON merge patch for CRD Kinds.
 		patch, patchType, err = MergePatch(
-			lastSubmitted, lastSubmittedJSON, currentSubmittedJSON, liveOldJSON,
+			liveOldObj, lastSubmittedJSON, currentSubmittedJSON, liveOldJSON,
 		)
 		return patch, patchType, lookupPatchMeta, err
 	}
 
 	// Attempt a three-way strategic merge.
 	patch, patchType, lookupPatchMeta, err = StrategicMergePatch(
-		resources, lastSubmitted, lastSubmittedJSON, currentSubmittedJSON, liveOldJSON,
+		resources, liveOldObj, lastSubmittedJSON, currentSubmittedJSON, liveOldJSON,
 	)
 	// Else, fall back to a three-way JSON merge patch.
 	if err != nil {
 		patch, patchType, err = MergePatch(
-			lastSubmitted, lastSubmittedJSON, currentSubmittedJSON, liveOldJSON,
+			liveOldObj, lastSubmittedJSON, currentSubmittedJSON, liveOldJSON,
 		)
 	}
 	return patch, patchType, lookupPatchMeta, err
@@ -126,12 +126,12 @@ func PatchForResourceUpdate(
 // StrategicMergePatch is a helper to use a three-way strategic merge on a resource version.
 // See for more details: https://tools.ietf.org/html/rfc6902
 func StrategicMergePatch(
-	resources openapi.Resources, lastSubmitted *unstructured.Unstructured, lastSubmittedJSON, currentSubmittedJSON, liveOldJSON []byte,
+	resources openapi.Resources, liveOld *unstructured.Unstructured, lastSubmittedJSON, currentSubmittedJSON, liveOldJSON []byte,
 ) (patch []byte, patchType types.PatchType, lookupPatchMeta strategicpatch.LookupPatchMeta, err error) {
-	gvk := lastSubmitted.GroupVersionKind()
+	gvk := liveOld.GroupVersionKind()
 	if resSchema := resources.LookupResource(gvk); resSchema != nil {
 		logger.V(1).Infof("Attempting to update '%s' '%s/%s' with strategic merge",
-			gvk.String(), lastSubmitted.GetNamespace(), lastSubmitted.GetName())
+			gvk.String(), liveOld.GetNamespace(), liveOld.GetName())
 		patch, patchType, lookupPatchMeta, err = strategicMergePatch(
 			gvk, resSchema, lastSubmittedJSON, currentSubmittedJSON, liveOldJSON)
 	}
@@ -144,12 +144,12 @@ func StrategicMergePatch(
 // MergePatch is a helper to use a three-way JSON merge patch on a resource version.
 // See for more details: https://tools.ietf.org/html/rfc7386
 func MergePatch(
-	lastSubmitted *unstructured.Unstructured, lastSubmittedJSON, currentSubmittedJSON, liveOldJSON []byte,
+	liveOld *unstructured.Unstructured, lastSubmittedJSON, currentSubmittedJSON, liveOldJSON []byte,
 ) (patch []byte, patchType types.PatchType, err error) {
-	gvk := lastSubmitted.GroupVersionKind()
+	gvk := liveOld.GroupVersionKind()
 	// Fall back to three-way JSON merge patch.
 	logger.V(1).Infof("Attempting to update '%s' '%s/%s' with JSON merge",
-		gvk.String(), lastSubmitted.GetNamespace(), lastSubmitted.GetName())
+		gvk.String(), liveOld.GetNamespace(), liveOld.GetName())
 	patch, patchType, err = jsonMergePatch(lastSubmittedJSON, currentSubmittedJSON, liveOldJSON)
 	return patch, patchType, err
 }

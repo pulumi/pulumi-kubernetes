@@ -137,7 +137,7 @@ func (sia *serviceInitAwaiter) Await() error {
 	defer close(stopper)
 
 	informerFactory := informers.NewInformerFactory(sia.config.clientSet,
-		informers.WithNamespaceOrDefault(sia.config.currentInputs.GetNamespace()))
+		informers.WithNamespaceOrDefault(sia.config.currentOutputs.GetNamespace()))
 	informerFactory.Start(stopper)
 
 	serviceEvents := make(chan watch.Event)
@@ -273,7 +273,7 @@ func (sia *serviceInitAwaiter) await(
 }
 
 func (sia *serviceInitAwaiter) processServiceEvent(event watch.Event) {
-	inputServiceName := sia.config.currentInputs.GetName()
+	inputServiceName := sia.config.currentOutputs.GetName()
 
 	service, isUnstructured := event.Object.(*unstructured.Unstructured)
 	if !isUnstructured {

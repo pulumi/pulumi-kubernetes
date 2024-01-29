@@ -192,7 +192,7 @@ func (sia *statefulsetInitAwaiter) Await() error {
 	defer close(stopper)
 
 	informerFactory := informers.NewInformerFactory(sia.config.clientSet,
-		informers.WithNamespaceOrDefault(sia.config.currentInputs.GetNamespace()))
+		informers.WithNamespaceOrDefault(sia.config.currentOutputs.GetNamespace()))
 	informerFactory.Start(stopper)
 
 	statefulSetEvents := make(chan watch.Event)
@@ -229,7 +229,7 @@ func (sia *statefulsetInitAwaiter) Read() error {
 
 	// Get live versions of StatefulSet and Pods.
 	statefulset, err := statefulSetClient.Get(sia.config.ctx,
-		sia.config.currentInputs.GetName(),
+		sia.config.currentOutputs.GetName(),
 		metav1.GetOptions{})
 	if err != nil {
 		// IMPORTANT: Do not wrap this error! If this is a 404, the provider need to know so that it
@@ -343,7 +343,7 @@ func (sia *statefulsetInitAwaiter) checkAndLogStatus() bool {
 }
 
 func (sia *statefulsetInitAwaiter) processStatefulSetEvent(event watch.Event) {
-	inputStatefulSetName := sia.config.currentInputs.GetName()
+	inputStatefulSetName := sia.config.currentOutputs.GetName()
 
 	statefulset, isUnstructured := event.Object.(*unstructured.Unstructured)
 	if !isUnstructured {
@@ -509,18 +509,18 @@ func (sia *statefulsetInitAwaiter) makeClients() (
 	statefulSetClient, podClient dynamic.ResourceInterface, err error,
 ) {
 	statefulSetClient, err = clients.ResourceClient(
-		kinds.StatefulSet, sia.config.currentInputs.GetNamespace(), sia.config.clientSet)
+		kinds.StatefulSet, sia.config.currentOutputs.GetNamespace(), sia.config.clientSet)
 	if err != nil {
 		return nil, nil, errors.Wrapf(err,
 			"Could not make client to watch StatefulSet %q",
-			sia.config.currentInputs.GetName())
+			sia.config.currentOutputs.GetName())
 	}
 	podClient, err = clients.ResourceClient(
-		kinds.Pod, sia.config.currentInputs.GetNamespace(), sia.config.clientSet)
+		kinds.Pod, sia.config.currentOutputs.GetNamespace(), sia.config.clientSet)
 	if err != nil {
 		return nil, nil, errors.Wrapf(err,
 			"Could not make client to watch Pods associated with StatefulSet %q",
-			sia.config.currentInputs.GetName())
+			sia.config.currentOutputs.GetName())
 	}
 
 	return statefulSetClient, podClient, nil
