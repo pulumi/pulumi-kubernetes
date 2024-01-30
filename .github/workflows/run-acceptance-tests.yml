@@ -54,8 +54,9 @@ jobs:
     steps:
     - name: Create URL to the run output
       id: vars
-      run: echo ::set-output
-        name=run-url::https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
+      run: echo
+        run-url=https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
+        >> "$GITHUB_OUTPUT"
     - name: Update with Result
       uses: peter-evans/create-or-update-comment@v1
       with:
@@ -463,8 +464,8 @@ jobs:
       run: gcloud --quiet auth configure-docker
     - name: Set stack name in output
       id: stackname
-      run: echo '::set-output name=stack-name::${{ env.PULUMI_TEST_OWNER }}/${{
-        github.sha }}-${{ github.run_id }}-${{ github.run_attempt }}'
+      run: echo 'stack-name=${{ env.PULUMI_TEST_OWNER }}/${{ github.sha }}-${{
+        github.run_id }}-${{ github.run_attempt }}' >> "$GITHUB_OUTPUT"
     - name: Create test infrastructure
       run: ./scripts/ci-cluster-create.sh ${{ steps.stackname.outputs.stack-name }}
     - name: Upload Kubernetes Artifacts
