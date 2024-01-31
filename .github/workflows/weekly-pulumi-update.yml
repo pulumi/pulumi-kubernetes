@@ -84,9 +84,7 @@ jobs:
 
         git update-index -q --refresh
 
-        if ! git diff-files --quiet; then 
-        	echo ::set-output name=changes::1 
-        fi
+        if ! git diff-files --quiet; then echo changes=1 >> "$GITHUB_OUTPUT"; fi
     - name: Provider with Pulumi Upgrade
       if: steps.gomod.outputs.changes != 0
       run: >-
