@@ -72,6 +72,9 @@ type ProviderConfig struct {
 	ClientSet   *clients.DynamicClientSet
 	DedupLogger *logging.DedupLogger
 	Resources   k8sopenapi.Resources
+
+	// explicit awaiters (for testing purposes)
+	awaiters map[string]awaitSpec
 }
 
 type CreateConfig struct {
@@ -249,7 +252,11 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 	// only if we don't have an entry for the resource type; in the event that we do, but the await
 	// logic is blank, simply do nothing instead of logging.
 	id := fmt.Sprintf("%s/%s", c.Inputs.GetAPIVersion(), c.Inputs.GetKind())
-	if awaiter, exists := awaiters[id]; exists {
+	a := awaiters
+	if c.awaiters != nil {
+		a = c.awaiters
+	}
+	if awaiter, exists := a[id]; exists {
 		if metadata.SkipAwaitLogic(c.Inputs) {
 			logger.V(1).Infof("Skipping await logic for %v", c.Inputs.GetName())
 		} else {
@@ -303,7 +310,11 @@ func Read(c ReadConfig) (*unstructured.Unstructured, error) {
 	}
 
 	id := fmt.Sprintf("%s/%s", outputs.GetAPIVersion(), outputs.GetKind())
-	if awaiter, exists := awaiters[id]; exists {
+	a := awaiters
+	if c.awaiters != nil {
+		a = c.awaiters
+	}
+	if awaiter, exists := a[id]; exists {
 		if metadata.SkipAwaitLogic(c.Inputs) {
 			logger.V(1).Infof("Skipping await logic for %v", c.Inputs.GetName())
 		} else {
@@ -376,7 +387,11 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 	// if we don't have an entry for the resource type; in the event that we do, but the await logic
 	// is blank, simply do nothing instead of logging.
 	id := fmt.Sprintf("%s/%s", c.Inputs.GetAPIVersion(), c.Inputs.GetKind())
-	if awaiter, exists := awaiters[id]; exists {
+	a := awaiters
+	if c.awaiters != nil {
+		a = c.awaiters
+	}
+	if awaiter, exists := a[id]; exists {
 		if metadata.SkipAwaitLogic(c.Inputs) {
 			logger.V(1).Infof("Skipping await logic for %v", c.Inputs.GetName())
 		} else {
@@ -737,7 +752,11 @@ func Deletion(c DeleteConfig) error {
 	// is blank, simply do nothing instead of logging.
 	var waitErr error
 	id := fmt.Sprintf("%s/%s", c.Inputs.GetAPIVersion(), c.Inputs.GetKind())
-	if awaiter, exists := awaiters[id]; exists && awaiter.awaitDeletion != nil {
+	a := awaiters
+	if c.awaiters != nil {
+		a = c.awaiters
+	}
+	if awaiter, exists := a[id]; exists && awaiter.awaitDeletion != nil {
 		if metadata.SkipAwaitLogic(c.Inputs) {
 			logger.V(1).Infof("Skipping await logic for %v", c.Inputs.GetName())
 		} else {
