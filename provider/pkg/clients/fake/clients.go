@@ -15,8 +15,6 @@
 package fake
 
 import (
-	_ "embed"
-
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"k8s.io/apimachinery/pkg/runtime"
 	kubeversion "k8s.io/apimachinery/pkg/version"

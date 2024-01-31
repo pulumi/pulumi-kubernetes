@@ -16,7 +16,7 @@ package fake
 
 import (
 	"embed"
-	_ "embed"
+	_ "embed" // for embedded metadata documents
 	"encoding/json"
 	"io"
 	"io/fs"
@@ -45,28 +45,27 @@ var serverresources embed.FS
 func loadServerResources() ([]*metav1.APIResourceList, error) {
 	all := []*metav1.APIResourceList{}
 	err := fs.WalkDir(serverresources, ".", func(path string, d fs.DirEntry, err error) error {
-		if !d.IsDir() && d.Name() == "serverresources.json" {
-			f, err := serverresources.Open(path)
-			if err != nil {
-				return err
-			}
-			defer f.Close()
-			data, err := io.ReadAll(f)
-			if err != nil {
-				return err
-			}
-			serverResources := &metav1.APIResourceList{}
-			if err := json.Unmarshal(data, &serverResources); err != nil {
-				return err
-			}
-			all = append(all, serverResources)
+		if d.IsDir() || d.Name() != "serverresources.json" {
+			return nil
 		}
+
+		f, err := serverresources.Open(path)
+		if err != nil {
+			return err
+		}
+		defer f.Close()
+		data, err := io.ReadAll(f)
+		if err != nil {
+			return err
+		}
+		serverResources := &metav1.APIResourceList{}
+		if err := json.Unmarshal(data, serverResources); err != nil {
+			return err
+		}
+		all = append(all, serverResources)
 		return nil
 	})
-	if err != nil {
-		return nil, err
-	}
-	return all, nil
+	return all, err
 }
 
 // SimpleDiscovery provides a fake discovery client with core Kubernetes types.

@@ -15,8 +15,6 @@
 package fake
 
 import (
-	_ "embed"
-
 	"k8s.io/apimachinery/pkg/runtime"
 	dynamicfake "k8s.io/client-go/dynamic/fake"
 )
