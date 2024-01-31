@@ -24,13 +24,13 @@ import (
 	fluxssa "github.com/fluxcd/pkg/ssa"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/cluster"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/host"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/logging"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/metadata"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/openapi"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/retry"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/ssa"
-	pulumiprovider "github.com/pulumi/pulumi/pkg/v3/resource/provider"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
@@ -62,7 +62,7 @@ import (
 
 type ProviderConfig struct {
 	Context           context.Context
-	Host              *pulumiprovider.HostClient
+	Host              host.HostClient
 	URN               resource.URN
 	InitialAPIVersion string
 	FieldManager      string
@@ -255,7 +255,6 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 		} else {
 			if awaiter.awaitCreation != nil {
 				conf := createAwaitConfig{
-					host:              c.Host,
 					ctx:               c.Context,
 					urn:               c.URN,
 					initialAPIVersion: c.InitialAPIVersion,
@@ -310,7 +309,6 @@ func Read(c ReadConfig) (*unstructured.Unstructured, error) {
 		} else {
 			if awaiter.awaitRead != nil {
 				conf := createAwaitConfig{
-					host:              c.Host,
 					ctx:               c.Context,
 					urn:               c.URN,
 					initialAPIVersion: c.InitialAPIVersion,
@@ -385,7 +383,6 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 			if awaiter.awaitUpdate != nil {
 				conf := updateAwaitConfig{
 					createAwaitConfig: createAwaitConfig{
-						host:              c.Host,
 						ctx:               c.Context,
 						urn:               c.URN,
 						initialAPIVersion: c.InitialAPIVersion,
@@ -746,7 +743,6 @@ func Deletion(c DeleteConfig) error {
 		} else {
 			waitErr = awaiter.awaitDeletion(deleteAwaitConfig{
 				createAwaitConfig: createAwaitConfig{
-					host:              c.Host,
 					ctx:               c.Context,
 					urn:               c.URN,
 					initialAPIVersion: c.InitialAPIVersion,
@@ -835,7 +831,7 @@ func checkIfResourceDeleted(
 }
 
 // clearStatus will clear the `Info` column of the CLI of all statuses and messages.
-func clearStatus(context context.Context, host *pulumiprovider.HostClient, urn resource.URN) error {
+func clearStatus(context context.Context, host host.HostClient, urn resource.URN) error {
 	return host.LogStatus(context, diag.Info, urn, "")
 }
 

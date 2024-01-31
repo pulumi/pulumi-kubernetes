@@ -17,7 +17,6 @@ package provider
 import (
 	"bytes"
 	"context"
-	"fmt"
 	"log"
 	"os"
 	"testing"
@@ -27,10 +26,8 @@ import (
 	. "github.com/onsi/gomega"
 	gomegatypes "github.com/onsi/gomega/types"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
-	"github.com/pulumi/pulumi/pkg/v3/resource/provider"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/util/rpcutil"
+	fakehost "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/host/fake"
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
-	"google.golang.org/grpc"
 	"k8s.io/apimachinery/pkg/api/meta"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
@@ -96,6 +93,8 @@ type mockEngine struct {
 	rootResource string
 }
 
+var _ pulumirpc.EngineServer = &mockEngine{}
+
 // Log logs a global message in the engine, including errors and warnings.
 func (m *mockEngine) Log(ctx context.Context, in *pulumirpc.LogRequest) (*pbempty.Empty, error) {
 	m.t.Logf("%s: %s", in.GetSeverity(), in.GetMessage())
@@ -121,37 +120,10 @@ func (m *mockEngine) SetRootResource(ctx context.Context, in *pulumirpc.SetRootR
 
 // newMockHost creates a mock host for test purposes and returns a client.
 // Dispatches Engine RPC calls to the given engine.
-func newMockHost(ctx context.Context, engine pulumirpc.EngineServer) *provider.HostClient {
-	cancel := make(chan bool)
-	go func() {
-		<-ctx.Done()
-		close(cancel)
-	}()
-	handle, err := rpcutil.ServeWithOptions(rpcutil.ServeOptions{
-		Cancel: cancel,
-		Init: func(srv *grpc.Server) error {
-			pulumirpc.RegisterEngineServer(srv, engine)
-			return nil
-		},
-		Options: rpcutil.OpenTracingServerInterceptorOptions(nil),
-	})
-	if err != nil {
-		panic(fmt.Errorf("could not start host engine service: %v", err))
+func newMockHost(engine pulumirpc.EngineServer) *fakehost.HostClient {
+	return &fakehost.HostClient{
+		Engine: engine,
 	}
-
-	go func() {
-		err := <-handle.Done
-		if err != nil {
-			panic(fmt.Errorf("host engine service failed: %v", err))
-		}
-	}()
-
-	address := fmt.Sprintf("127.0.0.1:%v", handle.Port)
-	hostClient, err := provider.NewHostClient(address)
-	if err != nil {
-		panic(fmt.Errorf("could not connect to host engine service: %v", err))
-	}
-	return hostClient
 }
 
 type mockCachedDiscoveryClient struct {
@@ -176,7 +148,7 @@ func (m *mockRestMapper) Reset() {}
 
 type providerTestContext struct {
 	engine *mockEngine
-	host   *provider.HostClient
+	host   *fakehost.HostClient
 }
 
 type NewConfigOption func(*newConfigOptions)
@@ -322,12 +294,8 @@ var _ = BeforeSuite(func() {
 		logger: log.New(&buff, "\t", 0),
 	}
 
-	// make a mock host as an RPC server for the mock engine.
-	ctx, cancel := context.WithCancel(context.Background())
-	host := newMockHost(ctx, engine)
-	DeferCleanup(func() {
-		cancel()
-	})
+	// make a mock host based on a mock engine.
+	host := newMockHost(engine)
 
 	// make a suite-level context for use in test specs, e.g. to make a provider instance.
 	pctx = &providerTestContext{

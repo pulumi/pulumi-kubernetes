@@ -32,7 +32,7 @@ import (
 	"github.com/mitchellh/mapstructure"
 	pkgerrors "github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
-	"github.com/pulumi/pulumi/pkg/v3/resource/provider"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/host"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource/plugin"
@@ -173,7 +173,7 @@ type ReleaseStatus struct {
 }
 
 type helmReleaseProvider struct {
-	host                     *provider.HostClient
+	host                     host.HostClient
 	canceler                 *cancellationContext
 	helmDriver               string
 	apiConfig                *api.Config
@@ -189,7 +189,7 @@ type helmReleaseProvider struct {
 }
 
 func newHelmReleaseProvider(
-	host *provider.HostClient,
+	host host.HostClient,
 	canceler *cancellationContext,
 	apiConfig *api.Config,
 	defaultOverrides *clientcmd.ConfigOverrides,
