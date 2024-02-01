@@ -250,7 +250,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 	// Wait until create resolves as success or error. Note that the conditional is set up to log
 	// only if we don't have an entry for the resource type; in the event that we do, but the await
 	// logic is blank, simply do nothing instead of logging.
-	id := fmt.Sprintf("%s/%s", c.Inputs.GetAPIVersion(), c.Inputs.GetKind())
+	id := fmt.Sprintf("%s/%s", outputs.GetAPIVersion(), outputs.GetKind())
 	if awaiter, exists := awaiters[id]; exists {
 		if metadata.SkipAwaitLogic(c.Inputs) {
 			logger.V(1).Infof("Skipping await logic for %v", outputs.GetName())
@@ -308,7 +308,7 @@ func Read(c ReadConfig) (*unstructured.Unstructured, error) {
 	id := fmt.Sprintf("%s/%s", outputs.GetAPIVersion(), outputs.GetKind())
 	if awaiter, exists := awaiters[id]; exists {
 		if metadata.SkipAwaitLogic(c.Inputs) {
-			logger.V(1).Infof("Skipping await logic for %v", outputs.GetName())
+			logger.V(1).Infof("Skipping await logic for %v", c.Name)
 		} else {
 			if awaiter.awaitRead != nil {
 				conf := createAwaitConfig{
@@ -379,7 +379,7 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 	// Wait until patch resolves as success or error. Note that the conditional is set up to log only
 	// if we don't have an entry for the resource type; in the event that we do, but the await logic
 	// is blank, simply do nothing instead of logging.
-	id := fmt.Sprintf("%s/%s", c.Inputs.GetAPIVersion(), c.Inputs.GetKind())
+	id := fmt.Sprintf("%s/%s", currentOutputs.GetAPIVersion(), currentOutputs.GetKind())
 	if awaiter, exists := awaiters[id]; exists {
 		if metadata.SkipAwaitLogic(c.Inputs) {
 			logger.V(1).Infof("Skipping await logic for %v", currentOutputs.GetName())
