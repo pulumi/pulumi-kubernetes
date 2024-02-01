@@ -12,22 +12,25 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import * as pulumi from "@pulumi/pulumi";
 import * as k8s from "@pulumi/kubernetes";
+
+const config = new pulumi.Config();
 
 const namespace = new k8s.core.v1.Namespace("test-namespace");
 
 //
-// The image in the Pod's container has changed, triggering a replace. Because `.metadata.name` is
-// not specified, Pulumi again will provide a name upon creation of the new Pod resource.
+// The `.metadata.generateName` field has changed, but Pulumi does NOT automatically replace in that situation.
 //
 
-export const pod = new k8s.core.v1.Pod("autonaming-test", {
+const pod = new k8s.core.v1.Pod("generatename-test", {
   metadata: {
     namespace: namespace.metadata.name,
+    generateName: "generatename-test-modified-",
   },
   spec: {
     containers: [
-      {name: "nginx", image: "nginx:1.15-alpine"},
+      {name: "nginx", image: "nginx"},
     ],
   },
 });

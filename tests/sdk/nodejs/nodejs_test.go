@@ -18,6 +18,7 @@ package test
 import (
 	b64 "encoding/base64"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -111,6 +112,7 @@ func TestAutonaming(t *testing.T) {
 	var step1Name any
 	var step2Name any
 	var step3Name any
+	var step4Name any
 
 	test := baseOptions.With(integration.ProgramTestOptions{
 		Dir:   filepath.Join("autonaming", "step1"),
@@ -216,6 +218,36 @@ func TestAutonaming(t *testing.T) {
 					assert.True(t, providers.IsProviderType(provRes.URN.Type()))
 
 					//
+					// Assert Pod was NOT replaced, and has the same name, previously allocated by Pulumi.
+					//
+
+					pod := stackInfo.Deployment.Resources[1]
+					assert.Equal(t, "autonaming-test", string(pod.URN.Name()))
+					step4Name, _ = openapi.Pluck(pod.Outputs, "metadata", "name")
+					assert.True(t, strings.HasPrefix(step4Name.(string), "autonaming-test-"))
+
+					autonamed, _ := openapi.Pluck(pod.Outputs, "metadata", "annotations", "pulumi.com/autonamed")
+					assert.Equal(t, "true", autonamed)
+
+					assert.Equal(t, step3Name, step4Name)
+				},
+			},
+			{
+				Dir:      filepath.Join("autonaming", "step5"),
+				Additive: true,
+				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+					assert.NotNil(t, stackInfo.Deployment)
+					assert.Equal(t, 4, len(stackInfo.Deployment.Resources))
+
+					tests.SortResourcesByURN(stackInfo)
+
+					stackRes := stackInfo.Deployment.Resources[3]
+					assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
+
+					provRes := stackInfo.Deployment.Resources[2]
+					assert.True(t, providers.IsProviderType(provRes.URN.Type()))
+
+					//
 					// User has specified their own name for the Pod, so we replace it, and Pulumi does NOT
 					// allocate a name on its own.
 					//
@@ -232,6 +264,138 @@ func TestAutonaming(t *testing.T) {
 		},
 	})
 	integration.ProgramTest(t, &test)
+}
+
+func TestGenerateName(t *testing.T) {
+	var pt *integration.ProgramTester
+	var step1Name any
+	var step2Name any
+	var step3Name any
+	var step4Name any
+	var step5Name any
+	var step6Name any
+
+	test := baseOptions.With(integration.ProgramTestOptions{
+		Dir:                  filepath.Join("generatename", "step1"),
+		Quick:                false,
+		SkipRefresh:          false,
+		ExpectRefreshChanges: false,
+		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+			assert.NotNil(t, stackInfo.Deployment)
+
+			//
+			// Assert pod is successfully given a unique name by Kubernetes.
+			//
+			pod := tests.SearchResourcesByName(stackInfo, "", "kubernetes:core/v1:Pod", "generatename-test")
+			step1Name, _ = openapi.Pluck(pod.Outputs, "metadata", "name")
+			assert.True(t, strings.HasPrefix(step1Name.(string), "generatename-test-"))
+			generateName, _ := openapi.Pluck(pod.Outputs, "metadata", "generateName")
+			assert.Equal(t, "generatename-test-", generateName.(string))
+			_, autonamed := openapi.Pluck(pod.Outputs, "metadata", "annotations", "pulumi.com/autonamed")
+			assert.False(t, autonamed)
+		},
+		Config: map[string]string{},
+
+		EditDirs: []integration.EditDir{
+			{
+				Dir:      filepath.Join("generatename", "step2"),
+				Additive: true,
+				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+					assert.NotNil(t, stackInfo.Deployment)
+
+					//
+					// Assert pod was NOT replaced, and has the same name, previously allocated by Kubernetes.
+					//
+					pod := tests.SearchResourcesByName(stackInfo, "", "kubernetes:core/v1:Pod", "generatename-test")
+					step2Name, _ = openapi.Pluck(pod.Outputs, "metadata", "name")
+					assert.Equal(t, step1Name, step2Name)
+					generateName, _ := openapi.Pluck(pod.Outputs, "metadata", "generateName")
+					assert.Equal(t, "generatename-test-modified-", generateName.(string))
+					_, autonamed := openapi.Pluck(pod.Outputs, "metadata", "annotations", "pulumi.com/autonamed")
+					assert.False(t, autonamed)
+				},
+			},
+			{
+				Dir:      filepath.Join("generatename", "step3"),
+				Additive: true,
+				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+					assert.NotNil(t, stackInfo.Deployment)
+
+					//
+					// Assert pod was replaced, i.e., destroyed and re-created, with allocating a new name.
+					//
+					pod := tests.SearchResourcesByName(stackInfo, "", "kubernetes:core/v1:Pod", "generatename-test")
+					step3Name, _ = openapi.Pluck(pod.Outputs, "metadata", "name")
+					assert.NotEqual(t, step2Name, step3Name)
+					assert.True(t, strings.HasPrefix(step3Name.(string), "generatename-test-modified-"))
+					_, autonamed := openapi.Pluck(pod.Outputs, "metadata", "annotations", "pulumi.com/autonamed")
+					assert.False(t, autonamed)
+				},
+			},
+			{
+				Dir:      filepath.Join("generatename", "step4"),
+				Additive: true,
+				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+					assert.NotNil(t, stackInfo.Deployment)
+
+					//
+					// Assert pod was NOT replaced, and has the same name, previously allocated by Kubernetes.
+					//
+					pod := tests.SearchResourcesByName(stackInfo, "", "kubernetes:core/v1:Pod", "generatename-test")
+					step4Name, _ = openapi.Pluck(pod.Outputs, "metadata", "name")
+					assert.Equal(t, step3Name, step4Name)
+					_, autonamed := openapi.Pluck(pod.Outputs, "metadata", "annotations", "pulumi.com/autonamed")
+					assert.False(t, autonamed)
+
+					// Update the configuration for subsequent steps.
+					require.NoError(t,
+						pt.RunPulumiCommand("config", "set", "podName", step4Name.(string)),
+						"failed to set podName config")
+				},
+			},
+			{
+				Dir:             filepath.Join("generatename", "step5"),
+				Additive:        true,
+				ExpectNoChanges: true,
+				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+					assert.NotNil(t, stackInfo.Deployment)
+
+					//
+					// User has explicitly set the name to the previously-generated name (maybe for clarity),
+					// and Pulumi does NOT replace the pod.
+					//
+					pod := tests.SearchResourcesByName(stackInfo, "", "kubernetes:core/v1:Pod", "generatename-test")
+					step5Name, _ = openapi.Pluck(pod.Outputs, "metadata", "name")
+					assert.Equal(t, step4Name, step5Name)
+					_, autonamed := openapi.Pluck(pod.Outputs, "metadata", "annotations", "pulumi.com/autonamed")
+					assert.False(t, autonamed)
+				},
+			},
+			{
+				Dir:      filepath.Join("generatename", "step6"),
+				Additive: true,
+				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+					assert.NotNil(t, stackInfo.Deployment)
+
+					//
+					// User has specified their own name for the Pod, so we replace it, and Pulumi/Kubernetes does NOT
+					// allocate a name on its own.
+					//
+					pod := tests.SearchResourcesByName(stackInfo, "", "kubernetes:core/v1:Pod", "generatename-test")
+					step6Name, _ = openapi.Pluck(pod.Outputs, "metadata", "name")
+					assert.NotEqual(t, step5Name, step6Name)
+					assert.Equal(t, "generatename-test", step6Name.(string))
+					_, autonamed := openapi.Pluck(pod.Outputs, "metadata", "annotations", "pulumi.com/autonamed")
+					assert.False(t, autonamed)
+				},
+			},
+		},
+	})
+	pt = integration.ProgramTestManualLifeCycle(t, &test)
+	err := pt.TestLifeCycleInitAndDestroy()
+	if !errors.Is(err, integration.ErrTestFailed) {
+		assert.NoError(t, err)
+	}
 }
 
 func TestCRDs(t *testing.T) {

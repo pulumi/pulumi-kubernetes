@@ -17,13 +17,15 @@ import * as k8s from "@pulumi/kubernetes";
 const namespace = new k8s.core.v1.Namespace("test-namespace");
 
 //
-// The image in the Pod's container has changed, triggering a replace. Because `.metadata.name` is
-// not specified, Pulumi again will provide a name upon creation of the new Pod resource.
+// User has now specified `.metadata.name`, so Pulumi should replace the resource, and NOT allocate
+// a name to it.
 //
 
 export const pod = new k8s.core.v1.Pod("autonaming-test", {
   metadata: {
     namespace: namespace.metadata.name,
+    name: "autonaming-test",
+    labels: {app: "autonaming-test"},
   },
   spec: {
     containers: [

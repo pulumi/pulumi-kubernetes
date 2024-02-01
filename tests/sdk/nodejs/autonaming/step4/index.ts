@@ -14,17 +14,17 @@
 
 import * as k8s from "@pulumi/kubernetes";
 
-export const namespace = new k8s.core.v1.Namespace("test-namespace");
+const namespace = new k8s.core.v1.Namespace("test-namespace");
 
 //
-// User has now specified `.metadata.name`, so Pulumi should replace the resource, and NOT allocate
-// a name to it.
+// User has now specified `.metadata.generateName`, which Pulumi ignores because autonaming has already occurred,
+// so no replace is triggered. Pulumi should update the object in-place, and the name should not be changed.
 //
 
-const pod = new k8s.core.v1.Pod("autonaming-test", {
+export const pod = new k8s.core.v1.Pod("autonaming-test", {
   metadata: {
     namespace: namespace.metadata.name,
-    name: "autonaming-test",
+    generateName: "autonaming-test-",
     labels: {app: "autonaming-test"},
   },
   spec: {

@@ -14,14 +14,14 @@
 
 import * as k8s from "@pulumi/kubernetes";
 
-export const namespace = new k8s.core.v1.Namespace("test-namespace");
+const namespace = new k8s.core.v1.Namespace("test-namespace");
 
 //
 // A simple Pod definition. `.metadata.name` is not provided, so Pulumi will allocate a unique name
 // to the resource upon creation.
 //
 
-const pod = new k8s.core.v1.Pod("autonaming-test", {
+export const pod = new k8s.core.v1.Pod("autonaming-test", {
   metadata: {
     namespace: namespace.metadata.name,
   },
