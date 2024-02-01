@@ -24,17 +24,7 @@ import (
 // All auto-named resources get the annotation `pulumi.com/autonamed` for tooling purposes.
 func AssignNameIfAutonamable(randomSeed []byte, obj *unstructured.Unstructured, propMap resource.PropertyMap, urn resource.URN) {
 	contract.Assertf(urn.Name() != "", "expected non-empty name in URN: %s", urn)
-	if md, ok := propMap["metadata"].V.(resource.PropertyMap); ok {
-		// Check if the .metadata.name is set and is a computed value. If so, do not auto-name.
-		if name, ok := md["name"]; ok && name.IsComputed() {
-			return
-		}
-		// Check if the .metadata.generateName is set and is a computed value. If so, do not auto-name.
-		if name, ok := md["generateName"]; ok && name.IsComputed() {
-			return
-		}
-	}
-	if obj.GetGenerateName() == "" && obj.GetName() == "" {
+	if !IsNamed(obj, propMap) && !IsGenerateName(obj, propMap) {
 		prefix := urn.Name() + "-"
 		autoname, err := resource.NewUniqueName(randomSeed, prefix, 0, 0, nil)
 		contract.AssertNoErrorf(err, "unexpected error while creating NewUniqueName")
@@ -47,13 +37,7 @@ func AssignNameIfAutonamable(randomSeed []byte, obj *unstructured.Unstructured, 
 // instead. If `oldObj` was autonamed, then we mark `newObj` as autonamed, too.
 // Note that autonaming is preferred over generateName for backwards compatibility.
 func AdoptOldAutonameIfUnnamed(newObj, oldObj *unstructured.Unstructured, newObjMap resource.PropertyMap) {
-	if md, ok := newObjMap["metadata"].V.(resource.PropertyMap); ok {
-		// Check if the .metadata.name is set and is a computed value. If so, do not auto-name.
-		if name, ok := md["name"]; ok && name.IsComputed() {
-			return
-		}
-	}
-	if newObj.GetName() == "" && IsAutonamed(oldObj) {
+	if !IsNamed(newObj, newObjMap) && IsAutonamed(oldObj) {
 		contract.Assertf(oldObj.GetName() != "", "expected nonempty name for object: %s", oldObj)
 		newObj.SetName(oldObj.GetName())
 		SetAnnotationTrue(newObj, AnnotationAutonamed)

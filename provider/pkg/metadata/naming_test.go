@@ -77,7 +77,7 @@ func TestAssignNameIfAutonamable(t *testing.T) {
 	// o5 has a computed generateName, so autonaming fails.
 	pm5 := resource.PropertyMap{
 		"metadata": resource.NewObjectProperty(resource.PropertyMap{
-			"name": resource.MakeComputed(resource.NewStringProperty("bar")),
+			"generateName": resource.MakeComputed(resource.NewStringProperty("bar")),
 		}),
 	}
 	o5 := propMapToUnstructured(pm5)
