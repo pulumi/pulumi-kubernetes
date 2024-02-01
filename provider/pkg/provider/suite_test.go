@@ -17,7 +17,6 @@ package provider
 import (
 	"bytes"
 	"context"
-	"fmt"
 	"log"
 	"os"
 	"testing"
@@ -27,33 +26,20 @@ import (
 	. "github.com/onsi/gomega"
 	gomegatypes "github.com/onsi/gomega/types"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
-	"github.com/pulumi/pulumi/pkg/v3/resource/provider"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/util/rpcutil"
+	fakeclients "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients/fake"
+	fakehost "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/host/fake"
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
-	"google.golang.org/grpc"
-	"k8s.io/apimachinery/pkg/api/meta"
 	"k8s.io/apimachinery/pkg/runtime"
-	"k8s.io/apimachinery/pkg/runtime/schema"
 	kubeversion "k8s.io/apimachinery/pkg/version"
-	"k8s.io/client-go/discovery"
-	discoveryfake "k8s.io/client-go/discovery/fake"
-	dynamicfake "k8s.io/client-go/dynamic/fake"
-	"k8s.io/client-go/kubernetes/fake"
 	"k8s.io/client-go/rest"
-	kubetesting "k8s.io/client-go/testing"
 	"k8s.io/client-go/tools/clientcmd"
 	clientcmdapi "k8s.io/client-go/tools/clientcmd/api"
-	"k8s.io/kubectl/pkg/scheme"
 )
 
 const (
 	testPluginVersion    = "v0.0.0"
 	testPulumiSchema     = "{}"
 	testTerraformMapping = "{}"
-)
-
-var (
-	testServerVersion = kubeversion.Info{Major: "1", Minor: "29"}
 )
 
 // CheckFailure matches a CheckFailure by property and reason.
@@ -96,6 +82,8 @@ type mockEngine struct {
 	rootResource string
 }
 
+var _ pulumirpc.EngineServer = &mockEngine{}
+
 // Log logs a global message in the engine, including errors and warnings.
 func (m *mockEngine) Log(ctx context.Context, in *pulumirpc.LogRequest) (*pbempty.Empty, error) {
 	m.t.Logf("%s: %s", in.GetSeverity(), in.GetMessage())
@@ -121,62 +109,15 @@ func (m *mockEngine) SetRootResource(ctx context.Context, in *pulumirpc.SetRootR
 
 // newMockHost creates a mock host for test purposes and returns a client.
 // Dispatches Engine RPC calls to the given engine.
-func newMockHost(ctx context.Context, engine pulumirpc.EngineServer) *provider.HostClient {
-	cancel := make(chan bool)
-	go func() {
-		<-ctx.Done()
-		close(cancel)
-	}()
-	handle, err := rpcutil.ServeWithOptions(rpcutil.ServeOptions{
-		Cancel: cancel,
-		Init: func(srv *grpc.Server) error {
-			pulumirpc.RegisterEngineServer(srv, engine)
-			return nil
-		},
-		Options: rpcutil.OpenTracingServerInterceptorOptions(nil),
-	})
-	if err != nil {
-		panic(fmt.Errorf("could not start host engine service: %v", err))
+func newMockHost(engine pulumirpc.EngineServer) *fakehost.HostClient {
+	return &fakehost.HostClient{
+		Engine: engine,
 	}
-
-	go func() {
-		err := <-handle.Done
-		if err != nil {
-			panic(fmt.Errorf("host engine service failed: %v", err))
-		}
-	}()
-
-	address := fmt.Sprintf("127.0.0.1:%v", handle.Port)
-	hostClient, err := provider.NewHostClient(address)
-	if err != nil {
-		panic(fmt.Errorf("could not connect to host engine service: %v", err))
-	}
-	return hostClient
 }
-
-type mockCachedDiscoveryClient struct {
-	discovery.DiscoveryInterface
-}
-
-var _ discovery.CachedDiscoveryInterface = &mockCachedDiscoveryClient{}
-
-func (*mockCachedDiscoveryClient) Fresh() bool {
-	return true
-}
-
-func (*mockCachedDiscoveryClient) Invalidate() {}
-
-type mockRestMapper struct {
-	meta.RESTMapper
-}
-
-var _ meta.ResettableRESTMapper = &mockRestMapper{}
-
-func (m *mockRestMapper) Reset() {}
 
 type providerTestContext struct {
 	engine *mockEngine
-	host   *provider.HostClient
+	host   *fakehost.HostClient
 }
 
 type NewConfigOption func(*newConfigOptions)
@@ -248,27 +189,25 @@ func (c *providerTestContext) NewConfig(opts ...NewConfigOption) *clientcmdapi.C
 type NewProviderOption func(*newProviderOptions)
 
 type newProviderOptions struct {
-	ServerVersion kubeversion.Info
-	Objects       []runtime.Object
+	copts   []fakeclients.NewDynamicClientOption
+	objects []runtime.Object
 }
 
 func WithObjects(objects ...runtime.Object) NewProviderOption {
 	return func(options *newProviderOptions) {
-		options.Objects = append(options.Objects, objects...)
+		options.copts = append(options.copts, fakeclients.WithObjects(objects...))
+		options.objects = append(options.objects, objects...)
 	}
 }
 
 func WithServerVersion(version kubeversion.Info) NewProviderOption {
 	return func(options *newProviderOptions) {
-		options.ServerVersion = version
+		options.copts = append(options.copts, fakeclients.WithServerVersion(version))
 	}
 }
 
 func (c *providerTestContext) NewProvider(opts ...NewProviderOption) *kubeProvider {
-	options := newProviderOptions{
-		ServerVersion: testServerVersion,
-		Objects:       []runtime.Object{},
-	}
+	options := newProviderOptions{}
 	for _, opt := range opts {
 		opt(&options)
 	}
@@ -277,39 +216,11 @@ func (c *providerTestContext) NewProvider(opts ...NewProviderOption) *kubeProvid
 	Expect(err).ShouldNot(HaveOccurred())
 
 	k.makeClient = func(ctx context.Context, config *rest.Config) (*clients.DynamicClientSet, *clients.LogClient, error) {
-		// make a fake clientset for testing purposes, backed by an testing.ObjectTracker with pre-populated objects.
-		// see also: https://github.com/kubernetes/client-go/blob/kubernetes-1.29.0/examples/fake-client/main_test.go
-		disco := &discoveryfake.FakeDiscovery{
-			Fake:               &kubetesting.Fake{},
-			FakedServerVersion: &options.ServerVersion,
-		}
-		mapper := meta.NewDefaultRESTMapper([]schema.GroupVersion{})
-		client := dynamicfake.NewSimpleDynamicClient(scheme.Scheme, options.Objects...)
-		cs := &clients.DynamicClientSet{
-			GenericClient:         client,
-			DiscoveryClientCached: &mockCachedDiscoveryClient{DiscoveryInterface: disco},
-			RESTMapper:            &mockRestMapper{RESTMapper: mapper},
-		}
-
-		// make a fake log client for testing purposes.
-		clientset := fake.NewSimpleClientset(options.Objects...)
-		lc := clients.NewLogClient(ctx, clientset.CoreV1())
-
-		return cs, lc, nil
+		dc, _, _, _ := fakeclients.NewSimpleDynamicClient(options.copts...)
+		lc, _ := fakeclients.NewSimpleLogClient(ctx, options.objects...)
+		return dc, lc, nil
 	}
 	return k
-}
-
-// GetDiscoveryClient returns the fake discovery client that the provider is using.
-// use the Resources field to populate the server resources.
-func GetDiscoveryClient(k *kubeProvider) *discoveryfake.FakeDiscovery {
-	return k.clientSet.DiscoveryClientCached.(*mockCachedDiscoveryClient).DiscoveryInterface.(*discoveryfake.FakeDiscovery)
-}
-
-// GetDynamicClient returns the fake dynamic client that the provider is using.
-// Use the Tracker() accessor to inject fake objects.
-func GetDynamicClient(k *kubeProvider) *dynamicfake.FakeDynamicClient {
-	return k.clientSet.GenericClient.(*dynamicfake.FakeDynamicClient)
 }
 
 var pctx *providerTestContext
@@ -323,11 +234,7 @@ var _ = BeforeSuite(func() {
 	}
 
 	// make a mock host as an RPC server for the mock engine.
-	ctx, cancel := context.WithCancel(context.Background())
-	host := newMockHost(ctx, engine)
-	DeferCleanup(func() {
-		cancel()
-	})
+	host := newMockHost(engine)
 
 	// make a suite-level context for use in test specs, e.g. to make a provider instance.
 	pctx = &providerTestContext{

@@ -41,6 +41,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/cluster"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/gen"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/host"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/logging"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/metadata"
@@ -114,7 +115,7 @@ type kubeOpts struct {
 type kubeProvider struct {
 	pulumirpc.UnimplementedResourceProviderServer
 
-	host             *provider.HostClient
+	host             host.HostClient
 	canceler         *cancellationContext
 	name             string
 	version          string
@@ -157,7 +158,7 @@ type kubeProvider struct {
 var _ pulumirpc.ResourceProviderServer = (*kubeProvider)(nil)
 
 func makeKubeProvider(
-	host *provider.HostClient, name, version string, pulumiSchema, terraformMapping []byte,
+	host host.HostClient, name, version string, pulumiSchema, terraformMapping []byte,
 ) (*kubeProvider, error) {
 	return &kubeProvider{
 		host:                        host,

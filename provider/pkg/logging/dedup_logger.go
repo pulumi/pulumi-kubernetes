@@ -19,7 +19,7 @@ import (
 	"sync"
 
 	"github.com/pulumi/cloud-ready-checks/pkg/checker/logging"
-	"github.com/pulumi/pulumi/pkg/v3/resource/provider"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/host"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 )
@@ -30,13 +30,13 @@ type DedupLogger struct {
 	messages *TimeOrderedLogSet
 	index    int
 	ctx      context.Context
-	host     *provider.HostClient
+	host     host.HostClient
 	urn      resource.URN
 	mux      sync.Mutex
 }
 
 // NewLogger returns an initialized DedupLogger.
-func NewLogger(ctx context.Context, host *provider.HostClient, urn resource.URN) *DedupLogger {
+func NewLogger(ctx context.Context, host host.HostClient, urn resource.URN) *DedupLogger {
 	return &DedupLogger{
 		messages: &TimeOrderedLogSet{},
 		ctx:      ctx,
