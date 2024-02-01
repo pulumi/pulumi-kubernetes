@@ -33,6 +33,7 @@ import (
 	pulumiprovider "github.com/pulumi/pulumi/pkg/v3/resource/provider"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
 	"k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/api/meta"
@@ -246,6 +247,8 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 		return outputs, nil
 	}
 
+	contract.Assertf(outputs.GetAPIVersion() == c.Inputs.GetAPIVersion(), "unexpected APIVersion %q to be %q", outputs.GetAPIVersion(), c.Inputs.GetAPIVersion())
+
 	// Wait until create resolves as success or error. Note that the conditional is set up to log
 	// only if we don't have an entry for the resource type; in the event that we do, but the await
 	// logic is blank, simply do nothing instead of logging.
@@ -298,7 +301,11 @@ func Read(c ReadConfig) (*unstructured.Unstructured, error) {
 	outputs, err := client.Get(c.Context, c.Name, metav1.GetOptions{})
 	if err != nil {
 		return nil, err
-	} else if c.ReadFromCluster {
+	}
+
+	contract.Assertf(outputs.GetAPIVersion() == c.Inputs.GetAPIVersion(), "unexpected APIVersion %q to be %q", outputs.GetAPIVersion(), c.Inputs.GetAPIVersion())
+
+	if c.ReadFromCluster {
 		// If the resource is read from a .get or an import, simply return the resource state from the cluster.
 		return outputs, nil
 	}
@@ -364,10 +371,15 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 		return nil, err
 	}
 
+	contract.Assertf(liveOldObj.GetAPIVersion() == c.Inputs.GetAPIVersion(), "unexpected APIVersion %q to be %q", liveOldObj.GetAPIVersion(), c.Inputs.GetAPIVersion())
+
 	currentOutputs, err := updateResource(&c, liveOldObj, client)
 	if err != nil {
 		return nil, err
 	}
+
+	contract.Assertf(currentOutputs.GetAPIVersion() == c.Inputs.GetAPIVersion(), "unexpected APIVersion %q to be %q", currentOutputs.GetAPIVersion(), c.Inputs.GetAPIVersion())
+
 	if c.Preview {
 		// We do not need to get the updated live object if we are in preview mode.
 		return currentOutputs, nil
@@ -417,6 +429,9 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 	if err != nil {
 		return currentOutputs, nil
 	}
+
+	contract.Assertf(live.GetAPIVersion() == c.Inputs.GetAPIVersion(), "unexpected APIVersion %q to be %q", live.GetAPIVersion(), c.Inputs.GetAPIVersion())
+
 	return live, nil
 }
 
