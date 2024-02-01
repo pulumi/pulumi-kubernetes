@@ -306,7 +306,7 @@ func untilAppsDeploymentDeleted(config deleteAwaitConfig) error {
 	}
 
 	// Wait until all replicas are gone. 10 minutes should be enough for ~10k replicas.
-	timeout := metadata.TimeoutDuration(config.timeout, config.currentInputs, 600)
+	timeout := metadata.TimeoutDuration(config.timeout, config.currentOutputs, 600)
 	err := watcher.ForObject(config.ctx, config.clientForResource, config.currentOutputs.GetName()).
 		RetryUntil(deploymentMissing, timeout)
 	if err != nil {
@@ -349,7 +349,7 @@ func untilAppsStatefulSetDeleted(config deleteAwaitConfig) error {
 	}
 
 	// Wait until all replicas are gone. 10 minutes should be enough for ~10k replicas.
-	timeout := metadata.TimeoutDuration(config.timeout, config.currentInputs, 600)
+	timeout := metadata.TimeoutDuration(config.timeout, config.currentOutputs, 600)
 	err := watcher.ForObject(config.ctx, config.clientForResource, config.currentOutputs.GetName()).
 		RetryUntil(statefulsetmissing, timeout)
 	if err != nil {
@@ -379,7 +379,7 @@ func untilBatchV1JobDeleted(config deleteAwaitConfig) error {
 		return watcher.RetryableError(e)
 	}
 
-	timeout := metadata.TimeoutDuration(config.timeout, config.currentInputs, 300)
+	timeout := metadata.TimeoutDuration(config.timeout, config.currentOutputs, 300)
 	return watcher.ForObject(config.ctx, config.clientForResource, config.currentOutputs.GetName()).
 		RetryUntil(jobMissingOrKilled, timeout)
 }
@@ -410,7 +410,7 @@ func untilCoreV1NamespaceDeleted(config deleteAwaitConfig) error {
 			ns.GetName(), statusPhase))
 	}
 
-	timeout := metadata.TimeoutDuration(config.timeout, config.currentInputs, 300)
+	timeout := metadata.TimeoutDuration(config.timeout, config.currentOutputs, 300)
 	return watcher.ForObject(config.ctx, config.clientForResource, config.currentOutputs.GetName()).
 		RetryUntil(namespaceMissingOrKilled, timeout)
 }
@@ -483,7 +483,7 @@ func untilCoreV1PodDeleted(config deleteAwaitConfig) error {
 		return watcher.RetryableError(e)
 	}
 
-	timeout := metadata.TimeoutDuration(config.timeout, config.currentInputs, 300)
+	timeout := metadata.TimeoutDuration(config.timeout, config.currentOutputs, 300)
 	return watcher.ForObject(config.ctx, config.clientForResource, config.currentOutputs.GetName()).
 		RetryUntil(podMissingOrKilled, timeout)
 }
@@ -563,7 +563,7 @@ func untilCoreV1ReplicationControllerDeleted(config deleteAwaitConfig) error {
 	}
 
 	// Wait until all replicas are gone. 10 minutes should be enough for ~10k replicas.
-	timeout := metadata.TimeoutDuration(config.timeout, config.currentInputs, 600)
+	timeout := metadata.TimeoutDuration(config.timeout, config.currentOutputs, 600)
 	err := watcher.ForObject(config.ctx, config.clientForResource, config.currentOutputs.GetName()).
 		RetryUntil(rcMissing, timeout)
 	if err != nil {

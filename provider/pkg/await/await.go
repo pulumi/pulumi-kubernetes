@@ -708,18 +708,18 @@ func Deletion(c DeleteConfig) error {
 	}
 
 	// Obtain client for the resource being deleted.
-	client, err := c.ClientSet.ResourceClientForObject(c.Inputs)
+	client, err := c.ClientSet.ResourceClientForObject(c.Outputs)
 	if err != nil {
 		return nilIfGVKDeleted(err)
 	}
 
 	patchResource := kinds.IsPatchURN(c.URN)
 	if c.ServerSideApply && patchResource {
-		err = ssa.Relinquish(c.Context, client, c.Inputs, c.Name, c.FieldManager)
+		err = ssa.Relinquish(c.Context, client, c.Outputs, c.Name, c.FieldManager)
 		return err
 	}
 
-	timeout := metadata.TimeoutDuration(c.Timeout, c.Inputs, 300)
+	timeout := metadata.TimeoutDuration(c.Timeout, c.Outputs, 300)
 	timeoutSeconds := int64(timeout.Seconds())
 	listOpts := metav1.ListOptions{
 		FieldSelector:  fields.OneTermEqualSelector("metadata.name", c.Name).String(),
@@ -741,9 +741,9 @@ func Deletion(c DeleteConfig) error {
 	// if we don't have an entry for the resource type; in the event that we do, but the await logic
 	// is blank, simply do nothing instead of logging.
 	var waitErr error
-	id := fmt.Sprintf("%s/%s", c.Inputs.GetAPIVersion(), c.Inputs.GetKind())
+	id := fmt.Sprintf("%s/%s", c.Outputs.GetAPIVersion(), c.Outputs.GetKind())
 	if awaiter, exists := awaiters[id]; exists && awaiter.awaitDeletion != nil {
-		if metadata.SkipAwaitLogic(c.Inputs) {
+		if metadata.SkipAwaitLogic(c.Outputs) {
 			logger.V(1).Infof("Skipping await logic for %v", c.Name)
 		} else {
 			waitErr = awaiter.awaitDeletion(deleteAwaitConfig{
