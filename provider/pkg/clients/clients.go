@@ -263,3 +263,11 @@ func IsConfigMap(obj *unstructured.Unstructured) bool {
 	gvk := obj.GroupVersionKind()
 	return (gvk.Group == corev1.GroupName || gvk.Group == "core") && gvk.Kind == string(kinds.ConfigMap)
 }
+
+func GVRForGVK(mapper meta.RESTMapper, gvk schema.GroupVersionKind) (schema.GroupVersionResource, error) {
+	mapping, err := mapper.RESTMapping(gvk.GroupKind(), gvk.Version)
+	if err != nil {
+		return schema.GroupVersionResource{}, err
+	}
+	return mapping.Resource, nil
+}

@@ -27,7 +27,6 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/metadata"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/openapi"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/watcher"
-	"github.com/pulumi/pulumi/pkg/v3/resource/provider"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
@@ -45,7 +44,6 @@ const (
 // live number of Pods reaches the minimum liveness threshold. `pool` and `disco` are provided
 // typically from a client pool so that polling is reasonably efficient.
 type createAwaitConfig struct {
-	host              *provider.HostClient
 	ctx               context.Context
 	urn               resource.URN
 	initialAPIVersion string
