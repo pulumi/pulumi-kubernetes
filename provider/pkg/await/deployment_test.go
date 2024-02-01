@@ -2135,35 +2135,6 @@ func persistentVolumeClaimPending(namespace, name string) *unstructured.Unstruct
 
 // --------------------------------------------------------------------------
 
-func regressionDeploymentScaled3Input() *unstructured.Unstructured {
-	obj, err := decodeUnstructured(`{
-    "apiVersion": "apps/v1",
-    "kind": "Deployment",
-    "metadata": {
-        "name": "frontend-ur1fwk62",
-        "namespace": "default"
-    },
-    "spec": {
-        "selector": { "matchLabels": { "app": "frontend" } },
-        "replicas": 3,
-        "template": {
-            "metadata": { "labels": { "app": "frontend" } },
-            "spec": { "containers": [{
-                "name": "php-redis",
-                "image": "us-docker.pkg.dev/google-samples/containers/gke/gb-frontend:v5",
-                "resources": { "requests": { "cpu": "100m", "memory": "100Mi" } },
-                "env": [{ "name": "GET_HOSTS_FROM", "value": "dns" }],
-                "ports": [{ "containerPort": 80 }]
-            }] }
-        }
-    }
-}`)
-	if err != nil {
-		panic(err)
-	}
-	return obj
-}
-
 func regressionDeploymentScaled3Output() *unstructured.Unstructured {
 	obj, err := decodeUnstructured(`{
     "apiVersion": "apps/v1",
