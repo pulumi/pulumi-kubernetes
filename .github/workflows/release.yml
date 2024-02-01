@@ -26,7 +26,7 @@ env:
   SIGNING_PASSWORD: ${{ secrets.JAVA_SIGNING_PASSWORD }}
   GOVERSION: 1.21.x
   NODEVERSION: 16.x
-  PYTHONVERSION: "3.7"
+  PYTHONVERSION: "3.11"
   DOTNETVERSION: |
     6.0.x
     3.1.301
@@ -182,7 +182,7 @@ jobs:
         distribution: temurin
         cache: gradle
     - name: Setup Gradle
-      uses: gradle/gradle-build-action@v3
+      uses: gradle/gradle-build-action@v2
       with:
         gradle-version: "7.6"
     - name: Download provider + tfgen binaries
@@ -275,7 +275,7 @@ jobs:
         distribution: temurin
         cache: gradle
     - name: Setup Gradle
-      uses: gradle/gradle-build-action@v3
+      uses: gradle/gradle-build-action@v2
       with:
         gradle-version: "7.6"
     - name: Download provider + tfgen binaries
@@ -524,7 +524,7 @@ jobs:
         distribution: temurin
         cache: gradle
     - name: Setup Gradle
-      uses: gradle/gradle-build-action@v3
+      uses: gradle/gradle-build-action@v2
       with:
         gradle-version: "7.6"
     - name: Download java SDK
@@ -623,8 +623,8 @@ jobs:
       run: gcloud --quiet auth configure-docker
     - name: Set stack name in output
       id: stackname
-      run: echo '::set-output name=stack-name::${{ env.PULUMI_TEST_OWNER }}/${{
-        github.sha }}-${{ github.run_id }}-${{ github.run_attempt }}'
+      run: echo 'stack-name=${{ env.PULUMI_TEST_OWNER }}/${{ github.sha }}-${{
+        github.run_id }}-${{ github.run_attempt }}' >> "$GITHUB_OUTPUT"
     - name: Create test infrastructure
       run: ./scripts/ci-cluster-create.sh ${{ steps.stackname.outputs.stack-name }}
     - name: Upload Kubernetes Artifacts
