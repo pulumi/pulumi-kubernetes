@@ -18,6 +18,7 @@ import (
 	"fmt"
 
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
@@ -85,6 +86,9 @@ func ValidateAgainstSchema(resources openapi.Resources, obj *unstructured.Unstru
 func PatchForResourceUpdate(
 	resources openapi.Resources, lastSubmitted, currentSubmitted, liveOldObj *unstructured.Unstructured,
 ) (patch []byte, patchType types.PatchType, lookupPatchMeta strategicpatch.LookupPatchMeta, err error) {
+
+	contract.Assertf(liveOldObj.GetAPIVersion() == currentSubmitted.GetAPIVersion(), "unexpected APIVersion %q to be %q", liveOldObj.GetAPIVersion(), currentSubmitted.GetAPIVersion())
+
 	// Create JSON blobs for each of these, preparing to create the three-way merge patch.
 	lastSubmittedJSON, err := lastSubmitted.MarshalJSON()
 	if err != nil {
@@ -102,7 +106,7 @@ func PatchForResourceUpdate(
 	}
 
 	// CRD GroupVersions are not included in the known set.
-	if knownGV := kinds.KnownGroupVersions.Has(lastSubmitted.GetAPIVersion()); !knownGV {
+	if knownGV := kinds.KnownGroupVersions.Has(liveOldObj.GetAPIVersion()); !knownGV {
 		// Use a JSON merge patch for CRD Kinds.
 		patch, patchType, err = MergePatch(
 			liveOldObj, lastSubmittedJSON, currentSubmittedJSON, liveOldJSON,

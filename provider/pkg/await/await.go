@@ -243,11 +243,11 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 	}
 	_ = clearStatus(c.Context, c.Host, c.URN)
 
+	contract.Assertf(outputs.GetAPIVersion() == c.Inputs.GetAPIVersion(), "unexpected APIVersion %q to be %q", outputs.GetAPIVersion(), c.Inputs.GetAPIVersion())
+
 	if c.Preview {
 		return outputs, nil
 	}
-
-	contract.Assertf(outputs.GetAPIVersion() == c.Inputs.GetAPIVersion(), "unexpected APIVersion %q to be %q", outputs.GetAPIVersion(), c.Inputs.GetAPIVersion())
 
 	// Wait until create resolves as success or error. Note that the conditional is set up to log
 	// only if we don't have an entry for the resource type; in the event that we do, but the await
