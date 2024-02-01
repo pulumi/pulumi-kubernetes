@@ -25,7 +25,7 @@ env:
   SIGNING_PASSWORD: ${{ secrets.JAVA_SIGNING_PASSWORD }}
   GOVERSION: 1.21.x
   NODEVERSION: 16.x
-  PYTHONVERSION: "3.7"
+  PYTHONVERSION: "3.11"
   DOTNETVERSION: |
     6.0.x
     3.1.301
@@ -84,9 +84,7 @@ jobs:
 
         git update-index -q --refresh
 
-        if ! git diff-files --quiet; then 
-        	echo ::set-output name=changes::1 
-        fi
+        if ! git diff-files --quiet; then echo changes=1 >> "$GITHUB_OUTPUT"; fi
     - name: Provider with Pulumi Upgrade
       if: steps.gomod.outputs.changes != 0
       run: >-

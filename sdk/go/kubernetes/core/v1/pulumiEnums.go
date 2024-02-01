@@ -8,7 +8,6 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 type ServiceSpecType string
@@ -178,12 +177,6 @@ func (in *serviceSpecTypePtr) ToServiceSpecTypePtrOutput() ServiceSpecTypePtrOut
 
 func (in *serviceSpecTypePtr) ToServiceSpecTypePtrOutputWithContext(ctx context.Context) ServiceSpecTypePtrOutput {
 	return pulumi.ToOutputWithContext(ctx, in).(ServiceSpecTypePtrOutput)
-}
-
-func (in *serviceSpecTypePtr) ToOutput(ctx context.Context) pulumix.Output[*ServiceSpecType] {
-	return pulumix.Output[*ServiceSpecType]{
-		OutputState: in.ToServiceSpecTypePtrOutputWithContext(ctx).OutputState,
-	}
 }
 
 func init() {
