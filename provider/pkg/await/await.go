@@ -174,7 +174,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 			// server API, at which point they should hopefully succeed.
 			var err error
 			if client == nil {
-				client, err = c.ClientSet.ResourceClient(c.Inputs.GroupVersionKind(), c.Inputs.GetNamespace())
+				client, err = c.ClientSet.ResourceClientForObject(c.Inputs)
 				if err != nil {
 					if skip, version := skipRetry(c.Inputs.GroupVersionKind(), c.ClusterVersion, err); skip {
 						return &kinds.RemovedAPIError{
@@ -291,7 +291,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 
 // Read checks a resource, returning the object if it was created and initialized successfully.
 func Read(c ReadConfig) (*unstructured.Unstructured, error) {
-	client, err := c.ClientSet.ResourceClient(c.Inputs.GroupVersionKind(), c.Inputs.GetNamespace())
+	client, err := c.ClientSet.ResourceClientForObject(c.Inputs)
 	if err != nil {
 		return nil, err
 	}
@@ -355,7 +355,7 @@ func Read(c ReadConfig) (*unstructured.Unstructured, error) {
 // [3]:
 // https://kubernetes.io/docs/reference/using-api/server-side-apply
 func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
-	client, err := c.ClientSet.ResourceClientForObject(c.OldOutputs)
+	client, err := c.ClientSet.ResourceClientForObject(c.Inputs)
 	if err != nil {
 		return nil, err
 	}
@@ -708,14 +708,14 @@ func Deletion(c DeleteConfig) error {
 	}
 
 	// Obtain client for the resource being deleted.
-	client, err := c.ClientSet.ResourceClientForObject(c.Outputs)
+	client, err := c.ClientSet.ResourceClientForObject(c.Inputs)
 	if err != nil {
 		return nilIfGVKDeleted(err)
 	}
 
 	patchResource := kinds.IsPatchURN(c.URN)
 	if c.ServerSideApply && patchResource {
-		err = ssa.Relinquish(c.Context, client, c.Outputs, c.FieldManager)
+		err = ssa.Relinquish(c.Context, client, c.Inputs, c.Name, c.FieldManager)
 		return err
 	}
 
@@ -741,7 +741,7 @@ func Deletion(c DeleteConfig) error {
 	// if we don't have an entry for the resource type; in the event that we do, but the await logic
 	// is blank, simply do nothing instead of logging.
 	var waitErr error
-	id := fmt.Sprintf("%s/%s", c.Outputs.GetAPIVersion(), c.Outputs.GetKind())
+	id := fmt.Sprintf("%s/%s", c.Inputs.GetAPIVersion(), c.Inputs.GetKind())
 	if awaiter, exists := awaiters[id]; exists && awaiter.awaitDeletion != nil {
 		if metadata.SkipAwaitLogic(c.Inputs) {
 			logger.V(1).Infof("Skipping await logic for %v", c.Name)

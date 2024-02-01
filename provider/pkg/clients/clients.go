@@ -105,6 +105,7 @@ func (dcs *DynamicClientSet) ResourceClient(gvk schema.GroupVersionKind, namespa
 	return dcs.GenericClient.Resource(m.Resource), nil
 }
 
+// ResourceClientForObject returns a resource client based on the object's GVK and namespace.
 func (dcs *DynamicClientSet) ResourceClientForObject(obj *unstructured.Unstructured,
 ) (dynamic.ResourceInterface, error) {
 	return dcs.ResourceClient(obj.GroupVersionKind(), obj.GetNamespace())

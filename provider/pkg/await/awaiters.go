@@ -433,7 +433,7 @@ func untilCoreV1PersistentVolumeInitialized(c createAwaitConfig) error {
 		return statusPhase == statusAvailable || statusPhase == statusBound
 	}
 
-	client, err := c.clientSet.ResourceClient(c.currentOutputs.GroupVersionKind(), c.currentOutputs.GetNamespace())
+	client, err := c.clientSet.ResourceClientForObject(c.currentOutputs)
 	if err != nil {
 		return err
 	}
@@ -454,7 +454,7 @@ func untilCoreV1PersistentVolumeClaimBound(c createAwaitConfig) error {
 		return statusPhase == statusBound
 	}
 
-	client, err := c.clientSet.ResourceClient(c.currentOutputs.GroupVersionKind(), c.currentOutputs.GetNamespace())
+	client, err := c.clientSet.ResourceClientForObject(c.currentOutputs)
 	if err != nil {
 		return err
 	}
@@ -509,7 +509,7 @@ func untilCoreV1ReplicationControllerInitialized(c createAwaitConfig) error {
 	logger.V(3).Infof("Waiting for replication controller %q to schedule '%v' replicas",
 		name, replicas)
 
-	client, err := c.clientSet.ResourceClient(c.currentOutputs.GroupVersionKind(), c.currentOutputs.GetNamespace())
+	client, err := c.clientSet.ResourceClientForObject(c.currentOutputs)
 	if err != nil {
 		return err
 	}
@@ -598,7 +598,7 @@ func untilCoreV1ResourceQuotaInitialized(c createAwaitConfig) error {
 		return false
 	}
 
-	client, err := c.clientSet.ResourceClient(c.currentOutputs.GroupVersionKind(), c.currentOutputs.GetNamespace())
+	client, err := c.clientSet.ResourceClientForObject(c.currentOutputs)
 	if err != nil {
 		return err
 	}
@@ -644,7 +644,7 @@ func untilCoreV1SecretInitialized(c createAwaitConfig) error {
 		return false
 	}
 
-	client, err := c.clientSet.ResourceClient(c.currentOutputs.GroupVersionKind(), c.currentOutputs.GetNamespace())
+	client, err := c.clientSet.ResourceClientForObject(c.currentOutputs)
 	if err != nil {
 		return err
 	}
@@ -692,7 +692,7 @@ func untilCoreV1ServiceAccountInitialized(c createAwaitConfig) error {
 		return false
 	}
 
-	client, err := c.clientSet.ResourceClient(c.currentOutputs.GroupVersionKind(), c.currentOutputs.GetNamespace())
+	client, err := c.clientSet.ResourceClientForObject(c.currentOutputs)
 	if err != nil {
 		return err
 	}

@@ -35,6 +35,7 @@ func Relinquish(
 	ctx context.Context,
 	client dynamic.ResourceInterface,
 	input *unstructured.Unstructured,
+	name string,
 	fieldManager string,
 ) error {
 	// Create a minimal resource spec with the same identity as the input resource.
@@ -42,7 +43,7 @@ func Relinquish(
 	obj.SetAPIVersion(input.GetAPIVersion())
 	obj.SetKind(input.GetKind())
 	obj.SetNamespace(input.GetNamespace())
-	obj.SetName(input.GetName())
+	obj.SetName(name)
 
 	yamlObj, err := yaml.Marshal(obj.Object)
 	if err != nil {
