@@ -715,7 +715,7 @@ func Deletion(c DeleteConfig) error {
 
 	patchResource := kinds.IsPatchURN(c.URN)
 	if c.ServerSideApply && patchResource {
-		err = ssa.Relinquish(c.Context, client, c.Outputs, c.Name, c.FieldManager)
+		err = ssa.Relinquish(c.Context, client, c.Outputs, c.FieldManager)
 		return err
 	}
 

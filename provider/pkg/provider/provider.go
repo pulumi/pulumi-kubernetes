@@ -2386,7 +2386,7 @@ func (k *kubeProvider) Update(
 				return nil, err
 			}
 
-			err = ssa.Relinquish(k.canceler.context, client, newInputs, newInputs.GetName(), fieldManagerOld)
+			err = ssa.Relinquish(k.canceler.context, client, newInputs, fieldManagerOld)
 			if err != nil {
 				return nil, err
 			}
