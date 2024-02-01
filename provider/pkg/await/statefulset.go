@@ -216,7 +216,7 @@ func (sia *statefulsetInitAwaiter) Await() error {
 	aggregateErrorTicker := time.NewTicker(10 * time.Second)
 	defer aggregateErrorTicker.Stop()
 
-	timeout := metadata.TimeoutDuration(sia.config.timeout, sia.config.currentInputs, DefaultStatefulSetTimeoutMins*60)
+	timeout := metadata.TimeoutDuration(sia.config.timeout, sia.config.currentOutputs, DefaultStatefulSetTimeoutMins*60)
 	return sia.await(statefulSetEvents, podEvents, time.After(timeout), aggregateErrorTicker.C)
 }
 

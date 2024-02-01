@@ -101,7 +101,6 @@ type UpdateConfig struct {
 
 type DeleteConfig struct {
 	ProviderConfig
-	Inputs  *unstructured.Unstructured
 	Outputs *unstructured.Unstructured
 	Name    string
 	Timeout float64
@@ -252,7 +251,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 	// logic is blank, simply do nothing instead of logging.
 	id := fmt.Sprintf("%s/%s", outputs.GetAPIVersion(), outputs.GetKind())
 	if awaiter, exists := awaiters[id]; exists {
-		if metadata.SkipAwaitLogic(c.Inputs) {
+		if metadata.SkipAwaitLogic(outputs) {
 			logger.V(1).Infof("Skipping await logic for %v", outputs.GetName())
 		} else {
 			if awaiter.awaitCreation != nil {
@@ -262,7 +261,6 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 					urn:               c.URN,
 					initialAPIVersion: c.InitialAPIVersion,
 					clientSet:         c.ClientSet,
-					currentInputs:     c.Inputs,
 					currentOutputs:    outputs,
 					logger:            c.DedupLogger,
 					timeout:           c.Timeout,
@@ -307,7 +305,7 @@ func Read(c ReadConfig) (*unstructured.Unstructured, error) {
 
 	id := fmt.Sprintf("%s/%s", outputs.GetAPIVersion(), outputs.GetKind())
 	if awaiter, exists := awaiters[id]; exists {
-		if metadata.SkipAwaitLogic(c.Inputs) {
+		if metadata.SkipAwaitLogic(outputs) {
 			logger.V(1).Infof("Skipping await logic for %v", c.Name)
 		} else {
 			if awaiter.awaitRead != nil {
@@ -317,7 +315,6 @@ func Read(c ReadConfig) (*unstructured.Unstructured, error) {
 					urn:               c.URN,
 					initialAPIVersion: c.InitialAPIVersion,
 					clientSet:         c.ClientSet,
-					currentInputs:     c.Inputs,
 					currentOutputs:    outputs,
 					logger:            c.DedupLogger,
 					clusterVersion:    c.ClusterVersion,
@@ -381,7 +378,7 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 	// is blank, simply do nothing instead of logging.
 	id := fmt.Sprintf("%s/%s", currentOutputs.GetAPIVersion(), currentOutputs.GetKind())
 	if awaiter, exists := awaiters[id]; exists {
-		if metadata.SkipAwaitLogic(c.Inputs) {
+		if metadata.SkipAwaitLogic(currentOutputs) {
 			logger.V(1).Infof("Skipping await logic for %v", currentOutputs.GetName())
 		} else {
 			if awaiter.awaitUpdate != nil {
@@ -392,13 +389,11 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 						urn:               c.URN,
 						initialAPIVersion: c.InitialAPIVersion,
 						clientSet:         c.ClientSet,
-						currentInputs:     c.Inputs,
 						currentOutputs:    currentOutputs,
 						logger:            c.DedupLogger,
 						timeout:           c.Timeout,
 						clusterVersion:    c.ClusterVersion,
 					},
-					lastInputs:  c.OldInputs,
 					lastOutputs: liveOldObj,
 				}
 				waitErr := awaiter.awaitUpdate(conf)
@@ -411,9 +406,9 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 		logger.V(1).Infof("No initialization logic found for object of type %q; assuming initialization successful", id)
 	}
 
-	gvk := c.Inputs.GroupVersionKind()
+	gvk := currentOutputs.GroupVersionKind()
 	logger.V(3).Infof("Resource %s/%s/%s  '%s.%s' patched and updated", gvk.Group, gvk.Version,
-		gvk.Kind, c.Inputs.GetNamespace(), currentOutputs.GetName())
+		gvk.Kind, currentOutputs.GetNamespace(), currentOutputs.GetName())
 
 	// If the client fails to get the live object for some reason, DO NOT return the error. This
 	// will leak the fact that the object was successfully created. Instead, fall back to the
@@ -753,7 +748,6 @@ func Deletion(c DeleteConfig) error {
 					urn:               c.URN,
 					initialAPIVersion: c.InitialAPIVersion,
 					clientSet:         c.ClientSet,
-					currentInputs:     c.Inputs,
 					currentOutputs:    c.Outputs,
 					logger:            c.DedupLogger,
 					timeout:           c.Timeout,

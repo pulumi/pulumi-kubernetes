@@ -705,7 +705,6 @@ func Test_Apps_Deployment_Without_PersistentVolumeClaims(t *testing.T) {
 func Test_Apps_Deployment_MultipleUpdates(t *testing.T) {
 	tests := []struct {
 		description   string
-		inputs        func() *unstructured.Unstructured
 		outputs       func() *unstructured.Unstructured
 		firstUpdate   func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time)
 		secondUpdate  func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time)
@@ -713,7 +712,6 @@ func Test_Apps_Deployment_MultipleUpdates(t *testing.T) {
 	}{
 		{
 			description: "Should succeed if replicas are scaled",
-			inputs:      regressionDeploymentScaled3Input,
 			outputs:     regressionDeploymentScaled3Output,
 			firstUpdate: func(
 				deployments, replicaSets, pods chan watch.Event, timeout chan time.Time,
@@ -735,7 +733,6 @@ func Test_Apps_Deployment_MultipleUpdates(t *testing.T) {
 		},
 		{
 			description: "Should succeed if deployment spec has a no-op replicaset change that doesn't trigger a rollout",
-			inputs:      regressionDeploymentScaled3Input,
 			outputs:     regressionDeploymentScaled3Output,
 			firstUpdate: func(
 				deployments, replicaSets, pods chan watch.Event, timeout chan time.Time,
@@ -760,9 +757,8 @@ func Test_Apps_Deployment_MultipleUpdates(t *testing.T) {
 	for _, test := range tests {
 		awaiter := makeDeploymentInitAwaiter(
 			updateAwaitConfig{
-				createAwaitConfig: mockAwaitConfig(test.inputs()),
+				createAwaitConfig: mockAwaitConfig(test.outputs()),
 				lastOutputs:       test.outputs(),
-				lastInputs:        test.inputs(),
 			})
 		deployments := make(chan watch.Event)
 		replicaSets := make(chan watch.Event)

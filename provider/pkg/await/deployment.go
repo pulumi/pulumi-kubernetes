@@ -228,7 +228,7 @@ func (dia *deploymentInitAwaiter) Await() error {
 	aggregateErrorTicker := time.NewTicker(10 * time.Second)
 	defer aggregateErrorTicker.Stop()
 
-	timeout := metadata.TimeoutDuration(dia.config.timeout, dia.config.currentInputs, DefaultDeploymentTimeoutMins*60)
+	timeout := metadata.TimeoutDuration(dia.config.timeout, dia.config.currentOutputs, DefaultDeploymentTimeoutMins*60)
 
 	return dia.await(
 		deploymentEvents,
@@ -687,7 +687,7 @@ func (dia *deploymentInitAwaiter) checkReplicaSetStatus() {
 // This is used to determine whether the deployment is rolling out a new revision, which in turn, creates/updates a
 // replica set.
 func (dia *deploymentInitAwaiter) changeTriggeredRollout() bool {
-	if dia.config.lastInputs == nil {
+	if dia.config.lastOutputs == nil {
 		return true
 	}
 

@@ -123,7 +123,7 @@ func (jia *jobInitAwaiter) Await() error {
 	podAggregator.Start(podEvents)
 	defer podAggregator.Stop()
 
-	timeout := metadata.TimeoutDuration(jia.config.timeout, jia.config.currentInputs, DefaultJobTimeoutMins*60)
+	timeout := metadata.TimeoutDuration(jia.config.timeout, jia.config.currentOutputs, DefaultJobTimeoutMins*60)
 	for {
 		if jia.ready {
 			return nil

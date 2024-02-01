@@ -144,7 +144,7 @@ func (iia *ingressInitAwaiter) Await() error {
 	}
 	go serviceInformer.Informer().Run(stopper)
 
-	timeout := metadata.TimeoutDuration(iia.config.timeout, iia.config.currentInputs, DefaultIngressTimeoutMins*60)
+	timeout := metadata.TimeoutDuration(iia.config.timeout, iia.config.currentOutputs, DefaultIngressTimeoutMins*60)
 	return iia.await(ingressEvents, serviceEvents, endpointsEvents, make(chan struct{}), time.After(60*time.Second), time.After(timeout))
 }
 

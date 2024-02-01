@@ -156,7 +156,7 @@ func (sia *serviceInitAwaiter) Await() error {
 
 	version := cluster.TryGetServerVersion(sia.config.clientSet.DiscoveryClientCached)
 
-	timeout := metadata.TimeoutDuration(sia.config.timeout, sia.config.currentInputs, DefaultServiceTimeoutMins*60)
+	timeout := metadata.TimeoutDuration(sia.config.timeout, sia.config.currentOutputs, DefaultServiceTimeoutMins*60)
 	return sia.await(serviceEvents, endpointsEvents, time.After(timeout), make(chan struct{}), version)
 }
 
