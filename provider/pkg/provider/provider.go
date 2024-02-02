@@ -1720,12 +1720,14 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 	deleteBeforeReplace :=
 		// 1. We know resource must be replaced.
 		len(replaces) > 0 &&
-			// 2. Object is NOT autonamed (i.e., user manually named it, and therefore we can't
-			// auto-generate the name on client or server).
-			!(metadata.IsAutonamed(newInputs) || metadata.IsGenerateName(newInputs, newResInputs)) &&
-			// 3. The new, user-specified name is the same as the old name.
+			// 2. Object is named (i.e., not using metadata.generateName).
+			metadata.IsNamed(newInputs, newResInputs) &&
+			// 3. Object is NOT autonamed (i.e., user manually named it, and therefore we can't
+			// auto-generate the name).
+			!metadata.IsAutonamed(newInputs) &&
+			// 4. The new, user-specified name is the same as the old name.
 			newInputs.GetName() == oldLive.GetName() &&
-			// 4. The resource is being deployed to the same namespace (i.e., we aren't creating the
+			// 5. The resource is being deployed to the same namespace (i.e., we aren't creating the
 			// object in a new namespace and then deleting the old one).
 			newInputs.GetNamespace() == oldLive.GetNamespace()
 
