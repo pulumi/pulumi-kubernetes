@@ -1625,15 +1625,15 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 	patch, err = k.inputPatch(oldLivePruned, newInputs)
 	if err != nil {
 		return nil, pkgerrors.Wrapf(
-			err, "Failed to check for changes in resource %s", urn.Name())
+			err, "Failed to check for changes in resource %q", urn)
 	}
 
 	patchObj := map[string]any{}
 	if err = json.Unmarshal(patch, &patchObj); err != nil {
 		return nil, pkgerrors.Wrapf(
-			err, "Failed to check for changes in resource %s because of an error serializing "+
+			err, "Failed to check for changes in resource %q because of an error serializing "+
 				"the JSON patch describing resource changes",
-			urn.Name())
+			urn)
 	}
 
 	hasChanges := pulumirpc.DiffResponse_DIFF_NONE
@@ -1648,9 +1648,9 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 		}
 		if detailedDiff, err = convertPatchToDiff(patchObj, patchBase, newInputs.Object, oldLivePruned.Object, forceNewFields...); err != nil {
 			return nil, pkgerrors.Wrapf(
-				err, "Failed to check for changes in resource %s because of an error "+
+				err, "Failed to check for changes in resource %q because of an error "+
 					"converting JSON patch describing resource changes to a diff",
-				urn.Name())
+				urn)
 		}
 
 		// Remove any ignored changes from the computed diff.
@@ -1886,16 +1886,16 @@ func (k *kubeProvider) Create(
 			}
 			gvkStr := gvk.GroupVersion().String() + "/" + gvk.Kind
 			return nil, pkgerrors.Wrapf(
-				awaitErr, "creation of resource %s with kind %s failed because the Kubernetes API server "+
+				awaitErr, "creation of resource %q with kind %s failed because the Kubernetes API server "+
 					"reported that the apiVersion for this resource does not exist. "+
-					"Verify that any required CRDs have been created", urn.Name(), gvkStr)
+					"Verify that any required CRDs have been created", urn, gvkStr)
 		}
 		partialErr, isPartialErr := awaitErr.(await.PartialError)
 		if !isPartialErr {
 			// Object creation failed.
 			return nil, pkgerrors.Wrapf(
 				awaitErr,
-				"resource %s was not successfully created by the Kubernetes API server ", urn.Name())
+				"resource %q was not successfully created by the Kubernetes API server ", urn)
 		}
 
 		// Resource was created, but failed to become fully initialized.
@@ -1928,8 +1928,8 @@ func (k *kubeProvider) Create(
 		return nil, partialError(
 			fqObjName(initialized),
 			pkgerrors.Wrapf(
-				awaitErr, "resource %s was successfully created, but the Kubernetes API server "+
-					"reported that it failed to fully initialize or become live", urn.Name()),
+				awaitErr, "resource %q was successfully created, but the Kubernetes API server "+
+					"reported that it failed to fully initialize or become live", urn),
 			inputsAndComputed,
 			nil)
 	}
@@ -2362,9 +2362,9 @@ func (k *kubeProvider) Update(
 			// CustomResourceDefinition. This usually happens if the CRD was not created, and we
 			// print a more useful error message in this case.
 			return nil, pkgerrors.Wrapf(
-				awaitErr, "update of resource %s failed because the Kubernetes API server "+
+				awaitErr, "update of resource %q failed because the Kubernetes API server "+
 					"reported that the apiVersion for this resource does not exist. "+
-					"Verify that any required CRDs have been created", urn.Name())
+					"Verify that any required CRDs have been created", urn)
 		}
 
 		var getErr error
@@ -2372,8 +2372,8 @@ func (k *kubeProvider) Update(
 		if getErr != nil {
 			// Object update/creation failed.
 			return nil, pkgerrors.Wrapf(
-				awaitErr, "update of resource %s failed because the Kubernetes API server "+
-					"reported that it failed to fully initialize or become live", urn.Name())
+				awaitErr, "update of resource %q failed because the Kubernetes API server "+
+					"reported that it failed to fully initialize or become live", urn)
 		}
 		// If we get here, resource successfully registered with the API server, but failed to
 		// initialize.
