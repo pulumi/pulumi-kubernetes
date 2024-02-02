@@ -1560,6 +1560,7 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 
 	oldInputs, oldLive := parseCheckpointObject(oldState)
 	if !isHelmRelease(urn) {
+		// "isHelmRelease" is due to https://github.com/pulumi/pulumi-kubernetes/issues/2679
 		contract.Assertf(oldLive.GetName() != "", "expected live object name to be nonempty: %v", oldLive)
 	}
 
