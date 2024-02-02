@@ -105,6 +105,7 @@ type UpdateConfig struct {
 
 type DeleteConfig struct {
 	ProviderConfig
+	Inputs  *unstructured.Unstructured
 	Outputs *unstructured.Unstructured
 	Name    string
 	Timeout float64
@@ -246,7 +247,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 	}
 	_ = clearStatus(c.Context, c.Host, c.URN)
 
-	contract.Assertf(outputs.GetAPIVersion() == c.Inputs.GetAPIVersion(), "unexpected APIVersion %q to be %q", outputs.GetAPIVersion(), c.Inputs.GetAPIVersion())
+	contract.Assertf(outputs.GetAPIVersion() == c.Inputs.GetAPIVersion(), "expected APIVersion %q to be %q", outputs.GetAPIVersion(), c.Inputs.GetAPIVersion())
 
 	if c.Preview {
 		return outputs, nil
@@ -261,7 +262,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 		a = c.awaiters
 	}
 	if awaiter, exists := a[id]; exists {
-		if metadata.SkipAwaitLogic(outputs) {
+		if metadata.SkipAwaitLogic(c.Inputs) {
 			logger.V(1).Infof("Skipping await logic for %v", outputs.GetName())
 		} else {
 			if awaiter.awaitCreation != nil {
@@ -309,7 +310,7 @@ func Read(c ReadConfig) (*unstructured.Unstructured, error) {
 		return nil, err
 	}
 
-	contract.Assertf(outputs.GetAPIVersion() == c.Inputs.GetAPIVersion(), "unexpected APIVersion %q to be %q", outputs.GetAPIVersion(), c.Inputs.GetAPIVersion())
+	contract.Assertf(outputs.GetAPIVersion() == c.Inputs.GetAPIVersion(), "expected APIVersion %q to be %q", outputs.GetAPIVersion(), c.Inputs.GetAPIVersion())
 
 	if c.ReadFromCluster {
 		// If the resource is read from a .get or an import, simply return the resource state from the cluster.
@@ -380,14 +381,14 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 		return nil, err
 	}
 
-	contract.Assertf(liveOldObj.GetAPIVersion() == c.Inputs.GetAPIVersion(), "unexpected APIVersion %q to be %q", liveOldObj.GetAPIVersion(), c.Inputs.GetAPIVersion())
+	contract.Assertf(liveOldObj.GetAPIVersion() == c.Inputs.GetAPIVersion(), "expected APIVersion %q to be %q", liveOldObj.GetAPIVersion(), c.Inputs.GetAPIVersion())
 
 	currentOutputs, err := updateResource(&c, liveOldObj, client)
 	if err != nil {
 		return nil, err
 	}
 
-	contract.Assertf(currentOutputs.GetAPIVersion() == c.Inputs.GetAPIVersion(), "unexpected APIVersion %q to be %q", currentOutputs.GetAPIVersion(), c.Inputs.GetAPIVersion())
+	contract.Assertf(currentOutputs.GetAPIVersion() == c.Inputs.GetAPIVersion(), "expected APIVersion %q to be %q", currentOutputs.GetAPIVersion(), c.Inputs.GetAPIVersion())
 
 	if c.Preview {
 		// We do not need to get the updated live object if we are in preview mode.
@@ -403,7 +404,7 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 		a = c.awaiters
 	}
 	if awaiter, exists := a[id]; exists {
-		if metadata.SkipAwaitLogic(currentOutputs) {
+		if metadata.SkipAwaitLogic(c.Inputs) {
 			logger.V(1).Infof("Skipping await logic for %v", currentOutputs.GetName())
 		} else {
 			if awaiter.awaitUpdate != nil {
@@ -442,7 +443,7 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 		return currentOutputs, nil
 	}
 
-	contract.Assertf(live.GetAPIVersion() == c.Inputs.GetAPIVersion(), "unexpected APIVersion %q to be %q", live.GetAPIVersion(), c.Inputs.GetAPIVersion())
+	contract.Assertf(live.GetAPIVersion() == c.Inputs.GetAPIVersion(), "expected APIVersion %q to be %q", live.GetAPIVersion(), c.Inputs.GetAPIVersion())
 
 	return live, nil
 }
@@ -769,7 +770,7 @@ func Deletion(c DeleteConfig) error {
 		a = c.awaiters
 	}
 	if awaiter, exists := a[id]; exists && awaiter.awaitDeletion != nil {
-		if metadata.SkipAwaitLogic(c.Outputs) {
+		if metadata.SkipAwaitLogic(c.Inputs) {
 			logger.V(1).Infof("Skipping await logic for %v", c.Name)
 		} else {
 			waitErr = awaiter.awaitDeletion(deleteAwaitConfig{
