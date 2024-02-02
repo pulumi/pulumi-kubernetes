@@ -97,7 +97,7 @@ func AdmitCreate() kubetesting.ReactionFunc {
 			}
 
 			// implement GenerateName since underlying object tracker doesn't natively support this.
-			if objMeta.GetGenerateName() != "" {
+			if objMeta.GetGenerateName() != "" && objMeta.GetName() == "" {
 				name := objMeta.GetGenerateName() + "generated"
 				objMeta.SetName(name)
 			}
