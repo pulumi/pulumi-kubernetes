@@ -276,6 +276,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 				if waitErr != nil {
 					return nil, waitErr
 				}
+				_ = clearStatus(c.Context, c.Host, c.URN)
 			}
 		}
 	} else {
@@ -333,12 +334,13 @@ func Read(c ReadConfig) (*unstructured.Unstructured, error) {
 				if waitErr != nil {
 					return nil, waitErr
 				}
+				_ = clearStatus(c.Context, c.Host, c.URN)
 			}
 		}
+	} else {
+		logger.V(1).Infof(
+			"No read logic found for object of type %q; falling back to retrieving object", id)
 	}
-
-	logger.V(1).Infof(
-		"No read logic found for object of type %q; falling back to retrieving object", id)
 
 	// If the client fails to get the live object for some reason, DO NOT return the error. This
 	// will leak the fact that the object was successfully created. Instead, fall back to the
@@ -415,6 +417,7 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 				if waitErr != nil {
 					return nil, waitErr
 				}
+				_ = clearStatus(c.Context, c.Host, c.URN)
 			}
 		}
 	} else {
@@ -773,6 +776,10 @@ func Deletion(c DeleteConfig) error {
 				},
 				clientForResource: client,
 			})
+			if waitErr != nil {
+				return waitErr
+			}
+			_ = clearStatus(c.Context, c.Host, c.URN)
 		}
 	} else {
 		for {
@@ -824,7 +831,7 @@ func Deletion(c DeleteConfig) error {
 		}
 	}
 
-	return waitErr
+	return nil
 }
 
 // deleteResource deletes the specified resource using foreground cascading delete.
