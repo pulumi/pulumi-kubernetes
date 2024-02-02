@@ -2474,7 +2474,7 @@ func (k *kubeProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest)
 			Resources:         resources,
 			ServerSideApply:   k.serverSideApplyMode,
 		},
-		Inputs: oldInputs,
+		Inputs:  oldInputs,
 		Outputs: current,
 		Name:    name,
 		Timeout: req.Timeout,
