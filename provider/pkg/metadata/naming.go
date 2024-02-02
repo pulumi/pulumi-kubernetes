@@ -38,7 +38,7 @@ func AssignNameIfAutonamable(randomSeed []byte, obj *unstructured.Unstructured, 
 // Note that autonaming is preferred over generateName for backwards compatibility.
 func AdoptOldAutonameIfUnnamed(newObj, oldObj *unstructured.Unstructured, newObjMap resource.PropertyMap) {
 	if !IsNamed(newObj, newObjMap) && IsAutonamed(oldObj) {
-		contract.Assertf(oldObj.GetName() != "", "expected nonempty name for object: %s", oldObj)
+		contract.Assertf(oldObj.GetName() != "", "expected object name to be non-empty: %v", oldObj)
 		newObj.SetName(oldObj.GetName())
 		SetAnnotationTrue(newObj, AnnotationAutonamed)
 	}
