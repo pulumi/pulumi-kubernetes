@@ -25,7 +25,6 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/informers"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/metadata"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/openapi"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/cmdutil"
@@ -228,8 +227,7 @@ func (dia *deploymentInitAwaiter) Await() error {
 	aggregateErrorTicker := time.NewTicker(10 * time.Second)
 	defer aggregateErrorTicker.Stop()
 
-	timeout := metadata.TimeoutDuration(dia.config.timeout, dia.config.currentInputs, DefaultDeploymentTimeoutMins*60)
-
+	timeout := dia.config.getTimeout(DefaultDeploymentTimeoutMins * 60)
 	return dia.await(
 		deploymentEvents,
 		replicaSetEvents,
@@ -248,7 +246,7 @@ func (dia *deploymentInitAwaiter) Read() error {
 
 	// Get live versions of Deployment, ReplicaSets, and Pods.
 	deployment, err := deploymentClient.Get(dia.config.ctx,
-		dia.config.currentInputs.GetName(),
+		dia.config.currentOutputs.GetName(),
 		metav1.GetOptions{})
 	if err != nil {
 		// IMPORTANT: Do not wrap this error! If this is a 404, the provider need to know so that it
@@ -416,7 +414,7 @@ func (dia *deploymentInitAwaiter) checkAndLogStatus() bool {
 }
 
 func (dia *deploymentInitAwaiter) processDeploymentEvent(event watch.Event) {
-	inputDeploymentName := dia.config.currentInputs.GetName()
+	inputDeploymentName := dia.config.currentOutputs.GetName()
 
 	deployment, isUnstructured := event.Object.(*unstructured.Unstructured)
 	if !isUnstructured {
@@ -543,11 +541,11 @@ func (dia *deploymentInitAwaiter) processReplicaSetEvent(event watch.Event) {
 	logger.V(3).Infof("Received update for ReplicaSet %q", rs.GetName())
 
 	// Check whether this ReplicaSet was created by our Deployment.
-	if !isOwnedBy(rs, dia.config.currentInputs) {
+	if !isOwnedBy(rs, dia.config.currentOutputs) {
 		return
 	}
 
-	logger.V(3).Infof("ReplicaSet %q is owned by %q", rs.GetName(), dia.config.currentInputs.GetName())
+	logger.V(3).Infof("ReplicaSet %q is owned by %q", rs.GetName(), dia.config.currentOutputs.GetName())
 
 	// If Pod was deleted, remove it from our aggregated checkers.
 	generation := rs.GetAnnotations()[revision]
@@ -560,9 +558,7 @@ func (dia *deploymentInitAwaiter) processReplicaSetEvent(event watch.Event) {
 }
 
 func (dia *deploymentInitAwaiter) checkReplicaSetStatus() {
-	inputs := dia.config.currentInputs
-
-	logger.V(3).Infof("Checking ReplicaSet status for Deployment %q", inputs.GetName())
+	logger.V(3).Infof("Checking ReplicaSet status for Deployment %q", dia.config.currentOutputs.GetName())
 
 	rs, updatedReplicaSetCreated := dia.replicaSets[dia.replicaSetGeneration]
 	if dia.replicaSetGeneration == "0" || !updatedReplicaSetCreated {
@@ -570,14 +566,14 @@ func (dia *deploymentInitAwaiter) checkReplicaSetStatus() {
 	}
 
 	logger.V(3).Infof("Deployment %q has generation %q, which corresponds to ReplicaSet %q",
-		inputs.GetName(), dia.replicaSetGeneration, rs.GetName())
+		dia.config.currentOutputs.GetName(), dia.replicaSetGeneration, rs.GetName())
 
 	var lastRevision string
 	if outputs := dia.config.lastOutputs; outputs != nil {
 		lastRevision = outputs.GetAnnotations()[revision]
 	}
 
-	logger.V(3).Infof("The last generation of Deployment %q was %q", inputs.GetName(), lastRevision)
+	logger.V(3).Infof("The last generation of Deployment %q was %q", dia.config.currentOutputs.GetName(), lastRevision)
 
 	// NOTE: Check `.spec.replicas` in the live `ReplicaSet` instead of the last input `Deployment`,
 	// since this is the plan of record. This protects against (e.g.) a user running `kubectl scale`
@@ -689,7 +685,7 @@ func (dia *deploymentInitAwaiter) checkReplicaSetStatus() {
 // This is used to determine whether the deployment is rolling out a new revision, which in turn, creates/updates a
 // replica set.
 func (dia *deploymentInitAwaiter) changeTriggeredRollout() bool {
-	if dia.config.lastInputs == nil {
+	if dia.config.lastOutputs == nil {
 		return true
 	}
 
@@ -697,9 +693,7 @@ func (dia *deploymentInitAwaiter) changeTriggeredRollout() bool {
 }
 
 func (dia *deploymentInitAwaiter) checkPersistentVolumeClaimStatus() {
-	inputs := dia.config.currentInputs
-
-	logger.V(3).Infof("Checking PersistentVolumeClaims status for Deployment %q", inputs.GetName())
+	logger.V(3).Infof("Checking PersistentVolumeClaims status for Deployment %q", dia.config.currentOutputs.GetName())
 
 	allPVCsReady := true
 	for _, pvc := range dia.pvcs {
@@ -873,31 +867,31 @@ func (dia *deploymentInitAwaiter) makeClients() (
 	deploymentClient, replicaSetClient, podClient, pvcClient dynamic.ResourceInterface, err error,
 ) {
 	deploymentClient, err = clients.ResourceClient(
-		kinds.Deployment, dia.config.currentInputs.GetNamespace(), dia.config.clientSet)
+		kinds.Deployment, dia.config.currentOutputs.GetNamespace(), dia.config.clientSet)
 	if err != nil {
 		err = errors.Wrapf(err, "Could not make client to watch Deployment %q",
-			dia.config.currentInputs.GetName())
+			dia.config.currentOutputs.GetName())
 		return nil, nil, nil, nil, err
 	}
 	replicaSetClient, err = clients.ResourceClient(
-		kinds.ReplicaSet, dia.config.currentInputs.GetNamespace(), dia.config.clientSet)
+		kinds.ReplicaSet, dia.config.currentOutputs.GetNamespace(), dia.config.clientSet)
 	if err != nil {
 		err = errors.Wrapf(err, "Could not make client to watch ReplicaSets associated with Deployment %q",
-			dia.config.currentInputs.GetName())
+			dia.config.currentOutputs.GetName())
 		return nil, nil, nil, nil, err
 	}
 	podClient, err = clients.ResourceClient(
-		kinds.Pod, dia.config.currentInputs.GetNamespace(), dia.config.clientSet)
+		kinds.Pod, dia.config.currentOutputs.GetNamespace(), dia.config.clientSet)
 	if err != nil {
 		err = errors.Wrapf(err, "Could not make client to watch Pods associated with Deployment %q",
-			dia.config.currentInputs.GetName())
+			dia.config.currentOutputs.GetName())
 		return nil, nil, nil, nil, err
 	}
 	pvcClient, err = clients.ResourceClient(
-		kinds.PersistentVolumeClaim, dia.config.currentInputs.GetNamespace(), dia.config.clientSet)
+		kinds.PersistentVolumeClaim, dia.config.currentOutputs.GetNamespace(), dia.config.clientSet)
 	if err != nil {
 		err = errors.Wrapf(err, "Could not make client to watch PVCs associated with Deployment %q",
-			dia.config.currentInputs.GetName())
+			dia.config.currentOutputs.GetName())
 		return nil, nil, nil, nil, err
 	}
 

@@ -24,7 +24,6 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/cluster"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/logging"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/metadata"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/openapi"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/watcher"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
@@ -49,9 +48,8 @@ type createAwaitConfig struct {
 	initialAPIVersion string
 	logger            *logging.DedupLogger
 	clientSet         *clients.DynamicClientSet
-	currentInputs     *unstructured.Unstructured
 	currentOutputs    *unstructured.Unstructured
-	timeout           float64
+	timeout           *time.Duration
 	clusterVersion    *cluster.ServerVersion
 }
 
@@ -71,7 +69,6 @@ func (cac *createAwaitConfig) logMessage(message checkerlog.Message) {
 // reasonably efficient.
 type updateAwaitConfig struct {
 	createAwaitConfig
-	lastInputs  *unstructured.Unstructured
 	lastOutputs *unstructured.Unstructured
 }
 
@@ -84,6 +81,13 @@ type createAwaiter func(createAwaitConfig) error
 type updateAwaiter func(updateAwaitConfig) error
 type readAwaiter func(createAwaitConfig) error
 type deletionAwaiter func(deleteAwaitConfig) error
+
+func (cac *createAwaitConfig) getTimeout(defaultSeconds int) time.Duration {
+	if cac.timeout != nil {
+		return *cac.timeout
+	}
+	return time.Duration(defaultSeconds) * time.Second
+}
 
 // --------------------------------------------------------------------------
 
@@ -299,19 +303,19 @@ func untilAppsDeploymentDeleted(config deleteAwaitConfig) error {
 		specReplicas, _ := deploymentSpecReplicas(d)
 
 		return watcher.RetryableError(
-			fmt.Errorf("deployment %q still exists (%d / %d replicas exist)", config.currentInputs.GetName(),
+			fmt.Errorf("deployment %q still exists (%d / %d replicas exist)", d.GetName(),
 				currReplicas, specReplicas))
 	}
 
 	// Wait until all replicas are gone. 10 minutes should be enough for ~10k replicas.
-	timeout := metadata.TimeoutDuration(config.timeout, config.currentInputs, 600)
-	err := watcher.ForObject(config.ctx, config.clientForResource, config.currentInputs.GetName()).
+	timeout := config.getTimeout(600)
+	err := watcher.ForObject(config.ctx, config.clientForResource, config.currentOutputs.GetName()).
 		RetryUntil(deploymentMissing, timeout)
 	if err != nil {
 		return err
 	}
 
-	logger.V(3).Infof("Deployment '%s' deleted", config.currentInputs.GetName())
+	logger.V(3).Infof("Deployment '%s' deleted", config.currentOutputs.GetName())
 
 	return nil
 }
@@ -342,19 +346,19 @@ func untilAppsStatefulSetDeleted(config deleteAwaitConfig) error {
 		specReplicas, _ := specReplicas(d)
 
 		return watcher.RetryableError(
-			fmt.Errorf("StatefulSet %q still exists (%d / %d replicas exist)", config.currentInputs.GetName(),
+			fmt.Errorf("StatefulSet %q still exists (%d / %d replicas exist)", d.GetName(),
 				currReplicas, specReplicas))
 	}
 
 	// Wait until all replicas are gone. 10 minutes should be enough for ~10k replicas.
-	timeout := metadata.TimeoutDuration(config.timeout, config.currentInputs, 600)
-	err := watcher.ForObject(config.ctx, config.clientForResource, config.currentInputs.GetName()).
+	timeout := config.getTimeout(600)
+	err := watcher.ForObject(config.ctx, config.clientForResource, config.currentOutputs.GetName()).
 		RetryUntil(statefulsetmissing, timeout)
 	if err != nil {
 		return err
 	}
 
-	logger.V(3).Infof("StatefulSet %q deleted", config.currentInputs.GetName())
+	logger.V(3).Infof("StatefulSet %q deleted", config.currentOutputs.GetName())
 
 	return nil
 }
@@ -373,12 +377,12 @@ func untilBatchV1JobDeleted(config deleteAwaitConfig) error {
 			return err
 		}
 
-		e := fmt.Errorf("job %q still exists", config.currentInputs.GetName())
+		e := fmt.Errorf("job %q still exists", pod.GetName())
 		return watcher.RetryableError(e)
 	}
 
-	timeout := metadata.TimeoutDuration(config.timeout, config.currentInputs, 300)
-	return watcher.ForObject(config.ctx, config.clientForResource, config.currentInputs.GetName()).
+	timeout := config.getTimeout(300)
+	return watcher.ForObject(config.ctx, config.clientForResource, config.currentOutputs.GetName()).
 		RetryUntil(jobMissingOrKilled, timeout)
 }
 
@@ -394,22 +398,22 @@ func untilCoreV1NamespaceDeleted(config deleteAwaitConfig) error {
 			return nil
 		} else if err != nil {
 			logger.V(3).Infof("Received error deleting namespace %q: %#v",
-				config.currentInputs.GetName(), err)
+				ns.GetName(), err)
 			return err
 		}
 
 		statusPhase, _ := openapi.Pluck(ns.Object, "status", "phase")
-		logger.V(3).Infof("Namespace %q status received: %#v", config.currentInputs.GetName(), statusPhase)
+		logger.V(3).Infof("Namespace %q status received: %#v", ns.GetName(), statusPhase)
 		if statusPhase == "" {
 			return nil
 		}
 
 		return watcher.RetryableError(fmt.Errorf("namespace %q still exists (%v)",
-			config.currentInputs.GetName(), statusPhase))
+			ns.GetName(), statusPhase))
 	}
 
-	timeout := metadata.TimeoutDuration(config.timeout, config.currentInputs, 300)
-	return watcher.ForObject(config.ctx, config.clientForResource, config.currentInputs.GetName()).
+	timeout := config.getTimeout(300)
+	return watcher.ForObject(config.ctx, config.clientForResource, config.currentOutputs.GetName()).
 		RetryUntil(namespaceMissingOrKilled, timeout)
 }
 
@@ -431,11 +435,11 @@ func untilCoreV1PersistentVolumeInitialized(c createAwaitConfig) error {
 		return statusPhase == statusAvailable || statusPhase == statusBound
 	}
 
-	client, err := c.clientSet.ResourceClient(c.currentInputs.GroupVersionKind(), c.currentInputs.GetNamespace())
+	client, err := c.clientSet.ResourceClientForObject(c.currentOutputs)
 	if err != nil {
 		return err
 	}
-	return watcher.ForObject(c.ctx, client, c.currentInputs.GetName()).
+	return watcher.ForObject(c.ctx, client, c.currentOutputs.GetName()).
 		WatchUntil(pvAvailableOrBound, 5*time.Minute)
 }
 
@@ -452,11 +456,11 @@ func untilCoreV1PersistentVolumeClaimBound(c createAwaitConfig) error {
 		return statusPhase == statusBound
 	}
 
-	client, err := c.clientSet.ResourceClient(c.currentInputs.GroupVersionKind(), c.currentInputs.GetNamespace())
+	client, err := c.clientSet.ResourceClientForObject(c.currentOutputs)
 	if err != nil {
 		return err
 	}
-	return watcher.ForObject(c.ctx, client, c.currentInputs.GetName()).
+	return watcher.ForObject(c.ctx, client, c.currentOutputs.GetName()).
 		WatchUntil(pvcBound, 5*time.Minute)
 }
 
@@ -476,13 +480,13 @@ func untilCoreV1PodDeleted(config deleteAwaitConfig) error {
 		}
 
 		statusPhase, _ := openapi.Pluck(pod.Object, "status", "phase")
-		logger.V(3).Infof("Current state of pod %q: %#v", config.currentInputs.GetName(), statusPhase)
-		e := fmt.Errorf("pod %q still exists (%v)", config.currentInputs.GetName(), statusPhase)
+		logger.V(3).Infof("Current state of pod %q: %#v", pod.GetName(), statusPhase)
+		e := fmt.Errorf("pod %q still exists (%v)", pod.GetName(), statusPhase)
 		return watcher.RetryableError(e)
 	}
 
-	timeout := metadata.TimeoutDuration(config.timeout, config.currentInputs, 300)
-	return watcher.ForObject(config.ctx, config.clientForResource, config.currentInputs.GetName()).
+	timeout := config.getTimeout(300)
+	return watcher.ForObject(config.ctx, config.clientForResource, config.currentOutputs.GetName()).
 		RetryUntil(podMissingOrKilled, timeout)
 }
 
@@ -501,13 +505,13 @@ func untilCoreV1ReplicationControllerInitialized(c createAwaitConfig) error {
 		return openapi.Pluck(rc.Object, "status", "availableReplicas")
 	}
 
-	name := c.currentInputs.GetName()
+	name := c.currentOutputs.GetName()
 
-	replicas, _ := openapi.Pluck(c.currentInputs.Object, "spec", "replicas")
+	replicas, _ := openapi.Pluck(c.currentOutputs.Object, "spec", "replicas")
 	logger.V(3).Infof("Waiting for replication controller %q to schedule '%v' replicas",
 		name, replicas)
 
-	client, err := c.clientSet.ResourceClient(c.currentInputs.GroupVersionKind(), c.currentInputs.GetNamespace())
+	client, err := c.clientSet.ResourceClientForObject(c.currentOutputs)
 	if err != nil {
 		return err
 	}
@@ -523,8 +527,8 @@ func untilCoreV1ReplicationControllerInitialized(c createAwaitConfig) error {
 	// but that means checking each pod status separately (which can be expensive at scale)
 	// as there's no aggregate data available from the API
 
-	logger.V(3).Infof("Replication controller %q initialized: %#v", c.currentInputs.GetName(),
-		c.currentInputs)
+	logger.V(3).Infof("Replication controller %q initialized: %#v", name,
+		c.currentOutputs)
 
 	return nil
 }
@@ -557,18 +561,18 @@ func untilCoreV1ReplicationControllerDeleted(config deleteAwaitConfig) error {
 
 		return watcher.RetryableError(
 			fmt.Errorf("ReplicationController %q still exists (%d / %d replicas exist)",
-				config.currentInputs.GetName(), currReplicas, specReplicas))
+				rc.GetName(), currReplicas, specReplicas))
 	}
 
 	// Wait until all replicas are gone. 10 minutes should be enough for ~10k replicas.
-	timeout := metadata.TimeoutDuration(config.timeout, config.currentInputs, 600)
-	err := watcher.ForObject(config.ctx, config.clientForResource, config.currentInputs.GetName()).
+	timeout := config.getTimeout(600)
+	err := watcher.ForObject(config.ctx, config.clientForResource, config.currentOutputs.GetName()).
 		RetryUntil(rcMissing, timeout)
 	if err != nil {
 		return err
 	}
 
-	logger.V(3).Infof("ReplicationController %q deleted", config.currentInputs.GetName())
+	logger.V(3).Infof("ReplicationController %q deleted", config.currentOutputs.GetName())
 
 	return nil
 }
@@ -587,8 +591,8 @@ func untilCoreV1ResourceQuotaInitialized(c createAwaitConfig) error {
 		hard, hardIsMap := hardRaw.(map[string]any)
 		hardStatus, hardStatusIsMap := hardStatusRaw.(map[string]any)
 		if hardIsMap && hardStatusIsMap && reflect.DeepEqual(hard, hardStatus) {
-			logger.V(3).Infof("ResourceQuota %q initialized: %#v", c.currentInputs.GetName(),
-				c.currentInputs)
+			logger.V(3).Infof("ResourceQuota %q initialized: %#v", quota.GetName(),
+				quota)
 			return true
 		}
 		logger.V(3).Infof("Quotas don't match after creation.\nExpected: %#v\nGiven: %#v",
@@ -596,17 +600,17 @@ func untilCoreV1ResourceQuotaInitialized(c createAwaitConfig) error {
 		return false
 	}
 
-	client, err := c.clientSet.ResourceClient(c.currentInputs.GroupVersionKind(), c.currentInputs.GetNamespace())
+	client, err := c.clientSet.ResourceClientForObject(c.currentOutputs)
 	if err != nil {
 		return err
 	}
-	return watcher.ForObject(c.ctx, client, c.currentInputs.GetName()).
+	return watcher.ForObject(c.ctx, client, c.currentOutputs.GetName()).
 		WatchUntil(rqInitialized, 1*time.Minute)
 }
 
 func untilCoreV1ResourceQuotaUpdated(c updateAwaitConfig) error {
-	oldSpec, _ := openapi.Pluck(c.lastInputs.Object, "spec")
-	newSpec, _ := openapi.Pluck(c.currentInputs.Object, "spec")
+	oldSpec, _ := openapi.Pluck(c.lastOutputs.Object, "spec")
+	newSpec, _ := openapi.Pluck(c.currentOutputs.Object, "spec")
 	if !reflect.DeepEqual(oldSpec, newSpec) {
 		return untilCoreV1ResourceQuotaInitialized(c.createAwaitConfig)
 	}
@@ -624,7 +628,7 @@ func untilCoreV1SecretInitialized(c createAwaitConfig) error {
 	// Some types secrets do not have data available immediately and therefore are not considered initialized where data map is empty.
 	// For example service-account-token as described in the docs: https://kubernetes.io/docs/reference/access-authn-authz/service-accounts-admin/#to-create-additional-api-tokens
 	//
-	secretType, _ := openapi.Pluck(c.currentInputs.Object, "type")
+	secretType, _ := openapi.Pluck(c.currentOutputs.Object, "type")
 
 	// Other secret types are not generated by controller therefore we do not need to create a watcher for them.
 	// nolint:gosec
@@ -642,7 +646,7 @@ func untilCoreV1SecretInitialized(c createAwaitConfig) error {
 		return false
 	}
 
-	client, err := c.clientSet.ResourceClient(c.currentOutputs.GroupVersionKind(), c.currentOutputs.GetNamespace())
+	client, err := c.clientSet.ResourceClientForObject(c.currentOutputs)
 	if err != nil {
 		return err
 	}
@@ -670,7 +674,7 @@ func untilCoreV1ServiceAccountInitialized(c createAwaitConfig) error {
 	// secrets array (i.e., in addition to the secrets specified by the user).
 	//
 
-	specSecrets, _ := openapi.Pluck(c.currentInputs.Object, "secrets")
+	specSecrets, _ := openapi.Pluck(c.currentOutputs.Object, "secrets")
 	var numSpecSecrets int
 	if specSecretsArr, isArr := specSecrets.([]any); isArr {
 		numSpecSecrets = len(specSecretsArr)
@@ -690,7 +694,7 @@ func untilCoreV1ServiceAccountInitialized(c createAwaitConfig) error {
 		return false
 	}
 
-	client, err := c.clientSet.ResourceClient(c.currentOutputs.GroupVersionKind(), c.currentOutputs.GetNamespace())
+	client, err := c.clientSet.ResourceClientForObject(c.currentOutputs)
 	if err != nil {
 		return err
 	}

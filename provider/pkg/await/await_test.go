@@ -105,11 +105,12 @@ func Test_Creation(t *testing.T) {
 
 	touch := func(t *testing.T, ctx testCtx) createAwaiter {
 		return func(cac createAwaitConfig) error {
-			require.Equal(t, cac.currentInputs.GetName(), cac.currentOutputs.GetName(), "Live object should have the expected name")
-			require.False(t, metadata.SkipAwaitLogic(cac.currentInputs), "Await logic should not execute when SkipWait is set")
+			require.False(t, metadata.SkipAwaitLogic(cac.currentOutputs), "Await logic should not execute when SkipWait is set")
 
 			// get the live object from the fake API Server
-			gvr, err := clients.GVRForGVK(cac.clientSet.RESTMapper, cac.currentInputs.GroupVersionKind())
+			require.Equal(t, cac.currentOutputs.GetNamespace(), cac.currentOutputs.GetNamespace(), "Live object should have a namespace")
+			require.Equal(t, cac.currentOutputs.GetName(), cac.currentOutputs.GetName(), "Live object should have a name")
+			gvr, err := clients.GVRForGVK(cac.clientSet.RESTMapper, cac.currentOutputs.GroupVersionKind())
 			require.NoError(t, err)
 			live, err := ctx.client.Tracker().Get(gvr, cac.currentOutputs.GetNamespace(), cac.currentOutputs.GetName())
 			require.NoError(t, err, "Live object should exist in the API Server")

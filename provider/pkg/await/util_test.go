@@ -10,12 +10,10 @@ import (
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
-func mockAwaitConfig(inputs *unstructured.Unstructured) createAwaitConfig {
+func mockAwaitConfig(outputs *unstructured.Unstructured) createAwaitConfig {
 	return createAwaitConfig{
-		ctx: context.Background(),
-		//TODO: complete this mock if needed
-		currentInputs:  inputs,
-		currentOutputs: inputs,
+		ctx:            context.Background(),
+		currentOutputs: outputs,
 		logger:         logging.NewLogger(context.Background(), nil, ""),
 	}
 }

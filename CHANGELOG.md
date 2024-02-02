@@ -2,6 +2,7 @@
 
 - Fix DiffConfig issue when when provider's kubeconfig is set to file path (https://github.com/pulumi/pulumi-kubernetes/pull/2771)
 - Fix for replacement having incorrect status messages (https://github.com/pulumi/pulumi-kubernetes/pull/2810)
+- Use output properties for await logic (https://github.com/pulumi/pulumi-kubernetes/pull/2790)
 
 ## 4.7.1 (January 17, 2024)
 

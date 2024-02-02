@@ -16,6 +16,7 @@
 package metadata
 
 import (
+	"reflect"
 	"testing"
 	"time"
 
@@ -58,27 +59,34 @@ func TestTimeoutSeconds(t *testing.T) {
 	annotatedResource15 := &unstructured.Unstructured{}
 	annotatedResource15.SetAnnotations(map[string]string{AnnotationTimeoutSeconds: "15"})
 
+	annotatedResourceZero := &unstructured.Unstructured{}
+	annotatedResourceZero.SetAnnotations(map[string]string{AnnotationTimeoutSeconds: "0"})
+
 	annotatedResourceInvalid := &unstructured.Unstructured{}
 	annotatedResourceInvalid.SetAnnotations(map[string]string{AnnotationTimeoutSeconds: "foo"})
 
+	ptr := func(t time.Duration) *time.Duration {
+		return &t
+	}
+
 	type args struct {
-		customTimeout  float64
-		obj            *unstructured.Unstructured
-		defaultSeconds int
+		customTimeout float64
+		obj           *unstructured.Unstructured
 	}
 	tests := []struct {
 		name string
 		args args
-		want time.Duration
+		want *time.Duration
 	}{
-		{"Timeout annotation unset", args{customTimeout: 0, obj: resource, defaultSeconds: 300}, 5 * time.Minute},
-		{"Timeout annotation set", args{customTimeout: 0, obj: annotatedResource15, defaultSeconds: 300}, 15 * time.Second},
-		{"Timeout annotation invalid", args{customTimeout: 0, obj: annotatedResourceInvalid, defaultSeconds: 300}, 5 * time.Minute},
-		{"Timeout from customResource", args{customTimeout: 600, obj: annotatedResource15, defaultSeconds: 300}, 10 * time.Minute},
+		{"Timeout annotation unset", args{customTimeout: 0, obj: resource}, nil},
+		{"Timeout annotation set", args{customTimeout: 0, obj: annotatedResource15}, ptr(15 * time.Second)},
+		{"Timeout annotation zero", args{customTimeout: 0, obj: annotatedResourceZero}, ptr(0 * time.Second)},
+		{"Timeout annotation invalid", args{customTimeout: 0, obj: annotatedResourceInvalid}, nil},
+		{"Timeout from customResource", args{customTimeout: 600, obj: annotatedResource15}, ptr(10 * time.Minute)},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := TimeoutDuration(tt.args.customTimeout, tt.args.obj, tt.args.defaultSeconds); got != tt.want {
+			if got := TimeoutDuration(tt.args.customTimeout, tt.args.obj); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("TimeoutDuration() = %v, want %v", got, tt.want)
 			}
 		})

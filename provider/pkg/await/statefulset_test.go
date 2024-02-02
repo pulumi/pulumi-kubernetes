@@ -264,7 +264,7 @@ func Test_Apps_StatefulSet(t *testing.T) {
 func Test_Apps_StatefulSet_MultipleUpdates(t *testing.T) {
 	tests := []struct {
 		description         string
-		inputs              func() *unstructured.Unstructured
+		outputs             func() *unstructured.Unstructured
 		firstUpdate         func(statefulsets, pods chan watch.Event, timeout chan time.Time)
 		secondUpdate        func(statefulsets, pods chan watch.Event, timeout chan time.Time)
 		firstExpectedError  error
@@ -272,7 +272,7 @@ func Test_Apps_StatefulSet_MultipleUpdates(t *testing.T) {
 	}{
 		{
 			description: "StatefulSet fails, is updated with working config, and then succeeds",
-			inputs:      statefulsetFailed,
+			outputs:     statefulsetFailed,
 			firstUpdate: func(
 				statefulsets, pods chan watch.Event, timeout chan time.Time,
 			) {
@@ -299,8 +299,8 @@ func Test_Apps_StatefulSet_MultipleUpdates(t *testing.T) {
 	for _, test := range tests {
 		awaiter := makeStatefulSetInitAwaiter(
 			updateAwaitConfig{
-				createAwaitConfig: mockAwaitConfig(test.inputs()),
-				lastInputs:        statefulsetFailed(),
+				createAwaitConfig: mockAwaitConfig(test.outputs()),
+				lastOutputs:       statefulsetFailed(),
 			})
 		statefulsets := make(chan watch.Event)
 		pods := make(chan watch.Event)

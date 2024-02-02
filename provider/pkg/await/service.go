@@ -24,7 +24,6 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/cluster"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/metadata"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/openapi"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/cmdutil"
@@ -137,7 +136,7 @@ func (sia *serviceInitAwaiter) Await() error {
 	defer close(stopper)
 
 	informerFactory := informers.NewInformerFactory(sia.config.clientSet,
-		informers.WithNamespaceOrDefault(sia.config.currentInputs.GetNamespace()))
+		informers.WithNamespaceOrDefault(sia.config.currentOutputs.GetNamespace()))
 	informerFactory.Start(stopper)
 
 	serviceEvents := make(chan watch.Event)
@@ -156,7 +155,7 @@ func (sia *serviceInitAwaiter) Await() error {
 
 	version := cluster.TryGetServerVersion(sia.config.clientSet.DiscoveryClientCached)
 
-	timeout := metadata.TimeoutDuration(sia.config.timeout, sia.config.currentInputs, DefaultServiceTimeoutMins*60)
+	timeout := sia.config.getTimeout(DefaultServiceTimeoutMins * 60)
 	return sia.await(serviceEvents, endpointsEvents, time.After(timeout), make(chan struct{}), version)
 }
 
@@ -273,7 +272,7 @@ func (sia *serviceInitAwaiter) await(
 }
 
 func (sia *serviceInitAwaiter) processServiceEvent(event watch.Event) {
-	inputServiceName := sia.config.currentInputs.GetName()
+	inputServiceName := sia.config.currentOutputs.GetName()
 
 	service, isUnstructured := event.Object.(*unstructured.Unstructured)
 	if !isUnstructured {

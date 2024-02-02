@@ -24,7 +24,6 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/informers"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/metadata"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -150,7 +149,7 @@ func (pia *podInitAwaiter) Await() error {
 	defer close(stopper)
 
 	informerFactory := informers.NewInformerFactory(pia.config.clientSet,
-		informers.WithNamespaceOrDefault(pia.config.currentInputs.GetNamespace()))
+		informers.WithNamespaceOrDefault(pia.config.currentOutputs.GetNamespace()))
 	informerFactory.Start(stopper)
 
 	podEvents := make(chan watch.Event)
@@ -160,7 +159,7 @@ func (pia *podInitAwaiter) Await() error {
 	}
 	go podInformer.Informer().Run(stopper)
 
-	timeout := metadata.TimeoutDuration(pia.config.timeout, pia.config.currentInputs, DefaultPodTimeoutMins*60)
+	timeout := pia.config.getTimeout(DefaultPodTimeoutMins * 60)
 	for {
 		if pia.ready {
 			return nil
@@ -187,14 +186,14 @@ func (pia *podInitAwaiter) Await() error {
 
 func (pia *podInitAwaiter) Read() error {
 	podClient, err := clients.ResourceClient(
-		kinds.Pod, pia.config.currentInputs.GetNamespace(), pia.config.clientSet)
+		kinds.Pod, pia.config.currentOutputs.GetNamespace(), pia.config.clientSet)
 	if err != nil {
 		return errors.Wrapf(err,
 			"Could not make client to get Pod %q",
-			pia.config.currentInputs.GetName())
+			pia.config.currentOutputs.GetName())
 	}
 	// Get live version of Pod.
-	pod, err := podClient.Get(pia.config.ctx, pia.config.currentInputs.GetName(), metav1.GetOptions{})
+	pod, err := podClient.Get(pia.config.ctx, pia.config.currentOutputs.GetName(), metav1.GetOptions{})
 	if err != nil {
 		// IMPORTANT: Do not wrap this error! If this is a 404, the provider need to know so that it
 		// can mark the Pod as having been deleted.
@@ -226,7 +225,7 @@ func (pia *podInitAwaiter) processPodEvent(event watch.Event) {
 	}
 
 	// Do nothing if this is not the pod we're waiting for.
-	if pod.GetName() != pia.config.currentInputs.GetName() {
+	if pod.GetName() != pia.config.currentOutputs.GetName() {
 		return
 	}
 
