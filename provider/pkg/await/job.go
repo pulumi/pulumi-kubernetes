@@ -26,7 +26,6 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/logging"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/metadata"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -123,7 +122,7 @@ func (jia *jobInitAwaiter) Await() error {
 	podAggregator.Start(podEvents)
 	defer podAggregator.Stop()
 
-	timeout := metadata.TimeoutDuration(jia.config.timeout, jia.config.currentOutputs, DefaultJobTimeoutMins*60)
+	timeout := jia.config.getTimeout(DefaultJobTimeoutMins * 60)
 	for {
 		if jia.ready {
 			return nil

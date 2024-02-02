@@ -24,7 +24,6 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/informers"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/metadata"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/openapi"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/cmdutil"
@@ -144,7 +143,7 @@ func (iia *ingressInitAwaiter) Await() error {
 	}
 	go serviceInformer.Informer().Run(stopper)
 
-	timeout := metadata.TimeoutDuration(iia.config.timeout, iia.config.currentOutputs, DefaultIngressTimeoutMins*60)
+	timeout := iia.config.getTimeout(DefaultIngressTimeoutMins * 60)
 	return iia.await(ingressEvents, serviceEvents, endpointsEvents, make(chan struct{}), time.After(60*time.Second), time.After(timeout))
 }
 

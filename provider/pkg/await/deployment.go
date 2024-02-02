@@ -25,7 +25,6 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/informers"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/metadata"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/openapi"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/cmdutil"
@@ -228,8 +227,7 @@ func (dia *deploymentInitAwaiter) Await() error {
 	aggregateErrorTicker := time.NewTicker(10 * time.Second)
 	defer aggregateErrorTicker.Stop()
 
-	timeout := metadata.TimeoutDuration(dia.config.timeout, dia.config.currentOutputs, DefaultDeploymentTimeoutMins*60)
-
+	timeout := dia.config.getTimeout(DefaultDeploymentTimeoutMins * 60)
 	return dia.await(
 		deploymentEvents,
 		replicaSetEvents,

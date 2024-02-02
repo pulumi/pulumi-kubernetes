@@ -31,22 +31,21 @@ func ReplaceUnready(obj *unstructured.Unstructured) bool {
 	return IsAnnotationTrue(obj, AnnotationReplaceUnready)
 }
 
-// TimeoutDuration returns the resource timeout duration. There are a number of things it can do here in this order
+// TimeoutDuration returns the resource timeout duration. There are a number of things it can do here in this order:
 // 1. Return the timeout as specified in the customResource options
 // 2. Return the timeout as specified in `pulumi.com/timeoutSeconds` annotation,
-// 3. Return a defaultSeconds value
-// if the annotation is unset/invalid.
-func TimeoutDuration(resourceTimeoutSeconds float64, obj *unstructured.Unstructured, defaultSeconds int) time.Duration {
-	timeout := defaultSeconds
-
+// 3. Return nil if the annotation is unset/invalid.
+func TimeoutDuration(resourceTimeoutSeconds float64, obj *unstructured.Unstructured) *time.Duration {
 	if resourceTimeoutSeconds != 0 {
-		timeout = int(resourceTimeoutSeconds)
+		timeout := time.Duration(resourceTimeoutSeconds) * time.Second
+		return &timeout
 	} else if s := GetAnnotationValue(obj, AnnotationTimeoutSeconds); s != "" {
 		val, err := strconv.Atoi(s)
 		if err == nil {
-			timeout = val
+			timeout := time.Duration(val) * time.Second
+			return &timeout
 		}
 	}
 
-	return time.Duration(timeout) * time.Second
+	return nil
 }

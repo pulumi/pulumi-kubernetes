@@ -25,7 +25,6 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/informers"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/metadata"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/openapi"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/cmdutil"
@@ -216,7 +215,7 @@ func (sia *statefulsetInitAwaiter) Await() error {
 	aggregateErrorTicker := time.NewTicker(10 * time.Second)
 	defer aggregateErrorTicker.Stop()
 
-	timeout := metadata.TimeoutDuration(sia.config.timeout, sia.config.currentOutputs, DefaultStatefulSetTimeoutMins*60)
+	timeout := sia.config.getTimeout(DefaultStatefulSetTimeoutMins * 60)
 	return sia.await(statefulSetEvents, podEvents, time.After(timeout), aggregateErrorTicker.C)
 }
 

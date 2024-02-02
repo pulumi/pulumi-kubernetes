@@ -24,7 +24,6 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/cluster"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/logging"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/metadata"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/openapi"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/watcher"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
@@ -50,7 +49,7 @@ type createAwaitConfig struct {
 	logger            *logging.DedupLogger
 	clientSet         *clients.DynamicClientSet
 	currentOutputs    *unstructured.Unstructured
-	timeout           float64
+	timeout           *time.Duration
 	clusterVersion    *cluster.ServerVersion
 }
 
@@ -82,6 +81,13 @@ type createAwaiter func(createAwaitConfig) error
 type updateAwaiter func(updateAwaitConfig) error
 type readAwaiter func(createAwaitConfig) error
 type deletionAwaiter func(deleteAwaitConfig) error
+
+func (cac *createAwaitConfig) getTimeout(defaultSeconds int) time.Duration {
+	if cac.timeout != nil {
+		return *cac.timeout
+	}
+	return time.Duration(defaultSeconds) * time.Second
+}
 
 // --------------------------------------------------------------------------
 
@@ -302,7 +308,7 @@ func untilAppsDeploymentDeleted(config deleteAwaitConfig) error {
 	}
 
 	// Wait until all replicas are gone. 10 minutes should be enough for ~10k replicas.
-	timeout := metadata.TimeoutDuration(config.timeout, config.currentOutputs, 600)
+	timeout := config.getTimeout(600)
 	err := watcher.ForObject(config.ctx, config.clientForResource, config.currentOutputs.GetName()).
 		RetryUntil(deploymentMissing, timeout)
 	if err != nil {
@@ -345,7 +351,7 @@ func untilAppsStatefulSetDeleted(config deleteAwaitConfig) error {
 	}
 
 	// Wait until all replicas are gone. 10 minutes should be enough for ~10k replicas.
-	timeout := metadata.TimeoutDuration(config.timeout, config.currentOutputs, 600)
+	timeout := config.getTimeout(600)
 	err := watcher.ForObject(config.ctx, config.clientForResource, config.currentOutputs.GetName()).
 		RetryUntil(statefulsetmissing, timeout)
 	if err != nil {
@@ -375,7 +381,7 @@ func untilBatchV1JobDeleted(config deleteAwaitConfig) error {
 		return watcher.RetryableError(e)
 	}
 
-	timeout := metadata.TimeoutDuration(config.timeout, config.currentOutputs, 300)
+	timeout := config.getTimeout(300)
 	return watcher.ForObject(config.ctx, config.clientForResource, config.currentOutputs.GetName()).
 		RetryUntil(jobMissingOrKilled, timeout)
 }
@@ -406,7 +412,7 @@ func untilCoreV1NamespaceDeleted(config deleteAwaitConfig) error {
 			ns.GetName(), statusPhase))
 	}
 
-	timeout := metadata.TimeoutDuration(config.timeout, config.currentOutputs, 300)
+	timeout := config.getTimeout(300)
 	return watcher.ForObject(config.ctx, config.clientForResource, config.currentOutputs.GetName()).
 		RetryUntil(namespaceMissingOrKilled, timeout)
 }
@@ -479,7 +485,7 @@ func untilCoreV1PodDeleted(config deleteAwaitConfig) error {
 		return watcher.RetryableError(e)
 	}
 
-	timeout := metadata.TimeoutDuration(config.timeout, config.currentOutputs, 300)
+	timeout := config.getTimeout(300)
 	return watcher.ForObject(config.ctx, config.clientForResource, config.currentOutputs.GetName()).
 		RetryUntil(podMissingOrKilled, timeout)
 }
@@ -559,7 +565,7 @@ func untilCoreV1ReplicationControllerDeleted(config deleteAwaitConfig) error {
 	}
 
 	// Wait until all replicas are gone. 10 minutes should be enough for ~10k replicas.
-	timeout := metadata.TimeoutDuration(config.timeout, config.currentOutputs, 600)
+	timeout := config.getTimeout(600)
 	err := watcher.ForObject(config.ctx, config.clientForResource, config.currentOutputs.GetName()).
 		RetryUntil(rcMissing, timeout)
 	if err != nil {

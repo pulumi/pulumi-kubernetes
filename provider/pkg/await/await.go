@@ -265,6 +265,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 		if metadata.SkipAwaitLogic(c.Inputs) {
 			logger.V(1).Infof("Skipping await logic for %v", outputs.GetName())
 		} else {
+			timeout := metadata.TimeoutDuration(c.Timeout, c.Inputs)
 			if awaiter.awaitCreation != nil {
 				conf := createAwaitConfig{
 					ctx:               c.Context,
@@ -273,7 +274,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 					clientSet:         c.ClientSet,
 					currentOutputs:    outputs,
 					logger:            c.DedupLogger,
-					timeout:           c.Timeout,
+					timeout:           timeout,
 					clusterVersion:    c.ClusterVersion,
 				}
 				waitErr := awaiter.awaitCreation(conf)
@@ -408,6 +409,7 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 			logger.V(1).Infof("Skipping await logic for %v", currentOutputs.GetName())
 		} else {
 			if awaiter.awaitUpdate != nil {
+				timeout := metadata.TimeoutDuration(c.Timeout, c.Inputs)
 				conf := updateAwaitConfig{
 					createAwaitConfig: createAwaitConfig{
 						ctx:               c.Context,
@@ -416,7 +418,7 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 						clientSet:         c.ClientSet,
 						currentOutputs:    currentOutputs,
 						logger:            c.DedupLogger,
-						timeout:           c.Timeout,
+						timeout:           timeout,
 						clusterVersion:    c.ClusterVersion,
 					},
 					lastOutputs: liveOldObj,
@@ -742,8 +744,11 @@ func Deletion(c DeleteConfig) error {
 		return err
 	}
 
-	timeout := metadata.TimeoutDuration(c.Timeout, c.Outputs, 300)
-	timeoutSeconds := int64(timeout.Seconds())
+	timeout := metadata.TimeoutDuration(c.Timeout, c.Inputs)
+	var timeoutSeconds int64 = 300
+	if timeout != nil {
+		timeoutSeconds = int64(timeout.Seconds())
+	}
 	listOpts := metav1.ListOptions{
 		FieldSelector:  fields.OneTermEqualSelector("metadata.name", c.Name).String(),
 		TimeoutSeconds: &timeoutSeconds,
@@ -781,7 +786,7 @@ func Deletion(c DeleteConfig) error {
 					clientSet:         c.ClientSet,
 					currentOutputs:    c.Outputs,
 					logger:            c.DedupLogger,
-					timeout:           c.Timeout,
+					timeout:           timeout,
 					clusterVersion:    c.ClusterVersion,
 				},
 				clientForResource: client,

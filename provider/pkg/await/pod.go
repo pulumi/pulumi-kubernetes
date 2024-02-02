@@ -24,7 +24,6 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/informers"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/metadata"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -160,7 +159,7 @@ func (pia *podInitAwaiter) Await() error {
 	}
 	go podInformer.Informer().Run(stopper)
 
-	timeout := metadata.TimeoutDuration(pia.config.timeout, pia.config.currentOutputs, DefaultPodTimeoutMins*60)
+	timeout := pia.config.getTimeout(DefaultPodTimeoutMins * 60)
 	for {
 		if pia.ready {
 			return nil
