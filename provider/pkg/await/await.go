@@ -265,8 +265,8 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 		if metadata.SkipAwaitLogic(c.Inputs) {
 			logger.V(1).Infof("Skipping await logic for %v", outputs.GetName())
 		} else {
-			timeout := metadata.TimeoutDuration(c.Timeout, c.Inputs)
 			if awaiter.awaitCreation != nil {
+				timeout := metadata.TimeoutDuration(c.Timeout, c.Inputs)
 				conf := createAwaitConfig{
 					ctx:               c.Context,
 					urn:               c.URN,
@@ -778,6 +778,7 @@ func Deletion(c DeleteConfig) error {
 		if metadata.SkipAwaitLogic(c.Inputs) {
 			logger.V(1).Infof("Skipping await logic for %v", c.Name)
 		} else {
+			timeout := metadata.TimeoutDuration(c.Timeout, c.Inputs)
 			waitErr = awaiter.awaitDeletion(deleteAwaitConfig{
 				createAwaitConfig: createAwaitConfig{
 					ctx:               c.Context,
