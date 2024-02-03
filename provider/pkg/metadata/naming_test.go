@@ -15,9 +15,10 @@
 package metadata
 
 import (
-	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
 	"strings"
 	"testing"
+
+	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 
@@ -37,32 +38,54 @@ func TestAssignNameIfAutonamable(t *testing.T) {
 	assert.Len(t, o1.GetName(), 12)
 
 	// o2 has a name, so autonaming fails.
-	o2 := &unstructured.Unstructured{
-		Object: map[string]any{"metadata": map[string]any{"name": "bar"}},
-	}
 	pm2 := resource.PropertyMap{
 		"metadata": resource.NewObjectProperty(resource.PropertyMap{
 			"name": resource.NewStringProperty("bar"),
 		}),
 	}
+	o2 := propMapToUnstructured(pm2)
 	AssignNameIfAutonamable(nil, o2, pm2, resource.NewURN(tokens.QName("teststack"), tokens.PackageName("testproj"),
 		tokens.Type(""), tokens.Type("bang:boom/fizzle:AnotherResource"), "bar"))
 	assert.False(t, IsAutonamed(o2))
 	assert.Equal(t, "bar", o2.GetName())
 
 	// o3 has a computed name, so autonaming fails.
-	o3 := &unstructured.Unstructured{
-		Object: map[string]any{"metadata": map[string]any{"name": "[Computed]"}},
-	}
 	pm3 := resource.PropertyMap{
 		"metadata": resource.NewObjectProperty(resource.PropertyMap{
 			"name": resource.MakeComputed(resource.NewStringProperty("bar")),
 		}),
 	}
+	o3 := propMapToUnstructured(pm3)
 	AssignNameIfAutonamable(nil, o3, pm3, resource.NewURN(tokens.QName("teststack"), tokens.PackageName("testproj"),
 		tokens.Type(""), tokens.Type("bang:boom/fizzle:MajorResource"), "foo"))
 	assert.False(t, IsAutonamed(o3))
-	assert.Equal(t, "[Computed]", o3.GetName())
+	assert.Equal(t, "", o3.GetName())
+
+	// o4 has a generateName, so autonaming fails.
+	pm4 := resource.PropertyMap{
+		"metadata": resource.NewObjectProperty(resource.PropertyMap{
+			"generateName": resource.NewStringProperty("bar-"),
+		}),
+	}
+	o4 := propMapToUnstructured(pm4)
+	AssignNameIfAutonamable(nil, o4, pm4, resource.NewURN(tokens.QName("teststack"), tokens.PackageName("testproj"),
+		tokens.Type(""), tokens.Type("bang:boom/fizzle:AnotherResource"), "bar"))
+	assert.False(t, IsAutonamed(o4))
+	assert.Equal(t, "bar-", o4.GetGenerateName())
+	assert.Equal(t, "", o4.GetName())
+
+	// o5 has a computed generateName, so autonaming fails.
+	pm5 := resource.PropertyMap{
+		"metadata": resource.NewObjectProperty(resource.PropertyMap{
+			"generateName": resource.MakeComputed(resource.NewStringProperty("bar")),
+		}),
+	}
+	o5 := propMapToUnstructured(pm5)
+	AssignNameIfAutonamable(nil, o5, pm5, resource.NewURN(tokens.QName("teststack"), tokens.PackageName("testproj"),
+		tokens.Type(""), tokens.Type("bang:boom/fizzle:MajorResource"), "foo"))
+	assert.False(t, IsAutonamed(o5))
+	assert.Equal(t, "", o5.GetGenerateName())
+	assert.Equal(t, "", o5.GetName())
 }
 
 func TestAdoptName(t *testing.T) {
@@ -77,10 +100,13 @@ func TestAdoptName(t *testing.T) {
 			},
 		},
 	}
-	new1 := &unstructured.Unstructured{
-		Object: map[string]any{"metadata": map[string]any{"name": "new1"}},
+	pm1 := resource.PropertyMap{
+		"metadata": resource.NewObjectProperty(resource.PropertyMap{
+			"name": resource.NewStringProperty("new1"),
+		}),
 	}
-	AdoptOldAutonameIfUnnamed(new1, old1)
+	new1 := propMapToUnstructured(pm1)
+	AdoptOldAutonameIfUnnamed(new1, old1, pm1)
 	assert.Equal(t, "old1", old1.GetName())
 	assert.True(t, IsAutonamed(old1))
 	assert.Equal(t, "new1", new1.GetName())
@@ -90,7 +116,8 @@ func TestAdoptName(t *testing.T) {
 	new2 := &unstructured.Unstructured{
 		Object: map[string]any{},
 	}
-	AdoptOldAutonameIfUnnamed(new2, old1)
+	pm2 := resource.NewPropertyMap(struct{}{})
+	AdoptOldAutonameIfUnnamed(new2, old1, pm2)
 	assert.Equal(t, "old1", new2.GetName())
 	assert.True(t, IsAutonamed(new2))
 
@@ -98,6 +125,7 @@ func TestAdoptName(t *testing.T) {
 	new3 := &unstructured.Unstructured{
 		Object: map[string]any{},
 	}
+	pm3 := resource.NewPropertyMap(struct{}{})
 	old2 := &unstructured.Unstructured{
 		Object: map[string]any{
 			"metadata": map[string]any{
@@ -105,7 +133,34 @@ func TestAdoptName(t *testing.T) {
 			},
 		},
 	}
-	AdoptOldAutonameIfUnnamed(new3, old2)
+	AdoptOldAutonameIfUnnamed(new3, old2, pm3)
 	assert.Equal(t, "", new3.GetName())
 	assert.False(t, IsAutonamed(new3))
+
+	// new4 has a computed name and therefore DOES NOT adopt old1's name.
+	pm4 := resource.PropertyMap{
+		"metadata": resource.NewObjectProperty(resource.PropertyMap{
+			"name": resource.MakeComputed(resource.NewStringProperty("new4")),
+		}),
+	}
+	new4 := propMapToUnstructured(pm4)
+	assert.Equal(t, "", new4.GetName())
+	AdoptOldAutonameIfUnnamed(new4, old1, pm4)
+	assert.Equal(t, "", new4.GetName())
+	assert.False(t, IsAutonamed(new4))
+
+	// new5 has a generateName and therefore DOES adopt old1's name.
+	pm5 := resource.PropertyMap{
+		"metadata": resource.NewObjectProperty(resource.PropertyMap{
+			"generateName": resource.NewStringProperty("new5-"),
+		}),
+	}
+	new5 := propMapToUnstructured(pm5)
+	AdoptOldAutonameIfUnnamed(new5, old1, pm5)
+	assert.Equal(t, "old1", new2.GetName())
+	assert.True(t, IsAutonamed(new2))
+}
+
+func propMapToUnstructured(pm resource.PropertyMap) *unstructured.Unstructured {
+	return &unstructured.Unstructured{Object: pm.MapRepl(nil, nil)}
 }

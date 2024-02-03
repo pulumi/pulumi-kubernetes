@@ -160,6 +160,7 @@ func Test_Creation(t *testing.T) {
 			require.NotNil(t, actual)
 			require.Equal(t, ns, actual.GetNamespace(), "Object should have the expected namespace")
 			require.Equal(t, name, actual.GetName(), "Object should have the expected name")
+
 			gvr, err := clients.GVRForGVK(ctx.mapper, ctx.config.Inputs.GroupVersionKind())
 			require.NoError(t, err)
 			_, err = ctx.client.Tracker().Get(gvr, ns, name)
@@ -240,6 +241,15 @@ func Test_Creation(t *testing.T) {
 			},
 			awaiter: touch,
 			expect:  []expectF{created("", "foo"), touched()},
+		},
+		{
+			name: "GenerateName",
+			args: args{
+				resType: tokens.Type("kubernetes:core/v1:Pod"),
+				inputs:  withGenerateName(validPodUnstructured),
+			},
+			awaiter: touch,
+			expect:  []expectF{created("default", "foo-generated"), touched()},
 		},
 		{
 			name: "SkipAwait",
@@ -371,6 +381,13 @@ func withSkipAwait(obj *unstructured.Unstructured) *unstructured.Unstructured {
 	copy.SetAnnotations(map[string]string{
 		"pulumi.com/skipAwait": "true",
 	})
+	return copy
+}
+
+func withGenerateName(obj *unstructured.Unstructured) *unstructured.Unstructured {
+	copy := obj.DeepCopy()
+	copy.SetGenerateName(fmt.Sprintf("%s-", obj.GetName()))
+	copy.SetName("")
 	return copy
 }
 

@@ -16,9 +16,11 @@ package fake
 
 import (
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
+	"k8s.io/apimachinery/pkg/api/meta"
 	"k8s.io/apimachinery/pkg/runtime"
 	kubeversion "k8s.io/apimachinery/pkg/version"
 	"k8s.io/client-go/restmapper"
+	kubetesting "k8s.io/client-go/testing"
 	"k8s.io/kubectl/pkg/scheme"
 )
 
@@ -76,6 +78,7 @@ func NewSimpleDynamicClient(opts ...NewDynamicClientOption) (*clients.DynamicCli
 	// make a fake clientset for testing purposes, backed by an testing.ObjectTracker with pre-populated objects.
 	// see also: https://github.com/kubernetes/client-go/blob/kubernetes-1.29.0/examples/fake-client/main_test.go
 	client := NewSimpleDynamicCLient(options.Scheme, options.Objects...)
+	client.PrependReactor("create", "*", AdmitCreate())
 
 	cs := &clients.DynamicClientSet{
 		GenericClient:         client,
@@ -83,4 +86,22 @@ func NewSimpleDynamicClient(opts ...NewDynamicClientOption) (*clients.DynamicCli
 		RESTMapper:            mapper,
 	}
 	return cs, disco, mapper, client
+}
+
+func AdmitCreate() kubetesting.ReactionFunc {
+	return func(action kubetesting.Action) (handled bool, ret runtime.Object, err error) {
+		if action, ok := action.(kubetesting.CreateAction); ok {
+			objMeta, err := meta.Accessor(action.GetObject())
+			if err != nil {
+				return false, nil, err
+			}
+
+			// implement GenerateName since underlying object tracker doesn't natively support this.
+			if objMeta.GetGenerateName() != "" && objMeta.GetName() == "" {
+				name := objMeta.GetGenerateName() + "generated"
+				objMeta.SetName(name)
+			}
+		}
+		return false, nil, nil
+	}
 }
