@@ -3,3 +3,8 @@ metrics:
   service:
     annotations:
       "prometheus.io/port": "9127"
+
+# fake-value contains a numeric/complex mapping key that require marshing into strings to be used with Helm.
+# An example of this in the wild is the ingress-nginx chart from https://kubernetes.github.io/ingress-nginx.
+fake-value:
+  2: "test-string"
