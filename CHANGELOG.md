@@ -4,6 +4,7 @@
 - Fix for replacement having incorrect status messages (https://github.com/pulumi/pulumi-kubernetes/pull/2810)
 - Use output properties for await logic (https://github.com/pulumi/pulumi-kubernetes/pull/2790)
 - Support for metadata.generateName (CSA) (https://github.com/pulumi/pulumi-kubernetes/pull/2808)
+- Fix unmarshalling of Helm values yaml file (https://github.com/pulumi/pulumi-kubernetes/issues/2815)
  
 ## 4.7.1 (January 17, 2024)
 
