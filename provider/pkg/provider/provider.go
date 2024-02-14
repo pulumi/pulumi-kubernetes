@@ -1532,6 +1532,9 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 	//
 
 	urn := resource.URN(req.GetUrn())
+	if isHelmRelease(urn) {
+		return k.helmReleaseProvider.Diff(ctx, req)
+	}
 
 	label := fmt.Sprintf("%s.Diff(%s)", k.label(), urn)
 	logger.V(9).Infof("%s executing", label)
@@ -1575,10 +1578,6 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 	oldLivePruned := pruneLiveState(oldLive, oldInputs)
 
 	gvk := k.gvkFromUnstructured(newInputs)
-
-	if isHelmRelease(urn) && !hasComputedValue(newInputs) {
-		return k.helmReleaseProvider.Diff(ctx, req)
-	}
 
 	namespacedKind, err := clients.IsNamespacedKind(gvk, k.clientSet)
 	if err != nil {
@@ -1759,8 +1758,7 @@ func (k *kubeProvider) Create(
 	//   resource. This is important both for `Diff` and for `Update`. See comments in those methods for details.
 	//
 	urn := resource.URN(req.GetUrn())
-
-	if isHelmRelease(urn) && !req.GetPreview() {
+	if isHelmRelease(urn) {
 		return k.helmReleaseProvider.Create(ctx, req)
 	}
 
@@ -2235,6 +2233,10 @@ func (k *kubeProvider) Update(
 	//
 
 	urn := resource.URN(req.GetUrn())
+	if isHelmRelease(urn) {
+		return k.helmReleaseProvider.Update(ctx, req)
+	}
+
 	label := fmt.Sprintf("%s.Update(%s)", k.label(), urn)
 	logger.V(9).Infof("%s executing", label)
 
@@ -2275,9 +2277,6 @@ func (k *kubeProvider) Update(
 		return &pulumirpc.UpdateResponse{Properties: req.News}, nil
 	}
 
-	if isHelmRelease(urn) {
-		return k.helmReleaseProvider.Update(ctx, req)
-	}
 	// Ignore old state; we'll get it from Kubernetes later.
 	oldInputs, oldLive := parseCheckpointObject(oldState)
 
@@ -2790,9 +2789,28 @@ func normalizeInputs(uns *unstructured.Unstructured) (*unstructured.Unstructured
 	return uns, nil
 }
 
+func combineMapReplv(replvs ...func(resource.PropertyValue) (interface{}, bool)) func(resource.PropertyValue) (interface{}, bool) {
+	return func(v resource.PropertyValue) (interface{}, bool) {
+		for _, replv := range replvs {
+			if r, ok := replv(v); ok {
+				return r, true
+			}
+		}
+		return "", false
+	}
+}
+
 func mapReplStripSecrets(v resource.PropertyValue) (any, bool) {
 	if v.IsSecret() {
 		return v.SecretValue().Element.MapRepl(nil, mapReplStripSecrets), true
+	}
+
+	return nil, false
+}
+
+func mapReplStripComputed(v resource.PropertyValue) (any, bool) {
+	if v.IsComputed() {
+		return nil, true
 	}
 
 	return nil, false
@@ -3029,7 +3047,16 @@ func (pc *patchConverter) addPatchValueToDiff(
 	var diffKind pulumirpc.PropertyDiff_Kind
 	inputDiff := false
 	if v == nil {
-		diffKind, inputDiff = pulumirpc.PropertyDiff_DELETE, true
+		// computed values are rendered as null in the patch; handle this special case.
+		if _, ok := newInput.(resource.Computed); ok {
+			if old == nil {
+				diffKind = pulumirpc.PropertyDiff_ADD
+			} else {
+				diffKind = pulumirpc.PropertyDiff_UPDATE
+			}
+		} else {
+			diffKind, inputDiff = pulumirpc.PropertyDiff_DELETE, true
+		}
 	} else if old == nil {
 		diffKind = pulumirpc.PropertyDiff_ADD
 	} else {

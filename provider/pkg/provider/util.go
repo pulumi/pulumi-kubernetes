@@ -51,6 +51,42 @@ func hasComputedValue(obj *unstructured.Unstructured) bool {
 	return false
 }
 
+func annotateComputed(outs, ins resource.PropertyMap) {
+	if outs == nil || ins == nil {
+		return
+	}
+	for key, inValue := range ins {
+		outValue, has := outs[key]
+		if !has {
+			continue
+		}
+		outs[key] = annotateComputedValue(outValue, inValue)
+	}
+}
+
+func annotateComputedValue(outValue, inValue resource.PropertyValue) resource.PropertyValue {
+	if inValue.IsSecret() {
+		inValue = inValue.SecretValue().Element
+	}
+	if !outValue.IsComputed() && inValue.IsComputed() {
+		return resource.MakeComputed(inValue.Input().Element)
+	}
+	if outValue.IsObject() && inValue.IsObject() {
+		annotateComputed(outValue.ObjectValue(), inValue.ObjectValue())
+	} else if outValue.IsArray() && inValue.IsArray() {
+		annotateComputedArray(outValue.ArrayValue(), inValue.ArrayValue())
+	}
+	return outValue
+}
+
+func annotateComputedArray(outs, ins []resource.PropertyValue) {
+	for i := 0; i < len(ins); i++ {
+		if i < len(outs) {
+			outs[i] = annotateComputedValue(outs[i], ins[i])
+		}
+	}
+}
+
 // --------------------------------------------------------------------------
 // Names and namespaces.
 // --------------------------------------------------------------------------
