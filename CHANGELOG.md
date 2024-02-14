@@ -5,7 +5,8 @@
 - Use output properties for await logic (https://github.com/pulumi/pulumi-kubernetes/pull/2790)
 - Support for metadata.generateName (CSA) (https://github.com/pulumi/pulumi-kubernetes/pull/2808)
 - Fix unmarshalling of Helm values yaml file (https://github.com/pulumi/pulumi-kubernetes/issues/2815)
- 
+- Handle unknowns in Helm Release resource (https://github.com/pulumi/pulumi-kubernetes/pull/2822)
+
 ## 4.7.1 (January 17, 2024)
 
 - Fix deployment await logic for accurate rollout detection
