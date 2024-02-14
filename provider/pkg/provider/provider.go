@@ -3030,9 +3030,9 @@ type patchConverter struct {
 func (pc *patchConverter) addPatchValueToDiff(
 	path []any, v, old, newInput, oldInput any, inArray bool,
 ) error {
-	contract.Assertf(v != nil || old != nil || oldInput != nil,
-		"path: %+v  |  v: %+v  | old: %+v  |  oldInput: %+v",
-		path, v, old, oldInput)
+	contract.Assertf(v != nil || old != nil || oldInput != nil || newInput != nil,
+		"path: %+v  |  v: %+v  | old: %+v  |  oldInput: %+v  |  newInput: %+v",
+		path, v, old, oldInput, newInput)
 
 	// If there is no new input, then the only possible diff here is a delete. All other diffs must be diffs between
 	// old and new properties that are populated by the server. If there is also no old input, then there is no diff
