@@ -45,7 +45,7 @@ jobs:
     name: command-dispatch-for-testing
     steps:
     - name: Checkout Repo
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         lfs: true
     - uses: peter-evans/slash-command-dispatch@v2
