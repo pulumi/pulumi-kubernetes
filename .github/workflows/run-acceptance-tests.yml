@@ -388,7 +388,7 @@ jobs:
     - name: Install gotestfmt
       uses: GoTestTools/gotestfmt-action@v2
       with:
-        version: v2.4.0
+        version: v2.5.0
         token: ${{ secrets.GITHUB_TOKEN }}
     - name: Run tests
       run: cd tests/sdk/${{ matrix.language }} && go test -v -count=1 -cover -timeout
