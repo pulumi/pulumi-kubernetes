@@ -748,7 +748,8 @@ func (r *helmReleaseProvider) Diff(ctx context.Context, req *pulumirpc.DiffReque
 	logger.V(9).Infof("Diff: New release: %#v", newRelease)
 
 	// Generate a patch to apply the new inputs to the old state, including deletions.
-	// Note that computed values are seen as nulls and
+	// Computed values are mapped to null, and secrets are mapped to plain values.
+	// Later, we'll use this patch to generate a diff response, with special handling for the computed values.
 	oldInputsJSON, err := json.Marshal(oldInputs.MapRepl(nil, mapReplExtractValues))
 	if err != nil {
 		return nil, pkgerrors.Wrapf(err, "internal error: json.Marshal(oldInputsJson)")

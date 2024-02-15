@@ -2786,8 +2786,8 @@ func normalizeInputs(uns *unstructured.Unstructured) (*unstructured.Unstructured
 	return uns, nil
 }
 
-func combineMapReplv(replvs ...func(resource.PropertyValue) (interface{}, bool)) func(resource.PropertyValue) (interface{}, bool) {
-	return func(v resource.PropertyValue) (interface{}, bool) {
+func combineMapReplv(replvs ...func(resource.PropertyValue) (any, bool)) func(resource.PropertyValue) (any, bool) {
+	return func(v resource.PropertyValue) (any, bool) {
 		for _, replv := range replvs {
 			if r, ok := replv(v); ok {
 				return r, true
