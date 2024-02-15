@@ -69,7 +69,7 @@ func annotateComputedValue(outValue, inValue resource.PropertyValue) resource.Pr
 		inValue = inValue.SecretValue().Element
 	}
 	if !outValue.IsComputed() && inValue.IsComputed() {
-		return resource.MakeComputed(inValue.Input().Element)
+		return resource.MakeComputed(resource.NewStringProperty(""))
 	}
 	if outValue.IsObject() && inValue.IsObject() {
 		annotateComputed(outValue.ObjectValue(), inValue.ObjectValue())
