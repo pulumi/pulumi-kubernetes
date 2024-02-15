@@ -568,7 +568,6 @@ func handleSSAIgnoreFields(c *UpdateConfig, liveOldObj *unstructured.Unstructure
 	managedFields := liveOldObj.GetManagedFields()
 	// Keep track of fields that are managed by the current field manager, and fields that are managed by other field managers.
 	theirFields, ourFields := new(fieldpath.Set), new(fieldpath.Set)
-	fieldpath.MakePathOrDie()
 
 	for _, f := range managedFields {
 		s, err := fluxssa.FieldsToSet(*f.FieldsV1)
@@ -583,6 +582,10 @@ func handleSSAIgnoreFields(c *UpdateConfig, liveOldObj *unstructured.Unstructure
 			theirFields = theirFields.Union(&s)
 		}
 	}
+
+	// Add all parent paths of the fields to the set.
+	theirFields = ensureFieldsAreMembers(theirFields)
+	ourFields = ensureFieldsAreMembers(ourFields)
 
 	for _, ignorePath := range c.IgnoreChanges {
 		ipParsed, err := resource.ParsePropertyPath(ignorePath)
@@ -643,6 +646,20 @@ func makeInterfaceSlice[T any](inputs []T) []interface{} {
 		s[i] = v
 	}
 	return s
+}
+
+// ensureFieldsAreMembers adds all parent paths of a given fieldpath.Set back to the set. The fieldpath.Set.Insert method specifically mentions that it does not
+// add parent paths, so we need to do this manually. We do this by iterating from the start of the path to the end, and
+// adding each level of the path tree to the set.
+func ensureFieldsAreMembers(s *fieldpath.Set) *fieldpath.Set {
+	newSet := new(fieldpath.Set)
+	s.Iterate(func(p fieldpath.Path) {
+		for i := range p {
+			newSet.Insert(p[:i+1])
+		}
+	})
+
+	return newSet
 }
 
 // fixCSAFieldManagers patches the field managers for an existing resource that was managed using client-side apply.
