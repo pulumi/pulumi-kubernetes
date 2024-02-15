@@ -887,7 +887,7 @@ func (r *helmReleaseProvider) Create(ctx context.Context, req *pulumirpc.CreateR
 		}
 	}
 
-	obj := checkpointRelease(news, newRelease, fmt.Sprintf("%s.news", label), req.GetPreview())
+	obj := checkpointRelease(news, newRelease, fmt.Sprintf("%s.news", label))
 	inputsAndComputed, err := plugin.MarshalProperties(
 		obj, plugin.MarshalOptions{
 			Label:        fmt.Sprintf("%s.inputsAndComputed", label),
@@ -980,7 +980,7 @@ func (r *helmReleaseProvider) Read(ctx context.Context, req *pulumirpc.ReadReque
 
 	// Return a new "checkpoint object".
 	state, err := plugin.MarshalProperties(
-		checkpointRelease(oldInputs, existingRelease, fmt.Sprintf("%s.olds", label), false), plugin.MarshalOptions{
+		checkpointRelease(oldInputs, existingRelease, fmt.Sprintf("%s.olds", label)), plugin.MarshalOptions{
 			Label:        fmt.Sprintf("%s.state", label),
 			KeepUnknowns: true,
 			SkipNulls:    true,
@@ -1061,7 +1061,7 @@ func (r *helmReleaseProvider) Update(ctx context.Context, req *pulumirpc.UpdateR
 		}
 	}
 
-	checkpointed := checkpointRelease(newResInputs, newRelease, fmt.Sprintf("%s.news", label), req.GetPreview())
+	checkpointed := checkpointRelease(newResInputs, newRelease, fmt.Sprintf("%s.news", label))
 	inputsAndComputed, err := plugin.MarshalProperties(
 		checkpointed, plugin.MarshalOptions{
 			Label:        fmt.Sprintf("%s.inputsAndComputed", label),
@@ -1127,7 +1127,7 @@ func (r *helmReleaseProvider) Delete(ctx context.Context, req *pulumirpc.DeleteR
 	return &pbempty.Empty{}, nil
 }
 
-func checkpointRelease(inputs resource.PropertyMap, outputs *Release, label string, isPreview bool) resource.PropertyMap {
+func checkpointRelease(inputs resource.PropertyMap, outputs *Release, label string) resource.PropertyMap {
 	logger.V(9).Infof("[%s] Checkpointing outputs: %#v", label, outputs)
 	logger.V(9).Infof("[%s] Checkpointing inputs: %#v", label, inputs)
 	object := resource.NewPropertyMap(outputs)
@@ -1138,11 +1138,7 @@ func checkpointRelease(inputs resource.PropertyMap, outputs *Release, label stri
 	annotateComputed(object, inputs)
 	annotateSecrets(object, inputs)
 
-	if isPreview {
-		// Mark the pure outputs as computed.
-		object["resourceNames"] = resource.MakeComputed(resource.NewArrayProperty([]resource.PropertyValue{}))
-		object["status"] = resource.MakeComputed(resource.NewObjectProperty(resource.PropertyMap{}))
-	}
+	// note that status and resourceNames are left undefined in previews.
 
 	return object
 }
