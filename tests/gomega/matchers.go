@@ -2,10 +2,12 @@
 package gomega
 
 import (
+	"errors"
 	"fmt"
 	"strings"
 
 	. "github.com/onsi/gomega"
+	. "github.com/onsi/gomega/gstruct"
 	gomegatypes "github.com/onsi/gomega/types"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
@@ -110,4 +112,67 @@ func (matcher *AliasMatcher) NegatedFailureMessage(actual interface{}) (message 
 		fmt.Fprintf(&msg, "noParent=%t", *matcher.NoParent)
 	}
 	return msg.String()
+}
+
+func MatchValue(v gomegatypes.GomegaMatcher) gomegatypes.GomegaMatcher {
+	return WithTransform(func(v resource.PropertyValue) (any, error) {
+		return v.V, nil
+	}, v)
+}
+
+func BeComputed() gomegatypes.GomegaMatcher {
+	return Equal(resource.MakeComputed(resource.NewStringProperty("")))
+}
+
+type Props map[resource.PropertyKey]gomegatypes.GomegaMatcher
+
+func MatchProps(options Options, props Props) gomegatypes.GomegaMatcher {
+	keys := make(Keys, len(props))
+	for p, v := range props {
+		keys[p] = v
+	}
+	return &KeysMatcher{
+		Keys:          keys,
+		IgnoreExtras:  options&IgnoreExtras != 0,
+		IgnoreMissing: options&IgnoreMissing != 0,
+	}
+}
+
+func BeObject(matcher ...gomegatypes.GomegaMatcher) gomegatypes.GomegaMatcher {
+	return WithTransform(func(v resource.PropertyValue) (resource.PropertyMap, error) {
+		if !v.IsObject() {
+			return nil, errors.New("expected property value of type 'object'")
+		}
+		return v.ObjectValue(), nil
+	}, And(matcher...))
+}
+
+func MatchObject(options Options, props Props) gomegatypes.GomegaMatcher {
+	return BeObject(MatchProps(options, props))
+}
+
+func BeSecret(matcher ...gomegatypes.GomegaMatcher) gomegatypes.GomegaMatcher {
+	return WithTransform(func(v resource.PropertyValue) (resource.PropertyValue, error) {
+		if !v.IsSecret() {
+			return resource.PropertyValue{}, errors.New("expected property value of type 'secret'")
+		}
+		return v.SecretValue().Element, nil
+	}, And(matcher...))
+}
+
+func MatchSecret(e gomegatypes.GomegaMatcher) gomegatypes.GomegaMatcher {
+	return BeSecret(e)
+}
+
+func BeArray(matcher ...gomegatypes.GomegaMatcher) gomegatypes.GomegaMatcher {
+	return WithTransform(func(v resource.PropertyValue) ([]resource.PropertyValue, error) {
+		if !v.IsArray() {
+			return nil, errors.New("expected property value of type 'array'")
+		}
+		return v.ArrayValue(), nil
+	}, And(matcher...))
+}
+
+func MatchArrayValue(matcher gomegatypes.GomegaMatcher) gomegatypes.GomegaMatcher {
+	return BeArray(matcher)
 }

@@ -1,0 +1,3 @@
+name: helm-release-unknowns
+runtime: nodejs
+description: A minimal Kubernetes TypeScript Pulumi program
