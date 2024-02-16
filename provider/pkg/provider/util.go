@@ -51,6 +51,46 @@ func hasComputedValue(obj *unstructured.Unstructured) bool {
 	return false
 }
 
+// annotateComputed copies the "computedness" from the ins to the outs. If there are values with the same keys for the
+// outs and the ins, if they are both objects, they are transformed recursively. Likewise for arrays.
+// Otherwise, if the value in the ins is computed, the value in the outs is marked as computed.
+// If the value in the ins is a secret, its underlying value is checked for computedness.
+func annotateComputed(outs, ins resource.PropertyMap) {
+	if outs == nil || ins == nil {
+		return
+	}
+	for key, inValue := range ins {
+		outValue, has := outs[key]
+		if !has {
+			continue
+		}
+		outs[key] = annotateComputedValue(outValue, inValue)
+	}
+}
+
+func annotateComputedValue(outValue, inValue resource.PropertyValue) resource.PropertyValue {
+	if inValue.IsSecret() {
+		return annotateComputedValue(outValue, inValue.SecretValue().Element)
+	}
+	if !outValue.IsComputed() && inValue.IsComputed() {
+		return resource.MakeComputed(resource.NewStringProperty(""))
+	}
+	if outValue.IsObject() && inValue.IsObject() {
+		annotateComputed(outValue.ObjectValue(), inValue.ObjectValue())
+	} else if outValue.IsArray() && inValue.IsArray() {
+		annotateComputedArray(outValue.ArrayValue(), inValue.ArrayValue())
+	}
+	return outValue
+}
+
+func annotateComputedArray(outs, ins []resource.PropertyValue) {
+	for i := range ins {
+		if i < len(outs) {
+			outs[i] = annotateComputedValue(outs[i], ins[i])
+		}
+	}
+}
+
 // --------------------------------------------------------------------------
 // Names and namespaces.
 // --------------------------------------------------------------------------

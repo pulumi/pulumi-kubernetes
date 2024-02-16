@@ -172,6 +172,152 @@ func TestHasComputedValue(t *testing.T) {
 	}
 }
 
+func TestAnnotateComputed(t *testing.T) {
+	tests := []struct {
+		name     string
+		outValue resource.PropertyMap
+		inValue  resource.PropertyMap
+		expected resource.PropertyMap
+	}{
+		{
+			name:     "out_notpresent",
+			outValue: resource.PropertyMap{},
+			inValue: resource.PropertyMap{
+				"value": resource.NewStringProperty("foo"),
+			},
+			expected: resource.PropertyMap{},
+		},
+		{
+			name: "out_computed",
+			outValue: resource.PropertyMap{
+				"value": resource.MakeComputed(resource.NewStringProperty("")),
+			},
+			inValue: resource.PropertyMap{
+				"value": resource.MakeComputed(resource.NewStringProperty("")),
+			},
+			expected: resource.PropertyMap{
+				"value": resource.MakeComputed(resource.NewStringProperty("")),
+			},
+		},
+		{
+			name: "out_object_null",
+			outValue: resource.PropertyMap{
+				"value": resource.NewObjectProperty(nil),
+			},
+			inValue: resource.PropertyMap{
+				"value": resource.NewObjectProperty(resource.PropertyMap{}),
+			},
+			expected: resource.PropertyMap{
+				"value": resource.NewObjectProperty(nil),
+			},
+		},
+		{
+			name: "in_value",
+			outValue: resource.PropertyMap{
+				"value": resource.NewStringProperty("foo"),
+			},
+			inValue: resource.PropertyMap{
+				"value": resource.NewStringProperty("foo"),
+			},
+			expected: resource.PropertyMap{
+				"value": resource.NewStringProperty("foo"),
+			},
+		},
+		{
+			name: "in_computed",
+			outValue: resource.PropertyMap{
+				"value": resource.NewStringProperty("foo"),
+			},
+			inValue: resource.PropertyMap{
+				"value": resource.MakeComputed(resource.NewStringProperty("")),
+			},
+			expected: resource.PropertyMap{
+				"value": resource.MakeComputed(resource.NewStringProperty("")),
+			},
+		},
+		{
+			name: "in_secret",
+			outValue: resource.PropertyMap{
+				"value": resource.NewStringProperty("foo"),
+			},
+			inValue: resource.PropertyMap{
+				"value": resource.MakeSecret(resource.NewStringProperty("foo")),
+			},
+			expected: resource.PropertyMap{
+				"value": resource.NewStringProperty("foo"),
+			},
+		},
+		{
+			name: "in_secret_computed",
+			outValue: resource.PropertyMap{
+				"value": resource.NewStringProperty("foo"),
+			},
+			inValue: resource.PropertyMap{
+				"value": resource.MakeSecret(resource.MakeComputed(resource.NewStringProperty(""))),
+			},
+			expected: resource.PropertyMap{
+				"value": resource.MakeComputed(resource.NewStringProperty("")),
+			},
+		},
+		{
+			name: "in_object",
+			outValue: resource.PropertyMap{
+				"value": resource.NewObjectProperty(resource.PropertyMap{
+					"nested": resource.NewStringProperty("bar"),
+				}),
+			},
+			inValue: resource.PropertyMap{
+				"value": resource.NewObjectProperty(resource.PropertyMap{
+					"nested": resource.MakeComputed(resource.NewStringProperty("")),
+				}),
+			},
+			expected: resource.PropertyMap{
+				"value": resource.NewObjectProperty(resource.PropertyMap{
+					"nested": resource.MakeComputed(resource.NewStringProperty("")),
+				}),
+			},
+		},
+		{
+			name: "in_object_null",
+			outValue: resource.PropertyMap{
+				"value": resource.NewObjectProperty(resource.PropertyMap{}),
+			},
+			inValue: resource.PropertyMap{
+				"value": resource.NewObjectProperty(nil),
+			},
+			expected: resource.PropertyMap{
+				"value": resource.NewObjectProperty(resource.PropertyMap{}),
+			},
+		},
+		{
+			name: "in_array",
+			outValue: resource.PropertyMap{
+				"value": resource.NewArrayProperty([]resource.PropertyValue{
+					resource.NewStringProperty("foo"),
+				}),
+			},
+			inValue: resource.PropertyMap{
+				"value": resource.NewArrayProperty([]resource.PropertyValue{
+					resource.MakeComputed(resource.NewStringProperty("")),
+				}),
+			},
+			expected: resource.PropertyMap{
+				"value": resource.NewArrayProperty([]resource.PropertyValue{
+					resource.MakeComputed(resource.NewStringProperty("")),
+				}),
+			},
+		},
+	}
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			annotateComputed(tt.outValue, tt.inValue)
+			assert.Equal(t, tt.expected, tt.outValue, "expected result")
+		})
+	}
+}
+
 func TestFqName(t *testing.T) {
 	obj := &unstructured.Unstructured{
 		Object: map[string]any{

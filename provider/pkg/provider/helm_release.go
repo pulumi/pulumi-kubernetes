@@ -276,14 +276,18 @@ func (r *helmReleaseProvider) getActionConfig(namespace string) (*action.Configu
 	return conf, nil
 }
 
+var (
+	// mapReplExtractValues extracts pure values from the property map.
+	mapReplExtractValues = combineMapReplv(mapReplStripSecrets, mapReplStripComputed)
+)
+
 func decodeRelease(pm resource.PropertyMap, label string) (*Release, error) {
 	var release Release
 	values := map[string]any{}
-	stripped := pm.MapRepl(nil, mapReplStripSecrets)
+	stripped := pm.MapRepl(nil, mapReplExtractValues)
 	logger.V(9).Infof("[%s] Decoding release: %#v", label, stripped)
 
-	if pm.HasValue("valueYamlFiles") {
-		v := stripped["valueYamlFiles"]
+	if v, ok := stripped["valueYamlFiles"]; ok {
 		switch reflect.TypeOf(v).Kind() {
 		case reflect.Slice, reflect.Array:
 			s := reflect.ValueOf(v)
@@ -344,19 +348,19 @@ func (r *helmReleaseProvider) Check(ctx context.Context, req *pulumirpc.CheckReq
 		return nil, pkgerrors.Wrapf(err, "check failed because malformed resource inputs: %+v", err)
 	}
 
-	if len(olds.Mappable()) > 0 {
+	if len(olds) > 0 {
 		adoptOldNameIfUnnamed(news, olds)
 	}
 	assignNameIfAutonameable(news, urn)
 	r.setDefaults(news)
 
-	if !news.ContainsUnknowns() {
-		logger.V(9).Infof("Decoding new release.")
-		new, err := decodeRelease(news, fmt.Sprintf("%s.news", label))
-		if err != nil {
-			return nil, err
-		}
+	logger.V(9).Infof("Decoding new release.")
+	new, err := decodeRelease(news, fmt.Sprintf("%s.news", label))
+	if err != nil {
+		return nil, err
+	}
 
+	if !news.ContainsUnknowns() {
 		logger.V(9).Infof("Loading Helm chart.")
 		chart, err := r.helmLoad(ctx, urn, new)
 		if err != nil {
@@ -370,10 +374,10 @@ func (r *helmReleaseProvider) Check(ctx context.Context, req *pulumirpc.CheckReq
 			// with this we may determine whether the Helm release needs to be upgraded.
 			new.Version = chart.Metadata.Version
 		}
-
-		logger.V(9).Infof("New: %+v", new)
-		news = resource.NewPropertyMap(new)
 	}
+
+	logger.V(9).Infof("New: %+v", new)
+	news = resource.NewPropertyMap(new)
 
 	// remove deprecated inputs
 	delete(news, "resourceNames")
@@ -387,7 +391,8 @@ func (r *helmReleaseProvider) Check(ctx context.Context, req *pulumirpc.CheckReq
 	if err != nil {
 		return nil, pkgerrors.Wrapf(err, "check failed because malformed resource inputs: %+v", err)
 	}
-	// ensure we don't leak secrets into state.
+	// ensure we don't leak secrets into state, and preserve the computedness of inputs.
+	annotateComputed(news, newInputs)
 	annotateSecrets(news, newInputs)
 
 	autonamedInputs, err := plugin.MarshalProperties(news, plugin.MarshalOptions{
@@ -743,17 +748,19 @@ func (r *helmReleaseProvider) Diff(ctx context.Context, req *pulumirpc.DiffReque
 	logger.V(9).Infof("Diff: New release: %#v", newRelease)
 
 	// Generate a patch to apply the new inputs to the old state, including deletions.
-	oldInputsJSON, err := json.Marshal(oldInputs.MapRepl(nil, mapReplStripSecrets))
+	// Computed values are mapped to null, and secrets are mapped to plain values.
+	// Later, we'll use this patch to generate a diff response, with special handling for the computed values.
+	oldInputsJSON, err := json.Marshal(oldInputs.MapRepl(nil, mapReplExtractValues))
 	if err != nil {
 		return nil, pkgerrors.Wrapf(err, "internal error: json.Marshal(oldInputsJson)")
 	}
 	logger.V(9).Infof("oldInputsJSON: %s", string(oldInputsJSON))
-	newInputsJSON, err := json.Marshal(news.MapRepl(nil, mapReplStripSecrets))
+	newInputsJSON, err := json.Marshal(news.MapRepl(nil, mapReplExtractValues))
 	if err != nil {
 		return nil, pkgerrors.Wrapf(err, "internal error: json.Marshal(oldInputsJson)")
 	}
 	logger.V(9).Infof("newInputsJSON: %s", string(newInputsJSON))
-	oldStateJSON, err := json.Marshal(olds.MapRepl(nil, mapReplStripSecrets))
+	oldStateJSON, err := json.Marshal(olds.MapRepl(nil, mapReplExtractValues))
 	if err != nil {
 		return nil, pkgerrors.Wrapf(err, "internal error: json.Marshal(oldStateJson)")
 	}
@@ -768,7 +775,7 @@ func (r *helmReleaseProvider) Diff(ctx context.Context, req *pulumirpc.DiffReque
 		return nil, pkgerrors.Wrapf(
 			err, "Failed to check for changes in Helm release %s/%s because of an error serializing "+
 				"the JSON patch describing resource changes",
-			newRelease.Namespace, newRelease.Name)
+			oldRelease.Namespace, oldRelease.Name)
 	}
 
 	// Pack up PB, ship response back.
@@ -788,12 +795,16 @@ func (r *helmReleaseProvider) Diff(ctx context.Context, req *pulumirpc.DiffReque
 		logger.V(9).Infof("news: %+v", news.Mappable())
 		logger.V(9).Infof("oldInputs: %+v", oldInputs.Mappable())
 
+		strip := func(pm resource.PropertyMap) map[string]interface{} {
+			// strip the secretness but retain computedness (as is understood by convertPatchToDiff)
+			return pm.MapRepl(nil, mapReplStripSecrets)
+		}
 		forceNewFields := []string{".name", ".namespace"}
-		if detailedDiff, err = convertPatchToDiff(patchObj, olds.Mappable(), news.Mappable(), oldInputs.Mappable(), forceNewFields...); err != nil {
+		if detailedDiff, err = convertPatchToDiff(patchObj, strip(olds), strip(news), strip(oldInputs), forceNewFields...); err != nil {
 			return nil, pkgerrors.Wrapf(
 				err, "Failed to check for changes in helm release %s/%s because of an error "+
 					"converting JSON patch describing resource changes to a diff",
-				newRelease.Namespace, newRelease.Name)
+				oldRelease.Namespace, oldRelease.Name)
 		}
 
 		for k, v := range detailedDiff {
@@ -877,7 +888,7 @@ func (r *helmReleaseProvider) Create(ctx context.Context, req *pulumirpc.CreateR
 		}
 	}
 
-	obj := checkpointRelease(news, newRelease, fmt.Sprintf("%s.news", label))
+	obj := checkpointRelease(news, newRelease, fmt.Sprintf("%s.news", label), req.GetPreview())
 	inputsAndComputed, err := plugin.MarshalProperties(
 		obj, plugin.MarshalOptions{
 			Label:        fmt.Sprintf("%s.inputsAndComputed", label),
@@ -926,7 +937,7 @@ func (r *helmReleaseProvider) Read(ctx context.Context, req *pulumirpc.ReadReque
 	logger.V(9).Infof("%s decoded release: %#v", label, existingRelease)
 
 	var namespace, name string
-	if len(oldState.Mappable()) == 0 {
+	if len(oldState) == 0 {
 		namespace, name = parseFqName(req.GetId())
 		logger.V(9).Infof("%s Starting import for %s/%s", label, namespace, name)
 	} else {
@@ -970,7 +981,7 @@ func (r *helmReleaseProvider) Read(ctx context.Context, req *pulumirpc.ReadReque
 
 	// Return a new "checkpoint object".
 	state, err := plugin.MarshalProperties(
-		checkpointRelease(oldInputs, existingRelease, fmt.Sprintf("%s.olds", label)), plugin.MarshalOptions{
+		checkpointRelease(oldInputs, existingRelease, fmt.Sprintf("%s.olds", label), false), plugin.MarshalOptions{
 			Label:        fmt.Sprintf("%s.state", label),
 			KeepUnknowns: true,
 			SkipNulls:    true,
@@ -1051,7 +1062,7 @@ func (r *helmReleaseProvider) Update(ctx context.Context, req *pulumirpc.UpdateR
 		}
 	}
 
-	checkpointed := checkpointRelease(newResInputs, newRelease, fmt.Sprintf("%s.news", label))
+	checkpointed := checkpointRelease(newResInputs, newRelease, fmt.Sprintf("%s.news", label), req.GetPreview())
 	inputsAndComputed, err := plugin.MarshalProperties(
 		checkpointed, plugin.MarshalOptions{
 			Label:        fmt.Sprintf("%s.inputsAndComputed", label),
@@ -1117,15 +1128,23 @@ func (r *helmReleaseProvider) Delete(ctx context.Context, req *pulumirpc.DeleteR
 	return &pbempty.Empty{}, nil
 }
 
-func checkpointRelease(inputs resource.PropertyMap, outputs *Release, label string) resource.PropertyMap {
+func checkpointRelease(inputs resource.PropertyMap, outputs *Release, label string, isPreview bool) resource.PropertyMap {
 	logger.V(9).Infof("[%s] Checkpointing outputs: %#v", label, outputs)
 	logger.V(9).Infof("[%s] Checkpointing inputs: %#v", label, inputs)
 	object := resource.NewPropertyMap(outputs)
 	object["__inputs"] = resource.MakeSecret(resource.NewObjectProperty(inputs))
 
 	// Make sure parts of the inputs which are marked as secrets in the inputs are retained as
-	// secrets in the outputs.
+	// secrets in the outputs. Likewise for computed values.
+	annotateComputed(object, inputs)
 	annotateSecrets(object, inputs)
+
+	// If this is a preview, emit computed placeholders for the pure outputs.
+	if isPreview {
+		object["resourceNames"] = resource.MakeComputed(resource.NewStringProperty(""))
+		object["status"] = resource.MakeComputed(resource.NewStringProperty(""))
+	}
+
 	return object
 }
 

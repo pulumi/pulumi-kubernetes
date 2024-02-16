@@ -9,6 +9,7 @@ import (
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 
 	jsonpatch "github.com/evanphx/json-patch"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
 	"github.com/stretchr/testify/assert"
 	"k8s.io/apimachinery/pkg/runtime/schema"
@@ -189,6 +190,46 @@ func TestPatchToDiff(t *testing.T) {
 			new: object{"data": object{"property1": "4"}},
 			expected: expected{
 				"data.property1": UR,
+			},
+		},
+		{
+			name:  `Changing computed object values results in correct diff`,
+			group: "core", version: "v1", kind: "Pod",
+			old:    object{"spec": object{"containers": list{object{"name": "nginx", "image": "nginx"}}}},
+			new:    object{"spec": object{"containers": list{object{"name": "nginx", "image": nil}}}},
+			inputs: object{"spec": object{"containers": list{object{"name": "nginx", "image": resource.Computed{}}}}},
+			expected: expected{
+				"spec.containers[0].image": UR,
+			},
+		},
+		{
+			name:  `Adding computed object values results in correct diff`,
+			group: "core", version: "v1", kind: "Pod",
+			old:    object{"spec": object{"containers": list{object{"name": "nginx"}}}},
+			new:    object{"spec": object{"containers": list{object{"name": "nginx", "image": nil}}}},
+			inputs: object{"spec": object{"containers": list{object{"name": "nginx", "image": resource.Computed{}}}}},
+			expected: expected{
+				"spec.containers[0].image": AR,
+			},
+		},
+		{
+			name:  `Adding computed array values results in correct diff`,
+			group: "core", version: "v1", kind: "Pod",
+			old:    object{"spec": object{"containers": list{}}},
+			new:    object{"spec": object{"containers": list{nil}}},
+			inputs: object{"spec": object{"containers": list{resource.Computed{}}}},
+			expected: expected{
+				"spec.containers[0]": A,
+			},
+		},
+		{
+			name:  `Changing computed array values results in correct diff`,
+			group: "core", version: "v1", kind: "Pod",
+			old:    object{"spec": object{"containers": list{object{"name": "nginx"}}}},
+			new:    object{"spec": object{"containers": list{nil}}},
+			inputs: object{"spec": object{"containers": list{resource.Computed{}}}},
+			expected: expected{
+				"spec.containers[0]": U,
 			},
 		},
 	}
