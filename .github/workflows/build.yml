@@ -68,14 +68,14 @@ jobs:
       with:
         go-version: ${{ env.GOVERSION }}
     - name: Install pulumictl
-      uses: jaxxstorm/action-install-gh-release@v1.10.0
+      uses: jaxxstorm/action-install-gh-release@v1.11.0
       with:
         repo: pulumi/pulumictl
     - name: Install Pulumi CLI
       uses: pulumi/actions@v5
     - if: github.event_name == 'pull_request'
       name: Install Schema Tools
-      uses: jaxxstorm/action-install-gh-release@v1.10.0
+      uses: jaxxstorm/action-install-gh-release@v1.11.0
       with:
         repo: pulumi/schema-tools
     - name: Build K8sgen
@@ -165,7 +165,7 @@ jobs:
       with:
         go-version: ${{ env.GOVERSION }}
     - name: Install pulumictl
-      uses: jaxxstorm/action-install-gh-release@v1.10.0
+      uses: jaxxstorm/action-install-gh-release@v1.11.0
       with:
         repo: pulumi/pulumictl
     - name: Install Pulumi CLI
@@ -259,7 +259,7 @@ jobs:
       with:
         go-version: ${{ env.GOVERSION }}
     - name: Install pulumictl
-      uses: jaxxstorm/action-install-gh-release@v1.10.0
+      uses: jaxxstorm/action-install-gh-release@v1.11.0
       with:
         repo: pulumi/pulumictl
     - name: Install Pulumi CLI
@@ -342,7 +342,7 @@ jobs:
           env.GOOGLE_CI_WORKLOAD_IDENTITY_PROVIDER }}
         service_account: ${{ env.GOOGLE_CI_SERVICE_ACCOUNT_EMAIL }}
     - name: Setup gcloud auth
-      uses: google-github-actions/setup-gcloud@v0
+      uses: google-github-actions/setup-gcloud@v2
       with:
         install_components: gke-gcloud-auth-plugin
     - name: Install Kubectl
@@ -364,7 +364,7 @@ jobs:
     - name: Install gotestfmt
       uses: GoTestTools/gotestfmt-action@v2
       with:
-        version: v2.4.0
+        version: v2.5.0
         token: ${{ secrets.GITHUB_TOKEN }}
     - name: Run tests
       run: cd tests/sdk/${{ matrix.language }} && go test -v -count=1 -cover -timeout
@@ -392,7 +392,7 @@ jobs:
       with:
         go-version: ${{ env.GOVERSION }}
     - name: Install pulumictl
-      uses: jaxxstorm/action-install-gh-release@v1.10.0
+      uses: jaxxstorm/action-install-gh-release@v1.11.0
       with:
         repo: pulumi/pulumictl
     - name: Install Pulumi CLI
@@ -411,7 +411,7 @@ jobs:
       run: echo "GORELEASER_CURRENT_TAG=v$(pulumictl get version --language generic)"
         >> $GITHUB_ENV
     - name: Run GoReleaser
-      uses: goreleaser/goreleaser-action@v2
+      uses: goreleaser/goreleaser-action@v5
       with:
         args: -p 3 -f .goreleaser.prerelease.yml --rm-dist --skip-validate --timeout
           60m0s
@@ -444,7 +444,7 @@ jobs:
       with:
         go-version: ${{ env.GOVERSION }}
     - name: Install pulumictl
-      uses: jaxxstorm/action-install-gh-release@v1.10.0
+      uses: jaxxstorm/action-install-gh-release@v1.11.0
       with:
         repo: pulumi/pulumictl
     - name: Install Pulumi CLI
@@ -522,7 +522,7 @@ jobs:
       with:
         go-version: ${{ env.GOVERSION }}
     - name: Install pulumictl
-      uses: jaxxstorm/action-install-gh-release@v1.10.0
+      uses: jaxxstorm/action-install-gh-release@v1.11.0
       with:
         repo: pulumi/pulumictl
     - name: Install Pulumi CLI
@@ -587,7 +587,7 @@ jobs:
           env.GOOGLE_CI_WORKLOAD_IDENTITY_PROVIDER }}
         service_account: ${{ env.GOOGLE_CI_SERVICE_ACCOUNT_EMAIL }}
     - name: Setup gcloud auth
-      uses: google-github-actions/setup-gcloud@v0
+      uses: google-github-actions/setup-gcloud@v2
       with:
         install_components: gke-gcloud-auth-plugin
     - name: Install Kubectl
@@ -648,7 +648,7 @@ jobs:
           env.GOOGLE_CI_WORKLOAD_IDENTITY_PROVIDER }}
         service_account: ${{ env.GOOGLE_CI_SERVICE_ACCOUNT_EMAIL }}
     - name: Setup gcloud auth
-      uses: google-github-actions/setup-gcloud@v0
+      uses: google-github-actions/setup-gcloud@v2
       with:
         install_components: gke-gcloud-auth-plugin
     - name: Install Kubectl
@@ -681,7 +681,7 @@ jobs:
       with:
         go-version: ${{ env.GOVERSION }}
     - name: golangci-lint provider pkg
-      uses: golangci/golangci-lint-action@v3
+      uses: golangci/golangci-lint-action@v4
       with:
         version: ${{ env.GOLANGCI_LINT_VERSION }}
         args: -c ../../.golangci.yml --timeout ${{ env.GOLANGCI_LINT_TIMEOUT }}
