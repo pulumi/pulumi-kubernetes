@@ -23,6 +23,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
+	"google.golang.org/grpc"
 )
 
 // HostClient implements host.HostClient by forwarding all requests directly to the given pulumirpc.EngineServer.
@@ -31,6 +32,10 @@ type HostClient struct {
 }
 
 var _ host.HostClient = &HostClient{}
+
+func (h *HostClient) EngineConn() *grpc.ClientConn {
+	return nil
+}
 
 func (h *HostClient) log(
 	context context.Context, sev diag.Severity, urn resource.URN, msg string, ephemeral bool,

@@ -6,3 +6,11 @@ from .. import _utilities
 import typing
 # Export this package's modules as members:
 from .yaml import *
+
+# Make subpackages available:
+if typing.TYPE_CHECKING:
+    import pulumi_kubernetes.yaml.v2 as __v2
+    v2 = __v2
+else:
+    v2 = _utilities.lazy_import('pulumi_kubernetes.yaml.v2')
+

@@ -18,6 +18,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"golang.org/x/net/context"
+	"google.golang.org/grpc"
 )
 
 // HostClient is the interface that the provider uses to communicate with the Pulumi engine.
@@ -30,4 +31,7 @@ type HostClient interface {
 	// LogStatus logs a global status message, including errors and warnings. Status messages will
 	// appear in the `Info` column of the progress display, but not in the final output.
 	LogStatus(context context.Context, sev diag.Severity, urn resource.URN, msg string) error
+
+	// EngineConn provides the engine gRPC client connection.
+	EngineConn() *grpc.ClientConn
 }

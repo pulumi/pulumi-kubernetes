@@ -28,6 +28,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	fakeclients "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients/fake"
 	fakehost "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/host/fake"
+	providerresource "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/resource"
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
 	"k8s.io/apimachinery/pkg/runtime"
 	kubeversion "k8s.io/apimachinery/pkg/version"
@@ -189,8 +190,9 @@ func (c *providerTestContext) NewConfig(opts ...NewConfigOption) *clientcmdapi.C
 type NewProviderOption func(*newProviderOptions)
 
 type newProviderOptions struct {
-	copts   []fakeclients.NewDynamicClientOption
-	objects []runtime.Object
+	copts     []fakeclients.NewDynamicClientOption
+	objects   []runtime.Object
+	providers map[string]providerresource.ResourceProviderFactory
 }
 
 func WithObjects(objects ...runtime.Object) NewProviderOption {
@@ -203,6 +205,15 @@ func WithObjects(objects ...runtime.Object) NewProviderOption {
 func WithServerVersion(version kubeversion.Info) NewProviderOption {
 	return func(options *newProviderOptions) {
 		options.copts = append(options.copts, fakeclients.WithServerVersion(version))
+	}
+}
+
+func WithResourceProvider(typ string, provider providerresource.ResourceProviderFactory) NewProviderOption {
+	return func(options *newProviderOptions) {
+		if options.providers == nil {
+			options.providers = make(map[string]providerresource.ResourceProviderFactory)
+		}
+		options.providers[typ] = provider
 	}
 }
 
@@ -220,6 +231,9 @@ func (c *providerTestContext) NewProvider(opts ...NewProviderOption) *kubeProvid
 		lc, _ := fakeclients.NewSimpleLogClient(ctx, options.objects...)
 		return dc, lc, nil
 	}
+
+	k.resourceProviders = options.providers
+
 	return k
 }
 

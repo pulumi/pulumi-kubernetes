@@ -7,13 +7,13 @@ import (
 	"strings"
 
 	. "github.com/onsi/gomega"
+	"github.com/onsi/gomega/gcustom"
 	. "github.com/onsi/gomega/gstruct"
 	gomegatypes "github.com/onsi/gomega/types"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
-	structpb "google.golang.org/protobuf/types/known/structpb"
-
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
+	structpb "google.golang.org/protobuf/types/known/structpb"
 )
 
 // ProtobufStruct matches a protobuf struct by decoding it to a map and then applying the given matcher.
@@ -114,10 +114,17 @@ func (matcher *AliasMatcher) NegatedFailureMessage(actual interface{}) (message 
 	return msg.String()
 }
 
-func MatchValue(v gomegatypes.GomegaMatcher) gomegatypes.GomegaMatcher {
+func MatchValue(v any) gomegatypes.GomegaMatcher {
+	var matcher gomegatypes.GomegaMatcher
+	switch v := v.(type) {
+	case gomegatypes.GomegaMatcher:
+		matcher = v
+	default:
+		matcher = Equal(v)
+	}
 	return WithTransform(func(v resource.PropertyValue) (any, error) {
 		return v.V, nil
-	}, v)
+	}, matcher)
 }
 
 func BeComputed() gomegatypes.GomegaMatcher {
@@ -126,6 +133,8 @@ func BeComputed() gomegatypes.GomegaMatcher {
 
 type Props map[resource.PropertyKey]gomegatypes.GomegaMatcher
 
+// MatchProps succeeds if the actual value is a resource.PropertyMap and all of the expected properties match.
+// Options can be used to ignore extra properties or missing properties.
 func MatchProps(options Options, props Props) gomegatypes.GomegaMatcher {
 	keys := make(Keys, len(props))
 	for p, v := range props {
@@ -175,4 +184,22 @@ func BeArray(matcher ...gomegatypes.GomegaMatcher) gomegatypes.GomegaMatcher {
 
 func MatchArrayValue(matcher gomegatypes.GomegaMatcher) gomegatypes.GomegaMatcher {
 	return BeArray(matcher)
+}
+
+// MatchResourceReferenceValue succeeds if the actual value is a resource.PropertyValue of type ResourceReference
+// and the URN and ID match the expected values.
+func MatchResourceReferenceValue(urn resource.URN, id string) gomegatypes.GomegaMatcher {
+	return gcustom.MakeMatcher(func(v resource.PropertyValue) (bool, error) {
+		if !v.IsResourceReference() {
+			return false, errors.New("expected property value of type 'ResourceReference'")
+		}
+		rrv := v.ResourceReferenceValue()
+		if rrv.URN != urn {
+			return false, nil
+		}
+		if !rrv.ID.IsString() || rrv.ID.StringValue() != id {
+			return false, nil
+		}
+		return true, nil
+	})
 }

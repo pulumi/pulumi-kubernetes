@@ -1146,6 +1146,85 @@ var yamlConfigGroupResource = pschema.ResourceSpec{
 	},
 }
 
+//go:embed examples/overlays/configGroupV2.md
+var configGroupV2MD string
+
+var yamlConfigGroupV2Resource = pschema.ResourceSpec{
+	IsComponent: true,
+	ObjectTypeSpec: pschema.ObjectTypeSpec{
+		IsOverlay:   false,
+		Description: configGroupV2MD,
+		Properties: map[string]pschema.PropertySpec{
+			"resources": {
+				TypeSpec: pschema.TypeSpec{
+					Type: "array",
+					Items: &pschema.TypeSpec{
+						Ref: "pulumi.json#/Any",
+					},
+				},
+				Description: "Resources created by the ConfigGroup.",
+			},
+		},
+		Type: "object",
+	},
+	InputProperties: map[string]pschema.PropertySpec{
+		"files": {
+			TypeSpec: pschema.TypeSpec{
+				OneOf: []pschema.TypeSpec{
+					{
+						Type: "string",
+					},
+					{
+						Type: "array",
+						Items: &pschema.TypeSpec{
+							Type: "string",
+						},
+					},
+				},
+			},
+			Description: "Set of paths or a URLs that uniquely identify files.",
+		},
+		"objs": {
+			TypeSpec: pschema.TypeSpec{
+				OneOf: []pschema.TypeSpec{
+					{
+						Ref: "pulumi.json#/Any",
+					},
+					{
+						Type: "array",
+						Items: &pschema.TypeSpec{
+							Ref: "pulumi.json#/Any",
+						},
+					},
+				},
+			},
+			Description: "Objects representing Kubernetes resources.",
+		},
+		"resourcePrefix": {
+			TypeSpec: pschema.TypeSpec{
+				Type: "string",
+			},
+			Description: "An optional prefix for the auto-generated resource names. Example: A resource created with resourcePrefix=\"foo\" would produce a resource named \"foo-resourceName\".",
+		},
+		"yaml": {
+			TypeSpec: pschema.TypeSpec{
+				OneOf: []pschema.TypeSpec{
+					{
+						Type: "string",
+					},
+					{
+						Type: "array",
+						Items: &pschema.TypeSpec{
+							Type: "string",
+						},
+					},
+				},
+			},
+			Description: "YAML text containing Kubernetes resource definitions.",
+		},
+	},
+}
+
 var apiextentionsCustomResource = pschema.ResourceSpec{
 	ObjectTypeSpec: pschema.ObjectTypeSpec{
 		IsOverlay:   true,
@@ -1292,4 +1371,5 @@ func init() {
 	resourceOverlays["kubernetes:kustomize:Directory"] = kustomizeDirectoryResource
 	resourceOverlays["kubernetes:yaml:ConfigFile"] = yamlConfigFileResource
 	resourceOverlays["kubernetes:yaml:ConfigGroup"] = yamlConfigGroupResource
+	resourceOverlays["kubernetes:yaml/v2:ConfigGroup"] = yamlConfigGroupV2Resource
 }

@@ -355,7 +355,7 @@ const example = new k8s.yaml.ConfigGroup("example", {
 });
 ```
 ```python
-from pulumi_kubernetes.yaml import ConfigFile
+from pulumi_kubernetes.yaml import ConfigGroup
 
 # Make every service private to the cluster, i.e., turn all services into ClusterIP instead of LoadBalancer.
 def make_service_private(obj, opts):
