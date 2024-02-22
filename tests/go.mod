@@ -10,10 +10,11 @@ replace (
 require (
 	github.com/onsi/gomega v1.30.0
 	github.com/pkg/errors v0.9.1
+	github.com/pulumi/providertest v0.0.10
 	github.com/pulumi/pulumi-kubernetes/provider/v4 v4.0.0
 	github.com/pulumi/pulumi-kubernetes/sdk/v4 v4.0.0
-	github.com/pulumi/pulumi/pkg/v3 v3.105.0
-	github.com/pulumi/pulumi/sdk/v3 v3.105.0
+	github.com/pulumi/pulumi/pkg/v3 v3.107.0
+	github.com/pulumi/pulumi/sdk/v3 v3.107.0
 	github.com/pulumiverse/pulumi-time/sdk v0.0.0-20231010123146-089d7304da13
 	github.com/stretchr/testify v1.8.4
 	golang.org/x/exp v0.0.0-20231110203233-9a3e6036ecaa
@@ -226,7 +227,6 @@ require (
 	github.com/pulumi/appdash v0.0.0-20231130102222-75f619a67231 // indirect
 	github.com/pulumi/cloud-ready-checks v1.1.0 // indirect
 	github.com/pulumi/esc v0.6.2 // indirect
-	github.com/pulumi/providertest v0.0.10 // indirect
 	github.com/rivo/uniseg v0.4.4 // indirect
 	github.com/rogpeppe/go-internal v1.11.0 // indirect
 	github.com/rubenv/sql-migrate v1.3.1 // indirect
