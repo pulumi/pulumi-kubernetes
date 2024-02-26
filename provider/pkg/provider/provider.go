@@ -2765,7 +2765,7 @@ func shouldNormalize(uns *unstructured.Unstructured) bool {
 // are set to the same output shape. This is important to avoid generating diffs for inputs that will produce the same
 // result on the cluster.
 func normalizeInputs(uns *unstructured.Unstructured) (*unstructured.Unstructured, error) {
-	if shouldNormalize(uns) {
+	if !hasComputedValue(uns) && shouldNormalize(uns) {
 		normalized, err := clients.Normalize(uns)
 		if err != nil {
 			return nil, err
