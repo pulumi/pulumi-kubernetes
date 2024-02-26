@@ -1,6 +1,7 @@
 ## Unreleased
 
-#2846
+## 4.8.1 (February 22, 2024)
+
 - skip normalization in preview w/ computed fields (https://github.com/pulumi/pulumi-kubernetes/pull/2846)
 
 ## 4.8.0 (February 22, 2024)
