@@ -1,5 +1,8 @@
 ## Unreleased
 
+#2846
+- skip normalization in preview w/ computed fields (https://github.com/pulumi/pulumi-kubernetes/pull/2846)
+
 ## 4.8.0 (February 22, 2024)
 
 - Fix DiffConfig issue when when provider's kubeconfig is set to file path (https://github.com/pulumi/pulumi-kubernetes/pull/2771)
