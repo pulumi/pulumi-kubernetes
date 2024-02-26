@@ -707,6 +707,14 @@ func TestGo(t *testing.T) {
 		integration.ProgramTest(t, &options)
 	})
 
+	t.Run("SecretsWithUnknowns", func(t *testing.T) {
+		options := baseOptions.With(integration.ProgramTestOptions{
+			Dir:   filepath.Join(cwd, "secrets-with-unknowns"),
+			Quick: false,
+		})
+		integration.ProgramTest(t, &options)
+	})
+
 	t.Run("ServerSideApply", func(t *testing.T) {
 		options := baseOptions.With(integration.ProgramTestOptions{
 			Dir:                  filepath.Join(cwd, "server-side-apply"),

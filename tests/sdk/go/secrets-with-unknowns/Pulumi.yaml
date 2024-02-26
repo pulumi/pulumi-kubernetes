@@ -1,0 +1,17 @@
+name: go_secrets_with_unknowns
+runtime: yaml
+description: Unknown values in secrets
+variables: {}
+outputs:
+  password: ${prefix.id}
+resources:
+  prefix:
+    type: random:RandomPet
+  my-secret:
+    type: kubernetes:core/v1:Secret
+    properties:
+      data:
+        username: dXNlcm5hbWU= # base64 encoded "username"
+        password:
+          fn::toBase64: ${prefix.id}
+
