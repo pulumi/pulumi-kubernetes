@@ -2325,6 +2325,27 @@ func TestFieldManagerPatchResources(t *testing.T) {
 					depReplicas, err := tests.Kubectl("get deployment -o=jsonpath={.spec.replicas} -n", namespace, "test-mgr-nginx")
 					assert.NoError(t, err)
 					assert.Equal(t, "2", string(depReplicas))
+
+					// Ensure that we don't inadvertently share ownership of nested fields that we specify in ignoreChanges.
+					// See: https://github.com/pulumi/pulumi-kubernetes/issues/2714.
+					liveObj, err := tests.Kubectl("get deployment -o yaml --show-managed-fields -n", namespace, "test-mgr-nginx")
+					assert.NoError(t, err)
+					wantString := ` - apiVersion: apps/v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:annotations:
+          f:pulumi.com/patchForce: {}
+      f:spec:
+        f:template:
+          f:spec:
+            f:containers:
+              k:{"name":"nginx"}:
+                .: {}
+                f:image: {}
+                f:name: {}
+    manager: pulumi-kubernetes-`
+					assert.Contains(t, string(liveObj), wantString)
 				},
 			},
 		},
