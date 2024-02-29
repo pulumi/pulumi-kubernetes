@@ -33,9 +33,6 @@ const depPatch = new k8s.apps.v1.DeploymentPatch(
     },
     spec: {
         template: {
-            metadata: {
-                labels: undefined,
-            },
             spec: {
                 containers: [
                     {
@@ -46,4 +43,4 @@ const depPatch = new k8s.apps.v1.DeploymentPatch(
             },
     }
   },
-}, { provider: provider, retainOnDelete: true });
+}, { provider: provider, retainOnDelete: true, ignoreChanges: ["spec.template.metadata", "spec.selector"]});
