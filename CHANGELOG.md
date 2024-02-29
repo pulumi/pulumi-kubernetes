@@ -1,5 +1,7 @@
 ## Unreleased
 
+- Fix SSA ignoreChanges by enhancing field manager path comparisons (https://github.com/pulumi/pulumi-kubernetes/pull/2828)
+
 ## 4.8.1 (February 22, 2024)
 
 - skip normalization in preview w/ computed fields (https://github.com/pulumi/pulumi-kubernetes/pull/2846)
