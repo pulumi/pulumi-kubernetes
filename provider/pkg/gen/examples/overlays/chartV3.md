@@ -1,8 +1,12 @@
 Chart is a component representing a collection of resources described by an arbitrary Helm Chart.
 
-The Chart can be fetched from any source that is accessible to the `helm` command line. Values in the `values.yml` file can be overridden using `ChartOpts.values` (equivalent to `--set` or having multiple `values.yml` files). Objects can be transformed arbitrarily by supplying callbacks to `ChartOpts.transformations`.
+The Helm Chart can be fetched from any source that is accessible to the `helm` command line. Values in the `values.yml` file can be overridden using `ChartOpts.values` (equivalent to `--set` or having multiple `values.yml` files). Objects can be transformed arbitrarily by supplying callbacks to `ChartOpts.transformations`.
+
+The `Chart` resource renders the templates from your chart and then manage them directly with the Pulumi Kubernetes provider.
 
 `Chart` does not use Tiller. The Chart specified is copied and expanded locally; the semantics are equivalent to running `helm template` and then using Pulumi to manage the resulting YAML manifests. Any values that would be retrieved in-cluster are assigned fake values, and none of Tiller's server-side validity testing is executed.
+
+You may also want to consider the `Release` resource as an alternative method for managing helm charts. For more information about the trade-offs between these options see: [Choosing the right Helm resource for your use case](https://www.pulumi.com/registry/packages/kubernetes/how-to-guides/choosing-the-right-helm-resource-for-your-use-case)
 
 {{% examples %}}
 ## Example Usage
@@ -400,9 +404,9 @@ class HelmStack : Stack
                 Repo = "https://charts.helm.sh/stable"
             },
         });
-        
+
         // Create a ConfigMap depending on the Chart. The ConfigMap will not be created until after all of the Chart
-        // resources are ready. Note the use of the `Ready()` method; depending on the Chart resource directly will 
+        // resources are ready. Note the use of the `Ready()` method; depending on the Chart resource directly will
         // not work.
         new ConfigMap("foo", new Pulumi.Kubernetes.Types.Inputs.Core.V1.ConfigMapArgs
         {

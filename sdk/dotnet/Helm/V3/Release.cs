@@ -17,6 +17,8 @@ namespace Pulumi.Kubernetes.Helm.V3
     /// a library to perform the orchestration of the resources. As a result, the full spectrum of Helm features are supported
     /// natively.
     /// 
+    /// You may also want to consider the `Chart` resource as an alternative method for managing helm charts. For more information about the trade-offs between these options see: [Choosing the right Helm resource for your use case](https://www.pulumi.com/registry/packages/kubernetes/how-to-guides/choosing-the-right-helm-resource-for-your-use-case)
+    /// 
     /// ## Example Usage
     /// ### Local Chart Directory
     /// ```csharp
