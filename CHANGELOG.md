@@ -1,6 +1,9 @@
 ## Unreleased
 
+## 4.9.0 (March 4, 2024)
+
 - Fix SSA ignoreChanges by enhancing field manager path comparisons (https://github.com/pulumi/pulumi-kubernetes/pull/2828)
+- Update nodejs SDK dependencies (https://github.com/pulumi/pulumi-kubernetes/pull/2858, https://github.com/pulumi/pulumi-kubernetes/pull/2861)
 
 ## 4.8.1 (February 22, 2024)
 
