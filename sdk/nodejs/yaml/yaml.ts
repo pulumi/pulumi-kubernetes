@@ -3268,14 +3268,14 @@ export interface ConfigOpts {
             if (isUrl(config.files)) {
                 files = [config.files];
             } else {
-                files = glob.sync(config.files);
+                files = glob.sync(config.files, {dotRelative: true});
             }
         } else {
             for (const file of config.files) {
                 if (isUrl(file)) {
                     files.push(file);
                 } else {
-                    files.push(...glob.sync(file));
+                    files.push(...glob.sync(file, {dotRelative: true}));
                 }
             }
         }
