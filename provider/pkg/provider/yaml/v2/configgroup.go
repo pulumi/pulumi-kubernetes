@@ -73,7 +73,7 @@ func (k *ConfigGroupProvider) Construct(ctx *pulumi.Context, typ, name string, i
 		_ = ctx.Log.Warn(msg, nil)
 	}
 
-	// Parse the manifests and register the resources.
+	// Parse the manifest(s) and register the resources.
 
 	comp.Resources = pulumi.All(args.Files, args.YAML, args.Objects, args.ResourcePrefix, args.SkipAwait).ApplyTWithContext(ctx.Context(), func(_ context.Context, args []any) (pulumi.ArrayOutput, error) {
 		// make type assertions to get each value (or the zero value)

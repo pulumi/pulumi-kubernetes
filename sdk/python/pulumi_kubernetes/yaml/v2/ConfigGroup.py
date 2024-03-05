@@ -17,12 +17,14 @@ class ConfigGroupArgs:
                  files: Optional[pulumi.Input[Union[str, Sequence[pulumi.Input[str]]]]] = None,
                  objs: Optional[pulumi.Input[Union[Any, Sequence[Any]]]] = None,
                  resource_prefix: Optional[pulumi.Input[str]] = None,
+                 skip_await: Optional[pulumi.Input[bool]] = None,
                  yaml: Optional[pulumi.Input[Union[str, Sequence[pulumi.Input[str]]]]] = None):
         """
         The set of arguments for constructing a ConfigGroup resource.
         :param pulumi.Input[Union[str, Sequence[pulumi.Input[str]]]] files: Set of paths or a URLs that uniquely identify files.
         :param pulumi.Input[Union[Any, Sequence[Any]]] objs: Objects representing Kubernetes resources.
         :param pulumi.Input[str] resource_prefix: An optional prefix for the auto-generated resource names. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
+        :param pulumi.Input[bool] skip_await: Indicates that child resources should skip the await logic.
         :param pulumi.Input[Union[str, Sequence[pulumi.Input[str]]]] yaml: YAML text containing Kubernetes resource definitions.
         """
         if files is not None:
@@ -31,6 +33,8 @@ class ConfigGroupArgs:
             pulumi.set(__self__, "objs", objs)
         if resource_prefix is not None:
             pulumi.set(__self__, "resource_prefix", resource_prefix)
+        if skip_await is not None:
+            pulumi.set(__self__, "skip_await", skip_await)
         if yaml is not None:
             pulumi.set(__self__, "yaml", yaml)
 
@@ -71,6 +75,18 @@ class ConfigGroupArgs:
         pulumi.set(self, "resource_prefix", value)
 
     @property
+    @pulumi.getter(name="skipAwait")
+    def skip_await(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Indicates that child resources should skip the await logic.
+        """
+        return pulumi.get(self, "skip_await")
+
+    @skip_await.setter
+    def skip_await(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "skip_await", value)
+
+    @property
     @pulumi.getter
     def yaml(self) -> Optional[pulumi.Input[Union[str, Sequence[pulumi.Input[str]]]]]:
         """
@@ -91,6 +107,7 @@ class ConfigGroup(pulumi.ComponentResource):
                  files: Optional[pulumi.Input[Union[str, Sequence[pulumi.Input[str]]]]] = None,
                  objs: Optional[pulumi.Input[Union[Any, Sequence[Any]]]] = None,
                  resource_prefix: Optional[pulumi.Input[str]] = None,
+                 skip_await: Optional[pulumi.Input[bool]] = None,
                  yaml: Optional[pulumi.Input[Union[str, Sequence[pulumi.Input[str]]]]] = None,
                  __props__=None):
         """
@@ -194,6 +211,7 @@ class ConfigGroup(pulumi.ComponentResource):
         :param pulumi.Input[Union[str, Sequence[pulumi.Input[str]]]] files: Set of paths or a URLs that uniquely identify files.
         :param pulumi.Input[Union[Any, Sequence[Any]]] objs: Objects representing Kubernetes resources.
         :param pulumi.Input[str] resource_prefix: An optional prefix for the auto-generated resource names. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
+        :param pulumi.Input[bool] skip_await: Indicates that child resources should skip the await logic.
         :param pulumi.Input[Union[str, Sequence[pulumi.Input[str]]]] yaml: YAML text containing Kubernetes resource definitions.
         """
         ...
@@ -316,6 +334,7 @@ class ConfigGroup(pulumi.ComponentResource):
                  files: Optional[pulumi.Input[Union[str, Sequence[pulumi.Input[str]]]]] = None,
                  objs: Optional[pulumi.Input[Union[Any, Sequence[Any]]]] = None,
                  resource_prefix: Optional[pulumi.Input[str]] = None,
+                 skip_await: Optional[pulumi.Input[bool]] = None,
                  yaml: Optional[pulumi.Input[Union[str, Sequence[pulumi.Input[str]]]]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
@@ -331,6 +350,7 @@ class ConfigGroup(pulumi.ComponentResource):
             __props__.__dict__["files"] = files
             __props__.__dict__["objs"] = objs
             __props__.__dict__["resource_prefix"] = resource_prefix
+            __props__.__dict__["skip_await"] = skip_await
             __props__.__dict__["yaml"] = yaml
             __props__.__dict__["resources"] = None
         super(ConfigGroup, __self__).__init__(

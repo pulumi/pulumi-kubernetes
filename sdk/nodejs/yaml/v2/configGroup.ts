@@ -134,6 +134,7 @@ export class ConfigGroup extends pulumi.ComponentResource {
             resourceInputs["files"] = args ? args.files : undefined;
             resourceInputs["objs"] = args ? args.objs : undefined;
             resourceInputs["resourcePrefix"] = args ? args.resourcePrefix : undefined;
+            resourceInputs["skipAwait"] = args ? args.skipAwait : undefined;
             resourceInputs["yaml"] = args ? args.yaml : undefined;
             resourceInputs["resources"] = undefined /*out*/;
         } else {
@@ -160,6 +161,10 @@ export interface ConfigGroupArgs {
      * An optional prefix for the auto-generated resource names. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
      */
     resourcePrefix?: pulumi.Input<string>;
+    /**
+     * Indicates that child resources should skip the await logic.
+     */
+    skipAwait?: pulumi.Input<boolean>;
     /**
      * YAML text containing Kubernetes resource definitions.
      */

@@ -238,6 +238,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.Yaml.V2
         public Input<string>? ResourcePrefix { get; set; }
 
         /// <summary>
+        /// Indicates that child resources should skip the await logic.
+        /// </summary>
+        [Input("skipAwait")]
+        public Input<bool>? SkipAwait { get; set; }
+
+        /// <summary>
         /// YAML text containing Kubernetes resource definitions.
         /// </summary>
         [Input("yaml")]

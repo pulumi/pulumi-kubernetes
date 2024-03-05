@@ -6,6 +6,7 @@ package com.pulumi.kubernetes.yaml_v2;
 import com.pulumi.core.Either;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import java.lang.Boolean;
 import java.lang.Object;
 import java.lang.String;
 import java.util.List;
@@ -64,6 +65,21 @@ public final class ConfigGroupArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * Indicates that child resources should skip the await logic.
+     * 
+     */
+    @Import(name="skipAwait")
+    private @Nullable Output<Boolean> skipAwait;
+
+    /**
+     * @return Indicates that child resources should skip the await logic.
+     * 
+     */
+    public Optional<Output<Boolean>> skipAwait() {
+        return Optional.ofNullable(this.skipAwait);
+    }
+
+    /**
      * YAML text containing Kubernetes resource definitions.
      * 
      */
@@ -84,6 +100,7 @@ public final class ConfigGroupArgs extends com.pulumi.resources.ResourceArgs {
         this.files = $.files;
         this.objs = $.objs;
         this.resourcePrefix = $.resourcePrefix;
+        this.skipAwait = $.skipAwait;
         this.yaml = $.yaml;
     }
 
@@ -206,6 +223,27 @@ public final class ConfigGroupArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder resourcePrefix(String resourcePrefix) {
             return resourcePrefix(Output.of(resourcePrefix));
+        }
+
+        /**
+         * @param skipAwait Indicates that child resources should skip the await logic.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder skipAwait(@Nullable Output<Boolean> skipAwait) {
+            $.skipAwait = skipAwait;
+            return this;
+        }
+
+        /**
+         * @param skipAwait Indicates that child resources should skip the await logic.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder skipAwait(Boolean skipAwait) {
+            return skipAwait(Output.of(skipAwait));
         }
 
         /**
