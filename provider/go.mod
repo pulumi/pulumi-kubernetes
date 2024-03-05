@@ -2,6 +2,11 @@ module github.com/pulumi/pulumi-kubernetes/provider/v4
 
 go 1.21
 
+replace (
+	github.com/pulumi/pulumi-kubernetes/sdk/v4 => ../sdk
+	github.com/pulumi/pulumi-kubernetes/tests/v4 => ../tests
+)
+
 require (
 	github.com/ahmetb/go-linq v3.0.0+incompatible
 	github.com/evanphx/json-patch v5.7.0+incompatible
@@ -303,5 +308,3 @@ require (
 	sigs.k8s.io/cli-utils v0.34.0 // indirect
 	sigs.k8s.io/controller-runtime v0.15.0 // indirect
 )
-
-replace github.com/pulumi/pulumi-kubernetes/sdk/v4 => ../sdk
