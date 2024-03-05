@@ -370,8 +370,6 @@ func writeGoClient(pkg *schema.Package, outdir string, templateDir string) {
 		"package v3",
 		"package helm")
 
-	// TODO update for yaml/v2
-
 	resources, err := gogen.LanguageResources("pulumigen", pkg)
 	if err != nil {
 		panic(err)
