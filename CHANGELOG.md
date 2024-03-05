@@ -1,6 +1,14 @@
 ## Unreleased
 
 - Use async invokes to avoid hangs/stalls in Python `helm`, `kustomize`, and `yaml` components (https://github.com/pulumi/pulumi-kubernetes/pull/2863)
+- ConfigGroup V2 (https://github.com/pulumi/pulumi-kubernetes/pull/2844)
+
+### New Features
+
+A new MLC-based implementation of `ConfigGroup` is now available in the "yaml/v2" package. This resource is
+usable in all Pulumi languages, including Pulumi YAML and in the Java Pulumi SDK.
+
+Note that transformations aren't supported in this release (see https://github.com/pulumi/pulumi/issues/12996).
 
 ## 4.9.0 (March 4, 2024)
 
