@@ -550,6 +550,7 @@ jobs:
         version: ${{ env.GOLANGCI_LINT_VERSION }}
         args: -c ../../.golangci.yml --timeout ${{ env.GOLANGCI_LINT_TIMEOUT }}
         working-directory: provider/pkg
+        skip-cache: true
     name: lint
     if: github.event_name == 'repository_dispatch' ||
       github.event.pull_request.head.repo.full_name == github.repository
