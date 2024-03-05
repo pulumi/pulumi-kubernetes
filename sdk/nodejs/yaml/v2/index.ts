@@ -5,6 +5,11 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../../utilities";
 
 // Export members:
+export { ConfigFileArgs } from "./configFile";
+export type ConfigFile = import("./configFile").ConfigFile;
+export const ConfigFile: typeof import("./configFile").ConfigFile = null as any;
+utilities.lazyLoad(exports, ["ConfigFile"], () => require("./configFile"));
+
 export { ConfigGroupArgs } from "./configGroup";
 export type ConfigGroup = import("./configGroup").ConfigGroup;
 export const ConfigGroup: typeof import("./configGroup").ConfigGroup = null as any;
@@ -15,6 +20,8 @@ const _module = {
     version: utilities.getVersion(),
     construct: (name: string, type: string, urn: string): pulumi.Resource => {
         switch (type) {
+            case "kubernetes:yaml/v2:ConfigFile":
+                return new ConfigFile(name, <any>undefined, { urn })
             case "kubernetes:yaml/v2:ConfigGroup":
                 return new ConfigGroup(name, <any>undefined, { urn })
             default:

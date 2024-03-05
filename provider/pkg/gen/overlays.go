@@ -1061,6 +1061,52 @@ var yamlConfigFileResource = pschema.ResourceSpec{
 	},
 }
 
+//go:embed examples/overlays/configFileV2.md
+var configFileV2MD string
+
+var yamlConfigFileV2Resource = pschema.ResourceSpec{
+	IsComponent: true,
+	ObjectTypeSpec: pschema.ObjectTypeSpec{
+		IsOverlay:   false,
+		Description: configFileV2MD,
+		Properties: map[string]pschema.PropertySpec{
+			"resources": {
+				TypeSpec: pschema.TypeSpec{
+					Type: "array",
+					Items: &pschema.TypeSpec{
+						Ref: "pulumi.json#/Any",
+					},
+				},
+				Description: "Resources created by the ConfigFile.",
+			},
+		},
+		Type: "object",
+	},
+	InputProperties: map[string]pschema.PropertySpec{
+		"file": {
+			TypeSpec: pschema.TypeSpec{
+				Type: "string",
+			},
+			Description: "Path or a URL that uniquely identifies a file.",
+		},
+		"resourcePrefix": {
+			TypeSpec: pschema.TypeSpec{
+				Type: "string",
+			},
+			Description: "An optional prefix for the auto-generated resource names. Example: A resource created with resourcePrefix=\"foo\" would produce a resource named \"foo-resourceName\".",
+		},
+		"skipAwait": {
+			TypeSpec: pschema.TypeSpec{
+				Type: "boolean",
+			},
+			Description: "Indicates that child resources should skip the await logic.",
+		},
+	},
+	RequiredInputs: []string{
+		"file",
+	},
+}
+
 //go:embed examples/overlays/configGroup.md
 var configGroupMD string
 
@@ -1352,6 +1398,7 @@ func init() {
 	resourceOverlays["kubernetes:helm.sh/v3:Release"] = helmV3ReleaseResource
 	resourceOverlays["kubernetes:kustomize:Directory"] = kustomizeDirectoryResource
 	resourceOverlays["kubernetes:yaml:ConfigFile"] = yamlConfigFileResource
+	resourceOverlays["kubernetes:yaml/v2:ConfigFile"] = yamlConfigFileV2Resource
 	resourceOverlays["kubernetes:yaml:ConfigGroup"] = yamlConfigGroupResource
 	resourceOverlays["kubernetes:yaml/v2:ConfigGroup"] = yamlConfigGroupV2Resource
 }
