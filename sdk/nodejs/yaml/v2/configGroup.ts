@@ -158,7 +158,7 @@ export interface ConfigGroupArgs {
      */
     objs?: pulumi.Input<any | any[]>;
     /**
-     * An optional prefix for the auto-generated resource names. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
+     * A prefix for the auto-generated resource names. Defaults to the name of the ConfigGroup. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
      */
     resourcePrefix?: pulumi.Input<string>;
     /**

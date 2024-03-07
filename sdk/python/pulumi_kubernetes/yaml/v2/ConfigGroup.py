@@ -23,7 +23,7 @@ class ConfigGroupArgs:
         The set of arguments for constructing a ConfigGroup resource.
         :param pulumi.Input[Union[str, Sequence[pulumi.Input[str]]]] files: Set of paths or a URLs that uniquely identify files.
         :param pulumi.Input[Union[Any, Sequence[Any]]] objs: Objects representing Kubernetes resources.
-        :param pulumi.Input[str] resource_prefix: An optional prefix for the auto-generated resource names. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
+        :param pulumi.Input[str] resource_prefix: A prefix for the auto-generated resource names. Defaults to the name of the ConfigGroup. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
         :param pulumi.Input[bool] skip_await: Indicates that child resources should skip the await logic.
         :param pulumi.Input[Union[str, Sequence[pulumi.Input[str]]]] yaml: YAML text containing Kubernetes manifest(s).
         """
@@ -66,7 +66,7 @@ class ConfigGroupArgs:
     @pulumi.getter(name="resourcePrefix")
     def resource_prefix(self) -> Optional[pulumi.Input[str]]:
         """
-        An optional prefix for the auto-generated resource names. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
+        A prefix for the auto-generated resource names. Defaults to the name of the ConfigGroup. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
         """
         return pulumi.get(self, "resource_prefix")
 
@@ -210,7 +210,7 @@ class ConfigGroup(pulumi.ComponentResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Union[str, Sequence[pulumi.Input[str]]]] files: Set of paths or a URLs that uniquely identify files.
         :param pulumi.Input[Union[Any, Sequence[Any]]] objs: Objects representing Kubernetes resources.
-        :param pulumi.Input[str] resource_prefix: An optional prefix for the auto-generated resource names. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
+        :param pulumi.Input[str] resource_prefix: A prefix for the auto-generated resource names. Defaults to the name of the ConfigGroup. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
         :param pulumi.Input[bool] skip_await: Indicates that child resources should skip the await logic.
         :param pulumi.Input[Union[str, Sequence[pulumi.Input[str]]]] yaml: YAML text containing Kubernetes manifest(s).
         """

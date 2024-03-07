@@ -232,7 +232,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Yaml.V2
         public InputUnion<object, ImmutableArray<object>>? Objs { get; set; }
 
         /// <summary>
-        /// An optional prefix for the auto-generated resource names. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
+        /// A prefix for the auto-generated resource names. Defaults to the name of the ConfigGroup. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
         /// </summary>
         [Input("resourcePrefix")]
         public Input<string>? ResourcePrefix { get; set; }

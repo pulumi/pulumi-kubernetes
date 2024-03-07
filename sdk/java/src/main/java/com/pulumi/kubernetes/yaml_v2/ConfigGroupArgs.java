@@ -50,14 +50,14 @@ public final class ConfigGroupArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * An optional prefix for the auto-generated resource names. Example: A resource created with resourcePrefix=&#34;foo&#34; would produce a resource named &#34;foo-resourceName&#34;.
+     * A prefix for the auto-generated resource names. Defaults to the name of the ConfigGroup. Example: A resource created with resourcePrefix=&#34;foo&#34; would produce a resource named &#34;foo-resourceName&#34;.
      * 
      */
     @Import(name="resourcePrefix")
     private @Nullable Output<String> resourcePrefix;
 
     /**
-     * @return An optional prefix for the auto-generated resource names. Example: A resource created with resourcePrefix=&#34;foo&#34; would produce a resource named &#34;foo-resourceName&#34;.
+     * @return A prefix for the auto-generated resource names. Defaults to the name of the ConfigGroup. Example: A resource created with resourcePrefix=&#34;foo&#34; would produce a resource named &#34;foo-resourceName&#34;.
      * 
      */
     public Optional<Output<String>> resourcePrefix() {
@@ -205,7 +205,7 @@ public final class ConfigGroupArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param resourcePrefix An optional prefix for the auto-generated resource names. Example: A resource created with resourcePrefix=&#34;foo&#34; would produce a resource named &#34;foo-resourceName&#34;.
+         * @param resourcePrefix A prefix for the auto-generated resource names. Defaults to the name of the ConfigGroup. Example: A resource created with resourcePrefix=&#34;foo&#34; would produce a resource named &#34;foo-resourceName&#34;.
          * 
          * @return builder
          * 
@@ -216,7 +216,7 @@ public final class ConfigGroupArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param resourcePrefix An optional prefix for the auto-generated resource names. Example: A resource created with resourcePrefix=&#34;foo&#34; would produce a resource named &#34;foo-resourceName&#34;.
+         * @param resourcePrefix A prefix for the auto-generated resource names. Defaults to the name of the ConfigGroup. Example: A resource created with resourcePrefix=&#34;foo&#34; would produce a resource named &#34;foo-resourceName&#34;.
          * 
          * @return builder
          * 

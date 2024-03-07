@@ -253,7 +253,7 @@ type configGroupArgs struct {
 	Files interface{} `pulumi:"files"`
 	// Objects representing Kubernetes resources.
 	Objs interface{} `pulumi:"objs"`
-	// An optional prefix for the auto-generated resource names. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
+	// A prefix for the auto-generated resource names. Defaults to the name of the ConfigGroup. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
 	ResourcePrefix *string `pulumi:"resourcePrefix"`
 	// Indicates that child resources should skip the await logic.
 	SkipAwait *bool `pulumi:"skipAwait"`
@@ -267,7 +267,7 @@ type ConfigGroupArgs struct {
 	Files pulumi.Input
 	// Objects representing Kubernetes resources.
 	Objs pulumi.Input
-	// An optional prefix for the auto-generated resource names. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
+	// A prefix for the auto-generated resource names. Defaults to the name of the ConfigGroup. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
 	ResourcePrefix pulumi.StringPtrInput
 	// Indicates that child resources should skip the await logic.
 	SkipAwait pulumi.BoolPtrInput
