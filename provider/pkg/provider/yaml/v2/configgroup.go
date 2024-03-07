@@ -82,8 +82,14 @@ func (k *ConfigGroupProvider) Construct(ctx *pulumi.Context, typ, name string, i
 		files, _ := args[0].([]string)
 		yaml, _ := args[1].([]string)
 		objects, _ := args[2].([]map[string]any)
-		resourcePrefix, _ := args[3].(string)
+		resourcePrefix, hasResourcePrefix := args[3].(string)
 		skipAwait, _ := args[4].(bool)
+
+		if !hasResourcePrefix {
+			// use the name of the ConfigGroup as the resource prefix to ensure uniqueness
+			// across multiple instances of the component resource.
+			resourcePrefix = name
+		}
 
 		objs := make([]unstructured.Unstructured, len(objects))
 		for idx, obj := range objects {

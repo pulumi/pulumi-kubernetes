@@ -109,7 +109,7 @@ var _ = Describe("ParseDecodeYamlFiles", func() {
 			BeforeEach(func() {
 				args.ResourcePrefix = "prefixed"
 			})
-			It("should apply the prefix to the resource and to the object", func(ctx context.Context) {
+			It("should apply the prefix to the resource (but not to the Kubernetes object)", func(ctx context.Context) {
 				_, err := parse(ctx)
 				Expect(err).ShouldNot(HaveOccurred())
 
@@ -117,14 +117,14 @@ var _ = Describe("ParseDecodeYamlFiles", func() {
 					"urn:pulumi:stack::project::kubernetes:core/v1:ConfigMap::prefixed-my-map": MatchProps(IgnoreExtras, Props{
 						"state": MatchObject(IgnoreExtras, Props{
 							"metadata": MatchObject(IgnoreExtras, Props{
-								"name": MatchValue("prefixed-my-map"),
+								"name": MatchValue("my-map"),
 							}),
 						}),
 					}),
 					"urn:pulumi:stack::project::kubernetes:stable.example.com/v1:CronTab::prefixed-my-new-cron-object": MatchProps(IgnoreExtras, Props{
 						"state": MatchObject(IgnoreExtras, Props{
 							"metadata": MatchObject(IgnoreExtras, Props{
-								"name": MatchValue("prefixed-my-new-cron-object"),
+								"name": MatchValue("my-new-cron-object"),
 							}),
 						}),
 					}),

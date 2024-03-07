@@ -1204,7 +1204,7 @@ var yamlConfigGroupV2Resource = pschema.ResourceSpec{
 			TypeSpec: pschema.TypeSpec{
 				Type: "string",
 			},
-			Description: "An optional prefix for the auto-generated resource names. Example: A resource created with resourcePrefix=\"foo\" would produce a resource named \"foo-resourceName\".",
+			Description: "A prefix for the auto-generated resource names. Defaults to the name of the ConfigGroup. Example: A resource created with resourcePrefix=\"foo\" would produce a resource named \"foo-resourceName\".",
 		},
 		"skipAwait": {
 			TypeSpec: pschema.TypeSpec{

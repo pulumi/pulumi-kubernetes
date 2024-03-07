@@ -208,7 +208,6 @@ func parseUnstructured(
 	}
 	if resourcePrefix != "" {
 		resourceName = fmt.Sprintf("%s-%s", resourcePrefix, resourceName)
-		obj.SetName(fmt.Sprintf("%s-%s", resourcePrefix, obj.GetName()))
 	}
 
 	// Apply the skipAwait annotation if necessary.
