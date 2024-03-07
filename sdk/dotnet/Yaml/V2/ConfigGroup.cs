@@ -244,7 +244,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Yaml.V2
         public Input<bool>? SkipAwait { get; set; }
 
         /// <summary>
-        /// YAML text containing Kubernetes resource definitions.
+        /// YAML text containing Kubernetes manifest(s).
         /// </summary>
         [Input("yaml")]
         public InputUnion<string, ImmutableArray<string>>? Yaml { get; set; }

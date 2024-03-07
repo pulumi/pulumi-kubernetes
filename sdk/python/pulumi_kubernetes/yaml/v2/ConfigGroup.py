@@ -25,7 +25,7 @@ class ConfigGroupArgs:
         :param pulumi.Input[Union[Any, Sequence[Any]]] objs: Objects representing Kubernetes resources.
         :param pulumi.Input[str] resource_prefix: An optional prefix for the auto-generated resource names. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
         :param pulumi.Input[bool] skip_await: Indicates that child resources should skip the await logic.
-        :param pulumi.Input[Union[str, Sequence[pulumi.Input[str]]]] yaml: YAML text containing Kubernetes resource definitions.
+        :param pulumi.Input[Union[str, Sequence[pulumi.Input[str]]]] yaml: YAML text containing Kubernetes manifest(s).
         """
         if files is not None:
             pulumi.set(__self__, "files", files)
@@ -90,7 +90,7 @@ class ConfigGroupArgs:
     @pulumi.getter
     def yaml(self) -> Optional[pulumi.Input[Union[str, Sequence[pulumi.Input[str]]]]]:
         """
-        YAML text containing Kubernetes resource definitions.
+        YAML text containing Kubernetes manifest(s).
         """
         return pulumi.get(self, "yaml")
 
@@ -212,7 +212,7 @@ class ConfigGroup(pulumi.ComponentResource):
         :param pulumi.Input[Union[Any, Sequence[Any]]] objs: Objects representing Kubernetes resources.
         :param pulumi.Input[str] resource_prefix: An optional prefix for the auto-generated resource names. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
         :param pulumi.Input[bool] skip_await: Indicates that child resources should skip the await logic.
-        :param pulumi.Input[Union[str, Sequence[pulumi.Input[str]]]] yaml: YAML text containing Kubernetes resource definitions.
+        :param pulumi.Input[Union[str, Sequence[pulumi.Input[str]]]] yaml: YAML text containing Kubernetes manifest(s).
         """
         ...
     @overload

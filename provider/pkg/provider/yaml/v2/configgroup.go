@@ -23,6 +23,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/internals"
 	pulumiprovider "github.com/pulumi/pulumi/sdk/v3/go/pulumi/provider"
+	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
 type ConfigGroupProvider struct {
@@ -84,10 +85,15 @@ func (k *ConfigGroupProvider) Construct(ctx *pulumi.Context, typ, name string, i
 		resourcePrefix, _ := args[3].(string)
 		skipAwait, _ := args[4].(bool)
 
+		objs := make([]unstructured.Unstructured, len(objects))
+		for idx, obj := range objects {
+			objs[idx] = unstructured.Unstructured{Object: obj}
+		}
+
 		resources, err := ParseDecodeYamlFiles(ctx, &ParseArgs{
 			Files:          files,
 			YAML:           yaml,
-			Objects:        objects,
+			Objects:        objs,
 			ResourcePrefix: resourcePrefix,
 			SkipAwait:      skipAwait,
 		}, true, k.clientSet, pulumi.Parent(comp))

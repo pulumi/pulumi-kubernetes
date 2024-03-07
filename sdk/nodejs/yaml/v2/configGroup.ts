@@ -166,7 +166,7 @@ export interface ConfigGroupArgs {
      */
     skipAwait?: pulumi.Input<boolean>;
     /**
-     * YAML text containing Kubernetes resource definitions.
+     * YAML text containing Kubernetes manifest(s).
      */
     yaml?: pulumi.Input<string | pulumi.Input<string>[]>;
 }

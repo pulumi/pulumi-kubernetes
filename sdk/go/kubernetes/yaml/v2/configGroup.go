@@ -257,7 +257,7 @@ type configGroupArgs struct {
 	ResourcePrefix *string `pulumi:"resourcePrefix"`
 	// Indicates that child resources should skip the await logic.
 	SkipAwait *bool `pulumi:"skipAwait"`
-	// YAML text containing Kubernetes resource definitions.
+	// YAML text containing Kubernetes manifest(s).
 	Yaml interface{} `pulumi:"yaml"`
 }
 
@@ -271,7 +271,7 @@ type ConfigGroupArgs struct {
 	ResourcePrefix pulumi.StringPtrInput
 	// Indicates that child resources should skip the await logic.
 	SkipAwait pulumi.BoolPtrInput
-	// YAML text containing Kubernetes resource definitions.
+	// YAML text containing Kubernetes manifest(s).
 	Yaml pulumi.Input
 }
 

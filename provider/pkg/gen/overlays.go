@@ -1226,7 +1226,7 @@ var yamlConfigGroupV2Resource = pschema.ResourceSpec{
 					},
 				},
 			},
-			Description: "YAML text containing Kubernetes resource definitions.",
+			Description: "YAML text containing Kubernetes manifest(s).",
 		},
 	},
 }

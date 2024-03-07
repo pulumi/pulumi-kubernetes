@@ -80,14 +80,14 @@ public final class ConfigGroupArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * YAML text containing Kubernetes resource definitions.
+     * YAML text containing Kubernetes manifest(s).
      * 
      */
     @Import(name="yaml")
     private @Nullable Output<Either<String,List<String>>> yaml;
 
     /**
-     * @return YAML text containing Kubernetes resource definitions.
+     * @return YAML text containing Kubernetes manifest(s).
      * 
      */
     public Optional<Output<Either<String,List<String>>>> yaml() {
@@ -247,7 +247,7 @@ public final class ConfigGroupArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param yaml YAML text containing Kubernetes resource definitions.
+         * @param yaml YAML text containing Kubernetes manifest(s).
          * 
          * @return builder
          * 
@@ -258,7 +258,7 @@ public final class ConfigGroupArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param yaml YAML text containing Kubernetes resource definitions.
+         * @param yaml YAML text containing Kubernetes manifest(s).
          * 
          * @return builder
          * 
@@ -268,7 +268,7 @@ public final class ConfigGroupArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param yaml YAML text containing Kubernetes resource definitions.
+         * @param yaml YAML text containing Kubernetes manifest(s).
          * 
          * @return builder
          * 
@@ -278,7 +278,7 @@ public final class ConfigGroupArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param yaml YAML text containing Kubernetes resource definitions.
+         * @param yaml YAML text containing Kubernetes manifest(s).
          * 
          * @return builder
          * 

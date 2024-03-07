@@ -26,6 +26,7 @@ import (
 	. "github.com/pulumi/pulumi-kubernetes/tests/v4/gomega"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/internals"
+	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
 const (
@@ -71,6 +72,8 @@ var _ = Describe("ParseDecodeYamlFiles", func() {
 	}
 
 	commonAssertions := func() {
+		GinkgoHelper()
+
 		It("should register some resources", func(ctx context.Context) {
 			_, err := parse(ctx)
 			Expect(err).ShouldNot(HaveOccurred())
@@ -242,12 +245,12 @@ var _ = Describe("ParseDecodeYamlFiles", func() {
 	Describe("Kubernetes object specifics", func() {
 		Context("when the object has no kind", func() {
 			BeforeEach(func() {
-				args.Objects = []map[string]interface{}{
-					map[string]any{
+				args.Objects = []unstructured.Unstructured{{
+					Object: map[string]any{
 						"apiVersion": "v1",
 						"metadata":   map[string]any{},
 					},
-				}
+				}}
 			})
 			It("should fail", func(ctx context.Context) {
 				_, err := parse(ctx)
@@ -257,13 +260,13 @@ var _ = Describe("ParseDecodeYamlFiles", func() {
 
 		Context("when the object has no metadata.name", func() {
 			BeforeEach(func() {
-				args.Objects = []map[string]interface{}{
-					map[string]any{
+				args.Objects = []unstructured.Unstructured{{
+					Object: map[string]any{
 						"apiVersion": "v1",
 						"kind":       "Secret",
 						"metadata":   map[string]any{},
 					},
-				}
+				}}
 			})
 			It("should fail", func(ctx context.Context) {
 				_, err := parse(ctx)
@@ -273,8 +276,8 @@ var _ = Describe("ParseDecodeYamlFiles", func() {
 
 		Context("when the object is a list", func() {
 			BeforeEach(func() {
-				args.Objects = []map[string]interface{}{
-					map[string]any{
+				args.Objects = []unstructured.Unstructured{{
+					Object: map[string]any{
 						"apiVersion": "v1",
 						"kind":       "List",
 						"items": []any{
@@ -287,23 +290,21 @@ var _ = Describe("ParseDecodeYamlFiles", func() {
 							},
 						},
 					},
-				}
+				}}
 			})
 			It("should flatten the list", func(ctx context.Context) {
-				resources, err := parse(ctx)
+				_, err := parse(ctx)
 				Expect(err).ShouldNot(HaveOccurred())
 
-				resourceArray, err := internals.UnsafeAwaitOutput(ctx, resources)
-				Expect(err).ShouldNot(HaveOccurred())
-				Expect(resourceArray.Value).To(HaveLen(1))
+				Expect(tc.monitor.Resources()).To(HaveKey("urn:pulumi:stack::project::kubernetes:core/v1:Secret::my-secret"))
 			})
 		})
 	})
 
 	Context("when the object is a Secret", func() {
 		BeforeEach(func() {
-			args.Objects = []map[string]interface{}{
-				map[string]any{
+			args.Objects = []unstructured.Unstructured{{
+				Object: map[string]any{
 					"apiVersion": "v1",
 					"kind":       "Secret",
 					"metadata": map[string]any{
@@ -313,7 +314,7 @@ var _ = Describe("ParseDecodeYamlFiles", func() {
 						"foo": "bar",
 					},
 				},
-			}
+			}}
 		})
 		It("should mark the contents as a secret", func(ctx context.Context) {
 			_, err := parse(ctx)

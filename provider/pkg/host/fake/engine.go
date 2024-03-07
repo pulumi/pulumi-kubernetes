@@ -99,11 +99,9 @@ var _ pulumirpc.EngineServer = &EngineServer{}
 // Log logs a global message in the engine, including errors and warnings.
 func (m *EngineServer) Log(ctx context.Context, in *pulumirpc.LogRequest) (*pbempty.Empty, error) {
 	m.t.Logf("%s: %s", in.GetSeverity(), in.GetMessage())
-	func() {
-		m.mu.Lock()
-		defer m.mu.Unlock()
-		m.logs = append(m.logs, in)
-	}()
+	m.mu.Lock()
+	m.logs = append(m.logs, in)
+	m.mu.Unlock()
 	return &pbempty.Empty{}, nil
 }
 

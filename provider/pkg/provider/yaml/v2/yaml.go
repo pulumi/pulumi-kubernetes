@@ -32,13 +32,14 @@ import (
 	yamlv2 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/yaml/v2"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
+	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/util/yaml"
 )
 
 type ParseArgs struct {
 	Files          []string
 	YAML           []string
-	Objects        []map[string]any
+	Objects        []unstructured.Unstructured
 	ResourcePrefix string
 	SkipAwait      bool
 }
@@ -46,11 +47,12 @@ type ParseArgs struct {
 func ParseDecodeYamlFiles(ctx *pulumi.Context, args *ParseArgs, glob bool, clientSet *clients.DynamicClientSet, opts ...pulumi.ResourceOption,
 ) (pulumi.ArrayOutput, error) {
 
-	// Start with the provided objects and YAML arrays, if any, and we'll append to them.
-	objs := args.Objects
-	yamls := args.YAML
+	// Start with the provided objects.
+	var objs []unstructured.Unstructured
+	objs = append(objs, args.Objects...)
 
-	// Start by gathering any other YAML from files provided.
+	// Continue by gathering any other YAML from files provided.
+	yamls := args.YAML
 	for _, file := range args.Files {
 		// Read the raw YAML file(s) specified in the input file parameter. It might be a URL or a file path.
 		var yaml []byte
@@ -103,8 +105,8 @@ func ParseDecodeYamlFiles(ctx *pulumi.Context, args *ParseArgs, glob bool, clien
 	return ParseYamlObjects(ctx, objs, args.ResourcePrefix, args.SkipAwait, opts...)
 }
 
-// yamlDecode decodes a YAML string into object structures.
-func yamlDecode(text string, _ *clients.DynamicClientSet) ([]map[string]any, error) {
+// yamlDecode decodes a YAML string into a slice of Unstructured objects.
+func yamlDecode(text string, _ *clients.DynamicClientSet) ([]unstructured.Unstructured, error) {
 	var resources []unstructured.Unstructured
 
 	dec := yaml.NewYAMLOrJSONDecoder(io.NopCloser(strings.NewReader(text)), 128)
@@ -125,56 +127,41 @@ func yamlDecode(text string, _ *clients.DynamicClientSet) ([]map[string]any, err
 		resources = append(resources, resource)
 	}
 
-	result := make([]map[string]any, 0, len(resources))
-	for _, resource := range resources {
-		result = append(result, resource.Object)
-	}
-	return result, nil
+	return resources, nil
 }
 
 func ParseYamlObjects(
 	ctx *pulumi.Context,
-	objs []map[string]any,
+	objs []unstructured.Unstructured,
 	resourcePrefix string,
 	skipAwait bool,
 	opts ...pulumi.ResourceOption,
 ) (pulumi.ArrayOutput, error) {
-	var intermediates []pulumi.CustomResource
+	resources := pulumi.Array{}
 	for _, obj := range objs {
-		rs, err := parseYamlObject(ctx, obj, resourcePrefix, skipAwait, opts...)
+		rs, err := parseUnstructured(ctx, &obj, resourcePrefix, skipAwait, opts...)
 		if err != nil {
 			return pulumi.ArrayOutput{}, err
 		}
-		intermediates = append(intermediates, rs...)
-	}
-
-	resources := pulumi.Array{}
-	for _, r := range intermediates {
-		resources = append(resources, pulumi.NewResourceOutput(r))
+		for _, r := range rs {
+			resources = append(resources, pulumi.NewResourceOutput(r))
+		}
 	}
 	return resources.ToArrayOutputWithContext(ctx.Context()), nil
 }
 
-func parseYamlObject(
+func parseUnstructured(
 	ctx *pulumi.Context,
-	obj map[string]any,
+	obj *unstructured.Unstructured,
 	resourcePrefix string,
 	skipAwait bool,
 	opts ...pulumi.ResourceOption,
 ) ([]pulumi.CustomResource, error) {
 
-	getProp := func(key string) (string, bool) {
-		v, ok := obj[key]
-		if !ok {
-			return "", false
-		}
-		return fmt.Sprintf("%s", v), true
-	}
-
 	// Ensure there is a kind and API version.
-	kind, hasKind := getProp("kind")
-	apiVersion, hasAPIVersion := getProp("apiVersion")
-	if !hasKind || !hasAPIVersion {
+	kind := obj.GetKind()
+	apiVersion := obj.GetAPIVersion()
+	if kind == "" || apiVersion == "" {
 		return nil, errors.Errorf("Kubernetes resources require a kind and apiVersion: %+v", obj)
 	}
 	fullKind := fmt.Sprintf("%s/%s", apiVersion, kind)
@@ -191,67 +178,55 @@ func parseYamlObject(
 	// Since Kubernetes does not instantiate list types directly, Pulumi also traverses lists
 	// for resource definitions that can be managed by Kubernetes, and registers those with the
 	// engine instead.
-	if yamlv2.IsListKind(apiVersion, kind) {
+	if obj.IsList() {
 		var resources []pulumi.CustomResource
-		if rawItems, hasItems := obj["items"]; hasItems {
-			if items, ok := rawItems.([]any); ok {
-				for _, item := range items {
-					if obj, ok := item.(map[string]any); ok {
-						rs, err := parseYamlObject(ctx, obj, resourcePrefix, skipAwait, opts...)
-						if err != nil {
-							return nil, err
-						}
-						resources = append(resources, rs...)
-					}
-				}
+		err := obj.EachListItem(func(o runtime.Object) error {
+			obj := o.(*unstructured.Unstructured)
+			rs, err := parseUnstructured(ctx, obj, resourcePrefix, skipAwait, opts...)
+			if err != nil {
+				return err
 			}
+			resources = append(resources, rs...)
+			return nil
+		})
+		if err != nil {
+			return nil, errors.Errorf("YAML object is invalid: %s %+v", fullKind, obj)
 		}
 		return resources, nil
 	}
 
 	// If we got here, it's not a recursively traversed type, so process it directly.
 	// First, validate that it has the requisite metadata and name properties.
-	meta, hasMeta := obj["metadata"]
-	if !hasMeta {
-		return nil, errors.Errorf("YAML object does not have a .metadata field: %s %+v", fullKind, obj)
-	}
-	metaDict, hasMetaDict := meta.(map[string]any)
-	if !hasMetaDict {
-		return nil, errors.Errorf("YAML object does not have a .metadata dictionary: %s %+v", fullKind, obj)
-	}
-	metaName, hasMetaName := metaDict["name"].(string)
-	if !hasMetaName || metaName == "" {
+	if obj.GetName() == "" {
 		return nil, errors.Errorf("YAML object does not have a .metadata.name: %s %+v", fullKind, obj)
 	}
 
-	// Manufacture a name as appropriate, out of the meta name, namespace, and optional prefix.
-	if ns, hasNS := metaDict["namespace"]; hasNS {
-		metaName = fmt.Sprintf("%s/%s", ns, metaName)
+	// Manufacture a resource name as appropriate, out of the meta name, namespace, and optional prefix.
+	resourceName := obj.GetName()
+	if obj.GetNamespace() != "" {
+		resourceName = fmt.Sprintf("%s/%s", obj.GetNamespace(), obj.GetName())
 	}
 	if resourcePrefix != "" {
-		metaName = fmt.Sprintf("%s-%s", resourcePrefix, metaName)
-		metaDict["name"] = fmt.Sprintf("%s-%s", resourcePrefix, metaDict["name"])
+		resourceName = fmt.Sprintf("%s-%s", resourcePrefix, resourceName)
+		obj.SetName(fmt.Sprintf("%s-%s", resourcePrefix, obj.GetName()))
 	}
 
+	// Apply the skipAwait annotation if necessary.
 	if skipAwait {
-		if annotations, ok := metaDict["annotations"].(map[string]interface{}); ok {
-			annotations["pulumi.com/skipAwait"] = "true"
-		} else {
-			metaDict["annotations"] = map[string]string{"pulumi.com/skipAwait": "true"}
-		}
+		unstructured.SetNestedField(obj.Object, "true", "metadata", "annotations", "pulumi.com/skipAwait")
 	}
 
 	if fullKind == "v1/Secret" {
 		// Always mark these fields as secret to avoid leaking sensitive values from raw YAML.
 		for _, key := range []string{"data", "stringData"} {
-			if _, ok := obj[key]; ok {
-				obj[key] = pulumi.ToSecret(obj[key])
+			if v, ok := obj.Object[key]; ok {
+				obj.Object[key] = pulumi.ToSecret(v)
 			}
 		}
 	}
 
 	// Finally allocate a resource of the correct type.
-	res, err := yamlv2.RegisterResource(ctx, apiVersion, kind, metaName, kubernetes.UntypedArgs(obj), opts...)
+	res, err := yamlv2.RegisterResource(ctx, apiVersion, kind, resourceName, kubernetes.UntypedArgs(obj.Object), opts...)
 	if err != nil {
 		return nil, err
 	}

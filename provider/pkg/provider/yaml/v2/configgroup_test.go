@@ -71,6 +71,8 @@ var _ = Describe("Construct", func() {
 	})
 
 	commonAssertions := func() {
+		GinkgoHelper()
+
 		It("should provide a 'resources' output property", func(ctx context.Context) {
 			resp, err := pulumiprovider.Construct(ctx, req, tc.EngineConn(), k.Construct)
 			Expect(err).ShouldNot(HaveOccurred())
@@ -96,12 +98,12 @@ var _ = Describe("Construct", func() {
 	Describe("objs", func() {
 		Context("when the input is a valid object", func() {
 			BeforeEach(func() {
-				// decode the manifest to property map(s)
+				// decode the manifest to Unstructured objects, then convert to input properties
 				resources, err := yamlDecode(manifest, nil)
 				Expect(err).ShouldNot(HaveOccurred())
 				var objs []resource.PropertyValue
-				for _, v := range resources {
-					objs = append(objs, resource.NewPropertyValue(v))
+				for _, res := range resources {
+					objs = append(objs, resource.NewPropertyValue(res.Object))
 				}
 				inputs["objs"] = resource.NewArrayProperty(objs)
 			})
