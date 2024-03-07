@@ -96,17 +96,13 @@ func (k *ConfigGroupProvider) Construct(ctx *pulumi.Context, typ, name string, i
 			objs[idx] = unstructured.Unstructured{Object: obj}
 		}
 
-		resources, err := ParseDecodeYamlFiles(ctx, &ParseArgs{
+		return ParseDecodeYamlFiles(ctx, &ParseArgs{
 			Files:          files,
 			YAML:           yaml,
 			Objects:        objs,
 			ResourcePrefix: resourcePrefix,
 			SkipAwait:      skipAwait,
 		}, true, k.clientSet, pulumi.Parent(comp))
-		if err != nil {
-			return pulumi.ArrayOutput{}, err
-		}
-		return resources, nil
 	}).(pulumi.ArrayOutput)
 
 	// issue: https://github.com/pulumi/pulumi/issues/15527
