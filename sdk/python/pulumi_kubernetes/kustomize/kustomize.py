@@ -111,18 +111,20 @@ class Directory(pulumi.ComponentResource):
 
         child_opts = _get_child_options(self, opts)
         invoke_opts = _get_invoke_options(child_opts)
-        
-        __ret__ = pulumi.runtime.invoke(
-            'kubernetes:kustomize:directory', {'directory': directory}, invoke_opts)
 
-        # Handle the cases when the provider is not fully configured:
-        #   https://github.com/pulumi/pulumi/blob/v3.60.1/sdk/go/common/resource/plugin/provider_plugin.go#L1364-L1367
-        result = (__ret__.value or {}).get('result', [])
+        async def invoke_kustomize_directory_async():
+            inv = await pulumi.runtime.invoke_async(
+                'kubernetes:kustomize:directory', {'directory': directory}, invoke_opts)
+            # Handle the cases when the provider is not fully configured:
+            # https://github.com/pulumi/pulumi/blob/v3.60.1/sdk/go/common/resource/plugin/provider_plugin.go#L1364-L1367
+            return (inv or {}).get('result', [])
+
+        result = pulumi.Output.from_input(invoke_kustomize_directory_async())
 
         # Note: Unlike NodeJS, Python requires that we "pull" on our futures in order to get them scheduled for
         # execution. In order to do this, we leverage the engine's RegisterResourceOutputs to wait for the
         # resolution of all resources that this YAML document created.
-        self.resources = _parse_yaml_document(result, child_opts, transformations, resource_prefix)
+        self.resources = result.apply(lambda x: _parse_yaml_document(x, child_opts, transformations, resource_prefix))
         self.register_outputs({"resources": self.resources})
 
     def translate_output_property(self, prop: str) -> str:

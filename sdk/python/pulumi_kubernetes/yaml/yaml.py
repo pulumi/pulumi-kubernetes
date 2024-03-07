@@ -189,8 +189,8 @@ class ConfigGroup(pulumi.ComponentResource):
 
         for text in yaml:
             invoke_opts = _get_invoke_options(child_opts)
-            __ret__ = invoke_yaml_decode(text, invoke_opts)
-            resources = _parse_yaml_document(__ret__, child_opts, transformations, resource_prefix)
+            decoded = pulumi.Output.from_input(_invoke_yaml_decode_async(text, invoke_opts))
+            resources = decoded.apply(lambda x: _parse_yaml_document(x, child_opts, transformations, resource_prefix))
             # Add any new YAML resources to the ConfigGroup's resources
             self.resources = pulumi.Output.all(resources, self.resources).apply(lambda x: {**x[0], **x[1]})
 
@@ -337,12 +337,12 @@ class ConfigFile(pulumi.ComponentResource):
             transformations.append(_skip_await)
  
         invoke_opts = _get_invoke_options(child_opts)
-        __ret__ = invoke_yaml_decode(text, invoke_opts)
+        decoded = pulumi.Output.from_input(_invoke_yaml_decode_async(text, invoke_opts))
 
         # Note: Unlike NodeJS, Python requires that we "pull" on our futures in order to get them scheduled for
         # execution. In order to do this, we leverage the engine's RegisterResourceOutputs to wait for the
         # resolution of all resources that this YAML document created.
-        self.resources = _parse_yaml_document(__ret__, child_opts, transformations, resource_prefix)
+        self.resources = decoded.apply(lambda x: _parse_yaml_document(x, child_opts, transformations, resource_prefix))
         self.register_outputs({"resources": self.resources})
 
     def translate_output_property(self, prop: str) -> str:
@@ -2006,6 +2006,6 @@ def _parse_yaml_object(
         lambda x: (f"{gvk}:{x}",
                    CustomResource(f"{x}", api_version, kind, spec, metadata, opts)))]
 
-def invoke_yaml_decode(text, invoke_opts):
-    inv = pulumi.runtime.invoke('kubernetes:yaml:decode', {'text': text}, invoke_opts)
-    return (inv.value or {}).get('result', [])
+async def _invoke_yaml_decode_async(text, invoke_opts):
+    inv = await pulumi.runtime.invoke_async('kubernetes:yaml:decode', {'text': text}, invoke_opts)
+    return (inv or {}).get('result', [])

@@ -518,7 +518,7 @@ Use the navigation below to see detailed documentation for each of the supported
 	})
 	pkg.Language["python"] = rawMessage(map[string]any{
 		"requires": map[string]string{
-			"pulumi":   ">=3.25.0,<4.0.0",
+			"pulumi":   ">=3.109.0,<4.0.0",
 			"requests": ">=2.21,<3.0",
 		},
 		"pyproject": map[string]bool{
