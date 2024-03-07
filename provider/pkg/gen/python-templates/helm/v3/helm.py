@@ -614,8 +614,8 @@ def _parse_chart(all_config: Tuple[Union[ChartOpts, LocalChartOpts], pulumi.Reso
     if config.skip_await:
         transformations.append(_skip_await)
 
-    def invoke_helm_template(opts):
-        inv = pulumi.runtime.invoke('kubernetes:helm:template', {'jsonOpts': opts}, invoke_opts)
-        return (inv.value or {}).get('result', [])
-    objects = json_opts.apply(invoke_helm_template)
+    async def invoke_helm_template_async(opts):
+        inv = await pulumi.runtime.invoke_async('kubernetes:helm:template', {'jsonOpts': opts}, invoke_opts)
+        return (inv or {}).get('result', [])
+    objects = json_opts.apply(invoke_helm_template_async)
     return objects.apply(lambda x: _parse_yaml_document(x, opts, transformations))
