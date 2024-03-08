@@ -105,6 +105,8 @@ func TestAliases(t *testing.T) {
 			},
 		},
 	})
+
+	test, _ = testClusters.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -263,6 +265,7 @@ func TestAutonaming(t *testing.T) {
 			},
 		},
 	})
+	test, _ = testClusters.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -391,6 +394,7 @@ func TestGenerateName(t *testing.T) {
 			},
 		},
 	})
+	test, _ = testClusters.WrapProviderTestOptions(test)
 	pt = integration.ProgramTestManualLifeCycle(t, &test)
 	err := pt.TestLifeCycleInitAndDestroy()
 	if !errors.Is(err, integration.ErrTestFailed) {
@@ -449,6 +453,7 @@ func TestCRDs(t *testing.T) {
 			},
 		},
 	})
+	test, _ = testClusters.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -556,6 +561,7 @@ func TestPod(t *testing.T) {
 			},
 		},
 	})
+	test, _ = testClusters.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -662,6 +668,7 @@ func TestDeploymentRollout(t *testing.T) {
 			},
 		},
 	})
+	test, _ = testClusters.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -675,6 +682,7 @@ func TestEmptyArray(t *testing.T) {
 			},
 		},
 	})
+	test, _ = testClusters.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -790,6 +798,7 @@ func TestGet(t *testing.T) {
 			},
 		},
 	})
+	test, _ = testClusters.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -816,6 +825,7 @@ func TestIstio(t *testing.T) {
 			assert.Fail(t, "Maximum Istio gateway request retries exceeded")
 		},
 	})
+	test, _ = testClusters.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -837,6 +847,8 @@ func TestKustomize(t *testing.T) {
 			assert.Equal(t, 12, len(stackInfo.Deployment.Resources))
 		},
 	})
+
+	test, _ = testClusters.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -862,6 +874,7 @@ func TestKustomizeHelmChart(t *testing.T) {
 			"PULUMI_K8S_KUSTOMIZE_HELM=true", // This experimental feature is currently gated behind a feature flag.
 		},
 	})
+	test, _ = testClusters.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -966,6 +979,7 @@ func TestNamespace(t *testing.T) {
 			},
 		},
 	})
+	test, _ = testClusters.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -1037,6 +1051,7 @@ func TestProvider(t *testing.T) {
 			assert.Equal(t, ns2Name.(string), namespacedPodNamespace.(string))
 		},
 	})
+	test, _ = testClusters.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -1093,6 +1108,7 @@ func TestQuery(t *testing.T) {
 			},
 		},
 	})
+	test, _ = testClusters.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -1118,6 +1134,7 @@ func TestReadonlyMetadata(t *testing.T) {
 			},
 		},
 	})
+	test, _ = testClusters.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -1237,6 +1254,7 @@ func TestReplaceUnready(t *testing.T) {
 			},
 		},
 	})
+	test, _ = testClusters.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -1269,6 +1287,7 @@ func TestRetry(t *testing.T) {
 			assert.Equal(t, namespace.ID.String(), step1PodNamespace.(string))
 		},
 	})
+	test, _ = testClusters.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -1337,6 +1356,7 @@ func TestSecrets(t *testing.T) {
 			},
 		},
 	})
+	test, _ = testClusters.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -1373,6 +1393,7 @@ func TestSecretDataNewLine(t *testing.T) {
 			Additive:        true,
 		}},
 	})
+	test, _ = testClusters.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -1469,6 +1490,7 @@ func TestServerSideApply(t *testing.T) {
 			},
 		},
 	})
+	test, _ = testClusters.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -1511,22 +1533,23 @@ func TestServerSideApplyEmptyMaps(t *testing.T) {
 
 	// Use manual lifecycle management since we need to run external commands in between pulumi up steps, while referencing
 	// the same stack.
+	applyStep, kcfg := testClusters.WrapProviderTestOptions(applyStep)
 	pt := integration.ProgramTestManualLifeCycle(t, &applyStep)
 	err := pt.TestLifeCycleInitAndDestroy()
 	assert.NoError(t, err)
 
 	// Sanity check with kubectl to verify that the ConfigMap was created with the wanted label.
-	out, err := exec.Command("kubectl", "get", "configmap", "-o", "yaml", "-n", ns, cmName).CombinedOutput()
+	out, err := exec.Command("kubectl", "get", "configmap", "--kubeconfig", kcfg, "-o", "yaml", "-n", ns, cmName).CombinedOutput()
 	assert.NoError(t, err)
 	assert.Contains(t, string(out), "bar") // ConfigMap should have been created with label foo=bar.
 
 	// Update the ConfigMap and remove label using kubectl.
-	out, err = exec.Command("kubectl", "label", "configmap", "-n", ns, cmName, "foo-").CombinedOutput()
+	out, err = exec.Command("kubectl", "label", "configmap", "--kubeconfig", kcfg, "-n", ns, cmName, "foo-").CombinedOutput()
 	assert.NoError(t, err)
 	assert.Contains(t, string(out), "configmap/"+cmName+" unlabeled") // Ensure CM was unlabeled.
 
 	// Use kubectl to verify that the ConfigMap was updated and no longer has the label.
-	out, err = exec.Command("kubectl", "get", "configmap", "-o", "yaml", "-n", ns, cmName).CombinedOutput()
+	out, err = exec.Command("kubectl", "get", "configmap", "--kubeconfig", kcfg, "-o", "yaml", "-n", ns, cmName).CombinedOutput()
 	assert.NoError(t, err)
 	assert.NotContains(t, string(out), "bar") // ConfigMap should no longer have label foo=bar.
 
@@ -1541,7 +1564,7 @@ func TestServerSideApplyEmptyMaps(t *testing.T) {
 	assert.NoError(t, err)
 
 	// Use kubectl to verify that the ConfigMap was updated and has the label again.
-	out, err = exec.Command("kubectl", "get", "configmap", "-o", "yaml", "-n", ns, cmName).CombinedOutput()
+	out, err = exec.Command("kubectl", "get", "configmap", "--kubeconfig", kcfg, "-o", "yaml", "-n", ns, cmName).CombinedOutput()
 	assert.NoError(t, err)
 	assert.Contains(t, string(out), "bar") // ConfigMap should have been updated with label foo=bar.
 }
@@ -1636,6 +1659,7 @@ func TestServerSideApplyUpgrade(t *testing.T) {
 			},
 		},
 	})
+	test, _ = testClusters.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -1657,6 +1681,7 @@ func TestYAMLURL(t *testing.T) {
 			assert.Equal(t, 18, len(stackInfo.Deployment.Resources))
 		},
 	})
+	test, _ = testClusters.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -1697,6 +1722,7 @@ func TestReplaceDaemonSet(t *testing.T) {
 			},
 		},
 	})
+	test, _ = testClusters.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -1717,6 +1743,7 @@ func TestServiceAccountTokenSecret(t *testing.T) {
 			assert.Contains(t, secretData, "token")
 		},
 	})
+	test, _ = testClusters.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -1785,6 +1812,7 @@ func TestStrictMode(t *testing.T) {
 			},
 		},
 	})
+	test, _ = testClusters.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -2094,7 +2122,7 @@ func TestIgnoreChanges(t *testing.T) {
 }
 
 func ignoreChageTest(t *testing.T, testFolderName string) {
-	var depName, depNS string
+	var depName, depNS, kcfg string
 
 	test := baseOptions.With(integration.ProgramTestOptions{
 		Dir:                  filepath.Join(testFolderName, "step1"),
@@ -2116,24 +2144,24 @@ func ignoreChageTest(t *testing.T, testFolderName string) {
 			assert.True(t, ok)
 
 			// Validate we applied the deployment with the correct name and namespace and spec.
-			dep, err := tests.Kubectl("get deployment -o yaml -n", depNS, depName)
+			dep, err := tests.Kubectl("get deployment -o yaml", "--kubeconfig", kcfg, "-n", depNS, depName)
 			assert.NoError(t, err)
 			assert.NotContains(t, string(dep), "Error from server (NotFound)")
 
 			// Validate image of deployment.
-			depImage, err := tests.Kubectl("get deployment -o=jsonpath='{.spec.template.spec.containers[0].image}' -n", depNS, depName)
+			depImage, err := tests.Kubectl("get deployment -o=jsonpath='{.spec.template.spec.containers[0].image}'", "--kubeconfig", kcfg, "-n", depNS, depName)
 			assert.NoError(t, err)
 			assert.Equal(t, "'nginx:1.25.2'", string(depImage))
 
 			// Validate deployment replicas.
-			depReplicas, err := tests.Kubectl("get deployment -o=jsonpath='{.spec.replicas}' -n", depNS, depName)
+			depReplicas, err := tests.Kubectl("get deployment -o=jsonpath='{.spec.replicas}'", "--kubeconfig", kcfg, "-n", depNS, depName)
 			assert.NoError(t, err)
 			assert.Equal(t, "'2'", string(depReplicas))
 
 			// Patch deployment replicas to 3 using patch file in preparation for ignore changes to be tested in step2.
-			_, err = tests.Kubectl("patch --field-manager replica/manager deployment -n", depNS, depName, "--patch-file", filepath.Join(testFolderName, "deployment-patch.yaml"))
+			_, err = tests.Kubectl("patch --field-manager replica/manager deployment", "--kubeconfig", kcfg, "-n", depNS, depName, "--patch-file", filepath.Join(testFolderName, "deployment-patch.yaml"))
 			assert.NoError(t, err)
-			depReplicas, err = tests.Kubectl("get deployment -o=jsonpath='{.spec.replicas}' -n", depNS, depName)
+			depReplicas, err = tests.Kubectl("get deployment -o=jsonpath='{.spec.replicas}'", "--kubeconfig", kcfg, "-n", depNS, depName)
 			assert.NoError(t, err)
 			assert.Equal(t, "'3'", string(depReplicas))
 		},
@@ -2144,7 +2172,7 @@ func ignoreChageTest(t *testing.T, testFolderName string) {
 				Additive: true,
 				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 					// Validate replicas was not updated back to 1.
-					depReplicas, err := tests.Kubectl("get deployment -o=jsonpath='{.spec.replicas}' -n", depNS, depName)
+					depReplicas, err := tests.Kubectl("get deployment -o=jsonpath='{.spec.replicas}'", "--kubeconfig", kcfg, "-n", depNS, depName)
 					assert.NoError(t, err)
 					assert.Equal(t, "'3'", string(depReplicas))
 				},
@@ -2154,20 +2182,20 @@ func ignoreChageTest(t *testing.T, testFolderName string) {
 				Additive: true,
 				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 					// Validate image was updated, but spec.replicas was not.
-					depImage, err := tests.Kubectl("get deployment -o=jsonpath='{.spec.template.spec.containers[0].image}' -n", depNS, depName)
+					depImage, err := tests.Kubectl("get deployment -o=jsonpath='{.spec.template.spec.containers[0].image}'", "--kubeconfig", kcfg, "-n", depNS, depName)
 					assert.NoError(t, err)
 					assert.Equal(t, "'nginx:1.25.1'", string(depImage))
 
-					depReplicas, err := tests.Kubectl("get deployment -o=jsonpath='{.spec.replicas}' -n", depNS, depName)
+					depReplicas, err := tests.Kubectl("get deployment -o=jsonpath='{.spec.replicas}'", "--kubeconfig", kcfg, "-n", depNS, depName)
 					assert.NoError(t, err)
 					assert.Equal(t, "'3'", string(depReplicas))
 
 					// Now use kubectl patch to update spec.replicas to 4 and see if we can correctly ignore changes to spec.replicas again when the field manager is
 					// "kubectl-patch" since we have logic to override certain field managers with manager name prefixes. This is due to fluxssa.PatchReplaceFieldsManagers
 					// doing a prefix match on the field manager name instead of an exact match on the given field manager name.
-					_, err = tests.Kubectl("patch deployment -n", depNS, depName, "--patch-file", filepath.Join(testFolderName, "deployment-patch-2.yaml"))
+					_, err = tests.Kubectl("patch deployment", "--kubeconfig", kcfg, "-n", depNS, depName, "--patch-file", filepath.Join(testFolderName, "deployment-patch-2.yaml"))
 					assert.NoError(t, err)
-					depReplicas, err = tests.Kubectl("get deployment -o=jsonpath='{.spec.replicas}' -n", depNS, depName)
+					depReplicas, err = tests.Kubectl("get deployment -o=jsonpath='{.spec.replicas}'", "--kubeconfig", kcfg, "-n", depNS, depName)
 					assert.NoError(t, err)
 					assert.Equal(t, "'4'", string(depReplicas))
 				},
@@ -2177,11 +2205,11 @@ func ignoreChageTest(t *testing.T, testFolderName string) {
 				Additive: true,
 				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 					// Validate image was updated, but spec.replicas was not.
-					depImage, err := tests.Kubectl("get deployment -o=jsonpath='{.spec.template.spec.containers[0].image}' -n", depNS, depName)
+					depImage, err := tests.Kubectl("get deployment", "--kubeconfig", kcfg, "-o=jsonpath='{.spec.template.spec.containers[0].image}' -n", depNS, depName)
 					assert.NoError(t, err)
 					assert.Equal(t, "'nginx:1.25'", string(depImage))
 
-					depReplicas, err := tests.Kubectl("get deployment -o=jsonpath='{.spec.replicas}' -n", depNS, depName)
+					depReplicas, err := tests.Kubectl("get deployment -o=jsonpath='{.spec.replicas}'", "--kubeconfig", kcfg, "-n", depNS, depName)
 					assert.NoError(t, err)
 					assert.Equal(t, "'4'", string(depReplicas))
 				},
@@ -2189,6 +2217,7 @@ func ignoreChageTest(t *testing.T, testFolderName string) {
 		},
 	})
 
+	test, kcfg = testClusters.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -2268,7 +2297,7 @@ func TestFieldManagerPatchResources(t *testing.T) {
 
 	createDeployment := func() string {
 		// Create a random namespace to deploy the nginx deployment to.
-		ns := "test-filed-mgr-" + rand.String(5)
+		ns := "test-field-mgr-" + rand.String(5)
 		_, err := tests.Kubectl("create namespace", ns)
 		require.NoError(t, err)
 		t.Cleanup(func() {
@@ -2351,6 +2380,7 @@ func TestFieldManagerPatchResources(t *testing.T) {
 		},
 	})
 
+	test, _ = testClusters.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -2781,6 +2811,7 @@ func TestOptionPropagation(t *testing.T) {
 		},
 	})
 
+	options, _ = testClusters.WrapProviderTestOptions(options)
 	pt := integration.ProgramTestManualLifeCycle(t, &options)
 
 	err = pt.TestLifeCyclePrepare()

@@ -24,6 +24,7 @@ import (
 	. "github.com/onsi/gomega/gstruct"
 	"github.com/pulumi/providertest/grpclog"
 	"github.com/pulumi/providertest/pulumitest"
+	"github.com/pulumi/pulumi-kubernetes/tests/v4"
 	. "github.com/pulumi/pulumi-kubernetes/tests/v4/gomega"
 	"github.com/pulumi/pulumi/sdk/v3/go/auto"
 	"github.com/pulumi/pulumi/sdk/v3/go/auto/optpreview"
@@ -42,6 +43,7 @@ import (
 // 2. Deploy a program; expected real outputs.
 // 3. Preview an update involving a change to the release name; expect replacement.
 func TestHelmUnknowns(t *testing.T) {
+	tests.SkipIfShort(t)
 	g := NewWithT(t)
 
 	// Copy test_dir to temp directory, install deps and create "my-stack"

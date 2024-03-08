@@ -34,6 +34,9 @@ import (
 // we do a client side diff if the server dry run fails and do not error on preview. We also ensure that we error on pulumi up, and that
 // the configmap was not created using kubectl.
 func TestPreview(t *testing.T) {
+	// TODO(rquitales): Add support for running in Kind cluster.
+	tests.SkipIfShort(t)
+
 	test := baseOptions.With(integration.ProgramTestOptions{
 		Dir:                  "preview-auth",
 		ExpectRefreshChanges: true,
@@ -148,7 +151,7 @@ func createSAKubeconfig(t *testing.T, saName string) (string, error) {
 // TestPreviewWithApply tests the `pulumi preview` CUJ where the user Pulumi program contains an Apply call on status subresoruces.
 // This is to ensure we don't fail preview, since status fields are only populated after the resource is created on cluster.
 func TestPreviewWithApply(t *testing.T) {
-	var externalIP, nsName, svcName string
+	var externalIP, nsName, svcName, kcfg string
 	test := baseOptions.With(integration.ProgramTestOptions{
 		Dir:                  "preview-apply",
 		ExpectRefreshChanges: false,
@@ -174,6 +177,7 @@ func TestPreviewWithApply(t *testing.T) {
 	})
 
 	// Initialize and the test project.
+	test, kcfg = testClusters.WrapProviderTestOptions(test)
 	pt := integration.ProgramTestManualLifeCycle(t, &test)
 	err := pt.TestLifeCyclePrepare()
 	if err != nil {
@@ -200,7 +204,7 @@ func TestPreviewWithApply(t *testing.T) {
 	require.NoError(t, err)
 
 	// Ensure that the ip output is the same as the external ip of the service via kubectl.
-	out, err := tests.Kubectl("get service", svcName, "-n", nsName, "-o jsonpath={.status.loadBalancer.ingress[0].ip}")
+	out, err := tests.Kubectl("get service", svcName, "-n", nsName, "--kubeconfig", kcfg, "-o jsonpath={.status.loadBalancer.ingress[0].ip}")
 	require.NoError(t, err)
 	assert.Equal(t, externalIP, string(out))
 }
