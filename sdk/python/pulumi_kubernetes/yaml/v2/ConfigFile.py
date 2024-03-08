@@ -19,8 +19,8 @@ class ConfigFileArgs:
                  skip_await: Optional[pulumi.Input[bool]] = None):
         """
         The set of arguments for constructing a ConfigFile resource.
-        :param pulumi.Input[str] file: Path or a URL that uniquely identifies a file.
-        :param pulumi.Input[str] resource_prefix: An optional prefix for the auto-generated resource names. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
+        :param pulumi.Input[str] file: Path or URL to a Kubernetes manifest file. File must exist.
+        :param pulumi.Input[str] resource_prefix: A prefix for the auto-generated resource names. Defaults to the name of the ConfigFile. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
         :param pulumi.Input[bool] skip_await: Indicates that child resources should skip the await logic.
         """
         pulumi.set(__self__, "file", file)
@@ -33,7 +33,7 @@ class ConfigFileArgs:
     @pulumi.getter
     def file(self) -> pulumi.Input[str]:
         """
-        Path or a URL that uniquely identifies a file.
+        Path or URL to a Kubernetes manifest file. File must exist.
         """
         return pulumi.get(self, "file")
 
@@ -45,7 +45,7 @@ class ConfigFileArgs:
     @pulumi.getter(name="resourcePrefix")
     def resource_prefix(self) -> Optional[pulumi.Input[str]]:
         """
-        An optional prefix for the auto-generated resource names. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
+        A prefix for the auto-generated resource names. Defaults to the name of the ConfigFile. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
         """
         return pulumi.get(self, "resource_prefix")
 
@@ -92,8 +92,8 @@ class ConfigFile(pulumi.ComponentResource):
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] file: Path or a URL that uniquely identifies a file.
-        :param pulumi.Input[str] resource_prefix: An optional prefix for the auto-generated resource names. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
+        :param pulumi.Input[str] file: Path or URL to a Kubernetes manifest file. File must exist.
+        :param pulumi.Input[str] resource_prefix: A prefix for the auto-generated resource names. Defaults to the name of the ConfigFile. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
         :param pulumi.Input[bool] skip_await: Indicates that child resources should skip the await logic.
         """
         ...

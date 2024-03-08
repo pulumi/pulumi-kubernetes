@@ -70,11 +70,11 @@ export class ConfigFile extends pulumi.ComponentResource {
  */
 export interface ConfigFileArgs {
     /**
-     * Path or a URL that uniquely identifies a file.
+     * Path or URL to a Kubernetes manifest file. File must exist.
      */
     file: pulumi.Input<string>;
     /**
-     * An optional prefix for the auto-generated resource names. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
+     * A prefix for the auto-generated resource names. Defaults to the name of the ConfigFile. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
      */
     resourcePrefix?: pulumi.Input<string>;
     /**

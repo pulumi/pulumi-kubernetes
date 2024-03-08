@@ -1087,13 +1087,13 @@ var yamlConfigFileV2Resource = pschema.ResourceSpec{
 			TypeSpec: pschema.TypeSpec{
 				Type: "string",
 			},
-			Description: "Path or a URL that uniquely identifies a file.",
+			Description: "Path or URL to a Kubernetes manifest file. File must exist.",
 		},
 		"resourcePrefix": {
 			TypeSpec: pschema.TypeSpec{
 				Type: "string",
 			},
-			Description: "An optional prefix for the auto-generated resource names. Example: A resource created with resourcePrefix=\"foo\" would produce a resource named \"foo-resourceName\".",
+			Description: "A prefix for the auto-generated resource names. Defaults to the name of the ConfigFile. Example: A resource created with resourcePrefix=\"foo\" would produce a resource named \"foo-resourceName\".",
 		},
 		"skipAwait": {
 			TypeSpec: pschema.TypeSpec{

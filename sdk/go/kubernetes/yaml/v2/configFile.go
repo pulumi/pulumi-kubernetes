@@ -70,9 +70,9 @@ func NewConfigFile(ctx *pulumi.Context,
 }
 
 type configFileArgs struct {
-	// Path or a URL that uniquely identifies a file.
+	// Path or URL to a Kubernetes manifest file. File must exist.
 	File string `pulumi:"file"`
-	// An optional prefix for the auto-generated resource names. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
+	// A prefix for the auto-generated resource names. Defaults to the name of the ConfigFile. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
 	ResourcePrefix *string `pulumi:"resourcePrefix"`
 	// Indicates that child resources should skip the await logic.
 	SkipAwait *bool `pulumi:"skipAwait"`
@@ -80,9 +80,9 @@ type configFileArgs struct {
 
 // The set of arguments for constructing a ConfigFile resource.
 type ConfigFileArgs struct {
-	// Path or a URL that uniquely identifies a file.
+	// Path or URL to a Kubernetes manifest file. File must exist.
 	File pulumi.StringInput
-	// An optional prefix for the auto-generated resource names. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
+	// A prefix for the auto-generated resource names. Defaults to the name of the ConfigFile. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
 	ResourcePrefix pulumi.StringPtrInput
 	// Indicates that child resources should skip the await logic.
 	SkipAwait pulumi.BoolPtrInput
