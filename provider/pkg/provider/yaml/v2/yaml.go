@@ -120,8 +120,8 @@ func yamlDecode(text string, _ *clients.DynamicClientSet) ([]unstructured.Unstru
 		}
 		resource := unstructured.Unstructured{Object: value}
 
-		// Sometimes manifests include empty resources, so skip these.
-		if len(resource.GetKind()) == 0 || len(resource.GetAPIVersion()) == 0 {
+		// Sometimes manifests include empty blocks, so skip these.
+		if len(value) == 0 {
 			continue
 		}
 		resources = append(resources, resource)
@@ -162,7 +162,7 @@ func parseUnstructured(
 	kind := obj.GetKind()
 	apiVersion := obj.GetAPIVersion()
 	if kind == "" || apiVersion == "" {
-		return nil, errors.Errorf("Kubernetes resources require a kind and apiVersion: %+v", obj)
+		return nil, fmt.Errorf("Kubernetes resources require a kind and apiVersion: `%s`", printUnstructured(obj))
 	}
 	fullKind := fmt.Sprintf("%s/%s", apiVersion, kind)
 
@@ -190,7 +190,7 @@ func parseUnstructured(
 			return nil
 		})
 		if err != nil {
-			return nil, errors.Errorf("YAML object is invalid: %s %+v", fullKind, obj)
+			return nil, fmt.Errorf("YAML object is invalid: `%s`: %w", printUnstructured(obj), err)
 		}
 		return resources, nil
 	}
@@ -198,7 +198,7 @@ func parseUnstructured(
 	// If we got here, it's not a recursively traversed type, so process it directly.
 	// First, validate that it has the requisite metadata and name properties.
 	if obj.GetName() == "" {
-		return nil, errors.Errorf("YAML object does not have a .metadata.name: %s %+v", fullKind, obj)
+		return nil, fmt.Errorf("YAML object does not have a .metadata.name: `%s`", printUnstructured(obj))
 	}
 
 	// Manufacture a resource name as appropriate, out of the meta name, namespace, and optional prefix.
@@ -212,7 +212,9 @@ func parseUnstructured(
 
 	// Apply the skipAwait annotation if necessary.
 	if skipAwait {
-		unstructured.SetNestedField(obj.Object, "true", "metadata", "annotations", "pulumi.com/skipAwait")
+		if err := unstructured.SetNestedField(obj.Object, "true", "metadata", "annotations", "pulumi.com/skipAwait"); err != nil {
+			return nil, fmt.Errorf("YAML object is invalid: `%s`: %w", printUnstructured(obj), err)
+		}
 	}
 
 	if fullKind == "v1/Secret" {
@@ -230,4 +232,17 @@ func parseUnstructured(
 		return nil, err
 	}
 	return []pulumi.CustomResource{res}, nil
+}
+
+func printUnstructured(obj *unstructured.Unstructured) string {
+	truncate := func(s string, maxLen int) string {
+		runes := []rune(s)
+		if len(runes) <= maxLen {
+			return s
+		}
+		return string(runes[0:maxLen-3]) + "..."
+	}
+
+	bytes, _ := obj.MarshalJSON()
+	return truncate(strings.TrimSpace(string(bytes)), 100)
 }

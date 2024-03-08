@@ -172,7 +172,7 @@ var _ = Describe("ParseDecodeYamlFiles", func() {
 			commonAssertions()
 		})
 
-		Context("when the manifest is empty", func() {
+		Context("when the manifest has empty blocks", func() {
 			BeforeEach(func() {
 				args.YAML = "---"
 			})
