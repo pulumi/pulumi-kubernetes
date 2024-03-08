@@ -173,7 +173,10 @@ func generateSchema(swaggerPath string) schema.PackageSpec {
 }
 
 // This is to mostly filter resources from the spec.
-var resourcesToFilterFromTemplate = codegen.NewStringSet("kubernetes:helm.sh/v3:Release")
+var resourcesToFilterFromTemplate = codegen.NewStringSet(
+	"kubernetes:helm.sh/v3:Release",
+	"kubernetes:yaml/v2:ConfigGroup",
+)
 
 func writeNodeJSClient(pkg *schema.Package, outdir, templateDir string) {
 	resources, err := nodejsgen.LanguageResources(pkg)
@@ -404,6 +407,7 @@ func writeGoClient(pkg *schema.Package, outdir string, templateDir string) {
 	files["kubernetes/yaml/configGroup.go"] = mustLoadGoFile(filepath.Join(templateDir, "yaml", "configGroup.go"))
 	files["kubernetes/yaml/transformation.go"] = mustLoadGoFile(filepath.Join(templateDir, "yaml", "transformation.go"))
 	files["kubernetes/yaml/yaml.go"] = mustRenderGoTemplate(filepath.Join(templateDir, "yaml", "yaml.tmpl"), templateResources)
+	files["kubernetes/yaml/v2/kinds.go"] = mustRenderGoTemplate(filepath.Join(templateDir, "yaml", "v2", "kinds.tmpl"), templateResources)
 
 	mustWriteFiles(outdir, files)
 }

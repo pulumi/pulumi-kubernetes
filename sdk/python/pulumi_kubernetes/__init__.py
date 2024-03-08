@@ -861,6 +861,14 @@ _utilities.register(
    "kubernetes:storage.k8s.io/v1beta1:VolumeAttachmentList": "VolumeAttachmentList",
    "kubernetes:storage.k8s.io/v1beta1:VolumeAttachmentPatch": "VolumeAttachmentPatch"
   }
+ },
+ {
+  "pkg": "kubernetes",
+  "mod": "yaml/v2",
+  "fqn": "pulumi_kubernetes.yaml.v2",
+  "classes": {
+   "kubernetes:yaml/v2:ConfigGroup": "ConfigGroup"
+  }
  }
 ]
 """,

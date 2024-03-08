@@ -2,6 +2,11 @@ module github.com/pulumi/pulumi-kubernetes/provider/v4
 
 go 1.21
 
+replace (
+	github.com/pulumi/pulumi-kubernetes/sdk/v4 => ../sdk
+	github.com/pulumi/pulumi-kubernetes/tests/v4 => ../tests
+)
+
 require (
 	github.com/ahmetb/go-linq v3.0.0+incompatible
 	github.com/evanphx/json-patch v5.7.0+incompatible
@@ -14,10 +19,12 @@ require (
 	github.com/onsi/gomega v1.30.0
 	github.com/pkg/errors v0.9.1
 	github.com/pulumi/cloud-ready-checks v1.1.0
+	github.com/pulumi/pulumi-kubernetes/sdk/v4 v4.0.0
+	github.com/pulumi/pulumi-kubernetes/tests/v4 v4.0.0-20240302002028-652829a1ed71
 	github.com/pulumi/pulumi/pkg/v3 v3.109.0
 	github.com/pulumi/pulumi/sdk/v3 v3.109.0
 	github.com/stretchr/testify v1.8.4
-	golang.org/x/crypto v0.17.0
+	golang.org/x/crypto v0.18.0
 	google.golang.org/grpc v1.59.0
 	gopkg.in/yaml.v3 v3.0.1
 	helm.sh/helm/v3 v3.14.2
@@ -189,15 +196,15 @@ require (
 	golang.org/x/net v0.19.0
 	golang.org/x/oauth2 v0.14.0 // indirect
 	golang.org/x/sync v0.5.0 // indirect
-	golang.org/x/sys v0.15.0 // indirect
-	golang.org/x/term v0.15.0 // indirect
+	golang.org/x/sys v0.16.0 // indirect
+	golang.org/x/term v0.16.0 // indirect
 	golang.org/x/text v0.14.0
 	golang.org/x/time v0.4.0 // indirect
 	golang.org/x/xerrors v0.0.0-20231012003039-104605ab7028 // indirect
 	google.golang.org/api v0.151.0 // indirect
 	google.golang.org/appengine v1.6.8 // indirect
 	google.golang.org/genproto v0.0.0-20231120223509-83a465c0220f // indirect
-	google.golang.org/protobuf v1.31.0 // indirect
+	google.golang.org/protobuf v1.31.0
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	gopkg.in/square/go-jose.v2 v2.6.0 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect

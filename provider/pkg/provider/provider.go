@@ -46,6 +46,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/logging"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/metadata"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/openapi"
+	providerresource "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/resource"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/ssa"
 	pulumischema "github.com/pulumi/pulumi/pkg/v3/codegen/schema"
 	"github.com/pulumi/pulumi/pkg/v3/resource/deploy/providers"
@@ -153,6 +154,8 @@ type kubeProvider struct {
 
 	resources      k8sopenapi.Resources
 	resourcesMutex sync.RWMutex
+
+	resourceProviders map[string]providerresource.ResourceProviderFactory
 }
 
 var _ pulumirpc.ResourceProviderServer = (*kubeProvider)(nil)
@@ -173,6 +176,7 @@ func makeKubeProvider(
 		deleteUnreachable:           false,
 		skipUpdateUnreachable:       false,
 		makeClient:                  makeClient,
+		resourceProviders:           resourceProviders,
 	}, nil
 }
 
@@ -235,11 +239,6 @@ func (k *kubeProvider) GetMapping(ctx context.Context, request *pulumirpc.GetMap
 		Provider: "kubernetes",
 		Data:     k.terraformMapping,
 	}, nil
-}
-
-// Construct creates a new instance of the provided component resource and returns its state.
-func (k *kubeProvider) Construct(ctx context.Context, req *pulumirpc.ConstructRequest) (*pulumirpc.ConstructResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "Construct is not yet implemented")
 }
 
 // GetSchema returns the JSON-encoded schema for this provider's package.

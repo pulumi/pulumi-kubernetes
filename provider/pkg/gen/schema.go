@@ -237,6 +237,7 @@ func PulumiSchema(swagger map[string]any) pschema.PackageSpec {
 	}
 	pkgImportAliases := map[string]string{
 		"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v3": "helmv3",
+		"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/yaml/v2": "yamlv2",
 	}
 
 	definitions := swagger["definitions"].(map[string]any)
