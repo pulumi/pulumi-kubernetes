@@ -13,3 +13,19 @@
 // limitations under the License.
 
 package test
+
+import (
+	"flag"
+	"os"
+	"testing"
+)
+
+func TestMain(m *testing.M) {
+	// These are needed for the Java test suite to pass if we provide our custom flags.
+	_ = flag.Bool("create-cluster", false, "Create a cluster for the tests, default is false and to use an existing cluster")
+	_ = flag.String("cluster-type", "kind", "The type of cluster to create for the tests, default is kind")
+	_ = flag.Int("num-clusters", 1, "The number of clusters to create for the tests, default is 1")
+	flag.Parse()
+
+	os.Exit(m.Run())
+}
