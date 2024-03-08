@@ -62,6 +62,7 @@ func TestDotnet_Basic(t *testing.T) {
 		Quick:                true,
 		ExpectRefreshChanges: true, // The CRD sometimes, but not always, has changes during refresh.
 	})
+	test, _ = testClusters.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -70,6 +71,7 @@ func TestDotnet_Guestbook(t *testing.T) {
 		Dir:   "guestbook",
 		Quick: true,
 	})
+	test, _ = testClusters.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -91,6 +93,7 @@ func TestDotnet_YamlUrl(t *testing.T) {
 			assert.Equal(t, 18, len(stackInfo.Deployment.Resources))
 		},
 	})
+	test, _ = testClusters.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -106,6 +109,7 @@ func TestDotnet_YamlLocal(t *testing.T) {
 			},
 		},
 	})
+	test, _ = testClusters.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -129,6 +133,7 @@ func TestDotnet_Helm(t *testing.T) {
 			}
 		},
 	})
+	test, _ = testClusters.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -169,6 +174,7 @@ func TestDotnet_HelmLocal(t *testing.T) {
 			}
 		},
 	})
+	test, _ = testClusters.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -189,6 +195,7 @@ func TestDotnet_HelmApiVersions(t *testing.T) {
 			assert.Equal(t, 7, len(stackInfo.Deployment.Resources))
 		},
 	})
+	test, _ = testClusters.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -208,6 +215,7 @@ func TestDotnet_HelmKubeVersion(t *testing.T) {
 			assert.NotNil(t, stackInfo.Deployment)
 		},
 	})
+	test, _ = testClusters.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -234,6 +242,7 @@ func TestDotnet_HelmAllowCRDRendering(t *testing.T) {
 			}
 		},
 	})
+	test, _ = testClusters.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -243,6 +252,7 @@ func TestDotnet_CustomResource(t *testing.T) {
 		Quick:                true,
 		ExpectRefreshChanges: true, // The CRD sometimes, but not always, has changes during refresh.
 	})
+	test, _ = testClusters.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -258,6 +268,7 @@ func TestDotnet_Kustomize(t *testing.T) {
 			},
 		},
 	})
+	test, _ = testClusters.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -283,6 +294,7 @@ func TestDotnet_Secrets(t *testing.T) {
 			assert.NotContains(t, string(state), b64.StdEncoding.EncodeToString([]byte(secretMessage)))
 		},
 	})
+	test, _ = testClusters.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -307,6 +319,7 @@ func TestDotnet_ServerSideApply(t *testing.T) {
 		//	assert.Equal(t, "foo", fooV)
 		//},
 	})
+	test, _ = testClusters.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -783,6 +796,7 @@ func TestOptionPropagation(t *testing.T) {
 		},
 	})
 
+	options, _ = testClusters.WrapProviderTestOptions(options)
 	pt := integration.ProgramTestManualLifeCycle(t, &options)
 
 	err = pt.TestLifeCyclePrepare()
