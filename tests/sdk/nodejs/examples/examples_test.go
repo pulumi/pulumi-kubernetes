@@ -39,6 +39,7 @@ func TestAccMinimal(t *testing.T) {
 			Dir: filepath.Join(getCwd(t), "minimal"),
 		})
 
+	test, _ = testClusters.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -259,6 +260,7 @@ func TestAccHelmAllowCRDRendering(t *testing.T) {
 				}
 			},
 		})
+	test, _ = testClusters.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -564,6 +566,7 @@ func TestHelmTemplatePanic(t *testing.T) {
 				},
 			},
 		})
+	test, _ = testClusters.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 

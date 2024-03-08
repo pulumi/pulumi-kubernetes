@@ -151,6 +151,8 @@ func createSAKubeconfig(t *testing.T, saName string) (string, error) {
 // TestPreviewWithApply tests the `pulumi preview` CUJ where the user Pulumi program contains an Apply call on status subresoruces.
 // This is to ensure we don't fail preview, since status fields are only populated after the resource is created on cluster.
 func TestPreviewWithApply(t *testing.T) {
+	tests.SkipIfShort(t)
+
 	var externalIP, nsName, svcName, kcfg string
 	test := baseOptions.With(integration.ProgramTestOptions{
 		Dir:                  "preview-apply",
