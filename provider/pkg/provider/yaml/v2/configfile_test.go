@@ -89,10 +89,44 @@ var _ = Describe("ConfigFile.Construct", func() {
 				outputs := unmarshalProperties(GinkgoTB(), resp.State)
 				Expect(outputs).To(MatchProps(IgnoreExtras, Props{
 					"resources": MatchArrayValue(HaveExactElements(
-						MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigFile$kubernetes:core/v1:ConfigMap::my-map", "my-map"),
-						MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigFile$kubernetes:stable.example.com/v1:CronTab::my-new-cron-object", "my-new-cron-object"),
+						MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigFile$kubernetes:core/v1:ConfigMap::test-my-map", "test-my-map"),
+						MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigFile$kubernetes:stable.example.com/v1:CronTab::test-my-new-cron-object", "test-my-new-cron-object"),
 					)),
 				}))
+			})
+
+			Context("given a resource prefix", func() {
+				BeforeEach(func() {
+					inputs["resourcePrefix"] = resource.NewStringProperty("prefixed")
+				})
+				It("should use the prefix (instead of the component name)", func(ctx context.Context) {
+					resp, err := pulumiprovider.Construct(ctx, req, tc.EngineConn(), k.Construct)
+					Expect(err).ShouldNot(HaveOccurred())
+					outputs := unmarshalProperties(GinkgoTB(), resp.State)
+					Expect(outputs).To(MatchProps(IgnoreExtras, Props{
+						"resources": MatchArrayValue(HaveExactElements(
+							MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigFile$kubernetes:core/v1:ConfigMap::prefixed-my-map", "prefixed-my-map"),
+							MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigFile$kubernetes:stable.example.com/v1:CronTab::prefixed-my-new-cron-object", "prefixed-my-new-cron-object"),
+						)),
+					}))
+				})
+			})
+
+			Context("given a blank resource prefix", func() {
+				BeforeEach(func() {
+					inputs["resourcePrefix"] = resource.NewStringProperty("")
+				})
+				It("should have no prefix", func(ctx context.Context) {
+					resp, err := pulumiprovider.Construct(ctx, req, tc.EngineConn(), k.Construct)
+					Expect(err).ShouldNot(HaveOccurred())
+					outputs := unmarshalProperties(GinkgoTB(), resp.State)
+					Expect(outputs).To(MatchProps(IgnoreExtras, Props{
+						"resources": MatchArrayValue(HaveExactElements(
+							MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigFile$kubernetes:core/v1:ConfigMap::my-map", "my-map"),
+							MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigFile$kubernetes:stable.example.com/v1:CronTab::my-new-cron-object", "my-new-cron-object"),
+						)),
+					}))
+				})
 			})
 		})
 	})

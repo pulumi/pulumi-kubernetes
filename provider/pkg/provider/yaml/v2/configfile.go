@@ -76,18 +76,20 @@ func (k *ConfigFileProvider) Construct(ctx *pulumi.Context, typ, name string, in
 	comp.Resources = pulumi.All(args.File, args.ResourcePrefix, args.SkipAwait).ApplyTWithContext(ctx.Context(), func(_ context.Context, args []any) (pulumi.ArrayOutput, error) {
 		// make type assertions to get each value (or the zero value)
 		file, _ := args[0].(string)
-		resourcePrefix, _ := args[1].(string)
+		resourcePrefix, hasResourcePrefix := args[1].(string)
 		skipAwait, _ := args[2].(bool)
 
-		resources, err := ParseDecodeYamlFiles(ctx, &ParseArgs{
+		if !hasResourcePrefix {
+			// use the name of the ConfigFile as the resource prefix to ensure uniqueness
+			// across multiple instances of the component resource.
+			resourcePrefix = name
+		}
+
+		return ParseDecodeYamlFiles(ctx, &ParseArgs{
 			Files:          []string{file},
 			ResourcePrefix: resourcePrefix,
 			SkipAwait:      skipAwait,
 		}, false, k.clientSet, pulumi.Parent(comp))
-		if err != nil {
-			return pulumi.ArrayOutput{}, err
-		}
-		return resources, nil
 	}).(pulumi.ArrayOutput)
 
 	// issue: https://github.com/pulumi/pulumi/issues/15527
