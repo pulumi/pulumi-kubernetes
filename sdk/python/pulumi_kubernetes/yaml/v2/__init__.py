@@ -5,4 +5,5 @@
 from ... import _utilities
 import typing
 # Export this package's modules as members:
+from .ConfigFile import *
 from .ConfigGroup import *

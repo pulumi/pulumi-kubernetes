@@ -223,11 +223,13 @@ func PulumiSchema(swagger map[string]any) pschema.PackageSpec {
 		"helm.sh/v2":    "Helm.V2",
 		"helm.sh/v3":    "Helm.V3",
 		"yaml":          "Yaml",
+		"yaml/v2":       "Yaml.V2",
 		"":              "Provider",
 	}
 	javaPackages := map[string]string{
 		"helm.sh/v2": "helm.v2",
 		"helm.sh/v3": "helm.v3",
+		"yaml/v2":    "yaml.v2",
 	}
 	modToPkg := map[string]string{
 		"apiextensions.k8s.io": "apiextensions",

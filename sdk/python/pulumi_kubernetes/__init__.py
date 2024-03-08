@@ -867,6 +867,7 @@ _utilities.register(
   "mod": "yaml/v2",
   "fqn": "pulumi_kubernetes.yaml.v2",
   "classes": {
+   "kubernetes:yaml/v2:ConfigFile": "ConfigFile",
    "kubernetes:yaml/v2:ConfigGroup": "ConfigGroup"
   }
  }

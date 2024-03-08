@@ -26,6 +26,7 @@ import (
 
 // resourceProviders contains factories for component resource providers.
 var resourceProviders = map[string]providerresource.ResourceProviderFactory{
+	"kubernetes:yaml/v2:ConfigFile":  provideryamlv2.NewConfigFileProvider,
 	"kubernetes:yaml/v2:ConfigGroup": provideryamlv2.NewConfigGroupProvider,
 }
 

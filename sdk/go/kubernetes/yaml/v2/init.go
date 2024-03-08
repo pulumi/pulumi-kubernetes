@@ -21,6 +21,8 @@ func (m *module) Version() semver.Version {
 
 func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi.Resource, err error) {
 	switch typ {
+	case "kubernetes:yaml/v2:ConfigFile":
+		r = &ConfigFile{}
 	case "kubernetes:yaml/v2:ConfigGroup":
 		r = &ConfigGroup{}
 	default:
