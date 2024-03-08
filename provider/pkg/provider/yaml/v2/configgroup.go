@@ -32,7 +32,7 @@ type ConfigGroupProvider struct {
 
 type ConfigGroupArgs struct {
 	Files          pulumi.StringArrayInput `pulumi:"files"`
-	YAML           pulumi.StringArrayInput `pulumi:"yaml,optional"`
+	YAML           pulumi.StringInput      `pulumi:"yaml,optional"`
 	Objects        pulumi.MapArrayInput    `pulumi:"objs,optional"`
 	ResourcePrefix pulumi.StringInput      `pulumi:"resourcePrefix,optional"`
 	SkipAwait      pulumi.BoolInput        `pulumi:"skipAwait,optional"`
@@ -80,7 +80,7 @@ func (k *ConfigGroupProvider) Construct(ctx *pulumi.Context, typ, name string, i
 		// make type assertions to get each value (or the zero value)
 		// note: "objects" contains unwrapped values at this point
 		files, _ := args[0].([]string)
-		yaml, _ := args[1].([]string)
+		yaml, _ := args[1].(string)
 		objects, _ := args[2].([]map[string]any)
 		resourcePrefix, hasResourcePrefix := args[3].(string)
 		skipAwait, _ := args[4].(bool)

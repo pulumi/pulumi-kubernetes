@@ -109,74 +109,6 @@ namespace Pulumi.Kubernetes.Yaml.V2
     ///     }
     /// }
     /// ```
-    /// ### YAML with Transformations
-    /// ```csharp
-    /// using System.Collections.Generic;
-    /// using System.Collections.Immutable;
-    /// using System.Threading.Tasks;
-    /// using Pulumi;
-    /// using Pulumi.Kubernetes.Yaml.V2;
-    /// 
-    /// class YamlStack : Stack
-    /// {
-    ///     public YamlStack()
-    ///     {
-    ///         var helloWorld = new ConfigGroup("example", new ConfigGroupArgs
-    ///         {
-    ///             Files = new[] { "foo.yaml" },
-    ///             Transformations =
-    ///                {
-    ///                    LoadBalancerToClusterIP,
-    ///                    ResourceAlias,
-    ///                    OmitTestPod,
-    ///                }
-    ///         });
-    /// 
-    ///         // Make every service private to the cluster, i.e., turn all services into ClusterIP instead of LoadBalancer.
-    ///         ImmutableDictionary&lt;string, object&gt; LoadBalancerToClusterIP(ImmutableDictionary&lt;string, object&gt; obj, CustomResourceOptions opts)
-    ///         {
-    ///             if ((string)obj["kind"] == "Service" &amp;&amp; (string)obj["apiVersion"] == "v1")
-    ///             {
-    ///                 var spec = (ImmutableDictionary&lt;string, object&gt;)obj["spec"];
-    ///                 if (spec != null &amp;&amp; (string)spec["type"] == "LoadBalancer")
-    ///                 {
-    ///                     return obj.SetItem("spec", spec.SetItem("type", "ClusterIP"));
-    ///                 }
-    ///             }
-    /// 
-    ///             return obj;
-    ///         }
-    /// 
-    ///         // Set a resource alias for a previous name.
-    ///         ImmutableDictionary&lt;string, object&gt; ResourceAlias(ImmutableDictionary&lt;string, object&gt; obj, CustomResourceOptions opts)
-    ///         {
-    ///             if ((string)obj["kind"] == "Deployment")
-    ///             {
-    ///                 opts.Aliases.Add(new Alias { Name = "oldName" });
-    ///             }
-    /// 
-    ///             return obj;
-    ///         }
-    /// 
-    ///         // Omit a resource from the Chart by transforming the specified resource definition to an empty List.
-    ///         ImmutableDictionary&lt;string, object&gt; OmitTestPod(ImmutableDictionary&lt;string, object&gt; obj, CustomResourceOptions opts)
-    ///         {
-    ///             var metadata = (ImmutableDictionary&lt;string, object&gt;)obj["metadata"];
-    ///             if ((string)obj["kind"] == "Pod" &amp;&amp; (string)metadata["name"] == "test")
-    ///             {
-    ///                 return new Dictionary&lt;string, object&gt;
-    ///                 {
-    ///                     ["apiVersion"] = "v1",
-    ///                     ["kind"] = "List",
-    ///                     ["items"] = new Dictionary&lt;string, object&gt;(),
-    ///                 }.ToImmutableDictionary();
-    ///             }
-    /// 
-    ///             return obj;
-    ///         }
-    ///     }
-    /// }
-    /// ```
     /// {% /examples %}}
     /// </summary>
     [KubernetesResourceType("kubernetes:yaml/v2:ConfigGroup")]
@@ -219,17 +151,29 @@ namespace Pulumi.Kubernetes.Types.Inputs.Yaml.V2
 
     public class ConfigGroupArgs : global::Pulumi.ResourceArgs
     {
-        /// <summary>
-        /// Set of paths or a URLs that uniquely identify files.
-        /// </summary>
         [Input("files")]
-        public InputUnion<string, ImmutableArray<string>>? Files { get; set; }
+        private InputList<string>? _files;
 
         /// <summary>
-        /// Objects representing Kubernetes resources.
+        /// Set of paths and/or URLs to Kubernetes manifest files. Supports glob patterns.
         /// </summary>
+        public InputList<string> Files
+        {
+            get => _files ?? (_files = new InputList<string>());
+            set => _files = value;
+        }
+
         [Input("objs")]
-        public InputUnion<object, ImmutableArray<object>>? Objs { get; set; }
+        private InputList<object>? _objs;
+
+        /// <summary>
+        /// Objects representing Kubernetes resource configurations.
+        /// </summary>
+        public InputList<object> Objs
+        {
+            get => _objs ?? (_objs = new InputList<object>());
+            set => _objs = value;
+        }
 
         /// <summary>
         /// A prefix for the auto-generated resource names. Defaults to the name of the ConfigGroup. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
@@ -244,10 +188,10 @@ namespace Pulumi.Kubernetes.Types.Inputs.Yaml.V2
         public Input<bool>? SkipAwait { get; set; }
 
         /// <summary>
-        /// YAML text containing Kubernetes manifest(s).
+        /// A Kubernetes YAML manifest containing Kubernetes resource configuration(s).
         /// </summary>
         [Input("yaml")]
-        public InputUnion<string, ImmutableArray<string>>? Yaml { get; set; }
+        public Input<string>? Yaml { get; set; }
 
         public ConfigGroupArgs()
         {

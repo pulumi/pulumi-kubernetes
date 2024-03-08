@@ -165,65 +165,6 @@ import (
 //	}
 //
 // ```
-// ### YAML with Transformations
-// ```go
-// package main
-//
-// import (
-//
-//	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/yaml/v2"
-//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//
-// )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := yaml.NewConfigGroup(ctx, "example",
-//				&yaml.ConfigGroupArgs{
-//					Files: []string{"foo.yaml"},
-//					Transformations: []yaml.Transformation{
-//						// Make every service private to the cluster, i.e., turn all services into ClusterIP
-//						// instead of LoadBalancer.
-//						func(state map[string]interface{}, opts ...pulumi.ResourceOption) {
-//							if state["kind"] == "Service" {
-//								spec := state["spec"].(map[string]interface{})
-//								spec["type"] = "ClusterIP"
-//							}
-//						},
-//
-//						// Set a resource alias for a previous name.
-//						func(state map[string]interface{}, opts ...pulumi.ResourceOption) {
-//							if state["kind"] == "Deployment" {
-//								aliases := pulumi.Aliases([]pulumi.Alias{
-//									{
-//										Name: pulumi.String("oldName"),
-//									},
-//								})
-//								opts = append(opts, aliases)
-//							}
-//						},
-//
-//						// Omit a resource from the Chart by transforming the specified resource definition
-//						// to an empty List.
-//						func(state map[string]interface{}, opts ...pulumi.ResourceOption) {
-//							name := state["metadata"].(map[string]interface{})["name"]
-//							if state["kind"] == "Pod" && name == "test" {
-//								state["apiVersion"] = "core/v1"
-//								state["kind"] = "List"
-//							}
-//						},
-//					},
-//				},
-//			)
-//			if err != nil {
-//				return err
-//			}
-//
-//			return nil
-//		})
-//	}
-//
-// ```
 // {% /examples %}}
 type ConfigGroup struct {
 	pulumi.ResourceState
@@ -249,30 +190,30 @@ func NewConfigGroup(ctx *pulumi.Context,
 }
 
 type configGroupArgs struct {
-	// Set of paths or a URLs that uniquely identify files.
-	Files interface{} `pulumi:"files"`
-	// Objects representing Kubernetes resources.
-	Objs interface{} `pulumi:"objs"`
+	// Set of paths and/or URLs to Kubernetes manifest files. Supports glob patterns.
+	Files []string `pulumi:"files"`
+	// Objects representing Kubernetes resource configurations.
+	Objs []interface{} `pulumi:"objs"`
 	// A prefix for the auto-generated resource names. Defaults to the name of the ConfigGroup. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
 	ResourcePrefix *string `pulumi:"resourcePrefix"`
 	// Indicates that child resources should skip the await logic.
 	SkipAwait *bool `pulumi:"skipAwait"`
-	// YAML text containing Kubernetes manifest(s).
-	Yaml interface{} `pulumi:"yaml"`
+	// A Kubernetes YAML manifest containing Kubernetes resource configuration(s).
+	Yaml *string `pulumi:"yaml"`
 }
 
 // The set of arguments for constructing a ConfigGroup resource.
 type ConfigGroupArgs struct {
-	// Set of paths or a URLs that uniquely identify files.
-	Files pulumi.Input
-	// Objects representing Kubernetes resources.
-	Objs pulumi.Input
+	// Set of paths and/or URLs to Kubernetes manifest files. Supports glob patterns.
+	Files pulumi.StringArrayInput
+	// Objects representing Kubernetes resource configurations.
+	Objs pulumi.ArrayInput
 	// A prefix for the auto-generated resource names. Defaults to the name of the ConfigGroup. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
 	ResourcePrefix pulumi.StringPtrInput
 	// Indicates that child resources should skip the await logic.
 	SkipAwait pulumi.BoolPtrInput
-	// YAML text containing Kubernetes manifest(s).
-	Yaml pulumi.Input
+	// A Kubernetes YAML manifest containing Kubernetes resource configuration(s).
+	Yaml pulumi.StringPtrInput
 }
 
 func (ConfigGroupArgs) ElementType() reflect.Type {

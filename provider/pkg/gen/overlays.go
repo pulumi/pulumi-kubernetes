@@ -1170,35 +1170,21 @@ var yamlConfigGroupV2Resource = pschema.ResourceSpec{
 	InputProperties: map[string]pschema.PropertySpec{
 		"files": {
 			TypeSpec: pschema.TypeSpec{
-				OneOf: []pschema.TypeSpec{
-					{
-						Type: "string",
-					},
-					{
-						Type: "array",
-						Items: &pschema.TypeSpec{
-							Type: "string",
-						},
-					},
+				Type: "array",
+				Items: &pschema.TypeSpec{
+					Type: "string",
 				},
 			},
-			Description: "Set of paths or a URLs that uniquely identify files.",
+			Description: "Set of paths and/or URLs to Kubernetes manifest files. Supports glob patterns.",
 		},
 		"objs": {
 			TypeSpec: pschema.TypeSpec{
-				OneOf: []pschema.TypeSpec{
-					{
-						Ref: "pulumi.json#/Any",
-					},
-					{
-						Type: "array",
-						Items: &pschema.TypeSpec{
-							Ref: "pulumi.json#/Any",
-						},
-					},
+				Type: "array",
+				Items: &pschema.TypeSpec{
+					Ref: "pulumi.json#/Any",
 				},
 			},
-			Description: "Objects representing Kubernetes resources.",
+			Description: "Objects representing Kubernetes resource configurations.",
 		},
 		"resourcePrefix": {
 			TypeSpec: pschema.TypeSpec{
@@ -1214,19 +1200,9 @@ var yamlConfigGroupV2Resource = pschema.ResourceSpec{
 		},
 		"yaml": {
 			TypeSpec: pschema.TypeSpec{
-				OneOf: []pschema.TypeSpec{
-					{
-						Type: "string",
-					},
-					{
-						Type: "array",
-						Items: &pschema.TypeSpec{
-							Type: "string",
-						},
-					},
-				},
+				Type: "string",
 			},
-			Description: "YAML text containing Kubernetes manifest(s).",
+			Description: "A Kubernetes YAML manifest containing Kubernetes resource configuration(s).",
 		},
 	},
 }

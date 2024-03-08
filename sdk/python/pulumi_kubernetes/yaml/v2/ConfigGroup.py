@@ -14,18 +14,18 @@ __all__ = ['ConfigGroupArgs', 'ConfigGroup']
 @pulumi.input_type
 class ConfigGroupArgs:
     def __init__(__self__, *,
-                 files: Optional[pulumi.Input[Union[str, Sequence[pulumi.Input[str]]]]] = None,
-                 objs: Optional[pulumi.Input[Union[Any, Sequence[Any]]]] = None,
+                 files: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 objs: Optional[pulumi.Input[Sequence[Any]]] = None,
                  resource_prefix: Optional[pulumi.Input[str]] = None,
                  skip_await: Optional[pulumi.Input[bool]] = None,
-                 yaml: Optional[pulumi.Input[Union[str, Sequence[pulumi.Input[str]]]]] = None):
+                 yaml: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a ConfigGroup resource.
-        :param pulumi.Input[Union[str, Sequence[pulumi.Input[str]]]] files: Set of paths or a URLs that uniquely identify files.
-        :param pulumi.Input[Union[Any, Sequence[Any]]] objs: Objects representing Kubernetes resources.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] files: Set of paths and/or URLs to Kubernetes manifest files. Supports glob patterns.
+        :param pulumi.Input[Sequence[Any]] objs: Objects representing Kubernetes resource configurations.
         :param pulumi.Input[str] resource_prefix: A prefix for the auto-generated resource names. Defaults to the name of the ConfigGroup. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
         :param pulumi.Input[bool] skip_await: Indicates that child resources should skip the await logic.
-        :param pulumi.Input[Union[str, Sequence[pulumi.Input[str]]]] yaml: YAML text containing Kubernetes manifest(s).
+        :param pulumi.Input[str] yaml: A Kubernetes YAML manifest containing Kubernetes resource configuration(s).
         """
         if files is not None:
             pulumi.set(__self__, "files", files)
@@ -40,26 +40,26 @@ class ConfigGroupArgs:
 
     @property
     @pulumi.getter
-    def files(self) -> Optional[pulumi.Input[Union[str, Sequence[pulumi.Input[str]]]]]:
+    def files(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
-        Set of paths or a URLs that uniquely identify files.
+        Set of paths and/or URLs to Kubernetes manifest files. Supports glob patterns.
         """
         return pulumi.get(self, "files")
 
     @files.setter
-    def files(self, value: Optional[pulumi.Input[Union[str, Sequence[pulumi.Input[str]]]]]):
+    def files(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
         pulumi.set(self, "files", value)
 
     @property
     @pulumi.getter
-    def objs(self) -> Optional[pulumi.Input[Union[Any, Sequence[Any]]]]:
+    def objs(self) -> Optional[pulumi.Input[Sequence[Any]]]:
         """
-        Objects representing Kubernetes resources.
+        Objects representing Kubernetes resource configurations.
         """
         return pulumi.get(self, "objs")
 
     @objs.setter
-    def objs(self, value: Optional[pulumi.Input[Union[Any, Sequence[Any]]]]):
+    def objs(self, value: Optional[pulumi.Input[Sequence[Any]]]):
         pulumi.set(self, "objs", value)
 
     @property
@@ -88,14 +88,14 @@ class ConfigGroupArgs:
 
     @property
     @pulumi.getter
-    def yaml(self) -> Optional[pulumi.Input[Union[str, Sequence[pulumi.Input[str]]]]]:
+    def yaml(self) -> Optional[pulumi.Input[str]]:
         """
-        YAML text containing Kubernetes manifest(s).
+        A Kubernetes YAML manifest containing Kubernetes resource configuration(s).
         """
         return pulumi.get(self, "yaml")
 
     @yaml.setter
-    def yaml(self, value: Optional[pulumi.Input[Union[str, Sequence[pulumi.Input[str]]]]]):
+    def yaml(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "yaml", value)
 
 
@@ -104,11 +104,11 @@ class ConfigGroup(pulumi.ComponentResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 files: Optional[pulumi.Input[Union[str, Sequence[pulumi.Input[str]]]]] = None,
-                 objs: Optional[pulumi.Input[Union[Any, Sequence[Any]]]] = None,
+                 files: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 objs: Optional[pulumi.Input[Sequence[Any]]] = None,
                  resource_prefix: Optional[pulumi.Input[str]] = None,
                  skip_await: Optional[pulumi.Input[bool]] = None,
-                 yaml: Optional[pulumi.Input[Union[str, Sequence[pulumi.Input[str]]]]] = None,
+                 yaml: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
         ConfigGroup creates a set of Kubernetes resources from Kubernetes YAML text. The YAML text
@@ -170,49 +170,15 @@ class ConfigGroup(pulumi.ComponentResource):
         ''']
         )
         ```
-        ### YAML with Transformations
-        ```python
-        from pulumi_kubernetes.yaml.v2 import ConfigGroup
-
-        # Make every service private to the cluster, i.e., turn all services into ClusterIP instead of LoadBalancer.
-        def make_service_private(obj, opts):
-            if obj["kind"] == "Service" and obj["apiVersion"] == "v1":
-                try:
-                    t = obj["spec"]["type"]
-                    if t == "LoadBalancer":
-                        obj["spec"]["type"] = "ClusterIP"
-                except KeyError:
-                    pass
-
-
-        # Set a resource alias for a previous name.
-        def alias(obj, opts):
-            if obj["kind"] == "Deployment":
-                opts.aliases = ["oldName"]
-
-
-        # Omit a resource from the Chart by transforming the specified resource definition to an empty List.
-        def omit_resource(obj, opts):
-            if obj["kind"] == "Pod" and obj["metadata"]["name"] == "test":
-                obj["apiVersion"] = "v1"
-                obj["kind"] = "List"
-
-
-        example = ConfigGroup(
-            "example",
-            files=["foo.yaml"],
-            transformations=[make_service_private, alias, omit_resource],
-        )
-        ```
         {% /examples %}}
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[Union[str, Sequence[pulumi.Input[str]]]] files: Set of paths or a URLs that uniquely identify files.
-        :param pulumi.Input[Union[Any, Sequence[Any]]] objs: Objects representing Kubernetes resources.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] files: Set of paths and/or URLs to Kubernetes manifest files. Supports glob patterns.
+        :param pulumi.Input[Sequence[Any]] objs: Objects representing Kubernetes resource configurations.
         :param pulumi.Input[str] resource_prefix: A prefix for the auto-generated resource names. Defaults to the name of the ConfigGroup. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
         :param pulumi.Input[bool] skip_await: Indicates that child resources should skip the await logic.
-        :param pulumi.Input[Union[str, Sequence[pulumi.Input[str]]]] yaml: YAML text containing Kubernetes manifest(s).
+        :param pulumi.Input[str] yaml: A Kubernetes YAML manifest containing Kubernetes resource configuration(s).
         """
         ...
     @overload
@@ -280,40 +246,6 @@ class ConfigGroup(pulumi.ComponentResource):
         ''']
         )
         ```
-        ### YAML with Transformations
-        ```python
-        from pulumi_kubernetes.yaml.v2 import ConfigGroup
-
-        # Make every service private to the cluster, i.e., turn all services into ClusterIP instead of LoadBalancer.
-        def make_service_private(obj, opts):
-            if obj["kind"] == "Service" and obj["apiVersion"] == "v1":
-                try:
-                    t = obj["spec"]["type"]
-                    if t == "LoadBalancer":
-                        obj["spec"]["type"] = "ClusterIP"
-                except KeyError:
-                    pass
-
-
-        # Set a resource alias for a previous name.
-        def alias(obj, opts):
-            if obj["kind"] == "Deployment":
-                opts.aliases = ["oldName"]
-
-
-        # Omit a resource from the Chart by transforming the specified resource definition to an empty List.
-        def omit_resource(obj, opts):
-            if obj["kind"] == "Pod" and obj["metadata"]["name"] == "test":
-                obj["apiVersion"] = "v1"
-                obj["kind"] = "List"
-
-
-        example = ConfigGroup(
-            "example",
-            files=["foo.yaml"],
-            transformations=[make_service_private, alias, omit_resource],
-        )
-        ```
         {% /examples %}}
 
         :param str resource_name: The name of the resource.
@@ -331,11 +263,11 @@ class ConfigGroup(pulumi.ComponentResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 files: Optional[pulumi.Input[Union[str, Sequence[pulumi.Input[str]]]]] = None,
-                 objs: Optional[pulumi.Input[Union[Any, Sequence[Any]]]] = None,
+                 files: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 objs: Optional[pulumi.Input[Sequence[Any]]] = None,
                  resource_prefix: Optional[pulumi.Input[str]] = None,
                  skip_await: Optional[pulumi.Input[bool]] = None,
-                 yaml: Optional[pulumi.Input[Union[str, Sequence[pulumi.Input[str]]]]] = None,
+                 yaml: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):

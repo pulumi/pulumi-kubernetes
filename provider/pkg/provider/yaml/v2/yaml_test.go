@@ -167,14 +167,14 @@ var _ = Describe("ParseDecodeYamlFiles", func() {
 	Describe("yamls", func() {
 		Context("when the input is a valid YAML string", func() {
 			BeforeEach(func() {
-				args.YAML = []string{manifest}
+				args.YAML = manifest
 			})
 			commonAssertions()
 		})
 
 		Context("when the manifest is empty", func() {
 			BeforeEach(func() {
-				args.YAML = []string{`---`}
+				args.YAML = "---"
 			})
 			It("should do nothing", func(ctx context.Context) {
 				_, err := parse(ctx)

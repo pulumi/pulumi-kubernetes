@@ -3,7 +3,6 @@
 
 package com.pulumi.kubernetes.yaml_v2;
 
-import com.pulumi.core.Either;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import java.lang.Boolean;
@@ -20,32 +19,32 @@ public final class ConfigGroupArgs extends com.pulumi.resources.ResourceArgs {
     public static final ConfigGroupArgs Empty = new ConfigGroupArgs();
 
     /**
-     * Set of paths or a URLs that uniquely identify files.
+     * Set of paths and/or URLs to Kubernetes manifest files. Supports glob patterns.
      * 
      */
     @Import(name="files")
-    private @Nullable Output<Either<String,List<String>>> files;
+    private @Nullable Output<List<String>> files;
 
     /**
-     * @return Set of paths or a URLs that uniquely identify files.
+     * @return Set of paths and/or URLs to Kubernetes manifest files. Supports glob patterns.
      * 
      */
-    public Optional<Output<Either<String,List<String>>>> files() {
+    public Optional<Output<List<String>>> files() {
         return Optional.ofNullable(this.files);
     }
 
     /**
-     * Objects representing Kubernetes resources.
+     * Objects representing Kubernetes resource configurations.
      * 
      */
     @Import(name="objs")
-    private @Nullable Output<Either<Object,List<Object>>> objs;
+    private @Nullable Output<List<Object>> objs;
 
     /**
-     * @return Objects representing Kubernetes resources.
+     * @return Objects representing Kubernetes resource configurations.
      * 
      */
-    public Optional<Output<Either<Object,List<Object>>>> objs() {
+    public Optional<Output<List<Object>>> objs() {
         return Optional.ofNullable(this.objs);
     }
 
@@ -80,17 +79,17 @@ public final class ConfigGroupArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * YAML text containing Kubernetes manifest(s).
+     * A Kubernetes YAML manifest containing Kubernetes resource configuration(s).
      * 
      */
     @Import(name="yaml")
-    private @Nullable Output<Either<String,List<String>>> yaml;
+    private @Nullable Output<String> yaml;
 
     /**
-     * @return YAML text containing Kubernetes manifest(s).
+     * @return A Kubernetes YAML manifest containing Kubernetes resource configuration(s).
      * 
      */
-    public Optional<Output<Either<String,List<String>>>> yaml() {
+    public Optional<Output<String>> yaml() {
         return Optional.ofNullable(this.yaml);
     }
 
@@ -123,85 +122,65 @@ public final class ConfigGroupArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param files Set of paths or a URLs that uniquely identify files.
+         * @param files Set of paths and/or URLs to Kubernetes manifest files. Supports glob patterns.
          * 
          * @return builder
          * 
          */
-        public Builder files(@Nullable Output<Either<String,List<String>>> files) {
+        public Builder files(@Nullable Output<List<String>> files) {
             $.files = files;
             return this;
         }
 
         /**
-         * @param files Set of paths or a URLs that uniquely identify files.
-         * 
-         * @return builder
-         * 
-         */
-        public Builder files(Either<String,List<String>> files) {
-            return files(Output.of(files));
-        }
-
-        /**
-         * @param files Set of paths or a URLs that uniquely identify files.
-         * 
-         * @return builder
-         * 
-         */
-        public Builder files(String files) {
-            return files(Either.ofLeft(files));
-        }
-
-        /**
-         * @param files Set of paths or a URLs that uniquely identify files.
+         * @param files Set of paths and/or URLs to Kubernetes manifest files. Supports glob patterns.
          * 
          * @return builder
          * 
          */
         public Builder files(List<String> files) {
-            return files(Either.ofRight(files));
+            return files(Output.of(files));
         }
 
         /**
-         * @param objs Objects representing Kubernetes resources.
+         * @param files Set of paths and/or URLs to Kubernetes manifest files. Supports glob patterns.
          * 
          * @return builder
          * 
          */
-        public Builder objs(@Nullable Output<Either<Object,List<Object>>> objs) {
+        public Builder files(String... files) {
+            return files(List.of(files));
+        }
+
+        /**
+         * @param objs Objects representing Kubernetes resource configurations.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder objs(@Nullable Output<List<Object>> objs) {
             $.objs = objs;
             return this;
         }
 
         /**
-         * @param objs Objects representing Kubernetes resources.
-         * 
-         * @return builder
-         * 
-         */
-        public Builder objs(Either<Object,List<Object>> objs) {
-            return objs(Output.of(objs));
-        }
-
-        /**
-         * @param objs Objects representing Kubernetes resources.
-         * 
-         * @return builder
-         * 
-         */
-        public Builder objs(Object objs) {
-            return objs(Either.ofLeft(objs));
-        }
-
-        /**
-         * @param objs Objects representing Kubernetes resources.
+         * @param objs Objects representing Kubernetes resource configurations.
          * 
          * @return builder
          * 
          */
         public Builder objs(List<Object> objs) {
-            return objs(Either.ofRight(objs));
+            return objs(Output.of(objs));
+        }
+
+        /**
+         * @param objs Objects representing Kubernetes resource configurations.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder objs(Object... objs) {
+            return objs(List.of(objs));
         }
 
         /**
@@ -247,44 +226,24 @@ public final class ConfigGroupArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param yaml YAML text containing Kubernetes manifest(s).
+         * @param yaml A Kubernetes YAML manifest containing Kubernetes resource configuration(s).
          * 
          * @return builder
          * 
          */
-        public Builder yaml(@Nullable Output<Either<String,List<String>>> yaml) {
+        public Builder yaml(@Nullable Output<String> yaml) {
             $.yaml = yaml;
             return this;
         }
 
         /**
-         * @param yaml YAML text containing Kubernetes manifest(s).
-         * 
-         * @return builder
-         * 
-         */
-        public Builder yaml(Either<String,List<String>> yaml) {
-            return yaml(Output.of(yaml));
-        }
-
-        /**
-         * @param yaml YAML text containing Kubernetes manifest(s).
+         * @param yaml A Kubernetes YAML manifest containing Kubernetes resource configuration(s).
          * 
          * @return builder
          * 
          */
         public Builder yaml(String yaml) {
-            return yaml(Either.ofLeft(yaml));
-        }
-
-        /**
-         * @param yaml YAML text containing Kubernetes manifest(s).
-         * 
-         * @return builder
-         * 
-         */
-        public Builder yaml(List<String> yaml) {
-            return yaml(Either.ofRight(yaml));
+            return yaml(Output.of(yaml));
         }
 
         public ConfigGroupArgs build() {

@@ -123,7 +123,7 @@ var _ = Describe("Construct", func() {
 	Describe("yamls", func() {
 		Context("when the input is a valid YAML", func() {
 			BeforeEach(func() {
-				inputs["yaml"] = resource.NewArrayProperty([]resource.PropertyValue{resource.NewStringProperty(manifest)})
+				inputs["yaml"] = resource.NewStringProperty(manifest)
 			})
 			commonAssertions()
 		})
@@ -161,7 +161,7 @@ var _ = Describe("Construct", func() {
 		Context("when the input value(s) are unknown", func() {
 			BeforeEach(func() {
 				req.DryRun = true
-				inputs["yaml"] = resource.MakeComputed(resource.NewArrayProperty([]resource.PropertyValue{resource.NewStringProperty("")}))
+				inputs["yaml"] = resource.MakeComputed(resource.NewStringProperty(""))
 			})
 
 			It("should emit a warning", func(ctx context.Context) {

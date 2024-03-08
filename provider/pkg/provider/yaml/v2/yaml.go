@@ -38,7 +38,7 @@ import (
 
 type ParseArgs struct {
 	Files          []string
-	YAML           []string
+	YAML           string
 	Objects        []unstructured.Unstructured
 	ResourcePrefix string
 	SkipAwait      bool
@@ -52,7 +52,7 @@ func ParseDecodeYamlFiles(ctx *pulumi.Context, args *ParseArgs, glob bool, clien
 	objs = append(objs, args.Objects...)
 
 	// Continue by gathering any other YAML from files provided.
-	yamls := args.YAML
+	yamls := []string{args.YAML}
 	for _, file := range args.Files {
 		// Read the raw YAML file(s) specified in the input file parameter. It might be a URL or a file path.
 		var yaml []byte

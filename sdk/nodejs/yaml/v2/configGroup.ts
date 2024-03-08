@@ -64,40 +64,6 @@ import * as utilities from "../../utilities";
  * `,
  * })
  * ```
- * ### YAML with Transformations
- *
- * ```typescript
- * import * as k8s from "@pulumi/kubernetes";
- *
- * const example = new k8s.yaml.v2.ConfigGroup("example", {
- *     files: "foo.yaml",
- *     transformations: [
- *         // Make every service private to the cluster, i.e., turn all services into ClusterIP instead of LoadBalancer.
- *         (obj: any, opts: pulumi.CustomResourceOptions) => {
- *             if (obj.kind === "Service" && obj.apiVersion === "v1") {
- *                 if (obj.spec && obj.spec.type && obj.spec.type === "LoadBalancer") {
- *                     obj.spec.type = "ClusterIP";
- *                 }
- *             }
- *         },
- *
- *         // Set a resource alias for a previous name.
- *         (obj: any, opts: pulumi.CustomResourceOptions) => {
- *             if (obj.kind === "Deployment") {
- *                 opts.aliases = [{ name: "oldName" }]
- *             }
- *         },
- *
- *         // Omit a resource from the Chart by transforming the specified resource definition to an empty List.
- *         (obj: any, opts: pulumi.CustomResourceOptions) => {
- *             if (obj.kind === "Pod" && obj.metadata.name === "test") {
- *                 obj.apiVersion = "v1"
- *                 obj.kind = "List"
- *             }
- *         },
- *     ],
- * });
- * ```
  * {% /examples %}}
  */
 export class ConfigGroup extends pulumi.ComponentResource {
@@ -150,13 +116,13 @@ export class ConfigGroup extends pulumi.ComponentResource {
  */
 export interface ConfigGroupArgs {
     /**
-     * Set of paths or a URLs that uniquely identify files.
+     * Set of paths and/or URLs to Kubernetes manifest files. Supports glob patterns.
      */
-    files?: pulumi.Input<string | pulumi.Input<string>[]>;
+    files?: pulumi.Input<pulumi.Input<string>[]>;
     /**
-     * Objects representing Kubernetes resources.
+     * Objects representing Kubernetes resource configurations.
      */
-    objs?: pulumi.Input<any | any[]>;
+    objs?: pulumi.Input<any[]>;
     /**
      * A prefix for the auto-generated resource names. Defaults to the name of the ConfigGroup. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
      */
@@ -166,7 +132,7 @@ export interface ConfigGroupArgs {
      */
     skipAwait?: pulumi.Input<boolean>;
     /**
-     * YAML text containing Kubernetes manifest(s).
+     * A Kubernetes YAML manifest containing Kubernetes resource configuration(s).
      */
-    yaml?: pulumi.Input<string | pulumi.Input<string>[]>;
+    yaml?: pulumi.Input<string>;
 }
