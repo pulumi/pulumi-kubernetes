@@ -60,7 +60,7 @@ func (k *ConfigFileProvider) Construct(ctx *pulumi.Context, typ, name string, in
 		return nil, fmt.Errorf("setting args: %w", err)
 	}
 
-	// Check if all the required args have resolved, and print a warning if not.
+	// Check if all the required args are known, and print a warning if not.
 	result, err := internals.UnsafeAwaitOutput(ctx.Context(), pulumi.All(
 		args.File, args.ResourcePrefix, args.SkipAwait))
 	if err != nil {
