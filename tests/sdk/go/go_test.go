@@ -71,6 +71,7 @@ func TestGo(t *testing.T) {
 			ExpectRefreshChanges: true,
 			Quick:                true,
 		})
+		options, _ = testClusters.WrapProviderTestOptions(options)
 		integration.ProgramTest(t, &options)
 	})
 
@@ -87,6 +88,7 @@ func TestGo(t *testing.T) {
 				},
 			},
 		})
+		options, _ = testClusters.WrapProviderTestOptions(options)
 		integration.ProgramTest(t, &options)
 	})
 
@@ -124,10 +126,12 @@ func TestGo(t *testing.T) {
 				}
 			},
 		})
+		options, _ = testClusters.WrapProviderTestOptions(options)
 		integration.ProgramTest(t, &options)
 	})
 
 	t.Run("Helm Release Import (Option)", func(t *testing.T) {
+		tests.SkipIfShort(t)
 
 		chart := bitnamiNginxChart
 		chartVersion := bitnamiNginxChart.Versions[0]
@@ -226,6 +230,8 @@ func TestGo(t *testing.T) {
 	})
 
 	t.Run("Helm Release Import (Tool)", func(t *testing.T) {
+		// TODO(rquitales): Support this test in kind clusters
+		tests.SkipIfShort(t)
 
 		chart := bitnamiNginxChart
 		chartVersion := bitnamiNginxChart.Versions[0]
@@ -386,6 +392,7 @@ func TestGo(t *testing.T) {
 			NoParallel:           true,
 			Verbose:              true,
 		})
+		options, _ = testClusters.WrapProviderTestOptions(options)
 		integration.ProgramTest(t, &options)
 	})
 
@@ -395,10 +402,13 @@ func TestGo(t *testing.T) {
 			Quick:                true,
 			ExpectRefreshChanges: true,
 		})
+		options, _ = testClusters.WrapProviderTestOptions(options)
 		integration.ProgramTest(t, &options)
 	})
 
 	t.Run("Helm Release", func(t *testing.T) {
+		tests.SkipIfShort(t)
+
 		chart := bitnamiNginxChart
 		chartVersion := bitnamiNginxChart.Versions[0]
 
@@ -527,6 +537,7 @@ func TestGo(t *testing.T) {
 	})
 
 	t.Run("Helm Release (Local Chart Versioning)", func(t *testing.T) {
+		tests.SkipIfShort(t)
 		validateVersion := func(t *testing.T, stack integration.RuntimeValidationStackInfo, expected string) {
 			actual, ok := stack.Outputs["version"].(string)
 			if !ok {
@@ -588,6 +599,7 @@ func TestGo(t *testing.T) {
 	})
 
 	t.Run("Helm Release (Partial Error)", func(t *testing.T) {
+		tests.SkipIfShort(t)
 		// Validate that we only see a single release in the namespace - success or failure.
 		validation := func(t *testing.T, stack integration.RuntimeValidationStackInfo) {
 			var namespace string
@@ -630,6 +642,7 @@ func TestGo(t *testing.T) {
 			Quick:                true,
 			ExpectRefreshChanges: true,
 		})
+		options, _ = testClusters.WrapProviderTestOptions(options)
 		integration.ProgramTest(t, &options)
 	})
 
@@ -639,6 +652,7 @@ func TestGo(t *testing.T) {
 			Quick:                true,
 			ExpectRefreshChanges: true,
 		})
+		options, _ = testClusters.WrapProviderTestOptions(options)
 		integration.ProgramTest(t, &options)
 	})
 
@@ -664,6 +678,7 @@ func TestGo(t *testing.T) {
 				}
 			},
 		})
+		options, _ = testClusters.WrapProviderTestOptions(options)
 		integration.ProgramTest(t, &options)
 	})
 
@@ -679,6 +694,7 @@ func TestGo(t *testing.T) {
 				},
 			},
 		})
+		options, _ = testClusters.WrapProviderTestOptions(options)
 		integration.ProgramTest(t, &options)
 	})
 
@@ -704,6 +720,7 @@ func TestGo(t *testing.T) {
 				assert.NotContains(t, string(state), b64.StdEncoding.EncodeToString([]byte(secretMessage)))
 			},
 		})
+		options, _ = testClusters.WrapProviderTestOptions(options)
 		integration.ProgramTest(t, &options)
 	})
 
@@ -712,6 +729,7 @@ func TestGo(t *testing.T) {
 			Dir:   filepath.Join(cwd, "secrets-with-unknowns"),
 			Quick: false,
 		})
+		options, _ = testClusters.WrapProviderTestOptions(options)
 		integration.ProgramTest(t, &options)
 	})
 
@@ -741,12 +759,14 @@ func TestGo(t *testing.T) {
 				},
 			},
 		})
+		options, _ = testClusters.WrapProviderTestOptions(options)
 		integration.ProgramTest(t, &options)
 	})
 
 	// Test to ensure https://github.com/pulumi/pulumi-kubernetes/issues/2336 is fixed. This spins up a deployment pod with
 	// 2 containers using CSA. Then, it updates the deployment to use SSA while deleting one of the containers.
 	t.Run("switchSSADeleteContainer", func(t *testing.T) {
+		var kcfg string
 		validation := func(expectedContainers string) func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 			return func(t *testing.T, stack integration.RuntimeValidationStackInfo) {
 				ns, ok := stack.Outputs["namespace"].(string)
@@ -765,7 +785,7 @@ func TestGo(t *testing.T) {
 					}
 
 					count++
-					out, err := exec.Command("kubectl", "get", "deployment", "-o", "jsonpath={.spec.template.spec.containers[*].name}", "-n", ns, "nginx").CombinedOutput()
+					out, err := exec.Command("kubectl", "get", "deployment", "--kubeconfig", kcfg, "-o", "jsonpath={.spec.template.spec.containers[*].name}", "-n", ns, "nginx").CombinedOutput()
 					assert.NoError(t, err)
 					assert.Equal(t, expectedContainers, string(out))
 				}
@@ -789,6 +809,7 @@ func TestGo(t *testing.T) {
 				},
 			},
 		})
+		test, kcfg = testClusters.WrapProviderTestOptions(test)
 		integration.ProgramTest(t, &test)
 	})
 
@@ -806,6 +827,7 @@ func TestGo(t *testing.T) {
 				},
 			},
 		})
+		options, _ = testClusters.WrapProviderTestOptions(options)
 		integration.ProgramTest(t, &options)
 	})
 }
@@ -1220,6 +1242,7 @@ func TestOptionPropagation(t *testing.T) {
 		},
 	})
 
+	options, _ = testClusters.WrapProviderTestOptions(options)
 	pt := integration.ProgramTestManualLifeCycle(t, &options)
 
 	err = pt.TestLifeCyclePrepare()
