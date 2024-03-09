@@ -453,6 +453,7 @@ func TestCRDs(t *testing.T) {
 }
 
 func TestPod(t *testing.T) {
+	tests.SkipIfShort(t) // statuses are different in Kind cluster
 	test := baseOptions.With(integration.ProgramTestOptions{
 		Dir:   filepath.Join("delete-before-replace", "step1"),
 		Quick: true,
@@ -794,6 +795,7 @@ func TestGet(t *testing.T) {
 }
 
 func TestIstio(t *testing.T) {
+	tests.SkipIfShort(t)
 	test := baseOptions.With(integration.ProgramTestOptions{
 		Dir:         filepath.Join("istio", "step1"),
 		Quick:       true,
@@ -1153,6 +1155,7 @@ func TestRenderYAML(t *testing.T) {
 			assert.Equal(t, len(files), 2)
 		},
 	})
+
 	integration.ProgramTest(t, &test)
 }
 
@@ -1954,6 +1957,7 @@ func TestClientSideDriftCorrectSSA(t *testing.T) {
 //  5. Re-enable access to the unreachable cluster and run `pulumi up` again.
 //  6. Validate that the resource in the unreachable cluster was updated.
 func TestSkipUpdateUnreachableFlag(t *testing.T) {
+	tests.SkipIfShort(t)
 	var ns0, ns1, cm0, cm1 string
 
 	test := baseOptions.With(integration.ProgramTestOptions{
@@ -2264,6 +2268,7 @@ func TestEmptyItemNormalization(t *testing.T) {
 //  3. Update the DeploymentPatch resource to further patch the deployment, setting the image to nginx:1.14.0,
 //     and verify that other fields managed by kubectl-client-side-apply remain unaffected (Step 2).
 func TestFieldManagerPatchResources(t *testing.T) {
+	tests.SkipIfShort(t)
 	testFolder := "field-manager-patch-resources"
 
 	createDeployment := func() string {
