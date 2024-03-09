@@ -20,15 +20,17 @@ import * as path from "path";
 const ns1 = new k8s.core.v1.Namespace("ns1");
 const ns2 = new k8s.core.v1.Namespace("ns2");
 
+const kcfg = process.env.KUBECONFIG|| path.join(os.homedir(), ".kube", "config");
+
 // Create a new provider using the contents of a k8s config.
 const kubeconfigContentsProvider = new k8s.Provider("kubeconfigContentsProvider", {
-    kubeconfig: fs.readFileSync(path.join(os.homedir(), ".kube", "config")).toString(),
+    kubeconfig: fs.readFileSync(kcfg).toString(),
     namespace: ns1.metadata.name,
 });
 
 // Create a new provider using the path to a k8s config.
 const kubeconfigPathProvider = new k8s.Provider("kubeconfigPathProvider", {
-    kubeconfig: "~/.kube/config",
+    kubeconfig: kcfg,
     namespace: ns1.metadata.name,
 });
 

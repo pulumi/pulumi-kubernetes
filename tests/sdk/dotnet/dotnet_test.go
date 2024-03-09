@@ -67,11 +67,11 @@ func TestDotnet_Basic(t *testing.T) {
 }
 
 func TestDotnet_Guestbook(t *testing.T) {
+	tests.SkipIfShort(t) // An external load balancer is required.
 	test := baseOptions.With(integration.ProgramTestOptions{
 		Dir:   "guestbook",
 		Quick: true,
 	})
-	test, _ = testClusters.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 

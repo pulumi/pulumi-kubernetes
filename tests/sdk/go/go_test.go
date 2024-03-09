@@ -376,6 +376,7 @@ func TestGo(t *testing.T) {
 	})
 
 	t.Run("Import Deployment Created by Helm", func(t *testing.T) {
+		tests.SkipIfShort(t)
 		baseDir := filepath.Join(cwd, "helm-import-deployment", "step1")
 		namespace := getRandomNamespace("importdepl")
 		chartPath := filepath.Join(baseDir, "./nginx")

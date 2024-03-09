@@ -458,6 +458,7 @@ func TestCRDs(t *testing.T) {
 }
 
 func TestPod(t *testing.T) {
+	tests.SkipIfShort(t) // statuses are different in Kind cluster
 	test := baseOptions.With(integration.ProgramTestOptions{
 		Dir:   filepath.Join("delete-before-replace", "step1"),
 		Quick: true,
@@ -561,7 +562,7 @@ func TestPod(t *testing.T) {
 			},
 		},
 	})
-	test, _ = testClusters.WrapProviderTestOptions(test)
+	// test, _ = testClusters.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -803,6 +804,7 @@ func TestGet(t *testing.T) {
 }
 
 func TestIstio(t *testing.T) {
+	tests.SkipIfShort(t)
 	test := baseOptions.With(integration.ProgramTestOptions{
 		Dir:         filepath.Join("istio", "step1"),
 		Quick:       true,
@@ -825,7 +827,6 @@ func TestIstio(t *testing.T) {
 			assert.Fail(t, "Maximum Istio gateway request retries exceeded")
 		},
 	})
-	test, _ = testClusters.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -1170,6 +1171,7 @@ func TestRenderYAML(t *testing.T) {
 			assert.Equal(t, len(files), 2)
 		},
 	})
+
 	integration.ProgramTest(t, &test)
 }
 
@@ -1812,7 +1814,7 @@ func TestStrictMode(t *testing.T) {
 			},
 		},
 	})
-	test, _ = testClusters.WrapProviderTestOptions(test)
+	// test, _ = testClusters.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -1855,22 +1857,23 @@ func TestClientSideDriftCorrectCSA(t *testing.T) {
 
 	// Use manual lifecycle management since we need to run external commands in between pulumi up steps, while referencing
 	// the same stack.
+	applyStep, kcfg := testClusters.WrapProviderTestOptions(applyStep)
 	pt := integration.ProgramTestManualLifeCycle(t, &applyStep)
 	err := pt.TestLifeCycleInitAndDestroy()
 	assert.NoError(t, err)
 
 	// Sanity check with kubectl to verify that the ConfigMap was created with the wanted label.
-	out, err := exec.Command("kubectl", "get", "configmap", "-o", "yaml", "-n", ns, cmName).CombinedOutput()
+	out, err := exec.Command("kubectl", "get", "configmap", "--kubeconfig", kcfg, "-o", "yaml", "-n", ns, cmName).CombinedOutput()
 	assert.NoError(t, err)
 	assert.Contains(t, string(out), "bar") // ConfigMap should have been created with data foo: bar.
 
 	// Update the ConfigMap and change the data foo: bar to foo: baz.
-	out, err = exec.Command("kubectl", "patch", "configmap", "-n", ns, cmName, "-p", `{"data":{"foo":"baz"}}`).CombinedOutput()
+	out, err = exec.Command("kubectl", "patch", "configmap", "--kubeconfig", kcfg, "-n", ns, cmName, "-p", `{"data":{"foo":"baz"}}`).CombinedOutput()
 	assert.NoError(t, err)
 	assert.Contains(t, string(out), "configmap/"+cmName+" patched") // Ensure CM was patched.
 
 	// Use kubectl to verify that the ConfigMap was updated and now has data foo: baz.
-	out, err = exec.Command("kubectl", "get", "configmap", "-o", "yaml", "-n", ns, cmName).CombinedOutput()
+	out, err = exec.Command("kubectl", "get", "configmap", "--kubeconfig", kcfg, "-o", "yaml", "-n", ns, cmName).CombinedOutput()
 	assert.NoError(t, err)
 	assert.NotContains(t, string(out), "foo: bar") // ConfigMap should no longer have data foo: bar.
 	assert.Contains(t, string(out), "foo: baz")    // ConfigMap should have data foo: baz.
@@ -1886,7 +1889,7 @@ func TestClientSideDriftCorrectCSA(t *testing.T) {
 	assert.NoError(t, err)
 
 	// Use kubectl to verify that the ConfigMap was updated and has the label again.
-	out, err = exec.Command("kubectl", "get", "configmap", "-o", "yaml", "-n", ns, cmName).CombinedOutput()
+	out, err = exec.Command("kubectl", "get", "configmap", "--kubeconfig", kcfg, "-o", "yaml", "-n", ns, cmName).CombinedOutput()
 	assert.NoError(t, err)
 
 	assert.Contains(t, string(out), "foo: bar")    // ConfigMap should have been updated with data foo: bar.
@@ -1932,22 +1935,23 @@ func TestClientSideDriftCorrectSSA(t *testing.T) {
 
 	// Use manual lifecycle management since we need to run external commands in between pulumi up steps, while referencing
 	// the same stack.
+	applyStep, kcfg := testClusters.WrapProviderTestOptions(applyStep)
 	pt := integration.ProgramTestManualLifeCycle(t, &applyStep)
 	err := pt.TestLifeCycleInitAndDestroy()
 	assert.NoError(t, err)
 
 	// Sanity check with kubectl to verify that the ConfigMap was created with the wanted label.
-	out, err := exec.Command("kubectl", "get", "configmap", "-o", "yaml", "-n", ns, cmName).CombinedOutput()
+	out, err := exec.Command("kubectl", "get", "configmap", "--kubeconfig", kcfg, "-o", "yaml", "-n", ns, cmName).CombinedOutput()
 	assert.NoError(t, err)
 	assert.Contains(t, string(out), "bar") // ConfigMap should have been created with data foo: bar.
 
 	// Update the ConfigMap and change the data foo: bar to foo: baz.
-	out, err = exec.Command("kubectl", "patch", "configmap", "-n", ns, cmName, "-p", `{"data":{"foo":"baz"}}`).CombinedOutput()
+	out, err = exec.Command("kubectl", "patch", "configmap", "--kubeconfig", kcfg, "-n", ns, cmName, "-p", `{"data":{"foo":"baz"}}`).CombinedOutput()
 	assert.NoError(t, err)
 	assert.Contains(t, string(out), "configmap/"+cmName+" patched") // Ensure CM was patched.
 
 	// Use kubectl to verify that the ConfigMap was updated and now has data foo: baz.
-	out, err = exec.Command("kubectl", "get", "configmap", "-o", "yaml", "-n", ns, cmName).CombinedOutput()
+	out, err = exec.Command("kubectl", "get", "configmap", "--kubeconfig", kcfg, "-o", "yaml", "-n", ns, cmName).CombinedOutput()
 	assert.NoError(t, err)
 	assert.NotContains(t, string(out), "foo: bar") // ConfigMap should no longer have data foo: bar.
 	assert.Contains(t, string(out), "foo: baz")    // ConfigMap should have data foo: baz.
@@ -1963,7 +1967,7 @@ func TestClientSideDriftCorrectSSA(t *testing.T) {
 	assert.NoError(t, err)
 
 	// Use kubectl to verify that the ConfigMap was updated and has the label again.
-	out, err = exec.Command("kubectl", "get", "configmap", "-o", "yaml", "-n", ns, cmName).CombinedOutput()
+	out, err = exec.Command("kubectl", "get", "configmap", "--kubeconfig", kcfg, "-o", "yaml", "-n", ns, cmName).CombinedOutput()
 	assert.NoError(t, err)
 
 	assert.Contains(t, string(out), "foo: bar")    // ConfigMap should have been updated with data foo: bar.
@@ -1982,6 +1986,7 @@ func TestClientSideDriftCorrectSSA(t *testing.T) {
 //  5. Re-enable access to the unreachable cluster and run `pulumi up` again.
 //  6. Validate that the resource in the unreachable cluster was updated.
 func TestSkipUpdateUnreachableFlag(t *testing.T) {
+	tests.SkipIfShort(t)
 	var ns0, ns1, cm0, cm1 string
 
 	test := baseOptions.With(integration.ProgramTestOptions{
@@ -2293,6 +2298,7 @@ func TestEmptyItemNormalization(t *testing.T) {
 //  3. Update the DeploymentPatch resource to further patch the deployment, setting the image to nginx:1.14.0,
 //     and verify that other fields managed by kubectl-client-side-apply remain unaffected (Step 2).
 func TestFieldManagerPatchResources(t *testing.T) {
+	tests.SkipIfShort(t)
 	testFolder := "field-manager-patch-resources"
 
 	createDeployment := func() string {
