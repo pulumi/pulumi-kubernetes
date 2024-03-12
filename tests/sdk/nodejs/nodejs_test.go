@@ -2306,23 +2306,24 @@ func TestEmptyItemNormalization(t *testing.T) {
 //  3. Update the DeploymentPatch resource to further patch the deployment, setting the image to nginx:1.14.0,
 //     and verify that other fields managed by kubectl-client-side-apply remain unaffected (Step 2).
 func TestFieldManagerPatchResources(t *testing.T) {
-	tests.SkipIfShort(t, "test needs to be reworked to work on Kind clusters")
 	testFolder := "field-manager-patch-resources"
+
+	test, kcfg := testClusters.WrapProviderTestOptions(*baseOptions)
 
 	createDeployment := func() string {
 		// Create a random namespace to deploy the nginx deployment to.
 		ns := "test-field-mgr-" + rand.String(5)
-		_, err := tests.Kubectl("create namespace", ns)
+		_, err := tests.Kubectl("create namespace --kubeconfig", kcfg, ns)
 		require.NoError(t, err)
 		t.Cleanup(func() {
-			_, _ = tests.Kubectl("delete namespace", ns)
+			_, _ = tests.Kubectl("delete namespace --kubeconfig", kcfg, ns)
 		})
 
 		// Create nginx deployment.
-		_, err = tests.Kubectl("apply -f", filepath.Join(testFolder, "deployment.yaml"), "-n", ns)
+		_, err = tests.Kubectl("apply -f", filepath.Join(testFolder, "deployment.yaml"), "-n", ns, "--kubeconfig", kcfg)
 		require.NoError(t, err)
 		t.Cleanup(func() {
-			_, _ = tests.Kubectl("delete namespace", ns)
+			_, _ = tests.Kubectl("delete namespace --kubeconfig", kcfg, ns)
 		})
 
 		return ns
@@ -2330,7 +2331,7 @@ func TestFieldManagerPatchResources(t *testing.T) {
 
 	namespace := createDeployment()
 
-	test := baseOptions.With(integration.ProgramTestOptions{
+	test = test.With(integration.ProgramTestOptions{
 		Dir:                  filepath.Join(testFolder, "step1"),
 		ExpectRefreshChanges: true,
 		OrderedConfig: []integration.ConfigValue{
@@ -2345,12 +2346,12 @@ func TestFieldManagerPatchResources(t *testing.T) {
 		},
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 			// Ensure that the nginx deployment was patched with image nginx:1.14.1.
-			depImage, err := tests.Kubectl("get deployment -o=jsonpath={.spec.template.spec.containers[0].image} -n", namespace, "test-mgr-nginx")
+			depImage, err := tests.Kubectl("get deployment -o=jsonpath={.spec.template.spec.containers[0].image} -n", namespace, "test-mgr-nginx", "--kubeconfig", kcfg)
 			assert.NoError(t, err)
 			assert.Equal(t, "nginx:1.14.1", string(depImage))
 
 			// Ensure that the nginx deployment replicas is still 2.
-			depReplicas, err := tests.Kubectl("get deployment -o=jsonpath={.spec.replicas} -n", namespace, "test-mgr-nginx")
+			depReplicas, err := tests.Kubectl("get deployment -o=jsonpath={.spec.replicas} -n", namespace, "test-mgr-nginx", "--kubeconfig", kcfg)
 			assert.NoError(t, err)
 			assert.Equal(t, "2", string(depReplicas))
 		},
@@ -2360,18 +2361,18 @@ func TestFieldManagerPatchResources(t *testing.T) {
 				Additive: true,
 				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 					// Ensure that the nginx deployment was patched with image nginx:1.14.1.
-					depImage, err := tests.Kubectl("get deployment -o=jsonpath={.spec.template.spec.containers[0].image} -n", namespace, "test-mgr-nginx")
+					depImage, err := tests.Kubectl("get deployment -o=jsonpath={.spec.template.spec.containers[0].image} -n", namespace, "test-mgr-nginx", "--kubeconfig", kcfg)
 					assert.NoError(t, err)
 					assert.Equal(t, "nginx:1.14.0", string(depImage))
 
 					// Ensure that the nginx deployment replicas is still 2, and was not unset to the default 1 due to field manager being patched.
-					depReplicas, err := tests.Kubectl("get deployment -o=jsonpath={.spec.replicas} -n", namespace, "test-mgr-nginx")
+					depReplicas, err := tests.Kubectl("get deployment -o=jsonpath={.spec.replicas} -n", namespace, "test-mgr-nginx", "--kubeconfig", kcfg)
 					assert.NoError(t, err)
 					assert.Equal(t, "2", string(depReplicas))
 
 					// Ensure that we don't inadvertently share ownership of nested fields that we specify in ignoreChanges.
 					// See: https://github.com/pulumi/pulumi-kubernetes/issues/2714.
-					liveObj, err := tests.Kubectl("get deployment -o yaml --show-managed-fields -n", namespace, "test-mgr-nginx")
+					liveObj, err := tests.Kubectl("get deployment -o yaml --show-managed-fields -n", namespace, "test-mgr-nginx", "--kubeconfig", kcfg)
 					assert.NoError(t, err)
 					wantString := ` - apiVersion: apps/v1
     fieldsType: FieldsV1
@@ -2394,7 +2395,6 @@ func TestFieldManagerPatchResources(t *testing.T) {
 		},
 	})
 
-	test, _ = testClusters.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
