@@ -15,9 +15,9 @@ import (
 )
 
 // SkipIfShort skips the test if the -short flag is passed to `go test`.
-func SkipIfShort(t *testing.T) {
+func SkipIfShort(t *testing.T, msg string) {
 	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+		t.Skip("skipping", t.Name(), "in short mode:", msg)
 	}
 }
 
