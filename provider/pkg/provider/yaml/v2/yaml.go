@@ -72,9 +72,9 @@ func ParseDecodeYamlFiles(ctx *pulumi.Context, args *ParseArgs, glob bool, clien
 			yamls = append(yamls, string(yaml))
 		} else {
 			// Otherwise, assume this is a path to a file on disk. If globbing is enabled and a pattern is provided, we might have
-			// multiple files -- otherwise just read a singular file and fail if it doesn't exist.  
+			// multiple files -- otherwise just read a singular file and fail if it doesn't exist.
 			var files []string
-			if glob && isPattern(file) {
+			if glob && isGlobPattern(file) {
 				files, err = filepath.Glob(file)
 				if err != nil {
 					return pulumi.ArrayOutput{}, errors.Wrapf(err, "expanding glob")
@@ -248,10 +248,10 @@ func printUnstructured(obj *unstructured.Unstructured) string {
 	return truncate(strings.TrimSpace(string(bytes)), 100)
 }
 
-// patternRegexp is a regular expression that matches any of the special characters in a glob pattern.
+// globPatternRegexp is a regular expression that matches any of the special characters in a glob pattern.
 // see: https://pkg.go.dev/path/filepath#Match
-var patternRegexp = regexp.MustCompile(`(?:^|[^\\])[*?\[]`)
+var globPatternRegexp = regexp.MustCompile(`(?:^|[^\\])[*?\[]`)
 
-func isPattern(pattern string) bool {
-	return patternRegexp.Match([]byte(pattern))
+func isGlobPattern(pattern string) bool {
+	return globPatternRegexp.Match([]byte(pattern))
 }

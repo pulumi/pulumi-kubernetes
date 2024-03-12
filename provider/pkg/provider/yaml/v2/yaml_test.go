@@ -347,7 +347,7 @@ var _ = Describe("ParseDecodeYamlFiles", func() {
 	})
 })
 
-func TestIsPattern(t *testing.T) {
+func TestIsGlobPattern(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {
@@ -357,6 +357,7 @@ func TestIsPattern(t *testing.T) {
 		{pattern: `manifest.yaml`, expected: false},
 		{pattern: `*.yaml`, expected: true},
 		{pattern: `*`, expected: true},
+		{pattern: `test-?.yaml`, expected: true},
 		{pattern: `ba[rz].yaml`, expected: true},
 		{pattern: `escaped-\*.yaml`, expected: false},
 		{pattern: `\*.yaml`, expected: false},
@@ -367,7 +368,7 @@ func TestIsPattern(t *testing.T) {
 		t.Run(tt.pattern, func(t *testing.T) {
 			t.Parallel()
 
-			isPattern := isPattern(tt.pattern)
+			isPattern := isGlobPattern(tt.pattern)
 			if tt.expected {
 				assert.Truef(t, isPattern, "expected %q to be a pattern", tt.pattern)
 			} else {
