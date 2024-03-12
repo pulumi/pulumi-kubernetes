@@ -30,6 +30,7 @@ import (
 	. "github.com/onsi/gomega/gstruct"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/openapi"
 	"github.com/pulumi/pulumi-kubernetes/tests/v4"
+	"github.com/pulumi/pulumi-kubernetes/tests/v4/clusters"
 	. "github.com/pulumi/pulumi-kubernetes/tests/v4/gomega"
 	pulumirpctesting "github.com/pulumi/pulumi-kubernetes/tests/v4/pulumirpc"
 	"github.com/pulumi/pulumi/pkg/v3/engine"
@@ -70,7 +71,7 @@ func TestSmoke(t *testing.T) {
 				Dir:        filepath.Join(cwd, dir),
 				NoParallel: true,
 			})
-			options, _ = testClusters.WrapProviderTestOptions(options)
+			options, _ = clusters.TestClusterList.WrapProviderTestOptions(options)
 			integration.ProgramTest(t, &options)
 		})
 	}
@@ -95,7 +96,7 @@ func TestGet(t *testing.T) {
 					},
 				},
 			})
-			options, _ = testClusters.WrapProviderTestOptions(options)
+			options, _ = clusters.TestClusterList.WrapProviderTestOptions(options)
 			integration.ProgramTest(t, &options)
 		})
 	}
@@ -128,7 +129,7 @@ func TestGetOneStep(t *testing.T) {
 					assert.True(t, success)
 				},
 			})
-			options, _ = testClusters.WrapProviderTestOptions(options)
+			options, _ = clusters.TestClusterList.WrapProviderTestOptions(options)
 			integration.ProgramTest(t, &options)
 		})
 	}
@@ -244,7 +245,7 @@ func TestYaml(t *testing.T) {
 			}
 		},
 	})
-	options, _ = testClusters.WrapProviderTestOptions(options)
+	options, _ = clusters.TestClusterList.WrapProviderTestOptions(options)
 	integration.ProgramTest(t, &options)
 }
 
@@ -267,7 +268,7 @@ func TestYamlUnconfiguredProvider(t *testing.T) {
 			},
 		},
 	})
-	options, _ = testClusters.WrapProviderTestOptions(options)
+	options, _ = clusters.TestClusterList.WrapProviderTestOptions(options)
 	integration.ProgramTest(t, &options)
 }
 
@@ -363,7 +364,7 @@ func TestGuestbook(t *testing.T) {
 					assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
 				},
 			})
-			options, _ = testClusters.WrapProviderTestOptions(options)
+			options, _ = clusters.TestClusterList.WrapProviderTestOptions(options)
 			integration.ProgramTest(t, &options)
 		})
 	}
@@ -382,7 +383,7 @@ func TestProvider(t *testing.T) {
 				Dir:        filepath.Join(cwd, "provider"),
 				NoParallel: true,
 			})
-			options, _ = testClusters.WrapProviderTestOptions(options)
+			options, _ = clusters.TestClusterList.WrapProviderTestOptions(options)
 			integration.ProgramTest(t, &options)
 		})
 	}
@@ -397,7 +398,7 @@ func TestHelm(t *testing.T) {
 		Dir:                  filepath.Join(cwd, "helm", "step1"),
 		ExpectRefreshChanges: true,
 	})
-	options, _ = testClusters.WrapProviderTestOptions(options)
+	options, _ = clusters.TestClusterList.WrapProviderTestOptions(options)
 	integration.ProgramTest(t, &options)
 }
 
@@ -417,7 +418,7 @@ func TestHelmRelease(t *testing.T) {
 			},
 		},
 	})
-	options, _ = testClusters.WrapProviderTestOptions(options)
+	options, _ = clusters.TestClusterList.WrapProviderTestOptions(options)
 	integration.ProgramTest(t, &options)
 }
 
@@ -458,7 +459,7 @@ func TestHelmLocal(t *testing.T) {
 			}
 		},
 	})
-	options, _ = testClusters.WrapProviderTestOptions(options)
+	options, _ = clusters.TestClusterList.WrapProviderTestOptions(options)
 	integration.ProgramTest(t, &options)
 }
 
@@ -485,7 +486,7 @@ func TestHelmLocalUnconfiguredProvider(t *testing.T) {
 		},
 		ExpectRefreshChanges: true,
 	})
-	options, _ = testClusters.WrapProviderTestOptions(options)
+	options, _ = clusters.TestClusterList.WrapProviderTestOptions(options)
 	integration.ProgramTest(t, &options)
 }
 
@@ -498,7 +499,7 @@ func TestHelmApiVersions(t *testing.T) {
 		Dir:                  filepath.Join(cwd, "helm-api-versions", "step1"),
 		ExpectRefreshChanges: true,
 	})
-	options, _ = testClusters.WrapProviderTestOptions(options)
+	options, _ = clusters.TestClusterList.WrapProviderTestOptions(options)
 	integration.ProgramTest(t, &options)
 }
 
@@ -511,7 +512,7 @@ func TestHelmKubeVersion(t *testing.T) {
 		Dir:                  filepath.Join(cwd, "helm-kube-version", "step1"),
 		ExpectRefreshChanges: true,
 	})
-	options, _ = testClusters.WrapProviderTestOptions(options)
+	options, _ = clusters.TestClusterList.WrapProviderTestOptions(options)
 	integration.ProgramTest(t, &options)
 }
 
@@ -537,7 +538,7 @@ func TestHelmAllowCRDRendering(t *testing.T) {
 			}
 		},
 	})
-	test, _ = testClusters.WrapProviderTestOptions(test)
+	test, _ = clusters.TestClusterList.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -556,7 +557,7 @@ func TestKustomize(t *testing.T) {
 			},
 		},
 	})
-	options, _ = testClusters.WrapProviderTestOptions(options)
+	options, _ = clusters.TestClusterList.WrapProviderTestOptions(options)
 	integration.ProgramTest(t, &options)
 }
 
@@ -578,7 +579,7 @@ func TestKustomizeUnconfiguredProvider(t *testing.T) {
 			},
 		},
 	})
-	options, _ = testClusters.WrapProviderTestOptions(options)
+	options, _ = clusters.TestClusterList.WrapProviderTestOptions(options)
 	integration.ProgramTest(t, &options)
 }
 
@@ -609,7 +610,7 @@ func TestSecrets(t *testing.T) {
 			assert.NotContains(t, string(state), b64.StdEncoding.EncodeToString([]byte(secretMessage)))
 		},
 	})
-	options, _ = testClusters.WrapProviderTestOptions(options)
+	options, _ = clusters.TestClusterList.WrapProviderTestOptions(options)
 	integration.ProgramTest(t, &options)
 }
 
@@ -637,7 +638,7 @@ func TestServerSideApply(t *testing.T) {
 			assert.Equal(t, "foo", fooV)
 		},
 	})
-	options, _ = testClusters.WrapProviderTestOptions(options)
+	options, _ = clusters.TestClusterList.WrapProviderTestOptions(options)
 	integration.ProgramTest(t, &options)
 }
 
@@ -1069,7 +1070,7 @@ func TestOptionPropagation(t *testing.T) {
 		},
 	})
 
-	options, _ = testClusters.WrapProviderTestOptions(options)
+	options, _ = clusters.TestClusterList.WrapProviderTestOptions(options)
 	pt := integration.ProgramTestManualLifeCycle(t, &options)
 
 	err = pt.TestLifeCyclePrepare()

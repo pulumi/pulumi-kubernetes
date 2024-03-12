@@ -23,6 +23,7 @@ import (
 	"testing"
 
 	"github.com/pulumi/pulumi-kubernetes/tests/v4"
+	"github.com/pulumi/pulumi-kubernetes/tests/v4/clusters"
 	"github.com/pulumi/pulumi/pkg/v3/testing/integration"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -177,7 +178,7 @@ func TestPreviewWithApply(t *testing.T) {
 	})
 
 	// Initialize and the test project.
-	test, kcfg = testClusters.WrapProviderTestOptions(test)
+	test, kcfg = clusters.TestClusterList.WrapProviderTestOptions(test)
 	pt := integration.ProgramTestManualLifeCycle(t, &test)
 	err := pt.TestLifeCyclePrepare()
 	if err != nil {

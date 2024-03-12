@@ -16,23 +16,27 @@ const (
 	GKECluster     = "gke"
 )
 
+var (
+	TestClusterList = new(TestClusters)
+)
+
 // RunWithClusterCreation is the entry point for the tests and provides a way to create and delete clusters for the tests.
 // It is able to create a pool of clusters to randomly run tests on.
-func RunWithClusterCreation(m *testing.M, clusterPrefix string, testClusters *TestClusters) {
+func RunWithClusterCreation(m *testing.M, clusterPrefix string) {
 	createCluster := flag.Bool("create-cluster", false, "Create a cluster for the tests, default is false and to use an existing cluster")
 	clusterType := flag.String("cluster-type", KindClusterStr, "The type of cluster to create for the tests, default is kind")
 	numClusters := flag.Int("num-clusters", 1, "The number of clusters to create for the tests, default is 1")
 	flag.Parse()
 
 	if *createCluster {
-		makeCluster(clusterPrefix, testClusters, *clusterType, *numClusters)
+		makeCluster(clusterPrefix, TestClusterList, *clusterType, *numClusters)
 	}
 
 	exitCode := m.Run()
 
 	// Always attempt to tear down all the clusters after the tests have run.
 	var wg sync.WaitGroup
-	for _, cluster := range testClusters.clusters {
+	for _, cluster := range TestClusterList.clusters {
 		cluster := cluster
 		wg.Add(1)
 		go func() {
@@ -89,7 +93,7 @@ type TestClusters struct {
 
 // pickCluster picks a cluster to use in sequence (ie. round robbin) from the list of clusters created in TestMain.
 // This ensures that we don't an uneven number of tests to run on each cluster.
-func (t *TestClusters) pickCluster() Cluster {
+func (t *TestClusters) PickCluster() Cluster {
 	t.picked++
 	return t.clusters[t.picked%len(t.clusters)]
 }
@@ -107,7 +111,7 @@ func (t *TestClusters) WrapProviderTestOptions(opts integration.ProgramTestOptio
 		return opts, kcfg
 	}
 
-	cluster := t.pickCluster()
+	cluster := t.PickCluster()
 
 	return opts.With(integration.ProgramTestOptions{
 		Env: []string{"KUBECONFIG=" + cluster.KubeconfigPath()},

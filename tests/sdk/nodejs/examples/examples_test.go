@@ -26,6 +26,7 @@ import (
 
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/openapi"
 	"github.com/pulumi/pulumi-kubernetes/tests/v4"
+	"github.com/pulumi/pulumi-kubernetes/tests/v4/clusters"
 	"github.com/pulumi/pulumi/pkg/v3/resource/deploy/providers"
 	"github.com/pulumi/pulumi/pkg/v3/testing/integration"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
@@ -39,7 +40,7 @@ func TestAccMinimal(t *testing.T) {
 			Dir: filepath.Join(getCwd(t), "minimal"),
 		})
 
-	test, _ = testClusters.WrapProviderTestOptions(test)
+	test, _ = clusters.TestClusterList.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -260,7 +261,7 @@ func TestAccHelmAllowCRDRendering(t *testing.T) {
 				}
 			},
 		})
-	test, _ = testClusters.WrapProviderTestOptions(test)
+	test, _ = clusters.TestClusterList.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -565,7 +566,7 @@ func TestHelmTemplatePanic(t *testing.T) {
 				},
 			},
 		})
-	test, _ = testClusters.WrapProviderTestOptions(test)
+	test, _ = clusters.TestClusterList.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 

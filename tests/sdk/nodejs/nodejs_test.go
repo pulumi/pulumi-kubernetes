@@ -34,6 +34,8 @@ import (
 	. "github.com/onsi/gomega/gstruct"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/openapi"
 	"github.com/pulumi/pulumi-kubernetes/tests/v4"
+	"github.com/pulumi/pulumi-kubernetes/tests/v4/clusters"
+	testframework "github.com/pulumi/pulumi-kubernetes/tests/v4/framework"
 	. "github.com/pulumi/pulumi-kubernetes/tests/v4/gomega"
 	pulumirpctesting "github.com/pulumi/pulumi-kubernetes/tests/v4/pulumirpc"
 	"github.com/pulumi/pulumi/pkg/v3/engine"
@@ -66,7 +68,7 @@ var baseOptions = &integration.ProgramTestOptions{
 }
 
 func TestAliases(t *testing.T) {
-	test := baseOptions.With(integration.ProgramTestOptions{
+	test := testframework.NewProgramTest(baseOptions).With(integration.ProgramTestOptions{
 		Dir:   filepath.Join("aliases", "step1"),
 		Quick: true,
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
@@ -105,7 +107,6 @@ func TestAliases(t *testing.T) {
 		},
 	})
 
-	test, _ = testClusters.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -264,7 +265,7 @@ func TestAutonaming(t *testing.T) {
 			},
 		},
 	})
-	test, _ = testClusters.WrapProviderTestOptions(test)
+	test, _ = clusters.TestClusterList.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -393,7 +394,7 @@ func TestGenerateName(t *testing.T) {
 			},
 		},
 	})
-	test, _ = testClusters.WrapProviderTestOptions(test)
+	test, _ = clusters.TestClusterList.WrapProviderTestOptions(test)
 	pt = integration.ProgramTestManualLifeCycle(t, &test)
 	err := pt.TestLifeCycleInitAndDestroy()
 	if !errors.Is(err, integration.ErrTestFailed) {
@@ -452,7 +453,7 @@ func TestCRDs(t *testing.T) {
 			},
 		},
 	})
-	test, _ = testClusters.WrapProviderTestOptions(test)
+	test, _ = clusters.TestClusterList.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -569,7 +570,7 @@ func TestPod(t *testing.T) {
 			},
 		},
 	})
-	test, _ = testClusters.WrapProviderTestOptions(test)
+	test, _ = clusters.TestClusterList.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -676,7 +677,7 @@ func TestDeploymentRollout(t *testing.T) {
 			},
 		},
 	})
-	test, _ = testClusters.WrapProviderTestOptions(test)
+	test, _ = clusters.TestClusterList.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -690,7 +691,7 @@ func TestEmptyArray(t *testing.T) {
 			},
 		},
 	})
-	test, _ = testClusters.WrapProviderTestOptions(test)
+	test, _ = clusters.TestClusterList.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -806,7 +807,7 @@ func TestGet(t *testing.T) {
 			},
 		},
 	})
-	test, _ = testClusters.WrapProviderTestOptions(test)
+	test, _ = clusters.TestClusterList.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -856,7 +857,7 @@ func TestKustomize(t *testing.T) {
 		},
 	})
 
-	test, _ = testClusters.WrapProviderTestOptions(test)
+	test, _ = clusters.TestClusterList.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -882,7 +883,7 @@ func TestKustomizeHelmChart(t *testing.T) {
 			"PULUMI_K8S_KUSTOMIZE_HELM=true", // This experimental feature is currently gated behind a feature flag.
 		},
 	})
-	test, _ = testClusters.WrapProviderTestOptions(test)
+	test, _ = clusters.TestClusterList.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -987,7 +988,7 @@ func TestNamespace(t *testing.T) {
 			},
 		},
 	})
-	test, _ = testClusters.WrapProviderTestOptions(test)
+	test, _ = clusters.TestClusterList.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -1059,7 +1060,7 @@ func TestProvider(t *testing.T) {
 			assert.Equal(t, ns2Name.(string), namespacedPodNamespace.(string))
 		},
 	})
-	test, _ = testClusters.WrapProviderTestOptions(test)
+	test, _ = clusters.TestClusterList.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -1116,7 +1117,7 @@ func TestQuery(t *testing.T) {
 			},
 		},
 	})
-	test, _ = testClusters.WrapProviderTestOptions(test)
+	test, _ = clusters.TestClusterList.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -1142,7 +1143,7 @@ func TestReadonlyMetadata(t *testing.T) {
 			},
 		},
 	})
-	test, _ = testClusters.WrapProviderTestOptions(test)
+	test, _ = clusters.TestClusterList.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -1264,7 +1265,7 @@ func TestReplaceUnready(t *testing.T) {
 			},
 		},
 	})
-	test, _ = testClusters.WrapProviderTestOptions(test)
+	test, _ = clusters.TestClusterList.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -1297,7 +1298,7 @@ func TestRetry(t *testing.T) {
 			assert.Equal(t, namespace.ID.String(), step1PodNamespace.(string))
 		},
 	})
-	test, _ = testClusters.WrapProviderTestOptions(test)
+	test, _ = clusters.TestClusterList.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -1366,7 +1367,7 @@ func TestSecrets(t *testing.T) {
 			},
 		},
 	})
-	test, _ = testClusters.WrapProviderTestOptions(test)
+	test, _ = clusters.TestClusterList.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -1403,7 +1404,7 @@ func TestSecretDataNewLine(t *testing.T) {
 			Additive:        true,
 		}},
 	})
-	test, _ = testClusters.WrapProviderTestOptions(test)
+	test, _ = clusters.TestClusterList.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -1500,7 +1501,7 @@ func TestServerSideApply(t *testing.T) {
 			},
 		},
 	})
-	test, _ = testClusters.WrapProviderTestOptions(test)
+	test, _ = clusters.TestClusterList.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -1543,7 +1544,7 @@ func TestServerSideApplyEmptyMaps(t *testing.T) {
 
 	// Use manual lifecycle management since we need to run external commands in between pulumi up steps, while referencing
 	// the same stack.
-	applyStep, kcfg := testClusters.WrapProviderTestOptions(applyStep)
+	applyStep, kcfg := clusters.TestClusterList.WrapProviderTestOptions(applyStep)
 	pt := integration.ProgramTestManualLifeCycle(t, &applyStep)
 	err := pt.TestLifeCycleInitAndDestroy()
 	assert.NoError(t, err)
@@ -1669,7 +1670,7 @@ func TestServerSideApplyUpgrade(t *testing.T) {
 			},
 		},
 	})
-	test, _ = testClusters.WrapProviderTestOptions(test)
+	test, _ = clusters.TestClusterList.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -1691,7 +1692,7 @@ func TestYAMLURL(t *testing.T) {
 			assert.Equal(t, 18, len(stackInfo.Deployment.Resources))
 		},
 	})
-	test, _ = testClusters.WrapProviderTestOptions(test)
+	test, _ = clusters.TestClusterList.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -1732,7 +1733,7 @@ func TestReplaceDaemonSet(t *testing.T) {
 			},
 		},
 	})
-	test, _ = testClusters.WrapProviderTestOptions(test)
+	test, _ = clusters.TestClusterList.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -1753,7 +1754,7 @@ func TestServiceAccountTokenSecret(t *testing.T) {
 			assert.Contains(t, secretData, "token")
 		},
 	})
-	test, _ = testClusters.WrapProviderTestOptions(test)
+	test, _ = clusters.TestClusterList.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -1822,7 +1823,7 @@ func TestStrictMode(t *testing.T) {
 			},
 		},
 	})
-	// test, _ = testClusters.WrapProviderTestOptions(test)
+	// test, _ = clusters.TestClusterList.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -1865,7 +1866,7 @@ func TestClientSideDriftCorrectCSA(t *testing.T) {
 
 	// Use manual lifecycle management since we need to run external commands in between pulumi up steps, while referencing
 	// the same stack.
-	applyStep, kcfg := testClusters.WrapProviderTestOptions(applyStep)
+	applyStep, kcfg := clusters.TestClusterList.WrapProviderTestOptions(applyStep)
 	pt := integration.ProgramTestManualLifeCycle(t, &applyStep)
 	err := pt.TestLifeCycleInitAndDestroy()
 	assert.NoError(t, err)
@@ -1943,7 +1944,7 @@ func TestClientSideDriftCorrectSSA(t *testing.T) {
 
 	// Use manual lifecycle management since we need to run external commands in between pulumi up steps, while referencing
 	// the same stack.
-	applyStep, kcfg := testClusters.WrapProviderTestOptions(applyStep)
+	applyStep, kcfg := clusters.TestClusterList.WrapProviderTestOptions(applyStep)
 	pt := integration.ProgramTestManualLifeCycle(t, &applyStep)
 	err := pt.TestLifeCycleInitAndDestroy()
 	assert.NoError(t, err)
@@ -2230,7 +2231,7 @@ func ignoreChageTest(t *testing.T, testFolderName string) {
 		},
 	})
 
-	test, kcfg = testClusters.WrapProviderTestOptions(test)
+	test, kcfg = clusters.TestClusterList.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -2292,7 +2293,7 @@ func TestEmptyItemNormalization(t *testing.T) {
 		ExtraRuntimeValidation: validateProgram(false),
 	})
 
-	test, _ = testClusters.WrapProviderTestOptions(test)
+	test, _ = clusters.TestClusterList.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -2308,7 +2309,7 @@ func TestEmptyItemNormalization(t *testing.T) {
 func TestFieldManagerPatchResources(t *testing.T) {
 	testFolder := "field-manager-patch-resources"
 
-	test, kcfg := testClusters.WrapProviderTestOptions(*baseOptions)
+	test, kcfg := clusters.TestClusterList.WrapProviderTestOptions(*baseOptions)
 
 	createDeployment := func() string {
 		// Create a random namespace to deploy the nginx deployment to.
@@ -2825,7 +2826,7 @@ func TestOptionPropagation(t *testing.T) {
 		},
 	})
 
-	options, _ = testClusters.WrapProviderTestOptions(options)
+	options, _ = clusters.TestClusterList.WrapProviderTestOptions(options)
 	pt := integration.ProgramTestManualLifeCycle(t, &options)
 
 	err = pt.TestLifeCyclePrepare()

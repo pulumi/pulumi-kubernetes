@@ -24,7 +24,7 @@ import (
 	. "github.com/onsi/gomega/gstruct"
 	"github.com/pulumi/providertest/grpclog"
 	"github.com/pulumi/providertest/pulumitest"
-	"github.com/pulumi/pulumi-kubernetes/tests/v4"
+	testframework "github.com/pulumi/pulumi-kubernetes/tests/v4/framework"
 	. "github.com/pulumi/pulumi-kubernetes/tests/v4/gomega"
 	"github.com/pulumi/pulumi/sdk/v3/go/auto"
 	"github.com/pulumi/pulumi/sdk/v3/go/auto/optpreview"
@@ -43,11 +43,12 @@ import (
 // 2. Deploy a program; expected real outputs.
 // 3. Preview an update involving a change to the release name; expect replacement.
 func TestHelmUnknowns(t *testing.T) {
-	tests.SkipIfShort(t, "test needs to be updated to work with Kind clusters")
+	// tests.SkipIfShort(t, "test needs to be updated to work with Kind clusters")
 	g := NewWithT(t)
 
 	// Copy test_dir to temp directory, install deps and create "my-stack"
-	test := pulumitest.NewPulumiTest(t, "helm-release-unknowns" /*opttest.LocalProviderPath("kubernetes", abs(t, "../../../bin"))*/)
+	// test := pulumitest.NewPulumiTest(t, "helm-release-unknowns" /*opttest.LocalProviderPath("kubernetes", abs(t, "../../../bin"))*/, opttest.Env("KUBECONFIG", kcfg))
+	test := testframework.NewProviderTest(t, "helm-release-unknowns")
 	t.Logf("into %s", test.Source())
 
 	urn := func(baseType tokens.Type, name string) string {

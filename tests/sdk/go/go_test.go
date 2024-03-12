@@ -30,6 +30,7 @@ import (
 	. "github.com/onsi/gomega/gstruct"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/openapi"
 	"github.com/pulumi/pulumi-kubernetes/tests/v4"
+	"github.com/pulumi/pulumi-kubernetes/tests/v4/clusters"
 	. "github.com/pulumi/pulumi-kubernetes/tests/v4/gomega"
 	pulumirpctesting "github.com/pulumi/pulumi-kubernetes/tests/v4/pulumirpc"
 	"github.com/pulumi/pulumi/pkg/v3/engine"
@@ -70,17 +71,17 @@ var baseOptions = &integration.ProgramTestOptions{
 
 func TestBasic(t *testing.T) {
 	options := baseOptions.With(integration.ProgramTestOptions{
-		Dir:                  filepath.Join(getCwd(t) "basic"),
+		Dir:                  filepath.Join(getCwd(t), "basic"),
 		ExpectRefreshChanges: true,
 		Quick:                true,
 	})
-	options, _ = testClusters.WrapProviderTestOptions(options)
+	options, _ = clusters.TestClusterList.WrapProviderTestOptions(options)
 	integration.ProgramTest(t, &options)
 }
 
 func TestYaml(t *testing.T) {
 	options := baseOptions.With(integration.ProgramTestOptions{
-		Dir:                  filepath.Join(getCwd(t) "yaml"),
+		Dir:                  filepath.Join(getCwd(t), "yaml"),
 		Quick:                true,
 		ExpectRefreshChanges: true,
 		OrderedConfig: []integration.ConfigValue{
@@ -91,13 +92,13 @@ func TestYaml(t *testing.T) {
 			},
 		},
 	})
-	options, _ = testClusters.WrapProviderTestOptions(options)
+	options, _ = clusters.TestClusterList.WrapProviderTestOptions(options)
 	integration.ProgramTest(t, &options)
 }
 
 func TestHelmLocal(t *testing.T) {
 	options := baseOptions.With(integration.ProgramTestOptions{
-		Dir:                  filepath.Join(getCwd(t) "helm-local", "step1"),
+		Dir:                  filepath.Join(getCwd(t), "helm-local", "step1"),
 		Quick:                true,
 		ExpectRefreshChanges: true,
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
@@ -129,7 +130,7 @@ func TestHelmLocal(t *testing.T) {
 			}
 		},
 	})
-	options, _ = testClusters.WrapProviderTestOptions(options)
+	options, _ = clusters.TestClusterList.WrapProviderTestOptions(options)
 	integration.ProgramTest(t, &options)
 }
 
@@ -157,7 +158,7 @@ func TestHelmReleaseImport(t *testing.T) {
 
 		// pre-install the Helm chart to be imported
 		namespace := getRandomNamespace("importtest")
-		chartPath := filepath.Join(getCwd(t) chart.TestPath)
+		chartPath := filepath.Join(getCwd(t), chart.TestPath)
 		require.NoError(t, createRelease("mynginx", namespace, chartPath, true))
 		t.Cleanup(func() {
 			contract.IgnoreError(deleteRelease("mynginx", namespace))
@@ -192,7 +193,7 @@ func TestHelmReleaseImport(t *testing.T) {
 	// 1. Import by searching the local chart repositories for a matching chart.
 	t.Run("chart reference", func(t *testing.T) {
 		options := baseOptions.With(integration.ProgramTestOptions{
-			Dir: filepath.Join(getCwd(t) "helm-release-import", "step1-remote"),
+			Dir: filepath.Join(getCwd(t), "helm-release-import", "step1-remote"),
 			Config: map[string]string{
 				"chart":   chart.ChartReference(), // bitnami/nginx
 				"version": chartVersion.Version,   // 15.3.4
@@ -206,7 +207,7 @@ func TestHelmReleaseImport(t *testing.T) {
 	// 2. Import by searching for an unpacked chart in the program directory.
 	t.Run("chart directory", func(t *testing.T) {
 		options := baseOptions.With(integration.ProgramTestOptions{
-			Dir: filepath.Join(getCwd(t) "helm-release-import", "step1-local-directory"),
+			Dir: filepath.Join(getCwd(t), "helm-release-import", "step1-local-directory"),
 			Config: map[string]string{
 				"chart":   chart.Name, // nginx
 				"version": chartVersion.Version,
@@ -220,7 +221,7 @@ func TestHelmReleaseImport(t *testing.T) {
 	// 3. Import by searching for a chart archive in the program directory.
 	t.Run("chart archive", func(t *testing.T) {
 		options := baseOptions.With(integration.ProgramTestOptions{
-			Dir: filepath.Join(getCwd(t) "helm-release-import", "step1-local-tar"),
+			Dir: filepath.Join(getCwd(t), "helm-release-import", "step1-local-tar"),
 			Config: map[string]string{
 				"chart":   fmt.Sprintf("%s-%s.tgz", chart.Name, chartVersion.Version), // nginx-15.3.4.tgz
 				"version": chartVersion.Version,
@@ -257,7 +258,7 @@ func TestHelmReleaseImportTool(t *testing.T) {
 
 		// pre-install the Helm chart to be imported
 		namespace := getRandomNamespace("importtest")
-		chartPath := filepath.Join(getCwd(t) chart.TestPath)
+		chartPath := filepath.Join(getCwd(t), chart.TestPath)
 		require.NoError(t, createRelease("mynginx", namespace, chartPath, true))
 		t.Cleanup(func() {
 			contract.IgnoreError(deleteRelease("mynginx", namespace))
@@ -315,7 +316,7 @@ func TestHelmReleaseImportTool(t *testing.T) {
 	// 1. Import by searching the local chart repositories for a matching chart.
 	t.Run("chart reference", func(t *testing.T) {
 		options := baseOptions.With(integration.ProgramTestOptions{
-			Dir: filepath.Join(getCwd(t) "helm-release-import", "step1-remote"),
+			Dir: filepath.Join(getCwd(t), "helm-release-import", "step1-remote"),
 			Config: map[string]string{
 				"chart":   chart.ChartReference(), // bitnami/nginx
 				"version": chartVersion.Version,   // 15.3.4
@@ -332,7 +333,7 @@ func TestHelmReleaseImportTool(t *testing.T) {
 	// 2. Import by searching for an unpacked chart in the program directory.
 	t.Run("chart directory", func(t *testing.T) {
 		options := baseOptions.With(integration.ProgramTestOptions{
-			Dir: filepath.Join(getCwd(t) "helm-release-import", "step1-local-directory"),
+			Dir: filepath.Join(getCwd(t), "helm-release-import", "step1-local-directory"),
 			Config: map[string]string{
 				"chart":   chart.Name, // nginx
 				"version": chartVersion.Version,
@@ -347,7 +348,7 @@ func TestHelmReleaseImportTool(t *testing.T) {
 	// 3. Import by searching for a chart archive in the program directory.
 	t.Run("chart archive", func(t *testing.T) {
 		options := baseOptions.With(integration.ProgramTestOptions{
-			Dir: filepath.Join(getCwd(t) "helm-release-import", "step1-local-tar"),
+			Dir: filepath.Join(getCwd(t), "helm-release-import", "step1-local-tar"),
 			Config: map[string]string{
 				"chart":   fmt.Sprintf("%s-%s.tgz", chart.Name, chartVersion.Version), // nginx-15.3.4.tgz
 				"version": chartVersion.Version,
@@ -363,7 +364,7 @@ func TestHelmReleaseImportTool(t *testing.T) {
 	// will cause a Helm upgrade to "correct" the inputs.
 	t.Run("manual", func(t *testing.T) {
 		options := baseOptions.With(integration.ProgramTestOptions{
-			Dir: filepath.Join(getCwd(t) "helm-release-import", "step1-remote"),
+			Dir: filepath.Join(getCwd(t), "helm-release-import", "step1-remote"),
 			Config: map[string]string{
 				"chart":   chart.Name,           // nginx
 				"repo":    chart.HelmRepo.URL,   // https://charts.bitnami.com/bitnami
@@ -379,7 +380,7 @@ func TestHelmReleaseImportTool(t *testing.T) {
 
 func TestImportDeploymentHelm(t *testing.T) {
 	tests.SkipIfShort(t, "test needs to be updated to work with Kind clusters")
-	baseDir := filepath.Join(getCwd(t) "helm-import-deployment", "step1")
+	baseDir := filepath.Join(getCwd(t), "helm-import-deployment", "step1")
 	namespace := getRandomNamespace("importdepl")
 	chartPath := filepath.Join(baseDir, "./nginx")
 	require.NoError(t, createRelease("mynginx", namespace, chartPath, true))
@@ -395,17 +396,17 @@ func TestImportDeploymentHelm(t *testing.T) {
 		NoParallel:           true,
 		Verbose:              true,
 	})
-	options, _ = testClusters.WrapProviderTestOptions(options)
+	options, _ = clusters.TestClusterList.WrapProviderTestOptions(options)
 	integration.ProgramTest(t, &options)
 }
 
 func TestHelmRemote(t *testing.T) {
 	options := baseOptions.With(integration.ProgramTestOptions{
-		Dir:                  filepath.Join(getCwd(t) "helm", "step1"),
+		Dir:                  filepath.Join(getCwd(t), "helm", "step1"),
 		Quick:                true,
 		ExpectRefreshChanges: true,
 	})
-	options, _ = testClusters.WrapProviderTestOptions(options)
+	options, _ = clusters.TestClusterList.WrapProviderTestOptions(options)
 	integration.ProgramTest(t, &options)
 }
 
@@ -456,7 +457,7 @@ func TestHelmRelease(t *testing.T) {
 	// 1. By chart reference: helm install mymaria example/mariadb
 	t.Run("chart reference", func(t *testing.T) {
 		options := baseOptions.With(integration.ProgramTestOptions{
-			Dir: filepath.Join(getCwd(t) "helm-release", "step1"),
+			Dir: filepath.Join(getCwd(t), "helm-release", "step1"),
 			Config: map[string]string{
 				"chart":   chart.ChartReference(), // bitnami/nginx
 				"version": chartVersion.Version,   // 15.3.4
@@ -470,9 +471,9 @@ func TestHelmRelease(t *testing.T) {
 	// 2. By path to an unpacked chart directory: helm install mynginx ./nginx
 	t.Run("chart directory", func(t *testing.T) {
 		options := baseOptions.With(integration.ProgramTestOptions{
-			Dir: filepath.Join(getCwd(t) "helm-release", "step1"),
+			Dir: filepath.Join(getCwd(t), "helm-release", "step1"),
 			Config: map[string]string{
-				"chart":   filepath.Join(getCwd(t) chart.TestPath), // "/workspace/tests/testdata/helm/nginx"
+				"chart":   filepath.Join(getCwd(t), chart.TestPath), // "/workspace/tests/testdata/helm/nginx"
 				"version": chartVersion.Version,
 			},
 		})
@@ -484,9 +485,9 @@ func TestHelmRelease(t *testing.T) {
 	// 3. By path to a packaged chart: helm install mynginx ./nginx-1.2.3.tgz
 	t.Run("chart archive", func(t *testing.T) {
 		options := baseOptions.With(integration.ProgramTestOptions{
-			Dir: filepath.Join(getCwd(t) "helm-release", "step1"),
+			Dir: filepath.Join(getCwd(t), "helm-release", "step1"),
 			Config: map[string]string{
-				"chart":   filepath.Join(getCwd(t) chart.TestArchive), // /workspace/tests/testdata/nginx-15.3.4.tgz
+				"chart":   filepath.Join(getCwd(t), chart.TestArchive), // /workspace/tests/testdata/nginx-15.3.4.tgz
 				"version": chartVersion.Version,
 			},
 		})
@@ -498,7 +499,7 @@ func TestHelmRelease(t *testing.T) {
 	// 4. By absolute URL: helm install mynginx https://example.com/charts/nginx-1.2.3.tgz
 	t.Run("absolute URL", func(t *testing.T) {
 		options := baseOptions.With(integration.ProgramTestOptions{
-			Dir: filepath.Join(getCwd(t) "helm-release", "step1"),
+			Dir: filepath.Join(getCwd(t), "helm-release", "step1"),
 			Config: map[string]string{
 				"chart":   chart.ChartURL, // https://charts.bitnami.com/bitnami/nginx-15.3.4.tgz
 				"version": chartVersion.Version,
@@ -512,7 +513,7 @@ func TestHelmRelease(t *testing.T) {
 	// 5. By chart reference and repo url: helm install --repo https://example.com/charts/ mynginx nginx
 	t.Run("chart reference and repo url", func(t *testing.T) {
 		options := baseOptions.With(integration.ProgramTestOptions{
-			Dir: filepath.Join(getCwd(t) "helm-release", "step1"),
+			Dir: filepath.Join(getCwd(t), "helm-release", "step1"),
 			Config: map[string]string{
 				"chart":   chart.Name,           // nginx
 				"repo":    chart.HelmRepo.URL,   // https://charts.bitnami.com/bitnami
@@ -527,7 +528,7 @@ func TestHelmRelease(t *testing.T) {
 	// 6. By OCI registries: helm install mynginx --version 1.2.3 oci://example.com/charts/nginx
 	t.Run("oci chart", func(t *testing.T) {
 		options := baseOptions.With(integration.ProgramTestOptions{
-			Dir: filepath.Join(getCwd(t) "helm-release", "step1"),
+			Dir: filepath.Join(getCwd(t), "helm-release", "step1"),
 			Config: map[string]string{
 				"chart":   chart.OciURL,         // oci://registry-1.docker.io/bitnamicharts/nginx
 				"version": chartVersion.Version, // 15.3.4
@@ -557,7 +558,7 @@ func TestHelmReleaseLocalChartVersioning(t *testing.T) {
 	}
 
 	options := baseOptions.With(integration.ProgramTestOptions{
-		Dir:                  filepath.Join(getCwd(t) "helm-release-local", "step1"),
+		Dir:                  filepath.Join(getCwd(t), "helm-release-local", "step1"),
 		Quick:                true,
 		ExpectRefreshChanges: true,
 		ExtraRuntimeValidation: func(t *testing.T, stack integration.RuntimeValidationStackInfo) {
@@ -641,21 +642,21 @@ func TestHelmReleasePartialError(t *testing.T) {
 
 func TestHelmAPIVersions(t *testing.T) {
 	options := baseOptions.With(integration.ProgramTestOptions{
-		Dir:                  filepath.Join(getCwd(t) "helm-api-versions", "step1"),
+		Dir:                  filepath.Join(getCwd(t), "helm-api-versions", "step1"),
 		Quick:                true,
 		ExpectRefreshChanges: true,
 	})
-	options, _ = testClusters.WrapProviderTestOptions(options)
+	options, _ = clusters.TestClusterList.WrapProviderTestOptions(options)
 	integration.ProgramTest(t, &options)
 }
 
 func TestHelmKubeVersion(t *testing.T) {
 	options := baseOptions.With(integration.ProgramTestOptions{
-		Dir:                  filepath.Join(getCwd(t) "helm-kube-version", "step1"),
+		Dir:                  filepath.Join(getCwd(t), "helm-kube-version", "step1"),
 		Quick:                true,
 		ExpectRefreshChanges: true,
 	})
-	options, _ = testClusters.WrapProviderTestOptions(options)
+	options, _ = clusters.TestClusterList.WrapProviderTestOptions(options)
 	integration.ProgramTest(t, &options)
 }
 
@@ -681,13 +682,13 @@ func TestHelmSkipCRDRendering(t *testing.T) {
 			}
 		},
 	})
-	options, _ = testClusters.WrapProviderTestOptions(options)
+	options, _ = clusters.TestClusterList.WrapProviderTestOptions(options)
 	integration.ProgramTest(t, &options)
 }
 
 func TestKustomize(t *testing.T) {
 	options := baseOptions.With(integration.ProgramTestOptions{
-		Dir:   filepath.Join(getCwd(t) "kustomize"),
+		Dir:   filepath.Join(getCwd(t), "kustomize"),
 		Quick: true,
 		OrderedConfig: []integration.ConfigValue{
 			{
@@ -697,7 +698,7 @@ func TestKustomize(t *testing.T) {
 			},
 		},
 	})
-	options, _ = testClusters.WrapProviderTestOptions(options)
+	options, _ = clusters.TestClusterList.WrapProviderTestOptions(options)
 	integration.ProgramTest(t, &options)
 }
 
@@ -705,7 +706,7 @@ func TestSecrets(t *testing.T) {
 	secretMessage := "secret message for testing"
 
 	options := baseOptions.With(integration.ProgramTestOptions{
-		Dir:   filepath.Join(getCwd(t) "secrets"),
+		Dir:   filepath.Join(getCwd(t), "secrets"),
 		Quick: true,
 		Config: map[string]string{
 			"message": secretMessage,
@@ -723,22 +724,22 @@ func TestSecrets(t *testing.T) {
 			assert.NotContains(t, string(state), b64.StdEncoding.EncodeToString([]byte(secretMessage)))
 		},
 	})
-	options, _ = testClusters.WrapProviderTestOptions(options)
+	options, _ = clusters.TestClusterList.WrapProviderTestOptions(options)
 	integration.ProgramTest(t, &options)
 }
 
 func TestSecretsWithUnknowns(t *testing.T) {
 	options := baseOptions.With(integration.ProgramTestOptions{
-		Dir:   filepath.Join(getCwd(t) "secrets-with-unknowns"),
+		Dir:   filepath.Join(getCwd(t), "secrets-with-unknowns"),
 		Quick: false,
 	})
-	options, _ = testClusters.WrapProviderTestOptions(options)
+	options, _ = clusters.TestClusterList.WrapProviderTestOptions(options)
 	integration.ProgramTest(t, &options)
 }
 
 func TestServerSideApply(t *testing.T) {
 	options := baseOptions.With(integration.ProgramTestOptions{
-		Dir:                  filepath.Join(getCwd(t) "server-side-apply"),
+		Dir:                  filepath.Join(getCwd(t), "server-side-apply"),
 		ExpectRefreshChanges: true,
 		OrderedConfig: []integration.ConfigValue{
 			{
@@ -762,7 +763,7 @@ func TestServerSideApply(t *testing.T) {
 			},
 		},
 	})
-	options, _ = testClusters.WrapProviderTestOptions(options)
+	options, _ = clusters.TestClusterList.WrapProviderTestOptions(options)
 	integration.ProgramTest(t, &options)
 }
 
@@ -812,7 +813,7 @@ func TestSwitchSSADeleteContainer(t *testing.T) {
 			},
 		},
 	})
-	test, kcfg = testClusters.WrapProviderTestOptions(test)
+	test, kcfg = clusters.TestClusterList.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -820,17 +821,17 @@ func TestSwitchSSADeleteContainer(t *testing.T) {
 // default namespace to be present in the GVK get request.
 func TestChartGetResource(t *testing.T) {
 	options := baseOptions.With(integration.ProgramTestOptions{
-		Dir:   filepath.Join(getCwd(t) "helm-get-default-namespace", "step1"),
+		Dir:   filepath.Join(getCwd(t), "helm-get-default-namespace", "step1"),
 		Quick: true,
 		EditDirs: []integration.EditDir{
 			{
-				Dir:             filepath.Join(getCwd(t) "helm-get-default-namespace", "step2"),
+				Dir:             filepath.Join(getCwd(t), "helm-get-default-namespace", "step2"),
 				Additive:        true,
 				ExpectNoChanges: false,
 			},
 		},
 	})
-	options, _ = testClusters.WrapProviderTestOptions(options)
+	options, _ = clusters.TestClusterList.WrapProviderTestOptions(options)
 	integration.ProgramTest(t, &options)
 }
 
@@ -844,16 +845,11 @@ func TestOptionPropagation(t *testing.T) {
 	// format.UseStringerRepresentation = true
 	format.RegisterCustomFormatter(pulumirpctesting.FormatDebugInterceptorLog)
 
-	getCwd(t) err := os.Getwd()
-	if !assert.NoError(t, err) {
-		t.FailNow()
-	}
-
 	grpcLog, err := pulumirpctesting.NewDebugInterceptorLog(t)
 	require.NoError(t, err)
 
 	options := baseOptions.With(integration.ProgramTestOptions{
-		Dir:                  filepath.Join(getCwd(t) "options"),
+		Dir:                  filepath.Join(getCwd(t), "options"),
 		Env:                  []string{grpcLog.Env()},
 		Quick:                true,
 		ExpectRefreshChanges: false,
@@ -1244,7 +1240,7 @@ func TestOptionPropagation(t *testing.T) {
 		},
 	})
 
-	options, _ = testClusters.WrapProviderTestOptions(options)
+	options, _ = clusters.TestClusterList.WrapProviderTestOptions(options)
 	pt := integration.ProgramTestManualLifeCycle(t, &options)
 
 	err = pt.TestLifeCyclePrepare()

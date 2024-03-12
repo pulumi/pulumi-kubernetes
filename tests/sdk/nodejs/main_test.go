@@ -9,5 +9,5 @@ import (
 var testClusters = new(clusters.TestClusters)
 
 func TestMain(m *testing.M) {
-	clusters.RunWithClusterCreation(m, "nodejs-test", testClusters)
+	clusters.RunWithClusterCreation(m, "nodejs-test")
 }
