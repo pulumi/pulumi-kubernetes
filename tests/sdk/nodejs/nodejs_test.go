@@ -20,7 +20,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -1148,8 +1147,9 @@ func TestReadonlyMetadata(t *testing.T) {
 }
 
 func TestRenderYAML(t *testing.T) {
+	tests.SkipIfShort(t, "render yaml does not work if KUBECONFIG env var is set, this should be relaxed")
 	// Create a temporary directory to hold rendered YAML manifests.
-	dir, err := ioutil.TempDir("", "")
+	dir, err := os.MkdirTemp("", "")
 	assert.NoError(t, err)
 	defer os.RemoveAll(dir)
 
@@ -1164,17 +1164,17 @@ func TestRenderYAML(t *testing.T) {
 			assert.Equal(t, 4, len(stackInfo.Deployment.Resources))
 
 			// Verify that YAML directory was created.
-			files, err := ioutil.ReadDir(dir)
+			files, err := os.ReadDir(dir)
 			assert.NoError(t, err)
 			assert.Equal(t, len(files), 2)
 
 			// Verify that CRD manifest directory was created.
-			files, err = ioutil.ReadDir(filepath.Join(dir, "0-crd"))
+			files, err = os.ReadDir(filepath.Join(dir, "0-crd"))
 			assert.NoError(t, err)
 			assert.Equal(t, len(files), 0)
 
 			// Verify that manifest directory was created.
-			files, err = ioutil.ReadDir(filepath.Join(dir, "1-manifest"))
+			files, err = os.ReadDir(filepath.Join(dir, "1-manifest"))
 			assert.NoError(t, err)
 			assert.Equal(t, len(files), 2)
 		},
