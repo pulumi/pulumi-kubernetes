@@ -99,7 +99,12 @@ func (t *TestClusters) pickCluster() Cluster {
 // required for the kubectl command to target the right cluster that the test is running on.
 func (t *TestClusters) WrapProviderTestOptions(opts integration.ProgramTestOptions) (integration.ProgramTestOptions, string) {
 	if t.clusters == nil {
-		return opts, ""
+		// Check if KUBECONFIG is set, if it is then use that for the tests.
+		kcfg := os.Getenv("KUBECONFIG")
+		if kcfg == "" {
+			kcfg = os.ExpandEnv("$HOME/.kube/config")
+		}
+		return opts, kcfg
 	}
 
 	cluster := t.pickCluster()
