@@ -43,7 +43,7 @@ import (
 // 2. Deploy a program; expected real outputs.
 // 3. Preview an update involving a change to the release name; expect replacement.
 func TestHelmUnknowns(t *testing.T) {
-	tests.SkipIfShort(t)
+	tests.SkipIfShort(t, "test needs to be updated to work with Kind clusters")
 	g := NewWithT(t)
 
 	// Copy test_dir to temp directory, install deps and create "my-stack"

@@ -131,7 +131,7 @@ func TestGo(t *testing.T) {
 	})
 
 	t.Run("Helm Release Import (Option)", func(t *testing.T) {
-		tests.SkipIfShort(t)
+		tests.SkipIfShort(t, "test needs to be updated to work with Kind clusters")
 
 		chart := bitnamiNginxChart
 		chartVersion := bitnamiNginxChart.Versions[0]
@@ -230,8 +230,7 @@ func TestGo(t *testing.T) {
 	})
 
 	t.Run("Helm Release Import (Tool)", func(t *testing.T) {
-		// TODO(rquitales): Support this test in kind clusters
-		tests.SkipIfShort(t)
+		tests.SkipIfShort(t, "test needs to be updated to work with Kind clusters")
 
 		chart := bitnamiNginxChart
 		chartVersion := bitnamiNginxChart.Versions[0]
@@ -376,7 +375,7 @@ func TestGo(t *testing.T) {
 	})
 
 	t.Run("Import Deployment Created by Helm", func(t *testing.T) {
-		tests.SkipIfShort(t)
+		tests.SkipIfShort(t, "test needs to be updated to work with Kind clusters")
 		baseDir := filepath.Join(cwd, "helm-import-deployment", "step1")
 		namespace := getRandomNamespace("importdepl")
 		chartPath := filepath.Join(baseDir, "./nginx")
@@ -408,7 +407,7 @@ func TestGo(t *testing.T) {
 	})
 
 	t.Run("Helm Release", func(t *testing.T) {
-		tests.SkipIfShort(t)
+		tests.SkipIfShort(t, "test needs to be updated to work with Kind clusters")
 
 		chart := bitnamiNginxChart
 		chartVersion := bitnamiNginxChart.Versions[0]
@@ -538,7 +537,7 @@ func TestGo(t *testing.T) {
 	})
 
 	t.Run("Helm Release (Local Chart Versioning)", func(t *testing.T) {
-		tests.SkipIfShort(t)
+		tests.SkipIfShort(t, "test needs to be updated to work with Kind clusters")
 		validateVersion := func(t *testing.T, stack integration.RuntimeValidationStackInfo, expected string) {
 			actual, ok := stack.Outputs["version"].(string)
 			if !ok {
@@ -600,7 +599,7 @@ func TestGo(t *testing.T) {
 	})
 
 	t.Run("Helm Release (Partial Error)", func(t *testing.T) {
-		tests.SkipIfShort(t)
+		tests.SkipIfShort(t, "test needs to be updated to work with Kind clusters")
 		// Validate that we only see a single release in the namespace - success or failure.
 		validation := func(t *testing.T, stack integration.RuntimeValidationStackInfo) {
 			var namespace string

@@ -458,7 +458,6 @@ func TestCRDs(t *testing.T) {
 }
 
 func TestPod(t *testing.T) {
-	tests.SkipIfShort(t) // statuses are different in Kind cluster
 	test := baseOptions.With(integration.ProgramTestOptions{
 		Dir:   filepath.Join("delete-before-replace", "step1"),
 		Quick: true,
@@ -494,7 +493,7 @@ func TestPod(t *testing.T) {
 			conditions, _ := openapi.Pluck(pod.Outputs, "status", "conditions")
 			ready := conditions.([]any)[1].(map[string]any)
 			readyType := ready["type"]
-			assert.Equal(t, "Ready", readyType)
+			assert.Equal(t, "Ready", readyType, conditions)
 			readyStatus := ready["status"]
 			assert.Equal(t, "True", readyStatus)
 
@@ -562,7 +561,7 @@ func TestPod(t *testing.T) {
 			},
 		},
 	})
-	// test, _ = testClusters.WrapProviderTestOptions(test)
+	test, _ = testClusters.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -804,7 +803,7 @@ func TestGet(t *testing.T) {
 }
 
 func TestIstio(t *testing.T) {
-	tests.SkipIfShort(t)
+	tests.SkipIfShort(t, "test provisions a load balancer and requires a cloud provider cluster to run")
 	test := baseOptions.With(integration.ProgramTestOptions{
 		Dir:         filepath.Join("istio", "step1"),
 		Quick:       true,
@@ -1986,7 +1985,7 @@ func TestClientSideDriftCorrectSSA(t *testing.T) {
 //  5. Re-enable access to the unreachable cluster and run `pulumi up` again.
 //  6. Validate that the resource in the unreachable cluster was updated.
 func TestSkipUpdateUnreachableFlag(t *testing.T) {
-	tests.SkipIfShort(t)
+	tests.SkipIfShort(t, "tests need to be updated to work with Kind clusters")
 	var ns0, ns1, cm0, cm1 string
 
 	test := baseOptions.With(integration.ProgramTestOptions{
@@ -2233,8 +2232,7 @@ func ignoreChageTest(t *testing.T, testFolderName string) {
 // and has a controller backing it. We create 2 pods to test egress between them, rather than hitting
 // a live URL, to avoid flakiness.
 func TestEmptyItemNormalization(t *testing.T) {
-	tests.SkipIfShort(t)
-
+	tests.SkipIfShort(t, "test requires a cluster with NetworkPolicy support")
 	validateProgram := func(networkingEnabled bool) func(*testing.T, integration.RuntimeValidationStackInfo) {
 		return func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 			ns, ok := stackInfo.Outputs["podANamespace"].(string)
@@ -2285,6 +2283,7 @@ func TestEmptyItemNormalization(t *testing.T) {
 		ExtraRuntimeValidation: validateProgram(false),
 	})
 
+	test, _ = testClusters.WrapProviderTestOptions(test)
 	integration.ProgramTest(t, &test)
 }
 
@@ -2298,7 +2297,7 @@ func TestEmptyItemNormalization(t *testing.T) {
 //  3. Update the DeploymentPatch resource to further patch the deployment, setting the image to nginx:1.14.0,
 //     and verify that other fields managed by kubectl-client-side-apply remain unaffected (Step 2).
 func TestFieldManagerPatchResources(t *testing.T) {
-	tests.SkipIfShort(t)
+	tests.SkipIfShort(t, "test needs to be reworked to work on Kind clusters")
 	testFolder := "field-manager-patch-resources"
 
 	createDeployment := func() string {

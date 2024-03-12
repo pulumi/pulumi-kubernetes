@@ -34,8 +34,7 @@ import (
 // we do a client side diff if the server dry run fails and do not error on preview. We also ensure that we error on pulumi up, and that
 // the configmap was not created using kubectl.
 func TestPreview(t *testing.T) {
-	// TODO(rquitales): Add support for running in Kind cluster.
-	tests.SkipIfShort(t)
+	tests.SkipIfShort(t, "test needs to be reworked to work on Kind clusters")
 
 	test := baseOptions.With(integration.ProgramTestOptions{
 		Dir:                  "preview-auth",
@@ -151,8 +150,7 @@ func createSAKubeconfig(t *testing.T, saName string) (string, error) {
 // TestPreviewWithApply tests the `pulumi preview` CUJ where the user Pulumi program contains an Apply call on status subresoruces.
 // This is to ensure we don't fail preview, since status fields are only populated after the resource is created on cluster.
 func TestPreviewWithApply(t *testing.T) {
-	tests.SkipIfShort(t)
-
+	tests.SkipIfShort(t, "test requires a load balancer and won't work on kind clusters")
 	var externalIP, nsName, svcName, kcfg string
 	test := baseOptions.With(integration.ProgramTestOptions{
 		Dir:                  "preview-apply",

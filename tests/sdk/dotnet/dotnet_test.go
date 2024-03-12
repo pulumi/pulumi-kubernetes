@@ -67,7 +67,7 @@ func TestDotnet_Basic(t *testing.T) {
 }
 
 func TestDotnet_Guestbook(t *testing.T) {
-	tests.SkipIfShort(t) // An external load balancer is required.
+	tests.SkipIfShort(t, "test creates a load balancer and requires a Cloud cluster")
 	test := baseOptions.With(integration.ProgramTestOptions{
 		Dir:   "guestbook",
 		Quick: true,
