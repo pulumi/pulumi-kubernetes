@@ -18,6 +18,7 @@ import (
 	"context"
 	"os"
 	"path/filepath"
+	"testing"
 
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
@@ -26,6 +27,7 @@ import (
 	. "github.com/pulumi/pulumi-kubernetes/tests/v4/gomega"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/internals"
+	"github.com/stretchr/testify/assert"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
@@ -195,20 +197,34 @@ var _ = Describe("ParseDecodeYamlFiles", func() {
 	})
 
 	Describe("files", func() {
-		Context("when the file doesn't exist (glob mode)", func() {
+		Describe("globbing", func() {
 			BeforeEach(func() {
 				glob = true
-				args.Files = []string{"nosuchfile.yaml"}
 			})
-			It("should do nothing", func(ctx context.Context) {
-				_, err := parse(ctx)
-				Expect(err).ShouldNot(HaveOccurred())
+
+			Context("when the pattern matches no files", func() {
+				BeforeEach(func() {
+					args.Files = []string{"nosuchfile-*.yaml"}
+				})
+				It("should do nothing", func(ctx context.Context) {
+					_, err := parse(ctx)
+					Expect(err).ShouldNot(HaveOccurred())
+				})
+			})
+
+			Context("when the pattern matches some files", func() {
+				BeforeEach(func() {
+					tempDir := GinkgoTB().TempDir()
+					err := os.WriteFile(filepath.Join(tempDir, "manifest.yaml"), []byte(manifest), 0o600)
+					Expect(err).ShouldNot(HaveOccurred())
+					args.Files = []string{filepath.Join(tempDir, "*.yaml")}
+				})
+				commonAssertions()
 			})
 		})
 
-		Context("when the file doesn't exist (non-glob mode)", func() {
+		Context("when the file doesn't exist", func() {
 			BeforeEach(func() {
-				glob = false
 				args.Files = []string{"nosuchfile.yaml"}
 			})
 			It("should fail", func(ctx context.Context) {
@@ -330,3 +346,33 @@ var _ = Describe("ParseDecodeYamlFiles", func() {
 		})
 	})
 })
+
+func TestIsPattern(t *testing.T) {
+	t.Parallel()
+
+	tests := []struct {
+		pattern  string
+		expected bool
+	}{
+		{pattern: `manifest.yaml`, expected: false},
+		{pattern: `*.yaml`, expected: true},
+		{pattern: `*`, expected: true},
+		{pattern: `ba[rz].yaml`, expected: true},
+		{pattern: `escaped-\*.yaml`, expected: false},
+		{pattern: `\*.yaml`, expected: false},
+	}
+
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.pattern, func(t *testing.T) {
+			t.Parallel()
+
+			isPattern := isPattern(tt.pattern)
+			if tt.expected {
+				assert.Truef(t, isPattern, "expected %q to be a pattern", tt.pattern)
+			} else {
+				assert.Falsef(t, isPattern, "expected %q to not be a pattern", tt.pattern)
+			}
+		})
+	}
+}
