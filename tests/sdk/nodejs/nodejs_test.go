@@ -458,6 +458,19 @@ func TestCRDs(t *testing.T) {
 }
 
 func TestPod(t *testing.T) {
+	getCondition := func(conditions []any, conditionType string) map[string]any {
+		// Order of conditions is not guaranteed, so we need to search for the condition of the given type.
+		for _, condition := range conditions {
+			conditionMap, ok := condition.(map[string]any)
+			require.True(t, ok, "condition items should be maps")
+			if conditionMap["type"] == conditionType {
+				return conditionMap
+			}
+		}
+		t.Fatalf("condition of type %s not found", conditionType)
+		return nil
+	}
+
 	test := baseOptions.With(integration.ProgramTestOptions{
 		Dir:   filepath.Join("delete-before-replace", "step1"),
 		Quick: true,
@@ -491,9 +504,7 @@ func TestPod(t *testing.T) {
 
 			// Status "Ready" is "True".
 			conditions, _ := openapi.Pluck(pod.Outputs, "status", "conditions")
-			ready := conditions.([]any)[1].(map[string]any)
-			readyType := ready["type"]
-			assert.Equal(t, "Ready", readyType, conditions)
+			ready := getCondition(conditions.([]any), "Ready")
 			readyStatus := ready["status"]
 			assert.Equal(t, "True", readyStatus)
 
@@ -544,9 +555,7 @@ func TestPod(t *testing.T) {
 
 					// Status "Ready" is "True".
 					conditions, _ := openapi.Pluck(pod.Outputs, "status", "conditions")
-					ready := conditions.([]any)[1].(map[string]any)
-					readyType := ready["type"]
-					assert.Equal(t, "Ready", readyType)
+					ready := getCondition(conditions.([]any), "Ready")
 					readyStatus := ready["status"]
 					assert.Equal(t, "True", readyStatus)
 
