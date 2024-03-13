@@ -252,7 +252,7 @@ jobs:
     needs:
     - build_sdks
     strategy:
-      fail-fast: false # Surface all test failures
+      fail-fast: false
       matrix:
         language:
         - nodejs
