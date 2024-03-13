@@ -1,5 +1,7 @@
 ## Unreleased
 
+## 4.9.1 (March 13, 2024)
+
 - Use async invokes to avoid hangs/stalls in Python `helm`, `kustomize`, and `yaml` components (https://github.com/pulumi/pulumi-kubernetes/pull/2863)
 - ConfigGroup V2 (https://github.com/pulumi/pulumi-kubernetes/pull/2844)
 - ConfigFile V2 (https://github.com/pulumi/pulumi-kubernetes/pull/2862)
