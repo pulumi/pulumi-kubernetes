@@ -251,9 +251,8 @@ jobs:
     runs-on: pulumi-ubuntu-8core
     needs:
     - build_sdks
-    - build-test-cluster
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
         language:
         - nodejs
@@ -341,13 +340,6 @@ jobs:
         pip3 install pipenv
     - name: Install dependencies
       run: make install_${{ matrix.language}}_sdk
-    - name: Make Kube Directory
-      run: mkdir -p "~/.kube/"
-    - name: Download Kubeconfig
-      uses: actions/download-artifact@v4
-      with:
-        name: config
-        path: ~/.kube/
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v4
       with:
@@ -390,9 +382,14 @@ jobs:
       with:
         version: v2.5.0
         token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Setup KinD cluster
+      uses: helm/kind-action@v1
+      with:
+        cluster_name: kind-integration-tests-${{ matrix.language }}
+        node_image: kindest/node:v1.29.2
     - name: Run tests
       run: cd tests/sdk/${{ matrix.language }} && go test -v -count=1 -cover -timeout
-        2h -parallel 4 ./...
+        2h -parallel 4 -short ./...
     - if: failure() && github.event_name == 'push'
       name: Notify Slack
       uses: 8398a7/action-slack@v3
@@ -413,125 +410,6 @@ jobs:
     needs:
     - test
     - lint
-    - destroy-test-cluster
-  build-test-cluster:
-    runs-on: ubuntu-latest
-    name: build-test-cluster
-    outputs:
-      stack-name: ${{ steps.stackname.outputs.stack-name }}
-    permissions:
-      contents: read
-      id-token: write
-    steps:
-    - name: Checkout Repo
-      uses: actions/checkout@v4
-      with:
-        lfs: true
-        ref: ${{ env.PR_COMMIT_SHA }}
-    - name: Install Go
-      uses: actions/setup-go@v5
-      with:
-        go-version: ${{ env.GOVERSION }}
-    - name: Install Pulumi CLI
-      uses: pulumi/actions@v5
-    - name: Setup Node
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ env.NODEVERSION }}
-        registry-url: https://registry.npmjs.org
-    - name: Authenticate to Google Cloud
-      uses: google-github-actions/auth@v0
-      with:
-        workload_identity_provider: projects/${{ env.GOOGLE_PROJECT_NUMBER
-          }}/locations/global/workloadIdentityPools/${{
-          env.GOOGLE_CI_WORKLOAD_IDENTITY_POOL }}/providers/${{
-          env.GOOGLE_CI_WORKLOAD_IDENTITY_PROVIDER }}
-        service_account: ${{ env.GOOGLE_CI_SERVICE_ACCOUNT_EMAIL }}
-    - name: Setup gcloud auth
-      uses: google-github-actions/setup-gcloud@v2
-      with:
-        install_components: gke-gcloud-auth-plugin
-    - name: Install Kubectl
-      run: >
-        curl -LO
-        https://storage.googleapis.com/kubernetes-release/release/$(curl -s
-        https://storage.googleapis.com/kubernetes-release/release/stable-1.28.txt)/bin/linux/amd64/kubectl
-
-        chmod +x ./kubectl
-
-        sudo mv kubectl /usr/local/bin
-    - name: Login to Google Cloud Registry
-      run: gcloud --quiet auth configure-docker
-    - name: Set stack name in output
-      id: stackname
-      run: echo 'stack-name=${{ env.PULUMI_TEST_OWNER }}/${{ github.sha }}-${{
-        github.run_id }}-${{ github.run_attempt }}' >> "$GITHUB_OUTPUT"
-    - name: Create test infrastructure
-      run: ./scripts/ci-cluster-create.sh ${{ steps.stackname.outputs.stack-name }}
-    - name: Upload Kubernetes Artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: config
-        path: ~/.kube/config
-    if: github.event_name == 'repository_dispatch' ||
-      github.event.pull_request.head.repo.full_name == github.repository
-  destroy-test-cluster:
-    runs-on: ubuntu-latest
-    name: teardown-test-cluster
-    needs:
-    - build-test-cluster
-    - test
-    if: ${{ always() }} && github.event.pull_request.head.repo.full_name ==
-      github.repository
-    permissions:
-      contents: read
-      id-token: write
-    steps:
-    - name: Checkout Repo
-      uses: actions/checkout@v4
-      with:
-        lfs: true
-        ref: ${{ env.PR_COMMIT_SHA }}
-    - name: Install Go
-      uses: actions/setup-go@v5
-      with:
-        go-version: ${{ env.GOVERSION }}
-    - name: Install Pulumi CLI
-      uses: pulumi/actions@v5
-    - name: Setup Node
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ env.NODEVERSION }}
-        registry-url: https://registry.npmjs.org
-    - name: Authenticate to Google Cloud
-      uses: google-github-actions/auth@v0
-      with:
-        workload_identity_provider: projects/${{ env.GOOGLE_PROJECT_NUMBER
-          }}/locations/global/workloadIdentityPools/${{
-          env.GOOGLE_CI_WORKLOAD_IDENTITY_POOL }}/providers/${{
-          env.GOOGLE_CI_WORKLOAD_IDENTITY_PROVIDER }}
-        service_account: ${{ env.GOOGLE_CI_SERVICE_ACCOUNT_EMAIL }}
-    - name: Setup gcloud auth
-      uses: google-github-actions/setup-gcloud@v2
-      with:
-        install_components: gke-gcloud-auth-plugin
-    - name: Install Kubectl
-      run: >
-        curl -LO
-        https://storage.googleapis.com/kubernetes-release/release/$(curl -s
-        https://storage.googleapis.com/kubernetes-release/release/stable-1.28.txt)/bin/linux/amd64/kubectl
-
-        chmod +x ./kubectl
-
-        sudo mv kubectl /usr/local/bin
-    - name: Login to Google Cloud Registry
-      run: gcloud --quiet auth configure-docker
-    - name: Destroy test infra
-      run: ./scripts/ci-cluster-destroy.sh ${{
-        needs.build-test-cluster.outputs.stack-name }}
-    - uses: geekyeggo/delete-artifact@v1
-      with:
-        name: config
   lint:
     runs-on: ubuntu-latest
     steps:
