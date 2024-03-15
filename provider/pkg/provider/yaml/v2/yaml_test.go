@@ -16,6 +16,7 @@ package v2
 
 import (
 	"context"
+	"fmt"
 	"os"
 	"path/filepath"
 	"testing"
@@ -53,12 +54,11 @@ spec:
 var _ = Describe("ParseDecodeYamlFiles", func() {
 	var clientSet *clients.DynamicClientSet
 	var tc *componentProviderTestContext
-	var args *ParseArgs
-	var glob bool
+	var args *ParseOptions
 
 	BeforeEach(func() {
 		tc = newTestContext(GinkgoTB())
-		args = &ParseArgs{}
+		args = &ParseOptions{}
 	})
 
 	JustBeforeEach(func() {
@@ -67,10 +67,20 @@ var _ = Describe("ParseDecodeYamlFiles", func() {
 	parse := func(ctx context.Context) (resources pulumi.ArrayOutput, err error) {
 		// use RunWithContext to reliably wait for outstanding RPCs to complete
 		err = pulumi.RunWithContext(tc.NewContext(ctx), func(ctx *pulumi.Context) error {
-			resources, err = ParseDecodeYamlFiles(ctx, args, glob, clientSet)
+			resources, err = Parse(ctx, args, clientSet)
 			return err
 		})
 		return resources, err
+	}
+
+	tempFiles := func(manifests ...string) string {
+		tempDir := GinkgoTB().TempDir()
+		for i, m := range manifests {
+			name := filepath.Join(tempDir, fmt.Sprintf("manifest-%02d.yaml", i+1))
+			err := os.WriteFile(name, []byte(m), 0o600)
+			Expect(err).ShouldNot(HaveOccurred())
+		}
+		return tempDir
 	}
 
 	commonAssertions := func() {
@@ -199,7 +209,7 @@ var _ = Describe("ParseDecodeYamlFiles", func() {
 	Describe("files", func() {
 		Describe("globbing", func() {
 			BeforeEach(func() {
-				glob = true
+				args.Glob = true
 			})
 
 			Context("when the pattern matches no files", func() {
@@ -214,9 +224,7 @@ var _ = Describe("ParseDecodeYamlFiles", func() {
 
 			Context("when the pattern matches some files", func() {
 				BeforeEach(func() {
-					tempDir := GinkgoTB().TempDir()
-					err := os.WriteFile(filepath.Join(tempDir, "manifest.yaml"), []byte(manifest), 0o600)
-					Expect(err).ShouldNot(HaveOccurred())
+					tempDir := tempFiles(manifest)
 					args.Files = []string{filepath.Join(tempDir, "*.yaml")}
 				})
 				commonAssertions()
@@ -235,10 +243,8 @@ var _ = Describe("ParseDecodeYamlFiles", func() {
 
 		Context("when the input is a valid YAML file", func() {
 			BeforeEach(func() {
-				tempDir := GinkgoTB().TempDir()
-				err := os.WriteFile(filepath.Join(tempDir, "manifest.yaml"), []byte(manifest), 0o600)
-				Expect(err).ShouldNot(HaveOccurred())
-				args.Files = []string{filepath.Join(tempDir, "manifest.yaml")}
+				tempDir := tempFiles(manifest)
+				args.Files = []string{filepath.Join(tempDir, "manifest-01.yaml")}
 			})
 			commonAssertions()
 		})

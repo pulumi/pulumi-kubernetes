@@ -78,12 +78,19 @@ func StartMonitorServer(t testing.TB, monitor pulumirpc.ResourceMonitorServer) (
 
 func NewResourceMonitorServer(t testing.TB, monitor pulumi.MockResourceMonitor) *ResourceMonitorServer {
 	return &ResourceMonitorServer{
-		t:         t,
-		project:   "project",
-		stack:     "stack",
-		mocks:     monitor,
-		resources: map[string]resource.PropertyMap{},
+		t:             t,
+		project:       "project",
+		stack:         "stack",
+		mocks:         monitor,
+		registrations: []Registration{},
 	}
+}
+
+type Registration struct {
+	Urn     string
+	Id      string
+	State   resource.PropertyMap
+	Request pulumirpc.RegisterResourceRequest
 }
 
 type ResourceMonitorServer struct {
@@ -93,18 +100,32 @@ type ResourceMonitorServer struct {
 	stack   string
 	mocks   pulumi.MockResourceMonitor
 
-	mu        sync.Mutex
-	resources map[string]resource.PropertyMap
+	mu            sync.Mutex
+	registrations []Registration
 }
 
+// Deprecated: use Registrations instead.
 func (m *ResourceMonitorServer) Resources() map[string]resource.PropertyMap {
 	m.mu.Lock()
 	defer m.mu.Unlock()
 	resources := map[string]resource.PropertyMap{}
-	for k, v := range m.resources {
-		resources[k] = v
+	for _, reg := range m.registrations {
+		resources[reg.Urn] = resource.PropertyMap{
+			resource.PropertyKey("urn"):    resource.NewStringProperty(reg.Urn),
+			resource.PropertyKey("id"):     resource.NewStringProperty(reg.Id),
+			resource.PropertyKey("state"):  resource.NewObjectProperty(reg.State),
+			resource.PropertyKey("parent"): resource.NewStringProperty(reg.Request.Parent),
+		}
 	}
 	return resources
+}
+
+func (m *ResourceMonitorServer) Registrations() []Registration {
+	m.mu.Lock()
+	defer m.mu.Unlock()
+	r := make([]Registration, len(m.registrations))
+	copy(r, m.registrations)
+	return r
 }
 
 var _ pulumirpc.ResourceMonitorServer = &ResourceMonitorServer{}
@@ -162,12 +183,12 @@ func (m *ResourceMonitorServer) RegisterResource(ctx context.Context, in *pulumi
 	func() {
 		m.mu.Lock()
 		defer m.mu.Unlock()
-		m.resources[urn] = resource.PropertyMap{
-			resource.PropertyKey("urn"):    resource.NewStringProperty(urn),
-			resource.PropertyKey("id"):     resource.NewStringProperty(id),
-			resource.PropertyKey("state"):  resource.NewObjectProperty(state),
-			resource.PropertyKey("parent"): resource.NewStringProperty(in.GetParent()),
-		}
+		m.registrations = append(m.registrations, Registration{
+			Urn:     urn,
+			Id:      id,
+			State:   state,
+			Request: *in,
+		})
 	}()
 
 	stateOut, err := plugin.MarshalProperties(state, plugin.MarshalOptions{
