@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//nolint:copylocks
 package fake
 
 import (
@@ -88,7 +89,7 @@ func NewResourceMonitorServer(t testing.TB, monitor pulumi.MockResourceMonitor) 
 
 type Registration struct {
 	Urn     string
-	Id      string
+	ID      string
 	State   resource.PropertyMap
 	Request pulumirpc.RegisterResourceRequest
 }
@@ -104,7 +105,7 @@ type ResourceMonitorServer struct {
 	registrations []Registration
 }
 
-// Deprecated: use Registrations instead.
+// Resources returns a map of registered resources by urn.
 func (m *ResourceMonitorServer) Resources() map[string]resource.PropertyMap {
 	m.mu.Lock()
 	defer m.mu.Unlock()
@@ -112,7 +113,7 @@ func (m *ResourceMonitorServer) Resources() map[string]resource.PropertyMap {
 	for _, reg := range m.registrations {
 		resources[reg.Urn] = resource.PropertyMap{
 			resource.PropertyKey("urn"):    resource.NewStringProperty(reg.Urn),
-			resource.PropertyKey("id"):     resource.NewStringProperty(reg.Id),
+			resource.PropertyKey("id"):     resource.NewStringProperty(reg.ID),
 			resource.PropertyKey("state"):  resource.NewObjectProperty(reg.State),
 			resource.PropertyKey("parent"): resource.NewStringProperty(reg.Request.Parent),
 		}
@@ -120,6 +121,7 @@ func (m *ResourceMonitorServer) Resources() map[string]resource.PropertyMap {
 	return resources
 }
 
+// Registrations returns the resource registrations.
 func (m *ResourceMonitorServer) Registrations() []Registration {
 	m.mu.Lock()
 	defer m.mu.Unlock()
@@ -185,7 +187,7 @@ func (m *ResourceMonitorServer) RegisterResource(ctx context.Context, in *pulumi
 		defer m.mu.Unlock()
 		m.registrations = append(m.registrations, Registration{
 			Urn:     urn,
-			Id:      id,
+			ID:      id,
 			State:   state,
 			Request: *in,
 		})

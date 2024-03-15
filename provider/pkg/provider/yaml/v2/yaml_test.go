@@ -23,7 +23,9 @@ import (
 
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
+	"github.com/onsi/gomega/gstruct"
 	. "github.com/onsi/gomega/gstruct"
+	gomegatypes "github.com/onsi/gomega/types"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	. "github.com/pulumi/pulumi-kubernetes/tests/v4/gomega"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
@@ -51,43 +53,33 @@ spec:
 `
 )
 
-var _ = Describe("ParseDecodeYamlFiles", func() {
-	var clientSet *clients.DynamicClientSet
+var _ = Describe("Register", func() {
 	var tc *componentProviderTestContext
-	var args *ParseOptions
+	var registerOpts *RegisterOptions
 
 	BeforeEach(func() {
 		tc = newTestContext(GinkgoTB())
-		args = &ParseOptions{}
+		registerOpts = &RegisterOptions{}
 	})
 
-	JustBeforeEach(func() {
-	})
-
-	parse := func(ctx context.Context) (resources pulumi.ArrayOutput, err error) {
+	register := func(ctx context.Context) (resources pulumi.ArrayOutput, err error) {
 		// use RunWithContext to reliably wait for outstanding RPCs to complete
 		err = pulumi.RunWithContext(tc.NewContext(ctx), func(ctx *pulumi.Context) error {
-			resources, err = Parse(ctx, args, clientSet)
+			resources, err = Register(ctx, *registerOpts)
 			return err
 		})
 		return resources, err
 	}
 
-	tempFiles := func(manifests ...string) string {
-		tempDir := GinkgoTB().TempDir()
-		for i, m := range manifests {
-			name := filepath.Join(tempDir, fmt.Sprintf("manifest-%02d.yaml", i+1))
-			err := os.WriteFile(name, []byte(m), 0o600)
+	Context("given the objects in the manifest", func() {
+		BeforeEach(func() {
+			resources, err := yamlDecode(manifest, nil)
 			Expect(err).ShouldNot(HaveOccurred())
-		}
-		return tempDir
-	}
-
-	commonAssertions := func() {
-		GinkgoHelper()
+			registerOpts.Objects = resources
+		})
 
 		It("should register some resources", func(ctx context.Context) {
-			_, err := parse(ctx)
+			_, err := register(ctx)
 			Expect(err).ShouldNot(HaveOccurred())
 
 			Expect(tc.monitor.Resources()).To(MatchKeys(IgnoreExtras, Keys{
@@ -109,7 +101,7 @@ var _ = Describe("ParseDecodeYamlFiles", func() {
 		})
 
 		It("should return an array of resource outputs", func(ctx context.Context) {
-			resources, err := parse(ctx)
+			resources, err := register(ctx)
 			Expect(err).ShouldNot(HaveOccurred())
 
 			resourceArray, err := internals.UnsafeAwaitOutput(ctx, resources)
@@ -119,10 +111,10 @@ var _ = Describe("ParseDecodeYamlFiles", func() {
 
 		Context("when a prefix is configured", func() {
 			BeforeEach(func() {
-				args.ResourcePrefix = "prefixed"
+				registerOpts.ResourcePrefix = "prefixed"
 			})
 			It("should apply the prefix to the resource (but not to the Kubernetes object)", func(ctx context.Context) {
-				_, err := parse(ctx)
+				_, err := register(ctx)
 				Expect(err).ShouldNot(HaveOccurred())
 
 				Expect(tc.monitor.Resources()).To(MatchKeys(IgnoreExtras, Keys{
@@ -146,10 +138,10 @@ var _ = Describe("ParseDecodeYamlFiles", func() {
 
 		Context("when skipAwait is enabled", func() {
 			BeforeEach(func() {
-				args.SkipAwait = true
+				registerOpts.SkipAwait = true
 			})
 			It("should apply the skipAwait annotation", func(ctx context.Context) {
-				_, err := parse(ctx)
+				_, err := register(ctx)
 				Expect(err).ShouldNot(HaveOccurred())
 
 				Expect(tc.monitor.Resources()).To(MatchKeys(IgnoreExtras, Keys{
@@ -174,6 +166,141 @@ var _ = Describe("ParseDecodeYamlFiles", func() {
 				}))
 			})
 		})
+	})
+
+	Describe("Kubernetes object specifics", func() {
+		Context("when the object has no kind", func() {
+			BeforeEach(func() {
+				registerOpts.Objects = []unstructured.Unstructured{{
+					Object: map[string]any{
+						"apiVersion": "v1",
+						"metadata":   map[string]any{},
+					},
+				}}
+			})
+			It("should fail", func(ctx context.Context) {
+				_, err := register(ctx)
+				Expect(err).Should(MatchError(ContainSubstring("Kubernetes resources require a kind and apiVersion")))
+			})
+		})
+
+		Context("when the object has no metadata.name", func() {
+			BeforeEach(func() {
+				registerOpts.Objects = []unstructured.Unstructured{{
+					Object: map[string]any{
+						"apiVersion": "v1",
+						"kind":       "Secret",
+						"metadata":   map[string]any{},
+					},
+				}}
+			})
+			It("should fail", func(ctx context.Context) {
+				_, err := register(ctx)
+				Expect(err).Should(MatchError(ContainSubstring("YAML object does not have a .metadata.name")))
+			})
+		})
+
+		Context("when the object is a list", func() {
+			BeforeEach(func() {
+				registerOpts.Objects = []unstructured.Unstructured{{
+					Object: map[string]any{
+						"apiVersion": "v1",
+						"kind":       "List",
+						"items": []any{
+							map[string]any{
+								"apiVersion": "v1",
+								"kind":       "Secret",
+								"metadata": map[string]any{
+									"name": "my-secret",
+								},
+							},
+						},
+					},
+				}}
+			})
+			It("should flatten the list", func(ctx context.Context) {
+				_, err := register(ctx)
+				Expect(err).ShouldNot(HaveOccurred())
+
+				Expect(tc.monitor.Resources()).To(HaveKey("urn:pulumi:stack::project::kubernetes:core/v1:Secret::my-secret"))
+			})
+		})
+
+		Context("when the object is a Secret", func() {
+			BeforeEach(func() {
+				registerOpts.Objects = []unstructured.Unstructured{{
+					Object: map[string]any{
+						"apiVersion": "v1",
+						"kind":       "Secret",
+						"metadata": map[string]any{
+							"name": "my-secret",
+						},
+						"stringData": map[string]interface{}{
+							"foo": "bar",
+						},
+					},
+				}}
+			})
+			It("should mark the contents as a secret", func(ctx context.Context) {
+				_, err := register(ctx)
+				Expect(err).ShouldNot(HaveOccurred())
+
+				Expect(tc.monitor.Resources()).To(MatchKeys(IgnoreExtras, Keys{
+					"urn:pulumi:stack::project::kubernetes:core/v1:Secret::my-secret": MatchProps(IgnoreExtras, Props{
+						"state": MatchObject(IgnoreExtras, Props{
+							"stringData": BeSecret(),
+						}),
+					}),
+				}))
+			})
+		})
+	})
+})
+
+var _ = Describe("Parse", func() {
+	var clientSet *clients.DynamicClientSet
+	var args ParseOptions
+
+	BeforeEach(func() {
+		args = ParseOptions{}
+	})
+
+	JustBeforeEach(func() {
+	})
+
+	parse := func(ctx context.Context) (objs []unstructured.Unstructured, err error) {
+		return Parse(context.Background(), clientSet, args)
+	}
+
+	tempFiles := func(manifests ...string) string {
+		tempDir := GinkgoTB().TempDir()
+		for i, m := range manifests {
+			name := filepath.Join(tempDir, fmt.Sprintf("manifest-%02d.yaml", i+1))
+			err := os.WriteFile(name, []byte(m), 0o600)
+			Expect(err).ShouldNot(HaveOccurred())
+		}
+		return tempDir
+	}
+
+	manifestAssertions := func() {
+		GinkgoHelper()
+
+		It("should produce the objects in the manifest", func(ctx context.Context) {
+			objs, err := parse(ctx)
+			Expect(err).ShouldNot(HaveOccurred())
+			Expect(objs).To(HaveExactElements(
+				matchUnstructured(Keys{
+					"metadata": MatchKeys(IgnoreExtras, Keys{
+						"name": Equal("my-map"),
+					}),
+				}),
+				matchUnstructured(Keys{
+					"metadata": MatchKeys(IgnoreExtras, Keys{
+						"name": Equal("my-new-cron-object"),
+					}),
+				}),
+			))
+		})
 	}
 
 	Describe("yamls", func() {
@@ -181,7 +308,7 @@ var _ = Describe("ParseDecodeYamlFiles", func() {
 			BeforeEach(func() {
 				args.YAML = manifest
 			})
-			commonAssertions()
+			manifestAssertions()
 		})
 
 		Context("when the manifest has empty blocks", func() {
@@ -192,17 +319,6 @@ var _ = Describe("ParseDecodeYamlFiles", func() {
 				_, err := parse(ctx)
 				Expect(err).ShouldNot(HaveOccurred())
 			})
-		})
-	})
-
-	Describe("objs", func() {
-		Context("when the input is a valid YAML object", func() {
-			BeforeEach(func() {
-				resources, err := yamlDecode(manifest, nil)
-				Expect(err).ShouldNot(HaveOccurred())
-				args.Objects = resources
-			})
-			commonAssertions()
 		})
 	})
 
@@ -227,7 +343,7 @@ var _ = Describe("ParseDecodeYamlFiles", func() {
 					tempDir := tempFiles(manifest)
 					args.Files = []string{filepath.Join(tempDir, "*.yaml")}
 				})
-				commonAssertions()
+				manifestAssertions()
 			})
 		})
 
@@ -246,7 +362,7 @@ var _ = Describe("ParseDecodeYamlFiles", func() {
 				tempDir := tempFiles(manifest)
 				args.Files = []string{filepath.Join(tempDir, "manifest-01.yaml")}
 			})
-			commonAssertions()
+			manifestAssertions()
 		})
 
 		Context("when the input is a valid YAML URL", func() {
@@ -254,101 +370,10 @@ var _ = Describe("ParseDecodeYamlFiles", func() {
 				args.Files = []string{`https://raw.githubusercontent.com/pulumi/pulumi-kubernetes/master/tests/sdk/nodejs/examples/yaml-guestbook/yaml/guestbook.yaml`}
 			})
 			It("should download and use the document", func(ctx context.Context) {
-				resources, err := parse(ctx)
+				objs, err := parse(ctx)
 				Expect(err).ShouldNot(HaveOccurred())
-
-				resourceArray, err := internals.UnsafeAwaitOutput(ctx, resources)
-				Expect(err).ShouldNot(HaveOccurred())
-				Expect(resourceArray.Value).To(HaveLen(6))
+				Expect(objs).To(HaveLen(6))
 			})
-		})
-	})
-
-	Describe("Kubernetes object specifics", func() {
-		Context("when the object has no kind", func() {
-			BeforeEach(func() {
-				args.Objects = []unstructured.Unstructured{{
-					Object: map[string]any{
-						"apiVersion": "v1",
-						"metadata":   map[string]any{},
-					},
-				}}
-			})
-			It("should fail", func(ctx context.Context) {
-				_, err := parse(ctx)
-				Expect(err).Should(MatchError(ContainSubstring("Kubernetes resources require a kind and apiVersion")))
-			})
-		})
-
-		Context("when the object has no metadata.name", func() {
-			BeforeEach(func() {
-				args.Objects = []unstructured.Unstructured{{
-					Object: map[string]any{
-						"apiVersion": "v1",
-						"kind":       "Secret",
-						"metadata":   map[string]any{},
-					},
-				}}
-			})
-			It("should fail", func(ctx context.Context) {
-				_, err := parse(ctx)
-				Expect(err).Should(MatchError(ContainSubstring("YAML object does not have a .metadata.name")))
-			})
-		})
-
-		Context("when the object is a list", func() {
-			BeforeEach(func() {
-				args.Objects = []unstructured.Unstructured{{
-					Object: map[string]any{
-						"apiVersion": "v1",
-						"kind":       "List",
-						"items": []any{
-							map[string]any{
-								"apiVersion": "v1",
-								"kind":       "Secret",
-								"metadata": map[string]any{
-									"name": "my-secret",
-								},
-							},
-						},
-					},
-				}}
-			})
-			It("should flatten the list", func(ctx context.Context) {
-				_, err := parse(ctx)
-				Expect(err).ShouldNot(HaveOccurred())
-
-				Expect(tc.monitor.Resources()).To(HaveKey("urn:pulumi:stack::project::kubernetes:core/v1:Secret::my-secret"))
-			})
-		})
-	})
-
-	Context("when the object is a Secret", func() {
-		BeforeEach(func() {
-			args.Objects = []unstructured.Unstructured{{
-				Object: map[string]any{
-					"apiVersion": "v1",
-					"kind":       "Secret",
-					"metadata": map[string]any{
-						"name": "my-secret",
-					},
-					"stringData": map[string]interface{}{
-						"foo": "bar",
-					},
-				},
-			}}
-		})
-		It("should mark the contents as a secret", func(ctx context.Context) {
-			_, err := parse(ctx)
-			Expect(err).ShouldNot(HaveOccurred())
-
-			Expect(tc.monitor.Resources()).To(MatchKeys(IgnoreExtras, Keys{
-				"urn:pulumi:stack::project::kubernetes:core/v1:Secret::my-secret": MatchProps(IgnoreExtras, Props{
-					"state": MatchObject(IgnoreExtras, Props{
-						"stringData": BeSecret(),
-					}),
-				}),
-			}))
 		})
 	})
 })
@@ -382,4 +407,10 @@ func TestIsGlobPattern(t *testing.T) {
 			}
 		})
 	}
+}
+
+func matchUnstructured(keys gstruct.Keys) gomegatypes.GomegaMatcher {
+	return WithTransform(func(obj unstructured.Unstructured) map[string]interface{} {
+		return obj.Object
+	}, MatchKeys(IgnoreExtras, keys))
 }

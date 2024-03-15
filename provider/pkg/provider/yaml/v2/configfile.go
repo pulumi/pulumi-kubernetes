@@ -85,13 +85,24 @@ func (k *ConfigFileProvider) Construct(ctx *pulumi.Context, typ, name string, in
 			resourcePrefix = name
 		}
 
-		return Parse(ctx, &ParseOptions{
-			Files:           []string{file},
-			Glob:            false,
+		// Parse the YAML file into an array of Kubernetes objects.
+		parseOpts := ParseOptions{
+			Files: []string{file},
+			Glob:  false,
+		}
+		objs, err := Parse(ctx.Context(), k.clientSet, parseOpts)
+		if err != nil {
+			return pulumi.ArrayOutput{}, err
+		}
+
+		// Register the objects as Pulumi resources.
+		registerOpts := RegisterOptions{
+			Objects:         objs,
 			ResourcePrefix:  resourcePrefix,
 			SkipAwait:       skipAwait,
 			ResourceOptions: []pulumi.ResourceOption{pulumi.Parent(comp)},
-		}, k.clientSet)
+		}
+		return Register(ctx, registerOpts)
 	}).(pulumi.ArrayOutput)
 
 	// issue: https://github.com/pulumi/pulumi/issues/15527

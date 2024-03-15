@@ -18,6 +18,7 @@
 package v2
 
 import (
+	"context"
 	"fmt"
 	"io"
 	"net/http"
@@ -38,18 +39,14 @@ import (
 )
 
 type ParseOptions struct {
-	Files           []string
-	Glob            bool
-	YAML            string
-	Objects         []unstructured.Unstructured
-	ResourcePrefix  string
-	SkipAwait       bool
-	ResourceOptions []pulumi.ResourceOption
+	Files []string
+	Glob  bool
+	YAML  string
 }
 
-// Parse parses a set of Kubernetes manifests and registers them as resources with the Pulumi engine.
-// Returns an array of the resources that were registered.
-func Parse(ctx *pulumi.Context, opts *ParseOptions, clientSet *clients.DynamicClientSet) (pulumi.ArrayOutput, error) {
+// Parse parses a set of Kubernetes manifests.
+// Returns an array of Unstructured objects.
+func Parse(ctx context.Context, clientSet *clients.DynamicClientSet, opts ParseOptions) ([]unstructured.Unstructured, error) {
 
 	var objs []unstructured.Unstructured
 
@@ -63,12 +60,12 @@ func Parse(ctx *pulumi.Context, opts *ParseOptions, clientSet *clients.DynamicCl
 			// If the string looks like a URL, in that it begins with a scheme, fetch it over the network.
 			resp, err := http.Get(file)
 			if err != nil {
-				return pulumi.ArrayOutput{}, errors.Wrapf(err, "fetching YAML over network")
+				return nil, errors.Wrapf(err, "fetching YAML over network")
 			}
 			defer resp.Body.Close()
 			yaml, err = io.ReadAll(resp.Body)
 			if err != nil {
-				return pulumi.ArrayOutput{}, errors.Wrapf(err, "reading YAML over network")
+				return nil, errors.Wrapf(err, "reading YAML over network")
 			}
 			yamls = append(yamls, string(yaml))
 		} else {
@@ -78,7 +75,7 @@ func Parse(ctx *pulumi.Context, opts *ParseOptions, clientSet *clients.DynamicCl
 			if opts.Glob && isGlobPattern(file) {
 				files, err = filepath.Glob(file)
 				if err != nil {
-					return pulumi.ArrayOutput{}, errors.Wrapf(err, "expanding glob")
+					return nil, errors.Wrapf(err, "expanding glob")
 				}
 			} else {
 				files = []string{file}
@@ -86,7 +83,7 @@ func Parse(ctx *pulumi.Context, opts *ParseOptions, clientSet *clients.DynamicCl
 			for _, f := range files {
 				yaml, err = os.ReadFile(f)
 				if err != nil {
-					return pulumi.ArrayOutput{}, errors.Wrapf(err, "reading YAML file from disk")
+					return nil, errors.Wrapf(err, "reading YAML file from disk")
 				}
 				yamls = append(yamls, string(yaml))
 			}
@@ -100,22 +97,12 @@ func Parse(ctx *pulumi.Context, opts *ParseOptions, clientSet *clients.DynamicCl
 		// Parse the resulting YAML bytes and turn them into raw Kubernetes objects.
 		dec, err := yamlDecode(yaml, clientSet)
 		if err != nil {
-			return pulumi.ArrayOutput{}, errors.Wrapf(err, "decoding YAML")
+			return nil, errors.Wrapf(err, "decoding YAML")
 		}
 		objs = append(objs, dec...)
 	}
 
-	// Include the parsed objects.
-	objs = append(objs, opts.Objects...)
-
-	// Now process the resulting list of Kubernetes objects.
-	registerOpts := RegisterOptions{
-		Objects:         objs,
-		ResourcePrefix:  opts.ResourcePrefix,
-		SkipAwait:       opts.SkipAwait,
-		ResourceOptions: opts.ResourceOptions,
-	}
-	return Register(ctx, registerOpts)
+	return objs, nil
 }
 
 // yamlDecode decodes a YAML string into a slice of Unstructured objects.
