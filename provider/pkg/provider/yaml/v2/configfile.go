@@ -85,11 +85,13 @@ func (k *ConfigFileProvider) Construct(ctx *pulumi.Context, typ, name string, in
 			resourcePrefix = name
 		}
 
-		return ParseDecodeYamlFiles(ctx, &ParseArgs{
-			Files:          []string{file},
-			ResourcePrefix: resourcePrefix,
-			SkipAwait:      skipAwait,
-		}, false, k.clientSet, pulumi.Parent(comp))
+		return Parse(ctx, &ParseOptions{
+			Files:           []string{file},
+			Glob:            false,
+			ResourcePrefix:  resourcePrefix,
+			SkipAwait:       skipAwait,
+			ResourceOptions: []pulumi.ResourceOption{pulumi.Parent(comp)},
+		}, k.clientSet)
 	}).(pulumi.ArrayOutput)
 
 	// issue: https://github.com/pulumi/pulumi/issues/15527

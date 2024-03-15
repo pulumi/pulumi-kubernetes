@@ -96,13 +96,15 @@ func (k *ConfigGroupProvider) Construct(ctx *pulumi.Context, typ, name string, i
 			objs[idx] = unstructured.Unstructured{Object: obj}
 		}
 
-		return ParseDecodeYamlFiles(ctx, &ParseArgs{
-			Files:          files,
-			YAML:           yaml,
-			Objects:        objs,
-			ResourcePrefix: resourcePrefix,
-			SkipAwait:      skipAwait,
-		}, true, k.clientSet, pulumi.Parent(comp))
+		return Parse(ctx, &ParseOptions{
+			Files:           files,
+			Glob:            true,
+			YAML:            yaml,
+			Objects:         objs,
+			ResourcePrefix:  resourcePrefix,
+			SkipAwait:       skipAwait,
+			ResourceOptions: []pulumi.ResourceOption{pulumi.Parent(comp)},
+		}, k.clientSet)
 	}).(pulumi.ArrayOutput)
 
 	// issue: https://github.com/pulumi/pulumi/issues/15527
