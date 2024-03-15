@@ -66,6 +66,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
+	"k8s.io/client-go/discovery"
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
 	clientapi "k8s.io/client-go/tools/clientcmd/api"
@@ -1401,7 +1402,11 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 	// If a default namespace is set on the provider for this resource, check if the resource has Namespaced
 	// or Global scope. For namespaced resources, set the namespace to the default value if unset.
 	if k.defaultNamespace != "" && len(newInputs.GetNamespace()) == 0 {
-		namespacedKind, err := clients.IsNamespacedKind(gvk, k.clientSet)
+		var disco discovery.CachedDiscoveryInterface
+		if k.clientSet != nil {
+			disco = k.clientSet.DiscoveryClientCached
+		}
+		namespacedKind, err := clients.IsNamespacedKind(gvk, disco)
 		if err != nil {
 			if clients.IsNoNamespaceInfoErr(err) {
 				// This is probably a CustomResource without a registered CustomResourceDefinition.
@@ -1575,7 +1580,11 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 
 	gvk := k.gvkFromUnstructured(newInputs)
 
-	namespacedKind, err := clients.IsNamespacedKind(gvk, k.clientSet)
+	var disco discovery.CachedDiscoveryInterface
+	if k.clientSet != nil {
+		disco = k.clientSet.DiscoveryClientCached
+	}
+	namespacedKind, err := clients.IsNamespacedKind(gvk, disco)
 	if err != nil {
 		if clients.IsNoNamespaceInfoErr(err) {
 			// This is probably a CustomResource without a registered CustomResourceDefinition.
@@ -3298,7 +3307,7 @@ func renderPathForResource(resource *unstructured.Unstructured, yamlDirectory st
 	filepath.Join(yamlDirectory, fileName)
 
 	var path string
-	if kinds.Kind(resource.GetKind()) == kinds.CustomResourceDefinition {
+	if kinds.KnownGroupVersions.Has(resource.GetAPIVersion()) && kinds.Kind(resource.GetKind()) == kinds.CustomResourceDefinition {
 		path = filepath.Join(crdDirectory, fileName)
 	} else {
 		path = filepath.Join(manifestDirectory, fileName)
