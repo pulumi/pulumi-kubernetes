@@ -26,6 +26,7 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
+	"sort"
 	"strings"
 
 	"github.com/pkg/errors"
@@ -77,6 +78,7 @@ func Parse(ctx context.Context, clientSet *clients.DynamicClientSet, opts ParseO
 				if err != nil {
 					return nil, errors.Wrapf(err, "expanding glob")
 				}
+				sort.Strings(files)
 			} else {
 				files = []string{file}
 			}

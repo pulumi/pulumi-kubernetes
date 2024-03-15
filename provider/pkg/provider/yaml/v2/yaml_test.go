@@ -376,6 +376,49 @@ var _ = Describe("Parse", func() {
 			})
 		})
 	})
+
+	Describe("Ordering", func() {
+		ns := func(name string) string {
+			return fmt.Sprintf(`
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: %s`, name)
+		}
+
+		BeforeEach(func() {
+			manifest1 := ns("ns1")
+			manifest2 := ns("ns2")
+			tempDir := tempFiles(manifest1, manifest2)
+			args.Files = []string{filepath.Join(tempDir, "*.yaml")}
+			args.Glob = true
+			args.YAML = ns("ns3")
+		})
+
+		Describe("none", func() {
+			It("should process files then yamls", func(ctx context.Context) {
+				objs, err := parse(ctx)
+				Expect(err).ShouldNot(HaveOccurred())
+				Expect(objs).To(HaveExactElements(
+					matchUnstructured(Keys{
+						"metadata": MatchKeys(IgnoreExtras, Keys{
+							"name": Equal("ns1"),
+						}),
+					}),
+					matchUnstructured(Keys{
+						"metadata": MatchKeys(IgnoreExtras, Keys{
+							"name": Equal("ns2"),
+						}),
+					}),
+					matchUnstructured(Keys{
+						"metadata": MatchKeys(IgnoreExtras, Keys{
+							"name": Equal("ns3"),
+						}),
+					}),
+				))
+			})
+		})
+	})
 })
 
 func TestIsGlobPattern(t *testing.T) {
