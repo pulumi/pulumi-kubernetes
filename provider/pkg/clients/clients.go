@@ -94,12 +94,7 @@ func (dcs *DynamicClientSet) ResourceClient(gvk schema.GroupVersionKind, namespa
 	}
 
 	// For namespaced Kinds, create a namespaced client. If no namespace is provided, use the "default" namespace.
-	namespaced, err := IsNamespacedKind(gvk, dcs)
-	if err != nil {
-		return nil, err
-	}
-
-	if namespaced {
+	if m.Scope.Name() == meta.RESTScopeNameNamespace {
 		return dcs.GenericClient.Resource(m.Resource).Namespace(NamespaceOrDefault(namespace)), nil
 	}
 
