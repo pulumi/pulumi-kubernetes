@@ -41,7 +41,7 @@ import * as utilities from "../../utilities";
  *
  * ### Ordering across ConfigGroups
  * The `dependsOn` resource option creates a list of explicit dependencies between Pulumi resources.
- * Use it on another resource to make it dependent on the ConfigFile and to wait for the resources within
+ * Use it on another resource to make it dependent on the ConfigGroup and to wait for the resources within
  * the group to be deployed.
  *
  * A best practice is to deploy each application using its own ConfigGroup, especially when that application

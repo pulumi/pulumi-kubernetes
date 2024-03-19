@@ -223,7 +223,7 @@ func Register(ctx *pulumi.Context, opts RegisterOptions) (pulumi.ArrayOutput, er
 			}
 
 			// Register the resource with the Pulumi engine.
-			// Note that the RPC call is made asyncronously, and is awaited by the resource output.
+			// Note that the RPC call is made asynchronously, and is awaited by the resource output.
 			r, err := register(ctx, obj, opts, resourceOptions)
 			if err != nil {
 				return pulumi.ArrayOutput{}, err
