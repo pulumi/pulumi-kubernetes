@@ -1,4 +1,4 @@
-//nolint:copylocks
+//nolint:govet,golint
 package gomega
 
 import (

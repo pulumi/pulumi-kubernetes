@@ -18,6 +18,7 @@
 package v2
 
 import (
+	"context"
 	"fmt"
 	"io"
 	"net/http"
@@ -37,24 +38,21 @@ import (
 	"k8s.io/apimachinery/pkg/util/yaml"
 )
 
-type ParseArgs struct {
-	Files          []string
-	YAML           string
-	Objects        []unstructured.Unstructured
-	ResourcePrefix string
-	SkipAwait      bool
+type ParseOptions struct {
+	Files []string
+	Glob  bool
+	YAML  string
 }
 
-func ParseDecodeYamlFiles(ctx *pulumi.Context, args *ParseArgs, glob bool, clientSet *clients.DynamicClientSet, opts ...pulumi.ResourceOption,
-) (pulumi.ArrayOutput, error) {
+// Parse parses a set of Kubernetes manifests.
+// Returns an array of Unstructured objects.
+func Parse(ctx context.Context, clientSet *clients.DynamicClientSet, opts ParseOptions) ([]unstructured.Unstructured, error) {
 
-	// Start with the provided objects.
 	var objs []unstructured.Unstructured
-	objs = append(objs, args.Objects...)
 
-	// Continue by gathering any other YAML from files provided.
-	yamls := []string{args.YAML}
-	for _, file := range args.Files {
+	// Load the manifest files.
+	yamls := []string{}
+	for _, file := range opts.Files {
 		// Read the raw YAML file(s) specified in the input file parameter. It might be a URL or a file path.
 		var yaml []byte
 		u, err := url.Parse(file)
@@ -62,22 +60,22 @@ func ParseDecodeYamlFiles(ctx *pulumi.Context, args *ParseArgs, glob bool, clien
 			// If the string looks like a URL, in that it begins with a scheme, fetch it over the network.
 			resp, err := http.Get(file)
 			if err != nil {
-				return pulumi.ArrayOutput{}, errors.Wrapf(err, "fetching YAML over network")
+				return nil, errors.Wrapf(err, "fetching YAML over network")
 			}
 			defer resp.Body.Close()
 			yaml, err = io.ReadAll(resp.Body)
 			if err != nil {
-				return pulumi.ArrayOutput{}, errors.Wrapf(err, "reading YAML over network")
+				return nil, errors.Wrapf(err, "reading YAML over network")
 			}
 			yamls = append(yamls, string(yaml))
 		} else {
 			// Otherwise, assume this is a path to a file on disk. If globbing is enabled and a pattern is provided, we might have
 			// multiple files -- otherwise just read a singular file and fail if it doesn't exist.
 			var files []string
-			if glob && isGlobPattern(file) {
+			if opts.Glob && isGlobPattern(file) {
 				files, err = filepath.Glob(file)
 				if err != nil {
-					return pulumi.ArrayOutput{}, errors.Wrapf(err, "expanding glob")
+					return nil, errors.Wrapf(err, "expanding glob")
 				}
 			} else {
 				files = []string{file}
@@ -85,25 +83,26 @@ func ParseDecodeYamlFiles(ctx *pulumi.Context, args *ParseArgs, glob bool, clien
 			for _, f := range files {
 				yaml, err = os.ReadFile(f)
 				if err != nil {
-					return pulumi.ArrayOutput{}, errors.Wrapf(err, "reading YAML file from disk")
+					return nil, errors.Wrapf(err, "reading YAML file from disk")
 				}
 				yamls = append(yamls, string(yaml))
 			}
 		}
 	}
 
-	// Next parse all YAML documents into objects.
+	// Include the manifest string literals.
+	yamls = append(yamls, opts.YAML)
+
 	for _, yaml := range yamls {
 		// Parse the resulting YAML bytes and turn them into raw Kubernetes objects.
 		dec, err := yamlDecode(yaml, clientSet)
 		if err != nil {
-			return pulumi.ArrayOutput{}, errors.Wrapf(err, "decoding YAML")
+			return nil, errors.Wrapf(err, "decoding YAML")
 		}
 		objs = append(objs, dec...)
 	}
 
-	// Now process the resulting list of Kubernetes objects.
-	return ParseYamlObjects(ctx, objs, args.ResourcePrefix, args.SkipAwait, opts...)
+	return objs, nil
 }
 
 // yamlDecode decodes a YAML string into a slice of Unstructured objects.
@@ -131,16 +130,19 @@ func yamlDecode(text string, _ *clients.DynamicClientSet) ([]unstructured.Unstru
 	return resources, nil
 }
 
-func ParseYamlObjects(
-	ctx *pulumi.Context,
-	objs []unstructured.Unstructured,
-	resourcePrefix string,
-	skipAwait bool,
-	opts ...pulumi.ResourceOption,
-) (pulumi.ArrayOutput, error) {
+type RegisterOptions struct {
+	Objects         []unstructured.Unstructured
+	ResourcePrefix  string
+	SkipAwait       bool
+	ResourceOptions []pulumi.ResourceOption
+}
+
+// Register registers the given Kubernetes objects as resources with the Pulumi engine.
+// Returns an array of the resources that were registered.
+func Register(ctx *pulumi.Context, opts RegisterOptions) (pulumi.ArrayOutput, error) {
 	resources := pulumi.Array{}
-	for _, obj := range objs {
-		rs, err := parseUnstructured(ctx, &obj, resourcePrefix, skipAwait, opts...)
+	for _, obj := range opts.Objects {
+		rs, err := register(ctx, &obj, opts)
 		if err != nil {
 			return pulumi.ArrayOutput{}, err
 		}
@@ -151,12 +153,10 @@ func ParseYamlObjects(
 	return resources.ToArrayOutputWithContext(ctx.Context()), nil
 }
 
-func parseUnstructured(
+func register(
 	ctx *pulumi.Context,
 	obj *unstructured.Unstructured,
-	resourcePrefix string,
-	skipAwait bool,
-	opts ...pulumi.ResourceOption,
+	opts RegisterOptions,
 ) ([]pulumi.CustomResource, error) {
 
 	// Ensure there is a kind and API version.
@@ -183,7 +183,7 @@ func parseUnstructured(
 		var resources []pulumi.CustomResource
 		err := obj.EachListItem(func(o runtime.Object) error {
 			obj := o.(*unstructured.Unstructured)
-			rs, err := parseUnstructured(ctx, obj, resourcePrefix, skipAwait, opts...)
+			rs, err := register(ctx, obj, opts)
 			if err != nil {
 				return err
 			}
@@ -207,12 +207,12 @@ func parseUnstructured(
 	if obj.GetNamespace() != "" {
 		resourceName = fmt.Sprintf("%s/%s", obj.GetNamespace(), obj.GetName())
 	}
-	if resourcePrefix != "" {
-		resourceName = fmt.Sprintf("%s-%s", resourcePrefix, resourceName)
+	if opts.ResourcePrefix != "" {
+		resourceName = fmt.Sprintf("%s-%s", opts.ResourcePrefix, resourceName)
 	}
 
 	// Apply the skipAwait annotation if necessary.
-	if skipAwait {
+	if opts.SkipAwait {
 		if err := unstructured.SetNestedField(obj.Object, "true", "metadata", "annotations", "pulumi.com/skipAwait"); err != nil {
 			return nil, fmt.Errorf("YAML object is invalid: `%s`: %w", printUnstructured(obj), err)
 		}
@@ -228,7 +228,7 @@ func parseUnstructured(
 	}
 
 	// Finally allocate a resource of the correct type.
-	res, err := yamlv2.RegisterResource(ctx, apiVersion, kind, resourceName, kubernetes.UntypedArgs(obj.Object), opts...)
+	res, err := yamlv2.RegisterResource(ctx, apiVersion, kind, resourceName, kubernetes.UntypedArgs(obj.Object), opts.ResourceOptions...)
 	if err != nil {
 		return nil, err
 	}

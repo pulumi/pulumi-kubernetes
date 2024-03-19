@@ -91,18 +91,29 @@ func (k *ConfigGroupProvider) Construct(ctx *pulumi.Context, typ, name string, i
 			resourcePrefix = name
 		}
 
-		objs := make([]unstructured.Unstructured, len(objects))
-		for idx, obj := range objects {
-			objs[idx] = unstructured.Unstructured{Object: obj}
+		// Parse the YAML files and literals into an array of Kubernetes objects, plus the provided objects.
+		parseOpts := ParseOptions{
+			Files: files,
+			Glob:  true,
+			YAML:  yaml,
+		}
+		objs, err := Parse(ctx.Context(), k.clientSet, parseOpts)
+		if err != nil {
+			return pulumi.ArrayOutput{}, err
+		}
+		for _, obj := range objects {
+			objs = append(objs, unstructured.Unstructured{Object: obj})
 		}
 
-		return ParseDecodeYamlFiles(ctx, &ParseArgs{
-			Files:          files,
-			YAML:           yaml,
-			Objects:        objs,
-			ResourcePrefix: resourcePrefix,
-			SkipAwait:      skipAwait,
-		}, true, k.clientSet, pulumi.Parent(comp))
+		// Register the objects as Pulumi resources.
+		registerOpts := RegisterOptions{
+			Objects:         objs,
+			ResourcePrefix:  resourcePrefix,
+			SkipAwait:       skipAwait,
+			ResourceOptions: []pulumi.ResourceOption{pulumi.Parent(comp)},
+		}
+		return Register(ctx, registerOpts)
+
 	}).(pulumi.ArrayOutput)
 
 	// issue: https://github.com/pulumi/pulumi/issues/15527
