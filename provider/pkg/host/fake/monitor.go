@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//nolint:govet
 package fake
 
 import (
@@ -27,6 +26,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/rpcutil"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
+	"golang.org/x/exp/maps"
 	"google.golang.org/grpc"
 	"google.golang.org/protobuf/types/known/emptypb"
 )
@@ -83,7 +83,7 @@ func NewResourceMonitorServer(t testing.TB, monitor pulumi.MockResourceMonitor) 
 		project:       "project",
 		stack:         "stack",
 		mocks:         monitor,
-		registrations: []Registration{},
+		registrations: map[string]Registration{},
 	}
 }
 
@@ -102,16 +102,17 @@ type ResourceMonitorServer struct {
 	mocks   pulumi.MockResourceMonitor
 
 	mu            sync.Mutex
-	registrations []Registration
+	registrations map[string]Registration
 }
 
 // Resources returns a map of registered resources by urn.
+// Deprecated: Use Registrations instead.
 func (m *ResourceMonitorServer) Resources() map[string]resource.PropertyMap {
 	m.mu.Lock()
 	defer m.mu.Unlock()
 	resources := map[string]resource.PropertyMap{}
-	for _, reg := range m.registrations {
-		resources[reg.Urn] = resource.PropertyMap{
+	for k, reg := range m.registrations { //nolint:govet // copylocks
+		resources[k] = resource.PropertyMap{
 			resource.PropertyKey("urn"):    resource.NewStringProperty(reg.Urn),
 			resource.PropertyKey("id"):     resource.NewStringProperty(reg.ID),
 			resource.PropertyKey("state"):  resource.NewObjectProperty(reg.State),
@@ -122,12 +123,10 @@ func (m *ResourceMonitorServer) Resources() map[string]resource.PropertyMap {
 }
 
 // Registrations returns the resource registrations.
-func (m *ResourceMonitorServer) Registrations() []Registration {
+func (m *ResourceMonitorServer) Registrations() map[string]Registration {
 	m.mu.Lock()
 	defer m.mu.Unlock()
-	r := make([]Registration, len(m.registrations))
-	copy(r, m.registrations)
-	return r
+	return maps.Clone(m.registrations)
 }
 
 var _ pulumirpc.ResourceMonitorServer = &ResourceMonitorServer{}
@@ -185,12 +184,12 @@ func (m *ResourceMonitorServer) RegisterResource(ctx context.Context, in *pulumi
 	func() {
 		m.mu.Lock()
 		defer m.mu.Unlock()
-		m.registrations = append(m.registrations, Registration{
+		m.registrations[urn] = Registration{
 			Urn:     urn,
 			ID:      id,
 			State:   state,
-			Request: *in,
-		})
+			Request: *in, //nolint:govet // copylocks
+		}
 	}()
 
 	stateOut, err := plugin.MarshalProperties(state, plugin.MarshalOptions{
