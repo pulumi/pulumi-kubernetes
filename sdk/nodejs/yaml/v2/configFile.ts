@@ -15,7 +15,7 @@ import * as utilities from "../../utilities";
  * waits for each object to be fully reconciled, unless `skipAwait` is enabled.
  *
  * ### Explicit Dependency Ordering
- * Pulumi supports the `config.kubernetes.io/depends-on` annotation to declare an explicit dependency a given resource.
+ * Pulumi supports the `config.kubernetes.io/depends-on` annotation to declare an explicit dependency on a given resource.
  * The annotation accepts a list of resource references, delimited by commas.
  *
  * Note that references to resources outside the ConfigFile aren't supported.
@@ -35,7 +35,8 @@ import * as utilities from "../../utilities";
  *
  * ### Ordering across ConfigFiles
  * The `dependsOn` resource option creates a list of explicit dependencies between Pulumi resources.
- * Make another resource dependent on the ConfigFile to wait for the resources within the group to be deployed.
+ * Use it on another resource to make it dependent on the ConfigFile and to wait for the resources within
+ * the group to be deployed.
  *
  * A best practice is to deploy each application using its own ConfigFile, especially when that application
  * installs custom resource definitions.
