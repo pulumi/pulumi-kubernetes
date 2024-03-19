@@ -261,11 +261,6 @@ func ExistsInVersion(gvk *schema.GroupVersionKind, version *cluster.ServerVersio
 func RemovedInVersion(gvk schema.GroupVersionKind) *cluster.ServerVersion {
 	gv, k := groupVersion(gvk.GroupVersion().String()), Kind(gvk.Kind)
 
-	switch k {
-	case PodSecurityPolicy, PodSecurityPolicyList:
-		return &v125
-	}
-
 	switch gv {
 	case AdmissionregistrationV1B1:
 		return &v122
@@ -282,6 +277,13 @@ func RemovedInVersion(gvk schema.GroupVersionKind) *cluster.ServerVersion {
 			return &v120
 		}
 		return &v116
+	case PolicyV1:
+		if k == PodSecurityPolicy || k == PodSecurityPolicyList {
+			return &v125
+		}
+		return nil
+	case PolicyV1B1:
+		return &v125
 	case RbacV1A1:
 		return &v120
 	case RbacV1B1:
