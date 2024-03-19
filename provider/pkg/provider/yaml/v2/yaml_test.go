@@ -51,6 +51,25 @@ spec:
   cronSpec: "* * * * */5"
   image: my-awesome-cron-image
 `
+
+	list = `
+apiVersion: v1
+kind: List
+items:
+- apiVersion: v1
+  kind: ConfigMap
+  metadata:
+    name: map-1
+- apiVersion: v1
+  kind: ConfigMap
+  metadata:
+    name: map-2
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: map-3
+`
 )
 
 var _ = Describe("Register", func() {
@@ -200,32 +219,6 @@ var _ = Describe("Register", func() {
 			})
 		})
 
-		Context("when the object is a list", func() {
-			BeforeEach(func() {
-				registerOpts.Objects = []unstructured.Unstructured{{
-					Object: map[string]any{
-						"apiVersion": "v1",
-						"kind":       "List",
-						"items": []any{
-							map[string]any{
-								"apiVersion": "v1",
-								"kind":       "Secret",
-								"metadata": map[string]any{
-									"name": "my-secret",
-								},
-							},
-						},
-					},
-				}}
-			})
-			It("should flatten the list", func(ctx context.Context) {
-				_, err := register(ctx)
-				Expect(err).ShouldNot(HaveOccurred())
-
-				Expect(tc.monitor.Resources()).To(HaveKey("urn:pulumi:stack::project::kubernetes:core/v1:Secret::my-secret"))
-			})
-		})
-
 		Context("when the object is a Secret", func() {
 			BeforeEach(func() {
 				registerOpts.Objects = []unstructured.Unstructured{{
@@ -318,6 +311,21 @@ var _ = Describe("Parse", func() {
 			It("should do nothing", func(ctx context.Context) {
 				_, err := parse(ctx)
 				Expect(err).ShouldNot(HaveOccurred())
+			})
+		})
+
+		Context("when the object is a list", func() {
+			BeforeEach(func() {
+				args.YAML = list
+			})
+			It("should flatten the list", func(ctx context.Context) {
+				objs, err := parse(ctx)
+				Expect(err).ShouldNot(HaveOccurred())
+				Expect(objs).To(HaveExactElements(
+					matchUnstructured(Keys{"metadata": MatchKeys(IgnoreExtras, Keys{"name": Equal("map-1")})}),
+					matchUnstructured(Keys{"metadata": MatchKeys(IgnoreExtras, Keys{"name": Equal("map-2")})}),
+					matchUnstructured(Keys{"metadata": MatchKeys(IgnoreExtras, Keys{"name": Equal("map-3")})}),
+				))
 			})
 		})
 	})
