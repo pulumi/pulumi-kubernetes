@@ -34,6 +34,7 @@ import (
 	"k8s.io/client-go/restmapper"
 )
 
+// ResourceClient returns a dynamic client for the given built-in Kind and namespace.
 func ResourceClient(kind kinds.Kind, namespace string, client *DynamicClientSet) (dynamic.ResourceInterface, error) {
 	gvk, err := client.gvkForKind(kind)
 	if err != nil {
@@ -93,12 +94,7 @@ func (dcs *DynamicClientSet) ResourceClient(gvk schema.GroupVersionKind, namespa
 	}
 
 	// For namespaced Kinds, create a namespaced client. If no namespace is provided, use the "default" namespace.
-	namespaced, err := IsNamespacedKind(gvk, dcs)
-	if err != nil {
-		return nil, err
-	}
-
-	if namespaced {
+	if m.Scope.Name() == meta.RESTScopeNameNamespace {
 		return dcs.GenericClient.Resource(m.Resource).Namespace(NamespaceOrDefault(namespace)), nil
 	}
 
@@ -111,6 +107,7 @@ func (dcs *DynamicClientSet) ResourceClientForObject(obj *unstructured.Unstructu
 	return dcs.ResourceClient(obj.GroupVersionKind(), obj.GetNamespace())
 }
 
+// gvkForKind returns the GVK for a given built-in kind, by discovering the server-preferred version.
 func (dcs *DynamicClientSet) gvkForKind(kind kinds.Kind) (*schema.GroupVersionKind, error) {
 	resources, err := dcs.DiscoveryClientCached.ServerPreferredResources()
 	if err != nil {
@@ -126,6 +123,11 @@ func (dcs *DynamicClientSet) gvkForKind(kind kinds.Kind) (*schema.GroupVersionKi
 
 	var fallbackResourceList *v1.APIResourceList
 	for _, gvResources := range resources {
+		if !kinds.KnownGroupVersions.Has(gvResources.GroupVersion) {
+			// consider only the built-in GVs since Kind represents a built-in kind.
+			continue
+		}
+
 		// For some reason, the server is returning the old "extensions/v1beta1" GV before "apps/v1", so manually
 		// skip it and fallback to it if the Kind is not found.
 		if gvResources.GroupVersion == "extensions/v1beta1" {
@@ -164,23 +166,25 @@ func (dcs *DynamicClientSet) searchKindInGVResources(gvResources *v1.APIResource
 // IsNamespacedKind checks if a given GVK is namespace-scoped. Known GVKs are compared against a static lookup table.
 // For GVKs not in the table, attempt to look up the GVK from the API server. If the GVK cannot be found, a
 // NoNamespaceInfoErr is returned.
-func IsNamespacedKind(gvk schema.GroupVersionKind, clientSet *DynamicClientSet) (bool, error) {
+func IsNamespacedKind(gvk schema.GroupVersionKind, disco discovery.DiscoveryInterface) (bool, error) {
 	gv := gvk.GroupVersion().String()
 	if strings.Contains(gv, "core/v1") {
 		gv = "v1"
 	}
 
-	kind := strings.TrimSuffix(gvk.Kind, "Patch") // Check using the underlying kind for Patch resources
-	if known, namespaced := kinds.Kind(kind).Namespaced(); known {
-		return namespaced, nil
+	if kinds.KnownGroupVersions.Has(gvk.GroupVersion().String()) {
+		kind := strings.TrimSuffix(gvk.Kind, "Patch") // Check using the underlying kind for Patch resources
+		if known, namespaced := kinds.Kind(kind).Namespaced(); known {
+			return namespaced, nil
+		}
 	}
 
 	// If the Kind is not known, attempt to look up from the API server. This applies to Kinds defined using a CRD.
 	// If the API server is not reachable, return an error.
-	if clientSet == nil {
+	if disco == nil {
 		return false, &NoNamespaceInfoErr{gvk}
 	}
-	resourceList, err := clientSet.DiscoveryClientCached.ServerResourcesForGroupVersion(gv)
+	resourceList, err := disco.ServerResourcesForGroupVersion(gv)
 	if err != nil {
 		return false, &NoNamespaceInfoErr{gvk}
 	}
