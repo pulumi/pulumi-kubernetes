@@ -25,9 +25,10 @@ require (
 	github.com/pulumi/pulumi/sdk/v3 v3.109.0
 	github.com/stretchr/testify v1.8.4
 	golang.org/x/crypto v0.18.0
+	golang.org/x/exp v0.0.0-20231110203233-9a3e6036ecaa
 	google.golang.org/grpc v1.59.0
 	gopkg.in/yaml.v3 v3.0.1
-	helm.sh/helm/v3 v3.14.2
+	helm.sh/helm/v3 v3.14.3
 	k8s.io/api v0.29.0
 	k8s.io/apimachinery v0.29.0
 	k8s.io/client-go v0.29.0
@@ -72,12 +73,12 @@ require (
 	github.com/cespare/xxhash/v2 v2.2.0 // indirect
 	github.com/chai2010/gettext-go v1.0.2 // indirect
 	github.com/cheggaaa/pb v1.0.29 // indirect
-	github.com/containerd/containerd v1.7.11 // indirect
+	github.com/containerd/containerd v1.7.12 // indirect
 	github.com/cyphar/filepath-securejoin v0.2.4 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/djherbis/times v1.5.0 // indirect
 	github.com/docker/distribution v2.8.2+incompatible // indirect
-	github.com/docker/docker v24.0.7+incompatible // indirect
+	github.com/docker/docker v24.0.9+incompatible // indirect
 	github.com/docker/docker-credential-helpers v0.7.0 // indirect
 	github.com/docker/go-connections v0.4.0 // indirect
 	github.com/docker/go-metrics v0.0.1 // indirect
@@ -204,7 +205,7 @@ require (
 	google.golang.org/api v0.151.0 // indirect
 	google.golang.org/appengine v1.6.8 // indirect
 	google.golang.org/genproto v0.0.0-20231120223509-83a465c0220f // indirect
-	google.golang.org/protobuf v1.31.0
+	google.golang.org/protobuf v1.33.0
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	gopkg.in/square/go-jose.v2 v2.6.0 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
@@ -298,7 +299,6 @@ require (
 	go.opentelemetry.io/otel v1.19.0 // indirect
 	go.opentelemetry.io/otel/metric v1.19.0 // indirect
 	go.opentelemetry.io/otel/trace v1.19.0 // indirect
-	golang.org/x/exp v0.0.0-20231110203233-9a3e6036ecaa // indirect
 	golang.org/x/mod v0.14.0 // indirect
 	golang.org/x/tools v0.16.1 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20231120223509-83a465c0220f // indirect
