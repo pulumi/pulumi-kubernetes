@@ -164,7 +164,8 @@ func (dcs *DynamicClientSet) searchKindInGVResources(gvResources *v1.APIResource
 }
 
 // IsNamespacedKind checks if a given GVK is namespace-scoped. Known GVKs are compared against a static lookup table.
-// For GVKs not in the table, attempt to look up the GVK from the API server. If the GVK cannot be found, a
+// For GVKs not in the table, look at the given objects for a matching CRD.
+// Finally, attempt to look up the GVK from the API server. If the GVK cannot be found, a
 // NoNamespaceInfoErr is returned.
 func IsNamespacedKind(gvk schema.GroupVersionKind, disco discovery.DiscoveryInterface, objs ...unstructured.Unstructured) (bool, error) {
 	if gvk.Group == "core" { // nolint:goconst
