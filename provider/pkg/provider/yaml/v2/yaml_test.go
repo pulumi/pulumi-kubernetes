@@ -331,37 +331,6 @@ var _ = Describe("Register", func() {
 	})
 
 	Describe("Kubernetes object specifics", func() {
-		Context("when the object has no kind", func() {
-			BeforeEach(func() {
-				registerOpts.Objects = []unstructured.Unstructured{{
-					Object: map[string]any{
-						"apiVersion": "v1",
-						"metadata":   map[string]any{},
-					},
-				}}
-			})
-			It("should fail", func(ctx context.Context) {
-				_, err := register(ctx)
-				Expect(err).Should(MatchError(ContainSubstring("Kubernetes resources require a kind and apiVersion")))
-			})
-		})
-
-		Context("when the object has no metadata.name", func() {
-			BeforeEach(func() {
-				registerOpts.Objects = []unstructured.Unstructured{{
-					Object: map[string]any{
-						"apiVersion": "v1",
-						"kind":       "Secret",
-						"metadata":   map[string]any{},
-					},
-				}}
-			})
-			It("should fail", func(ctx context.Context) {
-				_, err := register(ctx)
-				Expect(err).Should(MatchError(ContainSubstring("YAML object does not have a .metadata.name")))
-			})
-		})
-
 		Context("when the object is a Secret", func() {
 			BeforeEach(func() {
 				registerOpts.Objects = []unstructured.Unstructured{{
@@ -522,6 +491,39 @@ var _ = Describe("Normalize", func() {
 			},
 		}
 		disco.Resources = append(disco.Resources, fakeResources...)
+	})
+
+	Describe("validation", func() {
+		Context("when the object has no kind", func() {
+			BeforeEach(func() {
+				objs = []unstructured.Unstructured{{
+					Object: map[string]any{
+						"apiVersion": "v1",
+						"metadata":   map[string]any{},
+					},
+				}}
+			})
+			It("should fail", func(ctx context.Context) {
+				_, err := Normalize(objs, defaultNamespace, clientSet)
+				Expect(err).Should(MatchError(ContainSubstring("Kubernetes resources require a kind and apiVersion")))
+			})
+		})
+
+		Context("when the object has no metadata.name", func() {
+			BeforeEach(func() {
+				objs = []unstructured.Unstructured{{
+					Object: map[string]any{
+						"apiVersion": "v1",
+						"kind":       "Secret",
+						"metadata":   map[string]any{},
+					},
+				}}
+			})
+			It("should fail", func(ctx context.Context) {
+				_, err := Normalize(objs, defaultNamespace, clientSet)
+				Expect(err).Should(MatchError(ContainSubstring("Kubernetes resources require a .metadata.name")))
+			})
+		})
 	})
 
 	Describe("namespacing", func() {

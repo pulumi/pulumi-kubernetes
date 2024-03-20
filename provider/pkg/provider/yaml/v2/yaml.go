@@ -148,6 +148,17 @@ func Normalize(objs []unstructured.Unstructured, defaultNamespace string, client
 
 	for _, obj := range objs {
 		gvk := obj.GroupVersionKind()
+
+		// Ensure there is a kind and API version.
+		if gvk.Kind == "" || gvk.GroupVersion().Empty() {
+			return nil, fmt.Errorf("Kubernetes resources require a kind and apiVersion: `%s`", printUnstructured(&obj))
+		}
+
+		// Validate that it has the requisite metadata and name properties.
+		if obj.GetName() == "" {
+			return nil, fmt.Errorf("Kubernetes resources require a .metadata.name: `%s`", printUnstructured(&obj))
+		}
+
 		// canonicalize the "core" group for the sake of a depends-on annotation that might reference this object.
 		if gvk.Group == "core" {
 			gvk.Group = ""
@@ -272,20 +283,15 @@ func register(
 	resourceOpts []pulumi.ResourceOption,
 ) (pulumi.CustomResource, error) {
 
-	// Ensure there is a kind and API version.
+	contract.Requiref(obj != nil, "obj", "expected != nil")
+
 	kind := obj.GetKind()
 	apiVersion := obj.GetAPIVersion()
-	if kind == "" || apiVersion == "" {
-		return nil, fmt.Errorf("Kubernetes resources require a kind and apiVersion: `%s`", printUnstructured(obj))
-	}
+	contract.Requiref(kind != "" && apiVersion != "", "obj", "expected .kind and .apiVersion")
 	fullKind := fmt.Sprintf("%s/%s", apiVersion, kind)
 
-	// Validate that it has the requisite metadata and name properties.
-	if obj.GetName() == "" {
-		return nil, fmt.Errorf("YAML object does not have a .metadata.name: `%s`", printUnstructured(obj))
-	}
-
 	// Manufacture a resource name as appropriate, out of the meta name, namespace, and optional prefix.
+	contract.Requiref(obj.GetName() != "", "obj", "expected .metadata.name")
 	resourceName := obj.GetName()
 	if obj.GetNamespace() != "" {
 		resourceName = fmt.Sprintf("%s/%s", obj.GetNamespace(), obj.GetName())
