@@ -94,8 +94,8 @@ var _ = Describe("ConfigFile.Construct", func() {
 					"resources": MatchArrayValue(ConsistOf(
 						MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigFile$kubernetes:core/v1:Namespace::test-my-namespace", "test-my-namespace"),
 						MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigFile$kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::test-crontabs.stable.example.com", "test-crontabs.stable.example.com"),
-						MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigFile$kubernetes:core/v1:ConfigMap::test-my-map", "test-my-map"),
-						MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigFile$kubernetes:stable.example.com/v1:CronTab::test-my-new-cron-object", "test-my-new-cron-object"),
+						MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigFile$kubernetes:core/v1:ConfigMap::test-my-namespace/my-map", "test-my-namespace/my-map"),
+						MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigFile$kubernetes:stable.example.com/v1:CronTab::test-my-namespace/my-new-cron-object", "test-my-namespace/my-new-cron-object"),
 					)),
 				}))
 			})
@@ -112,8 +112,8 @@ var _ = Describe("ConfigFile.Construct", func() {
 						"resources": MatchArrayValue(ConsistOf(
 							MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigFile$kubernetes:core/v1:Namespace::prefixed-my-namespace", "prefixed-my-namespace"),
 							MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigFile$kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::prefixed-crontabs.stable.example.com", "prefixed-crontabs.stable.example.com"),
-							MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigFile$kubernetes:core/v1:ConfigMap::prefixed-my-map", "prefixed-my-map"),
-							MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigFile$kubernetes:stable.example.com/v1:CronTab::prefixed-my-new-cron-object", "prefixed-my-new-cron-object"),
+							MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigFile$kubernetes:core/v1:ConfigMap::prefixed-my-namespace/my-map", "prefixed-my-namespace/my-map"),
+							MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigFile$kubernetes:stable.example.com/v1:CronTab::prefixed-my-namespace/my-new-cron-object", "prefixed-my-namespace/my-new-cron-object"),
 						)),
 					}))
 				})
@@ -131,8 +131,8 @@ var _ = Describe("ConfigFile.Construct", func() {
 						"resources": MatchArrayValue(ConsistOf(
 							MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigFile$kubernetes:core/v1:Namespace::my-namespace", "my-namespace"),
 							MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigFile$kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::crontabs.stable.example.com", "crontabs.stable.example.com"),
-							MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigFile$kubernetes:core/v1:ConfigMap::my-map", "my-map"),
-							MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigFile$kubernetes:stable.example.com/v1:CronTab::my-new-cron-object", "my-new-cron-object"),
+							MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigFile$kubernetes:core/v1:ConfigMap::my-namespace/my-map", "my-namespace/my-map"),
+							MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigFile$kubernetes:stable.example.com/v1:CronTab::my-namespace/my-new-cron-object", "my-namespace/my-new-cron-object"),
 						)),
 					}))
 				})

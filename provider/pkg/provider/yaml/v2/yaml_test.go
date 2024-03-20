@@ -76,6 +76,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: my-map
+  namespace: my-namespace
 data:
   altGreeting: "Good Morning!"
 ---
@@ -83,6 +84,7 @@ apiVersion: "stable.example.com/v1"
 kind: CronTab
 metadata:
   name: my-new-cron-object
+  namespace: my-namespace
 spec:
   cronSpec: "* * * * */5"
   image: my-awesome-cron-image
@@ -152,14 +154,14 @@ var _ = Describe("Register", func() {
 						}),
 					}),
 				}),
-				"urn:pulumi:stack::project::kubernetes:core/v1:ConfigMap::my-map": MatchProps(IgnoreExtras, Props{
+				"urn:pulumi:stack::project::kubernetes:core/v1:ConfigMap::my-namespace/my-map": MatchProps(IgnoreExtras, Props{
 					"state": MatchObject(IgnoreExtras, Props{
 						"metadata": MatchObject(IgnoreExtras, Props{
 							"name": MatchValue("my-map"),
 						}),
 					}),
 				}),
-				"urn:pulumi:stack::project::kubernetes:stable.example.com/v1:CronTab::my-new-cron-object": MatchProps(IgnoreExtras, Props{
+				"urn:pulumi:stack::project::kubernetes:stable.example.com/v1:CronTab::my-namespace/my-new-cron-object": MatchProps(IgnoreExtras, Props{
 					"state": MatchObject(IgnoreExtras, Props{
 						"metadata": MatchObject(IgnoreExtras, Props{
 							"name": MatchValue("my-new-cron-object"),
@@ -201,14 +203,14 @@ var _ = Describe("Register", func() {
 							}),
 						}),
 					}),
-					"urn:pulumi:stack::project::kubernetes:core/v1:ConfigMap::prefixed-my-map": MatchProps(IgnoreExtras, Props{
+					"urn:pulumi:stack::project::kubernetes:core/v1:ConfigMap::prefixed-my-namespace/my-map": MatchProps(IgnoreExtras, Props{
 						"state": MatchObject(IgnoreExtras, Props{
 							"metadata": MatchObject(IgnoreExtras, Props{
 								"name": MatchValue("my-map"),
 							}),
 						}),
 					}),
-					"urn:pulumi:stack::project::kubernetes:stable.example.com/v1:CronTab::prefixed-my-new-cron-object": MatchProps(IgnoreExtras, Props{
+					"urn:pulumi:stack::project::kubernetes:stable.example.com/v1:CronTab::prefixed-my-namespace/my-new-cron-object": MatchProps(IgnoreExtras, Props{
 						"state": MatchObject(IgnoreExtras, Props{
 							"metadata": MatchObject(IgnoreExtras, Props{
 								"name": MatchValue("my-new-cron-object"),
@@ -246,7 +248,7 @@ var _ = Describe("Register", func() {
 							}),
 						}),
 					}),
-					"urn:pulumi:stack::project::kubernetes:core/v1:ConfigMap::my-map": MatchProps(IgnoreExtras, Props{
+					"urn:pulumi:stack::project::kubernetes:core/v1:ConfigMap::my-namespace/my-map": MatchProps(IgnoreExtras, Props{
 						"state": MatchObject(IgnoreExtras, Props{
 							"metadata": MatchObject(IgnoreExtras, Props{
 								"annotations": MatchObject(IgnoreExtras, Props{
@@ -255,7 +257,7 @@ var _ = Describe("Register", func() {
 							}),
 						}),
 					}),
-					"urn:pulumi:stack::project::kubernetes:stable.example.com/v1:CronTab::my-new-cron-object": MatchProps(IgnoreExtras, Props{
+					"urn:pulumi:stack::project::kubernetes:stable.example.com/v1:CronTab::my-namespace/my-new-cron-object": MatchProps(IgnoreExtras, Props{
 						"state": MatchObject(IgnoreExtras, Props{
 							"metadata": MatchObject(IgnoreExtras, Props{
 								"annotations": MatchObject(IgnoreExtras, Props{
@@ -285,14 +287,19 @@ var _ = Describe("Register", func() {
 								"Dependencies": BeEmpty(),
 							}),
 						}),
-						"urn:pulumi:stack::project::kubernetes:core/v1:ConfigMap::my-map": MatchFields(IgnoreExtras, Fields{
+						"urn:pulumi:stack::project::kubernetes:core/v1:ConfigMap::my-namespace/my-map": MatchFields(IgnoreExtras, Fields{
 							"Request": MatchFields(IgnoreExtras, Fields{
-								"Dependencies": BeEmpty(),
+								"Dependencies": ConsistOf(
+									"urn:pulumi:stack::project::kubernetes:core/v1:Namespace::my-namespace",
+								),
 							}),
 						}),
-						"urn:pulumi:stack::project::kubernetes:stable.example.com/v1:CronTab::my-new-cron-object": MatchFields(IgnoreExtras, Fields{
+						"urn:pulumi:stack::project::kubernetes:stable.example.com/v1:CronTab::my-namespace/my-new-cron-object": MatchFields(IgnoreExtras, Fields{
 							"Request": MatchFields(IgnoreExtras, Fields{
-								"Dependencies": ConsistOf("urn:pulumi:stack::project::kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::crontabs.stable.example.com"),
+								"Dependencies": ConsistOf(
+									"urn:pulumi:stack::project::kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::crontabs.stable.example.com",
+									"urn:pulumi:stack::project::kubernetes:core/v1:Namespace::my-namespace",
+								),
 							}),
 						}),
 					}))
