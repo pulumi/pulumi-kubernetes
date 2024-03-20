@@ -33,6 +33,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes"
 	yamlv2 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/yaml/v2"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/util/yaml"
@@ -46,10 +47,9 @@ type ParseOptions struct {
 	YAML  string
 }
 
-// Parse parses a set of Kubernetes manifests.
+// Parse parses a set of Kubernetes manifests into Unstructured objects.
 // Returns an array of Unstructured objects.
-func Parse(ctx context.Context, clientSet *clients.DynamicClientSet, opts ParseOptions) ([]unstructured.Unstructured, error) {
-
+func Parse(ctx context.Context, opts ParseOptions) ([]unstructured.Unstructured, error) {
 	var objs []unstructured.Unstructured
 
 	// Load the manifest files.
@@ -98,13 +98,9 @@ func Parse(ctx context.Context, clientSet *clients.DynamicClientSet, opts ParseO
 
 	for _, yaml := range yamls {
 		// Parse the resulting YAML bytes and turn them into raw Kubernetes objects.
-		dec, err := yamlDecode(yaml, clientSet)
+		dec, err := yamlDecode(yaml)
 		if err != nil {
 			return nil, errors.Wrapf(err, "decoding YAML")
-		}
-		dec, err = Expand(dec)
-		if err != nil {
-			return nil, err
 		}
 		objs = append(objs, dec...)
 	}
@@ -113,7 +109,7 @@ func Parse(ctx context.Context, clientSet *clients.DynamicClientSet, opts ParseO
 }
 
 // yamlDecode decodes a YAML string into a slice of Unstructured objects.
-func yamlDecode(text string, _ *clients.DynamicClientSet) ([]unstructured.Unstructured, error) {
+func yamlDecode(text string) ([]unstructured.Unstructured, error) {
 	var resources []unstructured.Unstructured
 
 	dec := yaml.NewYAMLOrJSONDecoder(io.NopCloser(strings.NewReader(text)), 128)
@@ -137,7 +133,41 @@ func yamlDecode(text string, _ *clients.DynamicClientSet) ([]unstructured.Unstru
 	return resources, nil
 }
 
-func Expand(objs []unstructured.Unstructured) ([]unstructured.Unstructured, error) {
+// Normalize performs the followng operations on the input objects:
+// - canonicalize the kind (core/v1 -> v1)
+// - expands any list types into their individual resources
+// - applies the default namespace to namespaced resources that do not have a namespace
+func Normalize(objs []unstructured.Unstructured, defaultNamespace string, clientSet *clients.DynamicClientSet) ([]unstructured.Unstructured, error) {
+	contract.Requiref(clientSet != nil, "clientSet", "expected != nil")
+
+	var err error
+	objs, err = expand(objs)
+	if err != nil {
+		return nil, err
+	}
+
+	for _, obj := range objs {
+		gvk := obj.GroupVersionKind()
+		// canonicalize the "core" group for the sake of a depends-on annotation that might reference this object.
+		if gvk.Group == "core" {
+			gvk.Group = ""
+			obj.SetGroupVersionKind(gvk)
+		}
+
+		// determine whether the kind is namespaced, which may involve a call to the API server.
+		// note that the object list is searched for a matching CRD before resorting to a discovery call.
+		isNamespaced, err := clients.IsNamespacedKind(gvk, clientSet.DiscoveryClientCached, objs...)
+		if err != nil {
+			return nil, err
+		}
+		if isNamespaced && obj.GetNamespace() == "" {
+			obj.SetNamespace(defaultNamespace)
+		}
+	}
+	return objs, nil
+}
+
+func expand(objs []unstructured.Unstructured) ([]unstructured.Unstructured, error) {
 	result := make([]unstructured.Unstructured, 0, len(objs))
 	for {
 		if len(objs) == 0 {

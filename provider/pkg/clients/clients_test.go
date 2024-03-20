@@ -19,23 +19,69 @@ import (
 	"testing"
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	kubeversion "k8s.io/apimachinery/pkg/version"
 	discoveryfake "k8s.io/client-go/discovery/fake"
 	kubetesting "k8s.io/client-go/testing"
 )
 
+var fakeCRDs = []unstructured.Unstructured{{Object: map[string]interface{}{
+	"apiVersion": "apiextensions.k8s.io/v1",
+	"kind":       "CustomResourceDefinition",
+	"metadata": map[string]interface{}{
+		"name": "crontabs.stable.example.com",
+	},
+	"spec": map[string]interface{}{
+		"group": "stable.example.com",
+		"versions": []interface{}{
+			map[string]interface{}{
+				"name":    "v1",
+				"served":  true,
+				"storage": true,
+				"schema": map[string]interface{}{
+					"openAPIV3Schema": map[string]interface{}{
+						"type": "object",
+						"properties": map[string]interface{}{
+							"spec": map[string]interface{}{
+								"type": "object",
+								"properties": map[string]interface{}{
+									"cronSpec": map[string]interface{}{
+										"type": "string",
+									},
+									"image": map[string]interface{}{
+										"type": "string",
+									},
+									"replicas": map[string]interface{}{
+										"type": "integer",
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+		"scope": "Namespaced",
+		"names": map[string]interface{}{
+			"plural":   "crontabs",
+			"singular": "crontab",
+			"kind":     "CronTab",
+		},
+	},
+}}}
+
 var fakeResources = []*metav1.APIResourceList{
 	{
-		GroupVersion: "stable.example.com/v1",
+		GroupVersion: "postgresql.sql.crossplane.io/v1alpha1",
 		APIResources: []metav1.APIResource{
-			{Name: "crontabs", Namespaced: true, Kind: "CronTab"},
 			{Name: "roles", Namespaced: false, Kind: "Role"},
 		},
 	},
 }
 
 func TestIsNamespacedKind(t *testing.T) {
+	// coverage: in-built kinds, kinds based on the supplied CRDs, and discoverable kinds.
 	tests := []struct {
 		gvk     schema.GroupVersionKind
 		want    bool
@@ -44,8 +90,9 @@ func TestIsNamespacedKind(t *testing.T) {
 		{schema.GroupVersionKind{Group: "", Version: "v1", Kind: "Pod"}, true, false},
 		{schema.GroupVersionKind{Group: "core", Version: "v1", Kind: "Pod"}, true, false},
 		{schema.GroupVersionKind{Group: "rbac.authorization.k8s.io", Version: "v1", Kind: "Role"}, true, false},
+		{schema.GroupVersionKind{Group: "postgresql.sql.crossplane.io", Version: "v1alpha1", Kind: "Role"}, false, false},
+		{schema.GroupVersionKind{Group: "postgresql.sql.crossplane.io", Version: "v1alpha1", Kind: "Missing"}, false, true},
 		{schema.GroupVersionKind{Group: "stable.example.com", Version: "v1", Kind: "CronTab"}, true, false},
-		{schema.GroupVersionKind{Group: "stable.example.com", Version: "v1", Kind: "Role"}, false, false},
 		{schema.GroupVersionKind{Group: "stable.example.com", Version: "v1", Kind: "Missing"}, false, true},
 	}
 	for _, tt := range tests {
@@ -58,7 +105,7 @@ func TestIsNamespacedKind(t *testing.T) {
 				FakedServerVersion: &version,
 			}
 
-			got, err := IsNamespacedKind(tt.gvk, disco)
+			got, err := IsNamespacedKind(tt.gvk, disco, fakeCRDs...)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("IsNamespacedKind() error = %v, wantErr %v", err, tt.wantErr)
 				return

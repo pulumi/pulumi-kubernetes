@@ -21,6 +21,7 @@ import (
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 	. "github.com/onsi/gomega/gstruct"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients/fake"
 	providerresource "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/resource"
 	. "github.com/pulumi/pulumi-kubernetes/tests/v4/gomega"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
@@ -38,7 +39,9 @@ var _ = Describe("ConfigFile.Construct", func() {
 
 	BeforeEach(func() {
 		tc = newTestContext(GinkgoTB())
+		
 		opts = &providerresource.ResourceProviderOptions{}
+		opts.ClientSet, _, _, _ = fake.NewSimpleDynamicClient()
 
 		// initialize the ConstructRequest to be customized in nested BeforeEach blocks
 		req = tc.NewConstructRequest()
