@@ -39,7 +39,7 @@ var _ = Describe("ConfigFile.Construct", func() {
 
 	BeforeEach(func() {
 		tc = newTestContext(GinkgoTB())
-		
+
 		opts = &providerresource.ResourceProviderOptions{}
 		opts.ClientSet, _, _, _ = fake.NewSimpleDynamicClient()
 

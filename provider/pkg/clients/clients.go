@@ -167,7 +167,7 @@ func (dcs *DynamicClientSet) searchKindInGVResources(gvResources *v1.APIResource
 // For GVKs not in the table, attempt to look up the GVK from the API server. If the GVK cannot be found, a
 // NoNamespaceInfoErr is returned.
 func IsNamespacedKind(gvk schema.GroupVersionKind, disco discovery.DiscoveryInterface, objs ...unstructured.Unstructured) (bool, error) {
-	if gvk.Group == "core" {
+	if gvk.Group == "core" { // nolint:goconst
 		gvk.Group = ""
 	}
 
