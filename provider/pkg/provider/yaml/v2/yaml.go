@@ -297,7 +297,7 @@ func register(
 		resourceName = fmt.Sprintf("%s/%s", obj.GetNamespace(), obj.GetName())
 	}
 	if opts.ResourcePrefix != "" {
-		resourceName = fmt.Sprintf("%s#%s", opts.ResourcePrefix, resourceName)
+		resourceName = fmt.Sprintf("%s:%s", opts.ResourcePrefix, resourceName)
 	}
 
 	// Apply the skipAwait annotation if necessary.
