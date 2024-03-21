@@ -82,10 +82,10 @@ var _ = Describe("Construct", func() {
 			outputs := unmarshalProperties(GinkgoTB(), resp.State)
 			Expect(outputs).To(MatchProps(IgnoreExtras, Props{
 				"resources": MatchArrayValue(ConsistOf(
-					MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:core/v1:Namespace::test-my-namespace", "test-my-namespace"),
-					MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::test-crontabs.stable.example.com", "test-crontabs.stable.example.com"),
-					MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:core/v1:ConfigMap::test-my-namespace/my-map", "test-my-namespace/my-map"),
-					MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:stable.example.com/v1:CronTab::test-my-namespace/my-new-cron-object", "test-my-namespace/my-new-cron-object"),
+					MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:core/v1:Namespace::test:my-namespace", "test:my-namespace"),
+					MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::test:crontabs.stable.example.com", "test:crontabs.stable.example.com"),
+					MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:core/v1:ConfigMap::test:my-namespace/my-map", "test:my-namespace/my-map"),
+					MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:stable.example.com/v1:CronTab::test:my-namespace/my-new-cron-object", "test:my-namespace/my-new-cron-object"),
 				)),
 			}))
 		})
@@ -168,9 +168,9 @@ var _ = Describe("Construct", func() {
 				outputs := unmarshalProperties(GinkgoTB(), resp.State)
 				Expect(outputs).To(MatchProps(IgnoreExtras, Props{
 					"resources": MatchArrayValue(HaveExactElements(
-						MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:core/v1:ConfigMap::test-map-1", "test-map-1"),
-						MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:core/v1:ConfigMap::test-map-2", "test-map-2"),
-						MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:core/v1:ConfigMap::test-map-3", "test-map-3"),
+						MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:core/v1:ConfigMap::test:map-1", "test:map-1"),
+						MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:core/v1:ConfigMap::test:map-2", "test:map-2"),
+						MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:core/v1:ConfigMap::test:map-3", "test:map-3"),
 					)),
 				}))
 			})
