@@ -26,7 +26,8 @@ import (
 )
 
 type ConfigFileProvider struct {
-	clientSet *clients.DynamicClientSet
+	clientSet        *clients.DynamicClientSet
+	defaultNamespace string
 }
 
 type ConfigFileArgs struct {
@@ -44,7 +45,8 @@ var _ providerresource.ResourceProvider = &ConfigFileProvider{}
 
 func NewConfigFileProvider(opts *providerresource.ResourceProviderOptions) providerresource.ResourceProvider {
 	return &ConfigFileProvider{
-		clientSet: opts.ClientSet,
+		clientSet:        opts.ClientSet,
+		defaultNamespace: opts.DefaultNamespace,
 	}
 }
 
@@ -90,7 +92,13 @@ func (k *ConfigFileProvider) Construct(ctx *pulumi.Context, typ, name string, in
 			Files: []string{file},
 			Glob:  false,
 		}
-		objs, err := Parse(ctx.Context(), k.clientSet, parseOpts)
+		objs, err := Parse(ctx.Context(), parseOpts)
+		if err != nil {
+			return pulumi.ArrayOutput{}, err
+		}
+
+		// Normalize the objects (apply a default namespace, etc.)
+		objs, err = Normalize(objs, k.defaultNamespace, k.clientSet)
 		if err != nil {
 			return pulumi.ArrayOutput{}, err
 		}

@@ -27,7 +27,8 @@ import (
 )
 
 type ConfigGroupProvider struct {
-	clientSet *clients.DynamicClientSet
+	clientSet        *clients.DynamicClientSet
+	defaultNamespace string
 }
 
 type ConfigGroupArgs struct {
@@ -47,7 +48,8 @@ var _ providerresource.ResourceProvider = &ConfigGroupProvider{}
 
 func NewConfigGroupProvider(opts *providerresource.ResourceProviderOptions) providerresource.ResourceProvider {
 	return &ConfigGroupProvider{
-		clientSet: opts.ClientSet,
+		clientSet:        opts.ClientSet,
+		defaultNamespace: opts.DefaultNamespace,
 	}
 }
 
@@ -97,16 +99,18 @@ func (k *ConfigGroupProvider) Construct(ctx *pulumi.Context, typ, name string, i
 			Glob:  true,
 			YAML:  yaml,
 		}
-		objs, err := Parse(ctx.Context(), k.clientSet, parseOpts)
+		objs, err := Parse(ctx.Context(), parseOpts)
 		if err != nil {
 			return pulumi.ArrayOutput{}, err
 		}
 		for _, obj := range objects {
-			expanded, err := Expand([]unstructured.Unstructured{{Object: obj}})
-			if err != nil {
-				return pulumi.ArrayOutput{}, err
-			}
-			objs = append(objs, expanded...)
+			objs = append(objs, unstructured.Unstructured{Object: obj})
+		}
+
+		// Normalize the objects (apply a default namespace, etc.)
+		objs, err = Normalize(objs, k.defaultNamespace, k.clientSet)
+		if err != nil {
+			return pulumi.ArrayOutput{}, err
 		}
 
 		// Register the objects as Pulumi resources.

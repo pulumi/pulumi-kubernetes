@@ -37,7 +37,8 @@ func (k *kubeProvider) getResourceProvider(typ string) (providerresource.Resourc
 		return nil, false
 	}
 	options := &providerresource.ResourceProviderOptions{
-		ClientSet: k.clientSet,
+		ClientSet:        k.clientSet,
+		DefaultNamespace: k.defaultNamespace,
 	}
 	return providerF(options), true
 }

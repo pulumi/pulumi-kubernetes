@@ -26,7 +26,8 @@ type ResourceProvider interface {
 }
 
 type ResourceProviderOptions struct {
-	ClientSet *clients.DynamicClientSet
+	ClientSet        *clients.DynamicClientSet
+	DefaultNamespace string
 }
 
 type ResourceProviderFactory func(*ResourceProviderOptions) ResourceProvider
