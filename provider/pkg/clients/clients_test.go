@@ -73,7 +73,7 @@ var fakeCRDs = []unstructured.Unstructured{{Object: map[string]interface{}{
 
 var fakeResources = []*metav1.APIResourceList{
 	{
-		GroupVersion: "postgresql.sql.crossplane.io/v1alpha1",
+		GroupVersion: "postgresql.example.com/v1alpha1",
 		APIResources: []metav1.APIResource{
 			{Name: "roles", Namespaced: false, Kind: "Role"},
 		},
@@ -81,7 +81,7 @@ var fakeResources = []*metav1.APIResourceList{
 }
 
 func TestIsNamespacedKind(t *testing.T) {
-	// coverage: in-built kinds, kinds based on the supplied CRDs, and discoverable kinds.
+	// coverage: in-built kinds, discoverable kinds, and kinds based on the supplied CRDs.
 	tests := []struct {
 		gvk     schema.GroupVersionKind
 		want    bool
@@ -90,8 +90,8 @@ func TestIsNamespacedKind(t *testing.T) {
 		{schema.GroupVersionKind{Group: "", Version: "v1", Kind: "Pod"}, true, false},
 		{schema.GroupVersionKind{Group: "core", Version: "v1", Kind: "Pod"}, true, false},
 		{schema.GroupVersionKind{Group: "rbac.authorization.k8s.io", Version: "v1", Kind: "Role"}, true, false},
-		{schema.GroupVersionKind{Group: "postgresql.sql.crossplane.io", Version: "v1alpha1", Kind: "Role"}, false, false},
-		{schema.GroupVersionKind{Group: "postgresql.sql.crossplane.io", Version: "v1alpha1", Kind: "Missing"}, false, true},
+		{schema.GroupVersionKind{Group: "postgresql.example.com", Version: "v1alpha1", Kind: "Role"}, false, false},
+		{schema.GroupVersionKind{Group: "postgresql.example.com", Version: "v1alpha1", Kind: "Missing"}, false, true},
 		{schema.GroupVersionKind{Group: "stable.example.com", Version: "v1", Kind: "CronTab"}, true, false},
 		{schema.GroupVersionKind{Group: "stable.example.com", Version: "v1", Kind: "Missing"}, false, true},
 	}

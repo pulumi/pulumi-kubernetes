@@ -180,7 +180,7 @@ func IsNamespacedKind(gvk schema.GroupVersionKind, disco discovery.DiscoveryInte
 	}
 
 	// check the provided objects for a matching CRD.
-	crd, _ := FindCRD(objs, gvk.GroupKind())
+	crd := FindCRD(objs, gvk.GroupKind())
 	if crd != nil {
 		crdScope, _, err := unstructured.NestedString(crd.Object, "spec", "scope")
 		return crdScope == "Namespaced", err
@@ -265,7 +265,7 @@ func IsCRD(obj *unstructured.Unstructured) bool {
 }
 
 // FindCRD finds the CRD for a given kind amongst a list of unstructured objects.
-func FindCRD(objs []unstructured.Unstructured, kind schema.GroupKind) (*unstructured.Unstructured, bool) {
+func FindCRD(objs []unstructured.Unstructured, kind schema.GroupKind) *unstructured.Unstructured {
 	for i := 0; i < len(objs); i++ {
 		obj := objs[i]
 		if IsCRD(&obj) {
@@ -277,10 +277,10 @@ func FindCRD(objs []unstructured.Unstructured, kind schema.GroupKind) (*unstruct
 			if err != nil || crdKind != kind.Kind {
 				continue
 			}
-			return &obj, true
+			return &obj
 		}
 	}
-	return nil, false
+	return nil
 }
 
 func IsSecret(obj *unstructured.Unstructured) bool {
