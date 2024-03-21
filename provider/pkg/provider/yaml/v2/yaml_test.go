@@ -189,28 +189,28 @@ var _ = Describe("Register", func() {
 				Expect(err).ShouldNot(HaveOccurred())
 
 				Expect(tc.monitor.Resources()).To(MatchAllKeys(Keys{
-					"urn:pulumi:stack::project::kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::prefixed-crontabs.stable.example.com": MatchProps(IgnoreExtras, Props{
+					"urn:pulumi:stack::project::kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::prefixed:crontabs.stable.example.com": MatchProps(IgnoreExtras, Props{
 						"state": MatchObject(IgnoreExtras, Props{
 							"metadata": MatchObject(IgnoreExtras, Props{
 								"name": MatchValue("crontabs.stable.example.com"),
 							}),
 						}),
 					}),
-					"urn:pulumi:stack::project::kubernetes:core/v1:Namespace::prefixed-my-namespace": MatchProps(IgnoreExtras, Props{
+					"urn:pulumi:stack::project::kubernetes:core/v1:Namespace::prefixed:my-namespace": MatchProps(IgnoreExtras, Props{
 						"state": MatchObject(IgnoreExtras, Props{
 							"metadata": MatchObject(IgnoreExtras, Props{
 								"name": MatchValue("my-namespace"),
 							}),
 						}),
 					}),
-					"urn:pulumi:stack::project::kubernetes:core/v1:ConfigMap::prefixed-my-namespace/my-map": MatchProps(IgnoreExtras, Props{
+					"urn:pulumi:stack::project::kubernetes:core/v1:ConfigMap::prefixed:my-namespace/my-map": MatchProps(IgnoreExtras, Props{
 						"state": MatchObject(IgnoreExtras, Props{
 							"metadata": MatchObject(IgnoreExtras, Props{
 								"name": MatchValue("my-map"),
 							}),
 						}),
 					}),
-					"urn:pulumi:stack::project::kubernetes:stable.example.com/v1:CronTab::prefixed-my-namespace/my-new-cron-object": MatchProps(IgnoreExtras, Props{
+					"urn:pulumi:stack::project::kubernetes:stable.example.com/v1:CronTab::prefixed:my-namespace/my-new-cron-object": MatchProps(IgnoreExtras, Props{
 						"state": MatchObject(IgnoreExtras, Props{
 							"metadata": MatchObject(IgnoreExtras, Props{
 								"name": MatchValue("my-new-cron-object"),

@@ -100,10 +100,10 @@ var _ = Describe("Construct", func() {
 				outputs := unmarshalProperties(GinkgoTB(), resp.State)
 				Expect(outputs).To(MatchProps(IgnoreExtras, Props{
 					"resources": MatchArrayValue(ConsistOf(
-						MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:core/v1:Namespace::prefixed-my-namespace", "prefixed-my-namespace"),
-						MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::prefixed-crontabs.stable.example.com", "prefixed-crontabs.stable.example.com"),
-						MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:core/v1:ConfigMap::prefixed-my-namespace/my-map", "prefixed-my-namespace/my-map"),
-						MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:stable.example.com/v1:CronTab::prefixed-my-namespace/my-new-cron-object", "prefixed-my-namespace/my-new-cron-object"),
+						MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:core/v1:Namespace::prefixed:my-namespace", "prefixed:my-namespace"),
+						MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::prefixed:crontabs.stable.example.com", "prefixed:crontabs.stable.example.com"),
+						MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:core/v1:ConfigMap::prefixed:my-namespace/my-map", "prefixed:my-namespace/my-map"),
+						MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:stable.example.com/v1:CronTab::prefixed:my-namespace/my-new-cron-object", "prefixed:my-namespace/my-new-cron-object"),
 					)),
 				}))
 			})
