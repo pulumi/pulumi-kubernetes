@@ -3,6 +3,7 @@
 - ConfigGroup V2 (https://github.com/pulumi/pulumi-kubernetes/pull/2844)
 - ConfigFile V2 (https://github.com/pulumi/pulumi-kubernetes/pull/2862)
 - Bugfix for ambiguous kinds (https://github.com/pulumi/pulumi-kubernetes/pull/2889)
+- [yaml/v2] Support for resource ordering (https://github.com/pulumi/pulumi-kubernetes/pull/2894)
 
 ### New Features
 

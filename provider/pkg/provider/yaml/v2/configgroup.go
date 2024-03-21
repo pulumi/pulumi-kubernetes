@@ -102,7 +102,11 @@ func (k *ConfigGroupProvider) Construct(ctx *pulumi.Context, typ, name string, i
 			return pulumi.ArrayOutput{}, err
 		}
 		for _, obj := range objects {
-			objs = append(objs, unstructured.Unstructured{Object: obj})
+			expanded, err := Expand([]unstructured.Unstructured{{Object: obj}})
+			if err != nil {
+				return pulumi.ArrayOutput{}, err
+			}
+			objs = append(objs, expanded...)
 		}
 
 		// Register the objects as Pulumi resources.

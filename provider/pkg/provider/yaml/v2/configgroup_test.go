@@ -78,7 +78,9 @@ var _ = Describe("Construct", func() {
 			Expect(err).ShouldNot(HaveOccurred())
 			outputs := unmarshalProperties(GinkgoTB(), resp.State)
 			Expect(outputs).To(MatchProps(IgnoreExtras, Props{
-				"resources": MatchArrayValue(HaveExactElements(
+				"resources": MatchArrayValue(ConsistOf(
+					MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:core/v1:Namespace::test-my-namespace", "test-my-namespace"),
+					MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::test-crontabs.stable.example.com", "test-crontabs.stable.example.com"),
 					MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:core/v1:ConfigMap::test-my-map", "test-my-map"),
 					MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:stable.example.com/v1:CronTab::test-my-new-cron-object", "test-my-new-cron-object"),
 				)),
@@ -94,7 +96,9 @@ var _ = Describe("Construct", func() {
 				Expect(err).ShouldNot(HaveOccurred())
 				outputs := unmarshalProperties(GinkgoTB(), resp.State)
 				Expect(outputs).To(MatchProps(IgnoreExtras, Props{
-					"resources": MatchArrayValue(HaveExactElements(
+					"resources": MatchArrayValue(ConsistOf(
+						MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:core/v1:Namespace::prefixed-my-namespace", "prefixed-my-namespace"),
+						MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::prefixed-crontabs.stable.example.com", "prefixed-crontabs.stable.example.com"),
 						MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:core/v1:ConfigMap::prefixed-my-map", "prefixed-my-map"),
 						MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:stable.example.com/v1:CronTab::prefixed-my-new-cron-object", "prefixed-my-new-cron-object"),
 					)),
@@ -111,7 +115,9 @@ var _ = Describe("Construct", func() {
 				Expect(err).ShouldNot(HaveOccurred())
 				outputs := unmarshalProperties(GinkgoTB(), resp.State)
 				Expect(outputs).To(MatchProps(IgnoreExtras, Props{
-					"resources": MatchArrayValue(HaveExactElements(
+					"resources": MatchArrayValue(ConsistOf(
+						MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:core/v1:Namespace::my-namespace", "my-namespace"),
+						MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::crontabs.stable.example.com", "crontabs.stable.example.com"),
 						MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:core/v1:ConfigMap::my-map", "my-map"),
 						MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:stable.example.com/v1:CronTab::my-new-cron-object", "my-new-cron-object"),
 					)),
@@ -130,18 +136,41 @@ var _ = Describe("Construct", func() {
 	})
 
 	Describe("objs", func() {
-		Context("when the input is a valid object", func() {
+		decodeObjects := func(manifest string) []resource.PropertyValue {
+			// decode the manifest to Unstructured objects, then convert to input properties
+			resources, err := yamlDecode(manifest, nil)
+			Expect(err).ShouldNot(HaveOccurred())
+			var objs []resource.PropertyValue
+			for _, res := range resources {
+				objs = append(objs, resource.NewPropertyValue(res.Object))
+			}
+			return objs
+		}
+
+		Context("when the input is a valid object literal", func() {
 			BeforeEach(func() {
-				// decode the manifest to Unstructured objects, then convert to input properties
-				resources, err := yamlDecode(manifest, nil)
-				Expect(err).ShouldNot(HaveOccurred())
-				var objs []resource.PropertyValue
-				for _, res := range resources {
-					objs = append(objs, resource.NewPropertyValue(res.Object))
-				}
-				inputs["objs"] = resource.NewArrayProperty(objs)
+				inputs["objs"] = resource.NewArrayProperty(decodeObjects(manifest))
 			})
 			commonAssertions()
+		})
+
+		Context("when the object is a list", func() {
+			BeforeEach(func() {
+				inputs["objs"] = resource.NewArrayProperty(decodeObjects(list))
+			})
+
+			It("should expand the list", func(ctx context.Context) {
+				resp, err := pulumiprovider.Construct(ctx, req, tc.EngineConn(), k.Construct)
+				Expect(err).ShouldNot(HaveOccurred())
+				outputs := unmarshalProperties(GinkgoTB(), resp.State)
+				Expect(outputs).To(MatchProps(IgnoreExtras, Props{
+					"resources": MatchArrayValue(HaveExactElements(
+						MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:core/v1:ConfigMap::test-map-1", "test-map-1"),
+						MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:core/v1:ConfigMap::test-map-2", "test-map-2"),
+						MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:core/v1:ConfigMap::test-map-3", "test-map-3"),
+					)),
+				}))
+			})
 		})
 	})
 

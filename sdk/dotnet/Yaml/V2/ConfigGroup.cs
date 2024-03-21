@@ -18,6 +18,40 @@ namespace Pulumi.Kubernetes.Yaml.V2
     /// 3. Using a literal string containing YAML, or a list of such strings:
     /// 4. Any combination of files, patterns, or YAML strings:
     /// 
+    /// ## Dependency ordering
+    /// Sometimes resources must be applied in a specific order. For example, a namespace resource must be
+    /// created before any namespaced resources, or a Custom Resource Definition (CRD) must be pre-installed.
+    /// 
+    /// Pulumi uses heuristics to determine which order to apply and delete objects within the ConfigGroup.  Pulumi also
+    /// waits for each object to be fully reconciled, unless `skipAwait` is enabled.
+    /// 
+    /// ### Explicit Dependency Ordering
+    /// Pulumi supports the `config.kubernetes.io/depends-on` annotation to declare an explicit dependency on a given resource.
+    /// The annotation accepts a list of resource references, delimited by commas.
+    /// 
+    /// Note that references to resources outside the ConfigGroup aren't supported.
+    /// 
+    /// **Resource reference**
+    /// 
+    /// A resource reference is a string that uniquely identifies a resource.
+    /// 
+    /// It consists of the group, kind, name, and optionally the namespace, delimited by forward slashes.
+    /// 
+    /// | Resource Scope   | Format                                         |
+    /// | :--------------- | :--------------------------------------------- |
+    /// | namespace-scoped | `&lt;group&gt;/namespaces/&lt;namespace&gt;/&lt;kind&gt;/&lt;name&gt;` |
+    /// | cluster-scoped   | `&lt;group&gt;/&lt;kind&gt;/&lt;name&gt;`                        |
+    /// 
+    /// For resources in the “core” group, the empty string is used instead (for example: `/namespaces/test/Pod/pod-a`).
+    /// 
+    /// ### Ordering across ConfigGroups
+    /// The `dependsOn` resource option creates a list of explicit dependencies between Pulumi resources.
+    /// Use it on another resource to make it dependent on the ConfigGroup and to wait for the resources within
+    /// the group to be deployed.
+    /// 
+    /// A best practice is to deploy each application using its own ConfigGroup, especially when that application
+    /// installs custom resource definitions.
+    /// 
     /// ## Example Usage
     /// ### Local File
     /// ```csharp
