@@ -26,16 +26,19 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
+	"sort"
 	"strings"
 
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes"
 	yamlv2 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/yaml/v2"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
-	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/util/yaml"
+	cliutilsobject "sigs.k8s.io/cli-utils/pkg/object"
+	cliutilsgraph "sigs.k8s.io/cli-utils/pkg/object/graph"
 )
 
 type ParseOptions struct {
@@ -44,10 +47,9 @@ type ParseOptions struct {
 	YAML  string
 }
 
-// Parse parses a set of Kubernetes manifests.
+// Parse parses a set of Kubernetes manifests into Unstructured objects.
 // Returns an array of Unstructured objects.
-func Parse(ctx context.Context, clientSet *clients.DynamicClientSet, opts ParseOptions) ([]unstructured.Unstructured, error) {
-
+func Parse(ctx context.Context, opts ParseOptions) ([]unstructured.Unstructured, error) {
 	var objs []unstructured.Unstructured
 
 	// Load the manifest files.
@@ -77,6 +79,7 @@ func Parse(ctx context.Context, clientSet *clients.DynamicClientSet, opts ParseO
 				if err != nil {
 					return nil, errors.Wrapf(err, "expanding glob")
 				}
+				sort.Strings(files)
 			} else {
 				files = []string{file}
 			}
@@ -95,7 +98,7 @@ func Parse(ctx context.Context, clientSet *clients.DynamicClientSet, opts ParseO
 
 	for _, yaml := range yamls {
 		// Parse the resulting YAML bytes and turn them into raw Kubernetes objects.
-		dec, err := yamlDecode(yaml, clientSet)
+		dec, err := yamlDecode(yaml)
 		if err != nil {
 			return nil, errors.Wrapf(err, "decoding YAML")
 		}
@@ -106,7 +109,7 @@ func Parse(ctx context.Context, clientSet *clients.DynamicClientSet, opts ParseO
 }
 
 // yamlDecode decodes a YAML string into a slice of Unstructured objects.
-func yamlDecode(text string, _ *clients.DynamicClientSet) ([]unstructured.Unstructured, error) {
+func yamlDecode(text string) ([]unstructured.Unstructured, error) {
 	var resources []unstructured.Unstructured
 
 	dec := yaml.NewYAMLOrJSONDecoder(io.NopCloser(strings.NewReader(text)), 128)
@@ -130,6 +133,86 @@ func yamlDecode(text string, _ *clients.DynamicClientSet) ([]unstructured.Unstru
 	return resources, nil
 }
 
+// Normalize performs the followng operations on the input objects:
+// - canonicalize the kind (core/v1 -> v1)
+// - expands any list types into their individual resources
+// - applies the default namespace to namespaced resources that do not have a namespace
+func Normalize(objs []unstructured.Unstructured, defaultNamespace string, clientSet *clients.DynamicClientSet) ([]unstructured.Unstructured, error) {
+	contract.Requiref(clientSet != nil, "clientSet", "expected != nil")
+
+	var err error
+	objs, err = expand(objs)
+	if err != nil {
+		return nil, err
+	}
+
+	for _, obj := range objs {
+		gvk := obj.GroupVersionKind()
+
+		// Ensure there is a kind and API version.
+		if gvk.Kind == "" || gvk.GroupVersion().Empty() {
+			return nil, fmt.Errorf("Kubernetes resources require a kind and apiVersion: `%s`", printUnstructured(&obj))
+		}
+
+		// Validate that it has the requisite metadata and name properties.
+		if obj.GetName() == "" {
+			return nil, fmt.Errorf("Kubernetes resources require a .metadata.name: `%s`", printUnstructured(&obj))
+		}
+
+		// canonicalize the "core" group for the sake of a depends-on annotation that might reference this object.
+		if gvk.Group == "core" {
+			gvk.Group = ""
+			obj.SetGroupVersionKind(gvk)
+		}
+
+		// determine whether the kind is namespaced, which may involve a call to the API server.
+		// note that the object list is searched for a matching CRD before resorting to a discovery call.
+		isNamespaced, err := clients.IsNamespacedKind(gvk, clientSet.DiscoveryClientCached, objs...)
+		if err != nil {
+			return nil, err
+		}
+		if isNamespaced && obj.GetNamespace() == "" {
+			obj.SetNamespace(defaultNamespace)
+		}
+	}
+	return objs, nil
+}
+
+func expand(objs []unstructured.Unstructured) ([]unstructured.Unstructured, error) {
+	result := make([]unstructured.Unstructured, 0, len(objs))
+	for {
+		if len(objs) == 0 {
+			break
+		}
+		var obj unstructured.Unstructured
+		obj, objs = objs[0], objs[1:]
+
+		// Recursively traverse built-in Kubernetes list types into a single set of "naked" resource
+		// definitions that we can register with the Pulumi engine.
+		//
+		// Kubernetes does not instantiate list types like `v1.List`. When the API server receives
+		// a list, it will recursively traverse it and perform the necessary operations on
+		// each "instantiable" resource it finds. For example, `kubectl apply` on a
+		// `v1.ConfigMapList` will cause the API server to traverse the list, and `apply` each
+		// `v1.ConfigMap` it finds.
+		//
+		// Since Kubernetes does not instantiate list types directly, Pulumi also traverses lists
+		// for resource definitions that can be managed by Kubernetes, and registers those with the
+		// engine instead.
+		if obj.IsList() {
+			list, err := obj.ToList()
+			if err != nil {
+				return nil, fmt.Errorf("YAML object is invalid: `%s`: %w", printUnstructured(&obj), err)
+			}
+			objs = append(list.Items, objs...)
+			continue
+		}
+
+		result = append(result, obj)
+	}
+	return result, nil
+}
+
 type RegisterOptions struct {
 	Objects         []unstructured.Unstructured
 	ResourcePrefix  string
@@ -140,14 +223,54 @@ type RegisterOptions struct {
 // Register registers the given Kubernetes objects as resources with the Pulumi engine.
 // Returns an array of the resources that were registered.
 func Register(ctx *pulumi.Context, opts RegisterOptions) (pulumi.ArrayOutput, error) {
-	resources := pulumi.Array{}
+	objs := make(cliutilsobject.UnstructuredSet, 0, len(opts.Objects))
 	for _, obj := range opts.Objects {
-		rs, err := register(ctx, &obj, opts)
-		if err != nil {
-			return pulumi.ArrayOutput{}, err
-		}
-		for _, r := range rs {
+		obj := obj
+		objs = append(objs, &obj)
+	}
+
+	// sort the objects using heuristics about Kubernetes object kinds and their dependencies.
+	g, err := cliutilsgraph.DependencyGraph(objs)
+	if err != nil {
+		return pulumi.ArrayOutput{}, err
+	}
+
+	// process the resources in topological order, meaning that we first process the resources that have no dependencies,
+	// then process the resources that depend on those, and so on.
+	sorted, err := g.Sort()
+	if err != nil {
+		return pulumi.ArrayOutput{}, err
+	}
+	subsets := cliutilsgraph.HydrateSetList(sorted, objs)
+
+	resources := pulumi.Array{}
+	objToResource := map[cliutilsobject.ObjMetadata]pulumi.Resource{}
+	for _, subset := range subsets {
+		for _, obj := range subset {
+			var resourceOptions []pulumi.ResourceOption
+			resourceOptions = append(resourceOptions, opts.ResourceOptions...)
+
+			// Depend on the explicit dependencies.
+			// The subsets are ordered such that the dependency is guaranteed to be registered before the dependent.
+			dependsOn := []pulumi.Resource{}
+			dependents := g.Dependencies(cliutilsobject.UnstructuredToObjMetadata(obj))
+			for _, dep := range dependents {
+				if r, ok := objToResource[dep]; ok {
+					dependsOn = append(dependsOn, r)
+				}
+			}
+			if len(dependsOn) > 0 {
+				resourceOptions = append(resourceOptions, pulumi.DependsOn(dependsOn))
+			}
+
+			// Register the resource with the Pulumi engine.
+			// Note that the RPC call is made asynchronously, and is awaited by the resource output.
+			r, err := register(ctx, obj, opts, resourceOptions)
+			if err != nil {
+				return pulumi.ArrayOutput{}, err
+			}
 			resources = append(resources, pulumi.NewResourceOutput(r))
+			objToResource[cliutilsobject.UnstructuredToObjMetadata(obj)] = r
 		}
 	}
 	return resources.ToArrayOutputWithContext(ctx.Context()), nil
@@ -157,58 +280,24 @@ func register(
 	ctx *pulumi.Context,
 	obj *unstructured.Unstructured,
 	opts RegisterOptions,
-) ([]pulumi.CustomResource, error) {
+	resourceOpts []pulumi.ResourceOption,
+) (pulumi.CustomResource, error) {
 
-	// Ensure there is a kind and API version.
+	contract.Requiref(obj != nil, "obj", "expected != nil")
+
 	kind := obj.GetKind()
 	apiVersion := obj.GetAPIVersion()
-	if kind == "" || apiVersion == "" {
-		return nil, fmt.Errorf("Kubernetes resources require a kind and apiVersion: `%s`", printUnstructured(obj))
-	}
+	contract.Requiref(kind != "" && apiVersion != "", "obj", "expected .kind and .apiVersion")
 	fullKind := fmt.Sprintf("%s/%s", apiVersion, kind)
 
-	// Recursively traverse built-in Kubernetes list types into a single set of "naked" resource
-	// definitions that we can register with the Pulumi engine.
-	//
-	// Kubernetes does not instantiate list types like `v1.List`. When the API server receives
-	// a list, it will recursively traverse it and perform the necessary operations on
-	// each "instantiable" resource it finds. For example, `kubectl apply` on a
-	// `v1.ConfigMapList` will cause the API server to traverse the list, and `apply` each
-	// `v1.ConfigMap` it finds.
-	//
-	// Since Kubernetes does not instantiate list types directly, Pulumi also traverses lists
-	// for resource definitions that can be managed by Kubernetes, and registers those with the
-	// engine instead.
-	if obj.IsList() {
-		var resources []pulumi.CustomResource
-		err := obj.EachListItem(func(o runtime.Object) error {
-			obj := o.(*unstructured.Unstructured)
-			rs, err := register(ctx, obj, opts)
-			if err != nil {
-				return err
-			}
-			resources = append(resources, rs...)
-			return nil
-		})
-		if err != nil {
-			return nil, fmt.Errorf("YAML object is invalid: `%s`: %w", printUnstructured(obj), err)
-		}
-		return resources, nil
-	}
-
-	// If we got here, it's not a recursively traversed type, so process it directly.
-	// First, validate that it has the requisite metadata and name properties.
-	if obj.GetName() == "" {
-		return nil, fmt.Errorf("YAML object does not have a .metadata.name: `%s`", printUnstructured(obj))
-	}
-
 	// Manufacture a resource name as appropriate, out of the meta name, namespace, and optional prefix.
+	contract.Requiref(obj.GetName() != "", "obj", "expected .metadata.name")
 	resourceName := obj.GetName()
 	if obj.GetNamespace() != "" {
 		resourceName = fmt.Sprintf("%s/%s", obj.GetNamespace(), obj.GetName())
 	}
 	if opts.ResourcePrefix != "" {
-		resourceName = fmt.Sprintf("%s-%s", opts.ResourcePrefix, resourceName)
+		resourceName = fmt.Sprintf("%s:%s", opts.ResourcePrefix, resourceName)
 	}
 
 	// Apply the skipAwait annotation if necessary.
@@ -228,11 +317,11 @@ func register(
 	}
 
 	// Finally allocate a resource of the correct type.
-	res, err := yamlv2.RegisterResource(ctx, apiVersion, kind, resourceName, kubernetes.UntypedArgs(obj.Object), opts.ResourceOptions...)
+	res, err := yamlv2.RegisterResource(ctx, apiVersion, kind, resourceName, kubernetes.UntypedArgs(obj.Object), resourceOpts...)
 	if err != nil {
 		return nil, err
 	}
-	return []pulumi.CustomResource{res}, nil
+	return res, nil
 }
 
 func printUnstructured(obj *unstructured.Unstructured) string {

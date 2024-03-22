@@ -164,12 +164,12 @@ func (dcs *DynamicClientSet) searchKindInGVResources(gvResources *v1.APIResource
 }
 
 // IsNamespacedKind checks if a given GVK is namespace-scoped. Known GVKs are compared against a static lookup table.
-// For GVKs not in the table, attempt to look up the GVK from the API server. If the GVK cannot be found, a
+// For GVKs not in the table, look at the given objects for a matching CRD.
+// Finally, attempt to look up the GVK from the API server. If the GVK cannot be found, a
 // NoNamespaceInfoErr is returned.
-func IsNamespacedKind(gvk schema.GroupVersionKind, disco discovery.DiscoveryInterface) (bool, error) {
-	gv := gvk.GroupVersion().String()
-	if strings.Contains(gv, "core/v1") {
-		gv = "v1"
+func IsNamespacedKind(gvk schema.GroupVersionKind, disco discovery.DiscoveryInterface, objs ...unstructured.Unstructured) (bool, error) {
+	if gvk.Group == "core" { // nolint:goconst
+		gvk.Group = ""
 	}
 
 	if kinds.KnownGroupVersions.Has(gvk.GroupVersion().String()) {
@@ -179,12 +179,19 @@ func IsNamespacedKind(gvk schema.GroupVersionKind, disco discovery.DiscoveryInte
 		}
 	}
 
+	// check the provided objects for a matching CRD.
+	crd := FindCRD(objs, gvk.GroupKind())
+	if crd != nil {
+		crdScope, _, err := unstructured.NestedString(crd.Object, "spec", "scope")
+		return crdScope == "Namespaced", err
+	}
+
 	// If the Kind is not known, attempt to look up from the API server. This applies to Kinds defined using a CRD.
 	// If the API server is not reachable, return an error.
 	if disco == nil {
 		return false, &NoNamespaceInfoErr{gvk}
 	}
-	resourceList, err := disco.ServerResourcesForGroupVersion(gv)
+	resourceList, err := disco.ServerResourcesForGroupVersion(gvk.GroupVersion().String())
 	if err != nil {
 		return false, &NoNamespaceInfoErr{gvk}
 	}
@@ -255,6 +262,25 @@ func NamespaceOrDefault(ns string) string {
 func IsCRD(obj *unstructured.Unstructured) bool {
 	return obj.GetKind() == string(kinds.CustomResourceDefinition) &&
 		strings.HasPrefix(obj.GetAPIVersion(), "apiextensions.k8s.io/")
+}
+
+// FindCRD finds the CRD for a given kind amongst a list of unstructured objects.
+func FindCRD(objs []unstructured.Unstructured, kind schema.GroupKind) *unstructured.Unstructured {
+	for i := 0; i < len(objs); i++ {
+		obj := objs[i]
+		if IsCRD(&obj) {
+			crdGroup, _, err := unstructured.NestedString(obj.Object, "spec", "group")
+			if err != nil || crdGroup != kind.Group {
+				continue
+			}
+			crdKind, _, err := unstructured.NestedString(obj.Object, "spec", "names", "kind")
+			if err != nil || crdKind != kind.Kind {
+				continue
+			}
+			return &obj
+		}
+	}
+	return nil
 }
 
 func IsSecret(obj *unstructured.Unstructured) bool {
