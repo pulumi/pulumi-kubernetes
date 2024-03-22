@@ -66,7 +66,6 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"k8s.io/client-go/discovery"
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
 	clientapi "k8s.io/client-go/tools/clientcmd/api"
@@ -1402,11 +1401,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 	// If a default namespace is set on the provider for this resource, check if the resource has Namespaced
 	// or Global scope. For namespaced resources, set the namespace to the default value if unset.
 	if k.defaultNamespace != "" && len(newInputs.GetNamespace()) == 0 {
-		var disco discovery.CachedDiscoveryInterface
-		if k.clientSet != nil {
-			disco = k.clientSet.DiscoveryClientCached
-		}
-		namespacedKind, err := clients.IsNamespacedKind(gvk, disco)
+		namespacedKind, err := clients.IsNamespacedKind(gvk, k.clientSet)
 		if err != nil {
 			if clients.IsNoNamespaceInfoErr(err) {
 				// This is probably a CustomResource without a registered CustomResourceDefinition.
@@ -1580,11 +1575,7 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 
 	gvk := k.gvkFromUnstructured(newInputs)
 
-	var disco discovery.CachedDiscoveryInterface
-	if k.clientSet != nil {
-		disco = k.clientSet.DiscoveryClientCached
-	}
-	namespacedKind, err := clients.IsNamespacedKind(gvk, disco)
+	namespacedKind, err := clients.IsNamespacedKind(gvk, k.clientSet)
 	if err != nil {
 		if clients.IsNoNamespaceInfoErr(err) {
 			// This is probably a CustomResource without a registered CustomResourceDefinition.
@@ -1789,6 +1780,10 @@ func (k *kubeProvider) Create(
 
 	newInputs := propMapToUnstructured(newResInputs)
 
+	if clients.IsCRD(newInputs) {
+		k.clientSet.AddCRD(newInputs)
+	}
+
 	// Skip if:
 	// 1: The input values contain unknowns
 	// 2: The resource GVK does not exist
@@ -1942,6 +1937,7 @@ func (k *kubeProvider) Create(
 	// Invalidate the client cache if this was a CRD. This will require subsequent CR creations to
 	// refresh the cache, at which point the CRD definition will be present, so that it doesn't fail
 	// with an `apierrors.IsNotFound`.
+	// Keep a cache of CRDs created by this provider, for subsequent lookups by other resources.
 	if clients.IsCRD(newInputs) {
 		k.clientSet.RESTMapper.Reset()
 		k.invalidateResources()
@@ -2275,6 +2271,10 @@ func (k *kubeProvider) Update(
 		return nil, err
 	}
 
+	if clients.IsCRD(newInputs) {
+		k.clientSet.AddCRD(newInputs)
+	}
+
 	// If this is a preview and the input values contain unknowns, or an unregistered GVK, return them as-is. This is
 	// compatible with prior behavior implemented by the Pulumi engine.
 	if req.GetPreview() && (hasComputedValue(newInputs) || !k.gvkExists(newInputs)) {
@@ -2456,6 +2456,10 @@ func (k *kubeProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest)
 
 	_, current := parseCheckpointObject(oldState)
 	_, name := parseFqName(req.GetId())
+
+	if clients.IsCRD(current) {
+		k.clientSet.RemoveCRD(current)
+	}
 
 	if k.yamlRenderMode {
 		file := renderPathForResource(current, k.yamlDirectory)

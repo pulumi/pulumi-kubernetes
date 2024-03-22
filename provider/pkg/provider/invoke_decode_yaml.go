@@ -21,7 +21,6 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/util/yaml"
-	"k8s.io/client-go/discovery"
 )
 
 // decodeYaml parses a YAML string, and then returns a slice of untyped structs that can be marshalled into
@@ -46,11 +45,7 @@ func decodeYaml(text, defaultNamespace string, clientSet *clients.DynamicClientS
 		}
 
 		if len(defaultNamespace) > 0 {
-			var disco discovery.CachedDiscoveryInterface
-			if clientSet != nil {
-				disco = clientSet.DiscoveryClientCached
-			}
-			namespaced, err := clients.IsNamespacedKind(resource.GroupVersionKind(), disco)
+			namespaced, err := clients.IsNamespacedKind(resource.GroupVersionKind(), clientSet)
 			if err != nil {
 				if clients.IsNoNamespaceInfoErr(err) {
 					// Assume resource is namespaced.

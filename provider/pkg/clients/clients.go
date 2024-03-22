@@ -19,6 +19,7 @@ import (
 	"fmt"
 	"io"
 	"strings"
+	"sync"
 
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
 	corev1 "k8s.io/api/core/v1"
@@ -53,6 +54,9 @@ type DynamicClientSet struct {
 	GenericClient         dynamic.Interface
 	DiscoveryClientCached discovery.CachedDiscoveryInterface
 	RESTMapper            meta.ResettableRESTMapper
+
+	crds     map[schema.GroupKind]*unstructured.Unstructured
+	crdMutex sync.RWMutex
 }
 
 func NewDynamicClientSet(clientConfig *rest.Config) (*DynamicClientSet, error) {
@@ -76,6 +80,7 @@ func NewDynamicClientSet(clientConfig *rest.Config) (*DynamicClientSet, error) {
 		GenericClient:         client,
 		DiscoveryClientCached: discoCacheClient,
 		RESTMapper:            mapper,
+		crds:                  make(map[schema.GroupKind]*unstructured.Unstructured),
 	}, nil
 }
 
@@ -167,7 +172,7 @@ func (dcs *DynamicClientSet) searchKindInGVResources(gvResources *v1.APIResource
 // For GVKs not in the table, look at the given objects for a matching CRD.
 // Finally, attempt to look up the GVK from the API server. If the GVK cannot be found, a
 // NoNamespaceInfoErr is returned.
-func IsNamespacedKind(gvk schema.GroupVersionKind, disco discovery.DiscoveryInterface, objs ...unstructured.Unstructured) (bool, error) {
+func IsNamespacedKind(gvk schema.GroupVersionKind, clientSet *DynamicClientSet, objs ...unstructured.Unstructured) (bool, error) {
 	if gvk.Group == "core" { // nolint:goconst
 		gvk.Group = ""
 	}
@@ -186,12 +191,20 @@ func IsNamespacedKind(gvk schema.GroupVersionKind, disco discovery.DiscoveryInte
 		return crdScope == "Namespaced", err
 	}
 
-	// If the Kind is not known, attempt to look up from the API server. This applies to Kinds defined using a CRD.
-	// If the API server is not reachable, return an error.
-	if disco == nil {
+	if clientSet == nil {
 		return false, &NoNamespaceInfoErr{gvk}
 	}
-	resourceList, err := disco.ServerResourcesForGroupVersion(gvk.GroupVersion().String())
+
+	// check the client cache for a matching CRD.
+	crd = clientSet.GetCRD(gvk.GroupKind())
+	if crd != nil {
+		crdScope, _, err := unstructured.NestedString(crd.Object, "spec", "scope")
+		return crdScope == "Namespaced", err
+	}
+
+	// If the Kind is not known, attempt to look up from the API server. This applies to Kinds defined using a CRD.
+	// If the API server is not reachable, return an error.
+	resourceList, err := clientSet.DiscoveryClientCached.ServerResourcesForGroupVersion(gvk.GroupVersion().String())
 	if err != nil {
 		return false, &NoNamespaceInfoErr{gvk}
 	}
