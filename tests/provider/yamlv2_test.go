@@ -6,19 +6,18 @@ import (
 	"github.com/pulumi/providertest/pulumitest"
 )
 
-// TestHelmUnknowns tests the handling of unknowns in the Helm provider.
-// Test steps:
-// 1. Preview a program that has computed inputs; expected computed outputs.
-// 2. Deploy a program; expected real outputs.
-// 3. Preview an update involving a change to the release name; expect replacement.
+// TestYamlV2 deploys a complex stack using yaml/v2 package.
+// This test has the following features:
+// - uses computed inputs
+// - leverages DependsOn between components
+// - installs and uses CRDs across components
+// - uses implicit and explicit dependencies
 func TestYamlV2(t *testing.T) {
-	// Copy test_dir to temp directory, install deps and create "my-stack"
 	test := pulumitest.NewPulumiTest(t, "yamlv2")
 	t.Logf("into %s", test.Source())
 	t.Cleanup(func() {
 		test.Destroy()
 	})
-
 	test.Preview()
 	test.Up()
 }

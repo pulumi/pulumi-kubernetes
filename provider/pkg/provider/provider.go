@@ -762,15 +762,14 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		}
 	}
 
+	var err error
+	k.clientSet, k.logClient, err = k.makeClient(k.canceler.context, config)
+	if err != nil {
+		return nil, err
+	}
+
 	// These operations require a reachable cluster.
 	if !k.clusterUnreachable {
-		contract.Assertf(config != nil, "expected config to be initialized")
-		var err error
-		k.clientSet, k.logClient, err = k.makeClient(k.canceler.context, config)
-		if err != nil {
-			return nil, err
-		}
-
 		k.k8sVersion = cluster.TryGetServerVersion(k.clientSet.DiscoveryClientCached)
 
 		if k.k8sVersion.Compare(cluster.ServerVersion{Major: 1, Minor: 13}) < 0 {
@@ -783,8 +782,6 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 				"unable to load schema information from the API server: %v", err)
 		}
 	}
-
-	var err error
 
 	k.helmReleaseProvider, err = newHelmReleaseProvider(
 		k.host,
@@ -1456,6 +1453,15 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		}
 	}
 
+	if clients.IsCRD(newInputs) {
+		// add the CRD to the cache such that it contains all the CRDs that the program intends to create.
+		// Do it now instead of later because update is called only if there's a non-empty diff,
+		// and we want to ensure that the CRD is in the cache to support lookups by the component resources.
+		if err := k.clientSet.CRDCache.AddCRD(newInputs); err != nil {
+			return nil, err
+		}
+	}
+
 	checkedInputs := resource.NewPropertyMapFromMap(newInputs.Object)
 	annotateSecrets(checkedInputs, news)
 
@@ -1780,9 +1786,6 @@ func (k *kubeProvider) Create(
 
 	newInputs := propMapToUnstructured(newResInputs)
 
-	if clients.IsCRD(newInputs) {
-		k.clientSet.AddCRD(newInputs)
-	}
 
 	// Skip if:
 	// 1: The input values contain unknowns
@@ -2271,9 +2274,6 @@ func (k *kubeProvider) Update(
 		return nil, err
 	}
 
-	if clients.IsCRD(newInputs) {
-		k.clientSet.AddCRD(newInputs)
-	}
 
 	// If this is a preview and the input values contain unknowns, or an unregistered GVK, return them as-is. This is
 	// compatible with prior behavior implemented by the Pulumi engine.
@@ -2458,7 +2458,9 @@ func (k *kubeProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest)
 	_, name := parseFqName(req.GetId())
 
 	if clients.IsCRD(current) {
-		k.clientSet.RemoveCRD(current)
+		if err := k.clientSet.CRDCache.RemoveCRD(current); err != nil {
+			return nil, err
+		}
 	}
 
 	if k.yamlRenderMode {

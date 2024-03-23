@@ -81,31 +81,42 @@ var fakeResources = []*metav1.APIResourceList{
 }
 
 func TestIsNamespacedKind(t *testing.T) {
-	// coverage: in-built kinds, discoverable kinds, and kinds based on the supplied CRDs.
+	// coverage: in-built kinds, discoverable kinds, cached kinds, and kinds based on the supplied CRDs.
 	tests := []struct {
 		gvk     schema.GroupVersionKind
+		cached  []unstructured.Unstructured
+		objs    []unstructured.Unstructured
 		want    bool
 		wantErr bool
 	}{
-		{schema.GroupVersionKind{Group: "", Version: "v1", Kind: "Pod"}, true, false},
-		{schema.GroupVersionKind{Group: "core", Version: "v1", Kind: "Pod"}, true, false},
-		{schema.GroupVersionKind{Group: "rbac.authorization.k8s.io", Version: "v1", Kind: "Role"}, true, false},
-		{schema.GroupVersionKind{Group: "postgresql.example.com", Version: "v1alpha1", Kind: "Role"}, false, false},
-		{schema.GroupVersionKind{Group: "postgresql.example.com", Version: "v1alpha1", Kind: "Missing"}, false, true},
-		{schema.GroupVersionKind{Group: "stable.example.com", Version: "v1", Kind: "CronTab"}, true, false},
-		{schema.GroupVersionKind{Group: "stable.example.com", Version: "v1", Kind: "Missing"}, false, true},
+		{schema.GroupVersionKind{Group: "", Version: "v1", Kind: "Pod"}, nil, nil, true, false},
+		{schema.GroupVersionKind{Group: "core", Version: "v1", Kind: "Pod"}, nil, nil, true, false},
+		{schema.GroupVersionKind{Group: "rbac.authorization.k8s.io", Version: "v1", Kind: "Role"}, nil, nil, true, false},
+		{schema.GroupVersionKind{Group: "postgresql.example.com", Version: "v1alpha1", Kind: "Role"}, nil, nil, false, false},
+		{schema.GroupVersionKind{Group: "postgresql.example.com", Version: "v1alpha1", Kind: "Missing"}, nil, nil, false, true},
+		{schema.GroupVersionKind{Group: "stable.example.com", Version: "v1", Kind: "CronTab"}, fakeCRDs, nil, true, false},
+		{schema.GroupVersionKind{Group: "stable.example.com", Version: "v1", Kind: "Missing"}, fakeCRDs, nil, false, true},
+		{schema.GroupVersionKind{Group: "stable.example.com", Version: "v1", Kind: "CronTab"}, nil, fakeCRDs, true, false},
+		{schema.GroupVersionKind{Group: "stable.example.com", Version: "v1", Kind: "Missing"}, nil, fakeCRDs, false, true},
 	}
 	for _, tt := range tests {
 		t.Run(tt.gvk.String(), func(t *testing.T) {
 			version := kubeversion.Info{Major: "1", Minor: "29"}
-			disco := &discoveryfake.FakeDiscovery{
-				Fake: &kubetesting.Fake{
-					Resources: fakeResources,
+			clientSet := &DynamicClientSet{
+				DiscoveryClientCached: &simpleDiscovery{
+					FakeDiscovery: discoveryfake.FakeDiscovery{
+						Fake: &kubetesting.Fake{
+							Resources: fakeResources,
+						},
+						FakedServerVersion: &version,
+					},
 				},
-				FakedServerVersion: &version,
+				CRDCache: &CRDCache{},
 			}
-
-			got, err := IsNamespacedKind(tt.gvk, disco, fakeCRDs...)
+			for _, crd := range tt.cached {
+				_ = clientSet.CRDCache.AddCRD(&crd)
+			}
+			got, err := IsNamespacedKind(tt.gvk, clientSet, tt.objs...)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("IsNamespacedKind() error = %v, wantErr %v", err, tt.wantErr)
 				return
@@ -116,3 +127,12 @@ func TestIsNamespacedKind(t *testing.T) {
 		})
 	}
 }
+
+type simpleDiscovery struct {
+	discoveryfake.FakeDiscovery
+}
+
+func (d *simpleDiscovery) Fresh() bool {
+	return true
+}
+func (d *simpleDiscovery) Invalidate() {}
