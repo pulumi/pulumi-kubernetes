@@ -1786,10 +1786,9 @@ func (k *kubeProvider) Create(
 
 	newInputs := propMapToUnstructured(newResInputs)
 
-
 	// Skip if:
 	// 1: The input values contain unknowns
-	// 2: The resource GVK does not exist
+	// 2: The cluster is unreachable or the resource GVK does not exist
 	// 3: The resource is a Patch resource
 	// 4: We are in client-side-apply mode
 	skipPreview := hasComputedValue(newInputs) || !k.gvkExists(newInputs) || kinds.IsPatchURN(urn) || !k.serverSideApplyMode
@@ -1940,7 +1939,6 @@ func (k *kubeProvider) Create(
 	// Invalidate the client cache if this was a CRD. This will require subsequent CR creations to
 	// refresh the cache, at which point the CRD definition will be present, so that it doesn't fail
 	// with an `apierrors.IsNotFound`.
-	// Keep a cache of CRDs created by this provider, for subsequent lookups by other resources.
 	if clients.IsCRD(newInputs) {
 		k.clientSet.RESTMapper.Reset()
 		k.invalidateResources()
@@ -2274,7 +2272,6 @@ func (k *kubeProvider) Update(
 		return nil, err
 	}
 
-
 	// If this is a preview and the input values contain unknowns, or an unregistered GVK, return them as-is. This is
 	// compatible with prior behavior implemented by the Pulumi engine.
 	if req.GetPreview() && (hasComputedValue(newInputs) || !k.gvkExists(newInputs)) {
@@ -2456,12 +2453,6 @@ func (k *kubeProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest)
 
 	_, current := parseCheckpointObject(oldState)
 	_, name := parseFqName(req.GetId())
-
-	if clients.IsCRD(current) {
-		if err := k.clientSet.CRDCache.RemoveCRD(current); err != nil {
-			return nil, err
-		}
-	}
 
 	if k.yamlRenderMode {
 		file := renderPathForResource(current, k.yamlDirectory)

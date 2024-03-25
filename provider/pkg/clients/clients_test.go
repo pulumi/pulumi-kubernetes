@@ -114,6 +114,7 @@ func TestIsNamespacedKind(t *testing.T) {
 				CRDCache: &CRDCache{},
 			}
 			for _, crd := range tt.cached {
+				crd := crd
 				_ = clientSet.CRDCache.AddCRD(&crd)
 			}
 			got, err := IsNamespacedKind(tt.gvk, clientSet, tt.objs...)

@@ -20,19 +20,19 @@ import (
 	pulumiprovider "github.com/pulumi/pulumi/sdk/v3/go/pulumi/provider"
 )
 
-type ResourceProvider interface {
+type ResourceProvider interface { // nolint:golint
 	Construct(ctx *pulumi.Context, typ, name string,
 		inputs pulumiprovider.ConstructInputs, options pulumi.ResourceOption) (*pulumiprovider.ConstructResult, error)
 }
 
-type ResourceProviderOptions struct {
+type ResourceProviderOptions struct { // nolint:golint
 	ClientSet        *clients.DynamicClientSet
 	DefaultNamespace string
 }
 
-type ResourceProviderFactory func(*ResourceProviderOptions) ResourceProvider
+type ResourceProviderFactory func(*ResourceProviderOptions) ResourceProvider // nolint:golint
 
-type ResourceProviderFuncs struct {
+type ResourceProviderFuncs struct { // nolint:golint
 	ConstructF pulumiprovider.ConstructFunc
 }
 
