@@ -54,7 +54,7 @@ type DynamicClientSet struct {
 	GenericClient         dynamic.Interface
 	DiscoveryClientCached discovery.CachedDiscoveryInterface
 	RESTMapper            meta.ResettableRESTMapper
-	CRDCache              *CRDCache
+	CRDCache              CRDCache
 }
 
 func NewDynamicClientSet(clientConfig *rest.Config) (*DynamicClientSet, error) {
@@ -64,7 +64,7 @@ func NewDynamicClientSet(clientConfig *rest.Config) (*DynamicClientSet, error) {
 			GenericClient:         nil,
 			DiscoveryClientCached: nil,
 			RESTMapper:            nil,
-			CRDCache:              &CRDCache{},
+			CRDCache:              &crdCache{},
 		}, nil
 	}
 
@@ -88,7 +88,7 @@ func NewDynamicClientSet(clientConfig *rest.Config) (*DynamicClientSet, error) {
 		GenericClient:         client,
 		DiscoveryClientCached: discoCacheClient,
 		RESTMapper:            mapper,
-		CRDCache:              &CRDCache{},
+		CRDCache:              &crdCache{},
 	}, nil
 }
 

@@ -15,6 +15,7 @@
 package clients
 
 import (
+	"fmt"
 	"sync"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
@@ -26,20 +27,28 @@ import (
 // For example, it allows the yaml/v2 package to lookup a CRD during preview that would be installed by
 // a "CustomResourceDefinition" resource. The user is expected to use DependsOn to ensure that
 // the CRD is created first.
-type CRDCache struct {
+type CRDCache interface {
+	GetCRD(kind schema.GroupKind) *unstructured.Unstructured
+	AddCRD(crd *unstructured.Unstructured) error
+	RemoveCRD(crd *unstructured.Unstructured) error
+}
+
+type crdCache struct {
 	mu   sync.Mutex
 	crds map[schema.GroupKind]*unstructured.Unstructured
 }
 
+var _ CRDCache = &crdCache{}
+
 // GetCRD returns the CRD for the given kind, if it exists in the cache.
-func (c *CRDCache) GetCRD(kind schema.GroupKind) *unstructured.Unstructured {
+func (c *crdCache) GetCRD(kind schema.GroupKind) *unstructured.Unstructured {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	return c.crds[kind]
 }
 
 // AddCRD adds a CRD to the cache.
-func (c *CRDCache) AddCRD(crd *unstructured.Unstructured) error {
+func (c *crdCache) AddCRD(crd *unstructured.Unstructured) error {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	kind, err := groupKindFromCRD(crd)
@@ -54,15 +63,12 @@ func (c *CRDCache) AddCRD(crd *unstructured.Unstructured) error {
 }
 
 // RemoveCRD removes a CRD from the cache.
-func (c *CRDCache) RemoveCRD(crd *unstructured.Unstructured) error {
+func (c *crdCache) RemoveCRD(crd *unstructured.Unstructured) error {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	kind, err := groupKindFromCRD(crd)
 	if err != nil {
 		return err
-	}
-	if c.crds == nil {
-		return nil
 	}
 	delete(c.crds, kind)
 	return nil
@@ -74,9 +80,15 @@ func groupKindFromCRD(crd *unstructured.Unstructured) (schema.GroupKind, error) 
 	if err != nil {
 		return schema.GroupKind{}, err
 	}
+	if crdGroup == "" {
+		return schema.GroupKind{}, fmt.Errorf("expected .spec.group")
+	}
 	crdKind, _, err := unstructured.NestedString(crd.Object, "spec", "names", "kind")
 	if err != nil {
 		return schema.GroupKind{}, err
+	}
+	if crdKind == "" {
+		return schema.GroupKind{}, fmt.Errorf("expected .spec.names.kind")
 	}
 	kind := schema.GroupKind{Group: crdGroup, Kind: crdKind}
 	return kind, nil
