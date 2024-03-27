@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package register
+package resource
 
 import (
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
@@ -20,19 +20,19 @@ import (
 	pulumiprovider "github.com/pulumi/pulumi/sdk/v3/go/pulumi/provider"
 )
 
-type ResourceProvider interface {
+type ResourceProvider interface { // nolint:golint // stutters
 	Construct(ctx *pulumi.Context, typ, name string,
 		inputs pulumiprovider.ConstructInputs, options pulumi.ResourceOption) (*pulumiprovider.ConstructResult, error)
 }
 
-type ResourceProviderOptions struct {
+type ResourceProviderOptions struct { // nolint:golint // stutters
 	ClientSet        *clients.DynamicClientSet
 	DefaultNamespace string
 }
 
-type ResourceProviderFactory func(*ResourceProviderOptions) ResourceProvider
+type ResourceProviderFactory func(*ResourceProviderOptions) ResourceProvider // nolint:golint // stutters
 
-type ResourceProviderFuncs struct {
+type ResourceProviderFuncs struct { // nolint:golint // stutters
 	ConstructF pulumiprovider.ConstructFunc
 }
 

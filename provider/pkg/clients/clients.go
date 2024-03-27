@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/meta"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -53,9 +54,20 @@ type DynamicClientSet struct {
 	GenericClient         dynamic.Interface
 	DiscoveryClientCached discovery.CachedDiscoveryInterface
 	RESTMapper            meta.ResettableRESTMapper
+	CRDCache              CRDCache
 }
 
 func NewDynamicClientSet(clientConfig *rest.Config) (*DynamicClientSet, error) {
+	if clientConfig == nil {
+		// return a disconnected client, which is still useful for yaml rendering mode.
+		return &DynamicClientSet{
+			GenericClient:         nil,
+			DiscoveryClientCached: nil,
+			RESTMapper:            nil,
+			CRDCache:              &crdCache{},
+		}, nil
+	}
+
 	disco, err := discovery.NewDiscoveryClientForConfig(clientConfig)
 	if err != nil {
 		return nil, fmt.Errorf("failed to initialize discovery client: %v", err)
@@ -76,6 +88,7 @@ func NewDynamicClientSet(clientConfig *rest.Config) (*DynamicClientSet, error) {
 		GenericClient:         client,
 		DiscoveryClientCached: discoCacheClient,
 		RESTMapper:            mapper,
+		CRDCache:              &crdCache{},
 	}, nil
 }
 
@@ -167,7 +180,8 @@ func (dcs *DynamicClientSet) searchKindInGVResources(gvResources *v1.APIResource
 // For GVKs not in the table, look at the given objects for a matching CRD.
 // Finally, attempt to look up the GVK from the API server. If the GVK cannot be found, a
 // NoNamespaceInfoErr is returned.
-func IsNamespacedKind(gvk schema.GroupVersionKind, disco discovery.DiscoveryInterface, objs ...unstructured.Unstructured) (bool, error) {
+func IsNamespacedKind(gvk schema.GroupVersionKind, clientSet *DynamicClientSet, objs ...unstructured.Unstructured) (bool, error) {
+	contract.Requiref(clientSet != nil, "clientSet", "expected a clientSet")
 	if gvk.Group == "core" { // nolint:goconst
 		gvk.Group = ""
 	}
@@ -186,12 +200,19 @@ func IsNamespacedKind(gvk schema.GroupVersionKind, disco discovery.DiscoveryInte
 		return crdScope == "Namespaced", err
 	}
 
+	// check the client cache for a matching CRD.
+	crd = clientSet.CRDCache.GetCRD(gvk.GroupKind())
+	if crd != nil {
+		crdScope, _, err := unstructured.NestedString(crd.Object, "spec", "scope")
+		return crdScope == "Namespaced", err
+	}
+
 	// If the Kind is not known, attempt to look up from the API server. This applies to Kinds defined using a CRD.
 	// If the API server is not reachable, return an error.
-	if disco == nil {
+	if clientSet.DiscoveryClientCached == nil {
 		return false, &NoNamespaceInfoErr{gvk}
 	}
-	resourceList, err := disco.ServerResourcesForGroupVersion(gvk.GroupVersion().String())
+	resourceList, err := clientSet.DiscoveryClientCached.ServerResourcesForGroupVersion(gvk.GroupVersion().String())
 	if err != nil {
 		return false, &NoNamespaceInfoErr{gvk}
 	}
@@ -215,6 +236,9 @@ func NewLogClient(ctx context.Context, client clientcorev1.CoreV1Interface) *Log
 }
 
 func MakeLogClient(ctx context.Context, clientConfig *rest.Config) (*LogClient, error) {
+	if clientConfig == nil {
+		return &LogClient{}, nil
+	}
 	// creates the clientset
 	clientset, err := kubernetes.NewForConfig(clientConfig)
 	if err != nil {
@@ -225,6 +249,7 @@ func MakeLogClient(ctx context.Context, clientConfig *rest.Config) (*LogClient, 
 }
 
 func (lc *LogClient) Logs(namespace, name string) (io.ReadCloser, error) {
+	contract.Assertf(lc.client != nil && lc.ctx != nil, "expected a client")
 	podLogOpts := corev1.PodLogOptions{Follow: true}
 	req := lc.client.Pods(namespace).GetLogs(name, &podLogOpts)
 	return req.Stream(lc.ctx)

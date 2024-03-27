@@ -135,8 +135,8 @@ var _ = Describe("RPC:Configure", func() {
 				_, err := k.Configure(context.Background(), req)
 				Expect(err).ShouldNot(HaveOccurred())
 				Expect(k.clusterUnreachable).To(BeTrue())
-				Expect(k.clientSet).To(BeNil())
-				Expect(k.logClient).To(BeNil())
+				Expect(k.clientSet).ToNot(BeNil())
+				Expect(k.logClient).ToNot(BeNil())
 			})
 		}
 

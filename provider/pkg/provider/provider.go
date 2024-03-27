@@ -66,7 +66,6 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"k8s.io/client-go/discovery"
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
 	clientapi "k8s.io/client-go/tools/clientcmd/api"
@@ -763,15 +762,14 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		}
 	}
 
+	var err error
+	k.clientSet, k.logClient, err = k.makeClient(k.canceler.context, config)
+	if err != nil {
+		return nil, err
+	}
+
 	// These operations require a reachable cluster.
 	if !k.clusterUnreachable {
-		contract.Assertf(config != nil, "expected config to be initialized")
-		var err error
-		k.clientSet, k.logClient, err = k.makeClient(k.canceler.context, config)
-		if err != nil {
-			return nil, err
-		}
-
 		k.k8sVersion = cluster.TryGetServerVersion(k.clientSet.DiscoveryClientCached)
 
 		if k.k8sVersion.Compare(cluster.ServerVersion{Major: 1, Minor: 13}) < 0 {
@@ -784,8 +782,6 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 				"unable to load schema information from the API server: %v", err)
 		}
 	}
-
-	var err error
 
 	k.helmReleaseProvider, err = newHelmReleaseProvider(
 		k.host,
@@ -1402,11 +1398,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 	// If a default namespace is set on the provider for this resource, check if the resource has Namespaced
 	// or Global scope. For namespaced resources, set the namespace to the default value if unset.
 	if k.defaultNamespace != "" && len(newInputs.GetNamespace()) == 0 {
-		var disco discovery.CachedDiscoveryInterface
-		if k.clientSet != nil {
-			disco = k.clientSet.DiscoveryClientCached
-		}
-		namespacedKind, err := clients.IsNamespacedKind(gvk, disco)
+		namespacedKind, err := clients.IsNamespacedKind(gvk, k.clientSet)
 		if err != nil {
 			if clients.IsNoNamespaceInfoErr(err) {
 				// This is probably a CustomResource without a registered CustomResourceDefinition.
@@ -1458,6 +1450,15 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 				return nil, pkgerrors.Wrapf(err, "unable to fetch schema for resource type %s/%s",
 					newInputs.GetAPIVersion(), newInputs.GetKind())
 			}
+		}
+	}
+
+	if clients.IsCRD(newInputs) {
+		// add the CRD to the cache such that it contains all the CRDs that the program intends to create.
+		// Do it now instead of later because update is called only if there's a non-empty diff,
+		// and we want to ensure that the CRD is in the cache to support lookups by the component resources.
+		if err := k.clientSet.CRDCache.AddCRD(newInputs); err != nil {
+			return nil, err
 		}
 	}
 
@@ -1580,11 +1581,7 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 
 	gvk := k.gvkFromUnstructured(newInputs)
 
-	var disco discovery.CachedDiscoveryInterface
-	if k.clientSet != nil {
-		disco = k.clientSet.DiscoveryClientCached
-	}
-	namespacedKind, err := clients.IsNamespacedKind(gvk, disco)
+	namespacedKind, err := clients.IsNamespacedKind(gvk, k.clientSet)
 	if err != nil {
 		if clients.IsNoNamespaceInfoErr(err) {
 			// This is probably a CustomResource without a registered CustomResourceDefinition.
@@ -1791,7 +1788,7 @@ func (k *kubeProvider) Create(
 
 	// Skip if:
 	// 1: The input values contain unknowns
-	// 2: The resource GVK does not exist
+	// 2: The cluster is unreachable or the resource GVK does not exist
 	// 3: The resource is a Patch resource
 	// 4: We are in client-side-apply mode
 	skipPreview := hasComputedValue(newInputs) || !k.gvkExists(newInputs) || kinds.IsPatchURN(urn) || !k.serverSideApplyMode
