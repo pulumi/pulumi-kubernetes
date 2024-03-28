@@ -173,7 +173,7 @@ type ConfigGroup struct {
 	pulumi.ResourceState
 
 	// Resources created by the ConfigGroup.
-	Resources pulumi.ArrayOutput `pulumi:"resources"`
+	Resources pulumi.ResourceArrayOutput `pulumi:"resources"`
 }
 
 // NewConfigGroup registers a new resource with the given unique name, arguments, and options.
@@ -307,8 +307,8 @@ func (o ConfigGroupOutput) ToConfigGroupOutputWithContext(ctx context.Context) C
 }
 
 // Resources created by the ConfigGroup.
-func (o ConfigGroupOutput) Resources() pulumi.ArrayOutput {
-	return o.ApplyT(func(v *ConfigGroup) pulumi.ArrayOutput { return v.Resources }).(pulumi.ArrayOutput)
+func (o ConfigGroupOutput) Resources() pulumi.ResourceArrayOutput {
+	return o.ApplyT(func(v *ConfigGroup) pulumi.ResourceArrayOutput { return v.Resources }).(pulumi.ResourceArrayOutput)
 }
 
 type ConfigGroupArrayOutput struct{ *pulumi.OutputState }

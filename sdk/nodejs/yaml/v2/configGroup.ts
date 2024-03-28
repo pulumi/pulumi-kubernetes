@@ -118,7 +118,7 @@ export class ConfigGroup extends pulumi.ComponentResource {
     /**
      * Resources created by the ConfigGroup.
      */
-    public /*out*/ readonly resources!: pulumi.Output<any[]>;
+    public /*out*/ readonly resources!: pulumi.Output<pulumi.Resource[]>;
 
     /**
      * Create a ConfigGroup resource with the given unique name, arguments, and options.
