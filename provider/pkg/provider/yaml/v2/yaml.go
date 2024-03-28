@@ -167,7 +167,7 @@ func Normalize(objs []unstructured.Unstructured, defaultNamespace string, client
 
 		// determine whether the kind is namespaced, which may involve a call to the API server.
 		// note that the object list is searched for a matching CRD before resorting to a discovery call.
-		isNamespaced, err := clients.IsNamespacedKind(gvk, clientSet.DiscoveryClientCached, objs...)
+		isNamespaced, err := clients.IsNamespacedKind(gvk, clientSet, objs...)
 		if err != nil {
 			return nil, err
 		}

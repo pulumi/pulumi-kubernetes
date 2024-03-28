@@ -257,7 +257,7 @@ func (c *chart) template(clientSet *clients.DynamicClientSet) (string, error) {
 		installAction.APIVersions = c.opts.APIVersions
 	}
 
-	if clientSet != nil {
+	if clientSet != nil && clientSet.DiscoveryClientCached != nil {
 		err = setKubeVersionAndAPIVersions(clientSet, installAction)
 		if err != nil {
 			return "", err
