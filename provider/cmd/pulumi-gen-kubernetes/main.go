@@ -230,7 +230,7 @@ func writeNodeJSClient(pkg *schema.Package, outdir, templateDir string) {
 		"kustomize/kustomize.ts":               mustLoadFile(filepath.Join(templateDir, "kustomize", "kustomize.ts")),
 		"yaml/yaml.ts":                         mustRenderTemplate(filepath.Join(templateDir, "yaml", "yaml.tmpl"), templateResources),
 	}
-	files, err := nodejsgen.GeneratePackage("pulumigen", pkg, overlays)
+	files, err := nodejsgen.GeneratePackage("pulumigen", pkg, overlays, nil)
 	if err != nil {
 		panic(err)
 	}
