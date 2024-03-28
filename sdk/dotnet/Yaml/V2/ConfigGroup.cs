@@ -53,95 +53,82 @@ namespace Pulumi.Kubernetes.Yaml.V2
     /// installs custom resource definitions.
     /// 
     /// ## Example Usage
-    /// ### Local File
+    /// ### Local File(s)
     /// ```csharp
-    /// using System.Threading.Tasks;
     /// using Pulumi;
+    /// using Pulumi.Kubernetes.Types.Inputs.Yaml.V2;
     /// using Pulumi.Kubernetes.Yaml.V2;
+    /// using System.Collections.Generic;
     /// 
-    /// class YamlStack : Stack
+    /// return await Deployment.RunAsync(() =&gt;
     /// {
-    ///     public YamlStack()
+    ///     var example = new ConfigGroup("example", new ConfigGroupArgs
     ///     {
-    ///         var helloWorld = new ConfigGroup("example", new ConfigGroupArgs
-    ///         {
-    ///             Files = new[] { "foo.yaml" }
-    ///         });
-    ///     }
-    /// }
-    /// ```
-    /// ### Multiple Local Files
-    /// ```csharp
-    /// using System.Threading.Tasks;
-    /// using Pulumi;
-    /// using Pulumi.Kubernetes.Yaml.V2;
-    /// 
-    /// class YamlStack : Stack
-    /// {
-    ///     public YamlStack()
-    ///     {
-    ///         var helloWorld = new ConfigGroup("example", new ConfigGroupArgs
-    ///         {
-    ///             Files = new[] { "foo.yaml", "bar.yaml" }
-    ///         });
-    ///     }
-    /// }
+    ///         Files = new[] { "./manifest.yaml" }
+    ///     });
+    /// });
     /// ```
     /// ### Local File Pattern
     /// ```csharp
-    /// using System.Threading.Tasks;
     /// using Pulumi;
+    /// using Pulumi.Kubernetes.Types.Inputs.Yaml.V2;
     /// using Pulumi.Kubernetes.Yaml.V2;
+    /// using System.Collections.Generic;
     /// 
-    /// class YamlStack : Stack
+    /// return await Deployment.RunAsync(() =&gt;
     /// {
-    ///     public YamlStack()
+    ///     var example = new ConfigGroup("example", new ConfigGroupArgs
     ///     {
-    ///         var helloWorld = new ConfigGroup("example", new ConfigGroupArgs
-    ///         {
-    ///             Files = new[] { "yaml/*.yaml" }
-    ///         });
-    ///     }
-    /// }
+    ///         Files = new[] { "./manifests/*.yaml" }
+    ///     });
+    /// });
     /// ```
-    /// ### Multiple Local File Patterns
-    /// ```csharp
-    /// using System.Threading.Tasks;
-    /// using Pulumi;
-    /// using Pulumi.Kubernetes.Yaml.V2;
-    /// 
-    /// class YamlStack : Stack
-    /// {
-    ///     public YamlStack()
-    ///     {
-    ///         var helloWorld = new ConfigGroup("example", new ConfigGroupArgs
-    ///         {
-    ///             Files = new[] { "foo/*.yaml", "bar/*.yaml" }
-    ///         });
-    ///     }
-    /// }
-    /// ```
+    /// {{% /example %}}
     /// ### Literal YAML String
     /// ```csharp
-    /// using System.Threading.Tasks;
     /// using Pulumi;
+    /// using Pulumi.Kubernetes.Types.Inputs.Yaml.V2;
     /// using Pulumi.Kubernetes.Yaml.V2;
+    /// using System.Collections.Generic;
     /// 
-    /// class YamlStack : Stack
+    /// return await Deployment.RunAsync(() =&gt;
     /// {
-    ///     public YamlStack()
+    ///     var example = new ConfigGroup("example", new ConfigGroupArgs
     ///     {
-    ///         var helloWorld = new ConfigGroup("example", new ConfigGroupArgs
-    ///         {
-    ///             Yaml = @"
+    ///         Yaml = @"
     ///             apiVersion: v1
-    ///             kind: Namespace
+    ///             kind: ConfigMap
     ///             metadata:
-    ///               name: foo
-    ///             ",
-    ///         });
-    ///     }
-    /// }
+    ///               name: my-map
+    ///             "
+    ///     });
+    /// });
+    /// ```
+    /// ### Literal Object
+    /// ```csharp
+    /// using Pulumi;
+    /// using Pulumi.Kubernetes.Types.Inputs.Yaml.V2;
+    /// using Pulumi.Kubernetes.Yaml.V2;
+    /// using System.Collections.Generic;
+    /// 
+    /// return await Deployment.RunAsync(() =&gt;
+    /// {
+    ///     var example = new ConfigGroup("example", new ConfigGroupArgs
+    ///     {
+    ///         Objs = new[]
+    ///         {
+    ///             new Dictionary&lt;string, object&gt;
+    ///             {
+    ///                 ["apiVersion"] = "v1",
+    ///                 ["kind"] = "ConfigMap",
+    ///                 ["metadata"] = new Dictionary&lt;string, object&gt;
+    ///                 {
+    ///                     ["name"] = "my-map",
+    ///                 },
+    ///             },
+    ///         },
+    ///     });
+    /// });
     /// ```
     /// {% /examples %}}
     /// </summary>

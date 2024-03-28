@@ -58,6 +58,93 @@ import javax.annotation.Nullable;
  * installs custom resource definitions.
  * 
  * ## Example Usage
+ * ### Local File(s)
+ * ```java
+ * package myproject;
+ * 
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.kubernetes.yaml.v2.ConfigGroup;
+ * import com.pulumi.kubernetes.yaml.v2.ConfigGroupArgs;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(ctx -&gt; {
+ *             var example = new ConfigGroup(&#34;example&#34;, ConfigGroupArgs.builder()
+ *                     .files(&#34;./manifest.yaml&#34;)
+ *                     .build());
+ *         });
+ *     }
+ * }
+ * ```
+ * ### Local File Pattern
+ * ```java
+ * package myproject;
+ * 
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.kubernetes.yaml.v2.ConfigGroup;
+ * import com.pulumi.kubernetes.yaml.v2.ConfigGroupArgs;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(ctx -&gt; {
+ *             var example = new ConfigGroup(&#34;example&#34;, ConfigGroupArgs.builder()
+ *                     .files(&#34;./manifests/*.yaml&#34;)
+ *                     .build());
+ *         });
+ *     }
+ * }
+ * ```
+ * {{% /example %}}
+ * ### Literal YAML String
+ * ```java
+ * package myproject;
+ * 
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.kubernetes.yaml.v2.ConfigGroup;
+ * import com.pulumi.kubernetes.yaml.v2.ConfigGroupArgs;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(ctx -&gt; {
+ *             var example = new ConfigGroup(&#34;example&#34;, ConfigGroupArgs.builder()
+ *                     .yaml(&#34;&#34;&#34;
+ *                         apiVersion: v1
+ *                         kind: ConfigMap
+ *                         metadata:
+ *                           name: my-map
+ *                         &#34;&#34;&#34;
+ *                     )
+ *                     .build());
+ *         });
+ *     }
+ * }
+ * ```
+ * ### Literal Object
+ * ```java
+ * package myproject;
+ * 
+ * import java.util.Map;
+ * 
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.kubernetes.yaml.v2.ConfigGroup;
+ * import com.pulumi.kubernetes.yaml.v2.ConfigGroupArgs;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(ctx -&gt; {
+ *             var example = new ConfigGroup(&#34;example&#34;, ConfigGroupArgs.builder()
+ *                     .objs(Map.ofEntries(
+ *                         Map.entry(&#34;apiVersion&#34;, &#34;v1&#34;),
+ *                         Map.entry(&#34;kind&#34;, &#34;ConfigMap&#34;),
+ *                         Map.entry(&#34;metadata&#34;, Map.ofEntries(
+ *                             Map.entry(&#34;name&#34;, &#34;my-map&#34;)
+ *                         ))
+ *                     ))
+ *                     .build());
+ *         });
+ *     }
+ * }
+ * ```
  * {% /examples %}}
  * 
  */

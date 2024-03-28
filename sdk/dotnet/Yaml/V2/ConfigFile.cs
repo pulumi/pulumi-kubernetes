@@ -49,20 +49,18 @@ namespace Pulumi.Kubernetes.Yaml.V2
     /// ## Example Usage
     /// ### Local File
     /// ```csharp
-    /// using System.Threading.Tasks;
     /// using Pulumi;
+    /// using Pulumi.Kubernetes.Types.Inputs.Yaml.V2;
     /// using Pulumi.Kubernetes.Yaml.V2;
+    /// using System.Collections.Generic;
     /// 
-    /// class YamlStack : Stack
+    /// return await Deployment.RunAsync(() =&gt;
     /// {
-    ///     public YamlStack()
+    ///     var example = new ConfigFile("example", new ConfigFileArgs
     ///     {
-    ///         var helloWorld = new ConfigFile("example", new ConfigFileArgs
-    ///         {
-    ///             File = "foo.yaml",
-    ///         });
-    ///     }
-    /// }
+    ///         File = "./manifest.yaml"
+    ///     });
+    /// });
     /// ```
     /// {% /examples %}}
     /// </summary>

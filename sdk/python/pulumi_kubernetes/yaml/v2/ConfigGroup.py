@@ -154,54 +154,58 @@ class ConfigGroup(pulumi.ComponentResource):
         installs custom resource definitions.
 
         ## Example Usage
-        ### Local File
+        ### Local File(s)
         ```python
+        import pulumi
         from pulumi_kubernetes.yaml.v2 import ConfigGroup
 
         example = ConfigGroup(
             "example",
-            files=["foo.yaml"],
-        )
-        ```
-        ### Multiple Local Files
-        ```python
-        from pulumi_kubernetes.yaml.v2 import ConfigGroup
-
-        example = ConfigGroup(
-            "example",
-            files=["foo.yaml", "bar.yaml"],
+            files=["./manifest.yaml"]
         )
         ```
         ### Local File Pattern
         ```python
+        import pulumi
         from pulumi_kubernetes.yaml.v2 import ConfigGroup
 
         example = ConfigGroup(
             "example",
-            files=["yaml/*.yaml"],
+            files=["./manifests/*.yaml"]
         )
         ```
-        ### Multiple Local File Patterns
-        ```python
-        from pulumi_kubernetes.yaml.v2 import ConfigGroup
-
-        example = ConfigGroup(
-            "example",
-            files=["foo/*.yaml", "bar/*.yaml"],
-        )
-        ```
+        {{% /example %}}
         ### Literal YAML String
         ```python
+        import pulumi
         from pulumi_kubernetes.yaml.v2 import ConfigGroup
 
         example = ConfigGroup(
             "example",
-            yaml=['''
+            yaml=\"\"\"
         apiVersion: v1
-        kind: Namespace
+        kind: ConfigMap
         metadata:
-          name: foo
-        ''']
+          name: my-map
+        \"\"\"
+        )
+        ```
+        ### Literal Object
+        ```python
+        import pulumi
+        from pulumi_kubernetes.yaml.v2 import ConfigGroup
+
+        example = ConfigGroup(
+            "example",
+            objs=[
+                {
+                    "apiVersion": "v1",
+                    "kind": "ConfigMap",
+                    "metadata": {
+                        "name": "my-map",
+                    },
+                }
+            ]
         )
         ```
         {% /examples %}}
@@ -264,54 +268,58 @@ class ConfigGroup(pulumi.ComponentResource):
         installs custom resource definitions.
 
         ## Example Usage
-        ### Local File
+        ### Local File(s)
         ```python
+        import pulumi
         from pulumi_kubernetes.yaml.v2 import ConfigGroup
 
         example = ConfigGroup(
             "example",
-            files=["foo.yaml"],
-        )
-        ```
-        ### Multiple Local Files
-        ```python
-        from pulumi_kubernetes.yaml.v2 import ConfigGroup
-
-        example = ConfigGroup(
-            "example",
-            files=["foo.yaml", "bar.yaml"],
+            files=["./manifest.yaml"]
         )
         ```
         ### Local File Pattern
         ```python
+        import pulumi
         from pulumi_kubernetes.yaml.v2 import ConfigGroup
 
         example = ConfigGroup(
             "example",
-            files=["yaml/*.yaml"],
+            files=["./manifests/*.yaml"]
         )
         ```
-        ### Multiple Local File Patterns
-        ```python
-        from pulumi_kubernetes.yaml.v2 import ConfigGroup
-
-        example = ConfigGroup(
-            "example",
-            files=["foo/*.yaml", "bar/*.yaml"],
-        )
-        ```
+        {{% /example %}}
         ### Literal YAML String
         ```python
+        import pulumi
         from pulumi_kubernetes.yaml.v2 import ConfigGroup
 
         example = ConfigGroup(
             "example",
-            yaml=['''
+            yaml=\"\"\"
         apiVersion: v1
-        kind: Namespace
+        kind: ConfigMap
         metadata:
-          name: foo
-        ''']
+          name: my-map
+        \"\"\"
+        )
+        ```
+        ### Literal Object
+        ```python
+        import pulumi
+        from pulumi_kubernetes.yaml.v2 import ConfigGroup
+
+        example = ConfigGroup(
+            "example",
+            objs=[
+                {
+                    "apiVersion": "v1",
+                    "kind": "ConfigMap",
+                    "metadata": {
+                        "name": "my-map",
+                    },
+                }
+            ]
         )
         ```
         {% /examples %}}

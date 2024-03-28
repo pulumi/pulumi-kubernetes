@@ -115,11 +115,12 @@ class ConfigFile(pulumi.ComponentResource):
         ## Example Usage
         ### Local File
         ```python
+        import pulumi
         from pulumi_kubernetes.yaml.v2 import ConfigFile
 
         example = ConfigFile(
             "example",
-            file="foo.yaml",
+            file="./manifest.yaml"
         )
         ```
         {% /examples %}}
@@ -176,11 +177,12 @@ class ConfigFile(pulumi.ComponentResource):
         ## Example Usage
         ### Local File
         ```python
+        import pulumi
         from pulumi_kubernetes.yaml.v2 import ConfigFile
 
         example = ConfigFile(
             "example",
-            file="foo.yaml",
+            file="./manifest.yaml"
         )
         ```
         {% /examples %}}
