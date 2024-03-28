@@ -43,12 +43,12 @@ import * as utilities from "../../utilities";
  *
  * ## Example Usage
  * ### Local File
- *
  * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
  * import * as k8s from "@pulumi/kubernetes";
  *
  * const example = new k8s.yaml.v2.ConfigFile("example", {
- *   file: "foo.yaml",
+ *     files: ["./manifest.yaml"],
  * });
  * ```
  * {% /examples %}}

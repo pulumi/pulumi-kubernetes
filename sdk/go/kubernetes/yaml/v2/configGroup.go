@@ -54,55 +54,25 @@ import (
 // installs custom resource definitions.
 //
 // ## Example Usage
-// ### Local File
+// ### Local File(s)
 // ```go
 // package main
 //
 // import (
 //
-//	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/yaml/v2"
+//	yamlv2 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/yaml/v2"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //
 // )
 //
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := yaml.NewConfigGroup(ctx, "example",
-//				&yaml.ConfigGroupArgs{
-//					Files: []string{"foo.yaml"},
-//				},
-//			)
+//			_, err := yamlv2.NewConfigGroup(ctx, "example", &yamlv2.ConfigGroupArgs{
+//				Files: pulumi.ToStringArray([]string{"manifest.yaml"}),
+//			})
 //			if err != nil {
 //				return err
 //			}
-//
-//			return nil
-//		})
-//	}
-//
-// ```
-// ### Multiple Local Files
-// ```go
-// package main
-//
-// import (
-//
-//	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/yaml/v2"
-//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//
-// )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := yaml.NewConfigGroup(ctx, "example",
-//				&yaml.ConfigGroupArgs{
-//					Files: []string{"foo.yaml", "bar.yaml"},
-//				},
-//			)
-//			if err != nil {
-//				return err
-//			}
-//
 //			return nil
 //		})
 //	}
@@ -114,86 +84,85 @@ import (
 //
 // import (
 //
-//	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/yaml/v2"
+//	yamlv2 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/yaml/v2"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //
 // )
 //
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := yaml.NewConfigGroup(ctx, "example",
-//				&yaml.ConfigGroupArgs{
-//					Files: []string{"yaml/*.yaml"},
-//				},
-//			)
+//			_, err := yamlv2.NewConfigGroup(ctx, "example", &yamlv2.ConfigGroupArgs{
+//				Files: pulumi.ToStringArray([]string{"./manifests/*.yaml"}),
+//			})
 //			if err != nil {
 //				return err
 //			}
-//
 //			return nil
 //		})
 //	}
 //
 // ```
-// ### Multiple Local File Patterns
-// ```go
-// package main
-//
-// import (
-//
-//	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/yaml/v2"
-//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//
-// )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := yaml.NewConfigGroup(ctx, "example",
-//				&yaml.ConfigGroupArgs{
-//					Files: []string{"yaml/*.yaml", "bar/*.yaml"},
-//				},
-//			)
-//			if err != nil {
-//				return err
-//			}
-//
-//			return nil
-//		})
-//	}
-//
-// ```
+// {{% /example %}}
 // ### Literal YAML String
 // ```go
 // package main
 //
 // import (
 //
-//	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/yaml/v2"
+//	yamlv2 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/yaml/v2"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //
 // )
 //
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := yaml.NewConfigGroup(ctx, "example",
-//				&yaml.ConfigGroupArgs{
-//					YAML: []string{
-//						`
+//			_, err := yamlv2.NewConfigGroup(ctx, "example", &yamlv2.ConfigGroupArgs{
+//				Yaml: pulumi.StringPtr(`
 //
 // apiVersion: v1
-// kind: Namespace
+// kind: ConfigMap
 // metadata:
 //
-//	name: foo
+//	name: my-map
 //
-// `,
+// `),
 //
-//					},
-//				})
+//			})
 //			if err != nil {
 //				return err
 //			}
+//			return nil
+//		})
+//	}
 //
+// ```
+// ### Literal Object
+// ```go
+// package main
+//
+// import (
+//
+//	yamlv2 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/yaml/v2"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := yamlv2.NewConfigGroup(ctx, "example", &yamlv2.ConfigGroupArgs{
+//				Objs: pulumi.Array{
+//					pulumi.Map{
+//						"apiVersion": pulumi.String("v1"),
+//						"kind":       pulumi.String("ConfigMap"),
+//						"metadata": pulumi.Map{
+//							"name": pulumi.String("my-map"),
+//						},
+//					},
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
 //			return nil
 //		})
 //	}

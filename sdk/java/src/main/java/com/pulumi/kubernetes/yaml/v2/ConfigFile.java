@@ -52,6 +52,24 @@ import javax.annotation.Nullable;
  * installs custom resource definitions.
  * 
  * ## Example Usage
+ * ### Local File
+ * ```java
+ * package myproject;
+ * 
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.kubernetes.yaml.v2.ConfigFile;
+ * import com.pulumi.kubernetes.yaml.v2.ConfigFileArgs;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(ctx -&gt; {
+ *             var example = new ConfigFile(&#34;example&#34;, ConfigFileArgs.builder()
+ *                     .file(&#34;./manifest.yaml&#34;)
+ *                     .build());
+ *         });
+ *     }
+ * }
+ * ```
  * {% /examples %}}
  * 
  */

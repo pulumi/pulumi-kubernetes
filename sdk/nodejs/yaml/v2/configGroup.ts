@@ -48,55 +48,55 @@ import * as utilities from "../../utilities";
  * installs custom resource definitions.
  *
  * ## Example Usage
- * ### Local File
- *
+ * ### Local File(s)
  * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
  * import * as k8s from "@pulumi/kubernetes";
  *
  * const example = new k8s.yaml.v2.ConfigGroup("example", {
- *     files: "foo.yaml",
- * });
- * ```
- * ### Multiple Local Files
- *
- * ```typescript
- * import * as k8s from "@pulumi/kubernetes";
- *
- * const example = new k8s.yaml.v2.ConfigGroup("example", {
- *     files: ["foo.yaml", "bar.yaml"],
+ *     files: ["./manifest.yaml"],
  * });
  * ```
  * ### Local File Pattern
- *
  * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
  * import * as k8s from "@pulumi/kubernetes";
  *
  * const example = new k8s.yaml.v2.ConfigGroup("example", {
- *     files: "yaml/*.yaml",
+ *     files: ["./manifests/*.yaml"],
  * });
  * ```
- * ### Multiple Local File Patterns
- *
- * ```typescript
- * import * as k8s from "@pulumi/kubernetes";
- *
- * const example = new k8s.yaml.v2.ConfigGroup("example", {
- *     files: ["foo/*.yaml", "bar/*.yaml"],
- * });
- * ```
+ * {{% /example %}}
  * ### Literal YAML String
- *
  * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
  * import * as k8s from "@pulumi/kubernetes";
  *
  * const example = new k8s.yaml.v2.ConfigGroup("example", {
  *     yaml: `
- * apiVersion: v1
- * kind: Namespace
- * metadata:
- *   name: foo
- * `,
- * })
+ *     apiVersion: v1
+ *     kind: ConfigMap
+ *     metadata:
+ *       name: my-map
+ *     `
+ * });
+ * ```
+ * ### Literal Object
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as k8s from "@pulumi/kubernetes";
+ *
+ * const example = new k8s.yaml.v2.ConfigGroup("example", {
+ *     objs: [
+ *         {
+ *             apiVersion: "v1",
+ *             kind: "ConfigMap",
+ *             metadata: {
+ *                 name: "my-map"
+ *             }
+ *         }
+ *     ]
+ * });
  * ```
  * {% /examples %}}
  */

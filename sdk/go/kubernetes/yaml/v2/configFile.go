@@ -61,18 +61,15 @@ import (
 // )
 //
 //	func main() {
-//	    pulumi.Run(func(ctx *pulumi.Context) error {
-//	        _, err := yamlv2.NewConfigFile(ctx, "example",
-//	            &yamlv2.ConfigFileArgs{
-//	                File: "foo.yaml",
-//	            },
-//	        )
-//	        if err != nil {
-//	            return err
-//	        }
-//
-//	        return nil
-//	    })
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := yamlv2.NewConfigFile(ctx, "example", &yamlv2.ConfigFileArgs{
+//				File: pulumi.String("manifest.yaml"),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
 //	}
 //
 // ```
