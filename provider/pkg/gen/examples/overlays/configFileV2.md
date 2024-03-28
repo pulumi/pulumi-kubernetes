@@ -39,58 +39,81 @@ installs custom resource definitions.
 {{% example %}}
 ### Local File
 
+```yaml
+name: example
+runtime: yaml
+resources:
+  example:
+    type: kubernetes:yaml/v2:ConfigFile
+    properties:
+      file: ./manifest.yaml
+```
 ```typescript
+import * as pulumi from "@pulumi/pulumi";
 import * as k8s from "@pulumi/kubernetes";
 
 const example = new k8s.yaml.v2.ConfigFile("example", {
-  file: "foo.yaml",
+    files: ["./manifest.yaml"],
 });
 ```
 ```python
+import pulumi
 from pulumi_kubernetes.yaml.v2 import ConfigFile
 
 example = ConfigFile(
     "example",
-    file="foo.yaml",
+    file="./manifest.yaml"
 )
 ```
 ```csharp
-using System.Threading.Tasks;
 using Pulumi;
+using Pulumi.Kubernetes.Types.Inputs.Yaml.V2;
 using Pulumi.Kubernetes.Yaml.V2;
+using System.Collections.Generic;
 
-class YamlStack : Stack
+return await Deployment.RunAsync(() =>
 {
-    public YamlStack()
+    var example = new ConfigFile("example", new ConfigFileArgs
     {
-        var helloWorld = new ConfigFile("example", new ConfigFileArgs
-        {
-            File = "foo.yaml",
-        });
-    }
-}
+        File = "./manifest.yaml"
+    });
+});
 ```
 ```go
 package main
 
 import (
-    yamlv2 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/yaml/v2"
-    "github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	yamlv2 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/yaml/v2"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
 func main() {
-    pulumi.Run(func(ctx *pulumi.Context) error {
-        _, err := yamlv2.NewConfigFile(ctx, "example",
-            &yamlv2.ConfigFileArgs{
-                File: "foo.yaml",
-            },
-        )
-        if err != nil {
-            return err
-        }
+	pulumi.Run(func(ctx *pulumi.Context) error {
+		_, err := yamlv2.NewConfigFile(ctx, "example", &yamlv2.ConfigFileArgs{
+			File: pulumi.String("manifest.yaml"),
+		})
+		if err != nil {
+			return err
+		}
+		return nil
+	})
+}
+```
+```java
+package myproject;
 
-        return nil
-    })
+import com.pulumi.Pulumi;
+import com.pulumi.kubernetes.yaml.v2.ConfigFile;
+import com.pulumi.kubernetes.yaml.v2.ConfigFileArgs;
+
+public class App {
+    public static void main(String[] args) {
+        Pulumi.run(ctx -> {
+            var example = new ConfigFile("example", ConfigFileArgs.builder()
+                    .file("./manifest.yaml")
+                    .build());
+        });
+    }
 }
 ```
 {{% /example %}}

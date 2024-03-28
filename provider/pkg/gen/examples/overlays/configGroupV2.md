@@ -43,313 +43,404 @@ installs custom resource definitions.
 {{% examples %}}
 ## Example Usage
 {{% example %}}
-### Local File
+### Local File(s)
 
+```yaml
+name: example
+runtime: yaml
+resources:
+  example:
+    type: kubernetes:yaml/v2:ConfigGroup
+    properties:
+      files:
+      - ./manifest.yaml
+```
 ```typescript
+import * as pulumi from "@pulumi/pulumi";
 import * as k8s from "@pulumi/kubernetes";
 
 const example = new k8s.yaml.v2.ConfigGroup("example", {
-    files: "foo.yaml",
+    files: ["./manifest.yaml"],
 });
 ```
 ```python
+import pulumi
 from pulumi_kubernetes.yaml.v2 import ConfigGroup
 
 example = ConfigGroup(
     "example",
-    files=["foo.yaml"],
+    files=["./manifest.yaml"]
 )
 ```
 ```csharp
-using System.Threading.Tasks;
 using Pulumi;
+using Pulumi.Kubernetes.Types.Inputs.Yaml.V2;
 using Pulumi.Kubernetes.Yaml.V2;
+using System.Collections.Generic;
 
-class YamlStack : Stack
+return await Deployment.RunAsync(() =>
 {
-    public YamlStack()
+    var example = new ConfigGroup("example", new ConfigGroupArgs
     {
-        var helloWorld = new ConfigGroup("example", new ConfigGroupArgs
-        {
-            Files = new[] { "foo.yaml" }
-        });
-    }
-}
+        Files = new[] { "./manifest.yaml" }
+    });
+});
 ```
 ```go
 package main
 
 import (
-	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/yaml/v2"
+	yamlv2 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/yaml/v2"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
 func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
-		_, err := yaml.NewConfigGroup(ctx, "example",
-			&yaml.ConfigGroupArgs{
-				Files: []string{"foo.yaml"},
-			},
-		)
+		_, err := yamlv2.NewConfigGroup(ctx, "example", &yamlv2.ConfigGroupArgs{
+			Files: pulumi.ToStringArray([]string{"manifest.yaml"}),
+		})
 		if err != nil {
 			return err
 		}
-
 		return nil
 	})
 }
 ```
-{{% /example %}}
-{{% example %}}
-### Multiple Local Files
+```java
+package myproject;
 
-```typescript
-import * as k8s from "@pulumi/kubernetes";
+import com.pulumi.Pulumi;
+import com.pulumi.kubernetes.yaml.v2.ConfigGroup;
+import com.pulumi.kubernetes.yaml.v2.ConfigGroupArgs;
 
-const example = new k8s.yaml.v2.ConfigGroup("example", {
-    files: ["foo.yaml", "bar.yaml"],
-});
-```
-```python
-from pulumi_kubernetes.yaml.v2 import ConfigGroup
-
-example = ConfigGroup(
-    "example",
-    files=["foo.yaml", "bar.yaml"],
-)
-```
-```csharp
-using System.Threading.Tasks;
-using Pulumi;
-using Pulumi.Kubernetes.Yaml.V2;
-
-class YamlStack : Stack
-{
-    public YamlStack()
-    {
-        var helloWorld = new ConfigGroup("example", new ConfigGroupArgs
-        {
-            Files = new[] { "foo.yaml", "bar.yaml" }
+public class App {
+    public static void main(String[] args) {
+        Pulumi.run(ctx -> {
+            var example = new ConfigGroup("example", ConfigGroupArgs.builder()
+                    .files("./manifest.yaml")
+                    .build());
         });
     }
 }
 ```
-```go
-package main
-
-import (
-	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/yaml/v2"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-)
-
-func main() {
-	pulumi.Run(func(ctx *pulumi.Context) error {
-		_, err := yaml.NewConfigGroup(ctx, "example",
-			&yaml.ConfigGroupArgs{
-				Files: []string{"foo.yaml", "bar.yaml"},
-			},
-		)
-		if err != nil {
-			return err
-		}
-
-		return nil
-	})
-}
-```
 {{% /example %}}
-{{% example %}}
 ### Local File Pattern
 
+```yaml
+name: example
+runtime: yaml
+resources:
+  example:
+    type: kubernetes:yaml/v2:ConfigGroup
+    properties:
+      files:
+      - ./manifests/*.yaml
+```
 ```typescript
+import * as pulumi from "@pulumi/pulumi";
 import * as k8s from "@pulumi/kubernetes";
 
 const example = new k8s.yaml.v2.ConfigGroup("example", {
-    files: "yaml/*.yaml",
+    files: ["./manifests/*.yaml"],
 });
 ```
 ```python
+import pulumi
 from pulumi_kubernetes.yaml.v2 import ConfigGroup
 
 example = ConfigGroup(
     "example",
-    files=["yaml/*.yaml"],
+    files=["./manifests/*.yaml"]
 )
 ```
 ```csharp
-using System.Threading.Tasks;
 using Pulumi;
+using Pulumi.Kubernetes.Types.Inputs.Yaml.V2;
 using Pulumi.Kubernetes.Yaml.V2;
+using System.Collections.Generic;
 
-class YamlStack : Stack
+return await Deployment.RunAsync(() =>
 {
-    public YamlStack()
+    var example = new ConfigGroup("example", new ConfigGroupArgs
     {
-        var helloWorld = new ConfigGroup("example", new ConfigGroupArgs
-        {
-            Files = new[] { "yaml/*.yaml" }
-        });
-    }
-}
+        Files = new[] { "./manifests/*.yaml" }
+    });
+});
 ```
 ```go
 package main
 
 import (
-	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/yaml/v2"
+	yamlv2 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/yaml/v2"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
 func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
-		_, err := yaml.NewConfigGroup(ctx, "example",
-			&yaml.ConfigGroupArgs{
-				Files: []string{"yaml/*.yaml"},
-			},
-		)
+		_, err := yamlv2.NewConfigGroup(ctx, "example", &yamlv2.ConfigGroupArgs{
+			Files: pulumi.ToStringArray([]string{"./manifests/*.yaml"}),
+		})
 		if err != nil {
 			return err
 		}
-
 		return nil
 	})
 }
 ```
-{{% /example %}}
-{{% example %}}
-### Multiple Local File Patterns
+```java
+package myproject;
 
-```typescript
-import * as k8s from "@pulumi/kubernetes";
+import com.pulumi.Pulumi;
+import com.pulumi.kubernetes.yaml.v2.ConfigGroup;
+import com.pulumi.kubernetes.yaml.v2.ConfigGroupArgs;
 
-const example = new k8s.yaml.v2.ConfigGroup("example", {
-    files: ["foo/*.yaml", "bar/*.yaml"],
-});
-```
-```python
-from pulumi_kubernetes.yaml.v2 import ConfigGroup
-
-example = ConfigGroup(
-    "example",
-    files=["foo/*.yaml", "bar/*.yaml"],
-)
-```
-```csharp
-using System.Threading.Tasks;
-using Pulumi;
-using Pulumi.Kubernetes.Yaml.V2;
-
-class YamlStack : Stack
-{
-    public YamlStack()
-    {
-        var helloWorld = new ConfigGroup("example", new ConfigGroupArgs
-        {
-            Files = new[] { "foo/*.yaml", "bar/*.yaml" }
+public class App {
+    public static void main(String[] args) {
+        Pulumi.run(ctx -> {
+            var example = new ConfigGroup("example", ConfigGroupArgs.builder()
+                    .files("./manifests/*.yaml")
+                    .build());
         });
     }
-}
-```
-```go
-package main
-
-import (
-	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/yaml/v2"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-)
-
-func main() {
-	pulumi.Run(func(ctx *pulumi.Context) error {
-		_, err := yaml.NewConfigGroup(ctx, "example",
-			&yaml.ConfigGroupArgs{
-				Files: []string{"yaml/*.yaml", "bar/*.yaml"},
-			},
-		)
-		if err != nil {
-			return err
-		}
-
-		return nil
-	})
 }
 ```
 {{% /example %}}
 {{% example %}}
 ### Literal YAML String
 
+```yaml
+name: example
+runtime: yaml
+resources:
+  example:
+    type: kubernetes:yaml/v2:ConfigGroup
+    properties:
+      yaml: |
+        apiVersion: v1
+        kind: ConfigMap
+        metadata:
+          name: my-map
+```
 ```typescript
+import * as pulumi from "@pulumi/pulumi";
 import * as k8s from "@pulumi/kubernetes";
 
 const example = new k8s.yaml.v2.ConfigGroup("example", {
     yaml: `
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: foo
-`,
-})
+    apiVersion: v1
+    kind: ConfigMap
+    metadata:
+      name: my-map
+    `
+});
 ```
 ```python
+import pulumi
 from pulumi_kubernetes.yaml.v2 import ConfigGroup
 
 example = ConfigGroup(
     "example",
-    yaml=['''
+    yaml="""
 apiVersion: v1
-kind: Namespace
+kind: ConfigMap
 metadata:
-  name: foo
-''']
+  name: my-map
+"""
 )
 ```
 ```csharp
-using System.Threading.Tasks;
 using Pulumi;
+using Pulumi.Kubernetes.Types.Inputs.Yaml.V2;
 using Pulumi.Kubernetes.Yaml.V2;
+using System.Collections.Generic;
 
-class YamlStack : Stack
+return await Deployment.RunAsync(() =>
 {
-    public YamlStack()
+    var example = new ConfigGroup("example", new ConfigGroupArgs
     {
-        var helloWorld = new ConfigGroup("example", new ConfigGroupArgs
-        {
-            Yaml = @"
+        Yaml = @"
             apiVersion: v1
-            kind: Namespace
+            kind: ConfigMap
             metadata:
-              name: foo
-            ",
-        });
-    }
-}
+              name: my-map
+            "
+    });
+});
 ```
 ```go
 package main
 
 import (
-	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/yaml/v2"
+	yamlv2 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/yaml/v2"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
 func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
-		_, err := yaml.NewConfigGroup(ctx, "example",
-			&yaml.ConfigGroupArgs{
-				YAML: []string{
-					`
+		_, err := yamlv2.NewConfigGroup(ctx, "example", &yamlv2.ConfigGroupArgs{
+			Yaml: pulumi.StringPtr(`
 apiVersion: v1
-kind: Namespace
+kind: ConfigMap
 metadata:
-  name: foo
-`,
-				},
-			})
+  name: my-map
+`),
+		})
 		if err != nil {
 			return err
 		}
-
 		return nil
 	})
+}
+```
+```java
+package myproject;
+
+import com.pulumi.Pulumi;
+import com.pulumi.kubernetes.yaml.v2.ConfigGroup;
+import com.pulumi.kubernetes.yaml.v2.ConfigGroupArgs;
+
+public class App {
+    public static void main(String[] args) {
+        Pulumi.run(ctx -> {
+            var example = new ConfigGroup("example", ConfigGroupArgs.builder()
+                    .yaml("""
+                        apiVersion: v1
+                        kind: ConfigMap
+                        metadata:
+                          name: my-map
+                        """
+                    )
+                    .build());
+        });
+    }
+}
+```
+{{% /example %}}
+{{% example %}}
+### Literal Object
+
+```yaml
+name: example
+runtime: yaml
+resources:
+  example:
+    type: kubernetes:yaml/v2:ConfigGroup
+    properties:
+      objs:
+      - apiVersion: v1
+        kind: ConfigMap
+        metadata:
+          name: my-map
+```
+```typescript
+import * as pulumi from "@pulumi/pulumi";
+import * as k8s from "@pulumi/kubernetes";
+
+const example = new k8s.yaml.v2.ConfigGroup("example", {
+    objs: [
+        {
+            apiVersion: "v1",
+            kind: "ConfigMap",
+            metadata: {
+                name: "my-map"
+            }
+        }
+    ]
+});
+```
+```python
+import pulumi
+from pulumi_kubernetes.yaml.v2 import ConfigGroup
+
+example = ConfigGroup(
+    "example",
+    objs=[
+        {
+            "apiVersion": "v1",
+            "kind": "ConfigMap",
+            "metadata": {
+                "name": "my-map",
+            },
+        }
+    ]
+)
+```
+```csharp
+using Pulumi;
+using Pulumi.Kubernetes.Types.Inputs.Yaml.V2;
+using Pulumi.Kubernetes.Yaml.V2;
+using System.Collections.Generic;
+
+return await Deployment.RunAsync(() =>
+{
+    var example = new ConfigGroup("example", new ConfigGroupArgs
+    {
+        Objs = new[]
+        {
+            new Dictionary<string, object>
+            {
+                ["apiVersion"] = "v1",
+                ["kind"] = "ConfigMap",
+                ["metadata"] = new Dictionary<string, object>
+                {
+                    ["name"] = "my-map",
+                },
+            },
+        },
+    });
+});
+```
+```go
+package main
+
+import (
+	yamlv2 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/yaml/v2"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+)
+
+func main() {
+	pulumi.Run(func(ctx *pulumi.Context) error {
+		_, err := yamlv2.NewConfigGroup(ctx, "example", &yamlv2.ConfigGroupArgs{
+			Objs: pulumi.Array{
+				pulumi.Map{
+					"apiVersion": pulumi.String("v1"),
+					"kind":       pulumi.String("ConfigMap"),
+					"metadata": pulumi.Map{
+						"name": pulumi.String("my-map"),
+					},
+				},
+			},
+		})
+		if err != nil {
+			return err
+		}
+		return nil
+	})
+}
+```
+```java
+package myproject;
+
+import java.util.Map;
+
+import com.pulumi.Pulumi;
+import com.pulumi.kubernetes.yaml.v2.ConfigGroup;
+import com.pulumi.kubernetes.yaml.v2.ConfigGroupArgs;
+
+public class App {
+    public static void main(String[] args) {
+        Pulumi.run(ctx -> {
+            var example = new ConfigGroup("example", ConfigGroupArgs.builder()
+                    .objs(Map.ofEntries(
+                        Map.entry("apiVersion", "v1"),
+                        Map.entry("kind", "ConfigMap"),
+                        Map.entry("metadata", Map.ofEntries(
+                            Map.entry("name", "my-map")
+                        ))
+                    ))
+                    .build());
+        });
+    }
 }
 ```
 {{% /example %}}
