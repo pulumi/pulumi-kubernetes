@@ -562,6 +562,27 @@ jobs:
         arguments: publishToSonatype closeAndReleaseSonatypeStagingRepository
         build-root-directory: ./sdk/java
         gradle-version: 7.4.1
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v4
+      with:
+        lfs: true
+        ref: ${{ env.PR_COMMIT_SHA }}
+    - name: Install Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: ${{ env.GOVERSION }}
+    - name: golangci-lint provider pkg
+      uses: golangci/golangci-lint-action@v4
+      with:
+        version: ${{ env.GOLANGCI_LINT_VERSION }}
+        args: -c ../.golangci.yml --timeout ${{ env.GOLANGCI_LINT_TIMEOUT }}
+        working-directory: provider
+    name: lint
+    if: github.event_name == 'repository_dispatch' ||
+      github.event.pull_request.head.repo.full_name == github.repository
   build-test-cluster:
     runs-on: ubuntu-latest
     name: build-test-cluster
@@ -676,24 +697,3 @@ jobs:
     - uses: geekyeggo/delete-artifact@v1
       with:
         name: config
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout Repo
-      uses: actions/checkout@v4
-      with:
-        lfs: true
-        ref: ${{ env.PR_COMMIT_SHA }}
-    - name: Install Go
-      uses: actions/setup-go@v5
-      with:
-        go-version: ${{ env.GOVERSION }}
-    - name: golangci-lint provider pkg
-      uses: golangci/golangci-lint-action@v4
-      with:
-        version: ${{ env.GOLANGCI_LINT_VERSION }}
-        args: -c ../../.golangci.yml --timeout ${{ env.GOLANGCI_LINT_TIMEOUT }}
-        working-directory: provider/pkg
-    name: lint
-    if: github.event_name == 'repository_dispatch' ||
-      github.event.pull_request.head.repo.full_name == github.repository
