@@ -45,6 +45,7 @@ var pascalCaseMapping = map[string]string{
 	"scheduling":            "Scheduling",
 	"settings":              "Settings",
 	"storage":               "Storage",
+	"storagemigration":      "StorageMigration",
 	"v1":                    "V1",
 	"v1alpha1":              "V1Alpha1",
 	"v1alpha2":              "V1Alpha2",
