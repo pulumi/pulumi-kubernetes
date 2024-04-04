@@ -268,24 +268,23 @@ class IPAddressSpecPatchArgs:
 @pulumi.input_type
 class IPAddressSpecArgs:
     def __init__(__self__, *,
-                 parent_ref: Optional[pulumi.Input['ParentReferenceArgs']] = None):
+                 parent_ref: pulumi.Input['ParentReferenceArgs']):
         """
         IPAddressSpec describe the attributes in an IP Address.
         :param pulumi.Input['ParentReferenceArgs'] parent_ref: ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
         """
-        if parent_ref is not None:
-            pulumi.set(__self__, "parent_ref", parent_ref)
+        pulumi.set(__self__, "parent_ref", parent_ref)
 
     @property
     @pulumi.getter(name="parentRef")
-    def parent_ref(self) -> Optional[pulumi.Input['ParentReferenceArgs']]:
+    def parent_ref(self) -> pulumi.Input['ParentReferenceArgs']:
         """
         ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
         """
         return pulumi.get(self, "parent_ref")
 
     @parent_ref.setter
-    def parent_ref(self, value: Optional[pulumi.Input['ParentReferenceArgs']]):
+    def parent_ref(self, value: pulumi.Input['ParentReferenceArgs']):
         pulumi.set(self, "parent_ref", value)
 
 
@@ -452,29 +451,51 @@ class ParentReferencePatchArgs:
 @pulumi.input_type
 class ParentReferenceArgs:
     def __init__(__self__, *,
+                 name: pulumi.Input[str],
+                 resource: pulumi.Input[str],
                  group: Optional[pulumi.Input[str]] = None,
-                 name: Optional[pulumi.Input[str]] = None,
                  namespace: Optional[pulumi.Input[str]] = None,
-                 resource: Optional[pulumi.Input[str]] = None,
                  uid: Optional[pulumi.Input[str]] = None):
         """
         ParentReference describes a reference to a parent object.
-        :param pulumi.Input[str] group: Group is the group of the object being referenced.
         :param pulumi.Input[str] name: Name is the name of the object being referenced.
-        :param pulumi.Input[str] namespace: Namespace is the namespace of the object being referenced.
         :param pulumi.Input[str] resource: Resource is the resource of the object being referenced.
+        :param pulumi.Input[str] group: Group is the group of the object being referenced.
+        :param pulumi.Input[str] namespace: Namespace is the namespace of the object being referenced.
         :param pulumi.Input[str] uid: UID is the uid of the object being referenced.
         """
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "resource", resource)
         if group is not None:
             pulumi.set(__self__, "group", group)
-        if name is not None:
-            pulumi.set(__self__, "name", name)
         if namespace is not None:
             pulumi.set(__self__, "namespace", namespace)
-        if resource is not None:
-            pulumi.set(__self__, "resource", resource)
         if uid is not None:
             pulumi.set(__self__, "uid", uid)
+
+    @property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[str]:
+        """
+        Name is the name of the object being referenced.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[str]):
+        pulumi.set(self, "name", value)
+
+    @property
+    @pulumi.getter
+    def resource(self) -> pulumi.Input[str]:
+        """
+        Resource is the resource of the object being referenced.
+        """
+        return pulumi.get(self, "resource")
+
+    @resource.setter
+    def resource(self, value: pulumi.Input[str]):
+        pulumi.set(self, "resource", value)
 
     @property
     @pulumi.getter
@@ -490,18 +511,6 @@ class ParentReferenceArgs:
 
     @property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[str]]:
-        """
-        Name is the name of the object being referenced.
-        """
-        return pulumi.get(self, "name")
-
-    @name.setter
-    def name(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "name", value)
-
-    @property
-    @pulumi.getter
     def namespace(self) -> Optional[pulumi.Input[str]]:
         """
         Namespace is the namespace of the object being referenced.
@@ -511,18 +520,6 @@ class ParentReferenceArgs:
     @namespace.setter
     def namespace(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "namespace", value)
-
-    @property
-    @pulumi.getter
-    def resource(self) -> Optional[pulumi.Input[str]]:
-        """
-        Resource is the resource of the object being referenced.
-        """
-        return pulumi.get(self, "resource")
-
-    @resource.setter
-    def resource(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "resource", value)
 
     @property
     @pulumi.getter

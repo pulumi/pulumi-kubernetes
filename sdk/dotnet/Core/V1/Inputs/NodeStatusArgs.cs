@@ -99,6 +99,18 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         [Input("phase")]
         public Input<string>? Phase { get; set; }
 
+        [Input("runtimeHandlers")]
+        private InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.NodeRuntimeHandlerArgs>? _runtimeHandlers;
+
+        /// <summary>
+        /// The available runtime handlers.
+        /// </summary>
+        public InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.NodeRuntimeHandlerArgs> RuntimeHandlers
+        {
+            get => _runtimeHandlers ?? (_runtimeHandlers = new InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.NodeRuntimeHandlerArgs>());
+            set => _runtimeHandlers = value;
+        }
+
         [Input("volumesAttached")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.AttachedVolumeArgs>? _volumesAttached;
 

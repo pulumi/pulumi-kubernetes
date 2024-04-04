@@ -23,6 +23,7 @@ class ResourceClassPatchArgs:
                  kind: Optional[pulumi.Input[str]] = None,
                  metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']] = None,
                  parameters_ref: Optional[pulumi.Input['ResourceClassParametersReferencePatchArgs']] = None,
+                 structured_parameters: Optional[pulumi.Input[bool]] = None,
                  suitable_nodes: Optional[pulumi.Input['_core.v1.NodeSelectorPatchArgs']] = None):
         """
         The set of arguments for constructing a ResourceClassPatch resource.
@@ -33,6 +34,7 @@ class ResourceClassPatchArgs:
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaPatchArgs'] metadata: Standard object metadata
         :param pulumi.Input['ResourceClassParametersReferencePatchArgs'] parameters_ref: ParametersRef references an arbitrary separate object that may hold parameters that will be used by the driver when allocating a resource that uses this class. A dynamic resource driver can distinguish between parameters stored here and and those stored in ResourceClaimSpec.
+        :param pulumi.Input[bool] structured_parameters: If and only if allocation of claims using this class is handled via structured parameters, then StructuredParameters must be set to true.
         :param pulumi.Input['_core.v1.NodeSelectorPatchArgs'] suitable_nodes: Only nodes matching the selector will be considered by the scheduler when trying to find a Node that fits a Pod when that Pod uses a ResourceClaim that has not been allocated yet.
                
                Setting this field is optional. If null, all nodes are candidates.
@@ -47,6 +49,8 @@ class ResourceClassPatchArgs:
             pulumi.set(__self__, "metadata", metadata)
         if parameters_ref is not None:
             pulumi.set(__self__, "parameters_ref", parameters_ref)
+        if structured_parameters is not None:
+            pulumi.set(__self__, "structured_parameters", structured_parameters)
         if suitable_nodes is not None:
             pulumi.set(__self__, "suitable_nodes", suitable_nodes)
 
@@ -113,6 +117,18 @@ class ResourceClassPatchArgs:
         pulumi.set(self, "parameters_ref", value)
 
     @property
+    @pulumi.getter(name="structuredParameters")
+    def structured_parameters(self) -> Optional[pulumi.Input[bool]]:
+        """
+        If and only if allocation of claims using this class is handled via structured parameters, then StructuredParameters must be set to true.
+        """
+        return pulumi.get(self, "structured_parameters")
+
+    @structured_parameters.setter
+    def structured_parameters(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "structured_parameters", value)
+
+    @property
     @pulumi.getter(name="suitableNodes")
     def suitable_nodes(self) -> Optional[pulumi.Input['_core.v1.NodeSelectorPatchArgs']]:
         """
@@ -137,6 +153,7 @@ class ResourceClassPatch(pulumi.CustomResource):
                  kind: Optional[pulumi.Input[str]] = None,
                  metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaPatchArgs']]] = None,
                  parameters_ref: Optional[pulumi.Input[pulumi.InputType['ResourceClassParametersReferencePatchArgs']]] = None,
+                 structured_parameters: Optional[pulumi.Input[bool]] = None,
                  suitable_nodes: Optional[pulumi.Input[pulumi.InputType['_core.v1.NodeSelectorPatchArgs']]] = None,
                  __props__=None):
         """
@@ -159,6 +176,7 @@ class ResourceClassPatch(pulumi.CustomResource):
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaPatchArgs']] metadata: Standard object metadata
         :param pulumi.Input[pulumi.InputType['ResourceClassParametersReferencePatchArgs']] parameters_ref: ParametersRef references an arbitrary separate object that may hold parameters that will be used by the driver when allocating a resource that uses this class. A dynamic resource driver can distinguish between parameters stored here and and those stored in ResourceClaimSpec.
+        :param pulumi.Input[bool] structured_parameters: If and only if allocation of claims using this class is handled via structured parameters, then StructuredParameters must be set to true.
         :param pulumi.Input[pulumi.InputType['_core.v1.NodeSelectorPatchArgs']] suitable_nodes: Only nodes matching the selector will be considered by the scheduler when trying to find a Node that fits a Pod when that Pod uses a ResourceClaim that has not been allocated yet.
                
                Setting this field is optional. If null, all nodes are candidates.
@@ -200,6 +218,7 @@ class ResourceClassPatch(pulumi.CustomResource):
                  kind: Optional[pulumi.Input[str]] = None,
                  metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaPatchArgs']]] = None,
                  parameters_ref: Optional[pulumi.Input[pulumi.InputType['ResourceClassParametersReferencePatchArgs']]] = None,
+                 structured_parameters: Optional[pulumi.Input[bool]] = None,
                  suitable_nodes: Optional[pulumi.Input[pulumi.InputType['_core.v1.NodeSelectorPatchArgs']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
@@ -215,6 +234,7 @@ class ResourceClassPatch(pulumi.CustomResource):
             __props__.__dict__["kind"] = 'ResourceClass'
             __props__.__dict__["metadata"] = metadata
             __props__.__dict__["parameters_ref"] = parameters_ref
+            __props__.__dict__["structured_parameters"] = structured_parameters
             __props__.__dict__["suitable_nodes"] = suitable_nodes
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:resource.k8s.io/v1alpha1:ResourceClassPatch")])
         opts = pulumi.ResourceOptions.merge(opts, alias_opts)
@@ -245,6 +265,7 @@ class ResourceClassPatch(pulumi.CustomResource):
         __props__.__dict__["kind"] = None
         __props__.__dict__["metadata"] = None
         __props__.__dict__["parameters_ref"] = None
+        __props__.__dict__["structured_parameters"] = None
         __props__.__dict__["suitable_nodes"] = None
         return ResourceClassPatch(resource_name, opts=opts, __props__=__props__)
 
@@ -289,6 +310,14 @@ class ResourceClassPatch(pulumi.CustomResource):
         ParametersRef references an arbitrary separate object that may hold parameters that will be used by the driver when allocating a resource that uses this class. A dynamic resource driver can distinguish between parameters stored here and and those stored in ResourceClaimSpec.
         """
         return pulumi.get(self, "parameters_ref")
+
+    @property
+    @pulumi.getter(name="structuredParameters")
+    def structured_parameters(self) -> pulumi.Output[Optional[bool]]:
+        """
+        If and only if allocation of claims using this class is handled via structured parameters, then StructuredParameters must be set to true.
+        """
+        return pulumi.get(self, "structured_parameters")
 
     @property
     @pulumi.getter(name="suitableNodes")

@@ -119,12 +119,18 @@ const (
 	ReplicationControllerList            Kind = "ReplicationControllerList"
 	ResourceClaim                        Kind = "ResourceClaim"
 	ResourceClaimList                    Kind = "ResourceClaimList"
+	ResourceClaimParameters              Kind = "ResourceClaimParameters"
+	ResourceClaimParametersList          Kind = "ResourceClaimParametersList"
 	ResourceClaimTemplate                Kind = "ResourceClaimTemplate"
 	ResourceClaimTemplateList            Kind = "ResourceClaimTemplateList"
 	ResourceClass                        Kind = "ResourceClass"
 	ResourceClassList                    Kind = "ResourceClassList"
+	ResourceClassParameters              Kind = "ResourceClassParameters"
+	ResourceClassParametersList          Kind = "ResourceClassParametersList"
 	ResourceQuota                        Kind = "ResourceQuota"
 	ResourceQuotaList                    Kind = "ResourceQuotaList"
+	ResourceSlice                        Kind = "ResourceSlice"
+	ResourceSliceList                    Kind = "ResourceSliceList"
 	Role                                 Kind = "Role"
 	RoleBinding                          Kind = "RoleBinding"
 	RoleBindingList                      Kind = "RoleBindingList"
@@ -144,6 +150,8 @@ const (
 	Status                               Kind = "Status"
 	StorageClass                         Kind = "StorageClass"
 	StorageClassList                     Kind = "StorageClassList"
+	StorageVersionMigration              Kind = "StorageVersionMigration"
+	StorageVersionMigrationList          Kind = "StorageVersionMigrationList"
 	ValidatingAdmissionPolicy            Kind = "ValidatingAdmissionPolicy"
 	ValidatingAdmissionPolicyBinding     Kind = "ValidatingAdmissionPolicyBinding"
 	ValidatingAdmissionPolicyBindingList Kind = "ValidatingAdmissionPolicyBindingList"
@@ -282,6 +290,7 @@ const (
 	StorageV1                 groupVersion = "storage.k8s.io/v1"
 	StorageV1A1               groupVersion = "storage.k8s.io/v1alpha1"
 	StorageV1B1               groupVersion = "storage.k8s.io/v1beta1"
+	StoragemigrationV1A1      groupVersion = "storagemigration.k8s.io/v1alpha1"
 )
 
 // toGVK is a helper function that converts the internal groupVersion and Kind types to a schema.GroupVersionKind
@@ -353,6 +362,7 @@ var KnownGroupVersions = codegen.NewStringSet(
 	"storage.k8s.io/v1",
 	"storage.k8s.io/v1alpha1",
 	"storage.k8s.io/v1beta1",
+	"storagemigration.k8s.io/v1alpha1",
 	"v1", // alias for "core/v1"
 )
 
@@ -360,6 +370,8 @@ var KnownGroupVersions = codegen.NewStringSet(
 // than using the Patch suffix avoids unintended clashes with CustomResources that also contain a Patch suffix.
 var PatchQualifiedTypes = codegen.NewStringSet(
 	"kubernetes:admissionregistration.k8s.io/v1:MutatingWebhookConfigurationPatch",
+	"kubernetes:admissionregistration.k8s.io/v1:ValidatingAdmissionPolicyBindingPatch",
+	"kubernetes:admissionregistration.k8s.io/v1:ValidatingAdmissionPolicyPatch",
 	"kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfigurationPatch",
 	"kubernetes:admissionregistration.k8s.io/v1alpha1:ValidatingAdmissionPolicyBindingPatch",
 	"kubernetes:admissionregistration.k8s.io/v1alpha1:ValidatingAdmissionPolicyPatch",
@@ -466,9 +478,12 @@ var PatchQualifiedTypes = codegen.NewStringSet(
 	"kubernetes:resource.k8s.io/v1alpha1:ResourceClaimTemplatePatch",
 	"kubernetes:resource.k8s.io/v1alpha1:ResourceClassPatch",
 	"kubernetes:resource.k8s.io/v1alpha2:PodSchedulingContextPatch",
+	"kubernetes:resource.k8s.io/v1alpha2:ResourceClaimParametersPatch",
 	"kubernetes:resource.k8s.io/v1alpha2:ResourceClaimPatch",
 	"kubernetes:resource.k8s.io/v1alpha2:ResourceClaimTemplatePatch",
+	"kubernetes:resource.k8s.io/v1alpha2:ResourceClassParametersPatch",
 	"kubernetes:resource.k8s.io/v1alpha2:ResourceClassPatch",
+	"kubernetes:resource.k8s.io/v1alpha2:ResourceSlicePatch",
 	"kubernetes:scheduling.k8s.io/v1:PriorityClassPatch",
 	"kubernetes:scheduling.k8s.io/v1alpha1:PriorityClassPatch",
 	"kubernetes:scheduling.k8s.io/v1beta1:PriorityClassPatch",
@@ -485,12 +500,15 @@ var PatchQualifiedTypes = codegen.NewStringSet(
 	"kubernetes:storage.k8s.io/v1beta1:CSIStorageCapacityPatch",
 	"kubernetes:storage.k8s.io/v1beta1:StorageClassPatch",
 	"kubernetes:storage.k8s.io/v1beta1:VolumeAttachmentPatch",
+	"kubernetes:storagemigration.k8s.io/v1alpha1:StorageVersionMigrationPatch",
 )
 
 // ListQualifiedTypes is the set of "List" resource QualifiedType URN tokens. Checking against this known set rather
 // than using the List suffix avoids unintended clashes with CustomResources that also contain a List suffix.
 var ListQualifiedTypes = codegen.NewStringSet(
 	"kubernetes:admissionregistration.k8s.io/v1:MutatingWebhookConfigurationList",
+	"kubernetes:admissionregistration.k8s.io/v1:ValidatingAdmissionPolicyBindingList",
+	"kubernetes:admissionregistration.k8s.io/v1:ValidatingAdmissionPolicyList",
 	"kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfigurationList",
 	"kubernetes:admissionregistration.k8s.io/v1alpha1:ValidatingAdmissionPolicyBindingList",
 	"kubernetes:admissionregistration.k8s.io/v1alpha1:ValidatingAdmissionPolicyList",
@@ -596,8 +614,11 @@ var ListQualifiedTypes = codegen.NewStringSet(
 	"kubernetes:resource.k8s.io/v1alpha1:ResourceClassList",
 	"kubernetes:resource.k8s.io/v1alpha2:PodSchedulingContextList",
 	"kubernetes:resource.k8s.io/v1alpha2:ResourceClaimList",
+	"kubernetes:resource.k8s.io/v1alpha2:ResourceClaimParametersList",
 	"kubernetes:resource.k8s.io/v1alpha2:ResourceClaimTemplateList",
 	"kubernetes:resource.k8s.io/v1alpha2:ResourceClassList",
+	"kubernetes:resource.k8s.io/v1alpha2:ResourceClassParametersList",
+	"kubernetes:resource.k8s.io/v1alpha2:ResourceSliceList",
 	"kubernetes:scheduling.k8s.io/v1:PriorityClassList",
 	"kubernetes:scheduling.k8s.io/v1alpha1:PriorityClassList",
 	"kubernetes:scheduling.k8s.io/v1beta1:PriorityClassList",
@@ -614,4 +635,5 @@ var ListQualifiedTypes = codegen.NewStringSet(
 	"kubernetes:storage.k8s.io/v1beta1:CSIStorageCapacityList",
 	"kubernetes:storage.k8s.io/v1beta1:StorageClassList",
 	"kubernetes:storage.k8s.io/v1beta1:VolumeAttachmentList",
+	"kubernetes:storagemigration.k8s.io/v1alpha1:StorageVersionMigrationList",
 )

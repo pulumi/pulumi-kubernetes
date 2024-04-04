@@ -20,14 +20,14 @@ public final class PersistentVolumeStatusArgs extends com.pulumi.resources.Resou
     public static final PersistentVolumeStatusArgs Empty = new PersistentVolumeStatusArgs();
 
     /**
-     * lastPhaseTransitionTime is the time the phase transitioned from one to another and automatically resets to current time everytime a volume phase transitions. This is an alpha field and requires enabling PersistentVolumeLastPhaseTransitionTime feature.
+     * lastPhaseTransitionTime is the time the phase transitioned from one to another and automatically resets to current time everytime a volume phase transitions. This is a beta field and requires the PersistentVolumeLastPhaseTransitionTime feature to be enabled (enabled by default).
      * 
      */
     @Import(name="lastPhaseTransitionTime")
     private @Nullable Output<String> lastPhaseTransitionTime;
 
     /**
-     * @return lastPhaseTransitionTime is the time the phase transitioned from one to another and automatically resets to current time everytime a volume phase transitions. This is an alpha field and requires enabling PersistentVolumeLastPhaseTransitionTime feature.
+     * @return lastPhaseTransitionTime is the time the phase transitioned from one to another and automatically resets to current time everytime a volume phase transitions. This is a beta field and requires the PersistentVolumeLastPhaseTransitionTime feature to be enabled (enabled by default).
      * 
      */
     public Optional<Output<String>> lastPhaseTransitionTime() {
@@ -107,7 +107,7 @@ public final class PersistentVolumeStatusArgs extends com.pulumi.resources.Resou
         }
 
         /**
-         * @param lastPhaseTransitionTime lastPhaseTransitionTime is the time the phase transitioned from one to another and automatically resets to current time everytime a volume phase transitions. This is an alpha field and requires enabling PersistentVolumeLastPhaseTransitionTime feature.
+         * @param lastPhaseTransitionTime lastPhaseTransitionTime is the time the phase transitioned from one to another and automatically resets to current time everytime a volume phase transitions. This is a beta field and requires the PersistentVolumeLastPhaseTransitionTime feature to be enabled (enabled by default).
          * 
          * @return builder
          * 
@@ -118,7 +118,7 @@ public final class PersistentVolumeStatusArgs extends com.pulumi.resources.Resou
         }
 
         /**
-         * @param lastPhaseTransitionTime lastPhaseTransitionTime is the time the phase transitioned from one to another and automatically resets to current time everytime a volume phase transitions. This is an alpha field and requires enabling PersistentVolumeLastPhaseTransitionTime feature.
+         * @param lastPhaseTransitionTime lastPhaseTransitionTime is the time the phase transitioned from one to another and automatically resets to current time everytime a volume phase transitions. This is a beta field and requires the PersistentVolumeLastPhaseTransitionTime feature to be enabled (enabled by default).
          * 
          * @return builder
          * 

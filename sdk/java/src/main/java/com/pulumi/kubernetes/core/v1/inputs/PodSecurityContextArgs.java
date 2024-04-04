@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.core.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.kubernetes.core.v1.inputs.AppArmorProfileArgs;
 import com.pulumi.kubernetes.core.v1.inputs.SELinuxOptionsArgs;
 import com.pulumi.kubernetes.core.v1.inputs.SeccompProfileArgs;
 import com.pulumi.kubernetes.core.v1.inputs.SysctlArgs;
@@ -25,6 +26,21 @@ import javax.annotation.Nullable;
 public final class PodSecurityContextArgs extends com.pulumi.resources.ResourceArgs {
 
     public static final PodSecurityContextArgs Empty = new PodSecurityContextArgs();
+
+    /**
+     * appArmorProfile is the AppArmor options to use by the containers in this pod. Note that this field cannot be set when spec.os.name is windows.
+     * 
+     */
+    @Import(name="appArmorProfile")
+    private @Nullable Output<AppArmorProfileArgs> appArmorProfile;
+
+    /**
+     * @return appArmorProfile is the AppArmor options to use by the containers in this pod. Note that this field cannot be set when spec.os.name is windows.
+     * 
+     */
+    public Optional<Output<AppArmorProfileArgs>> appArmorProfile() {
+        return Optional.ofNullable(this.appArmorProfile);
+    }
 
     /**
      * A special supplemental group that applies to all containers in a pod. Some volume types allow the Kubelet to change the ownership of that volume to be owned by the pod:
@@ -187,6 +203,7 @@ public final class PodSecurityContextArgs extends com.pulumi.resources.ResourceA
     private PodSecurityContextArgs() {}
 
     private PodSecurityContextArgs(PodSecurityContextArgs $) {
+        this.appArmorProfile = $.appArmorProfile;
         this.fsGroup = $.fsGroup;
         this.fsGroupChangePolicy = $.fsGroupChangePolicy;
         this.runAsGroup = $.runAsGroup;
@@ -215,6 +232,27 @@ public final class PodSecurityContextArgs extends com.pulumi.resources.ResourceA
 
         public Builder(PodSecurityContextArgs defaults) {
             $ = new PodSecurityContextArgs(Objects.requireNonNull(defaults));
+        }
+
+        /**
+         * @param appArmorProfile appArmorProfile is the AppArmor options to use by the containers in this pod. Note that this field cannot be set when spec.os.name is windows.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder appArmorProfile(@Nullable Output<AppArmorProfileArgs> appArmorProfile) {
+            $.appArmorProfile = appArmorProfile;
+            return this;
+        }
+
+        /**
+         * @param appArmorProfile appArmorProfile is the AppArmor options to use by the containers in this pod. Note that this field cannot be set when spec.os.name is windows.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder appArmorProfile(AppArmorProfileArgs appArmorProfile) {
+            return appArmorProfile(Output.of(appArmorProfile));
         }
 
         /**

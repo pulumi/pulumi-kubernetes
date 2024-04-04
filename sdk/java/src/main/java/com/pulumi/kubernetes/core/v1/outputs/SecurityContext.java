@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.kubernetes.core.v1.outputs.AppArmorProfile;
 import com.pulumi.kubernetes.core.v1.outputs.Capabilities;
 import com.pulumi.kubernetes.core.v1.outputs.SELinuxOptions;
 import com.pulumi.kubernetes.core.v1.outputs.SeccompProfile;
@@ -22,6 +23,11 @@ public final class SecurityContext {
      * 
      */
     private @Nullable Boolean allowPrivilegeEscalation;
+    /**
+     * @return appArmorProfile is the AppArmor options to use by this container. If set, this profile overrides the pod&#39;s appArmorProfile. Note that this field cannot be set when spec.os.name is windows.
+     * 
+     */
+    private @Nullable AppArmorProfile appArmorProfile;
     /**
      * @return The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime. Note that this field cannot be set when spec.os.name is windows.
      * 
@@ -80,6 +86,13 @@ public final class SecurityContext {
      */
     public Optional<Boolean> allowPrivilegeEscalation() {
         return Optional.ofNullable(this.allowPrivilegeEscalation);
+    }
+    /**
+     * @return appArmorProfile is the AppArmor options to use by this container. If set, this profile overrides the pod&#39;s appArmorProfile. Note that this field cannot be set when spec.os.name is windows.
+     * 
+     */
+    public Optional<AppArmorProfile> appArmorProfile() {
+        return Optional.ofNullable(this.appArmorProfile);
     }
     /**
      * @return The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime. Note that this field cannot be set when spec.os.name is windows.
@@ -162,6 +175,7 @@ public final class SecurityContext {
     @CustomType.Builder
     public static final class Builder {
         private @Nullable Boolean allowPrivilegeEscalation;
+        private @Nullable AppArmorProfile appArmorProfile;
         private @Nullable Capabilities capabilities;
         private @Nullable Boolean privileged;
         private @Nullable String procMount;
@@ -176,6 +190,7 @@ public final class SecurityContext {
         public Builder(SecurityContext defaults) {
     	      Objects.requireNonNull(defaults);
     	      this.allowPrivilegeEscalation = defaults.allowPrivilegeEscalation;
+    	      this.appArmorProfile = defaults.appArmorProfile;
     	      this.capabilities = defaults.capabilities;
     	      this.privileged = defaults.privileged;
     	      this.procMount = defaults.procMount;
@@ -191,6 +206,11 @@ public final class SecurityContext {
         @CustomType.Setter
         public Builder allowPrivilegeEscalation(@Nullable Boolean allowPrivilegeEscalation) {
             this.allowPrivilegeEscalation = allowPrivilegeEscalation;
+            return this;
+        }
+        @CustomType.Setter
+        public Builder appArmorProfile(@Nullable AppArmorProfile appArmorProfile) {
+            this.appArmorProfile = appArmorProfile;
             return this;
         }
         @CustomType.Setter
@@ -246,6 +266,7 @@ public final class SecurityContext {
         public SecurityContext build() {
             final var o = new SecurityContext();
             o.allowPrivilegeEscalation = allowPrivilegeEscalation;
+            o.appArmorProfile = appArmorProfile;
             o.capabilities = capabilities;
             o.privileged = privileged;
             o.procMount = procMount;

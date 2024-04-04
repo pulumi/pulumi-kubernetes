@@ -37,6 +37,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions.V1
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.ApiExtensions.V1.CustomResourceValidationPatch Schema;
         /// <summary>
+        /// selectableFields specifies paths to fields that may be used as field selectors. A maximum of 8 selectable fields are allowed. See https://kubernetes.io/docs/concepts/overview/working-with-objects/field-selectors
+        /// </summary>
+        public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.ApiExtensions.V1.SelectableFieldPatch> SelectableFields;
+        /// <summary>
         /// served is a flag enabling/disabling this version from being served via REST APIs
         /// </summary>
         public readonly bool Served;
@@ -61,6 +65,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions.V1
 
             Pulumi.Kubernetes.Types.Outputs.ApiExtensions.V1.CustomResourceValidationPatch schema,
 
+            ImmutableArray<Pulumi.Kubernetes.Types.Outputs.ApiExtensions.V1.SelectableFieldPatch> selectableFields,
+
             bool served,
 
             bool storage,
@@ -72,6 +78,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions.V1
             DeprecationWarning = deprecationWarning;
             Name = name;
             Schema = schema;
+            SelectableFields = selectableFields;
             Served = served;
             Storage = storage;
             Subresources = subresources;

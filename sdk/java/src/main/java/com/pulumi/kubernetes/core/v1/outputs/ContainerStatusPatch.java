@@ -6,9 +6,11 @@ package com.pulumi.kubernetes.core.v1.outputs;
 import com.pulumi.core.annotations.CustomType;
 import com.pulumi.kubernetes.core.v1.outputs.ContainerStatePatch;
 import com.pulumi.kubernetes.core.v1.outputs.ResourceRequirementsPatch;
+import com.pulumi.kubernetes.core.v1.outputs.VolumeMountStatusPatch;
 import java.lang.Boolean;
 import java.lang.Integer;
 import java.lang.String;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -73,6 +75,11 @@ public final class ContainerStatusPatch {
      * 
      */
     private @Nullable ContainerStatePatch state;
+    /**
+     * @return Status of volume mounts.
+     * 
+     */
+    private @Nullable List<VolumeMountStatusPatch> volumeMounts;
 
     private ContainerStatusPatch() {}
     /**
@@ -154,6 +161,13 @@ public final class ContainerStatusPatch {
     public Optional<ContainerStatePatch> state() {
         return Optional.ofNullable(this.state);
     }
+    /**
+     * @return Status of volume mounts.
+     * 
+     */
+    public List<VolumeMountStatusPatch> volumeMounts() {
+        return this.volumeMounts == null ? List.of() : this.volumeMounts;
+    }
 
     public static Builder builder() {
         return new Builder();
@@ -175,6 +189,7 @@ public final class ContainerStatusPatch {
         private @Nullable Integer restartCount;
         private @Nullable Boolean started;
         private @Nullable ContainerStatePatch state;
+        private @Nullable List<VolumeMountStatusPatch> volumeMounts;
         public Builder() {}
         public Builder(ContainerStatusPatch defaults) {
     	      Objects.requireNonNull(defaults);
@@ -189,6 +204,7 @@ public final class ContainerStatusPatch {
     	      this.restartCount = defaults.restartCount;
     	      this.started = defaults.started;
     	      this.state = defaults.state;
+    	      this.volumeMounts = defaults.volumeMounts;
         }
 
         @CustomType.Setter
@@ -246,6 +262,14 @@ public final class ContainerStatusPatch {
             this.state = state;
             return this;
         }
+        @CustomType.Setter
+        public Builder volumeMounts(@Nullable List<VolumeMountStatusPatch> volumeMounts) {
+            this.volumeMounts = volumeMounts;
+            return this;
+        }
+        public Builder volumeMounts(VolumeMountStatusPatch... volumeMounts) {
+            return volumeMounts(List.of(volumeMounts));
+        }
         public ContainerStatusPatch build() {
             final var o = new ContainerStatusPatch();
             o.allocatedResources = allocatedResources;
@@ -259,6 +283,7 @@ public final class ContainerStatusPatch {
             o.restartCount = restartCount;
             o.started = started;
             o.state = state;
+            o.volumeMounts = volumeMounts;
             return o;
         }
     }

@@ -148,7 +148,7 @@ class ValidatingAdmissionPolicy(pulumi.CustomResource):
             __props__.__dict__["metadata"] = metadata
             __props__.__dict__["spec"] = spec
             __props__.__dict__["status"] = None
-        alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:admissionregistration.k8s.io/v1alpha1:ValidatingAdmissionPolicy")])
+        alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:admissionregistration.k8s.io/v1:ValidatingAdmissionPolicy"), pulumi.Alias(type_="kubernetes:admissionregistration.k8s.io/v1alpha1:ValidatingAdmissionPolicy")])
         opts = pulumi.ResourceOptions.merge(opts, alias_opts)
         super(ValidatingAdmissionPolicy, __self__).__init__(
             'kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingAdmissionPolicy',

@@ -12,7 +12,7 @@ import javax.annotation.Nullable;
 @CustomType
 public final class PersistentVolumeStatusPatch {
     /**
-     * @return lastPhaseTransitionTime is the time the phase transitioned from one to another and automatically resets to current time everytime a volume phase transitions. This is an alpha field and requires enabling PersistentVolumeLastPhaseTransitionTime feature.
+     * @return lastPhaseTransitionTime is the time the phase transitioned from one to another and automatically resets to current time everytime a volume phase transitions. This is a beta field and requires the PersistentVolumeLastPhaseTransitionTime feature to be enabled (enabled by default).
      * 
      */
     private @Nullable String lastPhaseTransitionTime;
@@ -34,7 +34,7 @@ public final class PersistentVolumeStatusPatch {
 
     private PersistentVolumeStatusPatch() {}
     /**
-     * @return lastPhaseTransitionTime is the time the phase transitioned from one to another and automatically resets to current time everytime a volume phase transitions. This is an alpha field and requires enabling PersistentVolumeLastPhaseTransitionTime feature.
+     * @return lastPhaseTransitionTime is the time the phase transitioned from one to another and automatically resets to current time everytime a volume phase transitions. This is a beta field and requires the PersistentVolumeLastPhaseTransitionTime feature to be enabled (enabled by default).
      * 
      */
     public Optional<String> lastPhaseTransitionTime() {

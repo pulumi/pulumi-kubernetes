@@ -16,7 +16,7 @@ import javax.annotation.Nullable;
 @CustomType
 public final class JobStatusPatch {
     /**
-     * @return The number of pending and running pods.
+     * @return The number of pending and running pods which are not terminating (without a deletionTimestamp). The value is zero for finished jobs.
      * 
      */
     private @Nullable Integer active;
@@ -26,22 +26,28 @@ public final class JobStatusPatch {
      */
     private @Nullable String completedIndexes;
     /**
-     * @return Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC. The completion time is only set when the job finishes successfully.
+     * @return Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC. The completion time is set when the job finishes successfully, and only then. The value cannot be updated or removed. The value indicates the same or later point in time as the startTime field.
      * 
      */
     private @Nullable String completionTime;
     /**
-     * @return The latest available observations of an object&#39;s current state. When a Job fails, one of the conditions will have type &#34;Failed&#34; and status true. When a Job is suspended, one of the conditions will have type &#34;Suspended&#34; and status true; when the Job is resumed, the status of this condition will become false. When a Job is completed, one of the conditions will have type &#34;Complete&#34; and status true. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+     * @return The latest available observations of an object&#39;s current state. When a Job fails, one of the conditions will have type &#34;Failed&#34; and status true. When a Job is suspended, one of the conditions will have type &#34;Suspended&#34; and status true; when the Job is resumed, the status of this condition will become false. When a Job is completed, one of the conditions will have type &#34;Complete&#34; and status true.
+     * 
+     * A job is considered finished when it is in a terminal condition, either &#34;Complete&#34; or &#34;Failed&#34;. A Job cannot have both the &#34;Complete&#34; and &#34;Failed&#34; conditions. Additionally, it cannot be in the &#34;Complete&#34; and &#34;FailureTarget&#34; conditions. The &#34;Complete&#34;, &#34;Failed&#34; and &#34;FailureTarget&#34; conditions cannot be disabled.
+     * 
+     * More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
      * 
      */
     private @Nullable List<JobConditionPatch> conditions;
     /**
-     * @return The number of pods which reached phase Failed.
+     * @return The number of pods which reached phase Failed. The value increases monotonically.
      * 
      */
     private @Nullable Integer failed;
     /**
-     * @return FailedIndexes holds the failed indexes when backoffLimitPerIndex=true. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as &#34;1,3-5,7&#34;. This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
+     * @return FailedIndexes holds the failed indexes when spec.backoffLimitPerIndex is set. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as &#34;1,3-5,7&#34;. The set of failed indexes cannot overlap with the set of completed indexes.
+     * 
+     * This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
      * 
      */
     private @Nullable String failedIndexes;
@@ -53,10 +59,12 @@ public final class JobStatusPatch {
     /**
      * @return Represents time when the job controller started processing a job. When a Job is created in the suspended state, this field is not set until the first time it is resumed. This field is reset every time a Job is resumed from suspension. It is represented in RFC3339 form and is in UTC.
      * 
+     * Once set, the field can only be removed when the job is suspended. The field cannot be modified while the job is unsuspended or finished.
+     * 
      */
     private @Nullable String startTime;
     /**
-     * @return The number of pods which reached phase Succeeded.
+     * @return The number of pods which reached phase Succeeded. The value increases monotonically for a given spec. However, it may decrease in reaction to scale down of elastic indexed jobs.
      * 
      */
     private @Nullable Integer succeeded;
@@ -75,14 +83,14 @@ public final class JobStatusPatch {
      * 1. Add the pod UID to the arrays in this field. 2. Remove the pod finalizer. 3. Remove the pod UID from the arrays while increasing the corresponding
      *     counter.
      * 
-     * Old jobs might not be tracked using this field, in which case the field remains null.
+     * Old jobs might not be tracked using this field, in which case the field remains null. The structure is empty for finished jobs.
      * 
      */
     private @Nullable UncountedTerminatedPodsPatch uncountedTerminatedPods;
 
     private JobStatusPatch() {}
     /**
-     * @return The number of pending and running pods.
+     * @return The number of pending and running pods which are not terminating (without a deletionTimestamp). The value is zero for finished jobs.
      * 
      */
     public Optional<Integer> active() {
@@ -96,28 +104,34 @@ public final class JobStatusPatch {
         return Optional.ofNullable(this.completedIndexes);
     }
     /**
-     * @return Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC. The completion time is only set when the job finishes successfully.
+     * @return Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC. The completion time is set when the job finishes successfully, and only then. The value cannot be updated or removed. The value indicates the same or later point in time as the startTime field.
      * 
      */
     public Optional<String> completionTime() {
         return Optional.ofNullable(this.completionTime);
     }
     /**
-     * @return The latest available observations of an object&#39;s current state. When a Job fails, one of the conditions will have type &#34;Failed&#34; and status true. When a Job is suspended, one of the conditions will have type &#34;Suspended&#34; and status true; when the Job is resumed, the status of this condition will become false. When a Job is completed, one of the conditions will have type &#34;Complete&#34; and status true. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+     * @return The latest available observations of an object&#39;s current state. When a Job fails, one of the conditions will have type &#34;Failed&#34; and status true. When a Job is suspended, one of the conditions will have type &#34;Suspended&#34; and status true; when the Job is resumed, the status of this condition will become false. When a Job is completed, one of the conditions will have type &#34;Complete&#34; and status true.
+     * 
+     * A job is considered finished when it is in a terminal condition, either &#34;Complete&#34; or &#34;Failed&#34;. A Job cannot have both the &#34;Complete&#34; and &#34;Failed&#34; conditions. Additionally, it cannot be in the &#34;Complete&#34; and &#34;FailureTarget&#34; conditions. The &#34;Complete&#34;, &#34;Failed&#34; and &#34;FailureTarget&#34; conditions cannot be disabled.
+     * 
+     * More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
      * 
      */
     public List<JobConditionPatch> conditions() {
         return this.conditions == null ? List.of() : this.conditions;
     }
     /**
-     * @return The number of pods which reached phase Failed.
+     * @return The number of pods which reached phase Failed. The value increases monotonically.
      * 
      */
     public Optional<Integer> failed() {
         return Optional.ofNullable(this.failed);
     }
     /**
-     * @return FailedIndexes holds the failed indexes when backoffLimitPerIndex=true. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as &#34;1,3-5,7&#34;. This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
+     * @return FailedIndexes holds the failed indexes when spec.backoffLimitPerIndex is set. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as &#34;1,3-5,7&#34;. The set of failed indexes cannot overlap with the set of completed indexes.
+     * 
+     * This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
      * 
      */
     public Optional<String> failedIndexes() {
@@ -133,12 +147,14 @@ public final class JobStatusPatch {
     /**
      * @return Represents time when the job controller started processing a job. When a Job is created in the suspended state, this field is not set until the first time it is resumed. This field is reset every time a Job is resumed from suspension. It is represented in RFC3339 form and is in UTC.
      * 
+     * Once set, the field can only be removed when the job is suspended. The field cannot be modified while the job is unsuspended or finished.
+     * 
      */
     public Optional<String> startTime() {
         return Optional.ofNullable(this.startTime);
     }
     /**
-     * @return The number of pods which reached phase Succeeded.
+     * @return The number of pods which reached phase Succeeded. The value increases monotonically for a given spec. However, it may decrease in reaction to scale down of elastic indexed jobs.
      * 
      */
     public Optional<Integer> succeeded() {
@@ -161,7 +177,7 @@ public final class JobStatusPatch {
      * 1. Add the pod UID to the arrays in this field. 2. Remove the pod finalizer. 3. Remove the pod UID from the arrays while increasing the corresponding
      *     counter.
      * 
-     * Old jobs might not be tracked using this field, in which case the field remains null.
+     * Old jobs might not be tracked using this field, in which case the field remains null. The structure is empty for finished jobs.
      * 
      */
     public Optional<UncountedTerminatedPodsPatch> uncountedTerminatedPods() {

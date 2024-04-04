@@ -65,6 +65,18 @@ namespace Pulumi.Kubernetes.Yaml
                 case var t when t == typeof(AdmissionRegistration.V1.MutatingWebhookConfigurationList):
                     groupVersionKind = "admissionregistration.k8s.io/v1/MutatingWebhookConfigurationList";
                     break;
+                case var t when t == typeof(AdmissionRegistration.V1.ValidatingAdmissionPolicy):
+                    groupVersionKind = "admissionregistration.k8s.io/v1/ValidatingAdmissionPolicy";
+                    break;
+                case var t when t == typeof(AdmissionRegistration.V1.ValidatingAdmissionPolicyBinding):
+                    groupVersionKind = "admissionregistration.k8s.io/v1/ValidatingAdmissionPolicyBinding";
+                    break;
+                case var t when t == typeof(AdmissionRegistration.V1.ValidatingAdmissionPolicyBindingList):
+                    groupVersionKind = "admissionregistration.k8s.io/v1/ValidatingAdmissionPolicyBindingList";
+                    break;
+                case var t when t == typeof(AdmissionRegistration.V1.ValidatingAdmissionPolicyList):
+                    groupVersionKind = "admissionregistration.k8s.io/v1/ValidatingAdmissionPolicyList";
+                    break;
                 case var t when t == typeof(AdmissionRegistration.V1.ValidatingWebhookConfiguration):
                     groupVersionKind = "admissionregistration.k8s.io/v1/ValidatingWebhookConfiguration";
                     break;
@@ -701,6 +713,12 @@ namespace Pulumi.Kubernetes.Yaml
                 case var t when t == typeof(Resource.V1Alpha2.ResourceClaimList):
                     groupVersionKind = "resource.k8s.io/v1alpha2/ResourceClaimList";
                     break;
+                case var t when t == typeof(Resource.V1Alpha2.ResourceClaimParameters):
+                    groupVersionKind = "resource.k8s.io/v1alpha2/ResourceClaimParameters";
+                    break;
+                case var t when t == typeof(Resource.V1Alpha2.ResourceClaimParametersList):
+                    groupVersionKind = "resource.k8s.io/v1alpha2/ResourceClaimParametersList";
+                    break;
                 case var t when t == typeof(Resource.V1Alpha2.ResourceClaimTemplate):
                     groupVersionKind = "resource.k8s.io/v1alpha2/ResourceClaimTemplate";
                     break;
@@ -712,6 +730,18 @@ namespace Pulumi.Kubernetes.Yaml
                     break;
                 case var t when t == typeof(Resource.V1Alpha2.ResourceClassList):
                     groupVersionKind = "resource.k8s.io/v1alpha2/ResourceClassList";
+                    break;
+                case var t when t == typeof(Resource.V1Alpha2.ResourceClassParameters):
+                    groupVersionKind = "resource.k8s.io/v1alpha2/ResourceClassParameters";
+                    break;
+                case var t when t == typeof(Resource.V1Alpha2.ResourceClassParametersList):
+                    groupVersionKind = "resource.k8s.io/v1alpha2/ResourceClassParametersList";
+                    break;
+                case var t when t == typeof(Resource.V1Alpha2.ResourceSlice):
+                    groupVersionKind = "resource.k8s.io/v1alpha2/ResourceSlice";
+                    break;
+                case var t when t == typeof(Resource.V1Alpha2.ResourceSliceList):
+                    groupVersionKind = "resource.k8s.io/v1alpha2/ResourceSliceList";
                     break;
                 case var t when t == typeof(Scheduling.V1.PriorityClass):
                     groupVersionKind = "scheduling.k8s.io/v1/PriorityClass";
@@ -808,6 +838,12 @@ namespace Pulumi.Kubernetes.Yaml
                     break;
                 case var t when t == typeof(Storage.V1Beta1.VolumeAttachmentList):
                     groupVersionKind = "storage.k8s.io/v1beta1/VolumeAttachmentList";
+                    break;
+                case var t when t == typeof(StorageMigration.V1Alpha1.StorageVersionMigration):
+                    groupVersionKind = "storagemigration.k8s.io/v1alpha1/StorageVersionMigration";
+                    break;
+                case var t when t == typeof(StorageMigration.V1Alpha1.StorageVersionMigrationList):
+                    groupVersionKind = "storagemigration.k8s.io/v1alpha1/StorageVersionMigrationList";
                     break;
                 default:
                     throw new ArgumentException($"Unknown resource type {typeof(T).FullName}");
@@ -1082,6 +1118,8 @@ namespace Pulumi.Kubernetes.Yaml
             if (
                 gvk == "v1/List"
                 || gvk == "admissionregistration.k8s.io/v1/MutatingWebhookConfigurationList"
+                || gvk == "admissionregistration.k8s.io/v1/ValidatingAdmissionPolicyBindingList"
+                || gvk == "admissionregistration.k8s.io/v1/ValidatingAdmissionPolicyList"
                 || gvk == "admissionregistration.k8s.io/v1/ValidatingWebhookConfigurationList"
                 || gvk == "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyBindingList"
                 || gvk == "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyList"
@@ -1187,8 +1225,11 @@ namespace Pulumi.Kubernetes.Yaml
                 || gvk == "resource.k8s.io/v1alpha1/ResourceClassList"
                 || gvk == "resource.k8s.io/v1alpha2/PodSchedulingContextList"
                 || gvk == "resource.k8s.io/v1alpha2/ResourceClaimList"
+                || gvk == "resource.k8s.io/v1alpha2/ResourceClaimParametersList"
                 || gvk == "resource.k8s.io/v1alpha2/ResourceClaimTemplateList"
                 || gvk == "resource.k8s.io/v1alpha2/ResourceClassList"
+                || gvk == "resource.k8s.io/v1alpha2/ResourceClassParametersList"
+                || gvk == "resource.k8s.io/v1alpha2/ResourceSliceList"
                 || gvk == "scheduling.k8s.io/v1/PriorityClassList"
                 || gvk == "scheduling.k8s.io/v1alpha1/PriorityClassList"
                 || gvk == "scheduling.k8s.io/v1beta1/PriorityClassList"
@@ -1205,6 +1246,7 @@ namespace Pulumi.Kubernetes.Yaml
                 || gvk == "storage.k8s.io/v1beta1/CSIStorageCapacityList"
                 || gvk == "storage.k8s.io/v1beta1/StorageClassList"
                 || gvk == "storage.k8s.io/v1beta1/VolumeAttachmentList"
+                || gvk == "storagemigration.k8s.io/v1alpha1/StorageVersionMigrationList"
                )
             {
                 var objs = new List<Output<(string, KubernetesResource)>>();
@@ -1249,6 +1291,18 @@ namespace Pulumi.Kubernetes.Yaml
                         {
                             id.Apply(id => ($"admissionregistration.k8s.io/v1/MutatingWebhookConfiguration::{id}",
                                 new AdmissionRegistration.V1.MutatingWebhookConfiguration(id, obj!, opts) as KubernetesResource))
+                        };
+                    case "admissionregistration.k8s.io/v1/ValidatingAdmissionPolicy":
+                        return new[]
+                        {
+                            id.Apply(id => ($"admissionregistration.k8s.io/v1/ValidatingAdmissionPolicy::{id}",
+                                new AdmissionRegistration.V1.ValidatingAdmissionPolicy(id, obj!, opts) as KubernetesResource))
+                        };
+                    case "admissionregistration.k8s.io/v1/ValidatingAdmissionPolicyBinding":
+                        return new[]
+                        {
+                            id.Apply(id => ($"admissionregistration.k8s.io/v1/ValidatingAdmissionPolicyBinding::{id}",
+                                new AdmissionRegistration.V1.ValidatingAdmissionPolicyBinding(id, obj!, opts) as KubernetesResource))
                         };
                     case "admissionregistration.k8s.io/v1/ValidatingWebhookConfiguration":
                         return new[]
@@ -1892,6 +1946,12 @@ namespace Pulumi.Kubernetes.Yaml
                             id.Apply(id => ($"resource.k8s.io/v1alpha2/ResourceClaim::{id}",
                                 new Resource.V1Alpha2.ResourceClaim(id, obj!, opts) as KubernetesResource))
                         };
+                    case "resource.k8s.io/v1alpha2/ResourceClaimParameters":
+                        return new[]
+                        {
+                            id.Apply(id => ($"resource.k8s.io/v1alpha2/ResourceClaimParameters::{id}",
+                                new Resource.V1Alpha2.ResourceClaimParameters(id, obj!, opts) as KubernetesResource))
+                        };
                     case "resource.k8s.io/v1alpha2/ResourceClaimTemplate":
                         return new[]
                         {
@@ -1903,6 +1963,18 @@ namespace Pulumi.Kubernetes.Yaml
                         {
                             id.Apply(id => ($"resource.k8s.io/v1alpha2/ResourceClass::{id}",
                                 new Resource.V1Alpha2.ResourceClass(id, obj!, opts) as KubernetesResource))
+                        };
+                    case "resource.k8s.io/v1alpha2/ResourceClassParameters":
+                        return new[]
+                        {
+                            id.Apply(id => ($"resource.k8s.io/v1alpha2/ResourceClassParameters::{id}",
+                                new Resource.V1Alpha2.ResourceClassParameters(id, obj!, opts) as KubernetesResource))
+                        };
+                    case "resource.k8s.io/v1alpha2/ResourceSlice":
+                        return new[]
+                        {
+                            id.Apply(id => ($"resource.k8s.io/v1alpha2/ResourceSlice::{id}",
+                                new Resource.V1Alpha2.ResourceSlice(id, obj!, opts) as KubernetesResource))
                         };
                     case "scheduling.k8s.io/v1/PriorityClass":
                         return new[]
@@ -1999,6 +2071,12 @@ namespace Pulumi.Kubernetes.Yaml
                         {
                             id.Apply(id => ($"storage.k8s.io/v1beta1/VolumeAttachment::{id}",
                                 new Storage.V1Beta1.VolumeAttachment(id, obj!, opts) as KubernetesResource))
+                        };
+                    case "storagemigration.k8s.io/v1alpha1/StorageVersionMigration":
+                        return new[]
+                        {
+                            id.Apply(id => ($"storagemigration.k8s.io/v1alpha1/StorageVersionMigration::{id}",
+                                new StorageMigration.V1Alpha1.StorageVersionMigration(id, obj!, opts) as KubernetesResource))
                         };
                 default:
                     return new[]

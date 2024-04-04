@@ -35,6 +35,10 @@ __all__ = [
     'PodFailurePolicyPatch',
     'PodFailurePolicyRule',
     'PodFailurePolicyRulePatch',
+    'SuccessPolicy',
+    'SuccessPolicyPatch',
+    'SuccessPolicyRule',
+    'SuccessPolicyRulePatch',
     'UncountedTerminatedPods',
     'UncountedTerminatedPodsPatch',
 ]
@@ -879,6 +883,8 @@ class JobSpec(dict):
             suggest = "backoff_limit_per_index"
         elif key == "completionMode":
             suggest = "completion_mode"
+        elif key == "managedBy":
+            suggest = "managed_by"
         elif key == "manualSelector":
             suggest = "manual_selector"
         elif key == "maxFailedIndexes":
@@ -887,6 +893,8 @@ class JobSpec(dict):
             suggest = "pod_failure_policy"
         elif key == "podReplacementPolicy":
             suggest = "pod_replacement_policy"
+        elif key == "successPolicy":
+            suggest = "success_policy"
         elif key == "ttlSecondsAfterFinished":
             suggest = "ttl_seconds_after_finished"
 
@@ -908,12 +916,14 @@ class JobSpec(dict):
                  backoff_limit_per_index: Optional[int] = None,
                  completion_mode: Optional[str] = None,
                  completions: Optional[int] = None,
+                 managed_by: Optional[str] = None,
                  manual_selector: Optional[bool] = None,
                  max_failed_indexes: Optional[int] = None,
                  parallelism: Optional[int] = None,
                  pod_failure_policy: Optional['outputs.PodFailurePolicy'] = None,
                  pod_replacement_policy: Optional[str] = None,
                  selector: Optional['_meta.v1.outputs.LabelSelector'] = None,
+                 success_policy: Optional['outputs.SuccessPolicy'] = None,
                  suspend: Optional[bool] = None,
                  ttl_seconds_after_finished: Optional[int] = None):
         """
@@ -930,6 +940,9 @@ class JobSpec(dict):
                
                More completion modes can be added in the future. If the Job controller observes a mode that it doesn't recognize, which is possible during upgrades due to version skew, the controller skips updates for the Job.
         :param int completions: Specifies the desired number of successfully finished pods the job should be run with.  Setting to null means that the success of any pod signals the success of all pods, and allows parallelism to have any positive value.  Setting to 1 means that parallelism is limited to 1 and the success of that pod signals the success of the job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+        :param str managed_by: ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don't have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first "/" must be a valid subdomain as defined by RFC 1123. All characters trailing the first "/" must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 64 characters.
+               
+               This field is alpha-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (disabled by default).
         :param bool manual_selector: manualSelector controls generation of pod labels and pod selectors. Leave `manualSelector` unset unless you are certain what you are doing. When false or unset, the system pick labels unique to this job and appends those labels to the pod template.  When true, the user is responsible for picking unique labels and specifying the selector.  Failure to pick a unique label may cause this and other jobs to not function correctly.  However, You may see `manualSelector=true` in jobs that were created with the old `extensions/v1beta1` API. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/#specifying-your-own-pod-selector
         :param int max_failed_indexes: Specifies the maximal number of failed indexes before marking the Job as failed, when backoffLimitPerIndex is set. Once the number of failed indexes exceeds this number the entire Job is marked as Failed and its execution is terminated. When left as null the job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when backoffLimitPerIndex is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5. This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
         :param int parallelism: Specifies the maximum desired number of pods the job should run at any given time. The actual number of pods running in steady state will be less than this number when ((.spec.completions - .status.successful) < .spec.parallelism), i.e. when the work left to do is less than max parallelism. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
@@ -943,6 +956,9 @@ class JobSpec(dict):
                
                When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use. This is an beta field. To use this, enable the JobPodReplacementPolicy feature toggle. This is on by default.
         :param '_meta.v1.LabelSelectorArgs' selector: A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
+        :param 'SuccessPolicyArgs' success_policy: successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.
+               
+               This field  is alpha-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (disabled by default).
         :param bool suspend: suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
         :param int ttl_seconds_after_finished: ttlSecondsAfterFinished limits the lifetime of a Job that has finished execution (either Complete or Failed). If this field is set, ttlSecondsAfterFinished after the Job finishes, it is eligible to be automatically deleted. When the Job is being deleted, its lifecycle guarantees (e.g. finalizers) will be honored. If this field is unset, the Job won't be automatically deleted. If this field is set to zero, the Job becomes eligible to be deleted immediately after it finishes.
         """
@@ -957,6 +973,8 @@ class JobSpec(dict):
             pulumi.set(__self__, "completion_mode", completion_mode)
         if completions is not None:
             pulumi.set(__self__, "completions", completions)
+        if managed_by is not None:
+            pulumi.set(__self__, "managed_by", managed_by)
         if manual_selector is not None:
             pulumi.set(__self__, "manual_selector", manual_selector)
         if max_failed_indexes is not None:
@@ -969,6 +987,8 @@ class JobSpec(dict):
             pulumi.set(__self__, "pod_replacement_policy", pod_replacement_policy)
         if selector is not None:
             pulumi.set(__self__, "selector", selector)
+        if success_policy is not None:
+            pulumi.set(__self__, "success_policy", success_policy)
         if suspend is not None:
             pulumi.set(__self__, "suspend", suspend)
         if ttl_seconds_after_finished is not None:
@@ -1029,6 +1049,16 @@ class JobSpec(dict):
         return pulumi.get(self, "completions")
 
     @property
+    @pulumi.getter(name="managedBy")
+    def managed_by(self) -> Optional[str]:
+        """
+        ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don't have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first "/" must be a valid subdomain as defined by RFC 1123. All characters trailing the first "/" must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 64 characters.
+
+        This field is alpha-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (disabled by default).
+        """
+        return pulumi.get(self, "managed_by")
+
+    @property
     @pulumi.getter(name="manualSelector")
     def manual_selector(self) -> Optional[bool]:
         """
@@ -1084,6 +1114,16 @@ class JobSpec(dict):
         return pulumi.get(self, "selector")
 
     @property
+    @pulumi.getter(name="successPolicy")
+    def success_policy(self) -> Optional['outputs.SuccessPolicy']:
+        """
+        successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.
+
+        This field  is alpha-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (disabled by default).
+        """
+        return pulumi.get(self, "success_policy")
+
+    @property
     @pulumi.getter
     def suspend(self) -> Optional[bool]:
         """
@@ -1116,6 +1156,8 @@ class JobSpecPatch(dict):
             suggest = "backoff_limit_per_index"
         elif key == "completionMode":
             suggest = "completion_mode"
+        elif key == "managedBy":
+            suggest = "managed_by"
         elif key == "manualSelector":
             suggest = "manual_selector"
         elif key == "maxFailedIndexes":
@@ -1124,6 +1166,8 @@ class JobSpecPatch(dict):
             suggest = "pod_failure_policy"
         elif key == "podReplacementPolicy":
             suggest = "pod_replacement_policy"
+        elif key == "successPolicy":
+            suggest = "success_policy"
         elif key == "ttlSecondsAfterFinished":
             suggest = "ttl_seconds_after_finished"
 
@@ -1144,12 +1188,14 @@ class JobSpecPatch(dict):
                  backoff_limit_per_index: Optional[int] = None,
                  completion_mode: Optional[str] = None,
                  completions: Optional[int] = None,
+                 managed_by: Optional[str] = None,
                  manual_selector: Optional[bool] = None,
                  max_failed_indexes: Optional[int] = None,
                  parallelism: Optional[int] = None,
                  pod_failure_policy: Optional['outputs.PodFailurePolicyPatch'] = None,
                  pod_replacement_policy: Optional[str] = None,
                  selector: Optional['_meta.v1.outputs.LabelSelectorPatch'] = None,
+                 success_policy: Optional['outputs.SuccessPolicyPatch'] = None,
                  suspend: Optional[bool] = None,
                  template: Optional['_core.v1.outputs.PodTemplateSpecPatch'] = None,
                  ttl_seconds_after_finished: Optional[int] = None):
@@ -1166,6 +1212,9 @@ class JobSpecPatch(dict):
                
                More completion modes can be added in the future. If the Job controller observes a mode that it doesn't recognize, which is possible during upgrades due to version skew, the controller skips updates for the Job.
         :param int completions: Specifies the desired number of successfully finished pods the job should be run with.  Setting to null means that the success of any pod signals the success of all pods, and allows parallelism to have any positive value.  Setting to 1 means that parallelism is limited to 1 and the success of that pod signals the success of the job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+        :param str managed_by: ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don't have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first "/" must be a valid subdomain as defined by RFC 1123. All characters trailing the first "/" must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 64 characters.
+               
+               This field is alpha-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (disabled by default).
         :param bool manual_selector: manualSelector controls generation of pod labels and pod selectors. Leave `manualSelector` unset unless you are certain what you are doing. When false or unset, the system pick labels unique to this job and appends those labels to the pod template.  When true, the user is responsible for picking unique labels and specifying the selector.  Failure to pick a unique label may cause this and other jobs to not function correctly.  However, You may see `manualSelector=true` in jobs that were created with the old `extensions/v1beta1` API. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/#specifying-your-own-pod-selector
         :param int max_failed_indexes: Specifies the maximal number of failed indexes before marking the Job as failed, when backoffLimitPerIndex is set. Once the number of failed indexes exceeds this number the entire Job is marked as Failed and its execution is terminated. When left as null the job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when backoffLimitPerIndex is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5. This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
         :param int parallelism: Specifies the maximum desired number of pods the job should run at any given time. The actual number of pods running in steady state will be less than this number when ((.spec.completions - .status.successful) < .spec.parallelism), i.e. when the work left to do is less than max parallelism. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
@@ -1179,6 +1228,9 @@ class JobSpecPatch(dict):
                
                When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use. This is an beta field. To use this, enable the JobPodReplacementPolicy feature toggle. This is on by default.
         :param '_meta.v1.LabelSelectorPatchArgs' selector: A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
+        :param 'SuccessPolicyPatchArgs' success_policy: successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.
+               
+               This field  is alpha-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (disabled by default).
         :param bool suspend: suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
         :param '_core.v1.PodTemplateSpecPatchArgs' template: Describes the pod that will be created when executing a job. The only allowed template.spec.restartPolicy values are "Never" or "OnFailure". More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
         :param int ttl_seconds_after_finished: ttlSecondsAfterFinished limits the lifetime of a Job that has finished execution (either Complete or Failed). If this field is set, ttlSecondsAfterFinished after the Job finishes, it is eligible to be automatically deleted. When the Job is being deleted, its lifecycle guarantees (e.g. finalizers) will be honored. If this field is unset, the Job won't be automatically deleted. If this field is set to zero, the Job becomes eligible to be deleted immediately after it finishes.
@@ -1193,6 +1245,8 @@ class JobSpecPatch(dict):
             pulumi.set(__self__, "completion_mode", completion_mode)
         if completions is not None:
             pulumi.set(__self__, "completions", completions)
+        if managed_by is not None:
+            pulumi.set(__self__, "managed_by", managed_by)
         if manual_selector is not None:
             pulumi.set(__self__, "manual_selector", manual_selector)
         if max_failed_indexes is not None:
@@ -1205,6 +1259,8 @@ class JobSpecPatch(dict):
             pulumi.set(__self__, "pod_replacement_policy", pod_replacement_policy)
         if selector is not None:
             pulumi.set(__self__, "selector", selector)
+        if success_policy is not None:
+            pulumi.set(__self__, "success_policy", success_policy)
         if suspend is not None:
             pulumi.set(__self__, "suspend", suspend)
         if template is not None:
@@ -1257,6 +1313,16 @@ class JobSpecPatch(dict):
         Specifies the desired number of successfully finished pods the job should be run with.  Setting to null means that the success of any pod signals the success of all pods, and allows parallelism to have any positive value.  Setting to 1 means that parallelism is limited to 1 and the success of that pod signals the success of the job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
         """
         return pulumi.get(self, "completions")
+
+    @property
+    @pulumi.getter(name="managedBy")
+    def managed_by(self) -> Optional[str]:
+        """
+        ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don't have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first "/" must be a valid subdomain as defined by RFC 1123. All characters trailing the first "/" must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 64 characters.
+
+        This field is alpha-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (disabled by default).
+        """
+        return pulumi.get(self, "managed_by")
 
     @property
     @pulumi.getter(name="manualSelector")
@@ -1312,6 +1378,16 @@ class JobSpecPatch(dict):
         A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
         """
         return pulumi.get(self, "selector")
+
+    @property
+    @pulumi.getter(name="successPolicy")
+    def success_policy(self) -> Optional['outputs.SuccessPolicyPatch']:
+        """
+        successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.
+
+        This field  is alpha-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (disabled by default).
+        """
+        return pulumi.get(self, "success_policy")
 
     @property
     @pulumi.getter
@@ -1382,15 +1458,23 @@ class JobStatus(dict):
                  uncounted_terminated_pods: Optional['outputs.UncountedTerminatedPods'] = None):
         """
         JobStatus represents the current state of a Job.
-        :param int active: The number of pending and running pods.
+        :param int active: The number of pending and running pods which are not terminating (without a deletionTimestamp). The value is zero for finished jobs.
         :param str completed_indexes: completedIndexes holds the completed indexes when .spec.completionMode = "Indexed" in a text format. The indexes are represented as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the completed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7".
-        :param str completion_time: Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC. The completion time is only set when the job finishes successfully.
-        :param Sequence['JobConditionArgs'] conditions: The latest available observations of an object's current state. When a Job fails, one of the conditions will have type "Failed" and status true. When a Job is suspended, one of the conditions will have type "Suspended" and status true; when the Job is resumed, the status of this condition will become false. When a Job is completed, one of the conditions will have type "Complete" and status true. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
-        :param int failed: The number of pods which reached phase Failed.
-        :param str failed_indexes: FailedIndexes holds the failed indexes when backoffLimitPerIndex=true. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7". This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
+        :param str completion_time: Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC. The completion time is set when the job finishes successfully, and only then. The value cannot be updated or removed. The value indicates the same or later point in time as the startTime field.
+        :param Sequence['JobConditionArgs'] conditions: The latest available observations of an object's current state. When a Job fails, one of the conditions will have type "Failed" and status true. When a Job is suspended, one of the conditions will have type "Suspended" and status true; when the Job is resumed, the status of this condition will become false. When a Job is completed, one of the conditions will have type "Complete" and status true.
+               
+               A job is considered finished when it is in a terminal condition, either "Complete" or "Failed". A Job cannot have both the "Complete" and "Failed" conditions. Additionally, it cannot be in the "Complete" and "FailureTarget" conditions. The "Complete", "Failed" and "FailureTarget" conditions cannot be disabled.
+               
+               More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+        :param int failed: The number of pods which reached phase Failed. The value increases monotonically.
+        :param str failed_indexes: FailedIndexes holds the failed indexes when spec.backoffLimitPerIndex is set. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7". The set of failed indexes cannot overlap with the set of completed indexes.
+               
+               This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
         :param int ready: The number of pods which have a Ready condition.
         :param str start_time: Represents time when the job controller started processing a job. When a Job is created in the suspended state, this field is not set until the first time it is resumed. This field is reset every time a Job is resumed from suspension. It is represented in RFC3339 form and is in UTC.
-        :param int succeeded: The number of pods which reached phase Succeeded.
+               
+               Once set, the field can only be removed when the job is suspended. The field cannot be modified while the job is unsuspended or finished.
+        :param int succeeded: The number of pods which reached phase Succeeded. The value increases monotonically for a given spec. However, it may decrease in reaction to scale down of elastic indexed jobs.
         :param int terminating: The number of pods which are terminating (in phase Pending or Running and have a deletionTimestamp).
                
                This field is beta-level. The job controller populates the field when the feature gate JobPodReplacementPolicy is enabled (enabled by default).
@@ -1401,7 +1485,7 @@ class JobStatus(dict):
                1. Add the pod UID to the arrays in this field. 2. Remove the pod finalizer. 3. Remove the pod UID from the arrays while increasing the corresponding
                    counter.
                
-               Old jobs might not be tracked using this field, in which case the field remains null.
+               Old jobs might not be tracked using this field, in which case the field remains null. The structure is empty for finished jobs.
         """
         if active is not None:
             pulumi.set(__self__, "active", active)
@@ -1430,7 +1514,7 @@ class JobStatus(dict):
     @pulumi.getter
     def active(self) -> Optional[int]:
         """
-        The number of pending and running pods.
+        The number of pending and running pods which are not terminating (without a deletionTimestamp). The value is zero for finished jobs.
         """
         return pulumi.get(self, "active")
 
@@ -1446,7 +1530,7 @@ class JobStatus(dict):
     @pulumi.getter(name="completionTime")
     def completion_time(self) -> Optional[str]:
         """
-        Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC. The completion time is only set when the job finishes successfully.
+        Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC. The completion time is set when the job finishes successfully, and only then. The value cannot be updated or removed. The value indicates the same or later point in time as the startTime field.
         """
         return pulumi.get(self, "completion_time")
 
@@ -1454,7 +1538,11 @@ class JobStatus(dict):
     @pulumi.getter
     def conditions(self) -> Optional[Sequence['outputs.JobCondition']]:
         """
-        The latest available observations of an object's current state. When a Job fails, one of the conditions will have type "Failed" and status true. When a Job is suspended, one of the conditions will have type "Suspended" and status true; when the Job is resumed, the status of this condition will become false. When a Job is completed, one of the conditions will have type "Complete" and status true. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+        The latest available observations of an object's current state. When a Job fails, one of the conditions will have type "Failed" and status true. When a Job is suspended, one of the conditions will have type "Suspended" and status true; when the Job is resumed, the status of this condition will become false. When a Job is completed, one of the conditions will have type "Complete" and status true.
+
+        A job is considered finished when it is in a terminal condition, either "Complete" or "Failed". A Job cannot have both the "Complete" and "Failed" conditions. Additionally, it cannot be in the "Complete" and "FailureTarget" conditions. The "Complete", "Failed" and "FailureTarget" conditions cannot be disabled.
+
+        More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
         """
         return pulumi.get(self, "conditions")
 
@@ -1462,7 +1550,7 @@ class JobStatus(dict):
     @pulumi.getter
     def failed(self) -> Optional[int]:
         """
-        The number of pods which reached phase Failed.
+        The number of pods which reached phase Failed. The value increases monotonically.
         """
         return pulumi.get(self, "failed")
 
@@ -1470,7 +1558,9 @@ class JobStatus(dict):
     @pulumi.getter(name="failedIndexes")
     def failed_indexes(self) -> Optional[str]:
         """
-        FailedIndexes holds the failed indexes when backoffLimitPerIndex=true. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7". This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
+        FailedIndexes holds the failed indexes when spec.backoffLimitPerIndex is set. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7". The set of failed indexes cannot overlap with the set of completed indexes.
+
+        This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
         """
         return pulumi.get(self, "failed_indexes")
 
@@ -1487,6 +1577,8 @@ class JobStatus(dict):
     def start_time(self) -> Optional[str]:
         """
         Represents time when the job controller started processing a job. When a Job is created in the suspended state, this field is not set until the first time it is resumed. This field is reset every time a Job is resumed from suspension. It is represented in RFC3339 form and is in UTC.
+
+        Once set, the field can only be removed when the job is suspended. The field cannot be modified while the job is unsuspended or finished.
         """
         return pulumi.get(self, "start_time")
 
@@ -1494,7 +1586,7 @@ class JobStatus(dict):
     @pulumi.getter
     def succeeded(self) -> Optional[int]:
         """
-        The number of pods which reached phase Succeeded.
+        The number of pods which reached phase Succeeded. The value increases monotonically for a given spec. However, it may decrease in reaction to scale down of elastic indexed jobs.
         """
         return pulumi.get(self, "succeeded")
 
@@ -1519,7 +1611,7 @@ class JobStatus(dict):
         1. Add the pod UID to the arrays in this field. 2. Remove the pod finalizer. 3. Remove the pod UID from the arrays while increasing the corresponding
             counter.
 
-        Old jobs might not be tracked using this field, in which case the field remains null.
+        Old jobs might not be tracked using this field, in which case the field remains null. The structure is empty for finished jobs.
         """
         return pulumi.get(self, "uncounted_terminated_pods")
 
@@ -1568,15 +1660,23 @@ class JobStatusPatch(dict):
                  uncounted_terminated_pods: Optional['outputs.UncountedTerminatedPodsPatch'] = None):
         """
         JobStatus represents the current state of a Job.
-        :param int active: The number of pending and running pods.
+        :param int active: The number of pending and running pods which are not terminating (without a deletionTimestamp). The value is zero for finished jobs.
         :param str completed_indexes: completedIndexes holds the completed indexes when .spec.completionMode = "Indexed" in a text format. The indexes are represented as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the completed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7".
-        :param str completion_time: Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC. The completion time is only set when the job finishes successfully.
-        :param Sequence['JobConditionPatchArgs'] conditions: The latest available observations of an object's current state. When a Job fails, one of the conditions will have type "Failed" and status true. When a Job is suspended, one of the conditions will have type "Suspended" and status true; when the Job is resumed, the status of this condition will become false. When a Job is completed, one of the conditions will have type "Complete" and status true. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
-        :param int failed: The number of pods which reached phase Failed.
-        :param str failed_indexes: FailedIndexes holds the failed indexes when backoffLimitPerIndex=true. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7". This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
+        :param str completion_time: Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC. The completion time is set when the job finishes successfully, and only then. The value cannot be updated or removed. The value indicates the same or later point in time as the startTime field.
+        :param Sequence['JobConditionPatchArgs'] conditions: The latest available observations of an object's current state. When a Job fails, one of the conditions will have type "Failed" and status true. When a Job is suspended, one of the conditions will have type "Suspended" and status true; when the Job is resumed, the status of this condition will become false. When a Job is completed, one of the conditions will have type "Complete" and status true.
+               
+               A job is considered finished when it is in a terminal condition, either "Complete" or "Failed". A Job cannot have both the "Complete" and "Failed" conditions. Additionally, it cannot be in the "Complete" and "FailureTarget" conditions. The "Complete", "Failed" and "FailureTarget" conditions cannot be disabled.
+               
+               More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+        :param int failed: The number of pods which reached phase Failed. The value increases monotonically.
+        :param str failed_indexes: FailedIndexes holds the failed indexes when spec.backoffLimitPerIndex is set. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7". The set of failed indexes cannot overlap with the set of completed indexes.
+               
+               This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
         :param int ready: The number of pods which have a Ready condition.
         :param str start_time: Represents time when the job controller started processing a job. When a Job is created in the suspended state, this field is not set until the first time it is resumed. This field is reset every time a Job is resumed from suspension. It is represented in RFC3339 form and is in UTC.
-        :param int succeeded: The number of pods which reached phase Succeeded.
+               
+               Once set, the field can only be removed when the job is suspended. The field cannot be modified while the job is unsuspended or finished.
+        :param int succeeded: The number of pods which reached phase Succeeded. The value increases monotonically for a given spec. However, it may decrease in reaction to scale down of elastic indexed jobs.
         :param int terminating: The number of pods which are terminating (in phase Pending or Running and have a deletionTimestamp).
                
                This field is beta-level. The job controller populates the field when the feature gate JobPodReplacementPolicy is enabled (enabled by default).
@@ -1587,7 +1687,7 @@ class JobStatusPatch(dict):
                1. Add the pod UID to the arrays in this field. 2. Remove the pod finalizer. 3. Remove the pod UID from the arrays while increasing the corresponding
                    counter.
                
-               Old jobs might not be tracked using this field, in which case the field remains null.
+               Old jobs might not be tracked using this field, in which case the field remains null. The structure is empty for finished jobs.
         """
         if active is not None:
             pulumi.set(__self__, "active", active)
@@ -1616,7 +1716,7 @@ class JobStatusPatch(dict):
     @pulumi.getter
     def active(self) -> Optional[int]:
         """
-        The number of pending and running pods.
+        The number of pending and running pods which are not terminating (without a deletionTimestamp). The value is zero for finished jobs.
         """
         return pulumi.get(self, "active")
 
@@ -1632,7 +1732,7 @@ class JobStatusPatch(dict):
     @pulumi.getter(name="completionTime")
     def completion_time(self) -> Optional[str]:
         """
-        Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC. The completion time is only set when the job finishes successfully.
+        Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC. The completion time is set when the job finishes successfully, and only then. The value cannot be updated or removed. The value indicates the same or later point in time as the startTime field.
         """
         return pulumi.get(self, "completion_time")
 
@@ -1640,7 +1740,11 @@ class JobStatusPatch(dict):
     @pulumi.getter
     def conditions(self) -> Optional[Sequence['outputs.JobConditionPatch']]:
         """
-        The latest available observations of an object's current state. When a Job fails, one of the conditions will have type "Failed" and status true. When a Job is suspended, one of the conditions will have type "Suspended" and status true; when the Job is resumed, the status of this condition will become false. When a Job is completed, one of the conditions will have type "Complete" and status true. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+        The latest available observations of an object's current state. When a Job fails, one of the conditions will have type "Failed" and status true. When a Job is suspended, one of the conditions will have type "Suspended" and status true; when the Job is resumed, the status of this condition will become false. When a Job is completed, one of the conditions will have type "Complete" and status true.
+
+        A job is considered finished when it is in a terminal condition, either "Complete" or "Failed". A Job cannot have both the "Complete" and "Failed" conditions. Additionally, it cannot be in the "Complete" and "FailureTarget" conditions. The "Complete", "Failed" and "FailureTarget" conditions cannot be disabled.
+
+        More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
         """
         return pulumi.get(self, "conditions")
 
@@ -1648,7 +1752,7 @@ class JobStatusPatch(dict):
     @pulumi.getter
     def failed(self) -> Optional[int]:
         """
-        The number of pods which reached phase Failed.
+        The number of pods which reached phase Failed. The value increases monotonically.
         """
         return pulumi.get(self, "failed")
 
@@ -1656,7 +1760,9 @@ class JobStatusPatch(dict):
     @pulumi.getter(name="failedIndexes")
     def failed_indexes(self) -> Optional[str]:
         """
-        FailedIndexes holds the failed indexes when backoffLimitPerIndex=true. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7". This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
+        FailedIndexes holds the failed indexes when spec.backoffLimitPerIndex is set. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7". The set of failed indexes cannot overlap with the set of completed indexes.
+
+        This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
         """
         return pulumi.get(self, "failed_indexes")
 
@@ -1673,6 +1779,8 @@ class JobStatusPatch(dict):
     def start_time(self) -> Optional[str]:
         """
         Represents time when the job controller started processing a job. When a Job is created in the suspended state, this field is not set until the first time it is resumed. This field is reset every time a Job is resumed from suspension. It is represented in RFC3339 form and is in UTC.
+
+        Once set, the field can only be removed when the job is suspended. The field cannot be modified while the job is unsuspended or finished.
         """
         return pulumi.get(self, "start_time")
 
@@ -1680,7 +1788,7 @@ class JobStatusPatch(dict):
     @pulumi.getter
     def succeeded(self) -> Optional[int]:
         """
-        The number of pods which reached phase Succeeded.
+        The number of pods which reached phase Succeeded. The value increases monotonically for a given spec. However, it may decrease in reaction to scale down of elastic indexed jobs.
         """
         return pulumi.get(self, "succeeded")
 
@@ -1705,7 +1813,7 @@ class JobStatusPatch(dict):
         1. Add the pod UID to the arrays in this field. 2. Remove the pod finalizer. 3. Remove the pod UID from the arrays while increasing the corresponding
             counter.
 
-        Old jobs might not be tracked using this field, in which case the field remains null.
+        Old jobs might not be tracked using this field, in which case the field remains null. The structure is empty for finished jobs.
         """
         return pulumi.get(self, "uncounted_terminated_pods")
 
@@ -2228,6 +2336,159 @@ class PodFailurePolicyRulePatch(dict):
         Represents the requirement on the pod conditions. The requirement is represented as a list of pod condition patterns. The requirement is satisfied if at least one pattern matches an actual pod condition. At most 20 elements are allowed.
         """
         return pulumi.get(self, "on_pod_conditions")
+
+
+@pulumi.output_type
+class SuccessPolicy(dict):
+    """
+    SuccessPolicy describes when a Job can be declared as succeeded based on the success of some indexes.
+    """
+    def __init__(__self__, *,
+                 rules: Sequence['outputs.SuccessPolicyRule']):
+        """
+        SuccessPolicy describes when a Job can be declared as succeeded based on the success of some indexes.
+        :param Sequence['SuccessPolicyRuleArgs'] rules: rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SucceededCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
+        """
+        pulumi.set(__self__, "rules", rules)
+
+    @property
+    @pulumi.getter
+    def rules(self) -> Sequence['outputs.SuccessPolicyRule']:
+        """
+        rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SucceededCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
+        """
+        return pulumi.get(self, "rules")
+
+
+@pulumi.output_type
+class SuccessPolicyPatch(dict):
+    """
+    SuccessPolicy describes when a Job can be declared as succeeded based on the success of some indexes.
+    """
+    def __init__(__self__, *,
+                 rules: Optional[Sequence['outputs.SuccessPolicyRulePatch']] = None):
+        """
+        SuccessPolicy describes when a Job can be declared as succeeded based on the success of some indexes.
+        :param Sequence['SuccessPolicyRulePatchArgs'] rules: rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SucceededCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
+        """
+        if rules is not None:
+            pulumi.set(__self__, "rules", rules)
+
+    @property
+    @pulumi.getter
+    def rules(self) -> Optional[Sequence['outputs.SuccessPolicyRulePatch']]:
+        """
+        rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SucceededCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
+        """
+        return pulumi.get(self, "rules")
+
+
+@pulumi.output_type
+class SuccessPolicyRule(dict):
+    """
+    SuccessPolicyRule describes rule for declaring a Job as succeeded. Each rule must have at least one of the "succeededIndexes" or "succeededCount" specified.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "succeededCount":
+            suggest = "succeeded_count"
+        elif key == "succeededIndexes":
+            suggest = "succeeded_indexes"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in SuccessPolicyRule. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        SuccessPolicyRule.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        SuccessPolicyRule.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 succeeded_count: Optional[int] = None,
+                 succeeded_indexes: Optional[str] = None):
+        """
+        SuccessPolicyRule describes rule for declaring a Job as succeeded. Each rule must have at least one of the "succeededIndexes" or "succeededCount" specified.
+        :param int succeeded_count: succeededCount specifies the minimal required size of the actual set of the succeeded indexes for the Job. When succeededCount is used along with succeededIndexes, the check is constrained only to the set of indexes specified by succeededIndexes. For example, given that succeededIndexes is "1-4", succeededCount is "3", and completed indexes are "1", "3", and "5", the Job isn't declared as succeeded because only "1" and "3" indexes are considered in that rules. When this field is null, this doesn't default to any value and is never evaluated at any time. When specified it needs to be a positive integer.
+        :param str succeeded_indexes: succeededIndexes specifies the set of indexes which need to be contained in the actual set of the succeeded indexes for the Job. The list of indexes must be within 0 to ".spec.completions-1" and must not contain duplicates. At least one element is required. The indexes are represented as intervals separated by commas. The intervals can be a decimal integer or a pair of decimal integers separated by a hyphen. The number are listed in represented by the first and last element of the series, separated by a hyphen. For example, if the completed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7". When this field is null, this field doesn't default to any value and is never evaluated at any time.
+        """
+        if succeeded_count is not None:
+            pulumi.set(__self__, "succeeded_count", succeeded_count)
+        if succeeded_indexes is not None:
+            pulumi.set(__self__, "succeeded_indexes", succeeded_indexes)
+
+    @property
+    @pulumi.getter(name="succeededCount")
+    def succeeded_count(self) -> Optional[int]:
+        """
+        succeededCount specifies the minimal required size of the actual set of the succeeded indexes for the Job. When succeededCount is used along with succeededIndexes, the check is constrained only to the set of indexes specified by succeededIndexes. For example, given that succeededIndexes is "1-4", succeededCount is "3", and completed indexes are "1", "3", and "5", the Job isn't declared as succeeded because only "1" and "3" indexes are considered in that rules. When this field is null, this doesn't default to any value and is never evaluated at any time. When specified it needs to be a positive integer.
+        """
+        return pulumi.get(self, "succeeded_count")
+
+    @property
+    @pulumi.getter(name="succeededIndexes")
+    def succeeded_indexes(self) -> Optional[str]:
+        """
+        succeededIndexes specifies the set of indexes which need to be contained in the actual set of the succeeded indexes for the Job. The list of indexes must be within 0 to ".spec.completions-1" and must not contain duplicates. At least one element is required. The indexes are represented as intervals separated by commas. The intervals can be a decimal integer or a pair of decimal integers separated by a hyphen. The number are listed in represented by the first and last element of the series, separated by a hyphen. For example, if the completed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7". When this field is null, this field doesn't default to any value and is never evaluated at any time.
+        """
+        return pulumi.get(self, "succeeded_indexes")
+
+
+@pulumi.output_type
+class SuccessPolicyRulePatch(dict):
+    """
+    SuccessPolicyRule describes rule for declaring a Job as succeeded. Each rule must have at least one of the "succeededIndexes" or "succeededCount" specified.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "succeededCount":
+            suggest = "succeeded_count"
+        elif key == "succeededIndexes":
+            suggest = "succeeded_indexes"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in SuccessPolicyRulePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        SuccessPolicyRulePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        SuccessPolicyRulePatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 succeeded_count: Optional[int] = None,
+                 succeeded_indexes: Optional[str] = None):
+        """
+        SuccessPolicyRule describes rule for declaring a Job as succeeded. Each rule must have at least one of the "succeededIndexes" or "succeededCount" specified.
+        :param int succeeded_count: succeededCount specifies the minimal required size of the actual set of the succeeded indexes for the Job. When succeededCount is used along with succeededIndexes, the check is constrained only to the set of indexes specified by succeededIndexes. For example, given that succeededIndexes is "1-4", succeededCount is "3", and completed indexes are "1", "3", and "5", the Job isn't declared as succeeded because only "1" and "3" indexes are considered in that rules. When this field is null, this doesn't default to any value and is never evaluated at any time. When specified it needs to be a positive integer.
+        :param str succeeded_indexes: succeededIndexes specifies the set of indexes which need to be contained in the actual set of the succeeded indexes for the Job. The list of indexes must be within 0 to ".spec.completions-1" and must not contain duplicates. At least one element is required. The indexes are represented as intervals separated by commas. The intervals can be a decimal integer or a pair of decimal integers separated by a hyphen. The number are listed in represented by the first and last element of the series, separated by a hyphen. For example, if the completed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7". When this field is null, this field doesn't default to any value and is never evaluated at any time.
+        """
+        if succeeded_count is not None:
+            pulumi.set(__self__, "succeeded_count", succeeded_count)
+        if succeeded_indexes is not None:
+            pulumi.set(__self__, "succeeded_indexes", succeeded_indexes)
+
+    @property
+    @pulumi.getter(name="succeededCount")
+    def succeeded_count(self) -> Optional[int]:
+        """
+        succeededCount specifies the minimal required size of the actual set of the succeeded indexes for the Job. When succeededCount is used along with succeededIndexes, the check is constrained only to the set of indexes specified by succeededIndexes. For example, given that succeededIndexes is "1-4", succeededCount is "3", and completed indexes are "1", "3", and "5", the Job isn't declared as succeeded because only "1" and "3" indexes are considered in that rules. When this field is null, this doesn't default to any value and is never evaluated at any time. When specified it needs to be a positive integer.
+        """
+        return pulumi.get(self, "succeeded_count")
+
+    @property
+    @pulumi.getter(name="succeededIndexes")
+    def succeeded_indexes(self) -> Optional[str]:
+        """
+        succeededIndexes specifies the set of indexes which need to be contained in the actual set of the succeeded indexes for the Job. The list of indexes must be within 0 to ".spec.completions-1" and must not contain duplicates. At least one element is required. The indexes are represented as intervals separated by commas. The intervals can be a decimal integer or a pair of decimal integers separated by a hyphen. The number are listed in represented by the first and last element of the series, separated by a hyphen. For example, if the completed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7". When this field is null, this field doesn't default to any value and is never evaluated at any time.
+        """
+        return pulumi.get(self, "succeeded_indexes")
 
 
 @pulumi.output_type

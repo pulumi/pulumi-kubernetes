@@ -2392,6 +2392,8 @@ type CustomResourceDefinitionVersion struct {
 	Name string `pulumi:"name"`
 	// schema describes the schema used for validation, pruning, and defaulting of this version of the custom resource.
 	Schema *CustomResourceValidation `pulumi:"schema"`
+	// selectableFields specifies paths to fields that may be used as field selectors. A maximum of 8 selectable fields are allowed. See https://kubernetes.io/docs/concepts/overview/working-with-objects/field-selectors
+	SelectableFields []SelectableField `pulumi:"selectableFields"`
 	// served is a flag enabling/disabling this version from being served via REST APIs
 	Served bool `pulumi:"served"`
 	// storage indicates this version should be used when persisting custom resources to storage. There must be exactly one version with storage=true.
@@ -2423,6 +2425,8 @@ type CustomResourceDefinitionVersionArgs struct {
 	Name pulumi.StringInput `pulumi:"name"`
 	// schema describes the schema used for validation, pruning, and defaulting of this version of the custom resource.
 	Schema CustomResourceValidationPtrInput `pulumi:"schema"`
+	// selectableFields specifies paths to fields that may be used as field selectors. A maximum of 8 selectable fields are allowed. See https://kubernetes.io/docs/concepts/overview/working-with-objects/field-selectors
+	SelectableFields SelectableFieldArrayInput `pulumi:"selectableFields"`
 	// served is a flag enabling/disabling this version from being served via REST APIs
 	Served pulumi.BoolInput `pulumi:"served"`
 	// storage indicates this version should be used when persisting custom resources to storage. There must be exactly one version with storage=true.
@@ -2510,6 +2514,11 @@ func (o CustomResourceDefinitionVersionOutput) Schema() CustomResourceValidation
 	return o.ApplyT(func(v CustomResourceDefinitionVersion) *CustomResourceValidation { return v.Schema }).(CustomResourceValidationPtrOutput)
 }
 
+// selectableFields specifies paths to fields that may be used as field selectors. A maximum of 8 selectable fields are allowed. See https://kubernetes.io/docs/concepts/overview/working-with-objects/field-selectors
+func (o CustomResourceDefinitionVersionOutput) SelectableFields() SelectableFieldArrayOutput {
+	return o.ApplyT(func(v CustomResourceDefinitionVersion) []SelectableField { return v.SelectableFields }).(SelectableFieldArrayOutput)
+}
+
 // served is a flag enabling/disabling this version from being served via REST APIs
 func (o CustomResourceDefinitionVersionOutput) Served() pulumi.BoolOutput {
 	return o.ApplyT(func(v CustomResourceDefinitionVersion) bool { return v.Served }).(pulumi.BoolOutput)
@@ -2557,6 +2566,8 @@ type CustomResourceDefinitionVersionPatch struct {
 	Name *string `pulumi:"name"`
 	// schema describes the schema used for validation, pruning, and defaulting of this version of the custom resource.
 	Schema *CustomResourceValidationPatch `pulumi:"schema"`
+	// selectableFields specifies paths to fields that may be used as field selectors. A maximum of 8 selectable fields are allowed. See https://kubernetes.io/docs/concepts/overview/working-with-objects/field-selectors
+	SelectableFields []SelectableFieldPatch `pulumi:"selectableFields"`
 	// served is a flag enabling/disabling this version from being served via REST APIs
 	Served *bool `pulumi:"served"`
 	// storage indicates this version should be used when persisting custom resources to storage. There must be exactly one version with storage=true.
@@ -2588,6 +2599,8 @@ type CustomResourceDefinitionVersionPatchArgs struct {
 	Name pulumi.StringPtrInput `pulumi:"name"`
 	// schema describes the schema used for validation, pruning, and defaulting of this version of the custom resource.
 	Schema CustomResourceValidationPatchPtrInput `pulumi:"schema"`
+	// selectableFields specifies paths to fields that may be used as field selectors. A maximum of 8 selectable fields are allowed. See https://kubernetes.io/docs/concepts/overview/working-with-objects/field-selectors
+	SelectableFields SelectableFieldPatchArrayInput `pulumi:"selectableFields"`
 	// served is a flag enabling/disabling this version from being served via REST APIs
 	Served pulumi.BoolPtrInput `pulumi:"served"`
 	// storage indicates this version should be used when persisting custom resources to storage. There must be exactly one version with storage=true.
@@ -2673,6 +2686,11 @@ func (o CustomResourceDefinitionVersionPatchOutput) Name() pulumi.StringPtrOutpu
 // schema describes the schema used for validation, pruning, and defaulting of this version of the custom resource.
 func (o CustomResourceDefinitionVersionPatchOutput) Schema() CustomResourceValidationPatchPtrOutput {
 	return o.ApplyT(func(v CustomResourceDefinitionVersionPatch) *CustomResourceValidationPatch { return v.Schema }).(CustomResourceValidationPatchPtrOutput)
+}
+
+// selectableFields specifies paths to fields that may be used as field selectors. A maximum of 8 selectable fields are allowed. See https://kubernetes.io/docs/concepts/overview/working-with-objects/field-selectors
+func (o CustomResourceDefinitionVersionPatchOutput) SelectableFields() SelectableFieldPatchArrayOutput {
+	return o.ApplyT(func(v CustomResourceDefinitionVersionPatch) []SelectableFieldPatch { return v.SelectableFields }).(SelectableFieldPatchArrayOutput)
 }
 
 // served is a flag enabling/disabling this version from being served via REST APIs
@@ -6019,6 +6037,206 @@ func (o JSONSchemaPropsPatchArrayOutput) Index(i pulumi.IntInput) JSONSchemaProp
 	}).(JSONSchemaPropsPatchOutput)
 }
 
+// SelectableField specifies the JSON path of a field that may be used with field selectors.
+type SelectableField struct {
+	// jsonPath is a simple JSON path which is evaluated against each custom resource to produce a field selector value. Only JSON paths without the array notation are allowed. Must point to a field of type string, boolean or integer. Types with enum values and strings with formats are allowed. If jsonPath refers to absent field in a resource, the jsonPath evaluates to an empty string. Must not point to metdata fields. Required.
+	JsonPath string `pulumi:"jsonPath"`
+}
+
+// SelectableFieldInput is an input type that accepts SelectableFieldArgs and SelectableFieldOutput values.
+// You can construct a concrete instance of `SelectableFieldInput` via:
+//
+//	SelectableFieldArgs{...}
+type SelectableFieldInput interface {
+	pulumi.Input
+
+	ToSelectableFieldOutput() SelectableFieldOutput
+	ToSelectableFieldOutputWithContext(context.Context) SelectableFieldOutput
+}
+
+// SelectableField specifies the JSON path of a field that may be used with field selectors.
+type SelectableFieldArgs struct {
+	// jsonPath is a simple JSON path which is evaluated against each custom resource to produce a field selector value. Only JSON paths without the array notation are allowed. Must point to a field of type string, boolean or integer. Types with enum values and strings with formats are allowed. If jsonPath refers to absent field in a resource, the jsonPath evaluates to an empty string. Must not point to metdata fields. Required.
+	JsonPath pulumi.StringInput `pulumi:"jsonPath"`
+}
+
+func (SelectableFieldArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*SelectableField)(nil)).Elem()
+}
+
+func (i SelectableFieldArgs) ToSelectableFieldOutput() SelectableFieldOutput {
+	return i.ToSelectableFieldOutputWithContext(context.Background())
+}
+
+func (i SelectableFieldArgs) ToSelectableFieldOutputWithContext(ctx context.Context) SelectableFieldOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SelectableFieldOutput)
+}
+
+// SelectableFieldArrayInput is an input type that accepts SelectableFieldArray and SelectableFieldArrayOutput values.
+// You can construct a concrete instance of `SelectableFieldArrayInput` via:
+//
+//	SelectableFieldArray{ SelectableFieldArgs{...} }
+type SelectableFieldArrayInput interface {
+	pulumi.Input
+
+	ToSelectableFieldArrayOutput() SelectableFieldArrayOutput
+	ToSelectableFieldArrayOutputWithContext(context.Context) SelectableFieldArrayOutput
+}
+
+type SelectableFieldArray []SelectableFieldInput
+
+func (SelectableFieldArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]SelectableField)(nil)).Elem()
+}
+
+func (i SelectableFieldArray) ToSelectableFieldArrayOutput() SelectableFieldArrayOutput {
+	return i.ToSelectableFieldArrayOutputWithContext(context.Background())
+}
+
+func (i SelectableFieldArray) ToSelectableFieldArrayOutputWithContext(ctx context.Context) SelectableFieldArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SelectableFieldArrayOutput)
+}
+
+// SelectableField specifies the JSON path of a field that may be used with field selectors.
+type SelectableFieldOutput struct{ *pulumi.OutputState }
+
+func (SelectableFieldOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*SelectableField)(nil)).Elem()
+}
+
+func (o SelectableFieldOutput) ToSelectableFieldOutput() SelectableFieldOutput {
+	return o
+}
+
+func (o SelectableFieldOutput) ToSelectableFieldOutputWithContext(ctx context.Context) SelectableFieldOutput {
+	return o
+}
+
+// jsonPath is a simple JSON path which is evaluated against each custom resource to produce a field selector value. Only JSON paths without the array notation are allowed. Must point to a field of type string, boolean or integer. Types with enum values and strings with formats are allowed. If jsonPath refers to absent field in a resource, the jsonPath evaluates to an empty string. Must not point to metdata fields. Required.
+func (o SelectableFieldOutput) JsonPath() pulumi.StringOutput {
+	return o.ApplyT(func(v SelectableField) string { return v.JsonPath }).(pulumi.StringOutput)
+}
+
+type SelectableFieldArrayOutput struct{ *pulumi.OutputState }
+
+func (SelectableFieldArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]SelectableField)(nil)).Elem()
+}
+
+func (o SelectableFieldArrayOutput) ToSelectableFieldArrayOutput() SelectableFieldArrayOutput {
+	return o
+}
+
+func (o SelectableFieldArrayOutput) ToSelectableFieldArrayOutputWithContext(ctx context.Context) SelectableFieldArrayOutput {
+	return o
+}
+
+func (o SelectableFieldArrayOutput) Index(i pulumi.IntInput) SelectableFieldOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) SelectableField {
+		return vs[0].([]SelectableField)[vs[1].(int)]
+	}).(SelectableFieldOutput)
+}
+
+// SelectableField specifies the JSON path of a field that may be used with field selectors.
+type SelectableFieldPatch struct {
+	// jsonPath is a simple JSON path which is evaluated against each custom resource to produce a field selector value. Only JSON paths without the array notation are allowed. Must point to a field of type string, boolean or integer. Types with enum values and strings with formats are allowed. If jsonPath refers to absent field in a resource, the jsonPath evaluates to an empty string. Must not point to metdata fields. Required.
+	JsonPath *string `pulumi:"jsonPath"`
+}
+
+// SelectableFieldPatchInput is an input type that accepts SelectableFieldPatchArgs and SelectableFieldPatchOutput values.
+// You can construct a concrete instance of `SelectableFieldPatchInput` via:
+//
+//	SelectableFieldPatchArgs{...}
+type SelectableFieldPatchInput interface {
+	pulumi.Input
+
+	ToSelectableFieldPatchOutput() SelectableFieldPatchOutput
+	ToSelectableFieldPatchOutputWithContext(context.Context) SelectableFieldPatchOutput
+}
+
+// SelectableField specifies the JSON path of a field that may be used with field selectors.
+type SelectableFieldPatchArgs struct {
+	// jsonPath is a simple JSON path which is evaluated against each custom resource to produce a field selector value. Only JSON paths without the array notation are allowed. Must point to a field of type string, boolean or integer. Types with enum values and strings with formats are allowed. If jsonPath refers to absent field in a resource, the jsonPath evaluates to an empty string. Must not point to metdata fields. Required.
+	JsonPath pulumi.StringPtrInput `pulumi:"jsonPath"`
+}
+
+func (SelectableFieldPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*SelectableFieldPatch)(nil)).Elem()
+}
+
+func (i SelectableFieldPatchArgs) ToSelectableFieldPatchOutput() SelectableFieldPatchOutput {
+	return i.ToSelectableFieldPatchOutputWithContext(context.Background())
+}
+
+func (i SelectableFieldPatchArgs) ToSelectableFieldPatchOutputWithContext(ctx context.Context) SelectableFieldPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SelectableFieldPatchOutput)
+}
+
+// SelectableFieldPatchArrayInput is an input type that accepts SelectableFieldPatchArray and SelectableFieldPatchArrayOutput values.
+// You can construct a concrete instance of `SelectableFieldPatchArrayInput` via:
+//
+//	SelectableFieldPatchArray{ SelectableFieldPatchArgs{...} }
+type SelectableFieldPatchArrayInput interface {
+	pulumi.Input
+
+	ToSelectableFieldPatchArrayOutput() SelectableFieldPatchArrayOutput
+	ToSelectableFieldPatchArrayOutputWithContext(context.Context) SelectableFieldPatchArrayOutput
+}
+
+type SelectableFieldPatchArray []SelectableFieldPatchInput
+
+func (SelectableFieldPatchArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]SelectableFieldPatch)(nil)).Elem()
+}
+
+func (i SelectableFieldPatchArray) ToSelectableFieldPatchArrayOutput() SelectableFieldPatchArrayOutput {
+	return i.ToSelectableFieldPatchArrayOutputWithContext(context.Background())
+}
+
+func (i SelectableFieldPatchArray) ToSelectableFieldPatchArrayOutputWithContext(ctx context.Context) SelectableFieldPatchArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SelectableFieldPatchArrayOutput)
+}
+
+// SelectableField specifies the JSON path of a field that may be used with field selectors.
+type SelectableFieldPatchOutput struct{ *pulumi.OutputState }
+
+func (SelectableFieldPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*SelectableFieldPatch)(nil)).Elem()
+}
+
+func (o SelectableFieldPatchOutput) ToSelectableFieldPatchOutput() SelectableFieldPatchOutput {
+	return o
+}
+
+func (o SelectableFieldPatchOutput) ToSelectableFieldPatchOutputWithContext(ctx context.Context) SelectableFieldPatchOutput {
+	return o
+}
+
+// jsonPath is a simple JSON path which is evaluated against each custom resource to produce a field selector value. Only JSON paths without the array notation are allowed. Must point to a field of type string, boolean or integer. Types with enum values and strings with formats are allowed. If jsonPath refers to absent field in a resource, the jsonPath evaluates to an empty string. Must not point to metdata fields. Required.
+func (o SelectableFieldPatchOutput) JsonPath() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v SelectableFieldPatch) *string { return v.JsonPath }).(pulumi.StringPtrOutput)
+}
+
+type SelectableFieldPatchArrayOutput struct{ *pulumi.OutputState }
+
+func (SelectableFieldPatchArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]SelectableFieldPatch)(nil)).Elem()
+}
+
+func (o SelectableFieldPatchArrayOutput) ToSelectableFieldPatchArrayOutput() SelectableFieldPatchArrayOutput {
+	return o
+}
+
+func (o SelectableFieldPatchArrayOutput) ToSelectableFieldPatchArrayOutputWithContext(ctx context.Context) SelectableFieldPatchArrayOutput {
+	return o
+}
+
+func (o SelectableFieldPatchArrayOutput) Index(i pulumi.IntInput) SelectableFieldPatchOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) SelectableFieldPatch {
+		return vs[0].([]SelectableFieldPatch)[vs[1].(int)]
+	}).(SelectableFieldPatchOutput)
+}
+
 // ServiceReference holds a reference to Service.legacy.k8s.io
 type ServiceReference struct {
 	// name is the name of the service. Required
@@ -7764,6 +7982,10 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*JSONSchemaPropsPatchInput)(nil)).Elem(), JSONSchemaPropsPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*JSONSchemaPropsPatchPtrInput)(nil)).Elem(), JSONSchemaPropsPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*JSONSchemaPropsPatchArrayInput)(nil)).Elem(), JSONSchemaPropsPatchArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SelectableFieldInput)(nil)).Elem(), SelectableFieldArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SelectableFieldArrayInput)(nil)).Elem(), SelectableFieldArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SelectableFieldPatchInput)(nil)).Elem(), SelectableFieldPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SelectableFieldPatchArrayInput)(nil)).Elem(), SelectableFieldPatchArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ServiceReferenceInput)(nil)).Elem(), ServiceReferenceArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ServiceReferencePtrInput)(nil)).Elem(), ServiceReferenceArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ServiceReferencePatchInput)(nil)).Elem(), ServiceReferencePatchArgs{})
@@ -7834,6 +8056,10 @@ func init() {
 	pulumi.RegisterOutputType(JSONSchemaPropsPatchOutput{})
 	pulumi.RegisterOutputType(JSONSchemaPropsPatchPtrOutput{})
 	pulumi.RegisterOutputType(JSONSchemaPropsPatchArrayOutput{})
+	pulumi.RegisterOutputType(SelectableFieldOutput{})
+	pulumi.RegisterOutputType(SelectableFieldArrayOutput{})
+	pulumi.RegisterOutputType(SelectableFieldPatchOutput{})
+	pulumi.RegisterOutputType(SelectableFieldPatchArrayOutput{})
 	pulumi.RegisterOutputType(ServiceReferenceOutput{})
 	pulumi.RegisterOutputType(ServiceReferencePtrOutput{})
 	pulumi.RegisterOutputType(ServiceReferencePatchOutput{})

@@ -17,6 +17,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
     public sealed class PodSecurityContext
     {
         /// <summary>
+        /// appArmorProfile is the AppArmor options to use by the containers in this pod. Note that this field cannot be set when spec.os.name is windows.
+        /// </summary>
+        public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.AppArmorProfile AppArmorProfile;
+        /// <summary>
         /// A special supplemental group that applies to all containers in a pod. Some volume types allow the Kubelet to change the ownership of that volume to be owned by the pod:
         /// 
         /// 1. The owning GID will be the FSGroup 2. The setgid bit is set (new files created in the volume will be owned by FSGroup) 3. The permission bits are OR'd with rw-rw----
@@ -63,6 +67,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 
         [OutputConstructor]
         private PodSecurityContext(
+            Pulumi.Kubernetes.Types.Outputs.Core.V1.AppArmorProfile appArmorProfile,
+
             int fsGroup,
 
             string fsGroupChangePolicy,
@@ -83,6 +89,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 
             Pulumi.Kubernetes.Types.Outputs.Core.V1.WindowsSecurityContextOptions windowsOptions)
         {
+            AppArmorProfile = appArmorProfile;
             FsGroup = fsGroup;
             FsGroupChangePolicy = fsGroupChangePolicy;
             RunAsGroup = runAsGroup;

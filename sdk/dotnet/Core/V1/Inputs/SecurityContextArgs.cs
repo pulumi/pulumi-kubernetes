@@ -22,6 +22,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public Input<bool>? AllowPrivilegeEscalation { get; set; }
 
         /// <summary>
+        /// appArmorProfile is the AppArmor options to use by this container. If set, this profile overrides the pod's appArmorProfile. Note that this field cannot be set when spec.os.name is windows.
+        /// </summary>
+        [Input("appArmorProfile")]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.AppArmorProfileArgs>? AppArmorProfile { get; set; }
+
+        /// <summary>
         /// The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime. Note that this field cannot be set when spec.os.name is windows.
         /// </summary>
         [Input("capabilities")]

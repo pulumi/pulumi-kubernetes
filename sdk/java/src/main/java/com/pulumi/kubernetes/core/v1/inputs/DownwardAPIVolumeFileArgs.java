@@ -23,14 +23,14 @@ public final class DownwardAPIVolumeFileArgs extends com.pulumi.resources.Resour
     public static final DownwardAPIVolumeFileArgs Empty = new DownwardAPIVolumeFileArgs();
 
     /**
-     * Required: Selects a field of the pod: only annotations, labels, name and namespace are supported.
+     * Required: Selects a field of the pod: only annotations, labels, name, namespace and uid are supported.
      * 
      */
     @Import(name="fieldRef")
     private @Nullable Output<ObjectFieldSelectorArgs> fieldRef;
 
     /**
-     * @return Required: Selects a field of the pod: only annotations, labels, name and namespace are supported.
+     * @return Required: Selects a field of the pod: only annotations, labels, name, namespace and uid are supported.
      * 
      */
     public Optional<Output<ObjectFieldSelectorArgs>> fieldRef() {
@@ -110,7 +110,7 @@ public final class DownwardAPIVolumeFileArgs extends com.pulumi.resources.Resour
         }
 
         /**
-         * @param fieldRef Required: Selects a field of the pod: only annotations, labels, name and namespace are supported.
+         * @param fieldRef Required: Selects a field of the pod: only annotations, labels, name, namespace and uid are supported.
          * 
          * @return builder
          * 
@@ -121,7 +121,7 @@ public final class DownwardAPIVolumeFileArgs extends com.pulumi.resources.Resour
         }
 
         /**
-         * @param fieldRef Required: Selects a field of the pod: only annotations, labels, name and namespace are supported.
+         * @param fieldRef Required: Selects a field of the pod: only annotations, labels, name, namespace and uid are supported.
          * 
          * @return builder
          * 

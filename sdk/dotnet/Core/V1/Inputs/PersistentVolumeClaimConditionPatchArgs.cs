@@ -34,7 +34,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public Input<string>? Message { get; set; }
 
         /// <summary>
-        /// reason is a unique, this should be a short, machine understandable string that gives the reason for condition's last transition. If it reports "ResizeStarted" that means the underlying persistent volume is being resized.
+        /// reason is a unique, this should be a short, machine understandable string that gives the reason for condition's last transition. If it reports "Resizing" that means the underlying persistent volume is being resized.
         /// </summary>
         [Input("reason")]
         public Input<string>? Reason { get; set; }

@@ -27,7 +27,7 @@ public final class PersistentVolumeClaimConditionPatch {
      */
     private @Nullable String message;
     /**
-     * @return reason is a unique, this should be a short, machine understandable string that gives the reason for condition&#39;s last transition. If it reports &#34;ResizeStarted&#34; that means the underlying persistent volume is being resized.
+     * @return reason is a unique, this should be a short, machine understandable string that gives the reason for condition&#39;s last transition. If it reports &#34;Resizing&#34; that means the underlying persistent volume is being resized.
      * 
      */
     private @Nullable String reason;
@@ -57,7 +57,7 @@ public final class PersistentVolumeClaimConditionPatch {
         return Optional.ofNullable(this.message);
     }
     /**
-     * @return reason is a unique, this should be a short, machine understandable string that gives the reason for condition&#39;s last transition. If it reports &#34;ResizeStarted&#34; that means the underlying persistent volume is being resized.
+     * @return reason is a unique, this should be a short, machine understandable string that gives the reason for condition&#39;s last transition. If it reports &#34;Resizing&#34; that means the underlying persistent volume is being resized.
      * 
      */
     public Optional<String> reason() {

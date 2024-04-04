@@ -8,6 +8,7 @@ import com.pulumi.core.annotations.Import;
 import com.pulumi.kubernetes.apiextensions.v1.inputs.CustomResourceColumnDefinitionArgs;
 import com.pulumi.kubernetes.apiextensions.v1.inputs.CustomResourceSubresourcesArgs;
 import com.pulumi.kubernetes.apiextensions.v1.inputs.CustomResourceValidationArgs;
+import com.pulumi.kubernetes.apiextensions.v1.inputs.SelectableFieldArgs;
 import java.lang.Boolean;
 import java.lang.String;
 import java.util.List;
@@ -100,6 +101,21 @@ public final class CustomResourceDefinitionVersionArgs extends com.pulumi.resour
     }
 
     /**
+     * selectableFields specifies paths to fields that may be used as field selectors. A maximum of 8 selectable fields are allowed. See https://kubernetes.io/docs/concepts/overview/working-with-objects/field-selectors
+     * 
+     */
+    @Import(name="selectableFields")
+    private @Nullable Output<List<SelectableFieldArgs>> selectableFields;
+
+    /**
+     * @return selectableFields specifies paths to fields that may be used as field selectors. A maximum of 8 selectable fields are allowed. See https://kubernetes.io/docs/concepts/overview/working-with-objects/field-selectors
+     * 
+     */
+    public Optional<Output<List<SelectableFieldArgs>>> selectableFields() {
+        return Optional.ofNullable(this.selectableFields);
+    }
+
+    /**
      * served is a flag enabling/disabling this version from being served via REST APIs
      * 
      */
@@ -152,6 +168,7 @@ public final class CustomResourceDefinitionVersionArgs extends com.pulumi.resour
         this.deprecationWarning = $.deprecationWarning;
         this.name = $.name;
         this.schema = $.schema;
+        this.selectableFields = $.selectableFields;
         this.served = $.served;
         this.storage = $.storage;
         this.subresources = $.subresources;
@@ -288,6 +305,37 @@ public final class CustomResourceDefinitionVersionArgs extends com.pulumi.resour
          */
         public Builder schema(CustomResourceValidationArgs schema) {
             return schema(Output.of(schema));
+        }
+
+        /**
+         * @param selectableFields selectableFields specifies paths to fields that may be used as field selectors. A maximum of 8 selectable fields are allowed. See https://kubernetes.io/docs/concepts/overview/working-with-objects/field-selectors
+         * 
+         * @return builder
+         * 
+         */
+        public Builder selectableFields(@Nullable Output<List<SelectableFieldArgs>> selectableFields) {
+            $.selectableFields = selectableFields;
+            return this;
+        }
+
+        /**
+         * @param selectableFields selectableFields specifies paths to fields that may be used as field selectors. A maximum of 8 selectable fields are allowed. See https://kubernetes.io/docs/concepts/overview/working-with-objects/field-selectors
+         * 
+         * @return builder
+         * 
+         */
+        public Builder selectableFields(List<SelectableFieldArgs> selectableFields) {
+            return selectableFields(Output.of(selectableFields));
+        }
+
+        /**
+         * @param selectableFields selectableFields specifies paths to fields that may be used as field selectors. A maximum of 8 selectable fields are allowed. See https://kubernetes.io/docs/concepts/overview/working-with-objects/field-selectors
+         * 
+         * @return builder
+         * 
+         */
+        public Builder selectableFields(SelectableFieldArgs... selectableFields) {
+            return selectableFields(List.of(selectableFields));
         }
 
         /**

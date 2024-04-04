@@ -86,7 +86,7 @@ export class ValidatingAdmissionPolicyBindingPatch extends pulumi.CustomResource
             resourceInputs["spec"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
-        const aliasOpts = { aliases: [{ type: "kubernetes:admissionregistration.k8s.io/v1alpha1:ValidatingAdmissionPolicyBindingPatch" }] };
+        const aliasOpts = { aliases: [{ type: "kubernetes:admissionregistration.k8s.io/v1:ValidatingAdmissionPolicyBindingPatch" }, { type: "kubernetes:admissionregistration.k8s.io/v1alpha1:ValidatingAdmissionPolicyBindingPatch" }] };
         opts = pulumi.mergeOptions(opts, aliasOpts);
         super(ValidatingAdmissionPolicyBindingPatch.__pulumiType, name, resourceInputs, opts);
     }

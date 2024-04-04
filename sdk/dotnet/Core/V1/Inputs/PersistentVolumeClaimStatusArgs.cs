@@ -106,7 +106,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         private InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.PersistentVolumeClaimConditionArgs>? _conditions;
 
         /// <summary>
-        /// conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'ResizeStarted'.
+        /// conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'Resizing'.
         /// </summary>
         public InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.PersistentVolumeClaimConditionArgs> Conditions
         {

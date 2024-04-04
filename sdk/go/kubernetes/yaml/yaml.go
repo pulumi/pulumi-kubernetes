@@ -83,6 +83,7 @@ import (
 	storagev1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/storage/v1"
 	storagev1alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/storage/v1alpha1"
 	storagev1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/storage/v1beta1"
+	storagemigrationv1alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/storagemigration/v1alpha1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
@@ -278,6 +279,8 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 	switch fullKind {
 	case "v1/List",
 		"admissionregistration.k8s.io/v1/MutatingWebhookConfigurationList",
+		"admissionregistration.k8s.io/v1/ValidatingAdmissionPolicyBindingList",
+		"admissionregistration.k8s.io/v1/ValidatingAdmissionPolicyList",
 		"admissionregistration.k8s.io/v1/ValidatingWebhookConfigurationList",
 		"admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyBindingList",
 		"admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyList",
@@ -383,8 +386,11 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		"resource.k8s.io/v1alpha1/ResourceClassList",
 		"resource.k8s.io/v1alpha2/PodSchedulingContextList",
 		"resource.k8s.io/v1alpha2/ResourceClaimList",
+		"resource.k8s.io/v1alpha2/ResourceClaimParametersList",
 		"resource.k8s.io/v1alpha2/ResourceClaimTemplateList",
 		"resource.k8s.io/v1alpha2/ResourceClassList",
+		"resource.k8s.io/v1alpha2/ResourceClassParametersList",
+		"resource.k8s.io/v1alpha2/ResourceSliceList",
 		"scheduling.k8s.io/v1/PriorityClassList",
 		"scheduling.k8s.io/v1alpha1/PriorityClassList",
 		"scheduling.k8s.io/v1beta1/PriorityClassList",
@@ -400,7 +406,8 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		"storage.k8s.io/v1beta1/CSINodeList",
 		"storage.k8s.io/v1beta1/CSIStorageCapacityList",
 		"storage.k8s.io/v1beta1/StorageClassList",
-		"storage.k8s.io/v1beta1/VolumeAttachmentList":
+		"storage.k8s.io/v1beta1/VolumeAttachmentList",
+		"storagemigration.k8s.io/v1alpha1/StorageVersionMigrationList":
 		var resources []resourceTuple
 		if rawItems, hasItems := obj["items"]; hasItems {
 			if items, ok := rawItems.([]interface{}); ok {
@@ -459,6 +466,20 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 	case "admissionregistration.k8s.io/v1/MutatingWebhookConfiguration":
 		var res admissionregistrationv1.MutatingWebhookConfiguration
 		err := ctx.RegisterResource("kubernetes:admissionregistration.k8s.io/v1:MutatingWebhookConfiguration", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
+	case "admissionregistration.k8s.io/v1/ValidatingAdmissionPolicy":
+		var res admissionregistrationv1.ValidatingAdmissionPolicy
+		err := ctx.RegisterResource("kubernetes:admissionregistration.k8s.io/v1:ValidatingAdmissionPolicy", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
+	case "admissionregistration.k8s.io/v1/ValidatingAdmissionPolicyBinding":
+		var res admissionregistrationv1.ValidatingAdmissionPolicyBinding
+		err := ctx.RegisterResource("kubernetes:admissionregistration.k8s.io/v1:ValidatingAdmissionPolicyBinding", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
@@ -1212,6 +1233,13 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resourceTuple{{Name: key, Resource: &res}}, nil
+	case "resource.k8s.io/v1alpha2/ResourceClaimParameters":
+		var res resourcev1alpha2.ResourceClaimParameters
+		err := ctx.RegisterResource("kubernetes:resource.k8s.io/v1alpha2:ResourceClaimParameters", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "resource.k8s.io/v1alpha2/ResourceClaimTemplate":
 		var res resourcev1alpha2.ResourceClaimTemplate
 		err := ctx.RegisterResource("kubernetes:resource.k8s.io/v1alpha2:ResourceClaimTemplate", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
@@ -1222,6 +1250,20 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 	case "resource.k8s.io/v1alpha2/ResourceClass":
 		var res resourcev1alpha2.ResourceClass
 		err := ctx.RegisterResource("kubernetes:resource.k8s.io/v1alpha2:ResourceClass", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
+	case "resource.k8s.io/v1alpha2/ResourceClassParameters":
+		var res resourcev1alpha2.ResourceClassParameters
+		err := ctx.RegisterResource("kubernetes:resource.k8s.io/v1alpha2:ResourceClassParameters", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
+	case "resource.k8s.io/v1alpha2/ResourceSlice":
+		var res resourcev1alpha2.ResourceSlice
+		err := ctx.RegisterResource("kubernetes:resource.k8s.io/v1alpha2:ResourceSlice", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
@@ -1334,6 +1376,13 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 	case "storage.k8s.io/v1beta1/VolumeAttachment":
 		var res storagev1beta1.VolumeAttachment
 		err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1beta1:VolumeAttachment", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
+	case "storagemigration.k8s.io/v1alpha1/StorageVersionMigration":
+		var res storagemigrationv1alpha1.StorageVersionMigration
+		err := ctx.RegisterResource("kubernetes:storagemigration.k8s.io/v1alpha1:StorageVersionMigration", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}

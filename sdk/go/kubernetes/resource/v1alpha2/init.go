@@ -31,6 +31,12 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &ResourceClaim{}
 	case "kubernetes:resource.k8s.io/v1alpha2:ResourceClaimList":
 		r = &ResourceClaimList{}
+	case "kubernetes:resource.k8s.io/v1alpha2:ResourceClaimParameters":
+		r = &ResourceClaimParameters{}
+	case "kubernetes:resource.k8s.io/v1alpha2:ResourceClaimParametersList":
+		r = &ResourceClaimParametersList{}
+	case "kubernetes:resource.k8s.io/v1alpha2:ResourceClaimParametersPatch":
+		r = &ResourceClaimParametersPatch{}
 	case "kubernetes:resource.k8s.io/v1alpha2:ResourceClaimPatch":
 		r = &ResourceClaimPatch{}
 	case "kubernetes:resource.k8s.io/v1alpha2:ResourceClaimTemplate":
@@ -43,8 +49,20 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &ResourceClass{}
 	case "kubernetes:resource.k8s.io/v1alpha2:ResourceClassList":
 		r = &ResourceClassList{}
+	case "kubernetes:resource.k8s.io/v1alpha2:ResourceClassParameters":
+		r = &ResourceClassParameters{}
+	case "kubernetes:resource.k8s.io/v1alpha2:ResourceClassParametersList":
+		r = &ResourceClassParametersList{}
+	case "kubernetes:resource.k8s.io/v1alpha2:ResourceClassParametersPatch":
+		r = &ResourceClassParametersPatch{}
 	case "kubernetes:resource.k8s.io/v1alpha2:ResourceClassPatch":
 		r = &ResourceClassPatch{}
+	case "kubernetes:resource.k8s.io/v1alpha2:ResourceSlice":
+		r = &ResourceSlice{}
+	case "kubernetes:resource.k8s.io/v1alpha2:ResourceSliceList":
+		r = &ResourceSliceList{}
+	case "kubernetes:resource.k8s.io/v1alpha2:ResourceSlicePatch":
+		r = &ResourceSlicePatch{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}

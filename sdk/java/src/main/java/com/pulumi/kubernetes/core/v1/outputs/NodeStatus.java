@@ -10,6 +10,7 @@ import com.pulumi.kubernetes.core.v1.outputs.NodeAddress;
 import com.pulumi.kubernetes.core.v1.outputs.NodeCondition;
 import com.pulumi.kubernetes.core.v1.outputs.NodeConfigStatus;
 import com.pulumi.kubernetes.core.v1.outputs.NodeDaemonEndpoints;
+import com.pulumi.kubernetes.core.v1.outputs.NodeRuntimeHandler;
 import com.pulumi.kubernetes.core.v1.outputs.NodeSystemInfo;
 import java.lang.String;
 import java.util.List;
@@ -65,6 +66,11 @@ public final class NodeStatus {
      * 
      */
     private @Nullable String phase;
+    /**
+     * @return The available runtime handlers.
+     * 
+     */
+    private @Nullable List<NodeRuntimeHandler> runtimeHandlers;
     /**
      * @return List of volumes that are attached to the node.
      * 
@@ -141,6 +147,13 @@ public final class NodeStatus {
         return Optional.ofNullable(this.phase);
     }
     /**
+     * @return The available runtime handlers.
+     * 
+     */
+    public List<NodeRuntimeHandler> runtimeHandlers() {
+        return this.runtimeHandlers == null ? List.of() : this.runtimeHandlers;
+    }
+    /**
      * @return List of volumes that are attached to the node.
      * 
      */
@@ -173,6 +186,7 @@ public final class NodeStatus {
         private @Nullable List<ContainerImage> images;
         private @Nullable NodeSystemInfo nodeInfo;
         private @Nullable String phase;
+        private @Nullable List<NodeRuntimeHandler> runtimeHandlers;
         private @Nullable List<AttachedVolume> volumesAttached;
         private @Nullable List<String> volumesInUse;
         public Builder() {}
@@ -187,6 +201,7 @@ public final class NodeStatus {
     	      this.images = defaults.images;
     	      this.nodeInfo = defaults.nodeInfo;
     	      this.phase = defaults.phase;
+    	      this.runtimeHandlers = defaults.runtimeHandlers;
     	      this.volumesAttached = defaults.volumesAttached;
     	      this.volumesInUse = defaults.volumesInUse;
         }
@@ -246,6 +261,14 @@ public final class NodeStatus {
             return this;
         }
         @CustomType.Setter
+        public Builder runtimeHandlers(@Nullable List<NodeRuntimeHandler> runtimeHandlers) {
+            this.runtimeHandlers = runtimeHandlers;
+            return this;
+        }
+        public Builder runtimeHandlers(NodeRuntimeHandler... runtimeHandlers) {
+            return runtimeHandlers(List.of(runtimeHandlers));
+        }
+        @CustomType.Setter
         public Builder volumesAttached(@Nullable List<AttachedVolume> volumesAttached) {
             this.volumesAttached = volumesAttached;
             return this;
@@ -272,6 +295,7 @@ public final class NodeStatus {
             o.images = images;
             o.nodeInfo = nodeInfo;
             o.phase = phase;
+            o.runtimeHandlers = runtimeHandlers;
             o.volumesAttached = volumesAttached;
             o.volumesInUse = volumesInUse;
             return o;
