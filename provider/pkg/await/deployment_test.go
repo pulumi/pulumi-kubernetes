@@ -607,10 +607,10 @@ func Test_Apps_Deployment_With_PersistentVolumeClaims(t *testing.T) {
 				// Controller creates ReplicaSet, and it tries to progress, but
 				// it fails when there are no PersistentVolumes available to fulfill the
 				// PersistentVolumeClaim.
-				pvcs <- watchAddedEvent(
-					persistentVolumeClaimInput(inputNamespace, pvcInputName))
 				deployments <- watchAddedEvent(
 					deploymentWithPVCAdded(inputNamespace, deploymentInputName, revision1, pvcInputName))
+				pvcs <- watchAddedEvent(
+					persistentVolumeClaimInput(inputNamespace, pvcInputName))
 				deployments <- watchAddedEvent(
 					deploymentWithPVCProgressing(inputNamespace, deploymentInputName, revision1, pvcInputName))
 				deployments <- watchAddedEvent(
@@ -635,6 +635,7 @@ func Test_Apps_Deployment_With_PersistentVolumeClaims(t *testing.T) {
 			updateAwaitConfig{
 				createAwaitConfig: mockAwaitConfig(deploymentWithPVCInput(inputNamespace, deploymentInputName, pvcInputName)),
 			})
+		// Channels should be buffered to avoid blocking.
 		deployments := make(chan watch.Event)
 		replicaSets := make(chan watch.Event)
 		pods := make(chan watch.Event)
@@ -664,12 +665,12 @@ func Test_Apps_Deployment_Without_PersistentVolumeClaims(t *testing.T) {
 				// The Deployment specifically does not reference the PVC in
 				// its spec. Therefore, the Deployment should succeed no
 				// matter what phase the PVC is in as it does not have to wait on it.
+				deployments <- watchAddedEvent(
+					deploymentAdded(inputNamespace, deploymentInputName, revision1))
 				pvcs <- watchAddedEvent(
 					persistentVolumeClaimInput(inputNamespace, pvcInputName))
 				pvcs <- watchAddedEvent(
 					persistentVolumeClaimPending(inputNamespace, pvcInputName))
-				deployments <- watchAddedEvent(
-					deploymentAdded(inputNamespace, deploymentInputName, revision1))
 				deployments <- watchAddedEvent(
 					deploymentProgressing(inputNamespace, deploymentInputName, revision1))
 				deployments <- watchAddedEvent(
@@ -1005,7 +1006,9 @@ func deploymentAdded(namespace, name, revision string) *unstructured.Unstructure
             }
         }
     },
-    "status": {}
+    "status": {
+        "observedGeneration": 1
+    }
 }`, namespace, name, revision))
 	if err != nil {
 		panic(err)
@@ -1054,6 +1057,7 @@ func deploymentProgressing(namespace, name, revision string) *unstructured.Unstr
         }
     },
     "status": {
+        "observedGeneration": 1,
         "conditions": [
             {
                 "type": "Progressing",
@@ -1537,7 +1541,7 @@ func deploymentUpdated(namespace, name, revision string) *unstructured.Unstructu
         }
     },
     "status": {
-        "observedGeneration": 1,
+        "observedGeneration": 2,
         "replicas": 1,
         "updatedReplicas": 1,
         "readyReplicas": 1,
@@ -1609,7 +1613,7 @@ func deploymentScaledToZero(namespace, name, revision string) *unstructured.Unst
         }
     },
     "status": {
-        "observedGeneration": 1,
+        "observedGeneration": 2,
         "replicas": 0,
         "conditions": [
             {
@@ -1840,7 +1844,9 @@ func deploymentWithPVCAdded(namespace, name, revision, pvcName string) *unstruct
             }
         }
     },
-    "status": {}
+    "status": {
+        "observedGeneration": 1
+    }
 }`, namespace, name, revision, pvcName))
 	if err != nil {
 		panic(err)
@@ -1903,6 +1909,7 @@ func deploymentWithPVCProgressing(namespace, name, revision, pvcName string) *un
         }
     },
     "status": {
+        "observedGeneration": 1,
         "conditions": [
             {
                 "type": "Progressing",

@@ -669,6 +669,13 @@ func TestDeploymentRollout(t *testing.T) {
 					assert.Equal(t, image.(string), "nginx:stable")
 				},
 			},
+			{
+				// This is a deployment spec update that should cause a failure on await.
+				// https://github.com/pulumi/pulumi-kubernetes/issues/2941
+				Dir:           filepath.Join("deployment-rollout", "step4"),
+				Additive:      true,
+				ExpectFailure: true,
+			},
 		},
 	})
 	integration.ProgramTest(t, &test)
