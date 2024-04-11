@@ -335,6 +335,13 @@ func (dia *deploymentInitAwaiter) await(
 	timeout,
 	aggregateErrorTicker <-chan time.Time,
 ) error {
+
+	// Before we start processing any ReplicaSet, PVC or Pod events, we need to wait until the Deployment controller
+	// has seen and updated the status of the Deployment object.
+	if err := dia.waitUntilDeploymentControllerReconciles(deploymentEvents, timeout); err != nil {
+		return err
+	}
+
 	for {
 		if dia.checkAndLogStatus() {
 			return nil
@@ -365,6 +372,45 @@ func (dia *deploymentInitAwaiter) await(
 			dia.processPodEvent(event)
 		case event := <-pvcEvents:
 			dia.processPersistentVolumeClaimsEvent(event)
+		}
+	}
+}
+
+func (dia *deploymentInitAwaiter) waitUntilDeploymentControllerReconciles(deploymentEvents <-chan watch.Event, timeout <-chan time.Time) error {
+	for {
+		select {
+		case <-dia.config.ctx.Done():
+			return &cancellationError{
+				object:    dia.deployment,
+				subErrors: dia.errorMessages(),
+			}
+		case <-timeout:
+			return &timeoutError{
+				object:    dia.deployment,
+				subErrors: dia.errorMessages(),
+			}
+		case event := <-deploymentEvents:
+			deployment, isUnstructured := event.Object.(*unstructured.Unstructured)
+			if !isUnstructured {
+				logger.V(3).Infof("Deployment watch received unknown object type %T",
+					event.Object)
+				continue
+			}
+
+			// Do nothing if this is not the Deployment we're waiting for.
+			if deployment.GetName() != dia.deployment.GetName() {
+				continue
+			}
+
+			observedGeneration, found, err := unstructured.NestedInt64(deployment.Object, "status", "observedGeneration")
+			if err != nil || !found {
+				continue
+			}
+
+			if deployment.GetGeneration() == observedGeneration {
+				dia.processDeploymentEvent(event)
+				return nil
+			}
 		}
 	}
 }

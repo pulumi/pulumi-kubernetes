@@ -4,6 +4,7 @@
 - ConfigFile V2 (https://github.com/pulumi/pulumi-kubernetes/pull/2862)
 - Bugfix for ambiguous kinds (https://github.com/pulumi/pulumi-kubernetes/pull/2889)
 - [yaml/v2] Support for resource ordering (https://github.com/pulumi/pulumi-kubernetes/pull/2894)
+- Bugfix for deployment await logic not referencing the correct deployment status (https://github.com/pulumi/pulumi-kubernetes/pull/2943)
 
 ### New Features
 
