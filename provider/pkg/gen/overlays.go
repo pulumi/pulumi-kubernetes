@@ -130,6 +130,124 @@ var helmV3ChartResource = pschema.ResourceSpec{
 	},
 }
 
+//go:embed examples/overlays/chartV4.md
+var helmV4ChartMD string
+
+var helmV4ChartResource = pschema.ResourceSpec{
+	IsComponent: true,
+	ObjectTypeSpec: pschema.ObjectTypeSpec{
+		IsOverlay:   false,
+		Description: helmV4ChartMD,
+		Properties: map[string]pschema.PropertySpec{
+			"resources": {
+				TypeSpec: pschema.TypeSpec{
+					Type: "array",
+					Items: &pschema.TypeSpec{
+						Ref: "pulumi.json#/Any",
+					},
+				},
+				Description: "Resources created by the Chart.",
+			},
+		},
+		Type: "object",
+	},
+	InputProperties: map[string]pschema.PropertySpec{
+		"name": {
+			TypeSpec: pschema.TypeSpec{
+				Type: "string",
+			},
+			Description: "Release name.",
+		},
+		"namespace": {
+			TypeSpec: pschema.TypeSpec{
+				Type: "string",
+			},
+			Description: "Namespace for the release.",
+		},
+		"createNamespace": {
+			TypeSpec: pschema.TypeSpec{
+				Type: "boolean",
+			},
+			Description: "Automatically create the release namespace.",
+		},
+		"repositoryOpts": {
+			TypeSpec: pschema.TypeSpec{
+				Ref: "#/types/kubernetes:helm.sh/v3:RepositoryOpts",
+			},
+			Description: "Specification defining the Helm chart repository to use.",
+		},
+		"chart": {
+			TypeSpec: pschema.TypeSpec{
+				Type: "string",
+			},
+			Description: "Chart name to be installed. A path may be used.",
+		},
+		"version": {
+			TypeSpec: pschema.TypeSpec{
+				Type: "string",
+			},
+			Description: "Specify the chart version to install. If this is not specified, the latest version is installed.",
+		},
+		"devel": {
+			TypeSpec: pschema.TypeSpec{
+				Type: "boolean",
+			},
+			Description: "Use chart development versions, too. Equivalent to version '>0.0.0-0'. If `version` is set, this is ignored.",
+		},
+		"dependencyUpdate": {
+			TypeSpec: pschema.TypeSpec{
+				Type: "boolean",
+			},
+			Description: "Run helm dependency update before installing the chart.",
+		},
+		"verify": {
+			TypeSpec: pschema.TypeSpec{
+				Type: "boolean",
+			},
+			Description: "Verify the chart's integrity.",
+		},
+		"keyring": {
+			TypeSpec: pschema.TypeSpec{
+				Type: "string",
+			},
+			Description: "Location of public keys used for verification. Used only if `verify` is true",
+		},
+		"valueYamlFiles": {
+			TypeSpec: pschema.TypeSpec{
+				Type: "array",
+				Items: &pschema.TypeSpec{
+					Ref: "pulumi.json#/Asset",
+				},
+			},
+			Description: "List of assets (raw yaml files). Content is read and merged with values.",
+		},
+		"values": {
+			TypeSpec: pschema.TypeSpec{
+				Type: "object",
+				AdditionalProperties: &pschema.TypeSpec{
+					Ref: "pulumi.json#/Any",
+				},
+			},
+			Description: "Custom values set for the release.",
+		},
+		"skipAwait": {
+			TypeSpec: pschema.TypeSpec{
+				Type: "boolean",
+			},
+			Description: "By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic.",
+		},
+		"resourcePrefix": {
+			TypeSpec: pschema.TypeSpec{
+				Type: "string",
+			},
+			Description: "An optional prefix for the auto-generated resource names. Example: A resource created with resourcePrefix=\"foo\" would produce a resource named \"foo:resourceName\".",
+		},
+	},
+	RequiredInputs: []string{
+		"chart",
+	},
+}
+
 var helmV3FetchOpts = pschema.ComplexTypeSpec{
 	ObjectTypeSpec: pschema.ObjectTypeSpec{
 		IsOverlay:   true,
@@ -1395,6 +1513,7 @@ func init() {
 	resourceOverlays["kubernetes:apiextensions.k8s.io:CustomResource"] = apiextentionsCustomResource
 	resourceOverlays["kubernetes:apiextensions.k8s.io:CustomResourcePatch"] = apiextentionsCustomResourcePatch
 	resourceOverlays["kubernetes:helm.sh/v3:Chart"] = helmV3ChartResource
+	resourceOverlays["kubernetes:helm.sh/v4:Chart"] = helmV4ChartResource
 	resourceOverlays["kubernetes:helm.sh/v3:Release"] = helmV3ReleaseResource
 	resourceOverlays["kubernetes:kustomize:Directory"] = kustomizeDirectoryResource
 	resourceOverlays["kubernetes:yaml:ConfigFile"] = yamlConfigFileResource

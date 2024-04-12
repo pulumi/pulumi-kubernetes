@@ -147,6 +147,8 @@ type kubeProvider struct {
 	clusterUnreachable       bool   // Kubernetes cluster is unreachable.
 	clusterUnreachableReason string // Detailed error message if cluster is unreachable.
 
+	kubeconfig clientcmd.ClientConfig
+	restconfig *rest.Config
 	makeClient func(context.Context, *rest.Config) (*clients.DynamicClientSet, *clients.LogClient, error)
 	clientSet  *clients.DynamicClientSet
 	logClient  *clients.LogClient
@@ -668,12 +670,12 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	}
 
 	var kubeconfig clientcmd.ClientConfig
-	var apiConfig *clientapi.Config
 	// Note: the Python SDK was setting the kubeconfig value to "" by default, so explicitly check for empty string.
 	if pathOrContents, ok := vars["kubernetes:config:kubeconfig"]; ok && pathOrContents != "" {
 		apiConfig, err := parseKubeconfigString(pathOrContents)
 		if err != nil {
 			unreachableCluster(err)
+			kubeconfig = nil
 		} else {
 			kubeconfig = clientcmd.NewDefaultClientConfig(*apiConfig, overrides)
 			configurationNamespace, _, err := kubeconfig.Namespace()
@@ -688,12 +690,13 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		// flags.
 		loadingRules := clientcmd.NewDefaultClientConfigLoadingRules()
 		loadingRules.DefaultClientConfig = &clientcmd.DefaultClientConfig
-		kubeconfig = clientcmd.NewInteractiveDeferredLoadingClientConfig(loadingRules, overrides, os.Stdin)
+		kubeconfig = clientcmd.NewNonInteractiveDeferredLoadingClientConfig(loadingRules, overrides)
 		configurationNamespace, _, err := kubeconfig.Namespace()
 		if err == nil {
 			k.defaultNamespace = configurationNamespace
 		}
 	}
+	k.kubeconfig = kubeconfig
 
 	var kubeClientSettings KubeClientSettings
 	if obj, ok := vars["kubernetes:config:kubeClientSettings"]; ok {
@@ -761,6 +764,7 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 			config.WarningHandler = rest.NoWarnings{}
 		}
 	}
+	k.restconfig = config
 
 	var err error
 	k.clientSet, k.logClient, err = k.makeClient(k.canceler.context, config)
@@ -786,10 +790,8 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	k.helmReleaseProvider, err = newHelmReleaseProvider(
 		k.host,
 		k.canceler,
-		apiConfig,
-		overrides,
+		kubeconfig,
 		config,
-		k.clientSet,
 		k.helmDriver,
 		k.defaultNamespace,
 		k.enableSecrets,

@@ -175,6 +175,7 @@ func generateSchema(swaggerPath string) schema.PackageSpec {
 // This is to mostly filter resources from the spec.
 var resourcesToFilterFromTemplate = codegen.NewStringSet(
 	"kubernetes:helm.sh/v3:Release",
+	"kubernetes:helm.sh/v4:Chart",
 	"kubernetes:yaml/v2:ConfigFile",
 	"kubernetes:yaml/v2:ConfigGroup",
 )

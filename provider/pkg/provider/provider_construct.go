@@ -18,16 +18,19 @@ import (
 	"context"
 	"fmt"
 
+	providerhelmv4 "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/helm/v4"
 	providerresource "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/resource"
 	provideryamlv2 "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/yaml/v2"
 	pulumiprovider "github.com/pulumi/pulumi/sdk/v3/go/pulumi/provider"
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
+	"helm.sh/helm/v3/pkg/cli"
 )
 
 // resourceProviders contains factories for component resource providers.
 var resourceProviders = map[string]providerresource.ResourceProviderFactory{
 	"kubernetes:yaml/v2:ConfigFile":  provideryamlv2.NewConfigFileProvider,
 	"kubernetes:yaml/v2:ConfigGroup": provideryamlv2.NewConfigGroupProvider,
+	"kubernetes:helm.sh/v4:Chart":    providerhelmv4.NewChartProvider,
 }
 
 // getResourceProvider returns the resource provider for the given type, if a factory for one is registered.
@@ -36,9 +39,23 @@ func (k *kubeProvider) getResourceProvider(typ string) (providerresource.Resourc
 	if !found {
 		return nil, false
 	}
+
+	settings := cli.New()
+	settings.PluginsDirectory = k.helmPluginsPath
+	settings.RegistryConfig = k.helmRegistryConfigPath
+	settings.RepositoryConfig = k.helmRepositoryConfigPath
+	settings.RepositoryCache = k.helmRepositoryCache
+	settings.Debug = true
+
 	options := &providerresource.ResourceProviderOptions{
 		ClientSet:        k.clientSet,
 		DefaultNamespace: k.defaultNamespace,
+		HelmOptions: &providerresource.HelmOptions{
+			SuppressHelmHookWarnings: k.suppressHelmHookWarnings,
+			HelmDriver:               k.helmDriver,
+			EnvSettings:              settings,
+			RESTClientGetter:         NewKubeConfig(k.restconfig, k.kubeconfig),
+		},
 	}
 	return providerF(options), true
 }
