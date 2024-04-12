@@ -1,4 +1,4 @@
-## Unreleased
+## 4.10.0 (April 11, 2024)
 
 - ConfigGroup V2 (https://github.com/pulumi/pulumi-kubernetes/pull/2844)
 - ConfigFile V2 (https://github.com/pulumi/pulumi-kubernetes/pull/2862)
@@ -8,7 +8,7 @@
 
 ### New Features
 
-A new MLC-based implementation of `ConfigGroup` is now available in the "yaml/v2" package. This resource is
+A new MLC-based implementation of `ConfigGroup` and of `ConfigFile` is now available in the "yaml/v2" package. These resources are
 usable in all Pulumi languages, including Pulumi YAML and in the Java Pulumi SDK.
 
 Note that transformations aren't supported in this release (see https://github.com/pulumi/pulumi/issues/12996).
