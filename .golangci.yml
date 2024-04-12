@@ -25,6 +25,7 @@ run:
   - provider/pkg/gen
   skip-dirs-use-default: true
   modules-download-mode: readonly
+  timeout: 10m
 issues:
   exclude-rules:
       path: "provider/cmd/pulumi-resource-kubernetes"
