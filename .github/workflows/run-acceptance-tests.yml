@@ -112,6 +112,8 @@ jobs:
         schema-tools compare -p ${{ env.PROVIDER }} -o ${{ github.event.repository.default_branch }} -n --local-path=provider/cmd/pulumi-resource-${{ env.PROVIDER }}/schema.json >> $GITHUB_ENV
 
         echo 'EOF' >> $GITHUB_ENV
+      env:
+        GITHUB_TOKEN: ${{ secrets.PULUMI_BOT_TOKEN }}
     - if: github.event_name == 'pull_request'
       name: Comment on PR with Details of Schema Check
       uses: thollander/actions-comment-pull-request@v2
@@ -426,8 +428,8 @@ jobs:
       uses: golangci/golangci-lint-action@v4
       with:
         version: ${{ env.GOLANGCI_LINT_VERSION }}
-        args: -c ../../.golangci.yml --timeout ${{ env.GOLANGCI_LINT_TIMEOUT }}
-        working-directory: provider/pkg
+        args: -c ../.golangci.yml --timeout ${{ env.GOLANGCI_LINT_TIMEOUT }}
+        working-directory: provider
     name: lint
     if: github.event_name == 'repository_dispatch' ||
       github.event.pull_request.head.repo.full_name == github.repository
