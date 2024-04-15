@@ -69,6 +69,10 @@ jobs:
     runs-on: ubuntu-latest
     name: prerequisites
     steps:
+    - name: Collect telemetry
+      uses: catchpoint/workflow-telemetry-action@v2
+      with:
+        comment_on_pr: false
     - name: Checkout Repo
       uses: actions/checkout@v4
       with:
@@ -171,6 +175,10 @@ jobs:
         - java
     name: build_sdks
     steps:
+    - name: Collect telemetry
+      uses: catchpoint/workflow-telemetry-action@v2
+      with:
+        comment_on_pr: false
     - name: Checkout Repo
       uses: actions/checkout@v4
       with:
@@ -267,6 +275,10 @@ jobs:
       contents: read
       id-token: write
     steps:
+    - name: Collect telemetry
+      uses: catchpoint/workflow-telemetry-action@v2
+      with:
+        comment_on_pr: false
     - name: Checkout Repo
       uses: actions/checkout@v4
       with:
@@ -415,6 +427,10 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
+    - name: Collect Workflow Telemetry
+      uses: catchpoint/workflow-telemetry-action@v2
+      with:
+        comment_on_pr: false
     - name: Checkout Repo
       uses: actions/checkout@v4
       with:
