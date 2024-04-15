@@ -17,10 +17,10 @@ package watcher
 import (
 	"context"
 	"strings"
+	"sync/atomic"
 	"testing"
 	"time"
 
-	"go.uber.org/atomic"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
@@ -73,16 +73,16 @@ func Test_WatchUntil_PollFuncTimeout(t *testing.T) {
 	testCompleted := make(chan struct{})
 	for _, test := range timeoutTests {
 		go func(test timeoutTest) {
-			pollFuncCalls, watchFuncCalls := atomic.NewInt32(0), atomic.NewInt32(0)
+			pollFuncCalls, watchFuncCalls := atomic.Int32{}, atomic.Int32{}
 			err := testObjWatcher(
 				context.Background(),
 				func() (*unstructured.Unstructured, error) {
-					pollFuncCalls.Inc()
+					pollFuncCalls.Add(1)
 					return test.pollFunc()
 				}).
 				WatchUntil(
 					func(obj *unstructured.Unstructured) bool {
-						watchFuncCalls.Inc()
+						watchFuncCalls.Add(1)
 						return test.predicate(obj)
 					},
 					test.timeout)
