@@ -72,6 +72,7 @@ jobs:
       uses: catchpoint/workflow-telemetry-action@v2
       with:
         comment_on_pr: false
+        github_token: ${{ github.token }}
     - name: Checkout Repo
       uses: actions/checkout@v4
       with:
@@ -178,6 +179,7 @@ jobs:
       uses: catchpoint/workflow-telemetry-action@v2
       with:
         comment_on_pr: false
+        github_token: ${{ github.token }}
     - name: Checkout Repo
       uses: actions/checkout@v4
       with:
@@ -278,6 +280,7 @@ jobs:
       uses: catchpoint/workflow-telemetry-action@v2
       with:
         comment_on_pr: false
+        github_token: ${{ github.token }}
     - name: Checkout Repo
       uses: actions/checkout@v4
       with:
@@ -430,6 +433,7 @@ jobs:
       uses: catchpoint/workflow-telemetry-action@v2
       with:
         comment_on_pr: false
+        github_token: ${{ github.token }}
     - name: Checkout Repo
       uses: actions/checkout@v4
       with:
