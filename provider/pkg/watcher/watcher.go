@@ -114,9 +114,8 @@ func (ow *ObjectWatcher) watch(
 	var obj *unstructured.Unstructured
 	results := make(chan result)
 	poll := func() {
-		var err error
-		obj, err = ow.pollFunc()
-		results <- result{Obj: obj, Err: err}
+		o, err := ow.pollFunc()
+		results <- result{Obj: o, Err: err}
 	}
 
 	wait := 500 * time.Millisecond
@@ -129,6 +128,7 @@ func (ow *ObjectWatcher) watch(
 		case <-ow.ctx.Done():
 			return cancellationErr(ow.objName, obj)
 		case res := <-results:
+			obj = res.Obj
 			if stop, err := until(res.Obj, res.Err); err != nil {
 				return err
 			} else if stop {
@@ -160,13 +160,17 @@ type result struct {
 // --------------------------------------------------------------------------
 
 func timeoutErr(name string, obj *unstructured.Unstructured) error {
-	return &watchError{object: obj,
-		message: fmt.Sprintf("Timeout occurred polling for '%s'", name)}
+	return &watchError{
+		object:  obj,
+		message: fmt.Sprintf("Timeout occurred polling for '%s'", name),
+	}
 }
 
 func cancellationErr(name string, obj *unstructured.Unstructured) error {
-	return &watchError{object: obj,
-		message: fmt.Sprintf("Resource operation was cancelled for '%s'", name)}
+	return &watchError{
+		object:  obj,
+		message: fmt.Sprintf("Resource operation was cancelled for '%s'", name),
+	}
 }
 
 type watchError struct {
