@@ -41,7 +41,6 @@ env:
   AWS_REGION: us-west-2
   PULUMI_TEST_OWNER: moolumi
   GOLANGCI_LINT_VERSION: v1.55.2
-  GOLANGCI_LINT_TIMEOUT: 10m
   GOOGLE_CI_SERVICE_ACCOUNT_EMAIL: pulumi-ci@pulumi-k8s-provider.iam.gserviceaccount.com
   GOOGLE_CI_WORKLOAD_IDENTITY_POOL: pulumi-ci
   GOOGLE_CI_WORKLOAD_IDENTITY_PROVIDER: pulumi-ci
@@ -428,7 +427,7 @@ jobs:
       uses: golangci/golangci-lint-action@v4
       with:
         version: ${{ env.GOLANGCI_LINT_VERSION }}
-        args: -c ../.golangci.yml --timeout ${{ env.GOLANGCI_LINT_TIMEOUT }}
+        args: -c ../.golangci.yml
         working-directory: provider
     name: lint
     if: github.event_name == 'repository_dispatch' ||
