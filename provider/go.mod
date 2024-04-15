@@ -1,6 +1,8 @@
 module github.com/pulumi/pulumi-kubernetes/provider/v4
 
-go 1.21
+go 1.22.0
+
+toolchain go1.22.1
 
 replace (
 	github.com/pulumi/pulumi-kubernetes/sdk/v4 => ../sdk
@@ -11,9 +13,10 @@ require (
 	github.com/ahmetb/go-linq v3.0.0+incompatible
 	github.com/evanphx/json-patch v5.7.0+incompatible
 	github.com/fluxcd/pkg/ssa v0.28.1
-	github.com/golang/protobuf v1.5.3
+	github.com/golang/protobuf v1.5.4
 	github.com/google/gnostic-models v0.6.8
 	github.com/imdario/mergo v0.3.16
+	github.com/jonboulle/clockwork v0.4.0
 	github.com/mitchellh/mapstructure v1.5.0
 	github.com/onsi/ginkgo/v2 v2.15.0
 	github.com/onsi/gomega v1.30.0
@@ -29,8 +32,8 @@ require (
 	google.golang.org/grpc v1.59.0
 	gopkg.in/yaml.v3 v3.0.1
 	helm.sh/helm/v3 v3.14.3
-	k8s.io/api v0.29.0
-	k8s.io/apimachinery v0.29.0
+	k8s.io/api v0.29.3
+	k8s.io/apimachinery v0.29.3
 	k8s.io/client-go v0.29.0
 	k8s.io/kube-openapi v0.0.0-20231010175941-2dd684a91f00
 	k8s.io/kubectl v0.29.0
@@ -255,6 +258,7 @@ require (
 	github.com/edsrzf/mmap-go v1.1.0 // indirect
 	github.com/emicklei/go-restful/v3 v3.11.0 // indirect
 	github.com/evanphx/json-patch/v5 v5.6.0 // indirect
+	github.com/fatih/camelcase v1.0.0 // indirect
 	github.com/felixge/httpsnoop v1.0.3 // indirect
 	github.com/go-git/gcfg v1.5.1-0.20230307220236-3a3c6141e376 // indirect
 	github.com/go-git/go-billy/v5 v5.5.0 // indirect

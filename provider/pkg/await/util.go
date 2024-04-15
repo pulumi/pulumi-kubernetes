@@ -15,7 +15,10 @@
 package await
 
 import (
-	"k8s.io/apimachinery/pkg/api/errors"
+	"errors"
+	"net/http"
+
+	k8serrors "k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/watch"
@@ -49,9 +52,26 @@ func (mw *chanWatcher) ResultChan() <-chan watch.Event {
 	return mw.results
 }
 
+// watchAddedEvent returns a watch.Event of type Added.
 func watchAddedEvent(obj runtime.Object) watch.Event {
 	return watch.Event{
 		Type:   watch.Added,
+		Object: obj,
+	}
+}
+
+// watchAddedEvent returns a watch.Event of type Modified.
+func watchModifiedEvent(obj runtime.Object) watch.Event {
+	return watch.Event{
+		Type:   watch.Modified,
+		Object: obj,
+	}
+}
+
+// watchAddedEvent returns a watch.Event of type Deleted.
+func watchDeletedEvent(obj runtime.Object) watch.Event {
+	return watch.Event{
+		Type:   watch.Deleted,
 		Object: obj,
 	}
 }
@@ -62,9 +82,14 @@ func watchAddedEvent(obj runtime.Object) watch.Event {
 
 // --------------------------------------------------------------------------
 
+// is404 returns true if any error in err's tree is a Kubernetes StatusError
+// with code 404.
 func is404(err error) bool {
-	statusErr, ok := err.(*errors.StatusError)
-	return ok && statusErr.ErrStatus.Code == 404
+	var statusErr *k8serrors.StatusError
+	if errors.As(err, &statusErr) {
+		return statusErr.ErrStatus.Code == http.StatusNotFound
+	}
+	return false
 }
 
 // --------------------------------------------------------------------------
