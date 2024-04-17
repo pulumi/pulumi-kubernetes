@@ -29,7 +29,7 @@ namespace Pulumi.Kubernetes.Kustomize
             Output<ImmutableArray<ImmutableDictionary<string, object>>> Convert(KustomizeDirectoryResult r) {
                 var a = r.Result;
                 if (a.IsDefault) {
-                    Pulumi.Log.Warn("Required input properties have unknown values. Preview is incomplete.", options?.Parent);
+                    Pulumi.Log.Warn("The provider is not fully configured. Preview is incomplete.", options?.Parent);
                     return Pulumi.Utilities.OutputUtilities.CreateUnknown(a);
                 }
                 return Pulumi.Output.Create(a);

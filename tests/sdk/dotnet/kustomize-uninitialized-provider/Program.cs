@@ -1,5 +1,5 @@
 ﻿using Kubernetes = Pulumi.Kubernetes;
-using Yaml = Pulumi.Kubernetes.Yaml;
+using Kustomize = Pulumi.Kubernetes.Kustomize;
 using CoreV1 = Pulumi.Kubernetes.Core.V1;
 using Pulumi;
 using System.Collections.Generic;
@@ -13,11 +13,11 @@ return await Deployment.RunAsync(() =>
         KubeConfig = Pulumi.Utilities.OutputUtilities.CreateUnknown(""),
     });
 
-    // Create resources using ConfigFile (and for which Invoke is skipped)
-    var manifest = new Yaml.ConfigFile("manifest",
-        new Yaml.ConfigFileArgs
+    // Create resources using Directory (and for which Invoke is skipped)
+    var directory = new Kustomize.Directory("directory",
+        new Kustomize.DirectoryArgs
         {
-            File = "manifest.yaml",
+            Directory = "kustomize",
         },
         new ComponentResourceOptions
         {
@@ -26,7 +26,7 @@ return await Deployment.RunAsync(() =>
 
     // Lookup the registered service, to exercise the 'resources' output property.
     // During preview, we expect the stack outputs to be unknown.
-    var service = manifest.GetResource<CoreV1.Service>("yaml-uninitialized-provider");
+    var service = directory.GetResource<CoreV1.Service>("kustomize-uninitialized-provider");
 
     return new Dictionary<string, object?>
     {
