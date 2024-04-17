@@ -25,9 +25,19 @@ namespace Pulumi.Kubernetes.Yaml
         /// Invoke the resource provider to decode a YAML string.
         /// </summary>
         internal static Output<ImmutableArray<ImmutableDictionary<string, object>>> YamlDecode(YamlDecodeArgs args,
-            InvokeOptions? options = null)
-            => Output.Create(Deployment.Instance.InvokeAsync<YamlDecodeResult>("kubernetes:yaml:decode", args,
-                options.WithDefaults())).Apply(r => r.Result.ToImmutableArray());
+            InvokeOptions? options = null) {
+            Output<ImmutableArray<ImmutableDictionary<string, object>>> Convert(YamlDecodeResult r) {
+                var a = r.Result;
+                if (a.IsDefault) {
+                    Pulumi.Log.Warn("Required input properties have unknown values. Preview is incomplete.", options?.Parent);
+                    return Pulumi.Utilities.OutputUtilities.CreateUnknown(a);
+                }
+                return Pulumi.Output.Create(a);
+            }
+
+            return Output.Create(Deployment.Instance.InvokeAsync<YamlDecodeResult>("kubernetes:yaml:decode", args,
+                options.WithDefaults())).Apply(Convert);
+        }
     }
 
     internal class YamlDecodeArgs : InvokeArgs
