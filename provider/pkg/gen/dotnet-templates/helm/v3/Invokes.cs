@@ -25,18 +25,19 @@ namespace Pulumi.Kubernetes.Helm
         /// Invoke the resource provider to fetch a Helm Chart, expand it into YAML, and return the corresponding objects.
         /// </summary>
         internal static Output<ImmutableArray<ImmutableDictionary<string, object>>> HelmTemplate(HelmTemplateArgs args,
-            InvokeOptions? options = null)
-            => Output.Create(Deployment.Instance.InvokeAsync<HelmTemplateResult>("kubernetes:helm:template", args,
-                               options.WithDefaults())).Apply(r =>
-                              {
-                                /// Invoke on an unconfigured provider results in an empty response.
-                                /// TODO Change this based on how https://github.com/pulumi/pulumi/issues/10209
-                                /// is addressed.
-                                if (r.Result.IsDefaultOrEmpty) {
-                                    return ImmutableArray.Create<ImmutableDictionary<string,object>>();
-                                }
-                                return r.Result;
-                              });
+            InvokeOptions? options = null) {
+            Output<ImmutableArray<ImmutableDictionary<string, object>>> Convert(HelmTemplateResult r) {
+                var a = r.Result;
+                if (a.IsDefault) {
+                    Pulumi.Log.Warn("The provider is not fully configured. Preview is incomplete.", options?.Parent);
+                    return Pulumi.Utilities.OutputUtilities.CreateUnknown(a);
+                }
+                return Pulumi.Output.Create(a);
+            }
+
+            return Output.Create(Deployment.Instance.InvokeAsync<HelmTemplateResult>("kubernetes:helm:template", args,
+                options.WithDefaults())).Apply(Convert);
+            }
     }
 
     internal class HelmTemplateArgs : InvokeArgs
