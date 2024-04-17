@@ -25,9 +25,19 @@ namespace Pulumi.Kubernetes.Kustomize
         /// Invoke the resource provider to process a kustomization.
         /// </summary>
         internal static Output<ImmutableArray<ImmutableDictionary<string, object>>> KustomizeDirectory(KustomizeDirectoryArgs args,
-            InvokeOptions? options = null)
-            => Output.Create(Deployment.Instance.InvokeAsync<KustomizeDirectoryResult>("kubernetes:kustomize:directory", args,
-                options.WithDefaults())).Apply(r => r.Result.ToImmutableArray());
+            InvokeOptions? options = null) {
+            Output<ImmutableArray<ImmutableDictionary<string, object>>> Convert(KustomizeDirectoryResult r) {
+                var a = r.Result;
+                if (a.IsDefault) {
+                    Pulumi.Log.Warn("Required input properties have unknown values. Preview is incomplete.", options?.Parent);
+                    return Pulumi.Utilities.OutputUtilities.CreateUnknown(a);
+                }
+                return Pulumi.Output.Create(a);
+            }
+
+            return Output.Create(Deployment.Instance.InvokeAsync<KustomizeDirectoryResult>("kubernetes:kustomize:directory", args,
+                options.WithDefaults())).Apply(Convert);
+        }
     }
 
     internal class KustomizeDirectoryArgs : InvokeArgs
