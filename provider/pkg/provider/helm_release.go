@@ -299,9 +299,15 @@ func decodeRelease(pm resource.PropertyMap, label string) (*Release, error) {
 					if err != nil {
 						return nil, err
 					}
-					if err = yaml.Unmarshal(b, &values); err != nil {
+					valuesMap := map[string]any{}
+					if err = yaml.Unmarshal(b, &valuesMap); err != nil {
 						return nil, err
 					}
+					mergedValues, err := mergeMaps(values, valuesMap, false)
+					if err != nil {
+						return nil, err
+					}
+					values = mergedValues
 				default:
 					return nil, fmt.Errorf("unsupported type for 'valueYamlFiles' arg: %T", v)
 				}
