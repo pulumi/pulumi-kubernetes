@@ -1,5 +1,9 @@
 ## Unreleased
+
+## 4.11.0 (April 17, 2024)
+
 - [dotnet] Unknowns for previews involving an uninitialized provider (https://github.com/pulumi/pulumi-kubernetes/pull/2957)
+- Update Kubernetes schemas and libraries to v1.30.0 (https://github.com/pulumi/pulumi-kubernetes/pull/2932)
 
 ## 4.10.0 (April 11, 2024)
 
