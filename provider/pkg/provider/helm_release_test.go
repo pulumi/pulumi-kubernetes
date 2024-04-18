@@ -17,6 +17,8 @@ package provider
 import (
 	"testing"
 
+	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/resource/asset"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -136,5 +138,43 @@ func Test_MergeMaps(t *testing.T) {
 			require.NoError(t, err)
 			assert.Equal(t, test.expected, merged)
 		})
+	}
+}
+
+func TestDecodeRelease(t *testing.T) {
+	tests := []struct {
+		name  string
+		given resource.PropertyMap
+		want  *Release
+	}{
+		{
+			name: "valueYamlFiles layering",
+			given: resource.PropertyMap{
+				"valueYamlFiles": resource.NewArrayProperty([]resource.PropertyValue{
+					resource.NewAssetProperty(&asset.Asset{Text: `
+image:
+  repository: bitnami/nginx
+`}),
+					resource.NewAssetProperty(&asset.Asset{Text: `
+image:
+  tag: "1.25.0"
+`}),
+				}),
+			},
+			want: &Release{
+				Values: map[string]any{
+					"image": map[string]any{
+						"tag":        "1.25.0",
+						"repository": "bitnami/nginx",
+					},
+				},
+			},
+		},
+	}
+
+	for _, tt := range tests {
+		actual, err := decodeRelease(tt.given, "")
+		assert.NoError(t, err)
+		assert.Equal(t, tt.want, actual)
 	}
 }
