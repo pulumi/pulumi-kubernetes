@@ -1,5 +1,7 @@
 ## Unreleased
 
+- deep merge values yaml files provided instead of simply relying on yaml.Unmarshall to merge root fields (https://github.com/pulumi/pulumi-kubernetes/pull/2963)
+
 ## 4.11.0 (April 17, 2024)
 
 - [dotnet] Unknowns for previews involving an uninitialized provider (https://github.com/pulumi/pulumi-kubernetes/pull/2957)
