@@ -6,6 +6,7 @@ package com.pulumi.kubernetes.batch.v1.inputs;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.kubernetes.batch.v1.inputs.PodFailurePolicyPatchArgs;
+import com.pulumi.kubernetes.batch.v1.inputs.SuccessPolicyPatchArgs;
 import com.pulumi.kubernetes.core.v1.inputs.PodTemplateSpecPatchArgs;
 import com.pulumi.kubernetes.meta.v1.inputs.LabelSelectorPatchArgs;
 import java.lang.Boolean;
@@ -109,6 +110,25 @@ public final class JobSpecPatchArgs extends com.pulumi.resources.ResourceArgs {
      */
     public Optional<Output<Integer>> completions() {
         return Optional.ofNullable(this.completions);
+    }
+
+    /**
+     * ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don&#39;t have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first &#34;/&#34; must be a valid subdomain as defined by RFC 1123. All characters trailing the first &#34;/&#34; must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 64 characters.
+     * 
+     * This field is alpha-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (disabled by default).
+     * 
+     */
+    @Import(name="managedBy")
+    private @Nullable Output<String> managedBy;
+
+    /**
+     * @return ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don&#39;t have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first &#34;/&#34; must be a valid subdomain as defined by RFC 1123. All characters trailing the first &#34;/&#34; must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 64 characters.
+     * 
+     * This field is alpha-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (disabled by default).
+     * 
+     */
+    public Optional<Output<String>> managedBy() {
+        return Optional.ofNullable(this.managedBy);
     }
 
     /**
@@ -216,6 +236,25 @@ public final class JobSpecPatchArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.
+     * 
+     * This field  is alpha-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (disabled by default).
+     * 
+     */
+    @Import(name="successPolicy")
+    private @Nullable Output<SuccessPolicyPatchArgs> successPolicy;
+
+    /**
+     * @return successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.
+     * 
+     * This field  is alpha-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (disabled by default).
+     * 
+     */
+    public Optional<Output<SuccessPolicyPatchArgs>> successPolicy() {
+        return Optional.ofNullable(this.successPolicy);
+    }
+
+    /**
      * suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
      * 
      */
@@ -268,12 +307,14 @@ public final class JobSpecPatchArgs extends com.pulumi.resources.ResourceArgs {
         this.backoffLimitPerIndex = $.backoffLimitPerIndex;
         this.completionMode = $.completionMode;
         this.completions = $.completions;
+        this.managedBy = $.managedBy;
         this.manualSelector = $.manualSelector;
         this.maxFailedIndexes = $.maxFailedIndexes;
         this.parallelism = $.parallelism;
         this.podFailurePolicy = $.podFailurePolicy;
         this.podReplacementPolicy = $.podReplacementPolicy;
         this.selector = $.selector;
+        this.successPolicy = $.successPolicy;
         this.suspend = $.suspend;
         this.template = $.template;
         this.ttlSecondsAfterFinished = $.ttlSecondsAfterFinished;
@@ -415,6 +456,31 @@ public final class JobSpecPatchArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
+         * @param managedBy ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don&#39;t have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first &#34;/&#34; must be a valid subdomain as defined by RFC 1123. All characters trailing the first &#34;/&#34; must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 64 characters.
+         * 
+         * This field is alpha-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (disabled by default).
+         * 
+         * @return builder
+         * 
+         */
+        public Builder managedBy(@Nullable Output<String> managedBy) {
+            $.managedBy = managedBy;
+            return this;
+        }
+
+        /**
+         * @param managedBy ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don&#39;t have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first &#34;/&#34; must be a valid subdomain as defined by RFC 1123. All characters trailing the first &#34;/&#34; must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 64 characters.
+         * 
+         * This field is alpha-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (disabled by default).
+         * 
+         * @return builder
+         * 
+         */
+        public Builder managedBy(String managedBy) {
+            return managedBy(Output.of(managedBy));
+        }
+
+        /**
          * @param manualSelector manualSelector controls generation of pod labels and pod selectors. Leave `manualSelector` unset unless you are certain what you are doing. When false or unset, the system pick labels unique to this job and appends those labels to the pod template.  When true, the user is responsible for picking unique labels and specifying the selector.  Failure to pick a unique label may cause this and other jobs to not function correctly.  However, You may see `manualSelector=true` in jobs that were created with the old `extensions/v1beta1` API. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/#specifying-your-own-pod-selector
          * 
          * @return builder
@@ -552,6 +618,31 @@ public final class JobSpecPatchArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder selector(LabelSelectorPatchArgs selector) {
             return selector(Output.of(selector));
+        }
+
+        /**
+         * @param successPolicy successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.
+         * 
+         * This field  is alpha-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (disabled by default).
+         * 
+         * @return builder
+         * 
+         */
+        public Builder successPolicy(@Nullable Output<SuccessPolicyPatchArgs> successPolicy) {
+            $.successPolicy = successPolicy;
+            return this;
+        }
+
+        /**
+         * @param successPolicy successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.
+         * 
+         * This field  is alpha-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (disabled by default).
+         * 
+         * @return builder
+         * 
+         */
+        public Builder successPolicy(SuccessPolicyPatchArgs successPolicy) {
+            return successPolicy(Output.of(successPolicy));
         }
 
         /**

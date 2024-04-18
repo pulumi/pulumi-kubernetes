@@ -37,6 +37,7 @@ import * as resource from "./resource";
 import * as scheduling from "./scheduling";
 import * as settings from "./settings";
 import * as storage from "./storage";
+import * as storagemigration from "./storagemigration";
 import * as types from "./types";
 import * as yaml from "./yaml";
 
@@ -66,6 +67,7 @@ export {
     scheduling,
     settings,
     storage,
+    storagemigration,
     types,
     yaml,
 };

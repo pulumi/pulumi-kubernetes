@@ -16,7 +16,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Batch.V1
     public class JobStatusArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// The number of pending and running pods.
+        /// The number of pending and running pods which are not terminating (without a deletionTimestamp). The value is zero for finished jobs.
         /// </summary>
         [Input("active")]
         public Input<int>? Active { get; set; }
@@ -28,7 +28,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Batch.V1
         public Input<string>? CompletedIndexes { get; set; }
 
         /// <summary>
-        /// Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC. The completion time is only set when the job finishes successfully.
+        /// Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC. The completion time is set when the job finishes successfully, and only then. The value cannot be updated or removed. The value indicates the same or later point in time as the startTime field.
         /// </summary>
         [Input("completionTime")]
         public Input<string>? CompletionTime { get; set; }
@@ -37,7 +37,11 @@ namespace Pulumi.Kubernetes.Types.Inputs.Batch.V1
         private InputList<Pulumi.Kubernetes.Types.Inputs.Batch.V1.JobConditionArgs>? _conditions;
 
         /// <summary>
-        /// The latest available observations of an object's current state. When a Job fails, one of the conditions will have type "Failed" and status true. When a Job is suspended, one of the conditions will have type "Suspended" and status true; when the Job is resumed, the status of this condition will become false. When a Job is completed, one of the conditions will have type "Complete" and status true. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+        /// The latest available observations of an object's current state. When a Job fails, one of the conditions will have type "Failed" and status true. When a Job is suspended, one of the conditions will have type "Suspended" and status true; when the Job is resumed, the status of this condition will become false. When a Job is completed, one of the conditions will have type "Complete" and status true.
+        /// 
+        /// A job is considered finished when it is in a terminal condition, either "Complete" or "Failed". A Job cannot have both the "Complete" and "Failed" conditions. Additionally, it cannot be in the "Complete" and "FailureTarget" conditions. The "Complete", "Failed" and "FailureTarget" conditions cannot be disabled.
+        /// 
+        /// More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
         /// </summary>
         public InputList<Pulumi.Kubernetes.Types.Inputs.Batch.V1.JobConditionArgs> Conditions
         {
@@ -46,13 +50,15 @@ namespace Pulumi.Kubernetes.Types.Inputs.Batch.V1
         }
 
         /// <summary>
-        /// The number of pods which reached phase Failed.
+        /// The number of pods which reached phase Failed. The value increases monotonically.
         /// </summary>
         [Input("failed")]
         public Input<int>? Failed { get; set; }
 
         /// <summary>
-        /// FailedIndexes holds the failed indexes when backoffLimitPerIndex=true. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7". This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
+        /// FailedIndexes holds the failed indexes when spec.backoffLimitPerIndex is set. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7". The set of failed indexes cannot overlap with the set of completed indexes.
+        /// 
+        /// This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
         /// </summary>
         [Input("failedIndexes")]
         public Input<string>? FailedIndexes { get; set; }
@@ -65,12 +71,14 @@ namespace Pulumi.Kubernetes.Types.Inputs.Batch.V1
 
         /// <summary>
         /// Represents time when the job controller started processing a job. When a Job is created in the suspended state, this field is not set until the first time it is resumed. This field is reset every time a Job is resumed from suspension. It is represented in RFC3339 form and is in UTC.
+        /// 
+        /// Once set, the field can only be removed when the job is suspended. The field cannot be modified while the job is unsuspended or finished.
         /// </summary>
         [Input("startTime")]
         public Input<string>? StartTime { get; set; }
 
         /// <summary>
-        /// The number of pods which reached phase Succeeded.
+        /// The number of pods which reached phase Succeeded. The value increases monotonically for a given spec. However, it may decrease in reaction to scale down of elastic indexed jobs.
         /// </summary>
         [Input("succeeded")]
         public Input<int>? Succeeded { get; set; }
@@ -91,7 +99,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Batch.V1
         /// 1. Add the pod UID to the arrays in this field. 2. Remove the pod finalizer. 3. Remove the pod UID from the arrays while increasing the corresponding
         ///     counter.
         /// 
-        /// Old jobs might not be tracked using this field, in which case the field remains null.
+        /// Old jobs might not be tracked using this field, in which case the field remains null. The structure is empty for finished jobs.
         /// </summary>
         [Input("uncountedTerminatedPods")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Batch.V1.UncountedTerminatedPodsArgs>? UncountedTerminatedPods { get; set; }

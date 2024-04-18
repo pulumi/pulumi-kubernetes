@@ -16,6 +16,8 @@ __all__ = [
     'AWSElasticBlockStoreVolumeSourceArgs',
     'AffinityPatchArgs',
     'AffinityArgs',
+    'AppArmorProfilePatchArgs',
+    'AppArmorProfileArgs',
     'AttachedVolumeArgs',
     'AzureDiskVolumeSourcePatchArgs',
     'AzureDiskVolumeSourceArgs',
@@ -164,6 +166,8 @@ __all__ = [
     'NodeConfigSourceArgs',
     'NodeConfigStatusArgs',
     'NodeDaemonEndpointsArgs',
+    'NodeRuntimeHandlerFeaturesArgs',
+    'NodeRuntimeHandlerArgs',
     'NodeSelectorPatchArgs',
     'NodeSelectorRequirementPatchArgs',
     'NodeSelectorRequirementArgs',
@@ -320,6 +324,7 @@ __all__ = [
     'VolumeDevicePatchArgs',
     'VolumeDeviceArgs',
     'VolumeMountPatchArgs',
+    'VolumeMountStatusArgs',
     'VolumeMountArgs',
     'VolumeNodeAffinityPatchArgs',
     'VolumeNodeAffinityArgs',
@@ -594,6 +599,97 @@ class AffinityArgs:
     @pod_anti_affinity.setter
     def pod_anti_affinity(self, value: Optional[pulumi.Input['PodAntiAffinityArgs']]):
         pulumi.set(self, "pod_anti_affinity", value)
+
+
+@pulumi.input_type
+class AppArmorProfilePatchArgs:
+    def __init__(__self__, *,
+                 localhost_profile: Optional[pulumi.Input[str]] = None,
+                 type: Optional[pulumi.Input[str]] = None):
+        """
+        AppArmorProfile defines a pod or container's AppArmor settings.
+        :param pulumi.Input[str] localhost_profile: localhostProfile indicates a profile loaded on the node that should be used. The profile must be preconfigured on the node to work. Must match the loaded name of the profile. Must be set if and only if type is "Localhost".
+        :param pulumi.Input[str] type: type indicates which kind of AppArmor profile will be applied. Valid options are:
+                 Localhost - a profile pre-loaded on the node.
+                 RuntimeDefault - the container runtime's default profile.
+                 Unconfined - no AppArmor enforcement.
+        """
+        if localhost_profile is not None:
+            pulumi.set(__self__, "localhost_profile", localhost_profile)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
+
+    @property
+    @pulumi.getter(name="localhostProfile")
+    def localhost_profile(self) -> Optional[pulumi.Input[str]]:
+        """
+        localhostProfile indicates a profile loaded on the node that should be used. The profile must be preconfigured on the node to work. Must match the loaded name of the profile. Must be set if and only if type is "Localhost".
+        """
+        return pulumi.get(self, "localhost_profile")
+
+    @localhost_profile.setter
+    def localhost_profile(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "localhost_profile", value)
+
+    @property
+    @pulumi.getter
+    def type(self) -> Optional[pulumi.Input[str]]:
+        """
+        type indicates which kind of AppArmor profile will be applied. Valid options are:
+          Localhost - a profile pre-loaded on the node.
+          RuntimeDefault - the container runtime's default profile.
+          Unconfined - no AppArmor enforcement.
+        """
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "type", value)
+
+
+@pulumi.input_type
+class AppArmorProfileArgs:
+    def __init__(__self__, *,
+                 type: pulumi.Input[str],
+                 localhost_profile: Optional[pulumi.Input[str]] = None):
+        """
+        AppArmorProfile defines a pod or container's AppArmor settings.
+        :param pulumi.Input[str] type: type indicates which kind of AppArmor profile will be applied. Valid options are:
+                 Localhost - a profile pre-loaded on the node.
+                 RuntimeDefault - the container runtime's default profile.
+                 Unconfined - no AppArmor enforcement.
+        :param pulumi.Input[str] localhost_profile: localhostProfile indicates a profile loaded on the node that should be used. The profile must be preconfigured on the node to work. Must match the loaded name of the profile. Must be set if and only if type is "Localhost".
+        """
+        pulumi.set(__self__, "type", type)
+        if localhost_profile is not None:
+            pulumi.set(__self__, "localhost_profile", localhost_profile)
+
+    @property
+    @pulumi.getter
+    def type(self) -> pulumi.Input[str]:
+        """
+        type indicates which kind of AppArmor profile will be applied. Valid options are:
+          Localhost - a profile pre-loaded on the node.
+          RuntimeDefault - the container runtime's default profile.
+          Unconfined - no AppArmor enforcement.
+        """
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: pulumi.Input[str]):
+        pulumi.set(self, "type", value)
+
+    @property
+    @pulumi.getter(name="localhostProfile")
+    def localhost_profile(self) -> Optional[pulumi.Input[str]]:
+        """
+        localhostProfile indicates a profile loaded on the node that should be used. The profile must be preconfigured on the node to work. Must match the loaded name of the profile. Must be set if and only if type is "Localhost".
+        """
+        return pulumi.get(self, "localhost_profile")
+
+    @localhost_profile.setter
+    def localhost_profile(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "localhost_profile", value)
 
 
 @pulumi.input_type
@@ -4376,7 +4472,8 @@ class ContainerStatusArgs:
                  last_state: Optional[pulumi.Input['ContainerStateArgs']] = None,
                  resources: Optional[pulumi.Input['ResourceRequirementsArgs']] = None,
                  started: Optional[pulumi.Input[bool]] = None,
-                 state: Optional[pulumi.Input['ContainerStateArgs']] = None):
+                 state: Optional[pulumi.Input['ContainerStateArgs']] = None,
+                 volume_mounts: Optional[pulumi.Input[Sequence[pulumi.Input['VolumeMountStatusArgs']]]] = None):
         """
         ContainerStatus contains details for the current status of this container.
         :param pulumi.Input[str] image: Image is the name of container image that the container is running. The container image may not match the image used in the PodSpec, as it may have been resolved by the runtime. More info: https://kubernetes.io/docs/concepts/containers/images.
@@ -4392,6 +4489,7 @@ class ContainerStatusArgs:
         :param pulumi.Input['ResourceRequirementsArgs'] resources: Resources represents the compute resource requests and limits that have been successfully enacted on the running container after it has been started or has been successfully resized.
         :param pulumi.Input[bool] started: Started indicates whether the container has finished its postStart lifecycle hook and passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. In both cases, startup probes will run again. Is always true when no startupProbe is defined and container is running and has passed the postStart lifecycle hook. The null value must be treated the same as false.
         :param pulumi.Input['ContainerStateArgs'] state: State holds details about the container's current condition.
+        :param pulumi.Input[Sequence[pulumi.Input['VolumeMountStatusArgs']]] volume_mounts: Status of volume mounts.
         """
         pulumi.set(__self__, "image", image)
         pulumi.set(__self__, "image_id", image_id)
@@ -4410,6 +4508,8 @@ class ContainerStatusArgs:
             pulumi.set(__self__, "started", started)
         if state is not None:
             pulumi.set(__self__, "state", state)
+        if volume_mounts is not None:
+            pulumi.set(__self__, "volume_mounts", volume_mounts)
 
     @property
     @pulumi.getter
@@ -4544,6 +4644,18 @@ class ContainerStatusArgs:
     @state.setter
     def state(self, value: Optional[pulumi.Input['ContainerStateArgs']]):
         pulumi.set(self, "state", value)
+
+    @property
+    @pulumi.getter(name="volumeMounts")
+    def volume_mounts(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['VolumeMountStatusArgs']]]]:
+        """
+        Status of volume mounts.
+        """
+        return pulumi.get(self, "volume_mounts")
+
+    @volume_mounts.setter
+    def volume_mounts(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['VolumeMountStatusArgs']]]]):
+        pulumi.set(self, "volume_mounts", value)
 
 
 @pulumi.input_type
@@ -5017,7 +5129,7 @@ class DownwardAPIVolumeFilePatchArgs:
                  resource_field_ref: Optional[pulumi.Input['ResourceFieldSelectorPatchArgs']] = None):
         """
         DownwardAPIVolumeFile represents information to create the file containing the pod field
-        :param pulumi.Input['ObjectFieldSelectorPatchArgs'] field_ref: Required: Selects a field of the pod: only annotations, labels, name and namespace are supported.
+        :param pulumi.Input['ObjectFieldSelectorPatchArgs'] field_ref: Required: Selects a field of the pod: only annotations, labels, name, namespace and uid are supported.
         :param pulumi.Input[int] mode: Optional: mode bits used to set permissions on this file, must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
         :param pulumi.Input[str] path: Required: Path is  the relative path name of the file to be created. Must not be absolute or contain the '..' path. Must be utf-8 encoded. The first item of the relative path must not start with '..'
         :param pulumi.Input['ResourceFieldSelectorPatchArgs'] resource_field_ref: Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, requests.cpu and requests.memory) are currently supported.
@@ -5035,7 +5147,7 @@ class DownwardAPIVolumeFilePatchArgs:
     @pulumi.getter(name="fieldRef")
     def field_ref(self) -> Optional[pulumi.Input['ObjectFieldSelectorPatchArgs']]:
         """
-        Required: Selects a field of the pod: only annotations, labels, name and namespace are supported.
+        Required: Selects a field of the pod: only annotations, labels, name, namespace and uid are supported.
         """
         return pulumi.get(self, "field_ref")
 
@@ -5090,7 +5202,7 @@ class DownwardAPIVolumeFileArgs:
         """
         DownwardAPIVolumeFile represents information to create the file containing the pod field
         :param pulumi.Input[str] path: Required: Path is  the relative path name of the file to be created. Must not be absolute or contain the '..' path. Must be utf-8 encoded. The first item of the relative path must not start with '..'
-        :param pulumi.Input['ObjectFieldSelectorArgs'] field_ref: Required: Selects a field of the pod: only annotations, labels, name and namespace are supported.
+        :param pulumi.Input['ObjectFieldSelectorArgs'] field_ref: Required: Selects a field of the pod: only annotations, labels, name, namespace and uid are supported.
         :param pulumi.Input[int] mode: Optional: mode bits used to set permissions on this file, must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
         :param pulumi.Input['ResourceFieldSelectorArgs'] resource_field_ref: Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, requests.cpu and requests.memory) are currently supported.
         """
@@ -5118,7 +5230,7 @@ class DownwardAPIVolumeFileArgs:
     @pulumi.getter(name="fieldRef")
     def field_ref(self) -> Optional[pulumi.Input['ObjectFieldSelectorArgs']]:
         """
-        Required: Selects a field of the pod: only annotations, labels, name and namespace are supported.
+        Required: Selects a field of the pod: only annotations, labels, name, namespace and uid are supported.
         """
         return pulumi.get(self, "field_ref")
 
@@ -11759,6 +11871,70 @@ class NodeDaemonEndpointsArgs:
 
 
 @pulumi.input_type
+class NodeRuntimeHandlerFeaturesArgs:
+    def __init__(__self__, *,
+                 recursive_read_only_mounts: Optional[pulumi.Input[bool]] = None):
+        """
+        NodeRuntimeHandlerFeatures is a set of runtime features.
+        :param pulumi.Input[bool] recursive_read_only_mounts: RecursiveReadOnlyMounts is set to true if the runtime handler supports RecursiveReadOnlyMounts.
+        """
+        if recursive_read_only_mounts is not None:
+            pulumi.set(__self__, "recursive_read_only_mounts", recursive_read_only_mounts)
+
+    @property
+    @pulumi.getter(name="recursiveReadOnlyMounts")
+    def recursive_read_only_mounts(self) -> Optional[pulumi.Input[bool]]:
+        """
+        RecursiveReadOnlyMounts is set to true if the runtime handler supports RecursiveReadOnlyMounts.
+        """
+        return pulumi.get(self, "recursive_read_only_mounts")
+
+    @recursive_read_only_mounts.setter
+    def recursive_read_only_mounts(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "recursive_read_only_mounts", value)
+
+
+@pulumi.input_type
+class NodeRuntimeHandlerArgs:
+    def __init__(__self__, *,
+                 features: Optional[pulumi.Input['NodeRuntimeHandlerFeaturesArgs']] = None,
+                 name: Optional[pulumi.Input[str]] = None):
+        """
+        NodeRuntimeHandler is a set of runtime handler information.
+        :param pulumi.Input['NodeRuntimeHandlerFeaturesArgs'] features: Supported features.
+        :param pulumi.Input[str] name: Runtime handler name. Empty for the default runtime handler.
+        """
+        if features is not None:
+            pulumi.set(__self__, "features", features)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+
+    @property
+    @pulumi.getter
+    def features(self) -> Optional[pulumi.Input['NodeRuntimeHandlerFeaturesArgs']]:
+        """
+        Supported features.
+        """
+        return pulumi.get(self, "features")
+
+    @features.setter
+    def features(self, value: Optional[pulumi.Input['NodeRuntimeHandlerFeaturesArgs']]):
+        pulumi.set(self, "features", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[pulumi.Input[str]]:
+        """
+        Runtime handler name. Empty for the default runtime handler.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "name", value)
+
+
+@pulumi.input_type
 class NodeSelectorPatchArgs:
     def __init__(__self__, *,
                  node_selector_terms: Optional[pulumi.Input[Sequence[pulumi.Input['NodeSelectorTermPatchArgs']]]] = None):
@@ -12247,6 +12423,7 @@ class NodeStatusArgs:
                  images: Optional[pulumi.Input[Sequence[pulumi.Input['ContainerImageArgs']]]] = None,
                  node_info: Optional[pulumi.Input['NodeSystemInfoArgs']] = None,
                  phase: Optional[pulumi.Input[str]] = None,
+                 runtime_handlers: Optional[pulumi.Input[Sequence[pulumi.Input['NodeRuntimeHandlerArgs']]]] = None,
                  volumes_attached: Optional[pulumi.Input[Sequence[pulumi.Input['AttachedVolumeArgs']]]] = None,
                  volumes_in_use: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
@@ -12260,6 +12437,7 @@ class NodeStatusArgs:
         :param pulumi.Input[Sequence[pulumi.Input['ContainerImageArgs']]] images: List of container images on this node
         :param pulumi.Input['NodeSystemInfoArgs'] node_info: Set of ids/uuids to uniquely identify the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#info
         :param pulumi.Input[str] phase: NodePhase is the recently observed lifecycle phase of the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#phase The field is never populated, and now is deprecated.
+        :param pulumi.Input[Sequence[pulumi.Input['NodeRuntimeHandlerArgs']]] runtime_handlers: The available runtime handlers.
         :param pulumi.Input[Sequence[pulumi.Input['AttachedVolumeArgs']]] volumes_attached: List of volumes that are attached to the node.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] volumes_in_use: List of attachable volumes in use (mounted) by the node.
         """
@@ -12281,6 +12459,8 @@ class NodeStatusArgs:
             pulumi.set(__self__, "node_info", node_info)
         if phase is not None:
             pulumi.set(__self__, "phase", phase)
+        if runtime_handlers is not None:
+            pulumi.set(__self__, "runtime_handlers", runtime_handlers)
         if volumes_attached is not None:
             pulumi.set(__self__, "volumes_attached", volumes_attached)
         if volumes_in_use is not None:
@@ -12393,6 +12573,18 @@ class NodeStatusArgs:
     @phase.setter
     def phase(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "phase", value)
+
+    @property
+    @pulumi.getter(name="runtimeHandlers")
+    def runtime_handlers(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['NodeRuntimeHandlerArgs']]]]:
+        """
+        The available runtime handlers.
+        """
+        return pulumi.get(self, "runtime_handlers")
+
+    @runtime_handlers.setter
+    def runtime_handlers(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['NodeRuntimeHandlerArgs']]]]):
+        pulumi.set(self, "runtime_handlers", value)
 
     @property
     @pulumi.getter(name="volumesAttached")
@@ -12998,7 +13190,7 @@ class PersistentVolumeClaimConditionPatchArgs:
         :param pulumi.Input[str] last_probe_time: lastProbeTime is the time we probed the condition.
         :param pulumi.Input[str] last_transition_time: lastTransitionTime is the time the condition transitioned from one status to another.
         :param pulumi.Input[str] message: message is the human-readable message indicating details about last transition.
-        :param pulumi.Input[str] reason: reason is a unique, this should be a short, machine understandable string that gives the reason for condition's last transition. If it reports "ResizeStarted" that means the underlying persistent volume is being resized.
+        :param pulumi.Input[str] reason: reason is a unique, this should be a short, machine understandable string that gives the reason for condition's last transition. If it reports "Resizing" that means the underlying persistent volume is being resized.
         """
         if last_probe_time is not None:
             pulumi.set(__self__, "last_probe_time", last_probe_time)
@@ -13053,7 +13245,7 @@ class PersistentVolumeClaimConditionPatchArgs:
     @pulumi.getter
     def reason(self) -> Optional[pulumi.Input[str]]:
         """
-        reason is a unique, this should be a short, machine understandable string that gives the reason for condition's last transition. If it reports "ResizeStarted" that means the underlying persistent volume is being resized.
+        reason is a unique, this should be a short, machine understandable string that gives the reason for condition's last transition. If it reports "Resizing" that means the underlying persistent volume is being resized.
         """
         return pulumi.get(self, "reason")
 
@@ -13094,7 +13286,7 @@ class PersistentVolumeClaimConditionArgs:
         :param pulumi.Input[str] last_probe_time: lastProbeTime is the time we probed the condition.
         :param pulumi.Input[str] last_transition_time: lastTransitionTime is the time the condition transitioned from one status to another.
         :param pulumi.Input[str] message: message is the human-readable message indicating details about last transition.
-        :param pulumi.Input[str] reason: reason is a unique, this should be a short, machine understandable string that gives the reason for condition's last transition. If it reports "ResizeStarted" that means the underlying persistent volume is being resized.
+        :param pulumi.Input[str] reason: reason is a unique, this should be a short, machine understandable string that gives the reason for condition's last transition. If it reports "Resizing" that means the underlying persistent volume is being resized.
         """
         pulumi.set(__self__, "status", status)
         pulumi.set(__self__, "type", type)
@@ -13165,7 +13357,7 @@ class PersistentVolumeClaimConditionArgs:
     @pulumi.getter
     def reason(self) -> Optional[pulumi.Input[str]]:
         """
-        reason is a unique, this should be a short, machine understandable string that gives the reason for condition's last transition. If it reports "ResizeStarted" that means the underlying persistent volume is being resized.
+        reason is a unique, this should be a short, machine understandable string that gives the reason for condition's last transition. If it reports "Resizing" that means the underlying persistent volume is being resized.
         """
         return pulumi.get(self, "reason")
 
@@ -13289,7 +13481,7 @@ class PersistentVolumeClaimSpecPatchArgs:
         :param pulumi.Input['VolumeResourceRequirementsPatchArgs'] resources: resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
         :param pulumi.Input['_meta.v1.LabelSelectorPatchArgs'] selector: selector is a label query over volumes to consider for binding.
         :param pulumi.Input[str] storage_class_name: storageClassName is the name of the StorageClass required by the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1
-        :param pulumi.Input[str] volume_attributes_class_name: volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string value means that no VolumeAttributesClass will be applied to the claim but it's not allowed to reset this field to empty string once it is set. If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass will be set by the persistentvolume controller if it exists. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#volumeattributesclass (Alpha) Using this field requires the VolumeAttributesClass feature gate to be enabled.
+        :param pulumi.Input[str] volume_attributes_class_name: volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string value means that no VolumeAttributesClass will be applied to the claim but it's not allowed to reset this field to empty string once it is set. If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass will be set by the persistentvolume controller if it exists. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/volume-attributes-classes/ (Alpha) Using this field requires the VolumeAttributesClass feature gate to be enabled.
         :param pulumi.Input[str] volume_mode: volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
         :param pulumi.Input[str] volume_name: volumeName is the binding reference to the PersistentVolume backing this claim.
         """
@@ -13395,7 +13587,7 @@ class PersistentVolumeClaimSpecPatchArgs:
     @pulumi.getter(name="volumeAttributesClassName")
     def volume_attributes_class_name(self) -> Optional[pulumi.Input[str]]:
         """
-        volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string value means that no VolumeAttributesClass will be applied to the claim but it's not allowed to reset this field to empty string once it is set. If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass will be set by the persistentvolume controller if it exists. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#volumeattributesclass (Alpha) Using this field requires the VolumeAttributesClass feature gate to be enabled.
+        volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string value means that no VolumeAttributesClass will be applied to the claim but it's not allowed to reset this field to empty string once it is set. If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass will be set by the persistentvolume controller if it exists. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/volume-attributes-classes/ (Alpha) Using this field requires the VolumeAttributesClass feature gate to be enabled.
         """
         return pulumi.get(self, "volume_attributes_class_name")
 
@@ -13455,7 +13647,7 @@ class PersistentVolumeClaimSpecArgs:
         :param pulumi.Input['VolumeResourceRequirementsArgs'] resources: resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
         :param pulumi.Input['_meta.v1.LabelSelectorArgs'] selector: selector is a label query over volumes to consider for binding.
         :param pulumi.Input[str] storage_class_name: storageClassName is the name of the StorageClass required by the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1
-        :param pulumi.Input[str] volume_attributes_class_name: volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string value means that no VolumeAttributesClass will be applied to the claim but it's not allowed to reset this field to empty string once it is set. If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass will be set by the persistentvolume controller if it exists. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#volumeattributesclass (Alpha) Using this field requires the VolumeAttributesClass feature gate to be enabled.
+        :param pulumi.Input[str] volume_attributes_class_name: volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string value means that no VolumeAttributesClass will be applied to the claim but it's not allowed to reset this field to empty string once it is set. If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass will be set by the persistentvolume controller if it exists. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/volume-attributes-classes/ (Alpha) Using this field requires the VolumeAttributesClass feature gate to be enabled.
         :param pulumi.Input[str] volume_mode: volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
         :param pulumi.Input[str] volume_name: volumeName is the binding reference to the PersistentVolume backing this claim.
         """
@@ -13561,7 +13753,7 @@ class PersistentVolumeClaimSpecArgs:
     @pulumi.getter(name="volumeAttributesClassName")
     def volume_attributes_class_name(self) -> Optional[pulumi.Input[str]]:
         """
-        volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string value means that no VolumeAttributesClass will be applied to the claim but it's not allowed to reset this field to empty string once it is set. If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass will be set by the persistentvolume controller if it exists. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#volumeattributesclass (Alpha) Using this field requires the VolumeAttributesClass feature gate to be enabled.
+        volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string value means that no VolumeAttributesClass will be applied to the claim but it's not allowed to reset this field to empty string once it is set. If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass will be set by the persistentvolume controller if it exists. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/volume-attributes-classes/ (Alpha) Using this field requires the VolumeAttributesClass feature gate to be enabled.
         """
         return pulumi.get(self, "volume_attributes_class_name")
 
@@ -13651,7 +13843,7 @@ class PersistentVolumeClaimStatusPatchArgs:
                
                This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] capacity: capacity represents the actual resources of the underlying volume.
-        :param pulumi.Input[Sequence[pulumi.Input['PersistentVolumeClaimConditionPatchArgs']]] conditions: conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'ResizeStarted'.
+        :param pulumi.Input[Sequence[pulumi.Input['PersistentVolumeClaimConditionPatchArgs']]] conditions: conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'Resizing'.
         :param pulumi.Input[str] current_volume_attributes_class_name: currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim This is an alpha field and requires enabling VolumeAttributesClass feature.
         :param pulumi.Input['ModifyVolumeStatusPatchArgs'] modify_volume_status: ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted. This is an alpha field and requires enabling VolumeAttributesClass feature.
         :param pulumi.Input[str] phase: phase represents the current phase of PersistentVolumeClaim.
@@ -13767,7 +13959,7 @@ class PersistentVolumeClaimStatusPatchArgs:
     @pulumi.getter
     def conditions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['PersistentVolumeClaimConditionPatchArgs']]]]:
         """
-        conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'ResizeStarted'.
+        conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'Resizing'.
         """
         return pulumi.get(self, "conditions")
 
@@ -13881,7 +14073,7 @@ class PersistentVolumeClaimStatusArgs:
                
                This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] capacity: capacity represents the actual resources of the underlying volume.
-        :param pulumi.Input[Sequence[pulumi.Input['PersistentVolumeClaimConditionArgs']]] conditions: conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'ResizeStarted'.
+        :param pulumi.Input[Sequence[pulumi.Input['PersistentVolumeClaimConditionArgs']]] conditions: conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'Resizing'.
         :param pulumi.Input[str] current_volume_attributes_class_name: currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim This is an alpha field and requires enabling VolumeAttributesClass feature.
         :param pulumi.Input['ModifyVolumeStatusArgs'] modify_volume_status: ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted. This is an alpha field and requires enabling VolumeAttributesClass feature.
         :param pulumi.Input[str] phase: phase represents the current phase of PersistentVolumeClaim.
@@ -13997,7 +14189,7 @@ class PersistentVolumeClaimStatusArgs:
     @pulumi.getter
     def conditions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['PersistentVolumeClaimConditionArgs']]]]:
         """
-        conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'ResizeStarted'.
+        conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'Resizing'.
         """
         return pulumi.get(self, "conditions")
 
@@ -15317,7 +15509,7 @@ class PersistentVolumeStatusArgs:
                  reason: Optional[pulumi.Input[str]] = None):
         """
         PersistentVolumeStatus is the current status of a persistent volume.
-        :param pulumi.Input[str] last_phase_transition_time: lastPhaseTransitionTime is the time the phase transitioned from one to another and automatically resets to current time everytime a volume phase transitions. This is an alpha field and requires enabling PersistentVolumeLastPhaseTransitionTime feature.
+        :param pulumi.Input[str] last_phase_transition_time: lastPhaseTransitionTime is the time the phase transitioned from one to another and automatically resets to current time everytime a volume phase transitions. This is a beta field and requires the PersistentVolumeLastPhaseTransitionTime feature to be enabled (enabled by default).
         :param pulumi.Input[str] message: message is a human-readable message indicating details about why the volume is in this state.
         :param pulumi.Input[str] phase: phase indicates if a volume is available, bound to a claim, or released by a claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#phase
         :param pulumi.Input[str] reason: reason is a brief CamelCase string that describes any failure and is meant for machine parsing and tidy display in the CLI.
@@ -15335,7 +15527,7 @@ class PersistentVolumeStatusArgs:
     @pulumi.getter(name="lastPhaseTransitionTime")
     def last_phase_transition_time(self) -> Optional[pulumi.Input[str]]:
         """
-        lastPhaseTransitionTime is the time the phase transitioned from one to another and automatically resets to current time everytime a volume phase transitions. This is an alpha field and requires enabling PersistentVolumeLastPhaseTransitionTime feature.
+        lastPhaseTransitionTime is the time the phase transitioned from one to another and automatically resets to current time everytime a volume phase transitions. This is a beta field and requires the PersistentVolumeLastPhaseTransitionTime feature to be enabled (enabled by default).
         """
         return pulumi.get(self, "last_phase_transition_time")
 
@@ -15599,8 +15791,8 @@ class PodAffinityTermPatchArgs:
         """
         Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key <topologyKey> matches that of any node on which a pod of the set of pods is running
         :param pulumi.Input['_meta.v1.LabelSelectorPatchArgs'] label_selector: A label query over a set of resources, in this case pods. If it's null, this PodAffinityTerm matches with no Pods.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] match_label_keys: MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `LabelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both MatchLabelKeys and LabelSelector. Also, MatchLabelKeys cannot be set when LabelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] mismatch_label_keys: MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `LabelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both MismatchLabelKeys and LabelSelector. Also, MismatchLabelKeys cannot be set when LabelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] match_label_keys: MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] mismatch_label_keys: MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
         :param pulumi.Input['_meta.v1.LabelSelectorPatchArgs'] namespace_selector: A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] namespaces: namespaces specifies a static list of namespace names that the term applies to. The term is applied to the union of the namespaces listed in this field and the ones selected by namespaceSelector. null or empty namespaces list and null namespaceSelector means "this pod's namespace".
         :param pulumi.Input[str] topology_key: This pod should be co-located (affinity) or not co-located (anti-affinity) with the pods matching the labelSelector in the specified namespaces, where co-located is defined as running on a node whose value of the label with key topologyKey matches that of any node on which any of the selected pods is running. Empty topologyKey is not allowed.
@@ -15634,7 +15826,7 @@ class PodAffinityTermPatchArgs:
     @pulumi.getter(name="matchLabelKeys")
     def match_label_keys(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
-        MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `LabelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both MatchLabelKeys and LabelSelector. Also, MatchLabelKeys cannot be set when LabelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
+        MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
         """
         return pulumi.get(self, "match_label_keys")
 
@@ -15646,7 +15838,7 @@ class PodAffinityTermPatchArgs:
     @pulumi.getter(name="mismatchLabelKeys")
     def mismatch_label_keys(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
-        MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `LabelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both MismatchLabelKeys and LabelSelector. Also, MismatchLabelKeys cannot be set when LabelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
+        MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
         """
         return pulumi.get(self, "mismatch_label_keys")
 
@@ -15704,8 +15896,8 @@ class PodAffinityTermArgs:
         Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key <topologyKey> matches that of any node on which a pod of the set of pods is running
         :param pulumi.Input[str] topology_key: This pod should be co-located (affinity) or not co-located (anti-affinity) with the pods matching the labelSelector in the specified namespaces, where co-located is defined as running on a node whose value of the label with key topologyKey matches that of any node on which any of the selected pods is running. Empty topologyKey is not allowed.
         :param pulumi.Input['_meta.v1.LabelSelectorArgs'] label_selector: A label query over a set of resources, in this case pods. If it's null, this PodAffinityTerm matches with no Pods.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] match_label_keys: MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `LabelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both MatchLabelKeys and LabelSelector. Also, MatchLabelKeys cannot be set when LabelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] mismatch_label_keys: MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `LabelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both MismatchLabelKeys and LabelSelector. Also, MismatchLabelKeys cannot be set when LabelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] match_label_keys: MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] mismatch_label_keys: MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
         :param pulumi.Input['_meta.v1.LabelSelectorArgs'] namespace_selector: A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] namespaces: namespaces specifies a static list of namespace names that the term applies to. The term is applied to the union of the namespaces listed in this field and the ones selected by namespaceSelector. null or empty namespaces list and null namespaceSelector means "this pod's namespace".
         """
@@ -15749,7 +15941,7 @@ class PodAffinityTermArgs:
     @pulumi.getter(name="matchLabelKeys")
     def match_label_keys(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
-        MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `LabelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both MatchLabelKeys and LabelSelector. Also, MatchLabelKeys cannot be set when LabelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
+        MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
         """
         return pulumi.get(self, "match_label_keys")
 
@@ -15761,7 +15953,7 @@ class PodAffinityTermArgs:
     @pulumi.getter(name="mismatchLabelKeys")
     def mismatch_label_keys(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
-        MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `LabelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both MismatchLabelKeys and LabelSelector. Also, MismatchLabelKeys cannot be set when LabelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
+        MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
         """
         return pulumi.get(self, "mismatch_label_keys")
 
@@ -16486,6 +16678,7 @@ class PodSchedulingGateArgs:
 @pulumi.input_type
 class PodSecurityContextPatchArgs:
     def __init__(__self__, *,
+                 app_armor_profile: Optional[pulumi.Input['AppArmorProfilePatchArgs']] = None,
                  fs_group: Optional[pulumi.Input[int]] = None,
                  fs_group_change_policy: Optional[pulumi.Input[str]] = None,
                  run_as_group: Optional[pulumi.Input[int]] = None,
@@ -16498,6 +16691,7 @@ class PodSecurityContextPatchArgs:
                  windows_options: Optional[pulumi.Input['WindowsSecurityContextOptionsPatchArgs']] = None):
         """
         PodSecurityContext holds pod-level security attributes and common container settings. Some fields are also present in container.securityContext.  Field values of container.securityContext take precedence over field values of PodSecurityContext.
+        :param pulumi.Input['AppArmorProfilePatchArgs'] app_armor_profile: appArmorProfile is the AppArmor options to use by the containers in this pod. Note that this field cannot be set when spec.os.name is windows.
         :param pulumi.Input[int] fs_group: A special supplemental group that applies to all containers in a pod. Some volume types allow the Kubelet to change the ownership of that volume to be owned by the pod:
                
                1. The owning GID will be the FSGroup 2. The setgid bit is set (new files created in the volume will be owned by FSGroup) 3. The permission bits are OR'd with rw-rw----
@@ -16513,6 +16707,8 @@ class PodSecurityContextPatchArgs:
         :param pulumi.Input[Sequence[pulumi.Input['SysctlPatchArgs']]] sysctls: Sysctls hold a list of namespaced sysctls used for the pod. Pods with unsupported sysctls (by the container runtime) might fail to launch. Note that this field cannot be set when spec.os.name is windows.
         :param pulumi.Input['WindowsSecurityContextOptionsPatchArgs'] windows_options: The Windows specific settings applied to all containers. If unspecified, the options within a container's SecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
         """
+        if app_armor_profile is not None:
+            pulumi.set(__self__, "app_armor_profile", app_armor_profile)
         if fs_group is not None:
             pulumi.set(__self__, "fs_group", fs_group)
         if fs_group_change_policy is not None:
@@ -16533,6 +16729,18 @@ class PodSecurityContextPatchArgs:
             pulumi.set(__self__, "sysctls", sysctls)
         if windows_options is not None:
             pulumi.set(__self__, "windows_options", windows_options)
+
+    @property
+    @pulumi.getter(name="appArmorProfile")
+    def app_armor_profile(self) -> Optional[pulumi.Input['AppArmorProfilePatchArgs']]:
+        """
+        appArmorProfile is the AppArmor options to use by the containers in this pod. Note that this field cannot be set when spec.os.name is windows.
+        """
+        return pulumi.get(self, "app_armor_profile")
+
+    @app_armor_profile.setter
+    def app_armor_profile(self, value: Optional[pulumi.Input['AppArmorProfilePatchArgs']]):
+        pulumi.set(self, "app_armor_profile", value)
 
     @property
     @pulumi.getter(name="fsGroup")
@@ -16662,6 +16870,7 @@ class PodSecurityContextPatchArgs:
 @pulumi.input_type
 class PodSecurityContextArgs:
     def __init__(__self__, *,
+                 app_armor_profile: Optional[pulumi.Input['AppArmorProfileArgs']] = None,
                  fs_group: Optional[pulumi.Input[int]] = None,
                  fs_group_change_policy: Optional[pulumi.Input[str]] = None,
                  run_as_group: Optional[pulumi.Input[int]] = None,
@@ -16674,6 +16883,7 @@ class PodSecurityContextArgs:
                  windows_options: Optional[pulumi.Input['WindowsSecurityContextOptionsArgs']] = None):
         """
         PodSecurityContext holds pod-level security attributes and common container settings. Some fields are also present in container.securityContext.  Field values of container.securityContext take precedence over field values of PodSecurityContext.
+        :param pulumi.Input['AppArmorProfileArgs'] app_armor_profile: appArmorProfile is the AppArmor options to use by the containers in this pod. Note that this field cannot be set when spec.os.name is windows.
         :param pulumi.Input[int] fs_group: A special supplemental group that applies to all containers in a pod. Some volume types allow the Kubelet to change the ownership of that volume to be owned by the pod:
                
                1. The owning GID will be the FSGroup 2. The setgid bit is set (new files created in the volume will be owned by FSGroup) 3. The permission bits are OR'd with rw-rw----
@@ -16689,6 +16899,8 @@ class PodSecurityContextArgs:
         :param pulumi.Input[Sequence[pulumi.Input['SysctlArgs']]] sysctls: Sysctls hold a list of namespaced sysctls used for the pod. Pods with unsupported sysctls (by the container runtime) might fail to launch. Note that this field cannot be set when spec.os.name is windows.
         :param pulumi.Input['WindowsSecurityContextOptionsArgs'] windows_options: The Windows specific settings applied to all containers. If unspecified, the options within a container's SecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
         """
+        if app_armor_profile is not None:
+            pulumi.set(__self__, "app_armor_profile", app_armor_profile)
         if fs_group is not None:
             pulumi.set(__self__, "fs_group", fs_group)
         if fs_group_change_policy is not None:
@@ -16709,6 +16921,18 @@ class PodSecurityContextArgs:
             pulumi.set(__self__, "sysctls", sysctls)
         if windows_options is not None:
             pulumi.set(__self__, "windows_options", windows_options)
+
+    @property
+    @pulumi.getter(name="appArmorProfile")
+    def app_armor_profile(self) -> Optional[pulumi.Input['AppArmorProfileArgs']]:
+        """
+        appArmorProfile is the AppArmor options to use by the containers in this pod. Note that this field cannot be set when spec.os.name is windows.
+        """
+        return pulumi.get(self, "app_armor_profile")
+
+    @app_armor_profile.setter
+    def app_armor_profile(self, value: Optional[pulumi.Input['AppArmorProfileArgs']]):
+        pulumi.set(self, "app_armor_profile", value)
 
     @property
     @pulumi.getter(name="fsGroup")
@@ -16887,7 +17111,7 @@ class PodSpecPatchArgs:
         :param pulumi.Input[str] dns_policy: Set DNS policy for the pod. Defaults to "ClusterFirst". Valid values are 'ClusterFirstWithHostNet', 'ClusterFirst', 'Default' or 'None'. DNS parameters given in DNSConfig will be merged with the policy selected with DNSPolicy. To have DNS options set along with hostNetwork, you have to specify DNS policy explicitly to 'ClusterFirstWithHostNet'.
         :param pulumi.Input[bool] enable_service_links: EnableServiceLinks indicates whether information about services should be injected into pod's environment variables, matching the syntax of Docker links. Optional: Defaults to true.
         :param pulumi.Input[Sequence[pulumi.Input['EphemeralContainerPatchArgs']]] ephemeral_containers: List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a pod, and it cannot be modified by updating the pod spec. In order to add an ephemeral container to an existing pod, use the pod's ephemeralcontainers subresource.
-        :param pulumi.Input[Sequence[pulumi.Input['HostAliasPatchArgs']]] host_aliases: HostAliases is an optional list of hosts and IPs that will be injected into the pod's hosts file if specified. This is only valid for non-hostNetwork pods.
+        :param pulumi.Input[Sequence[pulumi.Input['HostAliasPatchArgs']]] host_aliases: HostAliases is an optional list of hosts and IPs that will be injected into the pod's hosts file if specified.
         :param pulumi.Input[bool] host_ipc: Use the host's ipc namespace. Optional: Default to false.
         :param pulumi.Input[bool] host_network: Host networking requested for this pod. Use the host's network namespace. If this option is set, the ports that will be used must be specified. Default to false.
         :param pulumi.Input[bool] host_pid: Use the host's pid namespace. Optional: Default to false.
@@ -16901,7 +17125,7 @@ class PodSpecPatchArgs:
                
                If the OS field is set to linux, the following fields must be unset: -securityContext.windowsOptions
                
-               If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
+               If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.securityContext.appArmorProfile - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.appArmorProfile - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] overhead: Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md
         :param pulumi.Input[str] preemption_policy: PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
         :param pulumi.Input[int] priority: The priority value. Various system components use this field to find the priority of the pod. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority.
@@ -16918,10 +17142,8 @@ class PodSpecPatchArgs:
         :param pulumi.Input[Sequence[pulumi.Input['PodSchedulingGatePatchArgs']]] scheduling_gates: SchedulingGates is an opaque list of values that if specified will block scheduling the pod. If schedulingGates is not empty, the pod will stay in the SchedulingGated state and the scheduler will not attempt to schedule the pod.
                
                SchedulingGates can only be set at pod creation time, and be removed only afterwards.
-               
-               This is a beta feature enabled by the PodSchedulingReadiness feature gate.
         :param pulumi.Input['PodSecurityContextPatchArgs'] security_context: SecurityContext holds pod-level security attributes and common container settings. Optional: Defaults to empty.  See type description for default values of each field.
-        :param pulumi.Input[str] service_account: DeprecatedServiceAccount is a depreciated alias for ServiceAccountName. Deprecated: Use serviceAccountName instead.
+        :param pulumi.Input[str] service_account: DeprecatedServiceAccount is a deprecated alias for ServiceAccountName. Deprecated: Use serviceAccountName instead.
         :param pulumi.Input[str] service_account_name: ServiceAccountName is the name of the ServiceAccount to use to run this pod. More info: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
         :param pulumi.Input[bool] set_hostname_as_fqdn: If true the pod's hostname will be configured as the pod's FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
         :param pulumi.Input[bool] share_process_namespace: Share a single process namespace between all of the containers in a pod. When this is set containers will be able to view and signal processes from other containers in the same pod, and the first process in each container will not be assigned PID 1. HostPID and ShareProcessNamespace cannot both be set. Optional: Default to false.
@@ -17110,7 +17332,7 @@ class PodSpecPatchArgs:
     @pulumi.getter(name="hostAliases")
     def host_aliases(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['HostAliasPatchArgs']]]]:
         """
-        HostAliases is an optional list of hosts and IPs that will be injected into the pod's hosts file if specified. This is only valid for non-hostNetwork pods.
+        HostAliases is an optional list of hosts and IPs that will be injected into the pod's hosts file if specified.
         """
         return pulumi.get(self, "host_aliases")
 
@@ -17234,7 +17456,7 @@ class PodSpecPatchArgs:
 
         If the OS field is set to linux, the following fields must be unset: -securityContext.windowsOptions
 
-        If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
+        If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.securityContext.appArmorProfile - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.appArmorProfile - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
         """
         return pulumi.get(self, "os")
 
@@ -17361,8 +17583,6 @@ class PodSpecPatchArgs:
         SchedulingGates is an opaque list of values that if specified will block scheduling the pod. If schedulingGates is not empty, the pod will stay in the SchedulingGated state and the scheduler will not attempt to schedule the pod.
 
         SchedulingGates can only be set at pod creation time, and be removed only afterwards.
-
-        This is a beta feature enabled by the PodSchedulingReadiness feature gate.
         """
         return pulumi.get(self, "scheduling_gates")
 
@@ -17386,7 +17606,7 @@ class PodSpecPatchArgs:
     @pulumi.getter(name="serviceAccount")
     def service_account(self) -> Optional[pulumi.Input[str]]:
         """
-        DeprecatedServiceAccount is a depreciated alias for ServiceAccountName. Deprecated: Use serviceAccountName instead.
+        DeprecatedServiceAccount is a deprecated alias for ServiceAccountName. Deprecated: Use serviceAccountName instead.
         """
         return pulumi.get(self, "service_account")
 
@@ -17543,7 +17763,7 @@ class PodSpecArgs:
         :param pulumi.Input[str] dns_policy: Set DNS policy for the pod. Defaults to "ClusterFirst". Valid values are 'ClusterFirstWithHostNet', 'ClusterFirst', 'Default' or 'None'. DNS parameters given in DNSConfig will be merged with the policy selected with DNSPolicy. To have DNS options set along with hostNetwork, you have to specify DNS policy explicitly to 'ClusterFirstWithHostNet'.
         :param pulumi.Input[bool] enable_service_links: EnableServiceLinks indicates whether information about services should be injected into pod's environment variables, matching the syntax of Docker links. Optional: Defaults to true.
         :param pulumi.Input[Sequence[pulumi.Input['EphemeralContainerArgs']]] ephemeral_containers: List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a pod, and it cannot be modified by updating the pod spec. In order to add an ephemeral container to an existing pod, use the pod's ephemeralcontainers subresource.
-        :param pulumi.Input[Sequence[pulumi.Input['HostAliasArgs']]] host_aliases: HostAliases is an optional list of hosts and IPs that will be injected into the pod's hosts file if specified. This is only valid for non-hostNetwork pods.
+        :param pulumi.Input[Sequence[pulumi.Input['HostAliasArgs']]] host_aliases: HostAliases is an optional list of hosts and IPs that will be injected into the pod's hosts file if specified.
         :param pulumi.Input[bool] host_ipc: Use the host's ipc namespace. Optional: Default to false.
         :param pulumi.Input[bool] host_network: Host networking requested for this pod. Use the host's network namespace. If this option is set, the ports that will be used must be specified. Default to false.
         :param pulumi.Input[bool] host_pid: Use the host's pid namespace. Optional: Default to false.
@@ -17557,7 +17777,7 @@ class PodSpecArgs:
                
                If the OS field is set to linux, the following fields must be unset: -securityContext.windowsOptions
                
-               If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
+               If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.securityContext.appArmorProfile - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.appArmorProfile - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] overhead: Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md
         :param pulumi.Input[str] preemption_policy: PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
         :param pulumi.Input[int] priority: The priority value. Various system components use this field to find the priority of the pod. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority.
@@ -17574,10 +17794,8 @@ class PodSpecArgs:
         :param pulumi.Input[Sequence[pulumi.Input['PodSchedulingGateArgs']]] scheduling_gates: SchedulingGates is an opaque list of values that if specified will block scheduling the pod. If schedulingGates is not empty, the pod will stay in the SchedulingGated state and the scheduler will not attempt to schedule the pod.
                
                SchedulingGates can only be set at pod creation time, and be removed only afterwards.
-               
-               This is a beta feature enabled by the PodSchedulingReadiness feature gate.
         :param pulumi.Input['PodSecurityContextArgs'] security_context: SecurityContext holds pod-level security attributes and common container settings. Optional: Defaults to empty.  See type description for default values of each field.
-        :param pulumi.Input[str] service_account: DeprecatedServiceAccount is a depreciated alias for ServiceAccountName. Deprecated: Use serviceAccountName instead.
+        :param pulumi.Input[str] service_account: DeprecatedServiceAccount is a deprecated alias for ServiceAccountName. Deprecated: Use serviceAccountName instead.
         :param pulumi.Input[str] service_account_name: ServiceAccountName is the name of the ServiceAccount to use to run this pod. More info: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
         :param pulumi.Input[bool] set_hostname_as_fqdn: If true the pod's hostname will be configured as the pod's FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
         :param pulumi.Input[bool] share_process_namespace: Share a single process namespace between all of the containers in a pod. When this is set containers will be able to view and signal processes from other containers in the same pod, and the first process in each container will not be assigned PID 1. HostPID and ShareProcessNamespace cannot both be set. Optional: Default to false.
@@ -17765,7 +17983,7 @@ class PodSpecArgs:
     @pulumi.getter(name="hostAliases")
     def host_aliases(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['HostAliasArgs']]]]:
         """
-        HostAliases is an optional list of hosts and IPs that will be injected into the pod's hosts file if specified. This is only valid for non-hostNetwork pods.
+        HostAliases is an optional list of hosts and IPs that will be injected into the pod's hosts file if specified.
         """
         return pulumi.get(self, "host_aliases")
 
@@ -17889,7 +18107,7 @@ class PodSpecArgs:
 
         If the OS field is set to linux, the following fields must be unset: -securityContext.windowsOptions
 
-        If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
+        If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.securityContext.appArmorProfile - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.appArmorProfile - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
         """
         return pulumi.get(self, "os")
 
@@ -18016,8 +18234,6 @@ class PodSpecArgs:
         SchedulingGates is an opaque list of values that if specified will block scheduling the pod. If schedulingGates is not empty, the pod will stay in the SchedulingGated state and the scheduler will not attempt to schedule the pod.
 
         SchedulingGates can only be set at pod creation time, and be removed only afterwards.
-
-        This is a beta feature enabled by the PodSchedulingReadiness feature gate.
         """
         return pulumi.get(self, "scheduling_gates")
 
@@ -18041,7 +18257,7 @@ class PodSpecArgs:
     @pulumi.getter(name="serviceAccount")
     def service_account(self) -> Optional[pulumi.Input[str]]:
         """
-        DeprecatedServiceAccount is a depreciated alias for ServiceAccountName. Deprecated: Use serviceAccountName instead.
+        DeprecatedServiceAccount is a deprecated alias for ServiceAccountName. Deprecated: Use serviceAccountName instead.
         """
         return pulumi.get(self, "service_account")
 
@@ -22757,6 +22973,7 @@ class SecretArgs:
 class SecurityContextPatchArgs:
     def __init__(__self__, *,
                  allow_privilege_escalation: Optional[pulumi.Input[bool]] = None,
+                 app_armor_profile: Optional[pulumi.Input['AppArmorProfilePatchArgs']] = None,
                  capabilities: Optional[pulumi.Input['CapabilitiesPatchArgs']] = None,
                  privileged: Optional[pulumi.Input[bool]] = None,
                  proc_mount: Optional[pulumi.Input[str]] = None,
@@ -22770,6 +22987,7 @@ class SecurityContextPatchArgs:
         """
         SecurityContext holds security configuration that will be applied to a container. Some fields are present in both SecurityContext and PodSecurityContext.  When both are set, the values in SecurityContext take precedence.
         :param pulumi.Input[bool] allow_privilege_escalation: AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent process. This bool directly controls if the no_new_privs flag will be set on the container process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged 2) has CAP_SYS_ADMIN Note that this field cannot be set when spec.os.name is windows.
+        :param pulumi.Input['AppArmorProfilePatchArgs'] app_armor_profile: appArmorProfile is the AppArmor options to use by this container. If set, this profile overrides the pod's appArmorProfile. Note that this field cannot be set when spec.os.name is windows.
         :param pulumi.Input['CapabilitiesPatchArgs'] capabilities: The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime. Note that this field cannot be set when spec.os.name is windows.
         :param pulumi.Input[bool] privileged: Run container in privileged mode. Processes in privileged containers are essentially equivalent to root on the host. Defaults to false. Note that this field cannot be set when spec.os.name is windows.
         :param pulumi.Input[str] proc_mount: procMount denotes the type of proc mount to use for the containers. The default is DefaultProcMount which uses the container runtime defaults for readonly paths and masked paths. This requires the ProcMountType feature flag to be enabled. Note that this field cannot be set when spec.os.name is windows.
@@ -22783,6 +23001,8 @@ class SecurityContextPatchArgs:
         """
         if allow_privilege_escalation is not None:
             pulumi.set(__self__, "allow_privilege_escalation", allow_privilege_escalation)
+        if app_armor_profile is not None:
+            pulumi.set(__self__, "app_armor_profile", app_armor_profile)
         if capabilities is not None:
             pulumi.set(__self__, "capabilities", capabilities)
         if privileged is not None:
@@ -22815,6 +23035,18 @@ class SecurityContextPatchArgs:
     @allow_privilege_escalation.setter
     def allow_privilege_escalation(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "allow_privilege_escalation", value)
+
+    @property
+    @pulumi.getter(name="appArmorProfile")
+    def app_armor_profile(self) -> Optional[pulumi.Input['AppArmorProfilePatchArgs']]:
+        """
+        appArmorProfile is the AppArmor options to use by this container. If set, this profile overrides the pod's appArmorProfile. Note that this field cannot be set when spec.os.name is windows.
+        """
+        return pulumi.get(self, "app_armor_profile")
+
+    @app_armor_profile.setter
+    def app_armor_profile(self, value: Optional[pulumi.Input['AppArmorProfilePatchArgs']]):
+        pulumi.set(self, "app_armor_profile", value)
 
     @property
     @pulumi.getter
@@ -22941,6 +23173,7 @@ class SecurityContextPatchArgs:
 class SecurityContextArgs:
     def __init__(__self__, *,
                  allow_privilege_escalation: Optional[pulumi.Input[bool]] = None,
+                 app_armor_profile: Optional[pulumi.Input['AppArmorProfileArgs']] = None,
                  capabilities: Optional[pulumi.Input['CapabilitiesArgs']] = None,
                  privileged: Optional[pulumi.Input[bool]] = None,
                  proc_mount: Optional[pulumi.Input[str]] = None,
@@ -22954,6 +23187,7 @@ class SecurityContextArgs:
         """
         SecurityContext holds security configuration that will be applied to a container. Some fields are present in both SecurityContext and PodSecurityContext.  When both are set, the values in SecurityContext take precedence.
         :param pulumi.Input[bool] allow_privilege_escalation: AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent process. This bool directly controls if the no_new_privs flag will be set on the container process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged 2) has CAP_SYS_ADMIN Note that this field cannot be set when spec.os.name is windows.
+        :param pulumi.Input['AppArmorProfileArgs'] app_armor_profile: appArmorProfile is the AppArmor options to use by this container. If set, this profile overrides the pod's appArmorProfile. Note that this field cannot be set when spec.os.name is windows.
         :param pulumi.Input['CapabilitiesArgs'] capabilities: The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime. Note that this field cannot be set when spec.os.name is windows.
         :param pulumi.Input[bool] privileged: Run container in privileged mode. Processes in privileged containers are essentially equivalent to root on the host. Defaults to false. Note that this field cannot be set when spec.os.name is windows.
         :param pulumi.Input[str] proc_mount: procMount denotes the type of proc mount to use for the containers. The default is DefaultProcMount which uses the container runtime defaults for readonly paths and masked paths. This requires the ProcMountType feature flag to be enabled. Note that this field cannot be set when spec.os.name is windows.
@@ -22967,6 +23201,8 @@ class SecurityContextArgs:
         """
         if allow_privilege_escalation is not None:
             pulumi.set(__self__, "allow_privilege_escalation", allow_privilege_escalation)
+        if app_armor_profile is not None:
+            pulumi.set(__self__, "app_armor_profile", app_armor_profile)
         if capabilities is not None:
             pulumi.set(__self__, "capabilities", capabilities)
         if privileged is not None:
@@ -22999,6 +23235,18 @@ class SecurityContextArgs:
     @allow_privilege_escalation.setter
     def allow_privilege_escalation(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "allow_privilege_escalation", value)
+
+    @property
+    @pulumi.getter(name="appArmorProfile")
+    def app_armor_profile(self) -> Optional[pulumi.Input['AppArmorProfileArgs']]:
+        """
+        appArmorProfile is the AppArmor options to use by this container. If set, this profile overrides the pod's appArmorProfile. Note that this field cannot be set when spec.os.name is windows.
+        """
+        return pulumi.get(self, "app_armor_profile")
+
+    @app_armor_profile.setter
+    def app_armor_profile(self, value: Optional[pulumi.Input['AppArmorProfileArgs']]):
+        pulumi.set(self, "app_armor_profile", value)
 
     @property
     @pulumi.getter
@@ -23602,6 +23850,7 @@ class ServiceSpecPatchArgs:
                  session_affinity: Optional[pulumi.Input[str]] = None,
                  session_affinity_config: Optional[pulumi.Input['SessionAffinityConfigPatchArgs']] = None,
                  topology_keys: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 traffic_distribution: Optional[pulumi.Input[str]] = None,
                  type: Optional[pulumi.Input[Union[str, 'ServiceSpecType']]] = None):
         """
         ServiceSpec describes the attributes that a user creates on a service.
@@ -23629,6 +23878,7 @@ class ServiceSpecPatchArgs:
         :param pulumi.Input[str] session_affinity: Supports "ClientIP" and "None". Used to maintain session affinity. Enable client IP based session affinity. Must be ClientIP or None. Defaults to None. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
         :param pulumi.Input['SessionAffinityConfigPatchArgs'] session_affinity_config: sessionAffinityConfig contains the configurations of session affinity.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] topology_keys: topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value "*" may be used to mean "any topology". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied.
+        :param pulumi.Input[str] traffic_distribution: TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are topologically close (e.g., same zone).
         :param pulumi.Input[Union[str, 'ServiceSpecType']] type: type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. "ClusterIP" allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object or EndpointSlice objects. If clusterIP is "None", no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a virtual IP. "NodePort" builds on ClusterIP and allocates a port on every node which routes to the same endpoints as the clusterIP. "LoadBalancer" builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the same endpoints as the clusterIP. "ExternalName" aliases this service to the specified externalName. Several other fields do not apply to ExternalName services. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
         """
         if allocate_load_balancer_node_ports is not None:
@@ -23671,6 +23921,8 @@ class ServiceSpecPatchArgs:
             pulumi.set(__self__, "session_affinity_config", session_affinity_config)
         if topology_keys is not None:
             pulumi.set(__self__, "topology_keys", topology_keys)
+        if traffic_distribution is not None:
+            pulumi.set(__self__, "traffic_distribution", traffic_distribution)
         if type is not None:
             pulumi.set(__self__, "type", type)
 
@@ -23919,6 +24171,18 @@ class ServiceSpecPatchArgs:
         pulumi.set(self, "topology_keys", value)
 
     @property
+    @pulumi.getter(name="trafficDistribution")
+    def traffic_distribution(self) -> Optional[pulumi.Input[str]]:
+        """
+        TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are topologically close (e.g., same zone).
+        """
+        return pulumi.get(self, "traffic_distribution")
+
+    @traffic_distribution.setter
+    def traffic_distribution(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "traffic_distribution", value)
+
+    @property
     @pulumi.getter
     def type(self) -> Optional[pulumi.Input[Union[str, 'ServiceSpecType']]]:
         """
@@ -23954,6 +24218,7 @@ class ServiceSpecArgs:
                  session_affinity: Optional[pulumi.Input[str]] = None,
                  session_affinity_config: Optional[pulumi.Input['SessionAffinityConfigArgs']] = None,
                  topology_keys: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 traffic_distribution: Optional[pulumi.Input[str]] = None,
                  type: Optional[pulumi.Input[Union[str, 'ServiceSpecType']]] = None):
         """
         ServiceSpec describes the attributes that a user creates on a service.
@@ -23981,6 +24246,7 @@ class ServiceSpecArgs:
         :param pulumi.Input[str] session_affinity: Supports "ClientIP" and "None". Used to maintain session affinity. Enable client IP based session affinity. Must be ClientIP or None. Defaults to None. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
         :param pulumi.Input['SessionAffinityConfigArgs'] session_affinity_config: sessionAffinityConfig contains the configurations of session affinity.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] topology_keys: topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value "*" may be used to mean "any topology". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied.
+        :param pulumi.Input[str] traffic_distribution: TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are topologically close (e.g., same zone).
         :param pulumi.Input[Union[str, 'ServiceSpecType']] type: type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. "ClusterIP" allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object or EndpointSlice objects. If clusterIP is "None", no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a virtual IP. "NodePort" builds on ClusterIP and allocates a port on every node which routes to the same endpoints as the clusterIP. "LoadBalancer" builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the same endpoints as the clusterIP. "ExternalName" aliases this service to the specified externalName. Several other fields do not apply to ExternalName services. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
         """
         if allocate_load_balancer_node_ports is not None:
@@ -24023,6 +24289,8 @@ class ServiceSpecArgs:
             pulumi.set(__self__, "session_affinity_config", session_affinity_config)
         if topology_keys is not None:
             pulumi.set(__self__, "topology_keys", topology_keys)
+        if traffic_distribution is not None:
+            pulumi.set(__self__, "traffic_distribution", traffic_distribution)
         if type is not None:
             pulumi.set(__self__, "type", type)
 
@@ -24269,6 +24537,18 @@ class ServiceSpecArgs:
     @topology_keys.setter
     def topology_keys(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
         pulumi.set(self, "topology_keys", value)
+
+    @property
+    @pulumi.getter(name="trafficDistribution")
+    def traffic_distribution(self) -> Optional[pulumi.Input[str]]:
+        """
+        TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are topologically close (e.g., same zone).
+        """
+        return pulumi.get(self, "traffic_distribution")
+
+    @traffic_distribution.setter
+    def traffic_distribution(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "traffic_distribution", value)
 
     @property
     @pulumi.getter
@@ -25505,8 +25785,6 @@ class TopologySpreadConstraintPatchArgs:
         :param pulumi.Input[int] min_domains: MinDomains indicates a minimum number of eligible domains. When the number of eligible domains with matching topology keys is less than minDomains, Pod Topology Spread treats "global minimum" as 0, and then the calculation of Skew is performed. And when the number of eligible domains with matching topology keys equals or greater than minDomains, this value has no effect on scheduling. As a result, when the number of eligible domains is less than minDomains, scheduler won't schedule more than maxSkew Pods to those domains. If value is nil, the constraint behaves as if MinDomains is equal to 1. Valid values are integers greater than 0. When value is not nil, WhenUnsatisfiable must be DoNotSchedule.
                
                For example, in a 3-zone cluster, MaxSkew is set to 2, MinDomains is set to 5 and pods with the same labelSelector spread as 2/2/2: | zone1 | zone2 | zone3 | |  P P  |  P P  |  P P  | The number of domains is less than 5(MinDomains), so "global minimum" is treated as 0. In this situation, new pod with the same labelSelector cannot be scheduled, because computed skew will be 3(3 - 0) if new Pod is scheduled to any of the three zones, it will violate MaxSkew.
-               
-               This is a beta field and requires the MinDomainsInPodTopologySpread feature gate to be enabled (enabled by default).
         :param pulumi.Input[str] node_affinity_policy: NodeAffinityPolicy indicates how we will treat Pod's nodeAffinity/nodeSelector when calculating pod topology spread skew. Options are: - Honor: only nodes matching nodeAffinity/nodeSelector are included in the calculations. - Ignore: nodeAffinity/nodeSelector are ignored. All nodes are included in the calculations.
                
                If this value is nil, the behavior is equivalent to the Honor policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
@@ -25581,8 +25859,6 @@ class TopologySpreadConstraintPatchArgs:
         MinDomains indicates a minimum number of eligible domains. When the number of eligible domains with matching topology keys is less than minDomains, Pod Topology Spread treats "global minimum" as 0, and then the calculation of Skew is performed. And when the number of eligible domains with matching topology keys equals or greater than minDomains, this value has no effect on scheduling. As a result, when the number of eligible domains is less than minDomains, scheduler won't schedule more than maxSkew Pods to those domains. If value is nil, the constraint behaves as if MinDomains is equal to 1. Valid values are integers greater than 0. When value is not nil, WhenUnsatisfiable must be DoNotSchedule.
 
         For example, in a 3-zone cluster, MaxSkew is set to 2, MinDomains is set to 5 and pods with the same labelSelector spread as 2/2/2: | zone1 | zone2 | zone3 | |  P P  |  P P  |  P P  | The number of domains is less than 5(MinDomains), so "global minimum" is treated as 0. In this situation, new pod with the same labelSelector cannot be scheduled, because computed skew will be 3(3 - 0) if new Pod is scheduled to any of the three zones, it will violate MaxSkew.
-
-        This is a beta field and requires the MinDomainsInPodTopologySpread feature gate to be enabled (enabled by default).
         """
         return pulumi.get(self, "min_domains")
 
@@ -25672,8 +25948,6 @@ class TopologySpreadConstraintArgs:
         :param pulumi.Input[int] min_domains: MinDomains indicates a minimum number of eligible domains. When the number of eligible domains with matching topology keys is less than minDomains, Pod Topology Spread treats "global minimum" as 0, and then the calculation of Skew is performed. And when the number of eligible domains with matching topology keys equals or greater than minDomains, this value has no effect on scheduling. As a result, when the number of eligible domains is less than minDomains, scheduler won't schedule more than maxSkew Pods to those domains. If value is nil, the constraint behaves as if MinDomains is equal to 1. Valid values are integers greater than 0. When value is not nil, WhenUnsatisfiable must be DoNotSchedule.
                
                For example, in a 3-zone cluster, MaxSkew is set to 2, MinDomains is set to 5 and pods with the same labelSelector spread as 2/2/2: | zone1 | zone2 | zone3 | |  P P  |  P P  |  P P  | The number of domains is less than 5(MinDomains), so "global minimum" is treated as 0. In this situation, new pod with the same labelSelector cannot be scheduled, because computed skew will be 3(3 - 0) if new Pod is scheduled to any of the three zones, it will violate MaxSkew.
-               
-               This is a beta field and requires the MinDomainsInPodTopologySpread feature gate to be enabled (enabled by default).
         :param pulumi.Input[str] node_affinity_policy: NodeAffinityPolicy indicates how we will treat Pod's nodeAffinity/nodeSelector when calculating pod topology spread skew. Options are: - Honor: only nodes matching nodeAffinity/nodeSelector are included in the calculations. - Ignore: nodeAffinity/nodeSelector are ignored. All nodes are included in the calculations.
                
                If this value is nil, the behavior is equivalent to the Honor policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
@@ -25767,8 +26041,6 @@ class TopologySpreadConstraintArgs:
         MinDomains indicates a minimum number of eligible domains. When the number of eligible domains with matching topology keys is less than minDomains, Pod Topology Spread treats "global minimum" as 0, and then the calculation of Skew is performed. And when the number of eligible domains with matching topology keys equals or greater than minDomains, this value has no effect on scheduling. As a result, when the number of eligible domains is less than minDomains, scheduler won't schedule more than maxSkew Pods to those domains. If value is nil, the constraint behaves as if MinDomains is equal to 1. Valid values are integers greater than 0. When value is not nil, WhenUnsatisfiable must be DoNotSchedule.
 
         For example, in a 3-zone cluster, MaxSkew is set to 2, MinDomains is set to 5 and pods with the same labelSelector spread as 2/2/2: | zone1 | zone2 | zone3 | |  P P  |  P P  |  P P  | The number of domains is less than 5(MinDomains), so "global minimum" is treated as 0. In this situation, new pod with the same labelSelector cannot be scheduled, because computed skew will be 3(3 - 0) if new Pod is scheduled to any of the three zones, it will violate MaxSkew.
-
-        This is a beta field and requires the MinDomainsInPodTopologySpread feature gate to be enabled (enabled by default).
         """
         return pulumi.get(self, "min_domains")
 
@@ -26140,14 +26412,24 @@ class VolumeMountPatchArgs:
                  mount_propagation: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  read_only: Optional[pulumi.Input[bool]] = None,
+                 recursive_read_only: Optional[pulumi.Input[str]] = None,
                  sub_path: Optional[pulumi.Input[str]] = None,
                  sub_path_expr: Optional[pulumi.Input[str]] = None):
         """
         VolumeMount describes a mounting of a Volume within a container.
         :param pulumi.Input[str] mount_path: Path within the container at which the volume should be mounted.  Must not contain ':'.
-        :param pulumi.Input[str] mount_propagation: mountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, MountPropagationNone is used. This field is beta in 1.10.
+        :param pulumi.Input[str] mount_propagation: mountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, MountPropagationNone is used. This field is beta in 1.10. When RecursiveReadOnly is set to IfPossible or to Enabled, MountPropagation must be None or unspecified (which defaults to None).
         :param pulumi.Input[str] name: This must match the Name of a Volume.
         :param pulumi.Input[bool] read_only: Mounted read-only if true, read-write otherwise (false or unspecified). Defaults to false.
+        :param pulumi.Input[str] recursive_read_only: RecursiveReadOnly specifies whether read-only mounts should be handled recursively.
+               
+               If ReadOnly is false, this field has no meaning and must be unspecified.
+               
+               If ReadOnly is true, and this field is set to Disabled, the mount is not made recursively read-only.  If this field is set to IfPossible, the mount is made recursively read-only, if it is supported by the container runtime.  If this field is set to Enabled, the mount is made recursively read-only if it is supported by the container runtime, otherwise the pod will not be started and an error will be generated to indicate the reason.
+               
+               If this field is set to IfPossible or Enabled, MountPropagation must be set to None (or be unspecified, which defaults to None).
+               
+               If this field is not specified, it is treated as an equivalent of Disabled.
         :param pulumi.Input[str] sub_path: Path within the volume from which the container's volume should be mounted. Defaults to "" (volume's root).
         :param pulumi.Input[str] sub_path_expr: Expanded path within the volume from which the container's volume should be mounted. Behaves similarly to SubPath but environment variable references $(VAR_NAME) are expanded using the container's environment. Defaults to "" (volume's root). SubPathExpr and SubPath are mutually exclusive.
         """
@@ -26159,6 +26441,8 @@ class VolumeMountPatchArgs:
             pulumi.set(__self__, "name", name)
         if read_only is not None:
             pulumi.set(__self__, "read_only", read_only)
+        if recursive_read_only is not None:
+            pulumi.set(__self__, "recursive_read_only", recursive_read_only)
         if sub_path is not None:
             pulumi.set(__self__, "sub_path", sub_path)
         if sub_path_expr is not None:
@@ -26180,7 +26464,7 @@ class VolumeMountPatchArgs:
     @pulumi.getter(name="mountPropagation")
     def mount_propagation(self) -> Optional[pulumi.Input[str]]:
         """
-        mountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, MountPropagationNone is used. This field is beta in 1.10.
+        mountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, MountPropagationNone is used. This field is beta in 1.10. When RecursiveReadOnly is set to IfPossible or to Enabled, MountPropagation must be None or unspecified (which defaults to None).
         """
         return pulumi.get(self, "mount_propagation")
 
@@ -26213,6 +26497,26 @@ class VolumeMountPatchArgs:
         pulumi.set(self, "read_only", value)
 
     @property
+    @pulumi.getter(name="recursiveReadOnly")
+    def recursive_read_only(self) -> Optional[pulumi.Input[str]]:
+        """
+        RecursiveReadOnly specifies whether read-only mounts should be handled recursively.
+
+        If ReadOnly is false, this field has no meaning and must be unspecified.
+
+        If ReadOnly is true, and this field is set to Disabled, the mount is not made recursively read-only.  If this field is set to IfPossible, the mount is made recursively read-only, if it is supported by the container runtime.  If this field is set to Enabled, the mount is made recursively read-only if it is supported by the container runtime, otherwise the pod will not be started and an error will be generated to indicate the reason.
+
+        If this field is set to IfPossible or Enabled, MountPropagation must be set to None (or be unspecified, which defaults to None).
+
+        If this field is not specified, it is treated as an equivalent of Disabled.
+        """
+        return pulumi.get(self, "recursive_read_only")
+
+    @recursive_read_only.setter
+    def recursive_read_only(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "recursive_read_only", value)
+
+    @property
     @pulumi.getter(name="subPath")
     def sub_path(self) -> Optional[pulumi.Input[str]]:
         """
@@ -26238,20 +26542,100 @@ class VolumeMountPatchArgs:
 
 
 @pulumi.input_type
+class VolumeMountStatusArgs:
+    def __init__(__self__, *,
+                 mount_path: pulumi.Input[str],
+                 name: pulumi.Input[str],
+                 read_only: Optional[pulumi.Input[bool]] = None,
+                 recursive_read_only: Optional[pulumi.Input[str]] = None):
+        """
+        VolumeMountStatus shows status of volume mounts.
+        :param pulumi.Input[str] mount_path: MountPath corresponds to the original VolumeMount.
+        :param pulumi.Input[str] name: Name corresponds to the name of the original VolumeMount.
+        :param pulumi.Input[bool] read_only: ReadOnly corresponds to the original VolumeMount.
+        :param pulumi.Input[str] recursive_read_only: RecursiveReadOnly must be set to Disabled, Enabled, or unspecified (for non-readonly mounts). An IfPossible value in the original VolumeMount must be translated to Disabled or Enabled, depending on the mount result.
+        """
+        pulumi.set(__self__, "mount_path", mount_path)
+        pulumi.set(__self__, "name", name)
+        if read_only is not None:
+            pulumi.set(__self__, "read_only", read_only)
+        if recursive_read_only is not None:
+            pulumi.set(__self__, "recursive_read_only", recursive_read_only)
+
+    @property
+    @pulumi.getter(name="mountPath")
+    def mount_path(self) -> pulumi.Input[str]:
+        """
+        MountPath corresponds to the original VolumeMount.
+        """
+        return pulumi.get(self, "mount_path")
+
+    @mount_path.setter
+    def mount_path(self, value: pulumi.Input[str]):
+        pulumi.set(self, "mount_path", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[str]:
+        """
+        Name corresponds to the name of the original VolumeMount.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[str]):
+        pulumi.set(self, "name", value)
+
+    @property
+    @pulumi.getter(name="readOnly")
+    def read_only(self) -> Optional[pulumi.Input[bool]]:
+        """
+        ReadOnly corresponds to the original VolumeMount.
+        """
+        return pulumi.get(self, "read_only")
+
+    @read_only.setter
+    def read_only(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "read_only", value)
+
+    @property
+    @pulumi.getter(name="recursiveReadOnly")
+    def recursive_read_only(self) -> Optional[pulumi.Input[str]]:
+        """
+        RecursiveReadOnly must be set to Disabled, Enabled, or unspecified (for non-readonly mounts). An IfPossible value in the original VolumeMount must be translated to Disabled or Enabled, depending on the mount result.
+        """
+        return pulumi.get(self, "recursive_read_only")
+
+    @recursive_read_only.setter
+    def recursive_read_only(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "recursive_read_only", value)
+
+
+@pulumi.input_type
 class VolumeMountArgs:
     def __init__(__self__, *,
                  mount_path: pulumi.Input[str],
                  name: pulumi.Input[str],
                  mount_propagation: Optional[pulumi.Input[str]] = None,
                  read_only: Optional[pulumi.Input[bool]] = None,
+                 recursive_read_only: Optional[pulumi.Input[str]] = None,
                  sub_path: Optional[pulumi.Input[str]] = None,
                  sub_path_expr: Optional[pulumi.Input[str]] = None):
         """
         VolumeMount describes a mounting of a Volume within a container.
         :param pulumi.Input[str] mount_path: Path within the container at which the volume should be mounted.  Must not contain ':'.
         :param pulumi.Input[str] name: This must match the Name of a Volume.
-        :param pulumi.Input[str] mount_propagation: mountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, MountPropagationNone is used. This field is beta in 1.10.
+        :param pulumi.Input[str] mount_propagation: mountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, MountPropagationNone is used. This field is beta in 1.10. When RecursiveReadOnly is set to IfPossible or to Enabled, MountPropagation must be None or unspecified (which defaults to None).
         :param pulumi.Input[bool] read_only: Mounted read-only if true, read-write otherwise (false or unspecified). Defaults to false.
+        :param pulumi.Input[str] recursive_read_only: RecursiveReadOnly specifies whether read-only mounts should be handled recursively.
+               
+               If ReadOnly is false, this field has no meaning and must be unspecified.
+               
+               If ReadOnly is true, and this field is set to Disabled, the mount is not made recursively read-only.  If this field is set to IfPossible, the mount is made recursively read-only, if it is supported by the container runtime.  If this field is set to Enabled, the mount is made recursively read-only if it is supported by the container runtime, otherwise the pod will not be started and an error will be generated to indicate the reason.
+               
+               If this field is set to IfPossible or Enabled, MountPropagation must be set to None (or be unspecified, which defaults to None).
+               
+               If this field is not specified, it is treated as an equivalent of Disabled.
         :param pulumi.Input[str] sub_path: Path within the volume from which the container's volume should be mounted. Defaults to "" (volume's root).
         :param pulumi.Input[str] sub_path_expr: Expanded path within the volume from which the container's volume should be mounted. Behaves similarly to SubPath but environment variable references $(VAR_NAME) are expanded using the container's environment. Defaults to "" (volume's root). SubPathExpr and SubPath are mutually exclusive.
         """
@@ -26261,6 +26645,8 @@ class VolumeMountArgs:
             pulumi.set(__self__, "mount_propagation", mount_propagation)
         if read_only is not None:
             pulumi.set(__self__, "read_only", read_only)
+        if recursive_read_only is not None:
+            pulumi.set(__self__, "recursive_read_only", recursive_read_only)
         if sub_path is not None:
             pulumi.set(__self__, "sub_path", sub_path)
         if sub_path_expr is not None:
@@ -26294,7 +26680,7 @@ class VolumeMountArgs:
     @pulumi.getter(name="mountPropagation")
     def mount_propagation(self) -> Optional[pulumi.Input[str]]:
         """
-        mountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, MountPropagationNone is used. This field is beta in 1.10.
+        mountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, MountPropagationNone is used. This field is beta in 1.10. When RecursiveReadOnly is set to IfPossible or to Enabled, MountPropagation must be None or unspecified (which defaults to None).
         """
         return pulumi.get(self, "mount_propagation")
 
@@ -26313,6 +26699,26 @@ class VolumeMountArgs:
     @read_only.setter
     def read_only(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "read_only", value)
+
+    @property
+    @pulumi.getter(name="recursiveReadOnly")
+    def recursive_read_only(self) -> Optional[pulumi.Input[str]]:
+        """
+        RecursiveReadOnly specifies whether read-only mounts should be handled recursively.
+
+        If ReadOnly is false, this field has no meaning and must be unspecified.
+
+        If ReadOnly is true, and this field is set to Disabled, the mount is not made recursively read-only.  If this field is set to IfPossible, the mount is made recursively read-only, if it is supported by the container runtime.  If this field is set to Enabled, the mount is made recursively read-only if it is supported by the container runtime, otherwise the pod will not be started and an error will be generated to indicate the reason.
+
+        If this field is set to IfPossible or Enabled, MountPropagation must be set to None (or be unspecified, which defaults to None).
+
+        If this field is not specified, it is treated as an equivalent of Disabled.
+        """
+        return pulumi.get(self, "recursive_read_only")
+
+    @recursive_read_only.setter
+    def recursive_read_only(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "recursive_read_only", value)
 
     @property
     @pulumi.getter(name="subPath")

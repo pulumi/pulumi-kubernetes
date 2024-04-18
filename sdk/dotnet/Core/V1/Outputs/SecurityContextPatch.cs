@@ -21,6 +21,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly bool AllowPrivilegeEscalation;
         /// <summary>
+        /// appArmorProfile is the AppArmor options to use by this container. If set, this profile overrides the pod's appArmorProfile. Note that this field cannot be set when spec.os.name is windows.
+        /// </summary>
+        public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.AppArmorProfilePatch AppArmorProfile;
+        /// <summary>
         /// The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime. Note that this field cannot be set when spec.os.name is windows.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.CapabilitiesPatch Capabilities;
@@ -65,6 +69,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         private SecurityContextPatch(
             bool allowPrivilegeEscalation,
 
+            Pulumi.Kubernetes.Types.Outputs.Core.V1.AppArmorProfilePatch appArmorProfile,
+
             Pulumi.Kubernetes.Types.Outputs.Core.V1.CapabilitiesPatch capabilities,
 
             bool privileged,
@@ -86,6 +92,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
             Pulumi.Kubernetes.Types.Outputs.Core.V1.WindowsSecurityContextOptionsPatch windowsOptions)
         {
             AllowPrivilegeEscalation = allowPrivilegeEscalation;
+            AppArmorProfile = appArmorProfile;
             Capabilities = capabilities;
             Privileged = privileged;
             ProcMount = procMount;

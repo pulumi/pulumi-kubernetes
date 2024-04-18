@@ -10,6 +10,7 @@ import com.pulumi.kubernetes.core.v1.outputs.NodeAddressPatch;
 import com.pulumi.kubernetes.core.v1.outputs.NodeConditionPatch;
 import com.pulumi.kubernetes.core.v1.outputs.NodeConfigStatusPatch;
 import com.pulumi.kubernetes.core.v1.outputs.NodeDaemonEndpointsPatch;
+import com.pulumi.kubernetes.core.v1.outputs.NodeRuntimeHandlerPatch;
 import com.pulumi.kubernetes.core.v1.outputs.NodeSystemInfoPatch;
 import java.lang.String;
 import java.util.List;
@@ -65,6 +66,11 @@ public final class NodeStatusPatch {
      * 
      */
     private @Nullable String phase;
+    /**
+     * @return The available runtime handlers.
+     * 
+     */
+    private @Nullable List<NodeRuntimeHandlerPatch> runtimeHandlers;
     /**
      * @return List of volumes that are attached to the node.
      * 
@@ -141,6 +147,13 @@ public final class NodeStatusPatch {
         return Optional.ofNullable(this.phase);
     }
     /**
+     * @return The available runtime handlers.
+     * 
+     */
+    public List<NodeRuntimeHandlerPatch> runtimeHandlers() {
+        return this.runtimeHandlers == null ? List.of() : this.runtimeHandlers;
+    }
+    /**
      * @return List of volumes that are attached to the node.
      * 
      */
@@ -173,6 +186,7 @@ public final class NodeStatusPatch {
         private @Nullable List<ContainerImagePatch> images;
         private @Nullable NodeSystemInfoPatch nodeInfo;
         private @Nullable String phase;
+        private @Nullable List<NodeRuntimeHandlerPatch> runtimeHandlers;
         private @Nullable List<AttachedVolumePatch> volumesAttached;
         private @Nullable List<String> volumesInUse;
         public Builder() {}
@@ -187,6 +201,7 @@ public final class NodeStatusPatch {
     	      this.images = defaults.images;
     	      this.nodeInfo = defaults.nodeInfo;
     	      this.phase = defaults.phase;
+    	      this.runtimeHandlers = defaults.runtimeHandlers;
     	      this.volumesAttached = defaults.volumesAttached;
     	      this.volumesInUse = defaults.volumesInUse;
         }
@@ -246,6 +261,14 @@ public final class NodeStatusPatch {
             return this;
         }
         @CustomType.Setter
+        public Builder runtimeHandlers(@Nullable List<NodeRuntimeHandlerPatch> runtimeHandlers) {
+            this.runtimeHandlers = runtimeHandlers;
+            return this;
+        }
+        public Builder runtimeHandlers(NodeRuntimeHandlerPatch... runtimeHandlers) {
+            return runtimeHandlers(List.of(runtimeHandlers));
+        }
+        @CustomType.Setter
         public Builder volumesAttached(@Nullable List<AttachedVolumePatch> volumesAttached) {
             this.volumesAttached = volumesAttached;
             return this;
@@ -272,6 +295,7 @@ public final class NodeStatusPatch {
             o.images = images;
             o.nodeInfo = nodeInfo;
             o.phase = phase;
+            o.runtimeHandlers = runtimeHandlers;
             o.volumesAttached = volumesAttached;
             o.volumesInUse = volumesInUse;
             return o;

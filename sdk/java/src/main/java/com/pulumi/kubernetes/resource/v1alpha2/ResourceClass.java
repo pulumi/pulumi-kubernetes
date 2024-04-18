@@ -13,6 +13,7 @@ import com.pulumi.kubernetes.core.v1.outputs.NodeSelector;
 import com.pulumi.kubernetes.meta.v1.outputs.ObjectMeta;
 import com.pulumi.kubernetes.resource.v1alpha2.ResourceClassArgs;
 import com.pulumi.kubernetes.resource.v1alpha2.outputs.ResourceClassParametersReference;
+import java.lang.Boolean;
 import java.lang.String;
 import java.util.List;
 import javax.annotation.Nullable;
@@ -98,6 +99,20 @@ public class ResourceClass extends com.pulumi.resources.CustomResource {
      */
     public Output<ResourceClassParametersReference> parametersRef() {
         return this.parametersRef;
+    }
+    /**
+     * If and only if allocation of claims using this class is handled via structured parameters, then StructuredParameters must be set to true.
+     * 
+     */
+    @Export(name="structuredParameters", refs={Boolean.class}, tree="[0]")
+    private Output<Boolean> structuredParameters;
+
+    /**
+     * @return If and only if allocation of claims using this class is handled via structured parameters, then StructuredParameters must be set to true.
+     * 
+     */
+    public Output<Boolean> structuredParameters() {
+        return this.structuredParameters;
     }
     /**
      * Only nodes matching the selector will be considered by the scheduler when trying to find a Node that fits a Pod when that Pod uses a ResourceClaim that has not been allocated yet.

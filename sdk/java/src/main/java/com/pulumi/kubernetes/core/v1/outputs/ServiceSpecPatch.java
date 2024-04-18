@@ -122,6 +122,11 @@ public final class ServiceSpecPatch {
      */
     private @Nullable List<String> topologyKeys;
     /**
+     * @return TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to &#34;PreferClose&#34;, implementations should prioritize endpoints that are topologically close (e.g., same zone).
+     * 
+     */
+    private @Nullable String trafficDistribution;
+    /**
      * @return type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. &#34;ClusterIP&#34; allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object or EndpointSlice objects. If clusterIP is &#34;None&#34;, no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a virtual IP. &#34;NodePort&#34; builds on ClusterIP and allocates a port on every node which routes to the same endpoints as the clusterIP. &#34;LoadBalancer&#34; builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the same endpoints as the clusterIP. &#34;ExternalName&#34; aliases this service to the specified externalName. Several other fields do not apply to ExternalName services. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
      * 
      */
@@ -273,6 +278,13 @@ public final class ServiceSpecPatch {
         return this.topologyKeys == null ? List.of() : this.topologyKeys;
     }
     /**
+     * @return TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to &#34;PreferClose&#34;, implementations should prioritize endpoints that are topologically close (e.g., same zone).
+     * 
+     */
+    public Optional<String> trafficDistribution() {
+        return Optional.ofNullable(this.trafficDistribution);
+    }
+    /**
      * @return type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. &#34;ClusterIP&#34; allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object or EndpointSlice objects. If clusterIP is &#34;None&#34;, no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a virtual IP. &#34;NodePort&#34; builds on ClusterIP and allocates a port on every node which routes to the same endpoints as the clusterIP. &#34;LoadBalancer&#34; builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the same endpoints as the clusterIP. &#34;ExternalName&#34; aliases this service to the specified externalName. Several other fields do not apply to ExternalName services. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
      * 
      */
@@ -309,6 +321,7 @@ public final class ServiceSpecPatch {
         private @Nullable String sessionAffinity;
         private @Nullable SessionAffinityConfigPatch sessionAffinityConfig;
         private @Nullable List<String> topologyKeys;
+        private @Nullable String trafficDistribution;
         private @Nullable String type;
         public Builder() {}
         public Builder(ServiceSpecPatch defaults) {
@@ -333,6 +346,7 @@ public final class ServiceSpecPatch {
     	      this.sessionAffinity = defaults.sessionAffinity;
     	      this.sessionAffinityConfig = defaults.sessionAffinityConfig;
     	      this.topologyKeys = defaults.topologyKeys;
+    	      this.trafficDistribution = defaults.trafficDistribution;
     	      this.type = defaults.type;
         }
 
@@ -455,6 +469,11 @@ public final class ServiceSpecPatch {
             return topologyKeys(List.of(topologyKeys));
         }
         @CustomType.Setter
+        public Builder trafficDistribution(@Nullable String trafficDistribution) {
+            this.trafficDistribution = trafficDistribution;
+            return this;
+        }
+        @CustomType.Setter
         public Builder type(@Nullable String type) {
             this.type = type;
             return this;
@@ -481,6 +500,7 @@ public final class ServiceSpecPatch {
             o.sessionAffinity = sessionAffinity;
             o.sessionAffinityConfig = sessionAffinityConfig;
             o.topologyKeys = topologyKeys;
+            o.trafficDistribution = trafficDistribution;
             o.type = type;
             return o;
         }

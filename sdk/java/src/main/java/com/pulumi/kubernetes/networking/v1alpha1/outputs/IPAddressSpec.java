@@ -6,8 +6,6 @@ package com.pulumi.kubernetes.networking.v1alpha1.outputs;
 import com.pulumi.core.annotations.CustomType;
 import com.pulumi.kubernetes.networking.v1alpha1.outputs.ParentReference;
 import java.util.Objects;
-import java.util.Optional;
-import javax.annotation.Nullable;
 
 @CustomType
 public final class IPAddressSpec {
@@ -15,15 +13,15 @@ public final class IPAddressSpec {
      * @return ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
      * 
      */
-    private @Nullable ParentReference parentRef;
+    private ParentReference parentRef;
 
     private IPAddressSpec() {}
     /**
      * @return ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
      * 
      */
-    public Optional<ParentReference> parentRef() {
-        return Optional.ofNullable(this.parentRef);
+    public ParentReference parentRef() {
+        return this.parentRef;
     }
 
     public static Builder builder() {
@@ -35,7 +33,7 @@ public final class IPAddressSpec {
     }
     @CustomType.Builder
     public static final class Builder {
-        private @Nullable ParentReference parentRef;
+        private ParentReference parentRef;
         public Builder() {}
         public Builder(IPAddressSpec defaults) {
     	      Objects.requireNonNull(defaults);
@@ -43,8 +41,8 @@ public final class IPAddressSpec {
         }
 
         @CustomType.Setter
-        public Builder parentRef(@Nullable ParentReference parentRef) {
-            this.parentRef = parentRef;
+        public Builder parentRef(ParentReference parentRef) {
+            this.parentRef = Objects.requireNonNull(parentRef);
             return this;
         }
         public IPAddressSpec build() {

@@ -142,6 +142,7 @@ public class ValidatingAdmissionPolicyPatch extends com.pulumi.resources.CustomR
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .aliases(List.of(
+                Output.of(Alias.builder().type("kubernetes:admissionregistration.k8s.io/v1:ValidatingAdmissionPolicyPatch").build()),
                 Output.of(Alias.builder().type("kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingAdmissionPolicyPatch").build())
             ))
             .build();

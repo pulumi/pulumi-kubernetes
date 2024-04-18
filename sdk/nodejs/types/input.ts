@@ -78,6 +78,68 @@ export function kubeClientSettingsProvideDefaults(val: KubeClientSettings): Kube
 export namespace admissionregistration {
     export namespace v1 {
         /**
+         * AuditAnnotation describes how to produce an audit annotation for an API request.
+         */
+        export interface AuditAnnotation {
+            /**
+             * key specifies the audit annotation key. The audit annotation keys of a ValidatingAdmissionPolicy must be unique. The key must be a qualified name ([A-Za-z0-9][-A-Za-z0-9_.]*) no more than 63 bytes in length.
+             *
+             * The key is combined with the resource name of the ValidatingAdmissionPolicy to construct an audit annotation key: "{ValidatingAdmissionPolicy name}/{key}".
+             *
+             * If an admission webhook uses the same resource name as this ValidatingAdmissionPolicy and the same audit annotation key, the annotation key will be identical. In this case, the first annotation written with the key will be included in the audit event and all subsequent annotations with the same key will be discarded.
+             *
+             * Required.
+             */
+            key: pulumi.Input<string>;
+            /**
+             * valueExpression represents the expression which is evaluated by CEL to produce an audit annotation value. The expression must evaluate to either a string or null value. If the expression evaluates to a string, the audit annotation is included with the string value. If the expression evaluates to null or empty string the audit annotation will be omitted. The valueExpression may be no longer than 5kb in length. If the result of the valueExpression is more than 10kb in length, it will be truncated to 10kb.
+             *
+             * If multiple ValidatingAdmissionPolicyBinding resources match an API request, then the valueExpression will be evaluated for each binding. All unique values produced by the valueExpressions will be joined together in a comma-separated list.
+             *
+             * Required.
+             */
+            valueExpression: pulumi.Input<string>;
+        }
+
+        /**
+         * AuditAnnotation describes how to produce an audit annotation for an API request.
+         */
+        export interface AuditAnnotationPatch {
+            /**
+             * key specifies the audit annotation key. The audit annotation keys of a ValidatingAdmissionPolicy must be unique. The key must be a qualified name ([A-Za-z0-9][-A-Za-z0-9_.]*) no more than 63 bytes in length.
+             *
+             * The key is combined with the resource name of the ValidatingAdmissionPolicy to construct an audit annotation key: "{ValidatingAdmissionPolicy name}/{key}".
+             *
+             * If an admission webhook uses the same resource name as this ValidatingAdmissionPolicy and the same audit annotation key, the annotation key will be identical. In this case, the first annotation written with the key will be included in the audit event and all subsequent annotations with the same key will be discarded.
+             *
+             * Required.
+             */
+            key?: pulumi.Input<string>;
+            /**
+             * valueExpression represents the expression which is evaluated by CEL to produce an audit annotation value. The expression must evaluate to either a string or null value. If the expression evaluates to a string, the audit annotation is included with the string value. If the expression evaluates to null or empty string the audit annotation will be omitted. The valueExpression may be no longer than 5kb in length. If the result of the valueExpression is more than 10kb in length, it will be truncated to 10kb.
+             *
+             * If multiple ValidatingAdmissionPolicyBinding resources match an API request, then the valueExpression will be evaluated for each binding. All unique values produced by the valueExpressions will be joined together in a comma-separated list.
+             *
+             * Required.
+             */
+            valueExpression?: pulumi.Input<string>;
+        }
+
+        /**
+         * ExpressionWarning is a warning information that targets a specific expression.
+         */
+        export interface ExpressionWarning {
+            /**
+             * The path to the field that refers the expression. For example, the reference to the expression of the first item of validations is "spec.validations[0].expression"
+             */
+            fieldRef: pulumi.Input<string>;
+            /**
+             * The content of type checking information in a human-readable form. Each line of the warning contains the type that the expression is checked against, followed by the type check error from the compiler.
+             */
+            warning: pulumi.Input<string>;
+        }
+
+        /**
          * MatchCondition represents a condition which must by fulfilled for a request to be sent to a webhook.
          */
         export interface MatchCondition {
@@ -126,6 +188,130 @@ export namespace admissionregistration {
         }
 
         /**
+         * MatchResources decides whether to run the admission control policy on an object based on whether it meets the match criteria. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
+         */
+        export interface MatchResources {
+            /**
+             * ExcludeResourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
+             */
+            excludeResourceRules?: pulumi.Input<pulumi.Input<inputs.admissionregistration.v1.NamedRuleWithOperations>[]>;
+            /**
+             * matchPolicy defines how the "MatchResources" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
+             *
+             * - Exact: match a request only if it exactly matches a specified rule. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, but "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, a request to apps/v1beta1 or extensions/v1beta1 would not be sent to the ValidatingAdmissionPolicy.
+             *
+             * - Equivalent: match a request if modifies a resource listed in rules, even via another API group or version. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, and "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, a request to apps/v1beta1 or extensions/v1beta1 would be converted to apps/v1 and sent to the ValidatingAdmissionPolicy.
+             *
+             * Defaults to "Equivalent"
+             */
+            matchPolicy?: pulumi.Input<string>;
+            /**
+             * NamespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
+             *
+             * For example, to run the webhook on any objects whose namespace is not associated with "runlevel" of "0" or "1";  you will set the selector as follows: "namespaceSelector": {
+             *   "matchExpressions": [
+             *     {
+             *       "key": "runlevel",
+             *       "operator": "NotIn",
+             *       "values": [
+             *         "0",
+             *         "1"
+             *       ]
+             *     }
+             *   ]
+             * }
+             *
+             * If instead you want to only run the policy on any objects whose namespace is associated with the "environment" of "prod" or "staging"; you will set the selector as follows: "namespaceSelector": {
+             *   "matchExpressions": [
+             *     {
+             *       "key": "environment",
+             *       "operator": "In",
+             *       "values": [
+             *         "prod",
+             *         "staging"
+             *       ]
+             *     }
+             *   ]
+             * }
+             *
+             * See https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/ for more examples of label selectors.
+             *
+             * Default to the empty LabelSelector, which matches everything.
+             */
+            namespaceSelector?: pulumi.Input<inputs.meta.v1.LabelSelector>;
+            /**
+             * ObjectSelector decides whether to run the validation based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the cel validation, and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
+             */
+            objectSelector?: pulumi.Input<inputs.meta.v1.LabelSelector>;
+            /**
+             * ResourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy matches. The policy cares about an operation if it matches _any_ Rule.
+             */
+            resourceRules?: pulumi.Input<pulumi.Input<inputs.admissionregistration.v1.NamedRuleWithOperations>[]>;
+        }
+
+        /**
+         * MatchResources decides whether to run the admission control policy on an object based on whether it meets the match criteria. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
+         */
+        export interface MatchResourcesPatch {
+            /**
+             * ExcludeResourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
+             */
+            excludeResourceRules?: pulumi.Input<pulumi.Input<inputs.admissionregistration.v1.NamedRuleWithOperationsPatch>[]>;
+            /**
+             * matchPolicy defines how the "MatchResources" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
+             *
+             * - Exact: match a request only if it exactly matches a specified rule. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, but "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, a request to apps/v1beta1 or extensions/v1beta1 would not be sent to the ValidatingAdmissionPolicy.
+             *
+             * - Equivalent: match a request if modifies a resource listed in rules, even via another API group or version. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, and "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, a request to apps/v1beta1 or extensions/v1beta1 would be converted to apps/v1 and sent to the ValidatingAdmissionPolicy.
+             *
+             * Defaults to "Equivalent"
+             */
+            matchPolicy?: pulumi.Input<string>;
+            /**
+             * NamespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
+             *
+             * For example, to run the webhook on any objects whose namespace is not associated with "runlevel" of "0" or "1";  you will set the selector as follows: "namespaceSelector": {
+             *   "matchExpressions": [
+             *     {
+             *       "key": "runlevel",
+             *       "operator": "NotIn",
+             *       "values": [
+             *         "0",
+             *         "1"
+             *       ]
+             *     }
+             *   ]
+             * }
+             *
+             * If instead you want to only run the policy on any objects whose namespace is associated with the "environment" of "prod" or "staging"; you will set the selector as follows: "namespaceSelector": {
+             *   "matchExpressions": [
+             *     {
+             *       "key": "environment",
+             *       "operator": "In",
+             *       "values": [
+             *         "prod",
+             *         "staging"
+             *       ]
+             *     }
+             *   ]
+             * }
+             *
+             * See https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/ for more examples of label selectors.
+             *
+             * Default to the empty LabelSelector, which matches everything.
+             */
+            namespaceSelector?: pulumi.Input<inputs.meta.v1.LabelSelectorPatch>;
+            /**
+             * ObjectSelector decides whether to run the validation based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the cel validation, and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
+             */
+            objectSelector?: pulumi.Input<inputs.meta.v1.LabelSelectorPatch>;
+            /**
+             * ResourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy matches. The policy cares about an operation if it matches _any_ Rule.
+             */
+            resourceRules?: pulumi.Input<pulumi.Input<inputs.admissionregistration.v1.NamedRuleWithOperationsPatch>[]>;
+        }
+
+        /**
          * MutatingWebhook describes an admission webhook and the resources and operations it applies to.
          */
         export interface MutatingWebhook {
@@ -150,8 +336,6 @@ export namespace admissionregistration {
              *   3. If any matchCondition evaluates to an error (but none are FALSE):
              *      - If failurePolicy=Fail, reject the request
              *      - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
-             *
-             * This is a beta feature and managed by the AdmissionWebhookMatchConditions feature gate.
              */
             matchConditions?: pulumi.Input<pulumi.Input<inputs.admissionregistration.v1.MatchCondition>[]>;
             /**
@@ -277,8 +461,6 @@ export namespace admissionregistration {
              *   3. If any matchCondition evaluates to an error (but none are FALSE):
              *      - If failurePolicy=Fail, reject the request
              *      - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
-             *
-             * This is a beta feature and managed by the AdmissionWebhookMatchConditions feature gate.
              */
             matchConditions?: pulumi.Input<pulumi.Input<inputs.admissionregistration.v1.MatchConditionPatch>[]>;
             /**
@@ -355,6 +537,186 @@ export namespace admissionregistration {
              * TimeoutSeconds specifies the timeout for this webhook. After the timeout passes, the webhook call will be ignored or the API call will fail based on the failure policy. The timeout value must be between 1 and 30 seconds. Default to 10 seconds.
              */
             timeoutSeconds?: pulumi.Input<number>;
+        }
+
+        /**
+         * NamedRuleWithOperations is a tuple of Operations and Resources with ResourceNames.
+         */
+        export interface NamedRuleWithOperations {
+            /**
+             * APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
+             */
+            apiGroups?: pulumi.Input<pulumi.Input<string>[]>;
+            /**
+             * APIVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
+             */
+            apiVersions?: pulumi.Input<pulumi.Input<string>[]>;
+            /**
+             * Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
+             */
+            operations?: pulumi.Input<pulumi.Input<string>[]>;
+            /**
+             * ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
+             */
+            resourceNames?: pulumi.Input<pulumi.Input<string>[]>;
+            /**
+             * Resources is a list of resources this rule applies to.
+             *
+             * For example: 'pods' means pods. 'pods/log' means the log subresource of pods. '*' means all resources, but not subresources. 'pods/*' means all subresources of pods. '*&#47;scale' means all scale subresources. '*&#47;*' means all resources and their subresources.
+             *
+             * If wildcard is present, the validation rule will ensure resources do not overlap with each other.
+             *
+             * Depending on the enclosing object, subresources might not be allowed. Required.
+             */
+            resources?: pulumi.Input<pulumi.Input<string>[]>;
+            /**
+             * scope specifies the scope of this rule. Valid values are "Cluster", "Namespaced", and "*" "Cluster" means that only cluster-scoped resources will match this rule. Namespace API objects are cluster-scoped. "Namespaced" means that only namespaced resources will match this rule. "*" means that there are no scope restrictions. Subresources match the scope of their parent resource. Default is "*".
+             */
+            scope?: pulumi.Input<string>;
+        }
+
+        /**
+         * NamedRuleWithOperations is a tuple of Operations and Resources with ResourceNames.
+         */
+        export interface NamedRuleWithOperationsPatch {
+            /**
+             * APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
+             */
+            apiGroups?: pulumi.Input<pulumi.Input<string>[]>;
+            /**
+             * APIVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
+             */
+            apiVersions?: pulumi.Input<pulumi.Input<string>[]>;
+            /**
+             * Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
+             */
+            operations?: pulumi.Input<pulumi.Input<string>[]>;
+            /**
+             * ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
+             */
+            resourceNames?: pulumi.Input<pulumi.Input<string>[]>;
+            /**
+             * Resources is a list of resources this rule applies to.
+             *
+             * For example: 'pods' means pods. 'pods/log' means the log subresource of pods. '*' means all resources, but not subresources. 'pods/*' means all subresources of pods. '*&#47;scale' means all scale subresources. '*&#47;*' means all resources and their subresources.
+             *
+             * If wildcard is present, the validation rule will ensure resources do not overlap with each other.
+             *
+             * Depending on the enclosing object, subresources might not be allowed. Required.
+             */
+            resources?: pulumi.Input<pulumi.Input<string>[]>;
+            /**
+             * scope specifies the scope of this rule. Valid values are "Cluster", "Namespaced", and "*" "Cluster" means that only cluster-scoped resources will match this rule. Namespace API objects are cluster-scoped. "Namespaced" means that only namespaced resources will match this rule. "*" means that there are no scope restrictions. Subresources match the scope of their parent resource. Default is "*".
+             */
+            scope?: pulumi.Input<string>;
+        }
+
+        /**
+         * ParamKind is a tuple of Group Kind and Version.
+         */
+        export interface ParamKind {
+            /**
+             * APIVersion is the API group version the resources belong to. In format of "group/version". Required.
+             */
+            apiVersion?: pulumi.Input<string>;
+            /**
+             * Kind is the API kind the resources belong to. Required.
+             */
+            kind?: pulumi.Input<string>;
+        }
+
+        /**
+         * ParamKind is a tuple of Group Kind and Version.
+         */
+        export interface ParamKindPatch {
+            /**
+             * APIVersion is the API group version the resources belong to. In format of "group/version". Required.
+             */
+            apiVersion?: pulumi.Input<string>;
+            /**
+             * Kind is the API kind the resources belong to. Required.
+             */
+            kind?: pulumi.Input<string>;
+        }
+
+        /**
+         * ParamRef describes how to locate the params to be used as input to expressions of rules applied by a policy binding.
+         */
+        export interface ParamRef {
+            /**
+             * name is the name of the resource being referenced.
+             *
+             * One of `name` or `selector` must be set, but `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
+             *
+             * A single parameter used for all admission requests can be configured by setting the `name` field, leaving `selector` blank, and setting namespace if `paramKind` is namespace-scoped.
+             */
+            name?: pulumi.Input<string>;
+            /**
+             * namespace is the namespace of the referenced resource. Allows limiting the search for params to a specific namespace. Applies to both `name` and `selector` fields.
+             *
+             * A per-namespace parameter may be used by specifying a namespace-scoped `paramKind` in the policy and leaving this field empty.
+             *
+             * - If `paramKind` is cluster-scoped, this field MUST be unset. Setting this field results in a configuration error.
+             *
+             * - If `paramKind` is namespace-scoped, the namespace of the object being evaluated for admission will be used when this field is left unset. Take care that if this is left empty the binding must not match any cluster-scoped resources, which will result in an error.
+             */
+            namespace?: pulumi.Input<string>;
+            /**
+             * `parameterNotFoundAction` controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
+             *
+             * Allowed values are `Allow` or `Deny`
+             *
+             * Required
+             */
+            parameterNotFoundAction?: pulumi.Input<string>;
+            /**
+             * selector can be used to match multiple param objects based on their labels. Supply selector: {} to match all resources of the ParamKind.
+             *
+             * If multiple params are found, they are all evaluated with the policy expressions and the results are ANDed together.
+             *
+             * One of `name` or `selector` must be set, but `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
+             */
+            selector?: pulumi.Input<inputs.meta.v1.LabelSelector>;
+        }
+
+        /**
+         * ParamRef describes how to locate the params to be used as input to expressions of rules applied by a policy binding.
+         */
+        export interface ParamRefPatch {
+            /**
+             * name is the name of the resource being referenced.
+             *
+             * One of `name` or `selector` must be set, but `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
+             *
+             * A single parameter used for all admission requests can be configured by setting the `name` field, leaving `selector` blank, and setting namespace if `paramKind` is namespace-scoped.
+             */
+            name?: pulumi.Input<string>;
+            /**
+             * namespace is the namespace of the referenced resource. Allows limiting the search for params to a specific namespace. Applies to both `name` and `selector` fields.
+             *
+             * A per-namespace parameter may be used by specifying a namespace-scoped `paramKind` in the policy and leaving this field empty.
+             *
+             * - If `paramKind` is cluster-scoped, this field MUST be unset. Setting this field results in a configuration error.
+             *
+             * - If `paramKind` is namespace-scoped, the namespace of the object being evaluated for admission will be used when this field is left unset. Take care that if this is left empty the binding must not match any cluster-scoped resources, which will result in an error.
+             */
+            namespace?: pulumi.Input<string>;
+            /**
+             * `parameterNotFoundAction` controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
+             *
+             * Allowed values are `Allow` or `Deny`
+             *
+             * Required
+             */
+            parameterNotFoundAction?: pulumi.Input<string>;
+            /**
+             * selector can be used to match multiple param objects based on their labels. Supply selector: {} to match all resources of the ParamKind.
+             *
+             * If multiple params are found, they are all evaluated with the policy expressions and the results are ANDed together.
+             *
+             * One of `name` or `selector` must be set, but `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
+             */
+            selector?: pulumi.Input<inputs.meta.v1.LabelSelectorPatch>;
         }
 
         /**
@@ -466,6 +828,272 @@ export namespace admissionregistration {
         }
 
         /**
+         * TypeChecking contains results of type checking the expressions in the ValidatingAdmissionPolicy
+         */
+        export interface TypeChecking {
+            /**
+             * The type checking warnings for each expression.
+             */
+            expressionWarnings?: pulumi.Input<pulumi.Input<inputs.admissionregistration.v1.ExpressionWarning>[]>;
+        }
+
+        /**
+         * ValidatingAdmissionPolicy describes the definition of an admission validation policy that accepts or rejects an object without changing it.
+         */
+        export interface ValidatingAdmissionPolicy {
+            /**
+             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+             */
+            apiVersion?: pulumi.Input<"admissionregistration.k8s.io/v1">;
+            /**
+             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             */
+            kind?: pulumi.Input<"ValidatingAdmissionPolicy">;
+            /**
+             * Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+             */
+            metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
+            /**
+             * Specification of the desired behavior of the ValidatingAdmissionPolicy.
+             */
+            spec?: pulumi.Input<inputs.admissionregistration.v1.ValidatingAdmissionPolicySpec>;
+            /**
+             * The status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
+             */
+            status?: pulumi.Input<inputs.admissionregistration.v1.ValidatingAdmissionPolicyStatus>;
+        }
+
+        /**
+         * ValidatingAdmissionPolicyBinding binds the ValidatingAdmissionPolicy with paramerized resources. ValidatingAdmissionPolicyBinding and parameter CRDs together define how cluster administrators configure policies for clusters.
+         *
+         * For a given admission request, each binding will cause its policy to be evaluated N times, where N is 1 for policies/bindings that don't use params, otherwise N is the number of parameters selected by the binding.
+         *
+         * The CEL expressions of a policy must have a computed CEL cost below the maximum CEL budget. Each evaluation of the policy is given an independent CEL cost budget. Adding/removing policies, bindings, or params can not affect whether a given (policy, binding, param) combination is within its own CEL budget.
+         */
+        export interface ValidatingAdmissionPolicyBinding {
+            /**
+             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+             */
+            apiVersion?: pulumi.Input<"admissionregistration.k8s.io/v1">;
+            /**
+             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             */
+            kind?: pulumi.Input<"ValidatingAdmissionPolicyBinding">;
+            /**
+             * Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+             */
+            metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
+            /**
+             * Specification of the desired behavior of the ValidatingAdmissionPolicyBinding.
+             */
+            spec?: pulumi.Input<inputs.admissionregistration.v1.ValidatingAdmissionPolicyBindingSpec>;
+        }
+
+        /**
+         * ValidatingAdmissionPolicyBindingSpec is the specification of the ValidatingAdmissionPolicyBinding.
+         */
+        export interface ValidatingAdmissionPolicyBindingSpec {
+            /**
+             * MatchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy's matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
+             */
+            matchResources?: pulumi.Input<inputs.admissionregistration.v1.MatchResources>;
+            /**
+             * paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
+             */
+            paramRef?: pulumi.Input<inputs.admissionregistration.v1.ParamRef>;
+            /**
+             * PolicyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
+             */
+            policyName?: pulumi.Input<string>;
+            /**
+             * validationActions declares how Validations of the referenced ValidatingAdmissionPolicy are enforced. If a validation evaluates to false it is always enforced according to these actions.
+             *
+             * Failures defined by the ValidatingAdmissionPolicy's FailurePolicy are enforced according to these actions only if the FailurePolicy is set to Fail, otherwise the failures are ignored. This includes compilation errors, runtime errors and misconfigurations of the policy.
+             *
+             * validationActions is declared as a set of action values. Order does not matter. validationActions may not contain duplicates of the same action.
+             *
+             * The supported actions values are:
+             *
+             * "Deny" specifies that a validation failure results in a denied request.
+             *
+             * "Warn" specifies that a validation failure is reported to the request client in HTTP Warning headers, with a warning code of 299. Warnings can be sent both for allowed or denied admission responses.
+             *
+             * "Audit" specifies that a validation failure is included in the published audit event for the request. The audit event will contain a `validation.policy.admission.k8s.io/validation_failure` audit annotation with a value containing the details of the validation failures, formatted as a JSON list of objects, each with the following fields: - message: The validation failure message string - policy: The resource name of the ValidatingAdmissionPolicy - binding: The resource name of the ValidatingAdmissionPolicyBinding - expressionIndex: The index of the failed validations in the ValidatingAdmissionPolicy - validationActions: The enforcement actions enacted for the validation failure Example audit annotation: `"validation.policy.admission.k8s.io/validation_failure": "[{"message": "Invalid value", {"policy": "policy.example.com", {"binding": "policybinding.example.com", {"expressionIndex": "1", {"validationActions": ["Audit"]}]"`
+             *
+             * Clients should expect to handle additional values by ignoring any values not recognized.
+             *
+             * "Deny" and "Warn" may not be used together since this combination needlessly duplicates the validation failure both in the API response body and the HTTP warning headers.
+             *
+             * Required.
+             */
+            validationActions?: pulumi.Input<pulumi.Input<string>[]>;
+        }
+
+        /**
+         * ValidatingAdmissionPolicyBindingSpec is the specification of the ValidatingAdmissionPolicyBinding.
+         */
+        export interface ValidatingAdmissionPolicyBindingSpecPatch {
+            /**
+             * MatchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy's matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
+             */
+            matchResources?: pulumi.Input<inputs.admissionregistration.v1.MatchResourcesPatch>;
+            /**
+             * paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
+             */
+            paramRef?: pulumi.Input<inputs.admissionregistration.v1.ParamRefPatch>;
+            /**
+             * PolicyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
+             */
+            policyName?: pulumi.Input<string>;
+            /**
+             * validationActions declares how Validations of the referenced ValidatingAdmissionPolicy are enforced. If a validation evaluates to false it is always enforced according to these actions.
+             *
+             * Failures defined by the ValidatingAdmissionPolicy's FailurePolicy are enforced according to these actions only if the FailurePolicy is set to Fail, otherwise the failures are ignored. This includes compilation errors, runtime errors and misconfigurations of the policy.
+             *
+             * validationActions is declared as a set of action values. Order does not matter. validationActions may not contain duplicates of the same action.
+             *
+             * The supported actions values are:
+             *
+             * "Deny" specifies that a validation failure results in a denied request.
+             *
+             * "Warn" specifies that a validation failure is reported to the request client in HTTP Warning headers, with a warning code of 299. Warnings can be sent both for allowed or denied admission responses.
+             *
+             * "Audit" specifies that a validation failure is included in the published audit event for the request. The audit event will contain a `validation.policy.admission.k8s.io/validation_failure` audit annotation with a value containing the details of the validation failures, formatted as a JSON list of objects, each with the following fields: - message: The validation failure message string - policy: The resource name of the ValidatingAdmissionPolicy - binding: The resource name of the ValidatingAdmissionPolicyBinding - expressionIndex: The index of the failed validations in the ValidatingAdmissionPolicy - validationActions: The enforcement actions enacted for the validation failure Example audit annotation: `"validation.policy.admission.k8s.io/validation_failure": "[{"message": "Invalid value", {"policy": "policy.example.com", {"binding": "policybinding.example.com", {"expressionIndex": "1", {"validationActions": ["Audit"]}]"`
+             *
+             * Clients should expect to handle additional values by ignoring any values not recognized.
+             *
+             * "Deny" and "Warn" may not be used together since this combination needlessly duplicates the validation failure both in the API response body and the HTTP warning headers.
+             *
+             * Required.
+             */
+            validationActions?: pulumi.Input<pulumi.Input<string>[]>;
+        }
+
+        /**
+         * ValidatingAdmissionPolicySpec is the specification of the desired behavior of the AdmissionPolicy.
+         */
+        export interface ValidatingAdmissionPolicySpec {
+            /**
+             * auditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the API request. validations and auditAnnotations may not both be empty; a least one of validations or auditAnnotations is required.
+             */
+            auditAnnotations?: pulumi.Input<pulumi.Input<inputs.admissionregistration.v1.AuditAnnotation>[]>;
+            /**
+             * failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
+             *
+             * A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource.
+             *
+             * failurePolicy does not define how validations that evaluate to false are handled.
+             *
+             * When failurePolicy is set to Fail, ValidatingAdmissionPolicyBinding validationActions define how failures are enforced.
+             *
+             * Allowed values are Ignore or Fail. Defaults to Fail.
+             */
+            failurePolicy?: pulumi.Input<string>;
+            /**
+             * MatchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+             *
+             * If a parameter object is provided, it can be accessed via the `params` handle in the same manner as validation expressions.
+             *
+             * The exact matching logic is (in order):
+             *   1. If ANY matchCondition evaluates to FALSE, the policy is skipped.
+             *   2. If ALL matchConditions evaluate to TRUE, the policy is evaluated.
+             *   3. If any matchCondition evaluates to an error (but none are FALSE):
+             *      - If failurePolicy=Fail, reject the request
+             *      - If failurePolicy=Ignore, the policy is skipped
+             */
+            matchConditions?: pulumi.Input<pulumi.Input<inputs.admissionregistration.v1.MatchCondition>[]>;
+            /**
+             * MatchConstraints specifies what resources this policy is designed to validate. The AdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API ValidatingAdmissionPolicy cannot match ValidatingAdmissionPolicy and ValidatingAdmissionPolicyBinding. Required.
+             */
+            matchConstraints?: pulumi.Input<inputs.admissionregistration.v1.MatchResources>;
+            /**
+             * ParamKind specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If ParamKind refers to a non-existent kind, this policy definition is mis-configured and the FailurePolicy is applied. If paramKind is specified but paramRef is unset in ValidatingAdmissionPolicyBinding, the params variable will be null.
+             */
+            paramKind?: pulumi.Input<inputs.admissionregistration.v1.ParamKind>;
+            /**
+             * Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
+             */
+            validations?: pulumi.Input<pulumi.Input<inputs.admissionregistration.v1.Validation>[]>;
+            /**
+             * Variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except MatchConditions because MatchConditions are evaluated before the rest of the policy.
+             *
+             * The expression of a variable can refer to other variables defined earlier in the list but not those after. Thus, Variables must be sorted by the order of first appearance and acyclic.
+             */
+            variables?: pulumi.Input<pulumi.Input<inputs.admissionregistration.v1.Variable>[]>;
+        }
+
+        /**
+         * ValidatingAdmissionPolicySpec is the specification of the desired behavior of the AdmissionPolicy.
+         */
+        export interface ValidatingAdmissionPolicySpecPatch {
+            /**
+             * auditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the API request. validations and auditAnnotations may not both be empty; a least one of validations or auditAnnotations is required.
+             */
+            auditAnnotations?: pulumi.Input<pulumi.Input<inputs.admissionregistration.v1.AuditAnnotationPatch>[]>;
+            /**
+             * failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
+             *
+             * A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource.
+             *
+             * failurePolicy does not define how validations that evaluate to false are handled.
+             *
+             * When failurePolicy is set to Fail, ValidatingAdmissionPolicyBinding validationActions define how failures are enforced.
+             *
+             * Allowed values are Ignore or Fail. Defaults to Fail.
+             */
+            failurePolicy?: pulumi.Input<string>;
+            /**
+             * MatchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+             *
+             * If a parameter object is provided, it can be accessed via the `params` handle in the same manner as validation expressions.
+             *
+             * The exact matching logic is (in order):
+             *   1. If ANY matchCondition evaluates to FALSE, the policy is skipped.
+             *   2. If ALL matchConditions evaluate to TRUE, the policy is evaluated.
+             *   3. If any matchCondition evaluates to an error (but none are FALSE):
+             *      - If failurePolicy=Fail, reject the request
+             *      - If failurePolicy=Ignore, the policy is skipped
+             */
+            matchConditions?: pulumi.Input<pulumi.Input<inputs.admissionregistration.v1.MatchConditionPatch>[]>;
+            /**
+             * MatchConstraints specifies what resources this policy is designed to validate. The AdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API ValidatingAdmissionPolicy cannot match ValidatingAdmissionPolicy and ValidatingAdmissionPolicyBinding. Required.
+             */
+            matchConstraints?: pulumi.Input<inputs.admissionregistration.v1.MatchResourcesPatch>;
+            /**
+             * ParamKind specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If ParamKind refers to a non-existent kind, this policy definition is mis-configured and the FailurePolicy is applied. If paramKind is specified but paramRef is unset in ValidatingAdmissionPolicyBinding, the params variable will be null.
+             */
+            paramKind?: pulumi.Input<inputs.admissionregistration.v1.ParamKindPatch>;
+            /**
+             * Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
+             */
+            validations?: pulumi.Input<pulumi.Input<inputs.admissionregistration.v1.ValidationPatch>[]>;
+            /**
+             * Variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except MatchConditions because MatchConditions are evaluated before the rest of the policy.
+             *
+             * The expression of a variable can refer to other variables defined earlier in the list but not those after. Thus, Variables must be sorted by the order of first appearance and acyclic.
+             */
+            variables?: pulumi.Input<pulumi.Input<inputs.admissionregistration.v1.VariablePatch>[]>;
+        }
+
+        /**
+         * ValidatingAdmissionPolicyStatus represents the status of an admission validation policy.
+         */
+        export interface ValidatingAdmissionPolicyStatus {
+            /**
+             * The conditions represent the latest available observations of a policy's current state.
+             */
+            conditions?: pulumi.Input<pulumi.Input<inputs.meta.v1.Condition>[]>;
+            /**
+             * The generation observed by the controller.
+             */
+            observedGeneration?: pulumi.Input<number>;
+            /**
+             * The results of type checking for each expression. Presence of this field indicates the completion of the type checking.
+             */
+            typeChecking?: pulumi.Input<inputs.admissionregistration.v1.TypeChecking>;
+        }
+
+        /**
          * ValidatingWebhook describes an admission webhook and the resources and operations it applies to.
          */
         export interface ValidatingWebhook {
@@ -490,8 +1118,6 @@ export namespace admissionregistration {
              *   3. If any matchCondition evaluates to an error (but none are FALSE):
              *      - If failurePolicy=Fail, reject the request
              *      - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
-             *
-             * This is a beta feature and managed by the AdmissionWebhookMatchConditions feature gate.
              */
             matchConditions?: pulumi.Input<pulumi.Input<inputs.admissionregistration.v1.MatchCondition>[]>;
             /**
@@ -607,8 +1233,6 @@ export namespace admissionregistration {
              *   3. If any matchCondition evaluates to an error (but none are FALSE):
              *      - If failurePolicy=Fail, reject the request
              *      - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
-             *
-             * This is a beta feature and managed by the AdmissionWebhookMatchConditions feature gate.
              */
             matchConditions?: pulumi.Input<pulumi.Input<inputs.admissionregistration.v1.MatchConditionPatch>[]>;
             /**
@@ -675,6 +1299,128 @@ export namespace admissionregistration {
              * TimeoutSeconds specifies the timeout for this webhook. After the timeout passes, the webhook call will be ignored or the API call will fail based on the failure policy. The timeout value must be between 1 and 30 seconds. Default to 10 seconds.
              */
             timeoutSeconds?: pulumi.Input<number>;
+        }
+
+        /**
+         * Validation specifies the CEL expression which is used to apply the validation.
+         */
+        export interface Validation {
+            /**
+             * Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
+             *
+             * - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
+             *   For example, a variable named 'foo' can be accessed as 'variables.foo'.
+             * - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+             *   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+             * - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+             *   request resource.
+             *
+             * The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
+             *
+             * Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Accessible property names are escaped according to the following rules when accessed in the expression: - '__' escapes to '__underscores__' - '.' escapes to '__dot__' - '-' escapes to '__dash__' - '/' escapes to '__slash__' - Property names that exactly match a CEL RESERVED keyword escape to '__{keyword}__'. The keywords are:
+             * 	  "true", "false", "null", "in", "as", "break", "const", "continue", "else", "for", "function", "if",
+             * 	  "import", "let", "loop", "package", "namespace", "return".
+             * Examples:
+             *   - Expression accessing a property named "namespace": {"Expression": "object.__namespace__ > 0"}
+             *   - Expression accessing a property named "x-prop": {"Expression": "object.x__dash__prop > 0"}
+             *   - Expression accessing a property named "redact__d": {"Expression": "object.redact__underscores__d > 0"}
+             *
+             * Equality on arrays with list type of 'set' or 'map' ignores element order, i.e. [1, 2] == [2, 1]. Concatenation on arrays with x-kubernetes-list-type use the semantics of the list type:
+             *   - 'set': `X + Y` performs a union where the array positions of all elements in `X` are preserved and
+             *     non-intersecting elements in `Y` are appended, retaining their partial order.
+             *   - 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
+             *     are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
+             *     non-intersecting keys are appended, retaining their partial order.
+             * Required.
+             */
+            expression: pulumi.Input<string>;
+            /**
+             * Message represents the message displayed when validation fails. The message is required if the Expression contains line breaks. The message must not contain line breaks. If unset, the message is "failed rule: {Rule}". e.g. "must be a URL with the host matching spec.host" If the Expression contains line breaks. Message is required. The message must not contain line breaks. If unset, the message is "failed Expression: {Expression}".
+             */
+            message?: pulumi.Input<string>;
+            /**
+             * messageExpression declares a CEL expression that evaluates to the validation failure message that is returned when this rule fails. Since messageExpression is used as a failure message, it must evaluate to a string. If both message and messageExpression are present on a validation, then messageExpression will be used if validation fails. If messageExpression results in a runtime error, the runtime error is logged, and the validation failure message is produced as if the messageExpression field were unset. If messageExpression evaluates to an empty string, a string with only spaces, or a string that contains line breaks, then the validation failure message will also be produced as if the messageExpression field were unset, and the fact that messageExpression produced an empty string/string with only spaces/string with line breaks will be logged. messageExpression has access to all the same variables as the `expression` except for 'authorizer' and 'authorizer.requestResource'. Example: "object.x must be less than max ("+string(params.max)+")"
+             */
+            messageExpression?: pulumi.Input<string>;
+            /**
+             * Reason represents a machine-readable description of why this validation failed. If this is the first validation in the list to fail, this reason, as well as the corresponding HTTP response code, are used in the HTTP response to the client. The currently supported reasons are: "Unauthorized", "Forbidden", "Invalid", "RequestEntityTooLarge". If not set, StatusReasonInvalid is used in the response to the client.
+             */
+            reason?: pulumi.Input<string>;
+        }
+
+        /**
+         * Validation specifies the CEL expression which is used to apply the validation.
+         */
+        export interface ValidationPatch {
+            /**
+             * Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
+             *
+             * - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
+             *   For example, a variable named 'foo' can be accessed as 'variables.foo'.
+             * - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+             *   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+             * - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+             *   request resource.
+             *
+             * The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
+             *
+             * Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Accessible property names are escaped according to the following rules when accessed in the expression: - '__' escapes to '__underscores__' - '.' escapes to '__dot__' - '-' escapes to '__dash__' - '/' escapes to '__slash__' - Property names that exactly match a CEL RESERVED keyword escape to '__{keyword}__'. The keywords are:
+             * 	  "true", "false", "null", "in", "as", "break", "const", "continue", "else", "for", "function", "if",
+             * 	  "import", "let", "loop", "package", "namespace", "return".
+             * Examples:
+             *   - Expression accessing a property named "namespace": {"Expression": "object.__namespace__ > 0"}
+             *   - Expression accessing a property named "x-prop": {"Expression": "object.x__dash__prop > 0"}
+             *   - Expression accessing a property named "redact__d": {"Expression": "object.redact__underscores__d > 0"}
+             *
+             * Equality on arrays with list type of 'set' or 'map' ignores element order, i.e. [1, 2] == [2, 1]. Concatenation on arrays with x-kubernetes-list-type use the semantics of the list type:
+             *   - 'set': `X + Y` performs a union where the array positions of all elements in `X` are preserved and
+             *     non-intersecting elements in `Y` are appended, retaining their partial order.
+             *   - 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
+             *     are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
+             *     non-intersecting keys are appended, retaining their partial order.
+             * Required.
+             */
+            expression?: pulumi.Input<string>;
+            /**
+             * Message represents the message displayed when validation fails. The message is required if the Expression contains line breaks. The message must not contain line breaks. If unset, the message is "failed rule: {Rule}". e.g. "must be a URL with the host matching spec.host" If the Expression contains line breaks. Message is required. The message must not contain line breaks. If unset, the message is "failed Expression: {Expression}".
+             */
+            message?: pulumi.Input<string>;
+            /**
+             * messageExpression declares a CEL expression that evaluates to the validation failure message that is returned when this rule fails. Since messageExpression is used as a failure message, it must evaluate to a string. If both message and messageExpression are present on a validation, then messageExpression will be used if validation fails. If messageExpression results in a runtime error, the runtime error is logged, and the validation failure message is produced as if the messageExpression field were unset. If messageExpression evaluates to an empty string, a string with only spaces, or a string that contains line breaks, then the validation failure message will also be produced as if the messageExpression field were unset, and the fact that messageExpression produced an empty string/string with only spaces/string with line breaks will be logged. messageExpression has access to all the same variables as the `expression` except for 'authorizer' and 'authorizer.requestResource'. Example: "object.x must be less than max ("+string(params.max)+")"
+             */
+            messageExpression?: pulumi.Input<string>;
+            /**
+             * Reason represents a machine-readable description of why this validation failed. If this is the first validation in the list to fail, this reason, as well as the corresponding HTTP response code, are used in the HTTP response to the client. The currently supported reasons are: "Unauthorized", "Forbidden", "Invalid", "RequestEntityTooLarge". If not set, StatusReasonInvalid is used in the response to the client.
+             */
+            reason?: pulumi.Input<string>;
+        }
+
+        /**
+         * Variable is the definition of a variable that is used for composition. A variable is defined as a named expression.
+         */
+        export interface Variable {
+            /**
+             * Expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
+             */
+            expression: pulumi.Input<string>;
+            /**
+             * Name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
+             */
+            name: pulumi.Input<string>;
+        }
+
+        /**
+         * Variable is the definition of a variable that is used for composition. A variable is defined as a named expression.
+         */
+        export interface VariablePatch {
+            /**
+             * Expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
+             */
+            expression?: pulumi.Input<string>;
+            /**
+             * Name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
+             */
+            name?: pulumi.Input<string>;
         }
 
         /**
@@ -3200,6 +3946,10 @@ export namespace apiextensions {
              */
             schema?: pulumi.Input<inputs.apiextensions.v1.CustomResourceValidation>;
             /**
+             * selectableFields specifies paths to fields that may be used as field selectors. A maximum of 8 selectable fields are allowed. See https://kubernetes.io/docs/concepts/overview/working-with-objects/field-selectors
+             */
+            selectableFields?: pulumi.Input<pulumi.Input<inputs.apiextensions.v1.SelectableField>[]>;
+            /**
              * served is a flag enabling/disabling this version from being served via REST APIs
              */
             served: pulumi.Input<boolean>;
@@ -3237,6 +3987,10 @@ export namespace apiextensions {
              * schema describes the schema used for validation, pruning, and defaulting of this version of the custom resource.
              */
             schema?: pulumi.Input<inputs.apiextensions.v1.CustomResourceValidationPatch>;
+            /**
+             * selectableFields specifies paths to fields that may be used as field selectors. A maximum of 8 selectable fields are allowed. See https://kubernetes.io/docs/concepts/overview/working-with-objects/field-selectors
+             */
+            selectableFields?: pulumi.Input<pulumi.Input<inputs.apiextensions.v1.SelectableFieldPatch>[]>;
             /**
              * served is a flag enabling/disabling this version from being served via REST APIs
              */
@@ -3573,6 +4327,26 @@ export namespace apiextensions {
              * x-kubernetes-validations describes a list of validation rules written in the CEL expression language. This field is an alpha-level. Using this field requires the feature gate `CustomResourceValidationExpressions` to be enabled.
              */
             x_kubernetes_validations?: pulumi.Input<pulumi.Input<inputs.apiextensions.v1.ValidationRulePatch>[]>;
+        }
+
+        /**
+         * SelectableField specifies the JSON path of a field that may be used with field selectors.
+         */
+        export interface SelectableField {
+            /**
+             * jsonPath is a simple JSON path which is evaluated against each custom resource to produce a field selector value. Only JSON paths without the array notation are allowed. Must point to a field of type string, boolean or integer. Types with enum values and strings with formats are allowed. If jsonPath refers to absent field in a resource, the jsonPath evaluates to an empty string. Must not point to metdata fields. Required.
+             */
+            jsonPath: pulumi.Input<string>;
+        }
+
+        /**
+         * SelectableField specifies the JSON path of a field that may be used with field selectors.
+         */
+        export interface SelectableFieldPatch {
+            /**
+             * jsonPath is a simple JSON path which is evaluated against each custom resource to produce a field selector value. Only JSON paths without the array notation are allowed. Must point to a field of type string, boolean or integer. Types with enum values and strings with formats are allowed. If jsonPath refers to absent field in a resource, the jsonPath evaluates to an empty string. Must not point to metdata fields. Required.
+             */
+            jsonPath?: pulumi.Input<string>;
         }
 
         /**
@@ -9870,6 +10644,12 @@ export namespace batch {
              */
             completions?: pulumi.Input<number>;
             /**
+             * ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don't have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first "/" must be a valid subdomain as defined by RFC 1123. All characters trailing the first "/" must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 64 characters.
+             *
+             * This field is alpha-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (disabled by default).
+             */
+            managedBy?: pulumi.Input<string>;
+            /**
              * manualSelector controls generation of pod labels and pod selectors. Leave `manualSelector` unset unless you are certain what you are doing. When false or unset, the system pick labels unique to this job and appends those labels to the pod template.  When true, the user is responsible for picking unique labels and specifying the selector.  Failure to pick a unique label may cause this and other jobs to not function correctly.  However, You may see `manualSelector=true` in jobs that were created with the old `extensions/v1beta1` API. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/#specifying-your-own-pod-selector
              */
             manualSelector?: pulumi.Input<boolean>;
@@ -9900,6 +10680,12 @@ export namespace batch {
              * A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
              */
             selector?: pulumi.Input<inputs.meta.v1.LabelSelector>;
+            /**
+             * successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.
+             *
+             * This field  is alpha-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (disabled by default).
+             */
+            successPolicy?: pulumi.Input<inputs.batch.v1.SuccessPolicy>;
             /**
              * suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
              */
@@ -9945,6 +10731,12 @@ export namespace batch {
              */
             completions?: pulumi.Input<number>;
             /**
+             * ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don't have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first "/" must be a valid subdomain as defined by RFC 1123. All characters trailing the first "/" must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 64 characters.
+             *
+             * This field is alpha-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (disabled by default).
+             */
+            managedBy?: pulumi.Input<string>;
+            /**
              * manualSelector controls generation of pod labels and pod selectors. Leave `manualSelector` unset unless you are certain what you are doing. When false or unset, the system pick labels unique to this job and appends those labels to the pod template.  When true, the user is responsible for picking unique labels and specifying the selector.  Failure to pick a unique label may cause this and other jobs to not function correctly.  However, You may see `manualSelector=true` in jobs that were created with the old `extensions/v1beta1` API. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/#specifying-your-own-pod-selector
              */
             manualSelector?: pulumi.Input<boolean>;
@@ -9976,6 +10768,12 @@ export namespace batch {
              */
             selector?: pulumi.Input<inputs.meta.v1.LabelSelectorPatch>;
             /**
+             * successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.
+             *
+             * This field  is alpha-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (disabled by default).
+             */
+            successPolicy?: pulumi.Input<inputs.batch.v1.SuccessPolicyPatch>;
+            /**
              * suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
              */
             suspend?: pulumi.Input<boolean>;
@@ -9994,7 +10792,7 @@ export namespace batch {
          */
         export interface JobStatus {
             /**
-             * The number of pending and running pods.
+             * The number of pending and running pods which are not terminating (without a deletionTimestamp). The value is zero for finished jobs.
              */
             active?: pulumi.Input<number>;
             /**
@@ -10002,19 +10800,25 @@ export namespace batch {
              */
             completedIndexes?: pulumi.Input<string>;
             /**
-             * Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC. The completion time is only set when the job finishes successfully.
+             * Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC. The completion time is set when the job finishes successfully, and only then. The value cannot be updated or removed. The value indicates the same or later point in time as the startTime field.
              */
             completionTime?: pulumi.Input<string>;
             /**
-             * The latest available observations of an object's current state. When a Job fails, one of the conditions will have type "Failed" and status true. When a Job is suspended, one of the conditions will have type "Suspended" and status true; when the Job is resumed, the status of this condition will become false. When a Job is completed, one of the conditions will have type "Complete" and status true. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+             * The latest available observations of an object's current state. When a Job fails, one of the conditions will have type "Failed" and status true. When a Job is suspended, one of the conditions will have type "Suspended" and status true; when the Job is resumed, the status of this condition will become false. When a Job is completed, one of the conditions will have type "Complete" and status true.
+             *
+             * A job is considered finished when it is in a terminal condition, either "Complete" or "Failed". A Job cannot have both the "Complete" and "Failed" conditions. Additionally, it cannot be in the "Complete" and "FailureTarget" conditions. The "Complete", "Failed" and "FailureTarget" conditions cannot be disabled.
+             *
+             * More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
              */
             conditions?: pulumi.Input<pulumi.Input<inputs.batch.v1.JobCondition>[]>;
             /**
-             * The number of pods which reached phase Failed.
+             * The number of pods which reached phase Failed. The value increases monotonically.
              */
             failed?: pulumi.Input<number>;
             /**
-             * FailedIndexes holds the failed indexes when backoffLimitPerIndex=true. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7". This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
+             * FailedIndexes holds the failed indexes when spec.backoffLimitPerIndex is set. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7". The set of failed indexes cannot overlap with the set of completed indexes.
+             *
+             * This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
              */
             failedIndexes?: pulumi.Input<string>;
             /**
@@ -10023,10 +10827,12 @@ export namespace batch {
             ready?: pulumi.Input<number>;
             /**
              * Represents time when the job controller started processing a job. When a Job is created in the suspended state, this field is not set until the first time it is resumed. This field is reset every time a Job is resumed from suspension. It is represented in RFC3339 form and is in UTC.
+             *
+             * Once set, the field can only be removed when the job is suspended. The field cannot be modified while the job is unsuspended or finished.
              */
             startTime?: pulumi.Input<string>;
             /**
-             * The number of pods which reached phase Succeeded.
+             * The number of pods which reached phase Succeeded. The value increases monotonically for a given spec. However, it may decrease in reaction to scale down of elastic indexed jobs.
              */
             succeeded?: pulumi.Input<number>;
             /**
@@ -10043,7 +10849,7 @@ export namespace batch {
              * 1. Add the pod UID to the arrays in this field. 2. Remove the pod finalizer. 3. Remove the pod UID from the arrays while increasing the corresponding
              *     counter.
              *
-             * Old jobs might not be tracked using this field, in which case the field remains null.
+             * Old jobs might not be tracked using this field, in which case the field remains null. The structure is empty for finished jobs.
              */
             uncountedTerminatedPods?: pulumi.Input<inputs.batch.v1.UncountedTerminatedPods>;
         }
@@ -10234,6 +11040,54 @@ export namespace batch {
              * Represents the requirement on the pod conditions. The requirement is represented as a list of pod condition patterns. The requirement is satisfied if at least one pattern matches an actual pod condition. At most 20 elements are allowed.
              */
             onPodConditions?: pulumi.Input<pulumi.Input<inputs.batch.v1.PodFailurePolicyOnPodConditionsPatternPatch>[]>;
+        }
+
+        /**
+         * SuccessPolicy describes when a Job can be declared as succeeded based on the success of some indexes.
+         */
+        export interface SuccessPolicy {
+            /**
+             * rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SucceededCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
+             */
+            rules: pulumi.Input<pulumi.Input<inputs.batch.v1.SuccessPolicyRule>[]>;
+        }
+
+        /**
+         * SuccessPolicy describes when a Job can be declared as succeeded based on the success of some indexes.
+         */
+        export interface SuccessPolicyPatch {
+            /**
+             * rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SucceededCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
+             */
+            rules?: pulumi.Input<pulumi.Input<inputs.batch.v1.SuccessPolicyRulePatch>[]>;
+        }
+
+        /**
+         * SuccessPolicyRule describes rule for declaring a Job as succeeded. Each rule must have at least one of the "succeededIndexes" or "succeededCount" specified.
+         */
+        export interface SuccessPolicyRule {
+            /**
+             * succeededCount specifies the minimal required size of the actual set of the succeeded indexes for the Job. When succeededCount is used along with succeededIndexes, the check is constrained only to the set of indexes specified by succeededIndexes. For example, given that succeededIndexes is "1-4", succeededCount is "3", and completed indexes are "1", "3", and "5", the Job isn't declared as succeeded because only "1" and "3" indexes are considered in that rules. When this field is null, this doesn't default to any value and is never evaluated at any time. When specified it needs to be a positive integer.
+             */
+            succeededCount?: pulumi.Input<number>;
+            /**
+             * succeededIndexes specifies the set of indexes which need to be contained in the actual set of the succeeded indexes for the Job. The list of indexes must be within 0 to ".spec.completions-1" and must not contain duplicates. At least one element is required. The indexes are represented as intervals separated by commas. The intervals can be a decimal integer or a pair of decimal integers separated by a hyphen. The number are listed in represented by the first and last element of the series, separated by a hyphen. For example, if the completed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7". When this field is null, this field doesn't default to any value and is never evaluated at any time.
+             */
+            succeededIndexes?: pulumi.Input<string>;
+        }
+
+        /**
+         * SuccessPolicyRule describes rule for declaring a Job as succeeded. Each rule must have at least one of the "succeededIndexes" or "succeededCount" specified.
+         */
+        export interface SuccessPolicyRulePatch {
+            /**
+             * succeededCount specifies the minimal required size of the actual set of the succeeded indexes for the Job. When succeededCount is used along with succeededIndexes, the check is constrained only to the set of indexes specified by succeededIndexes. For example, given that succeededIndexes is "1-4", succeededCount is "3", and completed indexes are "1", "3", and "5", the Job isn't declared as succeeded because only "1" and "3" indexes are considered in that rules. When this field is null, this doesn't default to any value and is never evaluated at any time. When specified it needs to be a positive integer.
+             */
+            succeededCount?: pulumi.Input<number>;
+            /**
+             * succeededIndexes specifies the set of indexes which need to be contained in the actual set of the succeeded indexes for the Job. The list of indexes must be within 0 to ".spec.completions-1" and must not contain duplicates. At least one element is required. The indexes are represented as intervals separated by commas. The intervals can be a decimal integer or a pair of decimal integers separated by a hyphen. The number are listed in represented by the first and last element of the series, separated by a hyphen. For example, if the completed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7". When this field is null, this field doesn't default to any value and is never evaluated at any time.
+             */
+            succeededIndexes?: pulumi.Input<string>;
         }
 
         /**
@@ -11266,6 +12120,40 @@ export namespace core {
              * Describes pod anti-affinity scheduling rules (e.g. avoid putting this pod in the same node, zone, etc. as some other pod(s)).
              */
             podAntiAffinity?: pulumi.Input<inputs.core.v1.PodAntiAffinityPatch>;
+        }
+
+        /**
+         * AppArmorProfile defines a pod or container's AppArmor settings.
+         */
+        export interface AppArmorProfile {
+            /**
+             * localhostProfile indicates a profile loaded on the node that should be used. The profile must be preconfigured on the node to work. Must match the loaded name of the profile. Must be set if and only if type is "Localhost".
+             */
+            localhostProfile?: pulumi.Input<string>;
+            /**
+             * type indicates which kind of AppArmor profile will be applied. Valid options are:
+             *   Localhost - a profile pre-loaded on the node.
+             *   RuntimeDefault - the container runtime's default profile.
+             *   Unconfined - no AppArmor enforcement.
+             */
+            type: pulumi.Input<string>;
+        }
+
+        /**
+         * AppArmorProfile defines a pod or container's AppArmor settings.
+         */
+        export interface AppArmorProfilePatch {
+            /**
+             * localhostProfile indicates a profile loaded on the node that should be used. The profile must be preconfigured on the node to work. Must match the loaded name of the profile. Must be set if and only if type is "Localhost".
+             */
+            localhostProfile?: pulumi.Input<string>;
+            /**
+             * type indicates which kind of AppArmor profile will be applied. Valid options are:
+             *   Localhost - a profile pre-loaded on the node.
+             *   RuntimeDefault - the container runtime's default profile.
+             *   Unconfined - no AppArmor enforcement.
+             */
+            type?: pulumi.Input<string>;
         }
 
         /**
@@ -12576,6 +13464,10 @@ export namespace core {
              * State holds details about the container's current condition.
              */
             state?: pulumi.Input<inputs.core.v1.ContainerState>;
+            /**
+             * Status of volume mounts.
+             */
+            volumeMounts?: pulumi.Input<pulumi.Input<inputs.core.v1.VolumeMountStatus>[]>;
         }
 
         /**
@@ -12613,7 +13505,7 @@ export namespace core {
          */
         export interface DownwardAPIVolumeFile {
             /**
-             * Required: Selects a field of the pod: only annotations, labels, name and namespace are supported.
+             * Required: Selects a field of the pod: only annotations, labels, name, namespace and uid are supported.
              */
             fieldRef?: pulumi.Input<inputs.core.v1.ObjectFieldSelector>;
             /**
@@ -12635,7 +13527,7 @@ export namespace core {
          */
         export interface DownwardAPIVolumeFilePatch {
             /**
-             * Required: Selects a field of the pod: only annotations, labels, name and namespace are supported.
+             * Required: Selects a field of the pod: only annotations, labels, name, namespace and uid are supported.
              */
             fieldRef?: pulumi.Input<inputs.core.v1.ObjectFieldSelectorPatch>;
             /**
@@ -14762,6 +15654,30 @@ export namespace core {
         }
 
         /**
+         * NodeRuntimeHandler is a set of runtime handler information.
+         */
+        export interface NodeRuntimeHandler {
+            /**
+             * Supported features.
+             */
+            features?: pulumi.Input<inputs.core.v1.NodeRuntimeHandlerFeatures>;
+            /**
+             * Runtime handler name. Empty for the default runtime handler.
+             */
+            name?: pulumi.Input<string>;
+        }
+
+        /**
+         * NodeRuntimeHandlerFeatures is a set of runtime features.
+         */
+        export interface NodeRuntimeHandlerFeatures {
+            /**
+             * RecursiveReadOnlyMounts is set to true if the runtime handler supports RecursiveReadOnlyMounts.
+             */
+            recursiveReadOnlyMounts?: pulumi.Input<boolean>;
+        }
+
+        /**
          * A node selector represents the union of the results of one or more label queries over a set of nodes; that is, it represents the OR of the selectors represented by the node selector terms.
          */
         export interface NodeSelector {
@@ -14953,6 +15869,10 @@ export namespace core {
              * NodePhase is the recently observed lifecycle phase of the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#phase The field is never populated, and now is deprecated.
              */
             phase?: pulumi.Input<string>;
+            /**
+             * The available runtime handlers.
+             */
+            runtimeHandlers?: pulumi.Input<pulumi.Input<inputs.core.v1.NodeRuntimeHandler>[]>;
             /**
              * List of volumes that are attached to the node.
              */
@@ -15174,7 +16094,7 @@ export namespace core {
              */
             message?: pulumi.Input<string>;
             /**
-             * reason is a unique, this should be a short, machine understandable string that gives the reason for condition's last transition. If it reports "ResizeStarted" that means the underlying persistent volume is being resized.
+             * reason is a unique, this should be a short, machine understandable string that gives the reason for condition's last transition. If it reports "Resizing" that means the underlying persistent volume is being resized.
              */
             reason?: pulumi.Input<string>;
             status: pulumi.Input<string>;
@@ -15198,7 +16118,7 @@ export namespace core {
              */
             message?: pulumi.Input<string>;
             /**
-             * reason is a unique, this should be a short, machine understandable string that gives the reason for condition's last transition. If it reports "ResizeStarted" that means the underlying persistent volume is being resized.
+             * reason is a unique, this should be a short, machine understandable string that gives the reason for condition's last transition. If it reports "Resizing" that means the underlying persistent volume is being resized.
              */
             reason?: pulumi.Input<string>;
             status?: pulumi.Input<string>;
@@ -15267,7 +16187,7 @@ export namespace core {
              */
             storageClassName?: pulumi.Input<string>;
             /**
-             * volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string value means that no VolumeAttributesClass will be applied to the claim but it's not allowed to reset this field to empty string once it is set. If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass will be set by the persistentvolume controller if it exists. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#volumeattributesclass (Alpha) Using this field requires the VolumeAttributesClass feature gate to be enabled.
+             * volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string value means that no VolumeAttributesClass will be applied to the claim but it's not allowed to reset this field to empty string once it is set. If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass will be set by the persistentvolume controller if it exists. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/volume-attributes-classes/ (Alpha) Using this field requires the VolumeAttributesClass feature gate to be enabled.
              */
             volumeAttributesClassName?: pulumi.Input<string>;
             /**
@@ -15316,7 +16236,7 @@ export namespace core {
              */
             storageClassName?: pulumi.Input<string>;
             /**
-             * volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string value means that no VolumeAttributesClass will be applied to the claim but it's not allowed to reset this field to empty string once it is set. If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass will be set by the persistentvolume controller if it exists. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#volumeattributesclass (Alpha) Using this field requires the VolumeAttributesClass feature gate to be enabled.
+             * volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string value means that no VolumeAttributesClass will be applied to the claim but it's not allowed to reset this field to empty string once it is set. If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass will be set by the persistentvolume controller if it exists. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/volume-attributes-classes/ (Alpha) Using this field requires the VolumeAttributesClass feature gate to be enabled.
              */
             volumeAttributesClassName?: pulumi.Input<string>;
             /**
@@ -15389,7 +16309,7 @@ export namespace core {
              */
             capacity?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
             /**
-             * conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'ResizeStarted'.
+             * conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'Resizing'.
              */
             conditions?: pulumi.Input<pulumi.Input<inputs.core.v1.PersistentVolumeClaimCondition>[]>;
             /**
@@ -15470,7 +16390,7 @@ export namespace core {
              */
             capacity?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
             /**
-             * conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'ResizeStarted'.
+             * conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'Resizing'.
              */
             conditions?: pulumi.Input<pulumi.Input<inputs.core.v1.PersistentVolumeClaimConditionPatch>[]>;
             /**
@@ -15812,7 +16732,7 @@ export namespace core {
          */
         export interface PersistentVolumeStatus {
             /**
-             * lastPhaseTransitionTime is the time the phase transitioned from one to another and automatically resets to current time everytime a volume phase transitions. This is an alpha field and requires enabling PersistentVolumeLastPhaseTransitionTime feature.
+             * lastPhaseTransitionTime is the time the phase transitioned from one to another and automatically resets to current time everytime a volume phase transitions. This is a beta field and requires the PersistentVolumeLastPhaseTransitionTime feature to be enabled (enabled by default).
              */
             lastPhaseTransitionTime?: pulumi.Input<string>;
             /**
@@ -15935,11 +16855,11 @@ export namespace core {
              */
             labelSelector?: pulumi.Input<inputs.meta.v1.LabelSelector>;
             /**
-             * MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `LabelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both MatchLabelKeys and LabelSelector. Also, MatchLabelKeys cannot be set when LabelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
+             * MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
              */
             matchLabelKeys?: pulumi.Input<pulumi.Input<string>[]>;
             /**
-             * MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `LabelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both MismatchLabelKeys and LabelSelector. Also, MismatchLabelKeys cannot be set when LabelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
+             * MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
              */
             mismatchLabelKeys?: pulumi.Input<pulumi.Input<string>[]>;
             /**
@@ -15965,11 +16885,11 @@ export namespace core {
              */
             labelSelector?: pulumi.Input<inputs.meta.v1.LabelSelectorPatch>;
             /**
-             * MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `LabelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both MatchLabelKeys and LabelSelector. Also, MatchLabelKeys cannot be set when LabelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
+             * MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
              */
             matchLabelKeys?: pulumi.Input<pulumi.Input<string>[]>;
             /**
-             * MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `LabelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both MismatchLabelKeys and LabelSelector. Also, MismatchLabelKeys cannot be set when LabelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
+             * MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
              */
             mismatchLabelKeys?: pulumi.Input<pulumi.Input<string>[]>;
             /**
@@ -16219,6 +17139,10 @@ export namespace core {
          */
         export interface PodSecurityContext {
             /**
+             * appArmorProfile is the AppArmor options to use by the containers in this pod. Note that this field cannot be set when spec.os.name is windows.
+             */
+            appArmorProfile?: pulumi.Input<inputs.core.v1.AppArmorProfile>;
+            /**
              * A special supplemental group that applies to all containers in a pod. Some volume types allow the Kubelet to change the ownership of that volume to be owned by the pod:
              *
              * 1. The owning GID will be the FSGroup 2. The setgid bit is set (new files created in the volume will be owned by FSGroup) 3. The permission bits are OR'd with rw-rw----
@@ -16268,6 +17192,10 @@ export namespace core {
          * PodSecurityContext holds pod-level security attributes and common container settings. Some fields are also present in container.securityContext.  Field values of container.securityContext take precedence over field values of PodSecurityContext.
          */
         export interface PodSecurityContextPatch {
+            /**
+             * appArmorProfile is the AppArmor options to use by the containers in this pod. Note that this field cannot be set when spec.os.name is windows.
+             */
+            appArmorProfile?: pulumi.Input<inputs.core.v1.AppArmorProfilePatch>;
             /**
              * A special supplemental group that applies to all containers in a pod. Some volume types allow the Kubelet to change the ownership of that volume to be owned by the pod:
              *
@@ -16351,7 +17279,7 @@ export namespace core {
              */
             ephemeralContainers?: pulumi.Input<pulumi.Input<inputs.core.v1.EphemeralContainer>[]>;
             /**
-             * HostAliases is an optional list of hosts and IPs that will be injected into the pod's hosts file if specified. This is only valid for non-hostNetwork pods.
+             * HostAliases is an optional list of hosts and IPs that will be injected into the pod's hosts file if specified.
              */
             hostAliases?: pulumi.Input<pulumi.Input<inputs.core.v1.HostAlias>[]>;
             /**
@@ -16395,7 +17323,7 @@ export namespace core {
              *
              * If the OS field is set to linux, the following fields must be unset: -securityContext.windowsOptions
              *
-             * If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
+             * If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.securityContext.appArmorProfile - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.appArmorProfile - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
              */
             os?: pulumi.Input<inputs.core.v1.PodOS>;
             /**
@@ -16442,8 +17370,6 @@ export namespace core {
              * SchedulingGates is an opaque list of values that if specified will block scheduling the pod. If schedulingGates is not empty, the pod will stay in the SchedulingGated state and the scheduler will not attempt to schedule the pod.
              *
              * SchedulingGates can only be set at pod creation time, and be removed only afterwards.
-             *
-             * This is a beta feature enabled by the PodSchedulingReadiness feature gate.
              */
             schedulingGates?: pulumi.Input<pulumi.Input<inputs.core.v1.PodSchedulingGate>[]>;
             /**
@@ -16451,7 +17377,7 @@ export namespace core {
              */
             securityContext?: pulumi.Input<inputs.core.v1.PodSecurityContext>;
             /**
-             * DeprecatedServiceAccount is a depreciated alias for ServiceAccountName. Deprecated: Use serviceAccountName instead.
+             * DeprecatedServiceAccount is a deprecated alias for ServiceAccountName. Deprecated: Use serviceAccountName instead.
              */
             serviceAccount?: pulumi.Input<string>;
             /**
@@ -16525,7 +17451,7 @@ export namespace core {
              */
             ephemeralContainers?: pulumi.Input<pulumi.Input<inputs.core.v1.EphemeralContainerPatch>[]>;
             /**
-             * HostAliases is an optional list of hosts and IPs that will be injected into the pod's hosts file if specified. This is only valid for non-hostNetwork pods.
+             * HostAliases is an optional list of hosts and IPs that will be injected into the pod's hosts file if specified.
              */
             hostAliases?: pulumi.Input<pulumi.Input<inputs.core.v1.HostAliasPatch>[]>;
             /**
@@ -16569,7 +17495,7 @@ export namespace core {
              *
              * If the OS field is set to linux, the following fields must be unset: -securityContext.windowsOptions
              *
-             * If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
+             * If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.securityContext.appArmorProfile - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.appArmorProfile - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
              */
             os?: pulumi.Input<inputs.core.v1.PodOSPatch>;
             /**
@@ -16616,8 +17542,6 @@ export namespace core {
              * SchedulingGates is an opaque list of values that if specified will block scheduling the pod. If schedulingGates is not empty, the pod will stay in the SchedulingGated state and the scheduler will not attempt to schedule the pod.
              *
              * SchedulingGates can only be set at pod creation time, and be removed only afterwards.
-             *
-             * This is a beta feature enabled by the PodSchedulingReadiness feature gate.
              */
             schedulingGates?: pulumi.Input<pulumi.Input<inputs.core.v1.PodSchedulingGatePatch>[]>;
             /**
@@ -16625,7 +17549,7 @@ export namespace core {
              */
             securityContext?: pulumi.Input<inputs.core.v1.PodSecurityContextPatch>;
             /**
-             * DeprecatedServiceAccount is a depreciated alias for ServiceAccountName. Deprecated: Use serviceAccountName instead.
+             * DeprecatedServiceAccount is a deprecated alias for ServiceAccountName. Deprecated: Use serviceAccountName instead.
              */
             serviceAccount?: pulumi.Input<string>;
             /**
@@ -18055,6 +18979,10 @@ export namespace core {
              */
             allowPrivilegeEscalation?: pulumi.Input<boolean>;
             /**
+             * appArmorProfile is the AppArmor options to use by this container. If set, this profile overrides the pod's appArmorProfile. Note that this field cannot be set when spec.os.name is windows.
+             */
+            appArmorProfile?: pulumi.Input<inputs.core.v1.AppArmorProfile>;
+            /**
              * The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime. Note that this field cannot be set when spec.os.name is windows.
              */
             capabilities?: pulumi.Input<inputs.core.v1.Capabilities>;
@@ -18104,6 +19032,10 @@ export namespace core {
              * AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent process. This bool directly controls if the no_new_privs flag will be set on the container process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged 2) has CAP_SYS_ADMIN Note that this field cannot be set when spec.os.name is windows.
              */
             allowPrivilegeEscalation?: pulumi.Input<boolean>;
+            /**
+             * appArmorProfile is the AppArmor options to use by this container. If set, this profile overrides the pod's appArmorProfile. Note that this field cannot be set when spec.os.name is windows.
+             */
+            appArmorProfile?: pulumi.Input<inputs.core.v1.AppArmorProfilePatch>;
             /**
              * The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime. Note that this field cannot be set when spec.os.name is windows.
              */
@@ -18430,6 +19362,10 @@ export namespace core {
              */
             topologyKeys?: pulumi.Input<pulumi.Input<string>[]>;
             /**
+             * TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are topologically close (e.g., same zone).
+             */
+            trafficDistribution?: pulumi.Input<string>;
+            /**
              * type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. "ClusterIP" allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object or EndpointSlice objects. If clusterIP is "None", no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a virtual IP. "NodePort" builds on ClusterIP and allocates a port on every node which routes to the same endpoints as the clusterIP. "LoadBalancer" builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the same endpoints as the clusterIP. "ExternalName" aliases this service to the specified externalName. Several other fields do not apply to ExternalName services. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
              */
             type?: pulumi.Input<string | enums.core.v1.ServiceSpecType>;
@@ -18523,6 +19459,10 @@ export namespace core {
              * topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value "*" may be used to mean "any topology". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied.
              */
             topologyKeys?: pulumi.Input<pulumi.Input<string>[]>;
+            /**
+             * TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are topologically close (e.g., same zone).
+             */
+            trafficDistribution?: pulumi.Input<string>;
             /**
              * type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. "ClusterIP" allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object or EndpointSlice objects. If clusterIP is "None", no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a virtual IP. "NodePort" builds on ClusterIP and allocates a port on every node which routes to the same endpoints as the clusterIP. "LoadBalancer" builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the same endpoints as the clusterIP. "ExternalName" aliases this service to the specified externalName. Several other fields do not apply to ExternalName services. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
              */
@@ -18909,8 +19849,6 @@ export namespace core {
              * MinDomains indicates a minimum number of eligible domains. When the number of eligible domains with matching topology keys is less than minDomains, Pod Topology Spread treats "global minimum" as 0, and then the calculation of Skew is performed. And when the number of eligible domains with matching topology keys equals or greater than minDomains, this value has no effect on scheduling. As a result, when the number of eligible domains is less than minDomains, scheduler won't schedule more than maxSkew Pods to those domains. If value is nil, the constraint behaves as if MinDomains is equal to 1. Valid values are integers greater than 0. When value is not nil, WhenUnsatisfiable must be DoNotSchedule.
              *
              * For example, in a 3-zone cluster, MaxSkew is set to 2, MinDomains is set to 5 and pods with the same labelSelector spread as 2/2/2: | zone1 | zone2 | zone3 | |  P P  |  P P  |  P P  | The number of domains is less than 5(MinDomains), so "global minimum" is treated as 0. In this situation, new pod with the same labelSelector cannot be scheduled, because computed skew will be 3(3 - 0) if new Pod is scheduled to any of the three zones, it will violate MaxSkew.
-             *
-             * This is a beta field and requires the MinDomainsInPodTopologySpread feature gate to be enabled (enabled by default).
              */
             minDomains?: pulumi.Input<number>;
             /**
@@ -18960,8 +19898,6 @@ export namespace core {
              * MinDomains indicates a minimum number of eligible domains. When the number of eligible domains with matching topology keys is less than minDomains, Pod Topology Spread treats "global minimum" as 0, and then the calculation of Skew is performed. And when the number of eligible domains with matching topology keys equals or greater than minDomains, this value has no effect on scheduling. As a result, when the number of eligible domains is less than minDomains, scheduler won't schedule more than maxSkew Pods to those domains. If value is nil, the constraint behaves as if MinDomains is equal to 1. Valid values are integers greater than 0. When value is not nil, WhenUnsatisfiable must be DoNotSchedule.
              *
              * For example, in a 3-zone cluster, MaxSkew is set to 2, MinDomains is set to 5 and pods with the same labelSelector spread as 2/2/2: | zone1 | zone2 | zone3 | |  P P  |  P P  |  P P  | The number of domains is less than 5(MinDomains), so "global minimum" is treated as 0. In this situation, new pod with the same labelSelector cannot be scheduled, because computed skew will be 3(3 - 0) if new Pod is scheduled to any of the three zones, it will violate MaxSkew.
-             *
-             * This is a beta field and requires the MinDomainsInPodTopologySpread feature gate to be enabled (enabled by default).
              */
             minDomains?: pulumi.Input<number>;
             /**
@@ -19239,7 +20175,7 @@ export namespace core {
              */
             mountPath: pulumi.Input<string>;
             /**
-             * mountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, MountPropagationNone is used. This field is beta in 1.10.
+             * mountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, MountPropagationNone is used. This field is beta in 1.10. When RecursiveReadOnly is set to IfPossible or to Enabled, MountPropagation must be None or unspecified (which defaults to None).
              */
             mountPropagation?: pulumi.Input<string>;
             /**
@@ -19250,6 +20186,18 @@ export namespace core {
              * Mounted read-only if true, read-write otherwise (false or unspecified). Defaults to false.
              */
             readOnly?: pulumi.Input<boolean>;
+            /**
+             * RecursiveReadOnly specifies whether read-only mounts should be handled recursively.
+             *
+             * If ReadOnly is false, this field has no meaning and must be unspecified.
+             *
+             * If ReadOnly is true, and this field is set to Disabled, the mount is not made recursively read-only.  If this field is set to IfPossible, the mount is made recursively read-only, if it is supported by the container runtime.  If this field is set to Enabled, the mount is made recursively read-only if it is supported by the container runtime, otherwise the pod will not be started and an error will be generated to indicate the reason.
+             *
+             * If this field is set to IfPossible or Enabled, MountPropagation must be set to None (or be unspecified, which defaults to None).
+             *
+             * If this field is not specified, it is treated as an equivalent of Disabled.
+             */
+            recursiveReadOnly?: pulumi.Input<string>;
             /**
              * Path within the volume from which the container's volume should be mounted. Defaults to "" (volume's root).
              */
@@ -19269,7 +20217,7 @@ export namespace core {
              */
             mountPath?: pulumi.Input<string>;
             /**
-             * mountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, MountPropagationNone is used. This field is beta in 1.10.
+             * mountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, MountPropagationNone is used. This field is beta in 1.10. When RecursiveReadOnly is set to IfPossible or to Enabled, MountPropagation must be None or unspecified (which defaults to None).
              */
             mountPropagation?: pulumi.Input<string>;
             /**
@@ -19281,6 +20229,18 @@ export namespace core {
              */
             readOnly?: pulumi.Input<boolean>;
             /**
+             * RecursiveReadOnly specifies whether read-only mounts should be handled recursively.
+             *
+             * If ReadOnly is false, this field has no meaning and must be unspecified.
+             *
+             * If ReadOnly is true, and this field is set to Disabled, the mount is not made recursively read-only.  If this field is set to IfPossible, the mount is made recursively read-only, if it is supported by the container runtime.  If this field is set to Enabled, the mount is made recursively read-only if it is supported by the container runtime, otherwise the pod will not be started and an error will be generated to indicate the reason.
+             *
+             * If this field is set to IfPossible or Enabled, MountPropagation must be set to None (or be unspecified, which defaults to None).
+             *
+             * If this field is not specified, it is treated as an equivalent of Disabled.
+             */
+            recursiveReadOnly?: pulumi.Input<string>;
+            /**
              * Path within the volume from which the container's volume should be mounted. Defaults to "" (volume's root).
              */
             subPath?: pulumi.Input<string>;
@@ -19288,6 +20248,28 @@ export namespace core {
              * Expanded path within the volume from which the container's volume should be mounted. Behaves similarly to SubPath but environment variable references $(VAR_NAME) are expanded using the container's environment. Defaults to "" (volume's root). SubPathExpr and SubPath are mutually exclusive.
              */
             subPathExpr?: pulumi.Input<string>;
+        }
+
+        /**
+         * VolumeMountStatus shows status of volume mounts.
+         */
+        export interface VolumeMountStatus {
+            /**
+             * MountPath corresponds to the original VolumeMount.
+             */
+            mountPath: pulumi.Input<string>;
+            /**
+             * Name corresponds to the name of the original VolumeMount.
+             */
+            name: pulumi.Input<string>;
+            /**
+             * ReadOnly corresponds to the original VolumeMount.
+             */
+            readOnly?: pulumi.Input<boolean>;
+            /**
+             * RecursiveReadOnly must be set to Disabled, Enabled, or unspecified (for non-readonly mounts). An IfPossible value in the original VolumeMount must be translated to Disabled or Enabled, depending on the mount result.
+             */
+            recursiveReadOnly?: pulumi.Input<string>;
         }
 
         /**
@@ -26432,7 +27414,7 @@ export namespace networking {
             /**
              * ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
              */
-            parentRef?: pulumi.Input<inputs.networking.v1alpha1.ParentReference>;
+            parentRef: pulumi.Input<inputs.networking.v1alpha1.ParentReference>;
         }
 
         /**
@@ -26456,7 +27438,7 @@ export namespace networking {
             /**
              * Name is the name of the object being referenced.
              */
-            name?: pulumi.Input<string>;
+            name: pulumi.Input<string>;
             /**
              * Namespace is the namespace of the object being referenced.
              */
@@ -26464,7 +27446,7 @@ export namespace networking {
             /**
              * Resource is the resource of the object being referenced.
              */
-            resource?: pulumi.Input<string>;
+            resource: pulumi.Input<string>;
             /**
              * UID is the uid of the object being referenced.
              */
@@ -29094,6 +30076,290 @@ export namespace resource {
         }
 
         /**
+         * DriverAllocationResult contains vendor parameters and the allocation result for one request.
+         */
+        export interface DriverAllocationResult {
+            /**
+             * NamedResources describes the allocation result when using the named resources model.
+             */
+            namedResources?: pulumi.Input<inputs.resource.v1alpha2.NamedResourcesAllocationResult>;
+            /**
+             * VendorRequestParameters are the per-request configuration parameters from the time that the claim was allocated.
+             */
+            vendorRequestParameters?: any;
+        }
+
+        /**
+         * DriverRequests describes all resources that are needed from one particular driver.
+         */
+        export interface DriverRequests {
+            /**
+             * DriverName is the name used by the DRA driver kubelet plugin.
+             */
+            driverName?: pulumi.Input<string>;
+            /**
+             * Requests describes all resources that are needed from the driver.
+             */
+            requests?: pulumi.Input<pulumi.Input<inputs.resource.v1alpha2.ResourceRequest>[]>;
+            /**
+             * VendorParameters are arbitrary setup parameters for all requests of the claim. They are ignored while allocating the claim.
+             */
+            vendorParameters?: any;
+        }
+
+        /**
+         * DriverRequests describes all resources that are needed from one particular driver.
+         */
+        export interface DriverRequestsPatch {
+            /**
+             * DriverName is the name used by the DRA driver kubelet plugin.
+             */
+            driverName?: pulumi.Input<string>;
+            /**
+             * Requests describes all resources that are needed from the driver.
+             */
+            requests?: pulumi.Input<pulumi.Input<inputs.resource.v1alpha2.ResourceRequestPatch>[]>;
+            /**
+             * VendorParameters are arbitrary setup parameters for all requests of the claim. They are ignored while allocating the claim.
+             */
+            vendorParameters?: any;
+        }
+
+        /**
+         * NamedResourcesAllocationResult is used in AllocationResultModel.
+         */
+        export interface NamedResourcesAllocationResult {
+            /**
+             * Name is the name of the selected resource instance.
+             */
+            name: pulumi.Input<string>;
+        }
+
+        /**
+         * NamedResourcesAttribute is a combination of an attribute name and its value.
+         */
+        export interface NamedResourcesAttribute {
+            /**
+             * BoolValue is a true/false value.
+             */
+            bool?: pulumi.Input<boolean>;
+            /**
+             * IntValue is a 64-bit integer.
+             */
+            int?: pulumi.Input<number>;
+            /**
+             * IntSliceValue is an array of 64-bit integers.
+             */
+            intSlice?: pulumi.Input<inputs.resource.v1alpha2.NamedResourcesIntSlice>;
+            /**
+             * Name is unique identifier among all resource instances managed by the driver on the node. It must be a DNS subdomain.
+             */
+            name: pulumi.Input<string>;
+            /**
+             * QuantityValue is a quantity.
+             */
+            quantity?: pulumi.Input<string>;
+            /**
+             * StringValue is a string.
+             */
+            string?: pulumi.Input<string>;
+            /**
+             * StringSliceValue is an array of strings.
+             */
+            stringSlice?: pulumi.Input<inputs.resource.v1alpha2.NamedResourcesStringSlice>;
+            /**
+             * VersionValue is a semantic version according to semver.org spec 2.0.0.
+             */
+            version?: pulumi.Input<string>;
+        }
+
+        /**
+         * NamedResourcesAttribute is a combination of an attribute name and its value.
+         */
+        export interface NamedResourcesAttributePatch {
+            /**
+             * BoolValue is a true/false value.
+             */
+            bool?: pulumi.Input<boolean>;
+            /**
+             * IntValue is a 64-bit integer.
+             */
+            int?: pulumi.Input<number>;
+            /**
+             * IntSliceValue is an array of 64-bit integers.
+             */
+            intSlice?: pulumi.Input<inputs.resource.v1alpha2.NamedResourcesIntSlicePatch>;
+            /**
+             * Name is unique identifier among all resource instances managed by the driver on the node. It must be a DNS subdomain.
+             */
+            name?: pulumi.Input<string>;
+            /**
+             * QuantityValue is a quantity.
+             */
+            quantity?: pulumi.Input<string>;
+            /**
+             * StringValue is a string.
+             */
+            string?: pulumi.Input<string>;
+            /**
+             * StringSliceValue is an array of strings.
+             */
+            stringSlice?: pulumi.Input<inputs.resource.v1alpha2.NamedResourcesStringSlicePatch>;
+            /**
+             * VersionValue is a semantic version according to semver.org spec 2.0.0.
+             */
+            version?: pulumi.Input<string>;
+        }
+
+        /**
+         * NamedResourcesFilter is used in ResourceFilterModel.
+         */
+        export interface NamedResourcesFilter {
+            /**
+             * Selector is a CEL expression which must evaluate to true if a resource instance is suitable. The language is as defined in https://kubernetes.io/docs/reference/using-api/cel/
+             *
+             * In addition, for each type NamedResourcesin AttributeValue there is a map that resolves to the corresponding value of the instance under evaluation. For example:
+             *
+             *    attributes.quantity["a"].isGreaterThan(quantity("0")) &&
+             *    attributes.stringslice["b"].isSorted()
+             */
+            selector: pulumi.Input<string>;
+        }
+
+        /**
+         * NamedResourcesFilter is used in ResourceFilterModel.
+         */
+        export interface NamedResourcesFilterPatch {
+            /**
+             * Selector is a CEL expression which must evaluate to true if a resource instance is suitable. The language is as defined in https://kubernetes.io/docs/reference/using-api/cel/
+             *
+             * In addition, for each type NamedResourcesin AttributeValue there is a map that resolves to the corresponding value of the instance under evaluation. For example:
+             *
+             *    attributes.quantity["a"].isGreaterThan(quantity("0")) &&
+             *    attributes.stringslice["b"].isSorted()
+             */
+            selector?: pulumi.Input<string>;
+        }
+
+        /**
+         * NamedResourcesInstance represents one individual hardware instance that can be selected based on its attributes.
+         */
+        export interface NamedResourcesInstance {
+            /**
+             * Attributes defines the attributes of this resource instance. The name of each attribute must be unique.
+             */
+            attributes?: pulumi.Input<pulumi.Input<inputs.resource.v1alpha2.NamedResourcesAttribute>[]>;
+            /**
+             * Name is unique identifier among all resource instances managed by the driver on the node. It must be a DNS subdomain.
+             */
+            name: pulumi.Input<string>;
+        }
+
+        /**
+         * NamedResourcesInstance represents one individual hardware instance that can be selected based on its attributes.
+         */
+        export interface NamedResourcesInstancePatch {
+            /**
+             * Attributes defines the attributes of this resource instance. The name of each attribute must be unique.
+             */
+            attributes?: pulumi.Input<pulumi.Input<inputs.resource.v1alpha2.NamedResourcesAttributePatch>[]>;
+            /**
+             * Name is unique identifier among all resource instances managed by the driver on the node. It must be a DNS subdomain.
+             */
+            name?: pulumi.Input<string>;
+        }
+
+        /**
+         * NamedResourcesIntSlice contains a slice of 64-bit integers.
+         */
+        export interface NamedResourcesIntSlice {
+            /**
+             * Ints is the slice of 64-bit integers.
+             */
+            ints: pulumi.Input<pulumi.Input<number>[]>;
+        }
+
+        /**
+         * NamedResourcesIntSlice contains a slice of 64-bit integers.
+         */
+        export interface NamedResourcesIntSlicePatch {
+            /**
+             * Ints is the slice of 64-bit integers.
+             */
+            ints?: pulumi.Input<pulumi.Input<number>[]>;
+        }
+
+        /**
+         * NamedResourcesRequest is used in ResourceRequestModel.
+         */
+        export interface NamedResourcesRequest {
+            /**
+             * Selector is a CEL expression which must evaluate to true if a resource instance is suitable. The language is as defined in https://kubernetes.io/docs/reference/using-api/cel/
+             *
+             * In addition, for each type NamedResourcesin AttributeValue there is a map that resolves to the corresponding value of the instance under evaluation. For example:
+             *
+             *    attributes.quantity["a"].isGreaterThan(quantity("0")) &&
+             *    attributes.stringslice["b"].isSorted()
+             */
+            selector: pulumi.Input<string>;
+        }
+
+        /**
+         * NamedResourcesRequest is used in ResourceRequestModel.
+         */
+        export interface NamedResourcesRequestPatch {
+            /**
+             * Selector is a CEL expression which must evaluate to true if a resource instance is suitable. The language is as defined in https://kubernetes.io/docs/reference/using-api/cel/
+             *
+             * In addition, for each type NamedResourcesin AttributeValue there is a map that resolves to the corresponding value of the instance under evaluation. For example:
+             *
+             *    attributes.quantity["a"].isGreaterThan(quantity("0")) &&
+             *    attributes.stringslice["b"].isSorted()
+             */
+            selector?: pulumi.Input<string>;
+        }
+
+        /**
+         * NamedResourcesResources is used in ResourceModel.
+         */
+        export interface NamedResourcesResources {
+            /**
+             * The list of all individual resources instances currently available.
+             */
+            instances: pulumi.Input<pulumi.Input<inputs.resource.v1alpha2.NamedResourcesInstance>[]>;
+        }
+
+        /**
+         * NamedResourcesResources is used in ResourceModel.
+         */
+        export interface NamedResourcesResourcesPatch {
+            /**
+             * The list of all individual resources instances currently available.
+             */
+            instances?: pulumi.Input<pulumi.Input<inputs.resource.v1alpha2.NamedResourcesInstancePatch>[]>;
+        }
+
+        /**
+         * NamedResourcesStringSlice contains a slice of strings.
+         */
+        export interface NamedResourcesStringSlice {
+            /**
+             * Strings is the slice of strings.
+             */
+            strings: pulumi.Input<pulumi.Input<string>[]>;
+        }
+
+        /**
+         * NamedResourcesStringSlice contains a slice of strings.
+         */
+        export interface NamedResourcesStringSlicePatch {
+            /**
+             * Strings is the slice of strings.
+             */
+            strings?: pulumi.Input<pulumi.Input<string>[]>;
+        }
+
+        /**
          * PodSchedulingContext objects hold information that is needed to schedule a Pod with ResourceClaims that use "WaitForFirstConsumer" allocation mode.
          *
          * This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
@@ -29211,6 +30477,38 @@ export namespace resource {
              * UID identifies exactly one incarnation of the resource.
              */
             uid: pulumi.Input<string>;
+        }
+
+        /**
+         * ResourceClaimParameters defines resource requests for a ResourceClaim in an in-tree format understood by Kubernetes.
+         */
+        export interface ResourceClaimParameters {
+            /**
+             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+             */
+            apiVersion?: pulumi.Input<"resource.k8s.io/v1alpha2">;
+            /**
+             * DriverRequests describes all resources that are needed for the allocated claim. A single claim may use resources coming from different drivers. For each driver, this array has at most one entry which then may have one or more per-driver requests.
+             *
+             * May be empty, in which case the claim can always be allocated.
+             */
+            driverRequests?: pulumi.Input<pulumi.Input<inputs.resource.v1alpha2.DriverRequests>[]>;
+            /**
+             * If this object was created from some other resource, then this links back to that resource. This field is used to find the in-tree representation of the claim parameters when the parameter reference of the claim refers to some unknown type.
+             */
+            generatedFrom?: pulumi.Input<inputs.resource.v1alpha2.ResourceClaimParametersReference>;
+            /**
+             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             */
+            kind?: pulumi.Input<"ResourceClaimParameters">;
+            /**
+             * Standard object metadata
+             */
+            metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
+            /**
+             * Shareable indicates whether the allocated claim is meant to be shareable by multiple consumers at the same time.
+             */
+            shareable?: pulumi.Input<boolean>;
         }
 
         /**
@@ -29414,11 +30712,45 @@ export namespace resource {
              */
             parametersRef?: pulumi.Input<inputs.resource.v1alpha2.ResourceClassParametersReference>;
             /**
+             * If and only if allocation of claims using this class is handled via structured parameters, then StructuredParameters must be set to true.
+             */
+            structuredParameters?: pulumi.Input<boolean>;
+            /**
              * Only nodes matching the selector will be considered by the scheduler when trying to find a Node that fits a Pod when that Pod uses a ResourceClaim that has not been allocated yet.
              *
              * Setting this field is optional. If null, all nodes are candidates.
              */
             suitableNodes?: pulumi.Input<inputs.core.v1.NodeSelector>;
+        }
+
+        /**
+         * ResourceClassParameters defines resource requests for a ResourceClass in an in-tree format understood by Kubernetes.
+         */
+        export interface ResourceClassParameters {
+            /**
+             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+             */
+            apiVersion?: pulumi.Input<"resource.k8s.io/v1alpha2">;
+            /**
+             * Filters describes additional contraints that must be met when using the class.
+             */
+            filters?: pulumi.Input<pulumi.Input<inputs.resource.v1alpha2.ResourceFilter>[]>;
+            /**
+             * If this object was created from some other resource, then this links back to that resource. This field is used to find the in-tree representation of the class parameters when the parameter reference of the class refers to some unknown type.
+             */
+            generatedFrom?: pulumi.Input<inputs.resource.v1alpha2.ResourceClassParametersReference>;
+            /**
+             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             */
+            kind?: pulumi.Input<"ResourceClassParameters">;
+            /**
+             * Standard object metadata
+             */
+            metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
+            /**
+             * VendorParameters are arbitrary setup parameters for all claims using this class. They are ignored while allocating the claim. There must not be more than one entry per driver.
+             */
+            vendorParameters?: pulumi.Input<pulumi.Input<inputs.resource.v1alpha2.VendorParameters>[]>;
         }
 
         /**
@@ -29466,6 +30798,34 @@ export namespace resource {
         }
 
         /**
+         * ResourceFilter is a filter for resources from one particular driver.
+         */
+        export interface ResourceFilter {
+            /**
+             * DriverName is the name used by the DRA driver kubelet plugin.
+             */
+            driverName?: pulumi.Input<string>;
+            /**
+             * NamedResources describes a resource filter using the named resources model.
+             */
+            namedResources?: pulumi.Input<inputs.resource.v1alpha2.NamedResourcesFilter>;
+        }
+
+        /**
+         * ResourceFilter is a filter for resources from one particular driver.
+         */
+        export interface ResourceFilterPatch {
+            /**
+             * DriverName is the name used by the DRA driver kubelet plugin.
+             */
+            driverName?: pulumi.Input<string>;
+            /**
+             * NamedResources describes a resource filter using the named resources model.
+             */
+            namedResources?: pulumi.Input<inputs.resource.v1alpha2.NamedResourcesFilterPatch>;
+        }
+
+        /**
          * ResourceHandle holds opaque resource data for processing by a specific kubelet plugin.
          */
         export interface ResourceHandle {
@@ -29479,8 +30839,121 @@ export namespace resource {
              * DriverName specifies the name of the resource driver whose kubelet plugin should be invoked to process this ResourceHandle's data once it lands on a node. This may differ from the DriverName set in ResourceClaimStatus this ResourceHandle is embedded in.
              */
             driverName?: pulumi.Input<string>;
+            /**
+             * If StructuredData is set, then it needs to be used instead of Data.
+             */
+            structuredData?: pulumi.Input<inputs.resource.v1alpha2.StructuredResourceHandle>;
         }
 
+        /**
+         * ResourceRequest is a request for resources from one particular driver.
+         */
+        export interface ResourceRequest {
+            /**
+             * NamedResources describes a request for resources with the named resources model.
+             */
+            namedResources?: pulumi.Input<inputs.resource.v1alpha2.NamedResourcesRequest>;
+            /**
+             * VendorParameters are arbitrary setup parameters for the requested resource. They are ignored while allocating a claim.
+             */
+            vendorParameters?: any;
+        }
+
+        /**
+         * ResourceRequest is a request for resources from one particular driver.
+         */
+        export interface ResourceRequestPatch {
+            /**
+             * NamedResources describes a request for resources with the named resources model.
+             */
+            namedResources?: pulumi.Input<inputs.resource.v1alpha2.NamedResourcesRequestPatch>;
+            /**
+             * VendorParameters are arbitrary setup parameters for the requested resource. They are ignored while allocating a claim.
+             */
+            vendorParameters?: any;
+        }
+
+        /**
+         * ResourceSlice provides information about available resources on individual nodes.
+         */
+        export interface ResourceSlice {
+            /**
+             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+             */
+            apiVersion?: pulumi.Input<"resource.k8s.io/v1alpha2">;
+            /**
+             * DriverName identifies the DRA driver providing the capacity information. A field selector can be used to list only ResourceSlice objects with a certain driver name.
+             */
+            driverName: pulumi.Input<string>;
+            /**
+             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             */
+            kind?: pulumi.Input<"ResourceSlice">;
+            /**
+             * Standard object metadata
+             */
+            metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
+            /**
+             * NamedResources describes available resources using the named resources model.
+             */
+            namedResources?: pulumi.Input<inputs.resource.v1alpha2.NamedResourcesResources>;
+            /**
+             * NodeName identifies the node which provides the resources if they are local to a node.
+             *
+             * A field selector can be used to list only ResourceSlice objects with a certain node name.
+             */
+            nodeName?: pulumi.Input<string>;
+        }
+
+        /**
+         * StructuredResourceHandle is the in-tree representation of the allocation result.
+         */
+        export interface StructuredResourceHandle {
+            /**
+             * NodeName is the name of the node providing the necessary resources if the resources are local to a node.
+             */
+            nodeName?: pulumi.Input<string>;
+            /**
+             * Results lists all allocated driver resources.
+             */
+            results: pulumi.Input<pulumi.Input<inputs.resource.v1alpha2.DriverAllocationResult>[]>;
+            /**
+             * VendorClaimParameters are the per-claim configuration parameters from the resource claim parameters at the time that the claim was allocated.
+             */
+            vendorClaimParameters?: any;
+            /**
+             * VendorClassParameters are the per-claim configuration parameters from the resource class at the time that the claim was allocated.
+             */
+            vendorClassParameters?: any;
+        }
+
+        /**
+         * VendorParameters are opaque parameters for one particular driver.
+         */
+        export interface VendorParameters {
+            /**
+             * DriverName is the name used by the DRA driver kubelet plugin.
+             */
+            driverName?: pulumi.Input<string>;
+            /**
+             * Parameters can be arbitrary setup parameters. They are ignored while allocating a claim.
+             */
+            parameters?: any;
+        }
+
+        /**
+         * VendorParameters are opaque parameters for one particular driver.
+         */
+        export interface VendorParametersPatch {
+            /**
+             * DriverName is the name used by the DRA driver kubelet plugin.
+             */
+            driverName?: pulumi.Input<string>;
+            /**
+             * Parameters can be arbitrary setup parameters. They are ignored while allocating a claim.
+             */
+            parameters?: any;
+        }
     }
 }
 
@@ -29706,7 +31179,7 @@ export namespace storage {
             /**
              * fsGroupPolicy defines if the underlying volume supports changing ownership and permission of the volume before being mounted. Refer to the specific FSGroupPolicy values for additional details.
              *
-             * This field is immutable.
+             * This field was immutable in Kubernetes < 1.29 and now is mutable.
              *
              * Defaults to ReadWriteOnceWithFSType, which will examine each volume to determine if Kubernetes should modify ownership and permissions of the volume. With the default policy the defined fsGroup will only be applied if a fstype is defined and the volume's access mode contains ReadWriteOnce.
              */
@@ -29721,7 +31194,7 @@ export namespace storage {
              *
              * "csi.storage.k8s.io/ephemeral" is a new feature in Kubernetes 1.16. It is only required for drivers which support both the "Persistent" and "Ephemeral" VolumeLifecycleMode. Other drivers can leave pod info disabled and/or ignore this field. As Kubernetes 1.15 doesn't support this field, drivers can only support one mode when deployed on such a cluster and the deployment determines which mode that is, for example via a command line parameter of the driver.
              *
-             * This field is immutable.
+             * This field was immutable in Kubernetes < 1.29 and now is mutable.
              */
             podInfoOnMount?: pulumi.Input<boolean>;
             /**
@@ -29787,7 +31260,7 @@ export namespace storage {
             /**
              * fsGroupPolicy defines if the underlying volume supports changing ownership and permission of the volume before being mounted. Refer to the specific FSGroupPolicy values for additional details.
              *
-             * This field is immutable.
+             * This field was immutable in Kubernetes < 1.29 and now is mutable.
              *
              * Defaults to ReadWriteOnceWithFSType, which will examine each volume to determine if Kubernetes should modify ownership and permissions of the volume. With the default policy the defined fsGroup will only be applied if a fstype is defined and the volume's access mode contains ReadWriteOnce.
              */
@@ -29802,7 +31275,7 @@ export namespace storage {
              *
              * "csi.storage.k8s.io/ephemeral" is a new feature in Kubernetes 1.16. It is only required for drivers which support both the "Persistent" and "Ephemeral" VolumeLifecycleMode. Other drivers can leave pod info disabled and/or ignore this field. As Kubernetes 1.15 doesn't support this field, drivers can only support one mode when deployed on such a cluster and the deployment determines which mode that is, for example via a command line parameter of the driver.
              *
-             * This field is immutable.
+             * This field was immutable in Kubernetes < 1.29 and now is mutable.
              */
             podInfoOnMount?: pulumi.Input<boolean>;
             /**
@@ -30871,5 +32344,140 @@ export namespace storage {
              */
             count?: pulumi.Input<number>;
         }
+    }
+}
+
+export namespace storagemigration {
+    export namespace v1alpha1 {
+        /**
+         * The names of the group, the version, and the resource.
+         */
+        export interface GroupVersionResource {
+            /**
+             * The name of the group.
+             */
+            group?: pulumi.Input<string>;
+            /**
+             * The name of the resource.
+             */
+            resource?: pulumi.Input<string>;
+            /**
+             * The name of the version.
+             */
+            version?: pulumi.Input<string>;
+        }
+
+        /**
+         * The names of the group, the version, and the resource.
+         */
+        export interface GroupVersionResourcePatch {
+            /**
+             * The name of the group.
+             */
+            group?: pulumi.Input<string>;
+            /**
+             * The name of the resource.
+             */
+            resource?: pulumi.Input<string>;
+            /**
+             * The name of the version.
+             */
+            version?: pulumi.Input<string>;
+        }
+
+        /**
+         * Describes the state of a migration at a certain point.
+         */
+        export interface MigrationCondition {
+            /**
+             * The last time this condition was updated.
+             */
+            lastUpdateTime?: pulumi.Input<string>;
+            /**
+             * A human readable message indicating details about the transition.
+             */
+            message?: pulumi.Input<string>;
+            /**
+             * The reason for the condition's last transition.
+             */
+            reason?: pulumi.Input<string>;
+            /**
+             * Status of the condition, one of True, False, Unknown.
+             */
+            status: pulumi.Input<string>;
+            /**
+             * Type of the condition.
+             */
+            type: pulumi.Input<string>;
+        }
+
+        /**
+         * StorageVersionMigration represents a migration of stored data to the latest storage version.
+         */
+        export interface StorageVersionMigration {
+            /**
+             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+             */
+            apiVersion?: pulumi.Input<"storagemigration.k8s.io/v1alpha1">;
+            /**
+             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             */
+            kind?: pulumi.Input<"StorageVersionMigration">;
+            /**
+             * Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+             */
+            metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
+            /**
+             * Specification of the migration.
+             */
+            spec?: pulumi.Input<inputs.storagemigration.v1alpha1.StorageVersionMigrationSpec>;
+            /**
+             * Status of the migration.
+             */
+            status?: pulumi.Input<inputs.storagemigration.v1alpha1.StorageVersionMigrationStatus>;
+        }
+
+        /**
+         * Spec of the storage version migration.
+         */
+        export interface StorageVersionMigrationSpec {
+            /**
+             * The token used in the list options to get the next chunk of objects to migrate. When the .status.conditions indicates the migration is "Running", users can use this token to check the progress of the migration.
+             */
+            continueToken?: pulumi.Input<string>;
+            /**
+             * The resource that is being migrated. The migrator sends requests to the endpoint serving the resource. Immutable.
+             */
+            resource: pulumi.Input<inputs.storagemigration.v1alpha1.GroupVersionResource>;
+        }
+
+        /**
+         * Spec of the storage version migration.
+         */
+        export interface StorageVersionMigrationSpecPatch {
+            /**
+             * The token used in the list options to get the next chunk of objects to migrate. When the .status.conditions indicates the migration is "Running", users can use this token to check the progress of the migration.
+             */
+            continueToken?: pulumi.Input<string>;
+            /**
+             * The resource that is being migrated. The migrator sends requests to the endpoint serving the resource. Immutable.
+             */
+            resource?: pulumi.Input<inputs.storagemigration.v1alpha1.GroupVersionResourcePatch>;
+        }
+
+        /**
+         * Status of the storage version migration.
+         */
+        export interface StorageVersionMigrationStatus {
+            /**
+             * The latest available observations of the migration's current state.
+             */
+            conditions?: pulumi.Input<pulumi.Input<inputs.storagemigration.v1alpha1.MigrationCondition>[]>;
+            /**
+             * ResourceVersion to compare with the GC cache for performing the migration. This is the current resource version of given group, version and resource when kube-controller-manager first observes this StorageVersionMigration resource.
+             */
+            resourceVersion?: pulumi.Input<string>;
+        }
+
     }
 }

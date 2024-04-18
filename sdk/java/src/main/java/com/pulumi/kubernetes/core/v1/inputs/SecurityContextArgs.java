@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.core.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.kubernetes.core.v1.inputs.AppArmorProfileArgs;
 import com.pulumi.kubernetes.core.v1.inputs.CapabilitiesArgs;
 import com.pulumi.kubernetes.core.v1.inputs.SELinuxOptionsArgs;
 import com.pulumi.kubernetes.core.v1.inputs.SeccompProfileArgs;
@@ -38,6 +39,21 @@ public final class SecurityContextArgs extends com.pulumi.resources.ResourceArgs
      */
     public Optional<Output<Boolean>> allowPrivilegeEscalation() {
         return Optional.ofNullable(this.allowPrivilegeEscalation);
+    }
+
+    /**
+     * appArmorProfile is the AppArmor options to use by this container. If set, this profile overrides the pod&#39;s appArmorProfile. Note that this field cannot be set when spec.os.name is windows.
+     * 
+     */
+    @Import(name="appArmorProfile")
+    private @Nullable Output<AppArmorProfileArgs> appArmorProfile;
+
+    /**
+     * @return appArmorProfile is the AppArmor options to use by this container. If set, this profile overrides the pod&#39;s appArmorProfile. Note that this field cannot be set when spec.os.name is windows.
+     * 
+     */
+    public Optional<Output<AppArmorProfileArgs>> appArmorProfile() {
+        return Optional.ofNullable(this.appArmorProfile);
     }
 
     /**
@@ -194,6 +210,7 @@ public final class SecurityContextArgs extends com.pulumi.resources.ResourceArgs
 
     private SecurityContextArgs(SecurityContextArgs $) {
         this.allowPrivilegeEscalation = $.allowPrivilegeEscalation;
+        this.appArmorProfile = $.appArmorProfile;
         this.capabilities = $.capabilities;
         this.privileged = $.privileged;
         this.procMount = $.procMount;
@@ -243,6 +260,27 @@ public final class SecurityContextArgs extends com.pulumi.resources.ResourceArgs
          */
         public Builder allowPrivilegeEscalation(Boolean allowPrivilegeEscalation) {
             return allowPrivilegeEscalation(Output.of(allowPrivilegeEscalation));
+        }
+
+        /**
+         * @param appArmorProfile appArmorProfile is the AppArmor options to use by this container. If set, this profile overrides the pod&#39;s appArmorProfile. Note that this field cannot be set when spec.os.name is windows.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder appArmorProfile(@Nullable Output<AppArmorProfileArgs> appArmorProfile) {
+            $.appArmorProfile = appArmorProfile;
+            return this;
+        }
+
+        /**
+         * @param appArmorProfile appArmorProfile is the AppArmor options to use by this container. If set, this profile overrides the pod&#39;s appArmorProfile. Note that this field cannot be set when spec.os.name is windows.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder appArmorProfile(AppArmorProfileArgs appArmorProfile) {
+            return appArmorProfile(Output.of(appArmorProfile));
         }
 
         /**

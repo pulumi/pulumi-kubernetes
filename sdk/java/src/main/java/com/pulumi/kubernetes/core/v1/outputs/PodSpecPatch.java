@@ -70,7 +70,7 @@ public final class PodSpecPatch {
      */
     private @Nullable List<EphemeralContainerPatch> ephemeralContainers;
     /**
-     * @return HostAliases is an optional list of hosts and IPs that will be injected into the pod&#39;s hosts file if specified. This is only valid for non-hostNetwork pods.
+     * @return HostAliases is an optional list of hosts and IPs that will be injected into the pod&#39;s hosts file if specified.
      * 
      */
     private @Nullable List<HostAliasPatch> hostAliases;
@@ -124,7 +124,7 @@ public final class PodSpecPatch {
      * 
      * If the OS field is set to linux, the following fields must be unset: -securityContext.windowsOptions
      * 
-     * If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
+     * If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.securityContext.appArmorProfile - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.appArmorProfile - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
      * 
      */
     private @Nullable PodOSPatch os;
@@ -182,8 +182,6 @@ public final class PodSpecPatch {
      * 
      * SchedulingGates can only be set at pod creation time, and be removed only afterwards.
      * 
-     * This is a beta feature enabled by the PodSchedulingReadiness feature gate.
-     * 
      */
     private @Nullable List<PodSchedulingGatePatch> schedulingGates;
     /**
@@ -192,7 +190,7 @@ public final class PodSpecPatch {
      */
     private @Nullable PodSecurityContextPatch securityContext;
     /**
-     * @return DeprecatedServiceAccount is a depreciated alias for ServiceAccountName. Deprecated: Use serviceAccountName instead.
+     * @return DeprecatedServiceAccount is a deprecated alias for ServiceAccountName. Deprecated: Use serviceAccountName instead.
      * 
      */
     private @Nullable String serviceAccount;
@@ -295,7 +293,7 @@ public final class PodSpecPatch {
         return this.ephemeralContainers == null ? List.of() : this.ephemeralContainers;
     }
     /**
-     * @return HostAliases is an optional list of hosts and IPs that will be injected into the pod&#39;s hosts file if specified. This is only valid for non-hostNetwork pods.
+     * @return HostAliases is an optional list of hosts and IPs that will be injected into the pod&#39;s hosts file if specified.
      * 
      */
     public List<HostAliasPatch> hostAliases() {
@@ -369,7 +367,7 @@ public final class PodSpecPatch {
      * 
      * If the OS field is set to linux, the following fields must be unset: -securityContext.windowsOptions
      * 
-     * If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
+     * If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.securityContext.appArmorProfile - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.appArmorProfile - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
      * 
      */
     public Optional<PodOSPatch> os() {
@@ -447,8 +445,6 @@ public final class PodSpecPatch {
      * 
      * SchedulingGates can only be set at pod creation time, and be removed only afterwards.
      * 
-     * This is a beta feature enabled by the PodSchedulingReadiness feature gate.
-     * 
      */
     public List<PodSchedulingGatePatch> schedulingGates() {
         return this.schedulingGates == null ? List.of() : this.schedulingGates;
@@ -461,7 +457,7 @@ public final class PodSpecPatch {
         return Optional.ofNullable(this.securityContext);
     }
     /**
-     * @return DeprecatedServiceAccount is a depreciated alias for ServiceAccountName. Deprecated: Use serviceAccountName instead.
+     * @return DeprecatedServiceAccount is a deprecated alias for ServiceAccountName. Deprecated: Use serviceAccountName instead.
      * 
      */
     public Optional<String> serviceAccount() {

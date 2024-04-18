@@ -7,9 +7,11 @@ import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.kubernetes.core.v1.inputs.ContainerStateArgs;
 import com.pulumi.kubernetes.core.v1.inputs.ResourceRequirementsArgs;
+import com.pulumi.kubernetes.core.v1.inputs.VolumeMountStatusArgs;
 import java.lang.Boolean;
 import java.lang.Integer;
 import java.lang.String;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -193,6 +195,21 @@ public final class ContainerStatusArgs extends com.pulumi.resources.ResourceArgs
         return Optional.ofNullable(this.state);
     }
 
+    /**
+     * Status of volume mounts.
+     * 
+     */
+    @Import(name="volumeMounts")
+    private @Nullable Output<List<VolumeMountStatusArgs>> volumeMounts;
+
+    /**
+     * @return Status of volume mounts.
+     * 
+     */
+    public Optional<Output<List<VolumeMountStatusArgs>>> volumeMounts() {
+        return Optional.ofNullable(this.volumeMounts);
+    }
+
     private ContainerStatusArgs() {}
 
     private ContainerStatusArgs(ContainerStatusArgs $) {
@@ -207,6 +224,7 @@ public final class ContainerStatusArgs extends com.pulumi.resources.ResourceArgs
         this.restartCount = $.restartCount;
         this.started = $.started;
         this.state = $.state;
+        this.volumeMounts = $.volumeMounts;
     }
 
     public static Builder builder() {
@@ -460,6 +478,37 @@ public final class ContainerStatusArgs extends com.pulumi.resources.ResourceArgs
          */
         public Builder state(ContainerStateArgs state) {
             return state(Output.of(state));
+        }
+
+        /**
+         * @param volumeMounts Status of volume mounts.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder volumeMounts(@Nullable Output<List<VolumeMountStatusArgs>> volumeMounts) {
+            $.volumeMounts = volumeMounts;
+            return this;
+        }
+
+        /**
+         * @param volumeMounts Status of volume mounts.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder volumeMounts(List<VolumeMountStatusArgs> volumeMounts) {
+            return volumeMounts(Output.of(volumeMounts));
+        }
+
+        /**
+         * @param volumeMounts Status of volume mounts.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder volumeMounts(VolumeMountStatusArgs... volumeMounts) {
+            return volumeMounts(List.of(volumeMounts));
         }
 
         public ContainerStatusArgs build() {

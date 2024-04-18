@@ -15,6 +15,26 @@ from ... import meta as _meta
 __all__ = [
     'AllocationResult',
     'AllocationResultPatch',
+    'DriverAllocationResult',
+    'DriverAllocationResultPatch',
+    'DriverRequests',
+    'DriverRequestsPatch',
+    'NamedResourcesAllocationResult',
+    'NamedResourcesAllocationResultPatch',
+    'NamedResourcesAttribute',
+    'NamedResourcesAttributePatch',
+    'NamedResourcesFilter',
+    'NamedResourcesFilterPatch',
+    'NamedResourcesInstance',
+    'NamedResourcesInstancePatch',
+    'NamedResourcesIntSlice',
+    'NamedResourcesIntSlicePatch',
+    'NamedResourcesRequest',
+    'NamedResourcesRequestPatch',
+    'NamedResourcesResources',
+    'NamedResourcesResourcesPatch',
+    'NamedResourcesStringSlice',
+    'NamedResourcesStringSlicePatch',
     'PodSchedulingContext',
     'PodSchedulingContextSpec',
     'PodSchedulingContextSpecPatch',
@@ -23,6 +43,7 @@ __all__ = [
     'ResourceClaim',
     'ResourceClaimConsumerReference',
     'ResourceClaimConsumerReferencePatch',
+    'ResourceClaimParameters',
     'ResourceClaimParametersReference',
     'ResourceClaimParametersReferencePatch',
     'ResourceClaimSchedulingStatus',
@@ -35,10 +56,20 @@ __all__ = [
     'ResourceClaimTemplateSpec',
     'ResourceClaimTemplateSpecPatch',
     'ResourceClass',
+    'ResourceClassParameters',
     'ResourceClassParametersReference',
     'ResourceClassParametersReferencePatch',
+    'ResourceFilter',
+    'ResourceFilterPatch',
     'ResourceHandle',
     'ResourceHandlePatch',
+    'ResourceRequest',
+    'ResourceRequestPatch',
+    'ResourceSlice',
+    'StructuredResourceHandle',
+    'StructuredResourceHandlePatch',
+    'VendorParameters',
+    'VendorParametersPatch',
 ]
 
 @pulumi.output_type
@@ -187,6 +218,876 @@ class AllocationResultPatch(dict):
         Shareable determines whether the resource supports more than one consumer at a time.
         """
         return pulumi.get(self, "shareable")
+
+
+@pulumi.output_type
+class DriverAllocationResult(dict):
+    """
+    DriverAllocationResult contains vendor parameters and the allocation result for one request.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "namedResources":
+            suggest = "named_resources"
+        elif key == "vendorRequestParameters":
+            suggest = "vendor_request_parameters"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DriverAllocationResult. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DriverAllocationResult.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DriverAllocationResult.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 named_resources: Optional['outputs.NamedResourcesAllocationResult'] = None,
+                 vendor_request_parameters: Optional[Any] = None):
+        """
+        DriverAllocationResult contains vendor parameters and the allocation result for one request.
+        :param 'NamedResourcesAllocationResultArgs' named_resources: NamedResources describes the allocation result when using the named resources model.
+        :param Any vendor_request_parameters: VendorRequestParameters are the per-request configuration parameters from the time that the claim was allocated.
+        """
+        if named_resources is not None:
+            pulumi.set(__self__, "named_resources", named_resources)
+        if vendor_request_parameters is not None:
+            pulumi.set(__self__, "vendor_request_parameters", vendor_request_parameters)
+
+    @property
+    @pulumi.getter(name="namedResources")
+    def named_resources(self) -> Optional['outputs.NamedResourcesAllocationResult']:
+        """
+        NamedResources describes the allocation result when using the named resources model.
+        """
+        return pulumi.get(self, "named_resources")
+
+    @property
+    @pulumi.getter(name="vendorRequestParameters")
+    def vendor_request_parameters(self) -> Optional[Any]:
+        """
+        VendorRequestParameters are the per-request configuration parameters from the time that the claim was allocated.
+        """
+        return pulumi.get(self, "vendor_request_parameters")
+
+
+@pulumi.output_type
+class DriverAllocationResultPatch(dict):
+    """
+    DriverAllocationResult contains vendor parameters and the allocation result for one request.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "namedResources":
+            suggest = "named_resources"
+        elif key == "vendorRequestParameters":
+            suggest = "vendor_request_parameters"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DriverAllocationResultPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DriverAllocationResultPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DriverAllocationResultPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 named_resources: Optional['outputs.NamedResourcesAllocationResultPatch'] = None,
+                 vendor_request_parameters: Optional[Any] = None):
+        """
+        DriverAllocationResult contains vendor parameters and the allocation result for one request.
+        :param 'NamedResourcesAllocationResultPatchArgs' named_resources: NamedResources describes the allocation result when using the named resources model.
+        :param Any vendor_request_parameters: VendorRequestParameters are the per-request configuration parameters from the time that the claim was allocated.
+        """
+        if named_resources is not None:
+            pulumi.set(__self__, "named_resources", named_resources)
+        if vendor_request_parameters is not None:
+            pulumi.set(__self__, "vendor_request_parameters", vendor_request_parameters)
+
+    @property
+    @pulumi.getter(name="namedResources")
+    def named_resources(self) -> Optional['outputs.NamedResourcesAllocationResultPatch']:
+        """
+        NamedResources describes the allocation result when using the named resources model.
+        """
+        return pulumi.get(self, "named_resources")
+
+    @property
+    @pulumi.getter(name="vendorRequestParameters")
+    def vendor_request_parameters(self) -> Optional[Any]:
+        """
+        VendorRequestParameters are the per-request configuration parameters from the time that the claim was allocated.
+        """
+        return pulumi.get(self, "vendor_request_parameters")
+
+
+@pulumi.output_type
+class DriverRequests(dict):
+    """
+    DriverRequests describes all resources that are needed from one particular driver.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "driverName":
+            suggest = "driver_name"
+        elif key == "vendorParameters":
+            suggest = "vendor_parameters"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DriverRequests. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DriverRequests.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DriverRequests.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 driver_name: Optional[str] = None,
+                 requests: Optional[Sequence['outputs.ResourceRequest']] = None,
+                 vendor_parameters: Optional[Any] = None):
+        """
+        DriverRequests describes all resources that are needed from one particular driver.
+        :param str driver_name: DriverName is the name used by the DRA driver kubelet plugin.
+        :param Sequence['ResourceRequestArgs'] requests: Requests describes all resources that are needed from the driver.
+        :param Any vendor_parameters: VendorParameters are arbitrary setup parameters for all requests of the claim. They are ignored while allocating the claim.
+        """
+        if driver_name is not None:
+            pulumi.set(__self__, "driver_name", driver_name)
+        if requests is not None:
+            pulumi.set(__self__, "requests", requests)
+        if vendor_parameters is not None:
+            pulumi.set(__self__, "vendor_parameters", vendor_parameters)
+
+    @property
+    @pulumi.getter(name="driverName")
+    def driver_name(self) -> Optional[str]:
+        """
+        DriverName is the name used by the DRA driver kubelet plugin.
+        """
+        return pulumi.get(self, "driver_name")
+
+    @property
+    @pulumi.getter
+    def requests(self) -> Optional[Sequence['outputs.ResourceRequest']]:
+        """
+        Requests describes all resources that are needed from the driver.
+        """
+        return pulumi.get(self, "requests")
+
+    @property
+    @pulumi.getter(name="vendorParameters")
+    def vendor_parameters(self) -> Optional[Any]:
+        """
+        VendorParameters are arbitrary setup parameters for all requests of the claim. They are ignored while allocating the claim.
+        """
+        return pulumi.get(self, "vendor_parameters")
+
+
+@pulumi.output_type
+class DriverRequestsPatch(dict):
+    """
+    DriverRequests describes all resources that are needed from one particular driver.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "driverName":
+            suggest = "driver_name"
+        elif key == "vendorParameters":
+            suggest = "vendor_parameters"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DriverRequestsPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DriverRequestsPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DriverRequestsPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 driver_name: Optional[str] = None,
+                 requests: Optional[Sequence['outputs.ResourceRequestPatch']] = None,
+                 vendor_parameters: Optional[Any] = None):
+        """
+        DriverRequests describes all resources that are needed from one particular driver.
+        :param str driver_name: DriverName is the name used by the DRA driver kubelet plugin.
+        :param Sequence['ResourceRequestPatchArgs'] requests: Requests describes all resources that are needed from the driver.
+        :param Any vendor_parameters: VendorParameters are arbitrary setup parameters for all requests of the claim. They are ignored while allocating the claim.
+        """
+        if driver_name is not None:
+            pulumi.set(__self__, "driver_name", driver_name)
+        if requests is not None:
+            pulumi.set(__self__, "requests", requests)
+        if vendor_parameters is not None:
+            pulumi.set(__self__, "vendor_parameters", vendor_parameters)
+
+    @property
+    @pulumi.getter(name="driverName")
+    def driver_name(self) -> Optional[str]:
+        """
+        DriverName is the name used by the DRA driver kubelet plugin.
+        """
+        return pulumi.get(self, "driver_name")
+
+    @property
+    @pulumi.getter
+    def requests(self) -> Optional[Sequence['outputs.ResourceRequestPatch']]:
+        """
+        Requests describes all resources that are needed from the driver.
+        """
+        return pulumi.get(self, "requests")
+
+    @property
+    @pulumi.getter(name="vendorParameters")
+    def vendor_parameters(self) -> Optional[Any]:
+        """
+        VendorParameters are arbitrary setup parameters for all requests of the claim. They are ignored while allocating the claim.
+        """
+        return pulumi.get(self, "vendor_parameters")
+
+
+@pulumi.output_type
+class NamedResourcesAllocationResult(dict):
+    """
+    NamedResourcesAllocationResult is used in AllocationResultModel.
+    """
+    def __init__(__self__, *,
+                 name: str):
+        """
+        NamedResourcesAllocationResult is used in AllocationResultModel.
+        :param str name: Name is the name of the selected resource instance.
+        """
+        pulumi.set(__self__, "name", name)
+
+    @property
+    @pulumi.getter
+    def name(self) -> str:
+        """
+        Name is the name of the selected resource instance.
+        """
+        return pulumi.get(self, "name")
+
+
+@pulumi.output_type
+class NamedResourcesAllocationResultPatch(dict):
+    """
+    NamedResourcesAllocationResult is used in AllocationResultModel.
+    """
+    def __init__(__self__, *,
+                 name: Optional[str] = None):
+        """
+        NamedResourcesAllocationResult is used in AllocationResultModel.
+        :param str name: Name is the name of the selected resource instance.
+        """
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[str]:
+        """
+        Name is the name of the selected resource instance.
+        """
+        return pulumi.get(self, "name")
+
+
+@pulumi.output_type
+class NamedResourcesAttribute(dict):
+    """
+    NamedResourcesAttribute is a combination of an attribute name and its value.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "intSlice":
+            suggest = "int_slice"
+        elif key == "stringSlice":
+            suggest = "string_slice"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in NamedResourcesAttribute. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        NamedResourcesAttribute.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        NamedResourcesAttribute.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 name: str,
+                 bool: Optional[bool] = None,
+                 int: Optional[int] = None,
+                 int_slice: Optional['outputs.NamedResourcesIntSlice'] = None,
+                 quantity: Optional[str] = None,
+                 string: Optional[str] = None,
+                 string_slice: Optional['outputs.NamedResourcesStringSlice'] = None,
+                 version: Optional[str] = None):
+        """
+        NamedResourcesAttribute is a combination of an attribute name and its value.
+        :param str name: Name is unique identifier among all resource instances managed by the driver on the node. It must be a DNS subdomain.
+        :param bool bool: BoolValue is a true/false value.
+        :param int int: IntValue is a 64-bit integer.
+        :param 'NamedResourcesIntSliceArgs' int_slice: IntSliceValue is an array of 64-bit integers.
+        :param str quantity: QuantityValue is a quantity.
+        :param str string: StringValue is a string.
+        :param 'NamedResourcesStringSliceArgs' string_slice: StringSliceValue is an array of strings.
+        :param str version: VersionValue is a semantic version according to semver.org spec 2.0.0.
+        """
+        pulumi.set(__self__, "name", name)
+        if bool is not None:
+            pulumi.set(__self__, "bool", bool)
+        if int is not None:
+            pulumi.set(__self__, "int", int)
+        if int_slice is not None:
+            pulumi.set(__self__, "int_slice", int_slice)
+        if quantity is not None:
+            pulumi.set(__self__, "quantity", quantity)
+        if string is not None:
+            pulumi.set(__self__, "string", string)
+        if string_slice is not None:
+            pulumi.set(__self__, "string_slice", string_slice)
+        if version is not None:
+            pulumi.set(__self__, "version", version)
+
+    @property
+    @pulumi.getter
+    def name(self) -> str:
+        """
+        Name is unique identifier among all resource instances managed by the driver on the node. It must be a DNS subdomain.
+        """
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def bool(self) -> Optional[bool]:
+        """
+        BoolValue is a true/false value.
+        """
+        return pulumi.get(self, "bool")
+
+    @property
+    @pulumi.getter
+    def int(self) -> Optional[int]:
+        """
+        IntValue is a 64-bit integer.
+        """
+        return pulumi.get(self, "int")
+
+    @property
+    @pulumi.getter(name="intSlice")
+    def int_slice(self) -> Optional['outputs.NamedResourcesIntSlice']:
+        """
+        IntSliceValue is an array of 64-bit integers.
+        """
+        return pulumi.get(self, "int_slice")
+
+    @property
+    @pulumi.getter
+    def quantity(self) -> Optional[str]:
+        """
+        QuantityValue is a quantity.
+        """
+        return pulumi.get(self, "quantity")
+
+    @property
+    @pulumi.getter
+    def string(self) -> Optional[str]:
+        """
+        StringValue is a string.
+        """
+        return pulumi.get(self, "string")
+
+    @property
+    @pulumi.getter(name="stringSlice")
+    def string_slice(self) -> Optional['outputs.NamedResourcesStringSlice']:
+        """
+        StringSliceValue is an array of strings.
+        """
+        return pulumi.get(self, "string_slice")
+
+    @property
+    @pulumi.getter
+    def version(self) -> Optional[str]:
+        """
+        VersionValue is a semantic version according to semver.org spec 2.0.0.
+        """
+        return pulumi.get(self, "version")
+
+
+@pulumi.output_type
+class NamedResourcesAttributePatch(dict):
+    """
+    NamedResourcesAttribute is a combination of an attribute name and its value.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "intSlice":
+            suggest = "int_slice"
+        elif key == "stringSlice":
+            suggest = "string_slice"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in NamedResourcesAttributePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        NamedResourcesAttributePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        NamedResourcesAttributePatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 bool: Optional[bool] = None,
+                 int: Optional[int] = None,
+                 int_slice: Optional['outputs.NamedResourcesIntSlicePatch'] = None,
+                 name: Optional[str] = None,
+                 quantity: Optional[str] = None,
+                 string: Optional[str] = None,
+                 string_slice: Optional['outputs.NamedResourcesStringSlicePatch'] = None,
+                 version: Optional[str] = None):
+        """
+        NamedResourcesAttribute is a combination of an attribute name and its value.
+        :param bool bool: BoolValue is a true/false value.
+        :param int int: IntValue is a 64-bit integer.
+        :param 'NamedResourcesIntSlicePatchArgs' int_slice: IntSliceValue is an array of 64-bit integers.
+        :param str name: Name is unique identifier among all resource instances managed by the driver on the node. It must be a DNS subdomain.
+        :param str quantity: QuantityValue is a quantity.
+        :param str string: StringValue is a string.
+        :param 'NamedResourcesStringSlicePatchArgs' string_slice: StringSliceValue is an array of strings.
+        :param str version: VersionValue is a semantic version according to semver.org spec 2.0.0.
+        """
+        if bool is not None:
+            pulumi.set(__self__, "bool", bool)
+        if int is not None:
+            pulumi.set(__self__, "int", int)
+        if int_slice is not None:
+            pulumi.set(__self__, "int_slice", int_slice)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if quantity is not None:
+            pulumi.set(__self__, "quantity", quantity)
+        if string is not None:
+            pulumi.set(__self__, "string", string)
+        if string_slice is not None:
+            pulumi.set(__self__, "string_slice", string_slice)
+        if version is not None:
+            pulumi.set(__self__, "version", version)
+
+    @property
+    @pulumi.getter
+    def bool(self) -> Optional[bool]:
+        """
+        BoolValue is a true/false value.
+        """
+        return pulumi.get(self, "bool")
+
+    @property
+    @pulumi.getter
+    def int(self) -> Optional[int]:
+        """
+        IntValue is a 64-bit integer.
+        """
+        return pulumi.get(self, "int")
+
+    @property
+    @pulumi.getter(name="intSlice")
+    def int_slice(self) -> Optional['outputs.NamedResourcesIntSlicePatch']:
+        """
+        IntSliceValue is an array of 64-bit integers.
+        """
+        return pulumi.get(self, "int_slice")
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[str]:
+        """
+        Name is unique identifier among all resource instances managed by the driver on the node. It must be a DNS subdomain.
+        """
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def quantity(self) -> Optional[str]:
+        """
+        QuantityValue is a quantity.
+        """
+        return pulumi.get(self, "quantity")
+
+    @property
+    @pulumi.getter
+    def string(self) -> Optional[str]:
+        """
+        StringValue is a string.
+        """
+        return pulumi.get(self, "string")
+
+    @property
+    @pulumi.getter(name="stringSlice")
+    def string_slice(self) -> Optional['outputs.NamedResourcesStringSlicePatch']:
+        """
+        StringSliceValue is an array of strings.
+        """
+        return pulumi.get(self, "string_slice")
+
+    @property
+    @pulumi.getter
+    def version(self) -> Optional[str]:
+        """
+        VersionValue is a semantic version according to semver.org spec 2.0.0.
+        """
+        return pulumi.get(self, "version")
+
+
+@pulumi.output_type
+class NamedResourcesFilter(dict):
+    """
+    NamedResourcesFilter is used in ResourceFilterModel.
+    """
+    def __init__(__self__, *,
+                 selector: str):
+        """
+        NamedResourcesFilter is used in ResourceFilterModel.
+        :param str selector: Selector is a CEL expression which must evaluate to true if a resource instance is suitable. The language is as defined in https://kubernetes.io/docs/reference/using-api/cel/
+               
+               In addition, for each type NamedResourcesin AttributeValue there is a map that resolves to the corresponding value of the instance under evaluation. For example:
+               
+                  attributes.quantity["a"].isGreaterThan(quantity("0")) &&
+                  attributes.stringslice["b"].isSorted()
+        """
+        pulumi.set(__self__, "selector", selector)
+
+    @property
+    @pulumi.getter
+    def selector(self) -> str:
+        """
+        Selector is a CEL expression which must evaluate to true if a resource instance is suitable. The language is as defined in https://kubernetes.io/docs/reference/using-api/cel/
+
+        In addition, for each type NamedResourcesin AttributeValue there is a map that resolves to the corresponding value of the instance under evaluation. For example:
+
+           attributes.quantity["a"].isGreaterThan(quantity("0")) &&
+           attributes.stringslice["b"].isSorted()
+        """
+        return pulumi.get(self, "selector")
+
+
+@pulumi.output_type
+class NamedResourcesFilterPatch(dict):
+    """
+    NamedResourcesFilter is used in ResourceFilterModel.
+    """
+    def __init__(__self__, *,
+                 selector: Optional[str] = None):
+        """
+        NamedResourcesFilter is used in ResourceFilterModel.
+        :param str selector: Selector is a CEL expression which must evaluate to true if a resource instance is suitable. The language is as defined in https://kubernetes.io/docs/reference/using-api/cel/
+               
+               In addition, for each type NamedResourcesin AttributeValue there is a map that resolves to the corresponding value of the instance under evaluation. For example:
+               
+                  attributes.quantity["a"].isGreaterThan(quantity("0")) &&
+                  attributes.stringslice["b"].isSorted()
+        """
+        if selector is not None:
+            pulumi.set(__self__, "selector", selector)
+
+    @property
+    @pulumi.getter
+    def selector(self) -> Optional[str]:
+        """
+        Selector is a CEL expression which must evaluate to true if a resource instance is suitable. The language is as defined in https://kubernetes.io/docs/reference/using-api/cel/
+
+        In addition, for each type NamedResourcesin AttributeValue there is a map that resolves to the corresponding value of the instance under evaluation. For example:
+
+           attributes.quantity["a"].isGreaterThan(quantity("0")) &&
+           attributes.stringslice["b"].isSorted()
+        """
+        return pulumi.get(self, "selector")
+
+
+@pulumi.output_type
+class NamedResourcesInstance(dict):
+    """
+    NamedResourcesInstance represents one individual hardware instance that can be selected based on its attributes.
+    """
+    def __init__(__self__, *,
+                 name: str,
+                 attributes: Optional[Sequence['outputs.NamedResourcesAttribute']] = None):
+        """
+        NamedResourcesInstance represents one individual hardware instance that can be selected based on its attributes.
+        :param str name: Name is unique identifier among all resource instances managed by the driver on the node. It must be a DNS subdomain.
+        :param Sequence['NamedResourcesAttributeArgs'] attributes: Attributes defines the attributes of this resource instance. The name of each attribute must be unique.
+        """
+        pulumi.set(__self__, "name", name)
+        if attributes is not None:
+            pulumi.set(__self__, "attributes", attributes)
+
+    @property
+    @pulumi.getter
+    def name(self) -> str:
+        """
+        Name is unique identifier among all resource instances managed by the driver on the node. It must be a DNS subdomain.
+        """
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def attributes(self) -> Optional[Sequence['outputs.NamedResourcesAttribute']]:
+        """
+        Attributes defines the attributes of this resource instance. The name of each attribute must be unique.
+        """
+        return pulumi.get(self, "attributes")
+
+
+@pulumi.output_type
+class NamedResourcesInstancePatch(dict):
+    """
+    NamedResourcesInstance represents one individual hardware instance that can be selected based on its attributes.
+    """
+    def __init__(__self__, *,
+                 attributes: Optional[Sequence['outputs.NamedResourcesAttributePatch']] = None,
+                 name: Optional[str] = None):
+        """
+        NamedResourcesInstance represents one individual hardware instance that can be selected based on its attributes.
+        :param Sequence['NamedResourcesAttributePatchArgs'] attributes: Attributes defines the attributes of this resource instance. The name of each attribute must be unique.
+        :param str name: Name is unique identifier among all resource instances managed by the driver on the node. It must be a DNS subdomain.
+        """
+        if attributes is not None:
+            pulumi.set(__self__, "attributes", attributes)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+
+    @property
+    @pulumi.getter
+    def attributes(self) -> Optional[Sequence['outputs.NamedResourcesAttributePatch']]:
+        """
+        Attributes defines the attributes of this resource instance. The name of each attribute must be unique.
+        """
+        return pulumi.get(self, "attributes")
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[str]:
+        """
+        Name is unique identifier among all resource instances managed by the driver on the node. It must be a DNS subdomain.
+        """
+        return pulumi.get(self, "name")
+
+
+@pulumi.output_type
+class NamedResourcesIntSlice(dict):
+    """
+    NamedResourcesIntSlice contains a slice of 64-bit integers.
+    """
+    def __init__(__self__, *,
+                 ints: Sequence[int]):
+        """
+        NamedResourcesIntSlice contains a slice of 64-bit integers.
+        :param Sequence[int] ints: Ints is the slice of 64-bit integers.
+        """
+        pulumi.set(__self__, "ints", ints)
+
+    @property
+    @pulumi.getter
+    def ints(self) -> Sequence[int]:
+        """
+        Ints is the slice of 64-bit integers.
+        """
+        return pulumi.get(self, "ints")
+
+
+@pulumi.output_type
+class NamedResourcesIntSlicePatch(dict):
+    """
+    NamedResourcesIntSlice contains a slice of 64-bit integers.
+    """
+    def __init__(__self__, *,
+                 ints: Optional[Sequence[int]] = None):
+        """
+        NamedResourcesIntSlice contains a slice of 64-bit integers.
+        :param Sequence[int] ints: Ints is the slice of 64-bit integers.
+        """
+        if ints is not None:
+            pulumi.set(__self__, "ints", ints)
+
+    @property
+    @pulumi.getter
+    def ints(self) -> Optional[Sequence[int]]:
+        """
+        Ints is the slice of 64-bit integers.
+        """
+        return pulumi.get(self, "ints")
+
+
+@pulumi.output_type
+class NamedResourcesRequest(dict):
+    """
+    NamedResourcesRequest is used in ResourceRequestModel.
+    """
+    def __init__(__self__, *,
+                 selector: str):
+        """
+        NamedResourcesRequest is used in ResourceRequestModel.
+        :param str selector: Selector is a CEL expression which must evaluate to true if a resource instance is suitable. The language is as defined in https://kubernetes.io/docs/reference/using-api/cel/
+               
+               In addition, for each type NamedResourcesin AttributeValue there is a map that resolves to the corresponding value of the instance under evaluation. For example:
+               
+                  attributes.quantity["a"].isGreaterThan(quantity("0")) &&
+                  attributes.stringslice["b"].isSorted()
+        """
+        pulumi.set(__self__, "selector", selector)
+
+    @property
+    @pulumi.getter
+    def selector(self) -> str:
+        """
+        Selector is a CEL expression which must evaluate to true if a resource instance is suitable. The language is as defined in https://kubernetes.io/docs/reference/using-api/cel/
+
+        In addition, for each type NamedResourcesin AttributeValue there is a map that resolves to the corresponding value of the instance under evaluation. For example:
+
+           attributes.quantity["a"].isGreaterThan(quantity("0")) &&
+           attributes.stringslice["b"].isSorted()
+        """
+        return pulumi.get(self, "selector")
+
+
+@pulumi.output_type
+class NamedResourcesRequestPatch(dict):
+    """
+    NamedResourcesRequest is used in ResourceRequestModel.
+    """
+    def __init__(__self__, *,
+                 selector: Optional[str] = None):
+        """
+        NamedResourcesRequest is used in ResourceRequestModel.
+        :param str selector: Selector is a CEL expression which must evaluate to true if a resource instance is suitable. The language is as defined in https://kubernetes.io/docs/reference/using-api/cel/
+               
+               In addition, for each type NamedResourcesin AttributeValue there is a map that resolves to the corresponding value of the instance under evaluation. For example:
+               
+                  attributes.quantity["a"].isGreaterThan(quantity("0")) &&
+                  attributes.stringslice["b"].isSorted()
+        """
+        if selector is not None:
+            pulumi.set(__self__, "selector", selector)
+
+    @property
+    @pulumi.getter
+    def selector(self) -> Optional[str]:
+        """
+        Selector is a CEL expression which must evaluate to true if a resource instance is suitable. The language is as defined in https://kubernetes.io/docs/reference/using-api/cel/
+
+        In addition, for each type NamedResourcesin AttributeValue there is a map that resolves to the corresponding value of the instance under evaluation. For example:
+
+           attributes.quantity["a"].isGreaterThan(quantity("0")) &&
+           attributes.stringslice["b"].isSorted()
+        """
+        return pulumi.get(self, "selector")
+
+
+@pulumi.output_type
+class NamedResourcesResources(dict):
+    """
+    NamedResourcesResources is used in ResourceModel.
+    """
+    def __init__(__self__, *,
+                 instances: Sequence['outputs.NamedResourcesInstance']):
+        """
+        NamedResourcesResources is used in ResourceModel.
+        :param Sequence['NamedResourcesInstanceArgs'] instances: The list of all individual resources instances currently available.
+        """
+        pulumi.set(__self__, "instances", instances)
+
+    @property
+    @pulumi.getter
+    def instances(self) -> Sequence['outputs.NamedResourcesInstance']:
+        """
+        The list of all individual resources instances currently available.
+        """
+        return pulumi.get(self, "instances")
+
+
+@pulumi.output_type
+class NamedResourcesResourcesPatch(dict):
+    """
+    NamedResourcesResources is used in ResourceModel.
+    """
+    def __init__(__self__, *,
+                 instances: Optional[Sequence['outputs.NamedResourcesInstancePatch']] = None):
+        """
+        NamedResourcesResources is used in ResourceModel.
+        :param Sequence['NamedResourcesInstancePatchArgs'] instances: The list of all individual resources instances currently available.
+        """
+        if instances is not None:
+            pulumi.set(__self__, "instances", instances)
+
+    @property
+    @pulumi.getter
+    def instances(self) -> Optional[Sequence['outputs.NamedResourcesInstancePatch']]:
+        """
+        The list of all individual resources instances currently available.
+        """
+        return pulumi.get(self, "instances")
+
+
+@pulumi.output_type
+class NamedResourcesStringSlice(dict):
+    """
+    NamedResourcesStringSlice contains a slice of strings.
+    """
+    def __init__(__self__, *,
+                 strings: Sequence[str]):
+        """
+        NamedResourcesStringSlice contains a slice of strings.
+        :param Sequence[str] strings: Strings is the slice of strings.
+        """
+        pulumi.set(__self__, "strings", strings)
+
+    @property
+    @pulumi.getter
+    def strings(self) -> Sequence[str]:
+        """
+        Strings is the slice of strings.
+        """
+        return pulumi.get(self, "strings")
+
+
+@pulumi.output_type
+class NamedResourcesStringSlicePatch(dict):
+    """
+    NamedResourcesStringSlice contains a slice of strings.
+    """
+    def __init__(__self__, *,
+                 strings: Optional[Sequence[str]] = None):
+        """
+        NamedResourcesStringSlice contains a slice of strings.
+        :param Sequence[str] strings: Strings is the slice of strings.
+        """
+        if strings is not None:
+            pulumi.set(__self__, "strings", strings)
+
+    @property
+    @pulumi.getter
+    def strings(self) -> Optional[Sequence[str]]:
+        """
+        Strings is the slice of strings.
+        """
+        return pulumi.get(self, "strings")
 
 
 @pulumi.output_type
@@ -714,6 +1615,114 @@ class ResourceClaimConsumerReferencePatch(dict):
         UID identifies exactly one incarnation of the resource.
         """
         return pulumi.get(self, "uid")
+
+
+@pulumi.output_type
+class ResourceClaimParameters(dict):
+    """
+    ResourceClaimParameters defines resource requests for a ResourceClaim in an in-tree format understood by Kubernetes.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+        elif key == "driverRequests":
+            suggest = "driver_requests"
+        elif key == "generatedFrom":
+            suggest = "generated_from"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ResourceClaimParameters. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ResourceClaimParameters.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ResourceClaimParameters.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 api_version: Optional[str] = None,
+                 driver_requests: Optional[Sequence['outputs.DriverRequests']] = None,
+                 generated_from: Optional['outputs.ResourceClaimParametersReference'] = None,
+                 kind: Optional[str] = None,
+                 metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
+                 shareable: Optional[bool] = None):
+        """
+        ResourceClaimParameters defines resource requests for a ResourceClaim in an in-tree format understood by Kubernetes.
+        :param str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        :param Sequence['DriverRequestsArgs'] driver_requests: DriverRequests describes all resources that are needed for the allocated claim. A single claim may use resources coming from different drivers. For each driver, this array has at most one entry which then may have one or more per-driver requests.
+               
+               May be empty, in which case the claim can always be allocated.
+        :param 'ResourceClaimParametersReferenceArgs' generated_from: If this object was created from some other resource, then this links back to that resource. This field is used to find the in-tree representation of the claim parameters when the parameter reference of the claim refers to some unknown type.
+        :param str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param '_meta.v1.ObjectMetaArgs' metadata: Standard object metadata
+        :param bool shareable: Shareable indicates whether the allocated claim is meant to be shareable by multiple consumers at the same time.
+        """
+        if api_version is not None:
+            pulumi.set(__self__, "api_version", 'resource.k8s.io/v1alpha2')
+        if driver_requests is not None:
+            pulumi.set(__self__, "driver_requests", driver_requests)
+        if generated_from is not None:
+            pulumi.set(__self__, "generated_from", generated_from)
+        if kind is not None:
+            pulumi.set(__self__, "kind", 'ResourceClaimParameters')
+        if metadata is not None:
+            pulumi.set(__self__, "metadata", metadata)
+        if shareable is not None:
+            pulumi.set(__self__, "shareable", shareable)
+
+    @property
+    @pulumi.getter(name="apiVersion")
+    def api_version(self) -> Optional[str]:
+        """
+        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        """
+        return pulumi.get(self, "api_version")
+
+    @property
+    @pulumi.getter(name="driverRequests")
+    def driver_requests(self) -> Optional[Sequence['outputs.DriverRequests']]:
+        """
+        DriverRequests describes all resources that are needed for the allocated claim. A single claim may use resources coming from different drivers. For each driver, this array has at most one entry which then may have one or more per-driver requests.
+
+        May be empty, in which case the claim can always be allocated.
+        """
+        return pulumi.get(self, "driver_requests")
+
+    @property
+    @pulumi.getter(name="generatedFrom")
+    def generated_from(self) -> Optional['outputs.ResourceClaimParametersReference']:
+        """
+        If this object was created from some other resource, then this links back to that resource. This field is used to find the in-tree representation of the claim parameters when the parameter reference of the claim refers to some unknown type.
+        """
+        return pulumi.get(self, "generated_from")
+
+    @property
+    @pulumi.getter
+    def kind(self) -> Optional[str]:
+        """
+        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        """
+        return pulumi.get(self, "kind")
+
+    @property
+    @pulumi.getter
+    def metadata(self) -> Optional['_meta.v1.outputs.ObjectMeta']:
+        """
+        Standard object metadata
+        """
+        return pulumi.get(self, "metadata")
+
+    @property
+    @pulumi.getter
+    def shareable(self) -> Optional[bool]:
+        """
+        Shareable indicates whether the allocated claim is meant to be shareable by multiple consumers at the same time.
+        """
+        return pulumi.get(self, "shareable")
 
 
 @pulumi.output_type
@@ -1445,6 +2454,8 @@ class ResourceClass(dict):
             suggest = "api_version"
         elif key == "parametersRef":
             suggest = "parameters_ref"
+        elif key == "structuredParameters":
+            suggest = "structured_parameters"
         elif key == "suitableNodes":
             suggest = "suitable_nodes"
 
@@ -1465,6 +2476,7 @@ class ResourceClass(dict):
                  kind: Optional[str] = None,
                  metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
                  parameters_ref: Optional['outputs.ResourceClassParametersReference'] = None,
+                 structured_parameters: Optional[bool] = None,
                  suitable_nodes: Optional['_core.v1.outputs.NodeSelector'] = None):
         """
         ResourceClass is used by administrators to influence how resources are allocated.
@@ -1477,6 +2489,7 @@ class ResourceClass(dict):
         :param str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param '_meta.v1.ObjectMetaArgs' metadata: Standard object metadata
         :param 'ResourceClassParametersReferenceArgs' parameters_ref: ParametersRef references an arbitrary separate object that may hold parameters that will be used by the driver when allocating a resource that uses this class. A dynamic resource driver can distinguish between parameters stored here and and those stored in ResourceClaimSpec.
+        :param bool structured_parameters: If and only if allocation of claims using this class is handled via structured parameters, then StructuredParameters must be set to true.
         :param '_core.v1.NodeSelectorArgs' suitable_nodes: Only nodes matching the selector will be considered by the scheduler when trying to find a Node that fits a Pod when that Pod uses a ResourceClaim that has not been allocated yet.
                
                Setting this field is optional. If null, all nodes are candidates.
@@ -1490,6 +2503,8 @@ class ResourceClass(dict):
             pulumi.set(__self__, "metadata", metadata)
         if parameters_ref is not None:
             pulumi.set(__self__, "parameters_ref", parameters_ref)
+        if structured_parameters is not None:
+            pulumi.set(__self__, "structured_parameters", structured_parameters)
         if suitable_nodes is not None:
             pulumi.set(__self__, "suitable_nodes", suitable_nodes)
 
@@ -1536,6 +2551,14 @@ class ResourceClass(dict):
         return pulumi.get(self, "parameters_ref")
 
     @property
+    @pulumi.getter(name="structuredParameters")
+    def structured_parameters(self) -> Optional[bool]:
+        """
+        If and only if allocation of claims using this class is handled via structured parameters, then StructuredParameters must be set to true.
+        """
+        return pulumi.get(self, "structured_parameters")
+
+    @property
     @pulumi.getter(name="suitableNodes")
     def suitable_nodes(self) -> Optional['_core.v1.outputs.NodeSelector']:
         """
@@ -1544,6 +2567,110 @@ class ResourceClass(dict):
         Setting this field is optional. If null, all nodes are candidates.
         """
         return pulumi.get(self, "suitable_nodes")
+
+
+@pulumi.output_type
+class ResourceClassParameters(dict):
+    """
+    ResourceClassParameters defines resource requests for a ResourceClass in an in-tree format understood by Kubernetes.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+        elif key == "generatedFrom":
+            suggest = "generated_from"
+        elif key == "vendorParameters":
+            suggest = "vendor_parameters"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ResourceClassParameters. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ResourceClassParameters.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ResourceClassParameters.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 api_version: Optional[str] = None,
+                 filters: Optional[Sequence['outputs.ResourceFilter']] = None,
+                 generated_from: Optional['outputs.ResourceClassParametersReference'] = None,
+                 kind: Optional[str] = None,
+                 metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
+                 vendor_parameters: Optional[Sequence['outputs.VendorParameters']] = None):
+        """
+        ResourceClassParameters defines resource requests for a ResourceClass in an in-tree format understood by Kubernetes.
+        :param str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        :param Sequence['ResourceFilterArgs'] filters: Filters describes additional contraints that must be met when using the class.
+        :param 'ResourceClassParametersReferenceArgs' generated_from: If this object was created from some other resource, then this links back to that resource. This field is used to find the in-tree representation of the class parameters when the parameter reference of the class refers to some unknown type.
+        :param str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param '_meta.v1.ObjectMetaArgs' metadata: Standard object metadata
+        :param Sequence['VendorParametersArgs'] vendor_parameters: VendorParameters are arbitrary setup parameters for all claims using this class. They are ignored while allocating the claim. There must not be more than one entry per driver.
+        """
+        if api_version is not None:
+            pulumi.set(__self__, "api_version", 'resource.k8s.io/v1alpha2')
+        if filters is not None:
+            pulumi.set(__self__, "filters", filters)
+        if generated_from is not None:
+            pulumi.set(__self__, "generated_from", generated_from)
+        if kind is not None:
+            pulumi.set(__self__, "kind", 'ResourceClassParameters')
+        if metadata is not None:
+            pulumi.set(__self__, "metadata", metadata)
+        if vendor_parameters is not None:
+            pulumi.set(__self__, "vendor_parameters", vendor_parameters)
+
+    @property
+    @pulumi.getter(name="apiVersion")
+    def api_version(self) -> Optional[str]:
+        """
+        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        """
+        return pulumi.get(self, "api_version")
+
+    @property
+    @pulumi.getter
+    def filters(self) -> Optional[Sequence['outputs.ResourceFilter']]:
+        """
+        Filters describes additional contraints that must be met when using the class.
+        """
+        return pulumi.get(self, "filters")
+
+    @property
+    @pulumi.getter(name="generatedFrom")
+    def generated_from(self) -> Optional['outputs.ResourceClassParametersReference']:
+        """
+        If this object was created from some other resource, then this links back to that resource. This field is used to find the in-tree representation of the class parameters when the parameter reference of the class refers to some unknown type.
+        """
+        return pulumi.get(self, "generated_from")
+
+    @property
+    @pulumi.getter
+    def kind(self) -> Optional[str]:
+        """
+        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        """
+        return pulumi.get(self, "kind")
+
+    @property
+    @pulumi.getter
+    def metadata(self) -> Optional['_meta.v1.outputs.ObjectMeta']:
+        """
+        Standard object metadata
+        """
+        return pulumi.get(self, "metadata")
+
+    @property
+    @pulumi.getter(name="vendorParameters")
+    def vendor_parameters(self) -> Optional[Sequence['outputs.VendorParameters']]:
+        """
+        VendorParameters are arbitrary setup parameters for all claims using this class. They are ignored while allocating the claim. There must not be more than one entry per driver.
+        """
+        return pulumi.get(self, "vendor_parameters")
 
 
 @pulumi.output_type
@@ -1697,6 +2824,114 @@ class ResourceClassParametersReferencePatch(dict):
 
 
 @pulumi.output_type
+class ResourceFilter(dict):
+    """
+    ResourceFilter is a filter for resources from one particular driver.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "driverName":
+            suggest = "driver_name"
+        elif key == "namedResources":
+            suggest = "named_resources"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ResourceFilter. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ResourceFilter.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ResourceFilter.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 driver_name: Optional[str] = None,
+                 named_resources: Optional['outputs.NamedResourcesFilter'] = None):
+        """
+        ResourceFilter is a filter for resources from one particular driver.
+        :param str driver_name: DriverName is the name used by the DRA driver kubelet plugin.
+        :param 'NamedResourcesFilterArgs' named_resources: NamedResources describes a resource filter using the named resources model.
+        """
+        if driver_name is not None:
+            pulumi.set(__self__, "driver_name", driver_name)
+        if named_resources is not None:
+            pulumi.set(__self__, "named_resources", named_resources)
+
+    @property
+    @pulumi.getter(name="driverName")
+    def driver_name(self) -> Optional[str]:
+        """
+        DriverName is the name used by the DRA driver kubelet plugin.
+        """
+        return pulumi.get(self, "driver_name")
+
+    @property
+    @pulumi.getter(name="namedResources")
+    def named_resources(self) -> Optional['outputs.NamedResourcesFilter']:
+        """
+        NamedResources describes a resource filter using the named resources model.
+        """
+        return pulumi.get(self, "named_resources")
+
+
+@pulumi.output_type
+class ResourceFilterPatch(dict):
+    """
+    ResourceFilter is a filter for resources from one particular driver.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "driverName":
+            suggest = "driver_name"
+        elif key == "namedResources":
+            suggest = "named_resources"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ResourceFilterPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ResourceFilterPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ResourceFilterPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 driver_name: Optional[str] = None,
+                 named_resources: Optional['outputs.NamedResourcesFilterPatch'] = None):
+        """
+        ResourceFilter is a filter for resources from one particular driver.
+        :param str driver_name: DriverName is the name used by the DRA driver kubelet plugin.
+        :param 'NamedResourcesFilterPatchArgs' named_resources: NamedResources describes a resource filter using the named resources model.
+        """
+        if driver_name is not None:
+            pulumi.set(__self__, "driver_name", driver_name)
+        if named_resources is not None:
+            pulumi.set(__self__, "named_resources", named_resources)
+
+    @property
+    @pulumi.getter(name="driverName")
+    def driver_name(self) -> Optional[str]:
+        """
+        DriverName is the name used by the DRA driver kubelet plugin.
+        """
+        return pulumi.get(self, "driver_name")
+
+    @property
+    @pulumi.getter(name="namedResources")
+    def named_resources(self) -> Optional['outputs.NamedResourcesFilterPatch']:
+        """
+        NamedResources describes a resource filter using the named resources model.
+        """
+        return pulumi.get(self, "named_resources")
+
+
+@pulumi.output_type
 class ResourceHandle(dict):
     """
     ResourceHandle holds opaque resource data for processing by a specific kubelet plugin.
@@ -1706,6 +2941,8 @@ class ResourceHandle(dict):
         suggest = None
         if key == "driverName":
             suggest = "driver_name"
+        elif key == "structuredData":
+            suggest = "structured_data"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in ResourceHandle. Access the value via the '{suggest}' property getter instead.")
@@ -1720,18 +2957,22 @@ class ResourceHandle(dict):
 
     def __init__(__self__, *,
                  data: Optional[str] = None,
-                 driver_name: Optional[str] = None):
+                 driver_name: Optional[str] = None,
+                 structured_data: Optional['outputs.StructuredResourceHandle'] = None):
         """
         ResourceHandle holds opaque resource data for processing by a specific kubelet plugin.
         :param str data: Data contains the opaque data associated with this ResourceHandle. It is set by the controller component of the resource driver whose name matches the DriverName set in the ResourceClaimStatus this ResourceHandle is embedded in. It is set at allocation time and is intended for processing by the kubelet plugin whose name matches the DriverName set in this ResourceHandle.
                
                The maximum size of this field is 16KiB. This may get increased in the future, but not reduced.
         :param str driver_name: DriverName specifies the name of the resource driver whose kubelet plugin should be invoked to process this ResourceHandle's data once it lands on a node. This may differ from the DriverName set in ResourceClaimStatus this ResourceHandle is embedded in.
+        :param 'StructuredResourceHandleArgs' structured_data: If StructuredData is set, then it needs to be used instead of Data.
         """
         if data is not None:
             pulumi.set(__self__, "data", data)
         if driver_name is not None:
             pulumi.set(__self__, "driver_name", driver_name)
+        if structured_data is not None:
+            pulumi.set(__self__, "structured_data", structured_data)
 
     @property
     @pulumi.getter
@@ -1751,6 +2992,14 @@ class ResourceHandle(dict):
         """
         return pulumi.get(self, "driver_name")
 
+    @property
+    @pulumi.getter(name="structuredData")
+    def structured_data(self) -> Optional['outputs.StructuredResourceHandle']:
+        """
+        If StructuredData is set, then it needs to be used instead of Data.
+        """
+        return pulumi.get(self, "structured_data")
+
 
 @pulumi.output_type
 class ResourceHandlePatch(dict):
@@ -1762,6 +3011,8 @@ class ResourceHandlePatch(dict):
         suggest = None
         if key == "driverName":
             suggest = "driver_name"
+        elif key == "structuredData":
+            suggest = "structured_data"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in ResourceHandlePatch. Access the value via the '{suggest}' property getter instead.")
@@ -1776,18 +3027,22 @@ class ResourceHandlePatch(dict):
 
     def __init__(__self__, *,
                  data: Optional[str] = None,
-                 driver_name: Optional[str] = None):
+                 driver_name: Optional[str] = None,
+                 structured_data: Optional['outputs.StructuredResourceHandlePatch'] = None):
         """
         ResourceHandle holds opaque resource data for processing by a specific kubelet plugin.
         :param str data: Data contains the opaque data associated with this ResourceHandle. It is set by the controller component of the resource driver whose name matches the DriverName set in the ResourceClaimStatus this ResourceHandle is embedded in. It is set at allocation time and is intended for processing by the kubelet plugin whose name matches the DriverName set in this ResourceHandle.
                
                The maximum size of this field is 16KiB. This may get increased in the future, but not reduced.
         :param str driver_name: DriverName specifies the name of the resource driver whose kubelet plugin should be invoked to process this ResourceHandle's data once it lands on a node. This may differ from the DriverName set in ResourceClaimStatus this ResourceHandle is embedded in.
+        :param 'StructuredResourceHandlePatchArgs' structured_data: If StructuredData is set, then it needs to be used instead of Data.
         """
         if data is not None:
             pulumi.set(__self__, "data", data)
         if driver_name is not None:
             pulumi.set(__self__, "driver_name", driver_name)
+        if structured_data is not None:
+            pulumi.set(__self__, "structured_data", structured_data)
 
     @property
     @pulumi.getter
@@ -1806,5 +3061,493 @@ class ResourceHandlePatch(dict):
         DriverName specifies the name of the resource driver whose kubelet plugin should be invoked to process this ResourceHandle's data once it lands on a node. This may differ from the DriverName set in ResourceClaimStatus this ResourceHandle is embedded in.
         """
         return pulumi.get(self, "driver_name")
+
+    @property
+    @pulumi.getter(name="structuredData")
+    def structured_data(self) -> Optional['outputs.StructuredResourceHandlePatch']:
+        """
+        If StructuredData is set, then it needs to be used instead of Data.
+        """
+        return pulumi.get(self, "structured_data")
+
+
+@pulumi.output_type
+class ResourceRequest(dict):
+    """
+    ResourceRequest is a request for resources from one particular driver.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "namedResources":
+            suggest = "named_resources"
+        elif key == "vendorParameters":
+            suggest = "vendor_parameters"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ResourceRequest. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ResourceRequest.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ResourceRequest.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 named_resources: Optional['outputs.NamedResourcesRequest'] = None,
+                 vendor_parameters: Optional[Any] = None):
+        """
+        ResourceRequest is a request for resources from one particular driver.
+        :param 'NamedResourcesRequestArgs' named_resources: NamedResources describes a request for resources with the named resources model.
+        :param Any vendor_parameters: VendorParameters are arbitrary setup parameters for the requested resource. They are ignored while allocating a claim.
+        """
+        if named_resources is not None:
+            pulumi.set(__self__, "named_resources", named_resources)
+        if vendor_parameters is not None:
+            pulumi.set(__self__, "vendor_parameters", vendor_parameters)
+
+    @property
+    @pulumi.getter(name="namedResources")
+    def named_resources(self) -> Optional['outputs.NamedResourcesRequest']:
+        """
+        NamedResources describes a request for resources with the named resources model.
+        """
+        return pulumi.get(self, "named_resources")
+
+    @property
+    @pulumi.getter(name="vendorParameters")
+    def vendor_parameters(self) -> Optional[Any]:
+        """
+        VendorParameters are arbitrary setup parameters for the requested resource. They are ignored while allocating a claim.
+        """
+        return pulumi.get(self, "vendor_parameters")
+
+
+@pulumi.output_type
+class ResourceRequestPatch(dict):
+    """
+    ResourceRequest is a request for resources from one particular driver.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "namedResources":
+            suggest = "named_resources"
+        elif key == "vendorParameters":
+            suggest = "vendor_parameters"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ResourceRequestPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ResourceRequestPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ResourceRequestPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 named_resources: Optional['outputs.NamedResourcesRequestPatch'] = None,
+                 vendor_parameters: Optional[Any] = None):
+        """
+        ResourceRequest is a request for resources from one particular driver.
+        :param 'NamedResourcesRequestPatchArgs' named_resources: NamedResources describes a request for resources with the named resources model.
+        :param Any vendor_parameters: VendorParameters are arbitrary setup parameters for the requested resource. They are ignored while allocating a claim.
+        """
+        if named_resources is not None:
+            pulumi.set(__self__, "named_resources", named_resources)
+        if vendor_parameters is not None:
+            pulumi.set(__self__, "vendor_parameters", vendor_parameters)
+
+    @property
+    @pulumi.getter(name="namedResources")
+    def named_resources(self) -> Optional['outputs.NamedResourcesRequestPatch']:
+        """
+        NamedResources describes a request for resources with the named resources model.
+        """
+        return pulumi.get(self, "named_resources")
+
+    @property
+    @pulumi.getter(name="vendorParameters")
+    def vendor_parameters(self) -> Optional[Any]:
+        """
+        VendorParameters are arbitrary setup parameters for the requested resource. They are ignored while allocating a claim.
+        """
+        return pulumi.get(self, "vendor_parameters")
+
+
+@pulumi.output_type
+class ResourceSlice(dict):
+    """
+    ResourceSlice provides information about available resources on individual nodes.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "driverName":
+            suggest = "driver_name"
+        elif key == "apiVersion":
+            suggest = "api_version"
+        elif key == "namedResources":
+            suggest = "named_resources"
+        elif key == "nodeName":
+            suggest = "node_name"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ResourceSlice. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ResourceSlice.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ResourceSlice.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 driver_name: str,
+                 api_version: Optional[str] = None,
+                 kind: Optional[str] = None,
+                 metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
+                 named_resources: Optional['outputs.NamedResourcesResources'] = None,
+                 node_name: Optional[str] = None):
+        """
+        ResourceSlice provides information about available resources on individual nodes.
+        :param str driver_name: DriverName identifies the DRA driver providing the capacity information. A field selector can be used to list only ResourceSlice objects with a certain driver name.
+        :param str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        :param str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param '_meta.v1.ObjectMetaArgs' metadata: Standard object metadata
+        :param 'NamedResourcesResourcesArgs' named_resources: NamedResources describes available resources using the named resources model.
+        :param str node_name: NodeName identifies the node which provides the resources if they are local to a node.
+               
+               A field selector can be used to list only ResourceSlice objects with a certain node name.
+        """
+        pulumi.set(__self__, "driver_name", driver_name)
+        if api_version is not None:
+            pulumi.set(__self__, "api_version", 'resource.k8s.io/v1alpha2')
+        if kind is not None:
+            pulumi.set(__self__, "kind", 'ResourceSlice')
+        if metadata is not None:
+            pulumi.set(__self__, "metadata", metadata)
+        if named_resources is not None:
+            pulumi.set(__self__, "named_resources", named_resources)
+        if node_name is not None:
+            pulumi.set(__self__, "node_name", node_name)
+
+    @property
+    @pulumi.getter(name="driverName")
+    def driver_name(self) -> str:
+        """
+        DriverName identifies the DRA driver providing the capacity information. A field selector can be used to list only ResourceSlice objects with a certain driver name.
+        """
+        return pulumi.get(self, "driver_name")
+
+    @property
+    @pulumi.getter(name="apiVersion")
+    def api_version(self) -> Optional[str]:
+        """
+        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        """
+        return pulumi.get(self, "api_version")
+
+    @property
+    @pulumi.getter
+    def kind(self) -> Optional[str]:
+        """
+        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        """
+        return pulumi.get(self, "kind")
+
+    @property
+    @pulumi.getter
+    def metadata(self) -> Optional['_meta.v1.outputs.ObjectMeta']:
+        """
+        Standard object metadata
+        """
+        return pulumi.get(self, "metadata")
+
+    @property
+    @pulumi.getter(name="namedResources")
+    def named_resources(self) -> Optional['outputs.NamedResourcesResources']:
+        """
+        NamedResources describes available resources using the named resources model.
+        """
+        return pulumi.get(self, "named_resources")
+
+    @property
+    @pulumi.getter(name="nodeName")
+    def node_name(self) -> Optional[str]:
+        """
+        NodeName identifies the node which provides the resources if they are local to a node.
+
+        A field selector can be used to list only ResourceSlice objects with a certain node name.
+        """
+        return pulumi.get(self, "node_name")
+
+
+@pulumi.output_type
+class StructuredResourceHandle(dict):
+    """
+    StructuredResourceHandle is the in-tree representation of the allocation result.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "nodeName":
+            suggest = "node_name"
+        elif key == "vendorClaimParameters":
+            suggest = "vendor_claim_parameters"
+        elif key == "vendorClassParameters":
+            suggest = "vendor_class_parameters"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in StructuredResourceHandle. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        StructuredResourceHandle.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        StructuredResourceHandle.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 results: Sequence['outputs.DriverAllocationResult'],
+                 node_name: Optional[str] = None,
+                 vendor_claim_parameters: Optional[Any] = None,
+                 vendor_class_parameters: Optional[Any] = None):
+        """
+        StructuredResourceHandle is the in-tree representation of the allocation result.
+        :param Sequence['DriverAllocationResultArgs'] results: Results lists all allocated driver resources.
+        :param str node_name: NodeName is the name of the node providing the necessary resources if the resources are local to a node.
+        :param Any vendor_claim_parameters: VendorClaimParameters are the per-claim configuration parameters from the resource claim parameters at the time that the claim was allocated.
+        :param Any vendor_class_parameters: VendorClassParameters are the per-claim configuration parameters from the resource class at the time that the claim was allocated.
+        """
+        pulumi.set(__self__, "results", results)
+        if node_name is not None:
+            pulumi.set(__self__, "node_name", node_name)
+        if vendor_claim_parameters is not None:
+            pulumi.set(__self__, "vendor_claim_parameters", vendor_claim_parameters)
+        if vendor_class_parameters is not None:
+            pulumi.set(__self__, "vendor_class_parameters", vendor_class_parameters)
+
+    @property
+    @pulumi.getter
+    def results(self) -> Sequence['outputs.DriverAllocationResult']:
+        """
+        Results lists all allocated driver resources.
+        """
+        return pulumi.get(self, "results")
+
+    @property
+    @pulumi.getter(name="nodeName")
+    def node_name(self) -> Optional[str]:
+        """
+        NodeName is the name of the node providing the necessary resources if the resources are local to a node.
+        """
+        return pulumi.get(self, "node_name")
+
+    @property
+    @pulumi.getter(name="vendorClaimParameters")
+    def vendor_claim_parameters(self) -> Optional[Any]:
+        """
+        VendorClaimParameters are the per-claim configuration parameters from the resource claim parameters at the time that the claim was allocated.
+        """
+        return pulumi.get(self, "vendor_claim_parameters")
+
+    @property
+    @pulumi.getter(name="vendorClassParameters")
+    def vendor_class_parameters(self) -> Optional[Any]:
+        """
+        VendorClassParameters are the per-claim configuration parameters from the resource class at the time that the claim was allocated.
+        """
+        return pulumi.get(self, "vendor_class_parameters")
+
+
+@pulumi.output_type
+class StructuredResourceHandlePatch(dict):
+    """
+    StructuredResourceHandle is the in-tree representation of the allocation result.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "nodeName":
+            suggest = "node_name"
+        elif key == "vendorClaimParameters":
+            suggest = "vendor_claim_parameters"
+        elif key == "vendorClassParameters":
+            suggest = "vendor_class_parameters"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in StructuredResourceHandlePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        StructuredResourceHandlePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        StructuredResourceHandlePatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 node_name: Optional[str] = None,
+                 results: Optional[Sequence['outputs.DriverAllocationResultPatch']] = None,
+                 vendor_claim_parameters: Optional[Any] = None,
+                 vendor_class_parameters: Optional[Any] = None):
+        """
+        StructuredResourceHandle is the in-tree representation of the allocation result.
+        :param str node_name: NodeName is the name of the node providing the necessary resources if the resources are local to a node.
+        :param Sequence['DriverAllocationResultPatchArgs'] results: Results lists all allocated driver resources.
+        :param Any vendor_claim_parameters: VendorClaimParameters are the per-claim configuration parameters from the resource claim parameters at the time that the claim was allocated.
+        :param Any vendor_class_parameters: VendorClassParameters are the per-claim configuration parameters from the resource class at the time that the claim was allocated.
+        """
+        if node_name is not None:
+            pulumi.set(__self__, "node_name", node_name)
+        if results is not None:
+            pulumi.set(__self__, "results", results)
+        if vendor_claim_parameters is not None:
+            pulumi.set(__self__, "vendor_claim_parameters", vendor_claim_parameters)
+        if vendor_class_parameters is not None:
+            pulumi.set(__self__, "vendor_class_parameters", vendor_class_parameters)
+
+    @property
+    @pulumi.getter(name="nodeName")
+    def node_name(self) -> Optional[str]:
+        """
+        NodeName is the name of the node providing the necessary resources if the resources are local to a node.
+        """
+        return pulumi.get(self, "node_name")
+
+    @property
+    @pulumi.getter
+    def results(self) -> Optional[Sequence['outputs.DriverAllocationResultPatch']]:
+        """
+        Results lists all allocated driver resources.
+        """
+        return pulumi.get(self, "results")
+
+    @property
+    @pulumi.getter(name="vendorClaimParameters")
+    def vendor_claim_parameters(self) -> Optional[Any]:
+        """
+        VendorClaimParameters are the per-claim configuration parameters from the resource claim parameters at the time that the claim was allocated.
+        """
+        return pulumi.get(self, "vendor_claim_parameters")
+
+    @property
+    @pulumi.getter(name="vendorClassParameters")
+    def vendor_class_parameters(self) -> Optional[Any]:
+        """
+        VendorClassParameters are the per-claim configuration parameters from the resource class at the time that the claim was allocated.
+        """
+        return pulumi.get(self, "vendor_class_parameters")
+
+
+@pulumi.output_type
+class VendorParameters(dict):
+    """
+    VendorParameters are opaque parameters for one particular driver.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "driverName":
+            suggest = "driver_name"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in VendorParameters. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        VendorParameters.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        VendorParameters.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 driver_name: Optional[str] = None,
+                 parameters: Optional[Any] = None):
+        """
+        VendorParameters are opaque parameters for one particular driver.
+        :param str driver_name: DriverName is the name used by the DRA driver kubelet plugin.
+        :param Any parameters: Parameters can be arbitrary setup parameters. They are ignored while allocating a claim.
+        """
+        if driver_name is not None:
+            pulumi.set(__self__, "driver_name", driver_name)
+        if parameters is not None:
+            pulumi.set(__self__, "parameters", parameters)
+
+    @property
+    @pulumi.getter(name="driverName")
+    def driver_name(self) -> Optional[str]:
+        """
+        DriverName is the name used by the DRA driver kubelet plugin.
+        """
+        return pulumi.get(self, "driver_name")
+
+    @property
+    @pulumi.getter
+    def parameters(self) -> Optional[Any]:
+        """
+        Parameters can be arbitrary setup parameters. They are ignored while allocating a claim.
+        """
+        return pulumi.get(self, "parameters")
+
+
+@pulumi.output_type
+class VendorParametersPatch(dict):
+    """
+    VendorParameters are opaque parameters for one particular driver.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "driverName":
+            suggest = "driver_name"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in VendorParametersPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        VendorParametersPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        VendorParametersPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 driver_name: Optional[str] = None,
+                 parameters: Optional[Any] = None):
+        """
+        VendorParameters are opaque parameters for one particular driver.
+        :param str driver_name: DriverName is the name used by the DRA driver kubelet plugin.
+        :param Any parameters: Parameters can be arbitrary setup parameters. They are ignored while allocating a claim.
+        """
+        if driver_name is not None:
+            pulumi.set(__self__, "driver_name", driver_name)
+        if parameters is not None:
+            pulumi.set(__self__, "parameters", parameters)
+
+    @property
+    @pulumi.getter(name="driverName")
+    def driver_name(self) -> Optional[str]:
+        """
+        DriverName is the name used by the DRA driver kubelet plugin.
+        """
+        return pulumi.get(self, "driver_name")
+
+    @property
+    @pulumi.getter
+    def parameters(self) -> Optional[Any]:
+        """
+        Parameters can be arbitrary setup parameters. They are ignored while allocating a claim.
+        """
+        return pulumi.get(self, "parameters")
 
 

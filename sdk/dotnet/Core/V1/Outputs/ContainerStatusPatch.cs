@@ -62,6 +62,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// State holds details about the container's current condition.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.ContainerStatePatch State;
+        /// <summary>
+        /// Status of volume mounts.
+        /// </summary>
+        public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.VolumeMountStatusPatch> VolumeMounts;
 
         [OutputConstructor]
         private ContainerStatusPatch(
@@ -85,7 +89,9 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 
             bool started,
 
-            Pulumi.Kubernetes.Types.Outputs.Core.V1.ContainerStatePatch state)
+            Pulumi.Kubernetes.Types.Outputs.Core.V1.ContainerStatePatch state,
+
+            ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.VolumeMountStatusPatch> volumeMounts)
         {
             AllocatedResources = allocatedResources;
             ContainerID = containerID;
@@ -98,6 +104,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
             RestartCount = restartCount;
             Started = started;
             State = state;
+            VolumeMounts = volumeMounts;
         }
     }
 }

@@ -15,7 +15,7 @@ import javax.annotation.Nullable;
 @CustomType
 public final class DownwardAPIVolumeFile {
     /**
-     * @return Required: Selects a field of the pod: only annotations, labels, name and namespace are supported.
+     * @return Required: Selects a field of the pod: only annotations, labels, name, namespace and uid are supported.
      * 
      */
     private @Nullable ObjectFieldSelector fieldRef;
@@ -37,7 +37,7 @@ public final class DownwardAPIVolumeFile {
 
     private DownwardAPIVolumeFile() {}
     /**
-     * @return Required: Selects a field of the pod: only annotations, labels, name and namespace are supported.
+     * @return Required: Selects a field of the pod: only annotations, labels, name, namespace and uid are supported.
      * 
      */
     public Optional<ObjectFieldSelector> fieldRef() {

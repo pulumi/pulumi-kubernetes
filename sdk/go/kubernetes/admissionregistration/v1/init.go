@@ -27,6 +27,18 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &MutatingWebhookConfigurationList{}
 	case "kubernetes:admissionregistration.k8s.io/v1:MutatingWebhookConfigurationPatch":
 		r = &MutatingWebhookConfigurationPatch{}
+	case "kubernetes:admissionregistration.k8s.io/v1:ValidatingAdmissionPolicy":
+		r = &ValidatingAdmissionPolicy{}
+	case "kubernetes:admissionregistration.k8s.io/v1:ValidatingAdmissionPolicyBinding":
+		r = &ValidatingAdmissionPolicyBinding{}
+	case "kubernetes:admissionregistration.k8s.io/v1:ValidatingAdmissionPolicyBindingList":
+		r = &ValidatingAdmissionPolicyBindingList{}
+	case "kubernetes:admissionregistration.k8s.io/v1:ValidatingAdmissionPolicyBindingPatch":
+		r = &ValidatingAdmissionPolicyBindingPatch{}
+	case "kubernetes:admissionregistration.k8s.io/v1:ValidatingAdmissionPolicyList":
+		r = &ValidatingAdmissionPolicyList{}
+	case "kubernetes:admissionregistration.k8s.io/v1:ValidatingAdmissionPolicyPatch":
+		r = &ValidatingAdmissionPolicyPatch{}
 	case "kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfiguration":
 		r = &ValidatingWebhookConfiguration{}
 	case "kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfigurationList":

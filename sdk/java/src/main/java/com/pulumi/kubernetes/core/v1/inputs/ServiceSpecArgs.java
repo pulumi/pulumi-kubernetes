@@ -336,6 +336,21 @@ public final class ServiceSpecArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to &#34;PreferClose&#34;, implementations should prioritize endpoints that are topologically close (e.g., same zone).
+     * 
+     */
+    @Import(name="trafficDistribution")
+    private @Nullable Output<String> trafficDistribution;
+
+    /**
+     * @return TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to &#34;PreferClose&#34;, implementations should prioritize endpoints that are topologically close (e.g., same zone).
+     * 
+     */
+    public Optional<Output<String>> trafficDistribution() {
+        return Optional.ofNullable(this.trafficDistribution);
+    }
+
+    /**
      * type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. &#34;ClusterIP&#34; allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object or EndpointSlice objects. If clusterIP is &#34;None&#34;, no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a virtual IP. &#34;NodePort&#34; builds on ClusterIP and allocates a port on every node which routes to the same endpoints as the clusterIP. &#34;LoadBalancer&#34; builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the same endpoints as the clusterIP. &#34;ExternalName&#34; aliases this service to the specified externalName. Several other fields do not apply to ExternalName services. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
      * 
      */
@@ -373,6 +388,7 @@ public final class ServiceSpecArgs extends com.pulumi.resources.ResourceArgs {
         this.sessionAffinity = $.sessionAffinity;
         this.sessionAffinityConfig = $.sessionAffinityConfig;
         this.topologyKeys = $.topologyKeys;
+        this.trafficDistribution = $.trafficDistribution;
         this.type = $.type;
     }
 
@@ -884,6 +900,27 @@ public final class ServiceSpecArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder topologyKeys(String... topologyKeys) {
             return topologyKeys(List.of(topologyKeys));
+        }
+
+        /**
+         * @param trafficDistribution TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to &#34;PreferClose&#34;, implementations should prioritize endpoints that are topologically close (e.g., same zone).
+         * 
+         * @return builder
+         * 
+         */
+        public Builder trafficDistribution(@Nullable Output<String> trafficDistribution) {
+            $.trafficDistribution = trafficDistribution;
+            return this;
+        }
+
+        /**
+         * @param trafficDistribution TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to &#34;PreferClose&#34;, implementations should prioritize endpoints that are topologically close (e.g., same zone).
+         * 
+         * @return builder
+         * 
+         */
+        public Builder trafficDistribution(String trafficDistribution) {
+            return trafficDistribution(Output.of(trafficDistribution));
         }
 
         /**

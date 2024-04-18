@@ -124,6 +124,7 @@ public class ValidatingAdmissionPolicyBinding extends com.pulumi.resources.Custo
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .aliases(List.of(
+                Output.of(Alias.builder().type("kubernetes:admissionregistration.k8s.io/v1:ValidatingAdmissionPolicyBinding").build()),
                 Output.of(Alias.builder().type("kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingAdmissionPolicyBinding").build())
             ))
             .build();

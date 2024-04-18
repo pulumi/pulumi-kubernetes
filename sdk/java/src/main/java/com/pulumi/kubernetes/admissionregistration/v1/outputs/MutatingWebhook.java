@@ -42,8 +42,6 @@ public final class MutatingWebhook {
      *      - If failurePolicy=Fail, reject the request
      *      - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
      * 
-     * This is a beta feature and managed by the AdmissionWebhookMatchConditions feature gate.
-     * 
      */
     private @Nullable List<MatchCondition> matchConditions;
     /**
@@ -160,8 +158,6 @@ public final class MutatingWebhook {
      *   3. If any matchCondition evaluates to an error (but none are FALSE):
      *      - If failurePolicy=Fail, reject the request
      *      - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
-     * 
-     * This is a beta feature and managed by the AdmissionWebhookMatchConditions feature gate.
      * 
      */
     public List<MatchCondition> matchConditions() {

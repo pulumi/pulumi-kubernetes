@@ -131,6 +131,7 @@ public class ValidatingAdmissionPolicyBindingPatch extends com.pulumi.resources.
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .aliases(List.of(
+                Output.of(Alias.builder().type("kubernetes:admissionregistration.k8s.io/v1:ValidatingAdmissionPolicyBindingPatch").build()),
                 Output.of(Alias.builder().type("kubernetes:admissionregistration.k8s.io/v1alpha1:ValidatingAdmissionPolicyBindingPatch").build())
             ))
             .build();

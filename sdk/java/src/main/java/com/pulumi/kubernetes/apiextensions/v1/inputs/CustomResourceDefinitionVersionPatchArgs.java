@@ -8,6 +8,7 @@ import com.pulumi.core.annotations.Import;
 import com.pulumi.kubernetes.apiextensions.v1.inputs.CustomResourceColumnDefinitionPatchArgs;
 import com.pulumi.kubernetes.apiextensions.v1.inputs.CustomResourceSubresourcesPatchArgs;
 import com.pulumi.kubernetes.apiextensions.v1.inputs.CustomResourceValidationPatchArgs;
+import com.pulumi.kubernetes.apiextensions.v1.inputs.SelectableFieldPatchArgs;
 import java.lang.Boolean;
 import java.lang.String;
 import java.util.List;
@@ -100,6 +101,21 @@ public final class CustomResourceDefinitionVersionPatchArgs extends com.pulumi.r
     }
 
     /**
+     * selectableFields specifies paths to fields that may be used as field selectors. A maximum of 8 selectable fields are allowed. See https://kubernetes.io/docs/concepts/overview/working-with-objects/field-selectors
+     * 
+     */
+    @Import(name="selectableFields")
+    private @Nullable Output<List<SelectableFieldPatchArgs>> selectableFields;
+
+    /**
+     * @return selectableFields specifies paths to fields that may be used as field selectors. A maximum of 8 selectable fields are allowed. See https://kubernetes.io/docs/concepts/overview/working-with-objects/field-selectors
+     * 
+     */
+    public Optional<Output<List<SelectableFieldPatchArgs>>> selectableFields() {
+        return Optional.ofNullable(this.selectableFields);
+    }
+
+    /**
      * served is a flag enabling/disabling this version from being served via REST APIs
      * 
      */
@@ -152,6 +168,7 @@ public final class CustomResourceDefinitionVersionPatchArgs extends com.pulumi.r
         this.deprecationWarning = $.deprecationWarning;
         this.name = $.name;
         this.schema = $.schema;
+        this.selectableFields = $.selectableFields;
         this.served = $.served;
         this.storage = $.storage;
         this.subresources = $.subresources;
@@ -288,6 +305,37 @@ public final class CustomResourceDefinitionVersionPatchArgs extends com.pulumi.r
          */
         public Builder schema(CustomResourceValidationPatchArgs schema) {
             return schema(Output.of(schema));
+        }
+
+        /**
+         * @param selectableFields selectableFields specifies paths to fields that may be used as field selectors. A maximum of 8 selectable fields are allowed. See https://kubernetes.io/docs/concepts/overview/working-with-objects/field-selectors
+         * 
+         * @return builder
+         * 
+         */
+        public Builder selectableFields(@Nullable Output<List<SelectableFieldPatchArgs>> selectableFields) {
+            $.selectableFields = selectableFields;
+            return this;
+        }
+
+        /**
+         * @param selectableFields selectableFields specifies paths to fields that may be used as field selectors. A maximum of 8 selectable fields are allowed. See https://kubernetes.io/docs/concepts/overview/working-with-objects/field-selectors
+         * 
+         * @return builder
+         * 
+         */
+        public Builder selectableFields(List<SelectableFieldPatchArgs> selectableFields) {
+            return selectableFields(Output.of(selectableFields));
+        }
+
+        /**
+         * @param selectableFields selectableFields specifies paths to fields that may be used as field selectors. A maximum of 8 selectable fields are allowed. See https://kubernetes.io/docs/concepts/overview/working-with-objects/field-selectors
+         * 
+         * @return builder
+         * 
+         */
+        public Builder selectableFields(SelectableFieldPatchArgs... selectableFields) {
+            return selectableFields(List.of(selectableFields));
         }
 
         /**

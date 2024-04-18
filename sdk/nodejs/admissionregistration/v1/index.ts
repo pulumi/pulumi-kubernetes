@@ -20,6 +20,36 @@ export type MutatingWebhookConfigurationPatch = import("./mutatingWebhookConfigu
 export const MutatingWebhookConfigurationPatch: typeof import("./mutatingWebhookConfigurationPatch").MutatingWebhookConfigurationPatch = null as any;
 utilities.lazyLoad(exports, ["MutatingWebhookConfigurationPatch"], () => require("./mutatingWebhookConfigurationPatch"));
 
+export { ValidatingAdmissionPolicyArgs } from "./validatingAdmissionPolicy";
+export type ValidatingAdmissionPolicy = import("./validatingAdmissionPolicy").ValidatingAdmissionPolicy;
+export const ValidatingAdmissionPolicy: typeof import("./validatingAdmissionPolicy").ValidatingAdmissionPolicy = null as any;
+utilities.lazyLoad(exports, ["ValidatingAdmissionPolicy"], () => require("./validatingAdmissionPolicy"));
+
+export { ValidatingAdmissionPolicyBindingArgs } from "./validatingAdmissionPolicyBinding";
+export type ValidatingAdmissionPolicyBinding = import("./validatingAdmissionPolicyBinding").ValidatingAdmissionPolicyBinding;
+export const ValidatingAdmissionPolicyBinding: typeof import("./validatingAdmissionPolicyBinding").ValidatingAdmissionPolicyBinding = null as any;
+utilities.lazyLoad(exports, ["ValidatingAdmissionPolicyBinding"], () => require("./validatingAdmissionPolicyBinding"));
+
+export { ValidatingAdmissionPolicyBindingListArgs } from "./validatingAdmissionPolicyBindingList";
+export type ValidatingAdmissionPolicyBindingList = import("./validatingAdmissionPolicyBindingList").ValidatingAdmissionPolicyBindingList;
+export const ValidatingAdmissionPolicyBindingList: typeof import("./validatingAdmissionPolicyBindingList").ValidatingAdmissionPolicyBindingList = null as any;
+utilities.lazyLoad(exports, ["ValidatingAdmissionPolicyBindingList"], () => require("./validatingAdmissionPolicyBindingList"));
+
+export { ValidatingAdmissionPolicyBindingPatchArgs } from "./validatingAdmissionPolicyBindingPatch";
+export type ValidatingAdmissionPolicyBindingPatch = import("./validatingAdmissionPolicyBindingPatch").ValidatingAdmissionPolicyBindingPatch;
+export const ValidatingAdmissionPolicyBindingPatch: typeof import("./validatingAdmissionPolicyBindingPatch").ValidatingAdmissionPolicyBindingPatch = null as any;
+utilities.lazyLoad(exports, ["ValidatingAdmissionPolicyBindingPatch"], () => require("./validatingAdmissionPolicyBindingPatch"));
+
+export { ValidatingAdmissionPolicyListArgs } from "./validatingAdmissionPolicyList";
+export type ValidatingAdmissionPolicyList = import("./validatingAdmissionPolicyList").ValidatingAdmissionPolicyList;
+export const ValidatingAdmissionPolicyList: typeof import("./validatingAdmissionPolicyList").ValidatingAdmissionPolicyList = null as any;
+utilities.lazyLoad(exports, ["ValidatingAdmissionPolicyList"], () => require("./validatingAdmissionPolicyList"));
+
+export { ValidatingAdmissionPolicyPatchArgs } from "./validatingAdmissionPolicyPatch";
+export type ValidatingAdmissionPolicyPatch = import("./validatingAdmissionPolicyPatch").ValidatingAdmissionPolicyPatch;
+export const ValidatingAdmissionPolicyPatch: typeof import("./validatingAdmissionPolicyPatch").ValidatingAdmissionPolicyPatch = null as any;
+utilities.lazyLoad(exports, ["ValidatingAdmissionPolicyPatch"], () => require("./validatingAdmissionPolicyPatch"));
+
 export { ValidatingWebhookConfigurationArgs } from "./validatingWebhookConfiguration";
 export type ValidatingWebhookConfiguration = import("./validatingWebhookConfiguration").ValidatingWebhookConfiguration;
 export const ValidatingWebhookConfiguration: typeof import("./validatingWebhookConfiguration").ValidatingWebhookConfiguration = null as any;
@@ -46,6 +76,18 @@ const _module = {
                 return new MutatingWebhookConfigurationList(name, <any>undefined, { urn })
             case "kubernetes:admissionregistration.k8s.io/v1:MutatingWebhookConfigurationPatch":
                 return new MutatingWebhookConfigurationPatch(name, <any>undefined, { urn })
+            case "kubernetes:admissionregistration.k8s.io/v1:ValidatingAdmissionPolicy":
+                return new ValidatingAdmissionPolicy(name, <any>undefined, { urn })
+            case "kubernetes:admissionregistration.k8s.io/v1:ValidatingAdmissionPolicyBinding":
+                return new ValidatingAdmissionPolicyBinding(name, <any>undefined, { urn })
+            case "kubernetes:admissionregistration.k8s.io/v1:ValidatingAdmissionPolicyBindingList":
+                return new ValidatingAdmissionPolicyBindingList(name, <any>undefined, { urn })
+            case "kubernetes:admissionregistration.k8s.io/v1:ValidatingAdmissionPolicyBindingPatch":
+                return new ValidatingAdmissionPolicyBindingPatch(name, <any>undefined, { urn })
+            case "kubernetes:admissionregistration.k8s.io/v1:ValidatingAdmissionPolicyList":
+                return new ValidatingAdmissionPolicyList(name, <any>undefined, { urn })
+            case "kubernetes:admissionregistration.k8s.io/v1:ValidatingAdmissionPolicyPatch":
+                return new ValidatingAdmissionPolicyPatch(name, <any>undefined, { urn })
             case "kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfiguration":
                 return new ValidatingWebhookConfiguration(name, <any>undefined, { urn })
             case "kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfigurationList":

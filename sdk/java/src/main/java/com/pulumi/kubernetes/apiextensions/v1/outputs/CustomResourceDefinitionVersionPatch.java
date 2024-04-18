@@ -7,6 +7,7 @@ import com.pulumi.core.annotations.CustomType;
 import com.pulumi.kubernetes.apiextensions.v1.outputs.CustomResourceColumnDefinitionPatch;
 import com.pulumi.kubernetes.apiextensions.v1.outputs.CustomResourceSubresourcesPatch;
 import com.pulumi.kubernetes.apiextensions.v1.outputs.CustomResourceValidationPatch;
+import com.pulumi.kubernetes.apiextensions.v1.outputs.SelectableFieldPatch;
 import java.lang.Boolean;
 import java.lang.String;
 import java.util.List;
@@ -41,6 +42,11 @@ public final class CustomResourceDefinitionVersionPatch {
      * 
      */
     private @Nullable CustomResourceValidationPatch schema;
+    /**
+     * @return selectableFields specifies paths to fields that may be used as field selectors. A maximum of 8 selectable fields are allowed. See https://kubernetes.io/docs/concepts/overview/working-with-objects/field-selectors
+     * 
+     */
+    private @Nullable List<SelectableFieldPatch> selectableFields;
     /**
      * @return served is a flag enabling/disabling this version from being served via REST APIs
      * 
@@ -94,6 +100,13 @@ public final class CustomResourceDefinitionVersionPatch {
         return Optional.ofNullable(this.schema);
     }
     /**
+     * @return selectableFields specifies paths to fields that may be used as field selectors. A maximum of 8 selectable fields are allowed. See https://kubernetes.io/docs/concepts/overview/working-with-objects/field-selectors
+     * 
+     */
+    public List<SelectableFieldPatch> selectableFields() {
+        return this.selectableFields == null ? List.of() : this.selectableFields;
+    }
+    /**
      * @return served is a flag enabling/disabling this version from being served via REST APIs
      * 
      */
@@ -129,6 +142,7 @@ public final class CustomResourceDefinitionVersionPatch {
         private @Nullable String deprecationWarning;
         private @Nullable String name;
         private @Nullable CustomResourceValidationPatch schema;
+        private @Nullable List<SelectableFieldPatch> selectableFields;
         private @Nullable Boolean served;
         private @Nullable Boolean storage;
         private @Nullable CustomResourceSubresourcesPatch subresources;
@@ -140,6 +154,7 @@ public final class CustomResourceDefinitionVersionPatch {
     	      this.deprecationWarning = defaults.deprecationWarning;
     	      this.name = defaults.name;
     	      this.schema = defaults.schema;
+    	      this.selectableFields = defaults.selectableFields;
     	      this.served = defaults.served;
     	      this.storage = defaults.storage;
     	      this.subresources = defaults.subresources;
@@ -174,6 +189,14 @@ public final class CustomResourceDefinitionVersionPatch {
             return this;
         }
         @CustomType.Setter
+        public Builder selectableFields(@Nullable List<SelectableFieldPatch> selectableFields) {
+            this.selectableFields = selectableFields;
+            return this;
+        }
+        public Builder selectableFields(SelectableFieldPatch... selectableFields) {
+            return selectableFields(List.of(selectableFields));
+        }
+        @CustomType.Setter
         public Builder served(@Nullable Boolean served) {
             this.served = served;
             return this;
@@ -195,6 +218,7 @@ public final class CustomResourceDefinitionVersionPatch {
             o.deprecationWarning = deprecationWarning;
             o.name = name;
             o.schema = schema;
+            o.selectableFields = selectableFields;
             o.served = served;
             o.storage = storage;
             o.subresources = subresources;

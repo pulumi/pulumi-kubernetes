@@ -51,8 +51,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1
         ///   3. If any matchCondition evaluates to an error (but none are FALSE):
         ///      - If failurePolicy=Fail, reject the request
         ///      - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
-        /// 
-        /// This is a beta feature and managed by the AdmissionWebhookMatchConditions feature gate.
         /// </summary>
         public InputList<Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1.MatchConditionPatchArgs> MatchConditions
         {

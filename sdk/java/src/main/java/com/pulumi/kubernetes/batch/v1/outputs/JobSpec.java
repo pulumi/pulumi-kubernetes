@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.batch.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
 import com.pulumi.kubernetes.batch.v1.outputs.PodFailurePolicy;
+import com.pulumi.kubernetes.batch.v1.outputs.SuccessPolicy;
 import com.pulumi.kubernetes.core.v1.outputs.PodTemplateSpec;
 import com.pulumi.kubernetes.meta.v1.outputs.LabelSelector;
 import java.lang.Boolean;
@@ -48,6 +49,13 @@ public final class JobSpec {
      */
     private @Nullable Integer completions;
     /**
+     * @return ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don&#39;t have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first &#34;/&#34; must be a valid subdomain as defined by RFC 1123. All characters trailing the first &#34;/&#34; must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 64 characters.
+     * 
+     * This field is alpha-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (disabled by default).
+     * 
+     */
+    private @Nullable String managedBy;
+    /**
      * @return manualSelector controls generation of pod labels and pod selectors. Leave `manualSelector` unset unless you are certain what you are doing. When false or unset, the system pick labels unique to this job and appends those labels to the pod template.  When true, the user is responsible for picking unique labels and specifying the selector.  Failure to pick a unique label may cause this and other jobs to not function correctly.  However, You may see `manualSelector=true` in jobs that were created with the old `extensions/v1beta1` API. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/#specifying-your-own-pod-selector
      * 
      */
@@ -84,6 +92,13 @@ public final class JobSpec {
      * 
      */
     private @Nullable LabelSelector selector;
+    /**
+     * @return successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.
+     * 
+     * This field  is alpha-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (disabled by default).
+     * 
+     */
+    private @Nullable SuccessPolicy successPolicy;
     /**
      * @return suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
      * 
@@ -143,6 +158,15 @@ public final class JobSpec {
         return Optional.ofNullable(this.completions);
     }
     /**
+     * @return ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don&#39;t have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first &#34;/&#34; must be a valid subdomain as defined by RFC 1123. All characters trailing the first &#34;/&#34; must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 64 characters.
+     * 
+     * This field is alpha-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (disabled by default).
+     * 
+     */
+    public Optional<String> managedBy() {
+        return Optional.ofNullable(this.managedBy);
+    }
+    /**
      * @return manualSelector controls generation of pod labels and pod selectors. Leave `manualSelector` unset unless you are certain what you are doing. When false or unset, the system pick labels unique to this job and appends those labels to the pod template.  When true, the user is responsible for picking unique labels and specifying the selector.  Failure to pick a unique label may cause this and other jobs to not function correctly.  However, You may see `manualSelector=true` in jobs that were created with the old `extensions/v1beta1` API. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/#specifying-your-own-pod-selector
      * 
      */
@@ -192,6 +216,15 @@ public final class JobSpec {
         return Optional.ofNullable(this.selector);
     }
     /**
+     * @return successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.
+     * 
+     * This field  is alpha-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (disabled by default).
+     * 
+     */
+    public Optional<SuccessPolicy> successPolicy() {
+        return Optional.ofNullable(this.successPolicy);
+    }
+    /**
      * @return suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
      * 
      */
@@ -227,12 +260,14 @@ public final class JobSpec {
         private @Nullable Integer backoffLimitPerIndex;
         private @Nullable String completionMode;
         private @Nullable Integer completions;
+        private @Nullable String managedBy;
         private @Nullable Boolean manualSelector;
         private @Nullable Integer maxFailedIndexes;
         private @Nullable Integer parallelism;
         private @Nullable PodFailurePolicy podFailurePolicy;
         private @Nullable String podReplacementPolicy;
         private @Nullable LabelSelector selector;
+        private @Nullable SuccessPolicy successPolicy;
         private @Nullable Boolean suspend;
         private PodTemplateSpec template;
         private @Nullable Integer ttlSecondsAfterFinished;
@@ -244,12 +279,14 @@ public final class JobSpec {
     	      this.backoffLimitPerIndex = defaults.backoffLimitPerIndex;
     	      this.completionMode = defaults.completionMode;
     	      this.completions = defaults.completions;
+    	      this.managedBy = defaults.managedBy;
     	      this.manualSelector = defaults.manualSelector;
     	      this.maxFailedIndexes = defaults.maxFailedIndexes;
     	      this.parallelism = defaults.parallelism;
     	      this.podFailurePolicy = defaults.podFailurePolicy;
     	      this.podReplacementPolicy = defaults.podReplacementPolicy;
     	      this.selector = defaults.selector;
+    	      this.successPolicy = defaults.successPolicy;
     	      this.suspend = defaults.suspend;
     	      this.template = defaults.template;
     	      this.ttlSecondsAfterFinished = defaults.ttlSecondsAfterFinished;
@@ -278,6 +315,11 @@ public final class JobSpec {
         @CustomType.Setter
         public Builder completions(@Nullable Integer completions) {
             this.completions = completions;
+            return this;
+        }
+        @CustomType.Setter
+        public Builder managedBy(@Nullable String managedBy) {
+            this.managedBy = managedBy;
             return this;
         }
         @CustomType.Setter
@@ -311,6 +353,11 @@ public final class JobSpec {
             return this;
         }
         @CustomType.Setter
+        public Builder successPolicy(@Nullable SuccessPolicy successPolicy) {
+            this.successPolicy = successPolicy;
+            return this;
+        }
+        @CustomType.Setter
         public Builder suspend(@Nullable Boolean suspend) {
             this.suspend = suspend;
             return this;
@@ -332,12 +379,14 @@ public final class JobSpec {
             o.backoffLimitPerIndex = backoffLimitPerIndex;
             o.completionMode = completionMode;
             o.completions = completions;
+            o.managedBy = managedBy;
             o.manualSelector = manualSelector;
             o.maxFailedIndexes = maxFailedIndexes;
             o.parallelism = parallelism;
             o.podFailurePolicy = podFailurePolicy;
             o.podReplacementPolicy = podReplacementPolicy;
             o.selector = selector;
+            o.successPolicy = successPolicy;
             o.suspend = suspend;
             o.template = template;
             o.ttlSecondsAfterFinished = ttlSecondsAfterFinished;

@@ -75,7 +75,7 @@ public final class PersistentVolumeClaimStatus {
      */
     private @Nullable Map<String,String> capacity;
     /**
-     * @return conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to &#39;ResizeStarted&#39;.
+     * @return conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to &#39;Resizing&#39;.
      * 
      */
     private @Nullable List<PersistentVolumeClaimCondition> conditions;
@@ -169,7 +169,7 @@ public final class PersistentVolumeClaimStatus {
         return this.capacity == null ? Map.of() : this.capacity;
     }
     /**
-     * @return conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to &#39;ResizeStarted&#39;.
+     * @return conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to &#39;Resizing&#39;.
      * 
      */
     public List<PersistentVolumeClaimCondition> conditions() {

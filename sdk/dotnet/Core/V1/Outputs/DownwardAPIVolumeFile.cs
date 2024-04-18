@@ -17,7 +17,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
     public sealed class DownwardAPIVolumeFile
     {
         /// <summary>
-        /// Required: Selects a field of the pod: only annotations, labels, name and namespace are supported.
+        /// Required: Selects a field of the pod: only annotations, labels, name, namespace and uid are supported.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.ObjectFieldSelector FieldRef;
         /// <summary>

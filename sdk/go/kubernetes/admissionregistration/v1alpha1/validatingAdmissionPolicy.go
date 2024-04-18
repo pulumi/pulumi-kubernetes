@@ -39,6 +39,9 @@ func NewValidatingAdmissionPolicy(ctx *pulumi.Context,
 	args.Kind = pulumi.StringPtr("ValidatingAdmissionPolicy")
 	aliases := pulumi.Aliases([]pulumi.Alias{
 		{
+			Type: pulumi.String("kubernetes:admissionregistration.k8s.io/v1:ValidatingAdmissionPolicy"),
+		},
+		{
 			Type: pulumi.String("kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingAdmissionPolicy"),
 		},
 	})

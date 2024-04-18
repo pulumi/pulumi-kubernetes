@@ -994,7 +994,7 @@ func (o IPAddressPatchTypeOutput) Spec() IPAddressSpecPatchPtrOutput {
 // IPAddressSpec describe the attributes in an IP Address.
 type IPAddressSpec struct {
 	// ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
-	ParentRef *ParentReference `pulumi:"parentRef"`
+	ParentRef ParentReference `pulumi:"parentRef"`
 }
 
 // IPAddressSpecInput is an input type that accepts IPAddressSpecArgs and IPAddressSpecOutput values.
@@ -1011,7 +1011,7 @@ type IPAddressSpecInput interface {
 // IPAddressSpec describe the attributes in an IP Address.
 type IPAddressSpecArgs struct {
 	// ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
-	ParentRef ParentReferencePtrInput `pulumi:"parentRef"`
+	ParentRef ParentReferenceInput `pulumi:"parentRef"`
 }
 
 func (IPAddressSpecArgs) ElementType() reflect.Type {
@@ -1093,8 +1093,8 @@ func (o IPAddressSpecOutput) ToIPAddressSpecPtrOutputWithContext(ctx context.Con
 }
 
 // ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
-func (o IPAddressSpecOutput) ParentRef() ParentReferencePtrOutput {
-	return o.ApplyT(func(v IPAddressSpec) *ParentReference { return v.ParentRef }).(ParentReferencePtrOutput)
+func (o IPAddressSpecOutput) ParentRef() ParentReferenceOutput {
+	return o.ApplyT(func(v IPAddressSpec) ParentReference { return v.ParentRef }).(ParentReferenceOutput)
 }
 
 type IPAddressSpecPtrOutput struct{ *pulumi.OutputState }
@@ -1127,7 +1127,7 @@ func (o IPAddressSpecPtrOutput) ParentRef() ParentReferencePtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.ParentRef
+		return &v.ParentRef
 	}).(ParentReferencePtrOutput)
 }
 
@@ -1276,11 +1276,11 @@ type ParentReference struct {
 	// Group is the group of the object being referenced.
 	Group *string `pulumi:"group"`
 	// Name is the name of the object being referenced.
-	Name *string `pulumi:"name"`
+	Name string `pulumi:"name"`
 	// Namespace is the namespace of the object being referenced.
 	Namespace *string `pulumi:"namespace"`
 	// Resource is the resource of the object being referenced.
-	Resource *string `pulumi:"resource"`
+	Resource string `pulumi:"resource"`
 	// UID is the uid of the object being referenced.
 	Uid *string `pulumi:"uid"`
 }
@@ -1301,11 +1301,11 @@ type ParentReferenceArgs struct {
 	// Group is the group of the object being referenced.
 	Group pulumi.StringPtrInput `pulumi:"group"`
 	// Name is the name of the object being referenced.
-	Name pulumi.StringPtrInput `pulumi:"name"`
+	Name pulumi.StringInput `pulumi:"name"`
 	// Namespace is the namespace of the object being referenced.
 	Namespace pulumi.StringPtrInput `pulumi:"namespace"`
 	// Resource is the resource of the object being referenced.
-	Resource pulumi.StringPtrInput `pulumi:"resource"`
+	Resource pulumi.StringInput `pulumi:"resource"`
 	// UID is the uid of the object being referenced.
 	Uid pulumi.StringPtrInput `pulumi:"uid"`
 }
@@ -1394,8 +1394,8 @@ func (o ParentReferenceOutput) Group() pulumi.StringPtrOutput {
 }
 
 // Name is the name of the object being referenced.
-func (o ParentReferenceOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ParentReference) *string { return v.Name }).(pulumi.StringPtrOutput)
+func (o ParentReferenceOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v ParentReference) string { return v.Name }).(pulumi.StringOutput)
 }
 
 // Namespace is the namespace of the object being referenced.
@@ -1404,8 +1404,8 @@ func (o ParentReferenceOutput) Namespace() pulumi.StringPtrOutput {
 }
 
 // Resource is the resource of the object being referenced.
-func (o ParentReferenceOutput) Resource() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ParentReference) *string { return v.Resource }).(pulumi.StringPtrOutput)
+func (o ParentReferenceOutput) Resource() pulumi.StringOutput {
+	return o.ApplyT(func(v ParentReference) string { return v.Resource }).(pulumi.StringOutput)
 }
 
 // UID is the uid of the object being referenced.
@@ -1453,7 +1453,7 @@ func (o ParentReferencePtrOutput) Name() pulumi.StringPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Name
+		return &v.Name
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -1473,7 +1473,7 @@ func (o ParentReferencePtrOutput) Resource() pulumi.StringPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return v.Resource
+		return &v.Resource
 	}).(pulumi.StringPtrOutput)
 }
 

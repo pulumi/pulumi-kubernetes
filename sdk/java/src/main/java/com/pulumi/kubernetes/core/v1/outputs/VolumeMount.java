@@ -18,7 +18,7 @@ public final class VolumeMount {
      */
     private String mountPath;
     /**
-     * @return mountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, MountPropagationNone is used. This field is beta in 1.10.
+     * @return mountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, MountPropagationNone is used. This field is beta in 1.10. When RecursiveReadOnly is set to IfPossible or to Enabled, MountPropagation must be None or unspecified (which defaults to None).
      * 
      */
     private @Nullable String mountPropagation;
@@ -32,6 +32,19 @@ public final class VolumeMount {
      * 
      */
     private @Nullable Boolean readOnly;
+    /**
+     * @return RecursiveReadOnly specifies whether read-only mounts should be handled recursively.
+     * 
+     * If ReadOnly is false, this field has no meaning and must be unspecified.
+     * 
+     * If ReadOnly is true, and this field is set to Disabled, the mount is not made recursively read-only.  If this field is set to IfPossible, the mount is made recursively read-only, if it is supported by the container runtime.  If this field is set to Enabled, the mount is made recursively read-only if it is supported by the container runtime, otherwise the pod will not be started and an error will be generated to indicate the reason.
+     * 
+     * If this field is set to IfPossible or Enabled, MountPropagation must be set to None (or be unspecified, which defaults to None).
+     * 
+     * If this field is not specified, it is treated as an equivalent of Disabled.
+     * 
+     */
+    private @Nullable String recursiveReadOnly;
     /**
      * @return Path within the volume from which the container&#39;s volume should be mounted. Defaults to &#34;&#34; (volume&#39;s root).
      * 
@@ -52,7 +65,7 @@ public final class VolumeMount {
         return this.mountPath;
     }
     /**
-     * @return mountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, MountPropagationNone is used. This field is beta in 1.10.
+     * @return mountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, MountPropagationNone is used. This field is beta in 1.10. When RecursiveReadOnly is set to IfPossible or to Enabled, MountPropagation must be None or unspecified (which defaults to None).
      * 
      */
     public Optional<String> mountPropagation() {
@@ -71,6 +84,21 @@ public final class VolumeMount {
      */
     public Optional<Boolean> readOnly() {
         return Optional.ofNullable(this.readOnly);
+    }
+    /**
+     * @return RecursiveReadOnly specifies whether read-only mounts should be handled recursively.
+     * 
+     * If ReadOnly is false, this field has no meaning and must be unspecified.
+     * 
+     * If ReadOnly is true, and this field is set to Disabled, the mount is not made recursively read-only.  If this field is set to IfPossible, the mount is made recursively read-only, if it is supported by the container runtime.  If this field is set to Enabled, the mount is made recursively read-only if it is supported by the container runtime, otherwise the pod will not be started and an error will be generated to indicate the reason.
+     * 
+     * If this field is set to IfPossible or Enabled, MountPropagation must be set to None (or be unspecified, which defaults to None).
+     * 
+     * If this field is not specified, it is treated as an equivalent of Disabled.
+     * 
+     */
+    public Optional<String> recursiveReadOnly() {
+        return Optional.ofNullable(this.recursiveReadOnly);
     }
     /**
      * @return Path within the volume from which the container&#39;s volume should be mounted. Defaults to &#34;&#34; (volume&#39;s root).
@@ -100,6 +128,7 @@ public final class VolumeMount {
         private @Nullable String mountPropagation;
         private String name;
         private @Nullable Boolean readOnly;
+        private @Nullable String recursiveReadOnly;
         private @Nullable String subPath;
         private @Nullable String subPathExpr;
         public Builder() {}
@@ -109,6 +138,7 @@ public final class VolumeMount {
     	      this.mountPropagation = defaults.mountPropagation;
     	      this.name = defaults.name;
     	      this.readOnly = defaults.readOnly;
+    	      this.recursiveReadOnly = defaults.recursiveReadOnly;
     	      this.subPath = defaults.subPath;
     	      this.subPathExpr = defaults.subPathExpr;
         }
@@ -134,6 +164,11 @@ public final class VolumeMount {
             return this;
         }
         @CustomType.Setter
+        public Builder recursiveReadOnly(@Nullable String recursiveReadOnly) {
+            this.recursiveReadOnly = recursiveReadOnly;
+            return this;
+        }
+        @CustomType.Setter
         public Builder subPath(@Nullable String subPath) {
             this.subPath = subPath;
             return this;
@@ -149,6 +184,7 @@ public final class VolumeMount {
             o.mountPropagation = mountPropagation;
             o.name = name;
             o.readOnly = readOnly;
+            o.recursiveReadOnly = recursiveReadOnly;
             o.subPath = subPath;
             o.subPathExpr = subPathExpr;
             return o;
