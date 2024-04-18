@@ -51,6 +51,18 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1
         [Input("schema")]
         public Input<Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1.CustomResourceValidationArgs>? Schema { get; set; }
 
+        [Input("selectableFields")]
+        private InputList<Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1.SelectableFieldArgs>? _selectableFields;
+
+        /// <summary>
+        /// selectableFields specifies paths to fields that may be used as field selectors. A maximum of 8 selectable fields are allowed. See https://kubernetes.io/docs/concepts/overview/working-with-objects/field-selectors
+        /// </summary>
+        public InputList<Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1.SelectableFieldArgs> SelectableFields
+        {
+            get => _selectableFields ?? (_selectableFields = new InputList<Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1.SelectableFieldArgs>());
+            set => _selectableFields = value;
+        }
+
         /// <summary>
         /// served is a flag enabling/disabling this version from being served via REST APIs
         /// </summary>

@@ -29,6 +29,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.Resource.V1Alpha2
         [Input("driverName")]
         public Input<string>? DriverName { get; set; }
 
+        /// <summary>
+        /// If StructuredData is set, then it needs to be used instead of Data.
+        /// </summary>
+        [Input("structuredData")]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Resource.V1Alpha2.StructuredResourceHandleArgs>? StructuredData { get; set; }
+
         public ResourceHandleArgs()
         {
         }

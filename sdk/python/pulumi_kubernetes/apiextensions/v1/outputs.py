@@ -37,6 +37,8 @@ __all__ = [
     'ExternalDocumentationPatch',
     'JSONSchemaProps',
     'JSONSchemaPropsPatch',
+    'SelectableField',
+    'SelectableFieldPatch',
     'ServiceReference',
     'ServiceReferencePatch',
     'ValidationRule',
@@ -1118,6 +1120,8 @@ class CustomResourceDefinitionVersion(dict):
             suggest = "additional_printer_columns"
         elif key == "deprecationWarning":
             suggest = "deprecation_warning"
+        elif key == "selectableFields":
+            suggest = "selectable_fields"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in CustomResourceDefinitionVersion. Access the value via the '{suggest}' property getter instead.")
@@ -1138,6 +1142,7 @@ class CustomResourceDefinitionVersion(dict):
                  deprecated: Optional[bool] = None,
                  deprecation_warning: Optional[str] = None,
                  schema: Optional['outputs.CustomResourceValidation'] = None,
+                 selectable_fields: Optional[Sequence['outputs.SelectableField']] = None,
                  subresources: Optional['outputs.CustomResourceSubresources'] = None):
         """
         CustomResourceDefinitionVersion describes a version for CRD.
@@ -1148,6 +1153,7 @@ class CustomResourceDefinitionVersion(dict):
         :param bool deprecated: deprecated indicates this version of the custom resource API is deprecated. When set to true, API requests to this version receive a warning header in the server response. Defaults to false.
         :param str deprecation_warning: deprecationWarning overrides the default warning returned to API clients. May only be set when `deprecated` is true. The default warning indicates this version is deprecated and recommends use of the newest served version of equal or greater stability, if one exists.
         :param 'CustomResourceValidationArgs' schema: schema describes the schema used for validation, pruning, and defaulting of this version of the custom resource.
+        :param Sequence['SelectableFieldArgs'] selectable_fields: selectableFields specifies paths to fields that may be used as field selectors. A maximum of 8 selectable fields are allowed. See https://kubernetes.io/docs/concepts/overview/working-with-objects/field-selectors
         :param 'CustomResourceSubresourcesArgs' subresources: subresources specify what subresources this version of the defined custom resource have.
         """
         pulumi.set(__self__, "name", name)
@@ -1161,6 +1167,8 @@ class CustomResourceDefinitionVersion(dict):
             pulumi.set(__self__, "deprecation_warning", deprecation_warning)
         if schema is not None:
             pulumi.set(__self__, "schema", schema)
+        if selectable_fields is not None:
+            pulumi.set(__self__, "selectable_fields", selectable_fields)
         if subresources is not None:
             pulumi.set(__self__, "subresources", subresources)
 
@@ -1221,6 +1229,14 @@ class CustomResourceDefinitionVersion(dict):
         return pulumi.get(self, "schema")
 
     @property
+    @pulumi.getter(name="selectableFields")
+    def selectable_fields(self) -> Optional[Sequence['outputs.SelectableField']]:
+        """
+        selectableFields specifies paths to fields that may be used as field selectors. A maximum of 8 selectable fields are allowed. See https://kubernetes.io/docs/concepts/overview/working-with-objects/field-selectors
+        """
+        return pulumi.get(self, "selectable_fields")
+
+    @property
     @pulumi.getter
     def subresources(self) -> Optional['outputs.CustomResourceSubresources']:
         """
@@ -1241,6 +1257,8 @@ class CustomResourceDefinitionVersionPatch(dict):
             suggest = "additional_printer_columns"
         elif key == "deprecationWarning":
             suggest = "deprecation_warning"
+        elif key == "selectableFields":
+            suggest = "selectable_fields"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in CustomResourceDefinitionVersionPatch. Access the value via the '{suggest}' property getter instead.")
@@ -1259,6 +1277,7 @@ class CustomResourceDefinitionVersionPatch(dict):
                  deprecation_warning: Optional[str] = None,
                  name: Optional[str] = None,
                  schema: Optional['outputs.CustomResourceValidationPatch'] = None,
+                 selectable_fields: Optional[Sequence['outputs.SelectableFieldPatch']] = None,
                  served: Optional[bool] = None,
                  storage: Optional[bool] = None,
                  subresources: Optional['outputs.CustomResourceSubresourcesPatch'] = None):
@@ -1269,6 +1288,7 @@ class CustomResourceDefinitionVersionPatch(dict):
         :param str deprecation_warning: deprecationWarning overrides the default warning returned to API clients. May only be set when `deprecated` is true. The default warning indicates this version is deprecated and recommends use of the newest served version of equal or greater stability, if one exists.
         :param str name: name is the version name, e.g. “v1”, “v2beta1”, etc. The custom resources are served under this version at `/apis/<group>/<version>/...` if `served` is true.
         :param 'CustomResourceValidationPatchArgs' schema: schema describes the schema used for validation, pruning, and defaulting of this version of the custom resource.
+        :param Sequence['SelectableFieldPatchArgs'] selectable_fields: selectableFields specifies paths to fields that may be used as field selectors. A maximum of 8 selectable fields are allowed. See https://kubernetes.io/docs/concepts/overview/working-with-objects/field-selectors
         :param bool served: served is a flag enabling/disabling this version from being served via REST APIs
         :param bool storage: storage indicates this version should be used when persisting custom resources to storage. There must be exactly one version with storage=true.
         :param 'CustomResourceSubresourcesPatchArgs' subresources: subresources specify what subresources this version of the defined custom resource have.
@@ -1283,6 +1303,8 @@ class CustomResourceDefinitionVersionPatch(dict):
             pulumi.set(__self__, "name", name)
         if schema is not None:
             pulumi.set(__self__, "schema", schema)
+        if selectable_fields is not None:
+            pulumi.set(__self__, "selectable_fields", selectable_fields)
         if served is not None:
             pulumi.set(__self__, "served", served)
         if storage is not None:
@@ -1329,6 +1351,14 @@ class CustomResourceDefinitionVersionPatch(dict):
         schema describes the schema used for validation, pruning, and defaulting of this version of the custom resource.
         """
         return pulumi.get(self, "schema")
+
+    @property
+    @pulumi.getter(name="selectableFields")
+    def selectable_fields(self) -> Optional[Sequence['outputs.SelectableFieldPatch']]:
+        """
+        selectableFields specifies paths to fields that may be used as field selectors. A maximum of 8 selectable fields are allowed. See https://kubernetes.io/docs/concepts/overview/working-with-objects/field-selectors
+        """
+        return pulumi.get(self, "selectable_fields")
 
     @property
     @pulumi.getter
@@ -2739,6 +2769,85 @@ class JSONSchemaPropsPatch(dict):
         x-kubernetes-validations describes a list of validation rules written in the CEL expression language. This field is an alpha-level. Using this field requires the feature gate `CustomResourceValidationExpressions` to be enabled.
         """
         return pulumi.get(self, "x_kubernetes_validations")
+
+
+@pulumi.output_type
+class SelectableField(dict):
+    """
+    SelectableField specifies the JSON path of a field that may be used with field selectors.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "jsonPath":
+            suggest = "json_path"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in SelectableField. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        SelectableField.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        SelectableField.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 json_path: str):
+        """
+        SelectableField specifies the JSON path of a field that may be used with field selectors.
+        :param str json_path: jsonPath is a simple JSON path which is evaluated against each custom resource to produce a field selector value. Only JSON paths without the array notation are allowed. Must point to a field of type string, boolean or integer. Types with enum values and strings with formats are allowed. If jsonPath refers to absent field in a resource, the jsonPath evaluates to an empty string. Must not point to metdata fields. Required.
+        """
+        pulumi.set(__self__, "json_path", json_path)
+
+    @property
+    @pulumi.getter(name="jsonPath")
+    def json_path(self) -> str:
+        """
+        jsonPath is a simple JSON path which is evaluated against each custom resource to produce a field selector value. Only JSON paths without the array notation are allowed. Must point to a field of type string, boolean or integer. Types with enum values and strings with formats are allowed. If jsonPath refers to absent field in a resource, the jsonPath evaluates to an empty string. Must not point to metdata fields. Required.
+        """
+        return pulumi.get(self, "json_path")
+
+
+@pulumi.output_type
+class SelectableFieldPatch(dict):
+    """
+    SelectableField specifies the JSON path of a field that may be used with field selectors.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "jsonPath":
+            suggest = "json_path"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in SelectableFieldPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        SelectableFieldPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        SelectableFieldPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 json_path: Optional[str] = None):
+        """
+        SelectableField specifies the JSON path of a field that may be used with field selectors.
+        :param str json_path: jsonPath is a simple JSON path which is evaluated against each custom resource to produce a field selector value. Only JSON paths without the array notation are allowed. Must point to a field of type string, boolean or integer. Types with enum values and strings with formats are allowed. If jsonPath refers to absent field in a resource, the jsonPath evaluates to an empty string. Must not point to metdata fields. Required.
+        """
+        if json_path is not None:
+            pulumi.set(__self__, "json_path", json_path)
+
+    @property
+    @pulumi.getter(name="jsonPath")
+    def json_path(self) -> Optional[str]:
+        """
+        jsonPath is a simple JSON path which is evaluated against each custom resource to produce a field selector value. Only JSON paths without the array notation are allowed. Must point to a field of type string, boolean or integer. Types with enum values and strings with formats are allowed. If jsonPath refers to absent field in a resource, the jsonPath evaluates to an empty string. Must not point to metdata fields. Required.
+        """
+        return pulumi.get(self, "json_path")
 
 
 @pulumi.output_type

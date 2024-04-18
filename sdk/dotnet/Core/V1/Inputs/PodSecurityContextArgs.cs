@@ -16,6 +16,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     public class PodSecurityContextArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
+        /// appArmorProfile is the AppArmor options to use by the containers in this pod. Note that this field cannot be set when spec.os.name is windows.
+        /// </summary>
+        [Input("appArmorProfile")]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.AppArmorProfileArgs>? AppArmorProfile { get; set; }
+
+        /// <summary>
         /// A special supplemental group that applies to all containers in a pod. Some volume types allow the Kubelet to change the ownership of that volume to be owned by the pod:
         /// 
         /// 1. The owning GID will be the FSGroup 2. The setgid bit is set (new files created in the volume will be owned by FSGroup) 3. The permission bits are OR'd with rw-rw----

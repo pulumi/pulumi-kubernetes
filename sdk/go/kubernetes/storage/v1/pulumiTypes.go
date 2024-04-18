@@ -314,7 +314,7 @@ type CSIDriverSpec struct {
 	AttachRequired *bool `pulumi:"attachRequired"`
 	// fsGroupPolicy defines if the underlying volume supports changing ownership and permission of the volume before being mounted. Refer to the specific FSGroupPolicy values for additional details.
 	//
-	// This field is immutable.
+	// This field was immutable in Kubernetes < 1.29 and now is mutable.
 	//
 	// Defaults to ReadWriteOnceWithFSType, which will examine each volume to determine if Kubernetes should modify ownership and permissions of the volume. With the default policy the defined fsGroup will only be applied if a fstype is defined and the volume's access mode contains ReadWriteOnce.
 	FsGroupPolicy *string `pulumi:"fsGroupPolicy"`
@@ -327,7 +327,7 @@ type CSIDriverSpec struct {
 	//
 	// "csi.storage.k8s.io/ephemeral" is a new feature in Kubernetes 1.16. It is only required for drivers which support both the "Persistent" and "Ephemeral" VolumeLifecycleMode. Other drivers can leave pod info disabled and/or ignore this field. As Kubernetes 1.15 doesn't support this field, drivers can only support one mode when deployed on such a cluster and the deployment determines which mode that is, for example via a command line parameter of the driver.
 	//
-	// This field is immutable.
+	// This field was immutable in Kubernetes < 1.29 and now is mutable.
 	PodInfoOnMount *bool `pulumi:"podInfoOnMount"`
 	// requiresRepublish indicates the CSI driver wants `NodePublishVolume` being periodically called to reflect any possible change in the mounted volume. This field defaults to false.
 	//
@@ -388,7 +388,7 @@ type CSIDriverSpecArgs struct {
 	AttachRequired pulumi.BoolPtrInput `pulumi:"attachRequired"`
 	// fsGroupPolicy defines if the underlying volume supports changing ownership and permission of the volume before being mounted. Refer to the specific FSGroupPolicy values for additional details.
 	//
-	// This field is immutable.
+	// This field was immutable in Kubernetes < 1.29 and now is mutable.
 	//
 	// Defaults to ReadWriteOnceWithFSType, which will examine each volume to determine if Kubernetes should modify ownership and permissions of the volume. With the default policy the defined fsGroup will only be applied if a fstype is defined and the volume's access mode contains ReadWriteOnce.
 	FsGroupPolicy pulumi.StringPtrInput `pulumi:"fsGroupPolicy"`
@@ -401,7 +401,7 @@ type CSIDriverSpecArgs struct {
 	//
 	// "csi.storage.k8s.io/ephemeral" is a new feature in Kubernetes 1.16. It is only required for drivers which support both the "Persistent" and "Ephemeral" VolumeLifecycleMode. Other drivers can leave pod info disabled and/or ignore this field. As Kubernetes 1.15 doesn't support this field, drivers can only support one mode when deployed on such a cluster and the deployment determines which mode that is, for example via a command line parameter of the driver.
 	//
-	// This field is immutable.
+	// This field was immutable in Kubernetes < 1.29 and now is mutable.
 	PodInfoOnMount pulumi.BoolPtrInput `pulumi:"podInfoOnMount"`
 	// requiresRepublish indicates the CSI driver wants `NodePublishVolume` being periodically called to reflect any possible change in the mounted volume. This field defaults to false.
 	//
@@ -479,7 +479,7 @@ func (o CSIDriverSpecOutput) AttachRequired() pulumi.BoolPtrOutput {
 
 // fsGroupPolicy defines if the underlying volume supports changing ownership and permission of the volume before being mounted. Refer to the specific FSGroupPolicy values for additional details.
 //
-// This field is immutable.
+// This field was immutable in Kubernetes < 1.29 and now is mutable.
 //
 // Defaults to ReadWriteOnceWithFSType, which will examine each volume to determine if Kubernetes should modify ownership and permissions of the volume. With the default policy the defined fsGroup will only be applied if a fstype is defined and the volume's access mode contains ReadWriteOnce.
 func (o CSIDriverSpecOutput) FsGroupPolicy() pulumi.StringPtrOutput {
@@ -496,7 +496,7 @@ func (o CSIDriverSpecOutput) FsGroupPolicy() pulumi.StringPtrOutput {
 //
 // "csi.storage.k8s.io/ephemeral" is a new feature in Kubernetes 1.16. It is only required for drivers which support both the "Persistent" and "Ephemeral" VolumeLifecycleMode. Other drivers can leave pod info disabled and/or ignore this field. As Kubernetes 1.15 doesn't support this field, drivers can only support one mode when deployed on such a cluster and the deployment determines which mode that is, for example via a command line parameter of the driver.
 //
-// This field is immutable.
+// This field was immutable in Kubernetes < 1.29 and now is mutable.
 func (o CSIDriverSpecOutput) PodInfoOnMount() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v CSIDriverSpec) *bool { return v.PodInfoOnMount }).(pulumi.BoolPtrOutput)
 }
@@ -562,7 +562,7 @@ type CSIDriverSpecPatch struct {
 	AttachRequired *bool `pulumi:"attachRequired"`
 	// fsGroupPolicy defines if the underlying volume supports changing ownership and permission of the volume before being mounted. Refer to the specific FSGroupPolicy values for additional details.
 	//
-	// This field is immutable.
+	// This field was immutable in Kubernetes < 1.29 and now is mutable.
 	//
 	// Defaults to ReadWriteOnceWithFSType, which will examine each volume to determine if Kubernetes should modify ownership and permissions of the volume. With the default policy the defined fsGroup will only be applied if a fstype is defined and the volume's access mode contains ReadWriteOnce.
 	FsGroupPolicy *string `pulumi:"fsGroupPolicy"`
@@ -575,7 +575,7 @@ type CSIDriverSpecPatch struct {
 	//
 	// "csi.storage.k8s.io/ephemeral" is a new feature in Kubernetes 1.16. It is only required for drivers which support both the "Persistent" and "Ephemeral" VolumeLifecycleMode. Other drivers can leave pod info disabled and/or ignore this field. As Kubernetes 1.15 doesn't support this field, drivers can only support one mode when deployed on such a cluster and the deployment determines which mode that is, for example via a command line parameter of the driver.
 	//
-	// This field is immutable.
+	// This field was immutable in Kubernetes < 1.29 and now is mutable.
 	PodInfoOnMount *bool `pulumi:"podInfoOnMount"`
 	// requiresRepublish indicates the CSI driver wants `NodePublishVolume` being periodically called to reflect any possible change in the mounted volume. This field defaults to false.
 	//
@@ -636,7 +636,7 @@ type CSIDriverSpecPatchArgs struct {
 	AttachRequired pulumi.BoolPtrInput `pulumi:"attachRequired"`
 	// fsGroupPolicy defines if the underlying volume supports changing ownership and permission of the volume before being mounted. Refer to the specific FSGroupPolicy values for additional details.
 	//
-	// This field is immutable.
+	// This field was immutable in Kubernetes < 1.29 and now is mutable.
 	//
 	// Defaults to ReadWriteOnceWithFSType, which will examine each volume to determine if Kubernetes should modify ownership and permissions of the volume. With the default policy the defined fsGroup will only be applied if a fstype is defined and the volume's access mode contains ReadWriteOnce.
 	FsGroupPolicy pulumi.StringPtrInput `pulumi:"fsGroupPolicy"`
@@ -649,7 +649,7 @@ type CSIDriverSpecPatchArgs struct {
 	//
 	// "csi.storage.k8s.io/ephemeral" is a new feature in Kubernetes 1.16. It is only required for drivers which support both the "Persistent" and "Ephemeral" VolumeLifecycleMode. Other drivers can leave pod info disabled and/or ignore this field. As Kubernetes 1.15 doesn't support this field, drivers can only support one mode when deployed on such a cluster and the deployment determines which mode that is, for example via a command line parameter of the driver.
 	//
-	// This field is immutable.
+	// This field was immutable in Kubernetes < 1.29 and now is mutable.
 	PodInfoOnMount pulumi.BoolPtrInput `pulumi:"podInfoOnMount"`
 	// requiresRepublish indicates the CSI driver wants `NodePublishVolume` being periodically called to reflect any possible change in the mounted volume. This field defaults to false.
 	//
@@ -778,7 +778,7 @@ func (o CSIDriverSpecPatchOutput) AttachRequired() pulumi.BoolPtrOutput {
 
 // fsGroupPolicy defines if the underlying volume supports changing ownership and permission of the volume before being mounted. Refer to the specific FSGroupPolicy values for additional details.
 //
-// This field is immutable.
+// This field was immutable in Kubernetes < 1.29 and now is mutable.
 //
 // Defaults to ReadWriteOnceWithFSType, which will examine each volume to determine if Kubernetes should modify ownership and permissions of the volume. With the default policy the defined fsGroup will only be applied if a fstype is defined and the volume's access mode contains ReadWriteOnce.
 func (o CSIDriverSpecPatchOutput) FsGroupPolicy() pulumi.StringPtrOutput {
@@ -795,7 +795,7 @@ func (o CSIDriverSpecPatchOutput) FsGroupPolicy() pulumi.StringPtrOutput {
 //
 // "csi.storage.k8s.io/ephemeral" is a new feature in Kubernetes 1.16. It is only required for drivers which support both the "Persistent" and "Ephemeral" VolumeLifecycleMode. Other drivers can leave pod info disabled and/or ignore this field. As Kubernetes 1.15 doesn't support this field, drivers can only support one mode when deployed on such a cluster and the deployment determines which mode that is, for example via a command line parameter of the driver.
 //
-// This field is immutable.
+// This field was immutable in Kubernetes < 1.29 and now is mutable.
 func (o CSIDriverSpecPatchOutput) PodInfoOnMount() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v CSIDriverSpecPatch) *bool { return v.PodInfoOnMount }).(pulumi.BoolPtrOutput)
 }
@@ -891,7 +891,7 @@ func (o CSIDriverSpecPatchPtrOutput) AttachRequired() pulumi.BoolPtrOutput {
 
 // fsGroupPolicy defines if the underlying volume supports changing ownership and permission of the volume before being mounted. Refer to the specific FSGroupPolicy values for additional details.
 //
-// This field is immutable.
+// This field was immutable in Kubernetes < 1.29 and now is mutable.
 //
 // Defaults to ReadWriteOnceWithFSType, which will examine each volume to determine if Kubernetes should modify ownership and permissions of the volume. With the default policy the defined fsGroup will only be applied if a fstype is defined and the volume's access mode contains ReadWriteOnce.
 func (o CSIDriverSpecPatchPtrOutput) FsGroupPolicy() pulumi.StringPtrOutput {
@@ -913,7 +913,7 @@ func (o CSIDriverSpecPatchPtrOutput) FsGroupPolicy() pulumi.StringPtrOutput {
 //
 // "csi.storage.k8s.io/ephemeral" is a new feature in Kubernetes 1.16. It is only required for drivers which support both the "Persistent" and "Ephemeral" VolumeLifecycleMode. Other drivers can leave pod info disabled and/or ignore this field. As Kubernetes 1.15 doesn't support this field, drivers can only support one mode when deployed on such a cluster and the deployment determines which mode that is, for example via a command line parameter of the driver.
 //
-// This field is immutable.
+// This field was immutable in Kubernetes < 1.29 and now is mutable.
 func (o CSIDriverSpecPatchPtrOutput) PodInfoOnMount() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *CSIDriverSpecPatch) *bool {
 		if v == nil {

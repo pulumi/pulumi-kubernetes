@@ -53,6 +53,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly string Phase;
         /// <summary>
+        /// The available runtime handlers.
+        /// </summary>
+        public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.NodeRuntimeHandlerPatch> RuntimeHandlers;
+        /// <summary>
         /// List of volumes that are attached to the node.
         /// </summary>
         public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.AttachedVolumePatch> VolumesAttached;
@@ -81,6 +85,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 
             string phase,
 
+            ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.NodeRuntimeHandlerPatch> runtimeHandlers,
+
             ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.AttachedVolumePatch> volumesAttached,
 
             ImmutableArray<string> volumesInUse)
@@ -94,6 +100,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
             Images = images;
             NodeInfo = nodeInfo;
             Phase = phase;
+            RuntimeHandlers = runtimeHandlers;
             VolumesAttached = volumesAttached;
             VolumesInUse = volumesInUse;
         }

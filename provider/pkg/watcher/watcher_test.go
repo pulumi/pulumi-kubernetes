@@ -17,6 +17,7 @@ package watcher
 import (
 	"context"
 	"strings"
+	"sync/atomic"
 	"testing"
 	"time"
 
@@ -72,27 +73,27 @@ func Test_WatchUntil_PollFuncTimeout(t *testing.T) {
 	testCompleted := make(chan struct{})
 	for _, test := range timeoutTests {
 		go func(test timeoutTest) {
-			pollFuncCalls, watchFuncCalls := 0, 0
+			pollFuncCalls, watchFuncCalls := atomic.Int32{}, atomic.Int32{}
 			err := testObjWatcher(
 				context.Background(),
 				func() (*unstructured.Unstructured, error) {
-					pollFuncCalls++
+					pollFuncCalls.Add(1)
 					return test.pollFunc()
 				}).
 				WatchUntil(
 					func(obj *unstructured.Unstructured) bool {
-						watchFuncCalls++
+						watchFuncCalls.Add(1)
 						return test.predicate(obj)
 					},
 					test.timeout)
 			if err == nil || !strings.HasPrefix(err.Error(), timeoutErrPrefix) {
 				t.Errorf("%s: Polling should have timed out", test.name)
 			}
-			if !test.targetPollFuncCalls(pollFuncCalls) {
-				t.Errorf("%s: Got %d poll function calls, which did not satisfy the test predicate", test.name, pollFuncCalls)
+			if !test.targetPollFuncCalls(int(pollFuncCalls.Load())) {
+				t.Errorf("%s: Got %d poll function calls, which did not satisfy the test predicate", test.name, pollFuncCalls.Load())
 			}
-			if !test.targetWatchFuncCalls(watchFuncCalls) {
-				t.Errorf("%s: Got %d watch function calls, which did not satisfy the test predicate", test.name, watchFuncCalls)
+			if !test.targetWatchFuncCalls(int(watchFuncCalls.Load())) {
+				t.Errorf("%s: Got %d watch function calls, which did not satisfy the test predicate", test.name, watchFuncCalls.Load())
 			}
 			testCompleted <- struct{}{}
 		}(test)
@@ -119,7 +120,6 @@ func Test_WatchUntil_Success(t *testing.T) {
 				return true // Always true.
 			},
 			1*time.Second)
-
 	if err != nil {
 		t.Error("Expected watch to terminate without error")
 	}
@@ -137,7 +137,6 @@ func Test_RetryUntil_Success(t *testing.T) {
 				return nil // Always succeeds.
 			},
 			1*time.Second)
-
 	if err != nil {
 		t.Error("Expected watch to terminate without error")
 	}

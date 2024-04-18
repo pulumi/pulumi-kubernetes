@@ -110,6 +110,23 @@ func TestDotnet_YamlLocal(t *testing.T) {
 	integration.ProgramTest(t, &test)
 }
 
+func TestDotnet_YamlUninitializedProvider(t *testing.T) {
+	test := baseOptions.With(integration.ProgramTestOptions{
+		Dir:                      "yaml-uninitialized-provider",
+		Quick:                    false,
+		SkipPreview:              false,
+		SkipExportImport:         true,
+		SkipEmptyPreviewUpdate:   true,
+		SkipUpdate:               true,
+		SkipRefresh:              true,
+		ExpectRefreshChanges:     true,
+		AllowEmptyPreviewChanges: true,
+	})
+	integration.ProgramTest(t, &test)
+
+	// FUTURE: verify that the stack outputs include 'serviceUid' and has an unknown value.
+}
+
 func TestDotnet_Helm(t *testing.T) {
 	test := baseOptions.With(integration.ProgramTestOptions{
 		Dir:                  filepath.Join("helm", "step1"),
@@ -262,6 +279,23 @@ func TestDotnet_Kustomize(t *testing.T) {
 	integration.ProgramTest(t, &test)
 }
 
+func TestDotnet_Kustomize_UninitializedProvider(t *testing.T) {
+	test := baseOptions.With(integration.ProgramTestOptions{
+		Dir:                      "kustomize-uninitialized-provider",
+		Quick:                    false,
+		SkipPreview:              false,
+		SkipExportImport:         true,
+		SkipEmptyPreviewUpdate:   true,
+		SkipUpdate:               true,
+		SkipRefresh:              true,
+		ExpectRefreshChanges:     true,
+		AllowEmptyPreviewChanges: true,
+	})
+	integration.ProgramTest(t, &test)
+
+	// FUTURE: verify that the stack outputs include 'serviceUid' and has an unknown value.
+}
+
 func TestDotnet_Secrets(t *testing.T) {
 	secretMessage := "secret message for testing"
 
@@ -311,10 +345,10 @@ func TestDotnet_ServerSideApply(t *testing.T) {
 	integration.ProgramTest(t, &test)
 }
 
-// TestOptionPropagation tests the handling of resource options by the various compoonent resources.
+// TestDotnet_OptionPropagation tests the handling of resource options by the various compoonent resources.
 // Component resources are responsible for implementing option propagation logic when creating
 // child resources.
-func TestOptionPropagation(t *testing.T) {
+func TestDotnet_OptionPropagation(t *testing.T) {
 	g := NewWithT(t)
 	format.MaxLength = 0
 	format.MaxDepth = 5
@@ -802,4 +836,20 @@ func TestOptionPropagation(t *testing.T) {
 
 	err = pt.TestPreviewUpdateAndEdits()
 	require.NoError(t, err)
+}
+
+func TestYamlUninitializedProvider(t *testing.T) {
+	test := baseOptions.With(integration.ProgramTestOptions{
+		Dir:                      "yaml-uninitialized-provider",
+		Quick:                    false,
+		SkipPreview:              false,
+		SkipExportImport:         true,
+		SkipUpdate:               true,
+		SkipRefresh:              true,
+		ExpectRefreshChanges:     true,
+		AllowEmptyPreviewChanges: true,
+	})
+	integration.ProgramTest(t, &test)
+
+	// FUTURE: verify that the stack outputs include 'serviceUid' and has an unknown value.
 }

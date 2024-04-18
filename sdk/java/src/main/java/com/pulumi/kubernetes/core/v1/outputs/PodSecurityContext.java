@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.kubernetes.core.v1.outputs.AppArmorProfile;
 import com.pulumi.kubernetes.core.v1.outputs.SELinuxOptions;
 import com.pulumi.kubernetes.core.v1.outputs.SeccompProfile;
 import com.pulumi.kubernetes.core.v1.outputs.Sysctl;
@@ -18,6 +19,11 @@ import javax.annotation.Nullable;
 
 @CustomType
 public final class PodSecurityContext {
+    /**
+     * @return appArmorProfile is the AppArmor options to use by the containers in this pod. Note that this field cannot be set when spec.os.name is windows.
+     * 
+     */
+    private @Nullable AppArmorProfile appArmorProfile;
     /**
      * @return A special supplemental group that applies to all containers in a pod. Some volume types allow the Kubelet to change the ownership of that volume to be owned by the pod:
      * 
@@ -74,6 +80,13 @@ public final class PodSecurityContext {
     private @Nullable WindowsSecurityContextOptions windowsOptions;
 
     private PodSecurityContext() {}
+    /**
+     * @return appArmorProfile is the AppArmor options to use by the containers in this pod. Note that this field cannot be set when spec.os.name is windows.
+     * 
+     */
+    public Optional<AppArmorProfile> appArmorProfile() {
+        return Optional.ofNullable(this.appArmorProfile);
+    }
     /**
      * @return A special supplemental group that applies to all containers in a pod. Some volume types allow the Kubelet to change the ownership of that volume to be owned by the pod:
      * 
@@ -158,6 +171,7 @@ public final class PodSecurityContext {
     }
     @CustomType.Builder
     public static final class Builder {
+        private @Nullable AppArmorProfile appArmorProfile;
         private @Nullable Integer fsGroup;
         private @Nullable String fsGroupChangePolicy;
         private @Nullable Integer runAsGroup;
@@ -171,6 +185,7 @@ public final class PodSecurityContext {
         public Builder() {}
         public Builder(PodSecurityContext defaults) {
     	      Objects.requireNonNull(defaults);
+    	      this.appArmorProfile = defaults.appArmorProfile;
     	      this.fsGroup = defaults.fsGroup;
     	      this.fsGroupChangePolicy = defaults.fsGroupChangePolicy;
     	      this.runAsGroup = defaults.runAsGroup;
@@ -183,6 +198,11 @@ public final class PodSecurityContext {
     	      this.windowsOptions = defaults.windowsOptions;
         }
 
+        @CustomType.Setter
+        public Builder appArmorProfile(@Nullable AppArmorProfile appArmorProfile) {
+            this.appArmorProfile = appArmorProfile;
+            return this;
+        }
         @CustomType.Setter
         public Builder fsGroup(@Nullable Integer fsGroup) {
             this.fsGroup = fsGroup;
@@ -241,6 +261,7 @@ public final class PodSecurityContext {
         }
         public PodSecurityContext build() {
             final var o = new PodSecurityContext();
+            o.appArmorProfile = appArmorProfile;
             o.fsGroup = fsGroup;
             o.fsGroupChangePolicy = fsGroupChangePolicy;
             o.runAsGroup = runAsGroup;

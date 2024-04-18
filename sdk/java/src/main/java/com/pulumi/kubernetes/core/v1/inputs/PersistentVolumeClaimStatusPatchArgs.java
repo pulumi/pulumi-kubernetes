@@ -162,14 +162,14 @@ public final class PersistentVolumeClaimStatusPatchArgs extends com.pulumi.resou
     }
 
     /**
-     * conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to &#39;ResizeStarted&#39;.
+     * conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to &#39;Resizing&#39;.
      * 
      */
     @Import(name="conditions")
     private @Nullable Output<List<PersistentVolumeClaimConditionPatchArgs>> conditions;
 
     /**
-     * @return conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to &#39;ResizeStarted&#39;.
+     * @return conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to &#39;Resizing&#39;.
      * 
      */
     public Optional<Output<List<PersistentVolumeClaimConditionPatchArgs>>> conditions() {
@@ -441,7 +441,7 @@ public final class PersistentVolumeClaimStatusPatchArgs extends com.pulumi.resou
         }
 
         /**
-         * @param conditions conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to &#39;ResizeStarted&#39;.
+         * @param conditions conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to &#39;Resizing&#39;.
          * 
          * @return builder
          * 
@@ -452,7 +452,7 @@ public final class PersistentVolumeClaimStatusPatchArgs extends com.pulumi.resou
         }
 
         /**
-         * @param conditions conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to &#39;ResizeStarted&#39;.
+         * @param conditions conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to &#39;Resizing&#39;.
          * 
          * @return builder
          * 
@@ -462,7 +462,7 @@ public final class PersistentVolumeClaimStatusPatchArgs extends com.pulumi.resou
         }
 
         /**
-         * @param conditions conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to &#39;ResizeStarted&#39;.
+         * @param conditions conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to &#39;Resizing&#39;.
          * 
          * @return builder
          * 

@@ -11,6 +11,7 @@ import com.pulumi.kubernetes.core.v1.inputs.NodeAddressArgs;
 import com.pulumi.kubernetes.core.v1.inputs.NodeConditionArgs;
 import com.pulumi.kubernetes.core.v1.inputs.NodeConfigStatusArgs;
 import com.pulumi.kubernetes.core.v1.inputs.NodeDaemonEndpointsArgs;
+import com.pulumi.kubernetes.core.v1.inputs.NodeRuntimeHandlerArgs;
 import com.pulumi.kubernetes.core.v1.inputs.NodeSystemInfoArgs;
 import java.lang.String;
 import java.util.List;
@@ -164,6 +165,21 @@ public final class NodeStatusArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * The available runtime handlers.
+     * 
+     */
+    @Import(name="runtimeHandlers")
+    private @Nullable Output<List<NodeRuntimeHandlerArgs>> runtimeHandlers;
+
+    /**
+     * @return The available runtime handlers.
+     * 
+     */
+    public Optional<Output<List<NodeRuntimeHandlerArgs>>> runtimeHandlers() {
+        return Optional.ofNullable(this.runtimeHandlers);
+    }
+
+    /**
      * List of volumes that are attached to the node.
      * 
      */
@@ -205,6 +221,7 @@ public final class NodeStatusArgs extends com.pulumi.resources.ResourceArgs {
         this.images = $.images;
         this.nodeInfo = $.nodeInfo;
         this.phase = $.phase;
+        this.runtimeHandlers = $.runtimeHandlers;
         this.volumesAttached = $.volumesAttached;
         this.volumesInUse = $.volumesInUse;
     }
@@ -444,6 +461,37 @@ public final class NodeStatusArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder phase(String phase) {
             return phase(Output.of(phase));
+        }
+
+        /**
+         * @param runtimeHandlers The available runtime handlers.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder runtimeHandlers(@Nullable Output<List<NodeRuntimeHandlerArgs>> runtimeHandlers) {
+            $.runtimeHandlers = runtimeHandlers;
+            return this;
+        }
+
+        /**
+         * @param runtimeHandlers The available runtime handlers.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder runtimeHandlers(List<NodeRuntimeHandlerArgs> runtimeHandlers) {
+            return runtimeHandlers(Output.of(runtimeHandlers));
+        }
+
+        /**
+         * @param runtimeHandlers The available runtime handlers.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder runtimeHandlers(NodeRuntimeHandlerArgs... runtimeHandlers) {
+            return runtimeHandlers(List.of(runtimeHandlers));
         }
 
         /**

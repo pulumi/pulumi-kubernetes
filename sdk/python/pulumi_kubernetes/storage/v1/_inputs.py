@@ -53,7 +53,7 @@ class CSIDriverSpecPatchArgs:
                This field is immutable.
         :param pulumi.Input[str] fs_group_policy: fsGroupPolicy defines if the underlying volume supports changing ownership and permission of the volume before being mounted. Refer to the specific FSGroupPolicy values for additional details.
                
-               This field is immutable.
+               This field was immutable in Kubernetes < 1.29 and now is mutable.
                
                Defaults to ReadWriteOnceWithFSType, which will examine each volume to determine if Kubernetes should modify ownership and permissions of the volume. With the default policy the defined fsGroup will only be applied if a fstype is defined and the volume's access mode contains ReadWriteOnce.
         :param pulumi.Input[bool] pod_info_on_mount: podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations, if set to true. If set to false, pod information will not be passed on mount. Default is false.
@@ -65,7 +65,7 @@ class CSIDriverSpecPatchArgs:
                
                "csi.storage.k8s.io/ephemeral" is a new feature in Kubernetes 1.16. It is only required for drivers which support both the "Persistent" and "Ephemeral" VolumeLifecycleMode. Other drivers can leave pod info disabled and/or ignore this field. As Kubernetes 1.15 doesn't support this field, drivers can only support one mode when deployed on such a cluster and the deployment determines which mode that is, for example via a command line parameter of the driver.
                
-               This field is immutable.
+               This field was immutable in Kubernetes < 1.29 and now is mutable.
         :param pulumi.Input[bool] requires_republish: requiresRepublish indicates the CSI driver wants `NodePublishVolume` being periodically called to reflect any possible change in the mounted volume. This field defaults to false.
                
                Note: After a successful initial NodePublishVolume call, subsequent calls to NodePublishVolume should only update the contents of the volume. New mount points will not be seen by a running container.
@@ -137,7 +137,7 @@ class CSIDriverSpecPatchArgs:
         """
         fsGroupPolicy defines if the underlying volume supports changing ownership and permission of the volume before being mounted. Refer to the specific FSGroupPolicy values for additional details.
 
-        This field is immutable.
+        This field was immutable in Kubernetes < 1.29 and now is mutable.
 
         Defaults to ReadWriteOnceWithFSType, which will examine each volume to determine if Kubernetes should modify ownership and permissions of the volume. With the default policy the defined fsGroup will only be applied if a fstype is defined and the volume's access mode contains ReadWriteOnce.
         """
@@ -160,7 +160,7 @@ class CSIDriverSpecPatchArgs:
 
         "csi.storage.k8s.io/ephemeral" is a new feature in Kubernetes 1.16. It is only required for drivers which support both the "Persistent" and "Ephemeral" VolumeLifecycleMode. Other drivers can leave pod info disabled and/or ignore this field. As Kubernetes 1.15 doesn't support this field, drivers can only support one mode when deployed on such a cluster and the deployment determines which mode that is, for example via a command line parameter of the driver.
 
-        This field is immutable.
+        This field was immutable in Kubernetes < 1.29 and now is mutable.
         """
         return pulumi.get(self, "pod_info_on_mount")
 
@@ -275,7 +275,7 @@ class CSIDriverSpecArgs:
                This field is immutable.
         :param pulumi.Input[str] fs_group_policy: fsGroupPolicy defines if the underlying volume supports changing ownership and permission of the volume before being mounted. Refer to the specific FSGroupPolicy values for additional details.
                
-               This field is immutable.
+               This field was immutable in Kubernetes < 1.29 and now is mutable.
                
                Defaults to ReadWriteOnceWithFSType, which will examine each volume to determine if Kubernetes should modify ownership and permissions of the volume. With the default policy the defined fsGroup will only be applied if a fstype is defined and the volume's access mode contains ReadWriteOnce.
         :param pulumi.Input[bool] pod_info_on_mount: podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations, if set to true. If set to false, pod information will not be passed on mount. Default is false.
@@ -287,7 +287,7 @@ class CSIDriverSpecArgs:
                
                "csi.storage.k8s.io/ephemeral" is a new feature in Kubernetes 1.16. It is only required for drivers which support both the "Persistent" and "Ephemeral" VolumeLifecycleMode. Other drivers can leave pod info disabled and/or ignore this field. As Kubernetes 1.15 doesn't support this field, drivers can only support one mode when deployed on such a cluster and the deployment determines which mode that is, for example via a command line parameter of the driver.
                
-               This field is immutable.
+               This field was immutable in Kubernetes < 1.29 and now is mutable.
         :param pulumi.Input[bool] requires_republish: requiresRepublish indicates the CSI driver wants `NodePublishVolume` being periodically called to reflect any possible change in the mounted volume. This field defaults to false.
                
                Note: After a successful initial NodePublishVolume call, subsequent calls to NodePublishVolume should only update the contents of the volume. New mount points will not be seen by a running container.
@@ -359,7 +359,7 @@ class CSIDriverSpecArgs:
         """
         fsGroupPolicy defines if the underlying volume supports changing ownership and permission of the volume before being mounted. Refer to the specific FSGroupPolicy values for additional details.
 
-        This field is immutable.
+        This field was immutable in Kubernetes < 1.29 and now is mutable.
 
         Defaults to ReadWriteOnceWithFSType, which will examine each volume to determine if Kubernetes should modify ownership and permissions of the volume. With the default policy the defined fsGroup will only be applied if a fstype is defined and the volume's access mode contains ReadWriteOnce.
         """
@@ -382,7 +382,7 @@ class CSIDriverSpecArgs:
 
         "csi.storage.k8s.io/ephemeral" is a new feature in Kubernetes 1.16. It is only required for drivers which support both the "Persistent" and "Ephemeral" VolumeLifecycleMode. Other drivers can leave pod info disabled and/or ignore this field. As Kubernetes 1.15 doesn't support this field, drivers can only support one mode when deployed on such a cluster and the deployment determines which mode that is, for example via a command line parameter of the driver.
 
-        This field is immutable.
+        This field was immutable in Kubernetes < 1.29 and now is mutable.
         """
         return pulumi.get(self, "pod_info_on_mount")
 

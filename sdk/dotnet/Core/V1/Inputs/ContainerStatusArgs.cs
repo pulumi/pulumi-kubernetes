@@ -89,6 +89,18 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         [Input("state")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.ContainerStateArgs>? State { get; set; }
 
+        [Input("volumeMounts")]
+        private InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.VolumeMountStatusArgs>? _volumeMounts;
+
+        /// <summary>
+        /// Status of volume mounts.
+        /// </summary>
+        public InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.VolumeMountStatusArgs> VolumeMounts
+        {
+            get => _volumeMounts ?? (_volumeMounts = new InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.VolumeMountStatusArgs>());
+            set => _volumeMounts = value;
+        }
+
         public ContainerStatusArgs()
         {
         }

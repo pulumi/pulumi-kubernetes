@@ -80,8 +80,6 @@ public final class ValidatingWebhookArgs extends com.pulumi.resources.ResourceAr
      *      - If failurePolicy=Fail, reject the request
      *      - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
      * 
-     * This is a beta feature and managed by the AdmissionWebhookMatchConditions feature gate.
-     * 
      */
     @Import(name="matchConditions")
     private @Nullable Output<List<MatchConditionArgs>> matchConditions;
@@ -95,8 +93,6 @@ public final class ValidatingWebhookArgs extends com.pulumi.resources.ResourceAr
      *   3. If any matchCondition evaluates to an error (but none are FALSE):
      *      - If failurePolicy=Fail, reject the request
      *      - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
-     * 
-     * This is a beta feature and managed by the AdmissionWebhookMatchConditions feature gate.
      * 
      */
     public Optional<Output<List<MatchConditionArgs>>> matchConditions() {
@@ -397,8 +393,6 @@ public final class ValidatingWebhookArgs extends com.pulumi.resources.ResourceAr
          *      - If failurePolicy=Fail, reject the request
          *      - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
          * 
-         * This is a beta feature and managed by the AdmissionWebhookMatchConditions feature gate.
-         * 
          * @return builder
          * 
          */
@@ -417,8 +411,6 @@ public final class ValidatingWebhookArgs extends com.pulumi.resources.ResourceAr
          *      - If failurePolicy=Fail, reject the request
          *      - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
          * 
-         * This is a beta feature and managed by the AdmissionWebhookMatchConditions feature gate.
-         * 
          * @return builder
          * 
          */
@@ -435,8 +427,6 @@ public final class ValidatingWebhookArgs extends com.pulumi.resources.ResourceAr
          *   3. If any matchCondition evaluates to an error (but none are FALSE):
          *      - If failurePolicy=Fail, reject the request
          *      - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
-         * 
-         * This is a beta feature and managed by the AdmissionWebhookMatchConditions feature gate.
          * 
          * @return builder
          * 

@@ -24,14 +24,14 @@ public final class JobStatusArgs extends com.pulumi.resources.ResourceArgs {
     public static final JobStatusArgs Empty = new JobStatusArgs();
 
     /**
-     * The number of pending and running pods.
+     * The number of pending and running pods which are not terminating (without a deletionTimestamp). The value is zero for finished jobs.
      * 
      */
     @Import(name="active")
     private @Nullable Output<Integer> active;
 
     /**
-     * @return The number of pending and running pods.
+     * @return The number of pending and running pods which are not terminating (without a deletionTimestamp). The value is zero for finished jobs.
      * 
      */
     public Optional<Output<Integer>> active() {
@@ -54,14 +54,14 @@ public final class JobStatusArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC. The completion time is only set when the job finishes successfully.
+     * Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC. The completion time is set when the job finishes successfully, and only then. The value cannot be updated or removed. The value indicates the same or later point in time as the startTime field.
      * 
      */
     @Import(name="completionTime")
     private @Nullable Output<String> completionTime;
 
     /**
-     * @return Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC. The completion time is only set when the job finishes successfully.
+     * @return Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC. The completion time is set when the job finishes successfully, and only then. The value cannot be updated or removed. The value indicates the same or later point in time as the startTime field.
      * 
      */
     public Optional<Output<String>> completionTime() {
@@ -69,14 +69,22 @@ public final class JobStatusArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * The latest available observations of an object&#39;s current state. When a Job fails, one of the conditions will have type &#34;Failed&#34; and status true. When a Job is suspended, one of the conditions will have type &#34;Suspended&#34; and status true; when the Job is resumed, the status of this condition will become false. When a Job is completed, one of the conditions will have type &#34;Complete&#34; and status true. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+     * The latest available observations of an object&#39;s current state. When a Job fails, one of the conditions will have type &#34;Failed&#34; and status true. When a Job is suspended, one of the conditions will have type &#34;Suspended&#34; and status true; when the Job is resumed, the status of this condition will become false. When a Job is completed, one of the conditions will have type &#34;Complete&#34; and status true.
+     * 
+     * A job is considered finished when it is in a terminal condition, either &#34;Complete&#34; or &#34;Failed&#34;. A Job cannot have both the &#34;Complete&#34; and &#34;Failed&#34; conditions. Additionally, it cannot be in the &#34;Complete&#34; and &#34;FailureTarget&#34; conditions. The &#34;Complete&#34;, &#34;Failed&#34; and &#34;FailureTarget&#34; conditions cannot be disabled.
+     * 
+     * More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
      * 
      */
     @Import(name="conditions")
     private @Nullable Output<List<JobConditionArgs>> conditions;
 
     /**
-     * @return The latest available observations of an object&#39;s current state. When a Job fails, one of the conditions will have type &#34;Failed&#34; and status true. When a Job is suspended, one of the conditions will have type &#34;Suspended&#34; and status true; when the Job is resumed, the status of this condition will become false. When a Job is completed, one of the conditions will have type &#34;Complete&#34; and status true. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+     * @return The latest available observations of an object&#39;s current state. When a Job fails, one of the conditions will have type &#34;Failed&#34; and status true. When a Job is suspended, one of the conditions will have type &#34;Suspended&#34; and status true; when the Job is resumed, the status of this condition will become false. When a Job is completed, one of the conditions will have type &#34;Complete&#34; and status true.
+     * 
+     * A job is considered finished when it is in a terminal condition, either &#34;Complete&#34; or &#34;Failed&#34;. A Job cannot have both the &#34;Complete&#34; and &#34;Failed&#34; conditions. Additionally, it cannot be in the &#34;Complete&#34; and &#34;FailureTarget&#34; conditions. The &#34;Complete&#34;, &#34;Failed&#34; and &#34;FailureTarget&#34; conditions cannot be disabled.
+     * 
+     * More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
      * 
      */
     public Optional<Output<List<JobConditionArgs>>> conditions() {
@@ -84,14 +92,14 @@ public final class JobStatusArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * The number of pods which reached phase Failed.
+     * The number of pods which reached phase Failed. The value increases monotonically.
      * 
      */
     @Import(name="failed")
     private @Nullable Output<Integer> failed;
 
     /**
-     * @return The number of pods which reached phase Failed.
+     * @return The number of pods which reached phase Failed. The value increases monotonically.
      * 
      */
     public Optional<Output<Integer>> failed() {
@@ -99,14 +107,18 @@ public final class JobStatusArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * FailedIndexes holds the failed indexes when backoffLimitPerIndex=true. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as &#34;1,3-5,7&#34;. This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
+     * FailedIndexes holds the failed indexes when spec.backoffLimitPerIndex is set. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as &#34;1,3-5,7&#34;. The set of failed indexes cannot overlap with the set of completed indexes.
+     * 
+     * This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
      * 
      */
     @Import(name="failedIndexes")
     private @Nullable Output<String> failedIndexes;
 
     /**
-     * @return FailedIndexes holds the failed indexes when backoffLimitPerIndex=true. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as &#34;1,3-5,7&#34;. This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
+     * @return FailedIndexes holds the failed indexes when spec.backoffLimitPerIndex is set. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as &#34;1,3-5,7&#34;. The set of failed indexes cannot overlap with the set of completed indexes.
+     * 
+     * This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
      * 
      */
     public Optional<Output<String>> failedIndexes() {
@@ -131,6 +143,8 @@ public final class JobStatusArgs extends com.pulumi.resources.ResourceArgs {
     /**
      * Represents time when the job controller started processing a job. When a Job is created in the suspended state, this field is not set until the first time it is resumed. This field is reset every time a Job is resumed from suspension. It is represented in RFC3339 form and is in UTC.
      * 
+     * Once set, the field can only be removed when the job is suspended. The field cannot be modified while the job is unsuspended or finished.
+     * 
      */
     @Import(name="startTime")
     private @Nullable Output<String> startTime;
@@ -138,20 +152,22 @@ public final class JobStatusArgs extends com.pulumi.resources.ResourceArgs {
     /**
      * @return Represents time when the job controller started processing a job. When a Job is created in the suspended state, this field is not set until the first time it is resumed. This field is reset every time a Job is resumed from suspension. It is represented in RFC3339 form and is in UTC.
      * 
+     * Once set, the field can only be removed when the job is suspended. The field cannot be modified while the job is unsuspended or finished.
+     * 
      */
     public Optional<Output<String>> startTime() {
         return Optional.ofNullable(this.startTime);
     }
 
     /**
-     * The number of pods which reached phase Succeeded.
+     * The number of pods which reached phase Succeeded. The value increases monotonically for a given spec. However, it may decrease in reaction to scale down of elastic indexed jobs.
      * 
      */
     @Import(name="succeeded")
     private @Nullable Output<Integer> succeeded;
 
     /**
-     * @return The number of pods which reached phase Succeeded.
+     * @return The number of pods which reached phase Succeeded. The value increases monotonically for a given spec. However, it may decrease in reaction to scale down of elastic indexed jobs.
      * 
      */
     public Optional<Output<Integer>> succeeded() {
@@ -185,7 +201,7 @@ public final class JobStatusArgs extends com.pulumi.resources.ResourceArgs {
      * 1. Add the pod UID to the arrays in this field. 2. Remove the pod finalizer. 3. Remove the pod UID from the arrays while increasing the corresponding
      *     counter.
      * 
-     * Old jobs might not be tracked using this field, in which case the field remains null.
+     * Old jobs might not be tracked using this field, in which case the field remains null. The structure is empty for finished jobs.
      * 
      */
     @Import(name="uncountedTerminatedPods")
@@ -199,7 +215,7 @@ public final class JobStatusArgs extends com.pulumi.resources.ResourceArgs {
      * 1. Add the pod UID to the arrays in this field. 2. Remove the pod finalizer. 3. Remove the pod UID from the arrays while increasing the corresponding
      *     counter.
      * 
-     * Old jobs might not be tracked using this field, in which case the field remains null.
+     * Old jobs might not be tracked using this field, in which case the field remains null. The structure is empty for finished jobs.
      * 
      */
     public Optional<Output<UncountedTerminatedPodsArgs>> uncountedTerminatedPods() {
@@ -241,7 +257,7 @@ public final class JobStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param active The number of pending and running pods.
+         * @param active The number of pending and running pods which are not terminating (without a deletionTimestamp). The value is zero for finished jobs.
          * 
          * @return builder
          * 
@@ -252,7 +268,7 @@ public final class JobStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param active The number of pending and running pods.
+         * @param active The number of pending and running pods which are not terminating (without a deletionTimestamp). The value is zero for finished jobs.
          * 
          * @return builder
          * 
@@ -283,7 +299,7 @@ public final class JobStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param completionTime Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC. The completion time is only set when the job finishes successfully.
+         * @param completionTime Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC. The completion time is set when the job finishes successfully, and only then. The value cannot be updated or removed. The value indicates the same or later point in time as the startTime field.
          * 
          * @return builder
          * 
@@ -294,7 +310,7 @@ public final class JobStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param completionTime Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC. The completion time is only set when the job finishes successfully.
+         * @param completionTime Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC. The completion time is set when the job finishes successfully, and only then. The value cannot be updated or removed. The value indicates the same or later point in time as the startTime field.
          * 
          * @return builder
          * 
@@ -304,7 +320,11 @@ public final class JobStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param conditions The latest available observations of an object&#39;s current state. When a Job fails, one of the conditions will have type &#34;Failed&#34; and status true. When a Job is suspended, one of the conditions will have type &#34;Suspended&#34; and status true; when the Job is resumed, the status of this condition will become false. When a Job is completed, one of the conditions will have type &#34;Complete&#34; and status true. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+         * @param conditions The latest available observations of an object&#39;s current state. When a Job fails, one of the conditions will have type &#34;Failed&#34; and status true. When a Job is suspended, one of the conditions will have type &#34;Suspended&#34; and status true; when the Job is resumed, the status of this condition will become false. When a Job is completed, one of the conditions will have type &#34;Complete&#34; and status true.
+         * 
+         * A job is considered finished when it is in a terminal condition, either &#34;Complete&#34; or &#34;Failed&#34;. A Job cannot have both the &#34;Complete&#34; and &#34;Failed&#34; conditions. Additionally, it cannot be in the &#34;Complete&#34; and &#34;FailureTarget&#34; conditions. The &#34;Complete&#34;, &#34;Failed&#34; and &#34;FailureTarget&#34; conditions cannot be disabled.
+         * 
+         * More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
          * 
          * @return builder
          * 
@@ -315,7 +335,11 @@ public final class JobStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param conditions The latest available observations of an object&#39;s current state. When a Job fails, one of the conditions will have type &#34;Failed&#34; and status true. When a Job is suspended, one of the conditions will have type &#34;Suspended&#34; and status true; when the Job is resumed, the status of this condition will become false. When a Job is completed, one of the conditions will have type &#34;Complete&#34; and status true. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+         * @param conditions The latest available observations of an object&#39;s current state. When a Job fails, one of the conditions will have type &#34;Failed&#34; and status true. When a Job is suspended, one of the conditions will have type &#34;Suspended&#34; and status true; when the Job is resumed, the status of this condition will become false. When a Job is completed, one of the conditions will have type &#34;Complete&#34; and status true.
+         * 
+         * A job is considered finished when it is in a terminal condition, either &#34;Complete&#34; or &#34;Failed&#34;. A Job cannot have both the &#34;Complete&#34; and &#34;Failed&#34; conditions. Additionally, it cannot be in the &#34;Complete&#34; and &#34;FailureTarget&#34; conditions. The &#34;Complete&#34;, &#34;Failed&#34; and &#34;FailureTarget&#34; conditions cannot be disabled.
+         * 
+         * More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
          * 
          * @return builder
          * 
@@ -325,7 +349,11 @@ public final class JobStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param conditions The latest available observations of an object&#39;s current state. When a Job fails, one of the conditions will have type &#34;Failed&#34; and status true. When a Job is suspended, one of the conditions will have type &#34;Suspended&#34; and status true; when the Job is resumed, the status of this condition will become false. When a Job is completed, one of the conditions will have type &#34;Complete&#34; and status true. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+         * @param conditions The latest available observations of an object&#39;s current state. When a Job fails, one of the conditions will have type &#34;Failed&#34; and status true. When a Job is suspended, one of the conditions will have type &#34;Suspended&#34; and status true; when the Job is resumed, the status of this condition will become false. When a Job is completed, one of the conditions will have type &#34;Complete&#34; and status true.
+         * 
+         * A job is considered finished when it is in a terminal condition, either &#34;Complete&#34; or &#34;Failed&#34;. A Job cannot have both the &#34;Complete&#34; and &#34;Failed&#34; conditions. Additionally, it cannot be in the &#34;Complete&#34; and &#34;FailureTarget&#34; conditions. The &#34;Complete&#34;, &#34;Failed&#34; and &#34;FailureTarget&#34; conditions cannot be disabled.
+         * 
+         * More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
          * 
          * @return builder
          * 
@@ -335,7 +363,7 @@ public final class JobStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param failed The number of pods which reached phase Failed.
+         * @param failed The number of pods which reached phase Failed. The value increases monotonically.
          * 
          * @return builder
          * 
@@ -346,7 +374,7 @@ public final class JobStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param failed The number of pods which reached phase Failed.
+         * @param failed The number of pods which reached phase Failed. The value increases monotonically.
          * 
          * @return builder
          * 
@@ -356,7 +384,9 @@ public final class JobStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param failedIndexes FailedIndexes holds the failed indexes when backoffLimitPerIndex=true. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as &#34;1,3-5,7&#34;. This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
+         * @param failedIndexes FailedIndexes holds the failed indexes when spec.backoffLimitPerIndex is set. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as &#34;1,3-5,7&#34;. The set of failed indexes cannot overlap with the set of completed indexes.
+         * 
+         * This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
          * 
          * @return builder
          * 
@@ -367,7 +397,9 @@ public final class JobStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param failedIndexes FailedIndexes holds the failed indexes when backoffLimitPerIndex=true. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as &#34;1,3-5,7&#34;. This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
+         * @param failedIndexes FailedIndexes holds the failed indexes when spec.backoffLimitPerIndex is set. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as &#34;1,3-5,7&#34;. The set of failed indexes cannot overlap with the set of completed indexes.
+         * 
+         * This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
          * 
          * @return builder
          * 
@@ -400,6 +432,8 @@ public final class JobStatusArgs extends com.pulumi.resources.ResourceArgs {
         /**
          * @param startTime Represents time when the job controller started processing a job. When a Job is created in the suspended state, this field is not set until the first time it is resumed. This field is reset every time a Job is resumed from suspension. It is represented in RFC3339 form and is in UTC.
          * 
+         * Once set, the field can only be removed when the job is suspended. The field cannot be modified while the job is unsuspended or finished.
+         * 
          * @return builder
          * 
          */
@@ -411,6 +445,8 @@ public final class JobStatusArgs extends com.pulumi.resources.ResourceArgs {
         /**
          * @param startTime Represents time when the job controller started processing a job. When a Job is created in the suspended state, this field is not set until the first time it is resumed. This field is reset every time a Job is resumed from suspension. It is represented in RFC3339 form and is in UTC.
          * 
+         * Once set, the field can only be removed when the job is suspended. The field cannot be modified while the job is unsuspended or finished.
+         * 
          * @return builder
          * 
          */
@@ -419,7 +455,7 @@ public final class JobStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param succeeded The number of pods which reached phase Succeeded.
+         * @param succeeded The number of pods which reached phase Succeeded. The value increases monotonically for a given spec. However, it may decrease in reaction to scale down of elastic indexed jobs.
          * 
          * @return builder
          * 
@@ -430,7 +466,7 @@ public final class JobStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param succeeded The number of pods which reached phase Succeeded.
+         * @param succeeded The number of pods which reached phase Succeeded. The value increases monotonically for a given spec. However, it may decrease in reaction to scale down of elastic indexed jobs.
          * 
          * @return builder
          * 
@@ -472,7 +508,7 @@ public final class JobStatusArgs extends com.pulumi.resources.ResourceArgs {
          * 1. Add the pod UID to the arrays in this field. 2. Remove the pod finalizer. 3. Remove the pod UID from the arrays while increasing the corresponding
          *     counter.
          * 
-         * Old jobs might not be tracked using this field, in which case the field remains null.
+         * Old jobs might not be tracked using this field, in which case the field remains null. The structure is empty for finished jobs.
          * 
          * @return builder
          * 
@@ -490,7 +526,7 @@ public final class JobStatusArgs extends com.pulumi.resources.ResourceArgs {
          * 1. Add the pod UID to the arrays in this field. 2. Remove the pod finalizer. 3. Remove the pod UID from the arrays while increasing the corresponding
          *     counter.
          * 
-         * Old jobs might not be tracked using this field, in which case the field remains null.
+         * Old jobs might not be tracked using this field, in which case the field remains null. The structure is empty for finished jobs.
          * 
          * @return builder
          * 

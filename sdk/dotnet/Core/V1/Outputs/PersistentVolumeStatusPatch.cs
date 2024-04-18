@@ -17,7 +17,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
     public sealed class PersistentVolumeStatusPatch
     {
         /// <summary>
-        /// lastPhaseTransitionTime is the time the phase transitioned from one to another and automatically resets to current time everytime a volume phase transitions. This is an alpha field and requires enabling PersistentVolumeLastPhaseTransitionTime feature.
+        /// lastPhaseTransitionTime is the time the phase transitioned from one to another and automatically resets to current time everytime a volume phase transitions. This is a beta field and requires the PersistentVolumeLastPhaseTransitionTime feature to be enabled (enabled by default).
         /// </summary>
         public readonly string LastPhaseTransitionTime;
         /// <summary>

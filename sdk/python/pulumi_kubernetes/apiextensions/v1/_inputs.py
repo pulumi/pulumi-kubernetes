@@ -34,6 +34,8 @@ __all__ = [
     'ExternalDocumentationArgs',
     'JSONSchemaPropsPatchArgs',
     'JSONSchemaPropsArgs',
+    'SelectableFieldPatchArgs',
+    'SelectableFieldArgs',
     'ServiceReferencePatchArgs',
     'ServiceReferenceArgs',
     'ValidationRulePatchArgs',
@@ -890,6 +892,7 @@ class CustomResourceDefinitionVersionPatchArgs:
                  deprecation_warning: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  schema: Optional[pulumi.Input['CustomResourceValidationPatchArgs']] = None,
+                 selectable_fields: Optional[pulumi.Input[Sequence[pulumi.Input['SelectableFieldPatchArgs']]]] = None,
                  served: Optional[pulumi.Input[bool]] = None,
                  storage: Optional[pulumi.Input[bool]] = None,
                  subresources: Optional[pulumi.Input['CustomResourceSubresourcesPatchArgs']] = None):
@@ -900,6 +903,7 @@ class CustomResourceDefinitionVersionPatchArgs:
         :param pulumi.Input[str] deprecation_warning: deprecationWarning overrides the default warning returned to API clients. May only be set when `deprecated` is true. The default warning indicates this version is deprecated and recommends use of the newest served version of equal or greater stability, if one exists.
         :param pulumi.Input[str] name: name is the version name, e.g. “v1”, “v2beta1”, etc. The custom resources are served under this version at `/apis/<group>/<version>/...` if `served` is true.
         :param pulumi.Input['CustomResourceValidationPatchArgs'] schema: schema describes the schema used for validation, pruning, and defaulting of this version of the custom resource.
+        :param pulumi.Input[Sequence[pulumi.Input['SelectableFieldPatchArgs']]] selectable_fields: selectableFields specifies paths to fields that may be used as field selectors. A maximum of 8 selectable fields are allowed. See https://kubernetes.io/docs/concepts/overview/working-with-objects/field-selectors
         :param pulumi.Input[bool] served: served is a flag enabling/disabling this version from being served via REST APIs
         :param pulumi.Input[bool] storage: storage indicates this version should be used when persisting custom resources to storage. There must be exactly one version with storage=true.
         :param pulumi.Input['CustomResourceSubresourcesPatchArgs'] subresources: subresources specify what subresources this version of the defined custom resource have.
@@ -914,6 +918,8 @@ class CustomResourceDefinitionVersionPatchArgs:
             pulumi.set(__self__, "name", name)
         if schema is not None:
             pulumi.set(__self__, "schema", schema)
+        if selectable_fields is not None:
+            pulumi.set(__self__, "selectable_fields", selectable_fields)
         if served is not None:
             pulumi.set(__self__, "served", served)
         if storage is not None:
@@ -982,6 +988,18 @@ class CustomResourceDefinitionVersionPatchArgs:
         pulumi.set(self, "schema", value)
 
     @property
+    @pulumi.getter(name="selectableFields")
+    def selectable_fields(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['SelectableFieldPatchArgs']]]]:
+        """
+        selectableFields specifies paths to fields that may be used as field selectors. A maximum of 8 selectable fields are allowed. See https://kubernetes.io/docs/concepts/overview/working-with-objects/field-selectors
+        """
+        return pulumi.get(self, "selectable_fields")
+
+    @selectable_fields.setter
+    def selectable_fields(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['SelectableFieldPatchArgs']]]]):
+        pulumi.set(self, "selectable_fields", value)
+
+    @property
     @pulumi.getter
     def served(self) -> Optional[pulumi.Input[bool]]:
         """
@@ -1028,6 +1046,7 @@ class CustomResourceDefinitionVersionArgs:
                  deprecated: Optional[pulumi.Input[bool]] = None,
                  deprecation_warning: Optional[pulumi.Input[str]] = None,
                  schema: Optional[pulumi.Input['CustomResourceValidationArgs']] = None,
+                 selectable_fields: Optional[pulumi.Input[Sequence[pulumi.Input['SelectableFieldArgs']]]] = None,
                  subresources: Optional[pulumi.Input['CustomResourceSubresourcesArgs']] = None):
         """
         CustomResourceDefinitionVersion describes a version for CRD.
@@ -1038,6 +1057,7 @@ class CustomResourceDefinitionVersionArgs:
         :param pulumi.Input[bool] deprecated: deprecated indicates this version of the custom resource API is deprecated. When set to true, API requests to this version receive a warning header in the server response. Defaults to false.
         :param pulumi.Input[str] deprecation_warning: deprecationWarning overrides the default warning returned to API clients. May only be set when `deprecated` is true. The default warning indicates this version is deprecated and recommends use of the newest served version of equal or greater stability, if one exists.
         :param pulumi.Input['CustomResourceValidationArgs'] schema: schema describes the schema used for validation, pruning, and defaulting of this version of the custom resource.
+        :param pulumi.Input[Sequence[pulumi.Input['SelectableFieldArgs']]] selectable_fields: selectableFields specifies paths to fields that may be used as field selectors. A maximum of 8 selectable fields are allowed. See https://kubernetes.io/docs/concepts/overview/working-with-objects/field-selectors
         :param pulumi.Input['CustomResourceSubresourcesArgs'] subresources: subresources specify what subresources this version of the defined custom resource have.
         """
         pulumi.set(__self__, "name", name)
@@ -1051,6 +1071,8 @@ class CustomResourceDefinitionVersionArgs:
             pulumi.set(__self__, "deprecation_warning", deprecation_warning)
         if schema is not None:
             pulumi.set(__self__, "schema", schema)
+        if selectable_fields is not None:
+            pulumi.set(__self__, "selectable_fields", selectable_fields)
         if subresources is not None:
             pulumi.set(__self__, "subresources", subresources)
 
@@ -1137,6 +1159,18 @@ class CustomResourceDefinitionVersionArgs:
     @schema.setter
     def schema(self, value: Optional[pulumi.Input['CustomResourceValidationArgs']]):
         pulumi.set(self, "schema", value)
+
+    @property
+    @pulumi.getter(name="selectableFields")
+    def selectable_fields(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['SelectableFieldArgs']]]]:
+        """
+        selectableFields specifies paths to fields that may be used as field selectors. A maximum of 8 selectable fields are allowed. See https://kubernetes.io/docs/concepts/overview/working-with-objects/field-selectors
+        """
+        return pulumi.get(self, "selectable_fields")
+
+    @selectable_fields.setter
+    def selectable_fields(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['SelectableFieldArgs']]]]):
+        pulumi.set(self, "selectable_fields", value)
 
     @property
     @pulumi.getter
@@ -2822,6 +2856,53 @@ class JSONSchemaPropsArgs:
     @x_kubernetes_validations.setter
     def x_kubernetes_validations(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['ValidationRuleArgs']]]]):
         pulumi.set(self, "x_kubernetes_validations", value)
+
+
+@pulumi.input_type
+class SelectableFieldPatchArgs:
+    def __init__(__self__, *,
+                 json_path: Optional[pulumi.Input[str]] = None):
+        """
+        SelectableField specifies the JSON path of a field that may be used with field selectors.
+        :param pulumi.Input[str] json_path: jsonPath is a simple JSON path which is evaluated against each custom resource to produce a field selector value. Only JSON paths without the array notation are allowed. Must point to a field of type string, boolean or integer. Types with enum values and strings with formats are allowed. If jsonPath refers to absent field in a resource, the jsonPath evaluates to an empty string. Must not point to metdata fields. Required.
+        """
+        if json_path is not None:
+            pulumi.set(__self__, "json_path", json_path)
+
+    @property
+    @pulumi.getter(name="jsonPath")
+    def json_path(self) -> Optional[pulumi.Input[str]]:
+        """
+        jsonPath is a simple JSON path which is evaluated against each custom resource to produce a field selector value. Only JSON paths without the array notation are allowed. Must point to a field of type string, boolean or integer. Types with enum values and strings with formats are allowed. If jsonPath refers to absent field in a resource, the jsonPath evaluates to an empty string. Must not point to metdata fields. Required.
+        """
+        return pulumi.get(self, "json_path")
+
+    @json_path.setter
+    def json_path(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "json_path", value)
+
+
+@pulumi.input_type
+class SelectableFieldArgs:
+    def __init__(__self__, *,
+                 json_path: pulumi.Input[str]):
+        """
+        SelectableField specifies the JSON path of a field that may be used with field selectors.
+        :param pulumi.Input[str] json_path: jsonPath is a simple JSON path which is evaluated against each custom resource to produce a field selector value. Only JSON paths without the array notation are allowed. Must point to a field of type string, boolean or integer. Types with enum values and strings with formats are allowed. If jsonPath refers to absent field in a resource, the jsonPath evaluates to an empty string. Must not point to metdata fields. Required.
+        """
+        pulumi.set(__self__, "json_path", json_path)
+
+    @property
+    @pulumi.getter(name="jsonPath")
+    def json_path(self) -> pulumi.Input[str]:
+        """
+        jsonPath is a simple JSON path which is evaluated against each custom resource to produce a field selector value. Only JSON paths without the array notation are allowed. Must point to a field of type string, boolean or integer. Types with enum values and strings with formats are allowed. If jsonPath refers to absent field in a resource, the jsonPath evaluates to an empty string. Must not point to metdata fields. Required.
+        """
+        return pulumi.get(self, "json_path")
+
+    @json_path.setter
+    def json_path(self, value: pulumi.Input[str]):
+        pulumi.set(self, "json_path", value)
 
 
 @pulumi.input_type

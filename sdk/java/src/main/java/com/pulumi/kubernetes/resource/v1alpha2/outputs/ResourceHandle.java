@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.resource.v1alpha2.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.kubernetes.resource.v1alpha2.outputs.StructuredResourceHandle;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -23,6 +24,11 @@ public final class ResourceHandle {
      * 
      */
     private @Nullable String driverName;
+    /**
+     * @return If StructuredData is set, then it needs to be used instead of Data.
+     * 
+     */
+    private @Nullable StructuredResourceHandle structuredData;
 
     private ResourceHandle() {}
     /**
@@ -41,6 +47,13 @@ public final class ResourceHandle {
     public Optional<String> driverName() {
         return Optional.ofNullable(this.driverName);
     }
+    /**
+     * @return If StructuredData is set, then it needs to be used instead of Data.
+     * 
+     */
+    public Optional<StructuredResourceHandle> structuredData() {
+        return Optional.ofNullable(this.structuredData);
+    }
 
     public static Builder builder() {
         return new Builder();
@@ -53,11 +66,13 @@ public final class ResourceHandle {
     public static final class Builder {
         private @Nullable String data;
         private @Nullable String driverName;
+        private @Nullable StructuredResourceHandle structuredData;
         public Builder() {}
         public Builder(ResourceHandle defaults) {
     	      Objects.requireNonNull(defaults);
     	      this.data = defaults.data;
     	      this.driverName = defaults.driverName;
+    	      this.structuredData = defaults.structuredData;
         }
 
         @CustomType.Setter
@@ -70,10 +85,16 @@ public final class ResourceHandle {
             this.driverName = driverName;
             return this;
         }
+        @CustomType.Setter
+        public Builder structuredData(@Nullable StructuredResourceHandle structuredData) {
+            this.structuredData = structuredData;
+            return this;
+        }
         public ResourceHandle build() {
             final var o = new ResourceHandle();
             o.data = data;
             o.driverName = driverName;
+            o.structuredData = structuredData;
             return o;
         }
     }

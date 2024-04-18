@@ -358,17 +358,16 @@ class IPAddressSpec(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
-                 parent_ref: Optional['outputs.ParentReference'] = None):
+                 parent_ref: 'outputs.ParentReference'):
         """
         IPAddressSpec describe the attributes in an IP Address.
         :param 'ParentReferenceArgs' parent_ref: ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
         """
-        if parent_ref is not None:
-            pulumi.set(__self__, "parent_ref", parent_ref)
+        pulumi.set(__self__, "parent_ref", parent_ref)
 
     @property
     @pulumi.getter(name="parentRef")
-    def parent_ref(self) -> Optional['outputs.ParentReference']:
+    def parent_ref(self) -> 'outputs.ParentReference':
         """
         ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
         """
@@ -421,29 +420,43 @@ class ParentReference(dict):
     ParentReference describes a reference to a parent object.
     """
     def __init__(__self__, *,
+                 name: str,
+                 resource: str,
                  group: Optional[str] = None,
-                 name: Optional[str] = None,
                  namespace: Optional[str] = None,
-                 resource: Optional[str] = None,
                  uid: Optional[str] = None):
         """
         ParentReference describes a reference to a parent object.
-        :param str group: Group is the group of the object being referenced.
         :param str name: Name is the name of the object being referenced.
-        :param str namespace: Namespace is the namespace of the object being referenced.
         :param str resource: Resource is the resource of the object being referenced.
+        :param str group: Group is the group of the object being referenced.
+        :param str namespace: Namespace is the namespace of the object being referenced.
         :param str uid: UID is the uid of the object being referenced.
         """
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "resource", resource)
         if group is not None:
             pulumi.set(__self__, "group", group)
-        if name is not None:
-            pulumi.set(__self__, "name", name)
         if namespace is not None:
             pulumi.set(__self__, "namespace", namespace)
-        if resource is not None:
-            pulumi.set(__self__, "resource", resource)
         if uid is not None:
             pulumi.set(__self__, "uid", uid)
+
+    @property
+    @pulumi.getter
+    def name(self) -> str:
+        """
+        Name is the name of the object being referenced.
+        """
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def resource(self) -> str:
+        """
+        Resource is the resource of the object being referenced.
+        """
+        return pulumi.get(self, "resource")
 
     @property
     @pulumi.getter
@@ -455,27 +468,11 @@ class ParentReference(dict):
 
     @property
     @pulumi.getter
-    def name(self) -> Optional[str]:
-        """
-        Name is the name of the object being referenced.
-        """
-        return pulumi.get(self, "name")
-
-    @property
-    @pulumi.getter
     def namespace(self) -> Optional[str]:
         """
         Namespace is the namespace of the object being referenced.
         """
         return pulumi.get(self, "namespace")
-
-    @property
-    @pulumi.getter
-    def resource(self) -> Optional[str]:
-        """
-        Resource is the resource of the object being referenced.
-        """
-        return pulumi.get(self, "resource")
 
     @property
     @pulumi.getter

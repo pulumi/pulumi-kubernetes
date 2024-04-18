@@ -16,7 +16,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     public class DownwardAPIVolumeFilePatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Required: Selects a field of the pod: only annotations, labels, name and namespace are supported.
+        /// Required: Selects a field of the pod: only annotations, labels, name, namespace and uid are supported.
         /// </summary>
         [Input("fieldRef")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.ObjectFieldSelectorPatchArgs>? FieldRef { get; set; }

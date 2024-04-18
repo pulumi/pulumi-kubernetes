@@ -60,6 +60,8 @@ if typing.TYPE_CHECKING:
     settings = __settings
     import pulumi_kubernetes.storage as __storage
     storage = __storage
+    import pulumi_kubernetes.storagemigration as __storagemigration
+    storagemigration = __storagemigration
     import pulumi_kubernetes.yaml as __yaml
     yaml = __yaml
 else:
@@ -88,6 +90,7 @@ else:
     scheduling = _utilities.lazy_import('pulumi_kubernetes.scheduling')
     settings = _utilities.lazy_import('pulumi_kubernetes.settings')
     storage = _utilities.lazy_import('pulumi_kubernetes.storage')
+    storagemigration = _utilities.lazy_import('pulumi_kubernetes.storagemigration')
     yaml = _utilities.lazy_import('pulumi_kubernetes.yaml')
 
 _utilities.register(
@@ -101,6 +104,12 @@ _utilities.register(
    "kubernetes:admissionregistration.k8s.io/v1:MutatingWebhookConfiguration": "MutatingWebhookConfiguration",
    "kubernetes:admissionregistration.k8s.io/v1:MutatingWebhookConfigurationList": "MutatingWebhookConfigurationList",
    "kubernetes:admissionregistration.k8s.io/v1:MutatingWebhookConfigurationPatch": "MutatingWebhookConfigurationPatch",
+   "kubernetes:admissionregistration.k8s.io/v1:ValidatingAdmissionPolicy": "ValidatingAdmissionPolicy",
+   "kubernetes:admissionregistration.k8s.io/v1:ValidatingAdmissionPolicyBinding": "ValidatingAdmissionPolicyBinding",
+   "kubernetes:admissionregistration.k8s.io/v1:ValidatingAdmissionPolicyBindingList": "ValidatingAdmissionPolicyBindingList",
+   "kubernetes:admissionregistration.k8s.io/v1:ValidatingAdmissionPolicyBindingPatch": "ValidatingAdmissionPolicyBindingPatch",
+   "kubernetes:admissionregistration.k8s.io/v1:ValidatingAdmissionPolicyList": "ValidatingAdmissionPolicyList",
+   "kubernetes:admissionregistration.k8s.io/v1:ValidatingAdmissionPolicyPatch": "ValidatingAdmissionPolicyPatch",
    "kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfiguration": "ValidatingWebhookConfiguration",
    "kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfigurationList": "ValidatingWebhookConfigurationList",
    "kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfigurationPatch": "ValidatingWebhookConfigurationPatch"
@@ -756,13 +765,22 @@ _utilities.register(
    "kubernetes:resource.k8s.io/v1alpha2:PodSchedulingContextPatch": "PodSchedulingContextPatch",
    "kubernetes:resource.k8s.io/v1alpha2:ResourceClaim": "ResourceClaim",
    "kubernetes:resource.k8s.io/v1alpha2:ResourceClaimList": "ResourceClaimList",
+   "kubernetes:resource.k8s.io/v1alpha2:ResourceClaimParameters": "ResourceClaimParameters",
+   "kubernetes:resource.k8s.io/v1alpha2:ResourceClaimParametersList": "ResourceClaimParametersList",
+   "kubernetes:resource.k8s.io/v1alpha2:ResourceClaimParametersPatch": "ResourceClaimParametersPatch",
    "kubernetes:resource.k8s.io/v1alpha2:ResourceClaimPatch": "ResourceClaimPatch",
    "kubernetes:resource.k8s.io/v1alpha2:ResourceClaimTemplate": "ResourceClaimTemplate",
    "kubernetes:resource.k8s.io/v1alpha2:ResourceClaimTemplateList": "ResourceClaimTemplateList",
    "kubernetes:resource.k8s.io/v1alpha2:ResourceClaimTemplatePatch": "ResourceClaimTemplatePatch",
    "kubernetes:resource.k8s.io/v1alpha2:ResourceClass": "ResourceClass",
    "kubernetes:resource.k8s.io/v1alpha2:ResourceClassList": "ResourceClassList",
-   "kubernetes:resource.k8s.io/v1alpha2:ResourceClassPatch": "ResourceClassPatch"
+   "kubernetes:resource.k8s.io/v1alpha2:ResourceClassParameters": "ResourceClassParameters",
+   "kubernetes:resource.k8s.io/v1alpha2:ResourceClassParametersList": "ResourceClassParametersList",
+   "kubernetes:resource.k8s.io/v1alpha2:ResourceClassParametersPatch": "ResourceClassParametersPatch",
+   "kubernetes:resource.k8s.io/v1alpha2:ResourceClassPatch": "ResourceClassPatch",
+   "kubernetes:resource.k8s.io/v1alpha2:ResourceSlice": "ResourceSlice",
+   "kubernetes:resource.k8s.io/v1alpha2:ResourceSliceList": "ResourceSliceList",
+   "kubernetes:resource.k8s.io/v1alpha2:ResourceSlicePatch": "ResourceSlicePatch"
   }
  },
  {
@@ -860,6 +878,16 @@ _utilities.register(
    "kubernetes:storage.k8s.io/v1beta1:VolumeAttachment": "VolumeAttachment",
    "kubernetes:storage.k8s.io/v1beta1:VolumeAttachmentList": "VolumeAttachmentList",
    "kubernetes:storage.k8s.io/v1beta1:VolumeAttachmentPatch": "VolumeAttachmentPatch"
+  }
+ },
+ {
+  "pkg": "kubernetes",
+  "mod": "storagemigration.k8s.io/v1alpha1",
+  "fqn": "pulumi_kubernetes.storagemigration.v1alpha1",
+  "classes": {
+   "kubernetes:storagemigration.k8s.io/v1alpha1:StorageVersionMigration": "StorageVersionMigration",
+   "kubernetes:storagemigration.k8s.io/v1alpha1:StorageVersionMigrationList": "StorageVersionMigrationList",
+   "kubernetes:storagemigration.k8s.io/v1alpha1:StorageVersionMigrationPatch": "StorageVersionMigrationPatch"
   }
  },
  {

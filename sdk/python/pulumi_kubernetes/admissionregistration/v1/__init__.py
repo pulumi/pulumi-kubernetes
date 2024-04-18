@@ -8,6 +8,12 @@ import typing
 from .MutatingWebhookConfiguration import *
 from .MutatingWebhookConfigurationList import *
 from .MutatingWebhookConfigurationPatch import *
+from .ValidatingAdmissionPolicy import *
+from .ValidatingAdmissionPolicyBinding import *
+from .ValidatingAdmissionPolicyBindingList import *
+from .ValidatingAdmissionPolicyBindingPatch import *
+from .ValidatingAdmissionPolicyList import *
+from .ValidatingAdmissionPolicyPatch import *
 from .ValidatingWebhookConfiguration import *
 from .ValidatingWebhookConfigurationList import *
 from .ValidatingWebhookConfigurationPatch import *
