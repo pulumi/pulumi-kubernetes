@@ -142,6 +142,12 @@ func Test_MergeMaps(t *testing.T) {
 }
 
 func TestDecodeRelease(t *testing.T) {
+	bitnamiImage := `
+image:
+  repository: bitnami/nginx
+  tag: latest
+`
+
 	tests := []struct {
 		name  string
 		given resource.PropertyMap
@@ -166,6 +172,74 @@ image:
 					"image": map[string]any{
 						"tag":        "1.25.0",
 						"repository": "bitnami/nginx",
+					},
+				},
+			},
+		},
+		{
+			name: "valueYamlFiles with literals",
+			given: resource.PropertyMap{
+				"values": resource.NewObjectProperty(resource.PropertyMap{
+					"image": resource.NewObjectProperty(resource.PropertyMap{
+						"tag": resource.NewStringProperty("patched"),
+					}),
+				},
+				),
+				"valueYamlFiles": resource.NewArrayProperty([]resource.PropertyValue{
+					resource.NewAssetProperty(&asset.Asset{Text: bitnamiImage}),
+				}),
+			},
+			want: &Release{
+				Values: map[string]any{
+					"image": map[string]any{
+						"repository": "bitnami/nginx",
+						"tag":        "patched",
+					},
+				},
+			},
+		},
+		{
+			name: "valueYamlFiles with literals and allowNullValues=true",
+			given: resource.PropertyMap{
+				"allowNullValues": resource.NewBoolProperty(true),
+				"values": resource.NewObjectProperty(resource.PropertyMap{
+					"image": resource.NewObjectProperty(resource.PropertyMap{
+						"tag": resource.NewNullProperty(),
+					}),
+				},
+				),
+				"valueYamlFiles": resource.NewArrayProperty([]resource.PropertyValue{
+					resource.NewAssetProperty(&asset.Asset{Text: bitnamiImage}),
+				}),
+			},
+			want: &Release{
+				AllowNullValues: true,
+				Values: map[string]any{
+					"image": map[string]any{
+						"repository": "bitnami/nginx",
+						"tag":        nil,
+					},
+				},
+			},
+		},
+		{
+			name: "valueYamlFiles with literals and allowNullValues=false",
+			given: resource.PropertyMap{
+				"values": resource.NewObjectProperty(resource.PropertyMap{
+					"image": resource.NewObjectProperty(resource.PropertyMap{
+						"tag": resource.NewNullProperty(),
+					}),
+				},
+				),
+				"valueYamlFiles": resource.NewArrayProperty([]resource.PropertyValue{
+					resource.NewAssetProperty(&asset.Asset{Text: bitnamiImage}),
+				}),
+			},
+			want: &Release{
+				Values: map[string]any{
+					"image": map[string]any{
+						"repository": "bitnami/nginx",
+						"tag":        "latest", // Not removed.
 					},
 				},
 			},
