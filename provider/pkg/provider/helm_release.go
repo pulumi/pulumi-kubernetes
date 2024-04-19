@@ -32,6 +32,7 @@ import (
 	"github.com/mitchellh/mapstructure"
 	pkgerrors "github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/helm"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/host"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
@@ -303,11 +304,7 @@ func decodeRelease(pm resource.PropertyMap, label string) (*Release, error) {
 					if err = yaml.Unmarshal(b, &valuesMap); err != nil {
 						return nil, err
 					}
-					mergedValues, err := mergeMaps(values, valuesMap, false)
-					if err != nil {
-						return nil, err
-					}
-					values = mergedValues
+					values = helm.MergeMaps(values, valuesMap)
 				default:
 					return nil, fmt.Errorf("unsupported type for 'valueYamlFiles' arg: %T", v)
 				}
