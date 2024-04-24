@@ -40,9 +40,13 @@ type ChartArgs struct {
 	Devel            pulumi.BoolInput           `pulumi:"devel,optional"`
 	RepositoryOpts   helmv3.RepositoryOptsInput `pulumi:"repositoryOpts,optional"`
 	DependencyUpdate pulumi.BoolInput           `pulumi:"dependencyUpdate,optional"`
-	ResourcePrefix   pulumi.StringInput         `pulumi:"resourcePrefix,optional"`
-	SkipAwait        pulumi.BoolInput           `pulumi:"skipAwait,optional"`
-	CreateNamespace  pulumi.BoolInput           `pulumi:"createNamespace,optional"`
+
+	Values      pulumi.MapInput        `pulumi:"values,optional"`
+	ValuesFiles pulumi.AssetArrayInput `pulumi:"valueYamlFiles,optional"`
+
+	ResourcePrefix  pulumi.StringInput `pulumi:"resourcePrefix,optional"`
+	SkipAwait       pulumi.BoolInput   `pulumi:"skipAwait,optional"`
+	CreateNamespace pulumi.BoolInput   `pulumi:"createNamespace,optional"`
 }
 
 type chartArgs struct {
@@ -53,15 +57,25 @@ type chartArgs struct {
 	Devel            bool
 	RepositoryOpts   helmv3.RepositoryOpts
 	DependencyUpdate bool
-	ResourcePrefix   *string
-	SkipAwait        bool
-	CreateNamespace  bool
+
+	Values      map[string]any
+	ValuesFiles []pulumi.Asset
+
+	ResourcePrefix  *string
+	SkipAwait       bool
+	CreateNamespace bool
 }
 
 func unwrapChartArgs(ctx context.Context, args *ChartArgs) (*chartArgs, internals.UnsafeAwaitOutputResult, error) {
+	_, err := internals.UnsafeAwaitOutput(ctx, pulumi.ToOutput(args.Values))
+	if err != nil {
+		return nil, internals.UnsafeAwaitOutputResult{}, err
+	}
+
 	result, err := internals.UnsafeAwaitOutput(ctx, pulumi.All(
 		args.Name, args.Namespace,
 		args.Chart, args.Version, args.Devel, args.RepositoryOpts, args.DependencyUpdate,
+		args.Values, args.ValuesFiles,
 		args.ResourcePrefix, args.SkipAwait, args.CreateNamespace))
 	if err != nil {
 		return nil, result, err
@@ -80,6 +94,10 @@ func unwrapChartArgs(ctx context.Context, args *ChartArgs) (*chartArgs, internal
 	r.Devel, _ = pop().(bool)
 	r.RepositoryOpts, _ = pop().(helmv3.RepositoryOpts)
 	r.DependencyUpdate, _ = pop().(bool)
+
+	r.Values, _ = pop().(map[string]any)
+	r.ValuesFiles, _ = pop().([]pulumi.Asset)
+
 	if v, ok := pop().(string); ok {
 		r.ResourcePrefix = &v
 	}
@@ -114,19 +132,6 @@ func (r *ChartProvider) Construct(ctx *pulumi.Context, typ, name string, inputs 
 		return nil, fmt.Errorf("setting args: %w", err)
 	}
 
-	// Check if all the required args are known, and print a warning if not.
-	result, err := internals.UnsafeAwaitOutput(ctx.Context(), pulumi.All(
-		args.Name, args.Namespace,
-		args.Chart, args.Version, args.Devel, args.RepositoryOpts,
-		args.ResourcePrefix, args.SkipAwait, args.CreateNamespace))
-	if err != nil {
-		return nil, err
-	}
-	if !result.Known {
-		msg := fmt.Sprintf("%s:%s -- Required input properties have unknown values. Preview is incomplete.\n", typ, name)
-		_ = ctx.Log.Warn(msg, nil)
-	}
-
 	// Unpack the resolved inputs.
 	chartArgs, result, err := unwrapChartArgs(ctx.Context(), args)
 	if err != nil {
@@ -150,14 +155,19 @@ func (r *ChartProvider) Construct(ctx *pulumi.Context, typ, name string, inputs 
 	tool := kubehelm.NewTool(r.opts.HelmOptions.EnvSettings)
 	tool.HelmDriver = r.opts.HelmOptions.HelmDriver
 	cmd := tool.Template()
-	cmd.ReleaseName = chartArgs.Name
-	cmd.Namespace = chartArgs.Namespace
+
 	cmd.Chart = chartArgs.Chart
 	cmd.Version = chartArgs.Version
 	cmd.Devel = chartArgs.Devel
 	cmd.DependencyUpdate = chartArgs.DependencyUpdate
-	cmd.IncludeCRDs = true
 	kubehelm.ApplyRepositoryOpts(&cmd.ChartPathOptions, chartArgs.RepositoryOpts)
+
+	cmd.Values.Values = chartArgs.Values
+	cmd.Values.ValuesFiles = chartArgs.ValuesFiles
+
+	cmd.ReleaseName = chartArgs.Name
+	cmd.Namespace = chartArgs.Namespace
+	cmd.IncludeCRDs = true
 
 	// Execute the Helm command
 	release, err := cmd.Execute(ctx.Context())

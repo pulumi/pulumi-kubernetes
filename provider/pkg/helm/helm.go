@@ -1,17 +1,20 @@
-// Copyright 2016-2024, Pulumi Corporation.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+/*
+Copyright The Helm Authors.
 
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+
+// package helm contains code vendored from the upstream Helm project.
 package helm
 
 import (
@@ -24,12 +27,12 @@ import (
 	"github.com/pkg/errors"
 	helmv3 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v3"
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"helm.sh/helm/v3/pkg/action"
 	"helm.sh/helm/v3/pkg/chart"
 	"helm.sh/helm/v3/pkg/chart/loader"
 	"helm.sh/helm/v3/pkg/chartutil"
 	"helm.sh/helm/v3/pkg/cli"
-	"helm.sh/helm/v3/pkg/cli/values"
 	"helm.sh/helm/v3/pkg/downloader"
 	"helm.sh/helm/v3/pkg/getter"
 	"helm.sh/helm/v3/pkg/registry"
@@ -59,7 +62,6 @@ type TemplateOrInstallCommand struct {
 	*action.Install
 	tool         *Tool
 	actionConfig *action.Configuration
-	valueOpts    *values.Options
 
 	// Chart is the chart specification, which can be:
 	// - a path to a local chart directory or archive file
@@ -69,6 +71,9 @@ type TemplateOrInstallCommand struct {
 
 	// DependencyBuild performs "helm dependency build" before installing the chart.
 	DependencyBuild bool
+
+	// Values to be applied to the chart.
+	Values ValueOpts
 }
 
 func (cmd *TemplateOrInstallCommand) addFlags() {
@@ -103,13 +108,9 @@ func (cmd *TemplateOrInstallCommand) addInstallFlags() {
 
 func (cmd *TemplateOrInstallCommand) addValueOptionsFlags() {
 	// https://github.com/helm/helm/blob/14d0c13e9eefff5b4a1b511cf50643529692ec94/cmd/helm/flags.go#L45-51
-	v := cmd.valueOpts
-	v.ValueFiles = []string{}
-	v.Values = []string{}
-	v.StringValues = []string{}
-	v.FileValues = []string{}
-	v.JSONValues = []string{}
-	v.LiteralValues = []string{}
+	v := cmd.Values
+	v.Values = map[string]any{}
+	v.ValuesFiles = []pulumi.Asset{}
 }
 
 func (cmd *TemplateOrInstallCommand) addChartPathOptionsFlags() {
@@ -151,8 +152,8 @@ func (t *Tool) Template() *TemplateCommand {
 		TemplateOrInstallCommand: TemplateOrInstallCommand{
 			tool:         t,
 			actionConfig: actionConfig,
-			valueOpts:    &values.Options{},
 			Install:      action.NewInstall(actionConfig),
+			Values:       ValueOpts{},
 		},
 	}
 
@@ -209,7 +210,7 @@ func (cmd *TemplateCommand) Execute(ctx context.Context) (*release.Release, erro
 func (cmd *TemplateOrInstallCommand) runInstall(ctx context.Context) (*release.Release, error) {
 	settings := cmd.tool.EnvSettings
 	client := cmd.Install
-	valueOpts := cmd.valueOpts
+	valueOpts := cmd.Values
 
 	if client.Version == "" && client.Devel {
 		debug("setting version to >0.0.0-0")
@@ -230,6 +231,7 @@ func (cmd *TemplateOrInstallCommand) runInstall(ctx context.Context) (*release.R
 	debug("CHART PATH: %s\n", cp)
 
 	p := getter.All(settings)
+	// TODO: add a "file:" getter for parity with Pulumi resource package
 	vals, err := valueOpts.MergeValues(p)
 	if err != nil {
 		return nil, err
