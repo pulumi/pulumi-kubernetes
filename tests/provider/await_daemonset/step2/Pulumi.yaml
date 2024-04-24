@@ -17,13 +17,13 @@ resources:
           spec:
             containers:
               - name: nginx
-                image: nginx:stable-alpine-slim
-        minReadySeconds: 10
+                image: nginx:stable-alpine-slim # Change the image to something valid.
+        minReadySeconds: 5
     options:
       customTimeouts:
-        create: 30s
-        update: 30s
-        delete: 30s
+        create: 15s
+        update: 15s
+        delete: 15s
 outputs:
   currentNumberScheduled: ${ds.status.currentNumberScheduled}
   desiredNumberScheduled: ${ds.status.desiredNumberScheduled}

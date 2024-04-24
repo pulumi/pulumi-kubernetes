@@ -1,9 +1,5 @@
 name: await-daemonset
 runtime: yaml
-plugins:
-  providers:
-    - name: kubernetes
-      path: ../../../../bin
 resources:
   ds:
     type: kubernetes:apps/v1:DaemonSet
@@ -22,12 +18,12 @@ resources:
             containers:
               - name: nginx
                 image: nginx:stable-alpine3.17-slim
-        minReadySeconds: 10
+        minReadySeconds: 5
     options:
       customTimeouts:
-        create: 30s
-        update: 30s
-        delete: 30s
+        create: 15s
+        update: 15s
+        delete: 15s
 outputs:
   currentNumberScheduled: ${ds.status.currentNumberScheduled}
   desiredNumberScheduled: ${ds.status.desiredNumberScheduled}

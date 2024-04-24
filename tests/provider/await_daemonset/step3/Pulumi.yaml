@@ -17,8 +17,8 @@ resources:
           spec:
             containers:
               - name: nginx
-                image: nginx:invalid-tag
-        minReadySeconds: 10
+                image: nginx:invalid-tag # Invalid tag -- this will never become ready.
+        minReadySeconds: 5
     options:
       customTimeouts:
         create: 30s
