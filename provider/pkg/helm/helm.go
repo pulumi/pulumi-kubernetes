@@ -40,28 +40,33 @@ import (
 	"k8s.io/client-go/util/homedir"
 )
 
+// Tool for executing Helm commands via the Helm library.
 type Tool struct {
 	EnvSettings *cli.EnvSettings
 	HelmDriver  string
 }
 
+// NewTool creates a new Helm tool with the given environment settings.
 func NewTool(settings *cli.EnvSettings) *Tool {
+	helmDriver := os.Getenv("HELM_DRIVER")
 	return &Tool{
 		EnvSettings: settings,
+		HelmDriver:  helmDriver,
 	}
 }
 
-func (t *Tool) initialize(actionConfig *action.Configuration, namespaceOverride string) error {
+func (t *Tool) initActionConfig(actionConfig *action.Configuration, namespaceOverride string) error {
 	if namespaceOverride == "" {
 		namespaceOverride = t.EnvSettings.Namespace()
 	}
+	// https://github.com/helm/helm/blob/635b8cf33d25a86131635c32f35b2a76256e40cb/cmd/helm/helm.go#L72-L81
 	return actionConfig.Init(t.EnvSettings.RESTClientGetter(), namespaceOverride, t.HelmDriver, debug)
 }
 
+// TemplateOrInstallCommand for `helm template` or `helm install`.
 type TemplateOrInstallCommand struct {
+	// Install parameters.
 	*action.Install
-	tool         *Tool
-	actionConfig *action.Configuration
 
 	// Chart is the chart specification, which can be:
 	// - a path to a local chart directory or archive file
@@ -74,6 +79,9 @@ type TemplateOrInstallCommand struct {
 
 	// Values to be applied to the chart.
 	Values ValueOpts
+
+	tool         *Tool
+	actionConfig *action.Configuration
 }
 
 func (cmd *TemplateOrInstallCommand) addFlags() {
@@ -82,6 +90,7 @@ func (cmd *TemplateOrInstallCommand) addFlags() {
 }
 
 func (cmd *TemplateOrInstallCommand) addInstallFlags() {
+	// https://github.com/helm/helm/blob/14d0c13e9eefff5b4a1b511cf50643529692ec94/cmd/helm/install.go#L176-L203
 	client := cmd.Install
 	client.CreateNamespace = false
 	client.DryRunOption = "client"
@@ -107,14 +116,14 @@ func (cmd *TemplateOrInstallCommand) addInstallFlags() {
 }
 
 func (cmd *TemplateOrInstallCommand) addValueOptionsFlags() {
-	// https://github.com/helm/helm/blob/14d0c13e9eefff5b4a1b511cf50643529692ec94/cmd/helm/flags.go#L45-51
+	// https://github.com/helm/helm/blob/14d0c13e9eefff5b4a1b511cf50643529692ec94/cmd/helm/flags.go#L45-L51
 	v := cmd.Values
 	v.Values = map[string]any{}
 	v.ValuesFiles = []pulumi.Asset{}
 }
 
 func (cmd *TemplateOrInstallCommand) addChartPathOptionsFlags() {
-	// https://github.com/helm/helm/blob/14d0c13e9eefff5b4a1b511cf50643529692ec94/cmd/helm/flags.go#L54-66
+	// https://github.com/helm/helm/blob/14d0c13e9eefff5b4a1b511cf50643529692ec94/cmd/helm/flags.go#L54-L66
 	c := &cmd.Install.ChartPathOptions
 	c.Version = ""
 	c.Verify = false
@@ -130,14 +139,12 @@ func (cmd *TemplateOrInstallCommand) addChartPathOptionsFlags() {
 	c.PassCredentialsAll = false
 }
 
-type InstallCommand struct {
-	TemplateOrInstallCommand
-}
-
+// TemplateCommand for `helm template`.
 type TemplateCommand struct {
 	TemplateOrInstallCommand
 
 	// https://github.com/helm/helm/blob/635b8cf33d25a86131635c32f35b2a76256e40cb/cmd/helm/template.go#L50-L57
+
 	Validate    bool
 	IncludeCRDs bool
 	SkipTests   bool
@@ -145,6 +152,7 @@ type TemplateCommand struct {
 	ExtraAPIs   []string
 }
 
+// Template returns a new `helm template` command.
 func (t *Tool) Template() *TemplateCommand {
 	actionConfig := new(action.Configuration)
 
@@ -157,6 +165,7 @@ func (t *Tool) Template() *TemplateCommand {
 		},
 	}
 
+	// https://github.com/helm/helm/blob/635b8cf33d25a86131635c32f35b2a76256e40cb/cmd/helm/template.go#L192-L203
 	cmd.addFlags()
 	cmd.Install.OutputDir = ""
 	cmd.Validate = false
@@ -173,7 +182,7 @@ func (t *Tool) Template() *TemplateCommand {
 func (cmd *TemplateCommand) Execute(ctx context.Context) (*release.Release, error) {
 	client := cmd.Install
 
-	err := cmd.tool.initialize(cmd.actionConfig, cmd.Namespace)
+	err := cmd.tool.initActionConfig(cmd.actionConfig, cmd.Namespace)
 	if err != nil {
 		return nil, err
 	}
@@ -196,7 +205,9 @@ func (cmd *TemplateCommand) Execute(ctx context.Context) (*release.Release, erro
 	client.SetRegistryClient(registryClient)
 
 	// https://github.com/helm/helm/blob/635b8cf33d25a86131635c32f35b2a76256e40cb/cmd/helm/template.go#L88-L94
-	client.DryRunOption = "client"
+	if client.DryRunOption == "" {
+		client.DryRunOption = "true"
+	}
 	client.DryRun = true
 	// client.ReleaseName = "release-name"
 	client.Replace = true // Skip the name check
@@ -207,6 +218,7 @@ func (cmd *TemplateCommand) Execute(ctx context.Context) (*release.Release, erro
 	return cmd.runInstall(ctx)
 }
 
+// https://github.com/helm/helm/blob/14d0c13e9eefff5b4a1b511cf50643529692ec94/cmd/helm/install.go#L221
 func (cmd *TemplateOrInstallCommand) runInstall(ctx context.Context) (*release.Release, error) {
 	settings := cmd.tool.EnvSettings
 	client := cmd.Install
@@ -253,8 +265,6 @@ func (cmd *TemplateOrInstallCommand) runInstall(ctx context.Context) (*release.R
 
 	if req := chartRequested.Metadata.Dependencies; req != nil {
 		// If CheckDependencies returns an error, we have unfulfilled dependencies.
-		// As of Helm 2.4.0, this is treated as a stopping condition:
-		// https://github.com/helm/helm/issues/2209
 		if err := action.CheckDependencies(chartRequested, req); err != nil {
 			err = errors.Wrap(err, "An error occurred while checking for chart dependencies. You may need to run `helm dependency build` to fetch missing dependencies")
 			if client.DependencyUpdate || cmd.DependencyBuild {
@@ -270,6 +280,7 @@ func (cmd *TemplateOrInstallCommand) runInstall(ctx context.Context) (*release.R
 					RegistryClient:   client.GetRegistryClient(),
 				}
 				if cmd.DependencyBuild {
+					// TODO check for lock file before running build (or might trigger update)
 					if err := man.Build(); err != nil {
 						return nil, err
 					}
