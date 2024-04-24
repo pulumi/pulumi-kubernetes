@@ -17,6 +17,8 @@ package provider
 import (
 	"testing"
 
+	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/resource/asset"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -136,5 +138,117 @@ func Test_MergeMaps(t *testing.T) {
 			require.NoError(t, err)
 			assert.Equal(t, test.expected, merged)
 		})
+	}
+}
+
+func TestDecodeRelease(t *testing.T) {
+	bitnamiImage := `
+image:
+  repository: bitnami/nginx
+  tag: latest
+`
+
+	tests := []struct {
+		name  string
+		given resource.PropertyMap
+		want  *Release
+	}{
+		{
+			name: "valueYamlFiles layering",
+			given: resource.PropertyMap{
+				"valueYamlFiles": resource.NewArrayProperty([]resource.PropertyValue{
+					resource.NewAssetProperty(&asset.Asset{Text: `
+image:
+  repository: bitnami/nginx
+`}),
+					resource.NewAssetProperty(&asset.Asset{Text: `
+image:
+  tag: "1.25.0"
+`}),
+				}),
+			},
+			want: &Release{
+				Values: map[string]any{
+					"image": map[string]any{
+						"tag":        "1.25.0",
+						"repository": "bitnami/nginx",
+					},
+				},
+			},
+		},
+		{
+			name: "valueYamlFiles with literals",
+			given: resource.PropertyMap{
+				"values": resource.NewObjectProperty(resource.PropertyMap{
+					"image": resource.NewObjectProperty(resource.PropertyMap{
+						"tag": resource.NewStringProperty("patched"),
+					}),
+				},
+				),
+				"valueYamlFiles": resource.NewArrayProperty([]resource.PropertyValue{
+					resource.NewAssetProperty(&asset.Asset{Text: bitnamiImage}),
+				}),
+			},
+			want: &Release{
+				Values: map[string]any{
+					"image": map[string]any{
+						"repository": "bitnami/nginx",
+						"tag":        "patched",
+					},
+				},
+			},
+		},
+		{
+			name: "valueYamlFiles with literals and allowNullValues=true",
+			given: resource.PropertyMap{
+				"allowNullValues": resource.NewBoolProperty(true),
+				"values": resource.NewObjectProperty(resource.PropertyMap{
+					"image": resource.NewObjectProperty(resource.PropertyMap{
+						"tag": resource.NewNullProperty(),
+					}),
+				},
+				),
+				"valueYamlFiles": resource.NewArrayProperty([]resource.PropertyValue{
+					resource.NewAssetProperty(&asset.Asset{Text: bitnamiImage}),
+				}),
+			},
+			want: &Release{
+				AllowNullValues: true,
+				Values: map[string]any{
+					"image": map[string]any{
+						"repository": "bitnami/nginx",
+						"tag":        nil,
+					},
+				},
+			},
+		},
+		{
+			name: "valueYamlFiles with literals and allowNullValues=false",
+			given: resource.PropertyMap{
+				"values": resource.NewObjectProperty(resource.PropertyMap{
+					"image": resource.NewObjectProperty(resource.PropertyMap{
+						"tag": resource.NewNullProperty(),
+					}),
+				},
+				),
+				"valueYamlFiles": resource.NewArrayProperty([]resource.PropertyValue{
+					resource.NewAssetProperty(&asset.Asset{Text: bitnamiImage}),
+				}),
+			},
+			want: &Release{
+				Values: map[string]any{
+					"image": map[string]any{
+						"repository": "bitnami/nginx",
+						"tag":        "latest", // Not removed.
+					},
+				},
+			},
+		},
+	}
+
+	for _, tt := range tests {
+		actual, err := decodeRelease(tt.given, "")
+		assert.NoError(t, err)
+		assert.Equal(t, tt.want, actual)
 	}
 }
