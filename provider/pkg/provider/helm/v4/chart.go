@@ -25,7 +25,6 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/internals"
 	pulumiprovider "github.com/pulumi/pulumi/sdk/v3/go/pulumi/provider"
-	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
 type ChartProvider struct {
@@ -43,10 +42,10 @@ type ChartArgs struct {
 
 	Values      pulumi.MapInput        `pulumi:"values,optional"`
 	ValuesFiles pulumi.AssetArrayInput `pulumi:"valueYamlFiles,optional"`
+	SkipCrds    pulumi.BoolInput       `pulumi:"skipCrds,optional"`
 
-	ResourcePrefix  pulumi.StringInput `pulumi:"resourcePrefix,optional"`
-	SkipAwait       pulumi.BoolInput   `pulumi:"skipAwait,optional"`
-	CreateNamespace pulumi.BoolInput   `pulumi:"createNamespace,optional"`
+	ResourcePrefix pulumi.StringInput `pulumi:"resourcePrefix,optional"`
+	SkipAwait      pulumi.BoolInput   `pulumi:"skipAwait,optional"`
 }
 
 type chartArgs struct {
@@ -60,10 +59,10 @@ type chartArgs struct {
 
 	Values      map[string]any
 	ValuesFiles []pulumi.Asset
+	SkipCrds    bool
 
-	ResourcePrefix  *string
-	SkipAwait       bool
-	CreateNamespace bool
+	ResourcePrefix *string
+	SkipAwait      bool
 }
 
 func unwrapChartArgs(ctx context.Context, args *ChartArgs) (*chartArgs, internals.UnsafeAwaitOutputResult, error) {
@@ -75,8 +74,8 @@ func unwrapChartArgs(ctx context.Context, args *ChartArgs) (*chartArgs, internal
 	result, err := internals.UnsafeAwaitOutput(ctx, pulumi.All(
 		args.Name, args.Namespace,
 		args.Chart, args.Version, args.Devel, args.RepositoryOpts, args.DependencyUpdate,
-		args.Values, args.ValuesFiles,
-		args.ResourcePrefix, args.SkipAwait, args.CreateNamespace))
+		args.Values, args.ValuesFiles, args.SkipCrds,
+		args.ResourcePrefix, args.SkipAwait))
 	if err != nil {
 		return nil, result, err
 	}
@@ -97,12 +96,12 @@ func unwrapChartArgs(ctx context.Context, args *ChartArgs) (*chartArgs, internal
 
 	r.Values, _ = pop().(map[string]any)
 	r.ValuesFiles, _ = pop().([]pulumi.Asset)
+	r.SkipCrds, _ = pop().(bool)
 
 	if v, ok := pop().(string); ok {
 		r.ResourcePrefix = &v
 	}
 	r.SkipAwait, _ = pop().(bool)
-	r.CreateNamespace, _ = pop().(bool)
 
 	return r, result, nil
 }
@@ -146,7 +145,7 @@ func (r *ChartProvider) Construct(ctx *pulumi.Context, typ, name string, inputs 
 		chartArgs.Name = name
 	}
 	if chartArgs.ResourcePrefix == nil {
-		// use the name of the ConfigFile as the resource prefix to ensure uniqueness
+		// use the name of the Chart as the resource prefix to ensure uniqueness
 		// across multiple instances of the component resource.
 		chartArgs.ResourcePrefix = &name
 	}
@@ -167,7 +166,7 @@ func (r *ChartProvider) Construct(ctx *pulumi.Context, typ, name string, inputs 
 
 	cmd.ReleaseName = chartArgs.Name
 	cmd.Namespace = chartArgs.Namespace
-	cmd.IncludeCRDs = true
+	cmd.IncludeCRDs = !chartArgs.SkipCrds
 
 	// Execute the Helm command
 	release, err := cmd.Execute(ctx.Context())
@@ -182,20 +181,6 @@ func (r *ChartProvider) Construct(ctx *pulumi.Context, typ, name string, inputs 
 	objs, err := provideryamlv2.Parse(ctx.Context(), parseOpts)
 	if err != nil {
 		return nil, err
-	}
-
-	// https://github.com/helm/helm/issues/9813
-	if chartArgs.CreateNamespace && chartArgs.Namespace != "" {
-		ns := unstructured.Unstructured{
-			Object: map[string]interface{}{
-				"apiVersion": "v1",
-				"kind":       "Namespace",
-				"metadata": map[string]interface{}{
-					"name": chartArgs.Namespace,
-				},
-			},
-		}
-		objs = append([]unstructured.Unstructured{ns}, objs...)
 	}
 
 	// Normalize the objects (apply a default namespace, etc.)

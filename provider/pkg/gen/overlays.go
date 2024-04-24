@@ -164,12 +164,6 @@ var helmV4ChartResource = pschema.ResourceSpec{
 			},
 			Description: "Namespace for the release.",
 		},
-		"createNamespace": {
-			TypeSpec: pschema.TypeSpec{
-				Type: "boolean",
-			},
-			Description: "Automatically create the release namespace.",
-		},
 		"repositoryOpts": {
 			TypeSpec: pschema.TypeSpec{
 				Ref: "#/types/kubernetes:helm.sh/v3:RepositoryOpts",
@@ -229,6 +223,12 @@ var helmV4ChartResource = pschema.ResourceSpec{
 				},
 			},
 			Description: "Custom values set for the release.",
+		},
+		"skipCrds": {
+			TypeSpec: pschema.TypeSpec{
+				Type: "boolean",
+			},
+			Description: "If set, no CRDs will be installed. By default, CRDs are installed if not already present.",
 		},
 		"skipAwait": {
 			TypeSpec: pschema.TypeSpec{
