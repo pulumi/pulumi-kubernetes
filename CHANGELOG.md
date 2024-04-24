@@ -1,6 +1,7 @@
 ## Unreleased
 
-- Add await logic for DaemonSets (https://github.com/pulumi/pulumi-kubernetes/pull/2953)
+- Fix Release behavior to deep merge `valueYamlFiles` to match Helm. (https://github.com/pulumi/pulumi-kubernetes/pull/2963)
+- Add await logic for DaemonSets. (https://github.com/pulumi/pulumi-kubernetes/pull/2953)
 
 ## 4.11.0 (April 17, 2024)
 
