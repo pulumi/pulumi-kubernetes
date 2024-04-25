@@ -25,6 +25,8 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/internals"
 	pulumiprovider "github.com/pulumi/pulumi/sdk/v3/go/pulumi/provider"
+	helmkube "helm.sh/helm/v3/pkg/kube"
+	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
 type ChartProvider struct {
@@ -163,10 +165,10 @@ func (r *ChartProvider) Construct(ctx *pulumi.Context, typ, name string, inputs 
 
 	cmd.Values.Values = chartArgs.Values
 	cmd.Values.ValuesFiles = chartArgs.ValuesFiles
-
+	cmd.IncludeCRDs = !chartArgs.SkipCrds
+	cmd.DisableHooks = true
 	cmd.ReleaseName = chartArgs.Name
 	cmd.Namespace = chartArgs.Namespace
-	cmd.IncludeCRDs = !chartArgs.SkipCrds
 
 	// Execute the Helm command
 	release, err := cmd.Execute(ctx.Context())
@@ -199,6 +201,7 @@ func (r *ChartProvider) Construct(ctx *pulumi.Context, typ, name string, inputs 
 		ResourcePrefix:  *chartArgs.ResourcePrefix,
 		SkipAwait:       chartArgs.SkipAwait,
 		ResourceOptions: []pulumi.ResourceOption{pulumi.Parent(comp)},
+		PreRegisterF:    preregister,
 	}
 	resources, err := provideryamlv2.Register(ctx, registerOpts)
 	if err != nil {
@@ -207,4 +210,20 @@ func (r *ChartProvider) Construct(ctx *pulumi.Context, typ, name string, inputs 
 	comp.Resources = resources
 
 	return pulumiprovider.NewConstructResult(comp)
+}
+
+func preregister(ctx *pulumi.Context, apiVersion, kind, resourceName string, obj *unstructured.Unstructured,
+	resourceOpts []pulumi.ResourceOption) (*unstructured.Unstructured, []pulumi.ResourceOption) {
+
+	// Implement support for Helm resource policies.
+	// https://helm.sh/docs/howto/charts_tips_and_tricks/#tell-helm-not-to-uninstall-a-resource
+	policy, hasPolicy, err := unstructured.NestedString(obj.Object, "metadata", "annotations", helmkube.ResourcePolicyAnno)
+	if err == nil && hasPolicy {
+		switch policy {
+		case helmkube.KeepPolicy:
+			resourceOpts = append(resourceOpts, pulumi.RetainOnDelete(true))
+		}
+	}
+
+	return obj, resourceOpts
 }

@@ -213,11 +213,15 @@ func expand(objs []unstructured.Unstructured) ([]unstructured.Unstructured, erro
 	return result, nil
 }
 
+type PreRegisterFunc func(ctx *pulumi.Context, apiVersion, kind, resourceName string, obj *unstructured.Unstructured,
+	resourceOpts []pulumi.ResourceOption) (*unstructured.Unstructured, []pulumi.ResourceOption)
+
 type RegisterOptions struct {
 	Objects         []unstructured.Unstructured
 	ResourcePrefix  string
 	SkipAwait       bool
 	ResourceOptions []pulumi.ResourceOption
+	PreRegisterF    PreRegisterFunc
 }
 
 // Register registers the given Kubernetes objects as resources with the Pulumi engine.
@@ -306,6 +310,13 @@ func register(
 			return nil, fmt.Errorf("YAML object is invalid: `%s`: %w", printUnstructured(obj), err)
 		}
 	}
+
+	if opts.PreRegisterF != nil {
+		obj, resourceOpts = opts.PreRegisterF(ctx, apiVersion, kind, resourceName, obj, resourceOpts)
+	}
+
+	// At this point, the object is a pure unstructured object (no inputs or outputs within it).
+	// Now it becomes an input to ctx.RegisterResource.
 
 	if fullKind == "v1/Secret" {
 		// Always mark these fields as secret to avoid leaking sensitive values from raw YAML.
