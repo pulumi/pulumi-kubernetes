@@ -68,17 +68,12 @@ type chartArgs struct {
 }
 
 func unwrapChartArgs(ctx context.Context, args *ChartArgs) (*chartArgs, internals.UnsafeAwaitOutputResult, error) {
-	_, err := internals.UnsafeAwaitOutput(ctx, pulumi.ToOutput(args.Values))
-	if err != nil {
-		return nil, internals.UnsafeAwaitOutputResult{}, err
-	}
-
 	result, err := internals.UnsafeAwaitOutput(ctx, pulumi.All(
 		args.Name, args.Namespace,
 		args.Chart, args.Version, args.Devel, args.RepositoryOpts, args.DependencyUpdate,
 		args.Values, args.ValuesFiles, args.SkipCrds,
 		args.ResourcePrefix, args.SkipAwait))
-	if err != nil {
+	if err != nil || !result.Known {
 		return nil, result, err
 	}
 	resolved := result.Value.([]any)
@@ -139,9 +134,11 @@ func (r *ChartProvider) Construct(ctx *pulumi.Context, typ, name string, inputs 
 		return nil, err
 	}
 	if !result.Known {
-		msg := fmt.Sprintf("%s:%s -- Required input properties have unknown values. Preview is incomplete.\n", typ, name)
-		_ = ctx.Log.Warn(msg, nil)
-		return pulumiprovider.NewConstructResult(comp)
+		_ = ctx.Log.Warn("Input properties have unknown values. Preview is incomplete.", &pulumi.LogArgs{
+			Resource: comp,
+		})
+		r, err := pulumiprovider.NewConstructResult(comp)
+		return r, err
 	}
 	if chartArgs.Name == "" {
 		chartArgs.Name = name
