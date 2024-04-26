@@ -514,7 +514,7 @@ var kubeClientSettings = pschema.ComplexTypeSpec{
 		Description: "Options for tuning the Kubernetes client used by a Provider.",
 		Properties: map[string]pschema.PropertySpec{
 			"burst": {
-				Description: "Maximum burst for throttle. Default value is 10.",
+				Description: "Maximum burst for throttle. Default value is 120.",
 				TypeSpec:    pschema.TypeSpec{Type: "integer"},
 				DefaultInfo: &pschema.DefaultSpec{
 					Environment: []string{
@@ -523,7 +523,7 @@ var kubeClientSettings = pschema.ComplexTypeSpec{
 				},
 			},
 			"qps": {
-				Description: "Maximum queries per second (QPS) to the API server from this client. Default value is 5.",
+				Description: "Maximum queries per second (QPS) to the API server from this client. Default value is 50.",
 				TypeSpec:    pschema.TypeSpec{Type: "number"},
 				DefaultInfo: &pschema.DefaultSpec{
 					Environment: []string{
@@ -591,7 +591,7 @@ var helmReleaseSettings = pschema.ComplexTypeSpec{
 						"PULUMI_K8S_HELM_REPOSITORY_CACHE",
 					},
 				},
-				Description: "The path to the file containing cached repository indexes.",
+				Description: "The path to the directory containing cached repository indexes.",
 				TypeSpec:    pschema.TypeSpec{Type: "string"},
 			},
 		},
