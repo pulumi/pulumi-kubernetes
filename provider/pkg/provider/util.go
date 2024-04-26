@@ -122,6 +122,19 @@ func fqName(namespace, name string) string {
 // Kubeconfig helpers.
 // --------------------------------------------------------------------------
 
+func writeKubeconfigToFile(config *clientapi.Config) (string, error) {
+	// config, err := parseKubeconfigString(pathOrContents)
+	// if err != nil {
+	// 	return "", err
+	// }
+	file, err := os.CreateTemp("", "kubeconfig")
+	if err != nil {
+		return "", err
+	}
+	err = clientcmd.WriteToFile(*config, file.Name())
+	return file.Name(), err
+}
+
 // parseKubeconfigString takes a string that contains either a path to a kubeconfig file
 // or the contents of a kubeconfig (YAML or JSON).
 func parseKubeconfigString(pathOrContents string) (*clientapi.Config, error) {
@@ -216,6 +229,10 @@ func getActiveClusterFromConfig(config *clientapi.Config, overrides resource.Pro
 
 	return activeCluster, true
 }
+
+// --------------------------------------------------------------------------
+// Unstructured helpers.
+// --------------------------------------------------------------------------
 
 // pruneMap builds a pruned map by recursively copying elements from the source map that have a matching key in the
 // target map. This is useful as a preprocessing step for live resource state before comparing it to program inputs.

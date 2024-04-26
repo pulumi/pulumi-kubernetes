@@ -23,7 +23,6 @@ import (
 	provideryamlv2 "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/yaml/v2"
 	pulumiprovider "github.com/pulumi/pulumi/sdk/v3/go/pulumi/provider"
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
-	"helm.sh/helm/v3/pkg/cli"
 )
 
 // resourceProviders contains factories for component resource providers.
@@ -40,21 +39,13 @@ func (k *kubeProvider) getResourceProvider(typ string) (providerresource.Resourc
 		return nil, false
 	}
 
-	settings := cli.New()
-	settings.PluginsDirectory = k.helmPluginsPath
-	settings.RegistryConfig = k.helmRegistryConfigPath
-	settings.RepositoryConfig = k.helmRepositoryConfigPath
-	settings.RepositoryCache = k.helmRepositoryCache
-	settings.Debug = true
-
 	options := &providerresource.ResourceProviderOptions{
 		ClientSet:        k.clientSet,
 		DefaultNamespace: k.defaultNamespace,
 		HelmOptions: &providerresource.HelmOptions{
 			SuppressHelmHookWarnings: k.suppressHelmHookWarnings,
 			HelmDriver:               k.helmDriver,
-			EnvSettings:              settings,
-			RESTClientGetter:         NewKubeConfig(k.restconfig, k.kubeconfig),
+			EnvSettings:              k.helmSettings,
 		},
 	}
 	return providerF(options), true
@@ -62,6 +53,11 @@ func (k *kubeProvider) getResourceProvider(typ string) (providerresource.Resourc
 
 // Construct creates a new instance of the provided component resource and returns its state.
 func (k *kubeProvider) Construct(ctx context.Context, req *pulumirpc.ConstructRequest) (*pulumirpc.ConstructResponse, error) {
+
+	if k.clusterUnreachable {
+		return nil, fmt.Errorf("configured Kubernetes cluster is unreachable: %s", k.clusterUnreachableReason)
+	}
+
 	typ := req.GetType()
 	provider, found := k.getResourceProvider(typ)
 	if !found {

@@ -60,16 +60,19 @@ import (
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
+	helmcli "helm.sh/helm/v3/pkg/cli"
 	"helm.sh/helm/v3/pkg/helmpath"
 	apierrors "k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/api/meta"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
+	"k8s.io/cli-runtime/pkg/genericclioptions"
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
 	clientapi "k8s.io/client-go/tools/clientcmd/api"
 	k8sopenapi "k8s.io/kubectl/pkg/util/openapi"
+	"k8s.io/utils/ptr"
 	"sigs.k8s.io/yaml"
 )
 
@@ -139,6 +142,7 @@ type kubeProvider struct {
 	helmRegistryConfigPath   string
 	helmRepositoryConfigPath string
 	helmRepositoryCache      string
+	helmSettings             *helmcli.EnvSettings
 	helmReleaseProvider      customResourceProvider
 
 	yamlRenderMode bool
@@ -454,6 +458,9 @@ func (k *kubeProvider) DiffConfig(ctx context.Context, req *pulumirpc.DiffReques
 func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequest) (*pulumirpc.ConfigureResponse, error) {
 	const trueStr = "true"
 
+	helmSettings := helmcli.New()
+	helmFlags := helmSettings.RESTClientGetter().(*genericclioptions.ConfigFlags)
+
 	vars := req.GetVariables()
 
 	//
@@ -470,6 +477,7 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	//
 	if defaultNamespace := vars["kubernetes:config:namespace"]; defaultNamespace != "" {
 		k.defaultNamespace = defaultNamespace
+		helmSettings.SetNamespace(defaultNamespace)
 	}
 
 	// Compute config overrides.
@@ -480,6 +488,8 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		},
 		CurrentContext: vars["kubernetes:config:context"],
 	}
+	helmFlags.ClusterName = &overrides.Context.Cluster
+	helmSettings.KubeContext = overrides.CurrentContext
 
 	deleteUnreachable := func() bool {
 		// If the provider flag is set, use that value to determine behavior. This will override the ENV var.
@@ -622,6 +632,7 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		return helmpath.DataPath("plugins")
 	}
 	k.helmPluginsPath = helmPluginsPath()
+	helmSettings.PluginsDirectory = k.helmPluginsPath
 
 	helmRegistryConfigPath := func() string {
 		if helmReleaseSettings.RegistryConfigPath != nil {
@@ -635,6 +646,7 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		return helmpath.ConfigPath("registry.json")
 	}
 	k.helmRegistryConfigPath = helmRegistryConfigPath()
+	helmSettings.RegistryConfig = k.helmRegistryConfigPath
 
 	helmRepositoryConfigPath := func() string {
 		if helmReleaseSettings.RepositoryConfigPath != nil {
@@ -647,6 +659,7 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		return helmpath.ConfigPath("repositories.yaml")
 	}
 	k.helmRepositoryConfigPath = helmRepositoryConfigPath()
+	helmSettings.RepositoryConfig = k.helmRepositoryConfigPath
 
 	helmRepositoryCache := func() string {
 		if helmReleaseSettings.RepositoryCache != nil {
@@ -659,6 +672,7 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		return helmpath.CachePath("repository")
 	}
 	k.helmRepositoryCache = helmRepositoryCache()
+	helmSettings.RepositoryCache = k.helmRepositoryCache
 
 	// Rather than erroring out on an invalid k8s config, mark the cluster as unreachable and conditionally bail out on
 	// operations that require a valid cluster. This will allow us to perform invoke operations using the default
@@ -677,6 +691,12 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 			unreachableCluster(err)
 			kubeconfig = nil
 		} else {
+			configFile, err := writeKubeconfigToFile(apiConfig)
+			if err != nil {
+				return nil, fmt.Errorf("failed to write kubeconfig file: %w", err)
+			}
+			helmSettings.KubeConfig = configFile
+
 			kubeconfig = clientcmd.NewDefaultClientConfig(*apiConfig, overrides)
 			configurationNamespace, _, err := kubeconfig.Namespace()
 			if err == nil {
@@ -713,7 +733,7 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 			return nil, fmt.Errorf("invalid value specified for PULUMI_K8S_CLIENT_BURST: %w", err)
 		}
 		kubeClientSettings.Burst = &asInt
-	} else {
+	} else if kubeClientSettings.Burst == nil {
 		v := 120 // Increased from default value of 10
 		kubeClientSettings.Burst = &v
 	}
@@ -724,7 +744,7 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 			return nil, fmt.Errorf("invalid value specified for PULUMI_K8S_CLIENT_QPS: %w", err)
 		}
 		kubeClientSettings.QPS = &asFloat
-	} else {
+	} else if kubeClientSettings.QPS == nil {
 		v := 50.0 // Increased from default value of 5.0
 		kubeClientSettings.QPS = &v
 	}
@@ -751,14 +771,17 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		} else {
 			if kubeClientSettings.Burst != nil {
 				config.Burst = *kubeClientSettings.Burst
+				helmSettings.BurstLimit = *kubeClientSettings.Burst
 				logger.V(9).Infof("kube client burst set to %v", config.Burst)
 			}
 			if kubeClientSettings.QPS != nil {
 				config.QPS = float32(*kubeClientSettings.QPS)
+				helmSettings.QPS = float32(*kubeClientSettings.QPS)
 				logger.V(9).Infof("kube client QPS set to %v", config.QPS)
 			}
 			if kubeClientSettings.Timeout != nil {
 				config.Timeout = time.Duration(*kubeClientSettings.Timeout) * time.Second
+				helmFlags.Timeout = ptr.To(strconv.Itoa(*kubeClientSettings.Timeout))
 				logger.V(9).Infof("kube client timeout set to %v", config.Timeout)
 			}
 			config.WarningHandler = rest.NoWarnings{}
@@ -785,6 +808,10 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 			k.clusterUnreachableReason = fmt.Sprintf(
 				"unable to load schema information from the API server: %v", err)
 		}
+	}
+
+	if !k.clusterUnreachable {
+		k.helmSettings = helmSettings
 	}
 
 	k.helmReleaseProvider, err = newHelmReleaseProvider(

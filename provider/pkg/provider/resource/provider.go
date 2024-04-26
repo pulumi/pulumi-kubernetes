@@ -19,7 +19,6 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	pulumiprovider "github.com/pulumi/pulumi/sdk/v3/go/pulumi/provider"
 	"helm.sh/helm/v3/pkg/cli"
-	"k8s.io/cli-runtime/pkg/genericclioptions"
 )
 
 type ResourceProvider interface { // nolint:golint // stutters
@@ -36,7 +35,6 @@ type ResourceProviderOptions struct { // nolint:golint // stutters
 type HelmOptions struct {
 	SuppressHelmHookWarnings bool
 	HelmDriver               string
-	RESTClientGetter         genericclioptions.RESTClientGetter
 	EnvSettings              *cli.EnvSettings
 }
 
