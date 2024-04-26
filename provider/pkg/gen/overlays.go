@@ -230,6 +230,12 @@ var helmV4ChartResource = pschema.ResourceSpec{
 			},
 			Description: "If set, no CRDs will be installed. By default, CRDs are installed if not already present.",
 		},
+		"postRenderer": {
+			TypeSpec: pschema.TypeSpec{
+				Ref: "#/types/kubernetes:helm.sh/v4:PostRenderer",
+			},
+			Description: "Specification defining the post-renderer to use.",
+		},
 		"skipAwait": {
 			TypeSpec: pschema.TypeSpec{
 				Type: "boolean",
@@ -402,6 +408,40 @@ var helmV3RepoOpts = pschema.ComplexTypeSpec{
 				}}),
 		},
 		Type: "object",
+	},
+}
+
+var helmV4PostRenderer = pschema.ComplexTypeSpec{
+	ObjectTypeSpec: pschema.ObjectTypeSpec{
+		Description: "Specification defining the post-renderer to use.",
+		Properties: map[string]pschema.PropertySpec{
+			"command": {
+				TypeSpec: pschema.TypeSpec{
+					Type: "string",
+				},
+				Description: "Path to an executable to be used for post rendering.",
+			},
+			"args": {
+				TypeSpec: pschema.TypeSpec{
+					Type: "array",
+					Items: &pschema.TypeSpec{
+						Type: "string",
+					},
+				},
+				Description: "Arguments to pass to the post-renderer command.",
+			},
+		},
+		Language: map[string]pschema.RawMessage{
+			"nodejs": rawMessage(map[string][]string{
+				"requiredOutputs": {
+					"command",
+					"args",
+				}}),
+		},
+		Type: "object",
+		Required: []string{
+			"command",
+		},
 	},
 }
 
@@ -1507,6 +1547,7 @@ func init() {
 	typeOverlays["kubernetes:helm.sh/v3:FetchOpts"] = helmV3FetchOpts
 	typeOverlays["kubernetes:helm.sh/v3:RepositoryOpts"] = helmV3RepoOpts
 	typeOverlays["kubernetes:helm.sh/v3:ReleaseStatus"] = helmV3ReleaseStatus
+	typeOverlays["kubernetes:helm.sh/v4:PostRenderer"] = helmV4PostRenderer
 	typeOverlays["kubernetes:index:KubeClientSettings"] = kubeClientSettings
 	typeOverlays["kubernetes:index:HelmReleaseSettings"] = helmReleaseSettings
 

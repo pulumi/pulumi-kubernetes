@@ -22,10 +22,12 @@ import (
 	providerresource "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/resource"
 	provideryamlv2 "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/yaml/v2"
 	helmv3 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v3"
+	helmv4 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v4"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/internals"
 	pulumiprovider "github.com/pulumi/pulumi/sdk/v3/go/pulumi/provider"
 	helmkube "helm.sh/helm/v3/pkg/kube"
+	"helm.sh/helm/v3/pkg/postrender"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
@@ -42,9 +44,10 @@ type ChartArgs struct {
 	RepositoryOpts   helmv3.RepositoryOptsInput `pulumi:"repositoryOpts,optional"`
 	DependencyUpdate pulumi.BoolInput           `pulumi:"dependencyUpdate,optional"`
 
-	Values      pulumi.MapInput        `pulumi:"values,optional"`
-	ValuesFiles pulumi.AssetArrayInput `pulumi:"valueYamlFiles,optional"`
-	SkipCrds    pulumi.BoolInput       `pulumi:"skipCrds,optional"`
+	Values       pulumi.MapInput          `pulumi:"values,optional"`
+	ValuesFiles  pulumi.AssetArrayInput   `pulumi:"valueYamlFiles,optional"`
+	SkipCrds     pulumi.BoolInput         `pulumi:"skipCrds,optional"`
+	PostRenderer helmv4.PostRendererInput `pulumi:"postRenderer,optional"`
 
 	ResourcePrefix pulumi.StringInput `pulumi:"resourcePrefix,optional"`
 	SkipAwait      pulumi.BoolInput   `pulumi:"skipAwait,optional"`
@@ -59,9 +62,10 @@ type chartArgs struct {
 	RepositoryOpts   helmv3.RepositoryOpts
 	DependencyUpdate bool
 
-	Values      map[string]any
-	ValuesFiles []pulumi.Asset
-	SkipCrds    bool
+	Values       map[string]any
+	ValuesFiles  []pulumi.Asset
+	SkipCrds     bool
+	PostRenderer *helmv4.PostRenderer
 
 	ResourcePrefix *string
 	SkipAwait      bool
@@ -71,7 +75,7 @@ func unwrapChartArgs(ctx context.Context, args *ChartArgs) (*chartArgs, internal
 	result, err := internals.UnsafeAwaitOutput(ctx, pulumi.All(
 		args.Name, args.Namespace,
 		args.Chart, args.Version, args.Devel, args.RepositoryOpts, args.DependencyUpdate,
-		args.Values, args.ValuesFiles, args.SkipCrds,
+		args.Values, args.ValuesFiles, args.SkipCrds, args.PostRenderer,
 		args.ResourcePrefix, args.SkipAwait))
 	if err != nil || !result.Known {
 		return nil, result, err
@@ -94,6 +98,9 @@ func unwrapChartArgs(ctx context.Context, args *ChartArgs) (*chartArgs, internal
 	r.Values, _ = pop().(map[string]any)
 	r.ValuesFiles, _ = pop().([]pulumi.Asset)
 	r.SkipCrds, _ = pop().(bool)
+	if v, ok := pop().(helmv4.PostRenderer); ok {
+		r.PostRenderer = &v
+	}
 
 	if v, ok := pop().(string); ok {
 		r.ResourcePrefix = &v
@@ -131,7 +138,7 @@ func (r *ChartProvider) Construct(ctx *pulumi.Context, typ, name string, inputs 
 	// Unpack the resolved inputs.
 	chartArgs, result, err := unwrapChartArgs(ctx.Context(), args)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("unwrapping args: %w", err)
 	}
 	if !result.Known {
 		_ = ctx.Log.Warn("Input properties have unknown values. Preview is incomplete.", &pulumi.LogArgs{
@@ -166,6 +173,14 @@ func (r *ChartProvider) Construct(ctx *pulumi.Context, typ, name string, inputs 
 	cmd.DisableHooks = true
 	cmd.ReleaseName = chartArgs.Name
 	cmd.Namespace = chartArgs.Namespace
+
+	if chartArgs.PostRenderer != nil {
+		postrenderer, err := postrender.NewExec(chartArgs.PostRenderer.Command, chartArgs.PostRenderer.Args...)
+		if err != nil {
+			return nil, err
+		}
+		cmd.PostRenderer = postrenderer
+	}
 
 	// Execute the Helm command
 	release, err := cmd.Execute(ctx.Context())
