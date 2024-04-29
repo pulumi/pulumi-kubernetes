@@ -241,7 +241,7 @@ func (cmd *TemplateOrInstallCommand) runInstall(ctx context.Context) (*release.R
 	debug("attempting to resolve the chart %q with version %q", chart, client.Version)
 	cp, err := client.ChartPathOptions.LocateChart(chart, settings)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err, "unable to locate the chart")
 	}
 	debug("a chart was located at %s", cp)
 
@@ -249,13 +249,13 @@ func (cmd *TemplateOrInstallCommand) runInstall(ctx context.Context) (*release.R
 	// FUTURE: add a "file:" getter for parity with Pulumi resource package
 	vals, err := valueOpts.MergeValues(p)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err, "unable to process the chart values")
 	}
 
 	// Check chart dependencies to make sure all are present in /charts
 	chartRequested, err := loader.Load(cp)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err, "unable to load the chart")
 	}
 
 	if err := checkIfInstallable(chartRequested); err != nil {
@@ -283,12 +283,12 @@ func (cmd *TemplateOrInstallCommand) runInstall(ctx context.Context) (*release.R
 				}
 				if cmd.DependencyBuild {
 					if err := man.Build(); err != nil {
-						return nil, err
+						return nil, errors.Wrap(err, "unable to build chart dependencies")
 					}
 				}
 				if client.DependencyUpdate {
 					if err := man.Update(); err != nil {
-						return nil, err
+						return nil, errors.Wrap(err, "unable to update chart dependencies")
 					}
 				}
 				// Reload the chart with the updated Chart.lock file.
