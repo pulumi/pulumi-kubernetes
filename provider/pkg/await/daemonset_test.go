@@ -493,7 +493,8 @@ func dsWithRollingUpdate() *unstructured.Unstructured {
 		"kind":       "DaemonSet",
 		"metadata": {
 			"name": "foo",
-			"namespace": "default"
+			"namespace": "default",
+			"generation": 1
 		},
 		"spec": {
 			"minReadySeconds":      300,
@@ -519,7 +520,8 @@ func dsWithRollingUpdate() *unstructured.Unstructured {
 			"currentNumberScheduled": 0,
 			"desiredNumberScheduled": 1,
 			"numberMisscheduled":     0,
-			"numberReady":            0
+			"numberReady":            0,
+			"observedGeneration":     1
 		}
 	}
 	`)
@@ -535,7 +537,8 @@ func dsWithOnDelete() *unstructured.Unstructured {
 		"kind":       "DaemonSet",
 		"metadata": {
 			"name": "foo",
-			"namespace": "default"
+			"namespace": "default",
+			"generation": 1
 		},
 		"spec": {
 			"minReadySeconds":      300,
@@ -558,7 +561,8 @@ func dsWithOnDelete() *unstructured.Unstructured {
 			"currentNumberScheduled": 0,
 			"desiredNumberScheduled": 1,
 			"numberMisscheduled":     0,
-			"numberReady":            0
+			"numberReady":            0,
+			"observedGeneration":     1
 		}
 	}
 	`)
@@ -573,6 +577,7 @@ func dsStatusCreating() v1.DaemonSetStatus {
 		UpdatedNumberScheduled: 0,
 		NumberAvailable:        0,
 		NumberMisscheduled:     0,
+		ObservedGeneration:     1,
 	}
 }
 
@@ -583,8 +588,10 @@ func dsStatusPending() v1.DaemonSetStatus {
 		DesiredNumberScheduled: 2,
 		CurrentNumberScheduled: 2,
 		UpdatedNumberScheduled: 0,
+		NumberReady:            2,
 		NumberAvailable:        2,
 		NumberMisscheduled:     2,
+		ObservedGeneration:     1,
 	}
 }
 
@@ -595,8 +602,10 @@ func dsStatusProgressing() v1.DaemonSetStatus {
 		DesiredNumberScheduled: 2,
 		CurrentNumberScheduled: 2,
 		UpdatedNumberScheduled: 1,
+		NumberReady:            1,
 		NumberAvailable:        1,
 		NumberMisscheduled:     1,
+		ObservedGeneration:     1,
 	}
 }
 
@@ -606,8 +615,10 @@ func dsStatusRunning() v1.DaemonSetStatus {
 		DesiredNumberScheduled: 2,
 		CurrentNumberScheduled: 2,
 		UpdatedNumberScheduled: 2,
+		NumberReady:            2,
 		NumberAvailable:        2,
 		NumberMisscheduled:     0,
+		ObservedGeneration:     1,
 	}
 }
 

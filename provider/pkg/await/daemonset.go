@@ -34,7 +34,7 @@ import (
 	"k8s.io/apimachinery/pkg/util/wait"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/dynamic"
-	"k8s.io/kubectl/pkg/polymorphichelpers"
+	"sigs.k8s.io/cli-utils/pkg/kstatus/status"
 )
 
 const (
@@ -245,58 +245,23 @@ func (dsa *dsAwaiter) await(done func() bool) error {
 	}
 }
 
-// onDeleteRolloutStatus returns true when a DaemonSet with the OnDelete
-// rollout strategy has been fully rolled out. This strategy requires pods to
-// be deleted out-of-band.
-//
-// Success occurs when:
-//  1. generation <= observedGeneration
-//  2. numberAvailable == desiredNumberScheduled, and
-//  3. numberMisscheduled == 0.
-func (dsa *dsAwaiter) onDeleteRolloutStatus() (string, bool, error) {
-	ds := dsa.ds.Object
-
-	generation, _, _ := unstructured.NestedInt64(ds, "generation")
-	observedGen, _, _ := unstructured.NestedInt64(ds, "status", "observedGeneration")
-
-	if generation > observedGen {
-		return "Waiting for controller to reconcile...", false, nil
-	}
-
-	dns, _, _ := unstructured.NestedInt64(ds, "status", "desiredNumberScheduled")
-	na, _, _ := unstructured.NestedInt64(ds, "status", "numberAvailable")
-	nms, _, _ := unstructured.NestedInt64(ds, "status", "numberMisscheduled")
-
-	msg := "OnDelete rollout, waiting for old pods to be deleted..."
-	done := (na == dns) && (nms == 0)
-	if done {
-		msg = "OnDelete rollout complete"
-	}
-	return msg, done, nil
-}
-
 // rolloutComplete checks whether we've succeeded, and logs the result as a
 // status message to the provider.
 func (dsa *dsAwaiter) rolloutComplete() bool {
-	dssv := polymorphichelpers.DaemonSetStatusViewer{}
-
-	msg, done, err := dssv.Status(dsa.ds, 0)
-	if done && err != nil {
-		// If done=true and err is non-nil then this is an OnDelete rollout.
-		msg, done, err = dsa.onDeleteRolloutStatus()
-	}
+	res, err := status.Compute(dsa.ds)
 	if err != nil {
 		dsa.config.logStatus(diag.Error, err.Error())
 		return false
-
 	}
 
+	done := res.Status == status.CurrentStatus
+
 	if done {
-		dsa.config.logStatus(diag.Info, fmt.Sprintf("%s%s", cmdutil.EmojiOr("✅ ", ""), msg))
+		dsa.config.logStatus(diag.Info, fmt.Sprintf("%s%s", cmdutil.EmojiOr("✅ ", ""), res.Message))
 		return true
 	}
 
-	dsa.config.logStatus(diag.Info, msg)
+	dsa.config.logStatus(diag.Info, res.Message)
 	return false
 }
 
