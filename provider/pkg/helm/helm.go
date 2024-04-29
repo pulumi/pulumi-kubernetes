@@ -50,6 +50,8 @@ type Tool struct {
 // NewTool creates a new Helm tool with the given environment settings.
 func NewTool(settings *cli.EnvSettings) *Tool {
 	helmDriver := os.Getenv("HELM_DRIVER")
+	logger.V(6).Infof("initializing Helm tool: driver=%q, settings=%+v", helmDriver, *settings)
+
 	return &Tool{
 		EnvSettings: settings,
 		HelmDriver:  helmDriver,

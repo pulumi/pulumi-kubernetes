@@ -458,9 +458,11 @@ func (k *kubeProvider) DiffConfig(ctx context.Context, req *pulumirpc.DiffReques
 func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequest) (*pulumirpc.ConfigureResponse, error) {
 	const trueStr = "true"
 
+	// Configure Helm settings based on the ordinary Helm environment,
+	// using provider configuration as overrides.
 	helmSettings := helmcli.New()
-	helmSettings.Debug = true // enable verbose logging (to glog)
 	helmFlags := helmSettings.RESTClientGetter().(*genericclioptions.ConfigFlags)
+	helmSettings.Debug = true // enable verbose logging (piped to glog at level 6)
 
 	vars := req.GetVariables()
 
@@ -479,6 +481,7 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	if defaultNamespace := vars["kubernetes:config:namespace"]; defaultNamespace != "" {
 		k.defaultNamespace = defaultNamespace
 		helmSettings.SetNamespace(defaultNamespace)
+		logger.V(9).Infof("namespace set to %v", defaultNamespace)
 	}
 
 	// Compute config overrides.
@@ -489,8 +492,12 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		},
 		CurrentContext: vars["kubernetes:config:context"],
 	}
-	helmFlags.ClusterName = &overrides.Context.Cluster
-	helmSettings.KubeContext = overrides.CurrentContext
+	if overrides.Context.Cluster != "" {
+		helmFlags.ClusterName = &overrides.Context.Cluster
+	}
+	if overrides.CurrentContext != "" {
+		helmSettings.KubeContext = overrides.CurrentContext
+	}
 
 	deleteUnreachable := func() bool {
 		// If the provider flag is set, use that value to determine behavior. This will override the ENV var.
@@ -633,7 +640,9 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		return helmpath.DataPath("plugins")
 	}
 	k.helmPluginsPath = helmPluginsPath()
-	helmSettings.PluginsDirectory = k.helmPluginsPath
+	if helmReleaseSettings.PluginsPath != nil {
+		helmSettings.PluginsDirectory = *helmReleaseSettings.PluginsPath
+	}
 
 	helmRegistryConfigPath := func() string {
 		if helmReleaseSettings.RegistryConfigPath != nil {
@@ -647,7 +656,9 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		return helmpath.ConfigPath("registry.json")
 	}
 	k.helmRegistryConfigPath = helmRegistryConfigPath()
-	helmSettings.RegistryConfig = k.helmRegistryConfigPath
+	if helmReleaseSettings.RegistryConfigPath != nil {
+		helmSettings.RegistryConfig = k.helmRegistryConfigPath
+	}
 
 	helmRepositoryConfigPath := func() string {
 		if helmReleaseSettings.RepositoryConfigPath != nil {
@@ -660,7 +671,9 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		return helmpath.ConfigPath("repositories.yaml")
 	}
 	k.helmRepositoryConfigPath = helmRepositoryConfigPath()
-	helmSettings.RepositoryConfig = k.helmRepositoryConfigPath
+	if helmReleaseSettings.RepositoryConfigPath != nil {
+		helmSettings.RepositoryConfig = k.helmRepositoryConfigPath
+	}
 
 	helmRepositoryCache := func() string {
 		if helmReleaseSettings.RepositoryCache != nil {
@@ -673,7 +686,9 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		return helmpath.CachePath("repository")
 	}
 	k.helmRepositoryCache = helmRepositoryCache()
-	helmSettings.RepositoryCache = k.helmRepositoryCache
+	if helmReleaseSettings.RepositoryCache != nil {
+		helmSettings.RepositoryCache = k.helmRepositoryCache
+	}
 
 	// Rather than erroring out on an invalid k8s config, mark the cluster as unreachable and conditionally bail out on
 	// operations that require a valid cluster. This will allow us to perform invoke operations using the default
