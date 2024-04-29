@@ -24,8 +24,8 @@ require (
 	github.com/pulumi/cloud-ready-checks v1.1.0
 	github.com/pulumi/pulumi-kubernetes/sdk/v4 v4.0.0
 	github.com/pulumi/pulumi-kubernetes/tests/v4 v4.0.0-20240302002028-652829a1ed71
-	github.com/pulumi/pulumi/pkg/v3 v3.113.0
-	github.com/pulumi/pulumi/sdk/v3 v3.113.1
+	github.com/pulumi/pulumi/pkg/v3 v3.113.3
+	github.com/pulumi/pulumi/sdk/v3 v3.113.3
 	github.com/stretchr/testify v1.8.4
 	golang.org/x/crypto v0.21.0
 	golang.org/x/exp v0.0.0-20231110203233-9a3e6036ecaa
@@ -258,7 +258,6 @@ require (
 	github.com/edsrzf/mmap-go v1.1.0 // indirect
 	github.com/emicklei/go-restful/v3 v3.11.0 // indirect
 	github.com/evanphx/json-patch/v5 v5.6.0 // indirect
-	github.com/fatih/camelcase v1.0.0 // indirect
 	github.com/felixge/httpsnoop v1.0.4 // indirect
 	github.com/go-git/gcfg v1.5.1-0.20230307220236-3a3c6141e376 // indirect
 	github.com/go-git/go-billy/v5 v5.5.0 // indirect

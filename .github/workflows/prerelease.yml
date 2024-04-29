@@ -52,12 +52,14 @@ jobs:
       with:
         path: ci-scripts
         repository: pulumi/scripts
+    - run: echo "ci-scripts" >> .git/info/exclude
     - name: Unshallow clone for tags
       run: git fetch --prune --unshallow --tags
     - name: Install Go
       uses: actions/setup-go@v5
       with:
         go-version: ${{ env.GOVERSION }}
+        cache-dependency-path: "**/*.sum"
     - name: Install pulumictl
       uses: jaxxstorm/action-install-gh-release@v1.11.0
       with:
@@ -151,12 +153,14 @@ jobs:
       with:
         path: ci-scripts
         repository: pulumi/scripts
+    - run: echo "ci-scripts" >> .git/info/exclude
     - name: Unshallow clone for tags
       run: git fetch --prune --unshallow --tags
     - name: Install Go
       uses: actions/setup-go@v5
       with:
         go-version: ${{ env.GOVERSION }}
+        cache-dependency-path: "**/*.sum"
     - name: Install pulumictl
       uses: jaxxstorm/action-install-gh-release@v1.11.0
       with:
@@ -244,12 +248,14 @@ jobs:
       with:
         path: ci-scripts
         repository: pulumi/scripts
+    - run: echo "ci-scripts" >> .git/info/exclude
     - name: Unshallow clone for tags
       run: git fetch --prune --unshallow --tags
     - name: Install Go
       uses: actions/setup-go@v5
       with:
         go-version: ${{ env.GOVERSION }}
+        cache-dependency-path: "**/*.sum"
     - name: Install pulumictl
       uses: jaxxstorm/action-install-gh-release@v1.11.0
       with:
@@ -383,6 +389,7 @@ jobs:
       uses: actions/setup-go@v5
       with:
         go-version: ${{ env.GOVERSION }}
+        cache-dependency-path: "**/*.sum"
     - name: Clear GitHub Actions Ubuntu runner disk space
       uses: jlumbroso/free-disk-space@v1.3.1
       with:
@@ -437,12 +444,14 @@ jobs:
       with:
         path: ci-scripts
         repository: pulumi/scripts
+    - run: echo "ci-scripts" >> .git/info/exclude
     - name: Unshallow clone for tags
       run: git fetch --prune --unshallow --tags
     - name: Install Go
       uses: actions/setup-go@v5
       with:
         go-version: ${{ env.GOVERSION }}
+        cache-dependency-path: "**/*.sum"
     - name: Install pulumictl
       uses: jaxxstorm/action-install-gh-release@v1.11.0
       with:
@@ -515,12 +524,14 @@ jobs:
       with:
         path: ci-scripts
         repository: pulumi/scripts
+    - run: echo "ci-scripts" >> .git/info/exclude
     - name: Unshallow clone for tags
       run: git fetch --prune --unshallow --tags
     - name: Install Go
       uses: actions/setup-go@v5
       with:
         go-version: ${{ env.GOVERSION }}
+        cache-dependency-path: "**/*.sum"
     - name: Install pulumictl
       uses: jaxxstorm/action-install-gh-release@v1.11.0
       with:
@@ -571,6 +582,7 @@ jobs:
       uses: actions/setup-go@v5
       with:
         go-version: ${{ env.GOVERSION }}
+        cache-dependency-path: "**/*.sum"
     - name: Install Pulumi CLI
       uses: pulumi/actions@v5
     - name: Setup Node
@@ -632,6 +644,7 @@ jobs:
       uses: actions/setup-go@v5
       with:
         go-version: ${{ env.GOVERSION }}
+        cache-dependency-path: "**/*.sum"
     - name: Install Pulumi CLI
       uses: pulumi/actions@v5
     - name: Setup Node

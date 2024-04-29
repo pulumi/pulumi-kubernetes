@@ -326,7 +326,7 @@ func writeDotnetClient(pkg *schema.Package, outdir, templateDir string) {
 		"Yaml/Yaml.cs":                         mustRenderTemplate(filepath.Join(templateDir, "yaml", "yaml.tmpl"), templateResources),
 	}
 
-	files, err := dotnetgen.GeneratePackage("pulumigen", pkg, overlays)
+	files, err := dotnetgen.GeneratePackage("pulumigen", pkg, overlays, nil)
 	if err != nil {
 		panic(err)
 	}
