@@ -1,4 +1,4 @@
-package provider
+package test
 
 import (
 	"testing"
@@ -13,7 +13,7 @@ import (
 // - installs and uses CRDs across components
 // - uses implicit and explicit dependencies
 func TestYamlV2(t *testing.T) {
-	test := pulumitest.NewPulumiTest(t, "yamlv2")
+	test := pulumitest.NewPulumiTest(t, "testdata/yamlv2")
 	t.Logf("into %s", test.Source())
 	t.Cleanup(func() {
 		test.Destroy()
