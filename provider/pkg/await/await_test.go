@@ -85,7 +85,6 @@ var (
 )
 
 func Test_Creation(t *testing.T) {
-
 	type testCtx struct {
 		host   *fakehost.HostClient
 		config *CreateConfig
@@ -352,7 +351,7 @@ func Test_Creation(t *testing.T) {
 	}
 }
 
-func TestCreationSSAConflict(t *testing.T) {
+func TestAwaitSSAConflict(t *testing.T) {
 	client, _, _, clientset := fake.NewSimpleDynamicClient()
 
 	pod := validPodUnstructured.DeepCopy()

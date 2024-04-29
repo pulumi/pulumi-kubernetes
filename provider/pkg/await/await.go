@@ -892,7 +892,8 @@ func deleteResource(ctx context.Context, name string, client dynamic.ResourceInt
 // checkIfResourceDeleted attempts to get a k8s resource, and returns true if the resource is not found (was deleted).
 // Return the resource if it still exists.
 func checkIfResourceDeleted(
-	ctx context.Context, name string, client dynamic.ResourceInterface) (bool, *unstructured.Unstructured) {
+	ctx context.Context, name string, client dynamic.ResourceInterface,
+) (bool, *unstructured.Unstructured) {
 	obj, err := client.Get(ctx, name, metav1.GetOptions{})
 	if err != nil && is404(err) { // In case of 404, the resource no longer exists, so return success.
 		return true, nil
