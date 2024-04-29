@@ -161,6 +161,10 @@ func (r *ChartProvider) Construct(ctx *pulumi.Context, typ, name string, inputs 
 	tool.HelmDriver = r.opts.HelmOptions.HelmDriver
 	cmd := tool.Template()
 
+	cmd.Validate = true
+	cmd.DryRun = true
+	cmd.DryRunOption = "server"
+
 	cmd.Chart = chartArgs.Chart
 	cmd.Version = chartArgs.Version
 	cmd.Devel = chartArgs.Devel
