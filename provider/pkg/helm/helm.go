@@ -77,9 +77,6 @@ type TemplateOrInstallCommand struct {
 	// - a URL to a remote chart (https://, oci://, file://, etc.)
 	Chart string
 
-	// DependencyBuild performs "helm dependency build" before installing the chart.
-	DependencyBuild bool
-
 	// Values to be applied to the chart.
 	Values ValueOpts
 
@@ -88,7 +85,6 @@ type TemplateOrInstallCommand struct {
 }
 
 func (cmd *TemplateOrInstallCommand) addFlags() {
-	cmd.DependencyBuild = false
 	cmd.addInstallFlags()
 }
 
@@ -266,7 +262,7 @@ func (cmd *TemplateOrInstallCommand) runInstall(ctx context.Context) (*release.R
 		// If CheckDependencies returns an error, we have unfulfilled dependencies.
 		if err := action.CheckDependencies(chartRequested, req); err != nil {
 			err = errors.Wrap(err, "An error occurred while checking for chart dependencies. You may need to run `helm dependency build` to fetch missing dependencies")
-			if client.DependencyUpdate || cmd.DependencyBuild {
+			if client.DependencyUpdate || chartRequested.Lock != nil {
 				logStream := debugStream()
 				defer logStream.Close()
 
@@ -281,16 +277,19 @@ func (cmd *TemplateOrInstallCommand) runInstall(ctx context.Context) (*release.R
 					Debug:            settings.Debug,
 					RegistryClient:   client.GetRegistryClient(),
 				}
-				if cmd.DependencyBuild {
-					if err := man.Build(); err != nil {
-						return nil, errors.Wrap(err, "unable to build chart dependencies")
-					}
-				}
 				if client.DependencyUpdate {
-					if err := man.Update(); err != nil {
-						return nil, errors.Wrap(err, "unable to update chart dependencies")
+					if err2 := man.Update(); err2 != nil {
+						debug("unable to update dependencies: %s", err2.Error())
+						return nil, err
+					}
+				} else if chartRequested.Lock != nil {
+					// Pulumi behavior: automatically build the dependencies if a lock file is present
+					if err2 := man.Build(); err2 != nil {
+						debug("unable to build dependencies: %s", err2.Error())
+						return nil, err
 					}
 				}
+
 				// Reload the chart with the updated Chart.lock file.
 				if chartRequested, err = loader.Load(cp); err != nil {
 					return nil, errors.Wrap(err, "failed reloading chart after repo update")
