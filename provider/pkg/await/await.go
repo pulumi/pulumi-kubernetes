@@ -17,6 +17,7 @@ package await
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"os"
 	"strings"
@@ -35,7 +36,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
-	"k8s.io/apimachinery/pkg/api/errors"
+	apierrors "k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/api/meta"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
@@ -151,8 +152,6 @@ func skipRetry(gvk schema.GroupVersionKind, k8sVersion *cluster.ServerVersion, e
 	return false, nil
 }
 
-const ssaConflictDocLink = "https://www.pulumi.com/registry/packages/kubernetes/how-to-guides/managing-resources-with-server-side-apply/#handle-field-conflicts-on-existing-resources"
-
 // Creation (as the usage, `await.Creation`, implies) will block until one of the following is true:
 // (1) the Kubernetes resource is reported to be initialized; (2) the initialization timeout has
 // occurred; or (3) an error has occurred while the resource was being initialized.
@@ -211,10 +210,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 				outputs, err = client.Patch(
 					c.Context, c.Inputs.GetName(), types.ApplyPatchType, objYAML, options)
 
-				if errors.IsConflict(err) {
-					err = fmt.Errorf("Server-Side Apply field conflict detected. see %s for troubleshooting help\n: %w",
-						ssaConflictDocLink, err)
-				}
+				err = handleSSAErr(err, c.FieldManager)
 			} else {
 				options := metav1.CreateOptions{
 					FieldManager: c.FieldManager,
@@ -237,11 +233,10 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 			}
 
 			return nil
-
 		}).
 		WithMaxRetries(5).
 		WithBackoffFactor(2).
-		Do(errors.IsNotFound, meta.IsNoMatchError)
+		Do(apierrors.IsNotFound, meta.IsNoMatchError)
 	if err != nil {
 		return nil, err
 	}
@@ -522,11 +517,7 @@ func ssaUpdate(c *UpdateConfig, liveOldObj *unstructured.Unstructured, client dy
 
 	currentOutputs, err := client.Patch(c.Context, liveOldObj.GetName(), types.ApplyPatchType, objYAML, options)
 	if err != nil {
-		if errors.IsConflict(err) {
-			err = fmt.Errorf("Server-Side Apply field conflict detected. See %s for troubleshooting help\n: %w",
-				ssaConflictDocLink, err)
-		}
-		return nil, err
+		return nil, handleSSAErr(err, c.FieldManager)
 	}
 
 	return currentOutputs, nil
@@ -638,6 +629,24 @@ func handleSSAIgnoreFields(c *UpdateConfig, liveOldObj *unstructured.Unstructure
 	return nil
 }
 
+// handleSSAErr wraps server-side apply errors with troubleshooting information.
+// Currently only Conflict errors are handled, all others are returned as-is.
+func handleSSAErr(err error, manager string) error {
+	if !apierrors.IsConflict(err) {
+		return err
+	}
+	link := "https://www.pulumi.com/registry/packages/kubernetes/how-to-guides/managing-resources-with-server-side-apply/#handle-field-conflicts-on-existing-resources"
+	info := fmt.Errorf(
+		"Server-Side Apply field conflict detected. See %s for troubleshooting help.",
+		link,
+	)
+	cause := fmt.Errorf(
+		"The resource managed by field manager %q had an apply conflict: %w",
+		manager, err,
+	)
+	return errors.Join(info, cause)
+}
+
 // makeInterfaceSlice converts a slice of any type to a slice of explicit interface{}. This
 // enables slice unpacking to variadic functions that take interface{}.
 func makeInterfaceSlice[T any](inputs []T) []interface{} {
@@ -746,7 +755,7 @@ func Deletion(c DeleteConfig) error {
 	// Helm charts), and it is acceptable for other resources because it is semantically like
 	// running `refresh` before deletion.
 	nilIfGVKDeleted := func(err error) error {
-		if errors.IsNotFound(err) {
+		if apierrors.IsNotFound(err) {
 			return nil
 		}
 		return err
@@ -848,7 +857,7 @@ func Deletion(c DeleteConfig) error {
 					}
 					return &initializationError{
 						object:    obj,
-						subErrors: []string{errors.FromObject(event.Object).Error()},
+						subErrors: []string{apierrors.FromObject(event.Object).Error()},
 					}
 				}
 			case <-c.Context.Done(): // Handle user cancellation during watch for deletion.
