@@ -188,6 +188,12 @@ func (r *ChartProvider) Construct(ctx *pulumi.Context, typ, name string, inputs 
 		return nil, err
 	}
 
+	if release.Chart.Metadata.Deprecated {
+		_ = ctx.Log.Warn(fmt.Sprintf("Using a deprecated Helm chart (%s)", release.Chart.Name()), &pulumi.LogArgs{
+			Resource: comp,
+		})
+	}
+
 	// Parse the YAML file into an array of Kubernetes objects.
 	parseOpts := provideryamlv2.ParseOptions{
 		YAML: release.Manifest,

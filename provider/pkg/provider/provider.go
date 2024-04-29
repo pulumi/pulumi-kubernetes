@@ -459,6 +459,7 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	const trueStr = "true"
 
 	helmSettings := helmcli.New()
+	helmSettings.Debug = true // enable verbose logging (to glog)
 	helmFlags := helmSettings.RESTClientGetter().(*genericclioptions.ConfigFlags)
 
 	vars := req.GetVariables()

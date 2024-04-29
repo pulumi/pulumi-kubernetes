@@ -123,10 +123,6 @@ func fqName(namespace, name string) string {
 // --------------------------------------------------------------------------
 
 func writeKubeconfigToFile(config *clientapi.Config) (string, error) {
-	// config, err := parseKubeconfigString(pathOrContents)
-	// if err != nil {
-	// 	return "", err
-	// }
 	file, err := os.CreateTemp("", "kubeconfig")
 	if err != nil {
 		return "", err

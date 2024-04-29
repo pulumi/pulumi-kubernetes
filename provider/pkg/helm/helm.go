@@ -25,6 +25,7 @@ import (
 	"time"
 
 	"github.com/pkg/errors"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/logging"
 	helmv3 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v3"
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
@@ -229,21 +230,21 @@ func (cmd *TemplateOrInstallCommand) runInstall(ctx context.Context) (*release.R
 		client.Version = ">0.0.0-0"
 	}
 
-	name, chart, err := client.NameAndChart([]string{cmd.Chart})
+	releaseName, chart, err := client.NameAndChart([]string{cmd.Chart})
 	if err != nil {
 		return nil, err
 	}
-	client.ReleaseName = name
+	client.ReleaseName = releaseName
 
+	debug("attempting to resolve the chart %q with version %q", chart, client.Version)
 	cp, err := client.ChartPathOptions.LocateChart(chart, settings)
 	if err != nil {
 		return nil, err
 	}
-
-	debug("CHART PATH: %s\n", cp)
+	debug("a chart was located at %s", cp)
 
 	p := getter.All(settings)
-	// TODO: add a "file:" getter for parity with Pulumi resource package
+	// FUTURE: add a "file:" getter for parity with Pulumi resource package
 	vals, err := valueOpts.MergeValues(p)
 	if err != nil {
 		return nil, err
@@ -259,17 +260,16 @@ func (cmd *TemplateOrInstallCommand) runInstall(ctx context.Context) (*release.R
 		return nil, err
 	}
 
-	if chartRequested.Metadata.Deprecated {
-		warning("This chart is deprecated")
-	}
-
 	if req := chartRequested.Metadata.Dependencies; req != nil {
 		// If CheckDependencies returns an error, we have unfulfilled dependencies.
 		if err := action.CheckDependencies(chartRequested, req); err != nil {
 			err = errors.Wrap(err, "An error occurred while checking for chart dependencies. You may need to run `helm dependency build` to fetch missing dependencies")
 			if client.DependencyUpdate || cmd.DependencyBuild {
+				logStream := debugStream()
+				defer logStream.Close()
+
 				man := &downloader.Manager{
-					Out:              os.Stdout,
+					Out:              logStream,
 					ChartPath:        cp,
 					Keyring:          client.ChartPathOptions.Keyring,
 					SkipUpdate:       false,
@@ -280,7 +280,6 @@ func (cmd *TemplateOrInstallCommand) runInstall(ctx context.Context) (*release.R
 					RegistryClient:   client.GetRegistryClient(),
 				}
 				if cmd.DependencyBuild {
-					// TODO check for lock file before running build (or might trigger update)
 					if err := man.Build(); err != nil {
 						return nil, err
 					}
@@ -313,12 +312,12 @@ func (cmd *TemplateOrInstallCommand) runInstall(ctx context.Context) (*release.R
 }
 
 func debug(format string, a ...any) {
-	logger.V(6).Infof("[DEBUG] %s", fmt.Sprintf(format, a...))
+	logger.V(6).Infof("[helm] %s", fmt.Sprintf(format, a...))
 }
 
-func warning(format string, v ...interface{}) {
-	format = fmt.Sprintf("WARNING: %s\n", format)
-	fmt.Fprintf(os.Stderr, format, v...)
+func debugStream() *logging.LogWriter {
+	// FUTURE: set log depth
+	return logging.NewLogWriterPrefixed(logger.V(6).Infof, "[helm] ")
 }
 
 // defaultKeyring returns the expanded path to the default keyring.
@@ -345,10 +344,11 @@ func newRegistryClient(settings *cli.EnvSettings, certFile, keyFile, caFile stri
 }
 
 func newDefaultRegistryClient(settings *cli.EnvSettings, plainHTTP bool) (*registry.Client, error) {
+	logStream := debugStream()
 	opts := []registry.ClientOption{
 		registry.ClientOptDebug(settings.Debug),
 		registry.ClientOptEnableCache(true),
-		registry.ClientOptWriter(os.Stderr),
+		registry.ClientOptWriter(logStream),
 		registry.ClientOptCredentialsFile(settings.RegistryConfig),
 	}
 	if plainHTTP {
@@ -364,8 +364,9 @@ func newDefaultRegistryClient(settings *cli.EnvSettings, plainHTTP bool) (*regis
 }
 
 func newRegistryClientWithTLS(settings *cli.EnvSettings, certFile, keyFile, caFile string, insecureSkipTLSverify bool) (*registry.Client, error) {
+	logStream := debugStream()
 	// Create a new registry client
-	registryClient, err := registry.NewRegistryClientWithTLS(os.Stderr, certFile, keyFile, caFile, insecureSkipTLSverify,
+	registryClient, err := registry.NewRegistryClientWithTLS(logStream, certFile, keyFile, caFile, insecureSkipTLSverify,
 		settings.RegistryConfig, settings.Debug,
 	)
 	if err != nil {
