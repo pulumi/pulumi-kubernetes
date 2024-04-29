@@ -59,22 +59,12 @@ const (
 //
 // https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/daemon-set-v1/#DaemonSetStatus
 //
-// The success conditions depend on the update strategy.
-//
-// For the RollingUpdate strategy, we use kubectl's rollout status viewer to
-// decide when an update has completed. Essentially when
-//   - .status.desiredNumberScheduled == .status.numberAvailable, and
-//   - .status.desiredNumberScheduled == .status.updatedNumberScheduled.
-//
-// For the OnDelete strategy:
-//   - .status.desiredNumberScheduled == .status.numberAvailable, and
-//   - .status.numberMisscheduled == 0.
-//
-// We always require the DaemonSet's generation to match the controller's
-// observed generation, regardless of rollout strategy.
-//
-// .status.numberAvailable is preferred over .status.numberReady because it
-// respects .spec.minReadySeconds.
+// The success conditions are the same regardless of the update strategy and
+// are determined by
+// https://pkg.go.dev/sigs.k8s.io/cli-utils/pkg/kstatus/status.
+
+// Importantly, this means OnDelete rollouts will wait until pods have been
+// manually cleaned up unless the skipAwait annotation is present.
 type dsAwaiter struct {
 	config  updateAwaitConfig
 	ds      *unstructured.Unstructured
