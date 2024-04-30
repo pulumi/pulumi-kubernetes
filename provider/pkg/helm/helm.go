@@ -41,10 +41,17 @@ import (
 	"k8s.io/client-go/util/homedir"
 )
 
+type InitActionConfigF func(actionConfig *action.Configuration, namespaceOverride string) error
+
+type ExecuteF func(ctx context.Context, i *action.Install, chrt *chart.Chart, vals map[string]interface{}) (*release.Release, error)
+
 // Tool for executing Helm commands via the Helm library.
 type Tool struct {
 	EnvSettings *cli.EnvSettings
 	HelmDriver  string
+
+	initActionConfig InitActionConfigF
+	execute          ExecuteF
 }
 
 // NewTool creates a new Helm tool with the given environment settings.
@@ -55,15 +62,21 @@ func NewTool(settings *cli.EnvSettings) *Tool {
 	return &Tool{
 		EnvSettings: settings,
 		HelmDriver:  helmDriver,
+		initActionConfig: func(actionConfig *action.Configuration, namespaceOverride string) error {
+			if namespaceOverride == "" {
+				namespaceOverride = settings.Namespace()
+			}
+			// https://github.com/helm/helm/blob/635b8cf33d25a86131635c32f35b2a76256e40cb/cmd/helm/helm.go#L72-L81
+			return actionConfig.Init(settings.RESTClientGetter(), namespaceOverride, helmDriver, debug)
+		},
+		execute: func(ctx context.Context, i *action.Install, chrt *chart.Chart, vals map[string]interface{}) (*release.Release, error) {
+			return i.RunWithContext(ctx, chrt, vals)
+		},
 	}
 }
 
-func (t *Tool) initActionConfig(actionConfig *action.Configuration, namespaceOverride string) error {
-	if namespaceOverride == "" {
-		namespaceOverride = t.EnvSettings.Namespace()
-	}
-	// https://github.com/helm/helm/blob/635b8cf33d25a86131635c32f35b2a76256e40cb/cmd/helm/helm.go#L72-L81
-	return actionConfig.Init(t.EnvSettings.RESTClientGetter(), namespaceOverride, t.HelmDriver, debug)
+func (t *Tool) AllGetters() getter.Providers {
+	return getter.All(t.EnvSettings)
 }
 
 // TemplateOrInstallCommand for `helm template` or `helm install`.
@@ -241,7 +254,7 @@ func (cmd *TemplateOrInstallCommand) runInstall(ctx context.Context) (*release.R
 	}
 	debug("a chart was located at %s", cp)
 
-	p := getter.All(settings)
+	p := cmd.tool.AllGetters()
 	// FUTURE: add a "file:" getter for parity with Pulumi resource package
 	vals, err := valueOpts.MergeValues(p)
 	if err != nil {
@@ -309,7 +322,7 @@ func (cmd *TemplateOrInstallCommand) runInstall(ctx context.Context) (*release.R
 		return nil, err
 	}
 
-	return client.RunWithContext(ctx, chartRequested, vals)
+	return cmd.tool.execute(ctx, client, chartRequested, vals)
 }
 
 func debug(format string, a ...any) {

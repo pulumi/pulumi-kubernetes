@@ -26,14 +26,16 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/internals"
 	pulumiprovider "github.com/pulumi/pulumi/sdk/v3/go/pulumi/provider"
-	helmgetter "helm.sh/helm/v3/pkg/getter"
 	helmkube "helm.sh/helm/v3/pkg/kube"
 	"helm.sh/helm/v3/pkg/postrender"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
+type toolF func() *kubehelm.Tool
+
 type ChartProvider struct {
 	opts *providerresource.ResourceProviderOptions
+	tool toolF
 }
 
 type ChartArgs struct {
@@ -127,6 +129,9 @@ var _ providerresource.ResourceProvider = &ChartProvider{}
 func NewChartProvider(opts *providerresource.ResourceProviderOptions) providerresource.ResourceProvider {
 	return &ChartProvider{
 		opts: opts,
+		tool: func() *kubehelm.Tool {
+			return kubehelm.NewTool(opts.HelmOptions.EnvSettings)
+		},
 	}
 }
 
@@ -164,7 +169,7 @@ func (r *ChartProvider) Construct(ctx *pulumi.Context, typ, name string, inputs 
 	}
 
 	// Prepare the `helm template` command
-	tool := kubehelm.NewTool(r.opts.HelmOptions.EnvSettings)
+	tool := r.tool()
 	tool.HelmDriver = r.opts.HelmOptions.HelmDriver
 	cmd := tool.Template()
 
@@ -180,7 +185,7 @@ func (r *ChartProvider) Construct(ctx *pulumi.Context, typ, name string, inputs 
 	cmd.Verify = chartArgs.Verify
 
 	if chartArgs.Keyring != nil {
-		p := helmgetter.All(r.opts.HelmOptions.EnvSettings)
+		p := tool.AllGetters()
 		keyring, err := kubehelm.LocateKeyring(p, chartArgs.Keyring)
 		if err != nil {
 			return nil, fmt.Errorf("locating keyring: %w", err)
