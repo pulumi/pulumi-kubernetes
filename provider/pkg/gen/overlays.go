@@ -202,7 +202,7 @@ var helmV4ChartResource = pschema.ResourceSpec{
 		},
 		"keyring": {
 			TypeSpec: pschema.TypeSpec{
-				Type: "string",
+				Ref: "pulumi.json#/Asset",
 			},
 			Description: "Location of public keys used for verification. Used only if `verify` is true",
 		},

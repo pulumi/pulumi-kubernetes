@@ -26,6 +26,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/internals"
 	pulumiprovider "github.com/pulumi/pulumi/sdk/v3/go/pulumi/provider"
+	helmgetter "helm.sh/helm/v3/pkg/getter"
 	helmkube "helm.sh/helm/v3/pkg/kube"
 	"helm.sh/helm/v3/pkg/postrender"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
@@ -36,13 +37,15 @@ type ChartProvider struct {
 }
 
 type ChartArgs struct {
-	Name             pulumi.StringInput         `pulumi:"name"`
-	Namespace        pulumi.StringInput         `pulumi:"namespace"`
+	Name             pulumi.StringInput         `pulumi:"name,optional"`
+	Namespace        pulumi.StringInput         `pulumi:"namespace,optional"`
 	Chart            pulumi.StringInput         `pulumi:"chart"`
-	Version          pulumi.StringInput         `pulumi:"version"`
+	Version          pulumi.StringInput         `pulumi:"version,optional"`
 	Devel            pulumi.BoolInput           `pulumi:"devel,optional"`
 	RepositoryOpts   helmv3.RepositoryOptsInput `pulumi:"repositoryOpts,optional"`
 	DependencyUpdate pulumi.BoolInput           `pulumi:"dependencyUpdate,optional"`
+	Verify           pulumi.BoolInput           `pulumi:"verify,optional"`
+	Keyring          pulumi.AssetInput          `pulumi:"keyring,optional"`
 
 	Values       pulumi.MapInput          `pulumi:"values,optional"`
 	ValuesFiles  pulumi.AssetArrayInput   `pulumi:"valueYamlFiles,optional"`
@@ -61,6 +64,8 @@ type chartArgs struct {
 	Devel            bool
 	RepositoryOpts   helmv3.RepositoryOpts
 	DependencyUpdate bool
+	Verify           bool
+	Keyring          pulumi.Asset
 
 	Values       map[string]any
 	ValuesFiles  []pulumi.Asset
@@ -74,7 +79,7 @@ type chartArgs struct {
 func unwrapChartArgs(ctx context.Context, args *ChartArgs) (*chartArgs, internals.UnsafeAwaitOutputResult, error) {
 	result, err := internals.UnsafeAwaitOutput(ctx, pulumi.All(
 		args.Name, args.Namespace,
-		args.Chart, args.Version, args.Devel, args.RepositoryOpts, args.DependencyUpdate,
+		args.Chart, args.Version, args.Devel, args.RepositoryOpts, args.DependencyUpdate, args.Verify, args.Keyring,
 		args.Values, args.ValuesFiles, args.SkipCrds, args.PostRenderer,
 		args.ResourcePrefix, args.SkipAwait))
 	if err != nil || !result.Known {
@@ -94,6 +99,8 @@ func unwrapChartArgs(ctx context.Context, args *ChartArgs) (*chartArgs, internal
 	r.Devel, _ = pop().(bool)
 	r.RepositoryOpts, _ = pop().(helmv3.RepositoryOpts)
 	r.DependencyUpdate, _ = pop().(bool)
+	r.Verify, _ = pop().(bool)
+	r.Keyring, _ = pop().(pulumi.Asset)
 
 	r.Values, _ = pop().(map[string]any)
 	r.ValuesFiles, _ = pop().([]pulumi.Asset)
@@ -168,8 +175,18 @@ func (r *ChartProvider) Construct(ctx *pulumi.Context, typ, name string, inputs 
 	cmd.Chart = chartArgs.Chart
 	cmd.Version = chartArgs.Version
 	cmd.Devel = chartArgs.Devel
-	cmd.DependencyUpdate = chartArgs.DependencyUpdate
 	kubehelm.ApplyRepositoryOpts(&cmd.ChartPathOptions, chartArgs.RepositoryOpts)
+	cmd.DependencyUpdate = chartArgs.DependencyUpdate
+	cmd.Verify = chartArgs.Verify
+
+	if chartArgs.Keyring != nil {
+		p := helmgetter.All(r.opts.HelmOptions.EnvSettings)
+		keyring, err := kubehelm.LocateKeyring(p, chartArgs.Keyring)
+		if err != nil {
+			return nil, fmt.Errorf("locating keyring: %w", err)
+		}
+		cmd.Keyring = keyring
+	}
 
 	cmd.Values.Values = chartArgs.Values
 	cmd.Values.ValuesFiles = chartArgs.ValuesFiles

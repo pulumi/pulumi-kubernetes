@@ -283,7 +283,7 @@ type chartArgs struct {
 	// Use chart development versions, too. Equivalent to version '>0.0.0-0'. If `version` is set, this is ignored.
 	Devel *bool `pulumi:"devel"`
 	// Location of public keys used for verification. Used only if `verify` is true
-	Keyring *string `pulumi:"keyring"`
+	Keyring pulumi.AssetOrArchive `pulumi:"keyring"`
 	// Release name.
 	Name *string `pulumi:"name"`
 	// Namespace for the release.
@@ -317,7 +317,7 @@ type ChartArgs struct {
 	// Use chart development versions, too. Equivalent to version '>0.0.0-0'. If `version` is set, this is ignored.
 	Devel pulumi.BoolPtrInput
 	// Location of public keys used for verification. Used only if `verify` is true
-	Keyring pulumi.StringPtrInput
+	Keyring pulumi.AssetOrArchiveInput
 	// Release name.
 	Name pulumi.StringPtrInput
 	// Namespace for the release.
