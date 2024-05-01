@@ -21,6 +21,7 @@ import (
 	providerhelmv4 "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/helm/v4"
 	providerresource "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/resource"
 	provideryamlv2 "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/yaml/v2"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 	pulumiprovider "github.com/pulumi/pulumi/sdk/v3/go/pulumi/provider"
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
 )
@@ -57,6 +58,7 @@ func (k *kubeProvider) Construct(ctx context.Context, req *pulumirpc.ConstructRe
 	if k.clusterUnreachable {
 		return nil, fmt.Errorf("configured Kubernetes cluster is unreachable: %s", k.clusterUnreachableReason)
 	}
+	contract.Assertf(k.defaultNamespace != "", "expected defaultNamespace")
 
 	typ := req.GetType()
 	provider, found := k.getResourceProvider(typ)

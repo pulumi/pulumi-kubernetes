@@ -51,6 +51,7 @@ var _ = Describe("RPC:Construct", func() {
 
 	JustBeforeEach(func() {
 		k = pctx.NewProvider(opts...)
+		k.defaultNamespace = "default"
 	})
 
 	Context("when the requested type is unknown", func() {
@@ -83,6 +84,17 @@ var _ = Describe("RPC:Construct", func() {
 			Expect(testComponent.typ).Should(Equal("kubernetes:test:TestComponent"))
 			Expect(testComponent.name).Should(Equal("testComponent"))
 			Expect(result.Urn).Should(Equal("urn:pulumi:test::test::test:TestComponent::testComponent"))
+		})
+
+		Context("when clusterUnreachable is true", func() {
+			JustBeforeEach(func() {
+				k.clusterUnreachable = true
+				k.clusterUnreachableReason = "testing"
+			})
+			It("should return an error", func() {
+				_, err := k.Construct(context.Background(), req)
+				Expect(err).To(MatchError(ContainSubstring("configured Kubernetes cluster is unreachable")))
+			})
 		})
 	})
 })
