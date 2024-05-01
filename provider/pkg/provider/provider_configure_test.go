@@ -277,6 +277,34 @@ var _ = Describe("RPC:Configure", func() {
 		})
 	})
 
+	Describe("Helm Release Settings", func() {
+		Context("given helmReleaseSettings", func() {
+			var helmReleaseSettings *HelmReleaseSettings
+			BeforeEach(func() {
+				helmReleaseSettings = &HelmReleaseSettings{
+					Driver:               ptr.To("configmap"),
+					PluginsPath:          ptr.To("plugins"),
+					RegistryConfigPath:   ptr.To("registry"),
+					RepositoryCache:      ptr.To("cache"),
+					RepositoryConfigPath: ptr.To("config"),
+				}
+			})
+			JustBeforeEach(func() {
+				data, _ := json.Marshal(helmReleaseSettings)
+				req.Variables["kubernetes:config:helmReleaseSettings"] = string(data)
+			})
+			It("should use the configured settings", func() {
+				_, err := k.Configure(context.Background(), req)
+				Expect(err).ShouldNot(HaveOccurred())
+				Expect(k.helmDriver).To(Equal("configmap"))
+				Expect(k.helmSettings.PluginsDirectory).To(Equal("plugins"))
+				Expect(k.helmSettings.RegistryConfig).To(Equal("registry"))
+				Expect(k.helmSettings.RepositoryCache).To(Equal("cache"))
+				Expect(k.helmSettings.RepositoryConfig).To(Equal("config"))
+			})
+		})
+	})
+
 	Describe("Discovery", func() {
 		It("should record the server version for use in subsequent RPC methods", func() {
 			_, err := k.Configure(context.Background(), req)
