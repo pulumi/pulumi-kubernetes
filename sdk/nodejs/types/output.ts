@@ -29134,6 +29134,9 @@ export namespace helm {
         }
 
     }
+
+    export namespace v4 {
+    }
 }
 
 export namespace meta {

@@ -16,13 +16,13 @@ namespace Pulumi.Kubernetes.Types.Inputs.Provider
     public class KubeClientSettingsArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Maximum burst for throttle. Default value is 10.
+        /// Maximum burst for throttle. Default value is 120.
         /// </summary>
         [Input("burst")]
         public Input<int>? Burst { get; set; }
 
         /// <summary>
-        /// Maximum queries per second (QPS) to the API server from this client. Default value is 5.
+        /// Maximum queries per second (QPS) to the API server from this client. Default value is 50.
         /// </summary>
         [Input("qps")]
         public Input<double>? Qps { get; set; }

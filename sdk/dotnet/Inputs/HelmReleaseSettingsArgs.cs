@@ -34,7 +34,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Provider
         public Input<string>? RegistryConfigPath { get; set; }
 
         /// <summary>
-        /// The path to the file containing cached repository indexes.
+        /// The path to the directory containing cached repository indexes.
         /// </summary>
         [Input("repositoryCache")]
         public Input<string>? RepositoryCache { get; set; }
