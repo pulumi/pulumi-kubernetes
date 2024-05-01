@@ -231,16 +231,16 @@ var _ = Describe("Register", func() {
 
 				Expect(tc.monitor.Resources()).To(MatchAllKeys(Keys{
 					"urn:pulumi:stack::project::kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::crontabs.stable.example.com": MatchProps(IgnoreExtras, Props{
-						"state": HaveSkipAwaitAnnotation(),
+						"state": BeObject(HaveSkipAwaitAnnotation()),
 					}),
 					"urn:pulumi:stack::project::kubernetes:core/v1:Namespace::my-namespace": MatchProps(IgnoreExtras, Props{
-						"state": HaveSkipAwaitAnnotation(),
+						"state": BeObject(HaveSkipAwaitAnnotation()),
 					}),
 					"urn:pulumi:stack::project::kubernetes:core/v1:ConfigMap::my-namespace/my-map": MatchProps(IgnoreExtras, Props{
-						"state": HaveSkipAwaitAnnotation(),
+						"state": BeObject(HaveSkipAwaitAnnotation()),
 					}),
 					"urn:pulumi:stack::project::kubernetes:stable.example.com/v1:CronTab::my-namespace/my-new-cron-object": MatchProps(IgnoreExtras, Props{
-						"state": HaveSkipAwaitAnnotation(),
+						"state": BeObject(HaveSkipAwaitAnnotation()),
 					}),
 				}))
 			})
