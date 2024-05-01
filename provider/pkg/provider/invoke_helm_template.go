@@ -15,6 +15,7 @@
 package provider
 
 import (
+	"errors"
 	"fmt"
 	"net/url"
 	"os"
@@ -22,7 +23,6 @@ import (
 	"regexp"
 	"strings"
 
-	pkgerrors "github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
@@ -97,7 +97,7 @@ func helmTemplate(opts HelmChartOpts, clientSet *clients.DynamicClientSet) (stri
 		}
 		err := os.Setenv("HELM_HOME", chart.opts.Home)
 		if err != nil {
-			return "", pkgerrors.Wrap(err, "failed to set HELM_HOME")
+			return "", fmt.Errorf("failed to set HELM_HOME: %w", err)
 		}
 		defer func() {
 			if chart.helmHome != nil {
@@ -163,8 +163,9 @@ func (c *chart) fetch() error {
 	p.Verify = c.opts.Verify
 
 	if len(c.opts.Repo) > 0 && strings.HasPrefix(c.opts.Repo, "http") {
-		return pkgerrors.New("'repo' option specifies the name of the Helm Chart repo, not the URL." +
+		return errors.New("'repo' option specifies the name of the Helm Chart repo, not the URL." +
 			"Use 'fetchOpts.repo' to specify a URL for a remote Chart")
+
 	}
 
 	// TODO: We have two different version parameters, but it doesn't make sense
@@ -186,7 +187,7 @@ func (c *chart) fetch() error {
 	logger.V(9).Infof("Trying to download chart: %q", chartRef)
 	downloadInfo, err := p.Run(chartRef)
 	if err != nil {
-		return pkgerrors.Wrap(err, "failed to pull chart")
+		return fmt.Errorf("failed to pull chart: %w", err)
 	}
 	logger.V(9).Infof("Download result: %q", downloadInfo)
 	return nil
@@ -289,17 +290,17 @@ func (c *chart) template(clientSet *clients.DynamicClientSet) (string, error) {
 		return c.opts.Chart, nil
 	}()
 	if err != nil {
-		return "", pkgerrors.Wrapf(err, "failed to load chart name from %q", c.opts.Chart)
+		return "", fmt.Errorf("failed to load chart name from %q: %w", c.opts.Chart, err)
 	}
 
 	chart, err := loader.Load(filepath.Join(c.chartDir, chartName))
 	if err != nil {
-		return "", pkgerrors.Wrap(err, "failed to load chart from temp directory")
+		return "", fmt.Errorf("failed to load chart from temp directory: %w", err)
 	}
 
 	rel, err := installAction.Run(chart, c.opts.Values)
 	if err != nil {
-		return "", pkgerrors.Wrap(err, "failed to create chart from template")
+		return "", fmt.Errorf("failed to create chart from template: %w", err)
 	}
 	return getManifest(rel, true, c.opts.IncludeTestHookResources), nil
 }

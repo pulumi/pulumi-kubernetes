@@ -19,7 +19,6 @@ import (
 	"os"
 	"strings"
 
-	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/cmdutil"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
@@ -41,13 +40,13 @@ func kustomizeDirectory(directory string, clientSet *clients.DynamicClientSet) (
 		// Create a temp dir.
 		var temp string
 		if temp, err = os.MkdirTemp("", "kustomize-"); err != nil {
-			return nil, errors.Wrap(err, "failed to create temp directory for remote kustomize directory")
+			return nil, fmt.Errorf("failed to create temp directory for remote kustomize directory: %w", err)
 		}
 		defer contract.IgnoreError(os.RemoveAll(temp))
 
 		path, err = workspace.RetrieveGitFolder(directory, temp)
 		if err != nil {
-			return nil, errors.Wrapf(err, "failed to retrieve specified kustomize directory: %q", directory)
+			return nil, fmt.Errorf("failed to retrieve specified kustomize directory: %q: %w", directory, err)
 		}
 	}
 
@@ -76,12 +75,12 @@ func kustomizeDirectory(directory string, clientSet *clients.DynamicClientSet) (
 		if enableHelmChartSupport && strings.Contains(err.Error(), `(is 'helm' installed?)`) {
 			err = fmt.Errorf("the helmCharts feature requires %q binary to be on the system PATH", helmPath)
 		}
-		return nil, errors.Wrapf(err, "kustomize failed for directory %q", path)
+		return nil, fmt.Errorf("kustomize failed for directory %q: %w", path, err)
 	}
 
 	yamlBytes, err := rm.AsYaml()
 	if err != nil {
-		return nil, errors.Wrap(err, "failed to convert kustomize result to YAML")
+		return nil, fmt.Errorf("failed to convert kustomize result to YAML: %w", err)
 	}
 
 	return decodeYaml(string(yamlBytes), "", clientSet)

@@ -29,7 +29,6 @@ import (
 	"text/template"
 	"unicode"
 
-	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/gen"
 	providerVersion "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/version"
 	"github.com/pulumi/pulumi/pkg/v3/codegen"
@@ -520,7 +519,7 @@ func makeJSONString(v any) ([]byte, error) {
 func mustWritePulumiSchema(pkgSpec schema.PackageSpec, version string) {
 	schemaJSON, err := makeJSONString(pkgSpec)
 	if err != nil {
-		panic(errors.Wrap(err, "marshaling Pulumi schema"))
+		panic(fmt.Errorf("marshaling Pulumi schema: %w", err))
 	}
 
 	mustWriteFile(BaseDir, filepath.Join("provider", "cmd", "pulumi-resource-kubernetes", "schema.json"), schemaJSON)
@@ -529,7 +528,7 @@ func mustWritePulumiSchema(pkgSpec schema.PackageSpec, version string) {
 	versionedPkgSpec.Version = version
 	versionedSchemaJSON, err := makeJSONString(versionedPkgSpec)
 	if err != nil {
-		panic(errors.Wrap(err, "marshaling Pulumi schema"))
+		panic(fmt.Errorf("marshaling Pulumi schema: %w", err))
 	}
 	mustWriteFile(BaseDir, filepath.Join("sdk", "schema", "schema.json"), versionedSchemaJSON)
 }
