@@ -31,6 +31,7 @@ import (
 	"github.com/imdario/mergo"
 	"github.com/mitchellh/mapstructure"
 	pkgerrors "github.com/pkg/errors"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/helm"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/host"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
@@ -54,6 +55,7 @@ import (
 	"k8s.io/apimachinery/pkg/util/strategicpatch"
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
+	"k8s.io/client-go/tools/clientcmd/api"
 	"sigs.k8s.io/yaml"
 )
 
@@ -175,8 +177,10 @@ type helmReleaseProvider struct {
 	host                     host.HostClient
 	canceler                 *cancellationContext
 	helmDriver               string
-	clientConfig             clientcmd.ClientConfig
+	apiConfig                *api.Config
+	defaultOverrides         *clientcmd.ConfigOverrides
 	restConfig               *rest.Config
+	clientSet                *clients.DynamicClientSet
 	defaultNamespace         string
 	enableSecrets            bool
 	clusterUnreachable       bool
@@ -188,8 +192,10 @@ type helmReleaseProvider struct {
 func newHelmReleaseProvider(
 	host host.HostClient,
 	canceler *cancellationContext,
-	clientConfig clientcmd.ClientConfig,
+	apiConfig *api.Config,
+	defaultOverrides *clientcmd.ConfigOverrides,
 	restConfig *rest.Config,
+	clientSet *clients.DynamicClientSet,
 	helmDriver,
 	namespace string,
 	enableSecrets bool,
@@ -210,8 +216,10 @@ func newHelmReleaseProvider(
 	return &helmReleaseProvider{
 		host:                     host,
 		canceler:                 canceler,
-		clientConfig:             clientConfig,
+		apiConfig:                apiConfig,
+		defaultOverrides:         defaultOverrides,
 		restConfig:               restConfig,
+		clientSet:                clientSet,
 		helmDriver:               helmDriver,
 		defaultNamespace:         namespace,
 		enableSecrets:            enableSecrets,
@@ -228,7 +236,30 @@ func debug(format string, a ...any) {
 
 func (r *helmReleaseProvider) getActionConfig(namespace string) (*action.Configuration, error) {
 	conf := new(action.Configuration)
-	kc := NewKubeConfig(r.restConfig, r.clientConfig)
+	var overrides clientcmd.ConfigOverrides
+	if r.defaultOverrides != nil {
+		overrides = *r.defaultOverrides
+	}
+
+	// This essentially points the client to use the specified namespace when a namespaced
+	// object doesn't have the namespace specified. This allows us to interpolate the
+	// release's namespace as the default namespace on charts with templates that don't
+	// explicitly set the namespace (e.g. through namespace: {{ .Release.Namespace }}).
+	overrides.Context.Namespace = namespace
+
+	var clientConfig clientcmd.ClientConfig
+	if r.apiConfig != nil {
+		clientConfig = clientcmd.NewDefaultClientConfig(*r.apiConfig, &overrides)
+	} else {
+		// Use client-go to resolve the final configuration values for the client. Typically these
+		// values would reside in the $KUBECONFIG file, but can also be altered in several
+		// places, including in env variables, client-go default values, and (if we allowed it) CLI
+		// flags.
+		loadingRules := clientcmd.NewDefaultClientConfigLoadingRules()
+		loadingRules.DefaultClientConfig = &clientcmd.DefaultClientConfig
+		clientConfig = clientcmd.NewNonInteractiveDeferredLoadingClientConfig(loadingRules, &overrides)
+	}
+	kc := NewKubeConfig(r.restConfig, clientConfig)
 
 	if err := conf.Init(kc, namespace, r.helmDriver, debug); err != nil {
 		return nil, err

@@ -151,8 +151,6 @@ type kubeProvider struct {
 	clusterUnreachable       bool   // Kubernetes cluster is unreachable.
 	clusterUnreachableReason string // Detailed error message if cluster is unreachable.
 
-	kubeconfig clientcmd.ClientConfig
-	restconfig *rest.Config
 	makeClient func(context.Context, *rest.Config) (*clients.DynamicClientSet, *clients.LogClient, error)
 	clientSet  *clients.DynamicClientSet
 	logClient  *clients.LogClient
@@ -458,8 +456,8 @@ func (k *kubeProvider) DiffConfig(ctx context.Context, req *pulumirpc.DiffReques
 func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequest) (*pulumirpc.ConfigureResponse, error) {
 	const trueStr = "true"
 
-	// Configure Helm settings based on the ordinary Helm environment,
-	// using provider configuration as overrides.
+	// Configure Helm settings based on the ambient Helm environment,
+	// using the provider configuration as overrides.
 	helmSettings := helmcli.New()
 	helmFlags := helmSettings.RESTClientGetter().(*genericclioptions.ConfigFlags)
 	helmSettings.Debug = true // enable verbose logging (piped to glog at level 6)
@@ -700,24 +698,26 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	}
 
 	var kubeconfig clientcmd.ClientConfig
+	var apiConfig *clientapi.Config
 	// Note: the Python SDK was setting the kubeconfig value to "" by default, so explicitly check for empty string.
 	if pathOrContents, ok := vars["kubernetes:config:kubeconfig"]; ok && pathOrContents != "" {
 		apiConfig, err := parseKubeconfigString(pathOrContents)
 		if err != nil {
 			unreachableCluster(err)
-			kubeconfig = nil
+			// note: kubeconfig is not set when the cluster is unreachable
 		} else {
-			configFile, err := writeKubeconfigToFile(apiConfig)
-			if err != nil {
-				return nil, fmt.Errorf("failed to write kubeconfig file: %w", err)
-			}
-			helmSettings.KubeConfig = configFile
-
 			kubeconfig = clientcmd.NewDefaultClientConfig(*apiConfig, overrides)
 			configurationNamespace, _, err := kubeconfig.Namespace()
 			if err == nil {
 				k.defaultNamespace = configurationNamespace
 			}
+
+			// initialize Helm settings to use the kubeconfig; use a generated file as necessary.
+			configFile, err := writeKubeconfigToFile(apiConfig)
+			if err != nil {
+				return nil, fmt.Errorf("failed to write kubeconfig file: %w", err)
+			}
+			helmSettings.KubeConfig = configFile
 		}
 	} else {
 		// Use client-go to resolve the final configuration values for the client. Typically, these
@@ -726,13 +726,12 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		// flags.
 		loadingRules := clientcmd.NewDefaultClientConfigLoadingRules()
 		loadingRules.DefaultClientConfig = &clientcmd.DefaultClientConfig
-		kubeconfig = clientcmd.NewNonInteractiveDeferredLoadingClientConfig(loadingRules, overrides)
+		kubeconfig = clientcmd.NewInteractiveDeferredLoadingClientConfig(loadingRules, overrides, os.Stdin)
 		configurationNamespace, _, err := kubeconfig.Namespace()
 		if err == nil {
 			k.defaultNamespace = configurationNamespace
 		}
 	}
-	k.kubeconfig = kubeconfig
 
 	var kubeClientSettings KubeClientSettings
 	if obj, ok := vars["kubernetes:config:kubeClientSettings"]; ok {
@@ -803,7 +802,6 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 			config.WarningHandler = rest.NoWarnings{}
 		}
 	}
-	k.restconfig = config
 
 	var err error
 	k.clientSet, k.logClient, err = k.makeClient(k.canceler.context, config)
@@ -833,8 +831,10 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	k.helmReleaseProvider, err = newHelmReleaseProvider(
 		k.host,
 		k.canceler,
-		kubeconfig,
+		apiConfig,
+		overrides,
 		config,
+		k.clientSet,
 		k.helmDriver,
 		k.defaultNamespace,
 		k.enableSecrets,
