@@ -59,6 +59,8 @@ func (k *kubeProvider) Construct(ctx context.Context, req *pulumirpc.ConstructRe
 		return nil, fmt.Errorf("configured Kubernetes cluster is unreachable: %s", k.clusterUnreachableReason)
 	}
 	contract.Assertf(k.defaultNamespace != "", "expected defaultNamespace")
+	contract.Assertf(k.helmDriver != "", "expected helmDriver")
+	contract.Assertf(k.helmSettings != nil, "expected helmSettings")
 
 	typ := req.GetType()
 	provider, found := k.getResourceProvider(typ)
