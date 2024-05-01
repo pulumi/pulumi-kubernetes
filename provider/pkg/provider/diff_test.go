@@ -235,11 +235,22 @@ func TestPatchToDiff(t *testing.T) {
 			},
 		},
 		{
+			name:  `Removing array values results in correct diff`,
+			group: "core", version: "v1", kind: "Pod",
+			old:    object{"spec": object{"containers": list{object{"name": "nginx"}}}},
+			new:    object{"spec": object{"containers": list{}}},
+			inputs: object{"spec": object{"containers": list{}}},
+			expected: expected{
+				"spec.containers[0]": D,
+			},
+		},
+		{
 			name:  "Removing a field that was nil should not panic (#1970).",
 			group: "tekton.dev", version: "v1beta1", kind: "Pipeline",
 			old: object{"taskSpec": object{"spec": nil, "steps": list{object{"name": "something"}}}},
 			new: object{"taskSpec": object{"steps": list{object{"name": "something-else"}}}},
 			expected: expected{
+				"taskSpec.spec":          D,
 				"taskSpec.steps[0].name": U,
 			},
 		},
