@@ -236,6 +236,7 @@ func (cmd *TemplateCommand) Execute(ctx context.Context) (*release.Release, erro
 	return cmd.runInstall(ctx)
 }
 
+// runInstall runs the install action.
 // https://github.com/helm/helm/blob/14d0c13e9eefff5b4a1b511cf50643529692ec94/cmd/helm/install.go#L221
 func (cmd *TemplateOrInstallCommand) runInstall(ctx context.Context) (*release.Release, error) {
 	settings := cmd.tool.EnvSettings
@@ -341,6 +342,7 @@ func debugStream() *logging.LogWriter {
 }
 
 // defaultKeyring returns the expanded path to the default keyring.
+// https://github.com/helm/helm/blob/635b8cf33d25a86131635c32f35b2a76256e40cb/cmd/helm/root.go#L276-L293
 func defaultKeyring() string {
 	if v, ok := os.LookupEnv("GNUPGHOME"); ok {
 		return filepath.Join(v, "pubring.gpg")
@@ -348,6 +350,8 @@ func defaultKeyring() string {
 	return filepath.Join(homedir.HomeDir(), ".gnupg", "pubring.gpg")
 }
 
+// newRegistryClient retruns a new registry client
+// https://github.com/helm/helm/blob/635b8cf33d25a86131635c32f35b2a76256e40cb/cmd/helm/root.go#L261-L274
 func newRegistryClient(settings *cli.EnvSettings, certFile, keyFile, caFile string, insecureSkipTLSverify, plainHTTP bool) (*registry.Client, error) {
 	if certFile != "" && keyFile != "" || caFile != "" || insecureSkipTLSverify {
 		registryClient, err := newRegistryClientWithTLS(settings, certFile, keyFile, caFile, insecureSkipTLSverify)
@@ -363,6 +367,8 @@ func newRegistryClient(settings *cli.EnvSettings, certFile, keyFile, caFile stri
 	return registryClient, nil
 }
 
+// newDefaultRegistryClient returns a new registry client with default options
+// https://github.com/helm/helm/blob/635b8cf33d25a86131635c32f35b2a76256e40cb/cmd/helm/root.go#L276-L293
 func newDefaultRegistryClient(settings *cli.EnvSettings, plainHTTP bool) (*registry.Client, error) {
 	logStream := debugStream()
 	opts := []registry.ClientOption{
@@ -383,6 +389,8 @@ func newDefaultRegistryClient(settings *cli.EnvSettings, plainHTTP bool) (*regis
 	return registryClient, nil
 }
 
+// newRegistryClientWithTLS returns a new registry client with the given TLS options
+// https://github.com/helm/helm/blob/635b8cf33d25a86131635c32f35b2a76256e40cb/cmd/helm/root.go#L295-L304
 func newRegistryClientWithTLS(settings *cli.EnvSettings, certFile, keyFile, caFile string, insecureSkipTLSverify bool) (*registry.Client, error) {
 	logStream := debugStream()
 	// Create a new registry client
@@ -398,6 +406,7 @@ func newRegistryClientWithTLS(settings *cli.EnvSettings, certFile, keyFile, caFi
 // checkIfInstallable validates if a chart can be installed
 //
 // Application chart type is only installable
+// https://github.com/helm/helm/blob/635b8cf33d25a86131635c32f35b2a76256e40cb/cmd/helm/install.go#L317-L326
 func checkIfInstallable(ch *chart.Chart) error {
 	switch ch.Metadata.Type {
 	case "", "application":
@@ -406,6 +415,8 @@ func checkIfInstallable(ch *chart.Chart) error {
 	return errors.Errorf("%s charts are not installable", ch.Metadata.Type)
 }
 
+// validateDryRunOptionFlag validates the dry-run flag value
+// https://github.com/helm/helm/blob/635b8cf33d25a86131635c32f35b2a76256e40cb/cmd/helm/install.go#L340-L354
 func validateDryRunOptionFlag(dryRunOptionFlagValue string) error {
 	// Validate dry-run flag value with a set of allowed value
 	allowedDryRunValues := []string{"false", "true", "none", "client", "server"}
