@@ -77,7 +77,7 @@ go_sdk::
 	rm -rf sdk/go/kubernetes
 	$(WORKING_DIR)/bin/$(CODEGEN) -version=${VERSION} go $(SCHEMA_FILE) $(CURDIR)
 
-nodejs_sdk:: NOD_VERSION := $(shell pulumictl convert-version --language javascript -v "$(VERSION_GENERIC)")
+nodejs_sdk:: NODE_VERSION := $(shell pulumictl convert-version --language javascript -v "$(VERSION_GENERIC)")
 nodejs_sdk::
 	$(WORKING_DIR)/bin/$(CODEGEN) -version=${NODE_VERSION} nodejs $(SCHEMA_FILE) $(CURDIR)
 	cd ${PACKDIR}/nodejs/ && \
