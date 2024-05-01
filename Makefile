@@ -8,7 +8,6 @@ NUGET_PKG_NAME   := Pulumi.Kubernetes
 
 PROVIDER        := pulumi-resource-${PACK}
 CODEGEN         := pulumi-gen-${PACK}
-VERSION         ?= $(shell pulumictl get version)
 PROVIDER_PATH   := provider/v4
 VERSION_PATH     := ${PROVIDER_PATH}/pkg/version.Version
 
@@ -24,6 +23,12 @@ JAVA_GEN_VERSION := v0.8.0
 
 WORKING_DIR     := $(shell pwd)
 
+# Override during CI using `make [TARGET] PROVIDER_VERSION=""` or by setting a PROVIDER_VERSION environment variable
+# Local & branch builds will just used this fixed default version unless specified
+PROVIDER_VERSION ?= 4.0.0-alpha.0+dev
+# Use this normalised version everywhere rather than the raw input to ensure consistency.
+VERSION_GENERIC = $(shell pulumictl convert-version --language generic --version "$(PROVIDER_VERSION)")
+
 openapi_file::
 	@mkdir -p $(OPENAPI_DIR)
 	test -f $(OPENAPI_FILE) || curl -s -L $(SWAGGER_URL) > $(OPENAPI_FILE)
@@ -34,7 +39,7 @@ ensure::
 	cd tests && go mod tidy
 
 k8sgen::
-	(cd provider && CGO_ENABLED=1 go build -o $(WORKING_DIR)/bin/${CODEGEN} -ldflags "-X ${PROJECT}/${VERSION_PATH}=${VERSION}" ${PROJECT}/${PROVIDER_PATH}/cmd/$(CODEGEN))
+	(cd provider && CGO_ENABLED=1 go build -o $(WORKING_DIR)/bin/${CODEGEN} -ldflags "-X ${PROJECT}/${VERSION_PATH}=${VERSION_GENERIC}" ${PROJECT}/${PROVIDER_PATH}/cmd/$(CODEGEN))
 
 schema:: k8sgen
 	@echo "Generating Pulumi schema..."
@@ -45,20 +50,20 @@ k8sprovider::
 	$(WORKING_DIR)/bin/${CODEGEN} kinds $(SCHEMA_FILE) $(CURDIR)
 	@[ ! -f "provider/cmd/${PROVIDER}/schema.go" ] || \
 		(echo "\n    Please remove provider/cmd/${PROVIDER}/schema.go, which is no longer used\n" && false)
-	(cd provider && VERSION=${VERSION} go generate cmd/${PROVIDER}/main.go)
-	(cd provider && CGO_ENABLED=0 go build -o $(WORKING_DIR)/bin/${PROVIDER} -ldflags "-X ${PROJECT}/${VERSION_PATH}=${VERSION}" $(PROJECT)/${PROVIDER_PATH}/cmd/$(PROVIDER))
+	(cd provider && VERSION=${VERSION_GENERIC} go generate cmd/${PROVIDER}/main.go)
+	(cd provider && CGO_ENABLED=0 go build -o $(WORKING_DIR)/bin/${PROVIDER} -ldflags "-X ${PROJECT}/${VERSION_PATH}=${VERSION_GENERIC}" $(PROJECT)/${PROVIDER_PATH}/cmd/$(PROVIDER))
 
 k8sprovider_debug::
 	$(WORKING_DIR)/bin/${CODEGEN} kinds $(SCHEMA_FILE) $(CURDIR)
 	@[ ! -f "provider/cmd/${PROVIDER}/schema.go" ] || \
 		(echo "\n    Please remove provider/cmd/${PROVIDER}/schema.go, which is no longer used\n" && false)
-	(cd provider && VERSION=${VERSION} go generate cmd/${PROVIDER}/main.go)
-	(cd provider && CGO_ENABLED=0 go build -o $(WORKING_DIR)/bin/${PROVIDER} -gcflags="all=-N -l" -ldflags "-X ${PROJECT}/${VERSION_PATH}=${VERSION}" $(PROJECT)/${PROVIDER_PATH}/cmd/$(PROVIDER))
+	(cd provider && VERSION=${VERSION_GENERIC} go generate cmd/${PROVIDER}/main.go)
+	(cd provider && CGO_ENABLED=0 go build -o $(WORKING_DIR)/bin/${PROVIDER} -gcflags="all=-N -l" -ldflags "-X ${PROJECT}/${VERSION_PATH}=${VERSION_GENERIC}" $(PROJECT)/${PROVIDER_PATH}/cmd/$(PROVIDER))
 
 test_provider::
 	cd provider/pkg && go test -short -v -coverprofile="coverage.txt" -coverpkg=./... -timeout 2h ./...
 
-dotnet_sdk:: DOTNET_VERSION := $(shell pulumictl get version --language dotnet)
+dotnet_sdk:: DOTNET_VERSION := $(shell pulumictl convert-version --language dotnet -v "$(VERSION_GENERIC)")
 dotnet_sdk::
 	$(WORKING_DIR)/bin/$(CODEGEN) -version=${DOTNET_VERSION} dotnet $(SCHEMA_FILE) $(CURDIR)
 	rm -rf sdk/dotnet/bin/Debug
@@ -72,17 +77,17 @@ go_sdk::
 	rm -rf sdk/go/kubernetes
 	$(WORKING_DIR)/bin/$(CODEGEN) -version=${VERSION} go $(SCHEMA_FILE) $(CURDIR)
 
-nodejs_sdk:: VERSION := $(shell pulumictl get version --language javascript)
+nodejs_sdk:: NOD_VERSION := $(shell pulumictl convert-version --language javascript -v "$(VERSION_GENERIC)")
 nodejs_sdk::
-	$(WORKING_DIR)/bin/$(CODEGEN) -version=${VERSION} nodejs $(SCHEMA_FILE) $(CURDIR)
+	$(WORKING_DIR)/bin/$(CODEGEN) -version=${NODE_VERSION} nodejs $(SCHEMA_FILE) $(CURDIR)
 	cd ${PACKDIR}/nodejs/ && \
 		echo "module fake_nodejs_module // Exclude this directory from Go tools\n\ngo 1.17" > go.mod && \
 		yarn install && \
 		yarn run tsc
 	cp README.md LICENSE ${PACKDIR}/nodejs/package.json ${PACKDIR}/nodejs/yarn.lock ${PACKDIR}/nodejs/bin/
-	sed -i.bak 's/$${VERSION}/$(VERSION)/g' ${PACKDIR}/nodejs/bin/package.json
+	sed -i.bak 's/$${VERSION}/$(NODE_VERSION)/g' ${PACKDIR}/nodejs/bin/package.json
 
-python_sdk:: PYPI_VERSION := $(shell pulumictl get version --language python)
+python_sdk:: PYPI_VERSION := $(shell pulumictl convert-version --language python -v "$(VERSION_GENERIC)")
 python_sdk::
 	# Delete only files and folders that are generated.
 	rm -rf sdk/python/pulumi_kubernetes/*/ sdk/python/pulumi_kubernetes/__init__.py
@@ -92,7 +97,7 @@ python_sdk::
 	cp README.md ${PACKDIR}/python/
 	PYPI_VERSION=$(PYPI_VERSION) ./scripts/build_python_sdk.sh
 
-java_sdk:: PACKAGE_VERSION := $(shell pulumictl get version --language generic)
+java_sdk:: PACKAGE_VERSION := $(shell pulumictl convert-version --language generic -v "$(VERSION_GENERIC)")
 java_sdk:: bin/pulumi-java-gen
 	$(WORKING_DIR)/bin/$(JAVA_GEN) generate --schema $(SCHEMA_FILE) --out sdk/java --build gradle-nexus
 	cd ${PACKDIR}/java/ && \
