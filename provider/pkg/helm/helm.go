@@ -43,6 +43,8 @@ import (
 
 type InitActionConfigF func(actionConfig *action.Configuration, namespaceOverride string) error
 
+type LocateChartF func(i *action.Install, name string, settings *cli.EnvSettings) (string, error)
+
 type ExecuteF func(ctx context.Context, i *action.Install, chrt *chart.Chart, vals map[string]interface{}) (*release.Release, error)
 
 // Tool for executing Helm commands via the Helm library.
@@ -51,6 +53,7 @@ type Tool struct {
 	HelmDriver  string
 
 	initActionConfig InitActionConfigF
+	locateChart      LocateChartF
 	execute          ExecuteF
 }
 
@@ -68,6 +71,9 @@ func NewTool(settings *cli.EnvSettings) *Tool {
 			}
 			// https://github.com/helm/helm/blob/635b8cf33d25a86131635c32f35b2a76256e40cb/cmd/helm/helm.go#L72-L81
 			return actionConfig.Init(settings.RESTClientGetter(), namespaceOverride, helmDriver, debug)
+		},
+		locateChart: func(i *action.Install, name string, settings *cli.EnvSettings) (string, error) {
+			return i.ChartPathOptions.LocateChart(name, settings)
 		},
 		execute: func(ctx context.Context, i *action.Install, chrt *chart.Chart, vals map[string]interface{}) (*release.Release, error) {
 			return i.RunWithContext(ctx, chrt, vals)
@@ -248,7 +254,7 @@ func (cmd *TemplateOrInstallCommand) runInstall(ctx context.Context) (*release.R
 	client.ReleaseName = releaseName
 
 	debug("attempting to resolve the chart %q with version %q", chart, client.Version)
-	cp, err := client.ChartPathOptions.LocateChart(chart, settings)
+	cp, err := cmd.tool.locateChart(client, chart, settings)
 	if err != nil {
 		return nil, errors.Wrap(err, "unable to locate the chart")
 	}

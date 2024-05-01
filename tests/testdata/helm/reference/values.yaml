@@ -1,0 +1,26 @@
+# Default values for reference.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+image:
+  repository: nginx
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+namespace:
+  create: false
+  name: "reference"
+
+serviceAccount:
+  create: true
+  name: ""
+  automount: true
+  annotations:
+    helm.sh/resource-policy: keep
+
+# versionCheck: "<1.21-0"

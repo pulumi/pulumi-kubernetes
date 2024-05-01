@@ -27,23 +27,27 @@ import (
 )
 
 // NewFakeTool creates a new Helm tool with faked execution.
-func NewFakeTool(initActionConfig InitActionConfigF, execute ExecuteF) *Tool {
+func NewFakeTool(initActionConfig InitActionConfigF, locateChart LocateChartF, execute ExecuteF) *Tool {
 	settings := cli.New()
 	if initActionConfig == nil {
-		initActionConfig = FakeInit("default", nil)
+		initActionConfig = FakeInitActionConfig("default", nil)
+	}
+	if locateChart == nil {
+		locateChart = NewFakeLocator("./chart", nil).LocateChart
 	}
 	if execute == nil {
-		execute = FakeExecute("---\n", nil)
+		execute = NewFakeExecutor().Execute
 	}
 	return &Tool{
 		EnvSettings:      settings,
 		HelmDriver:       "memory",
 		initActionConfig: initActionConfig,
+		locateChart:      locateChart,
 		execute:          execute,
 	}
 }
 
-func FakeInit(namespace string, caps *chartutil.Capabilities) InitActionConfigF {
+func FakeInitActionConfig(namespace string, caps *chartutil.Capabilities) InitActionConfigF {
 	return func(actionConfig *action.Configuration, namespaceOverride string) error {
 		if namespaceOverride == "" {
 			namespaceOverride = namespace
@@ -56,16 +60,80 @@ func FakeInit(namespace string, caps *chartutil.Capabilities) InitActionConfigF 
 	}
 }
 
-func FakeExecute(manifest string, err error) ExecuteF {
-	return func(ctx context.Context, i *action.Install, chrt *chart.Chart, vals map[string]interface{}) (*release.Release, error) {
-		r := &release.Release{
-			Name:      i.ReleaseName,
-			Chart:     chrt,
-			Info:      &release.Info{},
-			Config:    vals,
-			Namespace: i.Namespace,
-			Manifest:  manifest,
-		}
-		return r, err
+type FakeLocator struct {
+	Path string
+	Err  error
+
+	action   *action.Install
+	options  action.ChartPathOptions
+	name     string
+	settings *cli.EnvSettings
+}
+
+func (f *FakeLocator) Action() *action.Install {
+	return f.action
+}
+
+func (f *FakeLocator) Name() string {
+	return f.name
+}
+
+func (f *FakeLocator) Settings() *cli.EnvSettings {
+	return f.settings
+}
+
+func (f *FakeLocator) LocateChart(i *action.Install, name string, settings *cli.EnvSettings) (string, error) {
+	f.action = i
+	f.name = name
+	f.settings = settings
+	return f.Path, f.Err
+}
+
+func NewFakeLocator(path string, err error) *FakeLocator {
+	return &FakeLocator{
+		Path: path,
+		Err:  err,
 	}
+}
+
+type FakeExecutor struct {
+	action *action.Install
+	chart  *chart.Chart
+	values map[string]interface{}
+}
+
+func NewFakeExecutor() *FakeExecutor {
+	return &FakeExecutor{}
+}
+
+func (f *FakeExecutor) Action() *action.Install {
+	return f.action
+}
+
+func (f *FakeExecutor) Chart() *chart.Chart {
+	return f.chart
+}
+
+func (f *FakeExecutor) Values() map[string]interface{} {
+	return f.values
+}
+
+func (f *FakeExecutor) Execute(ctx context.Context, i *action.Install, chrt *chart.Chart, vals map[string]interface{}) (*release.Release, error) {
+	f.action = i
+	f.chart = chrt
+	f.values = vals
+
+	// force client-only mode
+	oldDryRun := i.DryRun
+	oldDryRunOption := i.DryRunOption
+	oldClientOnly := i.ClientOnly
+	defer func() {
+		i.DryRun = oldDryRun
+		i.DryRunOption = oldDryRunOption
+		i.ClientOnly = oldClientOnly
+	}()
+	i.DryRun = true
+	i.DryRunOption = "client"
+	i.ClientOnly = true
+	return i.RunWithContext(ctx, chrt, vals)
 }
