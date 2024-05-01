@@ -3017,12 +3017,12 @@ type patchConverter struct {
 	diff     map[string]*pulumirpc.PropertyDiff
 }
 
-// addPatchValueToDiff adds the given patched value to the detailed diff. Either the patched value or the old value
-// must not be nil.
+// addPatchValueToDiff adds the given patched value to the detailed diff.
 //
 // The particular difference that is recorded depends on the old and new values:
 // - If the patched value is nil, the property is recorded as deleted
 // - If the old value is nil, the property is recorded as added
+// - If the old and patched values are both nil, no diff is recorded.
 // - If the types of the old and new values differ, the property is recorded as updated
 // - If both values are maps, the maps are recursively compared on a per-property basis and added to the diff
 // - If both values are arrays, the arrays are recursively compared on a per-element basis and added to the diff
@@ -3035,9 +3035,9 @@ type patchConverter struct {
 func (pc *patchConverter) addPatchValueToDiff(
 	path []any, v, old, newInput, oldInput any, inArray bool,
 ) error {
-	contract.Assertf(v != nil || old != nil || oldInput != nil || newInput != nil,
-		"path: %+v  |  v: %+v  | old: %+v  |  oldInput: %+v  |  newInput: %+v",
-		path, v, old, oldInput, newInput)
+	if v == nil && old == nil && oldInput == nil && newInput == nil {
+		return nil
+	}
 
 	// If there is no new input, then the only possible diff here is a delete. All other diffs must be diffs between
 	// old and new properties that are populated by the server. If there is also no old input, then there is no diff
