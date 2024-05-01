@@ -15,6 +15,9 @@ package v4
 
 import (
 	"context"
+	"os"
+	"os/exec"
+	"path/filepath"
 
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
@@ -46,10 +49,12 @@ var _ = Describe("Construct", func() {
 
 		opts = &providerresource.ResourceProviderOptions{}
 		opts.ClientSet, _, _, _ = fake.NewSimpleDynamicClient()
+		opts.DefaultNamespace = "default"
 		opts.HelmOptions = &providerresource.HelmOptions{
 			SuppressHelmHookWarnings: false,
 			EnvSettings:              cli.New(),
 		}
+		opts.HelmOptions.EnvSettings.SetNamespace("default")
 
 		// initialize the ConstructRequest to be customized in nested BeforeEach blocks
 		req = tc.NewConstructRequest()
@@ -61,7 +66,7 @@ var _ = Describe("Construct", func() {
 		inputs["chart"] = resource.NewStringProperty("reference")
 
 		// configure the fake Helm tool
-		initActionConfig = kubehelm.FakeInitActionConfig("provider", chartutil.DefaultCapabilities)
+		initActionConfig = kubehelm.FakeInitActionConfig("default", chartutil.DefaultCapabilities)
 		locator = kubehelm.NewFakeLocator("../../../../../tests/testdata/helm/reference", nil)
 		executor = kubehelm.NewFakeExecutor()
 	})
@@ -72,7 +77,7 @@ var _ = Describe("Construct", func() {
 			opts: opts,
 			tool: func() *kubehelm.Tool {
 				// make a fake tool for testing purposes
-				return kubehelm.NewFakeTool(initActionConfig, locator.LocateChart, executor.Execute)
+				return kubehelm.NewFakeTool(opts.HelmOptions.EnvSettings, initActionConfig, locator.LocateChart, executor.Execute)
 			},
 		}
 		req.Inputs, err = plugin.MarshalProperties(inputs, plugin.MarshalOptions{
@@ -233,6 +238,63 @@ var _ = Describe("Construct", func() {
 	})
 
 	Describe("Templating", func() {
+		Describe("Namespacing", func() {
+			Context("by default", func() {
+				It("should use the context namespace", func(ctx context.Context) {
+					resp, err := pulumiprovider.Construct(ctx, req, tc.EngineConn(), k.Construct)
+					Expect(err).ShouldNot(HaveOccurred())
+					Expect(executor.Action().Namespace).To(Equal("default"))
+					outputs := unmarshalProperties(GinkgoTB(), resp.State)
+					Expect(outputs).To(MatchProps(IgnoreExtras, Props{
+						"resources": MatchArrayValue(ContainElements(
+							MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::test:crontabs.stable.example.com", "test:crontabs.stable.example.com"),
+							MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:core/v1:ServiceAccount::test:default/test-reference", "test:default/test-reference"),
+							MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:core/v1:Service::test:default/test-reference", "test:default/test-reference"),
+						)),
+					}))
+				})
+			})
+
+			Context("given a provider namespace", func() {
+				BeforeEach(func() {
+					opts.DefaultNamespace = "provider"
+					opts.HelmOptions.EnvSettings.SetNamespace("provider")
+				})
+				It("should use the provider's namespace", func(ctx context.Context) {
+					resp, err := pulumiprovider.Construct(ctx, req, tc.EngineConn(), k.Construct)
+					Expect(err).ShouldNot(HaveOccurred())
+					Expect(executor.Action().Namespace).To(Equal("provider"))
+					outputs := unmarshalProperties(GinkgoTB(), resp.State)
+					Expect(outputs).To(MatchProps(IgnoreExtras, Props{
+						"resources": MatchArrayValue(ContainElements(
+							MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::test:crontabs.stable.example.com", "test:crontabs.stable.example.com"),
+							MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:core/v1:ServiceAccount::test:provider/test-reference", "test:provider/test-reference"),
+							MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:core/v1:Service::test:provider/test-reference", "test:provider/test-reference"),
+						)),
+					}))
+				})
+			})
+
+			Context("given a release namespace", func() {
+				BeforeEach(func() {
+					inputs["namespace"] = resource.NewStringProperty("release")
+				})
+				It("should use the release namespace", func(ctx context.Context) {
+					resp, err := pulumiprovider.Construct(ctx, req, tc.EngineConn(), k.Construct)
+					Expect(err).ShouldNot(HaveOccurred())
+					Expect(executor.Action().Namespace).To(Equal("release"))
+					outputs := unmarshalProperties(GinkgoTB(), resp.State)
+					Expect(outputs).To(MatchProps(IgnoreExtras, Props{
+						"resources": MatchArrayValue(ContainElements(
+							MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::test:crontabs.stable.example.com", "test:crontabs.stable.example.com"),
+							MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:core/v1:ServiceAccount::test:release/test-reference", "test:release/test-reference"),
+							MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:core/v1:Service::test:release/test-reference", "test:release/test-reference"),
+						)),
+					}))
+				})
+			})
+		})
+
 		Describe("Release Name", func() {
 			It("should use the component name by default", func(ctx context.Context) {
 				_, err := pulumiprovider.Construct(ctx, req, tc.EngineConn(), k.Construct)
@@ -262,10 +324,47 @@ var _ = Describe("Construct", func() {
 					Expect(err).ShouldNot(HaveOccurred())
 					outputs := unmarshalProperties(GinkgoTB(), resp.State)
 					Expect(outputs).To(MatchProps(IgnoreExtras, Props{
+						"resources": MatchArrayValue(ContainElements(
+							MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:core/v1:ServiceAccount::test:default/test-reference", "test:default/test-reference"),
+							MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:core/v1:Service::test:default/test-reference", "test:default/test-reference"),
+						)),
+					}))
+					Expect(outputs).To(MatchProps(IgnoreExtras, Props{
 						"resources": MatchArrayValue(Not(ContainElement(
 							MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::test:crontabs.stable.example.com", "test:crontabs.stable.example.com"),
 						))),
 					}))
+				})
+			})
+		})
+
+		Describe("Post Renderer", func() {
+			Context("given a postRenderer", func() {
+				var tempdir string
+				BeforeEach(func() {
+					_, err := exec.LookPath("touch")
+					if err != nil {
+						Skip("touch command is not available")
+					}
+					tempdir, err = os.MkdirTemp("", "test")
+					Expect(err).ShouldNot(HaveOccurred())
+					DeferCleanup(func() {
+						os.RemoveAll(tempdir)
+					})
+					inputs["postRenderer"] = resource.NewObjectProperty(resource.PropertyMap{
+						"command": resource.NewStringProperty("touch"),
+						"args":    resource.NewArrayProperty([]resource.PropertyValue{resource.NewStringProperty(filepath.Join(tempdir, "touched.txt"))}),
+					})
+				})
+				It("should run the postrender command", func(ctx context.Context) {
+					resp, err := pulumiprovider.Construct(ctx, req, tc.EngineConn(), k.Construct)
+					Expect(err).ShouldNot(HaveOccurred())
+					outputs := unmarshalProperties(GinkgoTB(), resp.State)
+					Expect(outputs).To(MatchProps(IgnoreExtras, Props{
+						"resources": MatchArrayValue(BeEmpty()),
+					}))
+					_, err = os.Stat(filepath.Join(tempdir, "touched.txt"))
+					Expect(err).ShouldNot(HaveOccurred())
 				})
 			})
 		})
@@ -279,13 +378,13 @@ var _ = Describe("Construct", func() {
 			Expect(outputs).To(MatchProps(IgnoreExtras, Props{
 				"resources": MatchArrayValue(ConsistOf(
 					MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::test:crontabs.stable.example.com", "test:crontabs.stable.example.com"),
-					MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:core/v1:ServiceAccount::test:test-reference", "test:test-reference"),
-					MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:core/v1:Service::test:test-reference", "test:test-reference"),
+					MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:core/v1:ServiceAccount::test:default/test-reference", "test:default/test-reference"),
+					MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:core/v1:Service::test:default/test-reference", "test:default/test-reference"),
 				)),
 			}))
 		})
 
-		Context("given a resource prefix", func() {
+		Describe("Resource Prefix", func() {
 			BeforeEach(func() {
 				inputs["resourcePrefix"] = resource.NewStringProperty("prefixed")
 			})
@@ -296,12 +395,55 @@ var _ = Describe("Construct", func() {
 				Expect(outputs).To(MatchProps(IgnoreExtras, Props{
 					"resources": MatchArrayValue(ConsistOf(
 						MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::prefixed:crontabs.stable.example.com", "prefixed:crontabs.stable.example.com"),
-						MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:core/v1:ServiceAccount::prefixed:test-reference", "prefixed:test-reference"),
-						MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:core/v1:Service::prefixed:test-reference", "prefixed:test-reference"),
+						MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:core/v1:ServiceAccount::prefixed:default/test-reference", "prefixed:default/test-reference"),
+						MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:core/v1:Service::prefixed:default/test-reference", "prefixed:default/test-reference"),
 					)),
 				}))
 			})
 		})
-	})
 
+		Describe("Skip Await", func() {
+			BeforeEach(func() {
+				inputs["skipAwait"] = resource.NewBoolProperty(true)
+			})
+			It("should not await the resources", func(ctx context.Context) {
+				_, err := pulumiprovider.Construct(ctx, req, tc.EngineConn(), k.Construct)
+				Expect(err).ShouldNot(HaveOccurred())
+				Expect(tc.monitor.Registrations()).To(MatchKeys(IgnoreExtras, Keys{
+					"urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::test:crontabs.stable.example.com": MatchFields(IgnoreExtras, Fields{
+						"State": HaveSkipAwaitAnnotation(),
+					}),
+					"urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:core/v1:ServiceAccount::test:default/test-reference": MatchFields(IgnoreExtras, Fields{
+						"State": HaveSkipAwaitAnnotation(),
+					}),
+					"urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:core/v1:Service::test:default/test-reference": MatchFields(IgnoreExtras, Fields{
+						"State": HaveSkipAwaitAnnotation(),
+					}),
+				}))
+			})
+		})
+
+		Describe("helm.sh/resource-policy: keep", func() {
+			BeforeEach(func() {
+				inputs["values"] = resource.NewObjectProperty(resource.NewPropertyMapFromMap(map[string]any{
+					"serviceAccount": map[string]any{
+						"annotations": map[string]any{
+							"helm.sh/resource-policy": "keep",
+						},
+					},
+				}))
+			})
+			It("should enable the RetainOnDelete option", func(ctx context.Context) {
+				_, err := pulumiprovider.Construct(ctx, req, tc.EngineConn(), k.Construct)
+				Expect(err).ShouldNot(HaveOccurred())
+				Expect(tc.monitor.Registrations()).To(MatchKeys(IgnoreExtras, Keys{
+					"urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:core/v1:ServiceAccount::test:default/test-reference": MatchFields(IgnoreExtras, Fields{
+						"Request": MatchFields(IgnoreExtras, Fields{
+							"RetainOnDelete": BeTrue(),
+						}),
+					}),
+				}))
+			})
+		})
+	})
 })

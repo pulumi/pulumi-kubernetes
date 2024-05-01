@@ -27,10 +27,9 @@ import (
 )
 
 // NewFakeTool creates a new Helm tool with faked execution.
-func NewFakeTool(initActionConfig InitActionConfigF, locateChart LocateChartF, execute ExecuteF) *Tool {
-	settings := cli.New()
+func NewFakeTool(settings *cli.EnvSettings, initActionConfig InitActionConfigF, locateChart LocateChartF, execute ExecuteF) *Tool {
 	if initActionConfig == nil {
-		initActionConfig = FakeInitActionConfig("default", nil)
+		initActionConfig = FakeInitActionConfig(settings.Namespace(), nil)
 	}
 	if locateChart == nil {
 		locateChart = NewFakeLocator("./chart", nil).LocateChart
@@ -47,10 +46,10 @@ func NewFakeTool(initActionConfig InitActionConfigF, locateChart LocateChartF, e
 	}
 }
 
-func FakeInitActionConfig(namespace string, caps *chartutil.Capabilities) InitActionConfigF {
+func FakeInitActionConfig(defaultNamespace string, caps *chartutil.Capabilities) InitActionConfigF {
 	return func(actionConfig *action.Configuration, namespaceOverride string) error {
 		if namespaceOverride == "" {
-			namespaceOverride = namespace
+			namespaceOverride = defaultNamespace
 		}
 		if caps == nil {
 			caps = chartutil.DefaultCapabilities

@@ -20,7 +20,7 @@ serviceAccount:
   create: true
   name: ""
   automount: true
-  annotations:
-    helm.sh/resource-policy: keep
+  # annotations:
+  #   helm.sh/resource-policy: keep
 
 # versionCheck: "<1.21-0"
