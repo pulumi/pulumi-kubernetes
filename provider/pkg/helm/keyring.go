@@ -23,6 +23,7 @@ import (
 	"helm.sh/helm/v3/pkg/getter"
 )
 
+// LocateKeyring locates a keyring file for Helm from the given asset.
 func LocateKeyring(p getter.Providers, asset pulumi.Asset) (string, error) {
 
 	makeTemp := func(data []byte) (string, error) {
