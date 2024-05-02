@@ -40,7 +40,6 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/cluster"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/deprecated"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/gen"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/host"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
@@ -1446,8 +1445,8 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 				// If the schema doesn't exist, it could still be a CRD (which may not have a
 				// schema). Thus, if we are directed to check resources even if they have unknown
 				// types, we fail here.
-				return nil, deprecated.Wrapf(err, "unable to fetch schema for resource type %s/%s",
-					newInputs.GetAPIVersion(), newInputs.GetKind())
+				return nil, fmt.Errorf("unable to fetch schema for resource type %s/%s: %w",
+					newInputs.GetAPIVersion(), newInputs.GetKind(), err)
 
 			}
 		}
@@ -1589,8 +1588,8 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 			// required during the Create step.
 			namespacedKind = true
 		} else {
-			return nil, deprecated.Wrapf(err,
-				"API server returned error when asked if resource type %s is namespaced", gvk)
+			return nil, fmt.Errorf(
+				"API server returned error when asked if resource type %s is namespaced: %w", gvk, err)
 
 		}
 	}
@@ -1631,10 +1630,9 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 
 	patchObj := map[string]any{}
 	if err = json.Unmarshal(patch, &patchObj); err != nil {
-		return nil, deprecated.Wrapf(
-			err, "Failed to check for changes in resource %q because of an error serializing "+
-				"the JSON patch describing resource changes",
-			urn)
+		return nil, fmt.Errorf(
+			"Failed to check for changes in resource %q because of an error serializing "+
+				"the JSON patch describing resource changes: %w", urn, err)
 
 	}
 
@@ -1649,10 +1647,10 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 			forceNewFields = k.forceNewProperties(newInputs)
 		}
 		if detailedDiff, err = convertPatchToDiff(patchObj, patchBase, newInputs.Object, oldLivePruned.Object, forceNewFields...); err != nil {
-			return nil, deprecated.Wrapf(
-				err, "Failed to check for changes in resource %q because of an error "+
-					"converting JSON patch describing resource changes to a diff",
-				urn)
+			return nil, fmt.Errorf(
+				"Failed to check for changes in resource %q because of an error "+
+					"converting JSON patch describing resource changes to a diff: %w",
+				urn, err)
 
 		}
 
@@ -1889,18 +1887,17 @@ func (k *kubeProvider) Create(
 				return nil, err
 			}
 			gvkStr := gvk.GroupVersion().String() + "/" + gvk.Kind
-			return nil, deprecated.Wrapf(
-				awaitErr, "creation of resource %q with kind %s failed because the Kubernetes API server "+
+			return nil, fmt.Errorf(
+				"creation of resource %q with kind %s failed because the Kubernetes API server "+
 					"reported that the apiVersion for this resource does not exist. "+
-					"Verify that any required CRDs have been created", urn, gvkStr)
+					"Verify that any required CRDs have been created: %w", urn, gvkStr, awaitErr)
 
 		}
 		partialErr, isPartialErr := awaitErr.(await.PartialError)
 		if !isPartialErr {
 			// Object creation failed.
-			return nil, deprecated.Wrapf(
-				awaitErr,
-				"resource %q was not successfully created by the Kubernetes API server ", urn)
+			return nil, fmt.Errorf(
+				"resource %q was not successfully created by the Kubernetes API server: %w", urn, awaitErr)
 
 		}
 
@@ -1933,9 +1930,9 @@ func (k *kubeProvider) Create(
 		// checkpointed.
 		return nil, partialError(
 			fqObjName(initialized),
-			deprecated.Wrapf(
-				awaitErr, "resource %q was successfully created, but the Kubernetes API server "+
-					"reported that it failed to fully initialize or become live", urn),
+			fmt.Errorf(
+				"resource %q was successfully created, but the Kubernetes API server "+
+					"reported that it failed to fully initialize or become live: %w", urn, awaitErr),
 
 			inputsAndComputed,
 			nil)
@@ -2369,10 +2366,10 @@ func (k *kubeProvider) Update(
 			// If it's a "no match" error, this is probably a CustomResource with no corresponding
 			// CustomResourceDefinition. This usually happens if the CRD was not created, and we
 			// print a more useful error message in this case.
-			return nil, deprecated.Wrapf(
-				awaitErr, "update of resource %q failed because the Kubernetes API server "+
+			return nil, fmt.Errorf(
+				"update of resource %q failed because the Kubernetes API server "+
 					"reported that the apiVersion for this resource does not exist. "+
-					"Verify that any required CRDs have been created", urn)
+					"Verify that any required CRDs have been created: %w", urn, awaitErr)
 
 		}
 
@@ -2380,9 +2377,9 @@ func (k *kubeProvider) Update(
 		initialized, getErr = k.readLiveObject(oldLive)
 		if getErr != nil {
 			// Object update/creation failed.
-			return nil, deprecated.Wrapf(
-				awaitErr, "update of resource %q failed because the Kubernetes API server "+
-					"reported that it failed to fully initialize or become live", urn)
+			return nil, fmt.Errorf(
+				"update of resource %q failed because the Kubernetes API server "+
+					"reported that it failed to fully initialize or become live: %w", urn, getErr)
 
 		}
 		// If we get here, resource successfully registered with the API server, but failed to
@@ -2408,9 +2405,9 @@ func (k *kubeProvider) Update(
 		// can be checkpointed.
 		return nil, partialError(
 			fqObjName(initialized),
-			deprecated.Wrapf(
-				awaitErr, "the Kubernetes API server reported that %q failed to fully initialize "+
-					"or become live", fqObjName(initialized)),
+			fmt.Errorf(
+				"the Kubernetes API server reported that %q failed to fully initialize "+
+					"or become live: %w", fqObjName(initialized), awaitErr),
 
 			inputsAndComputed,
 			nil)
@@ -2935,7 +2932,7 @@ func parseCheckpointObject(obj resource.PropertyMap) (oldInputs, live *unstructu
 func partialError(id string, err error, state *structpb.Struct, inputs *structpb.Struct) error {
 	reasons := []string{err.Error()}
 	var aggErr await.AggregatedError
-	if errors.As(err, aggErr) {
+	if errors.As(err, &aggErr) {
 		reasons = append(reasons, aggErr.SubErrors()...)
 	}
 	detail := pulumirpc.ErrorResourceInitFailed{
@@ -3286,7 +3283,7 @@ func renderYaml(resource *unstructured.Unstructured, yamlDirectory string) error
 	path := renderPathForResource(resource, yamlDirectory)
 	err = os.WriteFile(path, yamlBytes, 0600)
 	if err != nil {
-		return deprecated.Wrapf(err, "failed to write YAML file: %q", path)
+		return fmt.Errorf("failed to write YAML file: %q: %w", path, err)
 	}
 
 	return nil

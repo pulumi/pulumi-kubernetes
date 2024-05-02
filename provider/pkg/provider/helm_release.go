@@ -31,7 +31,6 @@ import (
 	"github.com/imdario/mergo"
 	"github.com/mitchellh/mapstructure"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/deprecated"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/helm"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/host"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
@@ -770,15 +769,15 @@ func (r *helmReleaseProvider) Diff(ctx context.Context, req *pulumirpc.DiffReque
 	logger.V(9).Infof("oldStateJSON: %s", string(oldStateJSON))
 	strategicPatchJSON, err := strategicpatch.CreateThreeWayMergePatch(oldInputsJSON, newInputsJSON, oldStateJSON, &noSchema{}, true)
 	if err != nil {
-		return nil, deprecated.Wrapf(err, "internal error: CreateThreeWayMergePatch")
+		return nil, fmt.Errorf("internal error: CreateThreeWayMergePatch: %w", err)
 	}
 	logger.V(9).Infof("strategicPatchJSON: %s", string(strategicPatchJSON))
 	patchObj := map[string]any{}
 	if err = json.Unmarshal(strategicPatchJSON, &patchObj); err != nil {
-		return nil, deprecated.Wrapf(
-			err, "Failed to check for changes in Helm release %s/%s because of an error serializing "+
-				"the JSON patch describing resource changes",
-			oldRelease.Namespace, oldRelease.Name)
+		return nil, fmt.Errorf(
+			"Failed to check for changes in Helm release %s/%s because of an error serializing "+
+				"the JSON patch describing resource changes: %w",
+			oldRelease.Namespace, oldRelease.Name, err)
 
 	}
 
@@ -805,10 +804,10 @@ func (r *helmReleaseProvider) Diff(ctx context.Context, req *pulumirpc.DiffReque
 		}
 		forceNewFields := []string{".name", ".namespace"}
 		if detailedDiff, err = convertPatchToDiff(patchObj, strip(olds), strip(news), strip(oldInputs), forceNewFields...); err != nil {
-			return nil, deprecated.Wrapf(
-				err, "Failed to check for changes in helm release %s/%s because of an error "+
-					"converting JSON patch describing resource changes to a diff",
-				oldRelease.Namespace, oldRelease.Name)
+			return nil, fmt.Errorf(
+				"Failed to check for changes in helm release %s/%s because of an error "+
+					"converting JSON patch describing resource changes to a diff: %w",
+				oldRelease.Namespace, oldRelease.Name, err)
 
 		}
 
@@ -908,9 +907,9 @@ func (r *helmReleaseProvider) Create(ctx context.Context, req *pulumirpc.CreateR
 	if creationError != nil {
 		return nil, partialError(
 			id,
-			deprecated.Wrapf(
-				creationError, "Helm release %q was created, but failed to initialize completely. "+
-					"Use Helm CLI to investigate.", id),
+			fmt.Errorf(
+				"Helm release %q was created, but failed to initialize completely. "+
+					"Use Helm CLI to investigate: %w", id, creationError),
 
 			inputsAndComputed,
 			nil)
@@ -1083,9 +1082,9 @@ func (r *helmReleaseProvider) Update(ctx context.Context, req *pulumirpc.UpdateR
 	if updateError != nil {
 		return nil, partialError(
 			fqName(newRelease.Namespace, newRelease.Name),
-			deprecated.Wrapf(
-				updateError, "Helm release %q failed to initialize completely. "+
-					"Use Helm CLI to investigate.", fqName(newRelease.Namespace, newRelease.Name)),
+			fmt.Errorf(
+				"Helm release %q failed to initialize completely. "+
+					"Use Helm CLI to investigate: %w", fqName(newRelease.Namespace, newRelease.Name), updateError),
 
 			inputsAndComputed,
 			nil)
