@@ -263,9 +263,8 @@ func (c *chart) template(clientSet *clients.DynamicClientSet) (string, error) {
 	}
 
 	if clientSet != nil && clientSet.DiscoveryClientCached != nil {
-		err = setKubeVersionAndAPIVersions(clientSet, installAction)
-		if err != nil {
-			c.host.Log(context.Background(), diag.Warning, "", fmt.Sprintf("unable to determine cluster's API version: %s", err))
+		if err := setKubeVersionAndAPIVersions(clientSet, installAction); err != nil {
+			_ = c.host.Log(context.Background(), diag.Warning, "", fmt.Sprintf("unable to determine cluster's API version: %s", err))
 		}
 	}
 

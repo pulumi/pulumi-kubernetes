@@ -1,6 +1,7 @@
 ## Unreleased
 
 - Fix Release behavior to deep merge `valueYamlFiles` to match Helm. (https://github.com/pulumi/pulumi-kubernetes/pull/2963)
+- Fix Chart previews when the cluster is unreachable. (https://github.com/pulumi/pulumi-kubernetes/pull/2992)
 
 ## 4.11.0 (April 17, 2024)
 
