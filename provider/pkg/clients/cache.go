@@ -27,28 +27,20 @@ import (
 // For example, it allows the yaml/v2 package to lookup a CRD during preview that would be installed by
 // a "CustomResourceDefinition" resource. The user is expected to use DependsOn to ensure that
 // the CRD is created first.
-type CRDCache interface {
-	GetCRD(kind schema.GroupKind) *unstructured.Unstructured
-	AddCRD(crd *unstructured.Unstructured) error
-	RemoveCRD(crd *unstructured.Unstructured) error
-}
-
-type crdCache struct {
+type CRDCache struct {
 	mu   sync.Mutex
 	crds map[schema.GroupKind]*unstructured.Unstructured
 }
 
-var _ CRDCache = &crdCache{}
-
 // GetCRD returns the CRD for the given kind, if it exists in the cache.
-func (c *crdCache) GetCRD(kind schema.GroupKind) *unstructured.Unstructured {
+func (c *CRDCache) GetCRD(kind schema.GroupKind) *unstructured.Unstructured {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	return c.crds[kind]
 }
 
 // AddCRD adds a CRD to the cache.
-func (c *crdCache) AddCRD(crd *unstructured.Unstructured) error {
+func (c *CRDCache) AddCRD(crd *unstructured.Unstructured) error {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	kind, err := groupKindFromCRD(crd)
@@ -63,7 +55,7 @@ func (c *crdCache) AddCRD(crd *unstructured.Unstructured) error {
 }
 
 // RemoveCRD removes a CRD from the cache.
-func (c *crdCache) RemoveCRD(crd *unstructured.Unstructured) error {
+func (c *CRDCache) RemoveCRD(crd *unstructured.Unstructured) error {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	kind, err := groupKindFromCRD(crd)
