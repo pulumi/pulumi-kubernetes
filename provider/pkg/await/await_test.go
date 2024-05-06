@@ -26,10 +26,12 @@ import (
 	"k8s.io/apimachinery/pkg/api/meta"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
+	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/dynamic"
+	clienttesting "k8s.io/client-go/testing"
 )
 
 var (
@@ -46,7 +48,9 @@ var (
 				"containers": []any{
 					map[string]any{
 						"name":  "foo",
-						"image": "nginx"}},
+						"image": "nginx",
+					},
+				},
 			},
 		},
 	}
@@ -73,6 +77,7 @@ var (
 		},
 	}
 )
+
 var (
 	podGVR                = corev1.SchemeGroupVersion.WithResource("pods")
 	serviceUnavailableErr = apierrors.NewServiceUnavailable("test")
@@ -80,7 +85,6 @@ var (
 )
 
 func Test_Creation(t *testing.T) {
-
 	type testCtx struct {
 		host   *fakehost.HostClient
 		config *CreateConfig
@@ -347,6 +351,50 @@ func Test_Creation(t *testing.T) {
 	}
 }
 
+func TestAwaitSSAConflict(t *testing.T) {
+	client, _, _, clientset := fake.NewSimpleDynamicClient()
+
+	pod := validPodUnstructured.DeepCopy()
+	pod.SetNamespace("default")
+
+	urn := resource.NewURN(tokens.QName("teststack"), tokens.PackageName("testproj"), tokens.Type(""), tokens.Type(""), "testresource")
+	pconfig := ProviderConfig{
+		Context:         context.Background(),
+		Host:            &fakehost.HostClient{},
+		URN:             urn,
+		FieldManager:    "test",
+		ClientSet:       client,
+		ServerSideApply: true,
+	}
+	config := CreateConfig{
+		ProviderConfig: pconfig,
+		Inputs:         pod,
+	}
+
+	// Intercept the SSA and respond with a conflict error.
+	clientset.PrependReactor("patch", "pods", func(_ clienttesting.Action) (bool, runtime.Object, error) {
+		return true, nil, apierrors.NewApplyConflict(nil, "conflict")
+	})
+
+	wantErr := "\nThe resource managed by field manager \"test\" had an apply conflict:"
+
+	// Attempt to create the pod with SSA.
+	_, err := Creation(config)
+	assert.ErrorContains(t, err, wantErr)
+
+	// We need a valid pod in our Tracker to avoid the Fake's 404.
+	err = clientset.Tracker().Add(pod)
+	require.NoError(t, err)
+
+	// Attempt to update the pod with SSA.
+	_, err = Update(UpdateConfig{
+		ProviderConfig: pconfig,
+		OldOutputs:     pod,
+		Inputs:         pod,
+	})
+	assert.ErrorContains(t, err, wantErr)
+}
+
 func Test_Watcher_Interface_Cancel(t *testing.T) {
 	cancelCtx, cancel := context.WithCancel(context.Background())
 	cancel()
@@ -406,33 +454,43 @@ func (mri *mockResourceInterface) Create(
 ) (*unstructured.Unstructured, error) {
 	panic("Create not implemented")
 }
+
 func (mri *mockResourceInterface) Update(
 	ctx context.Context, obj *unstructured.Unstructured, options metav1.UpdateOptions, subresources ...string,
 ) (*unstructured.Unstructured, error) {
 	panic("Update not implemented")
 }
+
 func (mri *mockResourceInterface) UpdateStatus(
-	ctx context.Context, obj *unstructured.Unstructured, options metav1.UpdateOptions) (*unstructured.Unstructured, error) {
+	ctx context.Context, obj *unstructured.Unstructured, options metav1.UpdateOptions,
+) (*unstructured.Unstructured, error) {
 	panic("UpdateStatus not implemented")
 }
+
 func (mri *mockResourceInterface) Delete(ctx context.Context, name string, options metav1.DeleteOptions, subresources ...string) error {
 	panic("Delete not implemented")
 }
+
 func (mri *mockResourceInterface) DeleteCollection(
-	ctx context.Context, deleteOptions metav1.DeleteOptions, listOptions metav1.ListOptions) error {
+	ctx context.Context, deleteOptions metav1.DeleteOptions, listOptions metav1.ListOptions,
+) error {
 	panic("DeleteCollection not implemented")
 }
+
 func (mri *mockResourceInterface) Get(
 	ctx context.Context, name string, options metav1.GetOptions, subresources ...string,
 ) (*unstructured.Unstructured, error) {
 	return &unstructured.Unstructured{Object: map[string]any{}}, nil
 }
+
 func (mri *mockResourceInterface) List(ctx context.Context, opts metav1.ListOptions) (*unstructured.UnstructuredList, error) {
 	panic("List not implemented")
 }
+
 func (mri *mockResourceInterface) Watch(ctx context.Context, opts metav1.ListOptions) (watch.Interface, error) {
 	panic("Watch not implemented")
 }
+
 func (mri *mockResourceInterface) Patch(
 	ctx context.Context, name string, pt types.PatchType, data []byte, options metav1.PatchOptions, subresources ...string,
 ) (*unstructured.Unstructured, error) {
