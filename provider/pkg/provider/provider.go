@@ -1317,7 +1317,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		KeepSecrets:  true,
 	})
 	if err != nil {
-		return nil, fmt.Errorf("check failed because malformed resource inputs: %+v: %w", err, err)
+		return nil, fmt.Errorf("check failed because malformed resource inputs: %w", err)
 	}
 
 	oldInputs := propMapToUnstructured(olds)

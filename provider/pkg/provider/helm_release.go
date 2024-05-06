@@ -347,7 +347,7 @@ func (r *helmReleaseProvider) Check(ctx context.Context, req *pulumirpc.CheckReq
 		KeepSecrets:  true,
 	})
 	if err != nil {
-		return nil, fmt.Errorf("check failed because malformed resource inputs: %+v: %w", err, err)
+		return nil, fmt.Errorf("check failed because malformed resource inputs: %w", err)
 	}
 
 	if len(olds) > 0 {
@@ -391,7 +391,7 @@ func (r *helmReleaseProvider) Check(ctx context.Context, req *pulumirpc.CheckReq
 		KeepSecrets:  true,
 	})
 	if err != nil {
-		return nil, fmt.Errorf("check failed because malformed resource inputs: %+v: %w", err, err)
+		return nil, fmt.Errorf("check failed because malformed resource inputs: %w", err)
 	}
 	// ensure we don't leak secrets into state, and preserve the computedness of inputs.
 	annotateComputed(news, newInputs)
