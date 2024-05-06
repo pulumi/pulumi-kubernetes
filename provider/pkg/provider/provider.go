@@ -3024,10 +3024,10 @@ type patchConverter struct {
 // addPatchValueToDiff adds the given patched value to the detailed diff.
 //
 // Values for old, newInput, and oldInput should be `pc.missing` if they were
-// originally absent from a map . This differenciates between the case where
+// originally absent from a map. This differenciates between the case where
 // they were present in the map but had `nil` values.
 //
-// The particular difference that is recorded depends on the old and new values:
+// The diff that is recorded depends on the old and new values:
 // - If the patched value is nil, the property is recorded as deleted.
 // - If the old value is missing, the property is recorded as added.
 // - If the old and patched values are both nil or missing, no diff is recorded.
