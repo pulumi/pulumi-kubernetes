@@ -902,6 +902,7 @@ func deleteResource(ctx context.Context, name string, urn resource.URN, client d
 
 	annotatedURN := metadata.GetAnnotationValue(live, metadata.AnnotationURN)
 	if annotatedURN != "" && annotatedURN != string(urn) {
+		// TODO: Check project/stack.
 		return errNotFound
 	}
 

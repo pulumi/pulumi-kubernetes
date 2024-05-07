@@ -811,8 +811,8 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 
 // Invoke dynamically executes a built-in function in the provider.
 func (k *kubeProvider) Invoke(ctx context.Context,
-	req *pulumirpc.InvokeRequest) (*pulumirpc.InvokeResponse, error) {
-
+	req *pulumirpc.InvokeRequest,
+) (*pulumirpc.InvokeResponse, error) {
 	// Important: Some invoke logic is intended to run during preview, and the Kubernetes provider
 	// inputs may not have resolved yet. Any invoke logic that depends on an active cluster must check
 	// k.clusterUnreachable and handle that condition appropriately.
@@ -920,8 +920,8 @@ func (k *kubeProvider) Invoke(ctx context.Context,
 // StreamInvoke dynamically executes a built-in function in the provider. The result is streamed
 // back as a series of messages.
 func (k *kubeProvider) StreamInvoke(
-	req *pulumirpc.InvokeRequest, server pulumirpc.ResourceProvider_StreamInvokeServer) error {
-
+	req *pulumirpc.InvokeRequest, server pulumirpc.ResourceProvider_StreamInvokeServer,
+) error {
 	// Important: Some invoke logic is intended to run during preview, and the Kubernetes provider
 	// inputs may not have resolved yet. Any invoke logic that depends on an active cluster must check
 	// k.clusterUnreachable and handle that condition appropriately.
@@ -1725,8 +1725,7 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 
 	// Delete before replacement if we are forced to replace the old object, and the new version of
 	// that object MUST have the same name.
-	deleteBeforeReplace :=
-		// 1. We know resource must be replaced.
+	deleteBeforeReplace := // 1. We know resource must be replaced.
 		len(replaces) > 0 &&
 			// 2. Object is named (i.e., not using metadata.generateName).
 			metadata.IsNamed(newInputs, newResInputs) &&
@@ -2872,8 +2871,8 @@ func initialAPIVersion(state resource.PropertyMap, oldInputs *unstructured.Unstr
 }
 
 func checkpointObject(inputs, live *unstructured.Unstructured, fromInputs resource.PropertyMap,
-	initialAPIVersion, fieldManager string) resource.PropertyMap {
-
+	initialAPIVersion, fieldManager string,
+) resource.PropertyMap {
 	object := resource.NewPropertyMapFromMap(live.Object)
 	inputsPM := resource.NewPropertyMapFromMap(inputs.Object)
 
@@ -2971,7 +2970,6 @@ var deleteResponse = &pulumirpc.ReadResponse{Id: "", Properties: nil}
 func convertPatchToDiff(
 	patch, oldLiveState, newInputs, oldInputs map[string]any, forceNewFields ...string,
 ) (map[string]*pulumirpc.PropertyDiff, error) {
-
 	contract.Requiref(len(patch) != 0, "patch", "expected len() != 0")
 	contract.Requiref(oldLiveState != nil, "oldLiveState", "expected != nil")
 
@@ -3153,7 +3151,6 @@ func (pc *patchConverter) addPatchValueToDiff(
 func (pc *patchConverter) addPatchMapToDiff(
 	path []any, m, old, newInput, oldInput map[string]any, inArray bool,
 ) error {
-
 	if newInput == nil {
 		newInput = map[string]any{}
 	}
@@ -3183,7 +3180,6 @@ func (pc *patchConverter) addPatchMapToDiff(
 func (pc *patchConverter) addPatchArrayToDiff(
 	path []any, a, old, newInput, oldInput []any, inArray bool,
 ) error {
-
 	at := func(arr []any, i int) any {
 		if i < len(arr) {
 			return arr[i]
@@ -3279,20 +3275,20 @@ func renderYaml(resource *unstructured.Unstructured, yamlDirectory string) error
 	manifestDirectory := filepath.Join(yamlDirectory, "1-manifest")
 
 	if _, err := os.Stat(crdDirectory); os.IsNotExist(err) {
-		err = os.MkdirAll(crdDirectory, 0700)
+		err = os.MkdirAll(crdDirectory, 0o700)
 		if err != nil {
 			return pkgerrors.Wrapf(err, "failed to create directory for rendered YAML: %q", crdDirectory)
 		}
 	}
 	if _, err := os.Stat(manifestDirectory); os.IsNotExist(err) {
-		err = os.MkdirAll(manifestDirectory, 0700)
+		err = os.MkdirAll(manifestDirectory, 0o700)
 		if err != nil {
 			return pkgerrors.Wrapf(err, "failed to create directory for rendered YAML: %q", manifestDirectory)
 		}
 	}
 
 	path := renderPathForResource(resource, yamlDirectory)
-	err = os.WriteFile(path, yamlBytes, 0600)
+	err = os.WriteFile(path, yamlBytes, 0o600)
 	if err != nil {
 		return pkgerrors.Wrapf(err, "failed to write YAML file: %q", path)
 	}

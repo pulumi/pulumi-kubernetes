@@ -9,10 +9,32 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestRename(t *testing.T) {
+func TestDeleteDueToRename(t *testing.T) {
 	t.Parallel()
 	ctx := context.Background()
-	test := pulumitest.NewPulumiTest(t, "rename")
+	test := pulumitest.NewPulumiTest(t, "delete/rename")
+	t.Cleanup(func() {
+		test.Destroy()
+	})
+
+	test.Up()
+
+	// Change our Namespace's resource name and delete a patch.
+	test.UpdateSource("delete/rename/step2")
+	test.Up()
+
+	// Renaming the namespace should not have deleted it. Perform a refresh and
+	// make sure our pod is still running -- if it's not, Pulumi will have
+	// deleted it from our state.
+	refresh, err := test.CurrentStack().Refresh(ctx)
+	assert.NoError(t, err)
+	assert.NotContains(t, refresh.StdOut, "deleted", refresh.StdOut)
+}
+
+func TestDeletePatchResource(t *testing.T) {
+	t.Parallel()
+	ctx := context.Background()
+	test := pulumitest.NewPulumiTest(t, "delete/patch")
 	t.Cleanup(func() {
 		test.Destroy()
 	})
@@ -28,16 +50,9 @@ func TestRename(t *testing.T) {
 	require.True(t, ok)
 	assert.Len(t, mf.Value, 3)
 
-	// Change our Namespace's resource name and delete a patch.
-	test.UpdateSource("rename/step2")
+	// Delete a patch.
+	test.UpdateSource("delete/patch/step2")
 	test.Up()
-
-	// Renaming the namespace should not have deleted it. Perform a refresh and
-	// make sure our pod is still running -- if it's not, Pulumi will have
-	// deleted it from our state.
-	refresh, err := test.CurrentStack().Refresh(ctx)
-	assert.NoError(t, err)
-	assert.NotContains(t, refresh.StdOut, "deleted", refresh.StdOut)
 
 	// One ConfigMapPatch should still be applied, plus a manager for our URN
 	// annotation.

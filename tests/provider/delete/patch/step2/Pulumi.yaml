@@ -1,0 +1,40 @@
+name: delete-patch-resource
+runtime: yaml
+description: |
+  Deleting a logical patch resource should not delete the underlying physical
+  resource.
+
+outputs:
+  managedFields: ${patch1.metadata.managedFields}
+
+resources:
+  configmap:
+    type: kubernetes:core/v1:ConfigMap
+    properties:
+      metadata:
+        name: patched-configmap
+
+  patch1:
+    type: kubernetes:core/v1:ConfigMapPatch
+    properties:
+      metadata:
+        name: patched-configmap
+      data:
+        foo: bar
+    options:
+      dependsOn:
+        - ${configmap}
+
+  # Delete patch2 - the underlying ConfigMap should not be deleted, and patch1
+  # should still be applied.
+  #
+  # patch2:
+  #   type: kubernetes:core/v1:ConfigMapPatch
+  #   properties:
+  #     metadata:
+  #       name: patched-configmap
+  #     data:
+  #       boo: baz
+  #   options:
+  #     dependsOn:
+  #       - ${patch1}
