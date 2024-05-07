@@ -811,8 +811,8 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 
 // Invoke dynamically executes a built-in function in the provider.
 func (k *kubeProvider) Invoke(ctx context.Context,
-	req *pulumirpc.InvokeRequest) (*pulumirpc.InvokeResponse, error) {
-
+	req *pulumirpc.InvokeRequest,
+) (*pulumirpc.InvokeResponse, error) {
 	// Important: Some invoke logic is intended to run during preview, and the Kubernetes provider
 	// inputs may not have resolved yet. Any invoke logic that depends on an active cluster must check
 	// k.clusterUnreachable and handle that condition appropriately.
@@ -920,8 +920,8 @@ func (k *kubeProvider) Invoke(ctx context.Context,
 // StreamInvoke dynamically executes a built-in function in the provider. The result is streamed
 // back as a series of messages.
 func (k *kubeProvider) StreamInvoke(
-	req *pulumirpc.InvokeRequest, server pulumirpc.ResourceProvider_StreamInvokeServer) error {
-
+	req *pulumirpc.InvokeRequest, server pulumirpc.ResourceProvider_StreamInvokeServer,
+) error {
 	// Important: Some invoke logic is intended to run during preview, and the Kubernetes provider
 	// inputs may not have resolved yet. Any invoke logic that depends on an active cluster must check
 	// k.clusterUnreachable and handle that condition appropriately.
@@ -1328,6 +1328,13 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		return nil, err
 	}
 
+	// Annotate physical resources with their URN in order to avoid accidental
+	// deletions.
+	// TODO: Add provider config for opt-in.
+	if !kinds.IsPatchURN(urn) {
+		metadata.SetAnnotation(newInputs, metadata.AnnotationURN, string(urn))
+	}
+
 	if k.serverSideApplyMode && kinds.IsPatchURN(urn) {
 		if len(newInputs.GetName()) == 0 {
 			return nil, fmt.Errorf("patch resources require the `.metadata.name` field to be set")
@@ -1718,8 +1725,7 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 
 	// Delete before replacement if we are forced to replace the old object, and the new version of
 	// that object MUST have the same name.
-	deleteBeforeReplace :=
-		// 1. We know resource must be replaced.
+	deleteBeforeReplace := // 1. We know resource must be replaced.
 		len(replaces) > 0 &&
 			// 2. Object is named (i.e., not using metadata.generateName).
 			metadata.IsNamed(newInputs, newResInputs) &&
@@ -1800,7 +1806,7 @@ func (k *kubeProvider) Create(
 	}
 
 	initialAPIVersion := newInputs.GetAPIVersion()
-	fieldManager := k.fieldManagerName(nil, newResInputs, newInputs)
+	fieldManager := k.fieldManagerName(urn, newResInputs, newInputs)
 
 	if k.yamlRenderMode {
 		if newResInputs.ContainsSecrets() {
@@ -2057,7 +2063,7 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 	}
 
 	initialAPIVersion := initialAPIVersion(oldState, oldInputs)
-	fieldManager := k.fieldManagerName(nil, oldState, oldInputs)
+	fieldManager := k.fieldManagerName(urn, oldState, oldInputs)
 
 	if k.yamlRenderMode {
 		// Return a new "checkpoint object".
@@ -2297,8 +2303,8 @@ func (k *kubeProvider) Update(
 	oldLivePruned := pruneLiveState(oldLive, oldInputs)
 
 	initialAPIVersion := initialAPIVersion(oldState, oldInputs)
-	fieldManagerOld := k.fieldManagerName(nil, oldState, oldInputs)
-	fieldManager := k.fieldManagerName(nil, oldState, newInputs)
+	fieldManagerOld := k.fieldManagerName(urn, oldState, oldInputs)
+	fieldManager := k.fieldManagerName(urn, oldState, newInputs)
 
 	if k.yamlRenderMode {
 		if newResInputs.ContainsSecrets() {
@@ -2485,7 +2491,7 @@ func (k *kubeProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest)
 	}
 
 	initialAPIVersion := initialAPIVersion(oldState, &unstructured.Unstructured{})
-	fieldManager := k.fieldManagerName(nil, oldState, oldInputs)
+	fieldManager := k.fieldManagerName(urn, oldState, oldInputs)
 	resources, err := k.getResources()
 	if err != nil {
 		return nil, pkgerrors.Wrapf(err, "Failed to fetch OpenAPI schema from the API server")
@@ -2671,7 +2677,7 @@ func (k *kubeProvider) isDryRunDisabledError(err error) bool {
 // 2. Value from the Pulumi state
 // 3. Randomly generated name
 func (k *kubeProvider) fieldManagerName(
-	randomSeed []byte, state resource.PropertyMap, inputs *unstructured.Unstructured,
+	urn resource.URN, state resource.PropertyMap, inputs *unstructured.Unstructured,
 ) string {
 	// Always use the same fieldManager name for Client-Side Apply mode to avoid conflicts based on the name of the
 	// provider executable.
@@ -2684,6 +2690,15 @@ func (k *kubeProvider) fieldManagerName(
 	}
 	if v, ok := state[fieldManagerKey]; ok {
 		return v.StringValue()
+	}
+
+	// Seed our randomness with our project/stack so all physical resources in
+	// the same stack get the same manager. Patch resources still require
+	// random managers in order to correctly stack on top of each other.
+	randomSeed := []byte{}
+	if !kinds.IsPatchURN(urn) {
+		randomSeed = append(randomSeed, []byte(urn.Project())...)
+		randomSeed = append(randomSeed, []byte(urn.Stack())...)
 	}
 
 	prefix := "pulumi-kubernetes-"
@@ -2856,8 +2871,8 @@ func initialAPIVersion(state resource.PropertyMap, oldInputs *unstructured.Unstr
 }
 
 func checkpointObject(inputs, live *unstructured.Unstructured, fromInputs resource.PropertyMap,
-	initialAPIVersion, fieldManager string) resource.PropertyMap {
-
+	initialAPIVersion, fieldManager string,
+) resource.PropertyMap {
 	object := resource.NewPropertyMapFromMap(live.Object)
 	inputsPM := resource.NewPropertyMapFromMap(inputs.Object)
 
@@ -2955,7 +2970,6 @@ var deleteResponse = &pulumirpc.ReadResponse{Id: "", Properties: nil}
 func convertPatchToDiff(
 	patch, oldLiveState, newInputs, oldInputs map[string]any, forceNewFields ...string,
 ) (map[string]*pulumirpc.PropertyDiff, error) {
-
 	contract.Requiref(len(patch) != 0, "patch", "expected len() != 0")
 	contract.Requiref(oldLiveState != nil, "oldLiveState", "expected != nil")
 
@@ -3137,7 +3151,6 @@ func (pc *patchConverter) addPatchValueToDiff(
 func (pc *patchConverter) addPatchMapToDiff(
 	path []any, m, old, newInput, oldInput map[string]any, inArray bool,
 ) error {
-
 	if newInput == nil {
 		newInput = map[string]any{}
 	}
@@ -3167,7 +3180,6 @@ func (pc *patchConverter) addPatchMapToDiff(
 func (pc *patchConverter) addPatchArrayToDiff(
 	path []any, a, old, newInput, oldInput []any, inArray bool,
 ) error {
-
 	at := func(arr []any, i int) any {
 		if i < len(arr) {
 			return arr[i]
@@ -3263,20 +3275,20 @@ func renderYaml(resource *unstructured.Unstructured, yamlDirectory string) error
 	manifestDirectory := filepath.Join(yamlDirectory, "1-manifest")
 
 	if _, err := os.Stat(crdDirectory); os.IsNotExist(err) {
-		err = os.MkdirAll(crdDirectory, 0700)
+		err = os.MkdirAll(crdDirectory, 0o700)
 		if err != nil {
 			return pkgerrors.Wrapf(err, "failed to create directory for rendered YAML: %q", crdDirectory)
 		}
 	}
 	if _, err := os.Stat(manifestDirectory); os.IsNotExist(err) {
-		err = os.MkdirAll(manifestDirectory, 0700)
+		err = os.MkdirAll(manifestDirectory, 0o700)
 		if err != nil {
 			return pkgerrors.Wrapf(err, "failed to create directory for rendered YAML: %q", manifestDirectory)
 		}
 	}
 
 	path := renderPathForResource(resource, yamlDirectory)
-	err = os.WriteFile(path, yamlBytes, 0600)
+	err = os.WriteFile(path, yamlBytes, 0o600)
 	if err != nil {
 		return pkgerrors.Wrapf(err, "failed to write YAML file: %q", path)
 	}

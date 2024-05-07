@@ -31,6 +31,7 @@ const (
 	AnnotationSkipAwait      = AnnotationPrefix + "skipAwait"
 	AnnotationTimeoutSeconds = AnnotationPrefix + "timeoutSeconds"
 	AnnotationReplaceUnready = AnnotationPrefix + "replaceUnready"
+	AnnotationURN            = AnnotationPrefix + "urn"
 
 	AnnotationPatchForce        = AnnotationPrefix + "patchForce"
 	AnnotationPatchFieldManager = AnnotationPrefix + "patchFieldManager"
