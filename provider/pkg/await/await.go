@@ -893,7 +893,7 @@ func Deletion(c DeleteConfig) error {
 // ameliorates situations like pulumi-kubernetes#2948 where resources could be
 // unintentionally deleted after renaming.
 func deleteResource(ctx context.Context, name string, urn resource.URN, client dynamic.ResourceInterface) error {
-	errNotFound := &apierrors.StatusError{metav1.Status{Code: http.StatusNotFound}}
+	errNotFound := &apierrors.StatusError{ErrStatus: metav1.Status{Code: http.StatusNotFound}}
 
 	done, live := checkIfResourceDeleted(ctx, name, client)
 	if done {
