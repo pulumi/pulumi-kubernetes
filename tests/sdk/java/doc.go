@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Package test contains a number of end-to-end tests in written YAML despite
-// being located under sdk/java. This necessary because our CI jobs don't
+// Package test contains a number of end-to-end tests written in YAML despite
+// being located under sdk/java. This is necessary because our CI jobs don't
 // currently execute a test step for YAML. We don't have any Java SDK tests at
 // the moment so we might as well give this shard something to do.
 //
