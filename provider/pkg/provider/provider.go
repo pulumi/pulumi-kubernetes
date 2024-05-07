@@ -1328,6 +1328,13 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		return nil, err
 	}
 
+	// Annotate physical resources with their URN in order to avoid accidental
+	// deletions.
+	// TODO: Add provider config for opt-in.
+	if !kinds.IsPatchURN(urn) {
+		metadata.SetAnnotation(newInputs, metadata.AnnotationURN, string(urn))
+	}
+
 	if k.serverSideApplyMode && kinds.IsPatchURN(urn) {
 		if len(newInputs.GetName()) == 0 {
 			return nil, fmt.Errorf("patch resources require the `.metadata.name` field to be set")
@@ -1800,7 +1807,7 @@ func (k *kubeProvider) Create(
 	}
 
 	initialAPIVersion := newInputs.GetAPIVersion()
-	fieldManager := k.fieldManagerName(nil, newResInputs, newInputs)
+	fieldManager := k.fieldManagerName(urn, newResInputs, newInputs)
 
 	if k.yamlRenderMode {
 		if newResInputs.ContainsSecrets() {
@@ -2057,7 +2064,7 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 	}
 
 	initialAPIVersion := initialAPIVersion(oldState, oldInputs)
-	fieldManager := k.fieldManagerName(nil, oldState, oldInputs)
+	fieldManager := k.fieldManagerName(urn, oldState, oldInputs)
 
 	if k.yamlRenderMode {
 		// Return a new "checkpoint object".
@@ -2297,8 +2304,8 @@ func (k *kubeProvider) Update(
 	oldLivePruned := pruneLiveState(oldLive, oldInputs)
 
 	initialAPIVersion := initialAPIVersion(oldState, oldInputs)
-	fieldManagerOld := k.fieldManagerName(nil, oldState, oldInputs)
-	fieldManager := k.fieldManagerName(nil, oldState, newInputs)
+	fieldManagerOld := k.fieldManagerName(urn, oldState, oldInputs)
+	fieldManager := k.fieldManagerName(urn, oldState, newInputs)
 
 	if k.yamlRenderMode {
 		if newResInputs.ContainsSecrets() {
@@ -2485,7 +2492,7 @@ func (k *kubeProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest)
 	}
 
 	initialAPIVersion := initialAPIVersion(oldState, &unstructured.Unstructured{})
-	fieldManager := k.fieldManagerName(nil, oldState, oldInputs)
+	fieldManager := k.fieldManagerName(urn, oldState, oldInputs)
 	resources, err := k.getResources()
 	if err != nil {
 		return nil, pkgerrors.Wrapf(err, "Failed to fetch OpenAPI schema from the API server")
@@ -2671,7 +2678,7 @@ func (k *kubeProvider) isDryRunDisabledError(err error) bool {
 // 2. Value from the Pulumi state
 // 3. Randomly generated name
 func (k *kubeProvider) fieldManagerName(
-	randomSeed []byte, state resource.PropertyMap, inputs *unstructured.Unstructured,
+	urn resource.URN, state resource.PropertyMap, inputs *unstructured.Unstructured,
 ) string {
 	// Always use the same fieldManager name for Client-Side Apply mode to avoid conflicts based on the name of the
 	// provider executable.
@@ -2684,6 +2691,15 @@ func (k *kubeProvider) fieldManagerName(
 	}
 	if v, ok := state[fieldManagerKey]; ok {
 		return v.StringValue()
+	}
+
+	// Seed our randomness with our project/stack so all physical resources in
+	// the same stack get the same manager. Patch resources still require
+	// random managers in order to correctly stack on top of each other.
+	randomSeed := []byte{}
+	if !kinds.IsPatchURN(urn) {
+		randomSeed = append(randomSeed, []byte(urn.Project())...)
+		randomSeed = append(randomSeed, []byte(urn.Stack())...)
 	}
 
 	prefix := "pulumi-kubernetes-"

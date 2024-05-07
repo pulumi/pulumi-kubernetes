@@ -63,8 +63,7 @@ func watchAddedEvent(obj runtime.Object) watch.Event {
 // --------------------------------------------------------------------------
 
 func is404(err error) bool {
-	statusErr, ok := err.(*errors.StatusError)
-	return ok && statusErr.ErrStatus.Code == 404
+	return errors.IsNotFound(err)
 }
 
 // --------------------------------------------------------------------------

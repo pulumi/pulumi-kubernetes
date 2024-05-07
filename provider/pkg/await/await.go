@@ -19,6 +19,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"net/http"
 	"os"
 	"strings"
 
@@ -790,7 +791,7 @@ func Deletion(c DeleteConfig) error {
 		return nilIfGVKDeleted(err)
 	}
 
-	err = deleteResource(c.Context, c.Name, client)
+	err = deleteResource(c.Context, c.Name, c.URN, client)
 	if err != nil {
 		return nilIfGVKDeleted(err)
 	}
@@ -880,8 +881,30 @@ func Deletion(c DeleteConfig) error {
 	return nil
 }
 
-// deleteResource deletes the specified resource using foreground cascading delete.
-func deleteResource(ctx context.Context, name string, client dynamic.ResourceInterface) error {
+// deleteResource deletes the specified physical resource using foreground
+// cascading delete. It should not be invoked on Patch resources; use
+// ssa.Relinquish instead.
+//
+// If the resource does not exist in the cluster a StatusError{404} is
+// returned. This is intended to short-circuit subsequent await logic.
+//
+// If the resource exists in the cluster but is annotated with an URN different
+// from the URN being deleted we also return a StatusError{404}. This
+// ameliorates situations like pulumi-kubernetes#2948 where resources could be
+// unintentionally deleted after renaming.
+func deleteResource(ctx context.Context, name string, urn resource.URN, client dynamic.ResourceInterface) error {
+	errNotFound := &apierrors.StatusError{metav1.Status{Code: http.StatusNotFound}}
+
+	done, live := checkIfResourceDeleted(ctx, name, client)
+	if done {
+		return errNotFound
+	}
+
+	annotatedURN := metadata.GetAnnotationValue(live, metadata.AnnotationURN)
+	if annotatedURN != "" && annotatedURN != string(urn) {
+		return errNotFound
+	}
+
 	fg := metav1.DeletePropagationForeground
 	deleteOpts := metav1.DeleteOptions{
 		PropagationPolicy: &fg,
