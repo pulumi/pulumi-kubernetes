@@ -1,0 +1,24 @@
+name: rename
+runtime: yaml
+description: |
+  Tests that changing a resource's name in Pulumi doesn't delete the resource
+  from the cluster.
+
+resources:
+  ns:
+    type: kubernetes:core/v1:Namespace
+    properties:
+      metadata:
+        name: rename-namespace
+        namespace: rename-namespace
+  pod:
+    type: kubernetes:core/v1:Pod
+    properties:
+      metadata:
+        namespace: rename-namespace
+      spec:
+        containers:
+          - image: nginx:1.14.2
+            name: nginx
+            ports:
+              - containerPort: 80
