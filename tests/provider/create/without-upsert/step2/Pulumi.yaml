@@ -1,0 +1,46 @@
+name: create-without-upsert
+runtime: yaml
+description: |
+  Providers can opt-in to Create behavior that fails fast
+  when it would overwrite a resource that already exists in
+  the cluster.
+
+resources:
+  ns:
+    type: kubernetes:core/v1:Namespace
+
+  provider:
+    type: pulumi:providers:kubernetes
+    properties:
+      namespace: ${ns.metadata.name}
+      enableUpsert: false
+
+  pod1:
+    type: kubernetes:core/v1:Pod
+    properties:
+      metadata:
+        name: nginx
+      spec:
+        containers:
+          - image: nginx:1.14.2
+            name: nginx
+            ports:
+              - containerPort: 80
+    options:
+      provider: ${provider}
+
+  # Attempt to create a new pod that would overwrite the
+  # cluster's existing pod.
+  pod2:
+    type: kubernetes:core/v1:Pod
+    properties:
+      metadata:
+        name: nginx
+      spec:
+        containers:
+          - image: nginx:1.14.2
+            name: nginx
+            ports:
+              - containerPort: 80
+    options:
+      provider: ${provider}

@@ -90,6 +90,16 @@ func PulumiSchema(swagger map[string]any) pschema.PackageSpec {
 					Description: "BETA FEATURE - If present and set to true, allow ConfigMaps to be mutated.\nThis feature is in developer preview, and is disabled by default.\n\nThis config can be specified in the following ways using this precedence:\n1. This `enableConfigMapMutable` parameter.\n2. The `PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE` environment variable.",
 					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
 				},
+				"enableUpsert": {
+					Description: "If present and set to false, the provider will surface errors if a create operation would overwrite existing resources in the cluster.",
+					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
+					Default:     true,
+					DefaultInfo: &pschema.DefaultSpec{
+						Environment: []string{
+							"PULUMI_K8S_ENABLE_UPSERT",
+						},
+					},
+				},
 				"renderYamlToDirectory": {
 					Description: "BETA FEATURE - If present, render resource manifests to this directory. In this mode, resources will not\nbe created on a Kubernetes cluster, but the rendered manifests will be kept in sync with changes\nto the Pulumi program. This feature is in developer preview, and is disabled by default.\n\nNote that some computed Outputs such as status fields will not be populated\nsince the resources are not created on a Kubernetes cluster. These Output values will remain undefined,\nand may result in an error if they are referenced by other resources. Also note that any secret values\nused in these resources will be rendered in plaintext to the resulting YAML.",
 					TypeSpec:    pschema.TypeSpec{Type: "string"},
@@ -176,6 +186,15 @@ func PulumiSchema(swagger map[string]any) pschema.PackageSpec {
 					},
 					Description: "BETA FEATURE - If present and set to true, allow ConfigMaps to be mutated.\nThis feature is in developer preview, and is disabled by default.\n\nThis config can be specified in the following ways using this precedence:\n1. This `enableConfigMapMutable` parameter.\n2. The `PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE` environment variable.",
 					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
+				},
+				"enableUpsert": {
+					Description: "If present and set to false, the provider will surface errors if a create operation would overwrite existing resources in the cluster.",
+					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
+					DefaultInfo: &pschema.DefaultSpec{
+						Environment: []string{
+							"PULUMI_K8S_ENABLE_UPSERT",
+						},
+					},
 				},
 				"renderYamlToDirectory": {
 					Description: "BETA FEATURE - If present, render resource manifests to this directory. In this mode, resources will not\nbe created on a Kubernetes cluster, but the rendered manifests will be kept in sync with changes\nto the Pulumi program. This feature is in developer preview, and is disabled by default.\n\nNote that some computed Outputs such as status fields will not be populated\nsince the resources are not created on a Kubernetes cluster. These Output values will remain undefined,\nand may result in an error if they are referenced by other resources. Also note that any secret values\nused in these resources will be rendered in plaintext to the resulting YAML.",
@@ -425,8 +444,8 @@ func PulumiSchema(swagger map[string]any) pschema.PackageSpec {
 					}
 
 					patchDescription := `Patch resources are used to modify existing Kubernetes resources by using
-Server-Side Apply updates. The name of the resource must be specified, but all other properties are optional. More than 
-one patch may be applied to the same resource, and a random FieldManager name will be used for each Patch resource. 
+Server-Side Apply updates. The name of the resource must be specified, but all other properties are optional. More than
+one patch may be applied to the same resource, and a random FieldManager name will be used for each Patch resource.
 Conflicts will result in an error by default, but can be forced using the "pulumi.com/patchForce" annotation. See the
 [Server-Side Apply Docs](https://www.pulumi.com/registry/packages/kubernetes/how-to-guides/managing-resources-with-server-side-apply/) for
 additional information about using Server-Side Apply to manage Kubernetes resources with Pulumi.`
