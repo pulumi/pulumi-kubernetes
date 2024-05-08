@@ -42,6 +42,7 @@ export class Provider extends pulumi.ProviderResource {
             resourceInputs["deleteUnreachable"] = pulumi.output((args ? args.deleteUnreachable : undefined) ?? utilities.getEnvBoolean("PULUMI_K8S_DELETE_UNREACHABLE")).apply(JSON.stringify);
             resourceInputs["enableConfigMapMutable"] = pulumi.output((args ? args.enableConfigMapMutable : undefined) ?? utilities.getEnvBoolean("PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE")).apply(JSON.stringify);
             resourceInputs["enableServerSideApply"] = pulumi.output((args ? args.enableServerSideApply : undefined) ?? utilities.getEnvBoolean("PULUMI_K8S_ENABLE_SERVER_SIDE_APPLY")).apply(JSON.stringify);
+            resourceInputs["enableUpsert"] = pulumi.output((args ? args.enableUpsert : undefined) ?? utilities.getEnvBoolean("PULUMI_K8S_ENABLE_UPSERT")).apply(JSON.stringify);
             resourceInputs["helmReleaseSettings"] = pulumi.output(args ? (args.helmReleaseSettings ? pulumi.output(args.helmReleaseSettings).apply(inputs.helmReleaseSettingsProvideDefaults) : undefined) : undefined).apply(JSON.stringify);
             resourceInputs["kubeClientSettings"] = pulumi.output(args ? (args.kubeClientSettings ? pulumi.output(args.kubeClientSettings).apply(inputs.kubeClientSettingsProvideDefaults) : undefined) : undefined).apply(JSON.stringify);
             resourceInputs["kubeconfig"] = (args ? args.kubeconfig : undefined) ?? utilities.getEnv("KUBECONFIG");
@@ -86,6 +87,10 @@ export interface ProviderArgs {
      * See https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.
      */
     enableServerSideApply?: pulumi.Input<boolean>;
+    /**
+     * If present and set to false, the provider will surface errors if a create operation would overwrite existing resources in the cluster.
+     */
+    enableUpsert?: pulumi.Input<boolean>;
     /**
      * Options to configure the Helm Release resource.
      */

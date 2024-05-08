@@ -60,6 +60,13 @@ public final class Config {
         return Codegen.booleanProp("enableServerSideApply").config(config).get();
     }
 /**
+ * If present and set to false, the provider will surface errors if a create operation would overwrite existing resources in the cluster.
+ * 
+ */
+    public Optional<Boolean> enableUpsert() {
+        return Codegen.booleanProp("enableUpsert").config(config).env("PULUMI_K8S_ENABLE_UPSERT").def(true).get();
+    }
+/**
  * The contents of a kubeconfig file or the path to a kubeconfig file. If this is set, this config will be used instead of $KUBECONFIG.
  * 
  */

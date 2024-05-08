@@ -49,6 +49,19 @@ func GetEnableServerSideApply(ctx *pulumi.Context) bool {
 	return config.GetBool(ctx, "kubernetes:enableServerSideApply")
 }
 
+// If present and set to false, the provider will surface errors if a create operation would overwrite existing resources in the cluster.
+func GetEnableUpsert(ctx *pulumi.Context) bool {
+	v, err := config.TryBool(ctx, "kubernetes:enableUpsert")
+	if err == nil {
+		return v
+	}
+	var value bool
+	if d := utilities.GetEnvOrDefault(true, utilities.ParseEnvBool, "PULUMI_K8S_ENABLE_UPSERT"); d != nil {
+		value = d.(bool)
+	}
+	return value
+}
+
 // The contents of a kubeconfig file or the path to a kubeconfig file. If this is set, this config will be used instead of $KUBECONFIG.
 func GetKubeconfig(ctx *pulumi.Context) string {
 	return config.Get(ctx, "kubernetes:kubeconfig")

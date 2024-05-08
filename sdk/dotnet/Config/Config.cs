@@ -98,6 +98,16 @@ namespace Pulumi.Kubernetes
             set => _enableServerSideApply.Set(value);
         }
 
+        private static readonly __Value<bool?> _enableUpsert = new __Value<bool?>(() => __config.GetBoolean("enableUpsert") ?? Utilities.GetEnvBoolean("PULUMI_K8S_ENABLE_UPSERT") ?? true);
+        /// <summary>
+        /// If present and set to false, the provider will surface errors if a create operation would overwrite existing resources in the cluster.
+        /// </summary>
+        public static bool? EnableUpsert
+        {
+            get => _enableUpsert.Get();
+            set => _enableUpsert.Set(value);
+        }
+
         private static readonly __Value<string?> _kubeconfig = new __Value<string?>(() => __config.Get("kubeconfig"));
         /// <summary>
         /// The contents of a kubeconfig file or the path to a kubeconfig file. If this is set, this config will be used instead of $KUBECONFIG.
