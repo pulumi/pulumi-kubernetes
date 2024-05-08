@@ -16,9 +16,9 @@ import (
 )
 
 type (
-	object   map[string]any
-	list     []any
-	expected map[string]*pulumirpc.PropertyDiff
+	object   = map[string]any
+	list     = []any
+	expected = map[string]*pulumirpc.PropertyDiff
 )
 
 func TestPatchToDiff(t *testing.T) {
