@@ -2,7 +2,7 @@
 
 - Fix Release behavior to deep merge `valueYamlFiles` to match Helm. (https://github.com/pulumi/pulumi-kubernetes/pull/2963)
 - Add field manager's name to server-side apply conflict errors. (https://github.com/pulumi/pulumi-kubernetes/pull/2983)
-- Add `enableUpsert` provider configuration to control apply behavior on resource creation.
+- Add `enableUpsert` provider configuration to control apply behavior on resource creation. (https://github.com/pulumi/pulumi-kubernetes/pull/3000)
 
 ## 4.11.0 (April 17, 2024)
 
