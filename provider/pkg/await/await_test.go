@@ -325,6 +325,7 @@ func Test_Creation(t *testing.T) {
 					DedupLogger:       logging.NewLogger(context.Background(), host, urn),
 					Resources:         resources,
 					ServerSideApply:   tt.args.serverSideApply,
+					EnableUpsert:      tt.args.serverSideApply,
 					awaiters:          map[string]awaitSpec{},
 				},
 				Inputs:  tt.args.inputs,
@@ -365,6 +366,7 @@ func TestAwaitSSAConflict(t *testing.T) {
 		FieldManager:    "test",
 		ClientSet:       client,
 		ServerSideApply: true,
+		EnableUpsert:    true,
 	}
 	config := CreateConfig{
 		ProviderConfig: pconfig,
