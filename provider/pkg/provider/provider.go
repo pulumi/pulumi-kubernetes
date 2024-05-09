@@ -2955,7 +2955,6 @@ var deleteResponse = &pulumirpc.ReadResponse{Id: "", Properties: nil}
 func convertPatchToDiff(
 	patch, oldLiveState, newInputs, oldInputs map[string]any, forceNewFields ...string,
 ) (map[string]*pulumirpc.PropertyDiff, error) {
-
 	contract.Requiref(len(patch) != 0, "patch", "expected len() != 0")
 	contract.Requiref(oldLiveState != nil, "oldLiveState", "expected != nil")
 
@@ -3154,13 +3153,6 @@ func (pc *patchConverter) get(m map[string]any, k string) any {
 func (pc *patchConverter) addPatchMapToDiff(
 	path []any, m, old, newInput, oldInput map[string]any, inArray bool,
 ) error {
-	if newInput == nil {
-		newInput = map[string]any{}
-	}
-	if oldInput == nil {
-		oldInput = map[string]any{}
-	}
-
 	for k, v := range m {
 		if err := pc.addPatchValueToDiff(append(path, k), v, pc.get(old, k), pc.get(newInput, k), pc.get(oldInput, k), inArray); err != nil {
 			return err
