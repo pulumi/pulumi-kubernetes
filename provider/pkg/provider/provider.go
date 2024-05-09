@@ -2377,10 +2377,10 @@ func (k *kubeProvider) Update(
 		initialized, getErr = k.readLiveObject(oldLive)
 		if getErr != nil {
 			// Object update/creation failed.
-			return nil, fmt.Errorf(
-				"update of resource %q failed because the Kubernetes API server "+
-					"reported that it failed to fully initialize or become live: %w", urn, getErr)
-
+			return nil, errors.Join(
+				fmt.Errorf("update of resource %q failed: %w", urn, awaitErr),
+				fmt.Errorf("unable to get cluster state: %w", getErr),
+			)
 		}
 		// If we get here, resource successfully registered with the API server, but failed to
 		// initialize.
