@@ -2,6 +2,7 @@
 
 - Fix Release behavior to deep merge `valueYamlFiles` to match Helm. (https://github.com/pulumi/pulumi-kubernetes/pull/2963)
 - Fix Chart previews when the cluster is unreachable. (https://github.com/pulumi/pulumi-kubernetes/pull/2992)
+- Fix a panic that could occur when a missing field became `null`. (https://github.com/pulumi/pulumi-kubernetes/issues/1970)
 - Add field manager's name to server-side apply conflict errors. (https://github.com/pulumi/pulumi-kubernetes/pull/2983)
 
 ## 4.11.0 (April 17, 2024)
@@ -58,7 +59,7 @@ Note that transformations aren't supported in this release (see https://github.c
 - Fix option propagation in component resources (Go SDK) (https://github.com/pulumi/pulumi-kubernetes/pull/2709)
 
 ### Breaking Changes
-In previous versions of the pulumi-kubernetes .NET SDK, the `ConfigFile` and `ConfigGroup` component resources inadvertently assigned the wrong parent to the child resource(s). 
+In previous versions of the pulumi-kubernetes .NET SDK, the `ConfigFile` and `ConfigGroup` component resources inadvertently assigned the wrong parent to the child resource(s).
 This would happen when the component resource itself had a parent; the child would be assigned that same parent. This also had the effect of disregarding the component resource's provider in favor of the parent's provider.
 
 For example, here's a before/after look at the component hierarchy:
@@ -66,24 +67,24 @@ For example, here's a before/after look at the component hierarchy:
 Before:
 
 ```
-├─ pkg:index:MyComponent            parent                                               
-│  ├─ kubernetes:core/v1:ConfigMap  cg-options-cg-options-cm-1                           
+├─ pkg:index:MyComponent            parent
+│  ├─ kubernetes:core/v1:ConfigMap  cg-options-cg-options-cm-1
 │  ├─ kubernetes:yaml:ConfigFile    cg-options-testdata/options/configgroup/manifest.yaml
-│  ├─ kubernetes:core/v1:ConfigMap  cg-options-configgroup-cm-1                          
-│  ├─ kubernetes:yaml:ConfigFile    cg-options-testdata/options/configgroup/empty.yaml   
-│  └─ kubernetes:yaml:ConfigGroup   cg-options  
+│  ├─ kubernetes:core/v1:ConfigMap  cg-options-configgroup-cm-1
+│  ├─ kubernetes:yaml:ConfigFile    cg-options-testdata/options/configgroup/empty.yaml
+│  └─ kubernetes:yaml:ConfigGroup   cg-options
 ```
 
 After:
 
 ```
-└─ pkg:index:MyComponent                  parent                                               
-   └─ kubernetes:yaml:ConfigGroup         cg-options                                           
+└─ pkg:index:MyComponent                  parent
+   └─ kubernetes:yaml:ConfigGroup         cg-options
       ├─ kubernetes:yaml:ConfigFile       cg-options-testdata/options/configgroup/manifest.yaml
-      │  └─ kubernetes:core/v1:ConfigMap  cg-options-configgroup-cm-1                          
-      └─ kubernetes:core/v1:ConfigMap     cg-options-cg-options-cm-1     
+      │  └─ kubernetes:core/v1:ConfigMap  cg-options-configgroup-cm-1
+      └─ kubernetes:core/v1:ConfigMap     cg-options-cg-options-cm-1
 ```
-      
+
 This release addresses this issue and attempts to heal existing stacks using aliases. This is effective at avoiding a replacement except in the case where the child was created with the wrong provider. In this case, __Pulumi will suggest a replacement of the child resource(s), such that they use the correct provider__.
 
 ## 4.6.1 (December 14, 2023)

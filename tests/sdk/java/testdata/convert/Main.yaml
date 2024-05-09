@@ -28,8 +28,9 @@ resources:
                   requests:
                     cpu: 250m
                     memory: 50Mi
-  nginxResource:
+  nginxService:
     type: kubernetes:core/v1:Service
+    name: nginx
     properties:
       metadata:
         name: nginx-example
