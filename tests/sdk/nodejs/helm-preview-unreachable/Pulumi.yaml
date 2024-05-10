@@ -1,0 +1,3 @@
+name: helm-preview-unreachable
+runtime: nodejs
+description: A minimal Kubernetes TypeScript Pulumi program

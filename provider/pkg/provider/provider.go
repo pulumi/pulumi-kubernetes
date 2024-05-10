@@ -866,7 +866,7 @@ func (k *kubeProvider) Invoke(ctx context.Context,
 			return nil, fmt.Errorf("failed to unmarshal 'jsonOpts': %w", err)
 		}
 
-		text, err := helmTemplate(opts, k.clientSet)
+		text, err := helmTemplate(k.host, opts, k.clientSet)
 		if err != nil {
 			return nil, fmt.Errorf("failed to generate YAML for specified Helm chart: %w", err)
 		}

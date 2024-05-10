@@ -15,6 +15,7 @@
 package provider
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"net/url"
@@ -24,6 +25,8 @@ import (
 	"strings"
 
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/host"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
 	"helm.sh/helm/v3/pkg/action"
@@ -77,7 +80,7 @@ type HelmChartOpts struct {
 
 // helmTemplate performs Helm fetch/pull + template operations and returns the resulting YAML manifest based on the
 // provided chart options.
-func helmTemplate(opts HelmChartOpts, clientSet *clients.DynamicClientSet) (string, error) {
+func helmTemplate(h host.HostClient, opts HelmChartOpts, clientSet *clients.DynamicClientSet) (string, error) {
 	tempDir, err := os.MkdirTemp("", "helm")
 	if err != nil {
 		return "", err
@@ -87,6 +90,7 @@ func helmTemplate(opts HelmChartOpts, clientSet *clients.DynamicClientSet) (stri
 	chart := &chart{
 		opts:     opts,
 		chartDir: tempDir,
+		host:     h,
 	}
 
 	// If the 'home' option is specified, set the HELM_HOME env var for the duration of the invoke and then reset it
@@ -130,6 +134,7 @@ type chart struct {
 	opts     HelmChartOpts
 	chartDir string
 	helmHome *string // Previous setting of HELM_HOME env var (if any)
+	host     host.HostClient
 }
 
 // fetch runs the `helm fetch` action to fetch a Chart from a remote URL.
@@ -259,9 +264,8 @@ func (c *chart) template(clientSet *clients.DynamicClientSet) (string, error) {
 	}
 
 	if clientSet != nil && clientSet.DiscoveryClientCached != nil {
-		err = setKubeVersionAndAPIVersions(clientSet, installAction)
-		if err != nil {
-			return "", err
+		if err := setKubeVersionAndAPIVersions(clientSet, installAction); err != nil {
+			_ = c.host.Log(context.Background(), diag.Warning, "", fmt.Sprintf("unable to determine cluster's API version: %s", err))
 		}
 	}
 
