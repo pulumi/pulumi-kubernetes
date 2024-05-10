@@ -18,11 +18,7 @@ package test
 
 import (
 	"os"
-	"path/filepath"
 	"testing"
-
-	"github.com/pulumi/providertest/pulumitest/opttest"
-	"github.com/stretchr/testify/require"
 
 	. "github.com/onsi/gomega"
 	. "github.com/onsi/gomega/gstruct"
@@ -192,14 +188,10 @@ func clearGrpcLog(t *testing.T, pt *pulumitest.PulumiTest) {
 func TestPreviewWithUnreachableCluster(t *testing.T) {
 	t.Parallel()
 
-	bin, err := filepath.Abs("../../../bin/")
-	require.NoError(t, err)
-
-	test := pulumitest.NewPulumiTest(t, "helm-preview-unreachable",
-		opttest.AttachProviderBinary("kubernetes", bin),
-	)
+	test := pulumitest.NewPulumiTest(t, "helm-preview-unreachable")
 	t.Cleanup(func() {
 		test.Destroy()
 	})
+
 	test.Preview()
 }
