@@ -2960,7 +2960,6 @@ var deleteResponse = &pulumirpc.ReadResponse{Id: "", Properties: nil}
 func convertPatchToDiff(
 	patch, oldLiveState, newInputs, oldInputs map[string]any, forceNewFields ...string,
 ) (map[string]*pulumirpc.PropertyDiff, error) {
-
 	contract.Requiref(len(patch) != 0, "patch", "expected len() != 0")
 	contract.Requiref(oldLiveState != nil, "oldLiveState", "expected != nil")
 
@@ -3020,18 +3019,26 @@ func equalNumbers(a, b any) bool {
 type patchConverter struct {
 	forceNew []string
 	diff     map[string]*pulumirpc.PropertyDiff
+
+	// missing is a placeholder used during diffing to distinguish between
+	// `nil` values and absent ones.
+	missing struct{}
 }
 
-// addPatchValueToDiff adds the given patched value to the detailed diff. Either the patched value or the old value
-// must not be nil.
+// addPatchValueToDiff adds the given patched value to the detailed diff.
 //
-// The particular difference that is recorded depends on the old and new values:
-// - If the patched value is nil, the property is recorded as deleted
-// - If the old value is nil, the property is recorded as added
-// - If the types of the old and new values differ, the property is recorded as updated
-// - If both values are maps, the maps are recursively compared on a per-property basis and added to the diff
-// - If both values are arrays, the arrays are recursively compared on a per-element basis and added to the diff
-// - If both values are primitives and the values differ, the property is recorded as updated
+// Values for old, newInput, and oldInput should be `pc.missing` if they were
+// originally absent from a map. This differenciates between the case where
+// they were present in the map but had `nil` values.
+//
+// The diff that is recorded depends on the old and new values:
+// - If the patched value is nil, the property is recorded as deleted.
+// - If the old value is missing, the property is recorded as added.
+// - If the old and patched values are both nil or missing, no diff is recorded.
+// - If the types of the old and new values differ, the property is recorded as updated.
+// - If both values are maps, the maps are recursively compared on a per-property basis and added to the diff.
+// - If both values are arrays, the arrays are recursively compared on a per-element basis and added to the diff.
+// - If both values are primitives and the values differ, the property is recorded as updated.
 // - Otherwise, no diff is recorded.
 //
 // If a difference is present at the given path and the path matches one of the patterns in the database of
@@ -3047,7 +3054,7 @@ func (pc *patchConverter) addPatchValueToDiff(
 	// If there is no new input, then the only possible diff here is a delete. All other diffs must be diffs between
 	// old and new properties that are populated by the server. If there is also no old input, then there is no diff
 	// whatsoever.
-	if newInput == nil && (v != nil || oldInput == nil) {
+	if newInput == pc.missing && (v != nil || oldInput == pc.missing) {
 		return nil
 	}
 
@@ -3056,7 +3063,7 @@ func (pc *patchConverter) addPatchValueToDiff(
 	if v == nil {
 		// computed values are rendered as null in the patch; handle this special case.
 		if _, ok := newInput.(resource.Computed); ok {
-			if old == nil {
+			if old == pc.missing {
 				diffKind = pulumirpc.PropertyDiff_ADD
 			} else {
 				diffKind = pulumirpc.PropertyDiff_UPDATE
@@ -3064,7 +3071,7 @@ func (pc *patchConverter) addPatchValueToDiff(
 		} else {
 			diffKind, inputDiff = pulumirpc.PropertyDiff_DELETE, true
 		}
-	} else if old == nil {
+	} else if old == pc.missing {
 		diffKind = pulumirpc.PropertyDiff_ADD
 	} else {
 		switch v := v.(type) {
@@ -3135,6 +3142,15 @@ func (pc *patchConverter) addPatchValueToDiff(
 	return nil
 }
 
+// get will return the map's value for the given key, or the `missing`
+// placeholder if no such key exists in the map.
+func (pc *patchConverter) get(m map[string]any, k string) any {
+	if v, ok := m[k]; ok {
+		return v
+	}
+	return pc.missing
+}
+
 // addPatchMapToDiff adds the diffs in the given patched map to the detailed diff.
 //
 // If this map is contained within an array, we do a little bit more work to detect deletes, as they are not recorded
@@ -3142,16 +3158,8 @@ func (pc *patchConverter) addPatchValueToDiff(
 func (pc *patchConverter) addPatchMapToDiff(
 	path []any, m, old, newInput, oldInput map[string]any, inArray bool,
 ) error {
-
-	if newInput == nil {
-		newInput = map[string]any{}
-	}
-	if oldInput == nil {
-		oldInput = map[string]any{}
-	}
-
 	for k, v := range m {
-		if err := pc.addPatchValueToDiff(append(path, k), v, old[k], newInput[k], oldInput[k], inArray); err != nil {
+		if err := pc.addPatchValueToDiff(append(path, k), v, pc.get(old, k), pc.get(newInput, k), pc.get(oldInput, k), inArray); err != nil {
 			return err
 		}
 	}
@@ -3160,7 +3168,7 @@ func (pc *patchConverter) addPatchMapToDiff(
 			if _, ok := m[k]; ok {
 				continue
 			}
-			if err := pc.addPatchValueToDiff(append(path, k), nil, v, newInput[k], oldInput[k], inArray); err != nil {
+			if err := pc.addPatchValueToDiff(append(path, k), nil, v, pc.get(newInput, k), pc.get(oldInput, k), inArray); err != nil {
 				return err
 			}
 		}
@@ -3172,7 +3180,6 @@ func (pc *patchConverter) addPatchMapToDiff(
 func (pc *patchConverter) addPatchArrayToDiff(
 	path []any, a, old, newInput, oldInput []any, inArray bool,
 ) error {
-
 	at := func(arr []any, i int) any {
 		if i < len(arr) {
 			return arr[i]
@@ -3190,7 +3197,7 @@ func (pc *patchConverter) addPatchArrayToDiff(
 
 	if i < len(a) {
 		for ; i < len(a); i++ {
-			err := pc.addPatchValueToDiff(append(path, i), a[i], nil, at(newInput, i), at(oldInput, i), true)
+			err := pc.addPatchValueToDiff(append(path, i), a[i], pc.missing, at(newInput, i), at(oldInput, i), true)
 			if err != nil {
 				return err
 			}
