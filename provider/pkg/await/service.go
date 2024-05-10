@@ -19,7 +19,6 @@ import (
 	"reflect"
 	"time"
 
-	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/informers"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/cluster"
@@ -421,16 +420,16 @@ func (sia *serviceInitAwaiter) makeClients() (
 	serviceClient, err = clients.ResourceClient(
 		kinds.Service, sia.config.currentOutputs.GetNamespace(), sia.config.clientSet)
 	if err != nil {
-		return nil, nil, errors.Wrapf(err,
-			"Could not make client to read Service %q",
-			sia.config.currentOutputs.GetName())
+		return nil, nil, fmt.Errorf("Could not make client to read Service %q: %w",
+			sia.config.currentOutputs.GetName(), err)
+
 	}
 	endpointClient, err = clients.ResourceClient(
 		kinds.Endpoints, sia.config.currentOutputs.GetNamespace(), sia.config.clientSet)
 	if err != nil {
-		return nil, nil, errors.Wrapf(err,
-			"Could not make client to read Endpoints associated with Service %q",
-			sia.config.currentOutputs.GetName())
+		return nil, nil, fmt.Errorf("Could not make client to read Endpoints associated with Service %q: %w",
+			sia.config.currentOutputs.GetName(), err)
+
 	}
 
 	return serviceClient, endpointClient, nil

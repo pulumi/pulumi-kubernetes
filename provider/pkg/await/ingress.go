@@ -20,7 +20,6 @@ import (
 	"reflect"
 	"time"
 
-	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/informers"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
@@ -510,23 +509,23 @@ func (iia *ingressInitAwaiter) makeClients() (
 	ingressClient, err = clients.ResourceClient(
 		kinds.Ingress, iia.config.currentOutputs.GetNamespace(), iia.config.clientSet)
 	if err != nil {
-		return nil, nil, nil, errors.Wrapf(err,
-			"Could not make client to watch Ingress %q",
-			iia.config.currentOutputs.GetName())
+		return nil, nil, nil, fmt.Errorf("Could not make client to watch Ingress %q: %w",
+			iia.config.currentOutputs.GetName(), err)
+
 	}
 	endpointsClient, err = clients.ResourceClient(
 		kinds.Endpoints, iia.config.currentOutputs.GetNamespace(), iia.config.clientSet)
 	if err != nil {
-		return nil, nil, nil, errors.Wrapf(err,
-			"Could not make client to watch Endpoints associated with Ingress %q",
-			iia.config.currentOutputs.GetName())
+		return nil, nil, nil, fmt.Errorf("Could not make client to watch Endpoints associated with Ingress %q: %w",
+			iia.config.currentOutputs.GetName(), err)
+
 	}
 	servicesClient, err = clients.ResourceClient(
 		kinds.Service, iia.config.currentOutputs.GetNamespace(), iia.config.clientSet)
 	if err != nil {
-		return nil, nil, nil, errors.Wrapf(err,
-			"Could not make client to watch Services associated with Ingress %q",
-			iia.config.currentOutputs.GetName())
+		return nil, nil, nil, fmt.Errorf("Could not make client to watch Services associated with Ingress %q: %w",
+			iia.config.currentOutputs.GetName(), err)
+
 	}
 
 	return

@@ -29,7 +29,6 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes"
 	yamlv2 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/yaml/v2"
@@ -62,12 +61,12 @@ func Parse(ctx context.Context, opts ParseOptions) ([]unstructured.Unstructured,
 			// If the string looks like a URL, in that it begins with a scheme, fetch it over the network.
 			resp, err := http.Get(file)
 			if err != nil {
-				return nil, errors.Wrapf(err, "fetching YAML over network")
+				return nil, fmt.Errorf("fetching YAML over network: %w", err)
 			}
 			defer resp.Body.Close()
 			yaml, err = io.ReadAll(resp.Body)
 			if err != nil {
-				return nil, errors.Wrapf(err, "reading YAML over network")
+				return nil, fmt.Errorf("reading YAML over network: %w", err)
 			}
 			yamls = append(yamls, string(yaml))
 		} else {
@@ -77,7 +76,7 @@ func Parse(ctx context.Context, opts ParseOptions) ([]unstructured.Unstructured,
 			if opts.Glob && isGlobPattern(file) {
 				files, err = filepath.Glob(file)
 				if err != nil {
-					return nil, errors.Wrapf(err, "expanding glob")
+					return nil, fmt.Errorf("expanding glob: %w", err)
 				}
 				sort.Strings(files)
 			} else {
@@ -86,7 +85,7 @@ func Parse(ctx context.Context, opts ParseOptions) ([]unstructured.Unstructured,
 			for _, f := range files {
 				yaml, err = os.ReadFile(f)
 				if err != nil {
-					return nil, errors.Wrapf(err, "reading YAML file from disk")
+					return nil, fmt.Errorf("reading YAML file from disk: %w", err)
 				}
 				yamls = append(yamls, string(yaml))
 			}
@@ -100,7 +99,7 @@ func Parse(ctx context.Context, opts ParseOptions) ([]unstructured.Unstructured,
 		// Parse the resulting YAML bytes and turn them into raw Kubernetes objects.
 		dec, err := yamlDecode(yaml)
 		if err != nil {
-			return nil, errors.Wrapf(err, "decoding YAML")
+			return nil, fmt.Errorf("decoding YAML: %w", err)
 		}
 		objs = append(objs, dec...)
 	}

@@ -30,7 +30,6 @@ import (
 	pbempty "github.com/golang/protobuf/ptypes/empty"
 	"github.com/imdario/mergo"
 	"github.com/mitchellh/mapstructure"
-	pkgerrors "github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/helm"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/host"
@@ -348,7 +347,7 @@ func (r *helmReleaseProvider) Check(ctx context.Context, req *pulumirpc.CheckReq
 		KeepSecrets:  true,
 	})
 	if err != nil {
-		return nil, pkgerrors.Wrapf(err, "check failed because malformed resource inputs: %+v", err)
+		return nil, fmt.Errorf("check failed because malformed resource inputs: %w", err)
 	}
 
 	if len(olds) > 0 {
@@ -392,7 +391,7 @@ func (r *helmReleaseProvider) Check(ctx context.Context, req *pulumirpc.CheckReq
 		KeepSecrets:  true,
 	})
 	if err != nil {
-		return nil, pkgerrors.Wrapf(err, "check failed because malformed resource inputs: %+v", err)
+		return nil, fmt.Errorf("check failed because malformed resource inputs: %w", err)
 	}
 	// ensure we don't leak secrets into state, and preserve the computedness of inputs.
 	annotateComputed(news, newInputs)
@@ -721,7 +720,7 @@ func (r *helmReleaseProvider) Diff(ctx context.Context, req *pulumirpc.DiffReque
 		KeepSecrets:  true,
 	})
 	if err != nil {
-		return nil, pkgerrors.Wrapf(err, "diff failed because malformed resource inputs")
+		return nil, fmt.Errorf("diff failed because malformed resource inputs: %w", err)
 	}
 
 	// Extract old inputs from the `__inputs` field of the old state.
@@ -755,30 +754,31 @@ func (r *helmReleaseProvider) Diff(ctx context.Context, req *pulumirpc.DiffReque
 	// Later, we'll use this patch to generate a diff response, with special handling for the computed values.
 	oldInputsJSON, err := json.Marshal(oldInputs.MapRepl(nil, mapReplExtractValues))
 	if err != nil {
-		return nil, pkgerrors.Wrapf(err, "internal error: json.Marshal(oldInputsJson)")
+		return nil, fmt.Errorf("internal error: json.Marshal(oldInputsJson): %w", err)
 	}
 	logger.V(9).Infof("oldInputsJSON: %s", string(oldInputsJSON))
 	newInputsJSON, err := json.Marshal(news.MapRepl(nil, mapReplExtractValues))
 	if err != nil {
-		return nil, pkgerrors.Wrapf(err, "internal error: json.Marshal(oldInputsJson)")
+		return nil, fmt.Errorf("internal error: json.Marshal(oldInputsJson): %w", err)
 	}
 	logger.V(9).Infof("newInputsJSON: %s", string(newInputsJSON))
 	oldStateJSON, err := json.Marshal(olds.MapRepl(nil, mapReplExtractValues))
 	if err != nil {
-		return nil, pkgerrors.Wrapf(err, "internal error: json.Marshal(oldStateJson)")
+		return nil, fmt.Errorf("internal error: json.Marshal(oldStateJson): %w", err)
 	}
 	logger.V(9).Infof("oldStateJSON: %s", string(oldStateJSON))
 	strategicPatchJSON, err := strategicpatch.CreateThreeWayMergePatch(oldInputsJSON, newInputsJSON, oldStateJSON, &noSchema{}, true)
 	if err != nil {
-		return nil, pkgerrors.Wrapf(err, "internal error: CreateThreeWayMergePatch")
+		return nil, fmt.Errorf("internal error: CreateThreeWayMergePatch: %w", err)
 	}
 	logger.V(9).Infof("strategicPatchJSON: %s", string(strategicPatchJSON))
 	patchObj := map[string]any{}
 	if err = json.Unmarshal(strategicPatchJSON, &patchObj); err != nil {
-		return nil, pkgerrors.Wrapf(
-			err, "Failed to check for changes in Helm release %s/%s because of an error serializing "+
-				"the JSON patch describing resource changes",
-			oldRelease.Namespace, oldRelease.Name)
+		return nil, fmt.Errorf(
+			"Failed to check for changes in Helm release %s/%s because of an error serializing "+
+				"the JSON patch describing resource changes: %w",
+			oldRelease.Namespace, oldRelease.Name, err)
+
 	}
 
 	// Pack up PB, ship response back.
@@ -804,10 +804,11 @@ func (r *helmReleaseProvider) Diff(ctx context.Context, req *pulumirpc.DiffReque
 		}
 		forceNewFields := []string{".name", ".namespace"}
 		if detailedDiff, err = convertPatchToDiff(patchObj, strip(olds), strip(news), strip(oldInputs), forceNewFields...); err != nil {
-			return nil, pkgerrors.Wrapf(
-				err, "Failed to check for changes in helm release %s/%s because of an error "+
-					"converting JSON patch describing resource changes to a diff",
-				oldRelease.Namespace, oldRelease.Name)
+			return nil, fmt.Errorf(
+				"Failed to check for changes in helm release %s/%s because of an error "+
+					"converting JSON patch describing resource changes to a diff: %w",
+				oldRelease.Namespace, oldRelease.Name, err)
+
 		}
 
 		for k, v := range detailedDiff {
@@ -865,7 +866,7 @@ func (r *helmReleaseProvider) Create(ctx context.Context, req *pulumirpc.CreateR
 		KeepSecrets:  true,
 	})
 	if err != nil {
-		return nil, pkgerrors.Wrapf(err, "create failed because malformed resource inputs")
+		return nil, fmt.Errorf("create failed because malformed resource inputs: %w", err)
 	}
 
 	newRelease, err := decodeRelease(news, fmt.Sprintf("%s.news", label))
@@ -906,9 +907,10 @@ func (r *helmReleaseProvider) Create(ctx context.Context, req *pulumirpc.CreateR
 	if creationError != nil {
 		return nil, partialError(
 			id,
-			pkgerrors.Wrapf(
-				creationError, "Helm release %q was created, but failed to initialize completely. "+
-					"Use Helm CLI to investigate.", id),
+			fmt.Errorf(
+				"Helm release %q was created, but failed to initialize completely. "+
+					"Use Helm CLI to investigate: %w", id, creationError),
+
 			inputsAndComputed,
 			nil)
 	}
@@ -1035,7 +1037,7 @@ func (r *helmReleaseProvider) Update(ctx context.Context, req *pulumirpc.UpdateR
 		KeepSecrets:  true,
 	})
 	if err != nil {
-		return nil, pkgerrors.Wrapf(err, "update failed because malformed resource inputs")
+		return nil, fmt.Errorf("update failed because malformed resource inputs: %w", err)
 	}
 
 	logger.V(9).Infof("%s executing", label)
@@ -1080,9 +1082,10 @@ func (r *helmReleaseProvider) Update(ctx context.Context, req *pulumirpc.UpdateR
 	if updateError != nil {
 		return nil, partialError(
 			fqName(newRelease.Namespace, newRelease.Name),
-			pkgerrors.Wrapf(
-				updateError, "Helm release %q failed to initialize completely. "+
-					"Use Helm CLI to investigate.", fqName(newRelease.Namespace, newRelease.Name)),
+			fmt.Errorf(
+				"Helm release %q failed to initialize completely. "+
+					"Use Helm CLI to investigate: %w", fqName(newRelease.Namespace, newRelease.Name), updateError),
+
 			inputsAndComputed,
 			nil)
 	}
@@ -1525,7 +1528,7 @@ func locateChart(cpo *action.ChartPathOptions, registryClient *registry.Client, 
 
 		// If not found, do more validations. This is from the original LocateChart.
 		if filepath.IsAbs(name) || strings.HasPrefix(name, ".") {
-			return name, pkgerrors.Errorf("path %q not found", name)
+			return name, fmt.Errorf("path %q not found", name)
 		}
 	}
 
@@ -1604,7 +1607,7 @@ func locateChart(cpo *action.ChartPathOptions, registryClient *registry.Client, 
 		atVersion = fmt.Sprintf(" at version %q", version)
 	}
 
-	return filename, pkgerrors.Errorf("failed to download %q%s", name, atVersion)
+	return filename, fmt.Errorf("failed to download %q%s", name, atVersion)
 }
 
 func checkChartDependencies(c *helmchart.Chart, path, keyring string, settings *cli.EnvSettings,

@@ -18,6 +18,7 @@ import (
 	"bufio"
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"net/http"
 	"net/url"
@@ -35,7 +36,6 @@ import (
 	"github.com/golang/protobuf/ptypes/empty"
 	pbempty "github.com/golang/protobuf/ptypes/empty"
 	structpb "github.com/golang/protobuf/ptypes/struct"
-	pkgerrors "github.com/pkg/errors"
 	checkjob "github.com/pulumi/cloud-ready-checks/pkg/kubernetes/job"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
@@ -262,7 +262,7 @@ func (k *kubeProvider) CheckConfig(ctx context.Context, req *pulumirpc.CheckRequ
 		SkipNulls:    true,
 	})
 	if err != nil {
-		return nil, pkgerrors.Wrapf(err, "CheckConfig failed because of malformed resource inputs")
+		return nil, fmt.Errorf("CheckConfig failed because of malformed resource inputs: %w", err)
 	}
 
 	truthyValue := func(argName resource.PropertyKey, props resource.PropertyMap) bool {
@@ -370,7 +370,7 @@ func (k *kubeProvider) DiffConfig(ctx context.Context, req *pulumirpc.DiffReques
 		SkipNulls:    true,
 	})
 	if err != nil {
-		return nil, pkgerrors.Wrapf(err, "DiffConfig failed because of malformed resource inputs")
+		return nil, fmt.Errorf("DiffConfig failed because of malformed resource inputs: %w", err)
 	}
 
 	// We can't tell for sure if a computed value has changed, so we make the conservative choice
@@ -822,7 +822,7 @@ func (k *kubeProvider) Invoke(ctx context.Context,
 	args, err := plugin.UnmarshalProperties(
 		req.GetArgs(), plugin.MarshalOptions{Label: label, KeepUnknowns: true})
 	if err != nil {
-		return nil, pkgerrors.Wrapf(err, "failed to unmarshal %v args during an Invoke call", tok)
+		return nil, fmt.Errorf("failed to unmarshal %v args during an Invoke call: %w", tok, err)
 	}
 
 	switch tok {
@@ -831,7 +831,7 @@ func (k *kubeProvider) Invoke(ctx context.Context,
 		if textArg := args["text"]; textArg.HasValue() && textArg.IsString() {
 			text = textArg.StringValue()
 		} else {
-			return nil, pkgerrors.New("missing required field 'text' of type string")
+			return nil, errors.New("missing required field 'text' of type string")
 		}
 		if defaultNsArg := args["defaultNamespace"]; defaultNsArg.HasValue() && defaultNsArg.IsString() {
 			defaultNamespace = defaultNsArg.StringValue()
@@ -857,24 +857,24 @@ func (k *kubeProvider) Invoke(ctx context.Context,
 		if jsonOptsArgs := args["jsonOpts"]; jsonOptsArgs.HasValue() && jsonOptsArgs.IsString() {
 			jsonOpts = jsonOptsArgs.StringValue()
 		} else {
-			return nil, pkgerrors.New("missing required field 'jsonOpts' of type string")
+			return nil, errors.New("missing required field 'jsonOpts' of type string")
 		}
 
 		var opts HelmChartOpts
 		err = json.Unmarshal([]byte(jsonOpts), &opts)
 		if err != nil {
-			return nil, pkgerrors.Wrap(err, "failed to unmarshal 'jsonOpts'")
+			return nil, fmt.Errorf("failed to unmarshal 'jsonOpts': %w", err)
 		}
 
 		text, err := helmTemplate(opts, k.clientSet)
 		if err != nil {
-			return nil, pkgerrors.Wrap(err, "failed to generate YAML for specified Helm chart")
+			return nil, fmt.Errorf("failed to generate YAML for specified Helm chart: %w", err)
 		}
 
 		// Decode the generated YAML here to avoid an extra invoke in the client.
 		result, err := decodeYaml(text, opts.Namespace, k.clientSet)
 		if err != nil {
-			return nil, pkgerrors.Wrap(err, "failed to decode YAML for specified Helm chart")
+			return nil, fmt.Errorf("failed to decode YAML for specified Helm chart: %w", err)
 		}
 
 		objProps, err := plugin.MarshalProperties(
@@ -893,7 +893,7 @@ func (k *kubeProvider) Invoke(ctx context.Context,
 		if directoryArg := args["directory"]; directoryArg.HasValue() && directoryArg.IsString() {
 			directory = directoryArg.StringValue()
 		} else {
-			return nil, pkgerrors.New("missing required field 'directory' of type string")
+			return nil, errors.New("missing required field 'directory' of type string")
 		}
 
 		result, err := kustomizeDirectory(directory, k.clientSet)
@@ -932,7 +932,7 @@ func (k *kubeProvider) StreamInvoke(
 	args, err := plugin.UnmarshalProperties(
 		req.GetArgs(), plugin.MarshalOptions{Label: label, KeepUnknowns: true})
 	if err != nil {
-		return pkgerrors.Wrapf(err, "failed to unmarshal %v args during an StreamInvoke call", tok)
+		return fmt.Errorf("failed to unmarshal %v args during an StreamInvoke call: %w", tok, err)
 	}
 
 	switch tok {
@@ -1317,7 +1317,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		KeepSecrets:  true,
 	})
 	if err != nil {
-		return nil, pkgerrors.Wrapf(err, "check failed because malformed resource inputs: %+v", err)
+		return nil, fmt.Errorf("check failed because malformed resource inputs: %w", err)
 	}
 
 	oldInputs := propMapToUnstructured(olds)
@@ -1355,8 +1355,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		if metadata.HasManagedByLabel(oldInputs) {
 			_, err = metadata.TrySetManagedByLabel(newInputs)
 			if err != nil {
-				return nil, pkgerrors.Wrapf(err,
-					"Failed to create object because of a problem setting managed-by labels")
+				return nil, fmt.Errorf("Failed to create object because of a problem setting managed-by labels: %w", err)
 			}
 		}
 	} else {
@@ -1367,8 +1366,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		if !k.serverSideApplyMode {
 			_, err = metadata.TrySetManagedByLabel(newInputs)
 			if err != nil {
-				return nil, pkgerrors.Wrapf(err,
-					"Failed to create object because of a problem setting managed-by labels")
+				return nil, fmt.Errorf("Failed to create object because of a problem setting managed-by labels: %w", err)
 			}
 		}
 	}
@@ -1420,7 +1418,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 	if !hasComputedValue(newInputs) && !k.clusterUnreachable {
 		resources, err := k.getResources()
 		if err != nil {
-			return nil, pkgerrors.Wrapf(err, "Failed to fetch OpenAPI schema from the API server")
+			return nil, fmt.Errorf("Failed to fetch OpenAPI schema from the API server: %w", err)
 		}
 
 		// Validate the object according to the OpenAPI schema for its GVK.
@@ -1447,8 +1445,9 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 				// If the schema doesn't exist, it could still be a CRD (which may not have a
 				// schema). Thus, if we are directed to check resources even if they have unknown
 				// types, we fail here.
-				return nil, pkgerrors.Wrapf(err, "unable to fetch schema for resource type %s/%s",
-					newInputs.GetAPIVersion(), newInputs.GetKind())
+				return nil, fmt.Errorf("unable to fetch schema for resource type %s/%s: %w",
+					newInputs.GetAPIVersion(), newInputs.GetKind(), err)
+
 			}
 		}
 	}
@@ -1561,7 +1560,7 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 		KeepSecrets:  true,
 	})
 	if err != nil {
-		return nil, pkgerrors.Wrapf(err, "diff failed because malformed resource inputs")
+		return nil, fmt.Errorf("diff failed because malformed resource inputs: %w", err)
 	}
 
 	newInputs := propMapToUnstructured(newResInputs)
@@ -1589,8 +1588,9 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 			// required during the Create step.
 			namespacedKind = true
 		} else {
-			return nil, pkgerrors.Wrapf(err,
-				"API server returned error when asked if resource type %s is namespaced", gvk)
+			return nil, fmt.Errorf(
+				"API server returned error when asked if resource type %s is namespaced: %w", gvk, err)
+
 		}
 	}
 
@@ -1625,16 +1625,15 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 	// Compute a diff between the pruned live state and the new inputs.
 	patch, err = k.inputPatch(oldLivePruned, newInputs)
 	if err != nil {
-		return nil, pkgerrors.Wrapf(
-			err, "Failed to check for changes in resource %q", urn)
+		return nil, fmt.Errorf("Failed to check for changes in resource %q: %w", urn, err)
 	}
 
 	patchObj := map[string]any{}
 	if err = json.Unmarshal(patch, &patchObj); err != nil {
-		return nil, pkgerrors.Wrapf(
-			err, "Failed to check for changes in resource %q because of an error serializing "+
-				"the JSON patch describing resource changes",
-			urn)
+		return nil, fmt.Errorf(
+			"Failed to check for changes in resource %q because of an error serializing "+
+				"the JSON patch describing resource changes: %w", urn, err)
+
 	}
 
 	hasChanges := pulumirpc.DiffResponse_DIFF_NONE
@@ -1648,10 +1647,11 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 			forceNewFields = k.forceNewProperties(newInputs)
 		}
 		if detailedDiff, err = convertPatchToDiff(patchObj, patchBase, newInputs.Object, oldLivePruned.Object, forceNewFields...); err != nil {
-			return nil, pkgerrors.Wrapf(
-				err, "Failed to check for changes in resource %q because of an error "+
-					"converting JSON patch describing resource changes to a diff",
-				urn)
+			return nil, fmt.Errorf(
+				"Failed to check for changes in resource %q because of an error "+
+					"converting JSON patch describing resource changes to a diff: %w",
+				urn, err)
+
 		}
 
 		// Remove any ignored changes from the computed diff.
@@ -1781,7 +1781,7 @@ func (k *kubeProvider) Create(
 		KeepSecrets:  true,
 	})
 	if err != nil {
-		return nil, pkgerrors.Wrapf(err, "create failed because malformed resource inputs")
+		return nil, fmt.Errorf("create failed because malformed resource inputs: %w", err)
 	}
 
 	newInputs := propMapToUnstructured(newResInputs)
@@ -1835,7 +1835,7 @@ func (k *kubeProvider) Create(
 
 	resources, err := k.getResources()
 	if err != nil {
-		return nil, pkgerrors.Wrapf(err, "Failed to fetch OpenAPI schema from the API server")
+		return nil, fmt.Errorf("Failed to fetch OpenAPI schema from the API server: %w", err)
 	}
 	config := await.CreateConfig{
 		ProviderConfig: await.ProviderConfig{
@@ -1887,17 +1887,18 @@ func (k *kubeProvider) Create(
 				return nil, err
 			}
 			gvkStr := gvk.GroupVersion().String() + "/" + gvk.Kind
-			return nil, pkgerrors.Wrapf(
-				awaitErr, "creation of resource %q with kind %s failed because the Kubernetes API server "+
+			return nil, fmt.Errorf(
+				"creation of resource %q with kind %s failed because the Kubernetes API server "+
 					"reported that the apiVersion for this resource does not exist. "+
-					"Verify that any required CRDs have been created", urn, gvkStr)
+					"Verify that any required CRDs have been created: %w", urn, gvkStr, awaitErr)
+
 		}
 		partialErr, isPartialErr := awaitErr.(await.PartialError)
 		if !isPartialErr {
 			// Object creation failed.
-			return nil, pkgerrors.Wrapf(
-				awaitErr,
-				"resource %q was not successfully created by the Kubernetes API server ", urn)
+			return nil, fmt.Errorf(
+				"resource %q was not successfully created by the Kubernetes API server: %w", urn, awaitErr)
+
 		}
 
 		// Resource was created, but failed to become fully initialized.
@@ -1929,9 +1930,10 @@ func (k *kubeProvider) Create(
 		// checkpointed.
 		return nil, partialError(
 			fqObjName(initialized),
-			pkgerrors.Wrapf(
-				awaitErr, "resource %q was successfully created, but the Kubernetes API server "+
-					"reported that it failed to fully initialize or become live", urn),
+			fmt.Errorf(
+				"resource %q was successfully created, but the Kubernetes API server "+
+					"reported that it failed to fully initialize or become live: %w", urn, awaitErr),
+
 			inputsAndComputed,
 			nil)
 	}
@@ -2084,7 +2086,7 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 
 	resources, err := k.getResources()
 	if err != nil {
-		return nil, pkgerrors.Wrapf(err, "Failed to fetch OpenAPI schema from the API server")
+		return nil, fmt.Errorf("Failed to fetch OpenAPI schema from the API server: %w", err)
 	}
 	config := await.ReadConfig{
 		ProviderConfig: await.ProviderConfig{
@@ -2264,7 +2266,7 @@ func (k *kubeProvider) Update(
 		KeepSecrets:  true,
 	})
 	if err != nil {
-		return nil, pkgerrors.Wrapf(err, "update failed because malformed resource inputs")
+		return nil, fmt.Errorf("update failed because malformed resource inputs: %w", err)
 	}
 	newInputs := propMapToUnstructured(newResInputs)
 	newInputs, err = normalizeInputs(newInputs)
@@ -2331,7 +2333,7 @@ func (k *kubeProvider) Update(
 
 	resources, err := k.getResources()
 	if err != nil {
-		return nil, pkgerrors.Wrapf(err, "Failed to fetch OpenAPI schema from the API server")
+		return nil, fmt.Errorf("Failed to fetch OpenAPI schema from the API server: %w", err)
 	}
 	config := await.UpdateConfig{
 		ProviderConfig: await.ProviderConfig{
@@ -2364,19 +2366,21 @@ func (k *kubeProvider) Update(
 			// If it's a "no match" error, this is probably a CustomResource with no corresponding
 			// CustomResourceDefinition. This usually happens if the CRD was not created, and we
 			// print a more useful error message in this case.
-			return nil, pkgerrors.Wrapf(
-				awaitErr, "update of resource %q failed because the Kubernetes API server "+
+			return nil, fmt.Errorf(
+				"update of resource %q failed because the Kubernetes API server "+
 					"reported that the apiVersion for this resource does not exist. "+
-					"Verify that any required CRDs have been created", urn)
+					"Verify that any required CRDs have been created: %w", urn, awaitErr)
+
 		}
 
 		var getErr error
 		initialized, getErr = k.readLiveObject(oldLive)
 		if getErr != nil {
 			// Object update/creation failed.
-			return nil, pkgerrors.Wrapf(
-				awaitErr, "update of resource %q failed because the Kubernetes API server "+
-					"reported that it failed to fully initialize or become live", urn)
+			return nil, errors.Join(
+				fmt.Errorf("update of resource %q failed: %w", urn, awaitErr),
+				fmt.Errorf("unable to get cluster state: %w", getErr),
+			)
 		}
 		// If we get here, resource successfully registered with the API server, but failed to
 		// initialize.
@@ -2401,9 +2405,10 @@ func (k *kubeProvider) Update(
 		// can be checkpointed.
 		return nil, partialError(
 			fqObjName(initialized),
-			pkgerrors.Wrapf(
-				awaitErr, "the Kubernetes API server reported that %q failed to fully initialize "+
-					"or become live", fqObjName(initialized)),
+			fmt.Errorf(
+				"the Kubernetes API server reported that %q failed to fully initialize "+
+					"or become live: %w", fqObjName(initialized), awaitErr),
+
 			inputsAndComputed,
 			nil)
 	}
@@ -2488,7 +2493,7 @@ func (k *kubeProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest)
 	fieldManager := k.fieldManagerName(nil, oldState, oldInputs)
 	resources, err := k.getResources()
 	if err != nil {
-		return nil, pkgerrors.Wrapf(err, "Failed to fetch OpenAPI schema from the API server")
+		return nil, fmt.Errorf("Failed to fetch OpenAPI schema from the API server: %w", err)
 	}
 
 	config := await.DeleteConfig{
@@ -2926,9 +2931,9 @@ func parseCheckpointObject(obj resource.PropertyMap) (oldInputs, live *unstructu
 // The last known state of the object is included in the error so that it can be checkpointed.
 func partialError(id string, err error, state *structpb.Struct, inputs *structpb.Struct) error {
 	reasons := []string{err.Error()}
-	err = pkgerrors.Cause(err)
-	if aggregate, isAggregate := err.(await.AggregatedError); isAggregate {
-		reasons = append(reasons, aggregate.SubErrors()...)
+	var aggErr await.AggregatedError
+	if errors.As(err, &aggErr) {
+		reasons = append(reasons, aggErr.SubErrors()...)
 	}
 	detail := pulumirpc.ErrorResourceInitFailed{
 		Id:         id,
@@ -3259,11 +3264,11 @@ func annotateSecrets(outs, ins resource.PropertyMap) {
 func renderYaml(resource *unstructured.Unstructured, yamlDirectory string) error {
 	jsonBytes, err := resource.MarshalJSON()
 	if err != nil {
-		return pkgerrors.Wrapf(err, "failed to render YAML file: %q", yamlDirectory)
+		return fmt.Errorf("failed to render YAML file: %q: %w", yamlDirectory, err)
 	}
 	yamlBytes, err := yaml.JSONToYAML(jsonBytes)
 	if err != nil {
-		return pkgerrors.Wrapf(err, "failed to render YAML file: %q", yamlDirectory)
+		return fmt.Errorf("failed to render YAML file: %q: %w", yamlDirectory, err)
 	}
 
 	crdDirectory := filepath.Join(yamlDirectory, "0-crd")
@@ -3272,20 +3277,20 @@ func renderYaml(resource *unstructured.Unstructured, yamlDirectory string) error
 	if _, err := os.Stat(crdDirectory); os.IsNotExist(err) {
 		err = os.MkdirAll(crdDirectory, 0700)
 		if err != nil {
-			return pkgerrors.Wrapf(err, "failed to create directory for rendered YAML: %q", crdDirectory)
+			return fmt.Errorf("failed to create directory for rendered YAML: %q: %w", crdDirectory, err)
 		}
 	}
 	if _, err := os.Stat(manifestDirectory); os.IsNotExist(err) {
 		err = os.MkdirAll(manifestDirectory, 0700)
 		if err != nil {
-			return pkgerrors.Wrapf(err, "failed to create directory for rendered YAML: %q", manifestDirectory)
+			return fmt.Errorf("failed to create directory for rendered YAML: %q: %w", manifestDirectory, err)
 		}
 	}
 
 	path := renderPathForResource(resource, yamlDirectory)
 	err = os.WriteFile(path, yamlBytes, 0600)
 	if err != nil {
-		return pkgerrors.Wrapf(err, "failed to write YAML file: %q", path)
+		return fmt.Errorf("failed to write YAML file: %q: %w", path, err)
 	}
 
 	return nil
