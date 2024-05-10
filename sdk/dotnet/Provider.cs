@@ -83,6 +83,12 @@ namespace Pulumi.Kubernetes
         public Input<bool>? EnableServerSideApply { get; set; }
 
         /// <summary>
+        /// If present and set to false, the provider will surface errors if a create operation would overwrite existing resources in the cluster.
+        /// </summary>
+        [Input("enableUpsert", json: true)]
+        public Input<bool>? EnableUpsert { get; set; }
+
+        /// <summary>
         /// Options to configure the Helm Release resource.
         /// </summary>
         [Input("helmReleaseSettings", json: true)]
@@ -147,6 +153,7 @@ namespace Pulumi.Kubernetes
             DeleteUnreachable = Utilities.GetEnvBoolean("PULUMI_K8S_DELETE_UNREACHABLE");
             EnableConfigMapMutable = Utilities.GetEnvBoolean("PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE");
             EnableServerSideApply = Utilities.GetEnvBoolean("PULUMI_K8S_ENABLE_SERVER_SIDE_APPLY");
+            EnableUpsert = Utilities.GetEnvBoolean("PULUMI_K8S_ENABLE_UPSERT");
             KubeConfig = Utilities.GetEnv("KUBECONFIG");
             SkipUpdateUnreachable = Utilities.GetEnvBoolean("PULUMI_K8S_SKIP_UPDATE_UNREACHABLE");
             SuppressDeprecationWarnings = Utilities.GetEnvBoolean("PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS");

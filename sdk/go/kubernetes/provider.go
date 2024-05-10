@@ -38,6 +38,11 @@ func NewProvider(ctx *pulumi.Context,
 			args.EnableServerSideApply = pulumi.BoolPtr(d.(bool))
 		}
 	}
+	if args.EnableUpsert == nil {
+		if d := utilities.GetEnvOrDefault(nil, utilities.ParseEnvBool, "PULUMI_K8S_ENABLE_UPSERT"); d != nil {
+			args.EnableUpsert = pulumi.BoolPtr(d.(bool))
+		}
+	}
 	if args.HelmReleaseSettings != nil {
 		args.HelmReleaseSettings = args.HelmReleaseSettings.ToHelmReleaseSettingsPtrOutput().ApplyT(func(v *HelmReleaseSettings) *HelmReleaseSettings { return v.Defaults() }).(HelmReleaseSettingsPtrOutput)
 	}
@@ -90,6 +95,8 @@ type providerArgs struct {
 	// If present and set to false, disable Server-Side Apply mode.
 	// See https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.
 	EnableServerSideApply *bool `pulumi:"enableServerSideApply"`
+	// If present and set to false, the provider will surface errors if a create operation would overwrite existing resources in the cluster.
+	EnableUpsert *bool `pulumi:"enableUpsert"`
 	// Options to configure the Helm Release resource.
 	HelmReleaseSettings *HelmReleaseSettings `pulumi:"helmReleaseSettings"`
 	// Options for tuning the Kubernetes client used by a Provider.
@@ -138,6 +145,8 @@ type ProviderArgs struct {
 	// If present and set to false, disable Server-Side Apply mode.
 	// See https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.
 	EnableServerSideApply pulumi.BoolPtrInput
+	// If present and set to false, the provider will surface errors if a create operation would overwrite existing resources in the cluster.
+	EnableUpsert pulumi.BoolPtrInput
 	// Options to configure the Helm Release resource.
 	HelmReleaseSettings HelmReleaseSettingsPtrInput
 	// Options for tuning the Kubernetes client used by a Provider.

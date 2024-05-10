@@ -4,6 +4,7 @@
 - Fix Chart previews when the cluster is unreachable. (https://github.com/pulumi/pulumi-kubernetes/pull/2992)
 - Fix a panic that could occur when a missing field became `null`. (https://github.com/pulumi/pulumi-kubernetes/issues/1970)
 - Add field manager's name to server-side apply conflict errors. (https://github.com/pulumi/pulumi-kubernetes/pull/2983)
+- Add `enableUpsert` provider configuration to control apply behavior on resource creation. (https://github.com/pulumi/pulumi-kubernetes/pull/3000)
 
 ## 4.11.0 (April 17, 2024)
 

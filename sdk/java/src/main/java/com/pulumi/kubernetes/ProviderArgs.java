@@ -107,6 +107,21 @@ public final class ProviderArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * If present and set to false, the provider will surface errors if a create operation would overwrite existing resources in the cluster.
+     * 
+     */
+    @Import(name="enableUpsert", json=true)
+    private @Nullable Output<Boolean> enableUpsert;
+
+    /**
+     * @return If present and set to false, the provider will surface errors if a create operation would overwrite existing resources in the cluster.
+     * 
+     */
+    public Optional<Output<Boolean>> enableUpsert() {
+        return Optional.ofNullable(this.enableUpsert);
+    }
+
+    /**
      * Options to configure the Helm Release resource.
      * 
      */
@@ -258,6 +273,7 @@ public final class ProviderArgs extends com.pulumi.resources.ResourceArgs {
         this.deleteUnreachable = $.deleteUnreachable;
         this.enableConfigMapMutable = $.enableConfigMapMutable;
         this.enableServerSideApply = $.enableServerSideApply;
+        this.enableUpsert = $.enableUpsert;
         this.helmReleaseSettings = $.helmReleaseSettings;
         this.kubeClientSettings = $.kubeClientSettings;
         this.kubeconfig = $.kubeconfig;
@@ -401,6 +417,27 @@ public final class ProviderArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder enableServerSideApply(Boolean enableServerSideApply) {
             return enableServerSideApply(Output.of(enableServerSideApply));
+        }
+
+        /**
+         * @param enableUpsert If present and set to false, the provider will surface errors if a create operation would overwrite existing resources in the cluster.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder enableUpsert(@Nullable Output<Boolean> enableUpsert) {
+            $.enableUpsert = enableUpsert;
+            return this;
+        }
+
+        /**
+         * @param enableUpsert If present and set to false, the provider will surface errors if a create operation would overwrite existing resources in the cluster.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder enableUpsert(Boolean enableUpsert) {
+            return enableUpsert(Output.of(enableUpsert));
         }
 
         /**
@@ -599,6 +636,7 @@ public final class ProviderArgs extends com.pulumi.resources.ResourceArgs {
             $.deleteUnreachable = Codegen.booleanProp("deleteUnreachable").output().arg($.deleteUnreachable).env("PULUMI_K8S_DELETE_UNREACHABLE").getNullable();
             $.enableConfigMapMutable = Codegen.booleanProp("enableConfigMapMutable").output().arg($.enableConfigMapMutable).env("PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE").getNullable();
             $.enableServerSideApply = Codegen.booleanProp("enableServerSideApply").output().arg($.enableServerSideApply).env("PULUMI_K8S_ENABLE_SERVER_SIDE_APPLY").getNullable();
+            $.enableUpsert = Codegen.booleanProp("enableUpsert").output().arg($.enableUpsert).env("PULUMI_K8S_ENABLE_UPSERT").getNullable();
             $.kubeconfig = Codegen.stringProp("kubeconfig").output().arg($.kubeconfig).env("KUBECONFIG").getNullable();
             $.skipUpdateUnreachable = Codegen.booleanProp("skipUpdateUnreachable").output().arg($.skipUpdateUnreachable).env("PULUMI_K8S_SKIP_UPDATE_UNREACHABLE").getNullable();
             $.suppressDeprecationWarnings = Codegen.booleanProp("suppressDeprecationWarnings").output().arg($.suppressDeprecationWarnings).env("PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS").getNullable();

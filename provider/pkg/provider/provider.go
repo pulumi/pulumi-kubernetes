@@ -130,6 +130,7 @@ type kubeProvider struct {
 	skipUpdateUnreachable       bool
 	enableConfigMapMutable      bool
 	enableSecrets               bool
+	enableUpsert                bool
 	suppressDeprecationWarnings bool
 	suppressHelmHookWarnings    bool
 	serverSideApplyMode         bool
@@ -542,6 +543,17 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	if enableConfigMapMutable() {
 		k.enableConfigMapMutable = true
 	}
+
+	enableUpsert := func() bool {
+		if enabled, exists := vars["kubernetes:config:enableUpsert"]; exists {
+			return enabled == trueStr
+		}
+		if enabled, exists := os.LookupEnv("PULUMI_K8S_ENABLE_UPSERT"); exists {
+			return enabled == trueStr
+		}
+		return true
+	}
+	k.enableUpsert = enableUpsert()
 
 	suppressDeprecationWarnings := func() bool {
 		// If the provider flag is set, use that value to determine behavior. This will override the ENV var.
@@ -1849,6 +1861,7 @@ func (k *kubeProvider) Create(
 			DedupLogger:       logging.NewLogger(k.canceler.context, k.host, urn),
 			Resources:         resources,
 			ServerSideApply:   k.serverSideApplyMode,
+			EnableUpsert:      k.enableUpsert,
 		},
 		Inputs:  newInputs,
 		Timeout: req.Timeout,
@@ -2098,6 +2111,8 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 			ClientSet:         k.clientSet,
 			DedupLogger:       logging.NewLogger(k.canceler.context, k.host, urn),
 			Resources:         resources,
+			ServerSideApply:   k.serverSideApplyMode,
+			EnableUpsert:      k.enableUpsert,
 		},
 		Inputs:          oldInputs,
 		ReadFromCluster: readFromCluster,
@@ -2346,6 +2361,7 @@ func (k *kubeProvider) Update(
 			DedupLogger:       logging.NewLogger(k.canceler.context, k.host, urn),
 			Resources:         resources,
 			ServerSideApply:   k.serverSideApplyMode,
+			EnableUpsert:      k.enableUpsert,
 		},
 		OldInputs:     oldLivePruned,
 		OldOutputs:    oldLive,
@@ -2507,6 +2523,7 @@ func (k *kubeProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest)
 			DedupLogger:       logging.NewLogger(k.canceler.context, k.host, urn),
 			Resources:         resources,
 			ServerSideApply:   k.serverSideApplyMode,
+			EnableUpsert:      k.enableUpsert,
 		},
 		Inputs:  oldInputs,
 		Outputs: current,

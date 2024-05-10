@@ -70,6 +70,7 @@ type ProviderConfig struct {
 	FieldManager      string
 	ClusterVersion    *cluster.ServerVersion
 	ServerSideApply   bool
+	EnableUpsert      bool
 
 	ClientSet   *clients.DynamicClientSet
 	DedupLogger *logging.DedupLogger
@@ -192,7 +193,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 				}
 			}
 
-			if c.ServerSideApply {
+			if c.ServerSideApply && c.EnableUpsert {
 				force := patchForce(c.Inputs, nil, c.Preview)
 				options := metav1.PatchOptions{
 					FieldManager:    c.FieldManager,

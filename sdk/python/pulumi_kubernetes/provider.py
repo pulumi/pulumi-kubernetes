@@ -20,6 +20,7 @@ class ProviderArgs:
                  delete_unreachable: Optional[pulumi.Input[bool]] = None,
                  enable_config_map_mutable: Optional[pulumi.Input[bool]] = None,
                  enable_server_side_apply: Optional[pulumi.Input[bool]] = None,
+                 enable_upsert: Optional[pulumi.Input[bool]] = None,
                  helm_release_settings: Optional[pulumi.Input['HelmReleaseSettingsArgs']] = None,
                  kube_client_settings: Optional[pulumi.Input['KubeClientSettingsArgs']] = None,
                  kubeconfig: Optional[pulumi.Input[str]] = None,
@@ -41,6 +42,7 @@ class ProviderArgs:
                2. The `PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE` environment variable.
         :param pulumi.Input[bool] enable_server_side_apply: If present and set to false, disable Server-Side Apply mode.
                See https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.
+        :param pulumi.Input[bool] enable_upsert: If present and set to false, the provider will surface errors if a create operation would overwrite existing resources in the cluster.
         :param pulumi.Input['HelmReleaseSettingsArgs'] helm_release_settings: Options to configure the Helm Release resource.
         :param pulumi.Input['KubeClientSettingsArgs'] kube_client_settings: Options for tuning the Kubernetes client used by a Provider.
         :param pulumi.Input[str] kubeconfig: The contents of a kubeconfig file or the path to a kubeconfig file.
@@ -78,6 +80,10 @@ class ProviderArgs:
             enable_server_side_apply = _utilities.get_env_bool('PULUMI_K8S_ENABLE_SERVER_SIDE_APPLY')
         if enable_server_side_apply is not None:
             pulumi.set(__self__, "enable_server_side_apply", enable_server_side_apply)
+        if enable_upsert is None:
+            enable_upsert = _utilities.get_env_bool('PULUMI_K8S_ENABLE_UPSERT')
+        if enable_upsert is not None:
+            pulumi.set(__self__, "enable_upsert", enable_upsert)
         if helm_release_settings is not None:
             pulumi.set(__self__, "helm_release_settings", helm_release_settings)
         if kube_client_settings is not None:
@@ -168,6 +174,18 @@ class ProviderArgs:
     @enable_server_side_apply.setter
     def enable_server_side_apply(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "enable_server_side_apply", value)
+
+    @property
+    @pulumi.getter(name="enableUpsert")
+    def enable_upsert(self) -> Optional[pulumi.Input[bool]]:
+        """
+        If present and set to false, the provider will surface errors if a create operation would overwrite existing resources in the cluster.
+        """
+        return pulumi.get(self, "enable_upsert")
+
+    @enable_upsert.setter
+    def enable_upsert(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "enable_upsert", value)
 
     @property
     @pulumi.getter(name="helmReleaseSettings")
@@ -288,6 +306,7 @@ class Provider(pulumi.ProviderResource):
                  delete_unreachable: Optional[pulumi.Input[bool]] = None,
                  enable_config_map_mutable: Optional[pulumi.Input[bool]] = None,
                  enable_server_side_apply: Optional[pulumi.Input[bool]] = None,
+                 enable_upsert: Optional[pulumi.Input[bool]] = None,
                  helm_release_settings: Optional[pulumi.Input[pulumi.InputType['HelmReleaseSettingsArgs']]] = None,
                  kube_client_settings: Optional[pulumi.Input[pulumi.InputType['KubeClientSettingsArgs']]] = None,
                  kubeconfig: Optional[pulumi.Input[str]] = None,
@@ -313,6 +332,7 @@ class Provider(pulumi.ProviderResource):
                2. The `PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE` environment variable.
         :param pulumi.Input[bool] enable_server_side_apply: If present and set to false, disable Server-Side Apply mode.
                See https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.
+        :param pulumi.Input[bool] enable_upsert: If present and set to false, the provider will surface errors if a create operation would overwrite existing resources in the cluster.
         :param pulumi.Input[pulumi.InputType['HelmReleaseSettingsArgs']] helm_release_settings: Options to configure the Helm Release resource.
         :param pulumi.Input[pulumi.InputType['KubeClientSettingsArgs']] kube_client_settings: Options for tuning the Kubernetes client used by a Provider.
         :param pulumi.Input[str] kubeconfig: The contents of a kubeconfig file or the path to a kubeconfig file.
@@ -363,6 +383,7 @@ class Provider(pulumi.ProviderResource):
                  delete_unreachable: Optional[pulumi.Input[bool]] = None,
                  enable_config_map_mutable: Optional[pulumi.Input[bool]] = None,
                  enable_server_side_apply: Optional[pulumi.Input[bool]] = None,
+                 enable_upsert: Optional[pulumi.Input[bool]] = None,
                  helm_release_settings: Optional[pulumi.Input[pulumi.InputType['HelmReleaseSettingsArgs']]] = None,
                  kube_client_settings: Optional[pulumi.Input[pulumi.InputType['KubeClientSettingsArgs']]] = None,
                  kubeconfig: Optional[pulumi.Input[str]] = None,
@@ -391,6 +412,9 @@ class Provider(pulumi.ProviderResource):
             if enable_server_side_apply is None:
                 enable_server_side_apply = _utilities.get_env_bool('PULUMI_K8S_ENABLE_SERVER_SIDE_APPLY')
             __props__.__dict__["enable_server_side_apply"] = pulumi.Output.from_input(enable_server_side_apply).apply(pulumi.runtime.to_json) if enable_server_side_apply is not None else None
+            if enable_upsert is None:
+                enable_upsert = _utilities.get_env_bool('PULUMI_K8S_ENABLE_UPSERT')
+            __props__.__dict__["enable_upsert"] = pulumi.Output.from_input(enable_upsert).apply(pulumi.runtime.to_json) if enable_upsert is not None else None
             __props__.__dict__["helm_release_settings"] = pulumi.Output.from_input(helm_release_settings).apply(pulumi.runtime.to_json) if helm_release_settings is not None else None
             __props__.__dict__["kube_client_settings"] = pulumi.Output.from_input(kube_client_settings).apply(pulumi.runtime.to_json) if kube_client_settings is not None else None
             if kubeconfig is None:
