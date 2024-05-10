@@ -20,10 +20,11 @@ import (
 	"sync"
 )
 
-// logWriter is an io.Writer that writes to a logging function, buffering as necessary.
-
+// logF is an abstract logging function that accepts a format string and arguments.
+// The function is expected to write a newline after each message.
 type logF func(format string, args ...interface{})
 
+// logWriter is an io.Writer that writes to a logging function, buffering as necessary.
 type LogWriter struct {
 	l      logF
 	prefix string
@@ -34,7 +35,20 @@ type LogWriter struct {
 	mu   sync.Mutex // guards buff
 }
 
-var _ io.Writer = (*LogWriter)(nil)
+type Option interface {
+	apply(*LogWriter)
+}
+
+type prefixOption string
+
+func (p prefixOption) apply(l *LogWriter) {
+	l.prefix = string(p)
+}
+
+// WithPrefix prepends the given prefix to each line.
+func WithPrefix(prefix string) Option {
+	return prefixOption(prefix)
+}
 
 // NewLogWriter builds and returns an io.Writer that
 // writes messages to the given logging function.
@@ -44,16 +58,15 @@ var _ io.Writer = (*LogWriter)(nil)
 // is flushed when the writer flushes.
 //
 // The returned writer is safe for concurrent use.
-func NewLogWriter(l logF) *LogWriter {
-	return NewLogWriterPrefixed(l, "")
+func NewLogWriter(l logF, opts ...Option) *LogWriter {
+	w := &LogWriter{l: l}
+	for _, o := range opts {
+		o.apply(w)
+	}
+	return w
 }
 
-// NewLogWriterPrefixed is a variant of LogWriter
-// that prepends the given prefix to each line.
-func NewLogWriterPrefixed(l logF, prefix string) *LogWriter {
-	w := LogWriter{l: l, prefix: prefix}
-	return &w
-}
+var _ io.Writer = (*LogWriter)(nil)
 
 func (w *LogWriter) Write(bs []byte) (int, error) {
 	w.mu.Lock()

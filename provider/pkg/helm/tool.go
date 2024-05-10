@@ -338,7 +338,7 @@ func debug(format string, a ...any) {
 
 func debugStream() *logging.LogWriter {
 	// FUTURE: set log depth
-	return logging.NewLogWriterPrefixed(logger.V(6).Infof, "[helm] ")
+	return logging.NewLogWriter(logger.V(6).Infof, logging.WithPrefix("[helm] "))
 }
 
 // defaultKeyring returns the expanded path to the default keyring.
