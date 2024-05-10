@@ -15,6 +15,7 @@
 package helm
 
 import (
+	"fmt"
 	"net/url"
 	"os"
 
@@ -50,11 +51,11 @@ func LocateKeyring(p getter.Providers, asset pulumi.Asset) (string, error) {
 		}
 		g, err := p.ByScheme(u.Scheme)
 		if err != nil {
-			return "", errors.Wrapf(err, "no protocol handler for uri %q", asset.URI())
+			return "", fmt.Errorf("no protocol handler for uri %q", asset.URI())
 		}
 		data, err := g.Get(asset.URI(), getter.WithURL(asset.URI()))
 		if err != nil {
-			return "", errors.Wrapf(err, "failed to read uri %q", asset.URI())
+			return "", fmt.Errorf("failed to read uri %q: %w", asset.URI(), err)
 		}
 		return makeTemp(data.Bytes())
 	default:

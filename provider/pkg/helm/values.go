@@ -15,6 +15,7 @@
 package helm
 
 import (
+	"fmt"
 	"net/url"
 	"os"
 
@@ -70,7 +71,7 @@ func readAsset(p getter.Providers, asset pulumi.Asset) ([]byte, error) {
 	case asset.Path() != "":
 		bytes, err := os.ReadFile(asset.Path())
 		if err != nil {
-			return nil, errors.Wrapf(err, "failed to read file %q", asset.Path())
+			return nil, fmt.Errorf("failed to read file %q: %w", asset.Path(), err)
 		}
 		return bytes, nil
 	case asset.URI() != "":
@@ -80,11 +81,11 @@ func readAsset(p getter.Providers, asset pulumi.Asset) ([]byte, error) {
 		}
 		g, err := p.ByScheme(u.Scheme)
 		if err != nil {
-			return nil, errors.Wrapf(err, "no protocol handler for uri %q", asset.URI())
+			return nil, fmt.Errorf("no protocol handler for uri %q", asset.URI())
 		}
 		data, err := g.Get(asset.URI(), getter.WithURL(asset.URI()))
 		if err != nil {
-			return nil, errors.Wrapf(err, "failed to read uri %q", asset.URI())
+			return nil, fmt.Errorf("failed to read uri %q: %w", asset.URI(), err)
 		}
 		return data.Bytes(), nil
 	default:
