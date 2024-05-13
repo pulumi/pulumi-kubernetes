@@ -67,7 +67,7 @@ var _ = Describe("Construct", func() {
 
 		// configure the fake Helm tool
 		initActionConfig = kubehelm.FakeInitActionConfig("default", chartutil.DefaultCapabilities)
-		locator = kubehelm.NewFakeLocator("../../../../../tests/testdata/helm/reference", nil)
+		locator = kubehelm.NewFakeLocator("./testdata/reference", nil)
 		executor = kubehelm.NewFakeExecutor()
 	})
 
@@ -181,7 +181,7 @@ var _ = Describe("Construct", func() {
 			var pub *resource.Asset
 			BeforeEach(func() {
 				var err error
-				pub, err = resource.NewPathAsset("../../../../../tests/testdata/helm/pubring.gpg")
+				pub, err = resource.NewPathAsset("./testdata/pubring.gpg")
 				Expect(err).ShouldNot(HaveOccurred())
 
 				inputs["verify"] = resource.NewBoolProperty(true)
