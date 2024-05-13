@@ -102,6 +102,127 @@ import javax.annotation.Nullable;
  * For resources in the “core” group, the empty string is used instead (for example: `/namespaces/test/Pod/pod-a`).
  * 
  * ## Example Usage
+ * ### Local Chart Directory
+ * ```java
+ * package generated_program;
+ * 
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.kubernetes.helm.v4.Chart;
+ * import com.pulumi.kubernetes.helm.v4.ChartArgs;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(ctx -&gt; {
+ *             var nginx = new Chart(&#34;nginx&#34;, ChartArgs.builder()
+ *                     .chart(&#34;./nginx&#34;)
+ *                     .build());
+ *         });
+ *     }
+ * }
+ * ```
+ * ### Repository Chart
+ * ```java
+ * package generated_program;
+ * 
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.kubernetes.helm.v4.Chart;
+ * import com.pulumi.kubernetes.helm.v4.ChartArgs;
+ * import com.pulumi.kubernetes.helm.v4.inputs.RepositoryOptsArgs;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(ctx -&gt; {
+ *             var nginx = new Chart(&#34;nginx&#34;, ChartArgs.builder()
+ *                     .chart(&#34;nginx&#34;)
+ *                     .repositoryOpts(RepositoryOptsArgs.builder()
+ *                             .repo(&#34;https://charts.bitnami.com/bitnami&#34;)
+ *                             .build())
+ *                     .build());
+ *         });
+ *     }
+ * }
+ * ```
+ * ### OCI Chart
+ * ```java
+ * package generated_program;
+ * 
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.kubernetes.helm.v4.Chart;
+ * import com.pulumi.kubernetes.helm.v4.ChartArgs;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(ctx -&gt; {
+ *             var nginx = new Chart(&#34;nginx&#34;, ChartArgs.builder()
+ *                     .chart(&#34;oci://registry-1.docker.io/bitnamicharts/nginx&#34;)
+ *                     .version(&#34;16.0.7&#34;)
+ *                     .build());
+ *         });
+ *     }
+ * }
+ * ```
+ * ### Chart Values
+ * ```java
+ * package generated_program;
+ * 
+ * import java.util.Map;
+ * 
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.kubernetes.helm.v4.Chart;
+ * import com.pulumi.kubernetes.helm.v4.ChartArgs;
+ * import com.pulumi.kubernetes.helm.v4.inputs.RepositoryOptsArgs;
+ * import com.pulumi.asset.FileAsset;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(ctx -&gt; {
+ *             var nginx = new Chart(&#34;nginx&#34;, ChartArgs.builder()
+ *                     .chart(&#34;nginx&#34;)
+ *                     .repositoryOpts(RepositoryOptsArgs.builder()
+ *                             .repo(&#34;https://charts.bitnami.com/bitnami&#34;)
+ *                             .build())
+ *                     .valueYamlFiles(new FileAsset(&#34;./values.yaml&#34;))
+ *                     .values(Map.of(
+ *                             &#34;service&#34;, Map.of(
+ *                                     &#34;type&#34;, &#34;ClusterIP&#34;),
+ *                             &#34;notes&#34;, new FileAsset(&#34;./notes.txt&#34;)))
+ *                     .build());
+ *         });
+ *     }
+ * }
+ * ```
+ * ### Chart Namespace
+ * ```java
+ * package generated_program;
+ * 
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.kubernetes.core.v1.Namespace;
+ * import com.pulumi.kubernetes.core.v1.NamespaceArgs;
+ * import com.pulumi.kubernetes.helm.v4.Chart;
+ * import com.pulumi.kubernetes.helm.v4.ChartArgs;
+ * import com.pulumi.kubernetes.helm.v4.inputs.RepositoryOptsArgs;
+ * import com.pulumi.kubernetes.meta.v1.inputs.ObjectMetaArgs;
+ * import com.pulumi.core.Output;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(ctx -&gt; {
+ *             var ns = new Namespace(&#34;nginx&#34;, NamespaceArgs.builder()
+ *                     .metadata(ObjectMetaArgs.builder()
+ *                             .name(&#34;nginx&#34;)
+ *                             .build())
+ *                     .build());
+ *             var nginx = new Chart(&#34;nginx&#34;, ChartArgs.builder()
+ *                     .namespace(ns.metadata().apply(m -&gt; Output.of(m.name().get())))
+ *                     .chart(&#34;nginx&#34;)
+ *                     .repositoryOpts(RepositoryOptsArgs.builder()
+ *                             .repo(&#34;https://charts.bitnami.com/bitnami&#34;)
+ *                             .build())
+ *                     .build());
+ *         });
+ *     }
+ * }
+ * ```
  * 
  */
 @ResourceType(type="kubernetes:helm.sh/v4:Chart")

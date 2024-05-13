@@ -138,6 +138,23 @@ return await Deployment.RunAsync(() =>
     return new Dictionary<string, object?>{};
 });
 ```
+```java
+package generated_program;
+
+import com.pulumi.Pulumi;
+import com.pulumi.kubernetes.helm.v4.Chart;
+import com.pulumi.kubernetes.helm.v4.ChartArgs;
+
+public class App {
+    public static void main(String[] args) {
+        Pulumi.run(ctx -> {
+            var nginx = new Chart("nginx", ChartArgs.builder()
+                    .chart("./nginx")
+                    .build());
+        });
+    }
+}
+```
 ```yaml
 name: example
 runtime: yaml
@@ -214,6 +231,27 @@ return await Deployment.RunAsync(() =>
     return new Dictionary<string, object?>{};
 });
 ```
+```java
+package generated_program;
+
+import com.pulumi.Pulumi;
+import com.pulumi.kubernetes.helm.v4.Chart;
+import com.pulumi.kubernetes.helm.v4.ChartArgs;
+import com.pulumi.kubernetes.helm.v4.inputs.RepositoryOptsArgs;
+
+public class App {
+    public static void main(String[] args) {
+        Pulumi.run(ctx -> {
+            var nginx = new Chart("nginx", ChartArgs.builder()
+                    .chart("nginx")
+                    .repositoryOpts(RepositoryOptsArgs.builder()
+                            .repo("https://charts.bitnami.com/bitnami")
+                            .build())
+                    .build());
+        });
+    }
+}
+```
 ```yaml
 name: example
 runtime: yaml
@@ -282,6 +320,24 @@ return await Deployment.RunAsync(() =>
     
     return new Dictionary<string, object?>{};
 });
+```
+```java
+package generated_program;
+
+import com.pulumi.Pulumi;
+import com.pulumi.kubernetes.helm.v4.Chart;
+import com.pulumi.kubernetes.helm.v4.ChartArgs;
+
+public class App {
+    public static void main(String[] args) {
+        Pulumi.run(ctx -> {
+            var nginx = new Chart("nginx", ChartArgs.builder()
+                    .chart("oci://registry-1.docker.io/bitnamicharts/nginx")
+                    .version("16.0.7")
+                    .build());
+        });
+    }
+}
 ```
 ```yaml
 name: example
@@ -402,6 +458,35 @@ return await Deployment.RunAsync(() =>
     return new Dictionary<string, object?>{};
 });
 ```
+```java
+package generated_program;
+
+import java.util.Map;
+
+import com.pulumi.Pulumi;
+import com.pulumi.kubernetes.helm.v4.Chart;
+import com.pulumi.kubernetes.helm.v4.ChartArgs;
+import com.pulumi.kubernetes.helm.v4.inputs.RepositoryOptsArgs;
+import com.pulumi.asset.FileAsset;
+
+public class App {
+    public static void main(String[] args) {
+        Pulumi.run(ctx -> {
+            var nginx = new Chart("nginx", ChartArgs.builder()
+                    .chart("nginx")
+                    .repositoryOpts(RepositoryOptsArgs.builder()
+                            .repo("https://charts.bitnami.com/bitnami")
+                            .build())
+                    .valueYamlFiles(new FileAsset("./values.yaml"))
+                    .values(Map.of(
+                            "service", Map.of(
+                                    "type", "ClusterIP"),
+                            "notes", new FileAsset("./notes.txt")))
+                    .build());
+        });
+    }
+}
+```
 ```yaml
 name: example
 runtime: yaml
@@ -515,6 +600,37 @@ return await Deployment.RunAsync(() =>
     
     return new Dictionary<string, object?>{};
 });
+```
+```java
+package generated_program;
+
+import com.pulumi.Pulumi;
+import com.pulumi.kubernetes.core.v1.Namespace;
+import com.pulumi.kubernetes.core.v1.NamespaceArgs;
+import com.pulumi.kubernetes.helm.v4.Chart;
+import com.pulumi.kubernetes.helm.v4.ChartArgs;
+import com.pulumi.kubernetes.helm.v4.inputs.RepositoryOptsArgs;
+import com.pulumi.kubernetes.meta.v1.inputs.ObjectMetaArgs;
+import com.pulumi.core.Output;
+
+public class App {
+    public static void main(String[] args) {
+        Pulumi.run(ctx -> {
+            var ns = new Namespace("nginx", NamespaceArgs.builder()
+                    .metadata(ObjectMetaArgs.builder()
+                            .name("nginx")
+                            .build())
+                    .build());
+            var nginx = new Chart("nginx", ChartArgs.builder()
+                    .namespace(ns.metadata().apply(m -> Output.of(m.name().get())))
+                    .chart("nginx")
+                    .repositoryOpts(RepositoryOptsArgs.builder()
+                            .repo("https://charts.bitnami.com/bitnami")
+                            .build())
+                    .build());
+        });
+    }
+}
 ```
 ```yaml
 name: example
