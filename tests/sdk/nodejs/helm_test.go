@@ -184,3 +184,14 @@ func clearGrpcLog(t *testing.T, pt *pulumitest.PulumiTest) {
 		t.Fatalf("failed to clear gRPC log: %s", err)
 	}
 }
+
+func TestPreviewWithUnreachableCluster(t *testing.T) {
+	t.Parallel()
+
+	test := pulumitest.NewPulumiTest(t, "helm-preview-unreachable")
+	t.Cleanup(func() {
+		test.Destroy()
+	})
+
+	test.Preview()
+}
