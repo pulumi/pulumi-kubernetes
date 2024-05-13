@@ -8,20 +8,95 @@ import (
 	"reflect"
 
 	"errors"
-	helmv3 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v3"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// Chart is a component representing a collection of resources described by an arbitrary Helm Chart.
+// Chart is a component representing a collection of resources described by a Helm Chart.
+// Helm charts are a popular packaging format for Kubernetes applications, and published
+// to registries such as [Artifact Hub](https://artifacthub.io/packages/search?kind=0&sort=relevance&page=1).
 //
-// The Helm Chart can be fetched from any source that is accessible to the `helm` command line. Values in the `values.yml` file can be overridden using `ChartOpts.values` (equivalent to `--set` or having multiple `values.yml` files). Objects can be transformed arbitrarily by supplying callbacks to `ChartOpts.transformations`.
+// Chart does not use Tiller or create a Helm Release; the semantics are equivalent to
+// running `helm template --dry-run=server` and then using Pulumi to deploy the resulting YAML manifests.
+// This allows you to apply [Pulumi Transformations](https://www.pulumi.com/docs/concepts/options/transformations/) and
+// [Pulumi Policies](https://www.pulumi.com/docs/using-pulumi/crossguard/) to the Kubernetes resources.
 //
-// The `Chart` resource renders the templates from your chart and then manage them directly with the Pulumi Kubernetes provider.
+// You may also want to consider the `Release` resource as an alternative method for managing helm charts. For more
+// information about the trade-offs between these options, see: [Choosing the right Helm resource for your use case](https://www.pulumi.com/registry/packages/kubernetes/how-to-guides/choosing-the-right-helm-resource-for-your-use-case).
 //
-// `Chart` does not use Tiller. The Chart specified is copied and expanded locally; the semantics are equivalent to running `helm template` and then using Pulumi to manage the resulting YAML manifests. Any values that would be retrieved in-cluster are assigned fake values, and none of Tiller's server-side validity testing is executed.
+// ### Chart Resolution
 //
-// You may also want to consider the `Release` resource as an alternative method for managing helm charts. For more information about the trade-offs between these options see: [Choosing the right Helm resource for your use case](https://www.pulumi.com/registry/packages/kubernetes/how-to-guides/choosing-the-right-helm-resource-for-your-use-case)
+// The Helm Chart can be fetched from any source that is accessible to the `helm` command line.
+// The following variations are supported:
+//
+// 1. By chart reference with repo prefix: `chart: "example/mariadb"`
+// 2. By path to a packaged chart: `chart: "./nginx-1.2.3.tgz"`
+// 3. By path to an unpacked chart directory: `chart: "./nginx"`
+// 4. By absolute URL: `chart: "https://example.com/charts/nginx-1.2.3.tgz"`
+// 5. By chart reference with repo URL: `chart: "nginx", repositoryOpts: { repo: "https://example.com/charts/" }`
+// 6. By OCI registries: `chart: "oci://example.com/charts/nginx", version: "1.2.3"`
+//
+// A chart reference is a convenient way of referencing a chart in a chart repository.
+//
+// When you use a chart reference with a repo prefix (`example/mariadb`), Pulumi will look in Helm's local configuration
+// for a chart repository named `example`, and will then look for a chart in that repository whose name is `mariadb`.
+// It will install the latest stable version of that chart, unless you specify `devel` to also include
+// development versions (alpha, beta, and release candidate releases), or supply a version number with `version`.
+//
+// Use the `verify` and optional `keyring` inputs to enable Chart verification.
+// By default, Pulumi uses the keyring at `$HOME/.gnupg/pubring.gpg`. See: [Helm Provenance and Integrity](https://helm.sh/docs/topics/provenance/).
+//
+// ### Chart Values
+//
+// [Values files](https://helm.sh/docs/chart_template_guide/values_files/#helm) (`values.yaml`) may be supplied
+// with the `valueYamlFiles` input, accepting [Pulumi Assets](https://www.pulumi.com/docs/concepts/assets-archives/#assets).
+//
+// A map of chart values may also be supplied with the `values` input, with highest precedence. You're able to use literals,
+// nested maps, [Pulumi outputs](https://www.pulumi.com/docs/concepts/inputs-outputs/), and Pulumi assets as values.
+// Assets are automatically opened and converted to a string.
+//
+// Note that the use of expressions (e.g. `service.type`) is not supported.
+//
+// ### Chart Dependency Resolution
+//
+// For unpacked chart directories, Pulumi automatically rebuilds the dependencies if dependencies are missing
+// and a `Chart.lock` file is present (see: [Helm Dependency Build](https://helm.sh/docs/helm/helm_dependency_build/)).
+// Use the `dependencyUpdate` input to have Pulumi update the dependencies (see: [Helm Dependency Update](https://helm.sh/docs/helm/helm_dependency_update/)).
+//
+// ### Templating
+//
+// The `Chart` resource renders the templates from your chart and then manages the resources directly with the
+// Pulumi Kubernetes provider. A default namespace is applied based on the `namespace` input, the provider's
+// configured namespace, and the active Kubernetes context. Use the `skipCrds` option to skip installing the
+// Custom Resource Definition (CRD) objects located in the chart's `crds/` special directory.
+//
+// Use the `postRenderer` input to pipe the rendered manifest through a [post-rendering command](https://helm.sh/docs/topics/advanced/#post-rendering).
+//
+// ### Resource Ordering
+//
+// Sometimes resources must be applied in a specific order. For example, a namespace resource must be
+// created before any namespaced resources, or a Custom Resource Definition (CRD) must be pre-installed.
+//
+// Pulumi uses heuristics to determine which order to apply and delete objects within the Chart.  Pulumi also
+// waits for each object to be fully reconciled, unless `skipAwait` is enabled.
+//
+// Pulumi supports the `config.kubernetes.io/depends-on` annotation to declare an explicit dependency on a given resource.
+// The annotation accepts a list of resource references, delimited by commas.
+//
+// Note that references to resources outside the Chart aren't supported.
+//
+// **Resource reference**
+//
+// A resource reference is a string that uniquely identifies a resource.
+//
+// It consists of the group, kind, name, and optionally the namespace, delimited by forward slashes.
+//
+// | Resource Scope   | Format                                         |
+// | :--------------- | :--------------------------------------------- |
+// | namespace-scoped | `<group>/namespaces/<namespace>/<kind>/<name>` |
+// | cluster-scoped   | `<group>/<kind>/<name>`                        |
+//
+// For resources in the “core” group, the empty string is used instead (for example: `/namespaces/test/Pod/pod-a`).
 //
 // ## Example Usage
 // ### Local Chart Directory
@@ -30,220 +105,143 @@ import (
 //
 // import (
 //
-//	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v3"
+//	helmv4 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v4"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //
 // )
 //
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := helm.NewChart(ctx, "nginx-ingress", helm.ChartArgs{
-//				Path: pulumi.String("./nginx-ingress"),
+//			_, err := helmv4.NewChart(ctx, "nginx", &helmv4.ChartArgs{
+//				Chart: pulumi.String("./nginx"),
 //			})
 //			if err != nil {
 //				return err
 //			}
-//
 //			return nil
 //		})
 //	}
 //
 // ```
-// ### Remote Chart
+// ### Repository Chart
 // ```go
 // package main
 //
 // import (
 //
-//	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v3"
+//	helmv4 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v4"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //
 // )
 //
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := helm.NewChart(ctx, "nginx-ingress", helm.ChartArgs{
-//				Chart:   pulumi.String("nginx-ingress"),
-//				Version: pulumi.String("1.24.4"),
-//				Fetchargs: helm.FetchArgs{
-//					Repo: pulumi.String("https://charts.helm.sh/stable"),
+//			_, err := helmv4.NewChart(ctx, "nginx", &helmv4.ChartArgs{
+//				Chart: pulumi.String("nginx"),
+//				RepositoryOpts: &helmv4.RepositoryOptsArgs{
+//					Repo: pulumi.String("https://charts.bitnami.com/bitnami"),
 //				},
 //			})
 //			if err != nil {
 //				return err
 //			}
-//
 //			return nil
 //		})
 //	}
 //
 // ```
-// ### Set Chart Values
+// ### OCI Chart
 // ```go
 // package main
 //
 // import (
 //
-//	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v3"
+//	helmv4 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v4"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //
 // )
 //
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := helm.NewChart(ctx, "nginx-ingress", helm.ChartArgs{
-//				Chart:   pulumi.String("nginx-ingress"),
-//				Version: pulumi.String("1.24.4"),
-//				FetchArgs: helm.FetchArgs{
-//					Repo: pulumi.String("https://charts.helm.sh/stable"),
+//			_, err := helmv4.NewChart(ctx, "nginx", &helmv4.ChartArgs{
+//				Chart:   pulumi.String("oci://registry-1.docker.io/bitnamicharts/nginx"),
+//				Version: pulumi.String("16.0.7"),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
+// ### Chart Values
+// ```go
+// package main
+//
+// import (
+//
+//	helmv4 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v4"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := helmv4.NewChart(ctx, "nginx", &helmv4.ChartArgs{
+//				Chart: pulumi.String("nginx"),
+//				RepositoryOpts: &helmv4.RepositoryOptsArgs{
+//					Repo: pulumi.String("https://charts.bitnami.com/bitnami"),
+//				},
+//				ValueYamlFiles: pulumi.AssetOrArchiveArray{
+//					pulumi.NewFileAsset("./values.yaml"),
 //				},
 //				Values: pulumi.Map{
-//					"controller": pulumi.Map{
-//						"metrics": pulumi.Map{
-//							"enabled": pulumi.Bool(true),
-//						},
+//					"service": pulumi.Map{
+//						"type": pulumi.String("ClusterIP"),
 //					},
+//					"notes": pulumi.NewFileAsset("./notes.txt"),
 //				},
 //			})
 //			if err != nil {
 //				return err
 //			}
-//
 //			return nil
 //		})
 //	}
 //
 // ```
-// ### Deploy Chart into Namespace
-// ```go
-// package main
-//
-// import (
-//
-//	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v3"
-//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//
-// )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := helm.NewChart(ctx, "nginx-ingress", helm.ChartArgs{
-//				Chart:     pulumi.String("nginx-ingress"),
-//				Version:   pulumi.String("1.24.4"),
-//				Namespace: pulumi.String("test-namespace"),
-//				FetchArgs: helm.FetchArgs{
-//					Repo: pulumi.String("https://charts.helm.sh/stable"),
-//				},
-//			})
-//			if err != nil {
-//				return err
-//			}
-//
-//			return nil
-//		})
-//	}
-//
-// ```
-// ### Depend on a Chart resource
+// ### Chart Namespace
 // ```go
 // package main
 //
 // import (
 //
 //	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/core/v1"
-//	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v3"
+//	helmv4 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v4"
+//	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //
 // )
 //
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := helm.NewChart(ctx, "nginx-ingress", helm.ChartArgs{
-//				Chart:     pulumi.String("nginx-ingress"),
-//				Version:   pulumi.String("1.24.4"),
-//				Namespace: pulumi.String("test-namespace"),
-//				FetchArgs: helm.FetchArgs{
-//					Repo: pulumi.String("https://charts.helm.sh/stable"),
+//			ns, err := corev1.NewNamespace(ctx, "nginx", &corev1.NamespaceArgs{
+//				Metadata: &metav1.ObjectMetaArgs{Name: pulumi.String("nginx")},
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			_, err = helmv4.NewChart(ctx, "nginx", &helmv4.ChartArgs{
+//	            Namespace: ns.Metadata.Name(),
+//				Chart:     pulumi.String("nginx"),
+//				RepositoryOpts: &helmv4.RepositoryOptsArgs{
+//					Repo: pulumi.String("https://charts.bitnami.com/bitnami"),
 //				},
 //			})
 //			if err != nil {
 //				return err
 //			}
-//
-//			// Create a ConfigMap depending on the Chart. The ConfigMap will not be created until after all of the Chart
-//			// resources are ready. Note the use of the `Ready` attribute, which is used with `DependsOnInputs` rather than
-//			// `DependsOn`. Depending on the Chart resource directly, or using `DependsOn` will not work.
-//			_, err = corev1.NewConfigMap(ctx, "cm", &corev1.ConfigMapArgs{
-//				Data: pulumi.StringMap{
-//					"foo": pulumi.String("bar"),
-//				},
-//			}, pulumi.DependsOnInputs(chart.Ready))
-//			if err != nil {
-//				return err
-//			}
-//
-//			return nil
-//		})
-//	}
-//
-// ```
-// ### Chart with Transformations
-// ```go
-// package main
-//
-// import (
-//
-//	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v3"
-//	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/yaml"
-//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//
-// )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := helm.NewChart(ctx, "nginx-ingress", helm.ChartArgs{
-//				Chart:   pulumi.String("nginx-ingress"),
-//				Version: pulumi.String("1.24.4"),
-//				FetchArgs: helm.FetchArgs{
-//					Repo: pulumi.String("https://charts.helm.sh/stable"),
-//				},
-//				Transformations: []yaml.Transformation{
-//					// Make every service private to the cluster, i.e., turn all services into ClusterIP
-//					// instead of LoadBalancer.
-//					func(state map[string]interface{}, opts ...pulumi.ResourceOption) {
-//						if state["kind"] == "Service" {
-//							spec := state["spec"].(map[string]interface{})
-//							spec["type"] = "ClusterIP"
-//						}
-//					},
-//
-//					// Set a resource alias for a previous name.
-//					func(state map[string]interface{}, opts ...pulumi.ResourceOption) {
-//						if state["kind"] == "Deployment" {
-//							aliases := pulumi.Aliases([]pulumi.Alias{
-//								{
-//									Name: pulumi.String("oldName"),
-//								},
-//							})
-//							opts = append(opts, aliases)
-//						}
-//					},
-//
-//					// Omit a resource from the Chart by transforming the specified resource definition
-//					// to an empty List.
-//					func(state map[string]interface{}, opts ...pulumi.ResourceOption) {
-//						name := state["metadata"].(map[string]interface{})["name"]
-//						if state["kind"] == "Pod" && name == "test" {
-//							state["apiVersion"] = "core/v1"
-//							state["kind"] = "List"
-//						}
-//					},
-//				},
-//			})
-//			if err != nil {
-//				return err
-//			}
-//
 //			return nil
 //		})
 //	}
@@ -291,7 +289,7 @@ type chartArgs struct {
 	// Specification defining the post-renderer to use.
 	PostRenderer *PostRenderer `pulumi:"postRenderer"`
 	// Specification defining the Helm chart repository to use.
-	RepositoryOpts *helmv3.RepositoryOpts `pulumi:"repositoryOpts"`
+	RepositoryOpts *RepositoryOpts `pulumi:"repositoryOpts"`
 	// An optional prefix for the auto-generated resource names. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo:resourceName".
 	ResourcePrefix *string `pulumi:"resourcePrefix"`
 	// By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic.
@@ -325,7 +323,7 @@ type ChartArgs struct {
 	// Specification defining the post-renderer to use.
 	PostRenderer PostRendererPtrInput
 	// Specification defining the Helm chart repository to use.
-	RepositoryOpts helmv3.RepositoryOptsPtrInput
+	RepositoryOpts RepositoryOptsPtrInput
 	// An optional prefix for the auto-generated resource names. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo:resourceName".
 	ResourcePrefix pulumi.StringPtrInput
 	// By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic.

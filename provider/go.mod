@@ -33,6 +33,7 @@ require (
 	helm.sh/helm/v3 v3.14.3
 	k8s.io/api v0.30.0
 	k8s.io/apimachinery v0.30.0
+	k8s.io/cli-runtime v0.30.0
 	k8s.io/client-go v0.30.0
 	k8s.io/kube-openapi v0.0.0-20240411171206-dc4e619f62f3
 	k8s.io/kubectl v0.30.0
@@ -217,7 +218,7 @@ require (
 	k8s.io/apiserver v0.29.0 // indirect
 	k8s.io/component-base v0.30.0 // indirect
 	k8s.io/klog/v2 v2.120.1 // indirect
-	k8s.io/utils v0.0.0-20230726121419-3b25d923346b // indirect
+	k8s.io/utils v0.0.0-20230726121419-3b25d923346b
 	oras.land/oras-go v1.2.4 // indirect
 	sigs.k8s.io/json v0.0.0-20221116044647-bc3834ca7abd // indirect
 	sigs.k8s.io/structured-merge-diff/v4 v4.4.1
@@ -307,7 +308,6 @@ require (
 	golang.org/x/tools v0.18.0 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20240311173647-c811ad7063a7 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20240311173647-c811ad7063a7 // indirect
-	k8s.io/cli-runtime v0.30.0 // indirect
 	lukechampine.com/frand v1.4.2 // indirect
 	sigs.k8s.io/controller-runtime v0.15.0 // indirect
 )

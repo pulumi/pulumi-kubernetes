@@ -20,13 +20,14 @@ package helm
 import (
 	"context"
 	"fmt"
+	"net/url"
 	"os"
 	"path/filepath"
 	"time"
 
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/logging"
-	helmv3 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v3"
+	helmv4 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v4"
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"helm.sh/helm/v3/pkg/action"
@@ -433,15 +434,27 @@ func validateDryRunOptionFlag(dryRunOptionFlagValue string) error {
 	return nil
 }
 
-func ApplyRepositoryOpts(cpo *action.ChartPathOptions, repoOpts helmv3.RepositoryOpts) {
+func ApplyRepositoryOpts(cpo *action.ChartPathOptions, p getter.Providers, repoOpts helmv4.RepositoryOpts) error {
 	if repoOpts.CaFile != nil {
-		cpo.CaFile = *repoOpts.CaFile
+		file, _, err := downloadAsset(p, repoOpts.CaFile)
+		if err != nil {
+			return fmt.Errorf("cafile: %w", err)
+		}
+		cpo.CaFile = file
 	}
 	if repoOpts.CertFile != nil {
-		cpo.CertFile = *repoOpts.CertFile
+		file, _, err := downloadAsset(p, repoOpts.CertFile)
+		if err != nil {
+			return fmt.Errorf("certfile: %w", err)
+		}
+		cpo.CertFile = file
 	}
 	if repoOpts.KeyFile != nil {
-		cpo.KeyFile = *repoOpts.KeyFile
+		file, _, err := downloadAsset(p, repoOpts.KeyFile)
+		if err != nil {
+			return fmt.Errorf("keyfile: %w", err)
+		}
+		cpo.KeyFile = file
 	}
 	if repoOpts.Username != nil {
 		cpo.Username = *repoOpts.Username
@@ -451,5 +464,53 @@ func ApplyRepositoryOpts(cpo *action.ChartPathOptions, repoOpts helmv3.Repositor
 	}
 	if repoOpts.Repo != nil {
 		cpo.RepoURL = *repoOpts.Repo
+	}
+	return nil
+}
+
+type cleanupF func() error
+
+// downloadAsset downloads an asset to the local filesystem.
+func downloadAsset(p getter.Providers, asset pulumi.AssetOrArchive) (string, cleanupF, error) {
+
+	a, isAsset := asset.(pulumi.Asset)
+	if !isAsset {
+		return "", nil, errors.New("expected an asset")
+	}
+	makeTemp := func(data []byte) (string, cleanupF, error) {
+		file, err := os.CreateTemp("", "pulumi-")
+		if err != nil {
+			return "", nil, err
+		}
+		defer file.Close()
+		if _, err := file.Write(data); err != nil {
+			return "", nil, err
+		}
+		return file.Name(), func() error {
+			return os.Remove(file.Name())
+		}, err
+	}
+
+	switch {
+	case a.Text() != "":
+		return makeTemp([]byte(a.Text()))
+	case a.Path() != "":
+		return a.Path(), func() error { return nil }, nil
+	case a.URI() != "":
+		u, err := url.Parse(a.URI())
+		if err != nil {
+			return "", nil, err
+		}
+		g, err := p.ByScheme(u.Scheme)
+		if err != nil {
+			return "", nil, fmt.Errorf("no protocol handler for uri %q", a.URI())
+		}
+		data, err := g.Get(a.URI(), getter.WithURL(a.URI()))
+		if err != nil {
+			return "", nil, fmt.Errorf("failed to read uri %q: %w", a.URI(), err)
+		}
+		return makeTemp(data.Bytes())
+	default:
+		return "", nil, errors.New("unrecognized asset type")
 	}
 }

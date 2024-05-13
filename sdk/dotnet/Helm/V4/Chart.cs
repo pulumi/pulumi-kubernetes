@@ -10,236 +10,203 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Helm.V4
 {
     /// <summary>
-    /// Chart is a component representing a collection of resources described by an arbitrary Helm Chart.
+    /// Chart is a component representing a collection of resources described by a Helm Chart.
+    /// Helm charts are a popular packaging format for Kubernetes applications, and published
+    /// to registries such as [Artifact Hub](https://artifacthub.io/packages/search?kind=0&amp;sort=relevance&amp;page=1).
     /// 
-    /// The Helm Chart can be fetched from any source that is accessible to the `helm` command line. Values in the `values.yml` file can be overridden using `ChartOpts.values` (equivalent to `--set` or having multiple `values.yml` files). Objects can be transformed arbitrarily by supplying callbacks to `ChartOpts.transformations`.
+    /// Chart does not use Tiller or create a Helm Release; the semantics are equivalent to
+    /// running `helm template --dry-run=server` and then using Pulumi to deploy the resulting YAML manifests.
+    /// This allows you to apply [Pulumi Transformations](https://www.pulumi.com/docs/concepts/options/transformations/) and
+    /// [Pulumi Policies](https://www.pulumi.com/docs/using-pulumi/crossguard/) to the Kubernetes resources.
     /// 
-    /// The `Chart` resource renders the templates from your chart and then manage them directly with the Pulumi Kubernetes provider.
+    /// You may also want to consider the `Release` resource as an alternative method for managing helm charts. For more
+    /// information about the trade-offs between these options, see: [Choosing the right Helm resource for your use case](https://www.pulumi.com/registry/packages/kubernetes/how-to-guides/choosing-the-right-helm-resource-for-your-use-case).
     /// 
-    /// `Chart` does not use Tiller. The Chart specified is copied and expanded locally; the semantics are equivalent to running `helm template` and then using Pulumi to manage the resulting YAML manifests. Any values that would be retrieved in-cluster are assigned fake values, and none of Tiller's server-side validity testing is executed.
+    /// ### Chart Resolution
     /// 
-    /// You may also want to consider the `Release` resource as an alternative method for managing helm charts. For more information about the trade-offs between these options see: [Choosing the right Helm resource for your use case](https://www.pulumi.com/registry/packages/kubernetes/how-to-guides/choosing-the-right-helm-resource-for-your-use-case)
+    /// The Helm Chart can be fetched from any source that is accessible to the `helm` command line.
+    /// The following variations are supported:
+    /// 
+    /// 1. By chart reference with repo prefix: `chart: "example/mariadb"`
+    /// 2. By path to a packaged chart: `chart: "./nginx-1.2.3.tgz"`
+    /// 3. By path to an unpacked chart directory: `chart: "./nginx"`
+    /// 4. By absolute URL: `chart: "https://example.com/charts/nginx-1.2.3.tgz"`
+    /// 5. By chart reference with repo URL: `chart: "nginx", repositoryOpts: { repo: "https://example.com/charts/" }`
+    /// 6. By OCI registries: `chart: "oci://example.com/charts/nginx", version: "1.2.3"`
+    /// 
+    /// A chart reference is a convenient way of referencing a chart in a chart repository.
+    /// 
+    /// When you use a chart reference with a repo prefix (`example/mariadb`), Pulumi will look in Helm's local configuration
+    /// for a chart repository named `example`, and will then look for a chart in that repository whose name is `mariadb`.
+    /// It will install the latest stable version of that chart, unless you specify `devel` to also include
+    /// development versions (alpha, beta, and release candidate releases), or supply a version number with `version`.
+    /// 
+    /// Use the `verify` and optional `keyring` inputs to enable Chart verification.
+    /// By default, Pulumi uses the keyring at `$HOME/.gnupg/pubring.gpg`. See: [Helm Provenance and Integrity](https://helm.sh/docs/topics/provenance/).
+    /// 
+    /// ### Chart Values
+    /// 
+    /// [Values files](https://helm.sh/docs/chart_template_guide/values_files/#helm) (`values.yaml`) may be supplied
+    /// with the `valueYamlFiles` input, accepting [Pulumi Assets](https://www.pulumi.com/docs/concepts/assets-archives/#assets).
+    /// 
+    /// A map of chart values may also be supplied with the `values` input, with highest precedence. You're able to use literals,
+    /// nested maps, [Pulumi outputs](https://www.pulumi.com/docs/concepts/inputs-outputs/), and Pulumi assets as values.
+    /// Assets are automatically opened and converted to a string.
+    /// 
+    /// Note that the use of expressions (e.g. `service.type`) is not supported.
+    /// 
+    /// ### Chart Dependency Resolution
+    /// 
+    /// For unpacked chart directories, Pulumi automatically rebuilds the dependencies if dependencies are missing
+    /// and a `Chart.lock` file is present (see: [Helm Dependency Build](https://helm.sh/docs/helm/helm_dependency_build/)).
+    /// Use the `dependencyUpdate` input to have Pulumi update the dependencies (see: [Helm Dependency Update](https://helm.sh/docs/helm/helm_dependency_update/)).
+    /// 
+    /// ### Templating
+    /// 
+    /// The `Chart` resource renders the templates from your chart and then manages the resources directly with the
+    /// Pulumi Kubernetes provider. A default namespace is applied based on the `namespace` input, the provider's
+    /// configured namespace, and the active Kubernetes context. Use the `skipCrds` option to skip installing the
+    /// Custom Resource Definition (CRD) objects located in the chart's `crds/` special directory.
+    /// 
+    /// Use the `postRenderer` input to pipe the rendered manifest through a [post-rendering command](https://helm.sh/docs/topics/advanced/#post-rendering).
+    /// 
+    /// ### Resource Ordering
+    /// 
+    /// Sometimes resources must be applied in a specific order. For example, a namespace resource must be
+    /// created before any namespaced resources, or a Custom Resource Definition (CRD) must be pre-installed.
+    /// 
+    /// Pulumi uses heuristics to determine which order to apply and delete objects within the Chart.  Pulumi also
+    /// waits for each object to be fully reconciled, unless `skipAwait` is enabled.
+    /// 
+    /// Pulumi supports the `config.kubernetes.io/depends-on` annotation to declare an explicit dependency on a given resource.
+    /// The annotation accepts a list of resource references, delimited by commas.
+    /// 
+    /// Note that references to resources outside the Chart aren't supported.
+    /// 
+    /// **Resource reference**
+    /// 
+    /// A resource reference is a string that uniquely identifies a resource.
+    /// 
+    /// It consists of the group, kind, name, and optionally the namespace, delimited by forward slashes.
+    /// 
+    /// | Resource Scope   | Format                                         |
+    /// | :--------------- | :--------------------------------------------- |
+    /// | namespace-scoped | `&lt;group&gt;/namespaces/&lt;namespace&gt;/&lt;kind&gt;/&lt;name&gt;` |
+    /// | cluster-scoped   | `&lt;group&gt;/&lt;kind&gt;/&lt;name&gt;`                        |
+    /// 
+    /// For resources in the “core” group, the empty string is used instead (for example: `/namespaces/test/Pod/pod-a`).
     /// 
     /// ## Example Usage
     /// ### Local Chart Directory
     /// ```csharp
-    /// using System.Threading.Tasks;
     /// using Pulumi;
-    /// using Pulumi.Kubernetes.Helm;
-    /// using Pulumi.Kubernetes.Helm.V3;
-    /// 
-    /// class HelmStack : Stack
-    /// {
-    ///     public HelmStack()
-    ///     {
-    ///         var nginx = new Chart("nginx-ingress", new LocalChartArgs
-    ///         {
-    ///             Path = "./nginx-ingress",
-    ///         });
-    /// 
-    ///     }
-    /// }
-    /// ```
-    /// ### Remote Chart
-    /// ```csharp
-    /// using System.Threading.Tasks;
-    /// using Pulumi;
-    /// using Pulumi.Kubernetes.Helm;
-    /// using Pulumi.Kubernetes.Helm.V3;
-    /// 
-    /// class HelmStack : Stack
-    /// {
-    ///     public HelmStack()
-    ///     {
-    ///         var nginx = new Chart("nginx-ingress", new ChartArgs
-    ///         {
-    ///             Chart = "nginx-ingress",
-    ///             Version = "1.24.4",
-    ///             FetchOptions = new ChartFetchArgs
-    ///             {
-    ///                 Repo = "https://charts.helm.sh/stable"
-    ///             }
-    ///         });
-    /// 
-    ///     }
-    /// }
-    /// ```
-    /// ### Set Chart Values
-    /// ```csharp
+    /// using Pulumi.Kubernetes.Types.Inputs.Helm.V4;
     /// using System.Collections.Generic;
-    /// using System.Threading.Tasks;
-    /// using Pulumi;
-    /// using Pulumi.Kubernetes.Helm;
-    /// using Pulumi.Kubernetes.Helm.V3;
     /// 
-    /// class HelmStack : Stack
+    /// return await Deployment.RunAsync(() =&gt;
     /// {
-    ///     public HelmStack()
+    ///     new Pulumi.Kubernetes.Helm.V4.Chart("nginx", new ChartArgs
     ///     {
-    ///         var values = new Dictionary&lt;string, object&gt;
-    ///         {
-    ///             ["controller"] = new Dictionary&lt;string, object&gt;
-    ///             {
-    ///                 ["metrics"] = new Dictionary&lt;string, object&gt;
-    ///                 {
-    ///                     ["enabled"] = true
-    ///                 }
-    ///             },
-    ///         };
-    /// 
-    ///         var nginx = new Chart("nginx-ingress", new ChartArgs
-    ///         {
-    ///             Chart = "nginx-ingress",
-    ///             Version = "1.24.4",
-    ///             FetchOptions = new ChartFetchArgs
-    ///             {
-    ///                 Repo = "https://charts.helm.sh/stable"
-    ///             },
-    ///             Values = values,
-    ///         });
-    /// 
-    ///     }
-    /// }
+    ///         Chart = "./nginx"
+    ///     });
+    ///     return new Dictionary&lt;string, object?&gt;{};
+    /// });
     /// ```
-    /// ### Deploy Chart into Namespace
+    /// ### Repository Chart
     /// ```csharp
-    /// using System.Threading.Tasks;
     /// using Pulumi;
-    /// using Pulumi.Kubernetes.Helm;
-    /// using Pulumi.Kubernetes.Helm.V3;
-    /// 
-    /// class HelmStack : Stack
-    /// {
-    ///     public HelmStack()
-    ///     {
-    ///         var nginx = new Chart("nginx-ingress", new ChartArgs
-    ///         {
-    ///             Chart = "nginx-ingress",
-    ///             Version = "1.24.4",
-    ///             Namespace = "test-namespace",
-    ///             FetchOptions = new ChartFetchArgs
-    ///             {
-    ///                 Repo = "https://charts.helm.sh/stable"
-    ///             },
-    ///         });
-    /// 
-    ///     }
-    /// }
-    /// ```
-    /// ### Depend on a Chart resource
-    /// ```csharp
-    /// using System.Threading.Tasks;
-    /// using Pulumi;
-    /// using Pulumi.Kubernetes.Core.V1;
-    /// using Pulumi.Kubernetes.Helm;
-    /// using Pulumi.Kubernetes.Helm.V3;
-    /// 
-    /// class HelmStack : Stack
-    /// {
-    ///     public HelmStack()
-    ///     {
-    ///         var nginx = new Chart("nginx-ingress", new ChartArgs
-    ///         {
-    ///             Chart = "nginx-ingress",
-    ///             Version = "1.24.4",
-    ///             Namespace = "test-namespace",
-    ///             FetchOptions = new ChartFetchArgs
-    ///             {
-    ///                 Repo = "https://charts.helm.sh/stable"
-    ///             },
-    ///         });
-    /// 
-    ///         // Create a ConfigMap depending on the Chart. The ConfigMap will not be created until after all of the Chart
-    ///         // resources are ready. Note the use of the `Ready()` method; depending on the Chart resource directly will
-    ///         // not work.
-    ///         new ConfigMap("foo", new Pulumi.Kubernetes.Types.Inputs.Core.V1.ConfigMapArgs
-    ///         {
-    ///             Data = new InputMap&lt;string&gt;
-    ///             {
-    ///                 {"foo", "bar"}
-    ///             },
-    ///         }, new CustomResourceOptions
-    ///         {
-    ///             DependsOn = nginx.Ready(),
-    ///         });
-    /// 
-    ///     }
-    /// }
-    /// ```
-    /// ### Chart with Transformations
-    /// ```csharp
+    /// using Pulumi.Kubernetes.Types.Inputs.Helm.V4;
     /// using System.Collections.Generic;
-    /// using System.Collections.Immutable;
-    /// using System.Threading.Tasks;
-    /// using Pulumi;
-    /// using Pulumi.Kubernetes.Helm;
-    /// using Pulumi.Kubernetes.Helm.V3;
     /// 
-    /// class HelmStack : Stack
+    /// return await Deployment.RunAsync(() =&gt;
     /// {
-    ///     public HelmStack()
+    ///     new Pulumi.Kubernetes.Helm.V4.Chart("nginx", new ChartArgs
     ///     {
-    ///         var nginx = new Chart("nginx-ingress", new ChartArgs
+    ///         Chart = "nginx",
+    ///         RepositoryOpts = new RepositoryOptsArgs
     ///         {
-    ///             Chart = "nginx-ingress",
-    ///             Version = "1.24.4",
-    ///             FetchOptions = new ChartFetchArgs
+    ///             Repo = "https://charts.bitnami.com/bitnami"
+    ///         },
+    ///     });
+    ///     
+    ///     return new Dictionary&lt;string, object?&gt;{};
+    /// });
+    /// ```
+    /// ### OCI Chart
+    /// ```csharp
+    /// using Pulumi;
+    /// using Pulumi.Kubernetes.Types.Inputs.Helm.V4;
+    /// using System.Collections.Generic;
+    /// 
+    /// return await Deployment.RunAsync(() =&gt;
+    /// {
+    ///     new Pulumi.Kubernetes.Helm.V4.Chart("nginx", new ChartArgs
+    ///     {
+    ///         Chart = "oci://registry-1.docker.io/bitnamicharts/nginx",
+    ///         Version = "16.0.7",
+    ///     });
+    ///     
+    ///     return new Dictionary&lt;string, object?&gt;{};
+    /// });
+    /// ```
+    /// ### Chart Values
+    /// ```csharp
+    /// using Pulumi;
+    /// using Pulumi.Kubernetes.Types.Inputs.Helm.V4;
+    /// using System.Collections.Generic;
+    /// 
+    /// return await Deployment.RunAsync(() =&gt;
+    /// {
+    ///     new Pulumi.Kubernetes.Helm.V4.Chart("nginx", new ChartArgs
+    ///     {
+    ///         Chart = "nginx",
+    ///         RepositoryOpts = new RepositoryOptsArgs
+    ///         {
+    ///             Repo = "https://charts.bitnami.com/bitnami"
+    ///         },
+    ///         ValueYamlFiles = 
+    ///         {
+    ///             new FileAsset("./values.yaml") 
+    ///         },
+    ///         Values = new InputMap&lt;object&gt;
+    ///         {
+    ///             ["service"] = new InputMap&lt;object&gt;
     ///             {
-    ///                 Repo = "https://charts.helm.sh/stable"
+    ///                 ["type"] = "ClusterIP",
     ///             },
-    ///             Transformations =
-    ///             {
-    ///                 LoadBalancerToClusterIP,
-    ///                 ResourceAlias,
-    ///                 OmitTestPod,
-    ///             }
+    ///             ["notes"] = new FileAsset("./notes.txt")
+    ///         },
+    ///     });
+    ///     
+    ///     return new Dictionary&lt;string, object?&gt;{};
+    /// });
+    /// ```
+    /// ### Chart Namespace
+    /// ```csharp
+    /// using Pulumi;
+    /// using Pulumi.Kubernetes.Types.Inputs.Core.V1;
+    /// using Pulumi.Kubernetes.Types.Inputs.Meta.V1;
+    /// using Pulumi.Kubernetes.Types.Inputs.Helm.V4;
+    /// using System.Collections.Generic;
     /// 
-    ///         });
-    /// 
-    ///         // Make every service private to the cluster, i.e., turn all services into ClusterIP instead of LoadBalancer.
-    ///         ImmutableDictionary&lt;string, object&gt; LoadBalancerToClusterIP(ImmutableDictionary&lt;string, object&gt; obj, CustomResourceOptions opts)
+    /// return await Deployment.RunAsync(() =&gt;
+    /// {
+    ///     var ns = new Pulumi.Kubernetes.Core.V1.Namespace("nginx", new NamespaceArgs
+    ///     {
+    ///         Metadata = new ObjectMetaArgs{Name = "nginx"}
+    ///     });
+    ///     new Pulumi.Kubernetes.Helm.V4.Chart("nginx", new ChartArgs
+    ///     {
+    ///         Namespace = ns.Metadata.Apply(m =&gt; m.Name),
+    ///         Chart = "nginx",
+    ///         RepositoryOpts = new RepositoryOptsArgs
     ///         {
-    ///             if ((string)obj["kind"] == "Service" &amp;&amp; (string)obj["apiVersion"] == "v1")
-    ///             {
-    ///                 var spec = (ImmutableDictionary&lt;string, object&gt;)obj["spec"];
-    ///                 if (spec != null &amp;&amp; (string)spec["type"] == "LoadBalancer")
-    ///                 {
-    ///                     return obj.SetItem("spec", spec.SetItem("type", "ClusterIP"));
-    ///                 }
-    ///             }
-    /// 
-    ///             return obj;
-    ///         }
-    /// 
-    ///         // Set a resource alias for a previous name.
-    ///         ImmutableDictionary&lt;string, object&gt; ResourceAlias(ImmutableDictionary&lt;string, object&gt; obj, CustomResourceOptions opts)
-    ///         {
-    ///             if ((string)obj["kind"] == "Deployment")
-    ///             {
-    ///                 opts.Aliases.Add(new Alias { Name = "oldName" });
-    ///             }
-    /// 
-    ///             return obj;
-    ///         }
-    /// 
-    ///         // Omit a resource from the Chart by transforming the specified resource definition to an empty List.
-    ///         ImmutableDictionary&lt;string, object&gt; OmitTestPod(ImmutableDictionary&lt;string, object&gt; obj, CustomResourceOptions opts)
-    ///         {
-    ///             var metadata = (ImmutableDictionary&lt;string, object&gt;)obj["metadata"];
-    ///             if ((string)obj["kind"] == "Pod" &amp;&amp; (string)metadata["name"] == "test")
-    ///             {
-    ///                 return new Dictionary&lt;string, object&gt;
-    ///                 {
-    ///                     ["apiVersion"] = "v1",
-    ///                     ["kind"] = "List",
-    ///                     ["items"] = new Dictionary&lt;string, object&gt;(),
-    ///                 }.ToImmutableDictionary();
-    ///             }
-    /// 
-    ///             return obj;
-    ///         }
-    ///     }
-    /// }
+    ///             Repo = "https://charts.bitnami.com/bitnami"
+    ///         },
+    ///     });
+    ///     
+    ///     return new Dictionary&lt;string, object?&gt;{};
+    /// });
     /// ```
     /// </summary>
     [KubernetesResourceType("kubernetes:helm.sh/v4:Chart")]
@@ -328,7 +295,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Helm.V4
         /// Specification defining the Helm chart repository to use.
         /// </summary>
         [Input("repositoryOpts")]
-        public Input<Pulumi.Kubernetes.Types.Inputs.Helm.V3.RepositoryOptsArgs>? RepositoryOpts { get; set; }
+        public Input<Pulumi.Kubernetes.Types.Inputs.Helm.V4.RepositoryOptsArgs>? RepositoryOpts { get; set; }
 
         /// <summary>
         /// An optional prefix for the auto-generated resource names. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo:resourceName".

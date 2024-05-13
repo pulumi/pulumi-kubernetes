@@ -21,7 +21,6 @@ import (
 	kubehelm "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/helm"
 	providerresource "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/resource"
 	provideryamlv2 "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/yaml/v2"
-	helmv3 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v3"
 	helmv4 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v4"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/internals"
@@ -44,7 +43,7 @@ type ChartArgs struct {
 	Chart            pulumi.StringInput         `pulumi:"chart"`
 	Version          pulumi.StringInput         `pulumi:"version,optional"`
 	Devel            pulumi.BoolInput           `pulumi:"devel,optional"`
-	RepositoryOpts   helmv3.RepositoryOptsInput `pulumi:"repositoryOpts,optional"`
+	RepositoryOpts   helmv4.RepositoryOptsInput `pulumi:"repositoryOpts,optional"`
 	DependencyUpdate pulumi.BoolInput           `pulumi:"dependencyUpdate,optional"`
 	Verify           pulumi.BoolInput           `pulumi:"verify,optional"`
 	Keyring          pulumi.AssetInput          `pulumi:"keyring,optional"`
@@ -64,7 +63,7 @@ type chartArgs struct {
 	Chart            string
 	Version          string
 	Devel            bool
-	RepositoryOpts   helmv3.RepositoryOpts
+	RepositoryOpts   helmv4.RepositoryOpts
 	DependencyUpdate bool
 	Verify           bool
 	Keyring          pulumi.Asset
@@ -99,7 +98,7 @@ func unwrapChartArgs(ctx context.Context, args *ChartArgs) (*chartArgs, internal
 	r.Chart, _ = pop().(string)
 	r.Version, _ = pop().(string)
 	r.Devel, _ = pop().(bool)
-	r.RepositoryOpts, _ = pop().(helmv3.RepositoryOpts)
+	r.RepositoryOpts, _ = pop().(helmv4.RepositoryOpts)
 	r.DependencyUpdate, _ = pop().(bool)
 	r.Verify, _ = pop().(bool)
 	r.Keyring, _ = pop().(pulumi.Asset)
@@ -171,6 +170,7 @@ func (r *ChartProvider) Construct(ctx *pulumi.Context, typ, name string, inputs 
 	// Prepare the `helm template` command
 	tool := r.tool()
 	tool.HelmDriver = r.opts.HelmOptions.HelmDriver
+	p := tool.AllGetters()
 	cmd := tool.Template()
 
 	cmd.Validate = true
@@ -180,15 +180,16 @@ func (r *ChartProvider) Construct(ctx *pulumi.Context, typ, name string, inputs 
 	cmd.Chart = chartArgs.Chart
 	cmd.Version = chartArgs.Version
 	cmd.Devel = chartArgs.Devel
-	kubehelm.ApplyRepositoryOpts(&cmd.ChartPathOptions, chartArgs.RepositoryOpts)
+	if err = kubehelm.ApplyRepositoryOpts(&cmd.ChartPathOptions, p, chartArgs.RepositoryOpts); err != nil {
+		return nil, fmt.Errorf("repositoryOpts: %w", err)
+	}
 	cmd.DependencyUpdate = chartArgs.DependencyUpdate
 	cmd.Verify = chartArgs.Verify
 
 	if chartArgs.Keyring != nil {
-		p := tool.AllGetters()
 		keyring, err := kubehelm.LocateKeyring(p, chartArgs.Keyring)
 		if err != nil {
-			return nil, fmt.Errorf("locating keyring: %w", err)
+			return nil, fmt.Errorf("keyring: %w", err)
 		}
 		cmd.Keyring = keyring
 	}

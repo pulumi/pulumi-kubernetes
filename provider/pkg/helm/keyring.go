@@ -15,50 +15,12 @@
 package helm
 
 import (
-	"fmt"
-	"net/url"
-	"os"
-
-	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"helm.sh/helm/v3/pkg/getter"
 )
 
 // LocateKeyring locates a keyring file for Helm from the given asset.
 func LocateKeyring(p getter.Providers, asset pulumi.Asset) (string, error) {
-
-	makeTemp := func(data []byte) (string, error) {
-		file, err := os.CreateTemp("", "keyring")
-		if err != nil {
-			return "", err
-		}
-		defer file.Close()
-		if _, err := file.Write(data); err != nil {
-			return "", err
-		}
-		return file.Name(), err
-	}
-
-	switch {
-	case asset.Text() != "":
-		return makeTemp([]byte(asset.Text()))
-	case asset.Path() != "":
-		return asset.Path(), nil
-	case asset.URI() != "":
-		u, err := url.Parse(asset.URI())
-		if err != nil {
-			return "", err
-		}
-		g, err := p.ByScheme(u.Scheme)
-		if err != nil {
-			return "", fmt.Errorf("no protocol handler for uri %q", asset.URI())
-		}
-		data, err := g.Get(asset.URI(), getter.WithURL(asset.URI()))
-		if err != nil {
-			return "", fmt.Errorf("failed to read uri %q: %w", asset.URI(), err)
-		}
-		return makeTemp(data.Bytes())
-	default:
-		return "", errors.New("unrecognized asset type")
-	}
+	path, _, err := downloadAsset(p, asset)
+	return path, err
 }

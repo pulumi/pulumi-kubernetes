@@ -166,7 +166,7 @@ var helmV4ChartResource = pschema.ResourceSpec{
 		},
 		"repositoryOpts": {
 			TypeSpec: pschema.TypeSpec{
-				Ref: "#/types/kubernetes:helm.sh/v3:RepositoryOpts",
+				Ref: "#/types/kubernetes:helm.sh/v4:RepositoryOpts",
 			},
 			Description: "Specification defining the Helm chart repository to use.",
 		},
@@ -379,6 +379,63 @@ var helmV3RepoOpts = pschema.ComplexTypeSpec{
 			"caFile": {
 				TypeSpec: pschema.TypeSpec{
 					Type: "string",
+				},
+				Description: "The Repository's CA File",
+			},
+			"username": {
+				TypeSpec: pschema.TypeSpec{
+					Type: "string",
+				},
+				Description: "Username for HTTP basic authentication",
+			},
+			"password": {
+				TypeSpec: pschema.TypeSpec{
+					Type: "string",
+				},
+				Secret:      true,
+				Description: "Password for HTTP basic authentication",
+			},
+		},
+		Language: map[string]pschema.RawMessage{
+			"nodejs": rawMessage(map[string][]string{
+				"requiredOutputs": {
+					"repo",
+					"keyFile",
+					"certFile",
+					"caFile",
+					"username",
+					"password",
+				}}),
+		},
+		Type: "object",
+	},
+}
+
+var helmV4RepoOpts = pschema.ComplexTypeSpec{
+	ObjectTypeSpec: pschema.ObjectTypeSpec{
+		Description: "Specification defining the Helm chart repository to use.",
+		Properties: map[string]pschema.PropertySpec{
+			"repo": {
+				TypeSpec: pschema.TypeSpec{
+					Type: "string",
+				},
+				Description: "Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository.",
+			},
+			"keyFile": {
+				TypeSpec: pschema.TypeSpec{
+					Ref: "pulumi.json#/Asset",
+				},
+				Description: "The repository's cert key file",
+			},
+			"certFile": {
+				TypeSpec: pschema.TypeSpec{
+					Ref: "pulumi.json#/Asset",
+				},
+				Description: "The repository's cert file",
+			},
+			"caFile": {
+				TypeSpec: pschema.TypeSpec{
+					Ref: "pulumi.json#/Asset",
 				},
 				Description: "The Repository's CA File",
 			},
@@ -1548,6 +1605,7 @@ func init() {
 	typeOverlays["kubernetes:helm.sh/v3:RepositoryOpts"] = helmV3RepoOpts
 	typeOverlays["kubernetes:helm.sh/v3:ReleaseStatus"] = helmV3ReleaseStatus
 	typeOverlays["kubernetes:helm.sh/v4:PostRenderer"] = helmV4PostRenderer
+	typeOverlays["kubernetes:helm.sh/v4:RepositoryOpts"] = helmV4RepoOpts
 	typeOverlays["kubernetes:index:KubeClientSettings"] = kubeClientSettings
 	typeOverlays["kubernetes:index:HelmReleaseSettings"] = helmReleaseSettings
 
