@@ -64,7 +64,6 @@ func NewDynamicClientSet(clientConfig *rest.Config) (*DynamicClientSet, error) {
 			GenericClient:         nil,
 			DiscoveryClientCached: nil,
 			RESTMapper:            nil,
-			CRDCache:              &crdCache{},
 		}, nil
 	}
 
@@ -88,7 +87,6 @@ func NewDynamicClientSet(clientConfig *rest.Config) (*DynamicClientSet, error) {
 		GenericClient:         client,
 		DiscoveryClientCached: discoCacheClient,
 		RESTMapper:            mapper,
-		CRDCache:              &crdCache{},
 	}, nil
 }
 

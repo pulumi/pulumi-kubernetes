@@ -19,7 +19,6 @@ import (
 	"reflect"
 	"time"
 
-	"github.com/pkg/errors"
 	"github.com/pulumi/cloud-ready-checks/pkg/checker/logging"
 	checkpod "github.com/pulumi/cloud-ready-checks/pkg/kubernetes/pod"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/informers"
@@ -510,16 +509,16 @@ func (sia *statefulsetInitAwaiter) makeClients() (
 	statefulSetClient, err = clients.ResourceClient(
 		kinds.StatefulSet, sia.config.currentOutputs.GetNamespace(), sia.config.clientSet)
 	if err != nil {
-		return nil, nil, errors.Wrapf(err,
-			"Could not make client to watch StatefulSet %q",
-			sia.config.currentOutputs.GetName())
+		return nil, nil, fmt.Errorf("Could not make client to watch StatefulSet %q: %w",
+			sia.config.currentOutputs.GetName(), err)
+
 	}
 	podClient, err = clients.ResourceClient(
 		kinds.Pod, sia.config.currentOutputs.GetNamespace(), sia.config.clientSet)
 	if err != nil {
-		return nil, nil, errors.Wrapf(err,
-			"Could not make client to watch Pods associated with StatefulSet %q",
-			sia.config.currentOutputs.GetName())
+		return nil, nil, fmt.Errorf("Could not make client to watch Pods associated with StatefulSet %q: %w",
+			sia.config.currentOutputs.GetName(), err)
+
 	}
 
 	return statefulSetClient, podClient, nil

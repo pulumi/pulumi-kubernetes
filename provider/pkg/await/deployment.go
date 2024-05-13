@@ -19,7 +19,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/pkg/errors"
 	checkerlog "github.com/pulumi/cloud-ready-checks/pkg/checker/logging"
 	checkpod "github.com/pulumi/cloud-ready-checks/pkg/kubernetes/pod"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/informers"
@@ -915,29 +914,33 @@ func (dia *deploymentInitAwaiter) makeClients() (
 	deploymentClient, err = clients.ResourceClient(
 		kinds.Deployment, dia.config.currentOutputs.GetNamespace(), dia.config.clientSet)
 	if err != nil {
-		err = errors.Wrapf(err, "Could not make client to watch Deployment %q",
-			dia.config.currentOutputs.GetName())
+		err = fmt.Errorf("Could not make client to watch Deployment %q: %w",
+			dia.config.currentOutputs.GetName(), err)
+
 		return nil, nil, nil, nil, err
 	}
 	replicaSetClient, err = clients.ResourceClient(
 		kinds.ReplicaSet, dia.config.currentOutputs.GetNamespace(), dia.config.clientSet)
 	if err != nil {
-		err = errors.Wrapf(err, "Could not make client to watch ReplicaSets associated with Deployment %q",
-			dia.config.currentOutputs.GetName())
+		err = fmt.Errorf("Could not make client to watch ReplicaSets associated with Deployment %q: %w",
+			dia.config.currentOutputs.GetName(), err)
+
 		return nil, nil, nil, nil, err
 	}
 	podClient, err = clients.ResourceClient(
 		kinds.Pod, dia.config.currentOutputs.GetNamespace(), dia.config.clientSet)
 	if err != nil {
-		err = errors.Wrapf(err, "Could not make client to watch Pods associated with Deployment %q",
-			dia.config.currentOutputs.GetName())
+		err = fmt.Errorf("Could not make client to watch Pods associated with Deployment %q: %w",
+			dia.config.currentOutputs.GetName(), err)
+
 		return nil, nil, nil, nil, err
 	}
 	pvcClient, err = clients.ResourceClient(
 		kinds.PersistentVolumeClaim, dia.config.currentOutputs.GetNamespace(), dia.config.clientSet)
 	if err != nil {
-		err = errors.Wrapf(err, "Could not make client to watch PVCs associated with Deployment %q",
-			dia.config.currentOutputs.GetName())
+		err = fmt.Errorf("Could not make client to watch PVCs associated with Deployment %q: %w",
+			dia.config.currentOutputs.GetName(), err)
+
 		return nil, nil, nil, nil, err
 	}
 

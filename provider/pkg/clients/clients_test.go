@@ -111,7 +111,6 @@ func TestIsNamespacedKind(t *testing.T) {
 						FakedServerVersion: &version,
 					},
 				},
-				CRDCache: &crdCache{},
 			}
 			for _, crd := range tt.cached {
 				crd := crd

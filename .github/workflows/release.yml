@@ -47,12 +47,10 @@ jobs:
       uses: actions/checkout@v4
       with:
         lfs: true
-    - name: Checkout Scripts Repo
-      uses: actions/checkout@v4
+    - name: Set Provider Version
+      uses: pulumi/provider-version-action@v1
       with:
-        path: ci-scripts
-        repository: pulumi/scripts
-    - run: echo "ci-scripts" >> .git/info/exclude
+        set-env: PROVIDER_VERSION
     - name: Unshallow clone for tags
       run: git fetch --prune --unshallow --tags
     - name: Install Go
@@ -106,7 +104,7 @@ jobs:
         number: ${{ github.event.issue.number }}
         github_token: ${{ secrets.GITHUB_TOKEN }}
     - name: Check worktree clean
-      run: ./ci-scripts/ci/check-worktree-is-clean
+      uses: pulumi/git-status-check-action@v1
     - run: git status --porcelain
     - name: Tar provider binaries
       run: tar -zcf ${{ github.workspace }}/bin/provider.tar.gz -C ${{
@@ -148,12 +146,10 @@ jobs:
       uses: actions/checkout@v4
       with:
         lfs: true
-    - name: Checkout Scripts Repo
-      uses: actions/checkout@v4
+    - name: Set Provider Version
+      uses: pulumi/provider-version-action@v1
       with:
-        path: ci-scripts
-        repository: pulumi/scripts
-    - run: echo "ci-scripts" >> .git/info/exclude
+        set-env: PROVIDER_VERSION
     - name: Unshallow clone for tags
       run: git fetch --prune --unshallow --tags
     - name: Install Go
@@ -204,7 +200,7 @@ jobs:
     - name: Generate SDK
       run: make ${{ matrix.language }}_sdk
     - name: Check worktree clean
-      run: ./ci-scripts/ci/check-worktree-is-clean
+      uses: pulumi/git-status-check-action@v1
     - run: git status --porcelain
     - name: Tar SDK folder
       run: tar -zcf sdk/${{ matrix.language }}.tar.gz -C sdk/${{ matrix.language }} .
@@ -243,12 +239,10 @@ jobs:
       uses: actions/checkout@v4
       with:
         lfs: true
-    - name: Checkout Scripts Repo
-      uses: actions/checkout@v4
+    - name: Set Provider Version
+      uses: pulumi/provider-version-action@v1
       with:
-        path: ci-scripts
-        repository: pulumi/scripts
-    - run: echo "ci-scripts" >> .git/info/exclude
+        set-env: PROVIDER_VERSION
     - name: Unshallow clone for tags
       run: git fetch --prune --unshallow --tags
     - name: Install Go
@@ -383,6 +377,10 @@ jobs:
       uses: actions/checkout@v4
       with:
         lfs: true
+    - name: Set Provider Version
+      uses: pulumi/provider-version-action@v1
+      with:
+        set-env: PROVIDER_VERSION
     - name: Unshallow clone for tags
       run: git fetch --prune --unshallow --tags
     - name: Install Go
@@ -439,6 +437,10 @@ jobs:
       uses: actions/checkout@v4
       with:
         lfs: true
+    - name: Set Provider Version
+      uses: pulumi/provider-version-action@v1
+      with:
+        set-env: PROVIDER_VERSION
     - name: Checkout Scripts Repo
       uses: actions/checkout@v4
       with:
@@ -519,12 +521,10 @@ jobs:
       uses: actions/checkout@v4
       with:
         lfs: true
-    - name: Checkout Scripts Repo
-      uses: actions/checkout@v4
+    - name: Set Provider Version
+      uses: pulumi/provider-version-action@v1
       with:
-        path: ci-scripts
-        repository: pulumi/scripts
-    - run: echo "ci-scripts" >> .git/info/exclude
+        set-env: PROVIDER_VERSION
     - name: Unshallow clone for tags
       run: git fetch --prune --unshallow --tags
     - name: Install Go
@@ -573,6 +573,10 @@ jobs:
       uses: actions/checkout@v4
       with:
         lfs: true
+    - name: Set Provider Version
+      uses: pulumi/provider-version-action@v1
+      with:
+        set-env: PROVIDER_VERSION
     - name: Install pulumictl
       uses: jaxxstorm/action-install-gh-release@v1.11.0
       with:

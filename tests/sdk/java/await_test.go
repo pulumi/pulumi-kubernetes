@@ -12,11 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package provider
+package test
 
 import (
 	"context"
-	"path/filepath"
 	"testing"
 
 	"github.com/pulumi/providertest/pulumitest"
@@ -26,11 +25,8 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestAwaitDaemonSetE2E(t *testing.T) {
+func TestAwaitDaemonSet(t *testing.T) {
 	t.Parallel()
-
-	bin, err := filepath.Abs("../../bin/")
-	require.NoError(t, err)
 
 	assertReady := func(t *testing.T, outputs auto.OutputMap) {
 		cns, ok := outputs["currentNumberScheduled"]
@@ -52,9 +48,8 @@ func TestAwaitDaemonSetE2E(t *testing.T) {
 	}
 
 	test := pulumitest.NewPulumiTest(t,
-		"await_daemonset",
+		"testdata/await/daemonset",
 		opttest.SkipInstall(),
-		opttest.AttachProviderBinary("kubernetes", bin),
 	)
 	t.Cleanup(func() {
 		test.Destroy()
@@ -68,12 +63,12 @@ func TestAwaitDaemonSetE2E(t *testing.T) {
 	test.Refresh() // Exercise read-await logic.
 
 	// Update the DS to use a different but valid image tag.
-	test.UpdateSource("await_daemonset/step2")
+	test.UpdateSource("testdata/await/daemonset/step2")
 	up = test.Up()
 	assertReady(t, up.Outputs)
 
 	// Update the DS to use an invalid image tag. It should never become ready.
-	test.UpdateSource("await_daemonset/step3")
-	_, err = test.CurrentStack().Up(context.Background())
+	test.UpdateSource("testdata/await/daemonset/step3")
+	_, err := test.CurrentStack().Up(context.Background())
 	assert.ErrorContains(t, err, `the Kubernetes API server reported that "default/await-daemonset" failed to fully initialize or become live: timed out waiting for the condition`)
 }
