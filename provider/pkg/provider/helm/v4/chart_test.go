@@ -19,9 +19,9 @@ import (
 	"os/exec"
 	"path/filepath"
 
-	. "github.com/onsi/ginkgo/v2"
-	. "github.com/onsi/gomega"
-	. "github.com/onsi/gomega/gstruct"
+	. "github.com/onsi/ginkgo/v2"      //nolint:golint // dot-imports
+	. "github.com/onsi/gomega"         //nolint:golint // dot-imports
+	. "github.com/onsi/gomega/gstruct" //nolint:golint // dot-imports
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients/fake"
 	kubehelm "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/helm"
 	providerresource "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/resource"
