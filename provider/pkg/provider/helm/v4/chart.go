@@ -246,7 +246,10 @@ func (r *ChartProvider) Construct(ctx *pulumi.Context, typ, name string, inputs 
 		ResourcePrefix:  *chartArgs.ResourcePrefix,
 		SkipAwait:       chartArgs.SkipAwait,
 		ResourceOptions: []pulumi.ResourceOption{pulumi.Parent(comp)},
-		PreRegisterF:    preregister,
+		PreRegisterF: func(ctx *pulumi.Context, apiVersion, kind, resourceName string, obj *unstructured.Unstructured,
+			resourceOpts []pulumi.ResourceOption) (*unstructured.Unstructured, []pulumi.ResourceOption) {
+			return preregister(ctx, comp, obj, resourceOpts)
+		},
 	}
 	resources, err := provideryamlv2.Register(ctx, registerOpts)
 	if err != nil {
@@ -257,7 +260,7 @@ func (r *ChartProvider) Construct(ctx *pulumi.Context, typ, name string, inputs 
 	return pulumiprovider.NewConstructResult(comp)
 }
 
-func preregister(ctx *pulumi.Context, apiVersion, kind, resourceName string, obj *unstructured.Unstructured,
+func preregister(ctx *pulumi.Context, comp *ChartState, obj *unstructured.Unstructured,
 	resourceOpts []pulumi.ResourceOption) (*unstructured.Unstructured, []pulumi.ResourceOption) {
 
 	// Implement support for Helm resource policies.
@@ -267,6 +270,10 @@ func preregister(ctx *pulumi.Context, apiVersion, kind, resourceName string, obj
 		switch policy {
 		case helmkube.KeepPolicy:
 			resourceOpts = append(resourceOpts, pulumi.RetainOnDelete(true))
+		default:
+			_ = ctx.Log.Warn(fmt.Sprintf("Unsupported Helm resource policy %q", policy), &pulumi.LogArgs{
+				Resource: comp,
+			})
 		}
 	}
 
