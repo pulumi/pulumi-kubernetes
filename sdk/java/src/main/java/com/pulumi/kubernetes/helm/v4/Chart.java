@@ -37,7 +37,7 @@ import javax.annotation.Nullable;
  * 3. By path to an unpacked chart directory: `chart: &#34;./nginx&#34;`
  * 4. By absolute URL: `chart: &#34;https://example.com/charts/nginx-1.2.3.tgz&#34;`
  * 5. By chart reference with repo URL: `chart: &#34;nginx&#34;, repositoryOpts: { repo: &#34;https://example.com/charts/&#34; }`
- * 6. By OCI registries: `chart: &#34;oci://example.com/charts/nginx&#34;, version: &#34;1.2.3&#34;`
+ * 6. By OCI registry: `chart: &#34;oci://example.com/charts/nginx&#34;, version: &#34;1.2.3&#34;`
  * 
  * A chart reference is a convenient way of referencing a chart in a chart repository.
  * 
@@ -58,7 +58,7 @@ import javax.annotation.Nullable;
  * nested maps, [Pulumi outputs](https://www.pulumi.com/docs/concepts/inputs-outputs/), and Pulumi assets as values.
  * Assets are automatically opened and converted to a string.
  * 
- * Note that the use of expressions (e.g. `service.type`) is not supported.
+ * Note that the use of expressions (e.g. `--set service.type`) is not supported.
  * 
  * ### Chart Dependency Resolution
  * 
