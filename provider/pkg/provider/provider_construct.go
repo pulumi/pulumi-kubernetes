@@ -18,8 +18,10 @@ import (
 	"context"
 	"fmt"
 
+	providerhelmv4 "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/helm/v4"
 	providerresource "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/resource"
 	provideryamlv2 "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/yaml/v2"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 	pulumiprovider "github.com/pulumi/pulumi/sdk/v3/go/pulumi/provider"
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
 )
@@ -28,6 +30,7 @@ import (
 var resourceProviders = map[string]providerresource.ResourceProviderFactory{
 	"kubernetes:yaml/v2:ConfigFile":  provideryamlv2.NewConfigFileProvider,
 	"kubernetes:yaml/v2:ConfigGroup": provideryamlv2.NewConfigGroupProvider,
+	"kubernetes:helm.sh/v4:Chart":    providerhelmv4.NewChartProvider,
 }
 
 // getResourceProvider returns the resource provider for the given type, if a factory for one is registered.
@@ -36,15 +39,29 @@ func (k *kubeProvider) getResourceProvider(typ string) (providerresource.Resourc
 	if !found {
 		return nil, false
 	}
+
 	options := &providerresource.ResourceProviderOptions{
 		ClientSet:        k.clientSet,
 		DefaultNamespace: k.defaultNamespace,
+		HelmOptions: &providerresource.HelmOptions{
+			SuppressHelmHookWarnings: k.suppressHelmHookWarnings,
+			HelmDriver:               k.helmDriver,
+			EnvSettings:              k.helmSettings,
+		},
 	}
 	return providerF(options), true
 }
 
 // Construct creates a new instance of the provided component resource and returns its state.
 func (k *kubeProvider) Construct(ctx context.Context, req *pulumirpc.ConstructRequest) (*pulumirpc.ConstructResponse, error) {
+
+	if k.clusterUnreachable {
+		return nil, fmt.Errorf("configured Kubernetes cluster is unreachable: %s", k.clusterUnreachableReason)
+	}
+	contract.Assertf(k.defaultNamespace != "", "expected defaultNamespace")
+	contract.Assertf(k.helmDriver != "", "expected helmDriver")
+	contract.Assertf(k.helmSettings != nil, "expected helmSettings")
+
 	typ := req.GetType()
 	provider, found := k.getResourceProvider(typ)
 	if !found {

@@ -1,0 +1,5 @@
+capabilities:
+{{ toYaml .Capabilities | nindent 2 }}
+
+values:
+{{ toYaml .Values | nindent 2 }}

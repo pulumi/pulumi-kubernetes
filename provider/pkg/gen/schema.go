@@ -222,6 +222,7 @@ func PulumiSchema(swagger map[string]any) pschema.PackageSpec {
 		"apiextensions": "ApiExtensions",
 		"helm.sh/v2":    "Helm.V2",
 		"helm.sh/v3":    "Helm.V3",
+		"helm.sh/v4":    "Helm.V4",
 		"yaml":          "Yaml",
 		"yaml/v2":       "Yaml.V2",
 		"":              "Provider",
@@ -229,6 +230,7 @@ func PulumiSchema(swagger map[string]any) pschema.PackageSpec {
 	javaPackages := map[string]string{
 		"helm.sh/v2": "helm.v2",
 		"helm.sh/v3": "helm.v3",
+		"helm.sh/v4": "helm.v4",
 		"yaml/v2":    "yaml.v2",
 	}
 	modToPkg := map[string]string{
@@ -236,9 +238,11 @@ func PulumiSchema(swagger map[string]any) pschema.PackageSpec {
 		"helm.sh":              "helm",
 		"helm.sh/v2":           "helm/v2",
 		"helm.sh/v3":           "helm/v3",
+		"helm.sh/v4":           "helm/v4",
 	}
 	pkgImportAliases := map[string]string{
 		"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v3": "helmv3",
+		"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v4": "helmv4",
 		"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/yaml/v2": "yamlv2",
 	}
 

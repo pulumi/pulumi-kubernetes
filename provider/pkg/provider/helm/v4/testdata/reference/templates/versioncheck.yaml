@@ -1,0 +1,5 @@
+{{- if .Values.versionCheck -}}
+{{- if semverCompare .Values.versionCheck .Capabilities.KubeVersion.GitVersion -}}
+{{ fail "Version check failed" }}
+{{- end }}
+{{- end }}

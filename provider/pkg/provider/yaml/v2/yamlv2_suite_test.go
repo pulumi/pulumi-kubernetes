@@ -29,7 +29,7 @@ import (
 	"google.golang.org/grpc"
 )
 
-func TestV2(t *testing.T) {
+func TestYamlV2(t *testing.T) {
 	RegisterFailHandler(Fail)
 	RunSpecs(t, "provider/pkg/provider/yaml/v2")
 }

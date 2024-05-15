@@ -17,13 +17,17 @@ package provider
 import (
 	"context"
 	_ "embed"
+	"encoding/json"
 	"os"
 
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
+	. "github.com/onsi/gomega/gstruct"
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
 	kubeversion "k8s.io/apimachinery/pkg/version"
+	"k8s.io/cli-runtime/pkg/genericclioptions"
 	clientcmdapi "k8s.io/client-go/tools/clientcmd/api"
+	"k8s.io/utils/ptr"
 )
 
 var _ = Describe("RPC:Configure", func() {
@@ -89,6 +93,21 @@ var _ = Describe("RPC:Configure", func() {
 		})
 	})
 
+	Describe("Namespacing", func() {
+		Context("when configured to use a particular namespace", func() {
+			JustBeforeEach(func() {
+				req.Variables["kubernetes:config:namespace"] = "pulumi"
+			})
+			It("should use the configured namespace as the default namespace", func() {
+				_, err := k.Configure(context.Background(), req)
+				Expect(err).ShouldNot(HaveOccurred())
+				Expect(k.defaultNamespace).To(Equal("pulumi"))
+				helmFlags := k.helmSettings.RESTClientGetter().(*genericclioptions.ConfigFlags)
+				Expect(helmFlags.Namespace).To(PointTo(Equal("pulumi")))
+			})
+		})
+	})
+
 	Describe("Kubeconfig Parsing", func() {
 		var other *clientcmdapi.Config
 
@@ -100,18 +119,7 @@ var _ = Describe("RPC:Configure", func() {
 		// Define some "shared behaviors" that will be used to test various use cases.
 		// pattern: https://onsi.github.io/ginkgo/#shared-behaviors
 
-		commonChecks := func() {
-			Context("when configured to use a particular namespace", func() {
-				JustBeforeEach(func() {
-					req.Variables["kubernetes:config:namespace"] = "pulumi"
-				})
-				It("should use the configured namespace as the default namespace", func() {
-					_, err := k.Configure(context.Background(), req)
-					Expect(err).ShouldNot(HaveOccurred())
-					Expect(k.defaultNamespace).To(Equal("pulumi"))
-				})
-			})
-		}
+		commonChecks := func() {}
 
 		connectedChecks := func(expectedNS string) {
 			It("should have an initialized client", func() {
@@ -127,6 +135,12 @@ var _ = Describe("RPC:Configure", func() {
 				_, err := k.Configure(context.Background(), req)
 				Expect(err).ShouldNot(HaveOccurred())
 				Expect(k.defaultNamespace).To(Equal(expectedNS))
+			})
+
+			It("should provide Helm settings", func() {
+				_, err := k.Configure(context.Background(), req)
+				Expect(err).ShouldNot(HaveOccurred())
+				Expect(k.helmSettings).ToNot(BeNil())
 			})
 		}
 
@@ -160,6 +174,12 @@ var _ = Describe("RPC:Configure", func() {
 				})
 				commonChecks()
 				connectedChecks("other")
+
+				It("should set Helm's --kubeconfig", func() {
+					_, err := k.Configure(context.Background(), req)
+					Expect(err).ShouldNot(HaveOccurred())
+					Expect(k.helmSettings.KubeConfig).ToNot(BeEmpty())
+				})
 			})
 		})
 
@@ -195,6 +215,92 @@ var _ = Describe("RPC:Configure", func() {
 				})
 				commonChecks()
 				connectedChecks("other")
+
+				It("should set Helm's --kubeconfig", func() {
+					_, err := k.Configure(context.Background(), req)
+					Expect(err).ShouldNot(HaveOccurred())
+					Expect(k.helmSettings.KubeConfig).ToNot(BeEmpty())
+				})
+			})
+		})
+	})
+
+	Describe("Kube Context", func() {
+		Context("when configured to use a particular context", func() {
+			JustBeforeEach(func() {
+				req.Variables["kubernetes:config:context"] = "context2"
+			})
+			It("should use the configured context", func() {
+				_, err := k.Configure(context.Background(), req)
+				Expect(err).ShouldNot(HaveOccurred())
+				Expect(k.helmSettings.KubeContext).To(Equal("context2"))
+			})
+		})
+	})
+
+	Describe("Kube Cluster", func() {
+		Context("when configured to use a particular cluster", func() {
+			JustBeforeEach(func() {
+				req.Variables["kubernetes:config:cluster"] = "cluster2"
+			})
+			It("should use the configured context", func() {
+				_, err := k.Configure(context.Background(), req)
+				Expect(err).ShouldNot(HaveOccurred())
+				helmFlags := k.helmSettings.RESTClientGetter().(*genericclioptions.ConfigFlags)
+				Expect(helmFlags.ClusterName).To(PointTo(Equal("cluster2")))
+			})
+		})
+	})
+
+	Describe("Kube Client Settings", func() {
+		Context("when configured with Kube client settings", func() {
+			var kubeClientSettings *KubeClientSettings
+			BeforeEach(func() {
+				kubeClientSettings = &KubeClientSettings{
+					Burst:   ptr.To(42),
+					QPS:     ptr.To(42.),
+					Timeout: ptr.To(42),
+				}
+			})
+			JustBeforeEach(func() {
+				data, _ := json.Marshal(kubeClientSettings)
+				req.Variables["kubernetes:config:kubeClientSettings"] = string(data)
+			})
+			It("should use the configured settings", func() {
+				_, err := k.Configure(context.Background(), req)
+				Expect(err).ShouldNot(HaveOccurred())
+				helmFlags := k.helmSettings.RESTClientGetter().(*genericclioptions.ConfigFlags)
+				Expect(k.helmSettings.BurstLimit).To(Equal(42))
+				Expect(k.helmSettings.QPS).To(Equal(float32(42.)))
+				Expect(helmFlags.Timeout).To(PointTo(Equal("42")))
+			})
+		})
+	})
+
+	Describe("Helm Release Settings", func() {
+		Context("given helmReleaseSettings", func() {
+			var helmReleaseSettings *HelmReleaseSettings
+			BeforeEach(func() {
+				helmReleaseSettings = &HelmReleaseSettings{
+					Driver:               ptr.To("configmap"),
+					PluginsPath:          ptr.To("plugins"),
+					RegistryConfigPath:   ptr.To("registry"),
+					RepositoryCache:      ptr.To("cache"),
+					RepositoryConfigPath: ptr.To("config"),
+				}
+			})
+			JustBeforeEach(func() {
+				data, _ := json.Marshal(helmReleaseSettings)
+				req.Variables["kubernetes:config:helmReleaseSettings"] = string(data)
+			})
+			It("should use the configured settings", func() {
+				_, err := k.Configure(context.Background(), req)
+				Expect(err).ShouldNot(HaveOccurred())
+				Expect(k.helmDriver).To(Equal("configmap"))
+				Expect(k.helmSettings.PluginsDirectory).To(Equal("plugins"))
+				Expect(k.helmSettings.RegistryConfig).To(Equal("registry"))
+				Expect(k.helmSettings.RepositoryCache).To(Equal("cache"))
+				Expect(k.helmSettings.RepositoryConfig).To(Equal("config"))
 			})
 		})
 	})
