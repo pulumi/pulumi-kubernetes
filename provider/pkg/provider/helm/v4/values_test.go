@@ -147,6 +147,7 @@ image:
 			p := getter.All(cli.New())
 			opts, cleanup, err := readValues(p, tt.values, tt.valuesFiles)
 			defer cleanup()
+			require.NoError(t, err)
 
 			actual, err := opts.MergeValues(p)
 			require.NoError(t, err)
