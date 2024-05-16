@@ -790,7 +790,12 @@ func Deletion(c DeleteConfig) error {
 		return nilIfGVKDeleted(err)
 	}
 
-	err = deleteResource(c.Context, c.Name, client)
+	// delete the specified resource (using foreground cascading delete by default).
+	deletePolicy := metadata.DeletionPropagation(c.Inputs)
+	deleteOpts := metav1.DeleteOptions{
+		PropagationPolicy: &deletePolicy,
+	}
+	err = client.Delete(c.Context, c.Name, deleteOpts)
 	if err != nil {
 		return nilIfGVKDeleted(err)
 	}
@@ -878,16 +883,6 @@ func Deletion(c DeleteConfig) error {
 	}
 
 	return nil
-}
-
-// deleteResource deletes the specified resource using foreground cascading delete.
-func deleteResource(ctx context.Context, name string, client dynamic.ResourceInterface) error {
-	fg := metav1.DeletePropagationForeground
-	deleteOpts := metav1.DeleteOptions{
-		PropagationPolicy: &fg,
-	}
-
-	return client.Delete(ctx, name, deleteOpts)
 }
 
 // checkIfResourceDeleted attempts to get a k8s resource, and returns true if the resource is not found (was deleted).
