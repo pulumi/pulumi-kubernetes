@@ -35,6 +35,7 @@ import (
 	"helm.sh/helm/v3/pkg/chart/loader"
 	"helm.sh/helm/v3/pkg/chartutil"
 	"helm.sh/helm/v3/pkg/cli"
+	"helm.sh/helm/v3/pkg/cli/values"
 	"helm.sh/helm/v3/pkg/downloader"
 	"helm.sh/helm/v3/pkg/getter"
 	"helm.sh/helm/v3/pkg/registry"
@@ -98,7 +99,7 @@ type TemplateOrInstallCommand struct {
 	Chart string
 
 	// Values to be applied to the chart.
-	Values ValueOpts
+	Values values.Options
 
 	tool         *Tool
 	actionConfig *action.Configuration
@@ -130,15 +131,7 @@ func (cmd *TemplateOrInstallCommand) addInstallFlags() {
 	client.SubNotes = false
 	client.Labels = nil
 	client.EnableDNS = false
-	cmd.addValueOptionsFlags()
 	cmd.addChartPathOptionsFlags()
-}
-
-func (cmd *TemplateOrInstallCommand) addValueOptionsFlags() {
-	// https://github.com/helm/helm/blob/14d0c13e9eefff5b4a1b511cf50643529692ec94/cmd/helm/flags.go#L45-L51
-	v := cmd.Values
-	v.Values = map[string]any{}
-	v.ValuesFiles = []pulumi.Asset{}
 }
 
 func (cmd *TemplateOrInstallCommand) addChartPathOptionsFlags() {
@@ -180,7 +173,6 @@ func (t *Tool) Template() *TemplateCommand {
 			tool:         t,
 			actionConfig: actionConfig,
 			Install:      action.NewInstall(actionConfig),
-			Values:       ValueOpts{},
 		},
 	}
 
@@ -472,7 +464,6 @@ type cleanupF func() error
 
 // downloadAsset downloads an asset to the local filesystem.
 func downloadAsset(p getter.Providers, asset pulumi.AssetOrArchive) (string, cleanupF, error) {
-
 	a, isAsset := asset.(pulumi.Asset)
 	if !isAsset {
 		return "", nil, errors.New("expected an asset")

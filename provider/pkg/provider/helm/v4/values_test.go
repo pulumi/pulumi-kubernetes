@@ -12,16 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package helm
+package v4
 
 import (
 	"bytes"
 	"os"
+	"path/filepath"
 	"testing"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"helm.sh/helm/v3/pkg/cli"
 	"helm.sh/helm/v3/pkg/getter"
 )
 
@@ -37,7 +39,6 @@ func (m *mockGetter) Get(url string, options ...getter.Option) (*bytes.Buffer, e
 }
 
 func TestMergeValues(t *testing.T) {
-
 	bitnamiImage := `
 image:
   repository: bitnami/nginx
@@ -121,7 +122,7 @@ image:
 			},
 			want: map[string]interface{}{
 				"configuration": map[string]any{
-					"backupStorageLocation": []map[string]any{},
+					"backupStorageLocation": []any{},
 				},
 			},
 		},
@@ -143,12 +144,11 @@ image:
 	for _, tt := range tests {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
-			merger := &ValueOpts{
-				ValuesFiles: tt.valuesFiles,
-				Values:      tt.values,
-			}
+			p := getter.All(cli.New())
+			opts, cleanup, err := readValues(p, tt.values, tt.valuesFiles)
+			defer cleanup()
 
-			actual, err := merger.MergeValues(getter.Providers{})
+			actual, err := opts.MergeValues(p)
 			require.NoError(t, err)
 			assert.Equal(t, tt.want, actual)
 		})
@@ -156,17 +156,16 @@ image:
 }
 
 func TestReadAsset(t *testing.T) {
-
 	bitnamiImage := `
 image:
   repository: bitnami/nginx
   tag: latest
 `
-	bitnamiImageFile, err := os.CreateTemp("", "pulumi-TestReadAsset-*.yaml")
+
+	tmp := t.TempDir()
+	fname := filepath.Join(tmp, "bitnami.yaml")
+	err := os.WriteFile(fname, []byte(bitnamiImage), 0o600)
 	require.NoError(t, err)
-	_, _ = bitnamiImageFile.WriteString(bitnamiImage)
-	_ = bitnamiImageFile.Close()
-	defer os.Remove(bitnamiImageFile.Name())
 
 	tests := []struct {
 		name       string
@@ -182,7 +181,7 @@ image:
 		},
 		{
 			name:  "file asset",
-			asset: pulumi.NewFileAsset(bitnamiImageFile.Name()),
+			asset: pulumi.NewFileAsset(fname),
 			want:  []byte(bitnamiImage),
 		},
 		{

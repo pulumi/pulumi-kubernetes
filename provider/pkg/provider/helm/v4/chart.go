@@ -194,8 +194,12 @@ func (r *ChartProvider) Construct(ctx *pulumi.Context, typ, name string, inputs 
 		cmd.Keyring = keyring
 	}
 
-	cmd.Values.Values = chartArgs.Values
-	cmd.Values.ValuesFiles = chartArgs.ValuesFiles
+	valueOpts, cleanup, err := readValues(p, chartArgs.Values, chartArgs.ValuesFiles)
+	defer cleanup()
+	if err != nil {
+		return nil, err
+	}
+	cmd.Values = valueOpts
 	cmd.IncludeCRDs = !chartArgs.SkipCrds
 	cmd.DisableHooks = true
 	cmd.ReleaseName = chartArgs.Name
@@ -247,7 +251,8 @@ func (r *ChartProvider) Construct(ctx *pulumi.Context, typ, name string, inputs 
 		SkipAwait:       chartArgs.SkipAwait,
 		ResourceOptions: []pulumi.ResourceOption{pulumi.Parent(comp)},
 		PreRegisterF: func(ctx *pulumi.Context, apiVersion, kind, resourceName string, obj *unstructured.Unstructured,
-			resourceOpts []pulumi.ResourceOption) (*unstructured.Unstructured, []pulumi.ResourceOption) {
+			resourceOpts []pulumi.ResourceOption,
+		) (*unstructured.Unstructured, []pulumi.ResourceOption) {
 			return preregister(ctx, comp, obj, resourceOpts)
 		},
 	}
@@ -261,8 +266,8 @@ func (r *ChartProvider) Construct(ctx *pulumi.Context, typ, name string, inputs 
 }
 
 func preregister(ctx *pulumi.Context, comp *ChartState, obj *unstructured.Unstructured,
-	resourceOpts []pulumi.ResourceOption) (*unstructured.Unstructured, []pulumi.ResourceOption) {
-
+	resourceOpts []pulumi.ResourceOption,
+) (*unstructured.Unstructured, []pulumi.ResourceOption) {
 	// Implement support for Helm resource policies.
 	// https://helm.sh/docs/howto/charts_tips_and_tricks/#tell-helm-not-to-uninstall-a-resource
 	policy, hasPolicy, err := unstructured.NestedString(obj.Object, "metadata", "annotations", helmkube.ResourcePolicyAnno)
