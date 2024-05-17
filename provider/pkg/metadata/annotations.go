@@ -35,7 +35,7 @@ const (
 	AnnotationPatchForce        = AnnotationPrefix + "patchForce"
 	AnnotationPatchFieldManager = AnnotationPrefix + "patchFieldManager"
 
-	AnnotationDeletionPropagation = AnnotationPrefix + "deletionPropagation"
+	AnnotationDeletionPropagation = AnnotationPrefix + "deletionPropagationPolicy"
 
 	AnnotationHelmHook = "helm.sh/hook"
 )
