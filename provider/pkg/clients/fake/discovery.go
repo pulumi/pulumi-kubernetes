@@ -20,6 +20,7 @@ import (
 	"encoding/json"
 	"io"
 	"io/fs"
+	"sync"
 
 	openapi_v2 "github.com/google/gnostic-models/openapiv2"
 	"k8s.io/apimachinery/pkg/api/meta"
@@ -35,8 +36,20 @@ import (
 //go:embed swagger.json
 var swagger []byte
 
+// _schema caches our OpenAPI schema since it is moderately slow to re-parse
+// during tests.
+var _schema = sync.OnceValue(
+	func() *openapi_v2.Document {
+		d, err := openapi_v2.ParseDocument(swagger)
+		if err != nil {
+			panic(err)
+		}
+		return d
+	},
+)
+
 func LoadOpenAPISchema() (*openapi_v2.Document, error) {
-	return openapi_v2.ParseDocument(swagger)
+	return _schema(), nil
 }
 
 //go:embed serverresources

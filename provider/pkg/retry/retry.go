@@ -44,6 +44,15 @@ func (r *retrier) WithMaxRetries(n uint) *retrier {
 	return r
 }
 
+// WithSleep uses a custom sleep method for retries, useful for testing.
+func (r *retrier) WithSleep(s func(time.Duration)) *retrier {
+	if s == nil {
+		return r
+	}
+	r.sleep = s
+	return r
+}
+
 func (r *retrier) WithBackoffFactor(t uint) *retrier {
 	r.backOffFactor = t
 	return r
