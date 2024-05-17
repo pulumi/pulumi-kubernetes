@@ -28,7 +28,6 @@ import (
 	"k8s.io/apimachinery/pkg/labels"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/watch"
-	"k8s.io/client-go/tools/cache"
 )
 
 // PodAggregator tracks status for any Pods related to the owner resource, and writes
@@ -45,16 +44,20 @@ type PodAggregator struct {
 	checker *checker.StateChecker
 
 	// Clients
-	lister cache.GenericLister
+	lister lister
 
 	// Messages
 	messages chan logging.Messages
 }
 
+// lister lists resources matching a label selector.
+type lister interface {
+	List(selector labels.Selector) (ret []runtime.Object, err error)
+}
+
 // NewPodAggregator returns an initialized PodAggregator.
-func NewPodAggregator(owner ResourceID, lister cache.GenericLister) *PodAggregator {
+func NewPodAggregator(owner ResourceID, lister lister) *PodAggregator {
 	pa := &PodAggregator{
-		stopped:  false,
 		owner:    owner,
 		lister:   lister,
 		checker:  pod.NewPodChecker(),
@@ -182,4 +185,19 @@ func relatedResource(owner ResourceID, object metav1.Object) bool {
 		return true
 	}
 	return false
+}
+
+// staticLister can be used as a lister in situations where results are already
+// known and only need to be aggregated.
+type staticLister struct {
+	list *unstructured.UnstructuredList
+}
+
+// List returns the staticLister's static contents.
+func (s *staticLister) List(_ labels.Selector) (ret []runtime.Object, err error) {
+	objects := []runtime.Object{}
+	for _, l := range s.list.Items {
+		objects = append(objects, l.DeepCopyObject())
+	}
+	return objects, nil
 }

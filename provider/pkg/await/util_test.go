@@ -29,3 +29,12 @@ func decodeUnstructured(text string) (*unstructured.Unstructured, error) {
 	}
 	return unst, nil
 }
+
+// mustDecodeUnstructured will panic if the input doesn't deserialize properly.
+func mustDecodeUnstructured(s string) *unstructured.Unstructured {
+	obj, err := decodeUnstructured(s)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}

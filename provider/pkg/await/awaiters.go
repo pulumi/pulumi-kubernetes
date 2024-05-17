@@ -20,6 +20,7 @@ import (
 	"reflect"
 	"time"
 
+	"github.com/jonboulle/clockwork"
 	checkerlog "github.com/pulumi/cloud-ready-checks/pkg/checker/logging"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/cluster"
@@ -51,6 +52,7 @@ type createAwaitConfig struct {
 	currentOutputs    *unstructured.Unstructured
 	timeout           *time.Duration
 	clusterVersion    *cluster.ServerVersion
+	clock             clockwork.Clock
 }
 
 func (cac *createAwaitConfig) logStatus(sev diag.Severity, message string) {
@@ -59,6 +61,14 @@ func (cac *createAwaitConfig) logStatus(sev diag.Severity, message string) {
 
 func (cac *createAwaitConfig) logMessage(message checkerlog.Message) {
 	cac.logger.LogMessage(message)
+}
+
+// Clock returns a real or mock clock for the config as appropriate.
+func (cac *createAwaitConfig) Clock() clockwork.Clock {
+	if cac.clock != nil {
+		return cac.clock
+	}
+	return clockwork.NewRealClock()
 }
 
 // updateAwaitConfig specifies on which conditions we are to consider a resource "fully updated",
@@ -77,10 +87,12 @@ type deleteAwaitConfig struct {
 	clientForResource dynamic.ResourceInterface
 }
 
-type createAwaiter func(createAwaitConfig) error
-type updateAwaiter func(updateAwaitConfig) error
-type readAwaiter func(createAwaitConfig) error
-type deletionAwaiter func(deleteAwaitConfig) error
+type (
+	createAwaiter   func(createAwaitConfig) error
+	updateAwaiter   func(updateAwaitConfig) error
+	readAwaiter     func(createAwaitConfig) error
+	deletionAwaiter func(deleteAwaitConfig) error
+)
 
 func (cac *createAwaitConfig) getTimeout(defaultSeconds int) time.Duration {
 	if cac.timeout != nil {
@@ -105,6 +117,9 @@ const (
 	appsV1StatefulSet                           = "apps/v1/StatefulSet"
 	appsV1Beta1StatefulSet                      = "apps/v1beta1/StatefulSet"
 	appsV1Beta2StatefulSet                      = "apps/v1beta2/StatefulSet"
+	appsV1DaemonSet                             = "apps/v1/DaemonSet"
+	appsV1Beta1DaemonSet                        = "apps/v1beta1/DaemonSet"
+	appsv1Beta2DaemonSet                        = "apps/v1beta2/DaemonSet"
 	autoscalingV1HorizontalPodAutoscaler        = "autoscaling/v1/HorizontalPodAutoscaler"
 	batchV1Job                                  = "batch/v1/Job"
 	coreV1ConfigMap                             = "v1/ConfigMap"
@@ -120,6 +135,7 @@ const (
 	coreV1ServiceAccount                        = "v1/ServiceAccount"
 	extensionsV1Beta1Deployment                 = "extensions/v1beta1/Deployment"
 	extensionsV1Beta1Ingress                    = "extensions/v1beta1/Ingress"
+	extensionsV1Beta1DaemonSet                  = "extensions/v1beta1/DaemonSet"
 	networkingV1Ingress                         = "networking.k8s.io/v1/Ingress"
 	networkingV1Beta1Ingress                    = "networking.k8s.io/v1beta1/Ingress"
 	rbacAuthorizationV1ClusterRole              = "rbac.authorization.k8s.io/v1/ClusterRole"
@@ -189,10 +205,28 @@ var statefulsetAwaiter = awaitSpec{
 	awaitDeletion: untilAppsStatefulSetDeleted,
 }
 
+var daemonsetAwaiter = awaitSpec{
+	awaitCreation: func(c createAwaitConfig) error {
+		return newDaemonSetAwaiter(updateAwaitConfig{createAwaitConfig: c}).Await()
+	},
+	awaitUpdate: func(u updateAwaitConfig) error {
+		return newDaemonSetAwaiter(u).Await()
+	},
+	awaitRead: func(c createAwaitConfig) error {
+		return newDaemonSetAwaiter(updateAwaitConfig{createAwaitConfig: c}).Read()
+	},
+	awaitDeletion: func(c deleteAwaitConfig) error {
+		return newDaemonSetAwaiter(updateAwaitConfig{createAwaitConfig: c.createAwaitConfig}).Delete()
+	},
+}
+
 // NOTE: Some GVKs below are blank so that we can distinguish between resource types that we know
 // about, but don't require await logic, vs. resource types that we don't know about.
 
 var awaiters = map[string]awaitSpec{
+	appsV1DaemonSet:                      daemonsetAwaiter,
+	appsV1Beta1DaemonSet:                 daemonsetAwaiter,
+	appsv1Beta2DaemonSet:                 daemonsetAwaiter,
 	appsV1Deployment:                     deploymentAwaiter,
 	appsV1Beta1Deployment:                deploymentAwaiter,
 	appsV1Beta2Deployment:                deploymentAwaiter,
@@ -238,11 +272,11 @@ var awaiters = map[string]awaitSpec{
 	coreV1ServiceAccount: {
 		awaitCreation: untilCoreV1ServiceAccountInitialized,
 	},
+	extensionsV1Beta1DaemonSet:  daemonsetAwaiter,
 	extensionsV1Beta1Deployment: deploymentAwaiter,
-
-	extensionsV1Beta1Ingress: ingressAwaiter,
-	networkingV1Beta1Ingress: ingressAwaiter,
-	networkingV1Ingress:      ingressAwaiter,
+	extensionsV1Beta1Ingress:    ingressAwaiter,
+	networkingV1Beta1Ingress:    ingressAwaiter,
+	networkingV1Ingress:         ingressAwaiter,
 
 	rbacAuthorizationV1ClusterRole:              { /* NONE */ },
 	rbacAuthorizationV1ClusterRoleBinding:       { /* NONE */ },
