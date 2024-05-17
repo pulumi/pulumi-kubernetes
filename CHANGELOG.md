@@ -9,7 +9,7 @@
 ### Changed 
 
 - Pulumi will now wait for DaemonSets to become ready. (https://github.com/pulumi/pulumi-kubernetes/pull/2953)
-- The Release resource's merge behavior for `valueYamlFiles` now matches Helm's behavior. (https://github.com/pulumi/pulumi-kubernetes/pull/2963)
+- The Release resource's merge behavior for `valueYamlFiles` now more closely matches Helm's behavior. (https://github.com/pulumi/pulumi-kubernetes/pull/2963)
 
 ### Fixed
 
