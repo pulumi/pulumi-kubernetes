@@ -47,12 +47,11 @@ jobs:
       uses: actions/checkout@v4
       with:
         lfs: true
-    - name: Set Provider Version
+    - id: version
+      name: Set Provider Version
       uses: pulumi/provider-version-action@v1
       with:
         set-env: PROVIDER_VERSION
-    - name: Unshallow clone for tags
-      run: git fetch --prune --unshallow --tags
     - name: Install Go
       uses: actions/setup-go@v5
       with:
@@ -105,6 +104,13 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
     - name: Check worktree clean
       uses: pulumi/git-status-check-action@v1
+      with:
+        allowed-changes: |-
+          sdk/**/pulumi-plugin.json
+          sdk/dotnet/Pulumi.*.csproj
+          sdk/go/*/internal/pulumiUtilities.go
+          sdk/nodejs/package.json
+          sdk/python/pyproject.toml
     - run: git status --porcelain
     - name: Tar provider binaries
       run: tar -zcf ${{ github.workspace }}/bin/provider.tar.gz -C ${{
@@ -146,12 +152,11 @@ jobs:
       uses: actions/checkout@v4
       with:
         lfs: true
-    - name: Set Provider Version
+    - id: version
+      name: Set Provider Version
       uses: pulumi/provider-version-action@v1
       with:
         set-env: PROVIDER_VERSION
-    - name: Unshallow clone for tags
-      run: git fetch --prune --unshallow --tags
     - name: Install Go
       uses: actions/setup-go@v5
       with:
@@ -201,6 +206,13 @@ jobs:
       run: make ${{ matrix.language }}_sdk
     - name: Check worktree clean
       uses: pulumi/git-status-check-action@v1
+      with:
+        allowed-changes: |-
+          sdk/**/pulumi-plugin.json
+          sdk/dotnet/Pulumi.*.csproj
+          sdk/go/*/internal/pulumiUtilities.go
+          sdk/nodejs/package.json
+          sdk/python/pyproject.toml
     - run: git status --porcelain
     - name: Tar SDK folder
       run: tar -zcf sdk/${{ matrix.language }}.tar.gz -C sdk/${{ matrix.language }} .
@@ -239,12 +251,11 @@ jobs:
       uses: actions/checkout@v4
       with:
         lfs: true
-    - name: Set Provider Version
+    - id: version
+      name: Set Provider Version
       uses: pulumi/provider-version-action@v1
       with:
         set-env: PROVIDER_VERSION
-    - name: Unshallow clone for tags
-      run: git fetch --prune --unshallow --tags
     - name: Install Go
       uses: actions/setup-go@v5
       with:
@@ -377,12 +388,11 @@ jobs:
       uses: actions/checkout@v4
       with:
         lfs: true
-    - name: Set Provider Version
+    - id: version
+      name: Set Provider Version
       uses: pulumi/provider-version-action@v1
       with:
         set-env: PROVIDER_VERSION
-    - name: Unshallow clone for tags
-      run: git fetch --prune --unshallow --tags
     - name: Install Go
       uses: actions/setup-go@v5
       with:
@@ -413,11 +423,10 @@ jobs:
         role-session-name: ${{ env.PROVIDER }}@githubActions
         role-external-id: upload-pulumi-release
         role-to-assume: ${{ secrets.AWS_UPLOAD_ROLE_ARN }}
-    - name: Set PreRelease Version
-      run: echo "GORELEASER_CURRENT_TAG=v$(pulumictl get version --language generic)"
-        >> $GITHUB_ENV
     - name: Run GoReleaser
       uses: goreleaser/goreleaser-action@v5
+      env:
+        GORELEASER_CURRENT_TAG: v${{ steps.version.outputs.version }}
       with:
         args: -p 3 -f .goreleaser.prerelease.yml --clean --skip=validate --timeout 60m0s
         version: latest
@@ -437,7 +446,8 @@ jobs:
       uses: actions/checkout@v4
       with:
         lfs: true
-    - name: Set Provider Version
+    - id: version
+      name: Set Provider Version
       uses: pulumi/provider-version-action@v1
       with:
         set-env: PROVIDER_VERSION
@@ -447,8 +457,6 @@ jobs:
         path: ci-scripts
         repository: pulumi/scripts
     - run: echo "ci-scripts" >> .git/info/exclude
-    - name: Unshallow clone for tags
-      run: git fetch --prune --unshallow --tags
     - name: Install Go
       uses: actions/setup-go@v5
       with:
@@ -521,12 +529,11 @@ jobs:
       uses: actions/checkout@v4
       with:
         lfs: true
-    - name: Set Provider Version
+    - id: version
+      name: Set Provider Version
       uses: pulumi/provider-version-action@v1
       with:
         set-env: PROVIDER_VERSION
-    - name: Unshallow clone for tags
-      run: git fetch --prune --unshallow --tags
     - name: Install Go
       uses: actions/setup-go@v5
       with:
@@ -556,15 +563,49 @@ jobs:
     - name: Uncompress java SDK
       run: tar -zxf ${{github.workspace}}/sdk/java.tar.gz -C
         ${{github.workspace}}/sdk/java
-    - name: Set PACKAGE_VERSION to Env
-      run: echo "PACKAGE_VERSION=$(pulumictl get version --language generic)" >>
-        $GITHUB_ENV
     - name: Publish Java SDK
       uses: gradle/gradle-build-action@v3
+      env:
+        PACKAGE_VERSION: ${{ env.PROVIDER_VERSION }}
       with:
         arguments: publishToSonatype closeAndReleaseSonatypeStagingRepository
         build-root-directory: ./sdk/java
         gradle-version: 7.4.1
+  publish_go_sdk:
+    runs-on: ubuntu-latest
+    name: publish-go-sdk
+    needs: publish_sdk
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v4
+      with:
+        lfs: true
+    - id: version
+      name: Set Provider Version
+      uses: pulumi/provider-version-action@v1
+      with:
+        set-env: PROVIDER_VERSION
+    - name: Download go SDK
+      uses: actions/download-artifact@v4
+      with:
+        name: go-sdk.tar.gz
+        path: ${{ github.workspace}}/sdk/
+    - name: Uncompress go SDK
+      run: tar -zxf ${{github.workspace}}/sdk/go.tar.gz -C
+        ${{github.workspace}}/sdk/go
+    - name: Publish Go SDK
+      uses: pulumi/publish-go-sdk-action@v1
+      with:
+        repository: ${{ github.repository }}
+        base-ref: ${{ github.sha }}
+        source: sdk
+        path: sdk
+        version: ${{ steps.version.outputs.version }}
+        additive: false
+        files: |-
+          go.*
+          go/**
+          !*.tar.gz
   build-test-cluster:
     runs-on: ubuntu-latest
     name: build-test-cluster

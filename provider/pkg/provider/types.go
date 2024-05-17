@@ -25,7 +25,7 @@ type HelmReleaseSettings struct {
 	PluginsPath *string `json:"pluginsPath"`
 	// The path to the registry config file.
 	RegistryConfigPath *string `json:"registryConfigPath"`
-	// The path to the file containing cached repository indexes.
+	// The path to the directory containing cached repository indexes.
 	RepositoryCache *string `json:"repositoryCache"`
 	// The path to the file containing repository names and URLs.
 	RepositoryConfigPath *string `json:"repositoryConfigPath"`
@@ -33,9 +33,9 @@ type HelmReleaseSettings struct {
 
 // Options for tuning the Kubernetes client used by a Provider.
 type KubeClientSettings struct {
-	// Maximum burst for throttle. Default value is 10.
+	// Maximum burst for throttle. Default value is 120.
 	Burst *int `json:"burst"`
-	// Maximum queries per second (QPS) to the API server from this client. Default value is 5.
+	// Maximum queries per second (QPS) to the API server from this client. Default value is 50.
 	QPS *float64 `json:"qps"`
 	// Maximum time in seconds to wait before cancelling a HTTP request to the Kubernetes server. Default value is 32.
 	Timeout *int `json:"timeout"`

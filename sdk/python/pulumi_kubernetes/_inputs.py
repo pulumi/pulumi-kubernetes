@@ -27,7 +27,7 @@ class HelmReleaseSettingsArgs:
         :param pulumi.Input[str] driver: The backend storage driver for Helm. Values are: configmap, secret, memory, sql.
         :param pulumi.Input[str] plugins_path: The path to the helm plugins directory.
         :param pulumi.Input[str] registry_config_path: The path to the registry config file.
-        :param pulumi.Input[str] repository_cache: The path to the file containing cached repository indexes.
+        :param pulumi.Input[str] repository_cache: The path to the directory containing cached repository indexes.
         :param pulumi.Input[str] repository_config_path: The path to the file containing repository names and URLs.
         """
         if driver is None:
@@ -91,7 +91,7 @@ class HelmReleaseSettingsArgs:
     @pulumi.getter(name="repositoryCache")
     def repository_cache(self) -> Optional[pulumi.Input[str]]:
         """
-        The path to the file containing cached repository indexes.
+        The path to the directory containing cached repository indexes.
         """
         return pulumi.get(self, "repository_cache")
 
@@ -120,8 +120,8 @@ class KubeClientSettingsArgs:
                  timeout: Optional[pulumi.Input[int]] = None):
         """
         Options for tuning the Kubernetes client used by a Provider.
-        :param pulumi.Input[int] burst: Maximum burst for throttle. Default value is 10.
-        :param pulumi.Input[float] qps: Maximum queries per second (QPS) to the API server from this client. Default value is 5.
+        :param pulumi.Input[int] burst: Maximum burst for throttle. Default value is 120.
+        :param pulumi.Input[float] qps: Maximum queries per second (QPS) to the API server from this client. Default value is 50.
         :param pulumi.Input[int] timeout: Maximum time in seconds to wait before cancelling a HTTP request to the Kubernetes server. Default value is 32.
         """
         if burst is None:
@@ -141,7 +141,7 @@ class KubeClientSettingsArgs:
     @pulumi.getter
     def burst(self) -> Optional[pulumi.Input[int]]:
         """
-        Maximum burst for throttle. Default value is 10.
+        Maximum burst for throttle. Default value is 120.
         """
         return pulumi.get(self, "burst")
 
@@ -153,7 +153,7 @@ class KubeClientSettingsArgs:
     @pulumi.getter
     def qps(self) -> Optional[pulumi.Input[float]]:
         """
-        Maximum queries per second (QPS) to the API server from this client. Default value is 5.
+        Maximum queries per second (QPS) to the API server from this client. Default value is 50.
         """
         return pulumi.get(self, "qps")
 

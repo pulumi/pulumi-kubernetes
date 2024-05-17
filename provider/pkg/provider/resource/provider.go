@@ -18,6 +18,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	pulumiprovider "github.com/pulumi/pulumi/sdk/v3/go/pulumi/provider"
+	"helm.sh/helm/v3/pkg/cli"
 )
 
 type ResourceProvider interface { // nolint:golint // stutters
@@ -28,6 +29,13 @@ type ResourceProvider interface { // nolint:golint // stutters
 type ResourceProviderOptions struct { // nolint:golint // stutters
 	ClientSet        *clients.DynamicClientSet
 	DefaultNamespace string
+	HelmOptions      *HelmOptions
+}
+
+type HelmOptions struct {
+	SuppressHelmHookWarnings bool
+	HelmDriver               string
+	EnvSettings              *cli.EnvSettings
 }
 
 type ResourceProviderFactory func(*ResourceProviderOptions) ResourceProvider // nolint:golint // stutters

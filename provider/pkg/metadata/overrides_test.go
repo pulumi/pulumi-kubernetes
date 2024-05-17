@@ -20,6 +20,7 @@ import (
 	"testing"
 	"time"
 
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
@@ -87,6 +88,40 @@ func TestTimeoutSeconds(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := TimeoutDuration(tt.args.customTimeout, tt.args.obj); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("TimeoutDuration() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestDeletionPropagation(t *testing.T) {
+	resource := &unstructured.Unstructured{}
+
+	annotatedResourceInvalid := &unstructured.Unstructured{}
+	annotatedResourceInvalid.SetAnnotations(map[string]string{AnnotationTimeoutSeconds: "foo"})
+
+	annotatedResourceOrphan := &unstructured.Unstructured{}
+	annotatedResourceOrphan.SetAnnotations(map[string]string{AnnotationDeletionPropagation: "orphan"})
+
+	annotatedResourceUpper := &unstructured.Unstructured{}
+	annotatedResourceUpper.SetAnnotations(map[string]string{AnnotationDeletionPropagation: "Orphan"})
+
+	type args struct {
+		obj *unstructured.Unstructured
+	}
+	tests := []struct {
+		name string
+		args args
+		want metav1.DeletionPropagation
+	}{
+		{"undefined", args{obj: resource}, metav1.DeletePropagationForeground},
+		{"invalid", args{obj: annotatedResourceInvalid}, metav1.DeletePropagationForeground},
+		{"orphan", args{obj: annotatedResourceOrphan}, metav1.DeletePropagationOrphan},
+		{"upper", args{obj: annotatedResourceUpper}, metav1.DeletePropagationOrphan},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := DeletionPropagation(tt.args.obj); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("TimeoutDuration() = %v, want %v", got, tt.want)
 			}
 		})

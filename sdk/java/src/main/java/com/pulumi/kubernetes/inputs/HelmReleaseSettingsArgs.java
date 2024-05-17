@@ -66,14 +66,14 @@ public final class HelmReleaseSettingsArgs extends com.pulumi.resources.Resource
     }
 
     /**
-     * The path to the file containing cached repository indexes.
+     * The path to the directory containing cached repository indexes.
      * 
      */
     @Import(name="repositoryCache")
     private @Nullable Output<String> repositoryCache;
 
     /**
-     * @return The path to the file containing cached repository indexes.
+     * @return The path to the directory containing cached repository indexes.
      * 
      */
     public Optional<Output<String>> repositoryCache() {
@@ -187,7 +187,7 @@ public final class HelmReleaseSettingsArgs extends com.pulumi.resources.Resource
         }
 
         /**
-         * @param repositoryCache The path to the file containing cached repository indexes.
+         * @param repositoryCache The path to the directory containing cached repository indexes.
          * 
          * @return builder
          * 
@@ -198,7 +198,7 @@ public final class HelmReleaseSettingsArgs extends com.pulumi.resources.Resource
         }
 
         /**
-         * @param repositoryCache The path to the file containing cached repository indexes.
+         * @param repositoryCache The path to the directory containing cached repository indexes.
          * 
          * @return builder
          * 

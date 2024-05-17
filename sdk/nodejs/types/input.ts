@@ -25,7 +25,7 @@ export interface HelmReleaseSettings {
      */
     registryConfigPath?: pulumi.Input<string>;
     /**
-     * The path to the file containing cached repository indexes.
+     * The path to the directory containing cached repository indexes.
      */
     repositoryCache?: pulumi.Input<string>;
     /**
@@ -52,11 +52,11 @@ export function helmReleaseSettingsProvideDefaults(val: HelmReleaseSettings): He
  */
 export interface KubeClientSettings {
     /**
-     * Maximum burst for throttle. Default value is 10.
+     * Maximum burst for throttle. Default value is 120.
      */
     burst?: pulumi.Input<number>;
     /**
-     * Maximum queries per second (QPS) to the API server from this client. Default value is 5.
+     * Maximum queries per second (QPS) to the API server from this client. Default value is 50.
      */
     qps?: pulumi.Input<number>;
     /**
@@ -26043,6 +26043,52 @@ export namespace helm {
              * The repository's cert key file
              */
             keyFile?: pulumi.Input<string>;
+            /**
+             * Password for HTTP basic authentication
+             */
+            password?: pulumi.Input<string>;
+            /**
+             * Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository.
+             */
+            repo?: pulumi.Input<string>;
+            /**
+             * Username for HTTP basic authentication
+             */
+            username?: pulumi.Input<string>;
+        }
+    }
+
+    export namespace v4 {
+        /**
+         * Specification defining the post-renderer to use.
+         */
+        export interface PostRenderer {
+            /**
+             * Arguments to pass to the post-renderer command.
+             */
+            args?: pulumi.Input<pulumi.Input<string>[]>;
+            /**
+             * Path to an executable to be used for post rendering.
+             */
+            command: pulumi.Input<string>;
+        }
+
+        /**
+         * Specification defining the Helm chart repository to use.
+         */
+        export interface RepositoryOpts {
+            /**
+             * The Repository's CA File
+             */
+            caFile?: pulumi.Input<pulumi.asset.Asset | pulumi.asset.Archive>;
+            /**
+             * The repository's cert file
+             */
+            certFile?: pulumi.Input<pulumi.asset.Asset | pulumi.asset.Archive>;
+            /**
+             * The repository's cert key file
+             */
+            keyFile?: pulumi.Input<pulumi.asset.Asset | pulumi.asset.Archive>;
             /**
              * Password for HTTP basic authentication
              */

@@ -130,6 +130,130 @@ var helmV3ChartResource = pschema.ResourceSpec{
 	},
 }
 
+//go:embed examples/overlays/chartV4.md
+var helmV4ChartMD string
+
+var helmV4ChartResource = pschema.ResourceSpec{
+	IsComponent: true,
+	ObjectTypeSpec: pschema.ObjectTypeSpec{
+		IsOverlay:   false,
+		Description: helmV4ChartMD,
+		Properties: map[string]pschema.PropertySpec{
+			"resources": {
+				TypeSpec: pschema.TypeSpec{
+					Type: "array",
+					Items: &pschema.TypeSpec{
+						Ref: "pulumi.json#/Any",
+					},
+				},
+				Description: "Resources created by the Chart.",
+			},
+		},
+		Type: "object",
+	},
+	InputProperties: map[string]pschema.PropertySpec{
+		"name": {
+			TypeSpec: pschema.TypeSpec{
+				Type: "string",
+			},
+			Description: "Release name.",
+		},
+		"namespace": {
+			TypeSpec: pschema.TypeSpec{
+				Type: "string",
+			},
+			Description: "Namespace for the release.",
+		},
+		"repositoryOpts": {
+			TypeSpec: pschema.TypeSpec{
+				Ref: "#/types/kubernetes:helm.sh/v4:RepositoryOpts",
+			},
+			Description: "Specification defining the Helm chart repository to use.",
+		},
+		"chart": {
+			TypeSpec: pschema.TypeSpec{
+				Type: "string",
+			},
+			Description: "Chart name to be installed. A path may be used.",
+		},
+		"version": {
+			TypeSpec: pschema.TypeSpec{
+				Type: "string",
+			},
+			Description: "Specify the chart version to install. If this is not specified, the latest version is installed.",
+		},
+		"devel": {
+			TypeSpec: pschema.TypeSpec{
+				Type: "boolean",
+			},
+			Description: "Use chart development versions, too. Equivalent to version '>0.0.0-0'. If `version` is set, this is ignored.",
+		},
+		"dependencyUpdate": {
+			TypeSpec: pschema.TypeSpec{
+				Type: "boolean",
+			},
+			Description: "Run helm dependency update before installing the chart.",
+		},
+		"verify": {
+			TypeSpec: pschema.TypeSpec{
+				Type: "boolean",
+			},
+			Description: "Verify the chart's integrity.",
+		},
+		"keyring": {
+			TypeSpec: pschema.TypeSpec{
+				Ref: "pulumi.json#/Asset",
+			},
+			Description: "Location of public keys used for verification. Used only if `verify` is true",
+		},
+		"valueYamlFiles": {
+			TypeSpec: pschema.TypeSpec{
+				Type: "array",
+				Items: &pschema.TypeSpec{
+					Ref: "pulumi.json#/Asset",
+				},
+			},
+			Description: "List of assets (raw yaml files). Content is read and merged with values.",
+		},
+		"values": {
+			TypeSpec: pschema.TypeSpec{
+				Type: "object",
+				AdditionalProperties: &pschema.TypeSpec{
+					Ref: "pulumi.json#/Any",
+				},
+			},
+			Description: "Custom values set for the release.",
+		},
+		"skipCrds": {
+			TypeSpec: pschema.TypeSpec{
+				Type: "boolean",
+			},
+			Description: "If set, no CRDs will be installed. By default, CRDs are installed if not already present.",
+		},
+		"postRenderer": {
+			TypeSpec: pschema.TypeSpec{
+				Ref: "#/types/kubernetes:helm.sh/v4:PostRenderer",
+			},
+			Description: "Specification defining the post-renderer to use.",
+		},
+		"skipAwait": {
+			TypeSpec: pschema.TypeSpec{
+				Type: "boolean",
+			},
+			Description: "By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic.",
+		},
+		"resourcePrefix": {
+			TypeSpec: pschema.TypeSpec{
+				Type: "string",
+			},
+			Description: "An optional prefix for the auto-generated resource names. Example: A resource created with resourcePrefix=\"foo\" would produce a resource named \"foo:resourceName\".",
+		},
+	},
+	RequiredInputs: []string{
+		"chart",
+	},
+}
+
 var helmV3FetchOpts = pschema.ComplexTypeSpec{
 	ObjectTypeSpec: pschema.ObjectTypeSpec{
 		IsOverlay:   true,
@@ -287,6 +411,97 @@ var helmV3RepoOpts = pschema.ComplexTypeSpec{
 	},
 }
 
+var helmV4RepoOpts = pschema.ComplexTypeSpec{
+	ObjectTypeSpec: pschema.ObjectTypeSpec{
+		Description: "Specification defining the Helm chart repository to use.",
+		Properties: map[string]pschema.PropertySpec{
+			"repo": {
+				TypeSpec: pschema.TypeSpec{
+					Type: "string",
+				},
+				Description: "Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository.",
+			},
+			"keyFile": {
+				TypeSpec: pschema.TypeSpec{
+					Ref: "pulumi.json#/Asset",
+				},
+				Description: "The repository's cert key file",
+			},
+			"certFile": {
+				TypeSpec: pschema.TypeSpec{
+					Ref: "pulumi.json#/Asset",
+				},
+				Description: "The repository's cert file",
+			},
+			"caFile": {
+				TypeSpec: pschema.TypeSpec{
+					Ref: "pulumi.json#/Asset",
+				},
+				Description: "The Repository's CA File",
+			},
+			"username": {
+				TypeSpec: pschema.TypeSpec{
+					Type: "string",
+				},
+				Description: "Username for HTTP basic authentication",
+			},
+			"password": {
+				TypeSpec: pschema.TypeSpec{
+					Type: "string",
+				},
+				Secret:      true,
+				Description: "Password for HTTP basic authentication",
+			},
+		},
+		Language: map[string]pschema.RawMessage{
+			"nodejs": rawMessage(map[string][]string{
+				"requiredOutputs": {
+					"repo",
+					"keyFile",
+					"certFile",
+					"caFile",
+					"username",
+					"password",
+				}}),
+		},
+		Type: "object",
+	},
+}
+
+var helmV4PostRenderer = pschema.ComplexTypeSpec{
+	ObjectTypeSpec: pschema.ObjectTypeSpec{
+		Description: "Specification defining the post-renderer to use.",
+		Properties: map[string]pschema.PropertySpec{
+			"command": {
+				TypeSpec: pschema.TypeSpec{
+					Type: "string",
+				},
+				Description: "Path to an executable to be used for post rendering.",
+			},
+			"args": {
+				TypeSpec: pschema.TypeSpec{
+					Type: "array",
+					Items: &pschema.TypeSpec{
+						Type: "string",
+					},
+				},
+				Description: "Arguments to pass to the post-renderer command.",
+			},
+		},
+		Language: map[string]pschema.RawMessage{
+			"nodejs": rawMessage(map[string][]string{
+				"requiredOutputs": {
+					"command",
+					"args",
+				}}),
+		},
+		Type: "object",
+		Required: []string{
+			"command",
+		},
+	},
+}
+
 var helmV3ReleaseStatus = pschema.ComplexTypeSpec{
 	ObjectTypeSpec: pschema.ObjectTypeSpec{
 		Required: []string{"status"},
@@ -356,7 +571,7 @@ var kubeClientSettings = pschema.ComplexTypeSpec{
 		Description: "Options for tuning the Kubernetes client used by a Provider.",
 		Properties: map[string]pschema.PropertySpec{
 			"burst": {
-				Description: "Maximum burst for throttle. Default value is 10.",
+				Description: "Maximum burst for throttle. Default value is 120.",
 				TypeSpec:    pschema.TypeSpec{Type: "integer"},
 				DefaultInfo: &pschema.DefaultSpec{
 					Environment: []string{
@@ -365,7 +580,7 @@ var kubeClientSettings = pschema.ComplexTypeSpec{
 				},
 			},
 			"qps": {
-				Description: "Maximum queries per second (QPS) to the API server from this client. Default value is 5.",
+				Description: "Maximum queries per second (QPS) to the API server from this client. Default value is 50.",
 				TypeSpec:    pschema.TypeSpec{Type: "number"},
 				DefaultInfo: &pschema.DefaultSpec{
 					Environment: []string{
@@ -433,7 +648,7 @@ var helmReleaseSettings = pschema.ComplexTypeSpec{
 						"PULUMI_K8S_HELM_REPOSITORY_CACHE",
 					},
 				},
-				Description: "The path to the file containing cached repository indexes.",
+				Description: "The path to the directory containing cached repository indexes.",
 				TypeSpec:    pschema.TypeSpec{Type: "string"},
 			},
 		},
@@ -1389,12 +1604,15 @@ func init() {
 	typeOverlays["kubernetes:helm.sh/v3:FetchOpts"] = helmV3FetchOpts
 	typeOverlays["kubernetes:helm.sh/v3:RepositoryOpts"] = helmV3RepoOpts
 	typeOverlays["kubernetes:helm.sh/v3:ReleaseStatus"] = helmV3ReleaseStatus
+	typeOverlays["kubernetes:helm.sh/v4:PostRenderer"] = helmV4PostRenderer
+	typeOverlays["kubernetes:helm.sh/v4:RepositoryOpts"] = helmV4RepoOpts
 	typeOverlays["kubernetes:index:KubeClientSettings"] = kubeClientSettings
 	typeOverlays["kubernetes:index:HelmReleaseSettings"] = helmReleaseSettings
 
 	resourceOverlays["kubernetes:apiextensions.k8s.io:CustomResource"] = apiextentionsCustomResource
 	resourceOverlays["kubernetes:apiextensions.k8s.io:CustomResourcePatch"] = apiextentionsCustomResourcePatch
 	resourceOverlays["kubernetes:helm.sh/v3:Chart"] = helmV3ChartResource
+	resourceOverlays["kubernetes:helm.sh/v4:Chart"] = helmV4ChartResource
 	resourceOverlays["kubernetes:helm.sh/v3:Release"] = helmV3ReleaseResource
 	resourceOverlays["kubernetes:kustomize:Directory"] = kustomizeDirectoryResource
 	resourceOverlays["kubernetes:yaml:ConfigFile"] = yamlConfigFileResource

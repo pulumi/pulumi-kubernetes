@@ -26,22 +26,21 @@ resources:
     type: kubernetes:yaml/v2:ConfigGroup
     options:
       dependsOn:
-      - ${install}
+        - ${install}
       provider: ${provider}
     properties:
       objs:
-      - apiVersion: stable.example.com/v1
-        kind: CronTab
-        metadata:
-          name: foo
-        spec:
-          cronSpec: "* * * * */5"
-      - apiVersion: stable.example.com/v1
-        kind: CronTab
-        metadata:
-          name: bar
-          annotations:
-            config.kubernetes.io/depends-on: stable.example.com/namespaces/${ns.metadata.name}/CronTab/foo
-        spec:
-          cronSpec: "* * * * */5"
-
+        - apiVersion: yamlv2.pulumi.com/v1
+          kind: CronTab
+          metadata:
+            name: foo
+          spec:
+            cronSpec: "* * * * */5"
+        - apiVersion: yamlv2.pulumi.com/v1
+          kind: CronTab
+          metadata:
+            name: bar
+            annotations:
+              config.kubernetes.io/depends-on: yamlv2.pulumi.com/namespaces/${ns.metadata.name}/CronTab/foo
+          spec:
+            cronSpec: "* * * * */5"

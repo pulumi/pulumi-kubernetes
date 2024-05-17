@@ -297,6 +297,8 @@
         "helm/v3/helm.ts",
         "helm/v3/index.ts",
         "helm/v3/release.ts",
+        "helm/v4/chart.ts",
+        "helm/v4/index.ts",
         "index.ts",
         "kustomize/index.ts",
         "kustomize/kustomize.ts",

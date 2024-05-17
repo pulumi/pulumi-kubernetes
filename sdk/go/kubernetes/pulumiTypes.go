@@ -21,7 +21,7 @@ type HelmReleaseSettings struct {
 	PluginsPath *string `pulumi:"pluginsPath"`
 	// The path to the registry config file.
 	RegistryConfigPath *string `pulumi:"registryConfigPath"`
-	// The path to the file containing cached repository indexes.
+	// The path to the directory containing cached repository indexes.
 	RepositoryCache *string `pulumi:"repositoryCache"`
 	// The path to the file containing repository names and URLs.
 	RepositoryConfigPath *string `pulumi:"repositoryConfigPath"`
@@ -85,7 +85,7 @@ type HelmReleaseSettingsArgs struct {
 	PluginsPath pulumi.StringPtrInput `pulumi:"pluginsPath"`
 	// The path to the registry config file.
 	RegistryConfigPath pulumi.StringPtrInput `pulumi:"registryConfigPath"`
-	// The path to the file containing cached repository indexes.
+	// The path to the directory containing cached repository indexes.
 	RepositoryCache pulumi.StringPtrInput `pulumi:"repositoryCache"`
 	// The path to the file containing repository names and URLs.
 	RepositoryConfigPath pulumi.StringPtrInput `pulumi:"repositoryConfigPath"`
@@ -217,7 +217,7 @@ func (o HelmReleaseSettingsOutput) RegistryConfigPath() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v HelmReleaseSettings) *string { return v.RegistryConfigPath }).(pulumi.StringPtrOutput)
 }
 
-// The path to the file containing cached repository indexes.
+// The path to the directory containing cached repository indexes.
 func (o HelmReleaseSettingsOutput) RepositoryCache() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v HelmReleaseSettings) *string { return v.RepositoryCache }).(pulumi.StringPtrOutput)
 }
@@ -281,7 +281,7 @@ func (o HelmReleaseSettingsPtrOutput) RegistryConfigPath() pulumi.StringPtrOutpu
 	}).(pulumi.StringPtrOutput)
 }
 
-// The path to the file containing cached repository indexes.
+// The path to the directory containing cached repository indexes.
 func (o HelmReleaseSettingsPtrOutput) RepositoryCache() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *HelmReleaseSettings) *string {
 		if v == nil {
@@ -303,9 +303,9 @@ func (o HelmReleaseSettingsPtrOutput) RepositoryConfigPath() pulumi.StringPtrOut
 
 // Options for tuning the Kubernetes client used by a Provider.
 type KubeClientSettings struct {
-	// Maximum burst for throttle. Default value is 10.
+	// Maximum burst for throttle. Default value is 120.
 	Burst *int `pulumi:"burst"`
-	// Maximum queries per second (QPS) to the API server from this client. Default value is 5.
+	// Maximum queries per second (QPS) to the API server from this client. Default value is 50.
 	Qps *float64 `pulumi:"qps"`
 	// Maximum time in seconds to wait before cancelling a HTTP request to the Kubernetes server. Default value is 32.
 	Timeout *int `pulumi:"timeout"`
@@ -351,9 +351,9 @@ type KubeClientSettingsInput interface {
 
 // Options for tuning the Kubernetes client used by a Provider.
 type KubeClientSettingsArgs struct {
-	// Maximum burst for throttle. Default value is 10.
+	// Maximum burst for throttle. Default value is 120.
 	Burst pulumi.IntPtrInput `pulumi:"burst"`
-	// Maximum queries per second (QPS) to the API server from this client. Default value is 5.
+	// Maximum queries per second (QPS) to the API server from this client. Default value is 50.
 	Qps pulumi.Float64PtrInput `pulumi:"qps"`
 	// Maximum time in seconds to wait before cancelling a HTTP request to the Kubernetes server. Default value is 32.
 	Timeout pulumi.IntPtrInput `pulumi:"timeout"`
@@ -460,12 +460,12 @@ func (o KubeClientSettingsOutput) ToKubeClientSettingsPtrOutputWithContext(ctx c
 	}).(KubeClientSettingsPtrOutput)
 }
 
-// Maximum burst for throttle. Default value is 10.
+// Maximum burst for throttle. Default value is 120.
 func (o KubeClientSettingsOutput) Burst() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v KubeClientSettings) *int { return v.Burst }).(pulumi.IntPtrOutput)
 }
 
-// Maximum queries per second (QPS) to the API server from this client. Default value is 5.
+// Maximum queries per second (QPS) to the API server from this client. Default value is 50.
 func (o KubeClientSettingsOutput) Qps() pulumi.Float64PtrOutput {
 	return o.ApplyT(func(v KubeClientSettings) *float64 { return v.Qps }).(pulumi.Float64PtrOutput)
 }
@@ -499,7 +499,7 @@ func (o KubeClientSettingsPtrOutput) Elem() KubeClientSettingsOutput {
 	}).(KubeClientSettingsOutput)
 }
 
-// Maximum burst for throttle. Default value is 10.
+// Maximum burst for throttle. Default value is 120.
 func (o KubeClientSettingsPtrOutput) Burst() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *KubeClientSettings) *int {
 		if v == nil {
@@ -509,7 +509,7 @@ func (o KubeClientSettingsPtrOutput) Burst() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// Maximum queries per second (QPS) to the API server from this client. Default value is 5.
+// Maximum queries per second (QPS) to the API server from this client. Default value is 50.
 func (o KubeClientSettingsPtrOutput) Qps() pulumi.Float64PtrOutput {
 	return o.ApplyT(func(v *KubeClientSettings) *float64 {
 		if v == nil {
