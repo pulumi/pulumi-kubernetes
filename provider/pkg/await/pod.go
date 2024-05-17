@@ -15,9 +15,9 @@
 package await
 
 import (
+	"fmt"
 	"time"
 
-	"github.com/pkg/errors"
 	"github.com/pulumi/cloud-ready-checks/pkg/checker"
 	"github.com/pulumi/cloud-ready-checks/pkg/checker/logging"
 	"github.com/pulumi/cloud-ready-checks/pkg/kubernetes/pod"
@@ -188,9 +188,7 @@ func (pia *podInitAwaiter) Read() error {
 	podClient, err := clients.ResourceClient(
 		kinds.Pod, pia.config.currentOutputs.GetNamespace(), pia.config.clientSet)
 	if err != nil {
-		return errors.Wrapf(err,
-			"Could not make client to get Pod %q",
-			pia.config.currentOutputs.GetName())
+		return fmt.Errorf("Could not make client to get Pod %q: %w", pia.config.currentOutputs.GetName(), err)
 	}
 	// Get live version of Pod.
 	pod, err := podClient.Get(pia.config.ctx, pia.config.currentOutputs.GetName(), metav1.GetOptions{})

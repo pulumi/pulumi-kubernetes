@@ -23,6 +23,7 @@ import (
 	"strings"
 
 	fluxssa "github.com/fluxcd/pkg/ssa"
+	"github.com/jonboulle/clockwork"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/cluster"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/host"
@@ -77,6 +78,8 @@ type ProviderConfig struct {
 
 	// explicit awaiters (for testing purposes)
 	awaiters map[string]awaitSpec
+
+	clock clockwork.Clock
 }
 
 type CreateConfig struct {
@@ -169,7 +172,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 
 	var outputs *unstructured.Unstructured
 	var client dynamic.ResourceInterface
-	err := retry.SleepingRetry(
+	retrier := retry.SleepingRetry(
 		func(i uint) error {
 			// Recreate the client for resource, in case the client's cache of the server API was
 			// invalidated. For example, when a CRD is created, it will invalidate the client cache;
@@ -235,8 +238,13 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 			return nil
 		}).
 		WithMaxRetries(5).
-		WithBackoffFactor(2).
-		Do(apierrors.IsNotFound, meta.IsNoMatchError)
+		WithBackoffFactor(2)
+
+	if c.clock != nil {
+		retrier = retrier.WithSleep(c.clock.Sleep)
+	}
+
+	err := retrier.Do(apierrors.IsNotFound, meta.IsNoMatchError)
 	if err != nil {
 		return nil, err
 	}
@@ -271,6 +279,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 					logger:            c.DedupLogger,
 					timeout:           timeout,
 					clusterVersion:    c.ClusterVersion,
+					clock:             c.clock,
 				}
 				waitErr := awaiter.awaitCreation(conf)
 				if waitErr != nil {
@@ -287,6 +296,8 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 	// If the client fails to get the live object for some reason, DO NOT return the error. This
 	// will leak the fact that the object was successfully created. Instead, fall back to the
 	// last-seen live object.
+
+	// TODO: We should be able to use the last-seen object from the await's watch.
 	live, err := client.Get(c.Context, outputs.GetName(), metav1.GetOptions{})
 	if err != nil {
 		return outputs, nil
@@ -332,6 +343,7 @@ func Read(c ReadConfig) (*unstructured.Unstructured, error) {
 					currentOutputs:    outputs,
 					logger:            c.DedupLogger,
 					clusterVersion:    c.ClusterVersion,
+					clock:             c.clock,
 				}
 				waitErr := awaiter.awaitRead(conf)
 				if waitErr != nil {
@@ -417,6 +429,7 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 						logger:            c.DedupLogger,
 						timeout:           timeout,
 						clusterVersion:    c.ClusterVersion,
+						clock:             c.clock,
 					},
 					lastOutputs: liveOldObj,
 				}
@@ -790,7 +803,12 @@ func Deletion(c DeleteConfig) error {
 		return nilIfGVKDeleted(err)
 	}
 
-	err = deleteResource(c.Context, c.Name, client)
+	// delete the specified resource (using foreground cascading delete by default).
+	deletePolicy := metadata.DeletionPropagation(c.Inputs)
+	deleteOpts := metav1.DeleteOptions{
+		PropagationPolicy: &deletePolicy,
+	}
+	err = client.Delete(c.Context, c.Name, deleteOpts)
 	if err != nil {
 		return nilIfGVKDeleted(err)
 	}
@@ -819,6 +837,7 @@ func Deletion(c DeleteConfig) error {
 					logger:            c.DedupLogger,
 					timeout:           timeout,
 					clusterVersion:    c.ClusterVersion,
+					clock:             c.clock,
 				},
 				clientForResource: client,
 			})
@@ -878,16 +897,6 @@ func Deletion(c DeleteConfig) error {
 	}
 
 	return nil
-}
-
-// deleteResource deletes the specified resource using foreground cascading delete.
-func deleteResource(ctx context.Context, name string, client dynamic.ResourceInterface) error {
-	fg := metav1.DeletePropagationForeground
-	deleteOpts := metav1.DeleteOptions{
-		PropagationPolicy: &fg,
-	}
-
-	return client.Delete(ctx, name, deleteOpts)
 }
 
 // checkIfResourceDeleted attempts to get a k8s resource, and returns true if the resource is not found (was deleted).

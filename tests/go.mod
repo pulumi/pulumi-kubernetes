@@ -12,7 +12,7 @@ replace (
 require (
 	github.com/onsi/gomega v1.31.0
 	github.com/pkg/errors v0.9.1
-	github.com/pulumi/providertest v0.0.10
+	github.com/pulumi/providertest v0.0.12
 	github.com/pulumi/pulumi-kubernetes/provider/v4 v4.0.0
 	github.com/pulumi/pulumi-kubernetes/sdk/v4 v4.0.0
 	github.com/pulumi/pulumi/pkg/v3 v3.114.0
@@ -171,6 +171,7 @@ require (
 	github.com/jbenet/go-context v0.0.0-20150711004518-d14ea06fba99 // indirect
 	github.com/jmespath/go-jmespath v0.4.0 // indirect
 	github.com/jmoiron/sqlx v1.3.5 // indirect
+	github.com/jonboulle/clockwork v0.4.0 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/kevinburke/ssh_config v1.2.0 // indirect

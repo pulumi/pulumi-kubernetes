@@ -1,8 +1,21 @@
 ## Unreleased
 
-- Fix Release behavior to deep merge `valueYamlFiles` to match Helm. (https://github.com/pulumi/pulumi-kubernetes/pull/2963)
-- Fix Release to not ignore empty lists when merging values. (https://github.com/pulumi/pulumi-kubernetes/pull/2995)
-- Add field manager's name to server-side apply conflict errors. (https://github.com/pulumi/pulumi-kubernetes/pull/2983)
+### Added
+
+- Added a new Helm Chart v4 resource. (https://github.com/pulumi/pulumi-kubernetes/pull/2947)
+- Added a new `deletionPropagationPolicy` annotation. (https://github.com/pulumi/pulumi-kubernetes/pull/3011)
+- Server-side apply conflict errors now include the original field manager's name. (https://github.com/pulumi/pulumi-kubernetes/pull/2983)
+
+### Changed 
+
+- Pulumi will now wait for DaemonSets to become ready. (https://github.com/pulumi/pulumi-kubernetes/pull/2953)
+- The Release resource's merge behavior for `valueYamlFiles` now more closely matches Helm's behavior. (https://github.com/pulumi/pulumi-kubernetes/pull/2963)
+- The Release resource no longer ignores empty lists when merging values. (https://github.com/pulumi/pulumi-kubernetes/pull/2995)
+
+### Fixed
+
+- Chart previews no longer fail when the cluster is unreachable. (https://github.com/pulumi/pulumi-kubernetes/pull/2992)
+- Fixed a panic that could occur when a missing field became `null`. (https://github.com/pulumi/pulumi-kubernetes/issues/1970)
 
 ## 4.11.0 (April 17, 2024)
 

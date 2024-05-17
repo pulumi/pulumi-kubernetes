@@ -20,10 +20,12 @@ import (
 
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	providerresource "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/resource"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/provider"
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
+	helmcli "helm.sh/helm/v3/pkg/cli"
 )
 
 var _ = Describe("RPC:Construct", func() {
@@ -51,6 +53,10 @@ var _ = Describe("RPC:Construct", func() {
 
 	JustBeforeEach(func() {
 		k = pctx.NewProvider(opts...)
+		k.clientSet = &clients.DynamicClientSet{}
+		k.defaultNamespace = "default"
+		k.helmDriver = "memory"
+		k.helmSettings = helmcli.New()
 	})
 
 	Context("when the requested type is unknown", func() {
@@ -77,12 +83,32 @@ var _ = Describe("RPC:Construct", func() {
 			req.Type = "kubernetes:test:TestComponent"
 			req.Name = "testComponent"
 		})
+
 		It("should delegate to the provider", func() {
 			result, err := k.Construct(context.Background(), req)
 			Expect(err).ShouldNot(HaveOccurred())
 			Expect(testComponent.typ).Should(Equal("kubernetes:test:TestComponent"))
 			Expect(testComponent.name).Should(Equal("testComponent"))
 			Expect(result.Urn).Should(Equal("urn:pulumi:test::test::test:TestComponent::testComponent"))
+		})
+
+		It("should provide options", func() {
+			_, err := k.Construct(context.Background(), req)
+			Expect(err).ShouldNot(HaveOccurred())
+			Expect(testComponent.opts.ClientSet).ShouldNot(BeNil())
+			Expect(testComponent.opts.DefaultNamespace).ShouldNot(BeEmpty())
+			Expect(testComponent.opts.HelmOptions).ShouldNot(BeNil())
+		})
+
+		Context("when clusterUnreachable is true", func() {
+			JustBeforeEach(func() {
+				k.clusterUnreachable = true
+				k.clusterUnreachableReason = "testing"
+			})
+			It("should return an error", func() {
+				_, err := k.Construct(context.Background(), req)
+				Expect(err).To(MatchError(ContainSubstring("configured Kubernetes cluster is unreachable")))
+			})
 		})
 	})
 })

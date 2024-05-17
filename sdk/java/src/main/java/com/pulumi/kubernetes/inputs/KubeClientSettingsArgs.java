@@ -22,14 +22,14 @@ public final class KubeClientSettingsArgs extends com.pulumi.resources.ResourceA
     public static final KubeClientSettingsArgs Empty = new KubeClientSettingsArgs();
 
     /**
-     * Maximum burst for throttle. Default value is 10.
+     * Maximum burst for throttle. Default value is 120.
      * 
      */
     @Import(name="burst")
     private @Nullable Output<Integer> burst;
 
     /**
-     * @return Maximum burst for throttle. Default value is 10.
+     * @return Maximum burst for throttle. Default value is 120.
      * 
      */
     public Optional<Output<Integer>> burst() {
@@ -37,14 +37,14 @@ public final class KubeClientSettingsArgs extends com.pulumi.resources.ResourceA
     }
 
     /**
-     * Maximum queries per second (QPS) to the API server from this client. Default value is 5.
+     * Maximum queries per second (QPS) to the API server from this client. Default value is 50.
      * 
      */
     @Import(name="qps")
     private @Nullable Output<Double> qps;
 
     /**
-     * @return Maximum queries per second (QPS) to the API server from this client. Default value is 5.
+     * @return Maximum queries per second (QPS) to the API server from this client. Default value is 50.
      * 
      */
     public Optional<Output<Double>> qps() {
@@ -93,7 +93,7 @@ public final class KubeClientSettingsArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param burst Maximum burst for throttle. Default value is 10.
+         * @param burst Maximum burst for throttle. Default value is 120.
          * 
          * @return builder
          * 
@@ -104,7 +104,7 @@ public final class KubeClientSettingsArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param burst Maximum burst for throttle. Default value is 10.
+         * @param burst Maximum burst for throttle. Default value is 120.
          * 
          * @return builder
          * 
@@ -114,7 +114,7 @@ public final class KubeClientSettingsArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param qps Maximum queries per second (QPS) to the API server from this client. Default value is 5.
+         * @param qps Maximum queries per second (QPS) to the API server from this client. Default value is 50.
          * 
          * @return builder
          * 
@@ -125,7 +125,7 @@ public final class KubeClientSettingsArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param qps Maximum queries per second (QPS) to the API server from this client. Default value is 5.
+         * @param qps Maximum queries per second (QPS) to the API server from this client. Default value is 50.
          * 
          * @return builder
          * 

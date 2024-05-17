@@ -23,7 +23,7 @@ import (
 
 // HostClient is the interface that the provider uses to communicate with the Pulumi engine.
 //
-//nolint:golint
+//nolint:golint // stutter
 type HostClient interface {
 	// Log logs a global message, including errors and warnings.
 	Log(context context.Context, sev diag.Severity, urn resource.URN, msg string) error

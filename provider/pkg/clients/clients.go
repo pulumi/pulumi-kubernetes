@@ -132,6 +132,11 @@ func (dcs *DynamicClientSet) gvkForKind(kind kinds.Kind) (*schema.GroupVersionKi
 		}
 	}
 
+	if resources == nil {
+		// Fallback for fake clients which don't support server versioning.
+		_, resources, _ = dcs.DiscoveryClientCached.ServerGroupsAndResources()
+	}
+
 	var fallbackResourceList *v1.APIResourceList
 	for _, gvResources := range resources {
 		if !kinds.KnownGroupVersions.Has(gvResources.GroupVersion) {

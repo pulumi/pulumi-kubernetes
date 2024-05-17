@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package convert
+package test
 
 import (
 	_ "embed"
@@ -30,15 +30,15 @@ func TestTerraformConvert(t *testing.T) {
 	// We're going to convert the terraform code in testdata into YAML.
 	tmp := t.TempDir()
 	cmd := exec.Command("pulumi", "convert", "--from=terraform", "--language=yaml", "--out", tmp)
-	cmd.Dir = "testdata"
-	cmd.Env = append(os.Environ(), "PATH=../../bin:"+os.Getenv("PATH"))
+	cmd.Dir = "testdata/convert"
+	cmd.Env = append(os.Environ(), "PATH=../../../bin:"+os.Getenv("PATH"))
 
 	out, err := cmd.CombinedOutput()
 	t.Logf("output: %s", out)
 	require.NoError(t, err)
 
 	// Check that the output is what we expect.
-	expected, err := os.ReadFile("testdata/Main.yaml")
+	expected, err := os.ReadFile("testdata/convert/Main.yaml")
 	require.NoError(t, err)
 	actual, err := os.ReadFile(filepath.Join(tmp, "Main.yaml"))
 	require.NoError(t, err)

@@ -9,6 +9,9 @@ import typing
 if typing.TYPE_CHECKING:
     import pulumi_kubernetes.helm.v3 as __v3
     v3 = __v3
+    import pulumi_kubernetes.helm.v4 as __v4
+    v4 = __v4
 else:
     v3 = _utilities.lazy_import('pulumi_kubernetes.helm.v3')
+    v4 = _utilities.lazy_import('pulumi_kubernetes.helm.v4')
 

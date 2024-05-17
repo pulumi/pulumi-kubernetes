@@ -15,10 +15,10 @@
 package await
 
 import (
+	"fmt"
 	"strings"
 	"time"
 
-	"github.com/pkg/errors"
 	"github.com/pulumi/cloud-ready-checks/pkg/checker"
 	checkerlog "github.com/pulumi/cloud-ready-checks/pkg/checker/logging"
 	"github.com/pulumi/cloud-ready-checks/pkg/kubernetes/job"
@@ -161,9 +161,7 @@ func (jia *jobInitAwaiter) Read() error {
 
 	jobClient, err := clients.ResourceClient(kinds.Job, jia.config.currentOutputs.GetNamespace(), jia.config.clientSet)
 	if err != nil {
-		return errors.Wrapf(err,
-			"Could not make client to get Job %q",
-			jia.config.currentOutputs.GetName())
+		return fmt.Errorf("Could not make client to get Job %q: %w", jia.config.currentOutputs.GetName(), err)
 	}
 	// Get live version of Job.
 	job, err := jobClient.Get(jia.config.ctx, jia.config.currentOutputs.GetName(), metav1.GetOptions{})
