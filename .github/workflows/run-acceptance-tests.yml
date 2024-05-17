@@ -94,6 +94,7 @@ jobs:
       uses: jaxxstorm/action-install-gh-release@v1.11.0
       with:
         repo: pulumi/schema-tools
+        tag: master
     - name: Build K8sgen
       run: make k8sgen
     - name: Prepare OpenAPI file
@@ -105,13 +106,15 @@ jobs:
     - if: github.event_name == 'pull_request'
       name: Check Schema is Valid
       run: >-
+        git show ${{ github.event.repository.default_branch
+        }}:provider/cmd/pulumi-resource-${{ env.PROVIDER }}/schema.json > ${{
+        runner.temp }}/schema.json;
+
         echo 'SCHEMA_CHANGES<<EOF' >> $GITHUB_ENV
 
-        schema-tools compare -p ${{ env.PROVIDER }} -o ${{ github.event.repository.default_branch }} -n --local-path=provider/cmd/pulumi-resource-${{ env.PROVIDER }}/schema.json >> $GITHUB_ENV
+        schema-tools compare -p ${{ env.PROVIDER }} -n --local-path=provider/cmd/pulumi-resource-${{ env.PROVIDER }}/schema.json -r file:${{ runner.temp }}/schema.json;
 
         echo 'EOF' >> $GITHUB_ENV
-      env:
-        GITHUB_TOKEN: ${{ secrets.PULUMI_BOT_TOKEN }}
     - if: github.event_name == 'pull_request'
       name: Comment on PR with Details of Schema Check
       uses: thollander/actions-comment-pull-request@v2
