@@ -16,8 +16,10 @@ package metadata
 
 import (
 	"strconv"
+	"strings"
 	"time"
 
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
@@ -48,4 +50,17 @@ func TimeoutDuration(resourceTimeoutSeconds float64, obj *unstructured.Unstructu
 	}
 
 	return nil
+}
+
+// DeletionPropagation returns the delete propagation policy, Foreground by default.
+func DeletionPropagation(obj *unstructured.Unstructured) metav1.DeletionPropagation {
+	policy := GetAnnotationValue(obj, AnnotationDeletionPropagation)
+	switch strings.ToLower(policy) {
+	case "orphan":
+		return metav1.DeletePropagationOrphan
+	case "background":
+		return metav1.DeletePropagationBackground
+	default:
+		return metav1.DeletePropagationForeground
+	}
 }
