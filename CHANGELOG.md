@@ -1,9 +1,11 @@
 ## Unreleased
 
+## 4.12.0 (May 21, 2024)
+
 ### Added
 
 - Added a new Helm Chart v4 resource. (https://github.com/pulumi/pulumi-kubernetes/pull/2947)
-- Added a new `deletionPropagationPolicy` annotation. (https://github.com/pulumi/pulumi-kubernetes/pull/3011)
+- Added support for deletion propagation policies (e.g. Orphan). (https://github.com/pulumi/pulumi-kubernetes/pull/3011)
 - Server-side apply conflict errors now include the original field manager's name. (https://github.com/pulumi/pulumi-kubernetes/pull/2983)
 
 ### Changed 
@@ -13,7 +15,7 @@
 
 ### Fixed
 
-- Chart previews no longer fail when the cluster is unreachable. (https://github.com/pulumi/pulumi-kubernetes/pull/2992)
+- Helm Chart V3 previews no longer fail when the cluster is unreachable. (https://github.com/pulumi/pulumi-kubernetes/pull/2992)
 - Fixed a panic that could occur when a missing field became `null`. (https://github.com/pulumi/pulumi-kubernetes/issues/1970)
 
 ## 4.11.0 (April 17, 2024)
