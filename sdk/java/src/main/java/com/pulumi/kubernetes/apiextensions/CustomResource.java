@@ -116,9 +116,10 @@ public class CustomResource extends com.pulumi.resources.CustomResource {
         super(makeType(args), name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
     }
 
-    // private CustomResource(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-    //     super(makeType(args), name, null, makeResourceOptions(options, id));
-    // }
+    protected CustomResource(String name, String apiVersion, String kind, Output<String> id, 
+            @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super(String.format("kubernetes:%s:%s", apiVersion, kind), name, null, makeResourceOptions(options, id));
+    }
 
     private static String makeType(@Nullable CustomResourceArgsBase args) {
         String apiVersion = args.apiVersion().map(Internal::of).map(CustomResource::getOutputValue).orElse("");
@@ -148,12 +149,15 @@ public class CustomResource extends com.pulumi.resources.CustomResource {
         if (args == null) {
             return null;
         }
+        if (args.otherFields().isEmpty() || args.otherFields().get().isEmpty()) {
+            // optimization: if there are no "other" fields, we can just return the args as-is.
+            return args;
+        }
 
         // collect the input properties from the annotated fields of the user-supplied args,
         // plus the dynamic input properties within otherFields.
-        var imports = ImportMetadata.of(args.getClass());
         var importFields = 
-            imports.values().stream()
+            ImportMetadata.of(args.getClass()).values().stream()
             .map(info -> new Field(info.getFieldOutput(args), Either.ofLeft(info.getAnnotation())));
         var otherFields = 
             args.otherFields().orElseGet(Map::of).entrySet().stream()
@@ -165,7 +169,7 @@ public class CustomResource extends com.pulumi.resources.CustomResource {
 
         try {
             // define a dynamic subclass of ResourceArgs with a field for each input property
-            // and a constructor that takes the property values as arguments.
+            // and a constructor that takes the property values and assigns them to the fields.
             var t = new ByteBuddy().subclass(ResourceArgs.class); 
             Implementation.Composable c = MethodCall.invoke(ResourceArgs.class.getConstructor());
 
@@ -206,15 +210,19 @@ public class CustomResource extends com.pulumi.resources.CustomResource {
         return com.pulumi.resources.CustomResourceOptions.merge(defaultOptions, options, id);
     }
 
-    // /**
-    //  * Get an existing Host resource's state with the given name, ID, and optional extra
-    //  * properties used to qualify the lookup.
-    //  *
-    //  * @param name The _unique_ name of the resulting resource.
-    //  * @param id The _unique_ provider ID of the resource to lookup.
-    //  * @param options Optional settings to control the behavior of the CustomResource.
-    //  */
-    // public static CustomResource get(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-    //     return new CustomResource(name, id, options);
-    // }
+    /**
+     * Get the state of an existing `CustomResource` resource, as identified by `id`.
+     * Typically this ID is of the form [namespace]/[name]; if [namespace] is omitted,
+     * then (per Kubernetes convention) the ID becomes default/[name].
+     *
+     * @param name The _unique_ name of the resulting resource.
+     * @param apiVersion The API version of the CustomResource we wish to select, as defined by the CRD.
+     * @param kind The kind of the CustomResource we wish to select, as defined by the CRD.
+     * @param id An ID for the Kubernetes resource to retrieve.
+     * @param options Optional settings to control the behavior of the CustomResource.
+     */
+    public static CustomResource get(String name, String apiVersion, String kind, Output<String> id, 
+            @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        return new CustomResource(name, apiVersion, kind, id, options);
+    }
 }
