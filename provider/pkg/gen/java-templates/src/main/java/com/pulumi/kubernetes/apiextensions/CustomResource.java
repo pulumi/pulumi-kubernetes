@@ -149,6 +149,10 @@ public class CustomResource extends com.pulumi.resources.CustomResource {
         if (args == null) {
             return null;
         }
+        if (args.otherFields().isEmpty() || args.otherFields().get().isEmpty()) {
+            // optimization: if there are no "other" fields, we can just return the args as-is.
+            return args;
+        }
 
         // collect the input properties from the annotated fields of the user-supplied args,
         // plus the dynamic input properties within otherFields.
