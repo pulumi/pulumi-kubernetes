@@ -480,6 +480,10 @@ additional information about using Server-Side Apply to manage Kubernetes resour
 
 	pkg.Language["java"] = rawMessage(map[string]any{
 		"packages": javaPackages,
+		"dependencies": map[string]string{
+			"net.bytebuddy:byte-buddy": "1.14.15",
+			"com.google.guava:guava":   "32.1.2-jre",
+		},
 	})
 
 	pkg.Language["go"] = rawMessage(map[string]any{
