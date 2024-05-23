@@ -30,10 +30,11 @@ import com.pulumi.kubernetes.Utilities;
 import com.pulumi.kubernetes.meta.v1.outputs.ObjectMeta;
 import com.pulumi.resources.ResourceArgs;
 
-import net.bytebuddy.*;
-import net.bytebuddy.description.annotation.*;
-import net.bytebuddy.dynamic.*;
-import net.bytebuddy.implementation.*;
+import net.bytebuddy.ByteBuddy;
+import net.bytebuddy.description.annotation.AnnotationDescription;
+import net.bytebuddy.implementation.FieldAccessor;
+import net.bytebuddy.implementation.Implementation;
+import net.bytebuddy.implementation.MethodCall;
 
 /**
  * CustomResource represents an instance of a CustomResourceDefinition (CRD). For example, the
