@@ -151,9 +151,8 @@ public class CustomResource extends com.pulumi.resources.CustomResource {
 
         // collect the input properties from the annotated fields of the user-supplied args,
         // plus the dynamic input properties within otherFields.
-        var imports = ImportMetadata.of(args.getClass());
         var importFields = 
-            imports.values().stream()
+            ImportMetadata.of(args.getClass()).values().stream()
             .map(info -> new Field(info.getFieldOutput(args), Either.ofLeft(info.getAnnotation())));
         var otherFields = 
             args.otherFields().orElseGet(Map::of).entrySet().stream()
@@ -165,7 +164,7 @@ public class CustomResource extends com.pulumi.resources.CustomResource {
 
         try {
             // define a dynamic subclass of ResourceArgs with a field for each input property
-            // and a constructor that takes the property values as arguments.
+            // and a constructor that takes the property values and assigns them to the fields.
             var t = new ByteBuddy().subclass(ResourceArgs.class); 
             Implementation.Composable c = MethodCall.invoke(ResourceArgs.class.getConstructor());
 
