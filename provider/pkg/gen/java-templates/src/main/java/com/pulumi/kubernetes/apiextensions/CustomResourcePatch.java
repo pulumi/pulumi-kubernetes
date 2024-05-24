@@ -3,13 +3,11 @@
 
 package com.pulumi.kubernetes.apiextensions;
 
-import java.lang.annotation.Annotation;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
 import javax.annotation.Nullable;
 
-import com.pulumi.core.Either;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Export;
 import com.pulumi.core.annotations.ResourceType;
@@ -17,30 +15,37 @@ import com.pulumi.core.internal.Codegen;
 import com.pulumi.core.internal.Internal;
 import com.pulumi.core.internal.OutputInternal;
 import com.pulumi.kubernetes.Utilities;
-import com.pulumi.kubernetes.meta.v1.outputs.ObjectMeta;
+import com.pulumi.kubernetes.meta.v1.outputs.ObjectMetaPatch;
 import com.pulumi.resources.ResourceArgs;
 
 /**
- * CustomResource represents an instance of a CustomResourceDefinition (CRD). For example, the
+ * Patch resources are used to modify existing Kubernetes resources by using
+ * Server-Side Apply updates. The name of the resource must be specified, but all other properties are optional. More than
+ * one patch may be applied to the same resource, and a random FieldManager name will be used for each Patch resource.
+ * Conflicts will result in an error by default, but can be forced using the &#34;pulumi.com/patchForce&#34; annotation. See the
+ * [Server-Side Apply Docs](https://www.pulumi.com/registry/packages/kubernetes/how-to-guides/managing-resources-with-server-side-apply/) for
+ * additional information about using Server-Side Apply to manage Kubernetes resources with Pulumi.
+ * 
+ * CustomResourcePatch represents an instance of a CustomResourceDefinition (CRD). For example, the
  * CoreOS Prometheus operator exposes a CRD `monitoring.coreos.com/ServiceMonitor`; to
- * instantiate this as a Pulumi resource, one could call `new CustomResource`, passing the
+ * instantiate this as a Pulumi resource, one could call `new CustomResourcePatch`, passing the
  * `ServiceMonitor` resource definition as an argument.
  */
-@ResourceType(type="kubernetes:apiextensions:CustomResource")
-public class CustomResource extends com.pulumi.resources.CustomResource {
+@ResourceType(type="kubernetes:apiextensions:CustomResourcePatch")
+public class CustomResourcePatch extends com.pulumi.resources.CustomResource {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      * 
      */
     @Export(name="apiVersion", refs={String.class}, tree="[0]")
-    private Output<String> apiVersion;
+    private Output</* @Nullable */ String> apiVersion;
 
     /**
      * @return APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      * 
      */
-    public Output<String> apiVersion() {
-        return this.apiVersion;
+    public Output<Optional<String>> apiVersion() {
+        return Codegen.optional(this.apiVersion);
     }
 
     /**
@@ -48,37 +53,36 @@ public class CustomResource extends com.pulumi.resources.CustomResource {
      * 
      */
     @Export(name="kind", refs={String.class}, tree="[0]")
-    private Output<String> kind;
+    private Output</* @Nullable */ String> kind;
 
     /**
      * @return Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * 
      */
-    public Output<String> kind() {
-        return this.kind;
+    public Output<Optional<String>> kind() {
+        return Codegen.optional(this.kind);
     }
-
     /**
      * Standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      * 
      */
-    @Export(name="metadata", refs={ObjectMeta.class}, tree="[0]")
-    private Output<ObjectMeta> metadata;
+    @Export(name="metadata", refs={ObjectMetaPatch.class}, tree="[0]")
+    private Output</* @Nullable */ ObjectMetaPatch> metadata;
 
     /**
      * @return Standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      * 
      */
-    public Output<ObjectMeta> metadata() {
-        return this.metadata;
+    public Output<Optional<ObjectMetaPatch>> metadata() {
+        return Codegen.optional(this.metadata);
     }
 
     /**
      *
      * @param name The _unique_ name of the resulting resource.
      */
-    public CustomResource(String name) {
-        this(name, CustomResourceArgs.Empty);
+    public CustomResourcePatch(String name) {
+        this(name, CustomResourcePatchArgs.Empty);
     }
 
     /**
@@ -86,7 +90,7 @@ public class CustomResource extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public CustomResource(String name, @Nullable CustomResourceArgsBase args) {
+    public CustomResourcePatch(String name, @Nullable CustomResourcePatchArgsBase args) {
         this(name, args, null);
     }
     
@@ -96,19 +100,14 @@ public class CustomResource extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public CustomResource(String name, @Nullable CustomResourceArgsBase args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public CustomResourcePatch(String name, @Nullable CustomResourcePatchArgsBase args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super(makeType(args), name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
     }
 
-    protected CustomResource(String name, String apiVersion, String kind, Output<String> id, 
-            @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super(String.format("kubernetes:%s:%s", apiVersion, kind), name, null, makeResourceOptions(options, id));
-    }
-
-    private static String makeType(@Nullable CustomResourceArgsBase args) {
-        String apiVersion = args.apiVersion().map(Internal::of).map(CustomResource::getOutputValue).orElse("");
-        String kind = args.kind().map(Internal::of).map(CustomResource::getOutputValue).orElse("");
-        return String.format("kubernetes:%s:%s", apiVersion, kind);
+    private static String makeType(@Nullable CustomResourcePatchArgsBase args) {
+        String apiVersion = args.apiVersion().map(Internal::of).map(CustomResourcePatch::getOutputValue).orElse("");
+        String kind = args.kind().map(Internal::of).map(CustomResourcePatch::getOutputValue).orElse("");
+        return String.format("kubernetes:%s:%sPatch", apiVersion, kind);
     }
 
     private static String getOutputValue(OutputInternal<String> o) {
@@ -119,12 +118,13 @@ public class CustomResource extends com.pulumi.resources.CustomResource {
         }
     }
 
-    private static ResourceArgs makeArgs(@Nullable CustomResourceArgsBase args) {
+    private static ResourceArgs makeArgs(@Nullable CustomResourcePatchArgsBase args) {
         if (args == null) {
             return null;
         }
         if (args.otherFields().isEmpty() || args.otherFields().get().isEmpty()) {
-            // optimization: if there are no "other" fields, we can just return the args as-is.
+            // optimization: if there are no "other" fields, we can just use the args as-is.
+            // Otherwise we generate a subclass of ResourceArgs that includes the "other" fields.
             return args;
         }
         return Util.generateResourceArgs(args, args.otherFields().get());
@@ -136,21 +136,5 @@ public class CustomResource extends com.pulumi.resources.CustomResource {
                 .version(Utilities.getVersion())
                 .build();
         return com.pulumi.resources.CustomResourceOptions.merge(defaultOptions, options, id);
-    }
-
-    /**
-     * Get the state of an existing `CustomResource` resource, as identified by `id`.
-     * Typically this ID is of the form [namespace]/[name]; if [namespace] is omitted,
-     * then (per Kubernetes convention) the ID becomes default/[name].
-     *
-     * @param name The _unique_ name of the resulting resource.
-     * @param apiVersion The API version of the CustomResource we wish to select, as defined by the CRD.
-     * @param kind The kind of the CustomResource we wish to select, as defined by the CRD.
-     * @param id An ID for the Kubernetes resource to retrieve.
-     * @param options Optional settings to control the behavior of the CustomResource.
-     */
-    public static CustomResource get(String name, String apiVersion, String kind, Output<String> id, 
-            @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        return new CustomResource(name, apiVersion, kind, id, options);
     }
 }

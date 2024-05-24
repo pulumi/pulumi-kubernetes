@@ -1,0 +1,1 @@
+/Users/eronwright/Pulumi/pulumi-kubernetes/provider/pkg/gen/java-templates/src/main/java/com/pulumi/kubernetes/apiextensions/CustomResourcePatchArgsBase.java
