@@ -3,13 +3,11 @@
 
 package com.pulumi.kubernetes.apiextensions;
 
-import java.lang.annotation.Annotation;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
 import javax.annotation.Nullable;
 
-import com.pulumi.core.Either;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Export;
 import com.pulumi.core.annotations.ResourceType;
