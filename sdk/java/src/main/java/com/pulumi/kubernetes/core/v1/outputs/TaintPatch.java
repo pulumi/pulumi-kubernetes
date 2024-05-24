@@ -86,31 +86,35 @@ public final class TaintPatch {
 
         @CustomType.Setter
         public Builder effect(@Nullable String effect) {
+
             this.effect = effect;
             return this;
         }
         @CustomType.Setter
         public Builder key(@Nullable String key) {
+
             this.key = key;
             return this;
         }
         @CustomType.Setter
         public Builder timeAdded(@Nullable String timeAdded) {
+
             this.timeAdded = timeAdded;
             return this;
         }
         @CustomType.Setter
         public Builder value(@Nullable String value) {
+
             this.value = value;
             return this;
         }
         public TaintPatch build() {
-            final var o = new TaintPatch();
-            o.effect = effect;
-            o.key = key;
-            o.timeAdded = timeAdded;
-            o.value = value;
-            return o;
+            final var _resultValue = new TaintPatch();
+            _resultValue.effect = effect;
+            _resultValue.key = key;
+            _resultValue.timeAdded = timeAdded;
+            _resultValue.value = value;
+            return _resultValue;
         }
     }
 }

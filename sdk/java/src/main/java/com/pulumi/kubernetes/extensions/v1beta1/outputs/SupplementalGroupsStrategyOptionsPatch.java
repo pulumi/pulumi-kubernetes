@@ -60,6 +60,7 @@ public final class SupplementalGroupsStrategyOptionsPatch {
 
         @CustomType.Setter
         public Builder ranges(@Nullable List<IDRangePatch> ranges) {
+
             this.ranges = ranges;
             return this;
         }
@@ -68,14 +69,15 @@ public final class SupplementalGroupsStrategyOptionsPatch {
         }
         @CustomType.Setter
         public Builder rule(@Nullable String rule) {
+
             this.rule = rule;
             return this;
         }
         public SupplementalGroupsStrategyOptionsPatch build() {
-            final var o = new SupplementalGroupsStrategyOptionsPatch();
-            o.ranges = ranges;
-            o.rule = rule;
-            return o;
+            final var _resultValue = new SupplementalGroupsStrategyOptionsPatch();
+            _resultValue.ranges = ranges;
+            _resultValue.rule = rule;
+            return _resultValue;
         }
     }
 }

@@ -58,6 +58,7 @@ public final class UncountedTerminatedPodsPatch {
 
         @CustomType.Setter
         public Builder failed(@Nullable List<String> failed) {
+
             this.failed = failed;
             return this;
         }
@@ -66,6 +67,7 @@ public final class UncountedTerminatedPodsPatch {
         }
         @CustomType.Setter
         public Builder succeeded(@Nullable List<String> succeeded) {
+
             this.succeeded = succeeded;
             return this;
         }
@@ -73,10 +75,10 @@ public final class UncountedTerminatedPodsPatch {
             return succeeded(List.of(succeeded));
         }
         public UncountedTerminatedPodsPatch build() {
-            final var o = new UncountedTerminatedPodsPatch();
-            o.failed = failed;
-            o.succeeded = succeeded;
-            return o;
+            final var _resultValue = new UncountedTerminatedPodsPatch();
+            _resultValue.failed = failed;
+            _resultValue.succeeded = succeeded;
+            return _resultValue;
         }
     }
 }

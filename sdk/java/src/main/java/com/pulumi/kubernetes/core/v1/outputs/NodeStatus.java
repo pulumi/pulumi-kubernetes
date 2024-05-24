@@ -208,6 +208,7 @@ public final class NodeStatus {
 
         @CustomType.Setter
         public Builder addresses(@Nullable List<NodeAddress> addresses) {
+
             this.addresses = addresses;
             return this;
         }
@@ -216,16 +217,19 @@ public final class NodeStatus {
         }
         @CustomType.Setter
         public Builder allocatable(@Nullable Map<String,String> allocatable) {
+
             this.allocatable = allocatable;
             return this;
         }
         @CustomType.Setter
         public Builder capacity(@Nullable Map<String,String> capacity) {
+
             this.capacity = capacity;
             return this;
         }
         @CustomType.Setter
         public Builder conditions(@Nullable List<NodeCondition> conditions) {
+
             this.conditions = conditions;
             return this;
         }
@@ -234,16 +238,19 @@ public final class NodeStatus {
         }
         @CustomType.Setter
         public Builder config(@Nullable NodeConfigStatus config) {
+
             this.config = config;
             return this;
         }
         @CustomType.Setter
         public Builder daemonEndpoints(@Nullable NodeDaemonEndpoints daemonEndpoints) {
+
             this.daemonEndpoints = daemonEndpoints;
             return this;
         }
         @CustomType.Setter
         public Builder images(@Nullable List<ContainerImage> images) {
+
             this.images = images;
             return this;
         }
@@ -252,16 +259,19 @@ public final class NodeStatus {
         }
         @CustomType.Setter
         public Builder nodeInfo(@Nullable NodeSystemInfo nodeInfo) {
+
             this.nodeInfo = nodeInfo;
             return this;
         }
         @CustomType.Setter
         public Builder phase(@Nullable String phase) {
+
             this.phase = phase;
             return this;
         }
         @CustomType.Setter
         public Builder runtimeHandlers(@Nullable List<NodeRuntimeHandler> runtimeHandlers) {
+
             this.runtimeHandlers = runtimeHandlers;
             return this;
         }
@@ -270,6 +280,7 @@ public final class NodeStatus {
         }
         @CustomType.Setter
         public Builder volumesAttached(@Nullable List<AttachedVolume> volumesAttached) {
+
             this.volumesAttached = volumesAttached;
             return this;
         }
@@ -278,6 +289,7 @@ public final class NodeStatus {
         }
         @CustomType.Setter
         public Builder volumesInUse(@Nullable List<String> volumesInUse) {
+
             this.volumesInUse = volumesInUse;
             return this;
         }
@@ -285,20 +297,20 @@ public final class NodeStatus {
             return volumesInUse(List.of(volumesInUse));
         }
         public NodeStatus build() {
-            final var o = new NodeStatus();
-            o.addresses = addresses;
-            o.allocatable = allocatable;
-            o.capacity = capacity;
-            o.conditions = conditions;
-            o.config = config;
-            o.daemonEndpoints = daemonEndpoints;
-            o.images = images;
-            o.nodeInfo = nodeInfo;
-            o.phase = phase;
-            o.runtimeHandlers = runtimeHandlers;
-            o.volumesAttached = volumesAttached;
-            o.volumesInUse = volumesInUse;
-            return o;
+            final var _resultValue = new NodeStatus();
+            _resultValue.addresses = addresses;
+            _resultValue.allocatable = allocatable;
+            _resultValue.capacity = capacity;
+            _resultValue.conditions = conditions;
+            _resultValue.config = config;
+            _resultValue.daemonEndpoints = daemonEndpoints;
+            _resultValue.images = images;
+            _resultValue.nodeInfo = nodeInfo;
+            _resultValue.phase = phase;
+            _resultValue.runtimeHandlers = runtimeHandlers;
+            _resultValue.volumesAttached = volumesAttached;
+            _resultValue.volumesInUse = volumesInUse;
+            return _resultValue;
         }
     }
 }

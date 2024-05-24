@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
 
@@ -56,19 +57,25 @@ public final class ContainerResizePolicy {
 
         @CustomType.Setter
         public Builder resourceName(String resourceName) {
-            this.resourceName = Objects.requireNonNull(resourceName);
+            if (resourceName == null) {
+              throw new MissingRequiredPropertyException("ContainerResizePolicy", "resourceName");
+            }
+            this.resourceName = resourceName;
             return this;
         }
         @CustomType.Setter
         public Builder restartPolicy(String restartPolicy) {
-            this.restartPolicy = Objects.requireNonNull(restartPolicy);
+            if (restartPolicy == null) {
+              throw new MissingRequiredPropertyException("ContainerResizePolicy", "restartPolicy");
+            }
+            this.restartPolicy = restartPolicy;
             return this;
         }
         public ContainerResizePolicy build() {
-            final var o = new ContainerResizePolicy();
-            o.resourceName = resourceName;
-            o.restartPolicy = restartPolicy;
-            return o;
+            final var _resultValue = new ContainerResizePolicy();
+            _resultValue.resourceName = resourceName;
+            _resultValue.restartPolicy = restartPolicy;
+            return _resultValue;
         }
     }
 }

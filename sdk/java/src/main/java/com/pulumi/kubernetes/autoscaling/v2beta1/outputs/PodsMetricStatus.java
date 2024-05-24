@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.autoscaling.v2beta1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.meta.v1.outputs.LabelSelector;
 import java.lang.String;
 import java.util.Objects;
@@ -73,25 +74,32 @@ public final class PodsMetricStatus {
 
         @CustomType.Setter
         public Builder currentAverageValue(String currentAverageValue) {
-            this.currentAverageValue = Objects.requireNonNull(currentAverageValue);
+            if (currentAverageValue == null) {
+              throw new MissingRequiredPropertyException("PodsMetricStatus", "currentAverageValue");
+            }
+            this.currentAverageValue = currentAverageValue;
             return this;
         }
         @CustomType.Setter
         public Builder metricName(String metricName) {
-            this.metricName = Objects.requireNonNull(metricName);
+            if (metricName == null) {
+              throw new MissingRequiredPropertyException("PodsMetricStatus", "metricName");
+            }
+            this.metricName = metricName;
             return this;
         }
         @CustomType.Setter
         public Builder selector(@Nullable LabelSelector selector) {
+
             this.selector = selector;
             return this;
         }
         public PodsMetricStatus build() {
-            final var o = new PodsMetricStatus();
-            o.currentAverageValue = currentAverageValue;
-            o.metricName = metricName;
-            o.selector = selector;
-            return o;
+            final var _resultValue = new PodsMetricStatus();
+            _resultValue.currentAverageValue = currentAverageValue;
+            _resultValue.metricName = metricName;
+            _resultValue.selector = selector;
+            return _resultValue;
         }
     }
 }

@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.node.v1alpha1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.node.v1alpha1.outputs.Overhead;
 import com.pulumi.kubernetes.node.v1alpha1.outputs.Scheduling;
 import java.lang.String;
@@ -74,25 +75,30 @@ public final class RuntimeClassSpec {
 
         @CustomType.Setter
         public Builder overhead(@Nullable Overhead overhead) {
+
             this.overhead = overhead;
             return this;
         }
         @CustomType.Setter
         public Builder runtimeHandler(String runtimeHandler) {
-            this.runtimeHandler = Objects.requireNonNull(runtimeHandler);
+            if (runtimeHandler == null) {
+              throw new MissingRequiredPropertyException("RuntimeClassSpec", "runtimeHandler");
+            }
+            this.runtimeHandler = runtimeHandler;
             return this;
         }
         @CustomType.Setter
         public Builder scheduling(@Nullable Scheduling scheduling) {
+
             this.scheduling = scheduling;
             return this;
         }
         public RuntimeClassSpec build() {
-            final var o = new RuntimeClassSpec();
-            o.overhead = overhead;
-            o.runtimeHandler = runtimeHandler;
-            o.scheduling = scheduling;
-            return o;
+            final var _resultValue = new RuntimeClassSpec();
+            _resultValue.overhead = overhead;
+            _resultValue.runtimeHandler = runtimeHandler;
+            _resultValue.scheduling = scheduling;
+            return _resultValue;
         }
     }
 }

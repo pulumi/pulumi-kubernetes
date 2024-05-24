@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.core.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Boolean;
 import java.lang.String;
 import java.util.Objects;
@@ -155,7 +156,9 @@ public final class SecretKeySelectorArgs extends com.pulumi.resources.ResourceAr
         }
 
         public SecretKeySelectorArgs build() {
-            $.key = Objects.requireNonNull($.key, "expected parameter 'key' to be non-null");
+            if ($.key == null) {
+                throw new MissingRequiredPropertyException("SecretKeySelectorArgs", "key");
+            }
             return $;
         }
     }

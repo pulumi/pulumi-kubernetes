@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.autoscaling.v2.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.autoscaling.v2.outputs.CrossVersionObjectReference;
 import com.pulumi.kubernetes.autoscaling.v2.outputs.HorizontalPodAutoscalerBehavior;
 import com.pulumi.kubernetes.autoscaling.v2.outputs.MetricSpec;
@@ -104,16 +105,21 @@ public final class HorizontalPodAutoscalerSpec {
 
         @CustomType.Setter
         public Builder behavior(@Nullable HorizontalPodAutoscalerBehavior behavior) {
+
             this.behavior = behavior;
             return this;
         }
         @CustomType.Setter
         public Builder maxReplicas(Integer maxReplicas) {
-            this.maxReplicas = Objects.requireNonNull(maxReplicas);
+            if (maxReplicas == null) {
+              throw new MissingRequiredPropertyException("HorizontalPodAutoscalerSpec", "maxReplicas");
+            }
+            this.maxReplicas = maxReplicas;
             return this;
         }
         @CustomType.Setter
         public Builder metrics(@Nullable List<MetricSpec> metrics) {
+
             this.metrics = metrics;
             return this;
         }
@@ -122,22 +128,26 @@ public final class HorizontalPodAutoscalerSpec {
         }
         @CustomType.Setter
         public Builder minReplicas(@Nullable Integer minReplicas) {
+
             this.minReplicas = minReplicas;
             return this;
         }
         @CustomType.Setter
         public Builder scaleTargetRef(CrossVersionObjectReference scaleTargetRef) {
-            this.scaleTargetRef = Objects.requireNonNull(scaleTargetRef);
+            if (scaleTargetRef == null) {
+              throw new MissingRequiredPropertyException("HorizontalPodAutoscalerSpec", "scaleTargetRef");
+            }
+            this.scaleTargetRef = scaleTargetRef;
             return this;
         }
         public HorizontalPodAutoscalerSpec build() {
-            final var o = new HorizontalPodAutoscalerSpec();
-            o.behavior = behavior;
-            o.maxReplicas = maxReplicas;
-            o.metrics = metrics;
-            o.minReplicas = minReplicas;
-            o.scaleTargetRef = scaleTargetRef;
-            return o;
+            final var _resultValue = new HorizontalPodAutoscalerSpec();
+            _resultValue.behavior = behavior;
+            _resultValue.maxReplicas = maxReplicas;
+            _resultValue.metrics = metrics;
+            _resultValue.minReplicas = minReplicas;
+            _resultValue.scaleTargetRef = scaleTargetRef;
+            return _resultValue;
         }
     }
 }

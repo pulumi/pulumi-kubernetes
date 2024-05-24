@@ -75,6 +75,7 @@ public final class ValidatingAdmissionPolicyStatusPatch {
 
         @CustomType.Setter
         public Builder conditions(@Nullable List<ConditionPatch> conditions) {
+
             this.conditions = conditions;
             return this;
         }
@@ -83,20 +84,22 @@ public final class ValidatingAdmissionPolicyStatusPatch {
         }
         @CustomType.Setter
         public Builder observedGeneration(@Nullable Integer observedGeneration) {
+
             this.observedGeneration = observedGeneration;
             return this;
         }
         @CustomType.Setter
         public Builder typeChecking(@Nullable TypeCheckingPatch typeChecking) {
+
             this.typeChecking = typeChecking;
             return this;
         }
         public ValidatingAdmissionPolicyStatusPatch build() {
-            final var o = new ValidatingAdmissionPolicyStatusPatch();
-            o.conditions = conditions;
-            o.observedGeneration = observedGeneration;
-            o.typeChecking = typeChecking;
-            return o;
+            final var _resultValue = new ValidatingAdmissionPolicyStatusPatch();
+            _resultValue.conditions = conditions;
+            _resultValue.observedGeneration = observedGeneration;
+            _resultValue.typeChecking = typeChecking;
+            return _resultValue;
         }
     }
 }

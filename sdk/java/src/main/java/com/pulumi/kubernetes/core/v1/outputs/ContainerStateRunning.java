@@ -44,13 +44,14 @@ public final class ContainerStateRunning {
 
         @CustomType.Setter
         public Builder startedAt(@Nullable String startedAt) {
+
             this.startedAt = startedAt;
             return this;
         }
         public ContainerStateRunning build() {
-            final var o = new ContainerStateRunning();
-            o.startedAt = startedAt;
-            return o;
+            final var _resultValue = new ContainerStateRunning();
+            _resultValue.startedAt = startedAt;
+            return _resultValue;
         }
     }
 }

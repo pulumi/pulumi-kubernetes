@@ -44,6 +44,7 @@ public final class NodeSelectorPatch {
 
         @CustomType.Setter
         public Builder nodeSelectorTerms(@Nullable List<NodeSelectorTermPatch> nodeSelectorTerms) {
+
             this.nodeSelectorTerms = nodeSelectorTerms;
             return this;
         }
@@ -51,9 +52,9 @@ public final class NodeSelectorPatch {
             return nodeSelectorTerms(List.of(nodeSelectorTerms));
         }
         public NodeSelectorPatch build() {
-            final var o = new NodeSelectorPatch();
-            o.nodeSelectorTerms = nodeSelectorTerms;
-            return o;
+            final var _resultValue = new NodeSelectorPatch();
+            _resultValue.nodeSelectorTerms = nodeSelectorTerms;
+            return _resultValue;
         }
     }
 }

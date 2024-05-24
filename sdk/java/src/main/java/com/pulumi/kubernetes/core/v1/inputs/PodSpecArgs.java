@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.core.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.inputs.AffinityArgs;
 import com.pulumi.kubernetes.core.v1.inputs.ContainerArgs;
 import com.pulumi.kubernetes.core.v1.inputs.EphemeralContainerArgs;
@@ -1660,7 +1661,9 @@ public final class PodSpecArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         public PodSpecArgs build() {
-            $.containers = Objects.requireNonNull($.containers, "expected parameter 'containers' to be non-null");
+            if ($.containers == null) {
+                throw new MissingRequiredPropertyException("PodSpecArgs", "containers");
+            }
             return $;
         }
     }

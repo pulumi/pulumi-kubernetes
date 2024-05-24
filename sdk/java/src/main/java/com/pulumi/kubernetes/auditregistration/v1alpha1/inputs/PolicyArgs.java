@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.auditregistration.v1alpha1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.List;
 import java.util.Objects;
@@ -128,7 +129,9 @@ public final class PolicyArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         public PolicyArgs build() {
-            $.level = Objects.requireNonNull($.level, "expected parameter 'level' to be non-null");
+            if ($.level == null) {
+                throw new MissingRequiredPropertyException("PolicyArgs", "level");
+            }
             return $;
         }
     }

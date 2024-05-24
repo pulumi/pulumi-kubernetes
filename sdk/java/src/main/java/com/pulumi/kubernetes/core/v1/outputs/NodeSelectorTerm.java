@@ -58,6 +58,7 @@ public final class NodeSelectorTerm {
 
         @CustomType.Setter
         public Builder matchExpressions(@Nullable List<NodeSelectorRequirement> matchExpressions) {
+
             this.matchExpressions = matchExpressions;
             return this;
         }
@@ -66,6 +67,7 @@ public final class NodeSelectorTerm {
         }
         @CustomType.Setter
         public Builder matchFields(@Nullable List<NodeSelectorRequirement> matchFields) {
+
             this.matchFields = matchFields;
             return this;
         }
@@ -73,10 +75,10 @@ public final class NodeSelectorTerm {
             return matchFields(List.of(matchFields));
         }
         public NodeSelectorTerm build() {
-            final var o = new NodeSelectorTerm();
-            o.matchExpressions = matchExpressions;
-            o.matchFields = matchFields;
-            return o;
+            final var _resultValue = new NodeSelectorTerm();
+            _resultValue.matchExpressions = matchExpressions;
+            _resultValue.matchFields = matchFields;
+            return _resultValue;
         }
     }
 }

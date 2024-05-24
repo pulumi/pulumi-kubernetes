@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.flowcontrol.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.flowcontrol.v1.inputs.GroupSubjectArgs;
 import com.pulumi.kubernetes.flowcontrol.v1.inputs.ServiceAccountSubjectArgs;
 import com.pulumi.kubernetes.flowcontrol.v1.inputs.UserSubjectArgs;
@@ -194,7 +195,9 @@ public final class SubjectArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         public SubjectArgs build() {
-            $.kind = Objects.requireNonNull($.kind, "expected parameter 'kind' to be non-null");
+            if ($.kind == null) {
+                throw new MissingRequiredPropertyException("SubjectArgs", "kind");
+            }
             return $;
         }
     }

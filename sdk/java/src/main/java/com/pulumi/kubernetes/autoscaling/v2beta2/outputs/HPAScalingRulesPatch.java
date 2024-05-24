@@ -75,6 +75,7 @@ public final class HPAScalingRulesPatch {
 
         @CustomType.Setter
         public Builder policies(@Nullable List<HPAScalingPolicyPatch> policies) {
+
             this.policies = policies;
             return this;
         }
@@ -83,20 +84,22 @@ public final class HPAScalingRulesPatch {
         }
         @CustomType.Setter
         public Builder selectPolicy(@Nullable String selectPolicy) {
+
             this.selectPolicy = selectPolicy;
             return this;
         }
         @CustomType.Setter
         public Builder stabilizationWindowSeconds(@Nullable Integer stabilizationWindowSeconds) {
+
             this.stabilizationWindowSeconds = stabilizationWindowSeconds;
             return this;
         }
         public HPAScalingRulesPatch build() {
-            final var o = new HPAScalingRulesPatch();
-            o.policies = policies;
-            o.selectPolicy = selectPolicy;
-            o.stabilizationWindowSeconds = stabilizationWindowSeconds;
-            return o;
+            final var _resultValue = new HPAScalingRulesPatch();
+            _resultValue.policies = policies;
+            _resultValue.selectPolicy = selectPolicy;
+            _resultValue.stabilizationWindowSeconds = stabilizationWindowSeconds;
+            return _resultValue;
         }
     }
 }

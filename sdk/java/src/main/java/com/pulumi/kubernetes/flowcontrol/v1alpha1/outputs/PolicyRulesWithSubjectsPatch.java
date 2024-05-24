@@ -74,6 +74,7 @@ public final class PolicyRulesWithSubjectsPatch {
 
         @CustomType.Setter
         public Builder nonResourceRules(@Nullable List<NonResourcePolicyRulePatch> nonResourceRules) {
+
             this.nonResourceRules = nonResourceRules;
             return this;
         }
@@ -82,6 +83,7 @@ public final class PolicyRulesWithSubjectsPatch {
         }
         @CustomType.Setter
         public Builder resourceRules(@Nullable List<ResourcePolicyRulePatch> resourceRules) {
+
             this.resourceRules = resourceRules;
             return this;
         }
@@ -90,6 +92,7 @@ public final class PolicyRulesWithSubjectsPatch {
         }
         @CustomType.Setter
         public Builder subjects(@Nullable List<SubjectPatch> subjects) {
+
             this.subjects = subjects;
             return this;
         }
@@ -97,11 +100,11 @@ public final class PolicyRulesWithSubjectsPatch {
             return subjects(List.of(subjects));
         }
         public PolicyRulesWithSubjectsPatch build() {
-            final var o = new PolicyRulesWithSubjectsPatch();
-            o.nonResourceRules = nonResourceRules;
-            o.resourceRules = resourceRules;
-            o.subjects = subjects;
-            return o;
+            final var _resultValue = new PolicyRulesWithSubjectsPatch();
+            _resultValue.nonResourceRules = nonResourceRules;
+            _resultValue.resourceRules = resourceRules;
+            _resultValue.subjects = subjects;
+            return _resultValue;
         }
     }
 }

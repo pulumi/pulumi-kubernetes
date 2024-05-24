@@ -103,37 +103,42 @@ public final class CSIVolumeSourcePatch {
 
         @CustomType.Setter
         public Builder driver(@Nullable String driver) {
+
             this.driver = driver;
             return this;
         }
         @CustomType.Setter
         public Builder fsType(@Nullable String fsType) {
+
             this.fsType = fsType;
             return this;
         }
         @CustomType.Setter
         public Builder nodePublishSecretRef(@Nullable LocalObjectReferencePatch nodePublishSecretRef) {
+
             this.nodePublishSecretRef = nodePublishSecretRef;
             return this;
         }
         @CustomType.Setter
         public Builder readOnly(@Nullable Boolean readOnly) {
+
             this.readOnly = readOnly;
             return this;
         }
         @CustomType.Setter
         public Builder volumeAttributes(@Nullable Map<String,String> volumeAttributes) {
+
             this.volumeAttributes = volumeAttributes;
             return this;
         }
         public CSIVolumeSourcePatch build() {
-            final var o = new CSIVolumeSourcePatch();
-            o.driver = driver;
-            o.fsType = fsType;
-            o.nodePublishSecretRef = nodePublishSecretRef;
-            o.readOnly = readOnly;
-            o.volumeAttributes = volumeAttributes;
-            return o;
+            final var _resultValue = new CSIVolumeSourcePatch();
+            _resultValue.driver = driver;
+            _resultValue.fsType = fsType;
+            _resultValue.nodePublishSecretRef = nodePublishSecretRef;
+            _resultValue.readOnly = readOnly;
+            _resultValue.volumeAttributes = volumeAttributes;
+            return _resultValue;
         }
     }
 }

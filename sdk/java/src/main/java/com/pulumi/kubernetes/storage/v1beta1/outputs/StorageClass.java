@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.storage.v1beta1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.outputs.TopologySelectorTerm;
 import com.pulumi.kubernetes.meta.v1.outputs.ObjectMeta;
 import java.lang.Boolean;
@@ -175,11 +176,13 @@ public final class StorageClass {
 
         @CustomType.Setter
         public Builder allowVolumeExpansion(@Nullable Boolean allowVolumeExpansion) {
+
             this.allowVolumeExpansion = allowVolumeExpansion;
             return this;
         }
         @CustomType.Setter
         public Builder allowedTopologies(@Nullable List<TopologySelectorTerm> allowedTopologies) {
+
             this.allowedTopologies = allowedTopologies;
             return this;
         }
@@ -188,21 +191,25 @@ public final class StorageClass {
         }
         @CustomType.Setter
         public Builder apiVersion(@Nullable String apiVersion) {
+
             this.apiVersion = apiVersion;
             return this;
         }
         @CustomType.Setter
         public Builder kind(@Nullable String kind) {
+
             this.kind = kind;
             return this;
         }
         @CustomType.Setter
         public Builder metadata(@Nullable ObjectMeta metadata) {
+
             this.metadata = metadata;
             return this;
         }
         @CustomType.Setter
         public Builder mountOptions(@Nullable List<String> mountOptions) {
+
             this.mountOptions = mountOptions;
             return this;
         }
@@ -211,37 +218,43 @@ public final class StorageClass {
         }
         @CustomType.Setter
         public Builder parameters(@Nullable Map<String,String> parameters) {
+
             this.parameters = parameters;
             return this;
         }
         @CustomType.Setter
         public Builder provisioner(String provisioner) {
-            this.provisioner = Objects.requireNonNull(provisioner);
+            if (provisioner == null) {
+              throw new MissingRequiredPropertyException("StorageClass", "provisioner");
+            }
+            this.provisioner = provisioner;
             return this;
         }
         @CustomType.Setter
         public Builder reclaimPolicy(@Nullable String reclaimPolicy) {
+
             this.reclaimPolicy = reclaimPolicy;
             return this;
         }
         @CustomType.Setter
         public Builder volumeBindingMode(@Nullable String volumeBindingMode) {
+
             this.volumeBindingMode = volumeBindingMode;
             return this;
         }
         public StorageClass build() {
-            final var o = new StorageClass();
-            o.allowVolumeExpansion = allowVolumeExpansion;
-            o.allowedTopologies = allowedTopologies;
-            o.apiVersion = apiVersion;
-            o.kind = kind;
-            o.metadata = metadata;
-            o.mountOptions = mountOptions;
-            o.parameters = parameters;
-            o.provisioner = provisioner;
-            o.reclaimPolicy = reclaimPolicy;
-            o.volumeBindingMode = volumeBindingMode;
-            return o;
+            final var _resultValue = new StorageClass();
+            _resultValue.allowVolumeExpansion = allowVolumeExpansion;
+            _resultValue.allowedTopologies = allowedTopologies;
+            _resultValue.apiVersion = apiVersion;
+            _resultValue.kind = kind;
+            _resultValue.metadata = metadata;
+            _resultValue.mountOptions = mountOptions;
+            _resultValue.parameters = parameters;
+            _resultValue.provisioner = provisioner;
+            _resultValue.reclaimPolicy = reclaimPolicy;
+            _resultValue.volumeBindingMode = volumeBindingMode;
+            return _resultValue;
         }
     }
 }

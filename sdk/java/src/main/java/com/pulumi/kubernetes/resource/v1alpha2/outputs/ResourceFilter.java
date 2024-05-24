@@ -59,19 +59,21 @@ public final class ResourceFilter {
 
         @CustomType.Setter
         public Builder driverName(@Nullable String driverName) {
+
             this.driverName = driverName;
             return this;
         }
         @CustomType.Setter
         public Builder namedResources(@Nullable NamedResourcesFilter namedResources) {
+
             this.namedResources = namedResources;
             return this;
         }
         public ResourceFilter build() {
-            final var o = new ResourceFilter();
-            o.driverName = driverName;
-            o.namedResources = namedResources;
-            return o;
+            final var _resultValue = new ResourceFilter();
+            _resultValue.driverName = driverName;
+            _resultValue.namedResources = namedResources;
+            return _resultValue;
         }
     }
 }

@@ -73,25 +73,28 @@ public final class PodsMetricSourcePatch {
 
         @CustomType.Setter
         public Builder metricName(@Nullable String metricName) {
+
             this.metricName = metricName;
             return this;
         }
         @CustomType.Setter
         public Builder selector(@Nullable LabelSelectorPatch selector) {
+
             this.selector = selector;
             return this;
         }
         @CustomType.Setter
         public Builder targetAverageValue(@Nullable String targetAverageValue) {
+
             this.targetAverageValue = targetAverageValue;
             return this;
         }
         public PodsMetricSourcePatch build() {
-            final var o = new PodsMetricSourcePatch();
-            o.metricName = metricName;
-            o.selector = selector;
-            o.targetAverageValue = targetAverageValue;
-            return o;
+            final var _resultValue = new PodsMetricSourcePatch();
+            _resultValue.metricName = metricName;
+            _resultValue.selector = selector;
+            _resultValue.targetAverageValue = targetAverageValue;
+            return _resultValue;
         }
     }
 }

@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.core.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
 
@@ -78,7 +79,9 @@ public final class PodReadinessGateArgs extends com.pulumi.resources.ResourceArg
         }
 
         public PodReadinessGateArgs build() {
-            $.conditionType = Objects.requireNonNull($.conditionType, "expected parameter 'conditionType' to be non-null");
+            if ($.conditionType == null) {
+                throw new MissingRequiredPropertyException("PodReadinessGateArgs", "conditionType");
+            }
             return $;
         }
     }

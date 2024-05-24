@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.resource.v1alpha2.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -86,31 +87,41 @@ public final class ResourceClaimConsumerReference {
 
         @CustomType.Setter
         public Builder apiGroup(@Nullable String apiGroup) {
+
             this.apiGroup = apiGroup;
             return this;
         }
         @CustomType.Setter
         public Builder name(String name) {
-            this.name = Objects.requireNonNull(name);
+            if (name == null) {
+              throw new MissingRequiredPropertyException("ResourceClaimConsumerReference", "name");
+            }
+            this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder resource(String resource) {
-            this.resource = Objects.requireNonNull(resource);
+            if (resource == null) {
+              throw new MissingRequiredPropertyException("ResourceClaimConsumerReference", "resource");
+            }
+            this.resource = resource;
             return this;
         }
         @CustomType.Setter
         public Builder uid(String uid) {
-            this.uid = Objects.requireNonNull(uid);
+            if (uid == null) {
+              throw new MissingRequiredPropertyException("ResourceClaimConsumerReference", "uid");
+            }
+            this.uid = uid;
             return this;
         }
         public ResourceClaimConsumerReference build() {
-            final var o = new ResourceClaimConsumerReference();
-            o.apiGroup = apiGroup;
-            o.name = name;
-            o.resource = resource;
-            o.uid = uid;
-            return o;
+            final var _resultValue = new ResourceClaimConsumerReference();
+            _resultValue.apiGroup = apiGroup;
+            _resultValue.name = name;
+            _resultValue.resource = resource;
+            _resultValue.uid = uid;
+            return _resultValue;
         }
     }
 }

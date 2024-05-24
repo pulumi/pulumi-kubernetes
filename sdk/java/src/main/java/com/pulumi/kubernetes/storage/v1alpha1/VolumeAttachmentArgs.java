@@ -6,6 +6,7 @@ package com.pulumi.kubernetes.storage.v1alpha1;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.core.internal.Codegen;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.meta.v1.inputs.ObjectMetaArgs;
 import com.pulumi.kubernetes.storage.v1alpha1.inputs.VolumeAttachmentSpecArgs;
 import java.lang.String;
@@ -192,7 +193,9 @@ public final class VolumeAttachmentArgs extends com.pulumi.resources.ResourceArg
         public VolumeAttachmentArgs build() {
             $.apiVersion = Codegen.stringProp("apiVersion").output().arg($.apiVersion).getNullable();
             $.kind = Codegen.stringProp("kind").output().arg($.kind).getNullable();
-            $.spec = Objects.requireNonNull($.spec, "expected parameter 'spec' to be non-null");
+            if ($.spec == null) {
+                throw new MissingRequiredPropertyException("VolumeAttachmentArgs", "spec");
+            }
             return $;
         }
     }

@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.autoscaling.v2beta2.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.autoscaling.v2beta2.outputs.HorizontalPodAutoscalerCondition;
 import com.pulumi.kubernetes.autoscaling.v2beta2.outputs.MetricStatus;
 import java.lang.Integer;
@@ -118,7 +119,10 @@ public final class HorizontalPodAutoscalerStatus {
 
         @CustomType.Setter
         public Builder conditions(List<HorizontalPodAutoscalerCondition> conditions) {
-            this.conditions = Objects.requireNonNull(conditions);
+            if (conditions == null) {
+              throw new MissingRequiredPropertyException("HorizontalPodAutoscalerStatus", "conditions");
+            }
+            this.conditions = conditions;
             return this;
         }
         public Builder conditions(HorizontalPodAutoscalerCondition... conditions) {
@@ -126,6 +130,7 @@ public final class HorizontalPodAutoscalerStatus {
         }
         @CustomType.Setter
         public Builder currentMetrics(@Nullable List<MetricStatus> currentMetrics) {
+
             this.currentMetrics = currentMetrics;
             return this;
         }
@@ -134,33 +139,41 @@ public final class HorizontalPodAutoscalerStatus {
         }
         @CustomType.Setter
         public Builder currentReplicas(Integer currentReplicas) {
-            this.currentReplicas = Objects.requireNonNull(currentReplicas);
+            if (currentReplicas == null) {
+              throw new MissingRequiredPropertyException("HorizontalPodAutoscalerStatus", "currentReplicas");
+            }
+            this.currentReplicas = currentReplicas;
             return this;
         }
         @CustomType.Setter
         public Builder desiredReplicas(Integer desiredReplicas) {
-            this.desiredReplicas = Objects.requireNonNull(desiredReplicas);
+            if (desiredReplicas == null) {
+              throw new MissingRequiredPropertyException("HorizontalPodAutoscalerStatus", "desiredReplicas");
+            }
+            this.desiredReplicas = desiredReplicas;
             return this;
         }
         @CustomType.Setter
         public Builder lastScaleTime(@Nullable String lastScaleTime) {
+
             this.lastScaleTime = lastScaleTime;
             return this;
         }
         @CustomType.Setter
         public Builder observedGeneration(@Nullable Integer observedGeneration) {
+
             this.observedGeneration = observedGeneration;
             return this;
         }
         public HorizontalPodAutoscalerStatus build() {
-            final var o = new HorizontalPodAutoscalerStatus();
-            o.conditions = conditions;
-            o.currentMetrics = currentMetrics;
-            o.currentReplicas = currentReplicas;
-            o.desiredReplicas = desiredReplicas;
-            o.lastScaleTime = lastScaleTime;
-            o.observedGeneration = observedGeneration;
-            return o;
+            final var _resultValue = new HorizontalPodAutoscalerStatus();
+            _resultValue.conditions = conditions;
+            _resultValue.currentMetrics = currentMetrics;
+            _resultValue.currentReplicas = currentReplicas;
+            _resultValue.desiredReplicas = desiredReplicas;
+            _resultValue.lastScaleTime = lastScaleTime;
+            _resultValue.observedGeneration = observedGeneration;
+            return _resultValue;
         }
     }
 }

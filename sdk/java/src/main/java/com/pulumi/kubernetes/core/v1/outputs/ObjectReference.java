@@ -128,49 +128,56 @@ public final class ObjectReference {
 
         @CustomType.Setter
         public Builder apiVersion(@Nullable String apiVersion) {
+
             this.apiVersion = apiVersion;
             return this;
         }
         @CustomType.Setter
         public Builder fieldPath(@Nullable String fieldPath) {
+
             this.fieldPath = fieldPath;
             return this;
         }
         @CustomType.Setter
         public Builder kind(@Nullable String kind) {
+
             this.kind = kind;
             return this;
         }
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder namespace(@Nullable String namespace) {
+
             this.namespace = namespace;
             return this;
         }
         @CustomType.Setter
         public Builder resourceVersion(@Nullable String resourceVersion) {
+
             this.resourceVersion = resourceVersion;
             return this;
         }
         @CustomType.Setter
         public Builder uid(@Nullable String uid) {
+
             this.uid = uid;
             return this;
         }
         public ObjectReference build() {
-            final var o = new ObjectReference();
-            o.apiVersion = apiVersion;
-            o.fieldPath = fieldPath;
-            o.kind = kind;
-            o.name = name;
-            o.namespace = namespace;
-            o.resourceVersion = resourceVersion;
-            o.uid = uid;
-            return o;
+            final var _resultValue = new ObjectReference();
+            _resultValue.apiVersion = apiVersion;
+            _resultValue.fieldPath = fieldPath;
+            _resultValue.kind = kind;
+            _resultValue.name = name;
+            _resultValue.namespace = namespace;
+            _resultValue.resourceVersion = resourceVersion;
+            _resultValue.uid = uid;
+            return _resultValue;
         }
     }
 }

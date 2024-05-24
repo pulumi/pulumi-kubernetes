@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.auditregistration.v1alpha1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.auditregistration.v1alpha1.outputs.WebhookClientConfig;
 import com.pulumi.kubernetes.auditregistration.v1alpha1.outputs.WebhookThrottleConfig;
 import java.util.Objects;
@@ -59,19 +60,23 @@ public final class Webhook {
 
         @CustomType.Setter
         public Builder clientConfig(WebhookClientConfig clientConfig) {
-            this.clientConfig = Objects.requireNonNull(clientConfig);
+            if (clientConfig == null) {
+              throw new MissingRequiredPropertyException("Webhook", "clientConfig");
+            }
+            this.clientConfig = clientConfig;
             return this;
         }
         @CustomType.Setter
         public Builder throttle(@Nullable WebhookThrottleConfig throttle) {
+
             this.throttle = throttle;
             return this;
         }
         public Webhook build() {
-            final var o = new Webhook();
-            o.clientConfig = clientConfig;
-            o.throttle = throttle;
-            return o;
+            final var _resultValue = new Webhook();
+            _resultValue.clientConfig = clientConfig;
+            _resultValue.throttle = throttle;
+            return _resultValue;
         }
     }
 }

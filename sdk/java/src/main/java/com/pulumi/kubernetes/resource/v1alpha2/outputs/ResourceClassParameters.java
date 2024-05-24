@@ -119,11 +119,13 @@ public final class ResourceClassParameters {
 
         @CustomType.Setter
         public Builder apiVersion(@Nullable String apiVersion) {
+
             this.apiVersion = apiVersion;
             return this;
         }
         @CustomType.Setter
         public Builder filters(@Nullable List<ResourceFilter> filters) {
+
             this.filters = filters;
             return this;
         }
@@ -132,21 +134,25 @@ public final class ResourceClassParameters {
         }
         @CustomType.Setter
         public Builder generatedFrom(@Nullable ResourceClassParametersReference generatedFrom) {
+
             this.generatedFrom = generatedFrom;
             return this;
         }
         @CustomType.Setter
         public Builder kind(@Nullable String kind) {
+
             this.kind = kind;
             return this;
         }
         @CustomType.Setter
         public Builder metadata(@Nullable ObjectMeta metadata) {
+
             this.metadata = metadata;
             return this;
         }
         @CustomType.Setter
         public Builder vendorParameters(@Nullable List<VendorParameters> vendorParameters) {
+
             this.vendorParameters = vendorParameters;
             return this;
         }
@@ -154,14 +160,14 @@ public final class ResourceClassParameters {
             return vendorParameters(List.of(vendorParameters));
         }
         public ResourceClassParameters build() {
-            final var o = new ResourceClassParameters();
-            o.apiVersion = apiVersion;
-            o.filters = filters;
-            o.generatedFrom = generatedFrom;
-            o.kind = kind;
-            o.metadata = metadata;
-            o.vendorParameters = vendorParameters;
-            return o;
+            final var _resultValue = new ResourceClassParameters();
+            _resultValue.apiVersion = apiVersion;
+            _resultValue.filters = filters;
+            _resultValue.generatedFrom = generatedFrom;
+            _resultValue.kind = kind;
+            _resultValue.metadata = metadata;
+            _resultValue.vendorParameters = vendorParameters;
+            return _resultValue;
         }
     }
 }

@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.extensions.v1beta1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.extensions.v1beta1.outputs.NetworkPolicyEgressRule;
 import com.pulumi.kubernetes.extensions.v1beta1.outputs.NetworkPolicyIngressRule;
 import com.pulumi.kubernetes.meta.v1.outputs.LabelSelector;
@@ -89,6 +90,7 @@ public final class NetworkPolicySpec {
 
         @CustomType.Setter
         public Builder egress(@Nullable List<NetworkPolicyEgressRule> egress) {
+
             this.egress = egress;
             return this;
         }
@@ -97,6 +99,7 @@ public final class NetworkPolicySpec {
         }
         @CustomType.Setter
         public Builder ingress(@Nullable List<NetworkPolicyIngressRule> ingress) {
+
             this.ingress = ingress;
             return this;
         }
@@ -105,11 +108,15 @@ public final class NetworkPolicySpec {
         }
         @CustomType.Setter
         public Builder podSelector(LabelSelector podSelector) {
-            this.podSelector = Objects.requireNonNull(podSelector);
+            if (podSelector == null) {
+              throw new MissingRequiredPropertyException("NetworkPolicySpec", "podSelector");
+            }
+            this.podSelector = podSelector;
             return this;
         }
         @CustomType.Setter
         public Builder policyTypes(@Nullable List<String> policyTypes) {
+
             this.policyTypes = policyTypes;
             return this;
         }
@@ -117,12 +124,12 @@ public final class NetworkPolicySpec {
             return policyTypes(List.of(policyTypes));
         }
         public NetworkPolicySpec build() {
-            final var o = new NetworkPolicySpec();
-            o.egress = egress;
-            o.ingress = ingress;
-            o.podSelector = podSelector;
-            o.policyTypes = policyTypes;
-            return o;
+            final var _resultValue = new NetworkPolicySpec();
+            _resultValue.egress = egress;
+            _resultValue.ingress = ingress;
+            _resultValue.podSelector = podSelector;
+            _resultValue.policyTypes = policyTypes;
+            return _resultValue;
         }
     }
 }

@@ -77,25 +77,28 @@ public final class ResourceHandle {
 
         @CustomType.Setter
         public Builder data(@Nullable String data) {
+
             this.data = data;
             return this;
         }
         @CustomType.Setter
         public Builder driverName(@Nullable String driverName) {
+
             this.driverName = driverName;
             return this;
         }
         @CustomType.Setter
         public Builder structuredData(@Nullable StructuredResourceHandle structuredData) {
+
             this.structuredData = structuredData;
             return this;
         }
         public ResourceHandle build() {
-            final var o = new ResourceHandle();
-            o.data = data;
-            o.driverName = driverName;
-            o.structuredData = structuredData;
-            return o;
+            final var _resultValue = new ResourceHandle();
+            _resultValue.data = data;
+            _resultValue.driverName = driverName;
+            _resultValue.structuredData = structuredData;
+            return _resultValue;
         }
     }
 }

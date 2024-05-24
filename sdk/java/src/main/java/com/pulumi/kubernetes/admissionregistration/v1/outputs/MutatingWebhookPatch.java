@@ -302,6 +302,7 @@ public final class MutatingWebhookPatch {
 
         @CustomType.Setter
         public Builder admissionReviewVersions(@Nullable List<String> admissionReviewVersions) {
+
             this.admissionReviewVersions = admissionReviewVersions;
             return this;
         }
@@ -310,16 +311,19 @@ public final class MutatingWebhookPatch {
         }
         @CustomType.Setter
         public Builder clientConfig(@Nullable WebhookClientConfigPatch clientConfig) {
+
             this.clientConfig = clientConfig;
             return this;
         }
         @CustomType.Setter
         public Builder failurePolicy(@Nullable String failurePolicy) {
+
             this.failurePolicy = failurePolicy;
             return this;
         }
         @CustomType.Setter
         public Builder matchConditions(@Nullable List<MatchConditionPatch> matchConditions) {
+
             this.matchConditions = matchConditions;
             return this;
         }
@@ -328,31 +332,37 @@ public final class MutatingWebhookPatch {
         }
         @CustomType.Setter
         public Builder matchPolicy(@Nullable String matchPolicy) {
+
             this.matchPolicy = matchPolicy;
             return this;
         }
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder namespaceSelector(@Nullable LabelSelectorPatch namespaceSelector) {
+
             this.namespaceSelector = namespaceSelector;
             return this;
         }
         @CustomType.Setter
         public Builder objectSelector(@Nullable LabelSelectorPatch objectSelector) {
+
             this.objectSelector = objectSelector;
             return this;
         }
         @CustomType.Setter
         public Builder reinvocationPolicy(@Nullable String reinvocationPolicy) {
+
             this.reinvocationPolicy = reinvocationPolicy;
             return this;
         }
         @CustomType.Setter
         public Builder rules(@Nullable List<RuleWithOperationsPatch> rules) {
+
             this.rules = rules;
             return this;
         }
@@ -361,29 +371,31 @@ public final class MutatingWebhookPatch {
         }
         @CustomType.Setter
         public Builder sideEffects(@Nullable String sideEffects) {
+
             this.sideEffects = sideEffects;
             return this;
         }
         @CustomType.Setter
         public Builder timeoutSeconds(@Nullable Integer timeoutSeconds) {
+
             this.timeoutSeconds = timeoutSeconds;
             return this;
         }
         public MutatingWebhookPatch build() {
-            final var o = new MutatingWebhookPatch();
-            o.admissionReviewVersions = admissionReviewVersions;
-            o.clientConfig = clientConfig;
-            o.failurePolicy = failurePolicy;
-            o.matchConditions = matchConditions;
-            o.matchPolicy = matchPolicy;
-            o.name = name;
-            o.namespaceSelector = namespaceSelector;
-            o.objectSelector = objectSelector;
-            o.reinvocationPolicy = reinvocationPolicy;
-            o.rules = rules;
-            o.sideEffects = sideEffects;
-            o.timeoutSeconds = timeoutSeconds;
-            return o;
+            final var _resultValue = new MutatingWebhookPatch();
+            _resultValue.admissionReviewVersions = admissionReviewVersions;
+            _resultValue.clientConfig = clientConfig;
+            _resultValue.failurePolicy = failurePolicy;
+            _resultValue.matchConditions = matchConditions;
+            _resultValue.matchPolicy = matchPolicy;
+            _resultValue.name = name;
+            _resultValue.namespaceSelector = namespaceSelector;
+            _resultValue.objectSelector = objectSelector;
+            _resultValue.reinvocationPolicy = reinvocationPolicy;
+            _resultValue.rules = rules;
+            _resultValue.sideEffects = sideEffects;
+            _resultValue.timeoutSeconds = timeoutSeconds;
+            return _resultValue;
         }
     }
 }

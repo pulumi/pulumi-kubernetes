@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.flowcontrol.v1beta1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.flowcontrol.v1beta1.outputs.FlowDistinguisherMethod;
 import com.pulumi.kubernetes.flowcontrol.v1beta1.outputs.PolicyRulesWithSubjects;
 import com.pulumi.kubernetes.flowcontrol.v1beta1.outputs.PriorityLevelConfigurationReference;
@@ -90,21 +91,27 @@ public final class FlowSchemaSpec {
 
         @CustomType.Setter
         public Builder distinguisherMethod(@Nullable FlowDistinguisherMethod distinguisherMethod) {
+
             this.distinguisherMethod = distinguisherMethod;
             return this;
         }
         @CustomType.Setter
         public Builder matchingPrecedence(@Nullable Integer matchingPrecedence) {
+
             this.matchingPrecedence = matchingPrecedence;
             return this;
         }
         @CustomType.Setter
         public Builder priorityLevelConfiguration(PriorityLevelConfigurationReference priorityLevelConfiguration) {
-            this.priorityLevelConfiguration = Objects.requireNonNull(priorityLevelConfiguration);
+            if (priorityLevelConfiguration == null) {
+              throw new MissingRequiredPropertyException("FlowSchemaSpec", "priorityLevelConfiguration");
+            }
+            this.priorityLevelConfiguration = priorityLevelConfiguration;
             return this;
         }
         @CustomType.Setter
         public Builder rules(@Nullable List<PolicyRulesWithSubjects> rules) {
+
             this.rules = rules;
             return this;
         }
@@ -112,12 +119,12 @@ public final class FlowSchemaSpec {
             return rules(List.of(rules));
         }
         public FlowSchemaSpec build() {
-            final var o = new FlowSchemaSpec();
-            o.distinguisherMethod = distinguisherMethod;
-            o.matchingPrecedence = matchingPrecedence;
-            o.priorityLevelConfiguration = priorityLevelConfiguration;
-            o.rules = rules;
-            return o;
+            final var _resultValue = new FlowSchemaSpec();
+            _resultValue.distinguisherMethod = distinguisherMethod;
+            _resultValue.matchingPrecedence = matchingPrecedence;
+            _resultValue.priorityLevelConfiguration = priorityLevelConfiguration;
+            _resultValue.rules = rules;
+            return _resultValue;
         }
     }
 }

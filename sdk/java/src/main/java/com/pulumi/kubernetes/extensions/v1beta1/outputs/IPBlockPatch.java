@@ -59,11 +59,13 @@ public final class IPBlockPatch {
 
         @CustomType.Setter
         public Builder cidr(@Nullable String cidr) {
+
             this.cidr = cidr;
             return this;
         }
         @CustomType.Setter
         public Builder except(@Nullable List<String> except) {
+
             this.except = except;
             return this;
         }
@@ -71,10 +73,10 @@ public final class IPBlockPatch {
             return except(List.of(except));
         }
         public IPBlockPatch build() {
-            final var o = new IPBlockPatch();
-            o.cidr = cidr;
-            o.except = except;
-            return o;
+            final var _resultValue = new IPBlockPatch();
+            _resultValue.cidr = cidr;
+            _resultValue.except = except;
+            return _resultValue;
         }
     }
 }

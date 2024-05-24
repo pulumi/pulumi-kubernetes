@@ -114,43 +114,49 @@ public final class DeploymentConditionPatch {
 
         @CustomType.Setter
         public Builder lastTransitionTime(@Nullable String lastTransitionTime) {
+
             this.lastTransitionTime = lastTransitionTime;
             return this;
         }
         @CustomType.Setter
         public Builder lastUpdateTime(@Nullable String lastUpdateTime) {
+
             this.lastUpdateTime = lastUpdateTime;
             return this;
         }
         @CustomType.Setter
         public Builder message(@Nullable String message) {
+
             this.message = message;
             return this;
         }
         @CustomType.Setter
         public Builder reason(@Nullable String reason) {
+
             this.reason = reason;
             return this;
         }
         @CustomType.Setter
         public Builder status(@Nullable String status) {
+
             this.status = status;
             return this;
         }
         @CustomType.Setter
         public Builder type(@Nullable String type) {
+
             this.type = type;
             return this;
         }
         public DeploymentConditionPatch build() {
-            final var o = new DeploymentConditionPatch();
-            o.lastTransitionTime = lastTransitionTime;
-            o.lastUpdateTime = lastUpdateTime;
-            o.message = message;
-            o.reason = reason;
-            o.status = status;
-            o.type = type;
-            return o;
+            final var _resultValue = new DeploymentConditionPatch();
+            _resultValue.lastTransitionTime = lastTransitionTime;
+            _resultValue.lastUpdateTime = lastUpdateTime;
+            _resultValue.message = message;
+            _resultValue.reason = reason;
+            _resultValue.status = status;
+            _resultValue.type = type;
+            return _resultValue;
         }
     }
 }

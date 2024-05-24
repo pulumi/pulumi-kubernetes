@@ -73,6 +73,7 @@ public final class PodDNSConfigPatch {
 
         @CustomType.Setter
         public Builder nameservers(@Nullable List<String> nameservers) {
+
             this.nameservers = nameservers;
             return this;
         }
@@ -81,6 +82,7 @@ public final class PodDNSConfigPatch {
         }
         @CustomType.Setter
         public Builder options(@Nullable List<PodDNSConfigOptionPatch> options) {
+
             this.options = options;
             return this;
         }
@@ -89,6 +91,7 @@ public final class PodDNSConfigPatch {
         }
         @CustomType.Setter
         public Builder searches(@Nullable List<String> searches) {
+
             this.searches = searches;
             return this;
         }
@@ -96,11 +99,11 @@ public final class PodDNSConfigPatch {
             return searches(List.of(searches));
         }
         public PodDNSConfigPatch build() {
-            final var o = new PodDNSConfigPatch();
-            o.nameservers = nameservers;
-            o.options = options;
-            o.searches = searches;
-            return o;
+            final var _resultValue = new PodDNSConfigPatch();
+            _resultValue.nameservers = nameservers;
+            _resultValue.options = options;
+            _resultValue.searches = searches;
+            return _resultValue;
         }
     }
 }

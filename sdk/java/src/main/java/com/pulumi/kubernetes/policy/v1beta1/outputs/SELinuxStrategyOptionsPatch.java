@@ -59,19 +59,21 @@ public final class SELinuxStrategyOptionsPatch {
 
         @CustomType.Setter
         public Builder rule(@Nullable String rule) {
+
             this.rule = rule;
             return this;
         }
         @CustomType.Setter
         public Builder seLinuxOptions(@Nullable SELinuxOptionsPatch seLinuxOptions) {
+
             this.seLinuxOptions = seLinuxOptions;
             return this;
         }
         public SELinuxStrategyOptionsPatch build() {
-            final var o = new SELinuxStrategyOptionsPatch();
-            o.rule = rule;
-            o.seLinuxOptions = seLinuxOptions;
-            return o;
+            final var _resultValue = new SELinuxStrategyOptionsPatch();
+            _resultValue.rule = rule;
+            _resultValue.seLinuxOptions = seLinuxOptions;
+            return _resultValue;
         }
     }
 }

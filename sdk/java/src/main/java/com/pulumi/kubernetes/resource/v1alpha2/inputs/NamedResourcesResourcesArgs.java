@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.resource.v1alpha2.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.resource.v1alpha2.inputs.NamedResourcesInstanceArgs;
 import java.util.List;
 import java.util.Objects;
@@ -89,7 +90,9 @@ public final class NamedResourcesResourcesArgs extends com.pulumi.resources.Reso
         }
 
         public NamedResourcesResourcesArgs build() {
-            $.instances = Objects.requireNonNull($.instances, "expected parameter 'instances' to be non-null");
+            if ($.instances == null) {
+                throw new MissingRequiredPropertyException("NamedResourcesResourcesArgs", "instances");
+            }
             return $;
         }
     }

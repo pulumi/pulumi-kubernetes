@@ -58,19 +58,21 @@ public final class ObjectFieldSelectorPatch {
 
         @CustomType.Setter
         public Builder apiVersion(@Nullable String apiVersion) {
+
             this.apiVersion = apiVersion;
             return this;
         }
         @CustomType.Setter
         public Builder fieldPath(@Nullable String fieldPath) {
+
             this.fieldPath = fieldPath;
             return this;
         }
         public ObjectFieldSelectorPatch build() {
-            final var o = new ObjectFieldSelectorPatch();
-            o.apiVersion = apiVersion;
-            o.fieldPath = fieldPath;
-            return o;
+            final var _resultValue = new ObjectFieldSelectorPatch();
+            _resultValue.apiVersion = apiVersion;
+            _resultValue.fieldPath = fieldPath;
+            return _resultValue;
         }
     }
 }

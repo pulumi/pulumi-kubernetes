@@ -75,6 +75,7 @@ public final class ValidatingAdmissionPolicyStatus {
 
         @CustomType.Setter
         public Builder conditions(@Nullable List<Condition> conditions) {
+
             this.conditions = conditions;
             return this;
         }
@@ -83,20 +84,22 @@ public final class ValidatingAdmissionPolicyStatus {
         }
         @CustomType.Setter
         public Builder observedGeneration(@Nullable Integer observedGeneration) {
+
             this.observedGeneration = observedGeneration;
             return this;
         }
         @CustomType.Setter
         public Builder typeChecking(@Nullable TypeChecking typeChecking) {
+
             this.typeChecking = typeChecking;
             return this;
         }
         public ValidatingAdmissionPolicyStatus build() {
-            final var o = new ValidatingAdmissionPolicyStatus();
-            o.conditions = conditions;
-            o.observedGeneration = observedGeneration;
-            o.typeChecking = typeChecking;
-            return o;
+            final var _resultValue = new ValidatingAdmissionPolicyStatus();
+            _resultValue.conditions = conditions;
+            _resultValue.observedGeneration = observedGeneration;
+            _resultValue.typeChecking = typeChecking;
+            return _resultValue;
         }
     }
 }

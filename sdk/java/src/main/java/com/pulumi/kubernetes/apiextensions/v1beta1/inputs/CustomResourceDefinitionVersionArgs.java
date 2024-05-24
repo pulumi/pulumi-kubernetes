@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.apiextensions.v1beta1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.apiextensions.v1beta1.inputs.CustomResourceColumnDefinitionArgs;
 import com.pulumi.kubernetes.apiextensions.v1beta1.inputs.CustomResourceSubresourcesArgs;
 import com.pulumi.kubernetes.apiextensions.v1beta1.inputs.CustomResourceValidationArgs;
@@ -354,9 +355,15 @@ public final class CustomResourceDefinitionVersionArgs extends com.pulumi.resour
         }
 
         public CustomResourceDefinitionVersionArgs build() {
-            $.name = Objects.requireNonNull($.name, "expected parameter 'name' to be non-null");
-            $.served = Objects.requireNonNull($.served, "expected parameter 'served' to be non-null");
-            $.storage = Objects.requireNonNull($.storage, "expected parameter 'storage' to be non-null");
+            if ($.name == null) {
+                throw new MissingRequiredPropertyException("CustomResourceDefinitionVersionArgs", "name");
+            }
+            if ($.served == null) {
+                throw new MissingRequiredPropertyException("CustomResourceDefinitionVersionArgs", "served");
+            }
+            if ($.storage == null) {
+                throw new MissingRequiredPropertyException("CustomResourceDefinitionVersionArgs", "storage");
+            }
             return $;
         }
     }

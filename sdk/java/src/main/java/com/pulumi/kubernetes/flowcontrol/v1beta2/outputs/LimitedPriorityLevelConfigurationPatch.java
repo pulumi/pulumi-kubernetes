@@ -107,31 +107,35 @@ public final class LimitedPriorityLevelConfigurationPatch {
 
         @CustomType.Setter
         public Builder assuredConcurrencyShares(@Nullable Integer assuredConcurrencyShares) {
+
             this.assuredConcurrencyShares = assuredConcurrencyShares;
             return this;
         }
         @CustomType.Setter
         public Builder borrowingLimitPercent(@Nullable Integer borrowingLimitPercent) {
+
             this.borrowingLimitPercent = borrowingLimitPercent;
             return this;
         }
         @CustomType.Setter
         public Builder lendablePercent(@Nullable Integer lendablePercent) {
+
             this.lendablePercent = lendablePercent;
             return this;
         }
         @CustomType.Setter
         public Builder limitResponse(@Nullable LimitResponsePatch limitResponse) {
+
             this.limitResponse = limitResponse;
             return this;
         }
         public LimitedPriorityLevelConfigurationPatch build() {
-            final var o = new LimitedPriorityLevelConfigurationPatch();
-            o.assuredConcurrencyShares = assuredConcurrencyShares;
-            o.borrowingLimitPercent = borrowingLimitPercent;
-            o.lendablePercent = lendablePercent;
-            o.limitResponse = limitResponse;
-            return o;
+            final var _resultValue = new LimitedPriorityLevelConfigurationPatch();
+            _resultValue.assuredConcurrencyShares = assuredConcurrencyShares;
+            _resultValue.borrowingLimitPercent = borrowingLimitPercent;
+            _resultValue.lendablePercent = lendablePercent;
+            _resultValue.limitResponse = limitResponse;
+            return _resultValue;
         }
     }
 }

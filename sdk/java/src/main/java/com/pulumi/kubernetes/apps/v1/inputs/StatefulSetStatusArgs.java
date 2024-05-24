@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.apps.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.apps.v1.inputs.StatefulSetConditionArgs;
 import java.lang.Integer;
 import java.lang.String;
@@ -426,7 +427,9 @@ public final class StatefulSetStatusArgs extends com.pulumi.resources.ResourceAr
         }
 
         public StatefulSetStatusArgs build() {
-            $.replicas = Objects.requireNonNull($.replicas, "expected parameter 'replicas' to be non-null");
+            if ($.replicas == null) {
+                throw new MissingRequiredPropertyException("StatefulSetStatusArgs", "replicas");
+            }
             return $;
         }
     }

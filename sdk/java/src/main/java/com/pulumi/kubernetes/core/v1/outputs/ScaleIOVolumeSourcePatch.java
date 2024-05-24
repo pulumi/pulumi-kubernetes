@@ -172,67 +172,77 @@ public final class ScaleIOVolumeSourcePatch {
 
         @CustomType.Setter
         public Builder fsType(@Nullable String fsType) {
+
             this.fsType = fsType;
             return this;
         }
         @CustomType.Setter
         public Builder gateway(@Nullable String gateway) {
+
             this.gateway = gateway;
             return this;
         }
         @CustomType.Setter
         public Builder protectionDomain(@Nullable String protectionDomain) {
+
             this.protectionDomain = protectionDomain;
             return this;
         }
         @CustomType.Setter
         public Builder readOnly(@Nullable Boolean readOnly) {
+
             this.readOnly = readOnly;
             return this;
         }
         @CustomType.Setter
         public Builder secretRef(@Nullable LocalObjectReferencePatch secretRef) {
+
             this.secretRef = secretRef;
             return this;
         }
         @CustomType.Setter
         public Builder sslEnabled(@Nullable Boolean sslEnabled) {
+
             this.sslEnabled = sslEnabled;
             return this;
         }
         @CustomType.Setter
         public Builder storageMode(@Nullable String storageMode) {
+
             this.storageMode = storageMode;
             return this;
         }
         @CustomType.Setter
         public Builder storagePool(@Nullable String storagePool) {
+
             this.storagePool = storagePool;
             return this;
         }
         @CustomType.Setter
         public Builder system(@Nullable String system) {
+
             this.system = system;
             return this;
         }
         @CustomType.Setter
         public Builder volumeName(@Nullable String volumeName) {
+
             this.volumeName = volumeName;
             return this;
         }
         public ScaleIOVolumeSourcePatch build() {
-            final var o = new ScaleIOVolumeSourcePatch();
-            o.fsType = fsType;
-            o.gateway = gateway;
-            o.protectionDomain = protectionDomain;
-            o.readOnly = readOnly;
-            o.secretRef = secretRef;
-            o.sslEnabled = sslEnabled;
-            o.storageMode = storageMode;
-            o.storagePool = storagePool;
-            o.system = system;
-            o.volumeName = volumeName;
-            return o;
+            final var _resultValue = new ScaleIOVolumeSourcePatch();
+            _resultValue.fsType = fsType;
+            _resultValue.gateway = gateway;
+            _resultValue.protectionDomain = protectionDomain;
+            _resultValue.readOnly = readOnly;
+            _resultValue.secretRef = secretRef;
+            _resultValue.sslEnabled = sslEnabled;
+            _resultValue.storageMode = storageMode;
+            _resultValue.storagePool = storagePool;
+            _resultValue.system = system;
+            _resultValue.volumeName = volumeName;
+            return _resultValue;
         }
     }
 }

@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.networking.v1alpha1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.inputs.NodeSelectorArgs;
 import java.lang.Integer;
 import java.lang.String;
@@ -193,7 +194,9 @@ public final class ClusterCIDRSpecArgs extends com.pulumi.resources.ResourceArgs
         }
 
         public ClusterCIDRSpecArgs build() {
-            $.perNodeHostBits = Objects.requireNonNull($.perNodeHostBits, "expected parameter 'perNodeHostBits' to be non-null");
+            if ($.perNodeHostBits == null) {
+                throw new MissingRequiredPropertyException("ClusterCIDRSpecArgs", "perNodeHostBits");
+            }
             return $;
         }
     }

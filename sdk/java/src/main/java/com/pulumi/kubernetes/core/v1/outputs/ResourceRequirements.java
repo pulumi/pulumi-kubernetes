@@ -82,6 +82,7 @@ public final class ResourceRequirements {
 
         @CustomType.Setter
         public Builder claims(@Nullable List<ResourceClaim> claims) {
+
             this.claims = claims;
             return this;
         }
@@ -90,20 +91,22 @@ public final class ResourceRequirements {
         }
         @CustomType.Setter
         public Builder limits(@Nullable Map<String,String> limits) {
+
             this.limits = limits;
             return this;
         }
         @CustomType.Setter
         public Builder requests(@Nullable Map<String,String> requests) {
+
             this.requests = requests;
             return this;
         }
         public ResourceRequirements build() {
-            final var o = new ResourceRequirements();
-            o.claims = claims;
-            o.limits = limits;
-            o.requests = requests;
-            return o;
+            final var _resultValue = new ResourceRequirements();
+            _resultValue.claims = claims;
+            _resultValue.limits = limits;
+            _resultValue.requests = requests;
+            return _resultValue;
         }
     }
 }

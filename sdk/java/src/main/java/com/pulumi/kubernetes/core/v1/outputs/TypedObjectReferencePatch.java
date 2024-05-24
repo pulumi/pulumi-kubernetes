@@ -86,31 +86,35 @@ public final class TypedObjectReferencePatch {
 
         @CustomType.Setter
         public Builder apiGroup(@Nullable String apiGroup) {
+
             this.apiGroup = apiGroup;
             return this;
         }
         @CustomType.Setter
         public Builder kind(@Nullable String kind) {
+
             this.kind = kind;
             return this;
         }
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder namespace(@Nullable String namespace) {
+
             this.namespace = namespace;
             return this;
         }
         public TypedObjectReferencePatch build() {
-            final var o = new TypedObjectReferencePatch();
-            o.apiGroup = apiGroup;
-            o.kind = kind;
-            o.name = name;
-            o.namespace = namespace;
-            return o;
+            final var _resultValue = new TypedObjectReferencePatch();
+            _resultValue.apiGroup = apiGroup;
+            _resultValue.kind = kind;
+            _resultValue.name = name;
+            _resultValue.namespace = namespace;
+            return _resultValue;
         }
     }
 }

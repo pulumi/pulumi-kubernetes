@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.events.v1beta1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.outputs.EventSource;
 import com.pulumi.kubernetes.core.v1.outputs.ObjectReference;
 import com.pulumi.kubernetes.events.v1beta1.outputs.EventSeries;
@@ -265,109 +266,128 @@ public final class Event {
 
         @CustomType.Setter
         public Builder action(@Nullable String action) {
+
             this.action = action;
             return this;
         }
         @CustomType.Setter
         public Builder apiVersion(@Nullable String apiVersion) {
+
             this.apiVersion = apiVersion;
             return this;
         }
         @CustomType.Setter
         public Builder deprecatedCount(@Nullable Integer deprecatedCount) {
+
             this.deprecatedCount = deprecatedCount;
             return this;
         }
         @CustomType.Setter
         public Builder deprecatedFirstTimestamp(@Nullable String deprecatedFirstTimestamp) {
+
             this.deprecatedFirstTimestamp = deprecatedFirstTimestamp;
             return this;
         }
         @CustomType.Setter
         public Builder deprecatedLastTimestamp(@Nullable String deprecatedLastTimestamp) {
+
             this.deprecatedLastTimestamp = deprecatedLastTimestamp;
             return this;
         }
         @CustomType.Setter
         public Builder deprecatedSource(@Nullable EventSource deprecatedSource) {
+
             this.deprecatedSource = deprecatedSource;
             return this;
         }
         @CustomType.Setter
         public Builder eventTime(String eventTime) {
-            this.eventTime = Objects.requireNonNull(eventTime);
+            if (eventTime == null) {
+              throw new MissingRequiredPropertyException("Event", "eventTime");
+            }
+            this.eventTime = eventTime;
             return this;
         }
         @CustomType.Setter
         public Builder kind(@Nullable String kind) {
+
             this.kind = kind;
             return this;
         }
         @CustomType.Setter
         public Builder metadata(@Nullable ObjectMeta metadata) {
+
             this.metadata = metadata;
             return this;
         }
         @CustomType.Setter
         public Builder note(@Nullable String note) {
+
             this.note = note;
             return this;
         }
         @CustomType.Setter
         public Builder reason(@Nullable String reason) {
+
             this.reason = reason;
             return this;
         }
         @CustomType.Setter
         public Builder regarding(@Nullable ObjectReference regarding) {
+
             this.regarding = regarding;
             return this;
         }
         @CustomType.Setter
         public Builder related(@Nullable ObjectReference related) {
+
             this.related = related;
             return this;
         }
         @CustomType.Setter
         public Builder reportingController(@Nullable String reportingController) {
+
             this.reportingController = reportingController;
             return this;
         }
         @CustomType.Setter
         public Builder reportingInstance(@Nullable String reportingInstance) {
+
             this.reportingInstance = reportingInstance;
             return this;
         }
         @CustomType.Setter
         public Builder series(@Nullable EventSeries series) {
+
             this.series = series;
             return this;
         }
         @CustomType.Setter
         public Builder type(@Nullable String type) {
+
             this.type = type;
             return this;
         }
         public Event build() {
-            final var o = new Event();
-            o.action = action;
-            o.apiVersion = apiVersion;
-            o.deprecatedCount = deprecatedCount;
-            o.deprecatedFirstTimestamp = deprecatedFirstTimestamp;
-            o.deprecatedLastTimestamp = deprecatedLastTimestamp;
-            o.deprecatedSource = deprecatedSource;
-            o.eventTime = eventTime;
-            o.kind = kind;
-            o.metadata = metadata;
-            o.note = note;
-            o.reason = reason;
-            o.regarding = regarding;
-            o.related = related;
-            o.reportingController = reportingController;
-            o.reportingInstance = reportingInstance;
-            o.series = series;
-            o.type = type;
-            return o;
+            final var _resultValue = new Event();
+            _resultValue.action = action;
+            _resultValue.apiVersion = apiVersion;
+            _resultValue.deprecatedCount = deprecatedCount;
+            _resultValue.deprecatedFirstTimestamp = deprecatedFirstTimestamp;
+            _resultValue.deprecatedLastTimestamp = deprecatedLastTimestamp;
+            _resultValue.deprecatedSource = deprecatedSource;
+            _resultValue.eventTime = eventTime;
+            _resultValue.kind = kind;
+            _resultValue.metadata = metadata;
+            _resultValue.note = note;
+            _resultValue.reason = reason;
+            _resultValue.regarding = regarding;
+            _resultValue.related = related;
+            _resultValue.reportingController = reportingController;
+            _resultValue.reportingInstance = reportingInstance;
+            _resultValue.series = series;
+            _resultValue.type = type;
+            return _resultValue;
         }
     }
 }

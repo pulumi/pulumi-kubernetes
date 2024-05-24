@@ -59,19 +59,21 @@ public final class SecretEnvSource {
 
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder optional(@Nullable Boolean optional) {
+
             this.optional = optional;
             return this;
         }
         public SecretEnvSource build() {
-            final var o = new SecretEnvSource();
-            o.name = name;
-            o.optional = optional;
-            return o;
+            final var _resultValue = new SecretEnvSource();
+            _resultValue.name = name;
+            _resultValue.optional = optional;
+            return _resultValue;
         }
     }
 }

@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.storagemigration.v1alpha1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.storagemigration.v1alpha1.outputs.GroupVersionResource;
 import java.lang.String;
 import java.util.Objects;
@@ -59,19 +60,23 @@ public final class StorageVersionMigrationSpec {
 
         @CustomType.Setter
         public Builder continueToken(@Nullable String continueToken) {
+
             this.continueToken = continueToken;
             return this;
         }
         @CustomType.Setter
         public Builder resource(GroupVersionResource resource) {
-            this.resource = Objects.requireNonNull(resource);
+            if (resource == null) {
+              throw new MissingRequiredPropertyException("StorageVersionMigrationSpec", "resource");
+            }
+            this.resource = resource;
             return this;
         }
         public StorageVersionMigrationSpec build() {
-            final var o = new StorageVersionMigrationSpec();
-            o.continueToken = continueToken;
-            o.resource = resource;
-            return o;
+            final var _resultValue = new StorageVersionMigrationSpec();
+            _resultValue.continueToken = continueToken;
+            _resultValue.resource = resource;
+            return _resultValue;
         }
     }
 }

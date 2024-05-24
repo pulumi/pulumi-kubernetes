@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.outputs.NodeSelectorTerm;
 import java.util.List;
 import java.util.Objects;
@@ -43,16 +44,19 @@ public final class NodeSelector {
 
         @CustomType.Setter
         public Builder nodeSelectorTerms(List<NodeSelectorTerm> nodeSelectorTerms) {
-            this.nodeSelectorTerms = Objects.requireNonNull(nodeSelectorTerms);
+            if (nodeSelectorTerms == null) {
+              throw new MissingRequiredPropertyException("NodeSelector", "nodeSelectorTerms");
+            }
+            this.nodeSelectorTerms = nodeSelectorTerms;
             return this;
         }
         public Builder nodeSelectorTerms(NodeSelectorTerm... nodeSelectorTerms) {
             return nodeSelectorTerms(List.of(nodeSelectorTerms));
         }
         public NodeSelector build() {
-            final var o = new NodeSelector();
-            o.nodeSelectorTerms = nodeSelectorTerms;
-            return o;
+            final var _resultValue = new NodeSelector();
+            _resultValue.nodeSelectorTerms = nodeSelectorTerms;
+            return _resultValue;
         }
     }
 }

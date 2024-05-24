@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.extensions.v1beta1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.extensions.v1beta1.inputs.AllowedCSIDriverArgs;
 import com.pulumi.kubernetes.extensions.v1beta1.inputs.AllowedFlexVolumeArgs;
 import com.pulumi.kubernetes.extensions.v1beta1.inputs.AllowedHostPathArgs;
@@ -1073,10 +1074,18 @@ public final class PodSecurityPolicySpecArgs extends com.pulumi.resources.Resour
         }
 
         public PodSecurityPolicySpecArgs build() {
-            $.fsGroup = Objects.requireNonNull($.fsGroup, "expected parameter 'fsGroup' to be non-null");
-            $.runAsUser = Objects.requireNonNull($.runAsUser, "expected parameter 'runAsUser' to be non-null");
-            $.seLinux = Objects.requireNonNull($.seLinux, "expected parameter 'seLinux' to be non-null");
-            $.supplementalGroups = Objects.requireNonNull($.supplementalGroups, "expected parameter 'supplementalGroups' to be non-null");
+            if ($.fsGroup == null) {
+                throw new MissingRequiredPropertyException("PodSecurityPolicySpecArgs", "fsGroup");
+            }
+            if ($.runAsUser == null) {
+                throw new MissingRequiredPropertyException("PodSecurityPolicySpecArgs", "runAsUser");
+            }
+            if ($.seLinux == null) {
+                throw new MissingRequiredPropertyException("PodSecurityPolicySpecArgs", "seLinux");
+            }
+            if ($.supplementalGroups == null) {
+                throw new MissingRequiredPropertyException("PodSecurityPolicySpecArgs", "supplementalGroups");
+            }
             return $;
         }
     }

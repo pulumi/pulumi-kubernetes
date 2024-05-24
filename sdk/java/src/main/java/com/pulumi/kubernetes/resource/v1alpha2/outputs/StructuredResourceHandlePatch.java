@@ -89,11 +89,13 @@ public final class StructuredResourceHandlePatch {
 
         @CustomType.Setter
         public Builder nodeName(@Nullable String nodeName) {
+
             this.nodeName = nodeName;
             return this;
         }
         @CustomType.Setter
         public Builder results(@Nullable List<DriverAllocationResultPatch> results) {
+
             this.results = results;
             return this;
         }
@@ -102,21 +104,23 @@ public final class StructuredResourceHandlePatch {
         }
         @CustomType.Setter
         public Builder vendorClaimParameters(@Nullable JsonElement vendorClaimParameters) {
+
             this.vendorClaimParameters = vendorClaimParameters;
             return this;
         }
         @CustomType.Setter
         public Builder vendorClassParameters(@Nullable JsonElement vendorClassParameters) {
+
             this.vendorClassParameters = vendorClassParameters;
             return this;
         }
         public StructuredResourceHandlePatch build() {
-            final var o = new StructuredResourceHandlePatch();
-            o.nodeName = nodeName;
-            o.results = results;
-            o.vendorClaimParameters = vendorClaimParameters;
-            o.vendorClassParameters = vendorClassParameters;
-            return o;
+            final var _resultValue = new StructuredResourceHandlePatch();
+            _resultValue.nodeName = nodeName;
+            _resultValue.results = results;
+            _resultValue.vendorClaimParameters = vendorClaimParameters;
+            _resultValue.vendorClassParameters = vendorClassParameters;
+            return _resultValue;
         }
     }
 }

@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.apiextensions.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
 
@@ -78,7 +79,9 @@ public final class SelectableFieldArgs extends com.pulumi.resources.ResourceArgs
         }
 
         public SelectableFieldArgs build() {
-            $.jsonPath = Objects.requireNonNull($.jsonPath, "expected parameter 'jsonPath' to be non-null");
+            if ($.jsonPath == null) {
+                throw new MissingRequiredPropertyException("SelectableFieldArgs", "jsonPath");
+            }
             return $;
         }
     }

@@ -59,19 +59,21 @@ public final class ResourceMetricStatusPatch {
 
         @CustomType.Setter
         public Builder current(@Nullable MetricValueStatusPatch current) {
+
             this.current = current;
             return this;
         }
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         public ResourceMetricStatusPatch build() {
-            final var o = new ResourceMetricStatusPatch();
-            o.current = current;
-            o.name = name;
-            return o;
+            final var _resultValue = new ResourceMetricStatusPatch();
+            _resultValue.current = current;
+            _resultValue.name = name;
+            return _resultValue;
         }
     }
 }

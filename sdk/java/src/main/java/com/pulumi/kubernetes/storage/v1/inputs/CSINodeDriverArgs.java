@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.storage.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.storage.v1.inputs.VolumeNodeResourcesArgs;
 import java.lang.String;
 import java.util.List;
@@ -203,8 +204,12 @@ public final class CSINodeDriverArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         public CSINodeDriverArgs build() {
-            $.name = Objects.requireNonNull($.name, "expected parameter 'name' to be non-null");
-            $.nodeID = Objects.requireNonNull($.nodeID, "expected parameter 'nodeID' to be non-null");
+            if ($.name == null) {
+                throw new MissingRequiredPropertyException("CSINodeDriverArgs", "name");
+            }
+            if ($.nodeID == null) {
+                throw new MissingRequiredPropertyException("CSINodeDriverArgs", "nodeID");
+            }
             return $;
         }
     }

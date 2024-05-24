@@ -117,6 +117,7 @@ public final class StatusDetailsPatch {
 
         @CustomType.Setter
         public Builder causes(@Nullable List<StatusCausePatch> causes) {
+
             this.causes = causes;
             return this;
         }
@@ -125,38 +126,43 @@ public final class StatusDetailsPatch {
         }
         @CustomType.Setter
         public Builder group(@Nullable String group) {
+
             this.group = group;
             return this;
         }
         @CustomType.Setter
         public Builder kind(@Nullable String kind) {
+
             this.kind = kind;
             return this;
         }
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder retryAfterSeconds(@Nullable Integer retryAfterSeconds) {
+
             this.retryAfterSeconds = retryAfterSeconds;
             return this;
         }
         @CustomType.Setter
         public Builder uid(@Nullable String uid) {
+
             this.uid = uid;
             return this;
         }
         public StatusDetailsPatch build() {
-            final var o = new StatusDetailsPatch();
-            o.causes = causes;
-            o.group = group;
-            o.kind = kind;
-            o.name = name;
-            o.retryAfterSeconds = retryAfterSeconds;
-            o.uid = uid;
-            return o;
+            final var _resultValue = new StatusDetailsPatch();
+            _resultValue.causes = causes;
+            _resultValue.group = group;
+            _resultValue.kind = kind;
+            _resultValue.name = name;
+            _resultValue.retryAfterSeconds = retryAfterSeconds;
+            _resultValue.uid = uid;
+            return _resultValue;
         }
     }
 }

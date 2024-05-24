@@ -44,6 +44,7 @@ public final class EndpointHints {
 
         @CustomType.Setter
         public Builder forZones(@Nullable List<ForZone> forZones) {
+
             this.forZones = forZones;
             return this;
         }
@@ -51,9 +52,9 @@ public final class EndpointHints {
             return forZones(List.of(forZones));
         }
         public EndpointHints build() {
-            final var o = new EndpointHints();
-            o.forZones = forZones;
-            return o;
+            final var _resultValue = new EndpointHints();
+            _resultValue.forZones = forZones;
+            return _resultValue;
         }
     }
 }

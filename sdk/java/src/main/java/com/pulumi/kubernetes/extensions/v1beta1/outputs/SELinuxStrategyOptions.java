@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.extensions.v1beta1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.outputs.SELinuxOptions;
 import java.lang.String;
 import java.util.Objects;
@@ -59,19 +60,23 @@ public final class SELinuxStrategyOptions {
 
         @CustomType.Setter
         public Builder rule(String rule) {
-            this.rule = Objects.requireNonNull(rule);
+            if (rule == null) {
+              throw new MissingRequiredPropertyException("SELinuxStrategyOptions", "rule");
+            }
+            this.rule = rule;
             return this;
         }
         @CustomType.Setter
         public Builder seLinuxOptions(@Nullable SELinuxOptions seLinuxOptions) {
+
             this.seLinuxOptions = seLinuxOptions;
             return this;
         }
         public SELinuxStrategyOptions build() {
-            final var o = new SELinuxStrategyOptions();
-            o.rule = rule;
-            o.seLinuxOptions = seLinuxOptions;
-            return o;
+            final var _resultValue = new SELinuxStrategyOptions();
+            _resultValue.rule = rule;
+            _resultValue.seLinuxOptions = seLinuxOptions;
+            return _resultValue;
         }
     }
 }

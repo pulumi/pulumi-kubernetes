@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.storage.v1beta1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.storage.v1beta1.outputs.VolumeError;
 import java.lang.Boolean;
 import java.lang.String;
@@ -89,31 +90,37 @@ public final class VolumeAttachmentStatus {
 
         @CustomType.Setter
         public Builder attachError(@Nullable VolumeError attachError) {
+
             this.attachError = attachError;
             return this;
         }
         @CustomType.Setter
         public Builder attached(Boolean attached) {
-            this.attached = Objects.requireNonNull(attached);
+            if (attached == null) {
+              throw new MissingRequiredPropertyException("VolumeAttachmentStatus", "attached");
+            }
+            this.attached = attached;
             return this;
         }
         @CustomType.Setter
         public Builder attachmentMetadata(@Nullable Map<String,String> attachmentMetadata) {
+
             this.attachmentMetadata = attachmentMetadata;
             return this;
         }
         @CustomType.Setter
         public Builder detachError(@Nullable VolumeError detachError) {
+
             this.detachError = detachError;
             return this;
         }
         public VolumeAttachmentStatus build() {
-            final var o = new VolumeAttachmentStatus();
-            o.attachError = attachError;
-            o.attached = attached;
-            o.attachmentMetadata = attachmentMetadata;
-            o.detachError = detachError;
-            return o;
+            final var _resultValue = new VolumeAttachmentStatus();
+            _resultValue.attachError = attachError;
+            _resultValue.attached = attached;
+            _resultValue.attachmentMetadata = attachmentMetadata;
+            _resultValue.detachError = detachError;
+            return _resultValue;
         }
     }
 }

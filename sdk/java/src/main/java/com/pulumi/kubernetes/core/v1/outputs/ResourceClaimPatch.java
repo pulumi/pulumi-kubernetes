@@ -44,13 +44,14 @@ public final class ResourceClaimPatch {
 
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         public ResourceClaimPatch build() {
-            final var o = new ResourceClaimPatch();
-            o.name = name;
-            return o;
+            final var _resultValue = new ResourceClaimPatch();
+            _resultValue.name = name;
+            return _resultValue;
         }
     }
 }

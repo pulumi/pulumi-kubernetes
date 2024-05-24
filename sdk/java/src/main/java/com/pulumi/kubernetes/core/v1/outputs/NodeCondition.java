@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -114,43 +115,53 @@ public final class NodeCondition {
 
         @CustomType.Setter
         public Builder lastHeartbeatTime(@Nullable String lastHeartbeatTime) {
+
             this.lastHeartbeatTime = lastHeartbeatTime;
             return this;
         }
         @CustomType.Setter
         public Builder lastTransitionTime(@Nullable String lastTransitionTime) {
+
             this.lastTransitionTime = lastTransitionTime;
             return this;
         }
         @CustomType.Setter
         public Builder message(@Nullable String message) {
+
             this.message = message;
             return this;
         }
         @CustomType.Setter
         public Builder reason(@Nullable String reason) {
+
             this.reason = reason;
             return this;
         }
         @CustomType.Setter
         public Builder status(String status) {
-            this.status = Objects.requireNonNull(status);
+            if (status == null) {
+              throw new MissingRequiredPropertyException("NodeCondition", "status");
+            }
+            this.status = status;
             return this;
         }
         @CustomType.Setter
         public Builder type(String type) {
-            this.type = Objects.requireNonNull(type);
+            if (type == null) {
+              throw new MissingRequiredPropertyException("NodeCondition", "type");
+            }
+            this.type = type;
             return this;
         }
         public NodeCondition build() {
-            final var o = new NodeCondition();
-            o.lastHeartbeatTime = lastHeartbeatTime;
-            o.lastTransitionTime = lastTransitionTime;
-            o.message = message;
-            o.reason = reason;
-            o.status = status;
-            o.type = type;
-            return o;
+            final var _resultValue = new NodeCondition();
+            _resultValue.lastHeartbeatTime = lastHeartbeatTime;
+            _resultValue.lastTransitionTime = lastTransitionTime;
+            _resultValue.message = message;
+            _resultValue.reason = reason;
+            _resultValue.status = status;
+            _resultValue.type = type;
+            return _resultValue;
         }
     }
 }

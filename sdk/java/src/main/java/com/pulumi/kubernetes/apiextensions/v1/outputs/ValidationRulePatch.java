@@ -191,43 +191,49 @@ public final class ValidationRulePatch {
 
         @CustomType.Setter
         public Builder fieldPath(@Nullable String fieldPath) {
+
             this.fieldPath = fieldPath;
             return this;
         }
         @CustomType.Setter
         public Builder message(@Nullable String message) {
+
             this.message = message;
             return this;
         }
         @CustomType.Setter
         public Builder messageExpression(@Nullable String messageExpression) {
+
             this.messageExpression = messageExpression;
             return this;
         }
         @CustomType.Setter
         public Builder optionalOldSelf(@Nullable Boolean optionalOldSelf) {
+
             this.optionalOldSelf = optionalOldSelf;
             return this;
         }
         @CustomType.Setter
         public Builder reason(@Nullable String reason) {
+
             this.reason = reason;
             return this;
         }
         @CustomType.Setter
         public Builder rule(@Nullable String rule) {
+
             this.rule = rule;
             return this;
         }
         public ValidationRulePatch build() {
-            final var o = new ValidationRulePatch();
-            o.fieldPath = fieldPath;
-            o.message = message;
-            o.messageExpression = messageExpression;
-            o.optionalOldSelf = optionalOldSelf;
-            o.reason = reason;
-            o.rule = rule;
-            return o;
+            final var _resultValue = new ValidationRulePatch();
+            _resultValue.fieldPath = fieldPath;
+            _resultValue.message = message;
+            _resultValue.messageExpression = messageExpression;
+            _resultValue.optionalOldSelf = optionalOldSelf;
+            _resultValue.reason = reason;
+            _resultValue.rule = rule;
+            return _resultValue;
         }
     }
 }

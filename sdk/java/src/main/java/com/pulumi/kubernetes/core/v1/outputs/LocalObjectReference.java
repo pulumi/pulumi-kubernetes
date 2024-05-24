@@ -44,13 +44,14 @@ public final class LocalObjectReference {
 
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         public LocalObjectReference build() {
-            final var o = new LocalObjectReference();
-            o.name = name;
-            return o;
+            final var _resultValue = new LocalObjectReference();
+            _resultValue.name = name;
+            return _resultValue;
         }
     }
 }

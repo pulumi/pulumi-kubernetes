@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.apiextensions.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -72,25 +73,32 @@ public final class CustomResourceSubresourceScale {
 
         @CustomType.Setter
         public Builder labelSelectorPath(@Nullable String labelSelectorPath) {
+
             this.labelSelectorPath = labelSelectorPath;
             return this;
         }
         @CustomType.Setter
         public Builder specReplicasPath(String specReplicasPath) {
-            this.specReplicasPath = Objects.requireNonNull(specReplicasPath);
+            if (specReplicasPath == null) {
+              throw new MissingRequiredPropertyException("CustomResourceSubresourceScale", "specReplicasPath");
+            }
+            this.specReplicasPath = specReplicasPath;
             return this;
         }
         @CustomType.Setter
         public Builder statusReplicasPath(String statusReplicasPath) {
-            this.statusReplicasPath = Objects.requireNonNull(statusReplicasPath);
+            if (statusReplicasPath == null) {
+              throw new MissingRequiredPropertyException("CustomResourceSubresourceScale", "statusReplicasPath");
+            }
+            this.statusReplicasPath = statusReplicasPath;
             return this;
         }
         public CustomResourceSubresourceScale build() {
-            final var o = new CustomResourceSubresourceScale();
-            o.labelSelectorPath = labelSelectorPath;
-            o.specReplicasPath = specReplicasPath;
-            o.statusReplicasPath = statusReplicasPath;
-            return o;
+            final var _resultValue = new CustomResourceSubresourceScale();
+            _resultValue.labelSelectorPath = labelSelectorPath;
+            _resultValue.specReplicasPath = specReplicasPath;
+            _resultValue.statusReplicasPath = statusReplicasPath;
+            return _resultValue;
         }
     }
 }

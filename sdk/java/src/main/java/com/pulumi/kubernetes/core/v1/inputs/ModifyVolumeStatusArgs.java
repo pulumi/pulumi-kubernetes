@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.core.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -153,7 +154,9 @@ public final class ModifyVolumeStatusArgs extends com.pulumi.resources.ResourceA
         }
 
         public ModifyVolumeStatusArgs build() {
-            $.status = Objects.requireNonNull($.status, "expected parameter 'status' to be non-null");
+            if ($.status == null) {
+                throw new MissingRequiredPropertyException("ModifyVolumeStatusArgs", "status");
+            }
             return $;
         }
     }

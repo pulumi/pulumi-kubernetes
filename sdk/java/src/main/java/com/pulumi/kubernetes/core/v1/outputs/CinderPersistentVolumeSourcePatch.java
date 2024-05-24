@@ -88,31 +88,35 @@ public final class CinderPersistentVolumeSourcePatch {
 
         @CustomType.Setter
         public Builder fsType(@Nullable String fsType) {
+
             this.fsType = fsType;
             return this;
         }
         @CustomType.Setter
         public Builder readOnly(@Nullable Boolean readOnly) {
+
             this.readOnly = readOnly;
             return this;
         }
         @CustomType.Setter
         public Builder secretRef(@Nullable SecretReferencePatch secretRef) {
+
             this.secretRef = secretRef;
             return this;
         }
         @CustomType.Setter
         public Builder volumeID(@Nullable String volumeID) {
+
             this.volumeID = volumeID;
             return this;
         }
         public CinderPersistentVolumeSourcePatch build() {
-            final var o = new CinderPersistentVolumeSourcePatch();
-            o.fsType = fsType;
-            o.readOnly = readOnly;
-            o.secretRef = secretRef;
-            o.volumeID = volumeID;
-            return o;
+            final var _resultValue = new CinderPersistentVolumeSourcePatch();
+            _resultValue.fsType = fsType;
+            _resultValue.readOnly = readOnly;
+            _resultValue.secretRef = secretRef;
+            _resultValue.volumeID = volumeID;
+            return _resultValue;
         }
     }
 }

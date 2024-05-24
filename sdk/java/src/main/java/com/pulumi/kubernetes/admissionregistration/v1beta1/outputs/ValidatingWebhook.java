@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.admissionregistration.v1beta1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.admissionregistration.v1beta1.outputs.RuleWithOperations;
 import com.pulumi.kubernetes.admissionregistration.v1beta1.outputs.WebhookClientConfig;
 import com.pulumi.kubernetes.meta.v1.outputs.LabelSelector;
@@ -247,6 +248,7 @@ public final class ValidatingWebhook {
 
         @CustomType.Setter
         public Builder admissionReviewVersions(@Nullable List<String> admissionReviewVersions) {
+
             this.admissionReviewVersions = admissionReviewVersions;
             return this;
         }
@@ -255,36 +257,47 @@ public final class ValidatingWebhook {
         }
         @CustomType.Setter
         public Builder clientConfig(WebhookClientConfig clientConfig) {
-            this.clientConfig = Objects.requireNonNull(clientConfig);
+            if (clientConfig == null) {
+              throw new MissingRequiredPropertyException("ValidatingWebhook", "clientConfig");
+            }
+            this.clientConfig = clientConfig;
             return this;
         }
         @CustomType.Setter
         public Builder failurePolicy(@Nullable String failurePolicy) {
+
             this.failurePolicy = failurePolicy;
             return this;
         }
         @CustomType.Setter
         public Builder matchPolicy(@Nullable String matchPolicy) {
+
             this.matchPolicy = matchPolicy;
             return this;
         }
         @CustomType.Setter
         public Builder name(String name) {
-            this.name = Objects.requireNonNull(name);
+            if (name == null) {
+              throw new MissingRequiredPropertyException("ValidatingWebhook", "name");
+            }
+            this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder namespaceSelector(@Nullable LabelSelector namespaceSelector) {
+
             this.namespaceSelector = namespaceSelector;
             return this;
         }
         @CustomType.Setter
         public Builder objectSelector(@Nullable LabelSelector objectSelector) {
+
             this.objectSelector = objectSelector;
             return this;
         }
         @CustomType.Setter
         public Builder rules(@Nullable List<RuleWithOperations> rules) {
+
             this.rules = rules;
             return this;
         }
@@ -293,27 +306,29 @@ public final class ValidatingWebhook {
         }
         @CustomType.Setter
         public Builder sideEffects(@Nullable String sideEffects) {
+
             this.sideEffects = sideEffects;
             return this;
         }
         @CustomType.Setter
         public Builder timeoutSeconds(@Nullable Integer timeoutSeconds) {
+
             this.timeoutSeconds = timeoutSeconds;
             return this;
         }
         public ValidatingWebhook build() {
-            final var o = new ValidatingWebhook();
-            o.admissionReviewVersions = admissionReviewVersions;
-            o.clientConfig = clientConfig;
-            o.failurePolicy = failurePolicy;
-            o.matchPolicy = matchPolicy;
-            o.name = name;
-            o.namespaceSelector = namespaceSelector;
-            o.objectSelector = objectSelector;
-            o.rules = rules;
-            o.sideEffects = sideEffects;
-            o.timeoutSeconds = timeoutSeconds;
-            return o;
+            final var _resultValue = new ValidatingWebhook();
+            _resultValue.admissionReviewVersions = admissionReviewVersions;
+            _resultValue.clientConfig = clientConfig;
+            _resultValue.failurePolicy = failurePolicy;
+            _resultValue.matchPolicy = matchPolicy;
+            _resultValue.name = name;
+            _resultValue.namespaceSelector = namespaceSelector;
+            _resultValue.objectSelector = objectSelector;
+            _resultValue.rules = rules;
+            _resultValue.sideEffects = sideEffects;
+            _resultValue.timeoutSeconds = timeoutSeconds;
+            return _resultValue;
         }
     }
 }

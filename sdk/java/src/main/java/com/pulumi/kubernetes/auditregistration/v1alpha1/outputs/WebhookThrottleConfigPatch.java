@@ -58,19 +58,21 @@ public final class WebhookThrottleConfigPatch {
 
         @CustomType.Setter
         public Builder burst(@Nullable Integer burst) {
+
             this.burst = burst;
             return this;
         }
         @CustomType.Setter
         public Builder qps(@Nullable Integer qps) {
+
             this.qps = qps;
             return this;
         }
         public WebhookThrottleConfigPatch build() {
-            final var o = new WebhookThrottleConfigPatch();
-            o.burst = burst;
-            o.qps = qps;
-            return o;
+            final var _resultValue = new WebhookThrottleConfigPatch();
+            _resultValue.burst = burst;
+            _resultValue.qps = qps;
+            return _resultValue;
         }
     }
 }

@@ -58,19 +58,21 @@ public final class ResourceQuotaStatusPatch {
 
         @CustomType.Setter
         public Builder hard(@Nullable Map<String,String> hard) {
+
             this.hard = hard;
             return this;
         }
         @CustomType.Setter
         public Builder used(@Nullable Map<String,String> used) {
+
             this.used = used;
             return this;
         }
         public ResourceQuotaStatusPatch build() {
-            final var o = new ResourceQuotaStatusPatch();
-            o.hard = hard;
-            o.used = used;
-            return o;
+            final var _resultValue = new ResourceQuotaStatusPatch();
+            _resultValue.hard = hard;
+            _resultValue.used = used;
+            return _resultValue;
         }
     }
 }

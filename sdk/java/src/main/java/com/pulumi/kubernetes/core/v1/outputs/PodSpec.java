@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.outputs.Affinity;
 import com.pulumi.kubernetes.core.v1.outputs.Container;
 import com.pulumi.kubernetes.core.v1.outputs.EphemeralContainer;
@@ -614,22 +615,28 @@ public final class PodSpec {
 
         @CustomType.Setter
         public Builder activeDeadlineSeconds(@Nullable Integer activeDeadlineSeconds) {
+
             this.activeDeadlineSeconds = activeDeadlineSeconds;
             return this;
         }
         @CustomType.Setter
         public Builder affinity(@Nullable Affinity affinity) {
+
             this.affinity = affinity;
             return this;
         }
         @CustomType.Setter
         public Builder automountServiceAccountToken(@Nullable Boolean automountServiceAccountToken) {
+
             this.automountServiceAccountToken = automountServiceAccountToken;
             return this;
         }
         @CustomType.Setter
         public Builder containers(List<Container> containers) {
-            this.containers = Objects.requireNonNull(containers);
+            if (containers == null) {
+              throw new MissingRequiredPropertyException("PodSpec", "containers");
+            }
+            this.containers = containers;
             return this;
         }
         public Builder containers(Container... containers) {
@@ -637,21 +644,25 @@ public final class PodSpec {
         }
         @CustomType.Setter
         public Builder dnsConfig(@Nullable PodDNSConfig dnsConfig) {
+
             this.dnsConfig = dnsConfig;
             return this;
         }
         @CustomType.Setter
         public Builder dnsPolicy(@Nullable String dnsPolicy) {
+
             this.dnsPolicy = dnsPolicy;
             return this;
         }
         @CustomType.Setter
         public Builder enableServiceLinks(@Nullable Boolean enableServiceLinks) {
+
             this.enableServiceLinks = enableServiceLinks;
             return this;
         }
         @CustomType.Setter
         public Builder ephemeralContainers(@Nullable List<EphemeralContainer> ephemeralContainers) {
+
             this.ephemeralContainers = ephemeralContainers;
             return this;
         }
@@ -660,6 +671,7 @@ public final class PodSpec {
         }
         @CustomType.Setter
         public Builder hostAliases(@Nullable List<HostAlias> hostAliases) {
+
             this.hostAliases = hostAliases;
             return this;
         }
@@ -668,31 +680,37 @@ public final class PodSpec {
         }
         @CustomType.Setter
         public Builder hostIPC(@Nullable Boolean hostIPC) {
+
             this.hostIPC = hostIPC;
             return this;
         }
         @CustomType.Setter
         public Builder hostNetwork(@Nullable Boolean hostNetwork) {
+
             this.hostNetwork = hostNetwork;
             return this;
         }
         @CustomType.Setter
         public Builder hostPID(@Nullable Boolean hostPID) {
+
             this.hostPID = hostPID;
             return this;
         }
         @CustomType.Setter
         public Builder hostUsers(@Nullable Boolean hostUsers) {
+
             this.hostUsers = hostUsers;
             return this;
         }
         @CustomType.Setter
         public Builder hostname(@Nullable String hostname) {
+
             this.hostname = hostname;
             return this;
         }
         @CustomType.Setter
         public Builder imagePullSecrets(@Nullable List<LocalObjectReference> imagePullSecrets) {
+
             this.imagePullSecrets = imagePullSecrets;
             return this;
         }
@@ -701,6 +719,7 @@ public final class PodSpec {
         }
         @CustomType.Setter
         public Builder initContainers(@Nullable List<Container> initContainers) {
+
             this.initContainers = initContainers;
             return this;
         }
@@ -709,41 +728,49 @@ public final class PodSpec {
         }
         @CustomType.Setter
         public Builder nodeName(@Nullable String nodeName) {
+
             this.nodeName = nodeName;
             return this;
         }
         @CustomType.Setter
         public Builder nodeSelector(@Nullable Map<String,String> nodeSelector) {
+
             this.nodeSelector = nodeSelector;
             return this;
         }
         @CustomType.Setter
         public Builder os(@Nullable PodOS os) {
+
             this.os = os;
             return this;
         }
         @CustomType.Setter
         public Builder overhead(@Nullable Map<String,String> overhead) {
+
             this.overhead = overhead;
             return this;
         }
         @CustomType.Setter
         public Builder preemptionPolicy(@Nullable String preemptionPolicy) {
+
             this.preemptionPolicy = preemptionPolicy;
             return this;
         }
         @CustomType.Setter
         public Builder priority(@Nullable Integer priority) {
+
             this.priority = priority;
             return this;
         }
         @CustomType.Setter
         public Builder priorityClassName(@Nullable String priorityClassName) {
+
             this.priorityClassName = priorityClassName;
             return this;
         }
         @CustomType.Setter
         public Builder readinessGates(@Nullable List<PodReadinessGate> readinessGates) {
+
             this.readinessGates = readinessGates;
             return this;
         }
@@ -752,6 +779,7 @@ public final class PodSpec {
         }
         @CustomType.Setter
         public Builder resourceClaims(@Nullable List<PodResourceClaim> resourceClaims) {
+
             this.resourceClaims = resourceClaims;
             return this;
         }
@@ -760,21 +788,25 @@ public final class PodSpec {
         }
         @CustomType.Setter
         public Builder restartPolicy(@Nullable String restartPolicy) {
+
             this.restartPolicy = restartPolicy;
             return this;
         }
         @CustomType.Setter
         public Builder runtimeClassName(@Nullable String runtimeClassName) {
+
             this.runtimeClassName = runtimeClassName;
             return this;
         }
         @CustomType.Setter
         public Builder schedulerName(@Nullable String schedulerName) {
+
             this.schedulerName = schedulerName;
             return this;
         }
         @CustomType.Setter
         public Builder schedulingGates(@Nullable List<PodSchedulingGate> schedulingGates) {
+
             this.schedulingGates = schedulingGates;
             return this;
         }
@@ -783,41 +815,49 @@ public final class PodSpec {
         }
         @CustomType.Setter
         public Builder securityContext(@Nullable PodSecurityContext securityContext) {
+
             this.securityContext = securityContext;
             return this;
         }
         @CustomType.Setter
         public Builder serviceAccount(@Nullable String serviceAccount) {
+
             this.serviceAccount = serviceAccount;
             return this;
         }
         @CustomType.Setter
         public Builder serviceAccountName(@Nullable String serviceAccountName) {
+
             this.serviceAccountName = serviceAccountName;
             return this;
         }
         @CustomType.Setter
         public Builder setHostnameAsFQDN(@Nullable Boolean setHostnameAsFQDN) {
+
             this.setHostnameAsFQDN = setHostnameAsFQDN;
             return this;
         }
         @CustomType.Setter
         public Builder shareProcessNamespace(@Nullable Boolean shareProcessNamespace) {
+
             this.shareProcessNamespace = shareProcessNamespace;
             return this;
         }
         @CustomType.Setter
         public Builder subdomain(@Nullable String subdomain) {
+
             this.subdomain = subdomain;
             return this;
         }
         @CustomType.Setter
         public Builder terminationGracePeriodSeconds(@Nullable Integer terminationGracePeriodSeconds) {
+
             this.terminationGracePeriodSeconds = terminationGracePeriodSeconds;
             return this;
         }
         @CustomType.Setter
         public Builder tolerations(@Nullable List<Toleration> tolerations) {
+
             this.tolerations = tolerations;
             return this;
         }
@@ -826,6 +866,7 @@ public final class PodSpec {
         }
         @CustomType.Setter
         public Builder topologySpreadConstraints(@Nullable List<TopologySpreadConstraint> topologySpreadConstraints) {
+
             this.topologySpreadConstraints = topologySpreadConstraints;
             return this;
         }
@@ -834,6 +875,7 @@ public final class PodSpec {
         }
         @CustomType.Setter
         public Builder volumes(@Nullable List<Volume> volumes) {
+
             this.volumes = volumes;
             return this;
         }
@@ -841,47 +883,47 @@ public final class PodSpec {
             return volumes(List.of(volumes));
         }
         public PodSpec build() {
-            final var o = new PodSpec();
-            o.activeDeadlineSeconds = activeDeadlineSeconds;
-            o.affinity = affinity;
-            o.automountServiceAccountToken = automountServiceAccountToken;
-            o.containers = containers;
-            o.dnsConfig = dnsConfig;
-            o.dnsPolicy = dnsPolicy;
-            o.enableServiceLinks = enableServiceLinks;
-            o.ephemeralContainers = ephemeralContainers;
-            o.hostAliases = hostAliases;
-            o.hostIPC = hostIPC;
-            o.hostNetwork = hostNetwork;
-            o.hostPID = hostPID;
-            o.hostUsers = hostUsers;
-            o.hostname = hostname;
-            o.imagePullSecrets = imagePullSecrets;
-            o.initContainers = initContainers;
-            o.nodeName = nodeName;
-            o.nodeSelector = nodeSelector;
-            o.os = os;
-            o.overhead = overhead;
-            o.preemptionPolicy = preemptionPolicy;
-            o.priority = priority;
-            o.priorityClassName = priorityClassName;
-            o.readinessGates = readinessGates;
-            o.resourceClaims = resourceClaims;
-            o.restartPolicy = restartPolicy;
-            o.runtimeClassName = runtimeClassName;
-            o.schedulerName = schedulerName;
-            o.schedulingGates = schedulingGates;
-            o.securityContext = securityContext;
-            o.serviceAccount = serviceAccount;
-            o.serviceAccountName = serviceAccountName;
-            o.setHostnameAsFQDN = setHostnameAsFQDN;
-            o.shareProcessNamespace = shareProcessNamespace;
-            o.subdomain = subdomain;
-            o.terminationGracePeriodSeconds = terminationGracePeriodSeconds;
-            o.tolerations = tolerations;
-            o.topologySpreadConstraints = topologySpreadConstraints;
-            o.volumes = volumes;
-            return o;
+            final var _resultValue = new PodSpec();
+            _resultValue.activeDeadlineSeconds = activeDeadlineSeconds;
+            _resultValue.affinity = affinity;
+            _resultValue.automountServiceAccountToken = automountServiceAccountToken;
+            _resultValue.containers = containers;
+            _resultValue.dnsConfig = dnsConfig;
+            _resultValue.dnsPolicy = dnsPolicy;
+            _resultValue.enableServiceLinks = enableServiceLinks;
+            _resultValue.ephemeralContainers = ephemeralContainers;
+            _resultValue.hostAliases = hostAliases;
+            _resultValue.hostIPC = hostIPC;
+            _resultValue.hostNetwork = hostNetwork;
+            _resultValue.hostPID = hostPID;
+            _resultValue.hostUsers = hostUsers;
+            _resultValue.hostname = hostname;
+            _resultValue.imagePullSecrets = imagePullSecrets;
+            _resultValue.initContainers = initContainers;
+            _resultValue.nodeName = nodeName;
+            _resultValue.nodeSelector = nodeSelector;
+            _resultValue.os = os;
+            _resultValue.overhead = overhead;
+            _resultValue.preemptionPolicy = preemptionPolicy;
+            _resultValue.priority = priority;
+            _resultValue.priorityClassName = priorityClassName;
+            _resultValue.readinessGates = readinessGates;
+            _resultValue.resourceClaims = resourceClaims;
+            _resultValue.restartPolicy = restartPolicy;
+            _resultValue.runtimeClassName = runtimeClassName;
+            _resultValue.schedulerName = schedulerName;
+            _resultValue.schedulingGates = schedulingGates;
+            _resultValue.securityContext = securityContext;
+            _resultValue.serviceAccount = serviceAccount;
+            _resultValue.serviceAccountName = serviceAccountName;
+            _resultValue.setHostnameAsFQDN = setHostnameAsFQDN;
+            _resultValue.shareProcessNamespace = shareProcessNamespace;
+            _resultValue.subdomain = subdomain;
+            _resultValue.terminationGracePeriodSeconds = terminationGracePeriodSeconds;
+            _resultValue.tolerations = tolerations;
+            _resultValue.topologySpreadConstraints = topologySpreadConstraints;
+            _resultValue.volumes = volumes;
+            return _resultValue;
         }
     }
 }

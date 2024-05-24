@@ -103,21 +103,25 @@ public final class FCVolumeSource {
 
         @CustomType.Setter
         public Builder fsType(@Nullable String fsType) {
+
             this.fsType = fsType;
             return this;
         }
         @CustomType.Setter
         public Builder lun(@Nullable Integer lun) {
+
             this.lun = lun;
             return this;
         }
         @CustomType.Setter
         public Builder readOnly(@Nullable Boolean readOnly) {
+
             this.readOnly = readOnly;
             return this;
         }
         @CustomType.Setter
         public Builder targetWWNs(@Nullable List<String> targetWWNs) {
+
             this.targetWWNs = targetWWNs;
             return this;
         }
@@ -126,6 +130,7 @@ public final class FCVolumeSource {
         }
         @CustomType.Setter
         public Builder wwids(@Nullable List<String> wwids) {
+
             this.wwids = wwids;
             return this;
         }
@@ -133,13 +138,13 @@ public final class FCVolumeSource {
             return wwids(List.of(wwids));
         }
         public FCVolumeSource build() {
-            final var o = new FCVolumeSource();
-            o.fsType = fsType;
-            o.lun = lun;
-            o.readOnly = readOnly;
-            o.targetWWNs = targetWWNs;
-            o.wwids = wwids;
-            return o;
+            final var _resultValue = new FCVolumeSource();
+            _resultValue.fsType = fsType;
+            _resultValue.lun = lun;
+            _resultValue.readOnly = readOnly;
+            _resultValue.targetWWNs = targetWWNs;
+            _resultValue.wwids = wwids;
+            return _resultValue;
         }
     }
 }

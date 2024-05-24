@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.events.v1beta1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Integer;
 import java.lang.String;
 import java.util.Objects;
@@ -153,9 +154,15 @@ public final class EventSeriesArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         public EventSeriesArgs build() {
-            $.count = Objects.requireNonNull($.count, "expected parameter 'count' to be non-null");
-            $.lastObservedTime = Objects.requireNonNull($.lastObservedTime, "expected parameter 'lastObservedTime' to be non-null");
-            $.state = Objects.requireNonNull($.state, "expected parameter 'state' to be non-null");
+            if ($.count == null) {
+                throw new MissingRequiredPropertyException("EventSeriesArgs", "count");
+            }
+            if ($.lastObservedTime == null) {
+                throw new MissingRequiredPropertyException("EventSeriesArgs", "lastObservedTime");
+            }
+            if ($.state == null) {
+                throw new MissingRequiredPropertyException("EventSeriesArgs", "state");
+            }
             return $;
         }
     }

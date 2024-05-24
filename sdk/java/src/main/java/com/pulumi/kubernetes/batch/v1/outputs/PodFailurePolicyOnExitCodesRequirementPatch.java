@@ -90,16 +90,19 @@ public final class PodFailurePolicyOnExitCodesRequirementPatch {
 
         @CustomType.Setter
         public Builder containerName(@Nullable String containerName) {
+
             this.containerName = containerName;
             return this;
         }
         @CustomType.Setter
         public Builder operator(@Nullable String operator) {
+
             this.operator = operator;
             return this;
         }
         @CustomType.Setter
         public Builder values(@Nullable List<Integer> values) {
+
             this.values = values;
             return this;
         }
@@ -107,11 +110,11 @@ public final class PodFailurePolicyOnExitCodesRequirementPatch {
             return values(List.of(values));
         }
         public PodFailurePolicyOnExitCodesRequirementPatch build() {
-            final var o = new PodFailurePolicyOnExitCodesRequirementPatch();
-            o.containerName = containerName;
-            o.operator = operator;
-            o.values = values;
-            return o;
+            final var _resultValue = new PodFailurePolicyOnExitCodesRequirementPatch();
+            _resultValue.containerName = containerName;
+            _resultValue.operator = operator;
+            _resultValue.values = values;
+            return _resultValue;
         }
     }
 }

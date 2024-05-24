@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.apps.v1beta1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.apps.v1beta1.inputs.StatefulSetUpdateStrategyArgs;
 import com.pulumi.kubernetes.core.v1.inputs.PersistentVolumeClaimArgs;
 import com.pulumi.kubernetes.core.v1.inputs.PodTemplateSpecArgs;
@@ -355,8 +356,12 @@ public final class StatefulSetSpecArgs extends com.pulumi.resources.ResourceArgs
         }
 
         public StatefulSetSpecArgs build() {
-            $.serviceName = Objects.requireNonNull($.serviceName, "expected parameter 'serviceName' to be non-null");
-            $.template = Objects.requireNonNull($.template, "expected parameter 'template' to be non-null");
+            if ($.serviceName == null) {
+                throw new MissingRequiredPropertyException("StatefulSetSpecArgs", "serviceName");
+            }
+            if ($.template == null) {
+                throw new MissingRequiredPropertyException("StatefulSetSpecArgs", "template");
+            }
             return $;
         }
     }

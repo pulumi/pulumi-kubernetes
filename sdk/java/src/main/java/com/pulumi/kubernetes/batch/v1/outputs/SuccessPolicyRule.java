@@ -59,19 +59,21 @@ public final class SuccessPolicyRule {
 
         @CustomType.Setter
         public Builder succeededCount(@Nullable Integer succeededCount) {
+
             this.succeededCount = succeededCount;
             return this;
         }
         @CustomType.Setter
         public Builder succeededIndexes(@Nullable String succeededIndexes) {
+
             this.succeededIndexes = succeededIndexes;
             return this;
         }
         public SuccessPolicyRule build() {
-            final var o = new SuccessPolicyRule();
-            o.succeededCount = succeededCount;
-            o.succeededIndexes = succeededIndexes;
-            return o;
+            final var _resultValue = new SuccessPolicyRule();
+            _resultValue.succeededCount = succeededCount;
+            _resultValue.succeededIndexes = succeededIndexes;
+            return _resultValue;
         }
     }
 }

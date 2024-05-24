@@ -58,19 +58,21 @@ public final class VolumeDevicePatch {
 
         @CustomType.Setter
         public Builder devicePath(@Nullable String devicePath) {
+
             this.devicePath = devicePath;
             return this;
         }
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         public VolumeDevicePatch build() {
-            final var o = new VolumeDevicePatch();
-            o.devicePath = devicePath;
-            o.name = name;
-            return o;
+            final var _resultValue = new VolumeDevicePatch();
+            _resultValue.devicePath = devicePath;
+            _resultValue.name = name;
+            return _resultValue;
         }
     }
 }

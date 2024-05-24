@@ -6,6 +6,7 @@ package com.pulumi.kubernetes.core.v1.inputs;
 import com.pulumi.core.Either;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.inputs.HTTPHeaderArgs;
 import java.lang.Integer;
 import java.lang.String;
@@ -262,7 +263,9 @@ public final class HTTPGetActionArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         public HTTPGetActionArgs build() {
-            $.port = Objects.requireNonNull($.port, "expected parameter 'port' to be non-null");
+            if ($.port == null) {
+                throw new MissingRequiredPropertyException("HTTPGetActionArgs", "port");
+            }
             return $;
         }
     }

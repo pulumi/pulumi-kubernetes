@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.apiextensions.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.apiextensions.v1.inputs.CustomResourceDefinitionConditionArgs;
 import com.pulumi.kubernetes.apiextensions.v1.inputs.CustomResourceDefinitionNamesArgs;
 import java.lang.String;
@@ -177,8 +178,12 @@ public final class CustomResourceDefinitionStatusArgs extends com.pulumi.resourc
         }
 
         public CustomResourceDefinitionStatusArgs build() {
-            $.acceptedNames = Objects.requireNonNull($.acceptedNames, "expected parameter 'acceptedNames' to be non-null");
-            $.storedVersions = Objects.requireNonNull($.storedVersions, "expected parameter 'storedVersions' to be non-null");
+            if ($.acceptedNames == null) {
+                throw new MissingRequiredPropertyException("CustomResourceDefinitionStatusArgs", "acceptedNames");
+            }
+            if ($.storedVersions == null) {
+                throw new MissingRequiredPropertyException("CustomResourceDefinitionStatusArgs", "storedVersions");
+            }
             return $;
         }
     }

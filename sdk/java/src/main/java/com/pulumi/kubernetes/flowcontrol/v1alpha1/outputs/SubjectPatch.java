@@ -65,31 +65,35 @@ public final class SubjectPatch {
 
         @CustomType.Setter
         public Builder group(@Nullable GroupSubjectPatch group) {
+
             this.group = group;
             return this;
         }
         @CustomType.Setter
         public Builder kind(@Nullable String kind) {
+
             this.kind = kind;
             return this;
         }
         @CustomType.Setter
         public Builder serviceAccount(@Nullable ServiceAccountSubjectPatch serviceAccount) {
+
             this.serviceAccount = serviceAccount;
             return this;
         }
         @CustomType.Setter
         public Builder user(@Nullable UserSubjectPatch user) {
+
             this.user = user;
             return this;
         }
         public SubjectPatch build() {
-            final var o = new SubjectPatch();
-            o.group = group;
-            o.kind = kind;
-            o.serviceAccount = serviceAccount;
-            o.user = user;
-            return o;
+            final var _resultValue = new SubjectPatch();
+            _resultValue.group = group;
+            _resultValue.kind = kind;
+            _resultValue.serviceAccount = serviceAccount;
+            _resultValue.user = user;
+            return _resultValue;
         }
     }
 }

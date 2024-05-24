@@ -78,19 +78,21 @@ public final class AuditAnnotationPatch {
 
         @CustomType.Setter
         public Builder key(@Nullable String key) {
+
             this.key = key;
             return this;
         }
         @CustomType.Setter
         public Builder valueExpression(@Nullable String valueExpression) {
+
             this.valueExpression = valueExpression;
             return this;
         }
         public AuditAnnotationPatch build() {
-            final var o = new AuditAnnotationPatch();
-            o.key = key;
-            o.valueExpression = valueExpression;
-            return o;
+            final var _resultValue = new AuditAnnotationPatch();
+            _resultValue.key = key;
+            _resultValue.valueExpression = valueExpression;
+            return _resultValue;
         }
     }
 }

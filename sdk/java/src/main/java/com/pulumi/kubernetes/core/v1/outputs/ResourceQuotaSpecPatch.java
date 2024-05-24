@@ -75,16 +75,19 @@ public final class ResourceQuotaSpecPatch {
 
         @CustomType.Setter
         public Builder hard(@Nullable Map<String,String> hard) {
+
             this.hard = hard;
             return this;
         }
         @CustomType.Setter
         public Builder scopeSelector(@Nullable ScopeSelectorPatch scopeSelector) {
+
             this.scopeSelector = scopeSelector;
             return this;
         }
         @CustomType.Setter
         public Builder scopes(@Nullable List<String> scopes) {
+
             this.scopes = scopes;
             return this;
         }
@@ -92,11 +95,11 @@ public final class ResourceQuotaSpecPatch {
             return scopes(List.of(scopes));
         }
         public ResourceQuotaSpecPatch build() {
-            final var o = new ResourceQuotaSpecPatch();
-            o.hard = hard;
-            o.scopeSelector = scopeSelector;
-            o.scopes = scopes;
-            return o;
+            final var _resultValue = new ResourceQuotaSpecPatch();
+            _resultValue.hard = hard;
+            _resultValue.scopeSelector = scopeSelector;
+            _resultValue.scopes = scopes;
+            return _resultValue;
         }
     }
 }

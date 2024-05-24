@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.resource.v1alpha2.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.meta.v1.outputs.ObjectMeta;
 import com.pulumi.kubernetes.resource.v1alpha2.outputs.ResourceClaimSpec;
 import java.util.Objects;
@@ -59,19 +60,23 @@ public final class ResourceClaimTemplateSpec {
 
         @CustomType.Setter
         public Builder metadata(@Nullable ObjectMeta metadata) {
+
             this.metadata = metadata;
             return this;
         }
         @CustomType.Setter
         public Builder spec(ResourceClaimSpec spec) {
-            this.spec = Objects.requireNonNull(spec);
+            if (spec == null) {
+              throw new MissingRequiredPropertyException("ResourceClaimTemplateSpec", "spec");
+            }
+            this.spec = spec;
             return this;
         }
         public ResourceClaimTemplateSpec build() {
-            final var o = new ResourceClaimTemplateSpec();
-            o.metadata = metadata;
-            o.spec = spec;
-            return o;
+            final var _resultValue = new ResourceClaimTemplateSpec();
+            _resultValue.metadata = metadata;
+            _resultValue.spec = spec;
+            return _resultValue;
         }
     }
 }

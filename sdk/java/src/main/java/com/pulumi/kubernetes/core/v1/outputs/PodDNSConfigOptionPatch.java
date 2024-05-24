@@ -50,19 +50,21 @@ public final class PodDNSConfigOptionPatch {
 
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder value(@Nullable String value) {
+
             this.value = value;
             return this;
         }
         public PodDNSConfigOptionPatch build() {
-            final var o = new PodDNSConfigOptionPatch();
-            o.name = name;
-            o.value = value;
-            return o;
+            final var _resultValue = new PodDNSConfigOptionPatch();
+            _resultValue.name = name;
+            _resultValue.value = value;
+            return _resultValue;
         }
     }
 }

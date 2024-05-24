@@ -6,6 +6,7 @@ package com.pulumi.kubernetes.node.v1beta1.inputs;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.core.internal.Codegen;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.meta.v1.inputs.ObjectMetaArgs;
 import com.pulumi.kubernetes.node.v1beta1.inputs.OverheadArgs;
 import com.pulumi.kubernetes.node.v1beta1.inputs.SchedulingArgs;
@@ -270,7 +271,9 @@ public final class RuntimeClassArgs extends com.pulumi.resources.ResourceArgs {
 
         public RuntimeClassArgs build() {
             $.apiVersion = Codegen.stringProp("apiVersion").output().arg($.apiVersion).getNullable();
-            $.handler = Objects.requireNonNull($.handler, "expected parameter 'handler' to be non-null");
+            if ($.handler == null) {
+                throw new MissingRequiredPropertyException("RuntimeClassArgs", "handler");
+            }
             $.kind = Codegen.stringProp("kind").output().arg($.kind).getNullable();
             return $;
         }

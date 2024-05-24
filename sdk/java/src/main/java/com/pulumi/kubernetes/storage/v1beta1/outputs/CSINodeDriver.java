@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.storage.v1beta1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.storage.v1beta1.outputs.VolumeNodeResources;
 import java.lang.String;
 import java.util.List;
@@ -88,21 +89,29 @@ public final class CSINodeDriver {
 
         @CustomType.Setter
         public Builder allocatable(@Nullable VolumeNodeResources allocatable) {
+
             this.allocatable = allocatable;
             return this;
         }
         @CustomType.Setter
         public Builder name(String name) {
-            this.name = Objects.requireNonNull(name);
+            if (name == null) {
+              throw new MissingRequiredPropertyException("CSINodeDriver", "name");
+            }
+            this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder nodeID(String nodeID) {
-            this.nodeID = Objects.requireNonNull(nodeID);
+            if (nodeID == null) {
+              throw new MissingRequiredPropertyException("CSINodeDriver", "nodeID");
+            }
+            this.nodeID = nodeID;
             return this;
         }
         @CustomType.Setter
         public Builder topologyKeys(@Nullable List<String> topologyKeys) {
+
             this.topologyKeys = topologyKeys;
             return this;
         }
@@ -110,12 +119,12 @@ public final class CSINodeDriver {
             return topologyKeys(List.of(topologyKeys));
         }
         public CSINodeDriver build() {
-            final var o = new CSINodeDriver();
-            o.allocatable = allocatable;
-            o.name = name;
-            o.nodeID = nodeID;
-            o.topologyKeys = topologyKeys;
-            return o;
+            final var _resultValue = new CSINodeDriver();
+            _resultValue.allocatable = allocatable;
+            _resultValue.name = name;
+            _resultValue.nodeID = nodeID;
+            _resultValue.topologyKeys = topologyKeys;
+            return _resultValue;
         }
     }
 }

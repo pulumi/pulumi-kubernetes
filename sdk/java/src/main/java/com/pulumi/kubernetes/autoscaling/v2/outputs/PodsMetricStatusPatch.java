@@ -59,19 +59,21 @@ public final class PodsMetricStatusPatch {
 
         @CustomType.Setter
         public Builder current(@Nullable MetricValueStatusPatch current) {
+
             this.current = current;
             return this;
         }
         @CustomType.Setter
         public Builder metric(@Nullable MetricIdentifierPatch metric) {
+
             this.metric = metric;
             return this;
         }
         public PodsMetricStatusPatch build() {
-            final var o = new PodsMetricStatusPatch();
-            o.current = current;
-            o.metric = metric;
-            return o;
+            final var _resultValue = new PodsMetricStatusPatch();
+            _resultValue.current = current;
+            _resultValue.metric = metric;
+            return _resultValue;
         }
     }
 }

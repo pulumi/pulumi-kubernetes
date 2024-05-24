@@ -6,6 +6,7 @@ package com.pulumi.kubernetes.storage.v1beta1.inputs;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.core.internal.Codegen;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.meta.v1.inputs.LabelSelectorArgs;
 import com.pulumi.kubernetes.meta.v1.inputs.ObjectMetaArgs;
 import java.lang.String;
@@ -347,7 +348,9 @@ public final class CSIStorageCapacityArgs extends com.pulumi.resources.ResourceA
         public CSIStorageCapacityArgs build() {
             $.apiVersion = Codegen.stringProp("apiVersion").output().arg($.apiVersion).getNullable();
             $.kind = Codegen.stringProp("kind").output().arg($.kind).getNullable();
-            $.storageClassName = Objects.requireNonNull($.storageClassName, "expected parameter 'storageClassName' to be non-null");
+            if ($.storageClassName == null) {
+                throw new MissingRequiredPropertyException("CSIStorageCapacityArgs", "storageClassName");
+            }
             return $;
         }
     }

@@ -88,31 +88,35 @@ public final class PodTemplate {
 
         @CustomType.Setter
         public Builder apiVersion(@Nullable String apiVersion) {
+
             this.apiVersion = apiVersion;
             return this;
         }
         @CustomType.Setter
         public Builder kind(@Nullable String kind) {
+
             this.kind = kind;
             return this;
         }
         @CustomType.Setter
         public Builder metadata(@Nullable ObjectMeta metadata) {
+
             this.metadata = metadata;
             return this;
         }
         @CustomType.Setter
         public Builder template(@Nullable PodTemplateSpec template) {
+
             this.template = template;
             return this;
         }
         public PodTemplate build() {
-            final var o = new PodTemplate();
-            o.apiVersion = apiVersion;
-            o.kind = kind;
-            o.metadata = metadata;
-            o.template = template;
-            return o;
+            final var _resultValue = new PodTemplate();
+            _resultValue.apiVersion = apiVersion;
+            _resultValue.kind = kind;
+            _resultValue.metadata = metadata;
+            _resultValue.template = template;
+            return _resultValue;
         }
     }
 }

@@ -72,25 +72,28 @@ public final class ResourceFieldSelectorPatch {
 
         @CustomType.Setter
         public Builder containerName(@Nullable String containerName) {
+
             this.containerName = containerName;
             return this;
         }
         @CustomType.Setter
         public Builder divisor(@Nullable String divisor) {
+
             this.divisor = divisor;
             return this;
         }
         @CustomType.Setter
         public Builder resource(@Nullable String resource) {
+
             this.resource = resource;
             return this;
         }
         public ResourceFieldSelectorPatch build() {
-            final var o = new ResourceFieldSelectorPatch();
-            o.containerName = containerName;
-            o.divisor = divisor;
-            o.resource = resource;
-            return o;
+            final var _resultValue = new ResourceFieldSelectorPatch();
+            _resultValue.containerName = containerName;
+            _resultValue.divisor = divisor;
+            _resultValue.resource = resource;
+            return _resultValue;
         }
     }
 }

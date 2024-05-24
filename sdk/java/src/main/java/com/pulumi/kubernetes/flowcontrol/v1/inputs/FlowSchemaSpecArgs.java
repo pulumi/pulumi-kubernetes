@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.flowcontrol.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.flowcontrol.v1.inputs.FlowDistinguisherMethodArgs;
 import com.pulumi.kubernetes.flowcontrol.v1.inputs.PolicyRulesWithSubjectsArgs;
 import com.pulumi.kubernetes.flowcontrol.v1.inputs.PriorityLevelConfigurationReferenceArgs;
@@ -205,7 +206,9 @@ public final class FlowSchemaSpecArgs extends com.pulumi.resources.ResourceArgs 
         }
 
         public FlowSchemaSpecArgs build() {
-            $.priorityLevelConfiguration = Objects.requireNonNull($.priorityLevelConfiguration, "expected parameter 'priorityLevelConfiguration' to be non-null");
+            if ($.priorityLevelConfiguration == null) {
+                throw new MissingRequiredPropertyException("FlowSchemaSpecArgs", "priorityLevelConfiguration");
+            }
             return $;
         }
     }

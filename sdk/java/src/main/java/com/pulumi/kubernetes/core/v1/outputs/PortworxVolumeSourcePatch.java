@@ -73,25 +73,28 @@ public final class PortworxVolumeSourcePatch {
 
         @CustomType.Setter
         public Builder fsType(@Nullable String fsType) {
+
             this.fsType = fsType;
             return this;
         }
         @CustomType.Setter
         public Builder readOnly(@Nullable Boolean readOnly) {
+
             this.readOnly = readOnly;
             return this;
         }
         @CustomType.Setter
         public Builder volumeID(@Nullable String volumeID) {
+
             this.volumeID = volumeID;
             return this;
         }
         public PortworxVolumeSourcePatch build() {
-            final var o = new PortworxVolumeSourcePatch();
-            o.fsType = fsType;
-            o.readOnly = readOnly;
-            o.volumeID = volumeID;
-            return o;
+            final var _resultValue = new PortworxVolumeSourcePatch();
+            _resultValue.fsType = fsType;
+            _resultValue.readOnly = readOnly;
+            _resultValue.volumeID = volumeID;
+            return _resultValue;
         }
     }
 }

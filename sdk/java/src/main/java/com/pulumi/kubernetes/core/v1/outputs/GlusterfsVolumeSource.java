@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Boolean;
 import java.lang.String;
 import java.util.Objects;
@@ -73,25 +74,32 @@ public final class GlusterfsVolumeSource {
 
         @CustomType.Setter
         public Builder endpoints(String endpoints) {
-            this.endpoints = Objects.requireNonNull(endpoints);
+            if (endpoints == null) {
+              throw new MissingRequiredPropertyException("GlusterfsVolumeSource", "endpoints");
+            }
+            this.endpoints = endpoints;
             return this;
         }
         @CustomType.Setter
         public Builder path(String path) {
-            this.path = Objects.requireNonNull(path);
+            if (path == null) {
+              throw new MissingRequiredPropertyException("GlusterfsVolumeSource", "path");
+            }
+            this.path = path;
             return this;
         }
         @CustomType.Setter
         public Builder readOnly(@Nullable Boolean readOnly) {
+
             this.readOnly = readOnly;
             return this;
         }
         public GlusterfsVolumeSource build() {
-            final var o = new GlusterfsVolumeSource();
-            o.endpoints = endpoints;
-            o.path = path;
-            o.readOnly = readOnly;
-            return o;
+            final var _resultValue = new GlusterfsVolumeSource();
+            _resultValue.endpoints = endpoints;
+            _resultValue.path = path;
+            _resultValue.readOnly = readOnly;
+            return _resultValue;
         }
     }
 }

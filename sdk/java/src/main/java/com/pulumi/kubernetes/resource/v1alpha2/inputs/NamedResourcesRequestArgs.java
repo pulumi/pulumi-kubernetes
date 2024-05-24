@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.resource.v1alpha2.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
 
@@ -98,7 +99,9 @@ public final class NamedResourcesRequestArgs extends com.pulumi.resources.Resour
         }
 
         public NamedResourcesRequestArgs build() {
-            $.selector = Objects.requireNonNull($.selector, "expected parameter 'selector' to be non-null");
+            if ($.selector == null) {
+                throw new MissingRequiredPropertyException("NamedResourcesRequestArgs", "selector");
+            }
             return $;
         }
     }

@@ -58,19 +58,21 @@ public final class HostPathVolumeSourcePatch {
 
         @CustomType.Setter
         public Builder path(@Nullable String path) {
+
             this.path = path;
             return this;
         }
         @CustomType.Setter
         public Builder type(@Nullable String type) {
+
             this.type = type;
             return this;
         }
         public HostPathVolumeSourcePatch build() {
-            final var o = new HostPathVolumeSourcePatch();
-            o.path = path;
-            o.type = type;
-            return o;
+            final var _resultValue = new HostPathVolumeSourcePatch();
+            _resultValue.path = path;
+            _resultValue.type = type;
+            return _resultValue;
         }
     }
 }

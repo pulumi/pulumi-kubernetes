@@ -64,19 +64,21 @@ public final class AppArmorProfilePatch {
 
         @CustomType.Setter
         public Builder localhostProfile(@Nullable String localhostProfile) {
+
             this.localhostProfile = localhostProfile;
             return this;
         }
         @CustomType.Setter
         public Builder type(@Nullable String type) {
+
             this.type = type;
             return this;
         }
         public AppArmorProfilePatch build() {
-            final var o = new AppArmorProfilePatch();
-            o.localhostProfile = localhostProfile;
-            o.type = type;
-            return o;
+            final var _resultValue = new AppArmorProfilePatch();
+            _resultValue.localhostProfile = localhostProfile;
+            _resultValue.type = type;
+            return _resultValue;
         }
     }
 }

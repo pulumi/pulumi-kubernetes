@@ -44,6 +44,7 @@ public final class APIServiceStatusPatch {
 
         @CustomType.Setter
         public Builder conditions(@Nullable List<APIServiceConditionPatch> conditions) {
+
             this.conditions = conditions;
             return this;
         }
@@ -51,9 +52,9 @@ public final class APIServiceStatusPatch {
             return conditions(List.of(conditions));
         }
         public APIServiceStatusPatch build() {
-            final var o = new APIServiceStatusPatch();
-            o.conditions = conditions;
-            return o;
+            final var _resultValue = new APIServiceStatusPatch();
+            _resultValue.conditions = conditions;
+            return _resultValue;
         }
     }
 }

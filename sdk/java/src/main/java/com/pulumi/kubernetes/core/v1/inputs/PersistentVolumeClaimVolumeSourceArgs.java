@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.core.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Boolean;
 import java.lang.String;
 import java.util.Objects;
@@ -118,7 +119,9 @@ public final class PersistentVolumeClaimVolumeSourceArgs extends com.pulumi.reso
         }
 
         public PersistentVolumeClaimVolumeSourceArgs build() {
-            $.claimName = Objects.requireNonNull($.claimName, "expected parameter 'claimName' to be non-null");
+            if ($.claimName == null) {
+                throw new MissingRequiredPropertyException("PersistentVolumeClaimVolumeSourceArgs", "claimName");
+            }
             return $;
         }
     }

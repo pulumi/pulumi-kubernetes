@@ -6,6 +6,7 @@ package com.pulumi.kubernetes.resource.v1alpha1;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.core.internal.Codegen;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.meta.v1.inputs.ListMetaArgs;
 import com.pulumi.kubernetes.resource.v1alpha1.inputs.ResourceClassArgs;
 import java.lang.String;
@@ -202,7 +203,9 @@ public final class ResourceClassListArgs extends com.pulumi.resources.ResourceAr
 
         public ResourceClassListArgs build() {
             $.apiVersion = Codegen.stringProp("apiVersion").output().arg($.apiVersion).getNullable();
-            $.items = Objects.requireNonNull($.items, "expected parameter 'items' to be non-null");
+            if ($.items == null) {
+                throw new MissingRequiredPropertyException("ResourceClassListArgs", "items");
+            }
             $.kind = Codegen.stringProp("kind").output().arg($.kind).getNullable();
             return $;
         }

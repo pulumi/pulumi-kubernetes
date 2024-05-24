@@ -59,19 +59,21 @@ public final class StorageVersionMigrationSpecPatch {
 
         @CustomType.Setter
         public Builder continueToken(@Nullable String continueToken) {
+
             this.continueToken = continueToken;
             return this;
         }
         @CustomType.Setter
         public Builder resource(@Nullable GroupVersionResourcePatch resource) {
+
             this.resource = resource;
             return this;
         }
         public StorageVersionMigrationSpecPatch build() {
-            final var o = new StorageVersionMigrationSpecPatch();
-            o.continueToken = continueToken;
-            o.resource = resource;
-            return o;
+            final var _resultValue = new StorageVersionMigrationSpecPatch();
+            _resultValue.continueToken = continueToken;
+            _resultValue.resource = resource;
+            return _resultValue;
         }
     }
 }

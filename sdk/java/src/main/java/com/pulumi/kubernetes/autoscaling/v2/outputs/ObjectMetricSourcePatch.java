@@ -74,25 +74,28 @@ public final class ObjectMetricSourcePatch {
 
         @CustomType.Setter
         public Builder describedObject(@Nullable CrossVersionObjectReferencePatch describedObject) {
+
             this.describedObject = describedObject;
             return this;
         }
         @CustomType.Setter
         public Builder metric(@Nullable MetricIdentifierPatch metric) {
+
             this.metric = metric;
             return this;
         }
         @CustomType.Setter
         public Builder target(@Nullable MetricTargetPatch target) {
+
             this.target = target;
             return this;
         }
         public ObjectMetricSourcePatch build() {
-            final var o = new ObjectMetricSourcePatch();
-            o.describedObject = describedObject;
-            o.metric = metric;
-            o.target = target;
-            return o;
+            final var _resultValue = new ObjectMetricSourcePatch();
+            _resultValue.describedObject = describedObject;
+            _resultValue.metric = metric;
+            _resultValue.target = target;
+            return _resultValue;
         }
     }
 }

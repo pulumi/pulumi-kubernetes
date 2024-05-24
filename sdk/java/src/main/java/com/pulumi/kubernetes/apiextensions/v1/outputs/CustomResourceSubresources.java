@@ -59,19 +59,21 @@ public final class CustomResourceSubresources {
 
         @CustomType.Setter
         public Builder scale(@Nullable CustomResourceSubresourceScale scale) {
+
             this.scale = scale;
             return this;
         }
         @CustomType.Setter
         public Builder status(@Nullable JsonElement status) {
+
             this.status = status;
             return this;
         }
         public CustomResourceSubresources build() {
-            final var o = new CustomResourceSubresources();
-            o.scale = scale;
-            o.status = status;
-            return o;
+            final var _resultValue = new CustomResourceSubresources();
+            _resultValue.scale = scale;
+            _resultValue.status = status;
+            return _resultValue;
         }
     }
 }

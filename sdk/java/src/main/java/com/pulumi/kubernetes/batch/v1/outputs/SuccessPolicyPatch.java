@@ -44,6 +44,7 @@ public final class SuccessPolicyPatch {
 
         @CustomType.Setter
         public Builder rules(@Nullable List<SuccessPolicyRulePatch> rules) {
+
             this.rules = rules;
             return this;
         }
@@ -51,9 +52,9 @@ public final class SuccessPolicyPatch {
             return rules(List.of(rules));
         }
         public SuccessPolicyPatch build() {
-            final var o = new SuccessPolicyPatch();
-            o.rules = rules;
-            return o;
+            final var _resultValue = new SuccessPolicyPatch();
+            _resultValue.rules = rules;
+            return _resultValue;
         }
     }
 }

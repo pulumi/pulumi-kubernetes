@@ -59,6 +59,7 @@ public final class HostAliasPatch {
 
         @CustomType.Setter
         public Builder hostnames(@Nullable List<String> hostnames) {
+
             this.hostnames = hostnames;
             return this;
         }
@@ -67,14 +68,15 @@ public final class HostAliasPatch {
         }
         @CustomType.Setter
         public Builder ip(@Nullable String ip) {
+
             this.ip = ip;
             return this;
         }
         public HostAliasPatch build() {
-            final var o = new HostAliasPatch();
-            o.hostnames = hostnames;
-            o.ip = ip;
-            return o;
+            final var _resultValue = new HostAliasPatch();
+            _resultValue.hostnames = hostnames;
+            _resultValue.ip = ip;
+            return _resultValue;
         }
     }
 }

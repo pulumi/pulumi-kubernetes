@@ -101,37 +101,42 @@ public final class LeaseSpec {
 
         @CustomType.Setter
         public Builder acquireTime(@Nullable String acquireTime) {
+
             this.acquireTime = acquireTime;
             return this;
         }
         @CustomType.Setter
         public Builder holderIdentity(@Nullable String holderIdentity) {
+
             this.holderIdentity = holderIdentity;
             return this;
         }
         @CustomType.Setter
         public Builder leaseDurationSeconds(@Nullable Integer leaseDurationSeconds) {
+
             this.leaseDurationSeconds = leaseDurationSeconds;
             return this;
         }
         @CustomType.Setter
         public Builder leaseTransitions(@Nullable Integer leaseTransitions) {
+
             this.leaseTransitions = leaseTransitions;
             return this;
         }
         @CustomType.Setter
         public Builder renewTime(@Nullable String renewTime) {
+
             this.renewTime = renewTime;
             return this;
         }
         public LeaseSpec build() {
-            final var o = new LeaseSpec();
-            o.acquireTime = acquireTime;
-            o.holderIdentity = holderIdentity;
-            o.leaseDurationSeconds = leaseDurationSeconds;
-            o.leaseTransitions = leaseTransitions;
-            o.renewTime = renewTime;
-            return o;
+            final var _resultValue = new LeaseSpec();
+            _resultValue.acquireTime = acquireTime;
+            _resultValue.holderIdentity = holderIdentity;
+            _resultValue.leaseDurationSeconds = leaseDurationSeconds;
+            _resultValue.leaseTransitions = leaseTransitions;
+            _resultValue.renewTime = renewTime;
+            return _resultValue;
         }
     }
 }

@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.rbac.v1beta1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.List;
 import java.util.Objects;
@@ -279,7 +280,9 @@ public final class PolicyRuleArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         public PolicyRuleArgs build() {
-            $.verbs = Objects.requireNonNull($.verbs, "expected parameter 'verbs' to be non-null");
+            if ($.verbs == null) {
+                throw new MissingRequiredPropertyException("PolicyRuleArgs", "verbs");
+            }
             return $;
         }
     }

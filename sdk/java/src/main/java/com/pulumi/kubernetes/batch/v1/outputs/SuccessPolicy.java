@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.batch.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.batch.v1.outputs.SuccessPolicyRule;
 import java.util.List;
 import java.util.Objects;
@@ -43,16 +44,19 @@ public final class SuccessPolicy {
 
         @CustomType.Setter
         public Builder rules(List<SuccessPolicyRule> rules) {
-            this.rules = Objects.requireNonNull(rules);
+            if (rules == null) {
+              throw new MissingRequiredPropertyException("SuccessPolicy", "rules");
+            }
+            this.rules = rules;
             return this;
         }
         public Builder rules(SuccessPolicyRule... rules) {
             return rules(List.of(rules));
         }
         public SuccessPolicy build() {
-            final var o = new SuccessPolicy();
-            o.rules = rules;
-            return o;
+            final var _resultValue = new SuccessPolicy();
+            _resultValue.rules = rules;
+            return _resultValue;
         }
     }
 }

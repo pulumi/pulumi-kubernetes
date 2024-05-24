@@ -59,19 +59,21 @@ public final class LimitResponsePatch {
 
         @CustomType.Setter
         public Builder queuing(@Nullable QueuingConfigurationPatch queuing) {
+
             this.queuing = queuing;
             return this;
         }
         @CustomType.Setter
         public Builder type(@Nullable String type) {
+
             this.type = type;
             return this;
         }
         public LimitResponsePatch build() {
-            final var o = new LimitResponsePatch();
-            o.queuing = queuing;
-            o.type = type;
-            return o;
+            final var _resultValue = new LimitResponsePatch();
+            _resultValue.queuing = queuing;
+            _resultValue.type = type;
+            return _resultValue;
         }
     }
 }

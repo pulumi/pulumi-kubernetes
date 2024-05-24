@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Boolean;
 import java.lang.String;
 import java.util.Objects;
@@ -73,25 +74,30 @@ public final class PortworxVolumeSource {
 
         @CustomType.Setter
         public Builder fsType(@Nullable String fsType) {
+
             this.fsType = fsType;
             return this;
         }
         @CustomType.Setter
         public Builder readOnly(@Nullable Boolean readOnly) {
+
             this.readOnly = readOnly;
             return this;
         }
         @CustomType.Setter
         public Builder volumeID(String volumeID) {
-            this.volumeID = Objects.requireNonNull(volumeID);
+            if (volumeID == null) {
+              throw new MissingRequiredPropertyException("PortworxVolumeSource", "volumeID");
+            }
+            this.volumeID = volumeID;
             return this;
         }
         public PortworxVolumeSource build() {
-            final var o = new PortworxVolumeSource();
-            o.fsType = fsType;
-            o.readOnly = readOnly;
-            o.volumeID = volumeID;
-            return o;
+            final var _resultValue = new PortworxVolumeSource();
+            _resultValue.fsType = fsType;
+            _resultValue.readOnly = readOnly;
+            _resultValue.volumeID = volumeID;
+            return _resultValue;
         }
     }
 }

@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -58,19 +59,23 @@ public final class PhotonPersistentDiskVolumeSource {
 
         @CustomType.Setter
         public Builder fsType(@Nullable String fsType) {
+
             this.fsType = fsType;
             return this;
         }
         @CustomType.Setter
         public Builder pdID(String pdID) {
-            this.pdID = Objects.requireNonNull(pdID);
+            if (pdID == null) {
+              throw new MissingRequiredPropertyException("PhotonPersistentDiskVolumeSource", "pdID");
+            }
+            this.pdID = pdID;
             return this;
         }
         public PhotonPersistentDiskVolumeSource build() {
-            final var o = new PhotonPersistentDiskVolumeSource();
-            o.fsType = fsType;
-            o.pdID = pdID;
-            return o;
+            final var _resultValue = new PhotonPersistentDiskVolumeSource();
+            _resultValue.fsType = fsType;
+            _resultValue.pdID = pdID;
+            return _resultValue;
         }
     }
 }

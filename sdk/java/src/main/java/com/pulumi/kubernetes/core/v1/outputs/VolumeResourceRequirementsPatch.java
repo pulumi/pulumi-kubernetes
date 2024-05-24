@@ -58,19 +58,21 @@ public final class VolumeResourceRequirementsPatch {
 
         @CustomType.Setter
         public Builder limits(@Nullable Map<String,String> limits) {
+
             this.limits = limits;
             return this;
         }
         @CustomType.Setter
         public Builder requests(@Nullable Map<String,String> requests) {
+
             this.requests = requests;
             return this;
         }
         public VolumeResourceRequirementsPatch build() {
-            final var o = new VolumeResourceRequirementsPatch();
-            o.limits = limits;
-            o.requests = requests;
-            return o;
+            final var _resultValue = new VolumeResourceRequirementsPatch();
+            _resultValue.limits = limits;
+            _resultValue.requests = requests;
+            return _resultValue;
         }
     }
 }

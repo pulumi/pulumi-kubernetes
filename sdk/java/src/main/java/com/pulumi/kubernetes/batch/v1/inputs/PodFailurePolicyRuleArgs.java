@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.batch.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.batch.v1.inputs.PodFailurePolicyOnExitCodesRequirementArgs;
 import com.pulumi.kubernetes.batch.v1.inputs.PodFailurePolicyOnPodConditionsPatternArgs;
 import java.lang.String;
@@ -215,7 +216,9 @@ public final class PodFailurePolicyRuleArgs extends com.pulumi.resources.Resourc
         }
 
         public PodFailurePolicyRuleArgs build() {
-            $.action = Objects.requireNonNull($.action, "expected parameter 'action' to be non-null");
+            if ($.action == null) {
+                throw new MissingRequiredPropertyException("PodFailurePolicyRuleArgs", "action");
+            }
             return $;
         }
     }

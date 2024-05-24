@@ -75,25 +75,28 @@ public final class IngressBackendPatch {
 
         @CustomType.Setter
         public Builder resource(@Nullable TypedLocalObjectReferencePatch resource) {
+
             this.resource = resource;
             return this;
         }
         @CustomType.Setter
         public Builder serviceName(@Nullable String serviceName) {
+
             this.serviceName = serviceName;
             return this;
         }
         @CustomType.Setter
         public Builder servicePort(@Nullable Either<Integer,String> servicePort) {
+
             this.servicePort = servicePort;
             return this;
         }
         public IngressBackendPatch build() {
-            final var o = new IngressBackendPatch();
-            o.resource = resource;
-            o.serviceName = serviceName;
-            o.servicePort = servicePort;
-            return o;
+            final var _resultValue = new IngressBackendPatch();
+            _resultValue.resource = resource;
+            _resultValue.serviceName = serviceName;
+            _resultValue.servicePort = servicePort;
+            return _resultValue;
         }
     }
 }

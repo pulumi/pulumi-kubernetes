@@ -60,19 +60,21 @@ public final class RollingUpdateDeployment {
 
         @CustomType.Setter
         public Builder maxSurge(@Nullable Either<Integer,String> maxSurge) {
+
             this.maxSurge = maxSurge;
             return this;
         }
         @CustomType.Setter
         public Builder maxUnavailable(@Nullable Either<Integer,String> maxUnavailable) {
+
             this.maxUnavailable = maxUnavailable;
             return this;
         }
         public RollingUpdateDeployment build() {
-            final var o = new RollingUpdateDeployment();
-            o.maxSurge = maxSurge;
-            o.maxUnavailable = maxUnavailable;
-            return o;
+            final var _resultValue = new RollingUpdateDeployment();
+            _resultValue.maxSurge = maxSurge;
+            _resultValue.maxUnavailable = maxUnavailable;
+            return _resultValue;
         }
     }
 }

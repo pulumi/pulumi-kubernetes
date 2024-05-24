@@ -87,31 +87,35 @@ public final class ExternalMetricSourcePatch {
 
         @CustomType.Setter
         public Builder metricName(@Nullable String metricName) {
+
             this.metricName = metricName;
             return this;
         }
         @CustomType.Setter
         public Builder metricSelector(@Nullable LabelSelectorPatch metricSelector) {
+
             this.metricSelector = metricSelector;
             return this;
         }
         @CustomType.Setter
         public Builder targetAverageValue(@Nullable String targetAverageValue) {
+
             this.targetAverageValue = targetAverageValue;
             return this;
         }
         @CustomType.Setter
         public Builder targetValue(@Nullable String targetValue) {
+
             this.targetValue = targetValue;
             return this;
         }
         public ExternalMetricSourcePatch build() {
-            final var o = new ExternalMetricSourcePatch();
-            o.metricName = metricName;
-            o.metricSelector = metricSelector;
-            o.targetAverageValue = targetAverageValue;
-            o.targetValue = targetValue;
-            return o;
+            final var _resultValue = new ExternalMetricSourcePatch();
+            _resultValue.metricName = metricName;
+            _resultValue.metricSelector = metricSelector;
+            _resultValue.targetAverageValue = targetAverageValue;
+            _resultValue.targetValue = targetValue;
+            return _resultValue;
         }
     }
 }

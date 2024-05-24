@@ -19,7 +19,7 @@ SCHEMA_FILE     := provider/cmd/pulumi-resource-kubernetes/schema.json
 GOPATH			:= $(shell go env GOPATH)
 
 JAVA_GEN		 := pulumi-java-gen
-JAVA_GEN_VERSION := v0.8.0
+JAVA_GEN_VERSION := v0.12.0
 
 WORKING_DIR     := $(shell pwd)
 

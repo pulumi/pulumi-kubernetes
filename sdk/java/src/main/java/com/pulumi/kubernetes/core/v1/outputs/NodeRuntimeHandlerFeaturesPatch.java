@@ -44,13 +44,14 @@ public final class NodeRuntimeHandlerFeaturesPatch {
 
         @CustomType.Setter
         public Builder recursiveReadOnlyMounts(@Nullable Boolean recursiveReadOnlyMounts) {
+
             this.recursiveReadOnlyMounts = recursiveReadOnlyMounts;
             return this;
         }
         public NodeRuntimeHandlerFeaturesPatch build() {
-            final var o = new NodeRuntimeHandlerFeaturesPatch();
-            o.recursiveReadOnlyMounts = recursiveReadOnlyMounts;
-            return o;
+            final var _resultValue = new NodeRuntimeHandlerFeaturesPatch();
+            _resultValue.recursiveReadOnlyMounts = recursiveReadOnlyMounts;
+            return _resultValue;
         }
     }
 }

@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.admissionregistration.v1beta1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
 
@@ -76,19 +77,25 @@ public final class MatchCondition {
 
         @CustomType.Setter
         public Builder expression(String expression) {
-            this.expression = Objects.requireNonNull(expression);
+            if (expression == null) {
+              throw new MissingRequiredPropertyException("MatchCondition", "expression");
+            }
+            this.expression = expression;
             return this;
         }
         @CustomType.Setter
         public Builder name(String name) {
-            this.name = Objects.requireNonNull(name);
+            if (name == null) {
+              throw new MissingRequiredPropertyException("MatchCondition", "name");
+            }
+            this.name = name;
             return this;
         }
         public MatchCondition build() {
-            final var o = new MatchCondition();
-            o.expression = expression;
-            o.name = name;
-            return o;
+            final var _resultValue = new MatchCondition();
+            _resultValue.expression = expression;
+            _resultValue.name = name;
+            return _resultValue;
         }
     }
 }

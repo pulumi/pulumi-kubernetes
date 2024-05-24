@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Boolean;
 import java.lang.String;
 import java.util.Objects;
@@ -59,19 +60,23 @@ public final class PersistentVolumeClaimVolumeSource {
 
         @CustomType.Setter
         public Builder claimName(String claimName) {
-            this.claimName = Objects.requireNonNull(claimName);
+            if (claimName == null) {
+              throw new MissingRequiredPropertyException("PersistentVolumeClaimVolumeSource", "claimName");
+            }
+            this.claimName = claimName;
             return this;
         }
         @CustomType.Setter
         public Builder readOnly(@Nullable Boolean readOnly) {
+
             this.readOnly = readOnly;
             return this;
         }
         public PersistentVolumeClaimVolumeSource build() {
-            final var o = new PersistentVolumeClaimVolumeSource();
-            o.claimName = claimName;
-            o.readOnly = readOnly;
-            return o;
+            final var _resultValue = new PersistentVolumeClaimVolumeSource();
+            _resultValue.claimName = claimName;
+            _resultValue.readOnly = readOnly;
+            return _resultValue;
         }
     }
 }

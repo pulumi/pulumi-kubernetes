@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.storage.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Integer;
 import java.lang.String;
 import java.util.Objects;
@@ -59,19 +60,23 @@ public final class TokenRequest {
 
         @CustomType.Setter
         public Builder audience(String audience) {
-            this.audience = Objects.requireNonNull(audience);
+            if (audience == null) {
+              throw new MissingRequiredPropertyException("TokenRequest", "audience");
+            }
+            this.audience = audience;
             return this;
         }
         @CustomType.Setter
         public Builder expirationSeconds(@Nullable Integer expirationSeconds) {
+
             this.expirationSeconds = expirationSeconds;
             return this;
         }
         public TokenRequest build() {
-            final var o = new TokenRequest();
-            o.audience = audience;
-            o.expirationSeconds = expirationSeconds;
-            return o;
+            final var _resultValue = new TokenRequest();
+            _resultValue.audience = audience;
+            _resultValue.expirationSeconds = expirationSeconds;
+            return _resultValue;
         }
     }
 }

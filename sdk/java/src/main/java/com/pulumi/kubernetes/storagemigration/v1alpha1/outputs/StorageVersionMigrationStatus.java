@@ -60,6 +60,7 @@ public final class StorageVersionMigrationStatus {
 
         @CustomType.Setter
         public Builder conditions(@Nullable List<MigrationCondition> conditions) {
+
             this.conditions = conditions;
             return this;
         }
@@ -68,14 +69,15 @@ public final class StorageVersionMigrationStatus {
         }
         @CustomType.Setter
         public Builder resourceVersion(@Nullable String resourceVersion) {
+
             this.resourceVersion = resourceVersion;
             return this;
         }
         public StorageVersionMigrationStatus build() {
-            final var o = new StorageVersionMigrationStatus();
-            o.conditions = conditions;
-            o.resourceVersion = resourceVersion;
-            return o;
+            final var _resultValue = new StorageVersionMigrationStatus();
+            _resultValue.conditions = conditions;
+            _resultValue.resourceVersion = resourceVersion;
+            return _resultValue;
         }
     }
 }

@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.apps.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.apps.v1.inputs.ReplicaSetConditionArgs;
 import java.lang.Integer;
 import java.util.List;
@@ -277,7 +278,9 @@ public final class ReplicaSetStatusArgs extends com.pulumi.resources.ResourceArg
         }
 
         public ReplicaSetStatusArgs build() {
-            $.replicas = Objects.requireNonNull($.replicas, "expected parameter 'replicas' to be non-null");
+            if ($.replicas == null) {
+                throw new MissingRequiredPropertyException("ReplicaSetStatusArgs", "replicas");
+            }
             return $;
         }
     }

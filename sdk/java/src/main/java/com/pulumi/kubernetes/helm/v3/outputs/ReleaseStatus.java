@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.helm.v3.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Integer;
 import java.lang.String;
 import java.util.Objects;
@@ -129,49 +130,58 @@ public final class ReleaseStatus {
 
         @CustomType.Setter
         public Builder appVersion(@Nullable String appVersion) {
+
             this.appVersion = appVersion;
             return this;
         }
         @CustomType.Setter
         public Builder chart(@Nullable String chart) {
+
             this.chart = chart;
             return this;
         }
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder namespace(@Nullable String namespace) {
+
             this.namespace = namespace;
             return this;
         }
         @CustomType.Setter
         public Builder revision(@Nullable Integer revision) {
+
             this.revision = revision;
             return this;
         }
         @CustomType.Setter
         public Builder status(String status) {
-            this.status = Objects.requireNonNull(status);
+            if (status == null) {
+              throw new MissingRequiredPropertyException("ReleaseStatus", "status");
+            }
+            this.status = status;
             return this;
         }
         @CustomType.Setter
         public Builder version(@Nullable String version) {
+
             this.version = version;
             return this;
         }
         public ReleaseStatus build() {
-            final var o = new ReleaseStatus();
-            o.appVersion = appVersion;
-            o.chart = chart;
-            o.name = name;
-            o.namespace = namespace;
-            o.revision = revision;
-            o.status = status;
-            o.version = version;
-            return o;
+            final var _resultValue = new ReleaseStatus();
+            _resultValue.appVersion = appVersion;
+            _resultValue.chart = chart;
+            _resultValue.name = name;
+            _resultValue.namespace = namespace;
+            _resultValue.revision = revision;
+            _resultValue.status = status;
+            _resultValue.version = version;
+            return _resultValue;
         }
     }
 }

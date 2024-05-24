@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -86,31 +87,39 @@ public final class Taint {
 
         @CustomType.Setter
         public Builder effect(String effect) {
-            this.effect = Objects.requireNonNull(effect);
+            if (effect == null) {
+              throw new MissingRequiredPropertyException("Taint", "effect");
+            }
+            this.effect = effect;
             return this;
         }
         @CustomType.Setter
         public Builder key(String key) {
-            this.key = Objects.requireNonNull(key);
+            if (key == null) {
+              throw new MissingRequiredPropertyException("Taint", "key");
+            }
+            this.key = key;
             return this;
         }
         @CustomType.Setter
         public Builder timeAdded(@Nullable String timeAdded) {
+
             this.timeAdded = timeAdded;
             return this;
         }
         @CustomType.Setter
         public Builder value(@Nullable String value) {
+
             this.value = value;
             return this;
         }
         public Taint build() {
-            final var o = new Taint();
-            o.effect = effect;
-            o.key = key;
-            o.timeAdded = timeAdded;
-            o.value = value;
-            return o;
+            final var _resultValue = new Taint();
+            _resultValue.effect = effect;
+            _resultValue.key = key;
+            _resultValue.timeAdded = timeAdded;
+            _resultValue.value = value;
+            return _resultValue;
         }
     }
 }

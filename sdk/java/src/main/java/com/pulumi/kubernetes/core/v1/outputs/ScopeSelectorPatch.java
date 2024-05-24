@@ -44,6 +44,7 @@ public final class ScopeSelectorPatch {
 
         @CustomType.Setter
         public Builder matchExpressions(@Nullable List<ScopedResourceSelectorRequirementPatch> matchExpressions) {
+
             this.matchExpressions = matchExpressions;
             return this;
         }
@@ -51,9 +52,9 @@ public final class ScopeSelectorPatch {
             return matchExpressions(List.of(matchExpressions));
         }
         public ScopeSelectorPatch build() {
-            final var o = new ScopeSelectorPatch();
-            o.matchExpressions = matchExpressions;
-            return o;
+            final var _resultValue = new ScopeSelectorPatch();
+            _resultValue.matchExpressions = matchExpressions;
+            return _resultValue;
         }
     }
 }

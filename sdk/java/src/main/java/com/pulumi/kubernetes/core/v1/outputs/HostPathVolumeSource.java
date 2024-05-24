@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -58,19 +59,23 @@ public final class HostPathVolumeSource {
 
         @CustomType.Setter
         public Builder path(String path) {
-            this.path = Objects.requireNonNull(path);
+            if (path == null) {
+              throw new MissingRequiredPropertyException("HostPathVolumeSource", "path");
+            }
+            this.path = path;
             return this;
         }
         @CustomType.Setter
         public Builder type(@Nullable String type) {
+
             this.type = type;
             return this;
         }
         public HostPathVolumeSource build() {
-            final var o = new HostPathVolumeSource();
-            o.path = path;
-            o.type = type;
-            return o;
+            final var _resultValue = new HostPathVolumeSource();
+            _resultValue.path = path;
+            _resultValue.type = type;
+            return _resultValue;
         }
     }
 }

@@ -107,31 +107,35 @@ public final class LimitedPriorityLevelConfiguration {
 
         @CustomType.Setter
         public Builder borrowingLimitPercent(@Nullable Integer borrowingLimitPercent) {
+
             this.borrowingLimitPercent = borrowingLimitPercent;
             return this;
         }
         @CustomType.Setter
         public Builder lendablePercent(@Nullable Integer lendablePercent) {
+
             this.lendablePercent = lendablePercent;
             return this;
         }
         @CustomType.Setter
         public Builder limitResponse(@Nullable LimitResponse limitResponse) {
+
             this.limitResponse = limitResponse;
             return this;
         }
         @CustomType.Setter
         public Builder nominalConcurrencyShares(@Nullable Integer nominalConcurrencyShares) {
+
             this.nominalConcurrencyShares = nominalConcurrencyShares;
             return this;
         }
         public LimitedPriorityLevelConfiguration build() {
-            final var o = new LimitedPriorityLevelConfiguration();
-            o.borrowingLimitPercent = borrowingLimitPercent;
-            o.lendablePercent = lendablePercent;
-            o.limitResponse = limitResponse;
-            o.nominalConcurrencyShares = nominalConcurrencyShares;
-            return o;
+            final var _resultValue = new LimitedPriorityLevelConfiguration();
+            _resultValue.borrowingLimitPercent = borrowingLimitPercent;
+            _resultValue.lendablePercent = lendablePercent;
+            _resultValue.limitResponse = limitResponse;
+            _resultValue.nominalConcurrencyShares = nominalConcurrencyShares;
+            return _resultValue;
         }
     }
 }

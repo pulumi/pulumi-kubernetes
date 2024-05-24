@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.discovery.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.discovery.v1.outputs.Endpoint;
 import com.pulumi.kubernetes.discovery.v1.outputs.EndpointPort;
 import com.pulumi.kubernetes.meta.v1.outputs.ObjectMeta;
@@ -118,17 +119,24 @@ public final class EndpointSlice {
 
         @CustomType.Setter
         public Builder addressType(String addressType) {
-            this.addressType = Objects.requireNonNull(addressType);
+            if (addressType == null) {
+              throw new MissingRequiredPropertyException("EndpointSlice", "addressType");
+            }
+            this.addressType = addressType;
             return this;
         }
         @CustomType.Setter
         public Builder apiVersion(@Nullable String apiVersion) {
+
             this.apiVersion = apiVersion;
             return this;
         }
         @CustomType.Setter
         public Builder endpoints(List<Endpoint> endpoints) {
-            this.endpoints = Objects.requireNonNull(endpoints);
+            if (endpoints == null) {
+              throw new MissingRequiredPropertyException("EndpointSlice", "endpoints");
+            }
+            this.endpoints = endpoints;
             return this;
         }
         public Builder endpoints(Endpoint... endpoints) {
@@ -136,16 +144,19 @@ public final class EndpointSlice {
         }
         @CustomType.Setter
         public Builder kind(@Nullable String kind) {
+
             this.kind = kind;
             return this;
         }
         @CustomType.Setter
         public Builder metadata(@Nullable ObjectMeta metadata) {
+
             this.metadata = metadata;
             return this;
         }
         @CustomType.Setter
         public Builder ports(@Nullable List<EndpointPort> ports) {
+
             this.ports = ports;
             return this;
         }
@@ -153,14 +164,14 @@ public final class EndpointSlice {
             return ports(List.of(ports));
         }
         public EndpointSlice build() {
-            final var o = new EndpointSlice();
-            o.addressType = addressType;
-            o.apiVersion = apiVersion;
-            o.endpoints = endpoints;
-            o.kind = kind;
-            o.metadata = metadata;
-            o.ports = ports;
-            return o;
+            final var _resultValue = new EndpointSlice();
+            _resultValue.addressType = addressType;
+            _resultValue.apiVersion = apiVersion;
+            _resultValue.endpoints = endpoints;
+            _resultValue.kind = kind;
+            _resultValue.metadata = metadata;
+            _resultValue.ports = ports;
+            return _resultValue;
         }
     }
 }

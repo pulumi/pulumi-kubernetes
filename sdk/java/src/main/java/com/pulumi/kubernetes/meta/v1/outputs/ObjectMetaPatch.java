@@ -287,31 +287,37 @@ public final class ObjectMetaPatch {
 
         @CustomType.Setter
         public Builder annotations(@Nullable Map<String,String> annotations) {
+
             this.annotations = annotations;
             return this;
         }
         @CustomType.Setter
         public Builder clusterName(@Nullable String clusterName) {
+
             this.clusterName = clusterName;
             return this;
         }
         @CustomType.Setter
         public Builder creationTimestamp(@Nullable String creationTimestamp) {
+
             this.creationTimestamp = creationTimestamp;
             return this;
         }
         @CustomType.Setter
         public Builder deletionGracePeriodSeconds(@Nullable Integer deletionGracePeriodSeconds) {
+
             this.deletionGracePeriodSeconds = deletionGracePeriodSeconds;
             return this;
         }
         @CustomType.Setter
         public Builder deletionTimestamp(@Nullable String deletionTimestamp) {
+
             this.deletionTimestamp = deletionTimestamp;
             return this;
         }
         @CustomType.Setter
         public Builder finalizers(@Nullable List<String> finalizers) {
+
             this.finalizers = finalizers;
             return this;
         }
@@ -320,21 +326,25 @@ public final class ObjectMetaPatch {
         }
         @CustomType.Setter
         public Builder generateName(@Nullable String generateName) {
+
             this.generateName = generateName;
             return this;
         }
         @CustomType.Setter
         public Builder generation(@Nullable Integer generation) {
+
             this.generation = generation;
             return this;
         }
         @CustomType.Setter
         public Builder labels(@Nullable Map<String,String> labels) {
+
             this.labels = labels;
             return this;
         }
         @CustomType.Setter
         public Builder managedFields(@Nullable List<ManagedFieldsEntryPatch> managedFields) {
+
             this.managedFields = managedFields;
             return this;
         }
@@ -343,16 +353,19 @@ public final class ObjectMetaPatch {
         }
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder namespace(@Nullable String namespace) {
+
             this.namespace = namespace;
             return this;
         }
         @CustomType.Setter
         public Builder ownerReferences(@Nullable List<OwnerReferencePatch> ownerReferences) {
+
             this.ownerReferences = ownerReferences;
             return this;
         }
@@ -361,38 +374,41 @@ public final class ObjectMetaPatch {
         }
         @CustomType.Setter
         public Builder resourceVersion(@Nullable String resourceVersion) {
+
             this.resourceVersion = resourceVersion;
             return this;
         }
         @CustomType.Setter
         public Builder selfLink(@Nullable String selfLink) {
+
             this.selfLink = selfLink;
             return this;
         }
         @CustomType.Setter
         public Builder uid(@Nullable String uid) {
+
             this.uid = uid;
             return this;
         }
         public ObjectMetaPatch build() {
-            final var o = new ObjectMetaPatch();
-            o.annotations = annotations;
-            o.clusterName = clusterName;
-            o.creationTimestamp = creationTimestamp;
-            o.deletionGracePeriodSeconds = deletionGracePeriodSeconds;
-            o.deletionTimestamp = deletionTimestamp;
-            o.finalizers = finalizers;
-            o.generateName = generateName;
-            o.generation = generation;
-            o.labels = labels;
-            o.managedFields = managedFields;
-            o.name = name;
-            o.namespace = namespace;
-            o.ownerReferences = ownerReferences;
-            o.resourceVersion = resourceVersion;
-            o.selfLink = selfLink;
-            o.uid = uid;
-            return o;
+            final var _resultValue = new ObjectMetaPatch();
+            _resultValue.annotations = annotations;
+            _resultValue.clusterName = clusterName;
+            _resultValue.creationTimestamp = creationTimestamp;
+            _resultValue.deletionGracePeriodSeconds = deletionGracePeriodSeconds;
+            _resultValue.deletionTimestamp = deletionTimestamp;
+            _resultValue.finalizers = finalizers;
+            _resultValue.generateName = generateName;
+            _resultValue.generation = generation;
+            _resultValue.labels = labels;
+            _resultValue.managedFields = managedFields;
+            _resultValue.name = name;
+            _resultValue.namespace = namespace;
+            _resultValue.ownerReferences = ownerReferences;
+            _resultValue.resourceVersion = resourceVersion;
+            _resultValue.selfLink = selfLink;
+            _resultValue.uid = uid;
+            return _resultValue;
         }
     }
 }

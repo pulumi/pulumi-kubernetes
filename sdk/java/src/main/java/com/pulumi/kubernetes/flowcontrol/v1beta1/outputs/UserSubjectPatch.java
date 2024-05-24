@@ -44,13 +44,14 @@ public final class UserSubjectPatch {
 
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         public UserSubjectPatch build() {
-            final var o = new UserSubjectPatch();
-            o.name = name;
-            return o;
+            final var _resultValue = new UserSubjectPatch();
+            _resultValue.name = name;
+            return _resultValue;
         }
     }
 }

@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.outputs.AWSElasticBlockStoreVolumeSource;
 import com.pulumi.kubernetes.core.v1.outputs.AzureDiskVolumeSource;
 import com.pulumi.kubernetes.core.v1.outputs.AzureFileVolumeSource;
@@ -505,187 +506,219 @@ public final class Volume {
 
         @CustomType.Setter
         public Builder awsElasticBlockStore(@Nullable AWSElasticBlockStoreVolumeSource awsElasticBlockStore) {
+
             this.awsElasticBlockStore = awsElasticBlockStore;
             return this;
         }
         @CustomType.Setter
         public Builder azureDisk(@Nullable AzureDiskVolumeSource azureDisk) {
+
             this.azureDisk = azureDisk;
             return this;
         }
         @CustomType.Setter
         public Builder azureFile(@Nullable AzureFileVolumeSource azureFile) {
+
             this.azureFile = azureFile;
             return this;
         }
         @CustomType.Setter
         public Builder cephfs(@Nullable CephFSVolumeSource cephfs) {
+
             this.cephfs = cephfs;
             return this;
         }
         @CustomType.Setter
         public Builder cinder(@Nullable CinderVolumeSource cinder) {
+
             this.cinder = cinder;
             return this;
         }
         @CustomType.Setter
         public Builder configMap(@Nullable ConfigMapVolumeSource configMap) {
+
             this.configMap = configMap;
             return this;
         }
         @CustomType.Setter
         public Builder csi(@Nullable CSIVolumeSource csi) {
+
             this.csi = csi;
             return this;
         }
         @CustomType.Setter
         public Builder downwardAPI(@Nullable DownwardAPIVolumeSource downwardAPI) {
+
             this.downwardAPI = downwardAPI;
             return this;
         }
         @CustomType.Setter
         public Builder emptyDir(@Nullable EmptyDirVolumeSource emptyDir) {
+
             this.emptyDir = emptyDir;
             return this;
         }
         @CustomType.Setter
         public Builder ephemeral(@Nullable EphemeralVolumeSource ephemeral) {
+
             this.ephemeral = ephemeral;
             return this;
         }
         @CustomType.Setter
         public Builder fc(@Nullable FCVolumeSource fc) {
+
             this.fc = fc;
             return this;
         }
         @CustomType.Setter
         public Builder flexVolume(@Nullable FlexVolumeSource flexVolume) {
+
             this.flexVolume = flexVolume;
             return this;
         }
         @CustomType.Setter
         public Builder flocker(@Nullable FlockerVolumeSource flocker) {
+
             this.flocker = flocker;
             return this;
         }
         @CustomType.Setter
         public Builder gcePersistentDisk(@Nullable GCEPersistentDiskVolumeSource gcePersistentDisk) {
+
             this.gcePersistentDisk = gcePersistentDisk;
             return this;
         }
         @CustomType.Setter
         public Builder gitRepo(@Nullable GitRepoVolumeSource gitRepo) {
+
             this.gitRepo = gitRepo;
             return this;
         }
         @CustomType.Setter
         public Builder glusterfs(@Nullable GlusterfsVolumeSource glusterfs) {
+
             this.glusterfs = glusterfs;
             return this;
         }
         @CustomType.Setter
         public Builder hostPath(@Nullable HostPathVolumeSource hostPath) {
+
             this.hostPath = hostPath;
             return this;
         }
         @CustomType.Setter
         public Builder iscsi(@Nullable ISCSIVolumeSource iscsi) {
+
             this.iscsi = iscsi;
             return this;
         }
         @CustomType.Setter
         public Builder name(String name) {
-            this.name = Objects.requireNonNull(name);
+            if (name == null) {
+              throw new MissingRequiredPropertyException("Volume", "name");
+            }
+            this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder nfs(@Nullable NFSVolumeSource nfs) {
+
             this.nfs = nfs;
             return this;
         }
         @CustomType.Setter
         public Builder persistentVolumeClaim(@Nullable PersistentVolumeClaimVolumeSource persistentVolumeClaim) {
+
             this.persistentVolumeClaim = persistentVolumeClaim;
             return this;
         }
         @CustomType.Setter
         public Builder photonPersistentDisk(@Nullable PhotonPersistentDiskVolumeSource photonPersistentDisk) {
+
             this.photonPersistentDisk = photonPersistentDisk;
             return this;
         }
         @CustomType.Setter
         public Builder portworxVolume(@Nullable PortworxVolumeSource portworxVolume) {
+
             this.portworxVolume = portworxVolume;
             return this;
         }
         @CustomType.Setter
         public Builder projected(@Nullable ProjectedVolumeSource projected) {
+
             this.projected = projected;
             return this;
         }
         @CustomType.Setter
         public Builder quobyte(@Nullable QuobyteVolumeSource quobyte) {
+
             this.quobyte = quobyte;
             return this;
         }
         @CustomType.Setter
         public Builder rbd(@Nullable RBDVolumeSource rbd) {
+
             this.rbd = rbd;
             return this;
         }
         @CustomType.Setter
         public Builder scaleIO(@Nullable ScaleIOVolumeSource scaleIO) {
+
             this.scaleIO = scaleIO;
             return this;
         }
         @CustomType.Setter
         public Builder secret(@Nullable SecretVolumeSource secret) {
+
             this.secret = secret;
             return this;
         }
         @CustomType.Setter
         public Builder storageos(@Nullable StorageOSVolumeSource storageos) {
+
             this.storageos = storageos;
             return this;
         }
         @CustomType.Setter
         public Builder vsphereVolume(@Nullable VsphereVirtualDiskVolumeSource vsphereVolume) {
+
             this.vsphereVolume = vsphereVolume;
             return this;
         }
         public Volume build() {
-            final var o = new Volume();
-            o.awsElasticBlockStore = awsElasticBlockStore;
-            o.azureDisk = azureDisk;
-            o.azureFile = azureFile;
-            o.cephfs = cephfs;
-            o.cinder = cinder;
-            o.configMap = configMap;
-            o.csi = csi;
-            o.downwardAPI = downwardAPI;
-            o.emptyDir = emptyDir;
-            o.ephemeral = ephemeral;
-            o.fc = fc;
-            o.flexVolume = flexVolume;
-            o.flocker = flocker;
-            o.gcePersistentDisk = gcePersistentDisk;
-            o.gitRepo = gitRepo;
-            o.glusterfs = glusterfs;
-            o.hostPath = hostPath;
-            o.iscsi = iscsi;
-            o.name = name;
-            o.nfs = nfs;
-            o.persistentVolumeClaim = persistentVolumeClaim;
-            o.photonPersistentDisk = photonPersistentDisk;
-            o.portworxVolume = portworxVolume;
-            o.projected = projected;
-            o.quobyte = quobyte;
-            o.rbd = rbd;
-            o.scaleIO = scaleIO;
-            o.secret = secret;
-            o.storageos = storageos;
-            o.vsphereVolume = vsphereVolume;
-            return o;
+            final var _resultValue = new Volume();
+            _resultValue.awsElasticBlockStore = awsElasticBlockStore;
+            _resultValue.azureDisk = azureDisk;
+            _resultValue.azureFile = azureFile;
+            _resultValue.cephfs = cephfs;
+            _resultValue.cinder = cinder;
+            _resultValue.configMap = configMap;
+            _resultValue.csi = csi;
+            _resultValue.downwardAPI = downwardAPI;
+            _resultValue.emptyDir = emptyDir;
+            _resultValue.ephemeral = ephemeral;
+            _resultValue.fc = fc;
+            _resultValue.flexVolume = flexVolume;
+            _resultValue.flocker = flocker;
+            _resultValue.gcePersistentDisk = gcePersistentDisk;
+            _resultValue.gitRepo = gitRepo;
+            _resultValue.glusterfs = glusterfs;
+            _resultValue.hostPath = hostPath;
+            _resultValue.iscsi = iscsi;
+            _resultValue.name = name;
+            _resultValue.nfs = nfs;
+            _resultValue.persistentVolumeClaim = persistentVolumeClaim;
+            _resultValue.photonPersistentDisk = photonPersistentDisk;
+            _resultValue.portworxVolume = portworxVolume;
+            _resultValue.projected = projected;
+            _resultValue.quobyte = quobyte;
+            _resultValue.rbd = rbd;
+            _resultValue.scaleIO = scaleIO;
+            _resultValue.secret = secret;
+            _resultValue.storageos = storageos;
+            _resultValue.vsphereVolume = vsphereVolume;
+            return _resultValue;
         }
     }
 }

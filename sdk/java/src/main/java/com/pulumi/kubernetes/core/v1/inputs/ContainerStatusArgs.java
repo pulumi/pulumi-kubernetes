@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.core.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.inputs.ContainerStateArgs;
 import com.pulumi.kubernetes.core.v1.inputs.ResourceRequirementsArgs;
 import com.pulumi.kubernetes.core.v1.inputs.VolumeMountStatusArgs;
@@ -512,11 +513,21 @@ public final class ContainerStatusArgs extends com.pulumi.resources.ResourceArgs
         }
 
         public ContainerStatusArgs build() {
-            $.image = Objects.requireNonNull($.image, "expected parameter 'image' to be non-null");
-            $.imageID = Objects.requireNonNull($.imageID, "expected parameter 'imageID' to be non-null");
-            $.name = Objects.requireNonNull($.name, "expected parameter 'name' to be non-null");
-            $.ready = Objects.requireNonNull($.ready, "expected parameter 'ready' to be non-null");
-            $.restartCount = Objects.requireNonNull($.restartCount, "expected parameter 'restartCount' to be non-null");
+            if ($.image == null) {
+                throw new MissingRequiredPropertyException("ContainerStatusArgs", "image");
+            }
+            if ($.imageID == null) {
+                throw new MissingRequiredPropertyException("ContainerStatusArgs", "imageID");
+            }
+            if ($.name == null) {
+                throw new MissingRequiredPropertyException("ContainerStatusArgs", "name");
+            }
+            if ($.ready == null) {
+                throw new MissingRequiredPropertyException("ContainerStatusArgs", "ready");
+            }
+            if ($.restartCount == null) {
+                throw new MissingRequiredPropertyException("ContainerStatusArgs", "restartCount");
+            }
             return $;
         }
     }

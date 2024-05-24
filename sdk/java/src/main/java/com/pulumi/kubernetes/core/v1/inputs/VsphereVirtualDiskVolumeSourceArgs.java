@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.core.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -191,7 +192,9 @@ public final class VsphereVirtualDiskVolumeSourceArgs extends com.pulumi.resourc
         }
 
         public VsphereVirtualDiskVolumeSourceArgs build() {
-            $.volumePath = Objects.requireNonNull($.volumePath, "expected parameter 'volumePath' to be non-null");
+            if ($.volumePath == null) {
+                throw new MissingRequiredPropertyException("VsphereVirtualDiskVolumeSourceArgs", "volumePath");
+            }
             return $;
         }
     }

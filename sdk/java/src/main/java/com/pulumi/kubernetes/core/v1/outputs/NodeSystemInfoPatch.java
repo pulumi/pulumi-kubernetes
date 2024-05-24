@@ -170,67 +170,77 @@ public final class NodeSystemInfoPatch {
 
         @CustomType.Setter
         public Builder architecture(@Nullable String architecture) {
+
             this.architecture = architecture;
             return this;
         }
         @CustomType.Setter
         public Builder bootID(@Nullable String bootID) {
+
             this.bootID = bootID;
             return this;
         }
         @CustomType.Setter
         public Builder containerRuntimeVersion(@Nullable String containerRuntimeVersion) {
+
             this.containerRuntimeVersion = containerRuntimeVersion;
             return this;
         }
         @CustomType.Setter
         public Builder kernelVersion(@Nullable String kernelVersion) {
+
             this.kernelVersion = kernelVersion;
             return this;
         }
         @CustomType.Setter
         public Builder kubeProxyVersion(@Nullable String kubeProxyVersion) {
+
             this.kubeProxyVersion = kubeProxyVersion;
             return this;
         }
         @CustomType.Setter
         public Builder kubeletVersion(@Nullable String kubeletVersion) {
+
             this.kubeletVersion = kubeletVersion;
             return this;
         }
         @CustomType.Setter
         public Builder machineID(@Nullable String machineID) {
+
             this.machineID = machineID;
             return this;
         }
         @CustomType.Setter
         public Builder operatingSystem(@Nullable String operatingSystem) {
+
             this.operatingSystem = operatingSystem;
             return this;
         }
         @CustomType.Setter
         public Builder osImage(@Nullable String osImage) {
+
             this.osImage = osImage;
             return this;
         }
         @CustomType.Setter
         public Builder systemUUID(@Nullable String systemUUID) {
+
             this.systemUUID = systemUUID;
             return this;
         }
         public NodeSystemInfoPatch build() {
-            final var o = new NodeSystemInfoPatch();
-            o.architecture = architecture;
-            o.bootID = bootID;
-            o.containerRuntimeVersion = containerRuntimeVersion;
-            o.kernelVersion = kernelVersion;
-            o.kubeProxyVersion = kubeProxyVersion;
-            o.kubeletVersion = kubeletVersion;
-            o.machineID = machineID;
-            o.operatingSystem = operatingSystem;
-            o.osImage = osImage;
-            o.systemUUID = systemUUID;
-            return o;
+            final var _resultValue = new NodeSystemInfoPatch();
+            _resultValue.architecture = architecture;
+            _resultValue.bootID = bootID;
+            _resultValue.containerRuntimeVersion = containerRuntimeVersion;
+            _resultValue.kernelVersion = kernelVersion;
+            _resultValue.kubeProxyVersion = kubeProxyVersion;
+            _resultValue.kubeletVersion = kubeletVersion;
+            _resultValue.machineID = machineID;
+            _resultValue.operatingSystem = operatingSystem;
+            _resultValue.osImage = osImage;
+            _resultValue.systemUUID = systemUUID;
+            return _resultValue;
         }
     }
 }

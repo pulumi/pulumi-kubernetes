@@ -115,43 +115,49 @@ public final class LimitRangeItemPatch {
 
         @CustomType.Setter("default")
         public Builder default_(@Nullable Map<String,String> default_) {
+
             this.default_ = default_;
             return this;
         }
         @CustomType.Setter
         public Builder defaultRequest(@Nullable Map<String,String> defaultRequest) {
+
             this.defaultRequest = defaultRequest;
             return this;
         }
         @CustomType.Setter
         public Builder max(@Nullable Map<String,String> max) {
+
             this.max = max;
             return this;
         }
         @CustomType.Setter
         public Builder maxLimitRequestRatio(@Nullable Map<String,String> maxLimitRequestRatio) {
+
             this.maxLimitRequestRatio = maxLimitRequestRatio;
             return this;
         }
         @CustomType.Setter
         public Builder min(@Nullable Map<String,String> min) {
+
             this.min = min;
             return this;
         }
         @CustomType.Setter
         public Builder type(@Nullable String type) {
+
             this.type = type;
             return this;
         }
         public LimitRangeItemPatch build() {
-            final var o = new LimitRangeItemPatch();
-            o.default_ = default_;
-            o.defaultRequest = defaultRequest;
-            o.max = max;
-            o.maxLimitRequestRatio = maxLimitRequestRatio;
-            o.min = min;
-            o.type = type;
-            return o;
+            final var _resultValue = new LimitRangeItemPatch();
+            _resultValue.default_ = default_;
+            _resultValue.defaultRequest = defaultRequest;
+            _resultValue.max = max;
+            _resultValue.maxLimitRequestRatio = maxLimitRequestRatio;
+            _resultValue.min = min;
+            _resultValue.type = type;
+            return _resultValue;
         }
     }
 }

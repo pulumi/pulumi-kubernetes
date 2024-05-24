@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Integer;
 import java.lang.String;
 import java.util.Objects;
@@ -101,37 +102,44 @@ public final class ContainerPort {
 
         @CustomType.Setter
         public Builder containerPort(Integer containerPort) {
-            this.containerPort = Objects.requireNonNull(containerPort);
+            if (containerPort == null) {
+              throw new MissingRequiredPropertyException("ContainerPort", "containerPort");
+            }
+            this.containerPort = containerPort;
             return this;
         }
         @CustomType.Setter
         public Builder hostIP(@Nullable String hostIP) {
+
             this.hostIP = hostIP;
             return this;
         }
         @CustomType.Setter
         public Builder hostPort(@Nullable Integer hostPort) {
+
             this.hostPort = hostPort;
             return this;
         }
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder protocol(@Nullable String protocol) {
+
             this.protocol = protocol;
             return this;
         }
         public ContainerPort build() {
-            final var o = new ContainerPort();
-            o.containerPort = containerPort;
-            o.hostIP = hostIP;
-            o.hostPort = hostPort;
-            o.name = name;
-            o.protocol = protocol;
-            return o;
+            final var _resultValue = new ContainerPort();
+            _resultValue.containerPort = containerPort;
+            _resultValue.hostIP = hostIP;
+            _resultValue.hostPort = hostPort;
+            _resultValue.name = name;
+            _resultValue.protocol = protocol;
+            return _resultValue;
         }
     }
 }

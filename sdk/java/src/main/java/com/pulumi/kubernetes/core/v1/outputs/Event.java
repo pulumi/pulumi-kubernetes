@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.outputs.EventSeries;
 import com.pulumi.kubernetes.core.v1.outputs.EventSource;
 import com.pulumi.kubernetes.core.v1.outputs.ObjectReference;
@@ -273,109 +274,130 @@ public final class Event {
 
         @CustomType.Setter
         public Builder action(@Nullable String action) {
+
             this.action = action;
             return this;
         }
         @CustomType.Setter
         public Builder apiVersion(@Nullable String apiVersion) {
+
             this.apiVersion = apiVersion;
             return this;
         }
         @CustomType.Setter
         public Builder count(@Nullable Integer count) {
+
             this.count = count;
             return this;
         }
         @CustomType.Setter
         public Builder eventTime(@Nullable String eventTime) {
+
             this.eventTime = eventTime;
             return this;
         }
         @CustomType.Setter
         public Builder firstTimestamp(@Nullable String firstTimestamp) {
+
             this.firstTimestamp = firstTimestamp;
             return this;
         }
         @CustomType.Setter
         public Builder involvedObject(ObjectReference involvedObject) {
-            this.involvedObject = Objects.requireNonNull(involvedObject);
+            if (involvedObject == null) {
+              throw new MissingRequiredPropertyException("Event", "involvedObject");
+            }
+            this.involvedObject = involvedObject;
             return this;
         }
         @CustomType.Setter
         public Builder kind(@Nullable String kind) {
+
             this.kind = kind;
             return this;
         }
         @CustomType.Setter
         public Builder lastTimestamp(@Nullable String lastTimestamp) {
+
             this.lastTimestamp = lastTimestamp;
             return this;
         }
         @CustomType.Setter
         public Builder message(@Nullable String message) {
+
             this.message = message;
             return this;
         }
         @CustomType.Setter
         public Builder metadata(ObjectMeta metadata) {
-            this.metadata = Objects.requireNonNull(metadata);
+            if (metadata == null) {
+              throw new MissingRequiredPropertyException("Event", "metadata");
+            }
+            this.metadata = metadata;
             return this;
         }
         @CustomType.Setter
         public Builder reason(@Nullable String reason) {
+
             this.reason = reason;
             return this;
         }
         @CustomType.Setter
         public Builder related(@Nullable ObjectReference related) {
+
             this.related = related;
             return this;
         }
         @CustomType.Setter
         public Builder reportingComponent(@Nullable String reportingComponent) {
+
             this.reportingComponent = reportingComponent;
             return this;
         }
         @CustomType.Setter
         public Builder reportingInstance(@Nullable String reportingInstance) {
+
             this.reportingInstance = reportingInstance;
             return this;
         }
         @CustomType.Setter
         public Builder series(@Nullable EventSeries series) {
+
             this.series = series;
             return this;
         }
         @CustomType.Setter
         public Builder source(@Nullable EventSource source) {
+
             this.source = source;
             return this;
         }
         @CustomType.Setter
         public Builder type(@Nullable String type) {
+
             this.type = type;
             return this;
         }
         public Event build() {
-            final var o = new Event();
-            o.action = action;
-            o.apiVersion = apiVersion;
-            o.count = count;
-            o.eventTime = eventTime;
-            o.firstTimestamp = firstTimestamp;
-            o.involvedObject = involvedObject;
-            o.kind = kind;
-            o.lastTimestamp = lastTimestamp;
-            o.message = message;
-            o.metadata = metadata;
-            o.reason = reason;
-            o.related = related;
-            o.reportingComponent = reportingComponent;
-            o.reportingInstance = reportingInstance;
-            o.series = series;
-            o.source = source;
-            o.type = type;
-            return o;
+            final var _resultValue = new Event();
+            _resultValue.action = action;
+            _resultValue.apiVersion = apiVersion;
+            _resultValue.count = count;
+            _resultValue.eventTime = eventTime;
+            _resultValue.firstTimestamp = firstTimestamp;
+            _resultValue.involvedObject = involvedObject;
+            _resultValue.kind = kind;
+            _resultValue.lastTimestamp = lastTimestamp;
+            _resultValue.message = message;
+            _resultValue.metadata = metadata;
+            _resultValue.reason = reason;
+            _resultValue.related = related;
+            _resultValue.reportingComponent = reportingComponent;
+            _resultValue.reportingInstance = reportingInstance;
+            _resultValue.series = series;
+            _resultValue.source = source;
+            _resultValue.type = type;
+            return _resultValue;
         }
     }
 }

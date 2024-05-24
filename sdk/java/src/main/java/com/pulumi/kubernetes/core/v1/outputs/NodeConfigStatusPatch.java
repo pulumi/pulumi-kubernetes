@@ -87,31 +87,35 @@ public final class NodeConfigStatusPatch {
 
         @CustomType.Setter
         public Builder active(@Nullable NodeConfigSourcePatch active) {
+
             this.active = active;
             return this;
         }
         @CustomType.Setter
         public Builder assigned(@Nullable NodeConfigSourcePatch assigned) {
+
             this.assigned = assigned;
             return this;
         }
         @CustomType.Setter
         public Builder error(@Nullable String error) {
+
             this.error = error;
             return this;
         }
         @CustomType.Setter
         public Builder lastKnownGood(@Nullable NodeConfigSourcePatch lastKnownGood) {
+
             this.lastKnownGood = lastKnownGood;
             return this;
         }
         public NodeConfigStatusPatch build() {
-            final var o = new NodeConfigStatusPatch();
-            o.active = active;
-            o.assigned = assigned;
-            o.error = error;
-            o.lastKnownGood = lastKnownGood;
-            return o;
+            final var _resultValue = new NodeConfigStatusPatch();
+            _resultValue.active = active;
+            _resultValue.assigned = assigned;
+            _resultValue.error = error;
+            _resultValue.lastKnownGood = lastKnownGood;
+            return _resultValue;
         }
     }
 }

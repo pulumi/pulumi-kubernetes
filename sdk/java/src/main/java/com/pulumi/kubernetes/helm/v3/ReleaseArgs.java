@@ -7,6 +7,7 @@ import com.pulumi.asset.AssetOrArchive;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.core.internal.Codegen;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.helm.v3.inputs.RepositoryOptsArgs;
 import java.lang.Boolean;
 import java.lang.Integer;
@@ -1332,7 +1333,9 @@ public final class ReleaseArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         public ReleaseArgs build() {
-            $.chart = Objects.requireNonNull($.chart, "expected parameter 'chart' to be non-null");
+            if ($.chart == null) {
+                throw new MissingRequiredPropertyException("ReleaseArgs", "chart");
+            }
             $.compat = Codegen.stringProp("compat").output().arg($.compat).getNullable();
             return $;
         }

@@ -294,103 +294,119 @@ public final class JobSpecPatch {
 
         @CustomType.Setter
         public Builder activeDeadlineSeconds(@Nullable Integer activeDeadlineSeconds) {
+
             this.activeDeadlineSeconds = activeDeadlineSeconds;
             return this;
         }
         @CustomType.Setter
         public Builder backoffLimit(@Nullable Integer backoffLimit) {
+
             this.backoffLimit = backoffLimit;
             return this;
         }
         @CustomType.Setter
         public Builder backoffLimitPerIndex(@Nullable Integer backoffLimitPerIndex) {
+
             this.backoffLimitPerIndex = backoffLimitPerIndex;
             return this;
         }
         @CustomType.Setter
         public Builder completionMode(@Nullable String completionMode) {
+
             this.completionMode = completionMode;
             return this;
         }
         @CustomType.Setter
         public Builder completions(@Nullable Integer completions) {
+
             this.completions = completions;
             return this;
         }
         @CustomType.Setter
         public Builder managedBy(@Nullable String managedBy) {
+
             this.managedBy = managedBy;
             return this;
         }
         @CustomType.Setter
         public Builder manualSelector(@Nullable Boolean manualSelector) {
+
             this.manualSelector = manualSelector;
             return this;
         }
         @CustomType.Setter
         public Builder maxFailedIndexes(@Nullable Integer maxFailedIndexes) {
+
             this.maxFailedIndexes = maxFailedIndexes;
             return this;
         }
         @CustomType.Setter
         public Builder parallelism(@Nullable Integer parallelism) {
+
             this.parallelism = parallelism;
             return this;
         }
         @CustomType.Setter
         public Builder podFailurePolicy(@Nullable PodFailurePolicyPatch podFailurePolicy) {
+
             this.podFailurePolicy = podFailurePolicy;
             return this;
         }
         @CustomType.Setter
         public Builder podReplacementPolicy(@Nullable String podReplacementPolicy) {
+
             this.podReplacementPolicy = podReplacementPolicy;
             return this;
         }
         @CustomType.Setter
         public Builder selector(@Nullable LabelSelectorPatch selector) {
+
             this.selector = selector;
             return this;
         }
         @CustomType.Setter
         public Builder successPolicy(@Nullable SuccessPolicyPatch successPolicy) {
+
             this.successPolicy = successPolicy;
             return this;
         }
         @CustomType.Setter
         public Builder suspend(@Nullable Boolean suspend) {
+
             this.suspend = suspend;
             return this;
         }
         @CustomType.Setter
         public Builder template(@Nullable PodTemplateSpecPatch template) {
+
             this.template = template;
             return this;
         }
         @CustomType.Setter
         public Builder ttlSecondsAfterFinished(@Nullable Integer ttlSecondsAfterFinished) {
+
             this.ttlSecondsAfterFinished = ttlSecondsAfterFinished;
             return this;
         }
         public JobSpecPatch build() {
-            final var o = new JobSpecPatch();
-            o.activeDeadlineSeconds = activeDeadlineSeconds;
-            o.backoffLimit = backoffLimit;
-            o.backoffLimitPerIndex = backoffLimitPerIndex;
-            o.completionMode = completionMode;
-            o.completions = completions;
-            o.managedBy = managedBy;
-            o.manualSelector = manualSelector;
-            o.maxFailedIndexes = maxFailedIndexes;
-            o.parallelism = parallelism;
-            o.podFailurePolicy = podFailurePolicy;
-            o.podReplacementPolicy = podReplacementPolicy;
-            o.selector = selector;
-            o.successPolicy = successPolicy;
-            o.suspend = suspend;
-            o.template = template;
-            o.ttlSecondsAfterFinished = ttlSecondsAfterFinished;
-            return o;
+            final var _resultValue = new JobSpecPatch();
+            _resultValue.activeDeadlineSeconds = activeDeadlineSeconds;
+            _resultValue.backoffLimit = backoffLimit;
+            _resultValue.backoffLimitPerIndex = backoffLimitPerIndex;
+            _resultValue.completionMode = completionMode;
+            _resultValue.completions = completions;
+            _resultValue.managedBy = managedBy;
+            _resultValue.manualSelector = manualSelector;
+            _resultValue.maxFailedIndexes = maxFailedIndexes;
+            _resultValue.parallelism = parallelism;
+            _resultValue.podFailurePolicy = podFailurePolicy;
+            _resultValue.podReplacementPolicy = podReplacementPolicy;
+            _resultValue.selector = selector;
+            _resultValue.successPolicy = successPolicy;
+            _resultValue.suspend = suspend;
+            _resultValue.template = template;
+            _resultValue.ttlSecondsAfterFinished = ttlSecondsAfterFinished;
+            return _resultValue;
         }
     }
 }

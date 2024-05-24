@@ -115,43 +115,49 @@ public final class AzureDiskVolumeSourcePatch {
 
         @CustomType.Setter
         public Builder cachingMode(@Nullable String cachingMode) {
+
             this.cachingMode = cachingMode;
             return this;
         }
         @CustomType.Setter
         public Builder diskName(@Nullable String diskName) {
+
             this.diskName = diskName;
             return this;
         }
         @CustomType.Setter
         public Builder diskURI(@Nullable String diskURI) {
+
             this.diskURI = diskURI;
             return this;
         }
         @CustomType.Setter
         public Builder fsType(@Nullable String fsType) {
+
             this.fsType = fsType;
             return this;
         }
         @CustomType.Setter
         public Builder kind(@Nullable String kind) {
+
             this.kind = kind;
             return this;
         }
         @CustomType.Setter
         public Builder readOnly(@Nullable Boolean readOnly) {
+
             this.readOnly = readOnly;
             return this;
         }
         public AzureDiskVolumeSourcePatch build() {
-            final var o = new AzureDiskVolumeSourcePatch();
-            o.cachingMode = cachingMode;
-            o.diskName = diskName;
-            o.diskURI = diskURI;
-            o.fsType = fsType;
-            o.kind = kind;
-            o.readOnly = readOnly;
-            return o;
+            final var _resultValue = new AzureDiskVolumeSourcePatch();
+            _resultValue.cachingMode = cachingMode;
+            _resultValue.diskName = diskName;
+            _resultValue.diskURI = diskURI;
+            _resultValue.fsType = fsType;
+            _resultValue.kind = kind;
+            _resultValue.readOnly = readOnly;
+            return _resultValue;
         }
     }
 }

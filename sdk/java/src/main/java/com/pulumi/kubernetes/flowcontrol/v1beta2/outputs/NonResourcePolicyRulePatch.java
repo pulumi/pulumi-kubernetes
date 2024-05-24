@@ -70,6 +70,7 @@ public final class NonResourcePolicyRulePatch {
 
         @CustomType.Setter
         public Builder nonResourceURLs(@Nullable List<String> nonResourceURLs) {
+
             this.nonResourceURLs = nonResourceURLs;
             return this;
         }
@@ -78,6 +79,7 @@ public final class NonResourcePolicyRulePatch {
         }
         @CustomType.Setter
         public Builder verbs(@Nullable List<String> verbs) {
+
             this.verbs = verbs;
             return this;
         }
@@ -85,10 +87,10 @@ public final class NonResourcePolicyRulePatch {
             return verbs(List.of(verbs));
         }
         public NonResourcePolicyRulePatch build() {
-            final var o = new NonResourcePolicyRulePatch();
-            o.nonResourceURLs = nonResourceURLs;
-            o.verbs = verbs;
-            return o;
+            final var _resultValue = new NonResourcePolicyRulePatch();
+            _resultValue.nonResourceURLs = nonResourceURLs;
+            _resultValue.verbs = verbs;
+            return _resultValue;
         }
     }
 }

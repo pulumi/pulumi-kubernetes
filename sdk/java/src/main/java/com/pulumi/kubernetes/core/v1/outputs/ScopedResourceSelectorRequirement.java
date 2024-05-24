@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.List;
 import java.util.Objects;
@@ -72,16 +73,23 @@ public final class ScopedResourceSelectorRequirement {
 
         @CustomType.Setter
         public Builder operator(String operator) {
-            this.operator = Objects.requireNonNull(operator);
+            if (operator == null) {
+              throw new MissingRequiredPropertyException("ScopedResourceSelectorRequirement", "operator");
+            }
+            this.operator = operator;
             return this;
         }
         @CustomType.Setter
         public Builder scopeName(String scopeName) {
-            this.scopeName = Objects.requireNonNull(scopeName);
+            if (scopeName == null) {
+              throw new MissingRequiredPropertyException("ScopedResourceSelectorRequirement", "scopeName");
+            }
+            this.scopeName = scopeName;
             return this;
         }
         @CustomType.Setter
         public Builder values(@Nullable List<String> values) {
+
             this.values = values;
             return this;
         }
@@ -89,11 +97,11 @@ public final class ScopedResourceSelectorRequirement {
             return values(List.of(values));
         }
         public ScopedResourceSelectorRequirement build() {
-            final var o = new ScopedResourceSelectorRequirement();
-            o.operator = operator;
-            o.scopeName = scopeName;
-            o.values = values;
-            return o;
+            final var _resultValue = new ScopedResourceSelectorRequirement();
+            _resultValue.operator = operator;
+            _resultValue.scopeName = scopeName;
+            _resultValue.values = values;
+            return _resultValue;
         }
     }
 }

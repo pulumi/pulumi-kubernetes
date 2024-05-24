@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.resource.v1alpha1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -191,9 +192,15 @@ public final class ResourceClaimConsumerReferenceArgs extends com.pulumi.resourc
         }
 
         public ResourceClaimConsumerReferenceArgs build() {
-            $.name = Objects.requireNonNull($.name, "expected parameter 'name' to be non-null");
-            $.resource = Objects.requireNonNull($.resource, "expected parameter 'resource' to be non-null");
-            $.uid = Objects.requireNonNull($.uid, "expected parameter 'uid' to be non-null");
+            if ($.name == null) {
+                throw new MissingRequiredPropertyException("ResourceClaimConsumerReferenceArgs", "name");
+            }
+            if ($.resource == null) {
+                throw new MissingRequiredPropertyException("ResourceClaimConsumerReferenceArgs", "resource");
+            }
+            if ($.uid == null) {
+                throw new MissingRequiredPropertyException("ResourceClaimConsumerReferenceArgs", "uid");
+            }
             return $;
         }
     }

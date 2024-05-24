@@ -58,19 +58,21 @@ public final class AttachedVolumePatch {
 
         @CustomType.Setter
         public Builder devicePath(@Nullable String devicePath) {
+
             this.devicePath = devicePath;
             return this;
         }
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         public AttachedVolumePatch build() {
-            final var o = new AttachedVolumePatch();
-            o.devicePath = devicePath;
-            o.name = name;
-            return o;
+            final var _resultValue = new AttachedVolumePatch();
+            _resultValue.devicePath = devicePath;
+            _resultValue.name = name;
+            return _resultValue;
         }
     }
 }

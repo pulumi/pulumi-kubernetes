@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.apiextensions.v1beta1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.apiextensions.v1beta1.outputs.CustomResourceDefinitionCondition;
 import com.pulumi.kubernetes.apiextensions.v1beta1.outputs.CustomResourceDefinitionNames;
 import java.lang.String;
@@ -74,11 +75,15 @@ public final class CustomResourceDefinitionStatus {
 
         @CustomType.Setter
         public Builder acceptedNames(CustomResourceDefinitionNames acceptedNames) {
-            this.acceptedNames = Objects.requireNonNull(acceptedNames);
+            if (acceptedNames == null) {
+              throw new MissingRequiredPropertyException("CustomResourceDefinitionStatus", "acceptedNames");
+            }
+            this.acceptedNames = acceptedNames;
             return this;
         }
         @CustomType.Setter
         public Builder conditions(@Nullable List<CustomResourceDefinitionCondition> conditions) {
+
             this.conditions = conditions;
             return this;
         }
@@ -87,18 +92,21 @@ public final class CustomResourceDefinitionStatus {
         }
         @CustomType.Setter
         public Builder storedVersions(List<String> storedVersions) {
-            this.storedVersions = Objects.requireNonNull(storedVersions);
+            if (storedVersions == null) {
+              throw new MissingRequiredPropertyException("CustomResourceDefinitionStatus", "storedVersions");
+            }
+            this.storedVersions = storedVersions;
             return this;
         }
         public Builder storedVersions(String... storedVersions) {
             return storedVersions(List.of(storedVersions));
         }
         public CustomResourceDefinitionStatus build() {
-            final var o = new CustomResourceDefinitionStatus();
-            o.acceptedNames = acceptedNames;
-            o.conditions = conditions;
-            o.storedVersions = storedVersions;
-            return o;
+            final var _resultValue = new CustomResourceDefinitionStatus();
+            _resultValue.acceptedNames = acceptedNames;
+            _resultValue.conditions = conditions;
+            _resultValue.storedVersions = storedVersions;
+            return _resultValue;
         }
     }
 }

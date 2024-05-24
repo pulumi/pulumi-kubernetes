@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.outputs.LocalObjectReference;
 import java.lang.Boolean;
 import java.lang.String;
@@ -103,37 +104,44 @@ public final class CSIVolumeSource {
 
         @CustomType.Setter
         public Builder driver(String driver) {
-            this.driver = Objects.requireNonNull(driver);
+            if (driver == null) {
+              throw new MissingRequiredPropertyException("CSIVolumeSource", "driver");
+            }
+            this.driver = driver;
             return this;
         }
         @CustomType.Setter
         public Builder fsType(@Nullable String fsType) {
+
             this.fsType = fsType;
             return this;
         }
         @CustomType.Setter
         public Builder nodePublishSecretRef(@Nullable LocalObjectReference nodePublishSecretRef) {
+
             this.nodePublishSecretRef = nodePublishSecretRef;
             return this;
         }
         @CustomType.Setter
         public Builder readOnly(@Nullable Boolean readOnly) {
+
             this.readOnly = readOnly;
             return this;
         }
         @CustomType.Setter
         public Builder volumeAttributes(@Nullable Map<String,String> volumeAttributes) {
+
             this.volumeAttributes = volumeAttributes;
             return this;
         }
         public CSIVolumeSource build() {
-            final var o = new CSIVolumeSource();
-            o.driver = driver;
-            o.fsType = fsType;
-            o.nodePublishSecretRef = nodePublishSecretRef;
-            o.readOnly = readOnly;
-            o.volumeAttributes = volumeAttributes;
-            return o;
+            final var _resultValue = new CSIVolumeSource();
+            _resultValue.driver = driver;
+            _resultValue.fsType = fsType;
+            _resultValue.nodePublishSecretRef = nodePublishSecretRef;
+            _resultValue.readOnly = readOnly;
+            _resultValue.volumeAttributes = volumeAttributes;
+            return _resultValue;
         }
     }
 }

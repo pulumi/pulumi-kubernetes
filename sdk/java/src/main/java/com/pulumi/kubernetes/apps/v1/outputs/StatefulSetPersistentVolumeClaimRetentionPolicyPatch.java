@@ -58,19 +58,21 @@ public final class StatefulSetPersistentVolumeClaimRetentionPolicyPatch {
 
         @CustomType.Setter
         public Builder whenDeleted(@Nullable String whenDeleted) {
+
             this.whenDeleted = whenDeleted;
             return this;
         }
         @CustomType.Setter
         public Builder whenScaled(@Nullable String whenScaled) {
+
             this.whenScaled = whenScaled;
             return this;
         }
         public StatefulSetPersistentVolumeClaimRetentionPolicyPatch build() {
-            final var o = new StatefulSetPersistentVolumeClaimRetentionPolicyPatch();
-            o.whenDeleted = whenDeleted;
-            o.whenScaled = whenScaled;
-            return o;
+            final var _resultValue = new StatefulSetPersistentVolumeClaimRetentionPolicyPatch();
+            _resultValue.whenDeleted = whenDeleted;
+            _resultValue.whenScaled = whenScaled;
+            return _resultValue;
         }
     }
 }

@@ -44,6 +44,7 @@ public final class TopologySelectorTerm {
 
         @CustomType.Setter
         public Builder matchLabelExpressions(@Nullable List<TopologySelectorLabelRequirement> matchLabelExpressions) {
+
             this.matchLabelExpressions = matchLabelExpressions;
             return this;
         }
@@ -51,9 +52,9 @@ public final class TopologySelectorTerm {
             return matchLabelExpressions(List.of(matchLabelExpressions));
         }
         public TopologySelectorTerm build() {
-            final var o = new TopologySelectorTerm();
-            o.matchLabelExpressions = matchLabelExpressions;
-            return o;
+            final var _resultValue = new TopologySelectorTerm();
+            _resultValue.matchLabelExpressions = matchLabelExpressions;
+            return _resultValue;
         }
     }
 }

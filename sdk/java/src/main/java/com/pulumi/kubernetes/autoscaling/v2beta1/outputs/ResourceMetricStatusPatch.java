@@ -73,25 +73,28 @@ public final class ResourceMetricStatusPatch {
 
         @CustomType.Setter
         public Builder currentAverageUtilization(@Nullable Integer currentAverageUtilization) {
+
             this.currentAverageUtilization = currentAverageUtilization;
             return this;
         }
         @CustomType.Setter
         public Builder currentAverageValue(@Nullable String currentAverageValue) {
+
             this.currentAverageValue = currentAverageValue;
             return this;
         }
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         public ResourceMetricStatusPatch build() {
-            final var o = new ResourceMetricStatusPatch();
-            o.currentAverageUtilization = currentAverageUtilization;
-            o.currentAverageValue = currentAverageValue;
-            o.name = name;
-            return o;
+            final var _resultValue = new ResourceMetricStatusPatch();
+            _resultValue.currentAverageUtilization = currentAverageUtilization;
+            _resultValue.currentAverageValue = currentAverageValue;
+            _resultValue.name = name;
+            return _resultValue;
         }
     }
 }

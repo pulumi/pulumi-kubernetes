@@ -167,11 +167,13 @@ public final class TopologySpreadConstraintPatch {
 
         @CustomType.Setter
         public Builder labelSelector(@Nullable LabelSelectorPatch labelSelector) {
+
             this.labelSelector = labelSelector;
             return this;
         }
         @CustomType.Setter
         public Builder matchLabelKeys(@Nullable List<String> matchLabelKeys) {
+
             this.matchLabelKeys = matchLabelKeys;
             return this;
         }
@@ -180,45 +182,51 @@ public final class TopologySpreadConstraintPatch {
         }
         @CustomType.Setter
         public Builder maxSkew(@Nullable Integer maxSkew) {
+
             this.maxSkew = maxSkew;
             return this;
         }
         @CustomType.Setter
         public Builder minDomains(@Nullable Integer minDomains) {
+
             this.minDomains = minDomains;
             return this;
         }
         @CustomType.Setter
         public Builder nodeAffinityPolicy(@Nullable String nodeAffinityPolicy) {
+
             this.nodeAffinityPolicy = nodeAffinityPolicy;
             return this;
         }
         @CustomType.Setter
         public Builder nodeTaintsPolicy(@Nullable String nodeTaintsPolicy) {
+
             this.nodeTaintsPolicy = nodeTaintsPolicy;
             return this;
         }
         @CustomType.Setter
         public Builder topologyKey(@Nullable String topologyKey) {
+
             this.topologyKey = topologyKey;
             return this;
         }
         @CustomType.Setter
         public Builder whenUnsatisfiable(@Nullable String whenUnsatisfiable) {
+
             this.whenUnsatisfiable = whenUnsatisfiable;
             return this;
         }
         public TopologySpreadConstraintPatch build() {
-            final var o = new TopologySpreadConstraintPatch();
-            o.labelSelector = labelSelector;
-            o.matchLabelKeys = matchLabelKeys;
-            o.maxSkew = maxSkew;
-            o.minDomains = minDomains;
-            o.nodeAffinityPolicy = nodeAffinityPolicy;
-            o.nodeTaintsPolicy = nodeTaintsPolicy;
-            o.topologyKey = topologyKey;
-            o.whenUnsatisfiable = whenUnsatisfiable;
-            return o;
+            final var _resultValue = new TopologySpreadConstraintPatch();
+            _resultValue.labelSelector = labelSelector;
+            _resultValue.matchLabelKeys = matchLabelKeys;
+            _resultValue.maxSkew = maxSkew;
+            _resultValue.minDomains = minDomains;
+            _resultValue.nodeAffinityPolicy = nodeAffinityPolicy;
+            _resultValue.nodeTaintsPolicy = nodeTaintsPolicy;
+            _resultValue.topologyKey = topologyKey;
+            _resultValue.whenUnsatisfiable = whenUnsatisfiable;
+            return _resultValue;
         }
     }
 }

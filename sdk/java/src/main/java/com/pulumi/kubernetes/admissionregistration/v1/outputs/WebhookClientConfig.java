@@ -35,7 +35,7 @@ public final class WebhookClientConfig {
      * 
      * A path is optional, and if present may be any string permissible in a URL. You may use the path to pass an arbitrary string to the webhook, for example, a cluster identifier.
      * 
-     * Attempting to use a user or basic auth e.g. &#34;user:password@&#34; is not allowed. Fragments (&#34;#...&#34;) and query parameters (&#34;?...&#34;) are not allowed, either.
+     * Attempting to use a user or basic auth e.g. &#34;user:password{@literal @}&#34; is not allowed. Fragments (&#34;#...&#34;) and query parameters (&#34;?...&#34;) are not allowed, either.
      * 
      */
     private @Nullable String url;
@@ -68,7 +68,7 @@ public final class WebhookClientConfig {
      * 
      * A path is optional, and if present may be any string permissible in a URL. You may use the path to pass an arbitrary string to the webhook, for example, a cluster identifier.
      * 
-     * Attempting to use a user or basic auth e.g. &#34;user:password@&#34; is not allowed. Fragments (&#34;#...&#34;) and query parameters (&#34;?...&#34;) are not allowed, either.
+     * Attempting to use a user or basic auth e.g. &#34;user:password{@literal @}&#34; is not allowed. Fragments (&#34;#...&#34;) and query parameters (&#34;?...&#34;) are not allowed, either.
      * 
      */
     public Optional<String> url() {
@@ -97,25 +97,28 @@ public final class WebhookClientConfig {
 
         @CustomType.Setter
         public Builder caBundle(@Nullable String caBundle) {
+
             this.caBundle = caBundle;
             return this;
         }
         @CustomType.Setter
         public Builder service(@Nullable ServiceReference service) {
+
             this.service = service;
             return this;
         }
         @CustomType.Setter
         public Builder url(@Nullable String url) {
+
             this.url = url;
             return this;
         }
         public WebhookClientConfig build() {
-            final var o = new WebhookClientConfig();
-            o.caBundle = caBundle;
-            o.service = service;
-            o.url = url;
-            return o;
+            final var _resultValue = new WebhookClientConfig();
+            _resultValue.caBundle = caBundle;
+            _resultValue.service = service;
+            _resultValue.url = url;
+            return _resultValue;
         }
     }
 }

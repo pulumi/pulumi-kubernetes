@@ -44,13 +44,14 @@ public final class RollingUpdateStatefulSetStrategyPatch {
 
         @CustomType.Setter
         public Builder partition(@Nullable Integer partition) {
+
             this.partition = partition;
             return this;
         }
         public RollingUpdateStatefulSetStrategyPatch build() {
-            final var o = new RollingUpdateStatefulSetStrategyPatch();
-            o.partition = partition;
-            return o;
+            final var _resultValue = new RollingUpdateStatefulSetStrategyPatch();
+            _resultValue.partition = partition;
+            return _resultValue;
         }
     }
 }

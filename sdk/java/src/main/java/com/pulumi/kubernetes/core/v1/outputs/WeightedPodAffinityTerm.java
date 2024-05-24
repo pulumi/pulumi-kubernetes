@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.outputs.PodAffinityTerm;
 import java.lang.Integer;
 import java.util.Objects;
@@ -57,19 +58,25 @@ public final class WeightedPodAffinityTerm {
 
         @CustomType.Setter
         public Builder podAffinityTerm(PodAffinityTerm podAffinityTerm) {
-            this.podAffinityTerm = Objects.requireNonNull(podAffinityTerm);
+            if (podAffinityTerm == null) {
+              throw new MissingRequiredPropertyException("WeightedPodAffinityTerm", "podAffinityTerm");
+            }
+            this.podAffinityTerm = podAffinityTerm;
             return this;
         }
         @CustomType.Setter
         public Builder weight(Integer weight) {
-            this.weight = Objects.requireNonNull(weight);
+            if (weight == null) {
+              throw new MissingRequiredPropertyException("WeightedPodAffinityTerm", "weight");
+            }
+            this.weight = weight;
             return this;
         }
         public WeightedPodAffinityTerm build() {
-            final var o = new WeightedPodAffinityTerm();
-            o.podAffinityTerm = podAffinityTerm;
-            o.weight = weight;
-            return o;
+            final var _resultValue = new WeightedPodAffinityTerm();
+            _resultValue.podAffinityTerm = podAffinityTerm;
+            _resultValue.weight = weight;
+            return _resultValue;
         }
     }
 }

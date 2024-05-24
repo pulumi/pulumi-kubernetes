@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.policy.v1beta1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.List;
 import java.util.Objects;
@@ -128,7 +129,9 @@ public final class RuntimeClassStrategyOptionsArgs extends com.pulumi.resources.
         }
 
         public RuntimeClassStrategyOptionsArgs build() {
-            $.allowedRuntimeClassNames = Objects.requireNonNull($.allowedRuntimeClassNames, "expected parameter 'allowedRuntimeClassNames' to be non-null");
+            if ($.allowedRuntimeClassNames == null) {
+                throw new MissingRequiredPropertyException("RuntimeClassStrategyOptionsArgs", "allowedRuntimeClassNames");
+            }
             return $;
         }
     }

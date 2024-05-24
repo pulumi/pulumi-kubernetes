@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.core.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -154,7 +155,9 @@ public final class ResourceFieldSelectorArgs extends com.pulumi.resources.Resour
         }
 
         public ResourceFieldSelectorArgs build() {
-            $.resource = Objects.requireNonNull($.resource, "expected parameter 'resource' to be non-null");
+            if ($.resource == null) {
+                throw new MissingRequiredPropertyException("ResourceFieldSelectorArgs", "resource");
+            }
             return $;
         }
     }

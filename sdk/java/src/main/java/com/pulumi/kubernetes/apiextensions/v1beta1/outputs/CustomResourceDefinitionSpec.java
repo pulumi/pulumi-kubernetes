@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.apiextensions.v1beta1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.apiextensions.v1beta1.outputs.CustomResourceColumnDefinition;
 import com.pulumi.kubernetes.apiextensions.v1beta1.outputs.CustomResourceConversion;
 import com.pulumi.kubernetes.apiextensions.v1beta1.outputs.CustomResourceDefinitionNames;
@@ -178,6 +179,7 @@ public final class CustomResourceDefinitionSpec {
 
         @CustomType.Setter
         public Builder additionalPrinterColumns(@Nullable List<CustomResourceColumnDefinition> additionalPrinterColumns) {
+
             this.additionalPrinterColumns = additionalPrinterColumns;
             return this;
         }
@@ -186,46 +188,61 @@ public final class CustomResourceDefinitionSpec {
         }
         @CustomType.Setter
         public Builder conversion(@Nullable CustomResourceConversion conversion) {
+
             this.conversion = conversion;
             return this;
         }
         @CustomType.Setter
         public Builder group(String group) {
-            this.group = Objects.requireNonNull(group);
+            if (group == null) {
+              throw new MissingRequiredPropertyException("CustomResourceDefinitionSpec", "group");
+            }
+            this.group = group;
             return this;
         }
         @CustomType.Setter
         public Builder names(CustomResourceDefinitionNames names) {
-            this.names = Objects.requireNonNull(names);
+            if (names == null) {
+              throw new MissingRequiredPropertyException("CustomResourceDefinitionSpec", "names");
+            }
+            this.names = names;
             return this;
         }
         @CustomType.Setter
         public Builder preserveUnknownFields(@Nullable Boolean preserveUnknownFields) {
+
             this.preserveUnknownFields = preserveUnknownFields;
             return this;
         }
         @CustomType.Setter
         public Builder scope(String scope) {
-            this.scope = Objects.requireNonNull(scope);
+            if (scope == null) {
+              throw new MissingRequiredPropertyException("CustomResourceDefinitionSpec", "scope");
+            }
+            this.scope = scope;
             return this;
         }
         @CustomType.Setter
         public Builder subresources(@Nullable CustomResourceSubresources subresources) {
+
             this.subresources = subresources;
             return this;
         }
         @CustomType.Setter
         public Builder validation(@Nullable CustomResourceValidation validation) {
+
             this.validation = validation;
             return this;
         }
         @CustomType.Setter
         public Builder version(@Nullable String version) {
+
             this.version = version;
             return this;
         }
         @CustomType.Setter
         public Builder versions(@Nullable List<CustomResourceDefinitionVersion> versions) {
+
             this.versions = versions;
             return this;
         }
@@ -233,18 +250,18 @@ public final class CustomResourceDefinitionSpec {
             return versions(List.of(versions));
         }
         public CustomResourceDefinitionSpec build() {
-            final var o = new CustomResourceDefinitionSpec();
-            o.additionalPrinterColumns = additionalPrinterColumns;
-            o.conversion = conversion;
-            o.group = group;
-            o.names = names;
-            o.preserveUnknownFields = preserveUnknownFields;
-            o.scope = scope;
-            o.subresources = subresources;
-            o.validation = validation;
-            o.version = version;
-            o.versions = versions;
-            return o;
+            final var _resultValue = new CustomResourceDefinitionSpec();
+            _resultValue.additionalPrinterColumns = additionalPrinterColumns;
+            _resultValue.conversion = conversion;
+            _resultValue.group = group;
+            _resultValue.names = names;
+            _resultValue.preserveUnknownFields = preserveUnknownFields;
+            _resultValue.scope = scope;
+            _resultValue.subresources = subresources;
+            _resultValue.validation = validation;
+            _resultValue.version = version;
+            _resultValue.versions = versions;
+            return _resultValue;
         }
     }
 }

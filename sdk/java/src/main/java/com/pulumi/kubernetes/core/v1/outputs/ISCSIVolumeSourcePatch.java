@@ -188,41 +188,49 @@ public final class ISCSIVolumeSourcePatch {
 
         @CustomType.Setter
         public Builder chapAuthDiscovery(@Nullable Boolean chapAuthDiscovery) {
+
             this.chapAuthDiscovery = chapAuthDiscovery;
             return this;
         }
         @CustomType.Setter
         public Builder chapAuthSession(@Nullable Boolean chapAuthSession) {
+
             this.chapAuthSession = chapAuthSession;
             return this;
         }
         @CustomType.Setter
         public Builder fsType(@Nullable String fsType) {
+
             this.fsType = fsType;
             return this;
         }
         @CustomType.Setter
         public Builder initiatorName(@Nullable String initiatorName) {
+
             this.initiatorName = initiatorName;
             return this;
         }
         @CustomType.Setter
         public Builder iqn(@Nullable String iqn) {
+
             this.iqn = iqn;
             return this;
         }
         @CustomType.Setter
         public Builder iscsiInterface(@Nullable String iscsiInterface) {
+
             this.iscsiInterface = iscsiInterface;
             return this;
         }
         @CustomType.Setter
         public Builder lun(@Nullable Integer lun) {
+
             this.lun = lun;
             return this;
         }
         @CustomType.Setter
         public Builder portals(@Nullable List<String> portals) {
+
             this.portals = portals;
             return this;
         }
@@ -231,33 +239,36 @@ public final class ISCSIVolumeSourcePatch {
         }
         @CustomType.Setter
         public Builder readOnly(@Nullable Boolean readOnly) {
+
             this.readOnly = readOnly;
             return this;
         }
         @CustomType.Setter
         public Builder secretRef(@Nullable LocalObjectReferencePatch secretRef) {
+
             this.secretRef = secretRef;
             return this;
         }
         @CustomType.Setter
         public Builder targetPortal(@Nullable String targetPortal) {
+
             this.targetPortal = targetPortal;
             return this;
         }
         public ISCSIVolumeSourcePatch build() {
-            final var o = new ISCSIVolumeSourcePatch();
-            o.chapAuthDiscovery = chapAuthDiscovery;
-            o.chapAuthSession = chapAuthSession;
-            o.fsType = fsType;
-            o.initiatorName = initiatorName;
-            o.iqn = iqn;
-            o.iscsiInterface = iscsiInterface;
-            o.lun = lun;
-            o.portals = portals;
-            o.readOnly = readOnly;
-            o.secretRef = secretRef;
-            o.targetPortal = targetPortal;
-            return o;
+            final var _resultValue = new ISCSIVolumeSourcePatch();
+            _resultValue.chapAuthDiscovery = chapAuthDiscovery;
+            _resultValue.chapAuthSession = chapAuthSession;
+            _resultValue.fsType = fsType;
+            _resultValue.initiatorName = initiatorName;
+            _resultValue.iqn = iqn;
+            _resultValue.iscsiInterface = iscsiInterface;
+            _resultValue.lun = lun;
+            _resultValue.portals = portals;
+            _resultValue.readOnly = readOnly;
+            _resultValue.secretRef = secretRef;
+            _resultValue.targetPortal = targetPortal;
+            return _resultValue;
         }
     }
 }

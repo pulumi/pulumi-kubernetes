@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.core.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
 
@@ -411,16 +412,36 @@ public final class NodeSystemInfoArgs extends com.pulumi.resources.ResourceArgs 
         }
 
         public NodeSystemInfoArgs build() {
-            $.architecture = Objects.requireNonNull($.architecture, "expected parameter 'architecture' to be non-null");
-            $.bootID = Objects.requireNonNull($.bootID, "expected parameter 'bootID' to be non-null");
-            $.containerRuntimeVersion = Objects.requireNonNull($.containerRuntimeVersion, "expected parameter 'containerRuntimeVersion' to be non-null");
-            $.kernelVersion = Objects.requireNonNull($.kernelVersion, "expected parameter 'kernelVersion' to be non-null");
-            $.kubeProxyVersion = Objects.requireNonNull($.kubeProxyVersion, "expected parameter 'kubeProxyVersion' to be non-null");
-            $.kubeletVersion = Objects.requireNonNull($.kubeletVersion, "expected parameter 'kubeletVersion' to be non-null");
-            $.machineID = Objects.requireNonNull($.machineID, "expected parameter 'machineID' to be non-null");
-            $.operatingSystem = Objects.requireNonNull($.operatingSystem, "expected parameter 'operatingSystem' to be non-null");
-            $.osImage = Objects.requireNonNull($.osImage, "expected parameter 'osImage' to be non-null");
-            $.systemUUID = Objects.requireNonNull($.systemUUID, "expected parameter 'systemUUID' to be non-null");
+            if ($.architecture == null) {
+                throw new MissingRequiredPropertyException("NodeSystemInfoArgs", "architecture");
+            }
+            if ($.bootID == null) {
+                throw new MissingRequiredPropertyException("NodeSystemInfoArgs", "bootID");
+            }
+            if ($.containerRuntimeVersion == null) {
+                throw new MissingRequiredPropertyException("NodeSystemInfoArgs", "containerRuntimeVersion");
+            }
+            if ($.kernelVersion == null) {
+                throw new MissingRequiredPropertyException("NodeSystemInfoArgs", "kernelVersion");
+            }
+            if ($.kubeProxyVersion == null) {
+                throw new MissingRequiredPropertyException("NodeSystemInfoArgs", "kubeProxyVersion");
+            }
+            if ($.kubeletVersion == null) {
+                throw new MissingRequiredPropertyException("NodeSystemInfoArgs", "kubeletVersion");
+            }
+            if ($.machineID == null) {
+                throw new MissingRequiredPropertyException("NodeSystemInfoArgs", "machineID");
+            }
+            if ($.operatingSystem == null) {
+                throw new MissingRequiredPropertyException("NodeSystemInfoArgs", "operatingSystem");
+            }
+            if ($.osImage == null) {
+                throw new MissingRequiredPropertyException("NodeSystemInfoArgs", "osImage");
+            }
+            if ($.systemUUID == null) {
+                throw new MissingRequiredPropertyException("NodeSystemInfoArgs", "systemUUID");
+            }
             return $;
         }
     }

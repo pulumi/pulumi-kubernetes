@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.batch.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.batch.v1.inputs.SuccessPolicyRuleArgs;
 import java.util.List;
 import java.util.Objects;
@@ -89,7 +90,9 @@ public final class SuccessPolicyArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         public SuccessPolicyArgs build() {
-            $.rules = Objects.requireNonNull($.rules, "expected parameter 'rules' to be non-null");
+            if ($.rules == null) {
+                throw new MissingRequiredPropertyException("SuccessPolicyArgs", "rules");
+            }
             return $;
         }
     }

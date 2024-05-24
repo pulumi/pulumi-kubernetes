@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.apps.v1beta2.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.apps.v1beta2.outputs.StatefulSetCondition;
 import java.lang.Integer;
 import java.lang.String;
@@ -159,11 +160,13 @@ public final class StatefulSetStatus {
 
         @CustomType.Setter
         public Builder collisionCount(@Nullable Integer collisionCount) {
+
             this.collisionCount = collisionCount;
             return this;
         }
         @CustomType.Setter
         public Builder conditions(@Nullable List<StatefulSetCondition> conditions) {
+
             this.conditions = conditions;
             return this;
         }
@@ -172,51 +175,60 @@ public final class StatefulSetStatus {
         }
         @CustomType.Setter
         public Builder currentReplicas(@Nullable Integer currentReplicas) {
+
             this.currentReplicas = currentReplicas;
             return this;
         }
         @CustomType.Setter
         public Builder currentRevision(@Nullable String currentRevision) {
+
             this.currentRevision = currentRevision;
             return this;
         }
         @CustomType.Setter
         public Builder observedGeneration(@Nullable Integer observedGeneration) {
+
             this.observedGeneration = observedGeneration;
             return this;
         }
         @CustomType.Setter
         public Builder readyReplicas(@Nullable Integer readyReplicas) {
+
             this.readyReplicas = readyReplicas;
             return this;
         }
         @CustomType.Setter
         public Builder replicas(Integer replicas) {
-            this.replicas = Objects.requireNonNull(replicas);
+            if (replicas == null) {
+              throw new MissingRequiredPropertyException("StatefulSetStatus", "replicas");
+            }
+            this.replicas = replicas;
             return this;
         }
         @CustomType.Setter
         public Builder updateRevision(@Nullable String updateRevision) {
+
             this.updateRevision = updateRevision;
             return this;
         }
         @CustomType.Setter
         public Builder updatedReplicas(@Nullable Integer updatedReplicas) {
+
             this.updatedReplicas = updatedReplicas;
             return this;
         }
         public StatefulSetStatus build() {
-            final var o = new StatefulSetStatus();
-            o.collisionCount = collisionCount;
-            o.conditions = conditions;
-            o.currentReplicas = currentReplicas;
-            o.currentRevision = currentRevision;
-            o.observedGeneration = observedGeneration;
-            o.readyReplicas = readyReplicas;
-            o.replicas = replicas;
-            o.updateRevision = updateRevision;
-            o.updatedReplicas = updatedReplicas;
-            return o;
+            final var _resultValue = new StatefulSetStatus();
+            _resultValue.collisionCount = collisionCount;
+            _resultValue.conditions = conditions;
+            _resultValue.currentReplicas = currentReplicas;
+            _resultValue.currentRevision = currentRevision;
+            _resultValue.observedGeneration = observedGeneration;
+            _resultValue.readyReplicas = readyReplicas;
+            _resultValue.replicas = replicas;
+            _resultValue.updateRevision = updateRevision;
+            _resultValue.updatedReplicas = updatedReplicas;
+            return _resultValue;
         }
     }
 }

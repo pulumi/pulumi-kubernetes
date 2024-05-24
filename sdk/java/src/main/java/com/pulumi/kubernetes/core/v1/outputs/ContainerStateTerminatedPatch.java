@@ -129,49 +129,56 @@ public final class ContainerStateTerminatedPatch {
 
         @CustomType.Setter
         public Builder containerID(@Nullable String containerID) {
+
             this.containerID = containerID;
             return this;
         }
         @CustomType.Setter
         public Builder exitCode(@Nullable Integer exitCode) {
+
             this.exitCode = exitCode;
             return this;
         }
         @CustomType.Setter
         public Builder finishedAt(@Nullable String finishedAt) {
+
             this.finishedAt = finishedAt;
             return this;
         }
         @CustomType.Setter
         public Builder message(@Nullable String message) {
+
             this.message = message;
             return this;
         }
         @CustomType.Setter
         public Builder reason(@Nullable String reason) {
+
             this.reason = reason;
             return this;
         }
         @CustomType.Setter
         public Builder signal(@Nullable Integer signal) {
+
             this.signal = signal;
             return this;
         }
         @CustomType.Setter
         public Builder startedAt(@Nullable String startedAt) {
+
             this.startedAt = startedAt;
             return this;
         }
         public ContainerStateTerminatedPatch build() {
-            final var o = new ContainerStateTerminatedPatch();
-            o.containerID = containerID;
-            o.exitCode = exitCode;
-            o.finishedAt = finishedAt;
-            o.message = message;
-            o.reason = reason;
-            o.signal = signal;
-            o.startedAt = startedAt;
-            return o;
+            final var _resultValue = new ContainerStateTerminatedPatch();
+            _resultValue.containerID = containerID;
+            _resultValue.exitCode = exitCode;
+            _resultValue.finishedAt = finishedAt;
+            _resultValue.message = message;
+            _resultValue.reason = reason;
+            _resultValue.signal = signal;
+            _resultValue.startedAt = startedAt;
+            return _resultValue;
         }
     }
 }

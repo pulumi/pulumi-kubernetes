@@ -66,19 +66,21 @@ public final class ClaimSourcePatch {
 
         @CustomType.Setter
         public Builder resourceClaimName(@Nullable String resourceClaimName) {
+
             this.resourceClaimName = resourceClaimName;
             return this;
         }
         @CustomType.Setter
         public Builder resourceClaimTemplateName(@Nullable String resourceClaimTemplateName) {
+
             this.resourceClaimTemplateName = resourceClaimTemplateName;
             return this;
         }
         public ClaimSourcePatch build() {
-            final var o = new ClaimSourcePatch();
-            o.resourceClaimName = resourceClaimName;
-            o.resourceClaimTemplateName = resourceClaimTemplateName;
-            return o;
+            final var _resultValue = new ClaimSourcePatch();
+            _resultValue.resourceClaimName = resourceClaimName;
+            _resultValue.resourceClaimTemplateName = resourceClaimTemplateName;
+            return _resultValue;
         }
     }
 }

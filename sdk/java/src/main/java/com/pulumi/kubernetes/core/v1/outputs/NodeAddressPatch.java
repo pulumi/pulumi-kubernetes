@@ -58,19 +58,21 @@ public final class NodeAddressPatch {
 
         @CustomType.Setter
         public Builder address(@Nullable String address) {
+
             this.address = address;
             return this;
         }
         @CustomType.Setter
         public Builder type(@Nullable String type) {
+
             this.type = type;
             return this;
         }
         public NodeAddressPatch build() {
-            final var o = new NodeAddressPatch();
-            o.address = address;
-            o.type = type;
-            return o;
+            final var _resultValue = new NodeAddressPatch();
+            _resultValue.address = address;
+            _resultValue.type = type;
+            return _resultValue;
         }
     }
 }

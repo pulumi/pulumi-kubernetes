@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.core.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.inputs.NodeSelectorTermArgs;
 import java.util.List;
 import java.util.Objects;
@@ -89,7 +90,9 @@ public final class NodeSelectorArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         public NodeSelectorArgs build() {
-            $.nodeSelectorTerms = Objects.requireNonNull($.nodeSelectorTerms, "expected parameter 'nodeSelectorTerms' to be non-null");
+            if ($.nodeSelectorTerms == null) {
+                throw new MissingRequiredPropertyException("NodeSelectorArgs", "nodeSelectorTerms");
+            }
             return $;
         }
     }

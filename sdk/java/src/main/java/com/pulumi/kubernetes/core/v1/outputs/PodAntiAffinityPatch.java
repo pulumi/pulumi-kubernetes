@@ -59,6 +59,7 @@ public final class PodAntiAffinityPatch {
 
         @CustomType.Setter
         public Builder preferredDuringSchedulingIgnoredDuringExecution(@Nullable List<WeightedPodAffinityTermPatch> preferredDuringSchedulingIgnoredDuringExecution) {
+
             this.preferredDuringSchedulingIgnoredDuringExecution = preferredDuringSchedulingIgnoredDuringExecution;
             return this;
         }
@@ -67,6 +68,7 @@ public final class PodAntiAffinityPatch {
         }
         @CustomType.Setter
         public Builder requiredDuringSchedulingIgnoredDuringExecution(@Nullable List<PodAffinityTermPatch> requiredDuringSchedulingIgnoredDuringExecution) {
+
             this.requiredDuringSchedulingIgnoredDuringExecution = requiredDuringSchedulingIgnoredDuringExecution;
             return this;
         }
@@ -74,10 +76,10 @@ public final class PodAntiAffinityPatch {
             return requiredDuringSchedulingIgnoredDuringExecution(List.of(requiredDuringSchedulingIgnoredDuringExecution));
         }
         public PodAntiAffinityPatch build() {
-            final var o = new PodAntiAffinityPatch();
-            o.preferredDuringSchedulingIgnoredDuringExecution = preferredDuringSchedulingIgnoredDuringExecution;
-            o.requiredDuringSchedulingIgnoredDuringExecution = requiredDuringSchedulingIgnoredDuringExecution;
-            return o;
+            final var _resultValue = new PodAntiAffinityPatch();
+            _resultValue.preferredDuringSchedulingIgnoredDuringExecution = preferredDuringSchedulingIgnoredDuringExecution;
+            _resultValue.requiredDuringSchedulingIgnoredDuringExecution = requiredDuringSchedulingIgnoredDuringExecution;
+            return _resultValue;
         }
     }
 }

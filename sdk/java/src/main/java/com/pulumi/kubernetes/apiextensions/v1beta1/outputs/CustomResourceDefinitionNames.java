@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.apiextensions.v1beta1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.List;
 import java.util.Objects;
@@ -115,6 +116,7 @@ public final class CustomResourceDefinitionNames {
 
         @CustomType.Setter
         public Builder categories(@Nullable List<String> categories) {
+
             this.categories = categories;
             return this;
         }
@@ -123,21 +125,29 @@ public final class CustomResourceDefinitionNames {
         }
         @CustomType.Setter
         public Builder kind(String kind) {
-            this.kind = Objects.requireNonNull(kind);
+            if (kind == null) {
+              throw new MissingRequiredPropertyException("CustomResourceDefinitionNames", "kind");
+            }
+            this.kind = kind;
             return this;
         }
         @CustomType.Setter
         public Builder listKind(@Nullable String listKind) {
+
             this.listKind = listKind;
             return this;
         }
         @CustomType.Setter
         public Builder plural(String plural) {
-            this.plural = Objects.requireNonNull(plural);
+            if (plural == null) {
+              throw new MissingRequiredPropertyException("CustomResourceDefinitionNames", "plural");
+            }
+            this.plural = plural;
             return this;
         }
         @CustomType.Setter
         public Builder shortNames(@Nullable List<String> shortNames) {
+
             this.shortNames = shortNames;
             return this;
         }
@@ -146,18 +156,19 @@ public final class CustomResourceDefinitionNames {
         }
         @CustomType.Setter
         public Builder singular(@Nullable String singular) {
+
             this.singular = singular;
             return this;
         }
         public CustomResourceDefinitionNames build() {
-            final var o = new CustomResourceDefinitionNames();
-            o.categories = categories;
-            o.kind = kind;
-            o.listKind = listKind;
-            o.plural = plural;
-            o.shortNames = shortNames;
-            o.singular = singular;
-            return o;
+            final var _resultValue = new CustomResourceDefinitionNames();
+            _resultValue.categories = categories;
+            _resultValue.kind = kind;
+            _resultValue.listKind = listKind;
+            _resultValue.plural = plural;
+            _resultValue.shortNames = shortNames;
+            _resultValue.singular = singular;
+            return _resultValue;
         }
     }
 }

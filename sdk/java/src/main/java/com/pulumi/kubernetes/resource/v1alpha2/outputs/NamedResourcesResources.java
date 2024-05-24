@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.resource.v1alpha2.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.resource.v1alpha2.outputs.NamedResourcesInstance;
 import java.util.List;
 import java.util.Objects;
@@ -43,16 +44,19 @@ public final class NamedResourcesResources {
 
         @CustomType.Setter
         public Builder instances(List<NamedResourcesInstance> instances) {
-            this.instances = Objects.requireNonNull(instances);
+            if (instances == null) {
+              throw new MissingRequiredPropertyException("NamedResourcesResources", "instances");
+            }
+            this.instances = instances;
             return this;
         }
         public Builder instances(NamedResourcesInstance... instances) {
             return instances(List.of(instances));
         }
         public NamedResourcesResources build() {
-            final var o = new NamedResourcesResources();
-            o.instances = instances;
-            return o;
+            final var _resultValue = new NamedResourcesResources();
+            _resultValue.instances = instances;
+            return _resultValue;
         }
     }
 }

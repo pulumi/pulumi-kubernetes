@@ -102,37 +102,42 @@ public final class ClusterTrustBundleProjectionPatch {
 
         @CustomType.Setter
         public Builder labelSelector(@Nullable LabelSelectorPatch labelSelector) {
+
             this.labelSelector = labelSelector;
             return this;
         }
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder optional(@Nullable Boolean optional) {
+
             this.optional = optional;
             return this;
         }
         @CustomType.Setter
         public Builder path(@Nullable String path) {
+
             this.path = path;
             return this;
         }
         @CustomType.Setter
         public Builder signerName(@Nullable String signerName) {
+
             this.signerName = signerName;
             return this;
         }
         public ClusterTrustBundleProjectionPatch build() {
-            final var o = new ClusterTrustBundleProjectionPatch();
-            o.labelSelector = labelSelector;
-            o.name = name;
-            o.optional = optional;
-            o.path = path;
-            o.signerName = signerName;
-            return o;
+            final var _resultValue = new ClusterTrustBundleProjectionPatch();
+            _resultValue.labelSelector = labelSelector;
+            _resultValue.name = name;
+            _resultValue.optional = optional;
+            _resultValue.path = path;
+            _resultValue.signerName = signerName;
+            return _resultValue;
         }
     }
 }

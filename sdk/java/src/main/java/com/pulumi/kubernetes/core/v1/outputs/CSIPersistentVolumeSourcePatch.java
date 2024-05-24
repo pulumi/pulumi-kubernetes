@@ -173,67 +173,77 @@ public final class CSIPersistentVolumeSourcePatch {
 
         @CustomType.Setter
         public Builder controllerExpandSecretRef(@Nullable SecretReferencePatch controllerExpandSecretRef) {
+
             this.controllerExpandSecretRef = controllerExpandSecretRef;
             return this;
         }
         @CustomType.Setter
         public Builder controllerPublishSecretRef(@Nullable SecretReferencePatch controllerPublishSecretRef) {
+
             this.controllerPublishSecretRef = controllerPublishSecretRef;
             return this;
         }
         @CustomType.Setter
         public Builder driver(@Nullable String driver) {
+
             this.driver = driver;
             return this;
         }
         @CustomType.Setter
         public Builder fsType(@Nullable String fsType) {
+
             this.fsType = fsType;
             return this;
         }
         @CustomType.Setter
         public Builder nodeExpandSecretRef(@Nullable SecretReferencePatch nodeExpandSecretRef) {
+
             this.nodeExpandSecretRef = nodeExpandSecretRef;
             return this;
         }
         @CustomType.Setter
         public Builder nodePublishSecretRef(@Nullable SecretReferencePatch nodePublishSecretRef) {
+
             this.nodePublishSecretRef = nodePublishSecretRef;
             return this;
         }
         @CustomType.Setter
         public Builder nodeStageSecretRef(@Nullable SecretReferencePatch nodeStageSecretRef) {
+
             this.nodeStageSecretRef = nodeStageSecretRef;
             return this;
         }
         @CustomType.Setter
         public Builder readOnly(@Nullable Boolean readOnly) {
+
             this.readOnly = readOnly;
             return this;
         }
         @CustomType.Setter
         public Builder volumeAttributes(@Nullable Map<String,String> volumeAttributes) {
+
             this.volumeAttributes = volumeAttributes;
             return this;
         }
         @CustomType.Setter
         public Builder volumeHandle(@Nullable String volumeHandle) {
+
             this.volumeHandle = volumeHandle;
             return this;
         }
         public CSIPersistentVolumeSourcePatch build() {
-            final var o = new CSIPersistentVolumeSourcePatch();
-            o.controllerExpandSecretRef = controllerExpandSecretRef;
-            o.controllerPublishSecretRef = controllerPublishSecretRef;
-            o.driver = driver;
-            o.fsType = fsType;
-            o.nodeExpandSecretRef = nodeExpandSecretRef;
-            o.nodePublishSecretRef = nodePublishSecretRef;
-            o.nodeStageSecretRef = nodeStageSecretRef;
-            o.readOnly = readOnly;
-            o.volumeAttributes = volumeAttributes;
-            o.volumeHandle = volumeHandle;
-            return o;
+            final var _resultValue = new CSIPersistentVolumeSourcePatch();
+            _resultValue.controllerExpandSecretRef = controllerExpandSecretRef;
+            _resultValue.controllerPublishSecretRef = controllerPublishSecretRef;
+            _resultValue.driver = driver;
+            _resultValue.fsType = fsType;
+            _resultValue.nodeExpandSecretRef = nodeExpandSecretRef;
+            _resultValue.nodePublishSecretRef = nodePublishSecretRef;
+            _resultValue.nodeStageSecretRef = nodeStageSecretRef;
+            _resultValue.readOnly = readOnly;
+            _resultValue.volumeAttributes = volumeAttributes;
+            _resultValue.volumeHandle = volumeHandle;
+            return _resultValue;
         }
     }
 }

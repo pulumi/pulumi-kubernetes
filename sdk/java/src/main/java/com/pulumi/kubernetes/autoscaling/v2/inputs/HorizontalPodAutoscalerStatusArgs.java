@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.autoscaling.v2.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.autoscaling.v2.inputs.HorizontalPodAutoscalerConditionArgs;
 import com.pulumi.kubernetes.autoscaling.v2.inputs.MetricStatusArgs;
 import java.lang.Integer;
@@ -289,7 +290,9 @@ public final class HorizontalPodAutoscalerStatusArgs extends com.pulumi.resource
         }
 
         public HorizontalPodAutoscalerStatusArgs build() {
-            $.desiredReplicas = Objects.requireNonNull($.desiredReplicas, "expected parameter 'desiredReplicas' to be non-null");
+            if ($.desiredReplicas == null) {
+                throw new MissingRequiredPropertyException("HorizontalPodAutoscalerStatusArgs", "desiredReplicas");
+            }
             return $;
         }
     }

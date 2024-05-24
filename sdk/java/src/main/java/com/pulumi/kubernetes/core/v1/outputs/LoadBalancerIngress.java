@@ -88,21 +88,25 @@ public final class LoadBalancerIngress {
 
         @CustomType.Setter
         public Builder hostname(@Nullable String hostname) {
+
             this.hostname = hostname;
             return this;
         }
         @CustomType.Setter
         public Builder ip(@Nullable String ip) {
+
             this.ip = ip;
             return this;
         }
         @CustomType.Setter
         public Builder ipMode(@Nullable String ipMode) {
+
             this.ipMode = ipMode;
             return this;
         }
         @CustomType.Setter
         public Builder ports(@Nullable List<PortStatus> ports) {
+
             this.ports = ports;
             return this;
         }
@@ -110,12 +114,12 @@ public final class LoadBalancerIngress {
             return ports(List.of(ports));
         }
         public LoadBalancerIngress build() {
-            final var o = new LoadBalancerIngress();
-            o.hostname = hostname;
-            o.ip = ip;
-            o.ipMode = ipMode;
-            o.ports = ports;
-            return o;
+            final var _resultValue = new LoadBalancerIngress();
+            _resultValue.hostname = hostname;
+            _resultValue.ip = ip;
+            _resultValue.ipMode = ipMode;
+            _resultValue.ports = ports;
+            return _resultValue;
         }
     }
 }

@@ -90,16 +90,19 @@ public final class IngressSpec {
 
         @CustomType.Setter
         public Builder defaultBackend(@Nullable IngressBackend defaultBackend) {
+
             this.defaultBackend = defaultBackend;
             return this;
         }
         @CustomType.Setter
         public Builder ingressClassName(@Nullable String ingressClassName) {
+
             this.ingressClassName = ingressClassName;
             return this;
         }
         @CustomType.Setter
         public Builder rules(@Nullable List<IngressRule> rules) {
+
             this.rules = rules;
             return this;
         }
@@ -108,6 +111,7 @@ public final class IngressSpec {
         }
         @CustomType.Setter
         public Builder tls(@Nullable List<IngressTLS> tls) {
+
             this.tls = tls;
             return this;
         }
@@ -115,12 +119,12 @@ public final class IngressSpec {
             return tls(List.of(tls));
         }
         public IngressSpec build() {
-            final var o = new IngressSpec();
-            o.defaultBackend = defaultBackend;
-            o.ingressClassName = ingressClassName;
-            o.rules = rules;
-            o.tls = tls;
-            return o;
+            final var _resultValue = new IngressSpec();
+            _resultValue.defaultBackend = defaultBackend;
+            _resultValue.ingressClassName = ingressClassName;
+            _resultValue.rules = rules;
+            _resultValue.tls = tls;
+            return _resultValue;
         }
     }
 }

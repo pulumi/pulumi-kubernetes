@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.rbac.v1beta1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.meta.v1.outputs.ObjectMeta;
 import com.pulumi.kubernetes.rbac.v1beta1.outputs.RoleRef;
 import com.pulumi.kubernetes.rbac.v1beta1.outputs.Subject;
@@ -104,26 +105,33 @@ public final class ClusterRoleBinding {
 
         @CustomType.Setter
         public Builder apiVersion(@Nullable String apiVersion) {
+
             this.apiVersion = apiVersion;
             return this;
         }
         @CustomType.Setter
         public Builder kind(@Nullable String kind) {
+
             this.kind = kind;
             return this;
         }
         @CustomType.Setter
         public Builder metadata(@Nullable ObjectMeta metadata) {
+
             this.metadata = metadata;
             return this;
         }
         @CustomType.Setter
         public Builder roleRef(RoleRef roleRef) {
-            this.roleRef = Objects.requireNonNull(roleRef);
+            if (roleRef == null) {
+              throw new MissingRequiredPropertyException("ClusterRoleBinding", "roleRef");
+            }
+            this.roleRef = roleRef;
             return this;
         }
         @CustomType.Setter
         public Builder subjects(@Nullable List<Subject> subjects) {
+
             this.subjects = subjects;
             return this;
         }
@@ -131,13 +139,13 @@ public final class ClusterRoleBinding {
             return subjects(List.of(subjects));
         }
         public ClusterRoleBinding build() {
-            final var o = new ClusterRoleBinding();
-            o.apiVersion = apiVersion;
-            o.kind = kind;
-            o.metadata = metadata;
-            o.roleRef = roleRef;
-            o.subjects = subjects;
-            return o;
+            final var _resultValue = new ClusterRoleBinding();
+            _resultValue.apiVersion = apiVersion;
+            _resultValue.kind = kind;
+            _resultValue.metadata = metadata;
+            _resultValue.roleRef = roleRef;
+            _resultValue.subjects = subjects;
+            return _resultValue;
         }
     }
 }

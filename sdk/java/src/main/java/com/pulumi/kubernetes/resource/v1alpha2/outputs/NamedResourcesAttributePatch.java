@@ -146,55 +146,63 @@ public final class NamedResourcesAttributePatch {
 
         @CustomType.Setter
         public Builder bool(@Nullable Boolean bool) {
+
             this.bool = bool;
             return this;
         }
         @CustomType.Setter("int")
         public Builder int_(@Nullable Integer int_) {
+
             this.int_ = int_;
             return this;
         }
         @CustomType.Setter
         public Builder intSlice(@Nullable NamedResourcesIntSlicePatch intSlice) {
+
             this.intSlice = intSlice;
             return this;
         }
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder quantity(@Nullable String quantity) {
+
             this.quantity = quantity;
             return this;
         }
         @CustomType.Setter
         public Builder string(@Nullable String string) {
+
             this.string = string;
             return this;
         }
         @CustomType.Setter
         public Builder stringSlice(@Nullable NamedResourcesStringSlicePatch stringSlice) {
+
             this.stringSlice = stringSlice;
             return this;
         }
         @CustomType.Setter
         public Builder version(@Nullable String version) {
+
             this.version = version;
             return this;
         }
         public NamedResourcesAttributePatch build() {
-            final var o = new NamedResourcesAttributePatch();
-            o.bool = bool;
-            o.int_ = int_;
-            o.intSlice = intSlice;
-            o.name = name;
-            o.quantity = quantity;
-            o.string = string;
-            o.stringSlice = stringSlice;
-            o.version = version;
-            return o;
+            final var _resultValue = new NamedResourcesAttributePatch();
+            _resultValue.bool = bool;
+            _resultValue.int_ = int_;
+            _resultValue.intSlice = intSlice;
+            _resultValue.name = name;
+            _resultValue.quantity = quantity;
+            _resultValue.string = string;
+            _resultValue.stringSlice = stringSlice;
+            _resultValue.version = version;
+            return _resultValue;
         }
     }
 }

@@ -172,11 +172,13 @@ public final class DaemonSetStatusPatch {
 
         @CustomType.Setter
         public Builder collisionCount(@Nullable Integer collisionCount) {
+
             this.collisionCount = collisionCount;
             return this;
         }
         @CustomType.Setter
         public Builder conditions(@Nullable List<DaemonSetConditionPatch> conditions) {
+
             this.conditions = conditions;
             return this;
         }
@@ -185,57 +187,65 @@ public final class DaemonSetStatusPatch {
         }
         @CustomType.Setter
         public Builder currentNumberScheduled(@Nullable Integer currentNumberScheduled) {
+
             this.currentNumberScheduled = currentNumberScheduled;
             return this;
         }
         @CustomType.Setter
         public Builder desiredNumberScheduled(@Nullable Integer desiredNumberScheduled) {
+
             this.desiredNumberScheduled = desiredNumberScheduled;
             return this;
         }
         @CustomType.Setter
         public Builder numberAvailable(@Nullable Integer numberAvailable) {
+
             this.numberAvailable = numberAvailable;
             return this;
         }
         @CustomType.Setter
         public Builder numberMisscheduled(@Nullable Integer numberMisscheduled) {
+
             this.numberMisscheduled = numberMisscheduled;
             return this;
         }
         @CustomType.Setter
         public Builder numberReady(@Nullable Integer numberReady) {
+
             this.numberReady = numberReady;
             return this;
         }
         @CustomType.Setter
         public Builder numberUnavailable(@Nullable Integer numberUnavailable) {
+
             this.numberUnavailable = numberUnavailable;
             return this;
         }
         @CustomType.Setter
         public Builder observedGeneration(@Nullable Integer observedGeneration) {
+
             this.observedGeneration = observedGeneration;
             return this;
         }
         @CustomType.Setter
         public Builder updatedNumberScheduled(@Nullable Integer updatedNumberScheduled) {
+
             this.updatedNumberScheduled = updatedNumberScheduled;
             return this;
         }
         public DaemonSetStatusPatch build() {
-            final var o = new DaemonSetStatusPatch();
-            o.collisionCount = collisionCount;
-            o.conditions = conditions;
-            o.currentNumberScheduled = currentNumberScheduled;
-            o.desiredNumberScheduled = desiredNumberScheduled;
-            o.numberAvailable = numberAvailable;
-            o.numberMisscheduled = numberMisscheduled;
-            o.numberReady = numberReady;
-            o.numberUnavailable = numberUnavailable;
-            o.observedGeneration = observedGeneration;
-            o.updatedNumberScheduled = updatedNumberScheduled;
-            return o;
+            final var _resultValue = new DaemonSetStatusPatch();
+            _resultValue.collisionCount = collisionCount;
+            _resultValue.conditions = conditions;
+            _resultValue.currentNumberScheduled = currentNumberScheduled;
+            _resultValue.desiredNumberScheduled = desiredNumberScheduled;
+            _resultValue.numberAvailable = numberAvailable;
+            _resultValue.numberMisscheduled = numberMisscheduled;
+            _resultValue.numberReady = numberReady;
+            _resultValue.numberUnavailable = numberUnavailable;
+            _resultValue.observedGeneration = observedGeneration;
+            _resultValue.updatedNumberScheduled = updatedNumberScheduled;
+            return _resultValue;
         }
     }
 }

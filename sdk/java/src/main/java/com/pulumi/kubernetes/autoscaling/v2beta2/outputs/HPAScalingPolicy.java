@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.autoscaling.v2beta2.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Integer;
 import java.lang.String;
 import java.util.Objects;
@@ -71,25 +72,34 @@ public final class HPAScalingPolicy {
 
         @CustomType.Setter
         public Builder periodSeconds(Integer periodSeconds) {
-            this.periodSeconds = Objects.requireNonNull(periodSeconds);
+            if (periodSeconds == null) {
+              throw new MissingRequiredPropertyException("HPAScalingPolicy", "periodSeconds");
+            }
+            this.periodSeconds = periodSeconds;
             return this;
         }
         @CustomType.Setter
         public Builder type(String type) {
-            this.type = Objects.requireNonNull(type);
+            if (type == null) {
+              throw new MissingRequiredPropertyException("HPAScalingPolicy", "type");
+            }
+            this.type = type;
             return this;
         }
         @CustomType.Setter
         public Builder value(Integer value) {
-            this.value = Objects.requireNonNull(value);
+            if (value == null) {
+              throw new MissingRequiredPropertyException("HPAScalingPolicy", "value");
+            }
+            this.value = value;
             return this;
         }
         public HPAScalingPolicy build() {
-            final var o = new HPAScalingPolicy();
-            o.periodSeconds = periodSeconds;
-            o.type = type;
-            o.value = value;
-            return o;
+            final var _resultValue = new HPAScalingPolicy();
+            _resultValue.periodSeconds = periodSeconds;
+            _resultValue.type = type;
+            _resultValue.value = value;
+            return _resultValue;
         }
     }
 }

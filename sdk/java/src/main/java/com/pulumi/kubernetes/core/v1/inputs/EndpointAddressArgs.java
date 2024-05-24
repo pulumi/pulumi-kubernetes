@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.core.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.inputs.ObjectReferenceArgs;
 import java.lang.String;
 import java.util.Objects;
@@ -192,7 +193,9 @@ public final class EndpointAddressArgs extends com.pulumi.resources.ResourceArgs
         }
 
         public EndpointAddressArgs build() {
-            $.ip = Objects.requireNonNull($.ip, "expected parameter 'ip' to be non-null");
+            if ($.ip == null) {
+                throw new MissingRequiredPropertyException("EndpointAddressArgs", "ip");
+            }
             return $;
         }
     }

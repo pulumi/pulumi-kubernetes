@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Integer;
 import java.lang.String;
 import java.util.Objects;
@@ -73,25 +74,32 @@ public final class KeyToPath {
 
         @CustomType.Setter
         public Builder key(String key) {
-            this.key = Objects.requireNonNull(key);
+            if (key == null) {
+              throw new MissingRequiredPropertyException("KeyToPath", "key");
+            }
+            this.key = key;
             return this;
         }
         @CustomType.Setter
         public Builder mode(@Nullable Integer mode) {
+
             this.mode = mode;
             return this;
         }
         @CustomType.Setter
         public Builder path(String path) {
-            this.path = Objects.requireNonNull(path);
+            if (path == null) {
+              throw new MissingRequiredPropertyException("KeyToPath", "path");
+            }
+            this.path = path;
             return this;
         }
         public KeyToPath build() {
-            final var o = new KeyToPath();
-            o.key = key;
-            o.mode = mode;
-            o.path = path;
-            return o;
+            final var _resultValue = new KeyToPath();
+            _resultValue.key = key;
+            _resultValue.mode = mode;
+            _resultValue.path = path;
+            return _resultValue;
         }
     }
 }

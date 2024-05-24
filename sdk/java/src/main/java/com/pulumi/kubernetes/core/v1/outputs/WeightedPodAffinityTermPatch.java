@@ -59,19 +59,21 @@ public final class WeightedPodAffinityTermPatch {
 
         @CustomType.Setter
         public Builder podAffinityTerm(@Nullable PodAffinityTermPatch podAffinityTerm) {
+
             this.podAffinityTerm = podAffinityTerm;
             return this;
         }
         @CustomType.Setter
         public Builder weight(@Nullable Integer weight) {
+
             this.weight = weight;
             return this;
         }
         public WeightedPodAffinityTermPatch build() {
-            final var o = new WeightedPodAffinityTermPatch();
-            o.podAffinityTerm = podAffinityTerm;
-            o.weight = weight;
-            return o;
+            final var _resultValue = new WeightedPodAffinityTermPatch();
+            _resultValue.podAffinityTerm = podAffinityTerm;
+            _resultValue.weight = weight;
+            return _resultValue;
         }
     }
 }

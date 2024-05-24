@@ -60,6 +60,7 @@ public final class LabelSelectorPatch {
 
         @CustomType.Setter
         public Builder matchExpressions(@Nullable List<LabelSelectorRequirementPatch> matchExpressions) {
+
             this.matchExpressions = matchExpressions;
             return this;
         }
@@ -68,14 +69,15 @@ public final class LabelSelectorPatch {
         }
         @CustomType.Setter
         public Builder matchLabels(@Nullable Map<String,String> matchLabels) {
+
             this.matchLabels = matchLabels;
             return this;
         }
         public LabelSelectorPatch build() {
-            final var o = new LabelSelectorPatch();
-            o.matchExpressions = matchExpressions;
-            o.matchLabels = matchLabels;
-            return o;
+            final var _resultValue = new LabelSelectorPatch();
+            _resultValue.matchExpressions = matchExpressions;
+            _resultValue.matchLabels = matchLabels;
+            return _resultValue;
         }
     }
 }

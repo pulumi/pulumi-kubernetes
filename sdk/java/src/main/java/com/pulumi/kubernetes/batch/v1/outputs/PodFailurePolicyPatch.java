@@ -44,6 +44,7 @@ public final class PodFailurePolicyPatch {
 
         @CustomType.Setter
         public Builder rules(@Nullable List<PodFailurePolicyRulePatch> rules) {
+
             this.rules = rules;
             return this;
         }
@@ -51,9 +52,9 @@ public final class PodFailurePolicyPatch {
             return rules(List.of(rules));
         }
         public PodFailurePolicyPatch build() {
-            final var o = new PodFailurePolicyPatch();
-            o.rules = rules;
-            return o;
+            final var _resultValue = new PodFailurePolicyPatch();
+            _resultValue.rules = rules;
+            return _resultValue;
         }
     }
 }

@@ -101,37 +101,42 @@ public final class ContainerPortPatch {
 
         @CustomType.Setter
         public Builder containerPort(@Nullable Integer containerPort) {
+
             this.containerPort = containerPort;
             return this;
         }
         @CustomType.Setter
         public Builder hostIP(@Nullable String hostIP) {
+
             this.hostIP = hostIP;
             return this;
         }
         @CustomType.Setter
         public Builder hostPort(@Nullable Integer hostPort) {
+
             this.hostPort = hostPort;
             return this;
         }
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder protocol(@Nullable String protocol) {
+
             this.protocol = protocol;
             return this;
         }
         public ContainerPortPatch build() {
-            final var o = new ContainerPortPatch();
-            o.containerPort = containerPort;
-            o.hostIP = hostIP;
-            o.hostPort = hostPort;
-            o.name = name;
-            o.protocol = protocol;
-            return o;
+            final var _resultValue = new ContainerPortPatch();
+            _resultValue.containerPort = containerPort;
+            _resultValue.hostIP = hostIP;
+            _resultValue.hostPort = hostPort;
+            _resultValue.name = name;
+            _resultValue.protocol = protocol;
+            return _resultValue;
         }
     }
 }

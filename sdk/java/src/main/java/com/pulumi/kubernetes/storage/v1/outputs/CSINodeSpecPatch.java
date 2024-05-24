@@ -44,6 +44,7 @@ public final class CSINodeSpecPatch {
 
         @CustomType.Setter
         public Builder drivers(@Nullable List<CSINodeDriverPatch> drivers) {
+
             this.drivers = drivers;
             return this;
         }
@@ -51,9 +52,9 @@ public final class CSINodeSpecPatch {
             return drivers(List.of(drivers));
         }
         public CSINodeSpecPatch build() {
-            final var o = new CSINodeSpecPatch();
-            o.drivers = drivers;
-            return o;
+            final var _resultValue = new CSINodeSpecPatch();
+            _resultValue.drivers = drivers;
+            return _resultValue;
         }
     }
 }

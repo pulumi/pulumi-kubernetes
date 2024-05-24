@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.outputs.VolumeProjection;
 import java.lang.Integer;
 import java.util.List;
@@ -60,22 +61,26 @@ public final class ProjectedVolumeSource {
 
         @CustomType.Setter
         public Builder defaultMode(@Nullable Integer defaultMode) {
+
             this.defaultMode = defaultMode;
             return this;
         }
         @CustomType.Setter
         public Builder sources(List<VolumeProjection> sources) {
-            this.sources = Objects.requireNonNull(sources);
+            if (sources == null) {
+              throw new MissingRequiredPropertyException("ProjectedVolumeSource", "sources");
+            }
+            this.sources = sources;
             return this;
         }
         public Builder sources(VolumeProjection... sources) {
             return sources(List.of(sources));
         }
         public ProjectedVolumeSource build() {
-            final var o = new ProjectedVolumeSource();
-            o.defaultMode = defaultMode;
-            o.sources = sources;
-            return o;
+            final var _resultValue = new ProjectedVolumeSource();
+            _resultValue.defaultMode = defaultMode;
+            _resultValue.sources = sources;
+            return _resultValue;
         }
     }
 }

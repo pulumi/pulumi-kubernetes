@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.extensions.v1beta1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.extensions.v1beta1.inputs.DaemonSetConditionArgs;
 import java.lang.Integer;
 import java.util.List;
@@ -425,10 +426,18 @@ public final class DaemonSetStatusArgs extends com.pulumi.resources.ResourceArgs
         }
 
         public DaemonSetStatusArgs build() {
-            $.currentNumberScheduled = Objects.requireNonNull($.currentNumberScheduled, "expected parameter 'currentNumberScheduled' to be non-null");
-            $.desiredNumberScheduled = Objects.requireNonNull($.desiredNumberScheduled, "expected parameter 'desiredNumberScheduled' to be non-null");
-            $.numberMisscheduled = Objects.requireNonNull($.numberMisscheduled, "expected parameter 'numberMisscheduled' to be non-null");
-            $.numberReady = Objects.requireNonNull($.numberReady, "expected parameter 'numberReady' to be non-null");
+            if ($.currentNumberScheduled == null) {
+                throw new MissingRequiredPropertyException("DaemonSetStatusArgs", "currentNumberScheduled");
+            }
+            if ($.desiredNumberScheduled == null) {
+                throw new MissingRequiredPropertyException("DaemonSetStatusArgs", "desiredNumberScheduled");
+            }
+            if ($.numberMisscheduled == null) {
+                throw new MissingRequiredPropertyException("DaemonSetStatusArgs", "numberMisscheduled");
+            }
+            if ($.numberReady == null) {
+                throw new MissingRequiredPropertyException("DaemonSetStatusArgs", "numberReady");
+            }
             return $;
         }
     }

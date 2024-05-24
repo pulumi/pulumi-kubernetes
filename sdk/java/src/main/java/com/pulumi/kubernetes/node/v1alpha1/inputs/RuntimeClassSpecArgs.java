@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.node.v1alpha1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.node.v1alpha1.inputs.OverheadArgs;
 import com.pulumi.kubernetes.node.v1alpha1.inputs.SchedulingArgs;
 import java.lang.String;
@@ -156,7 +157,9 @@ public final class RuntimeClassSpecArgs extends com.pulumi.resources.ResourceArg
         }
 
         public RuntimeClassSpecArgs build() {
-            $.runtimeHandler = Objects.requireNonNull($.runtimeHandler, "expected parameter 'runtimeHandler' to be non-null");
+            if ($.runtimeHandler == null) {
+                throw new MissingRequiredPropertyException("RuntimeClassSpecArgs", "runtimeHandler");
+            }
             return $;
         }
     }

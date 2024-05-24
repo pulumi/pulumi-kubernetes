@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.admissionregistration.v1alpha1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.admissionregistration.v1alpha1.outputs.AuditAnnotation;
 import com.pulumi.kubernetes.admissionregistration.v1alpha1.outputs.MatchCondition;
 import com.pulumi.kubernetes.admissionregistration.v1alpha1.outputs.MatchResources;
@@ -173,6 +174,7 @@ public final class ValidatingAdmissionPolicySpec {
 
         @CustomType.Setter
         public Builder auditAnnotations(@Nullable List<AuditAnnotation> auditAnnotations) {
+
             this.auditAnnotations = auditAnnotations;
             return this;
         }
@@ -181,11 +183,13 @@ public final class ValidatingAdmissionPolicySpec {
         }
         @CustomType.Setter
         public Builder failurePolicy(@Nullable String failurePolicy) {
+
             this.failurePolicy = failurePolicy;
             return this;
         }
         @CustomType.Setter
         public Builder matchConditions(@Nullable List<MatchCondition> matchConditions) {
+
             this.matchConditions = matchConditions;
             return this;
         }
@@ -194,17 +198,22 @@ public final class ValidatingAdmissionPolicySpec {
         }
         @CustomType.Setter
         public Builder matchConstraints(@Nullable MatchResources matchConstraints) {
+
             this.matchConstraints = matchConstraints;
             return this;
         }
         @CustomType.Setter
         public Builder paramKind(@Nullable ParamKind paramKind) {
+
             this.paramKind = paramKind;
             return this;
         }
         @CustomType.Setter
         public Builder validations(List<Validation> validations) {
-            this.validations = Objects.requireNonNull(validations);
+            if (validations == null) {
+              throw new MissingRequiredPropertyException("ValidatingAdmissionPolicySpec", "validations");
+            }
+            this.validations = validations;
             return this;
         }
         public Builder validations(Validation... validations) {
@@ -212,6 +221,7 @@ public final class ValidatingAdmissionPolicySpec {
         }
         @CustomType.Setter
         public Builder variables(@Nullable List<Variable> variables) {
+
             this.variables = variables;
             return this;
         }
@@ -219,15 +229,15 @@ public final class ValidatingAdmissionPolicySpec {
             return variables(List.of(variables));
         }
         public ValidatingAdmissionPolicySpec build() {
-            final var o = new ValidatingAdmissionPolicySpec();
-            o.auditAnnotations = auditAnnotations;
-            o.failurePolicy = failurePolicy;
-            o.matchConditions = matchConditions;
-            o.matchConstraints = matchConstraints;
-            o.paramKind = paramKind;
-            o.validations = validations;
-            o.variables = variables;
-            return o;
+            final var _resultValue = new ValidatingAdmissionPolicySpec();
+            _resultValue.auditAnnotations = auditAnnotations;
+            _resultValue.failurePolicy = failurePolicy;
+            _resultValue.matchConditions = matchConditions;
+            _resultValue.matchConstraints = matchConstraints;
+            _resultValue.paramKind = paramKind;
+            _resultValue.validations = validations;
+            _resultValue.variables = variables;
+            return _resultValue;
         }
     }
 }

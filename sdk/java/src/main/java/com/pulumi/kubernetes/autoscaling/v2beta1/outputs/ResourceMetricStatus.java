@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.autoscaling.v2beta1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Integer;
 import java.lang.String;
 import java.util.Objects;
@@ -73,25 +74,32 @@ public final class ResourceMetricStatus {
 
         @CustomType.Setter
         public Builder currentAverageUtilization(@Nullable Integer currentAverageUtilization) {
+
             this.currentAverageUtilization = currentAverageUtilization;
             return this;
         }
         @CustomType.Setter
         public Builder currentAverageValue(String currentAverageValue) {
-            this.currentAverageValue = Objects.requireNonNull(currentAverageValue);
+            if (currentAverageValue == null) {
+              throw new MissingRequiredPropertyException("ResourceMetricStatus", "currentAverageValue");
+            }
+            this.currentAverageValue = currentAverageValue;
             return this;
         }
         @CustomType.Setter
         public Builder name(String name) {
-            this.name = Objects.requireNonNull(name);
+            if (name == null) {
+              throw new MissingRequiredPropertyException("ResourceMetricStatus", "name");
+            }
+            this.name = name;
             return this;
         }
         public ResourceMetricStatus build() {
-            final var o = new ResourceMetricStatus();
-            o.currentAverageUtilization = currentAverageUtilization;
-            o.currentAverageValue = currentAverageValue;
-            o.name = name;
-            return o;
+            final var _resultValue = new ResourceMetricStatus();
+            _resultValue.currentAverageUtilization = currentAverageUtilization;
+            _resultValue.currentAverageValue = currentAverageValue;
+            _resultValue.name = name;
+            return _resultValue;
         }
     }
 }

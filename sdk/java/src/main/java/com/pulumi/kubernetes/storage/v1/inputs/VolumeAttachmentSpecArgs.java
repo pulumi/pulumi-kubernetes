@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.storage.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.storage.v1.inputs.VolumeAttachmentSourceArgs;
 import java.lang.String;
 import java.util.Objects;
@@ -153,9 +154,15 @@ public final class VolumeAttachmentSpecArgs extends com.pulumi.resources.Resourc
         }
 
         public VolumeAttachmentSpecArgs build() {
-            $.attacher = Objects.requireNonNull($.attacher, "expected parameter 'attacher' to be non-null");
-            $.nodeName = Objects.requireNonNull($.nodeName, "expected parameter 'nodeName' to be non-null");
-            $.source = Objects.requireNonNull($.source, "expected parameter 'source' to be non-null");
+            if ($.attacher == null) {
+                throw new MissingRequiredPropertyException("VolumeAttachmentSpecArgs", "attacher");
+            }
+            if ($.nodeName == null) {
+                throw new MissingRequiredPropertyException("VolumeAttachmentSpecArgs", "nodeName");
+            }
+            if ($.source == null) {
+                throw new MissingRequiredPropertyException("VolumeAttachmentSpecArgs", "source");
+            }
             return $;
         }
     }

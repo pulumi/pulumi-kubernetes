@@ -44,13 +44,14 @@ public final class VolumeNodeAffinity {
 
         @CustomType.Setter
         public Builder required(@Nullable NodeSelector required) {
+
             this.required = required;
             return this;
         }
         public VolumeNodeAffinity build() {
-            final var o = new VolumeNodeAffinity();
-            o.required = required;
-            return o;
+            final var _resultValue = new VolumeNodeAffinity();
+            _resultValue.required = required;
+            return _resultValue;
         }
     }
 }

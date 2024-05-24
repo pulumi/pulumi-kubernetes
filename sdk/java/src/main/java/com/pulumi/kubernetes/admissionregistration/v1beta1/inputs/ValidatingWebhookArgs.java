@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.admissionregistration.v1beta1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.admissionregistration.v1beta1.inputs.RuleWithOperationsArgs;
 import com.pulumi.kubernetes.admissionregistration.v1beta1.inputs.WebhookClientConfigArgs;
 import com.pulumi.kubernetes.meta.v1.inputs.LabelSelectorArgs;
@@ -582,8 +583,12 @@ public final class ValidatingWebhookArgs extends com.pulumi.resources.ResourceAr
         }
 
         public ValidatingWebhookArgs build() {
-            $.clientConfig = Objects.requireNonNull($.clientConfig, "expected parameter 'clientConfig' to be non-null");
-            $.name = Objects.requireNonNull($.name, "expected parameter 'name' to be non-null");
+            if ($.clientConfig == null) {
+                throw new MissingRequiredPropertyException("ValidatingWebhookArgs", "clientConfig");
+            }
+            if ($.name == null) {
+                throw new MissingRequiredPropertyException("ValidatingWebhookArgs", "name");
+            }
             return $;
         }
     }

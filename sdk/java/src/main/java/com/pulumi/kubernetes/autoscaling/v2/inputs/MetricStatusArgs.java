@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.autoscaling.v2.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.autoscaling.v2.inputs.ContainerResourceMetricStatusArgs;
 import com.pulumi.kubernetes.autoscaling.v2.inputs.ExternalMetricStatusArgs;
 import com.pulumi.kubernetes.autoscaling.v2.inputs.ObjectMetricStatusArgs;
@@ -270,7 +271,9 @@ public final class MetricStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         public MetricStatusArgs build() {
-            $.type = Objects.requireNonNull($.type, "expected parameter 'type' to be non-null");
+            if ($.type == null) {
+                throw new MissingRequiredPropertyException("MetricStatusArgs", "type");
+            }
             return $;
         }
     }

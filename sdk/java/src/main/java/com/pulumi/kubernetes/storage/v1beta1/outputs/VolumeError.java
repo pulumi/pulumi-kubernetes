@@ -58,19 +58,21 @@ public final class VolumeError {
 
         @CustomType.Setter
         public Builder message(@Nullable String message) {
+
             this.message = message;
             return this;
         }
         @CustomType.Setter
         public Builder time(@Nullable String time) {
+
             this.time = time;
             return this;
         }
         public VolumeError build() {
-            final var o = new VolumeError();
-            o.message = message;
-            o.time = time;
-            return o;
+            final var _resultValue = new VolumeError();
+            _resultValue.message = message;
+            _resultValue.time = time;
+            return _resultValue;
         }
     }
 }

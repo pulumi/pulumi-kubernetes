@@ -44,13 +44,14 @@ public final class DaemonEndpointPatch {
 
         @CustomType.Setter
         public Builder Port(@Nullable Integer Port) {
+
             this.Port = Port;
             return this;
         }
         public DaemonEndpointPatch build() {
-            final var o = new DaemonEndpointPatch();
-            o.Port = Port;
-            return o;
+            final var _resultValue = new DaemonEndpointPatch();
+            _resultValue.Port = Port;
+            return _resultValue;
         }
     }
 }

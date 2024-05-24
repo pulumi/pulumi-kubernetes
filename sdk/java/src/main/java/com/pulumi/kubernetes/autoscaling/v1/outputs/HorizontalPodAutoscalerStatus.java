@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.autoscaling.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Integer;
 import java.lang.String;
 import java.util.Objects;
@@ -101,37 +102,46 @@ public final class HorizontalPodAutoscalerStatus {
 
         @CustomType.Setter
         public Builder currentCPUUtilizationPercentage(@Nullable Integer currentCPUUtilizationPercentage) {
+
             this.currentCPUUtilizationPercentage = currentCPUUtilizationPercentage;
             return this;
         }
         @CustomType.Setter
         public Builder currentReplicas(Integer currentReplicas) {
-            this.currentReplicas = Objects.requireNonNull(currentReplicas);
+            if (currentReplicas == null) {
+              throw new MissingRequiredPropertyException("HorizontalPodAutoscalerStatus", "currentReplicas");
+            }
+            this.currentReplicas = currentReplicas;
             return this;
         }
         @CustomType.Setter
         public Builder desiredReplicas(Integer desiredReplicas) {
-            this.desiredReplicas = Objects.requireNonNull(desiredReplicas);
+            if (desiredReplicas == null) {
+              throw new MissingRequiredPropertyException("HorizontalPodAutoscalerStatus", "desiredReplicas");
+            }
+            this.desiredReplicas = desiredReplicas;
             return this;
         }
         @CustomType.Setter
         public Builder lastScaleTime(@Nullable String lastScaleTime) {
+
             this.lastScaleTime = lastScaleTime;
             return this;
         }
         @CustomType.Setter
         public Builder observedGeneration(@Nullable Integer observedGeneration) {
+
             this.observedGeneration = observedGeneration;
             return this;
         }
         public HorizontalPodAutoscalerStatus build() {
-            final var o = new HorizontalPodAutoscalerStatus();
-            o.currentCPUUtilizationPercentage = currentCPUUtilizationPercentage;
-            o.currentReplicas = currentReplicas;
-            o.desiredReplicas = desiredReplicas;
-            o.lastScaleTime = lastScaleTime;
-            o.observedGeneration = observedGeneration;
-            return o;
+            final var _resultValue = new HorizontalPodAutoscalerStatus();
+            _resultValue.currentCPUUtilizationPercentage = currentCPUUtilizationPercentage;
+            _resultValue.currentReplicas = currentReplicas;
+            _resultValue.desiredReplicas = desiredReplicas;
+            _resultValue.lastScaleTime = lastScaleTime;
+            _resultValue.observedGeneration = observedGeneration;
+            return _resultValue;
         }
     }
 }

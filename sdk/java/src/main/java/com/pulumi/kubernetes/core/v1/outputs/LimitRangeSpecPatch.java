@@ -44,6 +44,7 @@ public final class LimitRangeSpecPatch {
 
         @CustomType.Setter
         public Builder limits(@Nullable List<LimitRangeItemPatch> limits) {
+
             this.limits = limits;
             return this;
         }
@@ -51,9 +52,9 @@ public final class LimitRangeSpecPatch {
             return limits(List.of(limits));
         }
         public LimitRangeSpecPatch build() {
-            final var o = new LimitRangeSpecPatch();
-            o.limits = limits;
-            return o;
+            final var _resultValue = new LimitRangeSpecPatch();
+            _resultValue.limits = limits;
+            return _resultValue;
         }
     }
 }

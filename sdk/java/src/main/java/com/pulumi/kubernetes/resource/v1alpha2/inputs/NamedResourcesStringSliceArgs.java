@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.resource.v1alpha2.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.List;
 import java.util.Objects;
@@ -89,7 +90,9 @@ public final class NamedResourcesStringSliceArgs extends com.pulumi.resources.Re
         }
 
         public NamedResourcesStringSliceArgs build() {
-            $.strings = Objects.requireNonNull($.strings, "expected parameter 'strings' to be non-null");
+            if ($.strings == null) {
+                throw new MissingRequiredPropertyException("NamedResourcesStringSliceArgs", "strings");
+            }
             return $;
         }
     }

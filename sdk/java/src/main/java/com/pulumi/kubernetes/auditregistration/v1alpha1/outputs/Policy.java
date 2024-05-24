@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.auditregistration.v1alpha1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.List;
 import java.util.Objects;
@@ -58,11 +59,15 @@ public final class Policy {
 
         @CustomType.Setter
         public Builder level(String level) {
-            this.level = Objects.requireNonNull(level);
+            if (level == null) {
+              throw new MissingRequiredPropertyException("Policy", "level");
+            }
+            this.level = level;
             return this;
         }
         @CustomType.Setter
         public Builder stages(@Nullable List<String> stages) {
+
             this.stages = stages;
             return this;
         }
@@ -70,10 +75,10 @@ public final class Policy {
             return stages(List.of(stages));
         }
         public Policy build() {
-            final var o = new Policy();
-            o.level = level;
-            o.stages = stages;
-            return o;
+            final var _resultValue = new Policy();
+            _resultValue.level = level;
+            _resultValue.stages = stages;
+            return _resultValue;
         }
     }
 }

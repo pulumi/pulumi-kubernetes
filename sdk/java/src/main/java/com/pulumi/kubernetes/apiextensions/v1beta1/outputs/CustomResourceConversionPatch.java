@@ -76,6 +76,7 @@ public final class CustomResourceConversionPatch {
 
         @CustomType.Setter
         public Builder conversionReviewVersions(@Nullable List<String> conversionReviewVersions) {
+
             this.conversionReviewVersions = conversionReviewVersions;
             return this;
         }
@@ -84,20 +85,22 @@ public final class CustomResourceConversionPatch {
         }
         @CustomType.Setter
         public Builder strategy(@Nullable String strategy) {
+
             this.strategy = strategy;
             return this;
         }
         @CustomType.Setter
         public Builder webhookClientConfig(@Nullable WebhookClientConfigPatch webhookClientConfig) {
+
             this.webhookClientConfig = webhookClientConfig;
             return this;
         }
         public CustomResourceConversionPatch build() {
-            final var o = new CustomResourceConversionPatch();
-            o.conversionReviewVersions = conversionReviewVersions;
-            o.strategy = strategy;
-            o.webhookClientConfig = webhookClientConfig;
-            return o;
+            final var _resultValue = new CustomResourceConversionPatch();
+            _resultValue.conversionReviewVersions = conversionReviewVersions;
+            _resultValue.strategy = strategy;
+            _resultValue.webhookClientConfig = webhookClientConfig;
+            return _resultValue;
         }
     }
 }

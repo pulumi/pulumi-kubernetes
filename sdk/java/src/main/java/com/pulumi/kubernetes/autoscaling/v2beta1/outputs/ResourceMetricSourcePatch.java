@@ -73,25 +73,28 @@ public final class ResourceMetricSourcePatch {
 
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder targetAverageUtilization(@Nullable Integer targetAverageUtilization) {
+
             this.targetAverageUtilization = targetAverageUtilization;
             return this;
         }
         @CustomType.Setter
         public Builder targetAverageValue(@Nullable String targetAverageValue) {
+
             this.targetAverageValue = targetAverageValue;
             return this;
         }
         public ResourceMetricSourcePatch build() {
-            final var o = new ResourceMetricSourcePatch();
-            o.name = name;
-            o.targetAverageUtilization = targetAverageUtilization;
-            o.targetAverageValue = targetAverageValue;
-            return o;
+            final var _resultValue = new ResourceMetricSourcePatch();
+            _resultValue.name = name;
+            _resultValue.targetAverageUtilization = targetAverageUtilization;
+            _resultValue.targetAverageValue = targetAverageValue;
+            return _resultValue;
         }
     }
 }

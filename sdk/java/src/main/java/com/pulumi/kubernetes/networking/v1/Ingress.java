@@ -37,7 +37,8 @@ import javax.annotation.Nullable;
  * 
  * ## Example Usage
  * ### Create an Ingress with auto-naming
- * ```java
+ * <pre>
+ * {@code
  * package generated_program;
  * 
  * import com.pulumi.Context;
@@ -60,9 +61,9 @@ import javax.annotation.Nullable;
  *     }
  * 
  *     public static void stack(Context ctx) {
- *         var ingress = new Ingress(&#34;ingress&#34;, IngressArgs.builder()        
+ *         var ingress = new Ingress("ingress", IngressArgs.builder()        
  *             .metadata(ObjectMetaArgs.builder()
- *                 .annotations(Map.of(&#34;nginx.ingress.kubernetes.io/rewrite-target&#34;, &#34;/&#34;))
+ *                 .annotations(Map.of("nginx.ingress.kubernetes.io/rewrite-target", "/"))
  *                 .build())
  *             .spec(IngressSpecArgs.builder()
  *                 .rules(IngressRuleArgs.builder()
@@ -70,14 +71,14 @@ import javax.annotation.Nullable;
  *                         .paths(HTTPIngressPathArgs.builder()
  *                             .backend(IngressBackendArgs.builder()
  *                                 .service(IngressServiceBackendArgs.builder()
- *                                     .name(&#34;test&#34;)
+ *                                     .name("test")
  *                                     .port(ServiceBackendPortArgs.builder()
  *                                         .number(80)
  *                                         .build())
  *                                     .build())
  *                                 .build())
- *                             .path(&#34;/testpath&#34;)
- *                             .pathType(&#34;Prefix&#34;)
+ *                             .path("/testpath")
+ *                             .pathType("Prefix")
  *                             .build())
  *                         .build())
  *                     .build())
@@ -86,9 +87,11 @@ import javax.annotation.Nullable;
  * 
  *     }
  * }
- * ```
+ * }
+ * </pre>
  * ### Create an Ingress with a user-specified name
- * ```java
+ * <pre>
+ * {@code
  * package generated_program;
  * 
  * import com.pulumi.Context;
@@ -111,10 +114,10 @@ import javax.annotation.Nullable;
  *     }
  * 
  *     public static void stack(Context ctx) {
- *         var ingress = new Ingress(&#34;ingress&#34;, IngressArgs.builder()        
+ *         var ingress = new Ingress("ingress", IngressArgs.builder()        
  *             .metadata(ObjectMetaArgs.builder()
- *                 .annotations(Map.of(&#34;nginx.ingress.kubernetes.io/rewrite-target&#34;, &#34;/&#34;))
- *                 .name(&#34;minimal-ingress&#34;)
+ *                 .annotations(Map.of("nginx.ingress.kubernetes.io/rewrite-target", "/"))
+ *                 .name("minimal-ingress")
  *                 .build())
  *             .spec(IngressSpecArgs.builder()
  *                 .rules(IngressRuleArgs.builder()
@@ -122,14 +125,14 @@ import javax.annotation.Nullable;
  *                         .paths(HTTPIngressPathArgs.builder()
  *                             .backend(IngressBackendArgs.builder()
  *                                 .service(IngressServiceBackendArgs.builder()
- *                                     .name(&#34;test&#34;)
+ *                                     .name("test")
  *                                     .port(ServiceBackendPortArgs.builder()
  *                                         .number(80)
  *                                         .build())
  *                                     .build())
  *                                 .build())
- *                             .path(&#34;/testpath&#34;)
- *                             .pathType(&#34;Prefix&#34;)
+ *                             .path("/testpath")
+ *                             .pathType("Prefix")
  *                             .build())
  *                         .build())
  *                     .build())
@@ -138,7 +141,8 @@ import javax.annotation.Nullable;
  * 
  *     }
  * }
- * ```
+ * }
+ * </pre>
  * 
  */
 @ResourceType(type="kubernetes:networking.k8s.io/v1:Ingress")

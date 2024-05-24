@@ -44,13 +44,14 @@ public final class PodIP {
 
         @CustomType.Setter
         public Builder ip(@Nullable String ip) {
+
             this.ip = ip;
             return this;
         }
         public PodIP build() {
-            final var o = new PodIP();
-            o.ip = ip;
-            return o;
+            final var _resultValue = new PodIP();
+            _resultValue.ip = ip;
+            return _resultValue;
         }
     }
 }

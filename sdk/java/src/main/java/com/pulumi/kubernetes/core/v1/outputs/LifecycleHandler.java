@@ -89,31 +89,35 @@ public final class LifecycleHandler {
 
         @CustomType.Setter
         public Builder exec(@Nullable ExecAction exec) {
+
             this.exec = exec;
             return this;
         }
         @CustomType.Setter
         public Builder httpGet(@Nullable HTTPGetAction httpGet) {
+
             this.httpGet = httpGet;
             return this;
         }
         @CustomType.Setter
         public Builder sleep(@Nullable SleepAction sleep) {
+
             this.sleep = sleep;
             return this;
         }
         @CustomType.Setter
         public Builder tcpSocket(@Nullable TCPSocketAction tcpSocket) {
+
             this.tcpSocket = tcpSocket;
             return this;
         }
         public LifecycleHandler build() {
-            final var o = new LifecycleHandler();
-            o.exec = exec;
-            o.httpGet = httpGet;
-            o.sleep = sleep;
-            o.tcpSocket = tcpSocket;
-            return o;
+            final var _resultValue = new LifecycleHandler();
+            _resultValue.exec = exec;
+            _resultValue.httpGet = httpGet;
+            _resultValue.sleep = sleep;
+            _resultValue.tcpSocket = tcpSocket;
+            return _resultValue;
         }
     }
 }

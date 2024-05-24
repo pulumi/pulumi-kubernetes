@@ -88,31 +88,35 @@ public final class ReplicaSetSpecPatch {
 
         @CustomType.Setter
         public Builder minReadySeconds(@Nullable Integer minReadySeconds) {
+
             this.minReadySeconds = minReadySeconds;
             return this;
         }
         @CustomType.Setter
         public Builder replicas(@Nullable Integer replicas) {
+
             this.replicas = replicas;
             return this;
         }
         @CustomType.Setter
         public Builder selector(@Nullable LabelSelectorPatch selector) {
+
             this.selector = selector;
             return this;
         }
         @CustomType.Setter
         public Builder template(@Nullable PodTemplateSpecPatch template) {
+
             this.template = template;
             return this;
         }
         public ReplicaSetSpecPatch build() {
-            final var o = new ReplicaSetSpecPatch();
-            o.minReadySeconds = minReadySeconds;
-            o.replicas = replicas;
-            o.selector = selector;
-            o.template = template;
-            return o;
+            final var _resultValue = new ReplicaSetSpecPatch();
+            _resultValue.minReadySeconds = minReadySeconds;
+            _resultValue.replicas = replicas;
+            _resultValue.selector = selector;
+            _resultValue.template = template;
+            return _resultValue;
         }
     }
 }

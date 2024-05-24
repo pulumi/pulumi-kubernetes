@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.meta.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Boolean;
 import java.lang.String;
 import java.util.Objects;
@@ -115,43 +116,57 @@ public final class OwnerReference {
 
         @CustomType.Setter
         public Builder apiVersion(String apiVersion) {
-            this.apiVersion = Objects.requireNonNull(apiVersion);
+            if (apiVersion == null) {
+              throw new MissingRequiredPropertyException("OwnerReference", "apiVersion");
+            }
+            this.apiVersion = apiVersion;
             return this;
         }
         @CustomType.Setter
         public Builder blockOwnerDeletion(@Nullable Boolean blockOwnerDeletion) {
+
             this.blockOwnerDeletion = blockOwnerDeletion;
             return this;
         }
         @CustomType.Setter
         public Builder controller(@Nullable Boolean controller) {
+
             this.controller = controller;
             return this;
         }
         @CustomType.Setter
         public Builder kind(String kind) {
-            this.kind = Objects.requireNonNull(kind);
+            if (kind == null) {
+              throw new MissingRequiredPropertyException("OwnerReference", "kind");
+            }
+            this.kind = kind;
             return this;
         }
         @CustomType.Setter
         public Builder name(String name) {
-            this.name = Objects.requireNonNull(name);
+            if (name == null) {
+              throw new MissingRequiredPropertyException("OwnerReference", "name");
+            }
+            this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder uid(String uid) {
-            this.uid = Objects.requireNonNull(uid);
+            if (uid == null) {
+              throw new MissingRequiredPropertyException("OwnerReference", "uid");
+            }
+            this.uid = uid;
             return this;
         }
         public OwnerReference build() {
-            final var o = new OwnerReference();
-            o.apiVersion = apiVersion;
-            o.blockOwnerDeletion = blockOwnerDeletion;
-            o.controller = controller;
-            o.kind = kind;
-            o.name = name;
-            o.uid = uid;
-            return o;
+            final var _resultValue = new OwnerReference();
+            _resultValue.apiVersion = apiVersion;
+            _resultValue.blockOwnerDeletion = blockOwnerDeletion;
+            _resultValue.controller = controller;
+            _resultValue.kind = kind;
+            _resultValue.name = name;
+            _resultValue.uid = uid;
+            return _resultValue;
         }
     }
 }

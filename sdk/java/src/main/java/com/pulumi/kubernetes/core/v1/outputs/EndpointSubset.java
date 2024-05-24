@@ -73,6 +73,7 @@ public final class EndpointSubset {
 
         @CustomType.Setter
         public Builder addresses(@Nullable List<EndpointAddress> addresses) {
+
             this.addresses = addresses;
             return this;
         }
@@ -81,6 +82,7 @@ public final class EndpointSubset {
         }
         @CustomType.Setter
         public Builder notReadyAddresses(@Nullable List<EndpointAddress> notReadyAddresses) {
+
             this.notReadyAddresses = notReadyAddresses;
             return this;
         }
@@ -89,6 +91,7 @@ public final class EndpointSubset {
         }
         @CustomType.Setter
         public Builder ports(@Nullable List<EndpointPort> ports) {
+
             this.ports = ports;
             return this;
         }
@@ -96,11 +99,11 @@ public final class EndpointSubset {
             return ports(List.of(ports));
         }
         public EndpointSubset build() {
-            final var o = new EndpointSubset();
-            o.addresses = addresses;
-            o.notReadyAddresses = notReadyAddresses;
-            o.ports = ports;
-            return o;
+            final var _resultValue = new EndpointSubset();
+            _resultValue.addresses = addresses;
+            _resultValue.notReadyAddresses = notReadyAddresses;
+            _resultValue.ports = ports;
+            return _resultValue;
         }
     }
 }

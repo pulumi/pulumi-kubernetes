@@ -119,43 +119,49 @@ public final class MetricStatusPatch {
 
         @CustomType.Setter
         public Builder containerResource(@Nullable ContainerResourceMetricStatusPatch containerResource) {
+
             this.containerResource = containerResource;
             return this;
         }
         @CustomType.Setter
         public Builder external(@Nullable ExternalMetricStatusPatch external) {
+
             this.external = external;
             return this;
         }
         @CustomType.Setter
         public Builder object(@Nullable ObjectMetricStatusPatch object) {
+
             this.object = object;
             return this;
         }
         @CustomType.Setter
         public Builder pods(@Nullable PodsMetricStatusPatch pods) {
+
             this.pods = pods;
             return this;
         }
         @CustomType.Setter
         public Builder resource(@Nullable ResourceMetricStatusPatch resource) {
+
             this.resource = resource;
             return this;
         }
         @CustomType.Setter
         public Builder type(@Nullable String type) {
+
             this.type = type;
             return this;
         }
         public MetricStatusPatch build() {
-            final var o = new MetricStatusPatch();
-            o.containerResource = containerResource;
-            o.external = external;
-            o.object = object;
-            o.pods = pods;
-            o.resource = resource;
-            o.type = type;
-            return o;
+            final var _resultValue = new MetricStatusPatch();
+            _resultValue.containerResource = containerResource;
+            _resultValue.external = external;
+            _resultValue.object = object;
+            _resultValue.pods = pods;
+            _resultValue.resource = resource;
+            _resultValue.type = type;
+            return _resultValue;
         }
     }
 }

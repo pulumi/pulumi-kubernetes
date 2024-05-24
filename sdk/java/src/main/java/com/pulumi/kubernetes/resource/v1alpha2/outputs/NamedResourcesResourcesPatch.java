@@ -44,6 +44,7 @@ public final class NamedResourcesResourcesPatch {
 
         @CustomType.Setter
         public Builder instances(@Nullable List<NamedResourcesInstancePatch> instances) {
+
             this.instances = instances;
             return this;
         }
@@ -51,9 +52,9 @@ public final class NamedResourcesResourcesPatch {
             return instances(List.of(instances));
         }
         public NamedResourcesResourcesPatch build() {
-            final var o = new NamedResourcesResourcesPatch();
-            o.instances = instances;
-            return o;
+            final var _resultValue = new NamedResourcesResourcesPatch();
+            _resultValue.instances = instances;
+            return _resultValue;
         }
     }
 }

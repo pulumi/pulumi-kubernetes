@@ -59,6 +59,7 @@ public final class RuntimeClassStrategyOptionsPatch {
 
         @CustomType.Setter
         public Builder allowedRuntimeClassNames(@Nullable List<String> allowedRuntimeClassNames) {
+
             this.allowedRuntimeClassNames = allowedRuntimeClassNames;
             return this;
         }
@@ -67,14 +68,15 @@ public final class RuntimeClassStrategyOptionsPatch {
         }
         @CustomType.Setter
         public Builder defaultRuntimeClassName(@Nullable String defaultRuntimeClassName) {
+
             this.defaultRuntimeClassName = defaultRuntimeClassName;
             return this;
         }
         public RuntimeClassStrategyOptionsPatch build() {
-            final var o = new RuntimeClassStrategyOptionsPatch();
-            o.allowedRuntimeClassNames = allowedRuntimeClassNames;
-            o.defaultRuntimeClassName = defaultRuntimeClassName;
-            return o;
+            final var _resultValue = new RuntimeClassStrategyOptionsPatch();
+            _resultValue.allowedRuntimeClassNames = allowedRuntimeClassNames;
+            _resultValue.defaultRuntimeClassName = defaultRuntimeClassName;
+            return _resultValue;
         }
     }
 }

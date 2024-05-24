@@ -86,31 +86,35 @@ public final class SELinuxOptionsPatch {
 
         @CustomType.Setter
         public Builder level(@Nullable String level) {
+
             this.level = level;
             return this;
         }
         @CustomType.Setter
         public Builder role(@Nullable String role) {
+
             this.role = role;
             return this;
         }
         @CustomType.Setter
         public Builder type(@Nullable String type) {
+
             this.type = type;
             return this;
         }
         @CustomType.Setter
         public Builder user(@Nullable String user) {
+
             this.user = user;
             return this;
         }
         public SELinuxOptionsPatch build() {
-            final var o = new SELinuxOptionsPatch();
-            o.level = level;
-            o.role = role;
-            o.type = type;
-            o.user = user;
-            return o;
+            final var _resultValue = new SELinuxOptionsPatch();
+            _resultValue.level = level;
+            _resultValue.role = role;
+            _resultValue.type = type;
+            _resultValue.user = user;
+            return _resultValue;
         }
     }
 }

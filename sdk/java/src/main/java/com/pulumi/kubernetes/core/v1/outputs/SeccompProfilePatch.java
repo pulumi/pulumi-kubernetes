@@ -62,19 +62,21 @@ public final class SeccompProfilePatch {
 
         @CustomType.Setter
         public Builder localhostProfile(@Nullable String localhostProfile) {
+
             this.localhostProfile = localhostProfile;
             return this;
         }
         @CustomType.Setter
         public Builder type(@Nullable String type) {
+
             this.type = type;
             return this;
         }
         public SeccompProfilePatch build() {
-            final var o = new SeccompProfilePatch();
-            o.localhostProfile = localhostProfile;
-            o.type = type;
-            return o;
+            final var _resultValue = new SeccompProfilePatch();
+            _resultValue.localhostProfile = localhostProfile;
+            _resultValue.type = type;
+            return _resultValue;
         }
     }
 }

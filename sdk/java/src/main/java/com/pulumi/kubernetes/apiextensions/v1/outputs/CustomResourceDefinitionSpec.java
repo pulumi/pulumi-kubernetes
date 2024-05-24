@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.apiextensions.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.apiextensions.v1.outputs.CustomResourceConversion;
 import com.pulumi.kubernetes.apiextensions.v1.outputs.CustomResourceDefinitionNames;
 import com.pulumi.kubernetes.apiextensions.v1.outputs.CustomResourceDefinitionVersion;
@@ -119,46 +120,60 @@ public final class CustomResourceDefinitionSpec {
 
         @CustomType.Setter
         public Builder conversion(@Nullable CustomResourceConversion conversion) {
+
             this.conversion = conversion;
             return this;
         }
         @CustomType.Setter
         public Builder group(String group) {
-            this.group = Objects.requireNonNull(group);
+            if (group == null) {
+              throw new MissingRequiredPropertyException("CustomResourceDefinitionSpec", "group");
+            }
+            this.group = group;
             return this;
         }
         @CustomType.Setter
         public Builder names(CustomResourceDefinitionNames names) {
-            this.names = Objects.requireNonNull(names);
+            if (names == null) {
+              throw new MissingRequiredPropertyException("CustomResourceDefinitionSpec", "names");
+            }
+            this.names = names;
             return this;
         }
         @CustomType.Setter
         public Builder preserveUnknownFields(@Nullable Boolean preserveUnknownFields) {
+
             this.preserveUnknownFields = preserveUnknownFields;
             return this;
         }
         @CustomType.Setter
         public Builder scope(String scope) {
-            this.scope = Objects.requireNonNull(scope);
+            if (scope == null) {
+              throw new MissingRequiredPropertyException("CustomResourceDefinitionSpec", "scope");
+            }
+            this.scope = scope;
             return this;
         }
         @CustomType.Setter
         public Builder versions(List<CustomResourceDefinitionVersion> versions) {
-            this.versions = Objects.requireNonNull(versions);
+            if (versions == null) {
+              throw new MissingRequiredPropertyException("CustomResourceDefinitionSpec", "versions");
+            }
+            this.versions = versions;
             return this;
         }
         public Builder versions(CustomResourceDefinitionVersion... versions) {
             return versions(List.of(versions));
         }
         public CustomResourceDefinitionSpec build() {
-            final var o = new CustomResourceDefinitionSpec();
-            o.conversion = conversion;
-            o.group = group;
-            o.names = names;
-            o.preserveUnknownFields = preserveUnknownFields;
-            o.scope = scope;
-            o.versions = versions;
-            return o;
+            final var _resultValue = new CustomResourceDefinitionSpec();
+            _resultValue.conversion = conversion;
+            _resultValue.group = group;
+            _resultValue.names = names;
+            _resultValue.preserveUnknownFields = preserveUnknownFields;
+            _resultValue.scope = scope;
+            _resultValue.versions = versions;
+            return _resultValue;
         }
     }
 }

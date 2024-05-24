@@ -59,19 +59,21 @@ public final class AuditSinkSpecPatch {
 
         @CustomType.Setter
         public Builder policy(@Nullable PolicyPatch policy) {
+
             this.policy = policy;
             return this;
         }
         @CustomType.Setter
         public Builder webhook(@Nullable WebhookPatch webhook) {
+
             this.webhook = webhook;
             return this;
         }
         public AuditSinkSpecPatch build() {
-            final var o = new AuditSinkSpecPatch();
-            o.policy = policy;
-            o.webhook = webhook;
-            return o;
+            final var _resultValue = new AuditSinkSpecPatch();
+            _resultValue.policy = policy;
+            _resultValue.webhook = webhook;
+            return _resultValue;
         }
     }
 }

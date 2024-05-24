@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
 
@@ -168,67 +169,97 @@ public final class NodeSystemInfo {
 
         @CustomType.Setter
         public Builder architecture(String architecture) {
-            this.architecture = Objects.requireNonNull(architecture);
+            if (architecture == null) {
+              throw new MissingRequiredPropertyException("NodeSystemInfo", "architecture");
+            }
+            this.architecture = architecture;
             return this;
         }
         @CustomType.Setter
         public Builder bootID(String bootID) {
-            this.bootID = Objects.requireNonNull(bootID);
+            if (bootID == null) {
+              throw new MissingRequiredPropertyException("NodeSystemInfo", "bootID");
+            }
+            this.bootID = bootID;
             return this;
         }
         @CustomType.Setter
         public Builder containerRuntimeVersion(String containerRuntimeVersion) {
-            this.containerRuntimeVersion = Objects.requireNonNull(containerRuntimeVersion);
+            if (containerRuntimeVersion == null) {
+              throw new MissingRequiredPropertyException("NodeSystemInfo", "containerRuntimeVersion");
+            }
+            this.containerRuntimeVersion = containerRuntimeVersion;
             return this;
         }
         @CustomType.Setter
         public Builder kernelVersion(String kernelVersion) {
-            this.kernelVersion = Objects.requireNonNull(kernelVersion);
+            if (kernelVersion == null) {
+              throw new MissingRequiredPropertyException("NodeSystemInfo", "kernelVersion");
+            }
+            this.kernelVersion = kernelVersion;
             return this;
         }
         @CustomType.Setter
         public Builder kubeProxyVersion(String kubeProxyVersion) {
-            this.kubeProxyVersion = Objects.requireNonNull(kubeProxyVersion);
+            if (kubeProxyVersion == null) {
+              throw new MissingRequiredPropertyException("NodeSystemInfo", "kubeProxyVersion");
+            }
+            this.kubeProxyVersion = kubeProxyVersion;
             return this;
         }
         @CustomType.Setter
         public Builder kubeletVersion(String kubeletVersion) {
-            this.kubeletVersion = Objects.requireNonNull(kubeletVersion);
+            if (kubeletVersion == null) {
+              throw new MissingRequiredPropertyException("NodeSystemInfo", "kubeletVersion");
+            }
+            this.kubeletVersion = kubeletVersion;
             return this;
         }
         @CustomType.Setter
         public Builder machineID(String machineID) {
-            this.machineID = Objects.requireNonNull(machineID);
+            if (machineID == null) {
+              throw new MissingRequiredPropertyException("NodeSystemInfo", "machineID");
+            }
+            this.machineID = machineID;
             return this;
         }
         @CustomType.Setter
         public Builder operatingSystem(String operatingSystem) {
-            this.operatingSystem = Objects.requireNonNull(operatingSystem);
+            if (operatingSystem == null) {
+              throw new MissingRequiredPropertyException("NodeSystemInfo", "operatingSystem");
+            }
+            this.operatingSystem = operatingSystem;
             return this;
         }
         @CustomType.Setter
         public Builder osImage(String osImage) {
-            this.osImage = Objects.requireNonNull(osImage);
+            if (osImage == null) {
+              throw new MissingRequiredPropertyException("NodeSystemInfo", "osImage");
+            }
+            this.osImage = osImage;
             return this;
         }
         @CustomType.Setter
         public Builder systemUUID(String systemUUID) {
-            this.systemUUID = Objects.requireNonNull(systemUUID);
+            if (systemUUID == null) {
+              throw new MissingRequiredPropertyException("NodeSystemInfo", "systemUUID");
+            }
+            this.systemUUID = systemUUID;
             return this;
         }
         public NodeSystemInfo build() {
-            final var o = new NodeSystemInfo();
-            o.architecture = architecture;
-            o.bootID = bootID;
-            o.containerRuntimeVersion = containerRuntimeVersion;
-            o.kernelVersion = kernelVersion;
-            o.kubeProxyVersion = kubeProxyVersion;
-            o.kubeletVersion = kubeletVersion;
-            o.machineID = machineID;
-            o.operatingSystem = operatingSystem;
-            o.osImage = osImage;
-            o.systemUUID = systemUUID;
-            return o;
+            final var _resultValue = new NodeSystemInfo();
+            _resultValue.architecture = architecture;
+            _resultValue.bootID = bootID;
+            _resultValue.containerRuntimeVersion = containerRuntimeVersion;
+            _resultValue.kernelVersion = kernelVersion;
+            _resultValue.kubeProxyVersion = kubeProxyVersion;
+            _resultValue.kubeletVersion = kubeletVersion;
+            _resultValue.machineID = machineID;
+            _resultValue.operatingSystem = operatingSystem;
+            _resultValue.osImage = osImage;
+            _resultValue.systemUUID = systemUUID;
+            return _resultValue;
         }
     }
 }

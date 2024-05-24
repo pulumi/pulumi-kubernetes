@@ -44,6 +44,7 @@ public final class AggregationRule {
 
         @CustomType.Setter
         public Builder clusterRoleSelectors(@Nullable List<LabelSelector> clusterRoleSelectors) {
+
             this.clusterRoleSelectors = clusterRoleSelectors;
             return this;
         }
@@ -51,9 +52,9 @@ public final class AggregationRule {
             return clusterRoleSelectors(List.of(clusterRoleSelectors));
         }
         public AggregationRule build() {
-            final var o = new AggregationRule();
-            o.clusterRoleSelectors = clusterRoleSelectors;
-            return o;
+            final var _resultValue = new AggregationRule();
+            _resultValue.clusterRoleSelectors = clusterRoleSelectors;
+            return _resultValue;
         }
     }
 }

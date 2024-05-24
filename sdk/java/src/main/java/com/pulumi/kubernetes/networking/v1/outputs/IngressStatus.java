@@ -44,13 +44,14 @@ public final class IngressStatus {
 
         @CustomType.Setter
         public Builder loadBalancer(@Nullable IngressLoadBalancerStatus loadBalancer) {
+
             this.loadBalancer = loadBalancer;
             return this;
         }
         public IngressStatus build() {
-            final var o = new IngressStatus();
-            o.loadBalancer = loadBalancer;
-            return o;
+            final var _resultValue = new IngressStatus();
+            _resultValue.loadBalancer = loadBalancer;
+            return _resultValue;
         }
     }
 }

@@ -58,19 +58,21 @@ public final class FlockerVolumeSource {
 
         @CustomType.Setter
         public Builder datasetName(@Nullable String datasetName) {
+
             this.datasetName = datasetName;
             return this;
         }
         @CustomType.Setter
         public Builder datasetUUID(@Nullable String datasetUUID) {
+
             this.datasetUUID = datasetUUID;
             return this;
         }
         public FlockerVolumeSource build() {
-            final var o = new FlockerVolumeSource();
-            o.datasetName = datasetName;
-            o.datasetUUID = datasetUUID;
-            return o;
+            final var _resultValue = new FlockerVolumeSource();
+            _resultValue.datasetName = datasetName;
+            _resultValue.datasetUUID = datasetUUID;
+            return _resultValue;
         }
     }
 }

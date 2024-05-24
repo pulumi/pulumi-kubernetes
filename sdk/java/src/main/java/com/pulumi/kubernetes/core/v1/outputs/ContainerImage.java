@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Integer;
 import java.lang.String;
 import java.util.List;
@@ -60,7 +61,10 @@ public final class ContainerImage {
 
         @CustomType.Setter
         public Builder names(List<String> names) {
-            this.names = Objects.requireNonNull(names);
+            if (names == null) {
+              throw new MissingRequiredPropertyException("ContainerImage", "names");
+            }
+            this.names = names;
             return this;
         }
         public Builder names(String... names) {
@@ -68,14 +72,15 @@ public final class ContainerImage {
         }
         @CustomType.Setter
         public Builder sizeBytes(@Nullable Integer sizeBytes) {
+
             this.sizeBytes = sizeBytes;
             return this;
         }
         public ContainerImage build() {
-            final var o = new ContainerImage();
-            o.names = names;
-            o.sizeBytes = sizeBytes;
-            return o;
+            final var _resultValue = new ContainerImage();
+            _resultValue.names = names;
+            _resultValue.sizeBytes = sizeBytes;
+            return _resultValue;
         }
     }
 }

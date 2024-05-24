@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.admissionregistration.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
 
@@ -56,19 +57,25 @@ public final class Variable {
 
         @CustomType.Setter
         public Builder expression(String expression) {
-            this.expression = Objects.requireNonNull(expression);
+            if (expression == null) {
+              throw new MissingRequiredPropertyException("Variable", "expression");
+            }
+            this.expression = expression;
             return this;
         }
         @CustomType.Setter
         public Builder name(String name) {
-            this.name = Objects.requireNonNull(name);
+            if (name == null) {
+              throw new MissingRequiredPropertyException("Variable", "name");
+            }
+            this.name = name;
             return this;
         }
         public Variable build() {
-            final var o = new Variable();
-            o.expression = expression;
-            o.name = name;
-            return o;
+            final var _resultValue = new Variable();
+            _resultValue.expression = expression;
+            _resultValue.name = name;
+            return _resultValue;
         }
     }
 }
