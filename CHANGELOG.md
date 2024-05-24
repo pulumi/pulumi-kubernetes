@@ -1,6 +1,7 @@
 ## Unreleased
 
-- Update to pulumi-java v0.12.0 #3025 (https://github.com/pulumi/pulumi-kubernetes/pull/3025)
+- Update to pulumi-java v0.12.0 (https://github.com/pulumi/pulumi-kubernetes/pull/3025)
+- CustomResource for Java SDK (https://github.com/pulumi/pulumi-kubernetes/pull/3020)
 
 ## 4.12.0 (May 21, 2024)
 
