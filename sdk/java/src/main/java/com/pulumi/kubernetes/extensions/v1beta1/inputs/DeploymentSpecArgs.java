@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.extensions.v1beta1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.inputs.PodTemplateSpecArgs;
 import com.pulumi.kubernetes.extensions.v1beta1.inputs.DeploymentStrategyArgs;
 import com.pulumi.kubernetes.extensions.v1beta1.inputs.RollbackConfigArgs;
@@ -381,7 +382,9 @@ public final class DeploymentSpecArgs extends com.pulumi.resources.ResourceArgs 
         }
 
         public DeploymentSpecArgs build() {
-            $.template = Objects.requireNonNull($.template, "expected parameter 'template' to be non-null");
+            if ($.template == null) {
+                throw new MissingRequiredPropertyException("DeploymentSpecArgs", "template");
+            }
             return $;
         }
     }

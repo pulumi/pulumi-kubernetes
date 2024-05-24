@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.resource.v1alpha1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.outputs.NodeSelector;
 import com.pulumi.kubernetes.meta.v1.outputs.ObjectMeta;
 import com.pulumi.kubernetes.resource.v1alpha1.outputs.ResourceClassParametersReference;
@@ -125,43 +126,51 @@ public final class ResourceClass {
 
         @CustomType.Setter
         public Builder apiVersion(@Nullable String apiVersion) {
+
             this.apiVersion = apiVersion;
             return this;
         }
         @CustomType.Setter
         public Builder driverName(String driverName) {
-            this.driverName = Objects.requireNonNull(driverName);
+            if (driverName == null) {
+              throw new MissingRequiredPropertyException("ResourceClass", "driverName");
+            }
+            this.driverName = driverName;
             return this;
         }
         @CustomType.Setter
         public Builder kind(@Nullable String kind) {
+
             this.kind = kind;
             return this;
         }
         @CustomType.Setter
         public Builder metadata(@Nullable ObjectMeta metadata) {
+
             this.metadata = metadata;
             return this;
         }
         @CustomType.Setter
         public Builder parametersRef(@Nullable ResourceClassParametersReference parametersRef) {
+
             this.parametersRef = parametersRef;
             return this;
         }
         @CustomType.Setter
         public Builder suitableNodes(@Nullable NodeSelector suitableNodes) {
+
             this.suitableNodes = suitableNodes;
             return this;
         }
         public ResourceClass build() {
-            final var o = new ResourceClass();
-            o.apiVersion = apiVersion;
-            o.driverName = driverName;
-            o.kind = kind;
-            o.metadata = metadata;
-            o.parametersRef = parametersRef;
-            o.suitableNodes = suitableNodes;
-            return o;
+            final var _resultValue = new ResourceClass();
+            _resultValue.apiVersion = apiVersion;
+            _resultValue.driverName = driverName;
+            _resultValue.kind = kind;
+            _resultValue.metadata = metadata;
+            _resultValue.parametersRef = parametersRef;
+            _resultValue.suitableNodes = suitableNodes;
+            return _resultValue;
         }
     }
 }

@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.apiregistration.v1beta1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.apiregistration.v1beta1.inputs.ServiceReferenceArgs;
 import java.lang.Boolean;
 import java.lang.Integer;
@@ -305,9 +306,15 @@ public final class APIServiceSpecArgs extends com.pulumi.resources.ResourceArgs 
         }
 
         public APIServiceSpecArgs build() {
-            $.groupPriorityMinimum = Objects.requireNonNull($.groupPriorityMinimum, "expected parameter 'groupPriorityMinimum' to be non-null");
-            $.service = Objects.requireNonNull($.service, "expected parameter 'service' to be non-null");
-            $.versionPriority = Objects.requireNonNull($.versionPriority, "expected parameter 'versionPriority' to be non-null");
+            if ($.groupPriorityMinimum == null) {
+                throw new MissingRequiredPropertyException("APIServiceSpecArgs", "groupPriorityMinimum");
+            }
+            if ($.service == null) {
+                throw new MissingRequiredPropertyException("APIServiceSpecArgs", "service");
+            }
+            if ($.versionPriority == null) {
+                throw new MissingRequiredPropertyException("APIServiceSpecArgs", "versionPriority");
+            }
             return $;
         }
     }

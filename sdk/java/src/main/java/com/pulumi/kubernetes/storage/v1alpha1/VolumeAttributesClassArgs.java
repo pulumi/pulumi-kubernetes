@@ -6,6 +6,7 @@ package com.pulumi.kubernetes.storage.v1alpha1;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.core.internal.Codegen;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.meta.v1.inputs.ObjectMetaArgs;
 import java.lang.String;
 import java.util.Map;
@@ -236,7 +237,9 @@ public final class VolumeAttributesClassArgs extends com.pulumi.resources.Resour
 
         public VolumeAttributesClassArgs build() {
             $.apiVersion = Codegen.stringProp("apiVersion").output().arg($.apiVersion).getNullable();
-            $.driverName = Objects.requireNonNull($.driverName, "expected parameter 'driverName' to be non-null");
+            if ($.driverName == null) {
+                throw new MissingRequiredPropertyException("VolumeAttributesClassArgs", "driverName");
+            }
             $.kind = Codegen.stringProp("kind").output().arg($.kind).getNullable();
             return $;
         }

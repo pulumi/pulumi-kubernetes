@@ -117,6 +117,7 @@ public final class CephFSVolumeSourcePatch {
 
         @CustomType.Setter
         public Builder monitors(@Nullable List<String> monitors) {
+
             this.monitors = monitors;
             return this;
         }
@@ -125,38 +126,43 @@ public final class CephFSVolumeSourcePatch {
         }
         @CustomType.Setter
         public Builder path(@Nullable String path) {
+
             this.path = path;
             return this;
         }
         @CustomType.Setter
         public Builder readOnly(@Nullable Boolean readOnly) {
+
             this.readOnly = readOnly;
             return this;
         }
         @CustomType.Setter
         public Builder secretFile(@Nullable String secretFile) {
+
             this.secretFile = secretFile;
             return this;
         }
         @CustomType.Setter
         public Builder secretRef(@Nullable LocalObjectReferencePatch secretRef) {
+
             this.secretRef = secretRef;
             return this;
         }
         @CustomType.Setter
         public Builder user(@Nullable String user) {
+
             this.user = user;
             return this;
         }
         public CephFSVolumeSourcePatch build() {
-            final var o = new CephFSVolumeSourcePatch();
-            o.monitors = monitors;
-            o.path = path;
-            o.readOnly = readOnly;
-            o.secretFile = secretFile;
-            o.secretRef = secretRef;
-            o.user = user;
-            return o;
+            final var _resultValue = new CephFSVolumeSourcePatch();
+            _resultValue.monitors = monitors;
+            _resultValue.path = path;
+            _resultValue.readOnly = readOnly;
+            _resultValue.secretFile = secretFile;
+            _resultValue.secretRef = secretRef;
+            _resultValue.user = user;
+            return _resultValue;
         }
     }
 }

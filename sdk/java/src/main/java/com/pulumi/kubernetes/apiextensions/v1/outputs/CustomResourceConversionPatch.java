@@ -61,19 +61,21 @@ public final class CustomResourceConversionPatch {
 
         @CustomType.Setter
         public Builder strategy(@Nullable String strategy) {
+
             this.strategy = strategy;
             return this;
         }
         @CustomType.Setter
         public Builder webhook(@Nullable WebhookConversionPatch webhook) {
+
             this.webhook = webhook;
             return this;
         }
         public CustomResourceConversionPatch build() {
-            final var o = new CustomResourceConversionPatch();
-            o.strategy = strategy;
-            o.webhook = webhook;
-            return o;
+            final var _resultValue = new CustomResourceConversionPatch();
+            _resultValue.strategy = strategy;
+            _resultValue.webhook = webhook;
+            return _resultValue;
         }
     }
 }

@@ -41,7 +41,8 @@ import javax.annotation.Nullable;
  * 
  * ## Example Usage
  * ### Create a Job with auto-naming
- * ```java
+ * <pre>
+ * {@code
  * package generated_program;
  * 
  * import com.pulumi.Context;
@@ -65,7 +66,7 @@ import javax.annotation.Nullable;
  *     }
  * 
  *     public static void stack(Context ctx) {
- *         var job = new Job(&#34;job&#34;, JobArgs.builder()        
+ *         var job = new Job("job", JobArgs.builder()        
  *             .metadata(null)
  *             .spec(JobSpecArgs.builder()
  *                 .backoffLimit(4)
@@ -73,14 +74,14 @@ import javax.annotation.Nullable;
  *                     .spec(PodSpecArgs.builder()
  *                         .containers(ContainerArgs.builder()
  *                             .command(                            
- *                                 &#34;perl&#34;,
- *                                 &#34;-Mbignum=bpi&#34;,
- *                                 &#34;-wle&#34;,
- *                                 &#34;print bpi(2000)&#34;)
- *                             .image(&#34;perl&#34;)
- *                             .name(&#34;pi&#34;)
+ *                                 "perl",
+ *                                 "-Mbignum=bpi",
+ *                                 "-wle",
+ *                                 "print bpi(2000)")
+ *                             .image("perl")
+ *                             .name("pi")
  *                             .build())
- *                         .restartPolicy(&#34;Never&#34;)
+ *                         .restartPolicy("Never")
  *                         .build())
  *                     .build())
  *                 .build())
@@ -88,9 +89,11 @@ import javax.annotation.Nullable;
  * 
  *     }
  * }
- * ```
+ * }
+ * </pre>
  * ### Create a Job with a user-specified name
- * ```java
+ * <pre>
+ * {@code
  * package generated_program;
  * 
  * import com.pulumi.Context;
@@ -115,9 +118,9 @@ import javax.annotation.Nullable;
  *     }
  * 
  *     public static void stack(Context ctx) {
- *         var job = new Job(&#34;job&#34;, JobArgs.builder()        
+ *         var job = new Job("job", JobArgs.builder()        
  *             .metadata(ObjectMetaArgs.builder()
- *                 .name(&#34;pi&#34;)
+ *                 .name("pi")
  *                 .build())
  *             .spec(JobSpecArgs.builder()
  *                 .backoffLimit(4)
@@ -125,14 +128,14 @@ import javax.annotation.Nullable;
  *                     .spec(PodSpecArgs.builder()
  *                         .containers(ContainerArgs.builder()
  *                             .command(                            
- *                                 &#34;perl&#34;,
- *                                 &#34;-Mbignum=bpi&#34;,
- *                                 &#34;-wle&#34;,
- *                                 &#34;print bpi(2000)&#34;)
- *                             .image(&#34;perl&#34;)
- *                             .name(&#34;pi&#34;)
+ *                                 "perl",
+ *                                 "-Mbignum=bpi",
+ *                                 "-wle",
+ *                                 "print bpi(2000)")
+ *                             .image("perl")
+ *                             .name("pi")
  *                             .build())
- *                         .restartPolicy(&#34;Never&#34;)
+ *                         .restartPolicy("Never")
  *                         .build())
  *                     .build())
  *                 .build())
@@ -140,7 +143,8 @@ import javax.annotation.Nullable;
  * 
  *     }
  * }
- * ```
+ * }
+ * </pre>
  * 
  */
 @ResourceType(type="kubernetes:batch/v1:Job")

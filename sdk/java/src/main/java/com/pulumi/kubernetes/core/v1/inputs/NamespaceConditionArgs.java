@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.core.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -168,8 +169,12 @@ public final class NamespaceConditionArgs extends com.pulumi.resources.ResourceA
         }
 
         public NamespaceConditionArgs build() {
-            $.status = Objects.requireNonNull($.status, "expected parameter 'status' to be non-null");
-            $.type = Objects.requireNonNull($.type, "expected parameter 'type' to be non-null");
+            if ($.status == null) {
+                throw new MissingRequiredPropertyException("NamespaceConditionArgs", "status");
+            }
+            if ($.type == null) {
+                throw new MissingRequiredPropertyException("NamespaceConditionArgs", "type");
+            }
             return $;
         }
     }

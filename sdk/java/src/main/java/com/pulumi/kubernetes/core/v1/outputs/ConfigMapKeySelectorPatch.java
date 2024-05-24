@@ -73,25 +73,28 @@ public final class ConfigMapKeySelectorPatch {
 
         @CustomType.Setter
         public Builder key(@Nullable String key) {
+
             this.key = key;
             return this;
         }
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder optional(@Nullable Boolean optional) {
+
             this.optional = optional;
             return this;
         }
         public ConfigMapKeySelectorPatch build() {
-            final var o = new ConfigMapKeySelectorPatch();
-            o.key = key;
-            o.name = name;
-            o.optional = optional;
-            return o;
+            final var _resultValue = new ConfigMapKeySelectorPatch();
+            _resultValue.key = key;
+            _resultValue.name = name;
+            _resultValue.optional = optional;
+            return _resultValue;
         }
     }
 }

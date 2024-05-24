@@ -71,19 +71,21 @@ public final class EphemeralVolumeSourcePatch {
 
         @CustomType.Setter
         public Builder readOnly(@Nullable Boolean readOnly) {
+
             this.readOnly = readOnly;
             return this;
         }
         @CustomType.Setter
         public Builder volumeClaimTemplate(@Nullable PersistentVolumeClaimTemplatePatch volumeClaimTemplate) {
+
             this.volumeClaimTemplate = volumeClaimTemplate;
             return this;
         }
         public EphemeralVolumeSourcePatch build() {
-            final var o = new EphemeralVolumeSourcePatch();
-            o.readOnly = readOnly;
-            o.volumeClaimTemplate = volumeClaimTemplate;
-            return o;
+            final var _resultValue = new EphemeralVolumeSourcePatch();
+            _resultValue.readOnly = readOnly;
+            _resultValue.volumeClaimTemplate = volumeClaimTemplate;
+            return _resultValue;
         }
     }
 }

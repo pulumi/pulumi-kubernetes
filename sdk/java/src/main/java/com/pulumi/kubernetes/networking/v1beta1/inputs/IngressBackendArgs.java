@@ -6,6 +6,7 @@ package com.pulumi.kubernetes.networking.v1beta1.inputs;
 import com.pulumi.core.Either;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.inputs.TypedLocalObjectReferenceArgs;
 import java.lang.Integer;
 import java.lang.String;
@@ -177,8 +178,12 @@ public final class IngressBackendArgs extends com.pulumi.resources.ResourceArgs 
         }
 
         public IngressBackendArgs build() {
-            $.serviceName = Objects.requireNonNull($.serviceName, "expected parameter 'serviceName' to be non-null");
-            $.servicePort = Objects.requireNonNull($.servicePort, "expected parameter 'servicePort' to be non-null");
+            if ($.serviceName == null) {
+                throw new MissingRequiredPropertyException("IngressBackendArgs", "serviceName");
+            }
+            if ($.servicePort == null) {
+                throw new MissingRequiredPropertyException("IngressBackendArgs", "servicePort");
+            }
             return $;
         }
     }

@@ -100,37 +100,42 @@ public final class IngressClassParametersReferencePatch {
 
         @CustomType.Setter
         public Builder apiGroup(@Nullable String apiGroup) {
+
             this.apiGroup = apiGroup;
             return this;
         }
         @CustomType.Setter
         public Builder kind(@Nullable String kind) {
+
             this.kind = kind;
             return this;
         }
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder namespace(@Nullable String namespace) {
+
             this.namespace = namespace;
             return this;
         }
         @CustomType.Setter
         public Builder scope(@Nullable String scope) {
+
             this.scope = scope;
             return this;
         }
         public IngressClassParametersReferencePatch build() {
-            final var o = new IngressClassParametersReferencePatch();
-            o.apiGroup = apiGroup;
-            o.kind = kind;
-            o.name = name;
-            o.namespace = namespace;
-            o.scope = scope;
-            return o;
+            final var _resultValue = new IngressClassParametersReferencePatch();
+            _resultValue.apiGroup = apiGroup;
+            _resultValue.kind = kind;
+            _resultValue.name = name;
+            _resultValue.namespace = namespace;
+            _resultValue.scope = scope;
+            return _resultValue;
         }
     }
 }

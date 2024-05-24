@@ -109,31 +109,35 @@ public final class PodDisruptionBudgetSpec {
 
         @CustomType.Setter
         public Builder maxUnavailable(@Nullable Either<Integer,String> maxUnavailable) {
+
             this.maxUnavailable = maxUnavailable;
             return this;
         }
         @CustomType.Setter
         public Builder minAvailable(@Nullable Either<Integer,String> minAvailable) {
+
             this.minAvailable = minAvailable;
             return this;
         }
         @CustomType.Setter
         public Builder selector(@Nullable LabelSelector selector) {
+
             this.selector = selector;
             return this;
         }
         @CustomType.Setter
         public Builder unhealthyPodEvictionPolicy(@Nullable String unhealthyPodEvictionPolicy) {
+
             this.unhealthyPodEvictionPolicy = unhealthyPodEvictionPolicy;
             return this;
         }
         public PodDisruptionBudgetSpec build() {
-            final var o = new PodDisruptionBudgetSpec();
-            o.maxUnavailable = maxUnavailable;
-            o.minAvailable = minAvailable;
-            o.selector = selector;
-            o.unhealthyPodEvictionPolicy = unhealthyPodEvictionPolicy;
-            return o;
+            final var _resultValue = new PodDisruptionBudgetSpec();
+            _resultValue.maxUnavailable = maxUnavailable;
+            _resultValue.minAvailable = minAvailable;
+            _resultValue.selector = selector;
+            _resultValue.unhealthyPodEvictionPolicy = unhealthyPodEvictionPolicy;
+            return _resultValue;
         }
     }
 }

@@ -125,21 +125,25 @@ public final class ValidatingAdmissionPolicyBindingSpec {
 
         @CustomType.Setter
         public Builder matchResources(@Nullable MatchResources matchResources) {
+
             this.matchResources = matchResources;
             return this;
         }
         @CustomType.Setter
         public Builder paramRef(@Nullable ParamRef paramRef) {
+
             this.paramRef = paramRef;
             return this;
         }
         @CustomType.Setter
         public Builder policyName(@Nullable String policyName) {
+
             this.policyName = policyName;
             return this;
         }
         @CustomType.Setter
         public Builder validationActions(@Nullable List<String> validationActions) {
+
             this.validationActions = validationActions;
             return this;
         }
@@ -147,12 +151,12 @@ public final class ValidatingAdmissionPolicyBindingSpec {
             return validationActions(List.of(validationActions));
         }
         public ValidatingAdmissionPolicyBindingSpec build() {
-            final var o = new ValidatingAdmissionPolicyBindingSpec();
-            o.matchResources = matchResources;
-            o.paramRef = paramRef;
-            o.policyName = policyName;
-            o.validationActions = validationActions;
-            return o;
+            final var _resultValue = new ValidatingAdmissionPolicyBindingSpec();
+            _resultValue.matchResources = matchResources;
+            _resultValue.paramRef = paramRef;
+            _resultValue.policyName = policyName;
+            _resultValue.validationActions = validationActions;
+            return _resultValue;
         }
     }
 }

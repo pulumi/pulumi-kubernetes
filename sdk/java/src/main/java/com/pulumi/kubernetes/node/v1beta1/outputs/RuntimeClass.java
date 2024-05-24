@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.node.v1beta1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.meta.v1.outputs.ObjectMeta;
 import com.pulumi.kubernetes.node.v1beta1.outputs.Overhead;
 import com.pulumi.kubernetes.node.v1beta1.outputs.Scheduling;
@@ -117,43 +118,51 @@ public final class RuntimeClass {
 
         @CustomType.Setter
         public Builder apiVersion(@Nullable String apiVersion) {
+
             this.apiVersion = apiVersion;
             return this;
         }
         @CustomType.Setter
         public Builder handler(String handler) {
-            this.handler = Objects.requireNonNull(handler);
+            if (handler == null) {
+              throw new MissingRequiredPropertyException("RuntimeClass", "handler");
+            }
+            this.handler = handler;
             return this;
         }
         @CustomType.Setter
         public Builder kind(@Nullable String kind) {
+
             this.kind = kind;
             return this;
         }
         @CustomType.Setter
         public Builder metadata(@Nullable ObjectMeta metadata) {
+
             this.metadata = metadata;
             return this;
         }
         @CustomType.Setter
         public Builder overhead(@Nullable Overhead overhead) {
+
             this.overhead = overhead;
             return this;
         }
         @CustomType.Setter
         public Builder scheduling(@Nullable Scheduling scheduling) {
+
             this.scheduling = scheduling;
             return this;
         }
         public RuntimeClass build() {
-            final var o = new RuntimeClass();
-            o.apiVersion = apiVersion;
-            o.handler = handler;
-            o.kind = kind;
-            o.metadata = metadata;
-            o.overhead = overhead;
-            o.scheduling = scheduling;
-            return o;
+            final var _resultValue = new RuntimeClass();
+            _resultValue.apiVersion = apiVersion;
+            _resultValue.handler = handler;
+            _resultValue.kind = kind;
+            _resultValue.metadata = metadata;
+            _resultValue.overhead = overhead;
+            _resultValue.scheduling = scheduling;
+            return _resultValue;
         }
     }
 }

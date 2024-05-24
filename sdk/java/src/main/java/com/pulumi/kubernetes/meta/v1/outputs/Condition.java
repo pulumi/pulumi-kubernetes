@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.meta.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Integer;
 import java.lang.String;
 import java.util.Objects;
@@ -115,43 +116,59 @@ public final class Condition {
 
         @CustomType.Setter
         public Builder lastTransitionTime(String lastTransitionTime) {
-            this.lastTransitionTime = Objects.requireNonNull(lastTransitionTime);
+            if (lastTransitionTime == null) {
+              throw new MissingRequiredPropertyException("Condition", "lastTransitionTime");
+            }
+            this.lastTransitionTime = lastTransitionTime;
             return this;
         }
         @CustomType.Setter
         public Builder message(String message) {
-            this.message = Objects.requireNonNull(message);
+            if (message == null) {
+              throw new MissingRequiredPropertyException("Condition", "message");
+            }
+            this.message = message;
             return this;
         }
         @CustomType.Setter
         public Builder observedGeneration(@Nullable Integer observedGeneration) {
+
             this.observedGeneration = observedGeneration;
             return this;
         }
         @CustomType.Setter
         public Builder reason(String reason) {
-            this.reason = Objects.requireNonNull(reason);
+            if (reason == null) {
+              throw new MissingRequiredPropertyException("Condition", "reason");
+            }
+            this.reason = reason;
             return this;
         }
         @CustomType.Setter
         public Builder status(String status) {
-            this.status = Objects.requireNonNull(status);
+            if (status == null) {
+              throw new MissingRequiredPropertyException("Condition", "status");
+            }
+            this.status = status;
             return this;
         }
         @CustomType.Setter
         public Builder type(String type) {
-            this.type = Objects.requireNonNull(type);
+            if (type == null) {
+              throw new MissingRequiredPropertyException("Condition", "type");
+            }
+            this.type = type;
             return this;
         }
         public Condition build() {
-            final var o = new Condition();
-            o.lastTransitionTime = lastTransitionTime;
-            o.message = message;
-            o.observedGeneration = observedGeneration;
-            o.reason = reason;
-            o.status = status;
-            o.type = type;
-            return o;
+            final var _resultValue = new Condition();
+            _resultValue.lastTransitionTime = lastTransitionTime;
+            _resultValue.message = message;
+            _resultValue.observedGeneration = observedGeneration;
+            _resultValue.reason = reason;
+            _resultValue.status = status;
+            _resultValue.type = type;
+            return _resultValue;
         }
     }
 }

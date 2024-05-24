@@ -87,31 +87,35 @@ public final class VolumeMountStatusPatch {
 
         @CustomType.Setter
         public Builder mountPath(@Nullable String mountPath) {
+
             this.mountPath = mountPath;
             return this;
         }
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder readOnly(@Nullable Boolean readOnly) {
+
             this.readOnly = readOnly;
             return this;
         }
         @CustomType.Setter
         public Builder recursiveReadOnly(@Nullable String recursiveReadOnly) {
+
             this.recursiveReadOnly = recursiveReadOnly;
             return this;
         }
         public VolumeMountStatusPatch build() {
-            final var o = new VolumeMountStatusPatch();
-            o.mountPath = mountPath;
-            o.name = name;
-            o.readOnly = readOnly;
-            o.recursiveReadOnly = recursiveReadOnly;
-            return o;
+            final var _resultValue = new VolumeMountStatusPatch();
+            _resultValue.mountPath = mountPath;
+            _resultValue.name = name;
+            _resultValue.readOnly = readOnly;
+            _resultValue.recursiveReadOnly = recursiveReadOnly;
+            return _resultValue;
         }
     }
 }

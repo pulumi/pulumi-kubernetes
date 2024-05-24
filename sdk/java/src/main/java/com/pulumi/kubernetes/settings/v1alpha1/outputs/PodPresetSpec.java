@@ -105,6 +105,7 @@ public final class PodPresetSpec {
 
         @CustomType.Setter
         public Builder env(@Nullable List<EnvVar> env) {
+
             this.env = env;
             return this;
         }
@@ -113,6 +114,7 @@ public final class PodPresetSpec {
         }
         @CustomType.Setter
         public Builder envFrom(@Nullable List<EnvFromSource> envFrom) {
+
             this.envFrom = envFrom;
             return this;
         }
@@ -121,11 +123,13 @@ public final class PodPresetSpec {
         }
         @CustomType.Setter
         public Builder selector(@Nullable LabelSelector selector) {
+
             this.selector = selector;
             return this;
         }
         @CustomType.Setter
         public Builder volumeMounts(@Nullable List<VolumeMount> volumeMounts) {
+
             this.volumeMounts = volumeMounts;
             return this;
         }
@@ -134,6 +138,7 @@ public final class PodPresetSpec {
         }
         @CustomType.Setter
         public Builder volumes(@Nullable List<Volume> volumes) {
+
             this.volumes = volumes;
             return this;
         }
@@ -141,13 +146,13 @@ public final class PodPresetSpec {
             return volumes(List.of(volumes));
         }
         public PodPresetSpec build() {
-            final var o = new PodPresetSpec();
-            o.env = env;
-            o.envFrom = envFrom;
-            o.selector = selector;
-            o.volumeMounts = volumeMounts;
-            o.volumes = volumes;
-            return o;
+            final var _resultValue = new PodPresetSpec();
+            _resultValue.env = env;
+            _resultValue.envFrom = envFrom;
+            _resultValue.selector = selector;
+            _resultValue.volumeMounts = volumeMounts;
+            _resultValue.volumes = volumes;
+            return _resultValue;
         }
     }
 }

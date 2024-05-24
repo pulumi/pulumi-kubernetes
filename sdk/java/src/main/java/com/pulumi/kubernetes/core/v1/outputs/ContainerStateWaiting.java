@@ -58,19 +58,21 @@ public final class ContainerStateWaiting {
 
         @CustomType.Setter
         public Builder message(@Nullable String message) {
+
             this.message = message;
             return this;
         }
         @CustomType.Setter
         public Builder reason(@Nullable String reason) {
+
             this.reason = reason;
             return this;
         }
         public ContainerStateWaiting build() {
-            final var o = new ContainerStateWaiting();
-            o.message = message;
-            o.reason = reason;
-            return o;
+            final var _resultValue = new ContainerStateWaiting();
+            _resultValue.message = message;
+            _resultValue.reason = reason;
+            return _resultValue;
         }
     }
 }

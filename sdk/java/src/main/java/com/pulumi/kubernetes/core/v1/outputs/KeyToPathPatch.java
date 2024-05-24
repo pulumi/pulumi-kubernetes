@@ -73,25 +73,28 @@ public final class KeyToPathPatch {
 
         @CustomType.Setter
         public Builder key(@Nullable String key) {
+
             this.key = key;
             return this;
         }
         @CustomType.Setter
         public Builder mode(@Nullable Integer mode) {
+
             this.mode = mode;
             return this;
         }
         @CustomType.Setter
         public Builder path(@Nullable String path) {
+
             this.path = path;
             return this;
         }
         public KeyToPathPatch build() {
-            final var o = new KeyToPathPatch();
-            o.key = key;
-            o.mode = mode;
-            o.path = path;
-            return o;
+            final var _resultValue = new KeyToPathPatch();
+            _resultValue.key = key;
+            _resultValue.mode = mode;
+            _resultValue.path = path;
+            return _resultValue;
         }
     }
 }

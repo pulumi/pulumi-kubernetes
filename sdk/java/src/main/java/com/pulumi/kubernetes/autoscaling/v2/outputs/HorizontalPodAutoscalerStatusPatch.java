@@ -118,6 +118,7 @@ public final class HorizontalPodAutoscalerStatusPatch {
 
         @CustomType.Setter
         public Builder conditions(@Nullable List<HorizontalPodAutoscalerConditionPatch> conditions) {
+
             this.conditions = conditions;
             return this;
         }
@@ -126,6 +127,7 @@ public final class HorizontalPodAutoscalerStatusPatch {
         }
         @CustomType.Setter
         public Builder currentMetrics(@Nullable List<MetricStatusPatch> currentMetrics) {
+
             this.currentMetrics = currentMetrics;
             return this;
         }
@@ -134,33 +136,37 @@ public final class HorizontalPodAutoscalerStatusPatch {
         }
         @CustomType.Setter
         public Builder currentReplicas(@Nullable Integer currentReplicas) {
+
             this.currentReplicas = currentReplicas;
             return this;
         }
         @CustomType.Setter
         public Builder desiredReplicas(@Nullable Integer desiredReplicas) {
+
             this.desiredReplicas = desiredReplicas;
             return this;
         }
         @CustomType.Setter
         public Builder lastScaleTime(@Nullable String lastScaleTime) {
+
             this.lastScaleTime = lastScaleTime;
             return this;
         }
         @CustomType.Setter
         public Builder observedGeneration(@Nullable Integer observedGeneration) {
+
             this.observedGeneration = observedGeneration;
             return this;
         }
         public HorizontalPodAutoscalerStatusPatch build() {
-            final var o = new HorizontalPodAutoscalerStatusPatch();
-            o.conditions = conditions;
-            o.currentMetrics = currentMetrics;
-            o.currentReplicas = currentReplicas;
-            o.desiredReplicas = desiredReplicas;
-            o.lastScaleTime = lastScaleTime;
-            o.observedGeneration = observedGeneration;
-            return o;
+            final var _resultValue = new HorizontalPodAutoscalerStatusPatch();
+            _resultValue.conditions = conditions;
+            _resultValue.currentMetrics = currentMetrics;
+            _resultValue.currentReplicas = currentReplicas;
+            _resultValue.desiredReplicas = desiredReplicas;
+            _resultValue.lastScaleTime = lastScaleTime;
+            _resultValue.observedGeneration = observedGeneration;
+            return _resultValue;
         }
     }
 }

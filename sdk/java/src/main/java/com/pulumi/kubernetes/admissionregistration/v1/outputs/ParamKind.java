@@ -58,19 +58,21 @@ public final class ParamKind {
 
         @CustomType.Setter
         public Builder apiVersion(@Nullable String apiVersion) {
+
             this.apiVersion = apiVersion;
             return this;
         }
         @CustomType.Setter
         public Builder kind(@Nullable String kind) {
+
             this.kind = kind;
             return this;
         }
         public ParamKind build() {
-            final var o = new ParamKind();
-            o.apiVersion = apiVersion;
-            o.kind = kind;
-            return o;
+            final var _resultValue = new ParamKind();
+            _resultValue.apiVersion = apiVersion;
+            _resultValue.kind = kind;
+            return _resultValue;
         }
     }
 }

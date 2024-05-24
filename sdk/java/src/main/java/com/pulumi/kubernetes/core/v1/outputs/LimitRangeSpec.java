@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.outputs.LimitRangeItem;
 import java.util.List;
 import java.util.Objects;
@@ -43,16 +44,19 @@ public final class LimitRangeSpec {
 
         @CustomType.Setter
         public Builder limits(List<LimitRangeItem> limits) {
-            this.limits = Objects.requireNonNull(limits);
+            if (limits == null) {
+              throw new MissingRequiredPropertyException("LimitRangeSpec", "limits");
+            }
+            this.limits = limits;
             return this;
         }
         public Builder limits(LimitRangeItem... limits) {
             return limits(List.of(limits));
         }
         public LimitRangeSpec build() {
-            final var o = new LimitRangeSpec();
-            o.limits = limits;
-            return o;
+            final var _resultValue = new LimitRangeSpec();
+            _resultValue.limits = limits;
+            return _resultValue;
         }
     }
 }

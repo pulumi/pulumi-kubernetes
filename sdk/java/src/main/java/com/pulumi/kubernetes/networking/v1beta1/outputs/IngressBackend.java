@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.networking.v1beta1.outputs;
 
 import com.pulumi.core.Either;
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.outputs.TypedLocalObjectReference;
 import java.lang.Integer;
 import java.lang.String;
@@ -75,25 +76,32 @@ public final class IngressBackend {
 
         @CustomType.Setter
         public Builder resource(@Nullable TypedLocalObjectReference resource) {
+
             this.resource = resource;
             return this;
         }
         @CustomType.Setter
         public Builder serviceName(String serviceName) {
-            this.serviceName = Objects.requireNonNull(serviceName);
+            if (serviceName == null) {
+              throw new MissingRequiredPropertyException("IngressBackend", "serviceName");
+            }
+            this.serviceName = serviceName;
             return this;
         }
         @CustomType.Setter
         public Builder servicePort(Either<Integer,String> servicePort) {
-            this.servicePort = Objects.requireNonNull(servicePort);
+            if (servicePort == null) {
+              throw new MissingRequiredPropertyException("IngressBackend", "servicePort");
+            }
+            this.servicePort = servicePort;
             return this;
         }
         public IngressBackend build() {
-            final var o = new IngressBackend();
-            o.resource = resource;
-            o.serviceName = serviceName;
-            o.servicePort = servicePort;
-            return o;
+            final var _resultValue = new IngressBackend();
+            _resultValue.resource = resource;
+            _resultValue.serviceName = serviceName;
+            _resultValue.servicePort = servicePort;
+            return _resultValue;
         }
     }
 }

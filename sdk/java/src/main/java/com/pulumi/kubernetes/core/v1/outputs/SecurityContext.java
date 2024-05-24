@@ -205,79 +205,91 @@ public final class SecurityContext {
 
         @CustomType.Setter
         public Builder allowPrivilegeEscalation(@Nullable Boolean allowPrivilegeEscalation) {
+
             this.allowPrivilegeEscalation = allowPrivilegeEscalation;
             return this;
         }
         @CustomType.Setter
         public Builder appArmorProfile(@Nullable AppArmorProfile appArmorProfile) {
+
             this.appArmorProfile = appArmorProfile;
             return this;
         }
         @CustomType.Setter
         public Builder capabilities(@Nullable Capabilities capabilities) {
+
             this.capabilities = capabilities;
             return this;
         }
         @CustomType.Setter
         public Builder privileged(@Nullable Boolean privileged) {
+
             this.privileged = privileged;
             return this;
         }
         @CustomType.Setter
         public Builder procMount(@Nullable String procMount) {
+
             this.procMount = procMount;
             return this;
         }
         @CustomType.Setter
         public Builder readOnlyRootFilesystem(@Nullable Boolean readOnlyRootFilesystem) {
+
             this.readOnlyRootFilesystem = readOnlyRootFilesystem;
             return this;
         }
         @CustomType.Setter
         public Builder runAsGroup(@Nullable Integer runAsGroup) {
+
             this.runAsGroup = runAsGroup;
             return this;
         }
         @CustomType.Setter
         public Builder runAsNonRoot(@Nullable Boolean runAsNonRoot) {
+
             this.runAsNonRoot = runAsNonRoot;
             return this;
         }
         @CustomType.Setter
         public Builder runAsUser(@Nullable Integer runAsUser) {
+
             this.runAsUser = runAsUser;
             return this;
         }
         @CustomType.Setter
         public Builder seLinuxOptions(@Nullable SELinuxOptions seLinuxOptions) {
+
             this.seLinuxOptions = seLinuxOptions;
             return this;
         }
         @CustomType.Setter
         public Builder seccompProfile(@Nullable SeccompProfile seccompProfile) {
+
             this.seccompProfile = seccompProfile;
             return this;
         }
         @CustomType.Setter
         public Builder windowsOptions(@Nullable WindowsSecurityContextOptions windowsOptions) {
+
             this.windowsOptions = windowsOptions;
             return this;
         }
         public SecurityContext build() {
-            final var o = new SecurityContext();
-            o.allowPrivilegeEscalation = allowPrivilegeEscalation;
-            o.appArmorProfile = appArmorProfile;
-            o.capabilities = capabilities;
-            o.privileged = privileged;
-            o.procMount = procMount;
-            o.readOnlyRootFilesystem = readOnlyRootFilesystem;
-            o.runAsGroup = runAsGroup;
-            o.runAsNonRoot = runAsNonRoot;
-            o.runAsUser = runAsUser;
-            o.seLinuxOptions = seLinuxOptions;
-            o.seccompProfile = seccompProfile;
-            o.windowsOptions = windowsOptions;
-            return o;
+            final var _resultValue = new SecurityContext();
+            _resultValue.allowPrivilegeEscalation = allowPrivilegeEscalation;
+            _resultValue.appArmorProfile = appArmorProfile;
+            _resultValue.capabilities = capabilities;
+            _resultValue.privileged = privileged;
+            _resultValue.procMount = procMount;
+            _resultValue.readOnlyRootFilesystem = readOnlyRootFilesystem;
+            _resultValue.runAsGroup = runAsGroup;
+            _resultValue.runAsNonRoot = runAsNonRoot;
+            _resultValue.runAsUser = runAsUser;
+            _resultValue.seLinuxOptions = seLinuxOptions;
+            _resultValue.seccompProfile = seccompProfile;
+            _resultValue.windowsOptions = windowsOptions;
+            return _resultValue;
         }
     }
 }

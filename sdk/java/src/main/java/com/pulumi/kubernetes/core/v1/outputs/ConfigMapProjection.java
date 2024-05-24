@@ -75,6 +75,7 @@ public final class ConfigMapProjection {
 
         @CustomType.Setter
         public Builder items(@Nullable List<KeyToPath> items) {
+
             this.items = items;
             return this;
         }
@@ -83,20 +84,22 @@ public final class ConfigMapProjection {
         }
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder optional(@Nullable Boolean optional) {
+
             this.optional = optional;
             return this;
         }
         public ConfigMapProjection build() {
-            final var o = new ConfigMapProjection();
-            o.items = items;
-            o.name = name;
-            o.optional = optional;
-            return o;
+            final var _resultValue = new ConfigMapProjection();
+            _resultValue.items = items;
+            _resultValue.name = name;
+            _resultValue.optional = optional;
+            return _resultValue;
         }
     }
 }

@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Integer;
 import java.util.Objects;
 
@@ -42,13 +43,16 @@ public final class DaemonEndpoint {
 
         @CustomType.Setter
         public Builder Port(Integer Port) {
-            this.Port = Objects.requireNonNull(Port);
+            if (Port == null) {
+              throw new MissingRequiredPropertyException("DaemonEndpoint", "Port");
+            }
+            this.Port = Port;
             return this;
         }
         public DaemonEndpoint build() {
-            final var o = new DaemonEndpoint();
-            o.Port = Port;
-            return o;
+            final var _resultValue = new DaemonEndpoint();
+            _resultValue.Port = Port;
+            return _resultValue;
         }
     }
 }

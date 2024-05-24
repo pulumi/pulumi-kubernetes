@@ -72,25 +72,28 @@ public final class CustomResourceSubresourceScalePatch {
 
         @CustomType.Setter
         public Builder labelSelectorPath(@Nullable String labelSelectorPath) {
+
             this.labelSelectorPath = labelSelectorPath;
             return this;
         }
         @CustomType.Setter
         public Builder specReplicasPath(@Nullable String specReplicasPath) {
+
             this.specReplicasPath = specReplicasPath;
             return this;
         }
         @CustomType.Setter
         public Builder statusReplicasPath(@Nullable String statusReplicasPath) {
+
             this.statusReplicasPath = statusReplicasPath;
             return this;
         }
         public CustomResourceSubresourceScalePatch build() {
-            final var o = new CustomResourceSubresourceScalePatch();
-            o.labelSelectorPath = labelSelectorPath;
-            o.specReplicasPath = specReplicasPath;
-            o.statusReplicasPath = statusReplicasPath;
-            return o;
+            final var _resultValue = new CustomResourceSubresourceScalePatch();
+            _resultValue.labelSelectorPath = labelSelectorPath;
+            _resultValue.specReplicasPath = specReplicasPath;
+            _resultValue.statusReplicasPath = statusReplicasPath;
+            return _resultValue;
         }
     }
 }

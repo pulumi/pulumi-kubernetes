@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.core.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.inputs.LocalObjectReferenceArgs;
 import java.lang.Boolean;
 import java.lang.Integer;
@@ -464,9 +465,15 @@ public final class ISCSIVolumeSourceArgs extends com.pulumi.resources.ResourceAr
         }
 
         public ISCSIVolumeSourceArgs build() {
-            $.iqn = Objects.requireNonNull($.iqn, "expected parameter 'iqn' to be non-null");
-            $.lun = Objects.requireNonNull($.lun, "expected parameter 'lun' to be non-null");
-            $.targetPortal = Objects.requireNonNull($.targetPortal, "expected parameter 'targetPortal' to be non-null");
+            if ($.iqn == null) {
+                throw new MissingRequiredPropertyException("ISCSIVolumeSourceArgs", "iqn");
+            }
+            if ($.lun == null) {
+                throw new MissingRequiredPropertyException("ISCSIVolumeSourceArgs", "lun");
+            }
+            if ($.targetPortal == null) {
+                throw new MissingRequiredPropertyException("ISCSIVolumeSourceArgs", "targetPortal");
+            }
             return $;
         }
     }

@@ -87,31 +87,35 @@ public final class ExternalMetricStatusPatch {
 
         @CustomType.Setter
         public Builder currentAverageValue(@Nullable String currentAverageValue) {
+
             this.currentAverageValue = currentAverageValue;
             return this;
         }
         @CustomType.Setter
         public Builder currentValue(@Nullable String currentValue) {
+
             this.currentValue = currentValue;
             return this;
         }
         @CustomType.Setter
         public Builder metricName(@Nullable String metricName) {
+
             this.metricName = metricName;
             return this;
         }
         @CustomType.Setter
         public Builder metricSelector(@Nullable LabelSelectorPatch metricSelector) {
+
             this.metricSelector = metricSelector;
             return this;
         }
         public ExternalMetricStatusPatch build() {
-            final var o = new ExternalMetricStatusPatch();
-            o.currentAverageValue = currentAverageValue;
-            o.currentValue = currentValue;
-            o.metricName = metricName;
-            o.metricSelector = metricSelector;
-            return o;
+            final var _resultValue = new ExternalMetricStatusPatch();
+            _resultValue.currentAverageValue = currentAverageValue;
+            _resultValue.currentValue = currentValue;
+            _resultValue.metricName = metricName;
+            _resultValue.metricSelector = metricSelector;
+            return _resultValue;
         }
     }
 }

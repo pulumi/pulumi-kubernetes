@@ -58,6 +58,7 @@ public final class CapabilitiesPatch {
 
         @CustomType.Setter
         public Builder add(@Nullable List<String> add) {
+
             this.add = add;
             return this;
         }
@@ -66,6 +67,7 @@ public final class CapabilitiesPatch {
         }
         @CustomType.Setter
         public Builder drop(@Nullable List<String> drop) {
+
             this.drop = drop;
             return this;
         }
@@ -73,10 +75,10 @@ public final class CapabilitiesPatch {
             return drop(List.of(drop));
         }
         public CapabilitiesPatch build() {
-            final var o = new CapabilitiesPatch();
-            o.add = add;
-            o.drop = drop;
-            return o;
+            final var _resultValue = new CapabilitiesPatch();
+            _resultValue.add = add;
+            _resultValue.drop = drop;
+            return _resultValue;
         }
     }
 }

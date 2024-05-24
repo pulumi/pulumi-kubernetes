@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.auditregistration.v1alpha1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.auditregistration.v1alpha1.inputs.WebhookClientConfigArgs;
 import com.pulumi.kubernetes.auditregistration.v1alpha1.inputs.WebhookThrottleConfigArgs;
 import java.util.Objects;
@@ -118,7 +119,9 @@ public final class WebhookArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         public WebhookArgs build() {
-            $.clientConfig = Objects.requireNonNull($.clientConfig, "expected parameter 'clientConfig' to be non-null");
+            if ($.clientConfig == null) {
+                throw new MissingRequiredPropertyException("WebhookArgs", "clientConfig");
+            }
             return $;
         }
     }

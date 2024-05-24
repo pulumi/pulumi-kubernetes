@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.flowcontrol.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.List;
 import java.util.Objects;
@@ -69,7 +70,10 @@ public final class NonResourcePolicyRule {
 
         @CustomType.Setter
         public Builder nonResourceURLs(List<String> nonResourceURLs) {
-            this.nonResourceURLs = Objects.requireNonNull(nonResourceURLs);
+            if (nonResourceURLs == null) {
+              throw new MissingRequiredPropertyException("NonResourcePolicyRule", "nonResourceURLs");
+            }
+            this.nonResourceURLs = nonResourceURLs;
             return this;
         }
         public Builder nonResourceURLs(String... nonResourceURLs) {
@@ -77,17 +81,20 @@ public final class NonResourcePolicyRule {
         }
         @CustomType.Setter
         public Builder verbs(List<String> verbs) {
-            this.verbs = Objects.requireNonNull(verbs);
+            if (verbs == null) {
+              throw new MissingRequiredPropertyException("NonResourcePolicyRule", "verbs");
+            }
+            this.verbs = verbs;
             return this;
         }
         public Builder verbs(String... verbs) {
             return verbs(List.of(verbs));
         }
         public NonResourcePolicyRule build() {
-            final var o = new NonResourcePolicyRule();
-            o.nonResourceURLs = nonResourceURLs;
-            o.verbs = verbs;
-            return o;
+            final var _resultValue = new NonResourcePolicyRule();
+            _resultValue.nonResourceURLs = nonResourceURLs;
+            _resultValue.verbs = verbs;
+            return _resultValue;
         }
     }
 }

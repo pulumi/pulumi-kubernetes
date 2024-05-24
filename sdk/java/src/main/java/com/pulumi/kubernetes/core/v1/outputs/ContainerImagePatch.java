@@ -60,6 +60,7 @@ public final class ContainerImagePatch {
 
         @CustomType.Setter
         public Builder names(@Nullable List<String> names) {
+
             this.names = names;
             return this;
         }
@@ -68,14 +69,15 @@ public final class ContainerImagePatch {
         }
         @CustomType.Setter
         public Builder sizeBytes(@Nullable Integer sizeBytes) {
+
             this.sizeBytes = sizeBytes;
             return this;
         }
         public ContainerImagePatch build() {
-            final var o = new ContainerImagePatch();
-            o.names = names;
-            o.sizeBytes = sizeBytes;
-            return o;
+            final var _resultValue = new ContainerImagePatch();
+            _resultValue.names = names;
+            _resultValue.sizeBytes = sizeBytes;
+            return _resultValue;
         }
     }
 }

@@ -105,6 +105,7 @@ public final class PodPresetSpecPatch {
 
         @CustomType.Setter
         public Builder env(@Nullable List<EnvVarPatch> env) {
+
             this.env = env;
             return this;
         }
@@ -113,6 +114,7 @@ public final class PodPresetSpecPatch {
         }
         @CustomType.Setter
         public Builder envFrom(@Nullable List<EnvFromSourcePatch> envFrom) {
+
             this.envFrom = envFrom;
             return this;
         }
@@ -121,11 +123,13 @@ public final class PodPresetSpecPatch {
         }
         @CustomType.Setter
         public Builder selector(@Nullable LabelSelectorPatch selector) {
+
             this.selector = selector;
             return this;
         }
         @CustomType.Setter
         public Builder volumeMounts(@Nullable List<VolumeMountPatch> volumeMounts) {
+
             this.volumeMounts = volumeMounts;
             return this;
         }
@@ -134,6 +138,7 @@ public final class PodPresetSpecPatch {
         }
         @CustomType.Setter
         public Builder volumes(@Nullable List<VolumePatch> volumes) {
+
             this.volumes = volumes;
             return this;
         }
@@ -141,13 +146,13 @@ public final class PodPresetSpecPatch {
             return volumes(List.of(volumes));
         }
         public PodPresetSpecPatch build() {
-            final var o = new PodPresetSpecPatch();
-            o.env = env;
-            o.envFrom = envFrom;
-            o.selector = selector;
-            o.volumeMounts = volumeMounts;
-            o.volumes = volumes;
-            return o;
+            final var _resultValue = new PodPresetSpecPatch();
+            _resultValue.env = env;
+            _resultValue.envFrom = envFrom;
+            _resultValue.selector = selector;
+            _resultValue.volumeMounts = volumeMounts;
+            _resultValue.volumes = volumes;
+            return _resultValue;
         }
     }
 }

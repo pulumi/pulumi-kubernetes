@@ -117,43 +117,49 @@ public final class ConfigMap {
 
         @CustomType.Setter
         public Builder apiVersion(@Nullable String apiVersion) {
+
             this.apiVersion = apiVersion;
             return this;
         }
         @CustomType.Setter
         public Builder binaryData(@Nullable Map<String,String> binaryData) {
+
             this.binaryData = binaryData;
             return this;
         }
         @CustomType.Setter
         public Builder data(@Nullable Map<String,String> data) {
+
             this.data = data;
             return this;
         }
         @CustomType.Setter
         public Builder immutable(@Nullable Boolean immutable) {
+
             this.immutable = immutable;
             return this;
         }
         @CustomType.Setter
         public Builder kind(@Nullable String kind) {
+
             this.kind = kind;
             return this;
         }
         @CustomType.Setter
         public Builder metadata(@Nullable ObjectMeta metadata) {
+
             this.metadata = metadata;
             return this;
         }
         public ConfigMap build() {
-            final var o = new ConfigMap();
-            o.apiVersion = apiVersion;
-            o.binaryData = binaryData;
-            o.data = data;
-            o.immutable = immutable;
-            o.kind = kind;
-            o.metadata = metadata;
-            return o;
+            final var _resultValue = new ConfigMap();
+            _resultValue.apiVersion = apiVersion;
+            _resultValue.binaryData = binaryData;
+            _resultValue.data = data;
+            _resultValue.immutable = immutable;
+            _resultValue.kind = kind;
+            _resultValue.metadata = metadata;
+            return _resultValue;
         }
     }
 }

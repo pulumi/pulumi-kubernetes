@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.Either;
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Integer;
 import java.lang.String;
 import java.util.Objects;
@@ -134,43 +135,51 @@ public final class ServicePort {
 
         @CustomType.Setter
         public Builder appProtocol(@Nullable String appProtocol) {
+
             this.appProtocol = appProtocol;
             return this;
         }
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder nodePort(@Nullable Integer nodePort) {
+
             this.nodePort = nodePort;
             return this;
         }
         @CustomType.Setter
         public Builder port(Integer port) {
-            this.port = Objects.requireNonNull(port);
+            if (port == null) {
+              throw new MissingRequiredPropertyException("ServicePort", "port");
+            }
+            this.port = port;
             return this;
         }
         @CustomType.Setter
         public Builder protocol(@Nullable String protocol) {
+
             this.protocol = protocol;
             return this;
         }
         @CustomType.Setter
         public Builder targetPort(@Nullable Either<Integer,String> targetPort) {
+
             this.targetPort = targetPort;
             return this;
         }
         public ServicePort build() {
-            final var o = new ServicePort();
-            o.appProtocol = appProtocol;
-            o.name = name;
-            o.nodePort = nodePort;
-            o.port = port;
-            o.protocol = protocol;
-            o.targetPort = targetPort;
-            return o;
+            final var _resultValue = new ServicePort();
+            _resultValue.appProtocol = appProtocol;
+            _resultValue.name = name;
+            _resultValue.nodePort = nodePort;
+            _resultValue.port = port;
+            _resultValue.protocol = protocol;
+            _resultValue.targetPort = targetPort;
+            return _resultValue;
         }
     }
 }

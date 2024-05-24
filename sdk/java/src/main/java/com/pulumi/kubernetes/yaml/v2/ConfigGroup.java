@@ -59,7 +59,8 @@ import javax.annotation.Nullable;
  * 
  * ## Example Usage
  * ### Local File(s)
- * ```java
+ * <pre>
+ * {@code
  * package myproject;
  * 
  * import com.pulumi.Pulumi;
@@ -68,16 +69,18 @@ import javax.annotation.Nullable;
  * 
  * public class App {
  *     public static void main(String[] args) {
- *         Pulumi.run(ctx -&gt; {
- *             var example = new ConfigGroup(&#34;example&#34;, ConfigGroupArgs.builder()
- *                     .files(&#34;./manifest.yaml&#34;)
+ *         Pulumi.run(ctx -> {
+ *             var example = new ConfigGroup("example", ConfigGroupArgs.builder()
+ *                     .files("./manifest.yaml")
  *                     .build());
  *         });
  *     }
  * }
- * ```
+ * }
+ * </pre>
  * ### Local File Pattern
- * ```java
+ * <pre>
+ * {@code
  * package myproject;
  * 
  * import com.pulumi.Pulumi;
@@ -86,17 +89,19 @@ import javax.annotation.Nullable;
  * 
  * public class App {
  *     public static void main(String[] args) {
- *         Pulumi.run(ctx -&gt; {
- *             var example = new ConfigGroup(&#34;example&#34;, ConfigGroupArgs.builder()
- *                     .files(&#34;./manifests/*.yaml&#34;)
+ *         Pulumi.run(ctx -> {
+ *             var example = new ConfigGroup("example", ConfigGroupArgs.builder()
+ *                     .files("./manifests/*.yaml")
  *                     .build());
  *         });
  *     }
  * }
- * ```
+ * }
+ * </pre>
  * {{% /example %}}
  * ### Literal YAML String
- * ```java
+ * <pre>
+ * {@code
  * package myproject;
  * 
  * import com.pulumi.Pulumi;
@@ -105,22 +110,24 @@ import javax.annotation.Nullable;
  * 
  * public class App {
  *     public static void main(String[] args) {
- *         Pulumi.run(ctx -&gt; {
- *             var example = new ConfigGroup(&#34;example&#34;, ConfigGroupArgs.builder()
- *                     .yaml(&#34;&#34;&#34;
+ *         Pulumi.run(ctx -> {
+ *             var example = new ConfigGroup("example", ConfigGroupArgs.builder()
+ *                     .yaml("""
  *                         apiVersion: v1
  *                         kind: ConfigMap
  *                         metadata:
  *                           name: my-map
- *                         &#34;&#34;&#34;
+ *                         """
  *                     )
  *                     .build());
  *         });
  *     }
  * }
- * ```
+ * }
+ * </pre>
  * ### Literal Object
- * ```java
+ * <pre>
+ * {@code
  * package myproject;
  * 
  * import java.util.Map;
@@ -131,20 +138,21 @@ import javax.annotation.Nullable;
  * 
  * public class App {
  *     public static void main(String[] args) {
- *         Pulumi.run(ctx -&gt; {
- *             var example = new ConfigGroup(&#34;example&#34;, ConfigGroupArgs.builder()
+ *         Pulumi.run(ctx -> {
+ *             var example = new ConfigGroup("example", ConfigGroupArgs.builder()
  *                     .objs(Map.ofEntries(
- *                         Map.entry(&#34;apiVersion&#34;, &#34;v1&#34;),
- *                         Map.entry(&#34;kind&#34;, &#34;ConfigMap&#34;),
- *                         Map.entry(&#34;metadata&#34;, Map.ofEntries(
- *                             Map.entry(&#34;name&#34;, &#34;my-map&#34;)
+ *                         Map.entry("apiVersion", "v1"),
+ *                         Map.entry("kind", "ConfigMap"),
+ *                         Map.entry("metadata", Map.ofEntries(
+ *                             Map.entry("name", "my-map")
  *                         ))
  *                     ))
  *                     .build());
  *         });
  *     }
  * }
- * ```
+ * }
+ * </pre>
  * {% /examples %}}
  * 
  */

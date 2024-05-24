@@ -87,31 +87,35 @@ public final class ListMeta {
 
         @CustomType.Setter("continue")
         public Builder continue_(@Nullable String continue_) {
+
             this.continue_ = continue_;
             return this;
         }
         @CustomType.Setter
         public Builder remainingItemCount(@Nullable Integer remainingItemCount) {
+
             this.remainingItemCount = remainingItemCount;
             return this;
         }
         @CustomType.Setter
         public Builder resourceVersion(@Nullable String resourceVersion) {
+
             this.resourceVersion = resourceVersion;
             return this;
         }
         @CustomType.Setter
         public Builder selfLink(@Nullable String selfLink) {
+
             this.selfLink = selfLink;
             return this;
         }
         public ListMeta build() {
-            final var o = new ListMeta();
-            o.continue_ = continue_;
-            o.remainingItemCount = remainingItemCount;
-            o.resourceVersion = resourceVersion;
-            o.selfLink = selfLink;
-            return o;
+            final var _resultValue = new ListMeta();
+            _resultValue.continue_ = continue_;
+            _resultValue.remainingItemCount = remainingItemCount;
+            _resultValue.resourceVersion = resourceVersion;
+            _resultValue.selfLink = selfLink;
+            return _resultValue;
         }
     }
 }

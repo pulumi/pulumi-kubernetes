@@ -134,43 +134,49 @@ public final class ServicePortPatch {
 
         @CustomType.Setter
         public Builder appProtocol(@Nullable String appProtocol) {
+
             this.appProtocol = appProtocol;
             return this;
         }
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder nodePort(@Nullable Integer nodePort) {
+
             this.nodePort = nodePort;
             return this;
         }
         @CustomType.Setter
         public Builder port(@Nullable Integer port) {
+
             this.port = port;
             return this;
         }
         @CustomType.Setter
         public Builder protocol(@Nullable String protocol) {
+
             this.protocol = protocol;
             return this;
         }
         @CustomType.Setter
         public Builder targetPort(@Nullable Either<Integer,String> targetPort) {
+
             this.targetPort = targetPort;
             return this;
         }
         public ServicePortPatch build() {
-            final var o = new ServicePortPatch();
-            o.appProtocol = appProtocol;
-            o.name = name;
-            o.nodePort = nodePort;
-            o.port = port;
-            o.protocol = protocol;
-            o.targetPort = targetPort;
-            return o;
+            final var _resultValue = new ServicePortPatch();
+            _resultValue.appProtocol = appProtocol;
+            _resultValue.name = name;
+            _resultValue.nodePort = nodePort;
+            _resultValue.port = port;
+            _resultValue.protocol = protocol;
+            _resultValue.targetPort = targetPort;
+            return _resultValue;
         }
     }
 }

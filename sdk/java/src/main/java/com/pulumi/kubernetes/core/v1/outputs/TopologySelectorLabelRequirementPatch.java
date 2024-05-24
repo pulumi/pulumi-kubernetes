@@ -59,11 +59,13 @@ public final class TopologySelectorLabelRequirementPatch {
 
         @CustomType.Setter
         public Builder key(@Nullable String key) {
+
             this.key = key;
             return this;
         }
         @CustomType.Setter
         public Builder values(@Nullable List<String> values) {
+
             this.values = values;
             return this;
         }
@@ -71,10 +73,10 @@ public final class TopologySelectorLabelRequirementPatch {
             return values(List.of(values));
         }
         public TopologySelectorLabelRequirementPatch build() {
-            final var o = new TopologySelectorLabelRequirementPatch();
-            o.key = key;
-            o.values = values;
-            return o;
+            final var _resultValue = new TopologySelectorLabelRequirementPatch();
+            _resultValue.key = key;
+            _resultValue.values = values;
+            return _resultValue;
         }
     }
 }

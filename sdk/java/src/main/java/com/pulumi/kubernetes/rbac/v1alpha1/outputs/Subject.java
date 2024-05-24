@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.rbac.v1alpha1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -86,31 +87,39 @@ public final class Subject {
 
         @CustomType.Setter
         public Builder apiVersion(@Nullable String apiVersion) {
+
             this.apiVersion = apiVersion;
             return this;
         }
         @CustomType.Setter
         public Builder kind(String kind) {
-            this.kind = Objects.requireNonNull(kind);
+            if (kind == null) {
+              throw new MissingRequiredPropertyException("Subject", "kind");
+            }
+            this.kind = kind;
             return this;
         }
         @CustomType.Setter
         public Builder name(String name) {
-            this.name = Objects.requireNonNull(name);
+            if (name == null) {
+              throw new MissingRequiredPropertyException("Subject", "name");
+            }
+            this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder namespace(@Nullable String namespace) {
+
             this.namespace = namespace;
             return this;
         }
         public Subject build() {
-            final var o = new Subject();
-            o.apiVersion = apiVersion;
-            o.kind = kind;
-            o.name = name;
-            o.namespace = namespace;
-            return o;
+            final var _resultValue = new Subject();
+            _resultValue.apiVersion = apiVersion;
+            _resultValue.kind = kind;
+            _resultValue.name = name;
+            _resultValue.namespace = namespace;
+            return _resultValue;
         }
     }
 }

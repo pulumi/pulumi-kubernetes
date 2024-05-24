@@ -222,21 +222,25 @@ public final class JobStatusPatch {
 
         @CustomType.Setter
         public Builder active(@Nullable Integer active) {
+
             this.active = active;
             return this;
         }
         @CustomType.Setter
         public Builder completedIndexes(@Nullable String completedIndexes) {
+
             this.completedIndexes = completedIndexes;
             return this;
         }
         @CustomType.Setter
         public Builder completionTime(@Nullable String completionTime) {
+
             this.completionTime = completionTime;
             return this;
         }
         @CustomType.Setter
         public Builder conditions(@Nullable List<JobConditionPatch> conditions) {
+
             this.conditions = conditions;
             return this;
         }
@@ -245,53 +249,60 @@ public final class JobStatusPatch {
         }
         @CustomType.Setter
         public Builder failed(@Nullable Integer failed) {
+
             this.failed = failed;
             return this;
         }
         @CustomType.Setter
         public Builder failedIndexes(@Nullable String failedIndexes) {
+
             this.failedIndexes = failedIndexes;
             return this;
         }
         @CustomType.Setter
         public Builder ready(@Nullable Integer ready) {
+
             this.ready = ready;
             return this;
         }
         @CustomType.Setter
         public Builder startTime(@Nullable String startTime) {
+
             this.startTime = startTime;
             return this;
         }
         @CustomType.Setter
         public Builder succeeded(@Nullable Integer succeeded) {
+
             this.succeeded = succeeded;
             return this;
         }
         @CustomType.Setter
         public Builder terminating(@Nullable Integer terminating) {
+
             this.terminating = terminating;
             return this;
         }
         @CustomType.Setter
         public Builder uncountedTerminatedPods(@Nullable UncountedTerminatedPodsPatch uncountedTerminatedPods) {
+
             this.uncountedTerminatedPods = uncountedTerminatedPods;
             return this;
         }
         public JobStatusPatch build() {
-            final var o = new JobStatusPatch();
-            o.active = active;
-            o.completedIndexes = completedIndexes;
-            o.completionTime = completionTime;
-            o.conditions = conditions;
-            o.failed = failed;
-            o.failedIndexes = failedIndexes;
-            o.ready = ready;
-            o.startTime = startTime;
-            o.succeeded = succeeded;
-            o.terminating = terminating;
-            o.uncountedTerminatedPods = uncountedTerminatedPods;
-            return o;
+            final var _resultValue = new JobStatusPatch();
+            _resultValue.active = active;
+            _resultValue.completedIndexes = completedIndexes;
+            _resultValue.completionTime = completionTime;
+            _resultValue.conditions = conditions;
+            _resultValue.failed = failed;
+            _resultValue.failedIndexes = failedIndexes;
+            _resultValue.ready = ready;
+            _resultValue.startTime = startTime;
+            _resultValue.succeeded = succeeded;
+            _resultValue.terminating = terminating;
+            _resultValue.uncountedTerminatedPods = uncountedTerminatedPods;
+            return _resultValue;
         }
     }
 }

@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.autoscaling.v2.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.autoscaling.v2.outputs.MetricIdentifier;
 import com.pulumi.kubernetes.autoscaling.v2.outputs.MetricTarget;
 import java.util.Objects;
@@ -57,19 +58,25 @@ public final class ExternalMetricSource {
 
         @CustomType.Setter
         public Builder metric(MetricIdentifier metric) {
-            this.metric = Objects.requireNonNull(metric);
+            if (metric == null) {
+              throw new MissingRequiredPropertyException("ExternalMetricSource", "metric");
+            }
+            this.metric = metric;
             return this;
         }
         @CustomType.Setter
         public Builder target(MetricTarget target) {
-            this.target = Objects.requireNonNull(target);
+            if (target == null) {
+              throw new MissingRequiredPropertyException("ExternalMetricSource", "target");
+            }
+            this.target = target;
             return this;
         }
         public ExternalMetricSource build() {
-            final var o = new ExternalMetricSource();
-            o.metric = metric;
-            o.target = target;
-            return o;
+            final var _resultValue = new ExternalMetricSource();
+            _resultValue.metric = metric;
+            _resultValue.target = target;
+            return _resultValue;
         }
     }
 }

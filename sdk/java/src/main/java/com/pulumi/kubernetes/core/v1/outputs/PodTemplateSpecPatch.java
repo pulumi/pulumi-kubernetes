@@ -59,19 +59,21 @@ public final class PodTemplateSpecPatch {
 
         @CustomType.Setter
         public Builder metadata(@Nullable ObjectMetaPatch metadata) {
+
             this.metadata = metadata;
             return this;
         }
         @CustomType.Setter
         public Builder spec(@Nullable PodSpecPatch spec) {
+
             this.spec = spec;
             return this;
         }
         public PodTemplateSpecPatch build() {
-            final var o = new PodTemplateSpecPatch();
-            o.metadata = metadata;
-            o.spec = spec;
-            return o;
+            final var _resultValue = new PodTemplateSpecPatch();
+            _resultValue.metadata = metadata;
+            _resultValue.spec = spec;
+            return _resultValue;
         }
     }
 }

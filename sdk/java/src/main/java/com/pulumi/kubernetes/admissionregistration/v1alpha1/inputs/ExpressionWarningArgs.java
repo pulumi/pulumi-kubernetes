@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.admissionregistration.v1alpha1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
 
@@ -115,8 +116,12 @@ public final class ExpressionWarningArgs extends com.pulumi.resources.ResourceAr
         }
 
         public ExpressionWarningArgs build() {
-            $.fieldRef = Objects.requireNonNull($.fieldRef, "expected parameter 'fieldRef' to be non-null");
-            $.warning = Objects.requireNonNull($.warning, "expected parameter 'warning' to be non-null");
+            if ($.fieldRef == null) {
+                throw new MissingRequiredPropertyException("ExpressionWarningArgs", "fieldRef");
+            }
+            if ($.warning == null) {
+                throw new MissingRequiredPropertyException("ExpressionWarningArgs", "warning");
+            }
             return $;
         }
     }

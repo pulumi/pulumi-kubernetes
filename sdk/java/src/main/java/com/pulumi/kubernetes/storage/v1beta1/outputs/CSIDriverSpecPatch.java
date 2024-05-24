@@ -177,31 +177,37 @@ public final class CSIDriverSpecPatch {
 
         @CustomType.Setter
         public Builder attachRequired(@Nullable Boolean attachRequired) {
+
             this.attachRequired = attachRequired;
             return this;
         }
         @CustomType.Setter
         public Builder fsGroupPolicy(@Nullable String fsGroupPolicy) {
+
             this.fsGroupPolicy = fsGroupPolicy;
             return this;
         }
         @CustomType.Setter
         public Builder podInfoOnMount(@Nullable Boolean podInfoOnMount) {
+
             this.podInfoOnMount = podInfoOnMount;
             return this;
         }
         @CustomType.Setter
         public Builder requiresRepublish(@Nullable Boolean requiresRepublish) {
+
             this.requiresRepublish = requiresRepublish;
             return this;
         }
         @CustomType.Setter
         public Builder storageCapacity(@Nullable Boolean storageCapacity) {
+
             this.storageCapacity = storageCapacity;
             return this;
         }
         @CustomType.Setter
         public Builder tokenRequests(@Nullable List<TokenRequestPatch> tokenRequests) {
+
             this.tokenRequests = tokenRequests;
             return this;
         }
@@ -210,6 +216,7 @@ public final class CSIDriverSpecPatch {
         }
         @CustomType.Setter
         public Builder volumeLifecycleModes(@Nullable List<String> volumeLifecycleModes) {
+
             this.volumeLifecycleModes = volumeLifecycleModes;
             return this;
         }
@@ -217,15 +224,15 @@ public final class CSIDriverSpecPatch {
             return volumeLifecycleModes(List.of(volumeLifecycleModes));
         }
         public CSIDriverSpecPatch build() {
-            final var o = new CSIDriverSpecPatch();
-            o.attachRequired = attachRequired;
-            o.fsGroupPolicy = fsGroupPolicy;
-            o.podInfoOnMount = podInfoOnMount;
-            o.requiresRepublish = requiresRepublish;
-            o.storageCapacity = storageCapacity;
-            o.tokenRequests = tokenRequests;
-            o.volumeLifecycleModes = volumeLifecycleModes;
-            return o;
+            final var _resultValue = new CSIDriverSpecPatch();
+            _resultValue.attachRequired = attachRequired;
+            _resultValue.fsGroupPolicy = fsGroupPolicy;
+            _resultValue.podInfoOnMount = podInfoOnMount;
+            _resultValue.requiresRepublish = requiresRepublish;
+            _resultValue.storageCapacity = storageCapacity;
+            _resultValue.tokenRequests = tokenRequests;
+            _resultValue.volumeLifecycleModes = volumeLifecycleModes;
+            return _resultValue;
         }
     }
 }

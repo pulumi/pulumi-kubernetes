@@ -83,11 +83,13 @@ public final class AllocationResultPatch {
 
         @CustomType.Setter
         public Builder availableOnNodes(@Nullable NodeSelectorPatch availableOnNodes) {
+
             this.availableOnNodes = availableOnNodes;
             return this;
         }
         @CustomType.Setter
         public Builder resourceHandles(@Nullable List<ResourceHandlePatch> resourceHandles) {
+
             this.resourceHandles = resourceHandles;
             return this;
         }
@@ -96,15 +98,16 @@ public final class AllocationResultPatch {
         }
         @CustomType.Setter
         public Builder shareable(@Nullable Boolean shareable) {
+
             this.shareable = shareable;
             return this;
         }
         public AllocationResultPatch build() {
-            final var o = new AllocationResultPatch();
-            o.availableOnNodes = availableOnNodes;
-            o.resourceHandles = resourceHandles;
-            o.shareable = shareable;
-            return o;
+            final var _resultValue = new AllocationResultPatch();
+            _resultValue.availableOnNodes = availableOnNodes;
+            _resultValue.resourceHandles = resourceHandles;
+            _resultValue.shareable = shareable;
+            return _resultValue;
         }
     }
 }

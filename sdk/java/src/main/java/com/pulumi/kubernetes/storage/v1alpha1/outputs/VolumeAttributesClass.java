@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.storage.v1alpha1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.meta.v1.outputs.ObjectMeta;
 import java.lang.String;
 import java.util.Map;
@@ -106,37 +107,44 @@ public final class VolumeAttributesClass {
 
         @CustomType.Setter
         public Builder apiVersion(@Nullable String apiVersion) {
+
             this.apiVersion = apiVersion;
             return this;
         }
         @CustomType.Setter
         public Builder driverName(String driverName) {
-            this.driverName = Objects.requireNonNull(driverName);
+            if (driverName == null) {
+              throw new MissingRequiredPropertyException("VolumeAttributesClass", "driverName");
+            }
+            this.driverName = driverName;
             return this;
         }
         @CustomType.Setter
         public Builder kind(@Nullable String kind) {
+
             this.kind = kind;
             return this;
         }
         @CustomType.Setter
         public Builder metadata(@Nullable ObjectMeta metadata) {
+
             this.metadata = metadata;
             return this;
         }
         @CustomType.Setter
         public Builder parameters(@Nullable Map<String,String> parameters) {
+
             this.parameters = parameters;
             return this;
         }
         public VolumeAttributesClass build() {
-            final var o = new VolumeAttributesClass();
-            o.apiVersion = apiVersion;
-            o.driverName = driverName;
-            o.kind = kind;
-            o.metadata = metadata;
-            o.parameters = parameters;
-            return o;
+            final var _resultValue = new VolumeAttributesClass();
+            _resultValue.apiVersion = apiVersion;
+            _resultValue.driverName = driverName;
+            _resultValue.kind = kind;
+            _resultValue.metadata = metadata;
+            _resultValue.parameters = parameters;
+            return _resultValue;
         }
     }
 }

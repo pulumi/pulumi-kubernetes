@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.apiextensions.v1beta1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.apiextensions.v1beta1.outputs.WebhookClientConfig;
 import java.lang.String;
 import java.util.List;
@@ -76,6 +77,7 @@ public final class CustomResourceConversion {
 
         @CustomType.Setter
         public Builder conversionReviewVersions(@Nullable List<String> conversionReviewVersions) {
+
             this.conversionReviewVersions = conversionReviewVersions;
             return this;
         }
@@ -84,20 +86,24 @@ public final class CustomResourceConversion {
         }
         @CustomType.Setter
         public Builder strategy(String strategy) {
-            this.strategy = Objects.requireNonNull(strategy);
+            if (strategy == null) {
+              throw new MissingRequiredPropertyException("CustomResourceConversion", "strategy");
+            }
+            this.strategy = strategy;
             return this;
         }
         @CustomType.Setter
         public Builder webhookClientConfig(@Nullable WebhookClientConfig webhookClientConfig) {
+
             this.webhookClientConfig = webhookClientConfig;
             return this;
         }
         public CustomResourceConversion build() {
-            final var o = new CustomResourceConversion();
-            o.conversionReviewVersions = conversionReviewVersions;
-            o.strategy = strategy;
-            o.webhookClientConfig = webhookClientConfig;
-            return o;
+            final var _resultValue = new CustomResourceConversion();
+            _resultValue.conversionReviewVersions = conversionReviewVersions;
+            _resultValue.strategy = strategy;
+            _resultValue.webhookClientConfig = webhookClientConfig;
+            return _resultValue;
         }
     }
 }

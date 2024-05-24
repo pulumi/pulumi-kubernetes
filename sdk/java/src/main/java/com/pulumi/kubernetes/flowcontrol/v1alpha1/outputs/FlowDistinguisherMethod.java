@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.flowcontrol.v1alpha1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
 
@@ -42,13 +43,16 @@ public final class FlowDistinguisherMethod {
 
         @CustomType.Setter
         public Builder type(String type) {
-            this.type = Objects.requireNonNull(type);
+            if (type == null) {
+              throw new MissingRequiredPropertyException("FlowDistinguisherMethod", "type");
+            }
+            this.type = type;
             return this;
         }
         public FlowDistinguisherMethod build() {
-            final var o = new FlowDistinguisherMethod();
-            o.type = type;
-            return o;
+            final var _resultValue = new FlowDistinguisherMethod();
+            _resultValue.type = type;
+            return _resultValue;
         }
     }
 }

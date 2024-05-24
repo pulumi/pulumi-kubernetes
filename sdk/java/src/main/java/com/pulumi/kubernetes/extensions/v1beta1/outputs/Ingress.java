@@ -103,37 +103,42 @@ public final class Ingress {
 
         @CustomType.Setter
         public Builder apiVersion(@Nullable String apiVersion) {
+
             this.apiVersion = apiVersion;
             return this;
         }
         @CustomType.Setter
         public Builder kind(@Nullable String kind) {
+
             this.kind = kind;
             return this;
         }
         @CustomType.Setter
         public Builder metadata(@Nullable ObjectMeta metadata) {
+
             this.metadata = metadata;
             return this;
         }
         @CustomType.Setter
         public Builder spec(@Nullable IngressSpec spec) {
+
             this.spec = spec;
             return this;
         }
         @CustomType.Setter
         public Builder status(@Nullable IngressStatus status) {
+
             this.status = status;
             return this;
         }
         public Ingress build() {
-            final var o = new Ingress();
-            o.apiVersion = apiVersion;
-            o.kind = kind;
-            o.metadata = metadata;
-            o.spec = spec;
-            o.status = status;
-            return o;
+            final var _resultValue = new Ingress();
+            _resultValue.apiVersion = apiVersion;
+            _resultValue.kind = kind;
+            _resultValue.metadata = metadata;
+            _resultValue.spec = spec;
+            _resultValue.status = status;
+            return _resultValue;
         }
     }
 }

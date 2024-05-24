@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.admissionregistration.v1alpha1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.admissionregistration.v1alpha1.inputs.AuditAnnotationArgs;
 import com.pulumi.kubernetes.admissionregistration.v1alpha1.inputs.MatchConditionArgs;
 import com.pulumi.kubernetes.admissionregistration.v1alpha1.inputs.MatchResourcesArgs;
@@ -436,7 +437,9 @@ public final class ValidatingAdmissionPolicySpecArgs extends com.pulumi.resource
         }
 
         public ValidatingAdmissionPolicySpecArgs build() {
-            $.validations = Objects.requireNonNull($.validations, "expected parameter 'validations' to be non-null");
+            if ($.validations == null) {
+                throw new MissingRequiredPropertyException("ValidatingAdmissionPolicySpecArgs", "validations");
+            }
             return $;
         }
     }

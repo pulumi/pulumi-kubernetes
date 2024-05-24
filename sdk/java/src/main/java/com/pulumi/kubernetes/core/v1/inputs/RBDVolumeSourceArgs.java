@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.core.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.inputs.LocalObjectReferenceArgs;
 import java.lang.Boolean;
 import java.lang.String;
@@ -352,8 +353,12 @@ public final class RBDVolumeSourceArgs extends com.pulumi.resources.ResourceArgs
         }
 
         public RBDVolumeSourceArgs build() {
-            $.image = Objects.requireNonNull($.image, "expected parameter 'image' to be non-null");
-            $.monitors = Objects.requireNonNull($.monitors, "expected parameter 'monitors' to be non-null");
+            if ($.image == null) {
+                throw new MissingRequiredPropertyException("RBDVolumeSourceArgs", "image");
+            }
+            if ($.monitors == null) {
+                throw new MissingRequiredPropertyException("RBDVolumeSourceArgs", "monitors");
+            }
             return $;
         }
     }

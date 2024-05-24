@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.storage.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.storage.v1.inputs.CSINodeDriverArgs;
 import java.util.List;
 import java.util.Objects;
@@ -89,7 +90,9 @@ public final class CSINodeSpecArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         public CSINodeSpecArgs build() {
-            $.drivers = Objects.requireNonNull($.drivers, "expected parameter 'drivers' to be non-null");
+            if ($.drivers == null) {
+                throw new MissingRequiredPropertyException("CSINodeSpecArgs", "drivers");
+            }
             return $;
         }
     }

@@ -44,13 +44,14 @@ public final class NodeDaemonEndpoints {
 
         @CustomType.Setter
         public Builder kubeletEndpoint(@Nullable DaemonEndpoint kubeletEndpoint) {
+
             this.kubeletEndpoint = kubeletEndpoint;
             return this;
         }
         public NodeDaemonEndpoints build() {
-            final var o = new NodeDaemonEndpoints();
-            o.kubeletEndpoint = kubeletEndpoint;
-            return o;
+            final var _resultValue = new NodeDaemonEndpoints();
+            _resultValue.kubeletEndpoint = kubeletEndpoint;
+            return _resultValue;
         }
     }
 }

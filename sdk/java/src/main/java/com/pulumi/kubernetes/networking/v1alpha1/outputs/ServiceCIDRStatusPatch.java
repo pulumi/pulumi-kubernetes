@@ -44,6 +44,7 @@ public final class ServiceCIDRStatusPatch {
 
         @CustomType.Setter
         public Builder conditions(@Nullable List<ConditionPatch> conditions) {
+
             this.conditions = conditions;
             return this;
         }
@@ -51,9 +52,9 @@ public final class ServiceCIDRStatusPatch {
             return conditions(List.of(conditions));
         }
         public ServiceCIDRStatusPatch build() {
-            final var o = new ServiceCIDRStatusPatch();
-            o.conditions = conditions;
-            return o;
+            final var _resultValue = new ServiceCIDRStatusPatch();
+            _resultValue.conditions = conditions;
+            return _resultValue;
         }
     }
 }

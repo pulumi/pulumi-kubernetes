@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.flowcontrol.v1beta3.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.flowcontrol.v1beta3.outputs.QueuingConfiguration;
 import java.lang.String;
 import java.util.Objects;
@@ -59,19 +60,23 @@ public final class LimitResponse {
 
         @CustomType.Setter
         public Builder queuing(@Nullable QueuingConfiguration queuing) {
+
             this.queuing = queuing;
             return this;
         }
         @CustomType.Setter
         public Builder type(String type) {
-            this.type = Objects.requireNonNull(type);
+            if (type == null) {
+              throw new MissingRequiredPropertyException("LimitResponse", "type");
+            }
+            this.type = type;
             return this;
         }
         public LimitResponse build() {
-            final var o = new LimitResponse();
-            o.queuing = queuing;
-            o.type = type;
-            return o;
+            final var _resultValue = new LimitResponse();
+            _resultValue.queuing = queuing;
+            _resultValue.type = type;
+            return _resultValue;
         }
     }
 }

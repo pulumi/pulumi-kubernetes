@@ -58,19 +58,21 @@ public final class LifecyclePatch {
 
         @CustomType.Setter
         public Builder postStart(@Nullable LifecycleHandlerPatch postStart) {
+
             this.postStart = postStart;
             return this;
         }
         @CustomType.Setter
         public Builder preStop(@Nullable LifecycleHandlerPatch preStop) {
+
             this.preStop = preStop;
             return this;
         }
         public LifecyclePatch build() {
-            final var o = new LifecyclePatch();
-            o.postStart = postStart;
-            o.preStop = preStop;
-            return o;
+            final var _resultValue = new LifecyclePatch();
+            _resultValue.postStart = postStart;
+            _resultValue.preStop = preStop;
+            return _resultValue;
         }
     }
 }

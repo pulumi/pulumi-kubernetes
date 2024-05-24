@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.extensions.v1beta1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.extensions.v1beta1.inputs.NetworkPolicyEgressRuleArgs;
 import com.pulumi.kubernetes.extensions.v1beta1.inputs.NetworkPolicyIngressRuleArgs;
 import com.pulumi.kubernetes.meta.v1.inputs.LabelSelectorArgs;
@@ -225,7 +226,9 @@ public final class NetworkPolicySpecArgs extends com.pulumi.resources.ResourceAr
         }
 
         public NetworkPolicySpecArgs build() {
-            $.podSelector = Objects.requireNonNull($.podSelector, "expected parameter 'podSelector' to be non-null");
+            if ($.podSelector == null) {
+                throw new MissingRequiredPropertyException("NetworkPolicySpecArgs", "podSelector");
+            }
             return $;
         }
     }

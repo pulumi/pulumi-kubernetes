@@ -268,6 +268,7 @@ public final class PodStatus {
 
         @CustomType.Setter
         public Builder conditions(@Nullable List<PodCondition> conditions) {
+
             this.conditions = conditions;
             return this;
         }
@@ -276,6 +277,7 @@ public final class PodStatus {
         }
         @CustomType.Setter
         public Builder containerStatuses(@Nullable List<ContainerStatus> containerStatuses) {
+
             this.containerStatuses = containerStatuses;
             return this;
         }
@@ -284,6 +286,7 @@ public final class PodStatus {
         }
         @CustomType.Setter
         public Builder ephemeralContainerStatuses(@Nullable List<ContainerStatus> ephemeralContainerStatuses) {
+
             this.ephemeralContainerStatuses = ephemeralContainerStatuses;
             return this;
         }
@@ -292,11 +295,13 @@ public final class PodStatus {
         }
         @CustomType.Setter
         public Builder hostIP(@Nullable String hostIP) {
+
             this.hostIP = hostIP;
             return this;
         }
         @CustomType.Setter
         public Builder hostIPs(@Nullable List<HostIP> hostIPs) {
+
             this.hostIPs = hostIPs;
             return this;
         }
@@ -305,6 +310,7 @@ public final class PodStatus {
         }
         @CustomType.Setter
         public Builder initContainerStatuses(@Nullable List<ContainerStatus> initContainerStatuses) {
+
             this.initContainerStatuses = initContainerStatuses;
             return this;
         }
@@ -313,26 +319,31 @@ public final class PodStatus {
         }
         @CustomType.Setter
         public Builder message(@Nullable String message) {
+
             this.message = message;
             return this;
         }
         @CustomType.Setter
         public Builder nominatedNodeName(@Nullable String nominatedNodeName) {
+
             this.nominatedNodeName = nominatedNodeName;
             return this;
         }
         @CustomType.Setter
         public Builder phase(@Nullable String phase) {
+
             this.phase = phase;
             return this;
         }
         @CustomType.Setter
         public Builder podIP(@Nullable String podIP) {
+
             this.podIP = podIP;
             return this;
         }
         @CustomType.Setter
         public Builder podIPs(@Nullable List<PodIP> podIPs) {
+
             this.podIPs = podIPs;
             return this;
         }
@@ -341,21 +352,25 @@ public final class PodStatus {
         }
         @CustomType.Setter
         public Builder qosClass(@Nullable String qosClass) {
+
             this.qosClass = qosClass;
             return this;
         }
         @CustomType.Setter
         public Builder reason(@Nullable String reason) {
+
             this.reason = reason;
             return this;
         }
         @CustomType.Setter
         public Builder resize(@Nullable String resize) {
+
             this.resize = resize;
             return this;
         }
         @CustomType.Setter
         public Builder resourceClaimStatuses(@Nullable List<PodResourceClaimStatus> resourceClaimStatuses) {
+
             this.resourceClaimStatuses = resourceClaimStatuses;
             return this;
         }
@@ -364,28 +379,29 @@ public final class PodStatus {
         }
         @CustomType.Setter
         public Builder startTime(@Nullable String startTime) {
+
             this.startTime = startTime;
             return this;
         }
         public PodStatus build() {
-            final var o = new PodStatus();
-            o.conditions = conditions;
-            o.containerStatuses = containerStatuses;
-            o.ephemeralContainerStatuses = ephemeralContainerStatuses;
-            o.hostIP = hostIP;
-            o.hostIPs = hostIPs;
-            o.initContainerStatuses = initContainerStatuses;
-            o.message = message;
-            o.nominatedNodeName = nominatedNodeName;
-            o.phase = phase;
-            o.podIP = podIP;
-            o.podIPs = podIPs;
-            o.qosClass = qosClass;
-            o.reason = reason;
-            o.resize = resize;
-            o.resourceClaimStatuses = resourceClaimStatuses;
-            o.startTime = startTime;
-            return o;
+            final var _resultValue = new PodStatus();
+            _resultValue.conditions = conditions;
+            _resultValue.containerStatuses = containerStatuses;
+            _resultValue.ephemeralContainerStatuses = ephemeralContainerStatuses;
+            _resultValue.hostIP = hostIP;
+            _resultValue.hostIPs = hostIPs;
+            _resultValue.initContainerStatuses = initContainerStatuses;
+            _resultValue.message = message;
+            _resultValue.nominatedNodeName = nominatedNodeName;
+            _resultValue.phase = phase;
+            _resultValue.podIP = podIP;
+            _resultValue.podIPs = podIPs;
+            _resultValue.qosClass = qosClass;
+            _resultValue.reason = reason;
+            _resultValue.resize = resize;
+            _resultValue.resourceClaimStatuses = resourceClaimStatuses;
+            _resultValue.startTime = startTime;
+            return _resultValue;
         }
     }
 }

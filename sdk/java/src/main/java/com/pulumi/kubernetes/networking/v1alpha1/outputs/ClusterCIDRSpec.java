@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.networking.v1alpha1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.outputs.NodeSelector;
 import java.lang.Integer;
 import java.lang.String;
@@ -88,31 +89,37 @@ public final class ClusterCIDRSpec {
 
         @CustomType.Setter
         public Builder ipv4(@Nullable String ipv4) {
+
             this.ipv4 = ipv4;
             return this;
         }
         @CustomType.Setter
         public Builder ipv6(@Nullable String ipv6) {
+
             this.ipv6 = ipv6;
             return this;
         }
         @CustomType.Setter
         public Builder nodeSelector(@Nullable NodeSelector nodeSelector) {
+
             this.nodeSelector = nodeSelector;
             return this;
         }
         @CustomType.Setter
         public Builder perNodeHostBits(Integer perNodeHostBits) {
-            this.perNodeHostBits = Objects.requireNonNull(perNodeHostBits);
+            if (perNodeHostBits == null) {
+              throw new MissingRequiredPropertyException("ClusterCIDRSpec", "perNodeHostBits");
+            }
+            this.perNodeHostBits = perNodeHostBits;
             return this;
         }
         public ClusterCIDRSpec build() {
-            final var o = new ClusterCIDRSpec();
-            o.ipv4 = ipv4;
-            o.ipv6 = ipv6;
-            o.nodeSelector = nodeSelector;
-            o.perNodeHostBits = perNodeHostBits;
-            return o;
+            final var _resultValue = new ClusterCIDRSpec();
+            _resultValue.ipv4 = ipv4;
+            _resultValue.ipv6 = ipv6;
+            _resultValue.nodeSelector = nodeSelector;
+            _resultValue.perNodeHostBits = perNodeHostBits;
+            return _resultValue;
         }
     }
 }

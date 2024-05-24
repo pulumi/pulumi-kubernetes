@@ -53,7 +53,8 @@ import javax.annotation.Nullable;
  * 
  * ## Example Usage
  * ### Local File
- * ```java
+ * <pre>
+ * {@code
  * package myproject;
  * 
  * import com.pulumi.Pulumi;
@@ -62,14 +63,15 @@ import javax.annotation.Nullable;
  * 
  * public class App {
  *     public static void main(String[] args) {
- *         Pulumi.run(ctx -&gt; {
- *             var example = new ConfigFile(&#34;example&#34;, ConfigFileArgs.builder()
- *                     .file(&#34;./manifest.yaml&#34;)
+ *         Pulumi.run(ctx -> {
+ *             var example = new ConfigFile("example", ConfigFileArgs.builder()
+ *                     .file("./manifest.yaml")
  *                     .build());
  *         });
  *     }
  * }
- * ```
+ * }
+ * </pre>
  * {% /examples %}}
  * 
  */

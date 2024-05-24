@@ -90,11 +90,13 @@ public final class SecretVolumeSource {
 
         @CustomType.Setter
         public Builder defaultMode(@Nullable Integer defaultMode) {
+
             this.defaultMode = defaultMode;
             return this;
         }
         @CustomType.Setter
         public Builder items(@Nullable List<KeyToPath> items) {
+
             this.items = items;
             return this;
         }
@@ -103,21 +105,23 @@ public final class SecretVolumeSource {
         }
         @CustomType.Setter
         public Builder optional(@Nullable Boolean optional) {
+
             this.optional = optional;
             return this;
         }
         @CustomType.Setter
         public Builder secretName(@Nullable String secretName) {
+
             this.secretName = secretName;
             return this;
         }
         public SecretVolumeSource build() {
-            final var o = new SecretVolumeSource();
-            o.defaultMode = defaultMode;
-            o.items = items;
-            o.optional = optional;
-            o.secretName = secretName;
-            return o;
+            final var _resultValue = new SecretVolumeSource();
+            _resultValue.defaultMode = defaultMode;
+            _resultValue.items = items;
+            _resultValue.optional = optional;
+            _resultValue.secretName = secretName;
+            return _resultValue;
         }
     }
 }

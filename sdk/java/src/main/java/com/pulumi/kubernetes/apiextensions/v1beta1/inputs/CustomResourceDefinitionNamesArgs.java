@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.apiextensions.v1beta1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.List;
 import java.util.Objects;
@@ -286,8 +287,12 @@ public final class CustomResourceDefinitionNamesArgs extends com.pulumi.resource
         }
 
         public CustomResourceDefinitionNamesArgs build() {
-            $.kind = Objects.requireNonNull($.kind, "expected parameter 'kind' to be non-null");
-            $.plural = Objects.requireNonNull($.plural, "expected parameter 'plural' to be non-null");
+            if ($.kind == null) {
+                throw new MissingRequiredPropertyException("CustomResourceDefinitionNamesArgs", "kind");
+            }
+            if ($.plural == null) {
+                throw new MissingRequiredPropertyException("CustomResourceDefinitionNamesArgs", "plural");
+            }
             return $;
         }
     }

@@ -59,19 +59,21 @@ public final class ResourceRequestPatch {
 
         @CustomType.Setter
         public Builder namedResources(@Nullable NamedResourcesRequestPatch namedResources) {
+
             this.namedResources = namedResources;
             return this;
         }
         @CustomType.Setter
         public Builder vendorParameters(@Nullable JsonElement vendorParameters) {
+
             this.vendorParameters = vendorParameters;
             return this;
         }
         public ResourceRequestPatch build() {
-            final var o = new ResourceRequestPatch();
-            o.namedResources = namedResources;
-            o.vendorParameters = vendorParameters;
-            return o;
+            final var _resultValue = new ResourceRequestPatch();
+            _resultValue.namedResources = namedResources;
+            _resultValue.vendorParameters = vendorParameters;
+            return _resultValue;
         }
     }
 }

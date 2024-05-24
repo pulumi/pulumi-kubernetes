@@ -131,49 +131,56 @@ public final class APIServiceSpecPatch {
 
         @CustomType.Setter
         public Builder caBundle(@Nullable String caBundle) {
+
             this.caBundle = caBundle;
             return this;
         }
         @CustomType.Setter
         public Builder group(@Nullable String group) {
+
             this.group = group;
             return this;
         }
         @CustomType.Setter
         public Builder groupPriorityMinimum(@Nullable Integer groupPriorityMinimum) {
+
             this.groupPriorityMinimum = groupPriorityMinimum;
             return this;
         }
         @CustomType.Setter
         public Builder insecureSkipTLSVerify(@Nullable Boolean insecureSkipTLSVerify) {
+
             this.insecureSkipTLSVerify = insecureSkipTLSVerify;
             return this;
         }
         @CustomType.Setter
         public Builder service(@Nullable ServiceReferencePatch service) {
+
             this.service = service;
             return this;
         }
         @CustomType.Setter
         public Builder version(@Nullable String version) {
+
             this.version = version;
             return this;
         }
         @CustomType.Setter
         public Builder versionPriority(@Nullable Integer versionPriority) {
+
             this.versionPriority = versionPriority;
             return this;
         }
         public APIServiceSpecPatch build() {
-            final var o = new APIServiceSpecPatch();
-            o.caBundle = caBundle;
-            o.group = group;
-            o.groupPriorityMinimum = groupPriorityMinimum;
-            o.insecureSkipTLSVerify = insecureSkipTLSVerify;
-            o.service = service;
-            o.version = version;
-            o.versionPriority = versionPriority;
-            return o;
+            final var _resultValue = new APIServiceSpecPatch();
+            _resultValue.caBundle = caBundle;
+            _resultValue.group = group;
+            _resultValue.groupPriorityMinimum = groupPriorityMinimum;
+            _resultValue.insecureSkipTLSVerify = insecureSkipTLSVerify;
+            _resultValue.service = service;
+            _resultValue.version = version;
+            _resultValue.versionPriority = versionPriority;
+            return _resultValue;
         }
     }
 }

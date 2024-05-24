@@ -59,19 +59,21 @@ public final class NodeRuntimeHandlerPatch {
 
         @CustomType.Setter
         public Builder features(@Nullable NodeRuntimeHandlerFeaturesPatch features) {
+
             this.features = features;
             return this;
         }
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         public NodeRuntimeHandlerPatch build() {
-            final var o = new NodeRuntimeHandlerPatch();
-            o.features = features;
-            o.name = name;
-            return o;
+            final var _resultValue = new NodeRuntimeHandlerPatch();
+            _resultValue.features = features;
+            _resultValue.name = name;
+            return _resultValue;
         }
     }
 }

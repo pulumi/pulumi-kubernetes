@@ -105,31 +105,35 @@ public final class EndpointPort {
 
         @CustomType.Setter
         public Builder appProtocol(@Nullable String appProtocol) {
+
             this.appProtocol = appProtocol;
             return this;
         }
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder port(@Nullable Integer port) {
+
             this.port = port;
             return this;
         }
         @CustomType.Setter
         public Builder protocol(@Nullable String protocol) {
+
             this.protocol = protocol;
             return this;
         }
         public EndpointPort build() {
-            final var o = new EndpointPort();
-            o.appProtocol = appProtocol;
-            o.name = name;
-            o.port = port;
-            o.protocol = protocol;
-            return o;
+            final var _resultValue = new EndpointPort();
+            _resultValue.appProtocol = appProtocol;
+            _resultValue.name = name;
+            _resultValue.port = port;
+            _resultValue.protocol = protocol;
+            return _resultValue;
         }
     }
 }

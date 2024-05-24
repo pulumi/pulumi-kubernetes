@@ -6,6 +6,7 @@ package com.pulumi.kubernetes.resource.v1alpha2;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.core.internal.Codegen;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.meta.v1.inputs.ObjectMetaArgs;
 import com.pulumi.kubernetes.resource.v1alpha2.inputs.NamedResourcesResourcesArgs;
 import java.lang.String;
@@ -273,7 +274,9 @@ public final class ResourceSliceArgs extends com.pulumi.resources.ResourceArgs {
 
         public ResourceSliceArgs build() {
             $.apiVersion = Codegen.stringProp("apiVersion").output().arg($.apiVersion).getNullable();
-            $.driverName = Objects.requireNonNull($.driverName, "expected parameter 'driverName' to be non-null");
+            if ($.driverName == null) {
+                throw new MissingRequiredPropertyException("ResourceSliceArgs", "driverName");
+            }
             $.kind = Codegen.stringProp("kind").output().arg($.kind).getNullable();
             return $;
         }

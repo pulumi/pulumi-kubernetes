@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.networking.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.networking.v1.outputs.IngressBackend;
 import java.lang.String;
 import java.util.Objects;
@@ -93,25 +94,32 @@ public final class HTTPIngressPath {
 
         @CustomType.Setter
         public Builder backend(IngressBackend backend) {
-            this.backend = Objects.requireNonNull(backend);
+            if (backend == null) {
+              throw new MissingRequiredPropertyException("HTTPIngressPath", "backend");
+            }
+            this.backend = backend;
             return this;
         }
         @CustomType.Setter
         public Builder path(@Nullable String path) {
+
             this.path = path;
             return this;
         }
         @CustomType.Setter
         public Builder pathType(String pathType) {
-            this.pathType = Objects.requireNonNull(pathType);
+            if (pathType == null) {
+              throw new MissingRequiredPropertyException("HTTPIngressPath", "pathType");
+            }
+            this.pathType = pathType;
             return this;
         }
         public HTTPIngressPath build() {
-            final var o = new HTTPIngressPath();
-            o.backend = backend;
-            o.path = path;
-            o.pathType = pathType;
-            return o;
+            final var _resultValue = new HTTPIngressPath();
+            _resultValue.backend = backend;
+            _resultValue.path = path;
+            _resultValue.pathType = pathType;
+            return _resultValue;
         }
     }
 }

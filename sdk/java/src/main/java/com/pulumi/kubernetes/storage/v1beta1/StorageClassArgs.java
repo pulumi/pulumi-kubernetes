@@ -6,6 +6,7 @@ package com.pulumi.kubernetes.storage.v1beta1;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.core.internal.Codegen;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.inputs.TopologySelectorTermArgs;
 import com.pulumi.kubernetes.meta.v1.inputs.ObjectMetaArgs;
 import java.lang.Boolean;
@@ -437,7 +438,9 @@ public final class StorageClassArgs extends com.pulumi.resources.ResourceArgs {
         public StorageClassArgs build() {
             $.apiVersion = Codegen.stringProp("apiVersion").output().arg($.apiVersion).getNullable();
             $.kind = Codegen.stringProp("kind").output().arg($.kind).getNullable();
-            $.provisioner = Objects.requireNonNull($.provisioner, "expected parameter 'provisioner' to be non-null");
+            if ($.provisioner == null) {
+                throw new MissingRequiredPropertyException("StorageClassArgs", "provisioner");
+            }
             return $;
         }
     }

@@ -60,6 +60,7 @@ public final class NodeAffinity {
 
         @CustomType.Setter
         public Builder preferredDuringSchedulingIgnoredDuringExecution(@Nullable List<PreferredSchedulingTerm> preferredDuringSchedulingIgnoredDuringExecution) {
+
             this.preferredDuringSchedulingIgnoredDuringExecution = preferredDuringSchedulingIgnoredDuringExecution;
             return this;
         }
@@ -68,14 +69,15 @@ public final class NodeAffinity {
         }
         @CustomType.Setter
         public Builder requiredDuringSchedulingIgnoredDuringExecution(@Nullable NodeSelector requiredDuringSchedulingIgnoredDuringExecution) {
+
             this.requiredDuringSchedulingIgnoredDuringExecution = requiredDuringSchedulingIgnoredDuringExecution;
             return this;
         }
         public NodeAffinity build() {
-            final var o = new NodeAffinity();
-            o.preferredDuringSchedulingIgnoredDuringExecution = preferredDuringSchedulingIgnoredDuringExecution;
-            o.requiredDuringSchedulingIgnoredDuringExecution = requiredDuringSchedulingIgnoredDuringExecution;
-            return o;
+            final var _resultValue = new NodeAffinity();
+            _resultValue.preferredDuringSchedulingIgnoredDuringExecution = preferredDuringSchedulingIgnoredDuringExecution;
+            _resultValue.requiredDuringSchedulingIgnoredDuringExecution = requiredDuringSchedulingIgnoredDuringExecution;
+            return _resultValue;
         }
     }
 }

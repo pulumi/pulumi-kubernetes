@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Boolean;
 import java.lang.String;
 import java.util.Objects;
@@ -73,25 +74,30 @@ public final class ConfigMapKeySelector {
 
         @CustomType.Setter
         public Builder key(String key) {
-            this.key = Objects.requireNonNull(key);
+            if (key == null) {
+              throw new MissingRequiredPropertyException("ConfigMapKeySelector", "key");
+            }
+            this.key = key;
             return this;
         }
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder optional(@Nullable Boolean optional) {
+
             this.optional = optional;
             return this;
         }
         public ConfigMapKeySelector build() {
-            final var o = new ConfigMapKeySelector();
-            o.key = key;
-            o.name = name;
-            o.optional = optional;
-            return o;
+            final var _resultValue = new ConfigMapKeySelector();
+            _resultValue.key = key;
+            _resultValue.name = name;
+            _resultValue.optional = optional;
+            return _resultValue;
         }
     }
 }

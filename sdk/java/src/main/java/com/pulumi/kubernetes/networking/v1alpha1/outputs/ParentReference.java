@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.networking.v1alpha1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -100,37 +101,46 @@ public final class ParentReference {
 
         @CustomType.Setter
         public Builder group(@Nullable String group) {
+
             this.group = group;
             return this;
         }
         @CustomType.Setter
         public Builder name(String name) {
-            this.name = Objects.requireNonNull(name);
+            if (name == null) {
+              throw new MissingRequiredPropertyException("ParentReference", "name");
+            }
+            this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder namespace(@Nullable String namespace) {
+
             this.namespace = namespace;
             return this;
         }
         @CustomType.Setter
         public Builder resource(String resource) {
-            this.resource = Objects.requireNonNull(resource);
+            if (resource == null) {
+              throw new MissingRequiredPropertyException("ParentReference", "resource");
+            }
+            this.resource = resource;
             return this;
         }
         @CustomType.Setter
         public Builder uid(@Nullable String uid) {
+
             this.uid = uid;
             return this;
         }
         public ParentReference build() {
-            final var o = new ParentReference();
-            o.group = group;
-            o.name = name;
-            o.namespace = namespace;
-            o.resource = resource;
-            o.uid = uid;
-            return o;
+            final var _resultValue = new ParentReference();
+            _resultValue.group = group;
+            _resultValue.name = name;
+            _resultValue.namespace = namespace;
+            _resultValue.resource = resource;
+            _resultValue.uid = uid;
+            return _resultValue;
         }
     }
 }

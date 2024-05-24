@@ -115,43 +115,49 @@ public final class QuobyteVolumeSourcePatch {
 
         @CustomType.Setter
         public Builder group(@Nullable String group) {
+
             this.group = group;
             return this;
         }
         @CustomType.Setter
         public Builder readOnly(@Nullable Boolean readOnly) {
+
             this.readOnly = readOnly;
             return this;
         }
         @CustomType.Setter
         public Builder registry(@Nullable String registry) {
+
             this.registry = registry;
             return this;
         }
         @CustomType.Setter
         public Builder tenant(@Nullable String tenant) {
+
             this.tenant = tenant;
             return this;
         }
         @CustomType.Setter
         public Builder user(@Nullable String user) {
+
             this.user = user;
             return this;
         }
         @CustomType.Setter
         public Builder volume(@Nullable String volume) {
+
             this.volume = volume;
             return this;
         }
         public QuobyteVolumeSourcePatch build() {
-            final var o = new QuobyteVolumeSourcePatch();
-            o.group = group;
-            o.readOnly = readOnly;
-            o.registry = registry;
-            o.tenant = tenant;
-            o.user = user;
-            o.volume = volume;
-            return o;
+            final var _resultValue = new QuobyteVolumeSourcePatch();
+            _resultValue.group = group;
+            _resultValue.readOnly = readOnly;
+            _resultValue.registry = registry;
+            _resultValue.tenant = tenant;
+            _resultValue.user = user;
+            _resultValue.volume = volume;
+            return _resultValue;
         }
     }
 }

@@ -115,43 +115,49 @@ public final class OwnerReferencePatch {
 
         @CustomType.Setter
         public Builder apiVersion(@Nullable String apiVersion) {
+
             this.apiVersion = apiVersion;
             return this;
         }
         @CustomType.Setter
         public Builder blockOwnerDeletion(@Nullable Boolean blockOwnerDeletion) {
+
             this.blockOwnerDeletion = blockOwnerDeletion;
             return this;
         }
         @CustomType.Setter
         public Builder controller(@Nullable Boolean controller) {
+
             this.controller = controller;
             return this;
         }
         @CustomType.Setter
         public Builder kind(@Nullable String kind) {
+
             this.kind = kind;
             return this;
         }
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder uid(@Nullable String uid) {
+
             this.uid = uid;
             return this;
         }
         public OwnerReferencePatch build() {
-            final var o = new OwnerReferencePatch();
-            o.apiVersion = apiVersion;
-            o.blockOwnerDeletion = blockOwnerDeletion;
-            o.controller = controller;
-            o.kind = kind;
-            o.name = name;
-            o.uid = uid;
-            return o;
+            final var _resultValue = new OwnerReferencePatch();
+            _resultValue.apiVersion = apiVersion;
+            _resultValue.blockOwnerDeletion = blockOwnerDeletion;
+            _resultValue.controller = controller;
+            _resultValue.kind = kind;
+            _resultValue.name = name;
+            _resultValue.uid = uid;
+            return _resultValue;
         }
     }
 }

@@ -44,13 +44,14 @@ public final class AllowedFlexVolumePatch {
 
         @CustomType.Setter
         public Builder driver(@Nullable String driver) {
+
             this.driver = driver;
             return this;
         }
         public AllowedFlexVolumePatch build() {
-            final var o = new AllowedFlexVolumePatch();
-            o.driver = driver;
-            return o;
+            final var _resultValue = new AllowedFlexVolumePatch();
+            _resultValue.driver = driver;
+            return _resultValue;
         }
     }
 }

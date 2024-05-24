@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.storage.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Integer;
 import java.lang.String;
 import java.util.Objects;
@@ -118,7 +119,9 @@ public final class TokenRequestArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         public TokenRequestArgs build() {
-            $.audience = Objects.requireNonNull($.audience, "expected parameter 'audience' to be non-null");
+            if ($.audience == null) {
+                throw new MissingRequiredPropertyException("TokenRequestArgs", "audience");
+            }
             return $;
         }
     }

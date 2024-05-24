@@ -59,19 +59,21 @@ public final class ResourceMetricSourcePatch {
 
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder target(@Nullable MetricTargetPatch target) {
+
             this.target = target;
             return this;
         }
         public ResourceMetricSourcePatch build() {
-            final var o = new ResourceMetricSourcePatch();
-            o.name = name;
-            o.target = target;
-            return o;
+            final var _resultValue = new ResourceMetricSourcePatch();
+            _resultValue.name = name;
+            _resultValue.target = target;
+            return _resultValue;
         }
     }
 }

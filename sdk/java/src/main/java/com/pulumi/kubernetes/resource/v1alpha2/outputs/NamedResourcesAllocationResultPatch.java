@@ -44,13 +44,14 @@ public final class NamedResourcesAllocationResultPatch {
 
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         public NamedResourcesAllocationResultPatch build() {
-            final var o = new NamedResourcesAllocationResultPatch();
-            o.name = name;
-            return o;
+            final var _resultValue = new NamedResourcesAllocationResultPatch();
+            _resultValue.name = name;
+            return _resultValue;
         }
     }
 }

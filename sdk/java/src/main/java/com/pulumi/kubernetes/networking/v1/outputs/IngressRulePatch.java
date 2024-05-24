@@ -65,19 +65,21 @@ public final class IngressRulePatch {
 
         @CustomType.Setter
         public Builder host(@Nullable String host) {
+
             this.host = host;
             return this;
         }
         @CustomType.Setter
         public Builder http(@Nullable HTTPIngressRuleValuePatch http) {
+
             this.http = http;
             return this;
         }
         public IngressRulePatch build() {
-            final var o = new IngressRulePatch();
-            o.host = host;
-            o.http = http;
-            return o;
+            final var _resultValue = new IngressRulePatch();
+            _resultValue.host = host;
+            _resultValue.http = http;
+            return _resultValue;
         }
     }
 }

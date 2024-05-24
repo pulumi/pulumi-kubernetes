@@ -145,49 +145,56 @@ public final class VolumeMountPatch {
 
         @CustomType.Setter
         public Builder mountPath(@Nullable String mountPath) {
+
             this.mountPath = mountPath;
             return this;
         }
         @CustomType.Setter
         public Builder mountPropagation(@Nullable String mountPropagation) {
+
             this.mountPropagation = mountPropagation;
             return this;
         }
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder readOnly(@Nullable Boolean readOnly) {
+
             this.readOnly = readOnly;
             return this;
         }
         @CustomType.Setter
         public Builder recursiveReadOnly(@Nullable String recursiveReadOnly) {
+
             this.recursiveReadOnly = recursiveReadOnly;
             return this;
         }
         @CustomType.Setter
         public Builder subPath(@Nullable String subPath) {
+
             this.subPath = subPath;
             return this;
         }
         @CustomType.Setter
         public Builder subPathExpr(@Nullable String subPathExpr) {
+
             this.subPathExpr = subPathExpr;
             return this;
         }
         public VolumeMountPatch build() {
-            final var o = new VolumeMountPatch();
-            o.mountPath = mountPath;
-            o.mountPropagation = mountPropagation;
-            o.name = name;
-            o.readOnly = readOnly;
-            o.recursiveReadOnly = recursiveReadOnly;
-            o.subPath = subPath;
-            o.subPathExpr = subPathExpr;
-            return o;
+            final var _resultValue = new VolumeMountPatch();
+            _resultValue.mountPath = mountPath;
+            _resultValue.mountPropagation = mountPropagation;
+            _resultValue.name = name;
+            _resultValue.readOnly = readOnly;
+            _resultValue.recursiveReadOnly = recursiveReadOnly;
+            _resultValue.subPath = subPath;
+            _resultValue.subPathExpr = subPathExpr;
+            return _resultValue;
         }
     }
 }

@@ -72,25 +72,28 @@ public final class GitRepoVolumeSourcePatch {
 
         @CustomType.Setter
         public Builder directory(@Nullable String directory) {
+
             this.directory = directory;
             return this;
         }
         @CustomType.Setter
         public Builder repository(@Nullable String repository) {
+
             this.repository = repository;
             return this;
         }
         @CustomType.Setter
         public Builder revision(@Nullable String revision) {
+
             this.revision = revision;
             return this;
         }
         public GitRepoVolumeSourcePatch build() {
-            final var o = new GitRepoVolumeSourcePatch();
-            o.directory = directory;
-            o.repository = repository;
-            o.revision = revision;
-            return o;
+            final var _resultValue = new GitRepoVolumeSourcePatch();
+            _resultValue.directory = directory;
+            _resultValue.repository = repository;
+            _resultValue.revision = revision;
+            return _resultValue;
         }
     }
 }

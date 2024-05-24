@@ -44,6 +44,7 @@ public final class PodSchedulingContextStatus {
 
         @CustomType.Setter
         public Builder resourceClaims(@Nullable List<ResourceClaimSchedulingStatus> resourceClaims) {
+
             this.resourceClaims = resourceClaims;
             return this;
         }
@@ -51,9 +52,9 @@ public final class PodSchedulingContextStatus {
             return resourceClaims(List.of(resourceClaims));
         }
         public PodSchedulingContextStatus build() {
-            final var o = new PodSchedulingContextStatus();
-            o.resourceClaims = resourceClaims;
-            return o;
+            final var _resultValue = new PodSchedulingContextStatus();
+            _resultValue.resourceClaims = resourceClaims;
+            return _resultValue;
         }
     }
 }

@@ -74,25 +74,28 @@ public final class RuntimeClassSpecPatch {
 
         @CustomType.Setter
         public Builder overhead(@Nullable OverheadPatch overhead) {
+
             this.overhead = overhead;
             return this;
         }
         @CustomType.Setter
         public Builder runtimeHandler(@Nullable String runtimeHandler) {
+
             this.runtimeHandler = runtimeHandler;
             return this;
         }
         @CustomType.Setter
         public Builder scheduling(@Nullable SchedulingPatch scheduling) {
+
             this.scheduling = scheduling;
             return this;
         }
         public RuntimeClassSpecPatch build() {
-            final var o = new RuntimeClassSpecPatch();
-            o.overhead = overhead;
-            o.runtimeHandler = runtimeHandler;
-            o.scheduling = scheduling;
-            return o;
+            final var _resultValue = new RuntimeClassSpecPatch();
+            _resultValue.overhead = overhead;
+            _resultValue.runtimeHandler = runtimeHandler;
+            _resultValue.scheduling = scheduling;
+            return _resultValue;
         }
     }
 }

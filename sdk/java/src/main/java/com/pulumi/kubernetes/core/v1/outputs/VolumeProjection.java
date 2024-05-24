@@ -116,37 +116,42 @@ public final class VolumeProjection {
 
         @CustomType.Setter
         public Builder clusterTrustBundle(@Nullable ClusterTrustBundleProjection clusterTrustBundle) {
+
             this.clusterTrustBundle = clusterTrustBundle;
             return this;
         }
         @CustomType.Setter
         public Builder configMap(@Nullable ConfigMapProjection configMap) {
+
             this.configMap = configMap;
             return this;
         }
         @CustomType.Setter
         public Builder downwardAPI(@Nullable DownwardAPIProjection downwardAPI) {
+
             this.downwardAPI = downwardAPI;
             return this;
         }
         @CustomType.Setter
         public Builder secret(@Nullable SecretProjection secret) {
+
             this.secret = secret;
             return this;
         }
         @CustomType.Setter
         public Builder serviceAccountToken(@Nullable ServiceAccountTokenProjection serviceAccountToken) {
+
             this.serviceAccountToken = serviceAccountToken;
             return this;
         }
         public VolumeProjection build() {
-            final var o = new VolumeProjection();
-            o.clusterTrustBundle = clusterTrustBundle;
-            o.configMap = configMap;
-            o.downwardAPI = downwardAPI;
-            o.secret = secret;
-            o.serviceAccountToken = serviceAccountToken;
-            return o;
+            final var _resultValue = new VolumeProjection();
+            _resultValue.clusterTrustBundle = clusterTrustBundle;
+            _resultValue.configMap = configMap;
+            _resultValue.downwardAPI = downwardAPI;
+            _resultValue.secret = secret;
+            _resultValue.serviceAccountToken = serviceAccountToken;
+            return _resultValue;
         }
     }
 }

@@ -73,25 +73,28 @@ public final class EnvVarPatch {
 
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder value(@Nullable String value) {
+
             this.value = value;
             return this;
         }
         @CustomType.Setter
         public Builder valueFrom(@Nullable EnvVarSourcePatch valueFrom) {
+
             this.valueFrom = valueFrom;
             return this;
         }
         public EnvVarPatch build() {
-            final var o = new EnvVarPatch();
-            o.name = name;
-            o.value = value;
-            o.valueFrom = valueFrom;
-            return o;
+            final var _resultValue = new EnvVarPatch();
+            _resultValue.name = name;
+            _resultValue.value = value;
+            _resultValue.valueFrom = valueFrom;
+            return _resultValue;
         }
     }
 }

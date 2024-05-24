@@ -100,37 +100,42 @@ public final class MigrationConditionPatch {
 
         @CustomType.Setter
         public Builder lastUpdateTime(@Nullable String lastUpdateTime) {
+
             this.lastUpdateTime = lastUpdateTime;
             return this;
         }
         @CustomType.Setter
         public Builder message(@Nullable String message) {
+
             this.message = message;
             return this;
         }
         @CustomType.Setter
         public Builder reason(@Nullable String reason) {
+
             this.reason = reason;
             return this;
         }
         @CustomType.Setter
         public Builder status(@Nullable String status) {
+
             this.status = status;
             return this;
         }
         @CustomType.Setter
         public Builder type(@Nullable String type) {
+
             this.type = type;
             return this;
         }
         public MigrationConditionPatch build() {
-            final var o = new MigrationConditionPatch();
-            o.lastUpdateTime = lastUpdateTime;
-            o.message = message;
-            o.reason = reason;
-            o.status = status;
-            o.type = type;
-            return o;
+            final var _resultValue = new MigrationConditionPatch();
+            _resultValue.lastUpdateTime = lastUpdateTime;
+            _resultValue.message = message;
+            _resultValue.reason = reason;
+            _resultValue.status = status;
+            _resultValue.type = type;
+            return _resultValue;
         }
     }
 }

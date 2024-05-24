@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.discovery.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.inputs.ObjectReferenceArgs;
 import com.pulumi.kubernetes.discovery.v1.inputs.EndpointConditionsArgs;
 import com.pulumi.kubernetes.discovery.v1.inputs.EndpointHintsArgs;
@@ -354,7 +355,9 @@ public final class EndpointArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         public EndpointArgs build() {
-            $.addresses = Objects.requireNonNull($.addresses, "expected parameter 'addresses' to be non-null");
+            if ($.addresses == null) {
+                throw new MissingRequiredPropertyException("EndpointArgs", "addresses");
+            }
             return $;
         }
     }

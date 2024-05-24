@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.extensions.v1beta1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.List;
 import java.util.Objects;
@@ -59,7 +60,10 @@ public final class RuntimeClassStrategyOptions {
 
         @CustomType.Setter
         public Builder allowedRuntimeClassNames(List<String> allowedRuntimeClassNames) {
-            this.allowedRuntimeClassNames = Objects.requireNonNull(allowedRuntimeClassNames);
+            if (allowedRuntimeClassNames == null) {
+              throw new MissingRequiredPropertyException("RuntimeClassStrategyOptions", "allowedRuntimeClassNames");
+            }
+            this.allowedRuntimeClassNames = allowedRuntimeClassNames;
             return this;
         }
         public Builder allowedRuntimeClassNames(String... allowedRuntimeClassNames) {
@@ -67,14 +71,15 @@ public final class RuntimeClassStrategyOptions {
         }
         @CustomType.Setter
         public Builder defaultRuntimeClassName(@Nullable String defaultRuntimeClassName) {
+
             this.defaultRuntimeClassName = defaultRuntimeClassName;
             return this;
         }
         public RuntimeClassStrategyOptions build() {
-            final var o = new RuntimeClassStrategyOptions();
-            o.allowedRuntimeClassNames = allowedRuntimeClassNames;
-            o.defaultRuntimeClassName = defaultRuntimeClassName;
-            return o;
+            final var _resultValue = new RuntimeClassStrategyOptions();
+            _resultValue.allowedRuntimeClassNames = allowedRuntimeClassNames;
+            _resultValue.defaultRuntimeClassName = defaultRuntimeClassName;
+            return _resultValue;
         }
     }
 }

@@ -59,19 +59,21 @@ public final class ExternalMetricStatusPatch {
 
         @CustomType.Setter
         public Builder current(@Nullable MetricValueStatusPatch current) {
+
             this.current = current;
             return this;
         }
         @CustomType.Setter
         public Builder metric(@Nullable MetricIdentifierPatch metric) {
+
             this.metric = metric;
             return this;
         }
         public ExternalMetricStatusPatch build() {
-            final var o = new ExternalMetricStatusPatch();
-            o.current = current;
-            o.metric = metric;
-            return o;
+            final var _resultValue = new ExternalMetricStatusPatch();
+            _resultValue.current = current;
+            _resultValue.metric = metric;
+            return _resultValue;
         }
     }
 }

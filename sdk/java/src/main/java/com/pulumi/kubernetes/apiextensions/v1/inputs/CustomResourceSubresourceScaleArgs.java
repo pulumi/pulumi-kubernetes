@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.apiextensions.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -154,8 +155,12 @@ public final class CustomResourceSubresourceScaleArgs extends com.pulumi.resourc
         }
 
         public CustomResourceSubresourceScaleArgs build() {
-            $.specReplicasPath = Objects.requireNonNull($.specReplicasPath, "expected parameter 'specReplicasPath' to be non-null");
-            $.statusReplicasPath = Objects.requireNonNull($.statusReplicasPath, "expected parameter 'statusReplicasPath' to be non-null");
+            if ($.specReplicasPath == null) {
+                throw new MissingRequiredPropertyException("CustomResourceSubresourceScaleArgs", "specReplicasPath");
+            }
+            if ($.statusReplicasPath == null) {
+                throw new MissingRequiredPropertyException("CustomResourceSubresourceScaleArgs", "statusReplicasPath");
+            }
             return $;
         }
     }

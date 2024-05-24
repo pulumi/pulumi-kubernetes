@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -72,25 +73,30 @@ public final class ResourceFieldSelector {
 
         @CustomType.Setter
         public Builder containerName(@Nullable String containerName) {
+
             this.containerName = containerName;
             return this;
         }
         @CustomType.Setter
         public Builder divisor(@Nullable String divisor) {
+
             this.divisor = divisor;
             return this;
         }
         @CustomType.Setter
         public Builder resource(String resource) {
-            this.resource = Objects.requireNonNull(resource);
+            if (resource == null) {
+              throw new MissingRequiredPropertyException("ResourceFieldSelector", "resource");
+            }
+            this.resource = resource;
             return this;
         }
         public ResourceFieldSelector build() {
-            final var o = new ResourceFieldSelector();
-            o.containerName = containerName;
-            o.divisor = divisor;
-            o.resource = resource;
-            return o;
+            final var _resultValue = new ResourceFieldSelector();
+            _resultValue.containerName = containerName;
+            _resultValue.divisor = divisor;
+            _resultValue.resource = resource;
+            return _resultValue;
         }
     }
 }

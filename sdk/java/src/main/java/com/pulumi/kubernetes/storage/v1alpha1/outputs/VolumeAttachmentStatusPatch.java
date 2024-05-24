@@ -89,31 +89,35 @@ public final class VolumeAttachmentStatusPatch {
 
         @CustomType.Setter
         public Builder attachError(@Nullable VolumeErrorPatch attachError) {
+
             this.attachError = attachError;
             return this;
         }
         @CustomType.Setter
         public Builder attached(@Nullable Boolean attached) {
+
             this.attached = attached;
             return this;
         }
         @CustomType.Setter
         public Builder attachmentMetadata(@Nullable Map<String,String> attachmentMetadata) {
+
             this.attachmentMetadata = attachmentMetadata;
             return this;
         }
         @CustomType.Setter
         public Builder detachError(@Nullable VolumeErrorPatch detachError) {
+
             this.detachError = detachError;
             return this;
         }
         public VolumeAttachmentStatusPatch build() {
-            final var o = new VolumeAttachmentStatusPatch();
-            o.attachError = attachError;
-            o.attached = attached;
-            o.attachmentMetadata = attachmentMetadata;
-            o.detachError = detachError;
-            return o;
+            final var _resultValue = new VolumeAttachmentStatusPatch();
+            _resultValue.attachError = attachError;
+            _resultValue.attached = attached;
+            _resultValue.attachmentMetadata = attachmentMetadata;
+            _resultValue.detachError = detachError;
+            return _resultValue;
         }
     }
 }

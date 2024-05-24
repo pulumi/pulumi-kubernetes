@@ -89,31 +89,35 @@ public final class ReplicationControllerSpec {
 
         @CustomType.Setter
         public Builder minReadySeconds(@Nullable Integer minReadySeconds) {
+
             this.minReadySeconds = minReadySeconds;
             return this;
         }
         @CustomType.Setter
         public Builder replicas(@Nullable Integer replicas) {
+
             this.replicas = replicas;
             return this;
         }
         @CustomType.Setter
         public Builder selector(@Nullable Map<String,String> selector) {
+
             this.selector = selector;
             return this;
         }
         @CustomType.Setter
         public Builder template(@Nullable PodTemplateSpec template) {
+
             this.template = template;
             return this;
         }
         public ReplicationControllerSpec build() {
-            final var o = new ReplicationControllerSpec();
-            o.minReadySeconds = minReadySeconds;
-            o.replicas = replicas;
-            o.selector = selector;
-            o.template = template;
-            return o;
+            final var _resultValue = new ReplicationControllerSpec();
+            _resultValue.minReadySeconds = minReadySeconds;
+            _resultValue.replicas = replicas;
+            _resultValue.selector = selector;
+            _resultValue.template = template;
+            return _resultValue;
         }
     }
 }

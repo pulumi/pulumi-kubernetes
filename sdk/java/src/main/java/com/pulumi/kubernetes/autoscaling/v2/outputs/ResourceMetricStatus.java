@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.autoscaling.v2.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.autoscaling.v2.outputs.MetricValueStatus;
 import java.lang.String;
 import java.util.Objects;
@@ -57,19 +58,25 @@ public final class ResourceMetricStatus {
 
         @CustomType.Setter
         public Builder current(MetricValueStatus current) {
-            this.current = Objects.requireNonNull(current);
+            if (current == null) {
+              throw new MissingRequiredPropertyException("ResourceMetricStatus", "current");
+            }
+            this.current = current;
             return this;
         }
         @CustomType.Setter
         public Builder name(String name) {
-            this.name = Objects.requireNonNull(name);
+            if (name == null) {
+              throw new MissingRequiredPropertyException("ResourceMetricStatus", "name");
+            }
+            this.name = name;
             return this;
         }
         public ResourceMetricStatus build() {
-            final var o = new ResourceMetricStatus();
-            o.current = current;
-            o.name = name;
-            return o;
+            final var _resultValue = new ResourceMetricStatus();
+            _resultValue.current = current;
+            _resultValue.name = name;
+            return _resultValue;
         }
     }
 }

@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Integer;
 import java.util.Objects;
 
@@ -42,13 +43,16 @@ public final class SleepAction {
 
         @CustomType.Setter
         public Builder seconds(Integer seconds) {
-            this.seconds = Objects.requireNonNull(seconds);
+            if (seconds == null) {
+              throw new MissingRequiredPropertyException("SleepAction", "seconds");
+            }
+            this.seconds = seconds;
             return this;
         }
         public SleepAction build() {
-            final var o = new SleepAction();
-            o.seconds = seconds;
-            return o;
+            final var _resultValue = new SleepAction();
+            _resultValue.seconds = seconds;
+            return _resultValue;
         }
     }
 }

@@ -116,11 +116,13 @@ public final class ReplicaSetStatusPatch {
 
         @CustomType.Setter
         public Builder availableReplicas(@Nullable Integer availableReplicas) {
+
             this.availableReplicas = availableReplicas;
             return this;
         }
         @CustomType.Setter
         public Builder conditions(@Nullable List<ReplicaSetConditionPatch> conditions) {
+
             this.conditions = conditions;
             return this;
         }
@@ -129,33 +131,37 @@ public final class ReplicaSetStatusPatch {
         }
         @CustomType.Setter
         public Builder fullyLabeledReplicas(@Nullable Integer fullyLabeledReplicas) {
+
             this.fullyLabeledReplicas = fullyLabeledReplicas;
             return this;
         }
         @CustomType.Setter
         public Builder observedGeneration(@Nullable Integer observedGeneration) {
+
             this.observedGeneration = observedGeneration;
             return this;
         }
         @CustomType.Setter
         public Builder readyReplicas(@Nullable Integer readyReplicas) {
+
             this.readyReplicas = readyReplicas;
             return this;
         }
         @CustomType.Setter
         public Builder replicas(@Nullable Integer replicas) {
+
             this.replicas = replicas;
             return this;
         }
         public ReplicaSetStatusPatch build() {
-            final var o = new ReplicaSetStatusPatch();
-            o.availableReplicas = availableReplicas;
-            o.conditions = conditions;
-            o.fullyLabeledReplicas = fullyLabeledReplicas;
-            o.observedGeneration = observedGeneration;
-            o.readyReplicas = readyReplicas;
-            o.replicas = replicas;
-            return o;
+            final var _resultValue = new ReplicaSetStatusPatch();
+            _resultValue.availableReplicas = availableReplicas;
+            _resultValue.conditions = conditions;
+            _resultValue.fullyLabeledReplicas = fullyLabeledReplicas;
+            _resultValue.observedGeneration = observedGeneration;
+            _resultValue.readyReplicas = readyReplicas;
+            _resultValue.replicas = replicas;
+            return _resultValue;
         }
     }
 }

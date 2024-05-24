@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.core.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.inputs.EnvVarSourceArgs;
 import java.lang.String;
 import java.util.Objects;
@@ -155,7 +156,9 @@ public final class EnvVarArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         public EnvVarArgs build() {
-            $.name = Objects.requireNonNull($.name, "expected parameter 'name' to be non-null");
+            if ($.name == null) {
+                throw new MissingRequiredPropertyException("EnvVarArgs", "name");
+            }
             return $;
         }
     }

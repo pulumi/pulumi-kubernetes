@@ -104,11 +104,13 @@ public final class HTTPGetActionPatch {
 
         @CustomType.Setter
         public Builder host(@Nullable String host) {
+
             this.host = host;
             return this;
         }
         @CustomType.Setter
         public Builder httpHeaders(@Nullable List<HTTPHeaderPatch> httpHeaders) {
+
             this.httpHeaders = httpHeaders;
             return this;
         }
@@ -117,27 +119,30 @@ public final class HTTPGetActionPatch {
         }
         @CustomType.Setter
         public Builder path(@Nullable String path) {
+
             this.path = path;
             return this;
         }
         @CustomType.Setter
         public Builder port(@Nullable Either<Integer,String> port) {
+
             this.port = port;
             return this;
         }
         @CustomType.Setter
         public Builder scheme(@Nullable String scheme) {
+
             this.scheme = scheme;
             return this;
         }
         public HTTPGetActionPatch build() {
-            final var o = new HTTPGetActionPatch();
-            o.host = host;
-            o.httpHeaders = httpHeaders;
-            o.path = path;
-            o.port = port;
-            o.scheme = scheme;
-            return o;
+            final var _resultValue = new HTTPGetActionPatch();
+            _resultValue.host = host;
+            _resultValue.httpHeaders = httpHeaders;
+            _resultValue.path = path;
+            _resultValue.port = port;
+            _resultValue.scheme = scheme;
+            return _resultValue;
         }
     }
 }

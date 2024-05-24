@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.apps.v1beta2.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.outputs.PodTemplateSpec;
 import com.pulumi.kubernetes.meta.v1.outputs.LabelSelector;
 import java.lang.Integer;
@@ -88,31 +89,37 @@ public final class ReplicaSetSpec {
 
         @CustomType.Setter
         public Builder minReadySeconds(@Nullable Integer minReadySeconds) {
+
             this.minReadySeconds = minReadySeconds;
             return this;
         }
         @CustomType.Setter
         public Builder replicas(@Nullable Integer replicas) {
+
             this.replicas = replicas;
             return this;
         }
         @CustomType.Setter
         public Builder selector(LabelSelector selector) {
-            this.selector = Objects.requireNonNull(selector);
+            if (selector == null) {
+              throw new MissingRequiredPropertyException("ReplicaSetSpec", "selector");
+            }
+            this.selector = selector;
             return this;
         }
         @CustomType.Setter
         public Builder template(@Nullable PodTemplateSpec template) {
+
             this.template = template;
             return this;
         }
         public ReplicaSetSpec build() {
-            final var o = new ReplicaSetSpec();
-            o.minReadySeconds = minReadySeconds;
-            o.replicas = replicas;
-            o.selector = selector;
-            o.template = template;
-            return o;
+            final var _resultValue = new ReplicaSetSpec();
+            _resultValue.minReadySeconds = minReadySeconds;
+            _resultValue.replicas = replicas;
+            _resultValue.selector = selector;
+            _resultValue.template = template;
+            return _resultValue;
         }
     }
 }

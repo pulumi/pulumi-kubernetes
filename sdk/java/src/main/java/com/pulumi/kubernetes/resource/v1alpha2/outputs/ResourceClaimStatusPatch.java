@@ -102,21 +102,25 @@ public final class ResourceClaimStatusPatch {
 
         @CustomType.Setter
         public Builder allocation(@Nullable AllocationResultPatch allocation) {
+
             this.allocation = allocation;
             return this;
         }
         @CustomType.Setter
         public Builder deallocationRequested(@Nullable Boolean deallocationRequested) {
+
             this.deallocationRequested = deallocationRequested;
             return this;
         }
         @CustomType.Setter
         public Builder driverName(@Nullable String driverName) {
+
             this.driverName = driverName;
             return this;
         }
         @CustomType.Setter
         public Builder reservedFor(@Nullable List<ResourceClaimConsumerReferencePatch> reservedFor) {
+
             this.reservedFor = reservedFor;
             return this;
         }
@@ -124,12 +128,12 @@ public final class ResourceClaimStatusPatch {
             return reservedFor(List.of(reservedFor));
         }
         public ResourceClaimStatusPatch build() {
-            final var o = new ResourceClaimStatusPatch();
-            o.allocation = allocation;
-            o.deallocationRequested = deallocationRequested;
-            o.driverName = driverName;
-            o.reservedFor = reservedFor;
-            return o;
+            final var _resultValue = new ResourceClaimStatusPatch();
+            _resultValue.allocation = allocation;
+            _resultValue.deallocationRequested = deallocationRequested;
+            _resultValue.driverName = driverName;
+            _resultValue.reservedFor = reservedFor;
+            return _resultValue;
         }
     }
 }

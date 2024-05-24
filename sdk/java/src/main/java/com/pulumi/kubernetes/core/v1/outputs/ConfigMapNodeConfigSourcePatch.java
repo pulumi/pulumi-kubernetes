@@ -100,37 +100,42 @@ public final class ConfigMapNodeConfigSourcePatch {
 
         @CustomType.Setter
         public Builder kubeletConfigKey(@Nullable String kubeletConfigKey) {
+
             this.kubeletConfigKey = kubeletConfigKey;
             return this;
         }
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder namespace(@Nullable String namespace) {
+
             this.namespace = namespace;
             return this;
         }
         @CustomType.Setter
         public Builder resourceVersion(@Nullable String resourceVersion) {
+
             this.resourceVersion = resourceVersion;
             return this;
         }
         @CustomType.Setter
         public Builder uid(@Nullable String uid) {
+
             this.uid = uid;
             return this;
         }
         public ConfigMapNodeConfigSourcePatch build() {
-            final var o = new ConfigMapNodeConfigSourcePatch();
-            o.kubeletConfigKey = kubeletConfigKey;
-            o.name = name;
-            o.namespace = namespace;
-            o.resourceVersion = resourceVersion;
-            o.uid = uid;
-            return o;
+            final var _resultValue = new ConfigMapNodeConfigSourcePatch();
+            _resultValue.kubeletConfigKey = kubeletConfigKey;
+            _resultValue.name = name;
+            _resultValue.namespace = namespace;
+            _resultValue.resourceVersion = resourceVersion;
+            _resultValue.uid = uid;
+            return _resultValue;
         }
     }
 }

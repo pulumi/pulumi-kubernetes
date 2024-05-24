@@ -59,6 +59,7 @@ public final class NetworkPolicyIngressRulePatch {
 
         @CustomType.Setter
         public Builder from(@Nullable List<NetworkPolicyPeerPatch> from) {
+
             this.from = from;
             return this;
         }
@@ -67,6 +68,7 @@ public final class NetworkPolicyIngressRulePatch {
         }
         @CustomType.Setter
         public Builder ports(@Nullable List<NetworkPolicyPortPatch> ports) {
+
             this.ports = ports;
             return this;
         }
@@ -74,10 +76,10 @@ public final class NetworkPolicyIngressRulePatch {
             return ports(List.of(ports));
         }
         public NetworkPolicyIngressRulePatch build() {
-            final var o = new NetworkPolicyIngressRulePatch();
-            o.from = from;
-            o.ports = ports;
-            return o;
+            final var _resultValue = new NetworkPolicyIngressRulePatch();
+            _resultValue.from = from;
+            _resultValue.ports = ports;
+            return _resultValue;
         }
     }
 }

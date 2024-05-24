@@ -100,37 +100,42 @@ public final class ParentReferencePatch {
 
         @CustomType.Setter
         public Builder group(@Nullable String group) {
+
             this.group = group;
             return this;
         }
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder namespace(@Nullable String namespace) {
+
             this.namespace = namespace;
             return this;
         }
         @CustomType.Setter
         public Builder resource(@Nullable String resource) {
+
             this.resource = resource;
             return this;
         }
         @CustomType.Setter
         public Builder uid(@Nullable String uid) {
+
             this.uid = uid;
             return this;
         }
         public ParentReferencePatch build() {
-            final var o = new ParentReferencePatch();
-            o.group = group;
-            o.name = name;
-            o.namespace = namespace;
-            o.resource = resource;
-            o.uid = uid;
-            return o;
+            final var _resultValue = new ParentReferencePatch();
+            _resultValue.group = group;
+            _resultValue.name = name;
+            _resultValue.namespace = namespace;
+            _resultValue.resource = resource;
+            _resultValue.uid = uid;
+            return _resultValue;
         }
     }
 }

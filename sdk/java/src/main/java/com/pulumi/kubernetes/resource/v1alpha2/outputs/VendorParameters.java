@@ -59,19 +59,21 @@ public final class VendorParameters {
 
         @CustomType.Setter
         public Builder driverName(@Nullable String driverName) {
+
             this.driverName = driverName;
             return this;
         }
         @CustomType.Setter
         public Builder parameters(@Nullable JsonElement parameters) {
+
             this.parameters = parameters;
             return this;
         }
         public VendorParameters build() {
-            final var o = new VendorParameters();
-            o.driverName = driverName;
-            o.parameters = parameters;
-            return o;
+            final var _resultValue = new VendorParameters();
+            _resultValue.driverName = driverName;
+            _resultValue.parameters = parameters;
+            return _resultValue;
         }
     }
 }

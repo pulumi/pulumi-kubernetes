@@ -44,13 +44,14 @@ public final class HostIP {
 
         @CustomType.Setter
         public Builder ip(@Nullable String ip) {
+
             this.ip = ip;
             return this;
         }
         public HostIP build() {
-            final var o = new HostIP();
-            o.ip = ip;
-            return o;
+            final var _resultValue = new HostIP();
+            _resultValue.ip = ip;
+            return _resultValue;
         }
     }
 }

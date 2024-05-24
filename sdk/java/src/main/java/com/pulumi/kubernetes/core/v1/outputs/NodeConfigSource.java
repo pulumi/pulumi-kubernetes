@@ -44,13 +44,14 @@ public final class NodeConfigSource {
 
         @CustomType.Setter
         public Builder configMap(@Nullable ConfigMapNodeConfigSource configMap) {
+
             this.configMap = configMap;
             return this;
         }
         public NodeConfigSource build() {
-            final var o = new NodeConfigSource();
-            o.configMap = configMap;
-            return o;
+            final var _resultValue = new NodeConfigSource();
+            _resultValue.configMap = configMap;
+            return _resultValue;
         }
     }
 }

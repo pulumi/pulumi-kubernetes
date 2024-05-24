@@ -44,13 +44,14 @@ public final class CustomResourceValidation {
 
         @CustomType.Setter
         public Builder openAPIV3Schema(@Nullable JSONSchemaProps openAPIV3Schema) {
+
             this.openAPIV3Schema = openAPIV3Schema;
             return this;
         }
         public CustomResourceValidation build() {
-            final var o = new CustomResourceValidation();
-            o.openAPIV3Schema = openAPIV3Schema;
-            return o;
+            final var _resultValue = new CustomResourceValidation();
+            _resultValue.openAPIV3Schema = openAPIV3Schema;
+            return _resultValue;
         }
     }
 }

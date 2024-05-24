@@ -59,19 +59,21 @@ public final class JobTemplateSpec {
 
         @CustomType.Setter
         public Builder metadata(@Nullable ObjectMeta metadata) {
+
             this.metadata = metadata;
             return this;
         }
         @CustomType.Setter
         public Builder spec(@Nullable JobSpec spec) {
+
             this.spec = spec;
             return this;
         }
         public JobTemplateSpec build() {
-            final var o = new JobTemplateSpec();
-            o.metadata = metadata;
-            o.spec = spec;
-            return o;
+            final var _resultValue = new JobTemplateSpec();
+            _resultValue.metadata = metadata;
+            _resultValue.spec = spec;
+            return _resultValue;
         }
     }
 }

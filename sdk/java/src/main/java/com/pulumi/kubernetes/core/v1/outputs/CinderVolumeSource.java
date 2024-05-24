@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.outputs.LocalObjectReference;
 import java.lang.Boolean;
 import java.lang.String;
@@ -88,31 +89,37 @@ public final class CinderVolumeSource {
 
         @CustomType.Setter
         public Builder fsType(@Nullable String fsType) {
+
             this.fsType = fsType;
             return this;
         }
         @CustomType.Setter
         public Builder readOnly(@Nullable Boolean readOnly) {
+
             this.readOnly = readOnly;
             return this;
         }
         @CustomType.Setter
         public Builder secretRef(@Nullable LocalObjectReference secretRef) {
+
             this.secretRef = secretRef;
             return this;
         }
         @CustomType.Setter
         public Builder volumeID(String volumeID) {
-            this.volumeID = Objects.requireNonNull(volumeID);
+            if (volumeID == null) {
+              throw new MissingRequiredPropertyException("CinderVolumeSource", "volumeID");
+            }
+            this.volumeID = volumeID;
             return this;
         }
         public CinderVolumeSource build() {
-            final var o = new CinderVolumeSource();
-            o.fsType = fsType;
-            o.readOnly = readOnly;
-            o.secretRef = secretRef;
-            o.volumeID = volumeID;
-            return o;
+            final var _resultValue = new CinderVolumeSource();
+            _resultValue.fsType = fsType;
+            _resultValue.readOnly = readOnly;
+            _resultValue.secretRef = secretRef;
+            _resultValue.volumeID = volumeID;
+            return _resultValue;
         }
     }
 }

@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.apiregistration.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.apiregistration.v1.outputs.ServiceReference;
 import java.lang.Boolean;
 import java.lang.Integer;
@@ -131,49 +132,60 @@ public final class APIServiceSpec {
 
         @CustomType.Setter
         public Builder caBundle(@Nullable String caBundle) {
+
             this.caBundle = caBundle;
             return this;
         }
         @CustomType.Setter
         public Builder group(@Nullable String group) {
+
             this.group = group;
             return this;
         }
         @CustomType.Setter
         public Builder groupPriorityMinimum(Integer groupPriorityMinimum) {
-            this.groupPriorityMinimum = Objects.requireNonNull(groupPriorityMinimum);
+            if (groupPriorityMinimum == null) {
+              throw new MissingRequiredPropertyException("APIServiceSpec", "groupPriorityMinimum");
+            }
+            this.groupPriorityMinimum = groupPriorityMinimum;
             return this;
         }
         @CustomType.Setter
         public Builder insecureSkipTLSVerify(@Nullable Boolean insecureSkipTLSVerify) {
+
             this.insecureSkipTLSVerify = insecureSkipTLSVerify;
             return this;
         }
         @CustomType.Setter
         public Builder service(@Nullable ServiceReference service) {
+
             this.service = service;
             return this;
         }
         @CustomType.Setter
         public Builder version(@Nullable String version) {
+
             this.version = version;
             return this;
         }
         @CustomType.Setter
         public Builder versionPriority(Integer versionPriority) {
-            this.versionPriority = Objects.requireNonNull(versionPriority);
+            if (versionPriority == null) {
+              throw new MissingRequiredPropertyException("APIServiceSpec", "versionPriority");
+            }
+            this.versionPriority = versionPriority;
             return this;
         }
         public APIServiceSpec build() {
-            final var o = new APIServiceSpec();
-            o.caBundle = caBundle;
-            o.group = group;
-            o.groupPriorityMinimum = groupPriorityMinimum;
-            o.insecureSkipTLSVerify = insecureSkipTLSVerify;
-            o.service = service;
-            o.version = version;
-            o.versionPriority = versionPriority;
-            return o;
+            final var _resultValue = new APIServiceSpec();
+            _resultValue.caBundle = caBundle;
+            _resultValue.group = group;
+            _resultValue.groupPriorityMinimum = groupPriorityMinimum;
+            _resultValue.insecureSkipTLSVerify = insecureSkipTLSVerify;
+            _resultValue.service = service;
+            _resultValue.version = version;
+            _resultValue.versionPriority = versionPriority;
+            return _resultValue;
         }
     }
 }

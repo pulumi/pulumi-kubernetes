@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.outputs.ContainerPort;
 import com.pulumi.kubernetes.core.v1.outputs.ContainerResizePolicy;
 import com.pulumi.kubernetes.core.v1.outputs.EnvFromSource;
@@ -378,6 +379,7 @@ public final class Container {
 
         @CustomType.Setter
         public Builder args(@Nullable List<String> args) {
+
             this.args = args;
             return this;
         }
@@ -386,6 +388,7 @@ public final class Container {
         }
         @CustomType.Setter
         public Builder command(@Nullable List<String> command) {
+
             this.command = command;
             return this;
         }
@@ -394,6 +397,7 @@ public final class Container {
         }
         @CustomType.Setter
         public Builder env(@Nullable List<EnvVar> env) {
+
             this.env = env;
             return this;
         }
@@ -402,6 +406,7 @@ public final class Container {
         }
         @CustomType.Setter
         public Builder envFrom(@Nullable List<EnvFromSource> envFrom) {
+
             this.envFrom = envFrom;
             return this;
         }
@@ -410,31 +415,39 @@ public final class Container {
         }
         @CustomType.Setter
         public Builder image(@Nullable String image) {
+
             this.image = image;
             return this;
         }
         @CustomType.Setter
         public Builder imagePullPolicy(@Nullable String imagePullPolicy) {
+
             this.imagePullPolicy = imagePullPolicy;
             return this;
         }
         @CustomType.Setter
         public Builder lifecycle(@Nullable Lifecycle lifecycle) {
+
             this.lifecycle = lifecycle;
             return this;
         }
         @CustomType.Setter
         public Builder livenessProbe(@Nullable Probe livenessProbe) {
+
             this.livenessProbe = livenessProbe;
             return this;
         }
         @CustomType.Setter
         public Builder name(String name) {
-            this.name = Objects.requireNonNull(name);
+            if (name == null) {
+              throw new MissingRequiredPropertyException("Container", "name");
+            }
+            this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder ports(@Nullable List<ContainerPort> ports) {
+
             this.ports = ports;
             return this;
         }
@@ -443,11 +456,13 @@ public final class Container {
         }
         @CustomType.Setter
         public Builder readinessProbe(@Nullable Probe readinessProbe) {
+
             this.readinessProbe = readinessProbe;
             return this;
         }
         @CustomType.Setter
         public Builder resizePolicy(@Nullable List<ContainerResizePolicy> resizePolicy) {
+
             this.resizePolicy = resizePolicy;
             return this;
         }
@@ -456,51 +471,61 @@ public final class Container {
         }
         @CustomType.Setter
         public Builder resources(@Nullable ResourceRequirements resources) {
+
             this.resources = resources;
             return this;
         }
         @CustomType.Setter
         public Builder restartPolicy(@Nullable String restartPolicy) {
+
             this.restartPolicy = restartPolicy;
             return this;
         }
         @CustomType.Setter
         public Builder securityContext(@Nullable SecurityContext securityContext) {
+
             this.securityContext = securityContext;
             return this;
         }
         @CustomType.Setter
         public Builder startupProbe(@Nullable Probe startupProbe) {
+
             this.startupProbe = startupProbe;
             return this;
         }
         @CustomType.Setter
         public Builder stdin(@Nullable Boolean stdin) {
+
             this.stdin = stdin;
             return this;
         }
         @CustomType.Setter
         public Builder stdinOnce(@Nullable Boolean stdinOnce) {
+
             this.stdinOnce = stdinOnce;
             return this;
         }
         @CustomType.Setter
         public Builder terminationMessagePath(@Nullable String terminationMessagePath) {
+
             this.terminationMessagePath = terminationMessagePath;
             return this;
         }
         @CustomType.Setter
         public Builder terminationMessagePolicy(@Nullable String terminationMessagePolicy) {
+
             this.terminationMessagePolicy = terminationMessagePolicy;
             return this;
         }
         @CustomType.Setter
         public Builder tty(@Nullable Boolean tty) {
+
             this.tty = tty;
             return this;
         }
         @CustomType.Setter
         public Builder volumeDevices(@Nullable List<VolumeDevice> volumeDevices) {
+
             this.volumeDevices = volumeDevices;
             return this;
         }
@@ -509,6 +534,7 @@ public final class Container {
         }
         @CustomType.Setter
         public Builder volumeMounts(@Nullable List<VolumeMount> volumeMounts) {
+
             this.volumeMounts = volumeMounts;
             return this;
         }
@@ -517,36 +543,37 @@ public final class Container {
         }
         @CustomType.Setter
         public Builder workingDir(@Nullable String workingDir) {
+
             this.workingDir = workingDir;
             return this;
         }
         public Container build() {
-            final var o = new Container();
-            o.args = args;
-            o.command = command;
-            o.env = env;
-            o.envFrom = envFrom;
-            o.image = image;
-            o.imagePullPolicy = imagePullPolicy;
-            o.lifecycle = lifecycle;
-            o.livenessProbe = livenessProbe;
-            o.name = name;
-            o.ports = ports;
-            o.readinessProbe = readinessProbe;
-            o.resizePolicy = resizePolicy;
-            o.resources = resources;
-            o.restartPolicy = restartPolicy;
-            o.securityContext = securityContext;
-            o.startupProbe = startupProbe;
-            o.stdin = stdin;
-            o.stdinOnce = stdinOnce;
-            o.terminationMessagePath = terminationMessagePath;
-            o.terminationMessagePolicy = terminationMessagePolicy;
-            o.tty = tty;
-            o.volumeDevices = volumeDevices;
-            o.volumeMounts = volumeMounts;
-            o.workingDir = workingDir;
-            return o;
+            final var _resultValue = new Container();
+            _resultValue.args = args;
+            _resultValue.command = command;
+            _resultValue.env = env;
+            _resultValue.envFrom = envFrom;
+            _resultValue.image = image;
+            _resultValue.imagePullPolicy = imagePullPolicy;
+            _resultValue.lifecycle = lifecycle;
+            _resultValue.livenessProbe = livenessProbe;
+            _resultValue.name = name;
+            _resultValue.ports = ports;
+            _resultValue.readinessProbe = readinessProbe;
+            _resultValue.resizePolicy = resizePolicy;
+            _resultValue.resources = resources;
+            _resultValue.restartPolicy = restartPolicy;
+            _resultValue.securityContext = securityContext;
+            _resultValue.startupProbe = startupProbe;
+            _resultValue.stdin = stdin;
+            _resultValue.stdinOnce = stdinOnce;
+            _resultValue.terminationMessagePath = terminationMessagePath;
+            _resultValue.terminationMessagePolicy = terminationMessagePolicy;
+            _resultValue.tty = tty;
+            _resultValue.volumeDevices = volumeDevices;
+            _resultValue.volumeMounts = volumeMounts;
+            _resultValue.workingDir = workingDir;
+            return _resultValue;
         }
     }
 }

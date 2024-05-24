@@ -74,6 +74,7 @@ public final class CronJobStatus {
 
         @CustomType.Setter
         public Builder active(@Nullable List<ObjectReference> active) {
+
             this.active = active;
             return this;
         }
@@ -82,20 +83,22 @@ public final class CronJobStatus {
         }
         @CustomType.Setter
         public Builder lastScheduleTime(@Nullable String lastScheduleTime) {
+
             this.lastScheduleTime = lastScheduleTime;
             return this;
         }
         @CustomType.Setter
         public Builder lastSuccessfulTime(@Nullable String lastSuccessfulTime) {
+
             this.lastSuccessfulTime = lastSuccessfulTime;
             return this;
         }
         public CronJobStatus build() {
-            final var o = new CronJobStatus();
-            o.active = active;
-            o.lastScheduleTime = lastScheduleTime;
-            o.lastSuccessfulTime = lastSuccessfulTime;
-            return o;
+            final var _resultValue = new CronJobStatus();
+            _resultValue.active = active;
+            _resultValue.lastScheduleTime = lastScheduleTime;
+            _resultValue.lastSuccessfulTime = lastSuccessfulTime;
+            return _resultValue;
         }
     }
 }

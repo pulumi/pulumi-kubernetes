@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
 
@@ -56,19 +57,25 @@ public final class VolumeDevice {
 
         @CustomType.Setter
         public Builder devicePath(String devicePath) {
-            this.devicePath = Objects.requireNonNull(devicePath);
+            if (devicePath == null) {
+              throw new MissingRequiredPropertyException("VolumeDevice", "devicePath");
+            }
+            this.devicePath = devicePath;
             return this;
         }
         @CustomType.Setter
         public Builder name(String name) {
-            this.name = Objects.requireNonNull(name);
+            if (name == null) {
+              throw new MissingRequiredPropertyException("VolumeDevice", "name");
+            }
+            this.name = name;
             return this;
         }
         public VolumeDevice build() {
-            final var o = new VolumeDevice();
-            o.devicePath = devicePath;
-            o.name = name;
-            return o;
+            final var _resultValue = new VolumeDevice();
+            _resultValue.devicePath = devicePath;
+            _resultValue.name = name;
+            return _resultValue;
         }
     }
 }

@@ -60,6 +60,7 @@ public final class CronJobStatusPatch {
 
         @CustomType.Setter
         public Builder active(@Nullable List<ObjectReferencePatch> active) {
+
             this.active = active;
             return this;
         }
@@ -68,14 +69,15 @@ public final class CronJobStatusPatch {
         }
         @CustomType.Setter
         public Builder lastScheduleTime(@Nullable String lastScheduleTime) {
+
             this.lastScheduleTime = lastScheduleTime;
             return this;
         }
         public CronJobStatusPatch build() {
-            final var o = new CronJobStatusPatch();
-            o.active = active;
-            o.lastScheduleTime = lastScheduleTime;
-            return o;
+            final var _resultValue = new CronJobStatusPatch();
+            _resultValue.active = active;
+            _resultValue.lastScheduleTime = lastScheduleTime;
+            return _resultValue;
         }
     }
 }

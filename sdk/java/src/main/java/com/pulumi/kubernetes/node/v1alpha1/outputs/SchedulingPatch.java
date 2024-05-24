@@ -60,11 +60,13 @@ public final class SchedulingPatch {
 
         @CustomType.Setter
         public Builder nodeSelector(@Nullable Map<String,String> nodeSelector) {
+
             this.nodeSelector = nodeSelector;
             return this;
         }
         @CustomType.Setter
         public Builder tolerations(@Nullable List<TolerationPatch> tolerations) {
+
             this.tolerations = tolerations;
             return this;
         }
@@ -72,10 +74,10 @@ public final class SchedulingPatch {
             return tolerations(List.of(tolerations));
         }
         public SchedulingPatch build() {
-            final var o = new SchedulingPatch();
-            o.nodeSelector = nodeSelector;
-            o.tolerations = tolerations;
-            return o;
+            final var _resultValue = new SchedulingPatch();
+            _resultValue.nodeSelector = nodeSelector;
+            _resultValue.tolerations = tolerations;
+            return _resultValue;
         }
     }
 }

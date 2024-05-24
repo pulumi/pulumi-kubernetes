@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.apiextensions.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.apiextensions.v1.inputs.WebhookClientConfigArgs;
 import java.lang.String;
 import java.util.List;
@@ -129,7 +130,9 @@ public final class WebhookConversionArgs extends com.pulumi.resources.ResourceAr
         }
 
         public WebhookConversionArgs build() {
-            $.conversionReviewVersions = Objects.requireNonNull($.conversionReviewVersions, "expected parameter 'conversionReviewVersions' to be non-null");
+            if ($.conversionReviewVersions == null) {
+                throw new MissingRequiredPropertyException("WebhookConversionArgs", "conversionReviewVersions");
+            }
             return $;
         }
     }

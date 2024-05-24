@@ -58,19 +58,21 @@ public final class ContainerResizePolicyPatch {
 
         @CustomType.Setter
         public Builder resourceName(@Nullable String resourceName) {
+
             this.resourceName = resourceName;
             return this;
         }
         @CustomType.Setter
         public Builder restartPolicy(@Nullable String restartPolicy) {
+
             this.restartPolicy = restartPolicy;
             return this;
         }
         public ContainerResizePolicyPatch build() {
-            final var o = new ContainerResizePolicyPatch();
-            o.resourceName = resourceName;
-            o.restartPolicy = restartPolicy;
-            return o;
+            final var _resultValue = new ContainerResizePolicyPatch();
+            _resultValue.resourceName = resourceName;
+            _resultValue.restartPolicy = restartPolicy;
+            return _resultValue;
         }
     }
 }

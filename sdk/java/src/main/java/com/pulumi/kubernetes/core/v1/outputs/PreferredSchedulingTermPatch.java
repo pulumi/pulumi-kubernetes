@@ -59,19 +59,21 @@ public final class PreferredSchedulingTermPatch {
 
         @CustomType.Setter
         public Builder preference(@Nullable NodeSelectorTermPatch preference) {
+
             this.preference = preference;
             return this;
         }
         @CustomType.Setter
         public Builder weight(@Nullable Integer weight) {
+
             this.weight = weight;
             return this;
         }
         public PreferredSchedulingTermPatch build() {
-            final var o = new PreferredSchedulingTermPatch();
-            o.preference = preference;
-            o.weight = weight;
-            return o;
+            final var _resultValue = new PreferredSchedulingTermPatch();
+            _resultValue.preference = preference;
+            _resultValue.weight = weight;
+            return _resultValue;
         }
     }
 }

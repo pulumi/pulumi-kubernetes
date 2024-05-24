@@ -36,7 +36,8 @@ import javax.annotation.Nullable;
  * 
  * ## Example Usage
  * ### Create a Pod with auto-naming
- * ```java
+ * <pre>
+ * {@code
  * package generated_program;
  * 
  * import com.pulumi.Context;
@@ -58,11 +59,11 @@ import javax.annotation.Nullable;
  *     }
  * 
  *     public static void stack(Context ctx) {
- *         var pod = new Pod(&#34;pod&#34;, PodArgs.builder()        
+ *         var pod = new Pod("pod", PodArgs.builder()        
  *             .spec(PodSpecArgs.builder()
  *                 .containers(ContainerArgs.builder()
- *                     .image(&#34;nginx:1.14.2&#34;)
- *                     .name(&#34;nginx&#34;)
+ *                     .image("nginx:1.14.2")
+ *                     .name("nginx")
  *                     .ports(ContainerPortArgs.builder()
  *                         .containerPort(80)
  *                         .build())
@@ -72,9 +73,11 @@ import javax.annotation.Nullable;
  * 
  *     }
  * }
- * ```
+ * }
+ * </pre>
  * ### Create a Pod with a user-specified name
- * ```java
+ * <pre>
+ * {@code
  * package generated_program;
  * 
  * import com.pulumi.Context;
@@ -97,14 +100,14 @@ import javax.annotation.Nullable;
  *     }
  * 
  *     public static void stack(Context ctx) {
- *         var pod = new Pod(&#34;pod&#34;, PodArgs.builder()        
+ *         var pod = new Pod("pod", PodArgs.builder()        
  *             .metadata(ObjectMetaArgs.builder()
- *                 .name(&#34;nginx&#34;)
+ *                 .name("nginx")
  *                 .build())
  *             .spec(PodSpecArgs.builder()
  *                 .containers(ContainerArgs.builder()
- *                     .image(&#34;nginx:1.14.2&#34;)
- *                     .name(&#34;nginx&#34;)
+ *                     .image("nginx:1.14.2")
+ *                     .name("nginx")
  *                     .ports(ContainerPortArgs.builder()
  *                         .containerPort(80)
  *                         .build())
@@ -114,7 +117,8 @@ import javax.annotation.Nullable;
  * 
  *     }
  * }
- * ```
+ * }
+ * </pre>
  * 
  */
 @ResourceType(type="kubernetes:core/v1:Pod")

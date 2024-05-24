@@ -88,31 +88,35 @@ public final class AWSElasticBlockStoreVolumeSourcePatch {
 
         @CustomType.Setter
         public Builder fsType(@Nullable String fsType) {
+
             this.fsType = fsType;
             return this;
         }
         @CustomType.Setter
         public Builder partition(@Nullable Integer partition) {
+
             this.partition = partition;
             return this;
         }
         @CustomType.Setter
         public Builder readOnly(@Nullable Boolean readOnly) {
+
             this.readOnly = readOnly;
             return this;
         }
         @CustomType.Setter
         public Builder volumeID(@Nullable String volumeID) {
+
             this.volumeID = volumeID;
             return this;
         }
         public AWSElasticBlockStoreVolumeSourcePatch build() {
-            final var o = new AWSElasticBlockStoreVolumeSourcePatch();
-            o.fsType = fsType;
-            o.partition = partition;
-            o.readOnly = readOnly;
-            o.volumeID = volumeID;
-            return o;
+            final var _resultValue = new AWSElasticBlockStoreVolumeSourcePatch();
+            _resultValue.fsType = fsType;
+            _resultValue.partition = partition;
+            _resultValue.readOnly = readOnly;
+            _resultValue.volumeID = volumeID;
+            return _resultValue;
         }
     }
 }

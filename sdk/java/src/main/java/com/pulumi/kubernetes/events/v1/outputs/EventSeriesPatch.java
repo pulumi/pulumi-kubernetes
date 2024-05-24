@@ -59,19 +59,21 @@ public final class EventSeriesPatch {
 
         @CustomType.Setter
         public Builder count(@Nullable Integer count) {
+
             this.count = count;
             return this;
         }
         @CustomType.Setter
         public Builder lastObservedTime(@Nullable String lastObservedTime) {
+
             this.lastObservedTime = lastObservedTime;
             return this;
         }
         public EventSeriesPatch build() {
-            final var o = new EventSeriesPatch();
-            o.count = count;
-            o.lastObservedTime = lastObservedTime;
-            return o;
+            final var _resultValue = new EventSeriesPatch();
+            _resultValue.count = count;
+            _resultValue.lastObservedTime = lastObservedTime;
+            return _resultValue;
         }
     }
 }

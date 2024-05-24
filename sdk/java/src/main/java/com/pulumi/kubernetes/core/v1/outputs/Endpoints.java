@@ -89,21 +89,25 @@ public final class Endpoints {
 
         @CustomType.Setter
         public Builder apiVersion(@Nullable String apiVersion) {
+
             this.apiVersion = apiVersion;
             return this;
         }
         @CustomType.Setter
         public Builder kind(@Nullable String kind) {
+
             this.kind = kind;
             return this;
         }
         @CustomType.Setter
         public Builder metadata(@Nullable ObjectMeta metadata) {
+
             this.metadata = metadata;
             return this;
         }
         @CustomType.Setter
         public Builder subsets(@Nullable List<EndpointSubset> subsets) {
+
             this.subsets = subsets;
             return this;
         }
@@ -111,12 +115,12 @@ public final class Endpoints {
             return subsets(List.of(subsets));
         }
         public Endpoints build() {
-            final var o = new Endpoints();
-            o.apiVersion = apiVersion;
-            o.kind = kind;
-            o.metadata = metadata;
-            o.subsets = subsets;
-            return o;
+            final var _resultValue = new Endpoints();
+            _resultValue.apiVersion = apiVersion;
+            _resultValue.kind = kind;
+            _resultValue.metadata = metadata;
+            _resultValue.subsets = subsets;
+            return _resultValue;
         }
     }
 }

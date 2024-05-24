@@ -87,31 +87,35 @@ public final class ContainerResourceMetricSourcePatch {
 
         @CustomType.Setter
         public Builder container(@Nullable String container) {
+
             this.container = container;
             return this;
         }
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder targetAverageUtilization(@Nullable Integer targetAverageUtilization) {
+
             this.targetAverageUtilization = targetAverageUtilization;
             return this;
         }
         @CustomType.Setter
         public Builder targetAverageValue(@Nullable String targetAverageValue) {
+
             this.targetAverageValue = targetAverageValue;
             return this;
         }
         public ContainerResourceMetricSourcePatch build() {
-            final var o = new ContainerResourceMetricSourcePatch();
-            o.container = container;
-            o.name = name;
-            o.targetAverageUtilization = targetAverageUtilization;
-            o.targetAverageValue = targetAverageValue;
-            return o;
+            final var _resultValue = new ContainerResourceMetricSourcePatch();
+            _resultValue.container = container;
+            _resultValue.name = name;
+            _resultValue.targetAverageUtilization = targetAverageUtilization;
+            _resultValue.targetAverageValue = targetAverageValue;
+            return _resultValue;
         }
     }
 }

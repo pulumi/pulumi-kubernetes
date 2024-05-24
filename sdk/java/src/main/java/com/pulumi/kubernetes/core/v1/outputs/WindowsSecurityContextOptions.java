@@ -87,31 +87,35 @@ public final class WindowsSecurityContextOptions {
 
         @CustomType.Setter
         public Builder gmsaCredentialSpec(@Nullable String gmsaCredentialSpec) {
+
             this.gmsaCredentialSpec = gmsaCredentialSpec;
             return this;
         }
         @CustomType.Setter
         public Builder gmsaCredentialSpecName(@Nullable String gmsaCredentialSpecName) {
+
             this.gmsaCredentialSpecName = gmsaCredentialSpecName;
             return this;
         }
         @CustomType.Setter
         public Builder hostProcess(@Nullable Boolean hostProcess) {
+
             this.hostProcess = hostProcess;
             return this;
         }
         @CustomType.Setter
         public Builder runAsUserName(@Nullable String runAsUserName) {
+
             this.runAsUserName = runAsUserName;
             return this;
         }
         public WindowsSecurityContextOptions build() {
-            final var o = new WindowsSecurityContextOptions();
-            o.gmsaCredentialSpec = gmsaCredentialSpec;
-            o.gmsaCredentialSpecName = gmsaCredentialSpecName;
-            o.hostProcess = hostProcess;
-            o.runAsUserName = runAsUserName;
-            return o;
+            final var _resultValue = new WindowsSecurityContextOptions();
+            _resultValue.gmsaCredentialSpec = gmsaCredentialSpec;
+            _resultValue.gmsaCredentialSpecName = gmsaCredentialSpecName;
+            _resultValue.hostProcess = hostProcess;
+            _resultValue.runAsUserName = runAsUserName;
+            return _resultValue;
         }
     }
 }

@@ -60,11 +60,13 @@ public final class Scheduling {
 
         @CustomType.Setter
         public Builder nodeSelector(@Nullable Map<String,String> nodeSelector) {
+
             this.nodeSelector = nodeSelector;
             return this;
         }
         @CustomType.Setter
         public Builder tolerations(@Nullable List<Toleration> tolerations) {
+
             this.tolerations = tolerations;
             return this;
         }
@@ -72,10 +74,10 @@ public final class Scheduling {
             return tolerations(List.of(tolerations));
         }
         public Scheduling build() {
-            final var o = new Scheduling();
-            o.nodeSelector = nodeSelector;
-            o.tolerations = tolerations;
-            return o;
+            final var _resultValue = new Scheduling();
+            _resultValue.nodeSelector = nodeSelector;
+            _resultValue.tolerations = tolerations;
+            return _resultValue;
         }
     }
 }

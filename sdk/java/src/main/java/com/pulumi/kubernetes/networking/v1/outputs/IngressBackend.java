@@ -59,19 +59,21 @@ public final class IngressBackend {
 
         @CustomType.Setter
         public Builder resource(@Nullable TypedLocalObjectReference resource) {
+
             this.resource = resource;
             return this;
         }
         @CustomType.Setter
         public Builder service(@Nullable IngressServiceBackend service) {
+
             this.service = service;
             return this;
         }
         public IngressBackend build() {
-            final var o = new IngressBackend();
-            o.resource = resource;
-            o.service = service;
-            return o;
+            final var _resultValue = new IngressBackend();
+            _resultValue.resource = resource;
+            _resultValue.service = service;
+            return _resultValue;
         }
     }
 }

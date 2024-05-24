@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.events.v1beta1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Integer;
 import java.lang.String;
 import java.util.Objects;
@@ -71,25 +72,34 @@ public final class EventSeries {
 
         @CustomType.Setter
         public Builder count(Integer count) {
-            this.count = Objects.requireNonNull(count);
+            if (count == null) {
+              throw new MissingRequiredPropertyException("EventSeries", "count");
+            }
+            this.count = count;
             return this;
         }
         @CustomType.Setter
         public Builder lastObservedTime(String lastObservedTime) {
-            this.lastObservedTime = Objects.requireNonNull(lastObservedTime);
+            if (lastObservedTime == null) {
+              throw new MissingRequiredPropertyException("EventSeries", "lastObservedTime");
+            }
+            this.lastObservedTime = lastObservedTime;
             return this;
         }
         @CustomType.Setter
         public Builder state(String state) {
-            this.state = Objects.requireNonNull(state);
+            if (state == null) {
+              throw new MissingRequiredPropertyException("EventSeries", "state");
+            }
+            this.state = state;
             return this;
         }
         public EventSeries build() {
-            final var o = new EventSeries();
-            o.count = count;
-            o.lastObservedTime = lastObservedTime;
-            o.state = state;
-            return o;
+            final var _resultValue = new EventSeries();
+            _resultValue.count = count;
+            _resultValue.lastObservedTime = lastObservedTime;
+            _resultValue.state = state;
+            return _resultValue;
         }
     }
 }

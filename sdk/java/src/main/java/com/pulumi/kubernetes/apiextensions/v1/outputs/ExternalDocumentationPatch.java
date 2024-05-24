@@ -42,19 +42,21 @@ public final class ExternalDocumentationPatch {
 
         @CustomType.Setter
         public Builder description(@Nullable String description) {
+
             this.description = description;
             return this;
         }
         @CustomType.Setter
         public Builder url(@Nullable String url) {
+
             this.url = url;
             return this;
         }
         public ExternalDocumentationPatch build() {
-            final var o = new ExternalDocumentationPatch();
-            o.description = description;
-            o.url = url;
-            return o;
+            final var _resultValue = new ExternalDocumentationPatch();
+            _resultValue.description = description;
+            _resultValue.url = url;
+            return _resultValue;
         }
     }
 }

@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.core.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.inputs.SecretReferenceArgs;
 import java.lang.Boolean;
 import java.lang.String;
@@ -416,8 +417,12 @@ public final class CSIPersistentVolumeSourceArgs extends com.pulumi.resources.Re
         }
 
         public CSIPersistentVolumeSourceArgs build() {
-            $.driver = Objects.requireNonNull($.driver, "expected parameter 'driver' to be non-null");
-            $.volumeHandle = Objects.requireNonNull($.volumeHandle, "expected parameter 'volumeHandle' to be non-null");
+            if ($.driver == null) {
+                throw new MissingRequiredPropertyException("CSIPersistentVolumeSourceArgs", "driver");
+            }
+            if ($.volumeHandle == null) {
+                throw new MissingRequiredPropertyException("CSIPersistentVolumeSourceArgs", "volumeHandle");
+            }
             return $;
         }
     }

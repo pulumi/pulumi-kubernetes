@@ -60,6 +60,7 @@ public final class FSGroupStrategyOptions {
 
         @CustomType.Setter
         public Builder ranges(@Nullable List<IDRange> ranges) {
+
             this.ranges = ranges;
             return this;
         }
@@ -68,14 +69,15 @@ public final class FSGroupStrategyOptions {
         }
         @CustomType.Setter
         public Builder rule(@Nullable String rule) {
+
             this.rule = rule;
             return this;
         }
         public FSGroupStrategyOptions build() {
-            final var o = new FSGroupStrategyOptions();
-            o.ranges = ranges;
-            o.rule = rule;
-            return o;
+            final var _resultValue = new FSGroupStrategyOptions();
+            _resultValue.ranges = ranges;
+            _resultValue.rule = rule;
+            return _resultValue;
         }
     }
 }

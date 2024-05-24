@@ -59,19 +59,21 @@ public final class MetricIdentifierPatch {
 
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder selector(@Nullable LabelSelectorPatch selector) {
+
             this.selector = selector;
             return this;
         }
         public MetricIdentifierPatch build() {
-            final var o = new MetricIdentifierPatch();
-            o.name = name;
-            o.selector = selector;
-            return o;
+            final var _resultValue = new MetricIdentifierPatch();
+            _resultValue.name = name;
+            _resultValue.selector = selector;
+            return _resultValue;
         }
     }
 }

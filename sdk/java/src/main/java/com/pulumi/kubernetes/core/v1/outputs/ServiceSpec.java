@@ -352,16 +352,19 @@ public final class ServiceSpec {
 
         @CustomType.Setter
         public Builder allocateLoadBalancerNodePorts(@Nullable Boolean allocateLoadBalancerNodePorts) {
+
             this.allocateLoadBalancerNodePorts = allocateLoadBalancerNodePorts;
             return this;
         }
         @CustomType.Setter
         public Builder clusterIP(@Nullable String clusterIP) {
+
             this.clusterIP = clusterIP;
             return this;
         }
         @CustomType.Setter
         public Builder clusterIPs(@Nullable List<String> clusterIPs) {
+
             this.clusterIPs = clusterIPs;
             return this;
         }
@@ -370,6 +373,7 @@ public final class ServiceSpec {
         }
         @CustomType.Setter
         public Builder externalIPs(@Nullable List<String> externalIPs) {
+
             this.externalIPs = externalIPs;
             return this;
         }
@@ -378,26 +382,31 @@ public final class ServiceSpec {
         }
         @CustomType.Setter
         public Builder externalName(@Nullable String externalName) {
+
             this.externalName = externalName;
             return this;
         }
         @CustomType.Setter
         public Builder externalTrafficPolicy(@Nullable String externalTrafficPolicy) {
+
             this.externalTrafficPolicy = externalTrafficPolicy;
             return this;
         }
         @CustomType.Setter
         public Builder healthCheckNodePort(@Nullable Integer healthCheckNodePort) {
+
             this.healthCheckNodePort = healthCheckNodePort;
             return this;
         }
         @CustomType.Setter
         public Builder internalTrafficPolicy(@Nullable String internalTrafficPolicy) {
+
             this.internalTrafficPolicy = internalTrafficPolicy;
             return this;
         }
         @CustomType.Setter
         public Builder ipFamilies(@Nullable List<String> ipFamilies) {
+
             this.ipFamilies = ipFamilies;
             return this;
         }
@@ -406,26 +415,31 @@ public final class ServiceSpec {
         }
         @CustomType.Setter
         public Builder ipFamily(@Nullable String ipFamily) {
+
             this.ipFamily = ipFamily;
             return this;
         }
         @CustomType.Setter
         public Builder ipFamilyPolicy(@Nullable String ipFamilyPolicy) {
+
             this.ipFamilyPolicy = ipFamilyPolicy;
             return this;
         }
         @CustomType.Setter
         public Builder loadBalancerClass(@Nullable String loadBalancerClass) {
+
             this.loadBalancerClass = loadBalancerClass;
             return this;
         }
         @CustomType.Setter
         public Builder loadBalancerIP(@Nullable String loadBalancerIP) {
+
             this.loadBalancerIP = loadBalancerIP;
             return this;
         }
         @CustomType.Setter
         public Builder loadBalancerSourceRanges(@Nullable List<String> loadBalancerSourceRanges) {
+
             this.loadBalancerSourceRanges = loadBalancerSourceRanges;
             return this;
         }
@@ -434,6 +448,7 @@ public final class ServiceSpec {
         }
         @CustomType.Setter
         public Builder ports(@Nullable List<ServicePort> ports) {
+
             this.ports = ports;
             return this;
         }
@@ -442,26 +457,31 @@ public final class ServiceSpec {
         }
         @CustomType.Setter
         public Builder publishNotReadyAddresses(@Nullable Boolean publishNotReadyAddresses) {
+
             this.publishNotReadyAddresses = publishNotReadyAddresses;
             return this;
         }
         @CustomType.Setter
         public Builder selector(@Nullable Map<String,String> selector) {
+
             this.selector = selector;
             return this;
         }
         @CustomType.Setter
         public Builder sessionAffinity(@Nullable String sessionAffinity) {
+
             this.sessionAffinity = sessionAffinity;
             return this;
         }
         @CustomType.Setter
         public Builder sessionAffinityConfig(@Nullable SessionAffinityConfig sessionAffinityConfig) {
+
             this.sessionAffinityConfig = sessionAffinityConfig;
             return this;
         }
         @CustomType.Setter
         public Builder topologyKeys(@Nullable List<String> topologyKeys) {
+
             this.topologyKeys = topologyKeys;
             return this;
         }
@@ -470,39 +490,41 @@ public final class ServiceSpec {
         }
         @CustomType.Setter
         public Builder trafficDistribution(@Nullable String trafficDistribution) {
+
             this.trafficDistribution = trafficDistribution;
             return this;
         }
         @CustomType.Setter
         public Builder type(@Nullable String type) {
+
             this.type = type;
             return this;
         }
         public ServiceSpec build() {
-            final var o = new ServiceSpec();
-            o.allocateLoadBalancerNodePorts = allocateLoadBalancerNodePorts;
-            o.clusterIP = clusterIP;
-            o.clusterIPs = clusterIPs;
-            o.externalIPs = externalIPs;
-            o.externalName = externalName;
-            o.externalTrafficPolicy = externalTrafficPolicy;
-            o.healthCheckNodePort = healthCheckNodePort;
-            o.internalTrafficPolicy = internalTrafficPolicy;
-            o.ipFamilies = ipFamilies;
-            o.ipFamily = ipFamily;
-            o.ipFamilyPolicy = ipFamilyPolicy;
-            o.loadBalancerClass = loadBalancerClass;
-            o.loadBalancerIP = loadBalancerIP;
-            o.loadBalancerSourceRanges = loadBalancerSourceRanges;
-            o.ports = ports;
-            o.publishNotReadyAddresses = publishNotReadyAddresses;
-            o.selector = selector;
-            o.sessionAffinity = sessionAffinity;
-            o.sessionAffinityConfig = sessionAffinityConfig;
-            o.topologyKeys = topologyKeys;
-            o.trafficDistribution = trafficDistribution;
-            o.type = type;
-            return o;
+            final var _resultValue = new ServiceSpec();
+            _resultValue.allocateLoadBalancerNodePorts = allocateLoadBalancerNodePorts;
+            _resultValue.clusterIP = clusterIP;
+            _resultValue.clusterIPs = clusterIPs;
+            _resultValue.externalIPs = externalIPs;
+            _resultValue.externalName = externalName;
+            _resultValue.externalTrafficPolicy = externalTrafficPolicy;
+            _resultValue.healthCheckNodePort = healthCheckNodePort;
+            _resultValue.internalTrafficPolicy = internalTrafficPolicy;
+            _resultValue.ipFamilies = ipFamilies;
+            _resultValue.ipFamily = ipFamily;
+            _resultValue.ipFamilyPolicy = ipFamilyPolicy;
+            _resultValue.loadBalancerClass = loadBalancerClass;
+            _resultValue.loadBalancerIP = loadBalancerIP;
+            _resultValue.loadBalancerSourceRanges = loadBalancerSourceRanges;
+            _resultValue.ports = ports;
+            _resultValue.publishNotReadyAddresses = publishNotReadyAddresses;
+            _resultValue.selector = selector;
+            _resultValue.sessionAffinity = sessionAffinity;
+            _resultValue.sessionAffinityConfig = sessionAffinityConfig;
+            _resultValue.topologyKeys = topologyKeys;
+            _resultValue.trafficDistribution = trafficDistribution;
+            _resultValue.type = type;
+            return _resultValue;
         }
     }
 }

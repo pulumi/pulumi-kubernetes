@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.apiextensions.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
 
@@ -42,13 +43,16 @@ public final class SelectableField {
 
         @CustomType.Setter
         public Builder jsonPath(String jsonPath) {
-            this.jsonPath = Objects.requireNonNull(jsonPath);
+            if (jsonPath == null) {
+              throw new MissingRequiredPropertyException("SelectableField", "jsonPath");
+            }
+            this.jsonPath = jsonPath;
             return this;
         }
         public SelectableField build() {
-            final var o = new SelectableField();
-            o.jsonPath = jsonPath;
-            return o;
+            final var _resultValue = new SelectableField();
+            _resultValue.jsonPath = jsonPath;
+            return _resultValue;
         }
     }
 }

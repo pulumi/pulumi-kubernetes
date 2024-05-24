@@ -86,31 +86,35 @@ public final class VsphereVirtualDiskVolumeSourcePatch {
 
         @CustomType.Setter
         public Builder fsType(@Nullable String fsType) {
+
             this.fsType = fsType;
             return this;
         }
         @CustomType.Setter
         public Builder storagePolicyID(@Nullable String storagePolicyID) {
+
             this.storagePolicyID = storagePolicyID;
             return this;
         }
         @CustomType.Setter
         public Builder storagePolicyName(@Nullable String storagePolicyName) {
+
             this.storagePolicyName = storagePolicyName;
             return this;
         }
         @CustomType.Setter
         public Builder volumePath(@Nullable String volumePath) {
+
             this.volumePath = volumePath;
             return this;
         }
         public VsphereVirtualDiskVolumeSourcePatch build() {
-            final var o = new VsphereVirtualDiskVolumeSourcePatch();
-            o.fsType = fsType;
-            o.storagePolicyID = storagePolicyID;
-            o.storagePolicyName = storagePolicyName;
-            o.volumePath = volumePath;
-            return o;
+            final var _resultValue = new VsphereVirtualDiskVolumeSourcePatch();
+            _resultValue.fsType = fsType;
+            _resultValue.storagePolicyID = storagePolicyID;
+            _resultValue.storagePolicyName = storagePolicyName;
+            _resultValue.volumePath = volumePath;
+            return _resultValue;
         }
     }
 }

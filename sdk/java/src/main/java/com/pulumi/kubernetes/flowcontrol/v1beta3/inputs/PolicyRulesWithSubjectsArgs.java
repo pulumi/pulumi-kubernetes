@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.flowcontrol.v1beta3.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.flowcontrol.v1beta3.inputs.NonResourcePolicyRuleArgs;
 import com.pulumi.kubernetes.flowcontrol.v1beta3.inputs.ResourcePolicyRuleArgs;
 import com.pulumi.kubernetes.flowcontrol.v1beta3.inputs.SubjectArgs;
@@ -187,7 +188,9 @@ public final class PolicyRulesWithSubjectsArgs extends com.pulumi.resources.Reso
         }
 
         public PolicyRulesWithSubjectsArgs build() {
-            $.subjects = Objects.requireNonNull($.subjects, "expected parameter 'subjects' to be non-null");
+            if ($.subjects == null) {
+                throw new MissingRequiredPropertyException("PolicyRulesWithSubjectsArgs", "subjects");
+            }
             return $;
         }
     }

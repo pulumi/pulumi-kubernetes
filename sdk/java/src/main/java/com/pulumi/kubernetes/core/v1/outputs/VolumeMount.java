@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Boolean;
 import java.lang.String;
 import java.util.Objects;
@@ -145,49 +146,60 @@ public final class VolumeMount {
 
         @CustomType.Setter
         public Builder mountPath(String mountPath) {
-            this.mountPath = Objects.requireNonNull(mountPath);
+            if (mountPath == null) {
+              throw new MissingRequiredPropertyException("VolumeMount", "mountPath");
+            }
+            this.mountPath = mountPath;
             return this;
         }
         @CustomType.Setter
         public Builder mountPropagation(@Nullable String mountPropagation) {
+
             this.mountPropagation = mountPropagation;
             return this;
         }
         @CustomType.Setter
         public Builder name(String name) {
-            this.name = Objects.requireNonNull(name);
+            if (name == null) {
+              throw new MissingRequiredPropertyException("VolumeMount", "name");
+            }
+            this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder readOnly(@Nullable Boolean readOnly) {
+
             this.readOnly = readOnly;
             return this;
         }
         @CustomType.Setter
         public Builder recursiveReadOnly(@Nullable String recursiveReadOnly) {
+
             this.recursiveReadOnly = recursiveReadOnly;
             return this;
         }
         @CustomType.Setter
         public Builder subPath(@Nullable String subPath) {
+
             this.subPath = subPath;
             return this;
         }
         @CustomType.Setter
         public Builder subPathExpr(@Nullable String subPathExpr) {
+
             this.subPathExpr = subPathExpr;
             return this;
         }
         public VolumeMount build() {
-            final var o = new VolumeMount();
-            o.mountPath = mountPath;
-            o.mountPropagation = mountPropagation;
-            o.name = name;
-            o.readOnly = readOnly;
-            o.recursiveReadOnly = recursiveReadOnly;
-            o.subPath = subPath;
-            o.subPathExpr = subPathExpr;
-            return o;
+            final var _resultValue = new VolumeMount();
+            _resultValue.mountPath = mountPath;
+            _resultValue.mountPropagation = mountPropagation;
+            _resultValue.name = name;
+            _resultValue.readOnly = readOnly;
+            _resultValue.recursiveReadOnly = recursiveReadOnly;
+            _resultValue.subPath = subPath;
+            _resultValue.subPathExpr = subPathExpr;
+            return _resultValue;
         }
     }
 }

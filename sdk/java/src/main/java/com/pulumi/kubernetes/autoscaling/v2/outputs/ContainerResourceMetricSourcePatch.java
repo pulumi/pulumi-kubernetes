@@ -73,25 +73,28 @@ public final class ContainerResourceMetricSourcePatch {
 
         @CustomType.Setter
         public Builder container(@Nullable String container) {
+
             this.container = container;
             return this;
         }
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder target(@Nullable MetricTargetPatch target) {
+
             this.target = target;
             return this;
         }
         public ContainerResourceMetricSourcePatch build() {
-            final var o = new ContainerResourceMetricSourcePatch();
-            o.container = container;
-            o.name = name;
-            o.target = target;
-            return o;
+            final var _resultValue = new ContainerResourceMetricSourcePatch();
+            _resultValue.container = container;
+            _resultValue.name = name;
+            _resultValue.target = target;
+            return _resultValue;
         }
     }
 }

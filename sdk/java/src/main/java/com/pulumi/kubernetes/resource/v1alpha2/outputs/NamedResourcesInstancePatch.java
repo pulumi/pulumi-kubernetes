@@ -60,6 +60,7 @@ public final class NamedResourcesInstancePatch {
 
         @CustomType.Setter
         public Builder attributes(@Nullable List<NamedResourcesAttributePatch> attributes) {
+
             this.attributes = attributes;
             return this;
         }
@@ -68,14 +69,15 @@ public final class NamedResourcesInstancePatch {
         }
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         public NamedResourcesInstancePatch build() {
-            final var o = new NamedResourcesInstancePatch();
-            o.attributes = attributes;
-            o.name = name;
-            return o;
+            final var _resultValue = new NamedResourcesInstancePatch();
+            _resultValue.attributes = attributes;
+            _resultValue.name = name;
+            return _resultValue;
         }
     }
 }

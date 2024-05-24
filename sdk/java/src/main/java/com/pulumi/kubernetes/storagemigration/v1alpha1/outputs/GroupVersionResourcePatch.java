@@ -72,25 +72,28 @@ public final class GroupVersionResourcePatch {
 
         @CustomType.Setter
         public Builder group(@Nullable String group) {
+
             this.group = group;
             return this;
         }
         @CustomType.Setter
         public Builder resource(@Nullable String resource) {
+
             this.resource = resource;
             return this;
         }
         @CustomType.Setter
         public Builder version(@Nullable String version) {
+
             this.version = version;
             return this;
         }
         public GroupVersionResourcePatch build() {
-            final var o = new GroupVersionResourcePatch();
-            o.group = group;
-            o.resource = resource;
-            o.version = version;
-            return o;
+            final var _resultValue = new GroupVersionResourcePatch();
+            _resultValue.group = group;
+            _resultValue.resource = resource;
+            _resultValue.version = version;
+            return _resultValue;
         }
     }
 }

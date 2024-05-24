@@ -132,21 +132,25 @@ public final class NodeSpecPatch {
 
         @CustomType.Setter
         public Builder configSource(@Nullable NodeConfigSourcePatch configSource) {
+
             this.configSource = configSource;
             return this;
         }
         @CustomType.Setter
         public Builder externalID(@Nullable String externalID) {
+
             this.externalID = externalID;
             return this;
         }
         @CustomType.Setter
         public Builder podCIDR(@Nullable String podCIDR) {
+
             this.podCIDR = podCIDR;
             return this;
         }
         @CustomType.Setter
         public Builder podCIDRs(@Nullable List<String> podCIDRs) {
+
             this.podCIDRs = podCIDRs;
             return this;
         }
@@ -155,11 +159,13 @@ public final class NodeSpecPatch {
         }
         @CustomType.Setter
         public Builder providerID(@Nullable String providerID) {
+
             this.providerID = providerID;
             return this;
         }
         @CustomType.Setter
         public Builder taints(@Nullable List<TaintPatch> taints) {
+
             this.taints = taints;
             return this;
         }
@@ -168,19 +174,20 @@ public final class NodeSpecPatch {
         }
         @CustomType.Setter
         public Builder unschedulable(@Nullable Boolean unschedulable) {
+
             this.unschedulable = unschedulable;
             return this;
         }
         public NodeSpecPatch build() {
-            final var o = new NodeSpecPatch();
-            o.configSource = configSource;
-            o.externalID = externalID;
-            o.podCIDR = podCIDR;
-            o.podCIDRs = podCIDRs;
-            o.providerID = providerID;
-            o.taints = taints;
-            o.unschedulable = unschedulable;
-            return o;
+            final var _resultValue = new NodeSpecPatch();
+            _resultValue.configSource = configSource;
+            _resultValue.externalID = externalID;
+            _resultValue.podCIDR = podCIDR;
+            _resultValue.podCIDRs = podCIDRs;
+            _resultValue.providerID = providerID;
+            _resultValue.taints = taints;
+            _resultValue.unschedulable = unschedulable;
+            return _resultValue;
         }
     }
 }

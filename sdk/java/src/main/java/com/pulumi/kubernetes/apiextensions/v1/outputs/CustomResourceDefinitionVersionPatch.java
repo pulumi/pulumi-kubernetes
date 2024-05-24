@@ -162,6 +162,7 @@ public final class CustomResourceDefinitionVersionPatch {
 
         @CustomType.Setter
         public Builder additionalPrinterColumns(@Nullable List<CustomResourceColumnDefinitionPatch> additionalPrinterColumns) {
+
             this.additionalPrinterColumns = additionalPrinterColumns;
             return this;
         }
@@ -170,26 +171,31 @@ public final class CustomResourceDefinitionVersionPatch {
         }
         @CustomType.Setter
         public Builder deprecated(@Nullable Boolean deprecated) {
+
             this.deprecated = deprecated;
             return this;
         }
         @CustomType.Setter
         public Builder deprecationWarning(@Nullable String deprecationWarning) {
+
             this.deprecationWarning = deprecationWarning;
             return this;
         }
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder schema(@Nullable CustomResourceValidationPatch schema) {
+
             this.schema = schema;
             return this;
         }
         @CustomType.Setter
         public Builder selectableFields(@Nullable List<SelectableFieldPatch> selectableFields) {
+
             this.selectableFields = selectableFields;
             return this;
         }
@@ -198,31 +204,34 @@ public final class CustomResourceDefinitionVersionPatch {
         }
         @CustomType.Setter
         public Builder served(@Nullable Boolean served) {
+
             this.served = served;
             return this;
         }
         @CustomType.Setter
         public Builder storage(@Nullable Boolean storage) {
+
             this.storage = storage;
             return this;
         }
         @CustomType.Setter
         public Builder subresources(@Nullable CustomResourceSubresourcesPatch subresources) {
+
             this.subresources = subresources;
             return this;
         }
         public CustomResourceDefinitionVersionPatch build() {
-            final var o = new CustomResourceDefinitionVersionPatch();
-            o.additionalPrinterColumns = additionalPrinterColumns;
-            o.deprecated = deprecated;
-            o.deprecationWarning = deprecationWarning;
-            o.name = name;
-            o.schema = schema;
-            o.selectableFields = selectableFields;
-            o.served = served;
-            o.storage = storage;
-            o.subresources = subresources;
-            return o;
+            final var _resultValue = new CustomResourceDefinitionVersionPatch();
+            _resultValue.additionalPrinterColumns = additionalPrinterColumns;
+            _resultValue.deprecated = deprecated;
+            _resultValue.deprecationWarning = deprecationWarning;
+            _resultValue.name = name;
+            _resultValue.schema = schema;
+            _resultValue.selectableFields = selectableFields;
+            _resultValue.served = served;
+            _resultValue.storage = storage;
+            _resultValue.subresources = subresources;
+            return _resultValue;
         }
     }
 }

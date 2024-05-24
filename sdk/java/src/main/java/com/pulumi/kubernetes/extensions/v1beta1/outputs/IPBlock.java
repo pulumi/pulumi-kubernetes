@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.extensions.v1beta1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.List;
 import java.util.Objects;
@@ -58,11 +59,15 @@ public final class IPBlock {
 
         @CustomType.Setter
         public Builder cidr(String cidr) {
-            this.cidr = Objects.requireNonNull(cidr);
+            if (cidr == null) {
+              throw new MissingRequiredPropertyException("IPBlock", "cidr");
+            }
+            this.cidr = cidr;
             return this;
         }
         @CustomType.Setter
         public Builder except(@Nullable List<String> except) {
+
             this.except = except;
             return this;
         }
@@ -70,10 +75,10 @@ public final class IPBlock {
             return except(List.of(except));
         }
         public IPBlock build() {
-            final var o = new IPBlock();
-            o.cidr = cidr;
-            o.except = except;
-            return o;
+            final var _resultValue = new IPBlock();
+            _resultValue.cidr = cidr;
+            _resultValue.except = except;
+            return _resultValue;
         }
     }
 }

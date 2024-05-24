@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.admissionregistration.v1beta1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -136,31 +137,37 @@ public final class Validation {
 
         @CustomType.Setter
         public Builder expression(String expression) {
-            this.expression = Objects.requireNonNull(expression);
+            if (expression == null) {
+              throw new MissingRequiredPropertyException("Validation", "expression");
+            }
+            this.expression = expression;
             return this;
         }
         @CustomType.Setter
         public Builder message(@Nullable String message) {
+
             this.message = message;
             return this;
         }
         @CustomType.Setter
         public Builder messageExpression(@Nullable String messageExpression) {
+
             this.messageExpression = messageExpression;
             return this;
         }
         @CustomType.Setter
         public Builder reason(@Nullable String reason) {
+
             this.reason = reason;
             return this;
         }
         public Validation build() {
-            final var o = new Validation();
-            o.expression = expression;
-            o.message = message;
-            o.messageExpression = messageExpression;
-            o.reason = reason;
-            return o;
+            final var _resultValue = new Validation();
+            _resultValue.expression = expression;
+            _resultValue.message = message;
+            _resultValue.messageExpression = messageExpression;
+            _resultValue.reason = reason;
+            return _resultValue;
         }
     }
 }

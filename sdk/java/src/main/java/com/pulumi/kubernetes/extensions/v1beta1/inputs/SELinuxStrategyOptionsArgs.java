@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.extensions.v1beta1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.inputs.SELinuxOptionsArgs;
 import java.lang.String;
 import java.util.Objects;
@@ -118,7 +119,9 @@ public final class SELinuxStrategyOptionsArgs extends com.pulumi.resources.Resou
         }
 
         public SELinuxStrategyOptionsArgs build() {
-            $.rule = Objects.requireNonNull($.rule, "expected parameter 'rule' to be non-null");
+            if ($.rule == null) {
+                throw new MissingRequiredPropertyException("SELinuxStrategyOptionsArgs", "rule");
+            }
             return $;
         }
     }

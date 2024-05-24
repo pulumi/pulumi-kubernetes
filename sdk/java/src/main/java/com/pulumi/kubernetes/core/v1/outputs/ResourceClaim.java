@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
 
@@ -42,13 +43,16 @@ public final class ResourceClaim {
 
         @CustomType.Setter
         public Builder name(String name) {
-            this.name = Objects.requireNonNull(name);
+            if (name == null) {
+              throw new MissingRequiredPropertyException("ResourceClaim", "name");
+            }
+            this.name = name;
             return this;
         }
         public ResourceClaim build() {
-            final var o = new ResourceClaim();
-            o.name = name;
-            return o;
+            final var _resultValue = new ResourceClaim();
+            _resultValue.name = name;
+            return _resultValue;
         }
     }
 }

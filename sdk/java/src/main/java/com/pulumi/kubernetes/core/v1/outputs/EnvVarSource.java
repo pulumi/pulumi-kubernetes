@@ -89,31 +89,35 @@ public final class EnvVarSource {
 
         @CustomType.Setter
         public Builder configMapKeyRef(@Nullable ConfigMapKeySelector configMapKeyRef) {
+
             this.configMapKeyRef = configMapKeyRef;
             return this;
         }
         @CustomType.Setter
         public Builder fieldRef(@Nullable ObjectFieldSelector fieldRef) {
+
             this.fieldRef = fieldRef;
             return this;
         }
         @CustomType.Setter
         public Builder resourceFieldRef(@Nullable ResourceFieldSelector resourceFieldRef) {
+
             this.resourceFieldRef = resourceFieldRef;
             return this;
         }
         @CustomType.Setter
         public Builder secretKeyRef(@Nullable SecretKeySelector secretKeyRef) {
+
             this.secretKeyRef = secretKeyRef;
             return this;
         }
         public EnvVarSource build() {
-            final var o = new EnvVarSource();
-            o.configMapKeyRef = configMapKeyRef;
-            o.fieldRef = fieldRef;
-            o.resourceFieldRef = resourceFieldRef;
-            o.secretKeyRef = secretKeyRef;
-            return o;
+            final var _resultValue = new EnvVarSource();
+            _resultValue.configMapKeyRef = configMapKeyRef;
+            _resultValue.fieldRef = fieldRef;
+            _resultValue.resourceFieldRef = resourceFieldRef;
+            _resultValue.secretKeyRef = secretKeyRef;
+            return _resultValue;
         }
     }
 }

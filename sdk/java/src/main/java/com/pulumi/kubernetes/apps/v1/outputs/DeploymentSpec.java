@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.apps.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.apps.v1.outputs.DeploymentStrategy;
 import com.pulumi.kubernetes.core.v1.outputs.PodTemplateSpec;
 import com.pulumi.kubernetes.meta.v1.outputs.LabelSelector;
@@ -146,55 +147,67 @@ public final class DeploymentSpec {
 
         @CustomType.Setter
         public Builder minReadySeconds(@Nullable Integer minReadySeconds) {
+
             this.minReadySeconds = minReadySeconds;
             return this;
         }
         @CustomType.Setter
         public Builder paused(@Nullable Boolean paused) {
+
             this.paused = paused;
             return this;
         }
         @CustomType.Setter
         public Builder progressDeadlineSeconds(@Nullable Integer progressDeadlineSeconds) {
+
             this.progressDeadlineSeconds = progressDeadlineSeconds;
             return this;
         }
         @CustomType.Setter
         public Builder replicas(@Nullable Integer replicas) {
+
             this.replicas = replicas;
             return this;
         }
         @CustomType.Setter
         public Builder revisionHistoryLimit(@Nullable Integer revisionHistoryLimit) {
+
             this.revisionHistoryLimit = revisionHistoryLimit;
             return this;
         }
         @CustomType.Setter
         public Builder selector(LabelSelector selector) {
-            this.selector = Objects.requireNonNull(selector);
+            if (selector == null) {
+              throw new MissingRequiredPropertyException("DeploymentSpec", "selector");
+            }
+            this.selector = selector;
             return this;
         }
         @CustomType.Setter
         public Builder strategy(@Nullable DeploymentStrategy strategy) {
+
             this.strategy = strategy;
             return this;
         }
         @CustomType.Setter
         public Builder template(PodTemplateSpec template) {
-            this.template = Objects.requireNonNull(template);
+            if (template == null) {
+              throw new MissingRequiredPropertyException("DeploymentSpec", "template");
+            }
+            this.template = template;
             return this;
         }
         public DeploymentSpec build() {
-            final var o = new DeploymentSpec();
-            o.minReadySeconds = minReadySeconds;
-            o.paused = paused;
-            o.progressDeadlineSeconds = progressDeadlineSeconds;
-            o.replicas = replicas;
-            o.revisionHistoryLimit = revisionHistoryLimit;
-            o.selector = selector;
-            o.strategy = strategy;
-            o.template = template;
-            return o;
+            final var _resultValue = new DeploymentSpec();
+            _resultValue.minReadySeconds = minReadySeconds;
+            _resultValue.paused = paused;
+            _resultValue.progressDeadlineSeconds = progressDeadlineSeconds;
+            _resultValue.replicas = replicas;
+            _resultValue.revisionHistoryLimit = revisionHistoryLimit;
+            _resultValue.selector = selector;
+            _resultValue.strategy = strategy;
+            _resultValue.template = template;
+            return _resultValue;
         }
     }
 }

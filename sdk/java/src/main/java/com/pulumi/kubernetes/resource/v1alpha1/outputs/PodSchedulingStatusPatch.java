@@ -44,6 +44,7 @@ public final class PodSchedulingStatusPatch {
 
         @CustomType.Setter
         public Builder resourceClaims(@Nullable List<ResourceClaimSchedulingStatusPatch> resourceClaims) {
+
             this.resourceClaims = resourceClaims;
             return this;
         }
@@ -51,9 +52,9 @@ public final class PodSchedulingStatusPatch {
             return resourceClaims(List.of(resourceClaims));
         }
         public PodSchedulingStatusPatch build() {
-            final var o = new PodSchedulingStatusPatch();
-            o.resourceClaims = resourceClaims;
-            return o;
+            final var _resultValue = new PodSchedulingStatusPatch();
+            _resultValue.resourceClaims = resourceClaims;
+            return _resultValue;
         }
     }
 }

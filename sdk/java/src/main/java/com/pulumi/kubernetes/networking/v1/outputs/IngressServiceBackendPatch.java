@@ -59,19 +59,21 @@ public final class IngressServiceBackendPatch {
 
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder port(@Nullable ServiceBackendPortPatch port) {
+
             this.port = port;
             return this;
         }
         public IngressServiceBackendPatch build() {
-            final var o = new IngressServiceBackendPatch();
-            o.name = name;
-            o.port = port;
-            return o;
+            final var _resultValue = new IngressServiceBackendPatch();
+            _resultValue.name = name;
+            _resultValue.port = port;
+            return _resultValue;
         }
     }
 }

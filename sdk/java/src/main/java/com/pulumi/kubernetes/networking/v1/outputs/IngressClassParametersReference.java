@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.networking.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -100,37 +101,46 @@ public final class IngressClassParametersReference {
 
         @CustomType.Setter
         public Builder apiGroup(@Nullable String apiGroup) {
+
             this.apiGroup = apiGroup;
             return this;
         }
         @CustomType.Setter
         public Builder kind(String kind) {
-            this.kind = Objects.requireNonNull(kind);
+            if (kind == null) {
+              throw new MissingRequiredPropertyException("IngressClassParametersReference", "kind");
+            }
+            this.kind = kind;
             return this;
         }
         @CustomType.Setter
         public Builder name(String name) {
-            this.name = Objects.requireNonNull(name);
+            if (name == null) {
+              throw new MissingRequiredPropertyException("IngressClassParametersReference", "name");
+            }
+            this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder namespace(@Nullable String namespace) {
+
             this.namespace = namespace;
             return this;
         }
         @CustomType.Setter
         public Builder scope(@Nullable String scope) {
+
             this.scope = scope;
             return this;
         }
         public IngressClassParametersReference build() {
-            final var o = new IngressClassParametersReference();
-            o.apiGroup = apiGroup;
-            o.kind = kind;
-            o.name = name;
-            o.namespace = namespace;
-            o.scope = scope;
-            return o;
+            final var _resultValue = new IngressClassParametersReference();
+            _resultValue.apiGroup = apiGroup;
+            _resultValue.kind = kind;
+            _resultValue.name = name;
+            _resultValue.namespace = namespace;
+            _resultValue.scope = scope;
+            return _resultValue;
         }
     }
 }

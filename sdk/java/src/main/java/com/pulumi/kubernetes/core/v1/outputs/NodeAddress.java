@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
 
@@ -56,19 +57,25 @@ public final class NodeAddress {
 
         @CustomType.Setter
         public Builder address(String address) {
-            this.address = Objects.requireNonNull(address);
+            if (address == null) {
+              throw new MissingRequiredPropertyException("NodeAddress", "address");
+            }
+            this.address = address;
             return this;
         }
         @CustomType.Setter
         public Builder type(String type) {
-            this.type = Objects.requireNonNull(type);
+            if (type == null) {
+              throw new MissingRequiredPropertyException("NodeAddress", "type");
+            }
+            this.type = type;
             return this;
         }
         public NodeAddress build() {
-            final var o = new NodeAddress();
-            o.address = address;
-            o.type = type;
-            return o;
+            final var _resultValue = new NodeAddress();
+            _resultValue.address = address;
+            _resultValue.type = type;
+            return _resultValue;
         }
     }
 }

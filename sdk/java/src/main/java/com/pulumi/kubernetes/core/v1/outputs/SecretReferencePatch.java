@@ -58,19 +58,21 @@ public final class SecretReferencePatch {
 
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder namespace(@Nullable String namespace) {
+
             this.namespace = namespace;
             return this;
         }
         public SecretReferencePatch build() {
-            final var o = new SecretReferencePatch();
-            o.name = name;
-            o.namespace = namespace;
-            return o;
+            final var _resultValue = new SecretReferencePatch();
+            _resultValue.name = name;
+            _resultValue.namespace = namespace;
+            return _resultValue;
         }
     }
 }

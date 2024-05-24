@@ -59,19 +59,21 @@ public final class ExternalMetricSourcePatch {
 
         @CustomType.Setter
         public Builder metric(@Nullable MetricIdentifierPatch metric) {
+
             this.metric = metric;
             return this;
         }
         @CustomType.Setter
         public Builder target(@Nullable MetricTargetPatch target) {
+
             this.target = target;
             return this;
         }
         public ExternalMetricSourcePatch build() {
-            final var o = new ExternalMetricSourcePatch();
-            o.metric = metric;
-            o.target = target;
-            return o;
+            final var _resultValue = new ExternalMetricSourcePatch();
+            _resultValue.metric = metric;
+            _resultValue.target = target;
+            return _resultValue;
         }
     }
 }

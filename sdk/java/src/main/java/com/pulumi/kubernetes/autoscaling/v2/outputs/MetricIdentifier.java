@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.autoscaling.v2.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.meta.v1.outputs.LabelSelector;
 import java.lang.String;
 import java.util.Objects;
@@ -59,19 +60,23 @@ public final class MetricIdentifier {
 
         @CustomType.Setter
         public Builder name(String name) {
-            this.name = Objects.requireNonNull(name);
+            if (name == null) {
+              throw new MissingRequiredPropertyException("MetricIdentifier", "name");
+            }
+            this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder selector(@Nullable LabelSelector selector) {
+
             this.selector = selector;
             return this;
         }
         public MetricIdentifier build() {
-            final var o = new MetricIdentifier();
-            o.name = name;
-            o.selector = selector;
-            return o;
+            final var _resultValue = new MetricIdentifier();
+            _resultValue.name = name;
+            _resultValue.selector = selector;
+            return _resultValue;
         }
     }
 }

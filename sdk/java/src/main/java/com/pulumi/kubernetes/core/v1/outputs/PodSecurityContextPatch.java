@@ -200,46 +200,55 @@ public final class PodSecurityContextPatch {
 
         @CustomType.Setter
         public Builder appArmorProfile(@Nullable AppArmorProfilePatch appArmorProfile) {
+
             this.appArmorProfile = appArmorProfile;
             return this;
         }
         @CustomType.Setter
         public Builder fsGroup(@Nullable Integer fsGroup) {
+
             this.fsGroup = fsGroup;
             return this;
         }
         @CustomType.Setter
         public Builder fsGroupChangePolicy(@Nullable String fsGroupChangePolicy) {
+
             this.fsGroupChangePolicy = fsGroupChangePolicy;
             return this;
         }
         @CustomType.Setter
         public Builder runAsGroup(@Nullable Integer runAsGroup) {
+
             this.runAsGroup = runAsGroup;
             return this;
         }
         @CustomType.Setter
         public Builder runAsNonRoot(@Nullable Boolean runAsNonRoot) {
+
             this.runAsNonRoot = runAsNonRoot;
             return this;
         }
         @CustomType.Setter
         public Builder runAsUser(@Nullable Integer runAsUser) {
+
             this.runAsUser = runAsUser;
             return this;
         }
         @CustomType.Setter
         public Builder seLinuxOptions(@Nullable SELinuxOptionsPatch seLinuxOptions) {
+
             this.seLinuxOptions = seLinuxOptions;
             return this;
         }
         @CustomType.Setter
         public Builder seccompProfile(@Nullable SeccompProfilePatch seccompProfile) {
+
             this.seccompProfile = seccompProfile;
             return this;
         }
         @CustomType.Setter
         public Builder supplementalGroups(@Nullable List<Integer> supplementalGroups) {
+
             this.supplementalGroups = supplementalGroups;
             return this;
         }
@@ -248,6 +257,7 @@ public final class PodSecurityContextPatch {
         }
         @CustomType.Setter
         public Builder sysctls(@Nullable List<SysctlPatch> sysctls) {
+
             this.sysctls = sysctls;
             return this;
         }
@@ -256,23 +266,24 @@ public final class PodSecurityContextPatch {
         }
         @CustomType.Setter
         public Builder windowsOptions(@Nullable WindowsSecurityContextOptionsPatch windowsOptions) {
+
             this.windowsOptions = windowsOptions;
             return this;
         }
         public PodSecurityContextPatch build() {
-            final var o = new PodSecurityContextPatch();
-            o.appArmorProfile = appArmorProfile;
-            o.fsGroup = fsGroup;
-            o.fsGroupChangePolicy = fsGroupChangePolicy;
-            o.runAsGroup = runAsGroup;
-            o.runAsNonRoot = runAsNonRoot;
-            o.runAsUser = runAsUser;
-            o.seLinuxOptions = seLinuxOptions;
-            o.seccompProfile = seccompProfile;
-            o.supplementalGroups = supplementalGroups;
-            o.sysctls = sysctls;
-            o.windowsOptions = windowsOptions;
-            return o;
+            final var _resultValue = new PodSecurityContextPatch();
+            _resultValue.appArmorProfile = appArmorProfile;
+            _resultValue.fsGroup = fsGroup;
+            _resultValue.fsGroupChangePolicy = fsGroupChangePolicy;
+            _resultValue.runAsGroup = runAsGroup;
+            _resultValue.runAsNonRoot = runAsNonRoot;
+            _resultValue.runAsUser = runAsUser;
+            _resultValue.seLinuxOptions = seLinuxOptions;
+            _resultValue.seccompProfile = seccompProfile;
+            _resultValue.supplementalGroups = supplementalGroups;
+            _resultValue.sysctls = sysctls;
+            _resultValue.windowsOptions = windowsOptions;
+            return _resultValue;
         }
     }
 }

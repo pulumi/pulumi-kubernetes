@@ -60,11 +60,13 @@ public final class DownwardAPIVolumeSource {
 
         @CustomType.Setter
         public Builder defaultMode(@Nullable Integer defaultMode) {
+
             this.defaultMode = defaultMode;
             return this;
         }
         @CustomType.Setter
         public Builder items(@Nullable List<DownwardAPIVolumeFile> items) {
+
             this.items = items;
             return this;
         }
@@ -72,10 +74,10 @@ public final class DownwardAPIVolumeSource {
             return items(List.of(items));
         }
         public DownwardAPIVolumeSource build() {
-            final var o = new DownwardAPIVolumeSource();
-            o.defaultMode = defaultMode;
-            o.items = items;
-            return o;
+            final var _resultValue = new DownwardAPIVolumeSource();
+            _resultValue.defaultMode = defaultMode;
+            _resultValue.items = items;
+            return _resultValue;
         }
     }
 }

@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.apiextensions.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.apiextensions.v1.outputs.WebhookConversion;
 import java.lang.String;
 import java.util.Objects;
@@ -61,19 +62,23 @@ public final class CustomResourceConversion {
 
         @CustomType.Setter
         public Builder strategy(String strategy) {
-            this.strategy = Objects.requireNonNull(strategy);
+            if (strategy == null) {
+              throw new MissingRequiredPropertyException("CustomResourceConversion", "strategy");
+            }
+            this.strategy = strategy;
             return this;
         }
         @CustomType.Setter
         public Builder webhook(@Nullable WebhookConversion webhook) {
+
             this.webhook = webhook;
             return this;
         }
         public CustomResourceConversion build() {
-            final var o = new CustomResourceConversion();
-            o.strategy = strategy;
-            o.webhook = webhook;
-            return o;
+            final var _resultValue = new CustomResourceConversion();
+            _resultValue.strategy = strategy;
+            _resultValue.webhook = webhook;
+            return _resultValue;
         }
     }
 }

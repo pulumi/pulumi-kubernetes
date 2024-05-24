@@ -102,37 +102,42 @@ public final class StorageOSPersistentVolumeSourcePatch {
 
         @CustomType.Setter
         public Builder fsType(@Nullable String fsType) {
+
             this.fsType = fsType;
             return this;
         }
         @CustomType.Setter
         public Builder readOnly(@Nullable Boolean readOnly) {
+
             this.readOnly = readOnly;
             return this;
         }
         @CustomType.Setter
         public Builder secretRef(@Nullable ObjectReferencePatch secretRef) {
+
             this.secretRef = secretRef;
             return this;
         }
         @CustomType.Setter
         public Builder volumeName(@Nullable String volumeName) {
+
             this.volumeName = volumeName;
             return this;
         }
         @CustomType.Setter
         public Builder volumeNamespace(@Nullable String volumeNamespace) {
+
             this.volumeNamespace = volumeNamespace;
             return this;
         }
         public StorageOSPersistentVolumeSourcePatch build() {
-            final var o = new StorageOSPersistentVolumeSourcePatch();
-            o.fsType = fsType;
-            o.readOnly = readOnly;
-            o.secretRef = secretRef;
-            o.volumeName = volumeName;
-            o.volumeNamespace = volumeNamespace;
-            return o;
+            final var _resultValue = new StorageOSPersistentVolumeSourcePatch();
+            _resultValue.fsType = fsType;
+            _resultValue.readOnly = readOnly;
+            _resultValue.secretRef = secretRef;
+            _resultValue.volumeName = volumeName;
+            _resultValue.volumeNamespace = volumeNamespace;
+            return _resultValue;
         }
     }
 }

@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.meta.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Integer;
 import java.lang.String;
 import java.util.Objects;
@@ -266,11 +267,21 @@ public final class ConditionArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         public ConditionArgs build() {
-            $.lastTransitionTime = Objects.requireNonNull($.lastTransitionTime, "expected parameter 'lastTransitionTime' to be non-null");
-            $.message = Objects.requireNonNull($.message, "expected parameter 'message' to be non-null");
-            $.reason = Objects.requireNonNull($.reason, "expected parameter 'reason' to be non-null");
-            $.status = Objects.requireNonNull($.status, "expected parameter 'status' to be non-null");
-            $.type = Objects.requireNonNull($.type, "expected parameter 'type' to be non-null");
+            if ($.lastTransitionTime == null) {
+                throw new MissingRequiredPropertyException("ConditionArgs", "lastTransitionTime");
+            }
+            if ($.message == null) {
+                throw new MissingRequiredPropertyException("ConditionArgs", "message");
+            }
+            if ($.reason == null) {
+                throw new MissingRequiredPropertyException("ConditionArgs", "reason");
+            }
+            if ($.status == null) {
+                throw new MissingRequiredPropertyException("ConditionArgs", "status");
+            }
+            if ($.type == null) {
+                throw new MissingRequiredPropertyException("ConditionArgs", "type");
+            }
             return $;
         }
     }

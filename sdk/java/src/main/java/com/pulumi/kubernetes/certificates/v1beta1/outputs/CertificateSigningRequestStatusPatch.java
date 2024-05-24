@@ -60,11 +60,13 @@ public final class CertificateSigningRequestStatusPatch {
 
         @CustomType.Setter
         public Builder certificate(@Nullable String certificate) {
+
             this.certificate = certificate;
             return this;
         }
         @CustomType.Setter
         public Builder conditions(@Nullable List<CertificateSigningRequestConditionPatch> conditions) {
+
             this.conditions = conditions;
             return this;
         }
@@ -72,10 +74,10 @@ public final class CertificateSigningRequestStatusPatch {
             return conditions(List.of(conditions));
         }
         public CertificateSigningRequestStatusPatch build() {
-            final var o = new CertificateSigningRequestStatusPatch();
-            o.certificate = certificate;
-            o.conditions = conditions;
-            return o;
+            final var _resultValue = new CertificateSigningRequestStatusPatch();
+            _resultValue.certificate = certificate;
+            _resultValue.conditions = conditions;
+            return _resultValue;
         }
     }
 }

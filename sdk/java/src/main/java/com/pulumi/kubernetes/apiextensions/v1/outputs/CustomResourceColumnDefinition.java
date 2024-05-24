@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.apiextensions.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Integer;
 import java.lang.String;
 import java.util.Objects;
@@ -115,43 +116,55 @@ public final class CustomResourceColumnDefinition {
 
         @CustomType.Setter
         public Builder description(@Nullable String description) {
+
             this.description = description;
             return this;
         }
         @CustomType.Setter
         public Builder format(@Nullable String format) {
+
             this.format = format;
             return this;
         }
         @CustomType.Setter
         public Builder jsonPath(String jsonPath) {
-            this.jsonPath = Objects.requireNonNull(jsonPath);
+            if (jsonPath == null) {
+              throw new MissingRequiredPropertyException("CustomResourceColumnDefinition", "jsonPath");
+            }
+            this.jsonPath = jsonPath;
             return this;
         }
         @CustomType.Setter
         public Builder name(String name) {
-            this.name = Objects.requireNonNull(name);
+            if (name == null) {
+              throw new MissingRequiredPropertyException("CustomResourceColumnDefinition", "name");
+            }
+            this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder priority(@Nullable Integer priority) {
+
             this.priority = priority;
             return this;
         }
         @CustomType.Setter
         public Builder type(String type) {
-            this.type = Objects.requireNonNull(type);
+            if (type == null) {
+              throw new MissingRequiredPropertyException("CustomResourceColumnDefinition", "type");
+            }
+            this.type = type;
             return this;
         }
         public CustomResourceColumnDefinition build() {
-            final var o = new CustomResourceColumnDefinition();
-            o.description = description;
-            o.format = format;
-            o.jsonPath = jsonPath;
-            o.name = name;
-            o.priority = priority;
-            o.type = type;
-            return o;
+            final var _resultValue = new CustomResourceColumnDefinition();
+            _resultValue.description = description;
+            _resultValue.format = format;
+            _resultValue.jsonPath = jsonPath;
+            _resultValue.name = name;
+            _resultValue.priority = priority;
+            _resultValue.type = type;
+            return _resultValue;
         }
     }
 }

@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.apiextensions.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Boolean;
 import java.lang.String;
 import java.util.Objects;
@@ -191,43 +192,51 @@ public final class ValidationRule {
 
         @CustomType.Setter
         public Builder fieldPath(@Nullable String fieldPath) {
+
             this.fieldPath = fieldPath;
             return this;
         }
         @CustomType.Setter
         public Builder message(@Nullable String message) {
+
             this.message = message;
             return this;
         }
         @CustomType.Setter
         public Builder messageExpression(@Nullable String messageExpression) {
+
             this.messageExpression = messageExpression;
             return this;
         }
         @CustomType.Setter
         public Builder optionalOldSelf(@Nullable Boolean optionalOldSelf) {
+
             this.optionalOldSelf = optionalOldSelf;
             return this;
         }
         @CustomType.Setter
         public Builder reason(@Nullable String reason) {
+
             this.reason = reason;
             return this;
         }
         @CustomType.Setter
         public Builder rule(String rule) {
-            this.rule = Objects.requireNonNull(rule);
+            if (rule == null) {
+              throw new MissingRequiredPropertyException("ValidationRule", "rule");
+            }
+            this.rule = rule;
             return this;
         }
         public ValidationRule build() {
-            final var o = new ValidationRule();
-            o.fieldPath = fieldPath;
-            o.message = message;
-            o.messageExpression = messageExpression;
-            o.optionalOldSelf = optionalOldSelf;
-            o.reason = reason;
-            o.rule = rule;
-            return o;
+            final var _resultValue = new ValidationRule();
+            _resultValue.fieldPath = fieldPath;
+            _resultValue.message = message;
+            _resultValue.messageExpression = messageExpression;
+            _resultValue.optionalOldSelf = optionalOldSelf;
+            _resultValue.reason = reason;
+            _resultValue.rule = rule;
+            return _resultValue;
         }
     }
 }

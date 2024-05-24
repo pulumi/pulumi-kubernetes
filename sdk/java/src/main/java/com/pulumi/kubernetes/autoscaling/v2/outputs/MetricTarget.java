@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.autoscaling.v2.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Integer;
 import java.lang.String;
 import java.util.Objects;
@@ -87,31 +88,37 @@ public final class MetricTarget {
 
         @CustomType.Setter
         public Builder averageUtilization(@Nullable Integer averageUtilization) {
+
             this.averageUtilization = averageUtilization;
             return this;
         }
         @CustomType.Setter
         public Builder averageValue(@Nullable String averageValue) {
+
             this.averageValue = averageValue;
             return this;
         }
         @CustomType.Setter
         public Builder type(String type) {
-            this.type = Objects.requireNonNull(type);
+            if (type == null) {
+              throw new MissingRequiredPropertyException("MetricTarget", "type");
+            }
+            this.type = type;
             return this;
         }
         @CustomType.Setter
         public Builder value(@Nullable String value) {
+
             this.value = value;
             return this;
         }
         public MetricTarget build() {
-            final var o = new MetricTarget();
-            o.averageUtilization = averageUtilization;
-            o.averageValue = averageValue;
-            o.type = type;
-            o.value = value;
-            return o;
+            final var _resultValue = new MetricTarget();
+            _resultValue.averageUtilization = averageUtilization;
+            _resultValue.averageValue = averageValue;
+            _resultValue.type = type;
+            _resultValue.value = value;
+            return _resultValue;
         }
     }
 }

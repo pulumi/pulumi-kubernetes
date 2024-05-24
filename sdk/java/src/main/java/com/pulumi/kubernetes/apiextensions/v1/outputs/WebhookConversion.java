@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.apiextensions.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.apiextensions.v1.outputs.WebhookClientConfig;
 import java.lang.String;
 import java.util.List;
@@ -60,22 +61,26 @@ public final class WebhookConversion {
 
         @CustomType.Setter
         public Builder clientConfig(@Nullable WebhookClientConfig clientConfig) {
+
             this.clientConfig = clientConfig;
             return this;
         }
         @CustomType.Setter
         public Builder conversionReviewVersions(List<String> conversionReviewVersions) {
-            this.conversionReviewVersions = Objects.requireNonNull(conversionReviewVersions);
+            if (conversionReviewVersions == null) {
+              throw new MissingRequiredPropertyException("WebhookConversion", "conversionReviewVersions");
+            }
+            this.conversionReviewVersions = conversionReviewVersions;
             return this;
         }
         public Builder conversionReviewVersions(String... conversionReviewVersions) {
             return conversionReviewVersions(List.of(conversionReviewVersions));
         }
         public WebhookConversion build() {
-            final var o = new WebhookConversion();
-            o.clientConfig = clientConfig;
-            o.conversionReviewVersions = conversionReviewVersions;
-            return o;
+            final var _resultValue = new WebhookConversion();
+            _resultValue.clientConfig = clientConfig;
+            _resultValue.conversionReviewVersions = conversionReviewVersions;
+            return _resultValue;
         }
     }
 }

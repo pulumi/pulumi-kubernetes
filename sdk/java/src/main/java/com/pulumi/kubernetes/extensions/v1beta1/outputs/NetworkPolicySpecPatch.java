@@ -90,6 +90,7 @@ public final class NetworkPolicySpecPatch {
 
         @CustomType.Setter
         public Builder egress(@Nullable List<NetworkPolicyEgressRulePatch> egress) {
+
             this.egress = egress;
             return this;
         }
@@ -98,6 +99,7 @@ public final class NetworkPolicySpecPatch {
         }
         @CustomType.Setter
         public Builder ingress(@Nullable List<NetworkPolicyIngressRulePatch> ingress) {
+
             this.ingress = ingress;
             return this;
         }
@@ -106,11 +108,13 @@ public final class NetworkPolicySpecPatch {
         }
         @CustomType.Setter
         public Builder podSelector(@Nullable LabelSelectorPatch podSelector) {
+
             this.podSelector = podSelector;
             return this;
         }
         @CustomType.Setter
         public Builder policyTypes(@Nullable List<String> policyTypes) {
+
             this.policyTypes = policyTypes;
             return this;
         }
@@ -118,12 +122,12 @@ public final class NetworkPolicySpecPatch {
             return policyTypes(List.of(policyTypes));
         }
         public NetworkPolicySpecPatch build() {
-            final var o = new NetworkPolicySpecPatch();
-            o.egress = egress;
-            o.ingress = ingress;
-            o.podSelector = podSelector;
-            o.policyTypes = policyTypes;
-            return o;
+            final var _resultValue = new NetworkPolicySpecPatch();
+            _resultValue.egress = egress;
+            _resultValue.ingress = ingress;
+            _resultValue.podSelector = podSelector;
+            _resultValue.policyTypes = policyTypes;
+            return _resultValue;
         }
     }
 }

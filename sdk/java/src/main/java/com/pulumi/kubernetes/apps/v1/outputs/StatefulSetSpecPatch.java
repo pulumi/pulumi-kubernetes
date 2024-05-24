@@ -192,56 +192,67 @@ public final class StatefulSetSpecPatch {
 
         @CustomType.Setter
         public Builder minReadySeconds(@Nullable Integer minReadySeconds) {
+
             this.minReadySeconds = minReadySeconds;
             return this;
         }
         @CustomType.Setter
         public Builder ordinals(@Nullable StatefulSetOrdinalsPatch ordinals) {
+
             this.ordinals = ordinals;
             return this;
         }
         @CustomType.Setter
         public Builder persistentVolumeClaimRetentionPolicy(@Nullable StatefulSetPersistentVolumeClaimRetentionPolicyPatch persistentVolumeClaimRetentionPolicy) {
+
             this.persistentVolumeClaimRetentionPolicy = persistentVolumeClaimRetentionPolicy;
             return this;
         }
         @CustomType.Setter
         public Builder podManagementPolicy(@Nullable String podManagementPolicy) {
+
             this.podManagementPolicy = podManagementPolicy;
             return this;
         }
         @CustomType.Setter
         public Builder replicas(@Nullable Integer replicas) {
+
             this.replicas = replicas;
             return this;
         }
         @CustomType.Setter
         public Builder revisionHistoryLimit(@Nullable Integer revisionHistoryLimit) {
+
             this.revisionHistoryLimit = revisionHistoryLimit;
             return this;
         }
         @CustomType.Setter
         public Builder selector(@Nullable LabelSelectorPatch selector) {
+
             this.selector = selector;
             return this;
         }
         @CustomType.Setter
         public Builder serviceName(@Nullable String serviceName) {
+
             this.serviceName = serviceName;
             return this;
         }
         @CustomType.Setter
         public Builder template(@Nullable PodTemplateSpecPatch template) {
+
             this.template = template;
             return this;
         }
         @CustomType.Setter
         public Builder updateStrategy(@Nullable StatefulSetUpdateStrategyPatch updateStrategy) {
+
             this.updateStrategy = updateStrategy;
             return this;
         }
         @CustomType.Setter
         public Builder volumeClaimTemplates(@Nullable List<PersistentVolumeClaimPatch> volumeClaimTemplates) {
+
             this.volumeClaimTemplates = volumeClaimTemplates;
             return this;
         }
@@ -249,19 +260,19 @@ public final class StatefulSetSpecPatch {
             return volumeClaimTemplates(List.of(volumeClaimTemplates));
         }
         public StatefulSetSpecPatch build() {
-            final var o = new StatefulSetSpecPatch();
-            o.minReadySeconds = minReadySeconds;
-            o.ordinals = ordinals;
-            o.persistentVolumeClaimRetentionPolicy = persistentVolumeClaimRetentionPolicy;
-            o.podManagementPolicy = podManagementPolicy;
-            o.replicas = replicas;
-            o.revisionHistoryLimit = revisionHistoryLimit;
-            o.selector = selector;
-            o.serviceName = serviceName;
-            o.template = template;
-            o.updateStrategy = updateStrategy;
-            o.volumeClaimTemplates = volumeClaimTemplates;
-            return o;
+            final var _resultValue = new StatefulSetSpecPatch();
+            _resultValue.minReadySeconds = minReadySeconds;
+            _resultValue.ordinals = ordinals;
+            _resultValue.persistentVolumeClaimRetentionPolicy = persistentVolumeClaimRetentionPolicy;
+            _resultValue.podManagementPolicy = podManagementPolicy;
+            _resultValue.replicas = replicas;
+            _resultValue.revisionHistoryLimit = revisionHistoryLimit;
+            _resultValue.selector = selector;
+            _resultValue.serviceName = serviceName;
+            _resultValue.template = template;
+            _resultValue.updateStrategy = updateStrategy;
+            _resultValue.volumeClaimTemplates = volumeClaimTemplates;
+            return _resultValue;
         }
     }
 }

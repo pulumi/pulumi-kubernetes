@@ -209,61 +209,73 @@ public final class ContainerStatusPatch {
 
         @CustomType.Setter
         public Builder allocatedResources(@Nullable Map<String,String> allocatedResources) {
+
             this.allocatedResources = allocatedResources;
             return this;
         }
         @CustomType.Setter
         public Builder containerID(@Nullable String containerID) {
+
             this.containerID = containerID;
             return this;
         }
         @CustomType.Setter
         public Builder image(@Nullable String image) {
+
             this.image = image;
             return this;
         }
         @CustomType.Setter
         public Builder imageID(@Nullable String imageID) {
+
             this.imageID = imageID;
             return this;
         }
         @CustomType.Setter
         public Builder lastState(@Nullable ContainerStatePatch lastState) {
+
             this.lastState = lastState;
             return this;
         }
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder ready(@Nullable Boolean ready) {
+
             this.ready = ready;
             return this;
         }
         @CustomType.Setter
         public Builder resources(@Nullable ResourceRequirementsPatch resources) {
+
             this.resources = resources;
             return this;
         }
         @CustomType.Setter
         public Builder restartCount(@Nullable Integer restartCount) {
+
             this.restartCount = restartCount;
             return this;
         }
         @CustomType.Setter
         public Builder started(@Nullable Boolean started) {
+
             this.started = started;
             return this;
         }
         @CustomType.Setter
         public Builder state(@Nullable ContainerStatePatch state) {
+
             this.state = state;
             return this;
         }
         @CustomType.Setter
         public Builder volumeMounts(@Nullable List<VolumeMountStatusPatch> volumeMounts) {
+
             this.volumeMounts = volumeMounts;
             return this;
         }
@@ -271,20 +283,20 @@ public final class ContainerStatusPatch {
             return volumeMounts(List.of(volumeMounts));
         }
         public ContainerStatusPatch build() {
-            final var o = new ContainerStatusPatch();
-            o.allocatedResources = allocatedResources;
-            o.containerID = containerID;
-            o.image = image;
-            o.imageID = imageID;
-            o.lastState = lastState;
-            o.name = name;
-            o.ready = ready;
-            o.resources = resources;
-            o.restartCount = restartCount;
-            o.started = started;
-            o.state = state;
-            o.volumeMounts = volumeMounts;
-            return o;
+            final var _resultValue = new ContainerStatusPatch();
+            _resultValue.allocatedResources = allocatedResources;
+            _resultValue.containerID = containerID;
+            _resultValue.image = image;
+            _resultValue.imageID = imageID;
+            _resultValue.lastState = lastState;
+            _resultValue.name = name;
+            _resultValue.ready = ready;
+            _resultValue.resources = resources;
+            _resultValue.restartCount = restartCount;
+            _resultValue.started = started;
+            _resultValue.state = state;
+            _resultValue.volumeMounts = volumeMounts;
+            return _resultValue;
         }
     }
 }

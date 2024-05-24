@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.core.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Boolean;
 import java.lang.String;
 import java.util.Objects;
@@ -155,8 +156,12 @@ public final class AzureFileVolumeSourceArgs extends com.pulumi.resources.Resour
         }
 
         public AzureFileVolumeSourceArgs build() {
-            $.secretName = Objects.requireNonNull($.secretName, "expected parameter 'secretName' to be non-null");
-            $.shareName = Objects.requireNonNull($.shareName, "expected parameter 'shareName' to be non-null");
+            if ($.secretName == null) {
+                throw new MissingRequiredPropertyException("AzureFileVolumeSourceArgs", "secretName");
+            }
+            if ($.shareName == null) {
+                throw new MissingRequiredPropertyException("AzureFileVolumeSourceArgs", "shareName");
+            }
             return $;
         }
     }

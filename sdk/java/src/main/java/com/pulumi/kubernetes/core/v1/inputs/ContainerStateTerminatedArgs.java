@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.core.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Integer;
 import java.lang.String;
 import java.util.Objects;
@@ -303,7 +304,9 @@ public final class ContainerStateTerminatedArgs extends com.pulumi.resources.Res
         }
 
         public ContainerStateTerminatedArgs build() {
-            $.exitCode = Objects.requireNonNull($.exitCode, "expected parameter 'exitCode' to be non-null");
+            if ($.exitCode == null) {
+                throw new MissingRequiredPropertyException("ContainerStateTerminatedArgs", "exitCode");
+            }
             return $;
         }
     }

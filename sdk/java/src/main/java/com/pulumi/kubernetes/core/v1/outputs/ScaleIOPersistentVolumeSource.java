@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.outputs.SecretReference;
 import java.lang.Boolean;
 import java.lang.String;
@@ -172,67 +173,83 @@ public final class ScaleIOPersistentVolumeSource {
 
         @CustomType.Setter
         public Builder fsType(@Nullable String fsType) {
+
             this.fsType = fsType;
             return this;
         }
         @CustomType.Setter
         public Builder gateway(String gateway) {
-            this.gateway = Objects.requireNonNull(gateway);
+            if (gateway == null) {
+              throw new MissingRequiredPropertyException("ScaleIOPersistentVolumeSource", "gateway");
+            }
+            this.gateway = gateway;
             return this;
         }
         @CustomType.Setter
         public Builder protectionDomain(@Nullable String protectionDomain) {
+
             this.protectionDomain = protectionDomain;
             return this;
         }
         @CustomType.Setter
         public Builder readOnly(@Nullable Boolean readOnly) {
+
             this.readOnly = readOnly;
             return this;
         }
         @CustomType.Setter
         public Builder secretRef(SecretReference secretRef) {
-            this.secretRef = Objects.requireNonNull(secretRef);
+            if (secretRef == null) {
+              throw new MissingRequiredPropertyException("ScaleIOPersistentVolumeSource", "secretRef");
+            }
+            this.secretRef = secretRef;
             return this;
         }
         @CustomType.Setter
         public Builder sslEnabled(@Nullable Boolean sslEnabled) {
+
             this.sslEnabled = sslEnabled;
             return this;
         }
         @CustomType.Setter
         public Builder storageMode(@Nullable String storageMode) {
+
             this.storageMode = storageMode;
             return this;
         }
         @CustomType.Setter
         public Builder storagePool(@Nullable String storagePool) {
+
             this.storagePool = storagePool;
             return this;
         }
         @CustomType.Setter
         public Builder system(String system) {
-            this.system = Objects.requireNonNull(system);
+            if (system == null) {
+              throw new MissingRequiredPropertyException("ScaleIOPersistentVolumeSource", "system");
+            }
+            this.system = system;
             return this;
         }
         @CustomType.Setter
         public Builder volumeName(@Nullable String volumeName) {
+
             this.volumeName = volumeName;
             return this;
         }
         public ScaleIOPersistentVolumeSource build() {
-            final var o = new ScaleIOPersistentVolumeSource();
-            o.fsType = fsType;
-            o.gateway = gateway;
-            o.protectionDomain = protectionDomain;
-            o.readOnly = readOnly;
-            o.secretRef = secretRef;
-            o.sslEnabled = sslEnabled;
-            o.storageMode = storageMode;
-            o.storagePool = storagePool;
-            o.system = system;
-            o.volumeName = volumeName;
-            return o;
+            final var _resultValue = new ScaleIOPersistentVolumeSource();
+            _resultValue.fsType = fsType;
+            _resultValue.gateway = gateway;
+            _resultValue.protectionDomain = protectionDomain;
+            _resultValue.readOnly = readOnly;
+            _resultValue.secretRef = secretRef;
+            _resultValue.sslEnabled = sslEnabled;
+            _resultValue.storageMode = storageMode;
+            _resultValue.storagePool = storagePool;
+            _resultValue.system = system;
+            _resultValue.volumeName = volumeName;
+            return _resultValue;
         }
     }
 }

@@ -44,13 +44,14 @@ public final class VolumeNodeResources {
 
         @CustomType.Setter
         public Builder count(@Nullable Integer count) {
+
             this.count = count;
             return this;
         }
         public VolumeNodeResources build() {
-            final var o = new VolumeNodeResources();
-            o.count = count;
-            return o;
+            final var _resultValue = new VolumeNodeResources();
+            _resultValue.count = count;
+            return _resultValue;
         }
     }
 }

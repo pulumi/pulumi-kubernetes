@@ -67,19 +67,21 @@ public final class LimitedPriorityLevelConfiguration {
 
         @CustomType.Setter
         public Builder assuredConcurrencyShares(@Nullable Integer assuredConcurrencyShares) {
+
             this.assuredConcurrencyShares = assuredConcurrencyShares;
             return this;
         }
         @CustomType.Setter
         public Builder limitResponse(@Nullable LimitResponse limitResponse) {
+
             this.limitResponse = limitResponse;
             return this;
         }
         public LimitedPriorityLevelConfiguration build() {
-            final var o = new LimitedPriorityLevelConfiguration();
-            o.assuredConcurrencyShares = assuredConcurrencyShares;
-            o.limitResponse = limitResponse;
-            return o;
+            final var _resultValue = new LimitedPriorityLevelConfiguration();
+            _resultValue.assuredConcurrencyShares = assuredConcurrencyShares;
+            _resultValue.limitResponse = limitResponse;
+            return _resultValue;
         }
     }
 }

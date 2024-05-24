@@ -103,7 +103,8 @@ import javax.annotation.Nullable;
  * 
  * ## Example Usage
  * ### Local Chart Directory
- * ```java
+ * <pre>
+ * {@code
  * package generated_program;
  * 
  * import com.pulumi.Pulumi;
@@ -112,16 +113,18 @@ import javax.annotation.Nullable;
  * 
  * public class App {
  *     public static void main(String[] args) {
- *         Pulumi.run(ctx -&gt; {
- *             var nginx = new Chart(&#34;nginx&#34;, ChartArgs.builder()
- *                     .chart(&#34;./nginx&#34;)
+ *         Pulumi.run(ctx -> {
+ *             var nginx = new Chart("nginx", ChartArgs.builder()
+ *                     .chart("./nginx")
  *                     .build());
  *         });
  *     }
  * }
- * ```
+ * }
+ * </pre>
  * ### Repository Chart
- * ```java
+ * <pre>
+ * {@code
  * package generated_program;
  * 
  * import com.pulumi.Pulumi;
@@ -131,19 +134,21 @@ import javax.annotation.Nullable;
  * 
  * public class App {
  *     public static void main(String[] args) {
- *         Pulumi.run(ctx -&gt; {
- *             var nginx = new Chart(&#34;nginx&#34;, ChartArgs.builder()
- *                     .chart(&#34;nginx&#34;)
+ *         Pulumi.run(ctx -> {
+ *             var nginx = new Chart("nginx", ChartArgs.builder()
+ *                     .chart("nginx")
  *                     .repositoryOpts(RepositoryOptsArgs.builder()
- *                             .repo(&#34;https://charts.bitnami.com/bitnami&#34;)
+ *                             .repo("https://charts.bitnami.com/bitnami")
  *                             .build())
  *                     .build());
  *         });
  *     }
  * }
- * ```
+ * }
+ * </pre>
  * ### OCI Chart
- * ```java
+ * <pre>
+ * {@code
  * package generated_program;
  * 
  * import com.pulumi.Pulumi;
@@ -152,17 +157,19 @@ import javax.annotation.Nullable;
  * 
  * public class App {
  *     public static void main(String[] args) {
- *         Pulumi.run(ctx -&gt; {
- *             var nginx = new Chart(&#34;nginx&#34;, ChartArgs.builder()
- *                     .chart(&#34;oci://registry-1.docker.io/bitnamicharts/nginx&#34;)
- *                     .version(&#34;16.0.7&#34;)
+ *         Pulumi.run(ctx -> {
+ *             var nginx = new Chart("nginx", ChartArgs.builder()
+ *                     .chart("oci://registry-1.docker.io/bitnamicharts/nginx")
+ *                     .version("16.0.7")
  *                     .build());
  *         });
  *     }
  * }
- * ```
+ * }
+ * </pre>
  * ### Chart Values
- * ```java
+ * <pre>
+ * {@code
  * package generated_program;
  * 
  * import java.util.Map;
@@ -175,24 +182,26 @@ import javax.annotation.Nullable;
  * 
  * public class App {
  *     public static void main(String[] args) {
- *         Pulumi.run(ctx -&gt; {
- *             var nginx = new Chart(&#34;nginx&#34;, ChartArgs.builder()
- *                     .chart(&#34;nginx&#34;)
+ *         Pulumi.run(ctx -> {
+ *             var nginx = new Chart("nginx", ChartArgs.builder()
+ *                     .chart("nginx")
  *                     .repositoryOpts(RepositoryOptsArgs.builder()
- *                             .repo(&#34;https://charts.bitnami.com/bitnami&#34;)
+ *                             .repo("https://charts.bitnami.com/bitnami")
  *                             .build())
- *                     .valueYamlFiles(new FileAsset(&#34;./values.yaml&#34;))
+ *                     .valueYamlFiles(new FileAsset("./values.yaml"))
  *                     .values(Map.of(
- *                             &#34;service&#34;, Map.of(
- *                                     &#34;type&#34;, &#34;ClusterIP&#34;),
- *                             &#34;notes&#34;, new FileAsset(&#34;./notes.txt&#34;)))
+ *                             "service", Map.of(
+ *                                     "type", "ClusterIP"),
+ *                             "notes", new FileAsset("./notes.txt")))
  *                     .build());
  *         });
  *     }
  * }
- * ```
+ * }
+ * </pre>
  * ### Chart Namespace
- * ```java
+ * <pre>
+ * {@code
  * package generated_program;
  * 
  * import com.pulumi.Pulumi;
@@ -206,23 +215,24 @@ import javax.annotation.Nullable;
  * 
  * public class App {
  *     public static void main(String[] args) {
- *         Pulumi.run(ctx -&gt; {
- *             var ns = new Namespace(&#34;nginx&#34;, NamespaceArgs.builder()
+ *         Pulumi.run(ctx -> {
+ *             var ns = new Namespace("nginx", NamespaceArgs.builder()
  *                     .metadata(ObjectMetaArgs.builder()
- *                             .name(&#34;nginx&#34;)
+ *                             .name("nginx")
  *                             .build())
  *                     .build());
- *             var nginx = new Chart(&#34;nginx&#34;, ChartArgs.builder()
- *                     .namespace(ns.metadata().apply(m -&gt; Output.of(m.name().get())))
- *                     .chart(&#34;nginx&#34;)
+ *             var nginx = new Chart("nginx", ChartArgs.builder()
+ *                     .namespace(ns.metadata().apply(m -> Output.of(m.name().get())))
+ *                     .chart("nginx")
  *                     .repositoryOpts(RepositoryOptsArgs.builder()
- *                             .repo(&#34;https://charts.bitnami.com/bitnami&#34;)
+ *                             .repo("https://charts.bitnami.com/bitnami")
  *                             .build())
  *                     .build());
  *         });
  *     }
  * }
- * ```
+ * }
+ * </pre>
  * 
  */
 @ResourceType(type="kubernetes:helm.sh/v4:Chart")

@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.outputs.ContainerState;
 import com.pulumi.kubernetes.core.v1.outputs.ResourceRequirements;
 import com.pulumi.kubernetes.core.v1.outputs.VolumeMountStatus;
@@ -209,61 +210,83 @@ public final class ContainerStatus {
 
         @CustomType.Setter
         public Builder allocatedResources(@Nullable Map<String,String> allocatedResources) {
+
             this.allocatedResources = allocatedResources;
             return this;
         }
         @CustomType.Setter
         public Builder containerID(@Nullable String containerID) {
+
             this.containerID = containerID;
             return this;
         }
         @CustomType.Setter
         public Builder image(String image) {
-            this.image = Objects.requireNonNull(image);
+            if (image == null) {
+              throw new MissingRequiredPropertyException("ContainerStatus", "image");
+            }
+            this.image = image;
             return this;
         }
         @CustomType.Setter
         public Builder imageID(String imageID) {
-            this.imageID = Objects.requireNonNull(imageID);
+            if (imageID == null) {
+              throw new MissingRequiredPropertyException("ContainerStatus", "imageID");
+            }
+            this.imageID = imageID;
             return this;
         }
         @CustomType.Setter
         public Builder lastState(@Nullable ContainerState lastState) {
+
             this.lastState = lastState;
             return this;
         }
         @CustomType.Setter
         public Builder name(String name) {
-            this.name = Objects.requireNonNull(name);
+            if (name == null) {
+              throw new MissingRequiredPropertyException("ContainerStatus", "name");
+            }
+            this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder ready(Boolean ready) {
-            this.ready = Objects.requireNonNull(ready);
+            if (ready == null) {
+              throw new MissingRequiredPropertyException("ContainerStatus", "ready");
+            }
+            this.ready = ready;
             return this;
         }
         @CustomType.Setter
         public Builder resources(@Nullable ResourceRequirements resources) {
+
             this.resources = resources;
             return this;
         }
         @CustomType.Setter
         public Builder restartCount(Integer restartCount) {
-            this.restartCount = Objects.requireNonNull(restartCount);
+            if (restartCount == null) {
+              throw new MissingRequiredPropertyException("ContainerStatus", "restartCount");
+            }
+            this.restartCount = restartCount;
             return this;
         }
         @CustomType.Setter
         public Builder started(@Nullable Boolean started) {
+
             this.started = started;
             return this;
         }
         @CustomType.Setter
         public Builder state(@Nullable ContainerState state) {
+
             this.state = state;
             return this;
         }
         @CustomType.Setter
         public Builder volumeMounts(@Nullable List<VolumeMountStatus> volumeMounts) {
+
             this.volumeMounts = volumeMounts;
             return this;
         }
@@ -271,20 +294,20 @@ public final class ContainerStatus {
             return volumeMounts(List.of(volumeMounts));
         }
         public ContainerStatus build() {
-            final var o = new ContainerStatus();
-            o.allocatedResources = allocatedResources;
-            o.containerID = containerID;
-            o.image = image;
-            o.imageID = imageID;
-            o.lastState = lastState;
-            o.name = name;
-            o.ready = ready;
-            o.resources = resources;
-            o.restartCount = restartCount;
-            o.started = started;
-            o.state = state;
-            o.volumeMounts = volumeMounts;
-            return o;
+            final var _resultValue = new ContainerStatus();
+            _resultValue.allocatedResources = allocatedResources;
+            _resultValue.containerID = containerID;
+            _resultValue.image = image;
+            _resultValue.imageID = imageID;
+            _resultValue.lastState = lastState;
+            _resultValue.name = name;
+            _resultValue.ready = ready;
+            _resultValue.resources = resources;
+            _resultValue.restartCount = restartCount;
+            _resultValue.started = started;
+            _resultValue.state = state;
+            _resultValue.volumeMounts = volumeMounts;
+            return _resultValue;
         }
     }
 }

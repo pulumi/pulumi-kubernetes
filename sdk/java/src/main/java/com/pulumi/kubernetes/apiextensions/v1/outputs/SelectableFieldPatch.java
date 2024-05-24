@@ -44,13 +44,14 @@ public final class SelectableFieldPatch {
 
         @CustomType.Setter
         public Builder jsonPath(@Nullable String jsonPath) {
+
             this.jsonPath = jsonPath;
             return this;
         }
         public SelectableFieldPatch build() {
-            final var o = new SelectableFieldPatch();
-            o.jsonPath = jsonPath;
-            return o;
+            final var _resultValue = new SelectableFieldPatch();
+            _resultValue.jsonPath = jsonPath;
+            return _resultValue;
         }
     }
 }

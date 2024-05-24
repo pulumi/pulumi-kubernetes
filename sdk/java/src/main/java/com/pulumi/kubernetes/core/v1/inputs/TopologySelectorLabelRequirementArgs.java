@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.core.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.List;
 import java.util.Objects;
@@ -126,8 +127,12 @@ public final class TopologySelectorLabelRequirementArgs extends com.pulumi.resou
         }
 
         public TopologySelectorLabelRequirementArgs build() {
-            $.key = Objects.requireNonNull($.key, "expected parameter 'key' to be non-null");
-            $.values = Objects.requireNonNull($.values, "expected parameter 'values' to be non-null");
+            if ($.key == null) {
+                throw new MissingRequiredPropertyException("TopologySelectorLabelRequirementArgs", "key");
+            }
+            if ($.values == null) {
+                throw new MissingRequiredPropertyException("TopologySelectorLabelRequirementArgs", "values");
+            }
             return $;
         }
     }

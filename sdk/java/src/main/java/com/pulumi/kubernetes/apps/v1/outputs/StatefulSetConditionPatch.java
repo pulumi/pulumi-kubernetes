@@ -100,37 +100,42 @@ public final class StatefulSetConditionPatch {
 
         @CustomType.Setter
         public Builder lastTransitionTime(@Nullable String lastTransitionTime) {
+
             this.lastTransitionTime = lastTransitionTime;
             return this;
         }
         @CustomType.Setter
         public Builder message(@Nullable String message) {
+
             this.message = message;
             return this;
         }
         @CustomType.Setter
         public Builder reason(@Nullable String reason) {
+
             this.reason = reason;
             return this;
         }
         @CustomType.Setter
         public Builder status(@Nullable String status) {
+
             this.status = status;
             return this;
         }
         @CustomType.Setter
         public Builder type(@Nullable String type) {
+
             this.type = type;
             return this;
         }
         public StatefulSetConditionPatch build() {
-            final var o = new StatefulSetConditionPatch();
-            o.lastTransitionTime = lastTransitionTime;
-            o.message = message;
-            o.reason = reason;
-            o.status = status;
-            o.type = type;
-            return o;
+            final var _resultValue = new StatefulSetConditionPatch();
+            _resultValue.lastTransitionTime = lastTransitionTime;
+            _resultValue.message = message;
+            _resultValue.reason = reason;
+            _resultValue.status = status;
+            _resultValue.type = type;
+            return _resultValue;
         }
     }
 }

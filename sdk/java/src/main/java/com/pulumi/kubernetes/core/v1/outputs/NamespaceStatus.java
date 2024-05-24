@@ -60,6 +60,7 @@ public final class NamespaceStatus {
 
         @CustomType.Setter
         public Builder conditions(@Nullable List<NamespaceCondition> conditions) {
+
             this.conditions = conditions;
             return this;
         }
@@ -68,14 +69,15 @@ public final class NamespaceStatus {
         }
         @CustomType.Setter
         public Builder phase(@Nullable String phase) {
+
             this.phase = phase;
             return this;
         }
         public NamespaceStatus build() {
-            final var o = new NamespaceStatus();
-            o.conditions = conditions;
-            o.phase = phase;
-            return o;
+            final var _resultValue = new NamespaceStatus();
+            _resultValue.conditions = conditions;
+            _resultValue.phase = phase;
+            return _resultValue;
         }
     }
 }

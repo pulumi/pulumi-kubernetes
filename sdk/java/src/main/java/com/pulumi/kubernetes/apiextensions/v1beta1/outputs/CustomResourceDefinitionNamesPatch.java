@@ -115,6 +115,7 @@ public final class CustomResourceDefinitionNamesPatch {
 
         @CustomType.Setter
         public Builder categories(@Nullable List<String> categories) {
+
             this.categories = categories;
             return this;
         }
@@ -123,21 +124,25 @@ public final class CustomResourceDefinitionNamesPatch {
         }
         @CustomType.Setter
         public Builder kind(@Nullable String kind) {
+
             this.kind = kind;
             return this;
         }
         @CustomType.Setter
         public Builder listKind(@Nullable String listKind) {
+
             this.listKind = listKind;
             return this;
         }
         @CustomType.Setter
         public Builder plural(@Nullable String plural) {
+
             this.plural = plural;
             return this;
         }
         @CustomType.Setter
         public Builder shortNames(@Nullable List<String> shortNames) {
+
             this.shortNames = shortNames;
             return this;
         }
@@ -146,18 +151,19 @@ public final class CustomResourceDefinitionNamesPatch {
         }
         @CustomType.Setter
         public Builder singular(@Nullable String singular) {
+
             this.singular = singular;
             return this;
         }
         public CustomResourceDefinitionNamesPatch build() {
-            final var o = new CustomResourceDefinitionNamesPatch();
-            o.categories = categories;
-            o.kind = kind;
-            o.listKind = listKind;
-            o.plural = plural;
-            o.shortNames = shortNames;
-            o.singular = singular;
-            return o;
+            final var _resultValue = new CustomResourceDefinitionNamesPatch();
+            _resultValue.categories = categories;
+            _resultValue.kind = kind;
+            _resultValue.listKind = listKind;
+            _resultValue.plural = plural;
+            _resultValue.shortNames = shortNames;
+            _resultValue.singular = singular;
+            return _resultValue;
         }
     }
 }

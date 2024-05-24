@@ -59,19 +59,21 @@ public final class DriverAllocationResult {
 
         @CustomType.Setter
         public Builder namedResources(@Nullable NamedResourcesAllocationResult namedResources) {
+
             this.namedResources = namedResources;
             return this;
         }
         @CustomType.Setter
         public Builder vendorRequestParameters(@Nullable JsonElement vendorRequestParameters) {
+
             this.vendorRequestParameters = vendorRequestParameters;
             return this;
         }
         public DriverAllocationResult build() {
-            final var o = new DriverAllocationResult();
-            o.namedResources = namedResources;
-            o.vendorRequestParameters = vendorRequestParameters;
-            return o;
+            final var _resultValue = new DriverAllocationResult();
+            _resultValue.namedResources = namedResources;
+            _resultValue.vendorRequestParameters = vendorRequestParameters;
+            return _resultValue;
         }
     }
 }

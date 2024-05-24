@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.autoscaling.v2.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.autoscaling.v2.inputs.MetricValueStatusArgs;
 import java.lang.String;
 import java.util.Objects;
@@ -153,9 +154,15 @@ public final class ContainerResourceMetricStatusArgs extends com.pulumi.resource
         }
 
         public ContainerResourceMetricStatusArgs build() {
-            $.container = Objects.requireNonNull($.container, "expected parameter 'container' to be non-null");
-            $.current = Objects.requireNonNull($.current, "expected parameter 'current' to be non-null");
-            $.name = Objects.requireNonNull($.name, "expected parameter 'name' to be non-null");
+            if ($.container == null) {
+                throw new MissingRequiredPropertyException("ContainerResourceMetricStatusArgs", "container");
+            }
+            if ($.current == null) {
+                throw new MissingRequiredPropertyException("ContainerResourceMetricStatusArgs", "current");
+            }
+            if ($.name == null) {
+                throw new MissingRequiredPropertyException("ContainerResourceMetricStatusArgs", "name");
+            }
             return $;
         }
     }

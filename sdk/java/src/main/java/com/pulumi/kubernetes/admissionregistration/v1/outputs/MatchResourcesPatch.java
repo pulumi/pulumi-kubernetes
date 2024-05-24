@@ -175,6 +175,7 @@ public final class MatchResourcesPatch {
 
         @CustomType.Setter
         public Builder excludeResourceRules(@Nullable List<NamedRuleWithOperationsPatch> excludeResourceRules) {
+
             this.excludeResourceRules = excludeResourceRules;
             return this;
         }
@@ -183,21 +184,25 @@ public final class MatchResourcesPatch {
         }
         @CustomType.Setter
         public Builder matchPolicy(@Nullable String matchPolicy) {
+
             this.matchPolicy = matchPolicy;
             return this;
         }
         @CustomType.Setter
         public Builder namespaceSelector(@Nullable LabelSelectorPatch namespaceSelector) {
+
             this.namespaceSelector = namespaceSelector;
             return this;
         }
         @CustomType.Setter
         public Builder objectSelector(@Nullable LabelSelectorPatch objectSelector) {
+
             this.objectSelector = objectSelector;
             return this;
         }
         @CustomType.Setter
         public Builder resourceRules(@Nullable List<NamedRuleWithOperationsPatch> resourceRules) {
+
             this.resourceRules = resourceRules;
             return this;
         }
@@ -205,13 +210,13 @@ public final class MatchResourcesPatch {
             return resourceRules(List.of(resourceRules));
         }
         public MatchResourcesPatch build() {
-            final var o = new MatchResourcesPatch();
-            o.excludeResourceRules = excludeResourceRules;
-            o.matchPolicy = matchPolicy;
-            o.namespaceSelector = namespaceSelector;
-            o.objectSelector = objectSelector;
-            o.resourceRules = resourceRules;
-            return o;
+            final var _resultValue = new MatchResourcesPatch();
+            _resultValue.excludeResourceRules = excludeResourceRules;
+            _resultValue.matchPolicy = matchPolicy;
+            _resultValue.namespaceSelector = namespaceSelector;
+            _resultValue.objectSelector = objectSelector;
+            _resultValue.resourceRules = resourceRules;
+            return _resultValue;
         }
     }
 }

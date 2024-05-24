@@ -72,25 +72,28 @@ public final class CrossVersionObjectReferencePatch {
 
         @CustomType.Setter
         public Builder apiVersion(@Nullable String apiVersion) {
+
             this.apiVersion = apiVersion;
             return this;
         }
         @CustomType.Setter
         public Builder kind(@Nullable String kind) {
+
             this.kind = kind;
             return this;
         }
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         public CrossVersionObjectReferencePatch build() {
-            final var o = new CrossVersionObjectReferencePatch();
-            o.apiVersion = apiVersion;
-            o.kind = kind;
-            o.name = name;
-            return o;
+            final var _resultValue = new CrossVersionObjectReferencePatch();
+            _resultValue.apiVersion = apiVersion;
+            _resultValue.kind = kind;
+            _resultValue.name = name;
+            return _resultValue;
         }
     }
 }

@@ -44,6 +44,7 @@ public final class ServiceCIDRSpecPatch {
 
         @CustomType.Setter
         public Builder cidrs(@Nullable List<String> cidrs) {
+
             this.cidrs = cidrs;
             return this;
         }
@@ -51,9 +52,9 @@ public final class ServiceCIDRSpecPatch {
             return cidrs(List.of(cidrs));
         }
         public ServiceCIDRSpecPatch build() {
-            final var o = new ServiceCIDRSpecPatch();
-            o.cidrs = cidrs;
-            return o;
+            final var _resultValue = new ServiceCIDRSpecPatch();
+            _resultValue.cidrs = cidrs;
+            return _resultValue;
         }
     }
 }

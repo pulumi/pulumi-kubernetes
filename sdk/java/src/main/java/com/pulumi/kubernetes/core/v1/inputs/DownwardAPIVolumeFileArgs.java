@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.core.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.inputs.ObjectFieldSelectorArgs;
 import com.pulumi.kubernetes.core.v1.inputs.ResourceFieldSelectorArgs;
 import java.lang.Integer;
@@ -194,7 +195,9 @@ public final class DownwardAPIVolumeFileArgs extends com.pulumi.resources.Resour
         }
 
         public DownwardAPIVolumeFileArgs build() {
-            $.path = Objects.requireNonNull($.path, "expected parameter 'path' to be non-null");
+            if ($.path == null) {
+                throw new MissingRequiredPropertyException("DownwardAPIVolumeFileArgs", "path");
+            }
             return $;
         }
     }

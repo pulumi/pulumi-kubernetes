@@ -59,19 +59,21 @@ public final class WebhookPatch {
 
         @CustomType.Setter
         public Builder clientConfig(@Nullable WebhookClientConfigPatch clientConfig) {
+
             this.clientConfig = clientConfig;
             return this;
         }
         @CustomType.Setter
         public Builder throttle(@Nullable WebhookThrottleConfigPatch throttle) {
+
             this.throttle = throttle;
             return this;
         }
         public WebhookPatch build() {
-            final var o = new WebhookPatch();
-            o.clientConfig = clientConfig;
-            o.throttle = throttle;
-            return o;
+            final var _resultValue = new WebhookPatch();
+            _resultValue.clientConfig = clientConfig;
+            _resultValue.throttle = throttle;
+            return _resultValue;
         }
     }
 }

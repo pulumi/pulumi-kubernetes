@@ -59,6 +59,7 @@ public final class IngressTLS {
 
         @CustomType.Setter
         public Builder hosts(@Nullable List<String> hosts) {
+
             this.hosts = hosts;
             return this;
         }
@@ -67,14 +68,15 @@ public final class IngressTLS {
         }
         @CustomType.Setter
         public Builder secretName(@Nullable String secretName) {
+
             this.secretName = secretName;
             return this;
         }
         public IngressTLS build() {
-            final var o = new IngressTLS();
-            o.hosts = hosts;
-            o.secretName = secretName;
-            return o;
+            final var _resultValue = new IngressTLS();
+            _resultValue.hosts = hosts;
+            _resultValue.secretName = secretName;
+            return _resultValue;
         }
     }
 }

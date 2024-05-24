@@ -58,6 +58,7 @@ public final class NodeSelectorTermPatch {
 
         @CustomType.Setter
         public Builder matchExpressions(@Nullable List<NodeSelectorRequirementPatch> matchExpressions) {
+
             this.matchExpressions = matchExpressions;
             return this;
         }
@@ -66,6 +67,7 @@ public final class NodeSelectorTermPatch {
         }
         @CustomType.Setter
         public Builder matchFields(@Nullable List<NodeSelectorRequirementPatch> matchFields) {
+
             this.matchFields = matchFields;
             return this;
         }
@@ -73,10 +75,10 @@ public final class NodeSelectorTermPatch {
             return matchFields(List.of(matchFields));
         }
         public NodeSelectorTermPatch build() {
-            final var o = new NodeSelectorTermPatch();
-            o.matchExpressions = matchExpressions;
-            o.matchFields = matchFields;
-            return o;
+            final var _resultValue = new NodeSelectorTermPatch();
+            _resultValue.matchExpressions = matchExpressions;
+            _resultValue.matchFields = matchFields;
+            return _resultValue;
         }
     }
 }

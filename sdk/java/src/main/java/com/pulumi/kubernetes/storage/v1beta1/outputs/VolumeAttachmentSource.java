@@ -59,19 +59,21 @@ public final class VolumeAttachmentSource {
 
         @CustomType.Setter
         public Builder inlineVolumeSpec(@Nullable PersistentVolumeSpec inlineVolumeSpec) {
+
             this.inlineVolumeSpec = inlineVolumeSpec;
             return this;
         }
         @CustomType.Setter
         public Builder persistentVolumeName(@Nullable String persistentVolumeName) {
+
             this.persistentVolumeName = persistentVolumeName;
             return this;
         }
         public VolumeAttachmentSource build() {
-            final var o = new VolumeAttachmentSource();
-            o.inlineVolumeSpec = inlineVolumeSpec;
-            o.persistentVolumeName = persistentVolumeName;
-            return o;
+            final var _resultValue = new VolumeAttachmentSource();
+            _resultValue.inlineVolumeSpec = inlineVolumeSpec;
+            _resultValue.persistentVolumeName = persistentVolumeName;
+            return _resultValue;
         }
     }
 }

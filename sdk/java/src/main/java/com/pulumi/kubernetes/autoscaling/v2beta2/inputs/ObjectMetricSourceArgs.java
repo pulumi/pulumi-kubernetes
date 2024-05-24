@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.autoscaling.v2beta2.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.autoscaling.v2beta2.inputs.CrossVersionObjectReferenceArgs;
 import com.pulumi.kubernetes.autoscaling.v2beta2.inputs.MetricIdentifierArgs;
 import com.pulumi.kubernetes.autoscaling.v2beta2.inputs.MetricTargetArgs;
@@ -134,9 +135,15 @@ public final class ObjectMetricSourceArgs extends com.pulumi.resources.ResourceA
         }
 
         public ObjectMetricSourceArgs build() {
-            $.describedObject = Objects.requireNonNull($.describedObject, "expected parameter 'describedObject' to be non-null");
-            $.metric = Objects.requireNonNull($.metric, "expected parameter 'metric' to be non-null");
-            $.target = Objects.requireNonNull($.target, "expected parameter 'target' to be non-null");
+            if ($.describedObject == null) {
+                throw new MissingRequiredPropertyException("ObjectMetricSourceArgs", "describedObject");
+            }
+            if ($.metric == null) {
+                throw new MissingRequiredPropertyException("ObjectMetricSourceArgs", "metric");
+            }
+            if ($.target == null) {
+                throw new MissingRequiredPropertyException("ObjectMetricSourceArgs", "target");
+            }
             return $;
         }
     }

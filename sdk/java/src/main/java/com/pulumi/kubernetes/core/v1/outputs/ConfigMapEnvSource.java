@@ -59,19 +59,21 @@ public final class ConfigMapEnvSource {
 
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder optional(@Nullable Boolean optional) {
+
             this.optional = optional;
             return this;
         }
         public ConfigMapEnvSource build() {
-            final var o = new ConfigMapEnvSource();
-            o.name = name;
-            o.optional = optional;
-            return o;
+            final var _resultValue = new ConfigMapEnvSource();
+            _resultValue.name = name;
+            _resultValue.optional = optional;
+            return _resultValue;
         }
     }
 }

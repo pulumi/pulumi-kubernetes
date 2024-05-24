@@ -78,19 +78,21 @@ public final class MatchConditionPatch {
 
         @CustomType.Setter
         public Builder expression(@Nullable String expression) {
+
             this.expression = expression;
             return this;
         }
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         public MatchConditionPatch build() {
-            final var o = new MatchConditionPatch();
-            o.expression = expression;
-            o.name = name;
-            return o;
+            final var _resultValue = new MatchConditionPatch();
+            _resultValue.expression = expression;
+            _resultValue.name = name;
+            return _resultValue;
         }
     }
 }

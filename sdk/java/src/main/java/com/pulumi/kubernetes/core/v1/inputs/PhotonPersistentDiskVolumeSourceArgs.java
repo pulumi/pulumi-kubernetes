@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.core.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -117,7 +118,9 @@ public final class PhotonPersistentDiskVolumeSourceArgs extends com.pulumi.resou
         }
 
         public PhotonPersistentDiskVolumeSourceArgs build() {
-            $.pdID = Objects.requireNonNull($.pdID, "expected parameter 'pdID' to be non-null");
+            if ($.pdID == null) {
+                throw new MissingRequiredPropertyException("PhotonPersistentDiskVolumeSourceArgs", "pdID");
+            }
             return $;
         }
     }

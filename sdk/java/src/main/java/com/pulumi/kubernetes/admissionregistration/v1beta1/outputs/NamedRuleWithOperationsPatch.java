@@ -127,6 +127,7 @@ public final class NamedRuleWithOperationsPatch {
 
         @CustomType.Setter
         public Builder apiGroups(@Nullable List<String> apiGroups) {
+
             this.apiGroups = apiGroups;
             return this;
         }
@@ -135,6 +136,7 @@ public final class NamedRuleWithOperationsPatch {
         }
         @CustomType.Setter
         public Builder apiVersions(@Nullable List<String> apiVersions) {
+
             this.apiVersions = apiVersions;
             return this;
         }
@@ -143,6 +145,7 @@ public final class NamedRuleWithOperationsPatch {
         }
         @CustomType.Setter
         public Builder operations(@Nullable List<String> operations) {
+
             this.operations = operations;
             return this;
         }
@@ -151,6 +154,7 @@ public final class NamedRuleWithOperationsPatch {
         }
         @CustomType.Setter
         public Builder resourceNames(@Nullable List<String> resourceNames) {
+
             this.resourceNames = resourceNames;
             return this;
         }
@@ -159,6 +163,7 @@ public final class NamedRuleWithOperationsPatch {
         }
         @CustomType.Setter
         public Builder resources(@Nullable List<String> resources) {
+
             this.resources = resources;
             return this;
         }
@@ -167,18 +172,19 @@ public final class NamedRuleWithOperationsPatch {
         }
         @CustomType.Setter
         public Builder scope(@Nullable String scope) {
+
             this.scope = scope;
             return this;
         }
         public NamedRuleWithOperationsPatch build() {
-            final var o = new NamedRuleWithOperationsPatch();
-            o.apiGroups = apiGroups;
-            o.apiVersions = apiVersions;
-            o.operations = operations;
-            o.resourceNames = resourceNames;
-            o.resources = resources;
-            o.scope = scope;
-            return o;
+            final var _resultValue = new NamedRuleWithOperationsPatch();
+            _resultValue.apiGroups = apiGroups;
+            _resultValue.apiVersions = apiVersions;
+            _resultValue.operations = operations;
+            _resultValue.resourceNames = resourceNames;
+            _resultValue.resources = resources;
+            _resultValue.scope = scope;
+            return _resultValue;
         }
     }
 }

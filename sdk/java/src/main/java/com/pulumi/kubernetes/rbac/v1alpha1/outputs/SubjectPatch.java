@@ -86,31 +86,35 @@ public final class SubjectPatch {
 
         @CustomType.Setter
         public Builder apiVersion(@Nullable String apiVersion) {
+
             this.apiVersion = apiVersion;
             return this;
         }
         @CustomType.Setter
         public Builder kind(@Nullable String kind) {
+
             this.kind = kind;
             return this;
         }
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder namespace(@Nullable String namespace) {
+
             this.namespace = namespace;
             return this;
         }
         public SubjectPatch build() {
-            final var o = new SubjectPatch();
-            o.apiVersion = apiVersion;
-            o.kind = kind;
-            o.name = name;
-            o.namespace = namespace;
-            return o;
+            final var _resultValue = new SubjectPatch();
+            _resultValue.apiVersion = apiVersion;
+            _resultValue.kind = kind;
+            _resultValue.name = name;
+            _resultValue.namespace = namespace;
+            return _resultValue;
         }
     }
 }

@@ -58,19 +58,21 @@ public final class PodFailurePolicyOnPodConditionsPatternPatch {
 
         @CustomType.Setter
         public Builder status(@Nullable String status) {
+
             this.status = status;
             return this;
         }
         @CustomType.Setter
         public Builder type(@Nullable String type) {
+
             this.type = type;
             return this;
         }
         public PodFailurePolicyOnPodConditionsPatternPatch build() {
-            final var o = new PodFailurePolicyOnPodConditionsPatternPatch();
-            o.status = status;
-            o.type = type;
-            return o;
+            final var _resultValue = new PodFailurePolicyOnPodConditionsPatternPatch();
+            _resultValue.status = status;
+            _resultValue.type = type;
+            return _resultValue;
         }
     }
 }

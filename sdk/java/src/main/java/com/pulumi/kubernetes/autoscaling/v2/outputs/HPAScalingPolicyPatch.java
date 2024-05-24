@@ -73,25 +73,28 @@ public final class HPAScalingPolicyPatch {
 
         @CustomType.Setter
         public Builder periodSeconds(@Nullable Integer periodSeconds) {
+
             this.periodSeconds = periodSeconds;
             return this;
         }
         @CustomType.Setter
         public Builder type(@Nullable String type) {
+
             this.type = type;
             return this;
         }
         @CustomType.Setter
         public Builder value(@Nullable Integer value) {
+
             this.value = value;
             return this;
         }
         public HPAScalingPolicyPatch build() {
-            final var o = new HPAScalingPolicyPatch();
-            o.periodSeconds = periodSeconds;
-            o.type = type;
-            o.value = value;
-            return o;
+            final var _resultValue = new HPAScalingPolicyPatch();
+            _resultValue.periodSeconds = periodSeconds;
+            _resultValue.type = type;
+            _resultValue.value = value;
+            return _resultValue;
         }
     }
 }

@@ -87,31 +87,35 @@ public final class EndpointAddressPatch {
 
         @CustomType.Setter
         public Builder hostname(@Nullable String hostname) {
+
             this.hostname = hostname;
             return this;
         }
         @CustomType.Setter
         public Builder ip(@Nullable String ip) {
+
             this.ip = ip;
             return this;
         }
         @CustomType.Setter
         public Builder nodeName(@Nullable String nodeName) {
+
             this.nodeName = nodeName;
             return this;
         }
         @CustomType.Setter
         public Builder targetRef(@Nullable ObjectReferencePatch targetRef) {
+
             this.targetRef = targetRef;
             return this;
         }
         public EndpointAddressPatch build() {
-            final var o = new EndpointAddressPatch();
-            o.hostname = hostname;
-            o.ip = ip;
-            o.nodeName = nodeName;
-            o.targetRef = targetRef;
-            return o;
+            final var _resultValue = new EndpointAddressPatch();
+            _resultValue.hostname = hostname;
+            _resultValue.ip = ip;
+            _resultValue.nodeName = nodeName;
+            _resultValue.targetRef = targetRef;
+            return _resultValue;
         }
     }
 }

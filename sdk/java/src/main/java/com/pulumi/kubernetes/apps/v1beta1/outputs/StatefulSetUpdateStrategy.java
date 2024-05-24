@@ -59,19 +59,21 @@ public final class StatefulSetUpdateStrategy {
 
         @CustomType.Setter
         public Builder rollingUpdate(@Nullable RollingUpdateStatefulSetStrategy rollingUpdate) {
+
             this.rollingUpdate = rollingUpdate;
             return this;
         }
         @CustomType.Setter
         public Builder type(@Nullable String type) {
+
             this.type = type;
             return this;
         }
         public StatefulSetUpdateStrategy build() {
-            final var o = new StatefulSetUpdateStrategy();
-            o.rollingUpdate = rollingUpdate;
-            o.type = type;
-            return o;
+            final var _resultValue = new StatefulSetUpdateStrategy();
+            _resultValue.rollingUpdate = rollingUpdate;
+            _resultValue.type = type;
+            return _resultValue;
         }
     }
 }

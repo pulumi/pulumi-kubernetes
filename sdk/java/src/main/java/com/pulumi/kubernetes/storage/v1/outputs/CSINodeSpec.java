@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.storage.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.storage.v1.outputs.CSINodeDriver;
 import java.util.List;
 import java.util.Objects;
@@ -43,16 +44,19 @@ public final class CSINodeSpec {
 
         @CustomType.Setter
         public Builder drivers(List<CSINodeDriver> drivers) {
-            this.drivers = Objects.requireNonNull(drivers);
+            if (drivers == null) {
+              throw new MissingRequiredPropertyException("CSINodeSpec", "drivers");
+            }
+            this.drivers = drivers;
             return this;
         }
         public Builder drivers(CSINodeDriver... drivers) {
             return drivers(List.of(drivers));
         }
         public CSINodeSpec build() {
-            final var o = new CSINodeSpec();
-            o.drivers = drivers;
-            return o;
+            final var _resultValue = new CSINodeSpec();
+            _resultValue.drivers = drivers;
+            return _resultValue;
         }
     }
 }

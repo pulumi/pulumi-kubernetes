@@ -74,25 +74,28 @@ public final class ObjectMetricStatusPatch {
 
         @CustomType.Setter
         public Builder current(@Nullable MetricValueStatusPatch current) {
+
             this.current = current;
             return this;
         }
         @CustomType.Setter
         public Builder describedObject(@Nullable CrossVersionObjectReferencePatch describedObject) {
+
             this.describedObject = describedObject;
             return this;
         }
         @CustomType.Setter
         public Builder metric(@Nullable MetricIdentifierPatch metric) {
+
             this.metric = metric;
             return this;
         }
         public ObjectMetricStatusPatch build() {
-            final var o = new ObjectMetricStatusPatch();
-            o.current = current;
-            o.describedObject = describedObject;
-            o.metric = metric;
-            return o;
+            final var _resultValue = new ObjectMetricStatusPatch();
+            _resultValue.current = current;
+            _resultValue.describedObject = describedObject;
+            _resultValue.metric = metric;
+            return _resultValue;
         }
     }
 }

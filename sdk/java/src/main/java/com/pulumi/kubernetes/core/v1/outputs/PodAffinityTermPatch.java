@@ -116,11 +116,13 @@ public final class PodAffinityTermPatch {
 
         @CustomType.Setter
         public Builder labelSelector(@Nullable LabelSelectorPatch labelSelector) {
+
             this.labelSelector = labelSelector;
             return this;
         }
         @CustomType.Setter
         public Builder matchLabelKeys(@Nullable List<String> matchLabelKeys) {
+
             this.matchLabelKeys = matchLabelKeys;
             return this;
         }
@@ -129,6 +131,7 @@ public final class PodAffinityTermPatch {
         }
         @CustomType.Setter
         public Builder mismatchLabelKeys(@Nullable List<String> mismatchLabelKeys) {
+
             this.mismatchLabelKeys = mismatchLabelKeys;
             return this;
         }
@@ -137,11 +140,13 @@ public final class PodAffinityTermPatch {
         }
         @CustomType.Setter
         public Builder namespaceSelector(@Nullable LabelSelectorPatch namespaceSelector) {
+
             this.namespaceSelector = namespaceSelector;
             return this;
         }
         @CustomType.Setter
         public Builder namespaces(@Nullable List<String> namespaces) {
+
             this.namespaces = namespaces;
             return this;
         }
@@ -150,18 +155,19 @@ public final class PodAffinityTermPatch {
         }
         @CustomType.Setter
         public Builder topologyKey(@Nullable String topologyKey) {
+
             this.topologyKey = topologyKey;
             return this;
         }
         public PodAffinityTermPatch build() {
-            final var o = new PodAffinityTermPatch();
-            o.labelSelector = labelSelector;
-            o.matchLabelKeys = matchLabelKeys;
-            o.mismatchLabelKeys = mismatchLabelKeys;
-            o.namespaceSelector = namespaceSelector;
-            o.namespaces = namespaces;
-            o.topologyKey = topologyKey;
-            return o;
+            final var _resultValue = new PodAffinityTermPatch();
+            _resultValue.labelSelector = labelSelector;
+            _resultValue.matchLabelKeys = matchLabelKeys;
+            _resultValue.mismatchLabelKeys = mismatchLabelKeys;
+            _resultValue.namespaceSelector = namespaceSelector;
+            _resultValue.namespaces = namespaces;
+            _resultValue.topologyKey = topologyKey;
+            return _resultValue;
         }
     }
 }

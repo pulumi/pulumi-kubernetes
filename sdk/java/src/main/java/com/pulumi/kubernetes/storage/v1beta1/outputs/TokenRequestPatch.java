@@ -59,19 +59,21 @@ public final class TokenRequestPatch {
 
         @CustomType.Setter
         public Builder audience(@Nullable String audience) {
+
             this.audience = audience;
             return this;
         }
         @CustomType.Setter
         public Builder expirationSeconds(@Nullable Integer expirationSeconds) {
+
             this.expirationSeconds = expirationSeconds;
             return this;
         }
         public TokenRequestPatch build() {
-            final var o = new TokenRequestPatch();
-            o.audience = audience;
-            o.expirationSeconds = expirationSeconds;
-            return o;
+            final var _resultValue = new TokenRequestPatch();
+            _resultValue.audience = audience;
+            _resultValue.expirationSeconds = expirationSeconds;
+            return _resultValue;
         }
     }
 }

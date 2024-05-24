@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.apps.v1beta1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.apps.v1beta1.outputs.StatefulSetUpdateStrategy;
 import com.pulumi.kubernetes.core.v1.outputs.PersistentVolumeClaim;
 import com.pulumi.kubernetes.core.v1.outputs.PodTemplateSpec;
@@ -148,41 +149,53 @@ public final class StatefulSetSpec {
 
         @CustomType.Setter
         public Builder podManagementPolicy(@Nullable String podManagementPolicy) {
+
             this.podManagementPolicy = podManagementPolicy;
             return this;
         }
         @CustomType.Setter
         public Builder replicas(@Nullable Integer replicas) {
+
             this.replicas = replicas;
             return this;
         }
         @CustomType.Setter
         public Builder revisionHistoryLimit(@Nullable Integer revisionHistoryLimit) {
+
             this.revisionHistoryLimit = revisionHistoryLimit;
             return this;
         }
         @CustomType.Setter
         public Builder selector(@Nullable LabelSelector selector) {
+
             this.selector = selector;
             return this;
         }
         @CustomType.Setter
         public Builder serviceName(String serviceName) {
-            this.serviceName = Objects.requireNonNull(serviceName);
+            if (serviceName == null) {
+              throw new MissingRequiredPropertyException("StatefulSetSpec", "serviceName");
+            }
+            this.serviceName = serviceName;
             return this;
         }
         @CustomType.Setter
         public Builder template(PodTemplateSpec template) {
-            this.template = Objects.requireNonNull(template);
+            if (template == null) {
+              throw new MissingRequiredPropertyException("StatefulSetSpec", "template");
+            }
+            this.template = template;
             return this;
         }
         @CustomType.Setter
         public Builder updateStrategy(@Nullable StatefulSetUpdateStrategy updateStrategy) {
+
             this.updateStrategy = updateStrategy;
             return this;
         }
         @CustomType.Setter
         public Builder volumeClaimTemplates(@Nullable List<PersistentVolumeClaim> volumeClaimTemplates) {
+
             this.volumeClaimTemplates = volumeClaimTemplates;
             return this;
         }
@@ -190,16 +203,16 @@ public final class StatefulSetSpec {
             return volumeClaimTemplates(List.of(volumeClaimTemplates));
         }
         public StatefulSetSpec build() {
-            final var o = new StatefulSetSpec();
-            o.podManagementPolicy = podManagementPolicy;
-            o.replicas = replicas;
-            o.revisionHistoryLimit = revisionHistoryLimit;
-            o.selector = selector;
-            o.serviceName = serviceName;
-            o.template = template;
-            o.updateStrategy = updateStrategy;
-            o.volumeClaimTemplates = volumeClaimTemplates;
-            return o;
+            final var _resultValue = new StatefulSetSpec();
+            _resultValue.podManagementPolicy = podManagementPolicy;
+            _resultValue.replicas = replicas;
+            _resultValue.revisionHistoryLimit = revisionHistoryLimit;
+            _resultValue.selector = selector;
+            _resultValue.serviceName = serviceName;
+            _resultValue.template = template;
+            _resultValue.updateStrategy = updateStrategy;
+            _resultValue.volumeClaimTemplates = volumeClaimTemplates;
+            return _resultValue;
         }
     }
 }

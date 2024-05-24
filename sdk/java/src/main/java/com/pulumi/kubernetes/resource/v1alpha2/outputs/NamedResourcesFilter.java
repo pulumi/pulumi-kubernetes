@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.resource.v1alpha2.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
 
@@ -52,13 +53,16 @@ public final class NamedResourcesFilter {
 
         @CustomType.Setter
         public Builder selector(String selector) {
-            this.selector = Objects.requireNonNull(selector);
+            if (selector == null) {
+              throw new MissingRequiredPropertyException("NamedResourcesFilter", "selector");
+            }
+            this.selector = selector;
             return this;
         }
         public NamedResourcesFilter build() {
-            final var o = new NamedResourcesFilter();
-            o.selector = selector;
-            return o;
+            final var _resultValue = new NamedResourcesFilter();
+            _resultValue.selector = selector;
+            return _resultValue;
         }
     }
 }

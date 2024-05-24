@@ -59,19 +59,21 @@ public final class PriorityLevelConfigurationSpecPatch {
 
         @CustomType.Setter
         public Builder limited(@Nullable LimitedPriorityLevelConfigurationPatch limited) {
+
             this.limited = limited;
             return this;
         }
         @CustomType.Setter
         public Builder type(@Nullable String type) {
+
             this.type = type;
             return this;
         }
         public PriorityLevelConfigurationSpecPatch build() {
-            final var o = new PriorityLevelConfigurationSpecPatch();
-            o.limited = limited;
-            o.type = type;
-            return o;
+            final var _resultValue = new PriorityLevelConfigurationSpecPatch();
+            _resultValue.limited = limited;
+            _resultValue.type = type;
+            return _resultValue;
         }
     }
 }

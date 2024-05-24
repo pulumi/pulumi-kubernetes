@@ -73,25 +73,28 @@ public final class PodsMetricStatusPatch {
 
         @CustomType.Setter
         public Builder currentAverageValue(@Nullable String currentAverageValue) {
+
             this.currentAverageValue = currentAverageValue;
             return this;
         }
         @CustomType.Setter
         public Builder metricName(@Nullable String metricName) {
+
             this.metricName = metricName;
             return this;
         }
         @CustomType.Setter
         public Builder selector(@Nullable LabelSelectorPatch selector) {
+
             this.selector = selector;
             return this;
         }
         public PodsMetricStatusPatch build() {
-            final var o = new PodsMetricStatusPatch();
-            o.currentAverageValue = currentAverageValue;
-            o.metricName = metricName;
-            o.selector = selector;
-            return o;
+            final var _resultValue = new PodsMetricStatusPatch();
+            _resultValue.currentAverageValue = currentAverageValue;
+            _resultValue.metricName = metricName;
+            _resultValue.selector = selector;
+            return _resultValue;
         }
     }
 }

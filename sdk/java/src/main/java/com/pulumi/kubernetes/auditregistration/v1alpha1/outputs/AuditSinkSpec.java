@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.auditregistration.v1alpha1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.auditregistration.v1alpha1.outputs.Policy;
 import com.pulumi.kubernetes.auditregistration.v1alpha1.outputs.Webhook;
 import java.util.Objects;
@@ -57,19 +58,25 @@ public final class AuditSinkSpec {
 
         @CustomType.Setter
         public Builder policy(Policy policy) {
-            this.policy = Objects.requireNonNull(policy);
+            if (policy == null) {
+              throw new MissingRequiredPropertyException("AuditSinkSpec", "policy");
+            }
+            this.policy = policy;
             return this;
         }
         @CustomType.Setter
         public Builder webhook(Webhook webhook) {
-            this.webhook = Objects.requireNonNull(webhook);
+            if (webhook == null) {
+              throw new MissingRequiredPropertyException("AuditSinkSpec", "webhook");
+            }
+            this.webhook = webhook;
             return this;
         }
         public AuditSinkSpec build() {
-            final var o = new AuditSinkSpec();
-            o.policy = policy;
-            o.webhook = webhook;
-            return o;
+            final var _resultValue = new AuditSinkSpec();
+            _resultValue.policy = policy;
+            _resultValue.webhook = webhook;
+            return _resultValue;
         }
     }
 }

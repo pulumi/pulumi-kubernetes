@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.storage.v1alpha1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.meta.v1.outputs.ObjectMeta;
 import com.pulumi.kubernetes.storage.v1alpha1.outputs.VolumeAttachmentSpec;
 import com.pulumi.kubernetes.storage.v1alpha1.outputs.VolumeAttachmentStatus;
@@ -103,37 +104,44 @@ public final class VolumeAttachment {
 
         @CustomType.Setter
         public Builder apiVersion(@Nullable String apiVersion) {
+
             this.apiVersion = apiVersion;
             return this;
         }
         @CustomType.Setter
         public Builder kind(@Nullable String kind) {
+
             this.kind = kind;
             return this;
         }
         @CustomType.Setter
         public Builder metadata(@Nullable ObjectMeta metadata) {
+
             this.metadata = metadata;
             return this;
         }
         @CustomType.Setter
         public Builder spec(VolumeAttachmentSpec spec) {
-            this.spec = Objects.requireNonNull(spec);
+            if (spec == null) {
+              throw new MissingRequiredPropertyException("VolumeAttachment", "spec");
+            }
+            this.spec = spec;
             return this;
         }
         @CustomType.Setter
         public Builder status(@Nullable VolumeAttachmentStatus status) {
+
             this.status = status;
             return this;
         }
         public VolumeAttachment build() {
-            final var o = new VolumeAttachment();
-            o.apiVersion = apiVersion;
-            o.kind = kind;
-            o.metadata = metadata;
-            o.spec = spec;
-            o.status = status;
-            return o;
+            final var _resultValue = new VolumeAttachment();
+            _resultValue.apiVersion = apiVersion;
+            _resultValue.kind = kind;
+            _resultValue.metadata = metadata;
+            _resultValue.spec = spec;
+            _resultValue.status = status;
+            return _resultValue;
         }
     }
 }

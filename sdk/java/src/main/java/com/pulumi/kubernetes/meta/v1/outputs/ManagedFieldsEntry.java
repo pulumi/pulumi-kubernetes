@@ -129,49 +129,56 @@ public final class ManagedFieldsEntry {
 
         @CustomType.Setter
         public Builder apiVersion(@Nullable String apiVersion) {
+
             this.apiVersion = apiVersion;
             return this;
         }
         @CustomType.Setter
         public Builder fieldsType(@Nullable String fieldsType) {
+
             this.fieldsType = fieldsType;
             return this;
         }
         @CustomType.Setter
         public Builder fieldsV1(@Nullable JsonElement fieldsV1) {
+
             this.fieldsV1 = fieldsV1;
             return this;
         }
         @CustomType.Setter
         public Builder manager(@Nullable String manager) {
+
             this.manager = manager;
             return this;
         }
         @CustomType.Setter
         public Builder operation(@Nullable String operation) {
+
             this.operation = operation;
             return this;
         }
         @CustomType.Setter
         public Builder subresource(@Nullable String subresource) {
+
             this.subresource = subresource;
             return this;
         }
         @CustomType.Setter
         public Builder time(@Nullable String time) {
+
             this.time = time;
             return this;
         }
         public ManagedFieldsEntry build() {
-            final var o = new ManagedFieldsEntry();
-            o.apiVersion = apiVersion;
-            o.fieldsType = fieldsType;
-            o.fieldsV1 = fieldsV1;
-            o.manager = manager;
-            o.operation = operation;
-            o.subresource = subresource;
-            o.time = time;
-            return o;
+            final var _resultValue = new ManagedFieldsEntry();
+            _resultValue.apiVersion = apiVersion;
+            _resultValue.fieldsType = fieldsType;
+            _resultValue.fieldsV1 = fieldsV1;
+            _resultValue.manager = manager;
+            _resultValue.operation = operation;
+            _resultValue.subresource = subresource;
+            _resultValue.time = time;
+            return _resultValue;
         }
     }
 }

@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -58,19 +59,23 @@ public final class ObjectFieldSelector {
 
         @CustomType.Setter
         public Builder apiVersion(@Nullable String apiVersion) {
+
             this.apiVersion = apiVersion;
             return this;
         }
         @CustomType.Setter
         public Builder fieldPath(String fieldPath) {
-            this.fieldPath = Objects.requireNonNull(fieldPath);
+            if (fieldPath == null) {
+              throw new MissingRequiredPropertyException("ObjectFieldSelector", "fieldPath");
+            }
+            this.fieldPath = fieldPath;
             return this;
         }
         public ObjectFieldSelector build() {
-            final var o = new ObjectFieldSelector();
-            o.apiVersion = apiVersion;
-            o.fieldPath = fieldPath;
-            return o;
+            final var _resultValue = new ObjectFieldSelector();
+            _resultValue.apiVersion = apiVersion;
+            _resultValue.fieldPath = fieldPath;
+            return _resultValue;
         }
     }
 }

@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.admissionregistration.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.admissionregistration.v1.inputs.MatchConditionArgs;
 import com.pulumi.kubernetes.admissionregistration.v1.inputs.RuleWithOperationsArgs;
 import com.pulumi.kubernetes.admissionregistration.v1.inputs.WebhookClientConfigArgs;
@@ -726,10 +727,18 @@ public final class MutatingWebhookArgs extends com.pulumi.resources.ResourceArgs
         }
 
         public MutatingWebhookArgs build() {
-            $.admissionReviewVersions = Objects.requireNonNull($.admissionReviewVersions, "expected parameter 'admissionReviewVersions' to be non-null");
-            $.clientConfig = Objects.requireNonNull($.clientConfig, "expected parameter 'clientConfig' to be non-null");
-            $.name = Objects.requireNonNull($.name, "expected parameter 'name' to be non-null");
-            $.sideEffects = Objects.requireNonNull($.sideEffects, "expected parameter 'sideEffects' to be non-null");
+            if ($.admissionReviewVersions == null) {
+                throw new MissingRequiredPropertyException("MutatingWebhookArgs", "admissionReviewVersions");
+            }
+            if ($.clientConfig == null) {
+                throw new MissingRequiredPropertyException("MutatingWebhookArgs", "clientConfig");
+            }
+            if ($.name == null) {
+                throw new MissingRequiredPropertyException("MutatingWebhookArgs", "name");
+            }
+            if ($.sideEffects == null) {
+                throw new MissingRequiredPropertyException("MutatingWebhookArgs", "sideEffects");
+            }
             return $;
         }
     }

@@ -44,6 +44,7 @@ public final class NetworkPolicyStatusPatch {
 
         @CustomType.Setter
         public Builder conditions(@Nullable List<ConditionPatch> conditions) {
+
             this.conditions = conditions;
             return this;
         }
@@ -51,9 +52,9 @@ public final class NetworkPolicyStatusPatch {
             return conditions(List.of(conditions));
         }
         public NetworkPolicyStatusPatch build() {
-            final var o = new NetworkPolicyStatusPatch();
-            o.conditions = conditions;
-            return o;
+            final var _resultValue = new NetworkPolicyStatusPatch();
+            _resultValue.conditions = conditions;
+            return _resultValue;
         }
     }
 }

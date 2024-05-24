@@ -86,31 +86,35 @@ public final class PersistentVolumeStatusPatch {
 
         @CustomType.Setter
         public Builder lastPhaseTransitionTime(@Nullable String lastPhaseTransitionTime) {
+
             this.lastPhaseTransitionTime = lastPhaseTransitionTime;
             return this;
         }
         @CustomType.Setter
         public Builder message(@Nullable String message) {
+
             this.message = message;
             return this;
         }
         @CustomType.Setter
         public Builder phase(@Nullable String phase) {
+
             this.phase = phase;
             return this;
         }
         @CustomType.Setter
         public Builder reason(@Nullable String reason) {
+
             this.reason = reason;
             return this;
         }
         public PersistentVolumeStatusPatch build() {
-            final var o = new PersistentVolumeStatusPatch();
-            o.lastPhaseTransitionTime = lastPhaseTransitionTime;
-            o.message = message;
-            o.phase = phase;
-            o.reason = reason;
-            return o;
+            final var _resultValue = new PersistentVolumeStatusPatch();
+            _resultValue.lastPhaseTransitionTime = lastPhaseTransitionTime;
+            _resultValue.message = message;
+            _resultValue.phase = phase;
+            _resultValue.reason = reason;
+            return _resultValue;
         }
     }
 }

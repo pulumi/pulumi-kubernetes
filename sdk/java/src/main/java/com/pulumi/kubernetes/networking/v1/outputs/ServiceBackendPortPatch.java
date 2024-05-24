@@ -59,19 +59,21 @@ public final class ServiceBackendPortPatch {
 
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder number(@Nullable Integer number) {
+
             this.number = number;
             return this;
         }
         public ServiceBackendPortPatch build() {
-            final var o = new ServiceBackendPortPatch();
-            o.name = name;
-            o.number = number;
-            return o;
+            final var _resultValue = new ServiceBackendPortPatch();
+            _resultValue.name = name;
+            _resultValue.number = number;
+            return _resultValue;
         }
     }
 }

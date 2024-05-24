@@ -59,19 +59,21 @@ public final class PersistentVolumeClaimTemplatePatch {
 
         @CustomType.Setter
         public Builder metadata(@Nullable ObjectMetaPatch metadata) {
+
             this.metadata = metadata;
             return this;
         }
         @CustomType.Setter
         public Builder spec(@Nullable PersistentVolumeClaimSpecPatch spec) {
+
             this.spec = spec;
             return this;
         }
         public PersistentVolumeClaimTemplatePatch build() {
-            final var o = new PersistentVolumeClaimTemplatePatch();
-            o.metadata = metadata;
-            o.spec = spec;
-            return o;
+            final var _resultValue = new PersistentVolumeClaimTemplatePatch();
+            _resultValue.metadata = metadata;
+            _resultValue.spec = spec;
+            return _resultValue;
         }
     }
 }

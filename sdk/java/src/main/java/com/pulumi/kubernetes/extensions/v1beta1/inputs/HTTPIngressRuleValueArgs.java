@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.extensions.v1beta1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.extensions.v1beta1.inputs.HTTPIngressPathArgs;
 import java.util.List;
 import java.util.Objects;
@@ -89,7 +90,9 @@ public final class HTTPIngressRuleValueArgs extends com.pulumi.resources.Resourc
         }
 
         public HTTPIngressRuleValueArgs build() {
-            $.paths = Objects.requireNonNull($.paths, "expected parameter 'paths' to be non-null");
+            if ($.paths == null) {
+                throw new MissingRequiredPropertyException("HTTPIngressRuleValueArgs", "paths");
+            }
             return $;
         }
     }

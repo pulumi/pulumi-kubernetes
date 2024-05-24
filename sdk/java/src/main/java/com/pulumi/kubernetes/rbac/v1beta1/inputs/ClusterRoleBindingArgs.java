@@ -6,6 +6,7 @@ package com.pulumi.kubernetes.rbac.v1beta1.inputs;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.core.internal.Codegen;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.meta.v1.inputs.ObjectMetaArgs;
 import com.pulumi.kubernetes.rbac.v1beta1.inputs.RoleRefArgs;
 import com.pulumi.kubernetes.rbac.v1beta1.inputs.SubjectArgs;
@@ -245,7 +246,9 @@ public final class ClusterRoleBindingArgs extends com.pulumi.resources.ResourceA
         public ClusterRoleBindingArgs build() {
             $.apiVersion = Codegen.stringProp("apiVersion").output().arg($.apiVersion).getNullable();
             $.kind = Codegen.stringProp("kind").output().arg($.kind).getNullable();
-            $.roleRef = Objects.requireNonNull($.roleRef, "expected parameter 'roleRef' to be non-null");
+            if ($.roleRef == null) {
+                throw new MissingRequiredPropertyException("ClusterRoleBindingArgs", "roleRef");
+            }
             return $;
         }
     }

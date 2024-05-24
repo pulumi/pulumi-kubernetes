@@ -60,11 +60,13 @@ public final class WebhookConversionPatch {
 
         @CustomType.Setter
         public Builder clientConfig(@Nullable WebhookClientConfigPatch clientConfig) {
+
             this.clientConfig = clientConfig;
             return this;
         }
         @CustomType.Setter
         public Builder conversionReviewVersions(@Nullable List<String> conversionReviewVersions) {
+
             this.conversionReviewVersions = conversionReviewVersions;
             return this;
         }
@@ -72,10 +74,10 @@ public final class WebhookConversionPatch {
             return conversionReviewVersions(List.of(conversionReviewVersions));
         }
         public WebhookConversionPatch build() {
-            final var o = new WebhookConversionPatch();
-            o.clientConfig = clientConfig;
-            o.conversionReviewVersions = conversionReviewVersions;
-            return o;
+            final var _resultValue = new WebhookConversionPatch();
+            _resultValue.clientConfig = clientConfig;
+            _resultValue.conversionReviewVersions = conversionReviewVersions;
+            return _resultValue;
         }
     }
 }

@@ -63,19 +63,21 @@ public final class AllowedHostPath {
 
         @CustomType.Setter
         public Builder pathPrefix(@Nullable String pathPrefix) {
+
             this.pathPrefix = pathPrefix;
             return this;
         }
         @CustomType.Setter
         public Builder readOnly(@Nullable Boolean readOnly) {
+
             this.readOnly = readOnly;
             return this;
         }
         public AllowedHostPath build() {
-            final var o = new AllowedHostPath();
-            o.pathPrefix = pathPrefix;
-            o.readOnly = readOnly;
-            return o;
+            final var _resultValue = new AllowedHostPath();
+            _resultValue.pathPrefix = pathPrefix;
+            _resultValue.readOnly = readOnly;
+            return _resultValue;
         }
     }
 }

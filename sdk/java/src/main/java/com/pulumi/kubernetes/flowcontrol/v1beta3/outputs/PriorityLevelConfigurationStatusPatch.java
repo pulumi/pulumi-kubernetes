@@ -44,6 +44,7 @@ public final class PriorityLevelConfigurationStatusPatch {
 
         @CustomType.Setter
         public Builder conditions(@Nullable List<PriorityLevelConfigurationConditionPatch> conditions) {
+
             this.conditions = conditions;
             return this;
         }
@@ -51,9 +52,9 @@ public final class PriorityLevelConfigurationStatusPatch {
             return conditions(List.of(conditions));
         }
         public PriorityLevelConfigurationStatusPatch build() {
-            final var o = new PriorityLevelConfigurationStatusPatch();
-            o.conditions = conditions;
-            return o;
+            final var _resultValue = new PriorityLevelConfigurationStatusPatch();
+            _resultValue.conditions = conditions;
+            return _resultValue;
         }
     }
 }

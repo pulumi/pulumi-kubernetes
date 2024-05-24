@@ -100,6 +100,7 @@ public final class PolicyRulePatch {
 
         @CustomType.Setter
         public Builder apiGroups(@Nullable List<String> apiGroups) {
+
             this.apiGroups = apiGroups;
             return this;
         }
@@ -108,6 +109,7 @@ public final class PolicyRulePatch {
         }
         @CustomType.Setter
         public Builder nonResourceURLs(@Nullable List<String> nonResourceURLs) {
+
             this.nonResourceURLs = nonResourceURLs;
             return this;
         }
@@ -116,6 +118,7 @@ public final class PolicyRulePatch {
         }
         @CustomType.Setter
         public Builder resourceNames(@Nullable List<String> resourceNames) {
+
             this.resourceNames = resourceNames;
             return this;
         }
@@ -124,6 +127,7 @@ public final class PolicyRulePatch {
         }
         @CustomType.Setter
         public Builder resources(@Nullable List<String> resources) {
+
             this.resources = resources;
             return this;
         }
@@ -132,6 +136,7 @@ public final class PolicyRulePatch {
         }
         @CustomType.Setter
         public Builder verbs(@Nullable List<String> verbs) {
+
             this.verbs = verbs;
             return this;
         }
@@ -139,13 +144,13 @@ public final class PolicyRulePatch {
             return verbs(List.of(verbs));
         }
         public PolicyRulePatch build() {
-            final var o = new PolicyRulePatch();
-            o.apiGroups = apiGroups;
-            o.nonResourceURLs = nonResourceURLs;
-            o.resourceNames = resourceNames;
-            o.resources = resources;
-            o.verbs = verbs;
-            return o;
+            final var _resultValue = new PolicyRulePatch();
+            _resultValue.apiGroups = apiGroups;
+            _resultValue.nonResourceURLs = nonResourceURLs;
+            _resultValue.resourceNames = resourceNames;
+            _resultValue.resources = resources;
+            _resultValue.verbs = verbs;
+            return _resultValue;
         }
     }
 }

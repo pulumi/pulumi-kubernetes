@@ -102,6 +102,7 @@ public final class ResourcePolicyRulePatch {
 
         @CustomType.Setter
         public Builder apiGroups(@Nullable List<String> apiGroups) {
+
             this.apiGroups = apiGroups;
             return this;
         }
@@ -110,11 +111,13 @@ public final class ResourcePolicyRulePatch {
         }
         @CustomType.Setter
         public Builder clusterScope(@Nullable Boolean clusterScope) {
+
             this.clusterScope = clusterScope;
             return this;
         }
         @CustomType.Setter
         public Builder namespaces(@Nullable List<String> namespaces) {
+
             this.namespaces = namespaces;
             return this;
         }
@@ -123,6 +126,7 @@ public final class ResourcePolicyRulePatch {
         }
         @CustomType.Setter
         public Builder resources(@Nullable List<String> resources) {
+
             this.resources = resources;
             return this;
         }
@@ -131,6 +135,7 @@ public final class ResourcePolicyRulePatch {
         }
         @CustomType.Setter
         public Builder verbs(@Nullable List<String> verbs) {
+
             this.verbs = verbs;
             return this;
         }
@@ -138,13 +143,13 @@ public final class ResourcePolicyRulePatch {
             return verbs(List.of(verbs));
         }
         public ResourcePolicyRulePatch build() {
-            final var o = new ResourcePolicyRulePatch();
-            o.apiGroups = apiGroups;
-            o.clusterScope = clusterScope;
-            o.namespaces = namespaces;
-            o.resources = resources;
-            o.verbs = verbs;
-            return o;
+            final var _resultValue = new ResourcePolicyRulePatch();
+            _resultValue.apiGroups = apiGroups;
+            _resultValue.clusterScope = clusterScope;
+            _resultValue.namespaces = namespaces;
+            _resultValue.resources = resources;
+            _resultValue.verbs = verbs;
+            return _resultValue;
         }
     }
 }

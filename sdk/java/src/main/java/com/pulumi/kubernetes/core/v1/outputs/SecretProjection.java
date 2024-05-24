@@ -75,6 +75,7 @@ public final class SecretProjection {
 
         @CustomType.Setter
         public Builder items(@Nullable List<KeyToPath> items) {
+
             this.items = items;
             return this;
         }
@@ -83,20 +84,22 @@ public final class SecretProjection {
         }
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder optional(@Nullable Boolean optional) {
+
             this.optional = optional;
             return this;
         }
         public SecretProjection build() {
-            final var o = new SecretProjection();
-            o.items = items;
-            o.name = name;
-            o.optional = optional;
-            return o;
+            final var _resultValue = new SecretProjection();
+            _resultValue.items = items;
+            _resultValue.name = name;
+            _resultValue.optional = optional;
+            return _resultValue;
         }
     }
 }

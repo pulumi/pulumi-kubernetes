@@ -54,13 +54,14 @@ public final class NamedResourcesFilterPatch {
 
         @CustomType.Setter
         public Builder selector(@Nullable String selector) {
+
             this.selector = selector;
             return this;
         }
         public NamedResourcesFilterPatch build() {
-            final var o = new NamedResourcesFilterPatch();
-            o.selector = selector;
-            return o;
+            final var _resultValue = new NamedResourcesFilterPatch();
+            _resultValue.selector = selector;
+            return _resultValue;
         }
     }
 }

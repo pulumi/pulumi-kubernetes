@@ -145,21 +145,25 @@ public final class RBDVolumeSourcePatch {
 
         @CustomType.Setter
         public Builder fsType(@Nullable String fsType) {
+
             this.fsType = fsType;
             return this;
         }
         @CustomType.Setter
         public Builder image(@Nullable String image) {
+
             this.image = image;
             return this;
         }
         @CustomType.Setter
         public Builder keyring(@Nullable String keyring) {
+
             this.keyring = keyring;
             return this;
         }
         @CustomType.Setter
         public Builder monitors(@Nullable List<String> monitors) {
+
             this.monitors = monitors;
             return this;
         }
@@ -168,35 +172,39 @@ public final class RBDVolumeSourcePatch {
         }
         @CustomType.Setter
         public Builder pool(@Nullable String pool) {
+
             this.pool = pool;
             return this;
         }
         @CustomType.Setter
         public Builder readOnly(@Nullable Boolean readOnly) {
+
             this.readOnly = readOnly;
             return this;
         }
         @CustomType.Setter
         public Builder secretRef(@Nullable LocalObjectReferencePatch secretRef) {
+
             this.secretRef = secretRef;
             return this;
         }
         @CustomType.Setter
         public Builder user(@Nullable String user) {
+
             this.user = user;
             return this;
         }
         public RBDVolumeSourcePatch build() {
-            final var o = new RBDVolumeSourcePatch();
-            o.fsType = fsType;
-            o.image = image;
-            o.keyring = keyring;
-            o.monitors = monitors;
-            o.pool = pool;
-            o.readOnly = readOnly;
-            o.secretRef = secretRef;
-            o.user = user;
-            return o;
+            final var _resultValue = new RBDVolumeSourcePatch();
+            _resultValue.fsType = fsType;
+            _resultValue.image = image;
+            _resultValue.keyring = keyring;
+            _resultValue.monitors = monitors;
+            _resultValue.pool = pool;
+            _resultValue.readOnly = readOnly;
+            _resultValue.secretRef = secretRef;
+            _resultValue.user = user;
+            return _resultValue;
         }
     }
 }

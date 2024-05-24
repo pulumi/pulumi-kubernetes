@@ -119,16 +119,19 @@ public final class ServiceAccount {
 
         @CustomType.Setter
         public Builder apiVersion(@Nullable String apiVersion) {
+
             this.apiVersion = apiVersion;
             return this;
         }
         @CustomType.Setter
         public Builder automountServiceAccountToken(@Nullable Boolean automountServiceAccountToken) {
+
             this.automountServiceAccountToken = automountServiceAccountToken;
             return this;
         }
         @CustomType.Setter
         public Builder imagePullSecrets(@Nullable List<LocalObjectReference> imagePullSecrets) {
+
             this.imagePullSecrets = imagePullSecrets;
             return this;
         }
@@ -137,16 +140,19 @@ public final class ServiceAccount {
         }
         @CustomType.Setter
         public Builder kind(@Nullable String kind) {
+
             this.kind = kind;
             return this;
         }
         @CustomType.Setter
         public Builder metadata(@Nullable ObjectMeta metadata) {
+
             this.metadata = metadata;
             return this;
         }
         @CustomType.Setter
         public Builder secrets(@Nullable List<ObjectReference> secrets) {
+
             this.secrets = secrets;
             return this;
         }
@@ -154,14 +160,14 @@ public final class ServiceAccount {
             return secrets(List.of(secrets));
         }
         public ServiceAccount build() {
-            final var o = new ServiceAccount();
-            o.apiVersion = apiVersion;
-            o.automountServiceAccountToken = automountServiceAccountToken;
-            o.imagePullSecrets = imagePullSecrets;
-            o.kind = kind;
-            o.metadata = metadata;
-            o.secrets = secrets;
-            return o;
+            final var _resultValue = new ServiceAccount();
+            _resultValue.apiVersion = apiVersion;
+            _resultValue.automountServiceAccountToken = automountServiceAccountToken;
+            _resultValue.imagePullSecrets = imagePullSecrets;
+            _resultValue.kind = kind;
+            _resultValue.metadata = metadata;
+            _resultValue.secrets = secrets;
+            return _resultValue;
         }
     }
 }

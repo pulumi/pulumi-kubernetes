@@ -174,67 +174,77 @@ public final class Probe {
 
         @CustomType.Setter
         public Builder exec(@Nullable ExecAction exec) {
+
             this.exec = exec;
             return this;
         }
         @CustomType.Setter
         public Builder failureThreshold(@Nullable Integer failureThreshold) {
+
             this.failureThreshold = failureThreshold;
             return this;
         }
         @CustomType.Setter
         public Builder grpc(@Nullable GRPCAction grpc) {
+
             this.grpc = grpc;
             return this;
         }
         @CustomType.Setter
         public Builder httpGet(@Nullable HTTPGetAction httpGet) {
+
             this.httpGet = httpGet;
             return this;
         }
         @CustomType.Setter
         public Builder initialDelaySeconds(@Nullable Integer initialDelaySeconds) {
+
             this.initialDelaySeconds = initialDelaySeconds;
             return this;
         }
         @CustomType.Setter
         public Builder periodSeconds(@Nullable Integer periodSeconds) {
+
             this.periodSeconds = periodSeconds;
             return this;
         }
         @CustomType.Setter
         public Builder successThreshold(@Nullable Integer successThreshold) {
+
             this.successThreshold = successThreshold;
             return this;
         }
         @CustomType.Setter
         public Builder tcpSocket(@Nullable TCPSocketAction tcpSocket) {
+
             this.tcpSocket = tcpSocket;
             return this;
         }
         @CustomType.Setter
         public Builder terminationGracePeriodSeconds(@Nullable Integer terminationGracePeriodSeconds) {
+
             this.terminationGracePeriodSeconds = terminationGracePeriodSeconds;
             return this;
         }
         @CustomType.Setter
         public Builder timeoutSeconds(@Nullable Integer timeoutSeconds) {
+
             this.timeoutSeconds = timeoutSeconds;
             return this;
         }
         public Probe build() {
-            final var o = new Probe();
-            o.exec = exec;
-            o.failureThreshold = failureThreshold;
-            o.grpc = grpc;
-            o.httpGet = httpGet;
-            o.initialDelaySeconds = initialDelaySeconds;
-            o.periodSeconds = periodSeconds;
-            o.successThreshold = successThreshold;
-            o.tcpSocket = tcpSocket;
-            o.terminationGracePeriodSeconds = terminationGracePeriodSeconds;
-            o.timeoutSeconds = timeoutSeconds;
-            return o;
+            final var _resultValue = new Probe();
+            _resultValue.exec = exec;
+            _resultValue.failureThreshold = failureThreshold;
+            _resultValue.grpc = grpc;
+            _resultValue.httpGet = httpGet;
+            _resultValue.initialDelaySeconds = initialDelaySeconds;
+            _resultValue.periodSeconds = periodSeconds;
+            _resultValue.successThreshold = successThreshold;
+            _resultValue.tcpSocket = tcpSocket;
+            _resultValue.terminationGracePeriodSeconds = terminationGracePeriodSeconds;
+            _resultValue.timeoutSeconds = timeoutSeconds;
+            return _resultValue;
         }
     }
 }

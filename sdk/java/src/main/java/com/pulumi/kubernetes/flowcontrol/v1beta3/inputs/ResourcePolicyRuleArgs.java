@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.flowcontrol.v1beta3.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Boolean;
 import java.lang.String;
 import java.util.List;
@@ -270,9 +271,15 @@ public final class ResourcePolicyRuleArgs extends com.pulumi.resources.ResourceA
         }
 
         public ResourcePolicyRuleArgs build() {
-            $.apiGroups = Objects.requireNonNull($.apiGroups, "expected parameter 'apiGroups' to be non-null");
-            $.resources = Objects.requireNonNull($.resources, "expected parameter 'resources' to be non-null");
-            $.verbs = Objects.requireNonNull($.verbs, "expected parameter 'verbs' to be non-null");
+            if ($.apiGroups == null) {
+                throw new MissingRequiredPropertyException("ResourcePolicyRuleArgs", "apiGroups");
+            }
+            if ($.resources == null) {
+                throw new MissingRequiredPropertyException("ResourcePolicyRuleArgs", "resources");
+            }
+            if ($.verbs == null) {
+                throw new MissingRequiredPropertyException("ResourcePolicyRuleArgs", "verbs");
+            }
             return $;
         }
     }
