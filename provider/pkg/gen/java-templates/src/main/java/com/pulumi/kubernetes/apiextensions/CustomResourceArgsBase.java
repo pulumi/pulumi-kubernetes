@@ -172,7 +172,7 @@ public abstract class CustomResourceArgsBase extends com.pulumi.resources.Resour
          * 
          */
         public U otherFields(Map<String, ?> fields) {
-            var map = new LinkedHashMap<String, Output<?>>();
+            var map = $.otherFields != null ? new LinkedHashMap($.otherFields) : new LinkedHashMap<String, Output>();
             for (var entry : fields.entrySet()) {
                 var value = entry.getValue();
                 map.put(entry.getKey(), (value instanceof Output) ? (Output) value : Output.of(value));
