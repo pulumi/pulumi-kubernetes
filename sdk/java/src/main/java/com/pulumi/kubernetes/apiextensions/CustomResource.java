@@ -123,6 +123,7 @@ public class CustomResource extends com.pulumi.resources.CustomResource {
         }
         if (args.otherFields().isEmpty() || args.otherFields().get().isEmpty()) {
             // optimization: if there are no "other" fields, we can just return the args as-is.
+            // Otherwise we generate a subclass of ResourceArgs that includes the "other" fields.
             return args;
         }
         return Util.generateResourceArgs(args, args.otherFields().get());
