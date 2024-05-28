@@ -2681,6 +2681,7 @@ func (k *kubeProvider) gvkFromURN(urn resource.URN) (schema.GroupVersionKind, er
 
 func (k *kubeProvider) readLiveObject(obj *unstructured.Unstructured) (*unstructured.Unstructured, error) {
 	contract.Assertf(obj.GetName() != "", "expected object name to be nonempty: %v", obj)
+	contract.Assertf(k.clientSet != nil, "expected Kubernetes client-set to be non-nil")
 	rc, err := k.clientSet.ResourceClientForObject(obj)
 	if err != nil {
 		return nil, err
