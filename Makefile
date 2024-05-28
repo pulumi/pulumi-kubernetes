@@ -97,7 +97,8 @@ python_sdk::
 
 java_sdk:: PACKAGE_VERSION := $(shell pulumictl convert-version --language generic -v "$(VERSION_GENERIC)")
 java_sdk:: bin/pulumi-java-gen
-	$(WORKING_DIR)/bin/$(JAVA_GEN) generate --schema $(SCHEMA_FILE) --out sdk/java --build gradle-nexus
+	$(WORKING_DIR)/bin/$(JAVA_GEN) generate --schema $(SCHEMA_FILE) --overlay provider/pkg/gen/java-templates \
+		--out sdk/java --build gradle-nexus
 	cd ${PACKDIR}/java/ && \
 		echo "module fake_java_module // Exclude this directory from Go tools\n\ngo 1.17" > go.mod && \
 		gradle --console=plain build
