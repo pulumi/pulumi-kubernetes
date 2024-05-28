@@ -469,6 +469,7 @@ additional information about using Server-Side Apply to manage Kubernetes resour
 	const kubernetes20 = "kubernetes20"
 
 	pkg.Language["csharp"] = rawMessage(map[string]any{
+		"respectSchemaVersion": true,
 		"packageReferences": map[string]string{
 			"Glob":   "1.1.5",
 			"Pulumi": "3.*",
@@ -483,6 +484,7 @@ additional information about using Server-Side Apply to manage Kubernetes resour
 	})
 
 	pkg.Language["go"] = rawMessage(map[string]any{
+		"respectSchemaVersion":           true,
 		"importBasePath":                 goImportPath,
 		"moduleToPackage":                modToPkg,
 		"packageImportAliases":           pkgImportAliases,
@@ -491,7 +493,8 @@ additional information about using Server-Side Apply to manage Kubernetes resour
 		"internalModuleName":             "utilities",
 	})
 	pkg.Language["nodejs"] = rawMessage(map[string]any{
-		"compatibility": kubernetes20,
+		"respectSchemaVersion": true,
+		"compatibility":        kubernetes20,
 		"dependencies": map[string]string{
 			"@pulumi/pulumi":    "^3.25.0",
 			"shell-quote":       "^1.6.1",
@@ -524,6 +527,7 @@ Use the navigation below to see detailed documentation for each of the supported
 `,
 	})
 	pkg.Language["python"] = rawMessage(map[string]any{
+		"respectSchemaVersion": true,
 		"requires": map[string]string{
 			"pulumi":   ">=3.109.0,<4.0.0",
 			"requests": ">=2.21,<3.0",

@@ -1,6 +1,6 @@
 {
     "name": "@pulumi/kubernetes",
-    "version": "${VERSION}",
+    "version": "4.0.0-alpha.0+dev",
     "keywords": [
         "pulumi",
         "kubernetes",
@@ -31,6 +31,7 @@
     },
     "pulumi": {
         "resource": true,
-        "name": "kubernetes"
+        "name": "kubernetes",
+        "version": "4.0.0-alpha.0+dev"
     }
 }
