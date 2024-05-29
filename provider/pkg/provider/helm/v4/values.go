@@ -1,4 +1,4 @@
-// Copyright 2016-2022, Pulumi Corporation.
+// Copyright 2024, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,55 +12,75 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package helm
+package v4
 
 import (
 	"fmt"
 	"net/url"
 	"os"
+	"path/filepath"
 
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"gopkg.in/yaml.v3"
+	"helm.sh/helm/v3/pkg/cli/values"
 	"helm.sh/helm/v3/pkg/getter"
-	"sigs.k8s.io/yaml"
 )
 
-// ValueOpts handles merging of chart values from various sources.
-type ValueOpts struct {
-	// ValuesFiles is a list of Helm values files encapsulated as Pulumi assets.
-	ValuesFiles []pulumi.Asset
-	// Values is a map of Pulumi values.
-	Values map[string]any
-}
-
-// MergeValues merges the values in Helm's priority order.
-func (opts *ValueOpts) MergeValues(p getter.Providers) (map[string]interface{}, error) {
-	base := map[string]interface{}{}
-
-	// User specified a values files via -f/--values
-	for _, asset := range opts.ValuesFiles {
-		currentMap := map[string]interface{}{}
-
-		bytes, err := readAsset(p, asset)
-		if err != nil {
-			return nil, err
-		}
-
-		if err := yaml.Unmarshal(bytes, &currentMap); err != nil {
-			return nil, err
-		}
-		// Merge with the previous map
-		base = MergeMaps(base, currentMap)
-	}
-
-	// User specified a literal value map (possibly containing assets)
-	values, err := marshalValues(p, opts.Values)
+// readValues hydrates Assets and persists values on-disk in order to provide
+// them to upstream's MergeValues logic.
+//
+// The returned function cleans up the on-disk values and should always be
+// called, even on error.
+func readValues(p getter.Providers, v map[string]any, files []pulumi.Asset) (values.Options, func(), error) {
+	opts := values.Options{}
+	tmp, err := os.MkdirTemp(os.TempDir(), "pulumi-kubernetes")
 	if err != nil {
-		return nil, err
+		return opts, func() {}, err
 	}
-	base = MergeMaps(base, values)
+	cleanup := func() {
+		_ = os.RemoveAll(tmp)
+	}
 
-	return base, nil
+	valuesFiles := make([]string, 0, len(files)+1)
+
+	persist := func(out []byte) error {
+		fname := filepath.Join(tmp, fmt.Sprintf("values-%d.yaml", len(valuesFiles)))
+		err := os.WriteFile(fname, out, 0o600)
+		if err != nil {
+			return err
+		}
+		valuesFiles = append(valuesFiles, fname)
+		return nil
+	}
+
+	for _, f := range files {
+		out, err := readAsset(p, f)
+		if err != nil {
+			return opts, cleanup, err
+		}
+		err = persist(out)
+		if err != nil {
+			return opts, cleanup, err
+		}
+	}
+
+	values, err := readAssets(p, v)
+	if err != nil {
+		return opts, cleanup, err
+	}
+	out, err := yaml.Marshal(values)
+	if err != nil {
+		return opts, cleanup, err
+	}
+	err = persist(out)
+	if err != nil {
+		return opts, cleanup, err
+	}
+
+	opts.ValueFiles = valuesFiles
+
+	return opts, cleanup, nil
 }
 
 // readAsset reads the content of a Pulumi asset.
@@ -93,14 +113,14 @@ func readAsset(p getter.Providers, asset pulumi.Asset) ([]byte, error) {
 	}
 }
 
-// marshalValues converts Pulumi values to Helm values.
-// - Expands assets to their content (to support --set-file).
-func marshalValues(p getter.Providers, a map[string]interface{}) (map[string]interface{}, error) {
+// readAssets converts Pulumi values to Helm values, hydrating Asset values
+// along the way.
+func readAssets(p getter.Providers, a map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	out := make(map[string]interface{}, len(a))
 	for k, v := range a {
 		if v, ok := v.(map[string]interface{}); ok {
-			out[k], err = marshalValues(p, v)
+			out[k], err = readAssets(p, v)
 			if err != nil {
 				return nil, err
 			}
