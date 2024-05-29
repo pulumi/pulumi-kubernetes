@@ -2362,7 +2362,7 @@ func (k *kubeProvider) Update(
 			return nil, err
 		}
 
-		obj := checkpointObject(newInputs, oldLive, newResInputs, initialAPIVersion, fieldManager)
+		obj := checkpointObject(newInputs, newInputs, newResInputs, initialAPIVersion, fieldManager)
 		inputsAndComputed, err := plugin.MarshalProperties(
 			obj, plugin.MarshalOptions{
 				Label:        fmt.Sprintf("%s.inputsAndComputed", label),

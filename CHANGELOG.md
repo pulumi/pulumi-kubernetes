@@ -3,6 +3,7 @@
 - Update to pulumi-java v0.12.0 (https://github.com/pulumi/pulumi-kubernetes/pull/3025)
 - Fixed a panic that occurs when diffing Job resources containing `replaceUnready` annotations and an unreachable cluster connection. (https://github.com/pulumi/pulumi-kubernetes/pull/3024)
 - CustomResource for Java SDK (https://github.com/pulumi/pulumi-kubernetes/pull/3020)
+- Fixed spurious diffing for updates when in renderYaml mode (https://github.com/pulumi/pulumi-kubernetes/pull/3030)
 
 ## 4.12.0 (May 21, 2024)
 
