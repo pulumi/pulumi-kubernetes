@@ -223,15 +223,17 @@ func PulumiSchema(swagger map[string]any) pschema.PackageSpec {
 		"helm.sh/v2":    "Helm.V2",
 		"helm.sh/v3":    "Helm.V3",
 		"helm.sh/v4":    "Helm.V4",
+		"kustomize/v2":  "Kustomize.V2",
 		"yaml":          "Yaml",
 		"yaml/v2":       "Yaml.V2",
 		"":              "Provider",
 	}
 	javaPackages := map[string]string{
-		"helm.sh/v2": "helm.v2",
-		"helm.sh/v3": "helm.v3",
-		"helm.sh/v4": "helm.v4",
-		"yaml/v2":    "yaml.v2",
+		"helm.sh/v2":   "helm.v2",
+		"helm.sh/v3":   "helm.v3",
+		"helm.sh/v4":   "helm.v4",
+		"kustomize/v2": "kustomize.v2",
+		"yaml/v2":      "yaml.v2",
 	}
 	modToPkg := map[string]string{
 		"apiextensions.k8s.io": "apiextensions",
@@ -241,9 +243,10 @@ func PulumiSchema(swagger map[string]any) pschema.PackageSpec {
 		"helm.sh/v4":           "helm/v4",
 	}
 	pkgImportAliases := map[string]string{
-		"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v3": "helmv3",
-		"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v4": "helmv4",
-		"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/yaml/v2": "yamlv2",
+		"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v3":      "helmv3",
+		"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v4":      "helmv4",
+		"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/kustomize/v2": "kustomizev2",
+		"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/yaml/v2":      "yamlv2",
 	}
 
 	definitions := swagger["definitions"].(map[string]any)
