@@ -85,6 +85,8 @@ jobs:
 
         for MODFILE in $(find . -name go.mod); do pushd $(dirname $MODFILE); go get github.com/pulumi/pulumi/pkg/v3 github.com/pulumi/pulumi/sdk/v3; go mod tidy; popd; done
 
+        gh repo view pulumi/pulumi --json latestRelease --jq .latestRelease.tagName | sed 's/^v//' > .pulumi.version
+
         git update-index -q --refresh
 
         if ! git diff-files --quiet; then echo changes=1 >> "$GITHUB_OUTPUT"; fi
