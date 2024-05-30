@@ -5,7 +5,7 @@
   keywords = ["pulumi", "kubernetes", "category/cloud", "kind/native"]
   readme = "README.md"
   requires-python = ">=3.8"
-  version = "4.0.0a0+dev"
+  version = "4.13.0a1716993802+4eaacba"
   [project.license]
     text = "Apache-2.0"
   [project.urls]
