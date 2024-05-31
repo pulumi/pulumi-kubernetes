@@ -19,6 +19,7 @@ import (
 	"fmt"
 
 	providerhelmv4 "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/helm/v4"
+	providerkustomizev2 "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/kustomize/v2"
 	providerresource "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/resource"
 	provideryamlv2 "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/yaml/v2"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
@@ -28,9 +29,10 @@ import (
 
 // resourceProviders contains factories for component resource providers.
 var resourceProviders = map[string]providerresource.ResourceProviderFactory{
-	"kubernetes:yaml/v2:ConfigFile":  provideryamlv2.NewConfigFileProvider,
-	"kubernetes:yaml/v2:ConfigGroup": provideryamlv2.NewConfigGroupProvider,
-	"kubernetes:helm.sh/v4:Chart":    providerhelmv4.NewChartProvider,
+	"kubernetes:yaml/v2:ConfigFile":     provideryamlv2.NewConfigFileProvider,
+	"kubernetes:yaml/v2:ConfigGroup":    provideryamlv2.NewConfigGroupProvider,
+	"kubernetes:helm.sh/v4:Chart":       providerhelmv4.NewChartProvider,
+	"kubernetes:kustomize/v2:Directory": providerkustomizev2.NewDirectoryProvider,
 }
 
 // getResourceProvider returns the resource provider for the given type, if a factory for one is registered.
