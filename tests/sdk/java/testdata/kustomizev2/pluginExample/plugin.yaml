@@ -1,0 +1,5 @@
+apiVersion: someteam.example.com/v1
+kind: PrintPluginEnv
+metadata:
+  name: the-plugin
+argsOneLiner: the-plugin
