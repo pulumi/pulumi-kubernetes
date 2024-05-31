@@ -98,7 +98,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Kustomize.V2
         public Input<string> Directory { get; set; } = null!;
 
         /// <summary>
-        /// The default namespace. Defaults to the provider's namespace.
+        /// The default namespace to apply to the resources. Defaults to the provider's namespace.
         /// </summary>
         [Input("namespace")]
         public Input<string>? Namespace { get; set; }

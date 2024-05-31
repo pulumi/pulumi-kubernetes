@@ -39,14 +39,14 @@ public final class DirectoryArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * The default namespace. Defaults to the provider&#39;s namespace.
+     * The default namespace to apply to the resources. Defaults to the provider&#39;s namespace.
      * 
      */
     @Import(name="namespace")
     private @Nullable Output<String> namespace;
 
     /**
-     * @return The default namespace. Defaults to the provider&#39;s namespace.
+     * @return The default namespace to apply to the resources. Defaults to the provider&#39;s namespace.
      * 
      */
     public Optional<Output<String>> namespace() {
@@ -138,7 +138,7 @@ public final class DirectoryArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param namespace The default namespace. Defaults to the provider&#39;s namespace.
+         * @param namespace The default namespace to apply to the resources. Defaults to the provider&#39;s namespace.
          * 
          * @return builder
          * 
@@ -149,7 +149,7 @@ public final class DirectoryArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param namespace The default namespace. Defaults to the provider&#39;s namespace.
+         * @param namespace The default namespace to apply to the resources. Defaults to the provider&#39;s namespace.
          * 
          * @return builder
          * 

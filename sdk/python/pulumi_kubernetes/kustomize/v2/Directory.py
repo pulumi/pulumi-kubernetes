@@ -24,7 +24,7 @@ class DirectoryArgs:
                git repository.
                Example: ./helloWorld
                Example: https://github.com/kubernetes-sigs/kustomize/tree/master/examples/helloWorld
-        :param pulumi.Input[str] namespace: The default namespace. Defaults to the provider's namespace.
+        :param pulumi.Input[str] namespace: The default namespace to apply to the resources. Defaults to the provider's namespace.
         :param pulumi.Input[str] resource_prefix: A prefix for the auto-generated resource names. Defaults to the name of the Directory resource. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo:resourceName".
         :param pulumi.Input[bool] skip_await: Indicates that child resources should skip the await logic.
         """
@@ -55,7 +55,7 @@ class DirectoryArgs:
     @pulumi.getter
     def namespace(self) -> Optional[pulumi.Input[str]]:
         """
-        The default namespace. Defaults to the provider's namespace.
+        The default namespace to apply to the resources. Defaults to the provider's namespace.
         """
         return pulumi.get(self, "namespace")
 
@@ -127,7 +127,7 @@ class Directory(pulumi.ComponentResource):
                git repository.
                Example: ./helloWorld
                Example: https://github.com/kubernetes-sigs/kustomize/tree/master/examples/helloWorld
-        :param pulumi.Input[str] namespace: The default namespace. Defaults to the provider's namespace.
+        :param pulumi.Input[str] namespace: The default namespace to apply to the resources. Defaults to the provider's namespace.
         :param pulumi.Input[str] resource_prefix: A prefix for the auto-generated resource names. Defaults to the name of the Directory resource. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo:resourceName".
         :param pulumi.Input[bool] skip_await: Indicates that child resources should skip the await logic.
         """

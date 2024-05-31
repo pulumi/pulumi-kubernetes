@@ -84,7 +84,7 @@ export interface DirectoryArgs {
      */
     directory: pulumi.Input<string>;
     /**
-     * The default namespace. Defaults to the provider's namespace.
+     * The default namespace to apply to the resources. Defaults to the provider's namespace.
      */
     namespace?: pulumi.Input<string>;
     /**

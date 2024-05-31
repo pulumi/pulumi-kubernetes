@@ -101,7 +101,7 @@ type directoryArgs struct {
 	// Example: ./helloWorld
 	// Example: https://github.com/kubernetes-sigs/kustomize/tree/master/examples/helloWorld
 	Directory string `pulumi:"directory"`
-	// The default namespace. Defaults to the provider's namespace.
+	// The default namespace to apply to the resources. Defaults to the provider's namespace.
 	Namespace *string `pulumi:"namespace"`
 	// A prefix for the auto-generated resource names. Defaults to the name of the Directory resource. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo:resourceName".
 	ResourcePrefix *string `pulumi:"resourcePrefix"`
@@ -116,7 +116,7 @@ type DirectoryArgs struct {
 	// Example: ./helloWorld
 	// Example: https://github.com/kubernetes-sigs/kustomize/tree/master/examples/helloWorld
 	Directory pulumi.StringInput
-	// The default namespace. Defaults to the provider's namespace.
+	// The default namespace to apply to the resources. Defaults to the provider's namespace.
 	Namespace pulumi.StringPtrInput
 	// A prefix for the auto-generated resource names. Defaults to the name of the Directory resource. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo:resourceName".
 	ResourcePrefix pulumi.StringPtrInput

@@ -1259,7 +1259,7 @@ var kustomizeDirectoryV2Resource = pschema.ResourceSpec{
 			TypeSpec: pschema.TypeSpec{
 				Type: "string",
 			},
-			Description: "The default namespace. Defaults to the provider's namespace.",
+			Description: "The default namespace to apply to the resources. Defaults to the provider's namespace.",
 		},
 		"resourcePrefix": {
 			TypeSpec: pschema.TypeSpec{
