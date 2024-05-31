@@ -45,10 +45,6 @@ var _ kustomizer = &fakeKustomizer{}
 
 func (k *fakeKustomizer) Run(fSys kfilesys.FileSystem, path string) (kresmap.ResMap, error) {
 	return k.resmap, k.err
-
-	// var rmF = resmap.NewFactory(rf)
-
-	// return resmap.New(), nil
 }
 
 func makeCm(i int) *kresource.Resource {
