@@ -5,6 +5,7 @@
 - CustomResource for Java SDK (https://github.com/pulumi/pulumi-kubernetes/pull/3020)
 - Fixed spurious diffing for updates when in renderYaml mode (https://github.com/pulumi/pulumi-kubernetes/pull/3030)
 - Kustomize Directory v2 resource (https://github.com/pulumi/pulumi-kubernetes/pull/3036) 
+- Fix: Chart v4 fails on update (https://github.com/pulumi/pulumi-kubernetes/pull/3046)
 
 ## 4.12.0 (May 21, 2024)
 

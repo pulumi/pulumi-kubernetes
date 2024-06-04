@@ -18,6 +18,7 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	kubehelm "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/helm"
 	providerresource "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/resource"
 	provideryamlv2 "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/yaml/v2"
@@ -25,9 +26,12 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/internals"
 	pulumiprovider "github.com/pulumi/pulumi/sdk/v3/go/pulumi/provider"
+	"helm.sh/helm/v3/pkg/action"
+	"helm.sh/helm/v3/pkg/chartutil"
 	helmkube "helm.sh/helm/v3/pkg/kube"
 	"helm.sh/helm/v3/pkg/postrender"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
+	"k8s.io/client-go/discovery"
 )
 
 type toolF func() *kubehelm.Tool
@@ -173,10 +177,20 @@ func (r *ChartProvider) Construct(ctx *pulumi.Context, typ, name string, inputs 
 	p := tool.AllGetters()
 	cmd := tool.Template()
 
-	cmd.Validate = true
+	// connectivity: use server-side dry-run to enable the lookup function.
+	// i.e. `helm template --dry-run=server --validate=false`.
+	cmd.DisableOpenAPIValidation = true
+	cmd.Validate = false
+	cmd.ClientOnly = true
 	cmd.DryRun = true
 	cmd.DryRunOption = "server"
+	if r.opts.ClientSet.DiscoveryClientCached != nil {
+		if err := setKubeVersionAndAPIVersions(r.opts.ClientSet, cmd); err != nil {
+			return nil, err
+		}
+	}
 
+	// set chart resolution options
 	cmd.Chart = chartArgs.Chart
 	cmd.Version = chartArgs.Version
 	cmd.Devel = chartArgs.Devel
@@ -194,6 +208,7 @@ func (r *ChartProvider) Construct(ctx *pulumi.Context, typ, name string, inputs 
 		cmd.Keyring = keyring
 	}
 
+	// set templating options
 	cmd.Values.Values = chartArgs.Values
 	cmd.Values.ValuesFiles = chartArgs.ValuesFiles
 	cmd.IncludeCRDs = !chartArgs.SkipCrds
@@ -278,4 +293,36 @@ func preregister(ctx *pulumi.Context, comp *ChartState, obj *unstructured.Unstru
 	}
 
 	return obj, resourceOpts
+}
+
+func setKubeVersionAndAPIVersions(clientSet *clients.DynamicClientSet, cmd *kubehelm.TemplateCommand) error {
+	dc := clientSet.DiscoveryClientCached
+
+	// https://github.com/helm/helm/blob/635b8cf33d25a86131635c32f35b2a76256e40cb/pkg/action/action.go#L246-L285
+
+	// force a discovery cache invalidation to always fetch the latest server version/capabilities.
+	dc.Invalidate()
+	kubeVersion, err := dc.ServerVersion()
+	if err != nil {
+		return fmt.Errorf("could not get server version from Kubernetes: %w", err)
+	}
+	cmd.Install.KubeVersion = &chartutil.KubeVersion{
+		Version: kubeVersion.GitVersion,
+		Major:   kubeVersion.Major,
+		Minor:   kubeVersion.Minor,
+	}
+
+	// Client-Go emits an error when an API service is registered but unimplemented.
+	// Since the discovery client continues building the API object, it is correctly
+	// populated with all valid APIs.
+	// See https://github.com/kubernetes/kubernetes/issues/72051#issuecomment-521157642
+	apiVersions, err := action.GetVersionSet(dc)
+	if err != nil {
+		if !discovery.IsGroupDiscoveryFailedError(err) {
+			return fmt.Errorf("could not get apiVersions from Kubernetes: %w", err)
+		}
+	}
+	cmd.Install.APIVersions = apiVersions
+
+	return nil
 }

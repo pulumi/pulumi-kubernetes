@@ -23,4 +23,4 @@ serviceAccount:
   # annotations:
   #   helm.sh/resource-policy: keep
 
-# versionCheck: "<1.21-0"
+# versionCheck: ">=1.21-0"

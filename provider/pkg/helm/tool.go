@@ -33,7 +33,6 @@ import (
 	"helm.sh/helm/v3/pkg/action"
 	"helm.sh/helm/v3/pkg/chart"
 	"helm.sh/helm/v3/pkg/chart/loader"
-	"helm.sh/helm/v3/pkg/chartutil"
 	"helm.sh/helm/v3/pkg/cli"
 	"helm.sh/helm/v3/pkg/downloader"
 	"helm.sh/helm/v3/pkg/getter"
@@ -167,8 +166,6 @@ type TemplateCommand struct {
 	Validate    bool
 	IncludeCRDs bool
 	SkipTests   bool
-	KubeVersion string
-	ExtraAPIs   []string
 }
 
 // Template returns a new `helm template` command.
@@ -191,8 +188,6 @@ func (t *Tool) Template() *TemplateCommand {
 	cmd.IncludeCRDs = false
 	cmd.SkipTests = false
 	cmd.Install.IsUpgrade = false
-	cmd.KubeVersion = ""
-	cmd.ExtraAPIs = []string{}
 	cmd.Install.UseReleaseName = false
 	return cmd
 }
@@ -204,15 +199,6 @@ func (cmd *TemplateCommand) Execute(ctx context.Context) (*release.Release, erro
 	err := cmd.tool.initActionConfig(cmd.actionConfig, cmd.Namespace)
 	if err != nil {
 		return nil, err
-	}
-
-	// https://github.com/helm/helm/blob/635b8cf33d25a86131635c32f35b2a76256e40cb/cmd/helm/template.go#L68-L74
-	if cmd.KubeVersion != "" {
-		parsedKubeVersion, err := chartutil.ParseKubeVersion(cmd.KubeVersion)
-		if err != nil {
-			return nil, fmt.Errorf("invalid kube version '%s': %s", cmd.KubeVersion, err)
-		}
-		client.KubeVersion = parsedKubeVersion
 	}
 
 	// https://github.com/helm/helm/blob/635b8cf33d25a86131635c32f35b2a76256e40cb/cmd/helm/template.go#L76-L81
@@ -231,7 +217,6 @@ func (cmd *TemplateCommand) Execute(ctx context.Context) (*release.Release, erro
 	// client.ReleaseName = "release-name"
 	client.Replace = true // Skip the name check
 	client.ClientOnly = !cmd.Validate
-	client.APIVersions = chartutil.VersionSet(cmd.ExtraAPIs)
 	client.IncludeCRDs = cmd.IncludeCRDs
 
 	return cmd.runInstall(ctx)
