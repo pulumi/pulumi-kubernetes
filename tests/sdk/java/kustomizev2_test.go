@@ -20,6 +20,7 @@ func TestKustomizeV2(t *testing.T) {
 	pluginHome, _ := filepath.Abs("testdata/kustomizev2/pluginExample/plugin")
 	test := pulumitest.NewPulumiTest(t, "testdata/kustomizev2",
 		opttest.Env("KUSTOMIZE_PLUGIN_HOME", pluginHome),
+		opttest.SkipInstall(),
 	)
 	t.Logf("into %s", test.Source())
 	t.Cleanup(func() {
