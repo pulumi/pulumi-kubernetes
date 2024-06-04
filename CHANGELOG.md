@@ -1,11 +1,16 @@
-## Unreleased
+## 4.13.0 (June 4, 2024)
 
-- Update to pulumi-java v0.12.0 (https://github.com/pulumi/pulumi-kubernetes/pull/3025)
-- Fixed a panic that occurs when diffing Job resources containing `replaceUnready` annotations and an unreachable cluster connection. (https://github.com/pulumi/pulumi-kubernetes/pull/3024)
-- CustomResource for Java SDK (https://github.com/pulumi/pulumi-kubernetes/pull/3020)
-- Fixed spurious diffing for updates when in renderYaml mode (https://github.com/pulumi/pulumi-kubernetes/pull/3030)
+### Added
 - Kustomize Directory v2 resource (https://github.com/pulumi/pulumi-kubernetes/pull/3036) 
-- Fix: Chart v4 fails on update (https://github.com/pulumi/pulumi-kubernetes/pull/3046)
+- CustomResource for Java SDK (https://github.com/pulumi/pulumi-kubernetes/pull/3020)
+
+### Changed
+- Update to pulumi-java v0.12.0 (https://github.com/pulumi/pulumi-kubernetes/pull/3025)
+
+### Fixed
+- Fixed Chart v4 fails on update (https://github.com/pulumi/pulumi-kubernetes/pull/3046)
+- Fixed a panic that occurs when diffing Job resources containing `replaceUnready` annotations and an unreachable cluster connection. (https://github.com/pulumi/pulumi-kubernetes/pull/3024)
+- Fixed spurious diffing for updates when in renderYaml mode (https://github.com/pulumi/pulumi-kubernetes/pull/3030)
 
 ## 4.12.0 (May 21, 2024)
 
