@@ -213,6 +213,25 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 				outputs, err = client.Patch(
 					c.Context, c.Inputs.GetName(), types.ApplyPatchType, objYAML, options)
 
+				// Handle the preview scenario where we need to re-create the object due to immutable fields.
+				// To avoid the immutable field error reported by the API server, we append "-preview" to the name
+				// so that the dry-run operation can succeed. This is a workaround for the limitation of the
+				// server-side apply API, which does not support replacement dry-run operations.
+				//
+				// Note that the AlreadyExists error does not occur since we always send a PATCH request during
+				// creates with SSA enabled. This means that we currently always upsert the object.
+				if c.Preview &&
+					(apierrors.IsInvalid(err) && strings.Contains(err.Error(), "field is immutable")) {
+					c.Inputs.SetName(c.Inputs.GetName() + "-preview")
+					objYAML, errYaml := yaml.Marshal(c.Inputs.Object)
+					if errYaml != nil {
+						return err
+					}
+
+					outputs, err = client.Patch(
+						c.Context, c.Inputs.GetName(), types.ApplyPatchType, objYAML, options)
+				}
+
 				err = handleSSAErr(err, c.FieldManager)
 			} else {
 				options := metav1.CreateOptions{
