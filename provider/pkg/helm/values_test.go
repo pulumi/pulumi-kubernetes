@@ -130,11 +130,28 @@ image:
 			values: map[string]interface{}{
 				"extra": map[string]any{
 					"notes": pulumi.NewStringAsset("this is a note"),
+					"foo":   "bar",
 				},
 			},
 			want: map[string]interface{}{
 				"extra": map[string]any{
 					"notes": "this is a note",
+					"foo":   "bar",
+				},
+			},
+		},
+		{
+			name: "arrays of assets",
+			values: map[string]interface{}{
+				"extraDeploy": []any{
+					pulumi.NewStringAsset("this is a note"),
+					"foo",
+				},
+			},
+			want: map[string]interface{}{
+				"extraDeploy": []any{
+					"this is a note",
+					"foo",
 				},
 			},
 		},

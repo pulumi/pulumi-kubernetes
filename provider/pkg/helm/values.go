@@ -54,11 +54,11 @@ func (opts *ValueOpts) MergeValues(p getter.Providers) (map[string]interface{}, 
 	}
 
 	// User specified a literal value map (possibly containing assets)
-	values, err := marshalValues(p, opts.Values)
+	values, err := marshalValue(p, opts.Values)
 	if err != nil {
 		return nil, err
 	}
-	base = MergeMaps(base, values)
+	base = MergeMaps(base, values.(map[string]any))
 
 	return base, nil
 }
@@ -93,34 +93,40 @@ func readAsset(p getter.Providers, asset pulumi.Asset) ([]byte, error) {
 	}
 }
 
-// marshalValues converts Pulumi values to Helm values.
+// marshalValue converts Pulumi values to Helm values.
 // - Expands assets to their content (to support --set-file).
-func marshalValues(p getter.Providers, a map[string]interface{}) (map[string]interface{}, error) {
+func marshalValue(p getter.Providers, v any) (any, error) {
 	var err error
-	out := make(map[string]interface{}, len(a))
-	for k, v := range a {
-		if v, ok := v.(map[string]interface{}); ok {
-			out[k], err = marshalValues(p, v)
+	switch v := v.(type) {
+	case map[string]any:
+		out := make(map[string]any, len(v))
+		for k, e := range v {
+			out[k], err = marshalValue(p, e)
 			if err != nil {
 				return nil, err
 			}
-			continue
 		}
-		if v, ok := v.(pulumi.Asset); ok {
-			bytes, err := readAsset(p, v)
+		return out, nil
+	case []any:
+		out := make([]any, len(v))
+		for i := 0; i < len(v); i++ {
+			out[i], err = marshalValue(p, v[i])
 			if err != nil {
 				return nil, err
 			}
-			out[k] = string(bytes)
-			continue
 		}
-		if _, ok := v.(pulumi.Archive); ok {
-			return nil, errors.New("Archive values are not supported as a Helm value")
+		return out, nil
+	case pulumi.Asset:
+		bytes, err := readAsset(p, v)
+		if err != nil {
+			return nil, err
 		}
-		if _, ok := v.(pulumi.Resource); ok {
-			return nil, errors.New("Resource values are not supported as a Helm value")
-		}
-		out[k] = v
+		return string(bytes), nil
+	case pulumi.Archive:
+		return nil, errors.New("Archive values are not supported as a Helm value")
+	case pulumi.Resource:
+		return nil, errors.New("Resource values are not supported as a Helm value")
+	default:
+		return v, nil
 	}
-	return out, nil
 }
