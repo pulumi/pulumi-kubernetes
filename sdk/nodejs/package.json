@@ -1,6 +1,6 @@
 {
     "name": "@pulumi/kubernetes",
-    "version": "4.14.0-alpha.1717609802+9333b4d",
+    "version": "4.14.0-alpha.1717706484+a162c42",
     "keywords": [
         "pulumi",
         "kubernetes",
@@ -32,6 +32,6 @@
     "pulumi": {
         "resource": true,
         "name": "kubernetes",
-        "version": "4.14.0-alpha.1717609802+9333b4d"
+        "version": "4.14.0-alpha.1717706484+a162c42"
     }
 }
