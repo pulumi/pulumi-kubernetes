@@ -1,4 +1,8 @@
+_Note: a newer version is available: [kubernetes.kustomize/v2.Directory](/registry/packages/kubernetes/api-docs/kustomize/v2/directory/)_
+
 Directory is a component representing a collection of resources described by a kustomize directory (kustomization).
+
+This resource is provided for the following languages: Node.js (JavaScript, TypeScript), Python, Go, and .NET (C#, F#, VB).
 
 {{% examples %}}
 ## Example Usage

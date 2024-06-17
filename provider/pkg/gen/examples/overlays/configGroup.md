@@ -1,3 +1,5 @@
+_Note: a newer version is available: [kubernetes.yaml/v2.ConfigGroup](/registry/packages/kubernetes/api-docs/yaml/v2/configgroup/)_
+
 ConfigGroup creates a set of Kubernetes resources from Kubernetes YAML text. The YAML text
 may be supplied using any of the following methods:
 
@@ -5,6 +7,8 @@ may be supplied using any of the following methods:
 2. Using a file pattern or a list of file patterns:
 3. Using a literal string containing YAML, or a list of such strings:
 4. Any combination of files, patterns, or YAML strings:
+
+This resource is provided for the following languages: Node.js (JavaScript, TypeScript), Python, Go, and .NET (C#, F#, VB).
 
 {{% examples %}}
 ## Example Usage
