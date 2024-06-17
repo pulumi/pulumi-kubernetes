@@ -8,6 +8,8 @@ import * as enums from "../../types/enums";
 import * as utilities from "../../utilities";
 
 /**
+ * _See also: [New: Helm Chart v4 resource with new features and languages](/blog/kubernetes-chart-v4/)_
+ *
  * Chart is a component representing a collection of resources described by a Helm Chart.
  * Helm charts are a popular packaging format for Kubernetes applications, and published
  * to registries such as [Artifact Hub](https://artifacthub.io/packages/search?kind=0&sort=relevance&page=1).

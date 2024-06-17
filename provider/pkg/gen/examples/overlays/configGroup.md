@@ -1,4 +1,5 @@
 _Note: a newer version is available: [kubernetes.yaml/v2.ConfigGroup](/registry/packages/kubernetes/api-docs/yaml/v2/configgroup/)_
+_See also: [New: ConfigGroup, ConfigFile resources for Java, YAML SDKs](/blog/kubernetes-yaml-v2/)_
 
 ConfigGroup creates a set of Kubernetes resources from Kubernetes YAML text. The YAML text
 may be supplied using any of the following methods:

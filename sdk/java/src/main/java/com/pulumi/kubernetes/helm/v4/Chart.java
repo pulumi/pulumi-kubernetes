@@ -15,6 +15,8 @@ import java.util.Optional;
 import javax.annotation.Nullable;
 
 /**
+ * _See also: [New: Helm Chart v4 resource with new features and languages](/blog/kubernetes-chart-v4/)_
+ * 
  * Chart is a component representing a collection of resources described by a Helm Chart.
  * Helm charts are a popular packaging format for Kubernetes applications, and published
  * to registries such as [Artifact Hub](https://artifacthub.io/packages/search?kind=0&amp;sort=relevance&amp;page=1).

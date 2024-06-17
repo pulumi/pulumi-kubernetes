@@ -1,4 +1,5 @@
 _Note: a newer version is available: [kubernetes.helm.sh/v4.Chart](/registry/packages/kubernetes/api-docs/helm/v4/chart/)_
+_See also: [New: Helm Chart v4 resource with new features and languages](/blog/kubernetes-chart-v4/)_
 
 Chart is a component representing a collection of resources described by an arbitrary Helm Chart.
 
