@@ -1,17 +1,26 @@
 ## Unreleased
 
-- Chart v4 should handle an array of assets (https://github.com/pulumi/pulumi-kubernetes/pull/3061)
+### Added
+
+- `clusterIdentifier` configuration for manual control of provider replacement behavior.
+
+### Fixed
+
+- Chart v4 now handles an array of assets. (https://github.com/pulumi/pulumi-kubernetes/pull/3061)
 
 ## 4.13.0 (June 4, 2024)
 
 ### Added
+
 - Kustomize Directory v2 resource (https://github.com/pulumi/pulumi-kubernetes/pull/3036) 
 - CustomResource for Java SDK (https://github.com/pulumi/pulumi-kubernetes/pull/3020)
 
 ### Changed
+
 - Update to pulumi-java v0.12.0 (https://github.com/pulumi/pulumi-kubernetes/pull/3025)
 
 ### Fixed
+
 - Fixed Chart v4 fails on update (https://github.com/pulumi/pulumi-kubernetes/pull/3046)
 - Fixed a panic that occurs when diffing Job resources containing `replaceUnready` annotations and an unreachable cluster connection. (https://github.com/pulumi/pulumi-kubernetes/pull/3024)
 - Fixed spurious diffing for updates when in renderYaml mode (https://github.com/pulumi/pulumi-kubernetes/pull/3030)
