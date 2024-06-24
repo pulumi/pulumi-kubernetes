@@ -2,7 +2,7 @@
 
 ### Added
 
-- `clusterIdentifier` configuration for manual control of provider replacement behavior.
+- `clusterIdentifier` configuration for manual control of provider replacement behavior. (https://github.com/pulumi/pulumi-kubernetes/pull/3068)
 
 ### Fixed
 
