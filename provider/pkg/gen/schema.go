@@ -545,6 +545,7 @@ Use the navigation below to see detailed documentation for each of the supported
 		"moduleNameOverrides": modToPkg,
 		"compatibility":       kubernetes20,
 		"usesIOClasses":       true,
+		"inputTypes":          "classes-and-dicts",
 		"readme": `The Kubernetes provider package offers support for all Kubernetes resources and their properties.
 Resources are exposed as types from modules based on Kubernetes API groups such as 'apps', 'core',
 'rbac', and 'storage', among many others. Additionally, support for deploying Helm charts ('helm')
