@@ -39,6 +39,7 @@ import (
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
 	apierrors "k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/api/meta"
+	apivalidation "k8s.io/apimachinery/pkg/api/validation"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/fields"
@@ -221,8 +222,20 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 				// Note that the AlreadyExists error does not occur since we always send a PATCH request during
 				// creates with SSA enabled. This means that we currently always upsert the object.
 				if c.Preview &&
-					(apierrors.IsInvalid(err) && strings.Contains(err.Error(), "field is immutable")) {
-					c.Inputs.SetName(c.Inputs.GetName() + "-preview")
+					(apierrors.IsInvalid(err) && strings.Contains(err.Error(), apivalidation.FieldImmutableErrorMsg)) {
+					const previewSuffix = "-preview"
+					objName := c.Inputs.GetName()
+
+					// Set the name to have the "-preview" suffix. Ensure we don't have a string over 253 characters, which is
+					// the maximum length for a name in Kubernetes.
+					var previewName string
+					if len(objName) > 253-len(previewSuffix) {
+						previewName = objName[:253-len(previewSuffix)] + previewSuffix
+					} else {
+						previewName = objName + previewSuffix
+					}
+
+					c.Inputs.SetName(previewName)
 					objYAML, errYaml := yaml.Marshal(c.Inputs.Object)
 					if errYaml != nil {
 						return err
