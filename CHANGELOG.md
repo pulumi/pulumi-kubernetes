@@ -2,6 +2,8 @@
 
 - Chart v4 should handle an array of assets (https://github.com/pulumi/pulumi-kubernetes/pull/3061)
 
+- Generate TypedDict input types for the Python SDK (https://github.com/pulumi/pulumi-kubernetes/pull/3070)
+
 ## 4.13.0 (June 4, 2024)
 
 ### Added

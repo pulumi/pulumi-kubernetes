@@ -4,50 +4,113 @@
 
 import copy
 import warnings
+import sys
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
+if sys.version_info >= (3, 11):
+    from typing import NotRequired, TypedDict, TypeAlias
+else:
+    from typing_extensions import NotRequired, TypedDict, TypeAlias
 from ... import _utilities
 from ... import meta as _meta
 
 __all__ = [
     'ContainerResourceMetricSourcePatchArgs',
+    'ContainerResourceMetricSourcePatchArgsDict',
     'ContainerResourceMetricSourceArgs',
+    'ContainerResourceMetricSourceArgsDict',
     'ContainerResourceMetricStatusArgs',
+    'ContainerResourceMetricStatusArgsDict',
     'CrossVersionObjectReferencePatchArgs',
+    'CrossVersionObjectReferencePatchArgsDict',
     'CrossVersionObjectReferenceArgs',
+    'CrossVersionObjectReferenceArgsDict',
     'ExternalMetricSourcePatchArgs',
+    'ExternalMetricSourcePatchArgsDict',
     'ExternalMetricSourceArgs',
+    'ExternalMetricSourceArgsDict',
     'ExternalMetricStatusArgs',
+    'ExternalMetricStatusArgsDict',
     'HPAScalingPolicyPatchArgs',
+    'HPAScalingPolicyPatchArgsDict',
     'HPAScalingPolicyArgs',
+    'HPAScalingPolicyArgsDict',
     'HPAScalingRulesPatchArgs',
+    'HPAScalingRulesPatchArgsDict',
     'HPAScalingRulesArgs',
+    'HPAScalingRulesArgsDict',
     'HorizontalPodAutoscalerBehaviorPatchArgs',
+    'HorizontalPodAutoscalerBehaviorPatchArgsDict',
     'HorizontalPodAutoscalerBehaviorArgs',
+    'HorizontalPodAutoscalerBehaviorArgsDict',
     'HorizontalPodAutoscalerConditionArgs',
+    'HorizontalPodAutoscalerConditionArgsDict',
     'HorizontalPodAutoscalerSpecPatchArgs',
+    'HorizontalPodAutoscalerSpecPatchArgsDict',
     'HorizontalPodAutoscalerSpecArgs',
+    'HorizontalPodAutoscalerSpecArgsDict',
     'HorizontalPodAutoscalerStatusArgs',
+    'HorizontalPodAutoscalerStatusArgsDict',
     'HorizontalPodAutoscalerArgs',
+    'HorizontalPodAutoscalerArgsDict',
     'MetricIdentifierPatchArgs',
+    'MetricIdentifierPatchArgsDict',
     'MetricIdentifierArgs',
+    'MetricIdentifierArgsDict',
     'MetricSpecPatchArgs',
+    'MetricSpecPatchArgsDict',
     'MetricSpecArgs',
+    'MetricSpecArgsDict',
     'MetricStatusArgs',
+    'MetricStatusArgsDict',
     'MetricTargetPatchArgs',
+    'MetricTargetPatchArgsDict',
     'MetricTargetArgs',
+    'MetricTargetArgsDict',
     'MetricValueStatusArgs',
+    'MetricValueStatusArgsDict',
     'ObjectMetricSourcePatchArgs',
+    'ObjectMetricSourcePatchArgsDict',
     'ObjectMetricSourceArgs',
+    'ObjectMetricSourceArgsDict',
     'ObjectMetricStatusArgs',
+    'ObjectMetricStatusArgsDict',
     'PodsMetricSourcePatchArgs',
+    'PodsMetricSourcePatchArgsDict',
     'PodsMetricSourceArgs',
+    'PodsMetricSourceArgsDict',
     'PodsMetricStatusArgs',
+    'PodsMetricStatusArgsDict',
     'ResourceMetricSourcePatchArgs',
+    'ResourceMetricSourcePatchArgsDict',
     'ResourceMetricSourceArgs',
+    'ResourceMetricSourceArgsDict',
     'ResourceMetricStatusArgs',
+    'ResourceMetricStatusArgsDict',
 ]
+
+MYPY = False
+
+if not MYPY:
+    class ContainerResourceMetricSourcePatchArgsDict(TypedDict):
+        """
+        ContainerResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  The values will be averaged together before being compared to the target.  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.  Only one "target" type should be set.
+        """
+        container: NotRequired[pulumi.Input[str]]
+        """
+        container is the name of the container in the pods of the scaling target
+        """
+        name: NotRequired[pulumi.Input[str]]
+        """
+        name is the name of the resource in question.
+        """
+        target: NotRequired[pulumi.Input['MetricTargetPatchArgsDict']]
+        """
+        target specifies the target value for the given metric
+        """
+elif False:
+    ContainerResourceMetricSourcePatchArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class ContainerResourceMetricSourcePatchArgs:
@@ -105,6 +168,26 @@ class ContainerResourceMetricSourcePatchArgs:
         pulumi.set(self, "target", value)
 
 
+if not MYPY:
+    class ContainerResourceMetricSourceArgsDict(TypedDict):
+        """
+        ContainerResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  The values will be averaged together before being compared to the target.  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.  Only one "target" type should be set.
+        """
+        container: pulumi.Input[str]
+        """
+        container is the name of the container in the pods of the scaling target
+        """
+        name: pulumi.Input[str]
+        """
+        name is the name of the resource in question.
+        """
+        target: pulumi.Input['MetricTargetArgsDict']
+        """
+        target specifies the target value for the given metric
+        """
+elif False:
+    ContainerResourceMetricSourceArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class ContainerResourceMetricSourceArgs:
     def __init__(__self__, *,
@@ -158,6 +241,26 @@ class ContainerResourceMetricSourceArgs:
         pulumi.set(self, "target", value)
 
 
+if not MYPY:
+    class ContainerResourceMetricStatusArgsDict(TypedDict):
+        """
+        ContainerResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as specified in requests and limits, describing a single container in each pod in the current scale target (e.g. CPU or memory).  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
+        """
+        container: pulumi.Input[str]
+        """
+        Container is the name of the container in the pods of the scaling target
+        """
+        current: pulumi.Input['MetricValueStatusArgsDict']
+        """
+        current contains the current value for the given metric
+        """
+        name: pulumi.Input[str]
+        """
+        Name is the name of the resource in question.
+        """
+elif False:
+    ContainerResourceMetricStatusArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class ContainerResourceMetricStatusArgs:
     def __init__(__self__, *,
@@ -210,6 +313,26 @@ class ContainerResourceMetricStatusArgs:
     def name(self, value: pulumi.Input[str]):
         pulumi.set(self, "name", value)
 
+
+if not MYPY:
+    class CrossVersionObjectReferencePatchArgsDict(TypedDict):
+        """
+        CrossVersionObjectReference contains enough information to let you identify the referred resource.
+        """
+        api_version: NotRequired[pulumi.Input[str]]
+        """
+        API version of the referent
+        """
+        kind: NotRequired[pulumi.Input[str]]
+        """
+        Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+        """
+        name: NotRequired[pulumi.Input[str]]
+        """
+        Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
+        """
+elif False:
+    CrossVersionObjectReferencePatchArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class CrossVersionObjectReferencePatchArgs:
@@ -267,6 +390,26 @@ class CrossVersionObjectReferencePatchArgs:
         pulumi.set(self, "name", value)
 
 
+if not MYPY:
+    class CrossVersionObjectReferenceArgsDict(TypedDict):
+        """
+        CrossVersionObjectReference contains enough information to let you identify the referred resource.
+        """
+        kind: pulumi.Input[str]
+        """
+        Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+        """
+        name: pulumi.Input[str]
+        """
+        Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
+        """
+        api_version: NotRequired[pulumi.Input[str]]
+        """
+        API version of the referent
+        """
+elif False:
+    CrossVersionObjectReferenceArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class CrossVersionObjectReferenceArgs:
     def __init__(__self__, *,
@@ -321,6 +464,22 @@ class CrossVersionObjectReferenceArgs:
         pulumi.set(self, "api_version", value)
 
 
+if not MYPY:
+    class ExternalMetricSourcePatchArgsDict(TypedDict):
+        """
+        ExternalMetricSource indicates how to scale on a metric not associated with any Kubernetes object (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
+        """
+        metric: NotRequired[pulumi.Input['MetricIdentifierPatchArgsDict']]
+        """
+        metric identifies the target metric by name and selector
+        """
+        target: NotRequired[pulumi.Input['MetricTargetPatchArgsDict']]
+        """
+        target specifies the target value for the given metric
+        """
+elif False:
+    ExternalMetricSourcePatchArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class ExternalMetricSourcePatchArgs:
     def __init__(__self__, *,
@@ -361,6 +520,22 @@ class ExternalMetricSourcePatchArgs:
         pulumi.set(self, "target", value)
 
 
+if not MYPY:
+    class ExternalMetricSourceArgsDict(TypedDict):
+        """
+        ExternalMetricSource indicates how to scale on a metric not associated with any Kubernetes object (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
+        """
+        metric: pulumi.Input['MetricIdentifierArgsDict']
+        """
+        metric identifies the target metric by name and selector
+        """
+        target: pulumi.Input['MetricTargetArgsDict']
+        """
+        target specifies the target value for the given metric
+        """
+elif False:
+    ExternalMetricSourceArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class ExternalMetricSourceArgs:
     def __init__(__self__, *,
@@ -399,6 +574,22 @@ class ExternalMetricSourceArgs:
         pulumi.set(self, "target", value)
 
 
+if not MYPY:
+    class ExternalMetricStatusArgsDict(TypedDict):
+        """
+        ExternalMetricStatus indicates the current value of a global metric not associated with any Kubernetes object.
+        """
+        current: pulumi.Input['MetricValueStatusArgsDict']
+        """
+        current contains the current value for the given metric
+        """
+        metric: pulumi.Input['MetricIdentifierArgsDict']
+        """
+        metric identifies the target metric by name and selector
+        """
+elif False:
+    ExternalMetricStatusArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class ExternalMetricStatusArgs:
     def __init__(__self__, *,
@@ -436,6 +627,26 @@ class ExternalMetricStatusArgs:
     def metric(self, value: pulumi.Input['MetricIdentifierArgs']):
         pulumi.set(self, "metric", value)
 
+
+if not MYPY:
+    class HPAScalingPolicyPatchArgsDict(TypedDict):
+        """
+        HPAScalingPolicy is a single policy which must hold true for a specified past interval.
+        """
+        period_seconds: NotRequired[pulumi.Input[int]]
+        """
+        PeriodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
+        """
+        type: NotRequired[pulumi.Input[str]]
+        """
+        Type is used to specify the scaling policy.
+        """
+        value: NotRequired[pulumi.Input[int]]
+        """
+        Value contains the amount of change which is permitted by the policy. It must be greater than zero
+        """
+elif False:
+    HPAScalingPolicyPatchArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class HPAScalingPolicyPatchArgs:
@@ -493,6 +704,26 @@ class HPAScalingPolicyPatchArgs:
         pulumi.set(self, "value", value)
 
 
+if not MYPY:
+    class HPAScalingPolicyArgsDict(TypedDict):
+        """
+        HPAScalingPolicy is a single policy which must hold true for a specified past interval.
+        """
+        period_seconds: pulumi.Input[int]
+        """
+        PeriodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
+        """
+        type: pulumi.Input[str]
+        """
+        Type is used to specify the scaling policy.
+        """
+        value: pulumi.Input[int]
+        """
+        Value contains the amount of change which is permitted by the policy. It must be greater than zero
+        """
+elif False:
+    HPAScalingPolicyArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class HPAScalingPolicyArgs:
     def __init__(__self__, *,
@@ -545,6 +776,26 @@ class HPAScalingPolicyArgs:
     def value(self, value: pulumi.Input[int]):
         pulumi.set(self, "value", value)
 
+
+if not MYPY:
+    class HPAScalingRulesPatchArgsDict(TypedDict):
+        """
+        HPAScalingRules configures the scaling behavior for one direction. These Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.
+        """
+        policies: NotRequired[pulumi.Input[Sequence[pulumi.Input['HPAScalingPolicyPatchArgsDict']]]]
+        """
+        policies is a list of potential scaling polices which can be used during scaling. At least one policy must be specified, otherwise the HPAScalingRules will be discarded as invalid
+        """
+        select_policy: NotRequired[pulumi.Input[str]]
+        """
+        selectPolicy is used to specify which policy should be used. If not set, the default value MaxPolicySelect is used.
+        """
+        stabilization_window_seconds: NotRequired[pulumi.Input[int]]
+        """
+        StabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
+        """
+elif False:
+    HPAScalingRulesPatchArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class HPAScalingRulesPatchArgs:
@@ -602,6 +853,26 @@ class HPAScalingRulesPatchArgs:
         pulumi.set(self, "stabilization_window_seconds", value)
 
 
+if not MYPY:
+    class HPAScalingRulesArgsDict(TypedDict):
+        """
+        HPAScalingRules configures the scaling behavior for one direction. These Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.
+        """
+        policies: NotRequired[pulumi.Input[Sequence[pulumi.Input['HPAScalingPolicyArgsDict']]]]
+        """
+        policies is a list of potential scaling polices which can be used during scaling. At least one policy must be specified, otherwise the HPAScalingRules will be discarded as invalid
+        """
+        select_policy: NotRequired[pulumi.Input[str]]
+        """
+        selectPolicy is used to specify which policy should be used. If not set, the default value MaxPolicySelect is used.
+        """
+        stabilization_window_seconds: NotRequired[pulumi.Input[int]]
+        """
+        StabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
+        """
+elif False:
+    HPAScalingRulesArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class HPAScalingRulesArgs:
     def __init__(__self__, *,
@@ -658,6 +929,25 @@ class HPAScalingRulesArgs:
         pulumi.set(self, "stabilization_window_seconds", value)
 
 
+if not MYPY:
+    class HorizontalPodAutoscalerBehaviorPatchArgsDict(TypedDict):
+        """
+        HorizontalPodAutoscalerBehavior configures the scaling behavior of the target in both Up and Down directions (scaleUp and scaleDown fields respectively).
+        """
+        scale_down: NotRequired[pulumi.Input['HPAScalingRulesPatchArgsDict']]
+        """
+        scaleDown is scaling policy for scaling Down. If not set, the default value is to allow to scale down to minReplicas pods, with a 300 second stabilization window (i.e., the highest recommendation for the last 300sec is used).
+        """
+        scale_up: NotRequired[pulumi.Input['HPAScalingRulesPatchArgsDict']]
+        """
+        scaleUp is scaling policy for scaling Up. If not set, the default value is the higher of:
+          * increase no more than 4 pods per 60 seconds
+          * double the number of pods per 60 seconds
+        No stabilization is used.
+        """
+elif False:
+    HorizontalPodAutoscalerBehaviorPatchArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class HorizontalPodAutoscalerBehaviorPatchArgs:
     def __init__(__self__, *,
@@ -704,6 +994,25 @@ class HorizontalPodAutoscalerBehaviorPatchArgs:
         pulumi.set(self, "scale_up", value)
 
 
+if not MYPY:
+    class HorizontalPodAutoscalerBehaviorArgsDict(TypedDict):
+        """
+        HorizontalPodAutoscalerBehavior configures the scaling behavior of the target in both Up and Down directions (scaleUp and scaleDown fields respectively).
+        """
+        scale_down: NotRequired[pulumi.Input['HPAScalingRulesArgsDict']]
+        """
+        scaleDown is scaling policy for scaling Down. If not set, the default value is to allow to scale down to minReplicas pods, with a 300 second stabilization window (i.e., the highest recommendation for the last 300sec is used).
+        """
+        scale_up: NotRequired[pulumi.Input['HPAScalingRulesArgsDict']]
+        """
+        scaleUp is scaling policy for scaling Up. If not set, the default value is the higher of:
+          * increase no more than 4 pods per 60 seconds
+          * double the number of pods per 60 seconds
+        No stabilization is used.
+        """
+elif False:
+    HorizontalPodAutoscalerBehaviorArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class HorizontalPodAutoscalerBehaviorArgs:
     def __init__(__self__, *,
@@ -749,6 +1058,34 @@ class HorizontalPodAutoscalerBehaviorArgs:
     def scale_up(self, value: Optional[pulumi.Input['HPAScalingRulesArgs']]):
         pulumi.set(self, "scale_up", value)
 
+
+if not MYPY:
+    class HorizontalPodAutoscalerConditionArgsDict(TypedDict):
+        """
+        HorizontalPodAutoscalerCondition describes the state of a HorizontalPodAutoscaler at a certain point.
+        """
+        status: pulumi.Input[str]
+        """
+        status is the status of the condition (True, False, Unknown)
+        """
+        type: pulumi.Input[str]
+        """
+        type describes the current condition
+        """
+        last_transition_time: NotRequired[pulumi.Input[str]]
+        """
+        lastTransitionTime is the last time the condition transitioned from one status to another
+        """
+        message: NotRequired[pulumi.Input[str]]
+        """
+        message is a human-readable explanation containing details about the transition
+        """
+        reason: NotRequired[pulumi.Input[str]]
+        """
+        reason is the reason for the condition's last transition.
+        """
+elif False:
+    HorizontalPodAutoscalerConditionArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class HorizontalPodAutoscalerConditionArgs:
@@ -835,6 +1172,34 @@ class HorizontalPodAutoscalerConditionArgs:
     def reason(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "reason", value)
 
+
+if not MYPY:
+    class HorizontalPodAutoscalerSpecPatchArgsDict(TypedDict):
+        """
+        HorizontalPodAutoscalerSpec describes the desired functionality of the HorizontalPodAutoscaler.
+        """
+        behavior: NotRequired[pulumi.Input['HorizontalPodAutoscalerBehaviorPatchArgsDict']]
+        """
+        behavior configures the scaling behavior of the target in both Up and Down directions (scaleUp and scaleDown fields respectively). If not set, the default HPAScalingRules for scale up and scale down are used.
+        """
+        max_replicas: NotRequired[pulumi.Input[int]]
+        """
+        maxReplicas is the upper limit for the number of replicas to which the autoscaler can scale up. It cannot be less that minReplicas.
+        """
+        metrics: NotRequired[pulumi.Input[Sequence[pulumi.Input['MetricSpecPatchArgsDict']]]]
+        """
+        metrics contains the specifications for which to use to calculate the desired replica count (the maximum replica count across all metrics will be used).  The desired replica count is calculated multiplying the ratio between the target value and the current value by the current number of pods.  Ergo, metrics used must decrease as the pod count is increased, and vice-versa.  See the individual metric source types for more information about how each type of metric must respond. If not set, the default metric will be set to 80% average CPU utilization.
+        """
+        min_replicas: NotRequired[pulumi.Input[int]]
+        """
+        minReplicas is the lower limit for the number of replicas to which the autoscaler can scale down.  It defaults to 1 pod.  minReplicas is allowed to be 0 if the alpha feature gate HPAScaleToZero is enabled and at least one Object or External metric is configured.  Scaling is active as long as at least one metric value is available.
+        """
+        scale_target_ref: NotRequired[pulumi.Input['CrossVersionObjectReferencePatchArgsDict']]
+        """
+        scaleTargetRef points to the target resource to scale, and is used to the pods for which metrics should be collected, as well as to actually change the replica count.
+        """
+elif False:
+    HorizontalPodAutoscalerSpecPatchArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class HorizontalPodAutoscalerSpecPatchArgs:
@@ -924,6 +1289,34 @@ class HorizontalPodAutoscalerSpecPatchArgs:
         pulumi.set(self, "scale_target_ref", value)
 
 
+if not MYPY:
+    class HorizontalPodAutoscalerSpecArgsDict(TypedDict):
+        """
+        HorizontalPodAutoscalerSpec describes the desired functionality of the HorizontalPodAutoscaler.
+        """
+        max_replicas: pulumi.Input[int]
+        """
+        maxReplicas is the upper limit for the number of replicas to which the autoscaler can scale up. It cannot be less that minReplicas.
+        """
+        scale_target_ref: pulumi.Input['CrossVersionObjectReferenceArgsDict']
+        """
+        scaleTargetRef points to the target resource to scale, and is used to the pods for which metrics should be collected, as well as to actually change the replica count.
+        """
+        behavior: NotRequired[pulumi.Input['HorizontalPodAutoscalerBehaviorArgsDict']]
+        """
+        behavior configures the scaling behavior of the target in both Up and Down directions (scaleUp and scaleDown fields respectively). If not set, the default HPAScalingRules for scale up and scale down are used.
+        """
+        metrics: NotRequired[pulumi.Input[Sequence[pulumi.Input['MetricSpecArgsDict']]]]
+        """
+        metrics contains the specifications for which to use to calculate the desired replica count (the maximum replica count across all metrics will be used).  The desired replica count is calculated multiplying the ratio between the target value and the current value by the current number of pods.  Ergo, metrics used must decrease as the pod count is increased, and vice-versa.  See the individual metric source types for more information about how each type of metric must respond. If not set, the default metric will be set to 80% average CPU utilization.
+        """
+        min_replicas: NotRequired[pulumi.Input[int]]
+        """
+        minReplicas is the lower limit for the number of replicas to which the autoscaler can scale down.  It defaults to 1 pod.  minReplicas is allowed to be 0 if the alpha feature gate HPAScaleToZero is enabled and at least one Object or External metric is configured.  Scaling is active as long as at least one metric value is available.
+        """
+elif False:
+    HorizontalPodAutoscalerSpecArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class HorizontalPodAutoscalerSpecArgs:
     def __init__(__self__, *,
@@ -1009,6 +1402,38 @@ class HorizontalPodAutoscalerSpecArgs:
     def min_replicas(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "min_replicas", value)
 
+
+if not MYPY:
+    class HorizontalPodAutoscalerStatusArgsDict(TypedDict):
+        """
+        HorizontalPodAutoscalerStatus describes the current status of a horizontal pod autoscaler.
+        """
+        conditions: pulumi.Input[Sequence[pulumi.Input['HorizontalPodAutoscalerConditionArgsDict']]]
+        """
+        conditions is the set of conditions required for this autoscaler to scale its target, and indicates whether or not those conditions are met.
+        """
+        current_replicas: pulumi.Input[int]
+        """
+        currentReplicas is current number of replicas of pods managed by this autoscaler, as last seen by the autoscaler.
+        """
+        desired_replicas: pulumi.Input[int]
+        """
+        desiredReplicas is the desired number of replicas of pods managed by this autoscaler, as last calculated by the autoscaler.
+        """
+        current_metrics: NotRequired[pulumi.Input[Sequence[pulumi.Input['MetricStatusArgsDict']]]]
+        """
+        currentMetrics is the last read state of the metrics used by this autoscaler.
+        """
+        last_scale_time: NotRequired[pulumi.Input[str]]
+        """
+        lastScaleTime is the last time the HorizontalPodAutoscaler scaled the number of pods, used by the autoscaler to control how often the number of pods is changed.
+        """
+        observed_generation: NotRequired[pulumi.Input[int]]
+        """
+        observedGeneration is the most recent generation observed by this autoscaler.
+        """
+elif False:
+    HorizontalPodAutoscalerStatusArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class HorizontalPodAutoscalerStatusArgs:
@@ -1111,6 +1536,34 @@ class HorizontalPodAutoscalerStatusArgs:
         pulumi.set(self, "observed_generation", value)
 
 
+if not MYPY:
+    class HorizontalPodAutoscalerArgsDict(TypedDict):
+        """
+        HorizontalPodAutoscaler is the configuration for a horizontal pod autoscaler, which automatically manages the replica count of any resource implementing the scale subresource based on the metrics specified.
+        """
+        api_version: NotRequired[pulumi.Input[str]]
+        """
+        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        """
+        kind: NotRequired[pulumi.Input[str]]
+        """
+        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        """
+        metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
+        """
+        metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        """
+        spec: NotRequired[pulumi.Input['HorizontalPodAutoscalerSpecArgsDict']]
+        """
+        spec is the specification for the behaviour of the autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
+        """
+        status: NotRequired[pulumi.Input['HorizontalPodAutoscalerStatusArgsDict']]
+        """
+        status is the current information about the autoscaler.
+        """
+elif False:
+    HorizontalPodAutoscalerArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class HorizontalPodAutoscalerArgs:
     def __init__(__self__, *,
@@ -1199,6 +1652,22 @@ class HorizontalPodAutoscalerArgs:
         pulumi.set(self, "status", value)
 
 
+if not MYPY:
+    class MetricIdentifierPatchArgsDict(TypedDict):
+        """
+        MetricIdentifier defines the name and optionally selector for a metric
+        """
+        name: NotRequired[pulumi.Input[str]]
+        """
+        name is the name of the given metric
+        """
+        selector: NotRequired[pulumi.Input['_meta.v1.LabelSelectorPatchArgsDict']]
+        """
+        selector is the string-encoded form of a standard kubernetes label selector for the given metric When set, it is passed as an additional parameter to the metrics server for more specific metrics scoping. When unset, just the metricName will be used to gather metrics.
+        """
+elif False:
+    MetricIdentifierPatchArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class MetricIdentifierPatchArgs:
     def __init__(__self__, *,
@@ -1239,6 +1708,22 @@ class MetricIdentifierPatchArgs:
         pulumi.set(self, "selector", value)
 
 
+if not MYPY:
+    class MetricIdentifierArgsDict(TypedDict):
+        """
+        MetricIdentifier defines the name and optionally selector for a metric
+        """
+        name: pulumi.Input[str]
+        """
+        name is the name of the given metric
+        """
+        selector: NotRequired[pulumi.Input['_meta.v1.LabelSelectorArgsDict']]
+        """
+        selector is the string-encoded form of a standard kubernetes label selector for the given metric When set, it is passed as an additional parameter to the metrics server for more specific metrics scoping. When unset, just the metricName will be used to gather metrics.
+        """
+elif False:
+    MetricIdentifierArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class MetricIdentifierArgs:
     def __init__(__self__, *,
@@ -1277,6 +1762,38 @@ class MetricIdentifierArgs:
     def selector(self, value: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']]):
         pulumi.set(self, "selector", value)
 
+
+if not MYPY:
+    class MetricSpecPatchArgsDict(TypedDict):
+        """
+        MetricSpec specifies how to scale based on a single metric (only `type` and one other matching field should be set at once).
+        """
+        container_resource: NotRequired[pulumi.Input['ContainerResourceMetricSourcePatchArgsDict']]
+        """
+        container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod of the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source. This is an alpha feature and can be enabled by the HPAContainerMetrics feature flag.
+        """
+        external: NotRequired[pulumi.Input['ExternalMetricSourcePatchArgsDict']]
+        """
+        external refers to a global metric that is not associated with any Kubernetes object. It allows autoscaling based on information coming from components running outside of cluster (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
+        """
+        object: NotRequired[pulumi.Input['ObjectMetricSourcePatchArgsDict']]
+        """
+        object refers to a metric describing a single kubernetes object (for example, hits-per-second on an Ingress object).
+        """
+        pods: NotRequired[pulumi.Input['PodsMetricSourcePatchArgsDict']]
+        """
+        pods refers to a metric describing each pod in the current scale target (for example, transactions-processed-per-second).  The values will be averaged together before being compared to the target value.
+        """
+        resource: NotRequired[pulumi.Input['ResourceMetricSourcePatchArgsDict']]
+        """
+        resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
+        """
+        type: NotRequired[pulumi.Input[str]]
+        """
+        type is the type of metric source.  It should be one of "Object", "Pods" or "Resource", each mapping to a matching field in the object.
+        """
+elif False:
+    MetricSpecPatchArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class MetricSpecPatchArgs:
@@ -1382,6 +1899,38 @@ class MetricSpecPatchArgs:
         pulumi.set(self, "type", value)
 
 
+if not MYPY:
+    class MetricSpecArgsDict(TypedDict):
+        """
+        MetricSpec specifies how to scale based on a single metric (only `type` and one other matching field should be set at once).
+        """
+        type: pulumi.Input[str]
+        """
+        type is the type of metric source.  It should be one of "Object", "Pods" or "Resource", each mapping to a matching field in the object.
+        """
+        container_resource: NotRequired[pulumi.Input['ContainerResourceMetricSourceArgsDict']]
+        """
+        container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod of the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source. This is an alpha feature and can be enabled by the HPAContainerMetrics feature flag.
+        """
+        external: NotRequired[pulumi.Input['ExternalMetricSourceArgsDict']]
+        """
+        external refers to a global metric that is not associated with any Kubernetes object. It allows autoscaling based on information coming from components running outside of cluster (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
+        """
+        object: NotRequired[pulumi.Input['ObjectMetricSourceArgsDict']]
+        """
+        object refers to a metric describing a single kubernetes object (for example, hits-per-second on an Ingress object).
+        """
+        pods: NotRequired[pulumi.Input['PodsMetricSourceArgsDict']]
+        """
+        pods refers to a metric describing each pod in the current scale target (for example, transactions-processed-per-second).  The values will be averaged together before being compared to the target value.
+        """
+        resource: NotRequired[pulumi.Input['ResourceMetricSourceArgsDict']]
+        """
+        resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
+        """
+elif False:
+    MetricSpecArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class MetricSpecArgs:
     def __init__(__self__, *,
@@ -1484,6 +2033,38 @@ class MetricSpecArgs:
     def resource(self, value: Optional[pulumi.Input['ResourceMetricSourceArgs']]):
         pulumi.set(self, "resource", value)
 
+
+if not MYPY:
+    class MetricStatusArgsDict(TypedDict):
+        """
+        MetricStatus describes the last-read state of a single metric.
+        """
+        type: pulumi.Input[str]
+        """
+        type is the type of metric source.  It will be one of "Object", "Pods" or "Resource", each corresponds to a matching field in the object.
+        """
+        container_resource: NotRequired[pulumi.Input['ContainerResourceMetricStatusArgsDict']]
+        """
+        container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
+        """
+        external: NotRequired[pulumi.Input['ExternalMetricStatusArgsDict']]
+        """
+        external refers to a global metric that is not associated with any Kubernetes object. It allows autoscaling based on information coming from components running outside of cluster (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
+        """
+        object: NotRequired[pulumi.Input['ObjectMetricStatusArgsDict']]
+        """
+        object refers to a metric describing a single kubernetes object (for example, hits-per-second on an Ingress object).
+        """
+        pods: NotRequired[pulumi.Input['PodsMetricStatusArgsDict']]
+        """
+        pods refers to a metric describing each pod in the current scale target (for example, transactions-processed-per-second).  The values will be averaged together before being compared to the target value.
+        """
+        resource: NotRequired[pulumi.Input['ResourceMetricStatusArgsDict']]
+        """
+        resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
+        """
+elif False:
+    MetricStatusArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class MetricStatusArgs:
@@ -1588,6 +2169,30 @@ class MetricStatusArgs:
         pulumi.set(self, "resource", value)
 
 
+if not MYPY:
+    class MetricTargetPatchArgsDict(TypedDict):
+        """
+        MetricTarget defines the target value, average value, or average utilization of a specific metric
+        """
+        average_utilization: NotRequired[pulumi.Input[int]]
+        """
+        averageUtilization is the target value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods. Currently only valid for Resource metric source type
+        """
+        average_value: NotRequired[pulumi.Input[str]]
+        """
+        averageValue is the target value of the average of the metric across all relevant pods (as a quantity)
+        """
+        type: NotRequired[pulumi.Input[str]]
+        """
+        type represents whether the metric type is Utilization, Value, or AverageValue
+        """
+        value: NotRequired[pulumi.Input[str]]
+        """
+        value is the target value of the metric (as a quantity).
+        """
+elif False:
+    MetricTargetPatchArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class MetricTargetPatchArgs:
     def __init__(__self__, *,
@@ -1660,6 +2265,30 @@ class MetricTargetPatchArgs:
         pulumi.set(self, "value", value)
 
 
+if not MYPY:
+    class MetricTargetArgsDict(TypedDict):
+        """
+        MetricTarget defines the target value, average value, or average utilization of a specific metric
+        """
+        type: pulumi.Input[str]
+        """
+        type represents whether the metric type is Utilization, Value, or AverageValue
+        """
+        average_utilization: NotRequired[pulumi.Input[int]]
+        """
+        averageUtilization is the target value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods. Currently only valid for Resource metric source type
+        """
+        average_value: NotRequired[pulumi.Input[str]]
+        """
+        averageValue is the target value of the average of the metric across all relevant pods (as a quantity)
+        """
+        value: NotRequired[pulumi.Input[str]]
+        """
+        value is the target value of the metric (as a quantity).
+        """
+elif False:
+    MetricTargetArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class MetricTargetArgs:
     def __init__(__self__, *,
@@ -1731,6 +2360,26 @@ class MetricTargetArgs:
         pulumi.set(self, "value", value)
 
 
+if not MYPY:
+    class MetricValueStatusArgsDict(TypedDict):
+        """
+        MetricValueStatus holds the current value for a metric
+        """
+        average_utilization: NotRequired[pulumi.Input[int]]
+        """
+        currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
+        """
+        average_value: NotRequired[pulumi.Input[str]]
+        """
+        averageValue is the current value of the average of the metric across all relevant pods (as a quantity)
+        """
+        value: NotRequired[pulumi.Input[str]]
+        """
+        value is the current value of the metric (as a quantity).
+        """
+elif False:
+    MetricValueStatusArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class MetricValueStatusArgs:
     def __init__(__self__, *,
@@ -1787,6 +2436,23 @@ class MetricValueStatusArgs:
         pulumi.set(self, "value", value)
 
 
+if not MYPY:
+    class ObjectMetricSourcePatchArgsDict(TypedDict):
+        """
+        ObjectMetricSource indicates how to scale on a metric describing a kubernetes object (for example, hits-per-second on an Ingress object).
+        """
+        described_object: NotRequired[pulumi.Input['CrossVersionObjectReferencePatchArgsDict']]
+        metric: NotRequired[pulumi.Input['MetricIdentifierPatchArgsDict']]
+        """
+        metric identifies the target metric by name and selector
+        """
+        target: NotRequired[pulumi.Input['MetricTargetPatchArgsDict']]
+        """
+        target specifies the target value for the given metric
+        """
+elif False:
+    ObjectMetricSourcePatchArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class ObjectMetricSourcePatchArgs:
     def __init__(__self__, *,
@@ -1839,6 +2505,23 @@ class ObjectMetricSourcePatchArgs:
         pulumi.set(self, "target", value)
 
 
+if not MYPY:
+    class ObjectMetricSourceArgsDict(TypedDict):
+        """
+        ObjectMetricSource indicates how to scale on a metric describing a kubernetes object (for example, hits-per-second on an Ingress object).
+        """
+        described_object: pulumi.Input['CrossVersionObjectReferenceArgsDict']
+        metric: pulumi.Input['MetricIdentifierArgsDict']
+        """
+        metric identifies the target metric by name and selector
+        """
+        target: pulumi.Input['MetricTargetArgsDict']
+        """
+        target specifies the target value for the given metric
+        """
+elif False:
+    ObjectMetricSourceArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class ObjectMetricSourceArgs:
     def __init__(__self__, *,
@@ -1887,6 +2570,23 @@ class ObjectMetricSourceArgs:
     def target(self, value: pulumi.Input['MetricTargetArgs']):
         pulumi.set(self, "target", value)
 
+
+if not MYPY:
+    class ObjectMetricStatusArgsDict(TypedDict):
+        """
+        ObjectMetricStatus indicates the current value of a metric describing a kubernetes object (for example, hits-per-second on an Ingress object).
+        """
+        current: pulumi.Input['MetricValueStatusArgsDict']
+        """
+        current contains the current value for the given metric
+        """
+        described_object: pulumi.Input['CrossVersionObjectReferenceArgsDict']
+        metric: pulumi.Input['MetricIdentifierArgsDict']
+        """
+        metric identifies the target metric by name and selector
+        """
+elif False:
+    ObjectMetricStatusArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class ObjectMetricStatusArgs:
@@ -1937,6 +2637,22 @@ class ObjectMetricStatusArgs:
         pulumi.set(self, "metric", value)
 
 
+if not MYPY:
+    class PodsMetricSourcePatchArgsDict(TypedDict):
+        """
+        PodsMetricSource indicates how to scale on a metric describing each pod in the current scale target (for example, transactions-processed-per-second). The values will be averaged together before being compared to the target value.
+        """
+        metric: NotRequired[pulumi.Input['MetricIdentifierPatchArgsDict']]
+        """
+        metric identifies the target metric by name and selector
+        """
+        target: NotRequired[pulumi.Input['MetricTargetPatchArgsDict']]
+        """
+        target specifies the target value for the given metric
+        """
+elif False:
+    PodsMetricSourcePatchArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class PodsMetricSourcePatchArgs:
     def __init__(__self__, *,
@@ -1977,6 +2693,22 @@ class PodsMetricSourcePatchArgs:
         pulumi.set(self, "target", value)
 
 
+if not MYPY:
+    class PodsMetricSourceArgsDict(TypedDict):
+        """
+        PodsMetricSource indicates how to scale on a metric describing each pod in the current scale target (for example, transactions-processed-per-second). The values will be averaged together before being compared to the target value.
+        """
+        metric: pulumi.Input['MetricIdentifierArgsDict']
+        """
+        metric identifies the target metric by name and selector
+        """
+        target: pulumi.Input['MetricTargetArgsDict']
+        """
+        target specifies the target value for the given metric
+        """
+elif False:
+    PodsMetricSourceArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class PodsMetricSourceArgs:
     def __init__(__self__, *,
@@ -2015,6 +2747,22 @@ class PodsMetricSourceArgs:
         pulumi.set(self, "target", value)
 
 
+if not MYPY:
+    class PodsMetricStatusArgsDict(TypedDict):
+        """
+        PodsMetricStatus indicates the current value of a metric describing each pod in the current scale target (for example, transactions-processed-per-second).
+        """
+        current: pulumi.Input['MetricValueStatusArgsDict']
+        """
+        current contains the current value for the given metric
+        """
+        metric: pulumi.Input['MetricIdentifierArgsDict']
+        """
+        metric identifies the target metric by name and selector
+        """
+elif False:
+    PodsMetricStatusArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class PodsMetricStatusArgs:
     def __init__(__self__, *,
@@ -2052,6 +2800,22 @@ class PodsMetricStatusArgs:
     def metric(self, value: pulumi.Input['MetricIdentifierArgs']):
         pulumi.set(self, "metric", value)
 
+
+if not MYPY:
+    class ResourceMetricSourcePatchArgsDict(TypedDict):
+        """
+        ResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  The values will be averaged together before being compared to the target.  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.  Only one "target" type should be set.
+        """
+        name: NotRequired[pulumi.Input[str]]
+        """
+        name is the name of the resource in question.
+        """
+        target: NotRequired[pulumi.Input['MetricTargetPatchArgsDict']]
+        """
+        target specifies the target value for the given metric
+        """
+elif False:
+    ResourceMetricSourcePatchArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class ResourceMetricSourcePatchArgs:
@@ -2093,6 +2857,22 @@ class ResourceMetricSourcePatchArgs:
         pulumi.set(self, "target", value)
 
 
+if not MYPY:
+    class ResourceMetricSourceArgsDict(TypedDict):
+        """
+        ResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  The values will be averaged together before being compared to the target.  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.  Only one "target" type should be set.
+        """
+        name: pulumi.Input[str]
+        """
+        name is the name of the resource in question.
+        """
+        target: pulumi.Input['MetricTargetArgsDict']
+        """
+        target specifies the target value for the given metric
+        """
+elif False:
+    ResourceMetricSourceArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class ResourceMetricSourceArgs:
     def __init__(__self__, *,
@@ -2130,6 +2910,22 @@ class ResourceMetricSourceArgs:
     def target(self, value: pulumi.Input['MetricTargetArgs']):
         pulumi.set(self, "target", value)
 
+
+if not MYPY:
+    class ResourceMetricStatusArgsDict(TypedDict):
+        """
+        ResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
+        """
+        current: pulumi.Input['MetricValueStatusArgsDict']
+        """
+        current contains the current value for the given metric
+        """
+        name: pulumi.Input[str]
+        """
+        Name is the name of the resource in question.
+        """
+elif False:
+    ResourceMetricStatusArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class ResourceMetricStatusArgs:

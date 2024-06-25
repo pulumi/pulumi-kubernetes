@@ -4,34 +4,84 @@
 
 import copy
 import warnings
+import sys
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
+if sys.version_info >= (3, 11):
+    from typing import NotRequired, TypedDict, TypeAlias
+else:
+    from typing_extensions import NotRequired, TypedDict, TypeAlias
 from ... import _utilities
 from ... import core as _core
 from ... import meta as _meta
 
 __all__ = [
     'AllocationResultArgs',
+    'AllocationResultArgsDict',
     'PodSchedulingSpecPatchArgs',
+    'PodSchedulingSpecPatchArgsDict',
     'PodSchedulingSpecArgs',
+    'PodSchedulingSpecArgsDict',
     'PodSchedulingStatusArgs',
+    'PodSchedulingStatusArgsDict',
     'PodSchedulingArgs',
+    'PodSchedulingArgsDict',
     'ResourceClaimConsumerReferenceArgs',
+    'ResourceClaimConsumerReferenceArgsDict',
     'ResourceClaimParametersReferencePatchArgs',
+    'ResourceClaimParametersReferencePatchArgsDict',
     'ResourceClaimParametersReferenceArgs',
+    'ResourceClaimParametersReferenceArgsDict',
     'ResourceClaimSchedulingStatusArgs',
+    'ResourceClaimSchedulingStatusArgsDict',
     'ResourceClaimSpecPatchArgs',
+    'ResourceClaimSpecPatchArgsDict',
     'ResourceClaimSpecArgs',
+    'ResourceClaimSpecArgsDict',
     'ResourceClaimStatusArgs',
+    'ResourceClaimStatusArgsDict',
     'ResourceClaimTemplateSpecPatchArgs',
+    'ResourceClaimTemplateSpecPatchArgsDict',
     'ResourceClaimTemplateSpecArgs',
+    'ResourceClaimTemplateSpecArgsDict',
     'ResourceClaimTemplateArgs',
+    'ResourceClaimTemplateArgsDict',
     'ResourceClaimArgs',
+    'ResourceClaimArgsDict',
     'ResourceClassParametersReferencePatchArgs',
+    'ResourceClassParametersReferencePatchArgsDict',
     'ResourceClassParametersReferenceArgs',
+    'ResourceClassParametersReferenceArgsDict',
     'ResourceClassArgs',
+    'ResourceClassArgsDict',
 ]
+
+MYPY = False
+
+if not MYPY:
+    class AllocationResultArgsDict(TypedDict):
+        """
+        AllocationResult contains attributed of an allocated resource.
+        """
+        available_on_nodes: NotRequired[pulumi.Input['_core.v1.NodeSelectorArgsDict']]
+        """
+        This field will get set by the resource driver after it has allocated the resource driver to inform the scheduler where it can schedule Pods using the ResourceClaim.
+
+        Setting this field is optional. If null, the resource is available everywhere.
+        """
+        resource_handle: NotRequired[pulumi.Input[str]]
+        """
+        ResourceHandle contains arbitrary data returned by the driver after a successful allocation. This is opaque for Kubernetes. Driver documentation may explain to users how to interpret this data if needed.
+
+        The maximum size of this field is 16KiB. This may get increased in the future, but not reduced.
+        """
+        shareable: NotRequired[pulumi.Input[bool]]
+        """
+        Shareable determines whether the resource supports more than one consumer at a time.
+        """
+elif False:
+    AllocationResultArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class AllocationResultArgs:
@@ -97,6 +147,24 @@ class AllocationResultArgs:
         pulumi.set(self, "shareable", value)
 
 
+if not MYPY:
+    class PodSchedulingSpecPatchArgsDict(TypedDict):
+        """
+        PodSchedulingSpec describes where resources for the Pod are needed.
+        """
+        potential_nodes: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
+        """
+        PotentialNodes lists nodes where the Pod might be able to run.
+
+        The size of this field is limited to 128. This is large enough for many clusters. Larger clusters may need more attempts to find a node that suits all pending resources. This may get increased in the future, but not reduced.
+        """
+        selected_node: NotRequired[pulumi.Input[str]]
+        """
+        SelectedNode is the node for which allocation of ResourceClaims that are referenced by the Pod and that use "WaitForFirstConsumer" allocation is to be attempted.
+        """
+elif False:
+    PodSchedulingSpecPatchArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class PodSchedulingSpecPatchArgs:
     def __init__(__self__, *,
@@ -140,6 +208,24 @@ class PodSchedulingSpecPatchArgs:
     def selected_node(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "selected_node", value)
 
+
+if not MYPY:
+    class PodSchedulingSpecArgsDict(TypedDict):
+        """
+        PodSchedulingSpec describes where resources for the Pod are needed.
+        """
+        potential_nodes: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
+        """
+        PotentialNodes lists nodes where the Pod might be able to run.
+
+        The size of this field is limited to 128. This is large enough for many clusters. Larger clusters may need more attempts to find a node that suits all pending resources. This may get increased in the future, but not reduced.
+        """
+        selected_node: NotRequired[pulumi.Input[str]]
+        """
+        SelectedNode is the node for which allocation of ResourceClaims that are referenced by the Pod and that use "WaitForFirstConsumer" allocation is to be attempted.
+        """
+elif False:
+    PodSchedulingSpecArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class PodSchedulingSpecArgs:
@@ -185,6 +271,18 @@ class PodSchedulingSpecArgs:
         pulumi.set(self, "selected_node", value)
 
 
+if not MYPY:
+    class PodSchedulingStatusArgsDict(TypedDict):
+        """
+        PodSchedulingStatus describes where resources for the Pod can be allocated.
+        """
+        resource_claims: NotRequired[pulumi.Input[Sequence[pulumi.Input['ResourceClaimSchedulingStatusArgsDict']]]]
+        """
+        ResourceClaims describes resource availability for each pod.spec.resourceClaim entry where the corresponding ResourceClaim uses "WaitForFirstConsumer" allocation mode.
+        """
+elif False:
+    PodSchedulingStatusArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class PodSchedulingStatusArgs:
     def __init__(__self__, *,
@@ -208,6 +306,36 @@ class PodSchedulingStatusArgs:
     def resource_claims(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['ResourceClaimSchedulingStatusArgs']]]]):
         pulumi.set(self, "resource_claims", value)
 
+
+if not MYPY:
+    class PodSchedulingArgsDict(TypedDict):
+        """
+        PodScheduling objects hold information that is needed to schedule a Pod with ResourceClaims that use "WaitForFirstConsumer" allocation mode.
+
+        This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
+        """
+        spec: pulumi.Input['PodSchedulingSpecArgsDict']
+        """
+        Spec describes where resources for the Pod are needed.
+        """
+        api_version: NotRequired[pulumi.Input[str]]
+        """
+        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        """
+        kind: NotRequired[pulumi.Input[str]]
+        """
+        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        """
+        metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
+        """
+        Standard object metadata
+        """
+        status: NotRequired[pulumi.Input['PodSchedulingStatusArgsDict']]
+        """
+        Status describes where resources for the Pod can be allocated.
+        """
+elif False:
+    PodSchedulingArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class PodSchedulingArgs:
@@ -298,6 +426,30 @@ class PodSchedulingArgs:
         pulumi.set(self, "status", value)
 
 
+if not MYPY:
+    class ResourceClaimConsumerReferenceArgsDict(TypedDict):
+        """
+        ResourceClaimConsumerReference contains enough information to let you locate the consumer of a ResourceClaim. The user must be a resource in the same namespace as the ResourceClaim.
+        """
+        name: pulumi.Input[str]
+        """
+        Name is the name of resource being referenced.
+        """
+        resource: pulumi.Input[str]
+        """
+        Resource is the type of resource being referenced, for example "pods".
+        """
+        uid: pulumi.Input[str]
+        """
+        UID identifies exactly one incarnation of the resource.
+        """
+        api_group: NotRequired[pulumi.Input[str]]
+        """
+        APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
+        """
+elif False:
+    ResourceClaimConsumerReferenceArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class ResourceClaimConsumerReferenceArgs:
     def __init__(__self__, *,
@@ -367,6 +519,26 @@ class ResourceClaimConsumerReferenceArgs:
         pulumi.set(self, "api_group", value)
 
 
+if not MYPY:
+    class ResourceClaimParametersReferencePatchArgsDict(TypedDict):
+        """
+        ResourceClaimParametersReference contains enough information to let you locate the parameters for a ResourceClaim. The object must be in the same namespace as the ResourceClaim.
+        """
+        api_group: NotRequired[pulumi.Input[str]]
+        """
+        APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
+        """
+        kind: NotRequired[pulumi.Input[str]]
+        """
+        Kind is the type of resource being referenced. This is the same value as in the parameter object's metadata, for example "ConfigMap".
+        """
+        name: NotRequired[pulumi.Input[str]]
+        """
+        Name is the name of resource being referenced.
+        """
+elif False:
+    ResourceClaimParametersReferencePatchArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class ResourceClaimParametersReferencePatchArgs:
     def __init__(__self__, *,
@@ -423,6 +595,26 @@ class ResourceClaimParametersReferencePatchArgs:
         pulumi.set(self, "name", value)
 
 
+if not MYPY:
+    class ResourceClaimParametersReferenceArgsDict(TypedDict):
+        """
+        ResourceClaimParametersReference contains enough information to let you locate the parameters for a ResourceClaim. The object must be in the same namespace as the ResourceClaim.
+        """
+        kind: pulumi.Input[str]
+        """
+        Kind is the type of resource being referenced. This is the same value as in the parameter object's metadata, for example "ConfigMap".
+        """
+        name: pulumi.Input[str]
+        """
+        Name is the name of resource being referenced.
+        """
+        api_group: NotRequired[pulumi.Input[str]]
+        """
+        APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
+        """
+elif False:
+    ResourceClaimParametersReferenceArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class ResourceClaimParametersReferenceArgs:
     def __init__(__self__, *,
@@ -477,6 +669,24 @@ class ResourceClaimParametersReferenceArgs:
         pulumi.set(self, "api_group", value)
 
 
+if not MYPY:
+    class ResourceClaimSchedulingStatusArgsDict(TypedDict):
+        """
+        ResourceClaimSchedulingStatus contains information about one particular ResourceClaim with "WaitForFirstConsumer" allocation mode.
+        """
+        name: NotRequired[pulumi.Input[str]]
+        """
+        Name matches the pod.spec.resourceClaims[*].Name field.
+        """
+        unsuitable_nodes: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
+        """
+        UnsuitableNodes lists nodes that the ResourceClaim cannot be allocated for.
+
+        The size of this field is limited to 128, the same as for PodSchedulingSpec.PotentialNodes. This may get increased in the future, but not reduced.
+        """
+elif False:
+    ResourceClaimSchedulingStatusArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class ResourceClaimSchedulingStatusArgs:
     def __init__(__self__, *,
@@ -520,6 +730,28 @@ class ResourceClaimSchedulingStatusArgs:
     def unsuitable_nodes(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
         pulumi.set(self, "unsuitable_nodes", value)
 
+
+if not MYPY:
+    class ResourceClaimSpecPatchArgsDict(TypedDict):
+        """
+        ResourceClaimSpec defines how a resource is to be allocated.
+        """
+        allocation_mode: NotRequired[pulumi.Input[str]]
+        """
+        Allocation can start immediately or when a Pod wants to use the resource. "WaitForFirstConsumer" is the default.
+        """
+        parameters_ref: NotRequired[pulumi.Input['ResourceClaimParametersReferencePatchArgsDict']]
+        """
+        ParametersRef references a separate object with arbitrary parameters that will be used by the driver when allocating a resource for the claim.
+
+        The object must be in the same namespace as the ResourceClaim.
+        """
+        resource_class_name: NotRequired[pulumi.Input[str]]
+        """
+        ResourceClassName references the driver and additional parameters via the name of a ResourceClass that was created as part of the driver deployment.
+        """
+elif False:
+    ResourceClaimSpecPatchArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class ResourceClaimSpecPatchArgs:
@@ -581,6 +813,28 @@ class ResourceClaimSpecPatchArgs:
         pulumi.set(self, "resource_class_name", value)
 
 
+if not MYPY:
+    class ResourceClaimSpecArgsDict(TypedDict):
+        """
+        ResourceClaimSpec defines how a resource is to be allocated.
+        """
+        resource_class_name: pulumi.Input[str]
+        """
+        ResourceClassName references the driver and additional parameters via the name of a ResourceClass that was created as part of the driver deployment.
+        """
+        allocation_mode: NotRequired[pulumi.Input[str]]
+        """
+        Allocation can start immediately or when a Pod wants to use the resource. "WaitForFirstConsumer" is the default.
+        """
+        parameters_ref: NotRequired[pulumi.Input['ResourceClaimParametersReferenceArgsDict']]
+        """
+        ParametersRef references a separate object with arbitrary parameters that will be used by the driver when allocating a resource for the claim.
+
+        The object must be in the same namespace as the ResourceClaim.
+        """
+elif False:
+    ResourceClaimSpecArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class ResourceClaimSpecArgs:
     def __init__(__self__, *,
@@ -639,6 +893,36 @@ class ResourceClaimSpecArgs:
     def parameters_ref(self, value: Optional[pulumi.Input['ResourceClaimParametersReferenceArgs']]):
         pulumi.set(self, "parameters_ref", value)
 
+
+if not MYPY:
+    class ResourceClaimStatusArgsDict(TypedDict):
+        """
+        ResourceClaimStatus tracks whether the resource has been allocated and what the resulting attributes are.
+        """
+        allocation: NotRequired[pulumi.Input['AllocationResultArgsDict']]
+        """
+        Allocation is set by the resource driver once a resource has been allocated successfully. If this is not specified, the resource is not yet allocated.
+        """
+        deallocation_requested: NotRequired[pulumi.Input[bool]]
+        """
+        DeallocationRequested indicates that a ResourceClaim is to be deallocated.
+
+        The driver then must deallocate this claim and reset the field together with clearing the Allocation field.
+
+        While DeallocationRequested is set, no new consumers may be added to ReservedFor.
+        """
+        driver_name: NotRequired[pulumi.Input[str]]
+        """
+        DriverName is a copy of the driver name from the ResourceClass at the time when allocation started.
+        """
+        reserved_for: NotRequired[pulumi.Input[Sequence[pulumi.Input['ResourceClaimConsumerReferenceArgsDict']]]]
+        """
+        ReservedFor indicates which entities are currently allowed to use the claim. A Pod which references a ResourceClaim which is not reserved for that Pod will not be started.
+
+        There can be at most 32 such reservations. This may get increased in the future, but not reduced.
+        """
+elif False:
+    ResourceClaimStatusArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class ResourceClaimStatusArgs:
@@ -724,6 +1008,22 @@ class ResourceClaimStatusArgs:
         pulumi.set(self, "reserved_for", value)
 
 
+if not MYPY:
+    class ResourceClaimTemplateSpecPatchArgsDict(TypedDict):
+        """
+        ResourceClaimTemplateSpec contains the metadata and fields for a ResourceClaim.
+        """
+        metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaPatchArgsDict']]
+        """
+        ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
+        """
+        spec: NotRequired[pulumi.Input['ResourceClaimSpecPatchArgsDict']]
+        """
+        Spec for the ResourceClaim. The entire content is copied unchanged into the ResourceClaim that gets created from this template. The same fields as in a ResourceClaim are also valid here.
+        """
+elif False:
+    ResourceClaimTemplateSpecPatchArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class ResourceClaimTemplateSpecPatchArgs:
     def __init__(__self__, *,
@@ -764,6 +1064,22 @@ class ResourceClaimTemplateSpecPatchArgs:
         pulumi.set(self, "spec", value)
 
 
+if not MYPY:
+    class ResourceClaimTemplateSpecArgsDict(TypedDict):
+        """
+        ResourceClaimTemplateSpec contains the metadata and fields for a ResourceClaim.
+        """
+        spec: pulumi.Input['ResourceClaimSpecArgsDict']
+        """
+        Spec for the ResourceClaim. The entire content is copied unchanged into the ResourceClaim that gets created from this template. The same fields as in a ResourceClaim are also valid here.
+        """
+        metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
+        """
+        ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
+        """
+elif False:
+    ResourceClaimTemplateSpecArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class ResourceClaimTemplateSpecArgs:
     def __init__(__self__, *,
@@ -802,6 +1118,32 @@ class ResourceClaimTemplateSpecArgs:
     def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
         pulumi.set(self, "metadata", value)
 
+
+if not MYPY:
+    class ResourceClaimTemplateArgsDict(TypedDict):
+        """
+        ResourceClaimTemplate is used to produce ResourceClaim objects.
+        """
+        spec: pulumi.Input['ResourceClaimTemplateSpecArgsDict']
+        """
+        Describes the ResourceClaim that is to be generated.
+
+        This field is immutable. A ResourceClaim will get created by the control plane for a Pod when needed and then not get updated anymore.
+        """
+        api_version: NotRequired[pulumi.Input[str]]
+        """
+        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        """
+        kind: NotRequired[pulumi.Input[str]]
+        """
+        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        """
+        metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
+        """
+        Standard object metadata
+        """
+elif False:
+    ResourceClaimTemplateArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class ResourceClaimTemplateArgs:
@@ -877,6 +1219,36 @@ class ResourceClaimTemplateArgs:
     def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
         pulumi.set(self, "metadata", value)
 
+
+if not MYPY:
+    class ResourceClaimArgsDict(TypedDict):
+        """
+        ResourceClaim describes which resources are needed by a resource consumer. Its status tracks whether the resource has been allocated and what the resulting attributes are.
+
+        This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
+        """
+        spec: pulumi.Input['ResourceClaimSpecArgsDict']
+        """
+        Spec describes the desired attributes of a resource that then needs to be allocated. It can only be set once when creating the ResourceClaim.
+        """
+        api_version: NotRequired[pulumi.Input[str]]
+        """
+        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        """
+        kind: NotRequired[pulumi.Input[str]]
+        """
+        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        """
+        metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
+        """
+        Standard object metadata
+        """
+        status: NotRequired[pulumi.Input['ResourceClaimStatusArgsDict']]
+        """
+        Status describes whether the resource is available and with which attributes.
+        """
+elif False:
+    ResourceClaimArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class ResourceClaimArgs:
@@ -967,6 +1339,30 @@ class ResourceClaimArgs:
         pulumi.set(self, "status", value)
 
 
+if not MYPY:
+    class ResourceClassParametersReferencePatchArgsDict(TypedDict):
+        """
+        ResourceClassParametersReference contains enough information to let you locate the parameters for a ResourceClass.
+        """
+        api_group: NotRequired[pulumi.Input[str]]
+        """
+        APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
+        """
+        kind: NotRequired[pulumi.Input[str]]
+        """
+        Kind is the type of resource being referenced. This is the same value as in the parameter object's metadata.
+        """
+        name: NotRequired[pulumi.Input[str]]
+        """
+        Name is the name of resource being referenced.
+        """
+        namespace: NotRequired[pulumi.Input[str]]
+        """
+        Namespace that contains the referenced resource. Must be empty for cluster-scoped resources and non-empty for namespaced resources.
+        """
+elif False:
+    ResourceClassParametersReferencePatchArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class ResourceClassParametersReferencePatchArgs:
     def __init__(__self__, *,
@@ -1039,6 +1435,30 @@ class ResourceClassParametersReferencePatchArgs:
         pulumi.set(self, "namespace", value)
 
 
+if not MYPY:
+    class ResourceClassParametersReferenceArgsDict(TypedDict):
+        """
+        ResourceClassParametersReference contains enough information to let you locate the parameters for a ResourceClass.
+        """
+        kind: pulumi.Input[str]
+        """
+        Kind is the type of resource being referenced. This is the same value as in the parameter object's metadata.
+        """
+        name: pulumi.Input[str]
+        """
+        Name is the name of resource being referenced.
+        """
+        api_group: NotRequired[pulumi.Input[str]]
+        """
+        APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
+        """
+        namespace: NotRequired[pulumi.Input[str]]
+        """
+        Namespace that contains the referenced resource. Must be empty for cluster-scoped resources and non-empty for namespaced resources.
+        """
+elif False:
+    ResourceClassParametersReferenceArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class ResourceClassParametersReferenceArgs:
     def __init__(__self__, *,
@@ -1108,6 +1528,44 @@ class ResourceClassParametersReferenceArgs:
     def namespace(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "namespace", value)
 
+
+if not MYPY:
+    class ResourceClassArgsDict(TypedDict):
+        """
+        ResourceClass is used by administrators to influence how resources are allocated.
+
+        This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
+        """
+        driver_name: pulumi.Input[str]
+        """
+        DriverName defines the name of the dynamic resource driver that is used for allocation of a ResourceClaim that uses this class.
+
+        Resource drivers have a unique name in forward domain order (acme.example.com).
+        """
+        api_version: NotRequired[pulumi.Input[str]]
+        """
+        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        """
+        kind: NotRequired[pulumi.Input[str]]
+        """
+        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        """
+        metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
+        """
+        Standard object metadata
+        """
+        parameters_ref: NotRequired[pulumi.Input['ResourceClassParametersReferenceArgsDict']]
+        """
+        ParametersRef references an arbitrary separate object that may hold parameters that will be used by the driver when allocating a resource that uses this class. A dynamic resource driver can distinguish between parameters stored here and and those stored in ResourceClaimSpec.
+        """
+        suitable_nodes: NotRequired[pulumi.Input['_core.v1.NodeSelectorArgsDict']]
+        """
+        Only nodes matching the selector will be considered by the scheduler when trying to find a Node that fits a Pod when that Pod uses a ResourceClaim that has not been allocated yet.
+
+        Setting this field is optional. If null, all nodes are candidates.
+        """
+elif False:
+    ResourceClassArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class ResourceClassArgs:

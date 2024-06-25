@@ -4,9 +4,14 @@
 
 import copy
 import warnings
+import sys
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
+if sys.version_info >= (3, 11):
+    from typing import NotRequired, TypedDict, TypeAlias
+else:
+    from typing_extensions import NotRequired, TypedDict, TypeAlias
 from ... import _utilities
 from . import outputs
 from ... import meta as _meta
@@ -109,9 +114,9 @@ class RoleBindingPatch(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: Optional[pulumi.Input[str]] = None,
                  kind: Optional[pulumi.Input[str]] = None,
-                 metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaPatchArgs']]] = None,
-                 role_ref: Optional[pulumi.Input[pulumi.InputType['RoleRefPatchArgs']]] = None,
-                 subjects: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['SubjectPatchArgs']]]]] = None,
+                 metadata: Optional[pulumi.Input[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict']]] = None,
+                 role_ref: Optional[pulumi.Input[Union['RoleRefPatchArgs', 'RoleRefPatchArgsDict']]] = None,
+                 subjects: Optional[pulumi.Input[Sequence[pulumi.Input[Union['SubjectPatchArgs', 'SubjectPatchArgsDict']]]]] = None,
                  __props__=None):
         """
         Patch resources are used to modify existing Kubernetes resources by using
@@ -126,9 +131,9 @@ class RoleBindingPatch(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaPatchArgs']] metadata: Standard object's metadata.
-        :param pulumi.Input[pulumi.InputType['RoleRefPatchArgs']] role_ref: RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
-        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['SubjectPatchArgs']]]] subjects: Subjects holds references to the objects the role applies to.
+        :param pulumi.Input[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict']] metadata: Standard object's metadata.
+        :param pulumi.Input[Union['RoleRefPatchArgs', 'RoleRefPatchArgsDict']] role_ref: RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['SubjectPatchArgs', 'SubjectPatchArgsDict']]]] subjects: Subjects holds references to the objects the role applies to.
         """
         ...
     @overload
@@ -162,9 +167,9 @@ class RoleBindingPatch(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: Optional[pulumi.Input[str]] = None,
                  kind: Optional[pulumi.Input[str]] = None,
-                 metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaPatchArgs']]] = None,
-                 role_ref: Optional[pulumi.Input[pulumi.InputType['RoleRefPatchArgs']]] = None,
-                 subjects: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['SubjectPatchArgs']]]]] = None,
+                 metadata: Optional[pulumi.Input[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict']]] = None,
+                 role_ref: Optional[pulumi.Input[Union['RoleRefPatchArgs', 'RoleRefPatchArgsDict']]] = None,
+                 subjects: Optional[pulumi.Input[Sequence[pulumi.Input[Union['SubjectPatchArgs', 'SubjectPatchArgsDict']]]]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):

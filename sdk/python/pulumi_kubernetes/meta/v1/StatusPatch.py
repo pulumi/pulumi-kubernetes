@@ -4,9 +4,14 @@
 
 import copy
 import warnings
+import sys
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
+if sys.version_info >= (3, 11):
+    from typing import NotRequired, TypedDict, TypeAlias
+else:
+    from typing_extensions import NotRequired, TypedDict, TypeAlias
 from ... import _utilities
 from . import outputs
 from ._inputs import *
@@ -140,10 +145,10 @@ class StatusPatch(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: Optional[pulumi.Input[str]] = None,
                  code: Optional[pulumi.Input[int]] = None,
-                 details: Optional[pulumi.Input[pulumi.InputType['StatusDetailsPatchArgs']]] = None,
+                 details: Optional[pulumi.Input[Union['StatusDetailsPatchArgs', 'StatusDetailsPatchArgsDict']]] = None,
                  kind: Optional[pulumi.Input[str]] = None,
                  message: Optional[pulumi.Input[str]] = None,
-                 metadata: Optional[pulumi.Input[pulumi.InputType['ListMetaPatchArgs']]] = None,
+                 metadata: Optional[pulumi.Input[Union['ListMetaPatchArgs', 'ListMetaPatchArgsDict']]] = None,
                  reason: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
@@ -159,10 +164,10 @@ class StatusPatch(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[int] code: Suggested HTTP return code for this status, 0 if not set.
-        :param pulumi.Input[pulumi.InputType['StatusDetailsPatchArgs']] details: Extended data associated with the reason.  Each reason may define its own extended details. This field is optional and the data returned is not guaranteed to conform to any schema except that defined by the reason type.
+        :param pulumi.Input[Union['StatusDetailsPatchArgs', 'StatusDetailsPatchArgsDict']] details: Extended data associated with the reason.  Each reason may define its own extended details. This field is optional and the data returned is not guaranteed to conform to any schema except that defined by the reason type.
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input[str] message: A human-readable description of the status of this operation.
-        :param pulumi.Input[pulumi.InputType['ListMetaPatchArgs']] metadata: Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param pulumi.Input[Union['ListMetaPatchArgs', 'ListMetaPatchArgsDict']] metadata: Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input[str] reason: A machine-readable description of why this operation is in the "Failure" status. If this value is empty there is no information available. A Reason clarifies an HTTP status code but does not override it.
         """
         ...
@@ -197,10 +202,10 @@ class StatusPatch(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: Optional[pulumi.Input[str]] = None,
                  code: Optional[pulumi.Input[int]] = None,
-                 details: Optional[pulumi.Input[pulumi.InputType['StatusDetailsPatchArgs']]] = None,
+                 details: Optional[pulumi.Input[Union['StatusDetailsPatchArgs', 'StatusDetailsPatchArgsDict']]] = None,
                  kind: Optional[pulumi.Input[str]] = None,
                  message: Optional[pulumi.Input[str]] = None,
-                 metadata: Optional[pulumi.Input[pulumi.InputType['ListMetaPatchArgs']]] = None,
+                 metadata: Optional[pulumi.Input[Union['ListMetaPatchArgs', 'ListMetaPatchArgsDict']]] = None,
                  reason: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)

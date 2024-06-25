@@ -4,9 +4,14 @@
 
 import copy
 import warnings
+import sys
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
+if sys.version_info >= (3, 11):
+    from typing import NotRequired, TypedDict, TypeAlias
+else:
+    from typing_extensions import NotRequired, TypedDict, TypeAlias
 from ... import _utilities
 from . import outputs
 from ... import meta as _meta
@@ -124,11 +129,11 @@ class ResourceClassParametersPatch(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: Optional[pulumi.Input[str]] = None,
-                 filters: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['ResourceFilterPatchArgs']]]]] = None,
-                 generated_from: Optional[pulumi.Input[pulumi.InputType['ResourceClassParametersReferencePatchArgs']]] = None,
+                 filters: Optional[pulumi.Input[Sequence[pulumi.Input[Union['ResourceFilterPatchArgs', 'ResourceFilterPatchArgsDict']]]]] = None,
+                 generated_from: Optional[pulumi.Input[Union['ResourceClassParametersReferencePatchArgs', 'ResourceClassParametersReferencePatchArgsDict']]] = None,
                  kind: Optional[pulumi.Input[str]] = None,
-                 metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaPatchArgs']]] = None,
-                 vendor_parameters: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['VendorParametersPatchArgs']]]]] = None,
+                 metadata: Optional[pulumi.Input[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict']]] = None,
+                 vendor_parameters: Optional[pulumi.Input[Sequence[pulumi.Input[Union['VendorParametersPatchArgs', 'VendorParametersPatchArgsDict']]]]] = None,
                  __props__=None):
         """
         Patch resources are used to modify existing Kubernetes resources by using
@@ -142,11 +147,11 @@ class ResourceClassParametersPatch(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['ResourceFilterPatchArgs']]]] filters: Filters describes additional contraints that must be met when using the class.
-        :param pulumi.Input[pulumi.InputType['ResourceClassParametersReferencePatchArgs']] generated_from: If this object was created from some other resource, then this links back to that resource. This field is used to find the in-tree representation of the class parameters when the parameter reference of the class refers to some unknown type.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['ResourceFilterPatchArgs', 'ResourceFilterPatchArgsDict']]]] filters: Filters describes additional contraints that must be met when using the class.
+        :param pulumi.Input[Union['ResourceClassParametersReferencePatchArgs', 'ResourceClassParametersReferencePatchArgsDict']] generated_from: If this object was created from some other resource, then this links back to that resource. This field is used to find the in-tree representation of the class parameters when the parameter reference of the class refers to some unknown type.
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaPatchArgs']] metadata: Standard object metadata
-        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['VendorParametersPatchArgs']]]] vendor_parameters: VendorParameters are arbitrary setup parameters for all claims using this class. They are ignored while allocating the claim. There must not be more than one entry per driver.
+        :param pulumi.Input[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict']] metadata: Standard object metadata
+        :param pulumi.Input[Sequence[pulumi.Input[Union['VendorParametersPatchArgs', 'VendorParametersPatchArgsDict']]]] vendor_parameters: VendorParameters are arbitrary setup parameters for all claims using this class. They are ignored while allocating the claim. There must not be more than one entry per driver.
         """
         ...
     @overload
@@ -179,11 +184,11 @@ class ResourceClassParametersPatch(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: Optional[pulumi.Input[str]] = None,
-                 filters: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['ResourceFilterPatchArgs']]]]] = None,
-                 generated_from: Optional[pulumi.Input[pulumi.InputType['ResourceClassParametersReferencePatchArgs']]] = None,
+                 filters: Optional[pulumi.Input[Sequence[pulumi.Input[Union['ResourceFilterPatchArgs', 'ResourceFilterPatchArgsDict']]]]] = None,
+                 generated_from: Optional[pulumi.Input[Union['ResourceClassParametersReferencePatchArgs', 'ResourceClassParametersReferencePatchArgsDict']]] = None,
                  kind: Optional[pulumi.Input[str]] = None,
-                 metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaPatchArgs']]] = None,
-                 vendor_parameters: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['VendorParametersPatchArgs']]]]] = None,
+                 metadata: Optional[pulumi.Input[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict']]] = None,
+                 vendor_parameters: Optional[pulumi.Input[Sequence[pulumi.Input[Union['VendorParametersPatchArgs', 'VendorParametersPatchArgsDict']]]]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):

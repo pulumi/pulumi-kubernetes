@@ -4,9 +4,14 @@
 
 import copy
 import warnings
+import sys
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
+if sys.version_info >= (3, 11):
+    from typing import NotRequired, TypedDict, TypeAlias
+else:
+    from typing_extensions import NotRequired, TypedDict, TypeAlias
 from ... import _utilities
 from . import outputs
 from ... import core as _core
@@ -134,9 +139,9 @@ class ResourceClass(pulumi.CustomResource):
                  api_version: Optional[pulumi.Input[str]] = None,
                  driver_name: Optional[pulumi.Input[str]] = None,
                  kind: Optional[pulumi.Input[str]] = None,
-                 metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']]] = None,
-                 parameters_ref: Optional[pulumi.Input[pulumi.InputType['ResourceClassParametersReferenceArgs']]] = None,
-                 suitable_nodes: Optional[pulumi.Input[pulumi.InputType['_core.v1.NodeSelectorArgs']]] = None,
+                 metadata: Optional[pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
+                 parameters_ref: Optional[pulumi.Input[Union['ResourceClassParametersReferenceArgs', 'ResourceClassParametersReferenceArgsDict']]] = None,
+                 suitable_nodes: Optional[pulumi.Input[Union['_core.v1.NodeSelectorArgs', '_core.v1.NodeSelectorArgsDict']]] = None,
                  __props__=None):
         """
         ResourceClass is used by administrators to influence how resources are allocated.
@@ -150,9 +155,9 @@ class ResourceClass(pulumi.CustomResource):
                
                Resource drivers have a unique name in forward domain order (acme.example.com).
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']] metadata: Standard object metadata
-        :param pulumi.Input[pulumi.InputType['ResourceClassParametersReferenceArgs']] parameters_ref: ParametersRef references an arbitrary separate object that may hold parameters that will be used by the driver when allocating a resource that uses this class. A dynamic resource driver can distinguish between parameters stored here and and those stored in ResourceClaimSpec.
-        :param pulumi.Input[pulumi.InputType['_core.v1.NodeSelectorArgs']] suitable_nodes: Only nodes matching the selector will be considered by the scheduler when trying to find a Node that fits a Pod when that Pod uses a ResourceClaim that has not been allocated yet.
+        :param pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']] metadata: Standard object metadata
+        :param pulumi.Input[Union['ResourceClassParametersReferenceArgs', 'ResourceClassParametersReferenceArgsDict']] parameters_ref: ParametersRef references an arbitrary separate object that may hold parameters that will be used by the driver when allocating a resource that uses this class. A dynamic resource driver can distinguish between parameters stored here and and those stored in ResourceClaimSpec.
+        :param pulumi.Input[Union['_core.v1.NodeSelectorArgs', '_core.v1.NodeSelectorArgsDict']] suitable_nodes: Only nodes matching the selector will be considered by the scheduler when trying to find a Node that fits a Pod when that Pod uses a ResourceClaim that has not been allocated yet.
                
                Setting this field is optional. If null, all nodes are candidates.
         """
@@ -185,9 +190,9 @@ class ResourceClass(pulumi.CustomResource):
                  api_version: Optional[pulumi.Input[str]] = None,
                  driver_name: Optional[pulumi.Input[str]] = None,
                  kind: Optional[pulumi.Input[str]] = None,
-                 metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']]] = None,
-                 parameters_ref: Optional[pulumi.Input[pulumi.InputType['ResourceClassParametersReferenceArgs']]] = None,
-                 suitable_nodes: Optional[pulumi.Input[pulumi.InputType['_core.v1.NodeSelectorArgs']]] = None,
+                 metadata: Optional[pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
+                 parameters_ref: Optional[pulumi.Input[Union['ResourceClassParametersReferenceArgs', 'ResourceClassParametersReferenceArgsDict']]] = None,
+                 suitable_nodes: Optional[pulumi.Input[Union['_core.v1.NodeSelectorArgs', '_core.v1.NodeSelectorArgsDict']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
