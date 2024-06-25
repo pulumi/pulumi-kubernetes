@@ -44,6 +44,7 @@ public final class IngressLoadBalancerStatus {
 
         @CustomType.Setter
         public Builder ingress(@Nullable List<IngressLoadBalancerIngress> ingress) {
+
             this.ingress = ingress;
             return this;
         }
@@ -51,9 +52,9 @@ public final class IngressLoadBalancerStatus {
             return ingress(List.of(ingress));
         }
         public IngressLoadBalancerStatus build() {
-            final var o = new IngressLoadBalancerStatus();
-            o.ingress = ingress;
-            return o;
+            final var _resultValue = new IngressLoadBalancerStatus();
+            _resultValue.ingress = ingress;
+            return _resultValue;
         }
     }
 }

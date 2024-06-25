@@ -60,6 +60,7 @@ public final class ServiceStatusPatch {
 
         @CustomType.Setter
         public Builder conditions(@Nullable List<ConditionPatch> conditions) {
+
             this.conditions = conditions;
             return this;
         }
@@ -68,14 +69,15 @@ public final class ServiceStatusPatch {
         }
         @CustomType.Setter
         public Builder loadBalancer(@Nullable LoadBalancerStatusPatch loadBalancer) {
+
             this.loadBalancer = loadBalancer;
             return this;
         }
         public ServiceStatusPatch build() {
-            final var o = new ServiceStatusPatch();
-            o.conditions = conditions;
-            o.loadBalancer = loadBalancer;
-            return o;
+            final var _resultValue = new ServiceStatusPatch();
+            _resultValue.conditions = conditions;
+            _resultValue.loadBalancer = loadBalancer;
+            return _resultValue;
         }
     }
 }

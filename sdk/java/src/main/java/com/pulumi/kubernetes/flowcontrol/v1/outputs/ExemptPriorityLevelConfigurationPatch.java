@@ -70,19 +70,21 @@ public final class ExemptPriorityLevelConfigurationPatch {
 
         @CustomType.Setter
         public Builder lendablePercent(@Nullable Integer lendablePercent) {
+
             this.lendablePercent = lendablePercent;
             return this;
         }
         @CustomType.Setter
         public Builder nominalConcurrencyShares(@Nullable Integer nominalConcurrencyShares) {
+
             this.nominalConcurrencyShares = nominalConcurrencyShares;
             return this;
         }
         public ExemptPriorityLevelConfigurationPatch build() {
-            final var o = new ExemptPriorityLevelConfigurationPatch();
-            o.lendablePercent = lendablePercent;
-            o.nominalConcurrencyShares = nominalConcurrencyShares;
-            return o;
+            final var _resultValue = new ExemptPriorityLevelConfigurationPatch();
+            _resultValue.lendablePercent = lendablePercent;
+            _resultValue.nominalConcurrencyShares = nominalConcurrencyShares;
+            return _resultValue;
         }
     }
 }

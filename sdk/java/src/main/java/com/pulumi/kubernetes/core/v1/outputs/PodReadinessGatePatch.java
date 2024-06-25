@@ -44,13 +44,14 @@ public final class PodReadinessGatePatch {
 
         @CustomType.Setter
         public Builder conditionType(@Nullable String conditionType) {
+
             this.conditionType = conditionType;
             return this;
         }
         public PodReadinessGatePatch build() {
-            final var o = new PodReadinessGatePatch();
-            o.conditionType = conditionType;
-            return o;
+            final var _resultValue = new PodReadinessGatePatch();
+            _resultValue.conditionType = conditionType;
+            return _resultValue;
         }
     }
 }

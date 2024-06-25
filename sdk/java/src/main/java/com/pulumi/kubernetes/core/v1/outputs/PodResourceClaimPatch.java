@@ -59,19 +59,21 @@ public final class PodResourceClaimPatch {
 
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder source(@Nullable ClaimSourcePatch source) {
+
             this.source = source;
             return this;
         }
         public PodResourceClaimPatch build() {
-            final var o = new PodResourceClaimPatch();
-            o.name = name;
-            o.source = source;
-            return o;
+            final var _resultValue = new PodResourceClaimPatch();
+            _resultValue.name = name;
+            _resultValue.source = source;
+            return _resultValue;
         }
     }
 }

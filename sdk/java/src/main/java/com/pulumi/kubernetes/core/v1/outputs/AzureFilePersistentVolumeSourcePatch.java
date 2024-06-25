@@ -87,31 +87,35 @@ public final class AzureFilePersistentVolumeSourcePatch {
 
         @CustomType.Setter
         public Builder readOnly(@Nullable Boolean readOnly) {
+
             this.readOnly = readOnly;
             return this;
         }
         @CustomType.Setter
         public Builder secretName(@Nullable String secretName) {
+
             this.secretName = secretName;
             return this;
         }
         @CustomType.Setter
         public Builder secretNamespace(@Nullable String secretNamespace) {
+
             this.secretNamespace = secretNamespace;
             return this;
         }
         @CustomType.Setter
         public Builder shareName(@Nullable String shareName) {
+
             this.shareName = shareName;
             return this;
         }
         public AzureFilePersistentVolumeSourcePatch build() {
-            final var o = new AzureFilePersistentVolumeSourcePatch();
-            o.readOnly = readOnly;
-            o.secretName = secretName;
-            o.secretNamespace = secretNamespace;
-            o.shareName = shareName;
-            return o;
+            final var _resultValue = new AzureFilePersistentVolumeSourcePatch();
+            _resultValue.readOnly = readOnly;
+            _resultValue.secretName = secretName;
+            _resultValue.secretNamespace = secretNamespace;
+            _resultValue.shareName = shareName;
+            return _resultValue;
         }
     }
 }

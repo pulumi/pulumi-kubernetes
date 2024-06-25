@@ -582,6 +582,14 @@ _utilities.register(
  },
  {
   "pkg": "kubernetes",
+  "mod": "kustomize/v2",
+  "fqn": "pulumi_kubernetes.kustomize.v2",
+  "classes": {
+   "kubernetes:kustomize/v2:Directory": "Directory"
+  }
+ },
+ {
+  "pkg": "kubernetes",
   "mod": "meta/v1",
   "fqn": "pulumi_kubernetes.meta.v1",
   "classes": {

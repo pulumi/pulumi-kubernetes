@@ -116,7 +116,7 @@ jobs:
         allowed-changes: |-
           sdk/**/pulumi-plugin.json
           sdk/dotnet/Pulumi.*.csproj
-          sdk/go/*/internal/pulumiUtilities.go
+          sdk/go/**/pulumiUtilities.go
           sdk/nodejs/package.json
           sdk/python/pyproject.toml
     - run: git status --porcelain
@@ -218,7 +218,7 @@ jobs:
         allowed-changes: |-
           sdk/**/pulumi-plugin.json
           sdk/dotnet/Pulumi.*.csproj
-          sdk/go/*/internal/pulumiUtilities.go
+          sdk/go/**/pulumiUtilities.go
           sdk/nodejs/package.json
           sdk/python/pyproject.toml
     - run: git status --porcelain

@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Boolean;
 import java.lang.String;
 import java.util.Objects;
@@ -115,43 +116,53 @@ public final class AzureDiskVolumeSource {
 
         @CustomType.Setter
         public Builder cachingMode(@Nullable String cachingMode) {
+
             this.cachingMode = cachingMode;
             return this;
         }
         @CustomType.Setter
         public Builder diskName(String diskName) {
-            this.diskName = Objects.requireNonNull(diskName);
+            if (diskName == null) {
+              throw new MissingRequiredPropertyException("AzureDiskVolumeSource", "diskName");
+            }
+            this.diskName = diskName;
             return this;
         }
         @CustomType.Setter
         public Builder diskURI(String diskURI) {
-            this.diskURI = Objects.requireNonNull(diskURI);
+            if (diskURI == null) {
+              throw new MissingRequiredPropertyException("AzureDiskVolumeSource", "diskURI");
+            }
+            this.diskURI = diskURI;
             return this;
         }
         @CustomType.Setter
         public Builder fsType(@Nullable String fsType) {
+
             this.fsType = fsType;
             return this;
         }
         @CustomType.Setter
         public Builder kind(@Nullable String kind) {
+
             this.kind = kind;
             return this;
         }
         @CustomType.Setter
         public Builder readOnly(@Nullable Boolean readOnly) {
+
             this.readOnly = readOnly;
             return this;
         }
         public AzureDiskVolumeSource build() {
-            final var o = new AzureDiskVolumeSource();
-            o.cachingMode = cachingMode;
-            o.diskName = diskName;
-            o.diskURI = diskURI;
-            o.fsType = fsType;
-            o.kind = kind;
-            o.readOnly = readOnly;
-            return o;
+            final var _resultValue = new AzureDiskVolumeSource();
+            _resultValue.cachingMode = cachingMode;
+            _resultValue.diskName = diskName;
+            _resultValue.diskURI = diskURI;
+            _resultValue.fsType = fsType;
+            _resultValue.kind = kind;
+            _resultValue.readOnly = readOnly;
+            return _resultValue;
         }
     }
 }

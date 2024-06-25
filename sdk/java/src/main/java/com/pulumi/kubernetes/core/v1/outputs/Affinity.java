@@ -74,25 +74,28 @@ public final class Affinity {
 
         @CustomType.Setter
         public Builder nodeAffinity(@Nullable NodeAffinity nodeAffinity) {
+
             this.nodeAffinity = nodeAffinity;
             return this;
         }
         @CustomType.Setter
         public Builder podAffinity(@Nullable PodAffinity podAffinity) {
+
             this.podAffinity = podAffinity;
             return this;
         }
         @CustomType.Setter
         public Builder podAntiAffinity(@Nullable PodAntiAffinity podAntiAffinity) {
+
             this.podAntiAffinity = podAntiAffinity;
             return this;
         }
         public Affinity build() {
-            final var o = new Affinity();
-            o.nodeAffinity = nodeAffinity;
-            o.podAffinity = podAffinity;
-            o.podAntiAffinity = podAntiAffinity;
-            return o;
+            final var _resultValue = new Affinity();
+            _resultValue.nodeAffinity = nodeAffinity;
+            _resultValue.podAffinity = podAffinity;
+            _resultValue.podAntiAffinity = podAntiAffinity;
+            return _resultValue;
         }
     }
 }

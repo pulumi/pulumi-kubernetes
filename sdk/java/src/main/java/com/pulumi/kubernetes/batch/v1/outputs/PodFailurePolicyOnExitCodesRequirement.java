@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.batch.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Integer;
 import java.lang.String;
 import java.util.List;
@@ -90,28 +91,35 @@ public final class PodFailurePolicyOnExitCodesRequirement {
 
         @CustomType.Setter
         public Builder containerName(@Nullable String containerName) {
+
             this.containerName = containerName;
             return this;
         }
         @CustomType.Setter
         public Builder operator(String operator) {
-            this.operator = Objects.requireNonNull(operator);
+            if (operator == null) {
+              throw new MissingRequiredPropertyException("PodFailurePolicyOnExitCodesRequirement", "operator");
+            }
+            this.operator = operator;
             return this;
         }
         @CustomType.Setter
         public Builder values(List<Integer> values) {
-            this.values = Objects.requireNonNull(values);
+            if (values == null) {
+              throw new MissingRequiredPropertyException("PodFailurePolicyOnExitCodesRequirement", "values");
+            }
+            this.values = values;
             return this;
         }
         public Builder values(Integer... values) {
             return values(List.of(values));
         }
         public PodFailurePolicyOnExitCodesRequirement build() {
-            final var o = new PodFailurePolicyOnExitCodesRequirement();
-            o.containerName = containerName;
-            o.operator = operator;
-            o.values = values;
-            return o;
+            final var _resultValue = new PodFailurePolicyOnExitCodesRequirement();
+            _resultValue.containerName = containerName;
+            _resultValue.operator = operator;
+            _resultValue.values = values;
+            return _resultValue;
         }
     }
 }

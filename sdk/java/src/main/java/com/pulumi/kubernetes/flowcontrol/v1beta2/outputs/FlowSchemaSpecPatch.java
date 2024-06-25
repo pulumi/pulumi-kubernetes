@@ -90,21 +90,25 @@ public final class FlowSchemaSpecPatch {
 
         @CustomType.Setter
         public Builder distinguisherMethod(@Nullable FlowDistinguisherMethodPatch distinguisherMethod) {
+
             this.distinguisherMethod = distinguisherMethod;
             return this;
         }
         @CustomType.Setter
         public Builder matchingPrecedence(@Nullable Integer matchingPrecedence) {
+
             this.matchingPrecedence = matchingPrecedence;
             return this;
         }
         @CustomType.Setter
         public Builder priorityLevelConfiguration(@Nullable PriorityLevelConfigurationReferencePatch priorityLevelConfiguration) {
+
             this.priorityLevelConfiguration = priorityLevelConfiguration;
             return this;
         }
         @CustomType.Setter
         public Builder rules(@Nullable List<PolicyRulesWithSubjectsPatch> rules) {
+
             this.rules = rules;
             return this;
         }
@@ -112,12 +116,12 @@ public final class FlowSchemaSpecPatch {
             return rules(List.of(rules));
         }
         public FlowSchemaSpecPatch build() {
-            final var o = new FlowSchemaSpecPatch();
-            o.distinguisherMethod = distinguisherMethod;
-            o.matchingPrecedence = matchingPrecedence;
-            o.priorityLevelConfiguration = priorityLevelConfiguration;
-            o.rules = rules;
-            return o;
+            final var _resultValue = new FlowSchemaSpecPatch();
+            _resultValue.distinguisherMethod = distinguisherMethod;
+            _resultValue.matchingPrecedence = matchingPrecedence;
+            _resultValue.priorityLevelConfiguration = priorityLevelConfiguration;
+            _resultValue.rules = rules;
+            return _resultValue;
         }
     }
 }

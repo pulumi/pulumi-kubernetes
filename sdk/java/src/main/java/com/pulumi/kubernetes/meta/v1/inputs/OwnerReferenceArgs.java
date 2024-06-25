@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.meta.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Boolean;
 import java.lang.String;
 import java.util.Objects;
@@ -266,10 +267,18 @@ public final class OwnerReferenceArgs extends com.pulumi.resources.ResourceArgs 
         }
 
         public OwnerReferenceArgs build() {
-            $.apiVersion = Objects.requireNonNull($.apiVersion, "expected parameter 'apiVersion' to be non-null");
-            $.kind = Objects.requireNonNull($.kind, "expected parameter 'kind' to be non-null");
-            $.name = Objects.requireNonNull($.name, "expected parameter 'name' to be non-null");
-            $.uid = Objects.requireNonNull($.uid, "expected parameter 'uid' to be non-null");
+            if ($.apiVersion == null) {
+                throw new MissingRequiredPropertyException("OwnerReferenceArgs", "apiVersion");
+            }
+            if ($.kind == null) {
+                throw new MissingRequiredPropertyException("OwnerReferenceArgs", "kind");
+            }
+            if ($.name == null) {
+                throw new MissingRequiredPropertyException("OwnerReferenceArgs", "name");
+            }
+            if ($.uid == null) {
+                throw new MissingRequiredPropertyException("OwnerReferenceArgs", "uid");
+            }
             return $;
         }
     }

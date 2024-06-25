@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.core.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.inputs.NodeSelectorTermArgs;
 import java.lang.Integer;
 import java.util.Objects;
@@ -116,8 +117,12 @@ public final class PreferredSchedulingTermArgs extends com.pulumi.resources.Reso
         }
 
         public PreferredSchedulingTermArgs build() {
-            $.preference = Objects.requireNonNull($.preference, "expected parameter 'preference' to be non-null");
-            $.weight = Objects.requireNonNull($.weight, "expected parameter 'weight' to be non-null");
+            if ($.preference == null) {
+                throw new MissingRequiredPropertyException("PreferredSchedulingTermArgs", "preference");
+            }
+            if ($.weight == null) {
+                throw new MissingRequiredPropertyException("PreferredSchedulingTermArgs", "weight");
+            }
             return $;
         }
     }

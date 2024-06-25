@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.batch.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.batch.v1.outputs.PodFailurePolicyOnExitCodesRequirement;
 import com.pulumi.kubernetes.batch.v1.outputs.PodFailurePolicyOnPodConditionsPattern;
 import java.lang.String;
@@ -99,16 +100,21 @@ public final class PodFailurePolicyRule {
 
         @CustomType.Setter
         public Builder action(String action) {
-            this.action = Objects.requireNonNull(action);
+            if (action == null) {
+              throw new MissingRequiredPropertyException("PodFailurePolicyRule", "action");
+            }
+            this.action = action;
             return this;
         }
         @CustomType.Setter
         public Builder onExitCodes(@Nullable PodFailurePolicyOnExitCodesRequirement onExitCodes) {
+
             this.onExitCodes = onExitCodes;
             return this;
         }
         @CustomType.Setter
         public Builder onPodConditions(@Nullable List<PodFailurePolicyOnPodConditionsPattern> onPodConditions) {
+
             this.onPodConditions = onPodConditions;
             return this;
         }
@@ -116,11 +122,11 @@ public final class PodFailurePolicyRule {
             return onPodConditions(List.of(onPodConditions));
         }
         public PodFailurePolicyRule build() {
-            final var o = new PodFailurePolicyRule();
-            o.action = action;
-            o.onExitCodes = onExitCodes;
-            o.onPodConditions = onPodConditions;
-            return o;
+            final var _resultValue = new PodFailurePolicyRule();
+            _resultValue.action = action;
+            _resultValue.onExitCodes = onExitCodes;
+            _resultValue.onPodConditions = onPodConditions;
+            return _resultValue;
         }
     }
 }

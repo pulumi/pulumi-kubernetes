@@ -44,13 +44,14 @@ public final class PodOSPatch {
 
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         public PodOSPatch build() {
-            final var o = new PodOSPatch();
-            o.name = name;
-            return o;
+            final var _resultValue = new PodOSPatch();
+            _resultValue.name = name;
+            return _resultValue;
         }
     }
 }

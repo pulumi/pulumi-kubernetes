@@ -44,13 +44,14 @@ public final class FlowDistinguisherMethodPatch {
 
         @CustomType.Setter
         public Builder type(@Nullable String type) {
+
             this.type = type;
             return this;
         }
         public FlowDistinguisherMethodPatch build() {
-            final var o = new FlowDistinguisherMethodPatch();
-            o.type = type;
-            return o;
+            final var _resultValue = new FlowDistinguisherMethodPatch();
+            _resultValue.type = type;
+            return _resultValue;
         }
     }
 }

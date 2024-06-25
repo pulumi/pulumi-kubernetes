@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -100,37 +101,48 @@ public final class ConfigMapNodeConfigSource {
 
         @CustomType.Setter
         public Builder kubeletConfigKey(String kubeletConfigKey) {
-            this.kubeletConfigKey = Objects.requireNonNull(kubeletConfigKey);
+            if (kubeletConfigKey == null) {
+              throw new MissingRequiredPropertyException("ConfigMapNodeConfigSource", "kubeletConfigKey");
+            }
+            this.kubeletConfigKey = kubeletConfigKey;
             return this;
         }
         @CustomType.Setter
         public Builder name(String name) {
-            this.name = Objects.requireNonNull(name);
+            if (name == null) {
+              throw new MissingRequiredPropertyException("ConfigMapNodeConfigSource", "name");
+            }
+            this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder namespace(String namespace) {
-            this.namespace = Objects.requireNonNull(namespace);
+            if (namespace == null) {
+              throw new MissingRequiredPropertyException("ConfigMapNodeConfigSource", "namespace");
+            }
+            this.namespace = namespace;
             return this;
         }
         @CustomType.Setter
         public Builder resourceVersion(@Nullable String resourceVersion) {
+
             this.resourceVersion = resourceVersion;
             return this;
         }
         @CustomType.Setter
         public Builder uid(@Nullable String uid) {
+
             this.uid = uid;
             return this;
         }
         public ConfigMapNodeConfigSource build() {
-            final var o = new ConfigMapNodeConfigSource();
-            o.kubeletConfigKey = kubeletConfigKey;
-            o.name = name;
-            o.namespace = namespace;
-            o.resourceVersion = resourceVersion;
-            o.uid = uid;
-            return o;
+            final var _resultValue = new ConfigMapNodeConfigSource();
+            _resultValue.kubeletConfigKey = kubeletConfigKey;
+            _resultValue.name = name;
+            _resultValue.namespace = namespace;
+            _resultValue.resourceVersion = resourceVersion;
+            _resultValue.uid = uid;
+            return _resultValue;
         }
     }
 }

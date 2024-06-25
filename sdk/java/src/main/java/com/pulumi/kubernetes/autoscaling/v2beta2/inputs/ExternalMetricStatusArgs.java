@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.autoscaling.v2beta2.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.autoscaling.v2beta2.inputs.MetricIdentifierArgs;
 import com.pulumi.kubernetes.autoscaling.v2beta2.inputs.MetricValueStatusArgs;
 import java.util.Objects;
@@ -116,8 +117,12 @@ public final class ExternalMetricStatusArgs extends com.pulumi.resources.Resourc
         }
 
         public ExternalMetricStatusArgs build() {
-            $.current = Objects.requireNonNull($.current, "expected parameter 'current' to be non-null");
-            $.metric = Objects.requireNonNull($.metric, "expected parameter 'metric' to be non-null");
+            if ($.current == null) {
+                throw new MissingRequiredPropertyException("ExternalMetricStatusArgs", "current");
+            }
+            if ($.metric == null) {
+                throw new MissingRequiredPropertyException("ExternalMetricStatusArgs", "metric");
+            }
             return $;
         }
     }

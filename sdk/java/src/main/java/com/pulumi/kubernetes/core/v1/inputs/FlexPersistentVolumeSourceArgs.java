@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.core.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.inputs.SecretReferenceArgs;
 import java.lang.Boolean;
 import java.lang.String;
@@ -231,7 +232,9 @@ public final class FlexPersistentVolumeSourceArgs extends com.pulumi.resources.R
         }
 
         public FlexPersistentVolumeSourceArgs build() {
-            $.driver = Objects.requireNonNull($.driver, "expected parameter 'driver' to be non-null");
+            if ($.driver == null) {
+                throw new MissingRequiredPropertyException("FlexPersistentVolumeSourceArgs", "driver");
+            }
             return $;
         }
     }

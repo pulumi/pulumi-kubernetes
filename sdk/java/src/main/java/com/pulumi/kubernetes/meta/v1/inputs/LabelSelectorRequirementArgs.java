@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.meta.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.List;
 import java.util.Objects;
@@ -165,8 +166,12 @@ public final class LabelSelectorRequirementArgs extends com.pulumi.resources.Res
         }
 
         public LabelSelectorRequirementArgs build() {
-            $.key = Objects.requireNonNull($.key, "expected parameter 'key' to be non-null");
-            $.operator = Objects.requireNonNull($.operator, "expected parameter 'operator' to be non-null");
+            if ($.key == null) {
+                throw new MissingRequiredPropertyException("LabelSelectorRequirementArgs", "key");
+            }
+            if ($.operator == null) {
+                throw new MissingRequiredPropertyException("LabelSelectorRequirementArgs", "operator");
+            }
             return $;
         }
     }

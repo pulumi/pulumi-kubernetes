@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.apps.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.apps.v1.outputs.ReplicaSetCondition;
 import java.lang.Integer;
 import java.util.List;
@@ -116,11 +117,13 @@ public final class ReplicaSetStatus {
 
         @CustomType.Setter
         public Builder availableReplicas(@Nullable Integer availableReplicas) {
+
             this.availableReplicas = availableReplicas;
             return this;
         }
         @CustomType.Setter
         public Builder conditions(@Nullable List<ReplicaSetCondition> conditions) {
+
             this.conditions = conditions;
             return this;
         }
@@ -129,33 +132,39 @@ public final class ReplicaSetStatus {
         }
         @CustomType.Setter
         public Builder fullyLabeledReplicas(@Nullable Integer fullyLabeledReplicas) {
+
             this.fullyLabeledReplicas = fullyLabeledReplicas;
             return this;
         }
         @CustomType.Setter
         public Builder observedGeneration(@Nullable Integer observedGeneration) {
+
             this.observedGeneration = observedGeneration;
             return this;
         }
         @CustomType.Setter
         public Builder readyReplicas(@Nullable Integer readyReplicas) {
+
             this.readyReplicas = readyReplicas;
             return this;
         }
         @CustomType.Setter
         public Builder replicas(Integer replicas) {
-            this.replicas = Objects.requireNonNull(replicas);
+            if (replicas == null) {
+              throw new MissingRequiredPropertyException("ReplicaSetStatus", "replicas");
+            }
+            this.replicas = replicas;
             return this;
         }
         public ReplicaSetStatus build() {
-            final var o = new ReplicaSetStatus();
-            o.availableReplicas = availableReplicas;
-            o.conditions = conditions;
-            o.fullyLabeledReplicas = fullyLabeledReplicas;
-            o.observedGeneration = observedGeneration;
-            o.readyReplicas = readyReplicas;
-            o.replicas = replicas;
-            return o;
+            final var _resultValue = new ReplicaSetStatus();
+            _resultValue.availableReplicas = availableReplicas;
+            _resultValue.conditions = conditions;
+            _resultValue.fullyLabeledReplicas = fullyLabeledReplicas;
+            _resultValue.observedGeneration = observedGeneration;
+            _resultValue.readyReplicas = readyReplicas;
+            _resultValue.replicas = replicas;
+            return _resultValue;
         }
     }
 }

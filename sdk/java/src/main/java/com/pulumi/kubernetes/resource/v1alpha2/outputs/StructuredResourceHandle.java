@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.resource.v1alpha2.outputs;
 
 import com.google.gson.JsonElement;
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.resource.v1alpha2.outputs.DriverAllocationResult;
 import java.lang.String;
 import java.util.List;
@@ -89,12 +90,16 @@ public final class StructuredResourceHandle {
 
         @CustomType.Setter
         public Builder nodeName(@Nullable String nodeName) {
+
             this.nodeName = nodeName;
             return this;
         }
         @CustomType.Setter
         public Builder results(List<DriverAllocationResult> results) {
-            this.results = Objects.requireNonNull(results);
+            if (results == null) {
+              throw new MissingRequiredPropertyException("StructuredResourceHandle", "results");
+            }
+            this.results = results;
             return this;
         }
         public Builder results(DriverAllocationResult... results) {
@@ -102,21 +107,23 @@ public final class StructuredResourceHandle {
         }
         @CustomType.Setter
         public Builder vendorClaimParameters(@Nullable JsonElement vendorClaimParameters) {
+
             this.vendorClaimParameters = vendorClaimParameters;
             return this;
         }
         @CustomType.Setter
         public Builder vendorClassParameters(@Nullable JsonElement vendorClassParameters) {
+
             this.vendorClassParameters = vendorClassParameters;
             return this;
         }
         public StructuredResourceHandle build() {
-            final var o = new StructuredResourceHandle();
-            o.nodeName = nodeName;
-            o.results = results;
-            o.vendorClaimParameters = vendorClaimParameters;
-            o.vendorClassParameters = vendorClassParameters;
-            return o;
+            final var _resultValue = new StructuredResourceHandle();
+            _resultValue.nodeName = nodeName;
+            _resultValue.results = results;
+            _resultValue.vendorClaimParameters = vendorClaimParameters;
+            _resultValue.vendorClassParameters = vendorClassParameters;
+            return _resultValue;
         }
     }
 }

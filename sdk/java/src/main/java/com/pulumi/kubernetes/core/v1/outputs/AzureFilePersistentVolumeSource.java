@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Boolean;
 import java.lang.String;
 import java.util.Objects;
@@ -87,31 +88,39 @@ public final class AzureFilePersistentVolumeSource {
 
         @CustomType.Setter
         public Builder readOnly(@Nullable Boolean readOnly) {
+
             this.readOnly = readOnly;
             return this;
         }
         @CustomType.Setter
         public Builder secretName(String secretName) {
-            this.secretName = Objects.requireNonNull(secretName);
+            if (secretName == null) {
+              throw new MissingRequiredPropertyException("AzureFilePersistentVolumeSource", "secretName");
+            }
+            this.secretName = secretName;
             return this;
         }
         @CustomType.Setter
         public Builder secretNamespace(@Nullable String secretNamespace) {
+
             this.secretNamespace = secretNamespace;
             return this;
         }
         @CustomType.Setter
         public Builder shareName(String shareName) {
-            this.shareName = Objects.requireNonNull(shareName);
+            if (shareName == null) {
+              throw new MissingRequiredPropertyException("AzureFilePersistentVolumeSource", "shareName");
+            }
+            this.shareName = shareName;
             return this;
         }
         public AzureFilePersistentVolumeSource build() {
-            final var o = new AzureFilePersistentVolumeSource();
-            o.readOnly = readOnly;
-            o.secretName = secretName;
-            o.secretNamespace = secretNamespace;
-            o.shareName = shareName;
-            return o;
+            final var _resultValue = new AzureFilePersistentVolumeSource();
+            _resultValue.readOnly = readOnly;
+            _resultValue.secretName = secretName;
+            _resultValue.secretNamespace = secretNamespace;
+            _resultValue.shareName = shareName;
+            return _resultValue;
         }
     }
 }

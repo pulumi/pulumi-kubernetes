@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Integer;
 import java.lang.String;
 import java.util.Objects;
@@ -129,49 +130,58 @@ public final class ContainerStateTerminated {
 
         @CustomType.Setter
         public Builder containerID(@Nullable String containerID) {
+
             this.containerID = containerID;
             return this;
         }
         @CustomType.Setter
         public Builder exitCode(Integer exitCode) {
-            this.exitCode = Objects.requireNonNull(exitCode);
+            if (exitCode == null) {
+              throw new MissingRequiredPropertyException("ContainerStateTerminated", "exitCode");
+            }
+            this.exitCode = exitCode;
             return this;
         }
         @CustomType.Setter
         public Builder finishedAt(@Nullable String finishedAt) {
+
             this.finishedAt = finishedAt;
             return this;
         }
         @CustomType.Setter
         public Builder message(@Nullable String message) {
+
             this.message = message;
             return this;
         }
         @CustomType.Setter
         public Builder reason(@Nullable String reason) {
+
             this.reason = reason;
             return this;
         }
         @CustomType.Setter
         public Builder signal(@Nullable Integer signal) {
+
             this.signal = signal;
             return this;
         }
         @CustomType.Setter
         public Builder startedAt(@Nullable String startedAt) {
+
             this.startedAt = startedAt;
             return this;
         }
         public ContainerStateTerminated build() {
-            final var o = new ContainerStateTerminated();
-            o.containerID = containerID;
-            o.exitCode = exitCode;
-            o.finishedAt = finishedAt;
-            o.message = message;
-            o.reason = reason;
-            o.signal = signal;
-            o.startedAt = startedAt;
-            return o;
+            final var _resultValue = new ContainerStateTerminated();
+            _resultValue.containerID = containerID;
+            _resultValue.exitCode = exitCode;
+            _resultValue.finishedAt = finishedAt;
+            _resultValue.message = message;
+            _resultValue.reason = reason;
+            _resultValue.signal = signal;
+            _resultValue.startedAt = startedAt;
+            return _resultValue;
         }
     }
 }

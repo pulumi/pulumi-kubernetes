@@ -59,11 +59,13 @@ public final class PolicyPatch {
 
         @CustomType.Setter
         public Builder level(@Nullable String level) {
+
             this.level = level;
             return this;
         }
         @CustomType.Setter
         public Builder stages(@Nullable List<String> stages) {
+
             this.stages = stages;
             return this;
         }
@@ -71,10 +73,10 @@ public final class PolicyPatch {
             return stages(List.of(stages));
         }
         public PolicyPatch build() {
-            final var o = new PolicyPatch();
-            o.level = level;
-            o.stages = stages;
-            return o;
+            final var _resultValue = new PolicyPatch();
+            _resultValue.level = level;
+            _resultValue.stages = stages;
+            return _resultValue;
         }
     }
 }

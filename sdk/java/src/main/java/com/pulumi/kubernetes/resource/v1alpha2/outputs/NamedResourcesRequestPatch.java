@@ -54,13 +54,14 @@ public final class NamedResourcesRequestPatch {
 
         @CustomType.Setter
         public Builder selector(@Nullable String selector) {
+
             this.selector = selector;
             return this;
         }
         public NamedResourcesRequestPatch build() {
-            final var o = new NamedResourcesRequestPatch();
-            o.selector = selector;
-            return o;
+            final var _resultValue = new NamedResourcesRequestPatch();
+            _resultValue.selector = selector;
+            return _resultValue;
         }
     }
 }

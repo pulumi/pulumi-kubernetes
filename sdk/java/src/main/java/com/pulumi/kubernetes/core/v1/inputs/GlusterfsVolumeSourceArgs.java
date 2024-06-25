@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.core.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Boolean;
 import java.lang.String;
 import java.util.Objects;
@@ -155,8 +156,12 @@ public final class GlusterfsVolumeSourceArgs extends com.pulumi.resources.Resour
         }
 
         public GlusterfsVolumeSourceArgs build() {
-            $.endpoints = Objects.requireNonNull($.endpoints, "expected parameter 'endpoints' to be non-null");
-            $.path = Objects.requireNonNull($.path, "expected parameter 'path' to be non-null");
+            if ($.endpoints == null) {
+                throw new MissingRequiredPropertyException("GlusterfsVolumeSourceArgs", "endpoints");
+            }
+            if ($.path == null) {
+                throw new MissingRequiredPropertyException("GlusterfsVolumeSourceArgs", "path");
+            }
             return $;
         }
     }

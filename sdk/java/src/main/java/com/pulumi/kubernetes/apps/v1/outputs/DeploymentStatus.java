@@ -144,16 +144,19 @@ public final class DeploymentStatus {
 
         @CustomType.Setter
         public Builder availableReplicas(@Nullable Integer availableReplicas) {
+
             this.availableReplicas = availableReplicas;
             return this;
         }
         @CustomType.Setter
         public Builder collisionCount(@Nullable Integer collisionCount) {
+
             this.collisionCount = collisionCount;
             return this;
         }
         @CustomType.Setter
         public Builder conditions(@Nullable List<DeploymentCondition> conditions) {
+
             this.conditions = conditions;
             return this;
         }
@@ -162,40 +165,45 @@ public final class DeploymentStatus {
         }
         @CustomType.Setter
         public Builder observedGeneration(@Nullable Integer observedGeneration) {
+
             this.observedGeneration = observedGeneration;
             return this;
         }
         @CustomType.Setter
         public Builder readyReplicas(@Nullable Integer readyReplicas) {
+
             this.readyReplicas = readyReplicas;
             return this;
         }
         @CustomType.Setter
         public Builder replicas(@Nullable Integer replicas) {
+
             this.replicas = replicas;
             return this;
         }
         @CustomType.Setter
         public Builder unavailableReplicas(@Nullable Integer unavailableReplicas) {
+
             this.unavailableReplicas = unavailableReplicas;
             return this;
         }
         @CustomType.Setter
         public Builder updatedReplicas(@Nullable Integer updatedReplicas) {
+
             this.updatedReplicas = updatedReplicas;
             return this;
         }
         public DeploymentStatus build() {
-            final var o = new DeploymentStatus();
-            o.availableReplicas = availableReplicas;
-            o.collisionCount = collisionCount;
-            o.conditions = conditions;
-            o.observedGeneration = observedGeneration;
-            o.readyReplicas = readyReplicas;
-            o.replicas = replicas;
-            o.unavailableReplicas = unavailableReplicas;
-            o.updatedReplicas = updatedReplicas;
-            return o;
+            final var _resultValue = new DeploymentStatus();
+            _resultValue.availableReplicas = availableReplicas;
+            _resultValue.collisionCount = collisionCount;
+            _resultValue.conditions = conditions;
+            _resultValue.observedGeneration = observedGeneration;
+            _resultValue.readyReplicas = readyReplicas;
+            _resultValue.replicas = replicas;
+            _resultValue.unavailableReplicas = unavailableReplicas;
+            _resultValue.updatedReplicas = updatedReplicas;
+            return _resultValue;
         }
     }
 }

@@ -73,25 +73,28 @@ public final class VolumeAttachmentSpecPatch {
 
         @CustomType.Setter
         public Builder attacher(@Nullable String attacher) {
+
             this.attacher = attacher;
             return this;
         }
         @CustomType.Setter
         public Builder nodeName(@Nullable String nodeName) {
+
             this.nodeName = nodeName;
             return this;
         }
         @CustomType.Setter
         public Builder source(@Nullable VolumeAttachmentSourcePatch source) {
+
             this.source = source;
             return this;
         }
         public VolumeAttachmentSpecPatch build() {
-            final var o = new VolumeAttachmentSpecPatch();
-            o.attacher = attacher;
-            o.nodeName = nodeName;
-            o.source = source;
-            return o;
+            final var _resultValue = new VolumeAttachmentSpecPatch();
+            _resultValue.attacher = attacher;
+            _resultValue.nodeName = nodeName;
+            _resultValue.source = source;
+            return _resultValue;
         }
     }
 }

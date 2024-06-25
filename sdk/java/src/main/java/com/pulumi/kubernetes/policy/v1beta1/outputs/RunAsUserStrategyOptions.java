@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.policy.v1beta1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.policy.v1beta1.outputs.IDRange;
 import java.lang.String;
 import java.util.List;
@@ -59,6 +60,7 @@ public final class RunAsUserStrategyOptions {
 
         @CustomType.Setter
         public Builder ranges(@Nullable List<IDRange> ranges) {
+
             this.ranges = ranges;
             return this;
         }
@@ -67,14 +69,17 @@ public final class RunAsUserStrategyOptions {
         }
         @CustomType.Setter
         public Builder rule(String rule) {
-            this.rule = Objects.requireNonNull(rule);
+            if (rule == null) {
+              throw new MissingRequiredPropertyException("RunAsUserStrategyOptions", "rule");
+            }
+            this.rule = rule;
             return this;
         }
         public RunAsUserStrategyOptions build() {
-            final var o = new RunAsUserStrategyOptions();
-            o.ranges = ranges;
-            o.rule = rule;
-            return o;
+            final var _resultValue = new RunAsUserStrategyOptions();
+            _resultValue.ranges = ranges;
+            _resultValue.rule = rule;
+            return _resultValue;
         }
     }
 }

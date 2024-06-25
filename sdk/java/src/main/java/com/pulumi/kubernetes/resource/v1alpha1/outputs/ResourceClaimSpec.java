@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.resource.v1alpha1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.resource.v1alpha1.outputs.ResourceClaimParametersReference;
 import java.lang.String;
 import java.util.Objects;
@@ -77,25 +78,30 @@ public final class ResourceClaimSpec {
 
         @CustomType.Setter
         public Builder allocationMode(@Nullable String allocationMode) {
+
             this.allocationMode = allocationMode;
             return this;
         }
         @CustomType.Setter
         public Builder parametersRef(@Nullable ResourceClaimParametersReference parametersRef) {
+
             this.parametersRef = parametersRef;
             return this;
         }
         @CustomType.Setter
         public Builder resourceClassName(String resourceClassName) {
-            this.resourceClassName = Objects.requireNonNull(resourceClassName);
+            if (resourceClassName == null) {
+              throw new MissingRequiredPropertyException("ResourceClaimSpec", "resourceClassName");
+            }
+            this.resourceClassName = resourceClassName;
             return this;
         }
         public ResourceClaimSpec build() {
-            final var o = new ResourceClaimSpec();
-            o.allocationMode = allocationMode;
-            o.parametersRef = parametersRef;
-            o.resourceClassName = resourceClassName;
-            return o;
+            final var _resultValue = new ResourceClaimSpec();
+            _resultValue.allocationMode = allocationMode;
+            _resultValue.parametersRef = parametersRef;
+            _resultValue.resourceClassName = resourceClassName;
+            return _resultValue;
         }
     }
 }

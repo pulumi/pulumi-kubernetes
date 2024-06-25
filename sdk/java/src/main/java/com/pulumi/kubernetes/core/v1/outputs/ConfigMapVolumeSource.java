@@ -90,11 +90,13 @@ public final class ConfigMapVolumeSource {
 
         @CustomType.Setter
         public Builder defaultMode(@Nullable Integer defaultMode) {
+
             this.defaultMode = defaultMode;
             return this;
         }
         @CustomType.Setter
         public Builder items(@Nullable List<KeyToPath> items) {
+
             this.items = items;
             return this;
         }
@@ -103,21 +105,23 @@ public final class ConfigMapVolumeSource {
         }
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder optional(@Nullable Boolean optional) {
+
             this.optional = optional;
             return this;
         }
         public ConfigMapVolumeSource build() {
-            final var o = new ConfigMapVolumeSource();
-            o.defaultMode = defaultMode;
-            o.items = items;
-            o.name = name;
-            o.optional = optional;
-            return o;
+            final var _resultValue = new ConfigMapVolumeSource();
+            _resultValue.defaultMode = defaultMode;
+            _resultValue.items = items;
+            _resultValue.name = name;
+            _resultValue.optional = optional;
+            return _resultValue;
         }
     }
 }

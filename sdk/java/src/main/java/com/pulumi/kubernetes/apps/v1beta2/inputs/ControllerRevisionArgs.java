@@ -7,6 +7,7 @@ import com.google.gson.JsonElement;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.core.internal.Codegen;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.meta.v1.inputs.ObjectMetaArgs;
 import java.lang.Integer;
 import java.lang.String;
@@ -234,7 +235,9 @@ public final class ControllerRevisionArgs extends com.pulumi.resources.ResourceA
         public ControllerRevisionArgs build() {
             $.apiVersion = Codegen.stringProp("apiVersion").output().arg($.apiVersion).getNullable();
             $.kind = Codegen.stringProp("kind").output().arg($.kind).getNullable();
-            $.revision = Objects.requireNonNull($.revision, "expected parameter 'revision' to be non-null");
+            if ($.revision == null) {
+                throw new MissingRequiredPropertyException("ControllerRevisionArgs", "revision");
+            }
             return $;
         }
     }

@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.outputs.LocalObjectReference;
 import java.lang.Boolean;
 import java.lang.Integer;
@@ -188,41 +189,53 @@ public final class ISCSIVolumeSource {
 
         @CustomType.Setter
         public Builder chapAuthDiscovery(@Nullable Boolean chapAuthDiscovery) {
+
             this.chapAuthDiscovery = chapAuthDiscovery;
             return this;
         }
         @CustomType.Setter
         public Builder chapAuthSession(@Nullable Boolean chapAuthSession) {
+
             this.chapAuthSession = chapAuthSession;
             return this;
         }
         @CustomType.Setter
         public Builder fsType(@Nullable String fsType) {
+
             this.fsType = fsType;
             return this;
         }
         @CustomType.Setter
         public Builder initiatorName(@Nullable String initiatorName) {
+
             this.initiatorName = initiatorName;
             return this;
         }
         @CustomType.Setter
         public Builder iqn(String iqn) {
-            this.iqn = Objects.requireNonNull(iqn);
+            if (iqn == null) {
+              throw new MissingRequiredPropertyException("ISCSIVolumeSource", "iqn");
+            }
+            this.iqn = iqn;
             return this;
         }
         @CustomType.Setter
         public Builder iscsiInterface(@Nullable String iscsiInterface) {
+
             this.iscsiInterface = iscsiInterface;
             return this;
         }
         @CustomType.Setter
         public Builder lun(Integer lun) {
-            this.lun = Objects.requireNonNull(lun);
+            if (lun == null) {
+              throw new MissingRequiredPropertyException("ISCSIVolumeSource", "lun");
+            }
+            this.lun = lun;
             return this;
         }
         @CustomType.Setter
         public Builder portals(@Nullable List<String> portals) {
+
             this.portals = portals;
             return this;
         }
@@ -231,33 +244,38 @@ public final class ISCSIVolumeSource {
         }
         @CustomType.Setter
         public Builder readOnly(@Nullable Boolean readOnly) {
+
             this.readOnly = readOnly;
             return this;
         }
         @CustomType.Setter
         public Builder secretRef(@Nullable LocalObjectReference secretRef) {
+
             this.secretRef = secretRef;
             return this;
         }
         @CustomType.Setter
         public Builder targetPortal(String targetPortal) {
-            this.targetPortal = Objects.requireNonNull(targetPortal);
+            if (targetPortal == null) {
+              throw new MissingRequiredPropertyException("ISCSIVolumeSource", "targetPortal");
+            }
+            this.targetPortal = targetPortal;
             return this;
         }
         public ISCSIVolumeSource build() {
-            final var o = new ISCSIVolumeSource();
-            o.chapAuthDiscovery = chapAuthDiscovery;
-            o.chapAuthSession = chapAuthSession;
-            o.fsType = fsType;
-            o.initiatorName = initiatorName;
-            o.iqn = iqn;
-            o.iscsiInterface = iscsiInterface;
-            o.lun = lun;
-            o.portals = portals;
-            o.readOnly = readOnly;
-            o.secretRef = secretRef;
-            o.targetPortal = targetPortal;
-            return o;
+            final var _resultValue = new ISCSIVolumeSource();
+            _resultValue.chapAuthDiscovery = chapAuthDiscovery;
+            _resultValue.chapAuthSession = chapAuthSession;
+            _resultValue.fsType = fsType;
+            _resultValue.initiatorName = initiatorName;
+            _resultValue.iqn = iqn;
+            _resultValue.iscsiInterface = iscsiInterface;
+            _resultValue.lun = lun;
+            _resultValue.portals = portals;
+            _resultValue.readOnly = readOnly;
+            _resultValue.secretRef = secretRef;
+            _resultValue.targetPortal = targetPortal;
+            return _resultValue;
         }
     }
 }

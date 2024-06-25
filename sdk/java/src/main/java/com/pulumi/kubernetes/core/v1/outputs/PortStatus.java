@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Integer;
 import java.lang.String;
 import java.util.Objects;
@@ -79,25 +80,32 @@ public final class PortStatus {
 
         @CustomType.Setter
         public Builder error(@Nullable String error) {
+
             this.error = error;
             return this;
         }
         @CustomType.Setter
         public Builder port(Integer port) {
-            this.port = Objects.requireNonNull(port);
+            if (port == null) {
+              throw new MissingRequiredPropertyException("PortStatus", "port");
+            }
+            this.port = port;
             return this;
         }
         @CustomType.Setter
         public Builder protocol(String protocol) {
-            this.protocol = Objects.requireNonNull(protocol);
+            if (protocol == null) {
+              throw new MissingRequiredPropertyException("PortStatus", "protocol");
+            }
+            this.protocol = protocol;
             return this;
         }
         public PortStatus build() {
-            final var o = new PortStatus();
-            o.error = error;
-            o.port = port;
-            o.protocol = protocol;
-            return o;
+            final var _resultValue = new PortStatus();
+            _resultValue.error = error;
+            _resultValue.port = port;
+            _resultValue.protocol = protocol;
+            return _resultValue;
         }
     }
 }

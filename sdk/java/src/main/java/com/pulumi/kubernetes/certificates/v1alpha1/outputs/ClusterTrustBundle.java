@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.certificates.v1alpha1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.certificates.v1alpha1.outputs.ClusterTrustBundleSpec;
 import com.pulumi.kubernetes.meta.v1.outputs.ObjectMeta;
 import java.lang.String;
@@ -88,31 +89,37 @@ public final class ClusterTrustBundle {
 
         @CustomType.Setter
         public Builder apiVersion(@Nullable String apiVersion) {
+
             this.apiVersion = apiVersion;
             return this;
         }
         @CustomType.Setter
         public Builder kind(@Nullable String kind) {
+
             this.kind = kind;
             return this;
         }
         @CustomType.Setter
         public Builder metadata(@Nullable ObjectMeta metadata) {
+
             this.metadata = metadata;
             return this;
         }
         @CustomType.Setter
         public Builder spec(ClusterTrustBundleSpec spec) {
-            this.spec = Objects.requireNonNull(spec);
+            if (spec == null) {
+              throw new MissingRequiredPropertyException("ClusterTrustBundle", "spec");
+            }
+            this.spec = spec;
             return this;
         }
         public ClusterTrustBundle build() {
-            final var o = new ClusterTrustBundle();
-            o.apiVersion = apiVersion;
-            o.kind = kind;
-            o.metadata = metadata;
-            o.spec = spec;
-            return o;
+            final var _resultValue = new ClusterTrustBundle();
+            _resultValue.apiVersion = apiVersion;
+            _resultValue.kind = kind;
+            _resultValue.metadata = metadata;
+            _resultValue.spec = spec;
+            return _resultValue;
         }
     }
 }

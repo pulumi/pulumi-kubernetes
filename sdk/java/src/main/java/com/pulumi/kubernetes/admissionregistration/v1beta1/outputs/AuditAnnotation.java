@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.admissionregistration.v1beta1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
 
@@ -76,19 +77,25 @@ public final class AuditAnnotation {
 
         @CustomType.Setter
         public Builder key(String key) {
-            this.key = Objects.requireNonNull(key);
+            if (key == null) {
+              throw new MissingRequiredPropertyException("AuditAnnotation", "key");
+            }
+            this.key = key;
             return this;
         }
         @CustomType.Setter
         public Builder valueExpression(String valueExpression) {
-            this.valueExpression = Objects.requireNonNull(valueExpression);
+            if (valueExpression == null) {
+              throw new MissingRequiredPropertyException("AuditAnnotation", "valueExpression");
+            }
+            this.valueExpression = valueExpression;
             return this;
         }
         public AuditAnnotation build() {
-            final var o = new AuditAnnotation();
-            o.key = key;
-            o.valueExpression = valueExpression;
-            return o;
+            final var _resultValue = new AuditAnnotation();
+            _resultValue.key = key;
+            _resultValue.valueExpression = valueExpression;
+            return _resultValue;
         }
     }
 }

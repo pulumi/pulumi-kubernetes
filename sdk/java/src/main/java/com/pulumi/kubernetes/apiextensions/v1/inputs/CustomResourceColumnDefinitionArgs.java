@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.apiextensions.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Integer;
 import java.lang.String;
 import java.util.Objects;
@@ -266,9 +267,15 @@ public final class CustomResourceColumnDefinitionArgs extends com.pulumi.resourc
         }
 
         public CustomResourceColumnDefinitionArgs build() {
-            $.jsonPath = Objects.requireNonNull($.jsonPath, "expected parameter 'jsonPath' to be non-null");
-            $.name = Objects.requireNonNull($.name, "expected parameter 'name' to be non-null");
-            $.type = Objects.requireNonNull($.type, "expected parameter 'type' to be non-null");
+            if ($.jsonPath == null) {
+                throw new MissingRequiredPropertyException("CustomResourceColumnDefinitionArgs", "jsonPath");
+            }
+            if ($.name == null) {
+                throw new MissingRequiredPropertyException("CustomResourceColumnDefinitionArgs", "name");
+            }
+            if ($.type == null) {
+                throw new MissingRequiredPropertyException("CustomResourceColumnDefinitionArgs", "type");
+            }
             return $;
         }
     }

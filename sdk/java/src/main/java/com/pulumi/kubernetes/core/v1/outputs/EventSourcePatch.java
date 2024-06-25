@@ -58,19 +58,21 @@ public final class EventSourcePatch {
 
         @CustomType.Setter
         public Builder component(@Nullable String component) {
+
             this.component = component;
             return this;
         }
         @CustomType.Setter
         public Builder host(@Nullable String host) {
+
             this.host = host;
             return this;
         }
         public EventSourcePatch build() {
-            final var o = new EventSourcePatch();
-            o.component = component;
-            o.host = host;
-            return o;
+            final var _resultValue = new EventSourcePatch();
+            _resultValue.component = component;
+            _resultValue.host = host;
+            return _resultValue;
         }
     }
 }

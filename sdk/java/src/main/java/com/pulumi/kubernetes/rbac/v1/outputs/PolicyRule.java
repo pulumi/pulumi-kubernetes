@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.rbac.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.List;
 import java.util.Objects;
@@ -100,6 +101,7 @@ public final class PolicyRule {
 
         @CustomType.Setter
         public Builder apiGroups(@Nullable List<String> apiGroups) {
+
             this.apiGroups = apiGroups;
             return this;
         }
@@ -108,6 +110,7 @@ public final class PolicyRule {
         }
         @CustomType.Setter
         public Builder nonResourceURLs(@Nullable List<String> nonResourceURLs) {
+
             this.nonResourceURLs = nonResourceURLs;
             return this;
         }
@@ -116,6 +119,7 @@ public final class PolicyRule {
         }
         @CustomType.Setter
         public Builder resourceNames(@Nullable List<String> resourceNames) {
+
             this.resourceNames = resourceNames;
             return this;
         }
@@ -124,6 +128,7 @@ public final class PolicyRule {
         }
         @CustomType.Setter
         public Builder resources(@Nullable List<String> resources) {
+
             this.resources = resources;
             return this;
         }
@@ -132,20 +137,23 @@ public final class PolicyRule {
         }
         @CustomType.Setter
         public Builder verbs(List<String> verbs) {
-            this.verbs = Objects.requireNonNull(verbs);
+            if (verbs == null) {
+              throw new MissingRequiredPropertyException("PolicyRule", "verbs");
+            }
+            this.verbs = verbs;
             return this;
         }
         public Builder verbs(String... verbs) {
             return verbs(List.of(verbs));
         }
         public PolicyRule build() {
-            final var o = new PolicyRule();
-            o.apiGroups = apiGroups;
-            o.nonResourceURLs = nonResourceURLs;
-            o.resourceNames = resourceNames;
-            o.resources = resources;
-            o.verbs = verbs;
-            return o;
+            final var _resultValue = new PolicyRule();
+            _resultValue.apiGroups = apiGroups;
+            _resultValue.nonResourceURLs = nonResourceURLs;
+            _resultValue.resourceNames = resourceNames;
+            _resultValue.resources = resources;
+            _resultValue.verbs = verbs;
+            return _resultValue;
         }
     }
 }

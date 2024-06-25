@@ -6,6 +6,7 @@ package com.pulumi.kubernetes.events.v1beta1.inputs;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.core.internal.Codegen;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.inputs.EventSourceArgs;
 import com.pulumi.kubernetes.core.v1.inputs.ObjectReferenceArgs;
 import com.pulumi.kubernetes.events.v1beta1.inputs.EventSeriesArgs;
@@ -659,7 +660,9 @@ public final class EventArgs extends com.pulumi.resources.ResourceArgs {
 
         public EventArgs build() {
             $.apiVersion = Codegen.stringProp("apiVersion").output().arg($.apiVersion).getNullable();
-            $.eventTime = Objects.requireNonNull($.eventTime, "expected parameter 'eventTime' to be non-null");
+            if ($.eventTime == null) {
+                throw new MissingRequiredPropertyException("EventArgs", "eventTime");
+            }
             $.kind = Codegen.stringProp("kind").output().arg($.kind).getNullable();
             return $;
         }

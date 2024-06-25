@@ -247,6 +247,7 @@ public final class ValidatingWebhookPatch {
 
         @CustomType.Setter
         public Builder admissionReviewVersions(@Nullable List<String> admissionReviewVersions) {
+
             this.admissionReviewVersions = admissionReviewVersions;
             return this;
         }
@@ -255,36 +256,43 @@ public final class ValidatingWebhookPatch {
         }
         @CustomType.Setter
         public Builder clientConfig(@Nullable WebhookClientConfigPatch clientConfig) {
+
             this.clientConfig = clientConfig;
             return this;
         }
         @CustomType.Setter
         public Builder failurePolicy(@Nullable String failurePolicy) {
+
             this.failurePolicy = failurePolicy;
             return this;
         }
         @CustomType.Setter
         public Builder matchPolicy(@Nullable String matchPolicy) {
+
             this.matchPolicy = matchPolicy;
             return this;
         }
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder namespaceSelector(@Nullable LabelSelectorPatch namespaceSelector) {
+
             this.namespaceSelector = namespaceSelector;
             return this;
         }
         @CustomType.Setter
         public Builder objectSelector(@Nullable LabelSelectorPatch objectSelector) {
+
             this.objectSelector = objectSelector;
             return this;
         }
         @CustomType.Setter
         public Builder rules(@Nullable List<RuleWithOperationsPatch> rules) {
+
             this.rules = rules;
             return this;
         }
@@ -293,27 +301,29 @@ public final class ValidatingWebhookPatch {
         }
         @CustomType.Setter
         public Builder sideEffects(@Nullable String sideEffects) {
+
             this.sideEffects = sideEffects;
             return this;
         }
         @CustomType.Setter
         public Builder timeoutSeconds(@Nullable Integer timeoutSeconds) {
+
             this.timeoutSeconds = timeoutSeconds;
             return this;
         }
         public ValidatingWebhookPatch build() {
-            final var o = new ValidatingWebhookPatch();
-            o.admissionReviewVersions = admissionReviewVersions;
-            o.clientConfig = clientConfig;
-            o.failurePolicy = failurePolicy;
-            o.matchPolicy = matchPolicy;
-            o.name = name;
-            o.namespaceSelector = namespaceSelector;
-            o.objectSelector = objectSelector;
-            o.rules = rules;
-            o.sideEffects = sideEffects;
-            o.timeoutSeconds = timeoutSeconds;
-            return o;
+            final var _resultValue = new ValidatingWebhookPatch();
+            _resultValue.admissionReviewVersions = admissionReviewVersions;
+            _resultValue.clientConfig = clientConfig;
+            _resultValue.failurePolicy = failurePolicy;
+            _resultValue.matchPolicy = matchPolicy;
+            _resultValue.name = name;
+            _resultValue.namespaceSelector = namespaceSelector;
+            _resultValue.objectSelector = objectSelector;
+            _resultValue.rules = rules;
+            _resultValue.sideEffects = sideEffects;
+            _resultValue.timeoutSeconds = timeoutSeconds;
+            return _resultValue;
         }
     }
 }

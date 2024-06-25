@@ -81,25 +81,28 @@ public final class NetworkPolicyPeerPatch {
 
         @CustomType.Setter
         public Builder ipBlock(@Nullable IPBlockPatch ipBlock) {
+
             this.ipBlock = ipBlock;
             return this;
         }
         @CustomType.Setter
         public Builder namespaceSelector(@Nullable LabelSelectorPatch namespaceSelector) {
+
             this.namespaceSelector = namespaceSelector;
             return this;
         }
         @CustomType.Setter
         public Builder podSelector(@Nullable LabelSelectorPatch podSelector) {
+
             this.podSelector = podSelector;
             return this;
         }
         public NetworkPolicyPeerPatch build() {
-            final var o = new NetworkPolicyPeerPatch();
-            o.ipBlock = ipBlock;
-            o.namespaceSelector = namespaceSelector;
-            o.podSelector = podSelector;
-            return o;
+            final var _resultValue = new NetworkPolicyPeerPatch();
+            _resultValue.ipBlock = ipBlock;
+            _resultValue.namespaceSelector = namespaceSelector;
+            _resultValue.podSelector = podSelector;
+            return _resultValue;
         }
     }
 }

@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.resource.v1alpha2.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.meta.v1.outputs.ObjectMeta;
 import com.pulumi.kubernetes.resource.v1alpha2.outputs.NamedResourcesResources;
 import java.lang.String;
@@ -120,43 +121,51 @@ public final class ResourceSlice {
 
         @CustomType.Setter
         public Builder apiVersion(@Nullable String apiVersion) {
+
             this.apiVersion = apiVersion;
             return this;
         }
         @CustomType.Setter
         public Builder driverName(String driverName) {
-            this.driverName = Objects.requireNonNull(driverName);
+            if (driverName == null) {
+              throw new MissingRequiredPropertyException("ResourceSlice", "driverName");
+            }
+            this.driverName = driverName;
             return this;
         }
         @CustomType.Setter
         public Builder kind(@Nullable String kind) {
+
             this.kind = kind;
             return this;
         }
         @CustomType.Setter
         public Builder metadata(@Nullable ObjectMeta metadata) {
+
             this.metadata = metadata;
             return this;
         }
         @CustomType.Setter
         public Builder namedResources(@Nullable NamedResourcesResources namedResources) {
+
             this.namedResources = namedResources;
             return this;
         }
         @CustomType.Setter
         public Builder nodeName(@Nullable String nodeName) {
+
             this.nodeName = nodeName;
             return this;
         }
         public ResourceSlice build() {
-            final var o = new ResourceSlice();
-            o.apiVersion = apiVersion;
-            o.driverName = driverName;
-            o.kind = kind;
-            o.metadata = metadata;
-            o.namedResources = namedResources;
-            o.nodeName = nodeName;
-            return o;
+            final var _resultValue = new ResourceSlice();
+            _resultValue.apiVersion = apiVersion;
+            _resultValue.driverName = driverName;
+            _resultValue.kind = kind;
+            _resultValue.metadata = metadata;
+            _resultValue.namedResources = namedResources;
+            _resultValue.nodeName = nodeName;
+            return _resultValue;
         }
     }
 }

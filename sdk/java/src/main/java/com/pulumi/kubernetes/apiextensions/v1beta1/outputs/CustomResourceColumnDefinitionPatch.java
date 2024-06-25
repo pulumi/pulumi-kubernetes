@@ -115,43 +115,49 @@ public final class CustomResourceColumnDefinitionPatch {
 
         @CustomType.Setter
         public Builder JSONPath(@Nullable String JSONPath) {
+
             this.JSONPath = JSONPath;
             return this;
         }
         @CustomType.Setter
         public Builder description(@Nullable String description) {
+
             this.description = description;
             return this;
         }
         @CustomType.Setter
         public Builder format(@Nullable String format) {
+
             this.format = format;
             return this;
         }
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder priority(@Nullable Integer priority) {
+
             this.priority = priority;
             return this;
         }
         @CustomType.Setter
         public Builder type(@Nullable String type) {
+
             this.type = type;
             return this;
         }
         public CustomResourceColumnDefinitionPatch build() {
-            final var o = new CustomResourceColumnDefinitionPatch();
-            o.JSONPath = JSONPath;
-            o.description = description;
-            o.format = format;
-            o.name = name;
-            o.priority = priority;
-            o.type = type;
-            return o;
+            final var _resultValue = new CustomResourceColumnDefinitionPatch();
+            _resultValue.JSONPath = JSONPath;
+            _resultValue.description = description;
+            _resultValue.format = format;
+            _resultValue.name = name;
+            _resultValue.priority = priority;
+            _resultValue.type = type;
+            return _resultValue;
         }
     }
 }

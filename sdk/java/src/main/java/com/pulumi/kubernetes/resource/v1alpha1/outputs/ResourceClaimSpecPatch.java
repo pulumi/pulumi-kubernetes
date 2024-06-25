@@ -77,25 +77,28 @@ public final class ResourceClaimSpecPatch {
 
         @CustomType.Setter
         public Builder allocationMode(@Nullable String allocationMode) {
+
             this.allocationMode = allocationMode;
             return this;
         }
         @CustomType.Setter
         public Builder parametersRef(@Nullable ResourceClaimParametersReferencePatch parametersRef) {
+
             this.parametersRef = parametersRef;
             return this;
         }
         @CustomType.Setter
         public Builder resourceClassName(@Nullable String resourceClassName) {
+
             this.resourceClassName = resourceClassName;
             return this;
         }
         public ResourceClaimSpecPatch build() {
-            final var o = new ResourceClaimSpecPatch();
-            o.allocationMode = allocationMode;
-            o.parametersRef = parametersRef;
-            o.resourceClassName = resourceClassName;
-            return o;
+            final var _resultValue = new ResourceClaimSpecPatch();
+            _resultValue.allocationMode = allocationMode;
+            _resultValue.parametersRef = parametersRef;
+            _resultValue.resourceClassName = resourceClassName;
+            return _resultValue;
         }
     }
 }

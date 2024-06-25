@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.autoscaling.v2.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.autoscaling.v2.outputs.CrossVersionObjectReference;
 import com.pulumi.kubernetes.autoscaling.v2.outputs.MetricIdentifier;
 import com.pulumi.kubernetes.autoscaling.v2.outputs.MetricTarget;
@@ -72,25 +73,34 @@ public final class ObjectMetricSource {
 
         @CustomType.Setter
         public Builder describedObject(CrossVersionObjectReference describedObject) {
-            this.describedObject = Objects.requireNonNull(describedObject);
+            if (describedObject == null) {
+              throw new MissingRequiredPropertyException("ObjectMetricSource", "describedObject");
+            }
+            this.describedObject = describedObject;
             return this;
         }
         @CustomType.Setter
         public Builder metric(MetricIdentifier metric) {
-            this.metric = Objects.requireNonNull(metric);
+            if (metric == null) {
+              throw new MissingRequiredPropertyException("ObjectMetricSource", "metric");
+            }
+            this.metric = metric;
             return this;
         }
         @CustomType.Setter
         public Builder target(MetricTarget target) {
-            this.target = Objects.requireNonNull(target);
+            if (target == null) {
+              throw new MissingRequiredPropertyException("ObjectMetricSource", "target");
+            }
+            this.target = target;
             return this;
         }
         public ObjectMetricSource build() {
-            final var o = new ObjectMetricSource();
-            o.describedObject = describedObject;
-            o.metric = metric;
-            o.target = target;
-            return o;
+            final var _resultValue = new ObjectMetricSource();
+            _resultValue.describedObject = describedObject;
+            _resultValue.metric = metric;
+            _resultValue.target = target;
+            return _resultValue;
         }
     }
 }

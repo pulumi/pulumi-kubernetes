@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.core.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.meta.v1.inputs.LabelSelectorArgs;
 import java.lang.Integer;
 import java.lang.String;
@@ -398,9 +399,15 @@ public final class TopologySpreadConstraintArgs extends com.pulumi.resources.Res
         }
 
         public TopologySpreadConstraintArgs build() {
-            $.maxSkew = Objects.requireNonNull($.maxSkew, "expected parameter 'maxSkew' to be non-null");
-            $.topologyKey = Objects.requireNonNull($.topologyKey, "expected parameter 'topologyKey' to be non-null");
-            $.whenUnsatisfiable = Objects.requireNonNull($.whenUnsatisfiable, "expected parameter 'whenUnsatisfiable' to be non-null");
+            if ($.maxSkew == null) {
+                throw new MissingRequiredPropertyException("TopologySpreadConstraintArgs", "maxSkew");
+            }
+            if ($.topologyKey == null) {
+                throw new MissingRequiredPropertyException("TopologySpreadConstraintArgs", "topologyKey");
+            }
+            if ($.whenUnsatisfiable == null) {
+                throw new MissingRequiredPropertyException("TopologySpreadConstraintArgs", "whenUnsatisfiable");
+            }
             return $;
         }
     }

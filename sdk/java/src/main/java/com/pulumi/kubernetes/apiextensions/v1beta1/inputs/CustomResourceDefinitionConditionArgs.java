@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.apiextensions.v1beta1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -228,8 +229,12 @@ public final class CustomResourceDefinitionConditionArgs extends com.pulumi.reso
         }
 
         public CustomResourceDefinitionConditionArgs build() {
-            $.status = Objects.requireNonNull($.status, "expected parameter 'status' to be non-null");
-            $.type = Objects.requireNonNull($.type, "expected parameter 'type' to be non-null");
+            if ($.status == null) {
+                throw new MissingRequiredPropertyException("CustomResourceDefinitionConditionArgs", "status");
+            }
+            if ($.type == null) {
+                throw new MissingRequiredPropertyException("CustomResourceDefinitionConditionArgs", "type");
+            }
             return $;
         }
     }

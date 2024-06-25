@@ -46,13 +46,14 @@ public final class RollingUpdateDaemonSet {
 
         @CustomType.Setter
         public Builder maxUnavailable(@Nullable Either<Integer,String> maxUnavailable) {
+
             this.maxUnavailable = maxUnavailable;
             return this;
         }
         public RollingUpdateDaemonSet build() {
-            final var o = new RollingUpdateDaemonSet();
-            o.maxUnavailable = maxUnavailable;
-            return o;
+            final var _resultValue = new RollingUpdateDaemonSet();
+            _resultValue.maxUnavailable = maxUnavailable;
+            return _resultValue;
         }
     }
 }

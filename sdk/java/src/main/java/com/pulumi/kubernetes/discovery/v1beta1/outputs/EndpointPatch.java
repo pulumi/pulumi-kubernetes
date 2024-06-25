@@ -130,6 +130,7 @@ public final class EndpointPatch {
 
         @CustomType.Setter
         public Builder addresses(@Nullable List<String> addresses) {
+
             this.addresses = addresses;
             return this;
         }
@@ -138,38 +139,43 @@ public final class EndpointPatch {
         }
         @CustomType.Setter
         public Builder conditions(@Nullable EndpointConditionsPatch conditions) {
+
             this.conditions = conditions;
             return this;
         }
         @CustomType.Setter
         public Builder hostname(@Nullable String hostname) {
+
             this.hostname = hostname;
             return this;
         }
         @CustomType.Setter
         public Builder nodeName(@Nullable String nodeName) {
+
             this.nodeName = nodeName;
             return this;
         }
         @CustomType.Setter
         public Builder targetRef(@Nullable ObjectReferencePatch targetRef) {
+
             this.targetRef = targetRef;
             return this;
         }
         @CustomType.Setter
         public Builder topology(@Nullable Map<String,String> topology) {
+
             this.topology = topology;
             return this;
         }
         public EndpointPatch build() {
-            final var o = new EndpointPatch();
-            o.addresses = addresses;
-            o.conditions = conditions;
-            o.hostname = hostname;
-            o.nodeName = nodeName;
-            o.targetRef = targetRef;
-            o.topology = topology;
-            return o;
+            final var _resultValue = new EndpointPatch();
+            _resultValue.addresses = addresses;
+            _resultValue.conditions = conditions;
+            _resultValue.hostname = hostname;
+            _resultValue.nodeName = nodeName;
+            _resultValue.targetRef = targetRef;
+            _resultValue.topology = topology;
+            return _resultValue;
         }
     }
 }

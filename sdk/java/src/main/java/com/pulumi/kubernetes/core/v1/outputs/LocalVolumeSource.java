@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -58,19 +59,23 @@ public final class LocalVolumeSource {
 
         @CustomType.Setter
         public Builder fsType(@Nullable String fsType) {
+
             this.fsType = fsType;
             return this;
         }
         @CustomType.Setter
         public Builder path(String path) {
-            this.path = Objects.requireNonNull(path);
+            if (path == null) {
+              throw new MissingRequiredPropertyException("LocalVolumeSource", "path");
+            }
+            this.path = path;
             return this;
         }
         public LocalVolumeSource build() {
-            final var o = new LocalVolumeSource();
-            o.fsType = fsType;
-            o.path = path;
-            return o;
+            final var _resultValue = new LocalVolumeSource();
+            _resultValue.fsType = fsType;
+            _resultValue.path = path;
+            return _resultValue;
         }
     }
 }

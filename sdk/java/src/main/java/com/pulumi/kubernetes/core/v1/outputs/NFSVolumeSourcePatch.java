@@ -73,25 +73,28 @@ public final class NFSVolumeSourcePatch {
 
         @CustomType.Setter
         public Builder path(@Nullable String path) {
+
             this.path = path;
             return this;
         }
         @CustomType.Setter
         public Builder readOnly(@Nullable Boolean readOnly) {
+
             this.readOnly = readOnly;
             return this;
         }
         @CustomType.Setter
         public Builder server(@Nullable String server) {
+
             this.server = server;
             return this;
         }
         public NFSVolumeSourcePatch build() {
-            final var o = new NFSVolumeSourcePatch();
-            o.path = path;
-            o.readOnly = readOnly;
-            o.server = server;
-            return o;
+            final var _resultValue = new NFSVolumeSourcePatch();
+            _resultValue.path = path;
+            _resultValue.readOnly = readOnly;
+            _resultValue.server = server;
+            return _resultValue;
         }
     }
 }

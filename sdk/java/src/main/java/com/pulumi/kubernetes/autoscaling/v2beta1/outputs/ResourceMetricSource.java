@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.autoscaling.v2beta1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Integer;
 import java.lang.String;
 import java.util.Objects;
@@ -73,25 +74,30 @@ public final class ResourceMetricSource {
 
         @CustomType.Setter
         public Builder name(String name) {
-            this.name = Objects.requireNonNull(name);
+            if (name == null) {
+              throw new MissingRequiredPropertyException("ResourceMetricSource", "name");
+            }
+            this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder targetAverageUtilization(@Nullable Integer targetAverageUtilization) {
+
             this.targetAverageUtilization = targetAverageUtilization;
             return this;
         }
         @CustomType.Setter
         public Builder targetAverageValue(@Nullable String targetAverageValue) {
+
             this.targetAverageValue = targetAverageValue;
             return this;
         }
         public ResourceMetricSource build() {
-            final var o = new ResourceMetricSource();
-            o.name = name;
-            o.targetAverageUtilization = targetAverageUtilization;
-            o.targetAverageValue = targetAverageValue;
-            return o;
+            final var _resultValue = new ResourceMetricSource();
+            _resultValue.name = name;
+            _resultValue.targetAverageUtilization = targetAverageUtilization;
+            _resultValue.targetAverageValue = targetAverageValue;
+            return _resultValue;
         }
     }
 }

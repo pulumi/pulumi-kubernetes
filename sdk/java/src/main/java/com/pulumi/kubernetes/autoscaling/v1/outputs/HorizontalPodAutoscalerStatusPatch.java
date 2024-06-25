@@ -101,37 +101,42 @@ public final class HorizontalPodAutoscalerStatusPatch {
 
         @CustomType.Setter
         public Builder currentCPUUtilizationPercentage(@Nullable Integer currentCPUUtilizationPercentage) {
+
             this.currentCPUUtilizationPercentage = currentCPUUtilizationPercentage;
             return this;
         }
         @CustomType.Setter
         public Builder currentReplicas(@Nullable Integer currentReplicas) {
+
             this.currentReplicas = currentReplicas;
             return this;
         }
         @CustomType.Setter
         public Builder desiredReplicas(@Nullable Integer desiredReplicas) {
+
             this.desiredReplicas = desiredReplicas;
             return this;
         }
         @CustomType.Setter
         public Builder lastScaleTime(@Nullable String lastScaleTime) {
+
             this.lastScaleTime = lastScaleTime;
             return this;
         }
         @CustomType.Setter
         public Builder observedGeneration(@Nullable Integer observedGeneration) {
+
             this.observedGeneration = observedGeneration;
             return this;
         }
         public HorizontalPodAutoscalerStatusPatch build() {
-            final var o = new HorizontalPodAutoscalerStatusPatch();
-            o.currentCPUUtilizationPercentage = currentCPUUtilizationPercentage;
-            o.currentReplicas = currentReplicas;
-            o.desiredReplicas = desiredReplicas;
-            o.lastScaleTime = lastScaleTime;
-            o.observedGeneration = observedGeneration;
-            return o;
+            final var _resultValue = new HorizontalPodAutoscalerStatusPatch();
+            _resultValue.currentCPUUtilizationPercentage = currentCPUUtilizationPercentage;
+            _resultValue.currentReplicas = currentReplicas;
+            _resultValue.desiredReplicas = desiredReplicas;
+            _resultValue.lastScaleTime = lastScaleTime;
+            _resultValue.observedGeneration = observedGeneration;
+            return _resultValue;
         }
     }
 }

@@ -44,6 +44,7 @@ public final class TypeChecking {
 
         @CustomType.Setter
         public Builder expressionWarnings(@Nullable List<ExpressionWarning> expressionWarnings) {
+
             this.expressionWarnings = expressionWarnings;
             return this;
         }
@@ -51,9 +52,9 @@ public final class TypeChecking {
             return expressionWarnings(List.of(expressionWarnings));
         }
         public TypeChecking build() {
-            final var o = new TypeChecking();
-            o.expressionWarnings = expressionWarnings;
-            return o;
+            final var _resultValue = new TypeChecking();
+            _resultValue.expressionWarnings = expressionWarnings;
+            return _resultValue;
         }
     }
 }

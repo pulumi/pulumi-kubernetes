@@ -87,31 +87,35 @@ public final class GlusterfsPersistentVolumeSourcePatch {
 
         @CustomType.Setter
         public Builder endpoints(@Nullable String endpoints) {
+
             this.endpoints = endpoints;
             return this;
         }
         @CustomType.Setter
         public Builder endpointsNamespace(@Nullable String endpointsNamespace) {
+
             this.endpointsNamespace = endpointsNamespace;
             return this;
         }
         @CustomType.Setter
         public Builder path(@Nullable String path) {
+
             this.path = path;
             return this;
         }
         @CustomType.Setter
         public Builder readOnly(@Nullable Boolean readOnly) {
+
             this.readOnly = readOnly;
             return this;
         }
         public GlusterfsPersistentVolumeSourcePatch build() {
-            final var o = new GlusterfsPersistentVolumeSourcePatch();
-            o.endpoints = endpoints;
-            o.endpointsNamespace = endpointsNamespace;
-            o.path = path;
-            o.readOnly = readOnly;
-            return o;
+            final var _resultValue = new GlusterfsPersistentVolumeSourcePatch();
+            _resultValue.endpoints = endpoints;
+            _resultValue.endpointsNamespace = endpointsNamespace;
+            _resultValue.path = path;
+            _resultValue.readOnly = readOnly;
+            return _resultValue;
         }
     }
 }

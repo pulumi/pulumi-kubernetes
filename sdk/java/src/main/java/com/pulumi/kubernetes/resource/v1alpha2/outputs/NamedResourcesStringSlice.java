@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.resource.v1alpha2.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.List;
 import java.util.Objects;
@@ -43,16 +44,19 @@ public final class NamedResourcesStringSlice {
 
         @CustomType.Setter
         public Builder strings(List<String> strings) {
-            this.strings = Objects.requireNonNull(strings);
+            if (strings == null) {
+              throw new MissingRequiredPropertyException("NamedResourcesStringSlice", "strings");
+            }
+            this.strings = strings;
             return this;
         }
         public Builder strings(String... strings) {
             return strings(List.of(strings));
         }
         public NamedResourcesStringSlice build() {
-            final var o = new NamedResourcesStringSlice();
-            o.strings = strings;
-            return o;
+            final var _resultValue = new NamedResourcesStringSlice();
+            _resultValue.strings = strings;
+            return _resultValue;
         }
     }
 }

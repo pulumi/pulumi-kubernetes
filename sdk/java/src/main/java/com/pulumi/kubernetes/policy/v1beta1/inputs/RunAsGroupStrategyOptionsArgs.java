@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.policy.v1beta1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.policy.v1beta1.inputs.IDRangeArgs;
 import java.lang.String;
 import java.util.List;
@@ -129,7 +130,9 @@ public final class RunAsGroupStrategyOptionsArgs extends com.pulumi.resources.Re
         }
 
         public RunAsGroupStrategyOptionsArgs build() {
-            $.rule = Objects.requireNonNull($.rule, "expected parameter 'rule' to be non-null");
+            if ($.rule == null) {
+                throw new MissingRequiredPropertyException("RunAsGroupStrategyOptionsArgs", "rule");
+            }
             return $;
         }
     }

@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.outputs.ObjectFieldSelector;
 import com.pulumi.kubernetes.core.v1.outputs.ResourceFieldSelector;
 import java.lang.Integer;
@@ -89,31 +90,37 @@ public final class DownwardAPIVolumeFile {
 
         @CustomType.Setter
         public Builder fieldRef(@Nullable ObjectFieldSelector fieldRef) {
+
             this.fieldRef = fieldRef;
             return this;
         }
         @CustomType.Setter
         public Builder mode(@Nullable Integer mode) {
+
             this.mode = mode;
             return this;
         }
         @CustomType.Setter
         public Builder path(String path) {
-            this.path = Objects.requireNonNull(path);
+            if (path == null) {
+              throw new MissingRequiredPropertyException("DownwardAPIVolumeFile", "path");
+            }
+            this.path = path;
             return this;
         }
         @CustomType.Setter
         public Builder resourceFieldRef(@Nullable ResourceFieldSelector resourceFieldRef) {
+
             this.resourceFieldRef = resourceFieldRef;
             return this;
         }
         public DownwardAPIVolumeFile build() {
-            final var o = new DownwardAPIVolumeFile();
-            o.fieldRef = fieldRef;
-            o.mode = mode;
-            o.path = path;
-            o.resourceFieldRef = resourceFieldRef;
-            return o;
+            final var _resultValue = new DownwardAPIVolumeFile();
+            _resultValue.fieldRef = fieldRef;
+            _resultValue.mode = mode;
+            _resultValue.path = path;
+            _resultValue.resourceFieldRef = resourceFieldRef;
+            return _resultValue;
         }
     }
 }

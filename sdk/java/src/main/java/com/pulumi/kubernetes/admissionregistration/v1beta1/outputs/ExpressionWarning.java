@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.admissionregistration.v1beta1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
 
@@ -56,19 +57,25 @@ public final class ExpressionWarning {
 
         @CustomType.Setter
         public Builder fieldRef(String fieldRef) {
-            this.fieldRef = Objects.requireNonNull(fieldRef);
+            if (fieldRef == null) {
+              throw new MissingRequiredPropertyException("ExpressionWarning", "fieldRef");
+            }
+            this.fieldRef = fieldRef;
             return this;
         }
         @CustomType.Setter
         public Builder warning(String warning) {
-            this.warning = Objects.requireNonNull(warning);
+            if (warning == null) {
+              throw new MissingRequiredPropertyException("ExpressionWarning", "warning");
+            }
+            this.warning = warning;
             return this;
         }
         public ExpressionWarning build() {
-            final var o = new ExpressionWarning();
-            o.fieldRef = fieldRef;
-            o.warning = warning;
-            return o;
+            final var _resultValue = new ExpressionWarning();
+            _resultValue.fieldRef = fieldRef;
+            _resultValue.warning = warning;
+            return _resultValue;
         }
     }
 }

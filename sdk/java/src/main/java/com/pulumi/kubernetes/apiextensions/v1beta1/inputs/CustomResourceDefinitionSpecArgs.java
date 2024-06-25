@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.apiextensions.v1beta1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.apiextensions.v1beta1.inputs.CustomResourceColumnDefinitionArgs;
 import com.pulumi.kubernetes.apiextensions.v1beta1.inputs.CustomResourceConversionArgs;
 import com.pulumi.kubernetes.apiextensions.v1beta1.inputs.CustomResourceDefinitionNamesArgs;
@@ -441,9 +442,15 @@ public final class CustomResourceDefinitionSpecArgs extends com.pulumi.resources
         }
 
         public CustomResourceDefinitionSpecArgs build() {
-            $.group = Objects.requireNonNull($.group, "expected parameter 'group' to be non-null");
-            $.names = Objects.requireNonNull($.names, "expected parameter 'names' to be non-null");
-            $.scope = Objects.requireNonNull($.scope, "expected parameter 'scope' to be non-null");
+            if ($.group == null) {
+                throw new MissingRequiredPropertyException("CustomResourceDefinitionSpecArgs", "group");
+            }
+            if ($.names == null) {
+                throw new MissingRequiredPropertyException("CustomResourceDefinitionSpecArgs", "names");
+            }
+            if ($.scope == null) {
+                throw new MissingRequiredPropertyException("CustomResourceDefinitionSpecArgs", "scope");
+            }
             return $;
         }
     }

@@ -25,7 +25,7 @@ import (
 )
 
 var (
-	DefaultServerVersion = kubeversion.Info{Major: "1", Minor: "29"}
+	DefaultServerVersion = kubeversion.Info{Major: "1", Minor: "29", GitVersion: "v1.29.2"}
 )
 
 type NewDynamicClientOption func(*newDynamicClientOptions)

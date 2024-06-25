@@ -44,6 +44,7 @@ public final class NamedResourcesStringSlicePatch {
 
         @CustomType.Setter
         public Builder strings(@Nullable List<String> strings) {
+
             this.strings = strings;
             return this;
         }
@@ -51,9 +52,9 @@ public final class NamedResourcesStringSlicePatch {
             return strings(List.of(strings));
         }
         public NamedResourcesStringSlicePatch build() {
-            final var o = new NamedResourcesStringSlicePatch();
-            o.strings = strings;
-            return o;
+            final var _resultValue = new NamedResourcesStringSlicePatch();
+            _resultValue.strings = strings;
+            return _resultValue;
         }
     }
 }

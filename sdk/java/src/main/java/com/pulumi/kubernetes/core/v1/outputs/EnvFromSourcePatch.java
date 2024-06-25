@@ -74,25 +74,28 @@ public final class EnvFromSourcePatch {
 
         @CustomType.Setter
         public Builder configMapRef(@Nullable ConfigMapEnvSourcePatch configMapRef) {
+
             this.configMapRef = configMapRef;
             return this;
         }
         @CustomType.Setter
         public Builder prefix(@Nullable String prefix) {
+
             this.prefix = prefix;
             return this;
         }
         @CustomType.Setter
         public Builder secretRef(@Nullable SecretEnvSourcePatch secretRef) {
+
             this.secretRef = secretRef;
             return this;
         }
         public EnvFromSourcePatch build() {
-            final var o = new EnvFromSourcePatch();
-            o.configMapRef = configMapRef;
-            o.prefix = prefix;
-            o.secretRef = secretRef;
-            return o;
+            final var _resultValue = new EnvFromSourcePatch();
+            _resultValue.configMapRef = configMapRef;
+            _resultValue.prefix = prefix;
+            _resultValue.secretRef = secretRef;
+            return _resultValue;
         }
     }
 }

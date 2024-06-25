@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.core.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.inputs.AWSElasticBlockStoreVolumeSourceArgs;
 import com.pulumi.kubernetes.core.v1.inputs.AzureDiskVolumeSourceArgs;
 import com.pulumi.kubernetes.core.v1.inputs.AzureFileVolumeSourceArgs;
@@ -1234,7 +1235,9 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         public VolumeArgs build() {
-            $.name = Objects.requireNonNull($.name, "expected parameter 'name' to be non-null");
+            if ($.name == null) {
+                throw new MissingRequiredPropertyException("VolumeArgs", "name");
+            }
             return $;
         }
     }

@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.core.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Integer;
 import java.util.Objects;
 
@@ -78,7 +79,9 @@ public final class DaemonEndpointArgs extends com.pulumi.resources.ResourceArgs 
         }
 
         public DaemonEndpointArgs build() {
-            $.Port = Objects.requireNonNull($.Port, "expected parameter 'Port' to be non-null");
+            if ($.Port == null) {
+                throw new MissingRequiredPropertyException("DaemonEndpointArgs", "Port");
+            }
             return $;
         }
     }

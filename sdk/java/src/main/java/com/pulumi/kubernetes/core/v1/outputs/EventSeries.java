@@ -73,25 +73,28 @@ public final class EventSeries {
 
         @CustomType.Setter
         public Builder count(@Nullable Integer count) {
+
             this.count = count;
             return this;
         }
         @CustomType.Setter
         public Builder lastObservedTime(@Nullable String lastObservedTime) {
+
             this.lastObservedTime = lastObservedTime;
             return this;
         }
         @CustomType.Setter
         public Builder state(@Nullable String state) {
+
             this.state = state;
             return this;
         }
         public EventSeries build() {
-            final var o = new EventSeries();
-            o.count = count;
-            o.lastObservedTime = lastObservedTime;
-            o.state = state;
-            return o;
+            final var _resultValue = new EventSeries();
+            _resultValue.count = count;
+            _resultValue.lastObservedTime = lastObservedTime;
+            _resultValue.state = state;
+            return _resultValue;
         }
     }
 }

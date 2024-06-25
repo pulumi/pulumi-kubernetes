@@ -44,6 +44,7 @@ public final class FlowSchemaStatusPatch {
 
         @CustomType.Setter
         public Builder conditions(@Nullable List<FlowSchemaConditionPatch> conditions) {
+
             this.conditions = conditions;
             return this;
         }
@@ -51,9 +52,9 @@ public final class FlowSchemaStatusPatch {
             return conditions(List.of(conditions));
         }
         public FlowSchemaStatusPatch build() {
-            final var o = new FlowSchemaStatusPatch();
-            o.conditions = conditions;
-            return o;
+            final var _resultValue = new FlowSchemaStatusPatch();
+            _resultValue.conditions = conditions;
+            return _resultValue;
         }
     }
 }

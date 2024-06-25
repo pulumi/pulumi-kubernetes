@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
 
@@ -42,13 +43,16 @@ public final class PodReadinessGate {
 
         @CustomType.Setter
         public Builder conditionType(String conditionType) {
-            this.conditionType = Objects.requireNonNull(conditionType);
+            if (conditionType == null) {
+              throw new MissingRequiredPropertyException("PodReadinessGate", "conditionType");
+            }
+            this.conditionType = conditionType;
             return this;
         }
         public PodReadinessGate build() {
-            final var o = new PodReadinessGate();
-            o.conditionType = conditionType;
-            return o;
+            final var _resultValue = new PodReadinessGate();
+            _resultValue.conditionType = conditionType;
+            return _resultValue;
         }
     }
 }

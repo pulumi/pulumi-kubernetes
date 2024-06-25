@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.core.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -265,8 +266,12 @@ public final class PodConditionArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         public PodConditionArgs build() {
-            $.status = Objects.requireNonNull($.status, "expected parameter 'status' to be non-null");
-            $.type = Objects.requireNonNull($.type, "expected parameter 'type' to be non-null");
+            if ($.status == null) {
+                throw new MissingRequiredPropertyException("PodConditionArgs", "status");
+            }
+            if ($.type == null) {
+                throw new MissingRequiredPropertyException("PodConditionArgs", "type");
+            }
             return $;
         }
     }

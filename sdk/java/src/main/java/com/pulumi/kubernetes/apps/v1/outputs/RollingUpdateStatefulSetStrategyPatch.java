@@ -60,19 +60,21 @@ public final class RollingUpdateStatefulSetStrategyPatch {
 
         @CustomType.Setter
         public Builder maxUnavailable(@Nullable Either<Integer,String> maxUnavailable) {
+
             this.maxUnavailable = maxUnavailable;
             return this;
         }
         @CustomType.Setter
         public Builder partition(@Nullable Integer partition) {
+
             this.partition = partition;
             return this;
         }
         public RollingUpdateStatefulSetStrategyPatch build() {
-            final var o = new RollingUpdateStatefulSetStrategyPatch();
-            o.maxUnavailable = maxUnavailable;
-            o.partition = partition;
-            return o;
+            final var _resultValue = new RollingUpdateStatefulSetStrategyPatch();
+            _resultValue.maxUnavailable = maxUnavailable;
+            _resultValue.partition = partition;
+            return _resultValue;
         }
     }
 }

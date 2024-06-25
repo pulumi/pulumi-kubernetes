@@ -103,37 +103,42 @@ public final class FlexPersistentVolumeSourcePatch {
 
         @CustomType.Setter
         public Builder driver(@Nullable String driver) {
+
             this.driver = driver;
             return this;
         }
         @CustomType.Setter
         public Builder fsType(@Nullable String fsType) {
+
             this.fsType = fsType;
             return this;
         }
         @CustomType.Setter
         public Builder options(@Nullable Map<String,String> options) {
+
             this.options = options;
             return this;
         }
         @CustomType.Setter
         public Builder readOnly(@Nullable Boolean readOnly) {
+
             this.readOnly = readOnly;
             return this;
         }
         @CustomType.Setter
         public Builder secretRef(@Nullable SecretReferencePatch secretRef) {
+
             this.secretRef = secretRef;
             return this;
         }
         public FlexPersistentVolumeSourcePatch build() {
-            final var o = new FlexPersistentVolumeSourcePatch();
-            o.driver = driver;
-            o.fsType = fsType;
-            o.options = options;
-            o.readOnly = readOnly;
-            o.secretRef = secretRef;
-            return o;
+            final var _resultValue = new FlexPersistentVolumeSourcePatch();
+            _resultValue.driver = driver;
+            _resultValue.fsType = fsType;
+            _resultValue.options = options;
+            _resultValue.readOnly = readOnly;
+            _resultValue.secretRef = secretRef;
+            return _resultValue;
         }
     }
 }

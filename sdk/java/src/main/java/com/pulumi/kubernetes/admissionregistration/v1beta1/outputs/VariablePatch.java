@@ -58,19 +58,21 @@ public final class VariablePatch {
 
         @CustomType.Setter
         public Builder expression(@Nullable String expression) {
+
             this.expression = expression;
             return this;
         }
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         public VariablePatch build() {
-            final var o = new VariablePatch();
-            o.expression = expression;
-            o.name = name;
-            return o;
+            final var _resultValue = new VariablePatch();
+            _resultValue.expression = expression;
+            _resultValue.name = name;
+            return _resultValue;
         }
     }
 }

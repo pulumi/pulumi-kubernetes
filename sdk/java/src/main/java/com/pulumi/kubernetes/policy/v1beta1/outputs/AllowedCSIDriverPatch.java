@@ -44,13 +44,14 @@ public final class AllowedCSIDriverPatch {
 
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         public AllowedCSIDriverPatch build() {
-            final var o = new AllowedCSIDriverPatch();
-            o.name = name;
-            return o;
+            final var _resultValue = new AllowedCSIDriverPatch();
+            _resultValue.name = name;
+            return _resultValue;
         }
     }
 }

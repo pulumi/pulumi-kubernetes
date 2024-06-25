@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.core.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Boolean;
 import java.lang.String;
 import java.util.Objects;
@@ -266,8 +267,12 @@ public final class AzureDiskVolumeSourceArgs extends com.pulumi.resources.Resour
         }
 
         public AzureDiskVolumeSourceArgs build() {
-            $.diskName = Objects.requireNonNull($.diskName, "expected parameter 'diskName' to be non-null");
-            $.diskURI = Objects.requireNonNull($.diskURI, "expected parameter 'diskURI' to be non-null");
+            if ($.diskName == null) {
+                throw new MissingRequiredPropertyException("AzureDiskVolumeSourceArgs", "diskName");
+            }
+            if ($.diskURI == null) {
+                throw new MissingRequiredPropertyException("AzureDiskVolumeSourceArgs", "diskURI");
+            }
             return $;
         }
     }

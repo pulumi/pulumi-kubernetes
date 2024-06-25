@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.resource.v1alpha2.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.resource.v1alpha2.outputs.NamedResourcesIntSlice;
 import com.pulumi.kubernetes.resource.v1alpha2.outputs.NamedResourcesStringSlice;
 import java.lang.Boolean;
@@ -146,55 +147,65 @@ public final class NamedResourcesAttribute {
 
         @CustomType.Setter
         public Builder bool(@Nullable Boolean bool) {
+
             this.bool = bool;
             return this;
         }
         @CustomType.Setter("int")
         public Builder int_(@Nullable Integer int_) {
+
             this.int_ = int_;
             return this;
         }
         @CustomType.Setter
         public Builder intSlice(@Nullable NamedResourcesIntSlice intSlice) {
+
             this.intSlice = intSlice;
             return this;
         }
         @CustomType.Setter
         public Builder name(String name) {
-            this.name = Objects.requireNonNull(name);
+            if (name == null) {
+              throw new MissingRequiredPropertyException("NamedResourcesAttribute", "name");
+            }
+            this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder quantity(@Nullable String quantity) {
+
             this.quantity = quantity;
             return this;
         }
         @CustomType.Setter
         public Builder string(@Nullable String string) {
+
             this.string = string;
             return this;
         }
         @CustomType.Setter
         public Builder stringSlice(@Nullable NamedResourcesStringSlice stringSlice) {
+
             this.stringSlice = stringSlice;
             return this;
         }
         @CustomType.Setter
         public Builder version(@Nullable String version) {
+
             this.version = version;
             return this;
         }
         public NamedResourcesAttribute build() {
-            final var o = new NamedResourcesAttribute();
-            o.bool = bool;
-            o.int_ = int_;
-            o.intSlice = intSlice;
-            o.name = name;
-            o.quantity = quantity;
-            o.string = string;
-            o.stringSlice = stringSlice;
-            o.version = version;
-            return o;
+            final var _resultValue = new NamedResourcesAttribute();
+            _resultValue.bool = bool;
+            _resultValue.int_ = int_;
+            _resultValue.intSlice = intSlice;
+            _resultValue.name = name;
+            _resultValue.quantity = quantity;
+            _resultValue.string = string;
+            _resultValue.stringSlice = stringSlice;
+            _resultValue.version = version;
+            return _resultValue;
         }
     }
 }

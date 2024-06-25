@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.scheduling.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.meta.v1.outputs.ObjectMeta;
 import java.lang.Boolean;
 import java.lang.Integer;
@@ -131,49 +132,58 @@ public final class PriorityClass {
 
         @CustomType.Setter
         public Builder apiVersion(@Nullable String apiVersion) {
+
             this.apiVersion = apiVersion;
             return this;
         }
         @CustomType.Setter
         public Builder description(@Nullable String description) {
+
             this.description = description;
             return this;
         }
         @CustomType.Setter
         public Builder globalDefault(@Nullable Boolean globalDefault) {
+
             this.globalDefault = globalDefault;
             return this;
         }
         @CustomType.Setter
         public Builder kind(@Nullable String kind) {
+
             this.kind = kind;
             return this;
         }
         @CustomType.Setter
         public Builder metadata(@Nullable ObjectMeta metadata) {
+
             this.metadata = metadata;
             return this;
         }
         @CustomType.Setter
         public Builder preemptionPolicy(@Nullable String preemptionPolicy) {
+
             this.preemptionPolicy = preemptionPolicy;
             return this;
         }
         @CustomType.Setter
         public Builder value(Integer value) {
-            this.value = Objects.requireNonNull(value);
+            if (value == null) {
+              throw new MissingRequiredPropertyException("PriorityClass", "value");
+            }
+            this.value = value;
             return this;
         }
         public PriorityClass build() {
-            final var o = new PriorityClass();
-            o.apiVersion = apiVersion;
-            o.description = description;
-            o.globalDefault = globalDefault;
-            o.kind = kind;
-            o.metadata = metadata;
-            o.preemptionPolicy = preemptionPolicy;
-            o.value = value;
-            return o;
+            final var _resultValue = new PriorityClass();
+            _resultValue.apiVersion = apiVersion;
+            _resultValue.description = description;
+            _resultValue.globalDefault = globalDefault;
+            _resultValue.kind = kind;
+            _resultValue.metadata = metadata;
+            _resultValue.preemptionPolicy = preemptionPolicy;
+            _resultValue.value = value;
+            return _resultValue;
         }
     }
 }

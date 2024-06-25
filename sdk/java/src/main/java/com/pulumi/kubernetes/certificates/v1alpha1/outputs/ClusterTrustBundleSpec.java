@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.certificates.v1alpha1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -82,19 +83,23 @@ public final class ClusterTrustBundleSpec {
 
         @CustomType.Setter
         public Builder signerName(@Nullable String signerName) {
+
             this.signerName = signerName;
             return this;
         }
         @CustomType.Setter
         public Builder trustBundle(String trustBundle) {
-            this.trustBundle = Objects.requireNonNull(trustBundle);
+            if (trustBundle == null) {
+              throw new MissingRequiredPropertyException("ClusterTrustBundleSpec", "trustBundle");
+            }
+            this.trustBundle = trustBundle;
             return this;
         }
         public ClusterTrustBundleSpec build() {
-            final var o = new ClusterTrustBundleSpec();
-            o.signerName = signerName;
-            o.trustBundle = trustBundle;
-            return o;
+            final var _resultValue = new ClusterTrustBundleSpec();
+            _resultValue.signerName = signerName;
+            _resultValue.trustBundle = trustBundle;
+            return _resultValue;
         }
     }
 }

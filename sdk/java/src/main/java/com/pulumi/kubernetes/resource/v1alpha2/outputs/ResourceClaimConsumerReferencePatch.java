@@ -86,31 +86,35 @@ public final class ResourceClaimConsumerReferencePatch {
 
         @CustomType.Setter
         public Builder apiGroup(@Nullable String apiGroup) {
+
             this.apiGroup = apiGroup;
             return this;
         }
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder resource(@Nullable String resource) {
+
             this.resource = resource;
             return this;
         }
         @CustomType.Setter
         public Builder uid(@Nullable String uid) {
+
             this.uid = uid;
             return this;
         }
         public ResourceClaimConsumerReferencePatch build() {
-            final var o = new ResourceClaimConsumerReferencePatch();
-            o.apiGroup = apiGroup;
-            o.name = name;
-            o.resource = resource;
-            o.uid = uid;
-            return o;
+            final var _resultValue = new ResourceClaimConsumerReferencePatch();
+            _resultValue.apiGroup = apiGroup;
+            _resultValue.name = name;
+            _resultValue.resource = resource;
+            _resultValue.uid = uid;
+            return _resultValue;
         }
     }
 }

@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.autoscaling.v2beta1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.autoscaling.v2beta1.inputs.CrossVersionObjectReferenceArgs;
 import com.pulumi.kubernetes.autoscaling.v2beta1.inputs.MetricSpecArgs;
 import java.lang.Integer;
@@ -204,8 +205,12 @@ public final class HorizontalPodAutoscalerSpecArgs extends com.pulumi.resources.
         }
 
         public HorizontalPodAutoscalerSpecArgs build() {
-            $.maxReplicas = Objects.requireNonNull($.maxReplicas, "expected parameter 'maxReplicas' to be non-null");
-            $.scaleTargetRef = Objects.requireNonNull($.scaleTargetRef, "expected parameter 'scaleTargetRef' to be non-null");
+            if ($.maxReplicas == null) {
+                throw new MissingRequiredPropertyException("HorizontalPodAutoscalerSpecArgs", "maxReplicas");
+            }
+            if ($.scaleTargetRef == null) {
+                throw new MissingRequiredPropertyException("HorizontalPodAutoscalerSpecArgs", "scaleTargetRef");
+            }
             return $;
         }
     }

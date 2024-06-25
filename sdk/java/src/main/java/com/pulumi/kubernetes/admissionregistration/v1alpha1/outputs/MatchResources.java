@@ -175,6 +175,7 @@ public final class MatchResources {
 
         @CustomType.Setter
         public Builder excludeResourceRules(@Nullable List<NamedRuleWithOperations> excludeResourceRules) {
+
             this.excludeResourceRules = excludeResourceRules;
             return this;
         }
@@ -183,21 +184,25 @@ public final class MatchResources {
         }
         @CustomType.Setter
         public Builder matchPolicy(@Nullable String matchPolicy) {
+
             this.matchPolicy = matchPolicy;
             return this;
         }
         @CustomType.Setter
         public Builder namespaceSelector(@Nullable LabelSelector namespaceSelector) {
+
             this.namespaceSelector = namespaceSelector;
             return this;
         }
         @CustomType.Setter
         public Builder objectSelector(@Nullable LabelSelector objectSelector) {
+
             this.objectSelector = objectSelector;
             return this;
         }
         @CustomType.Setter
         public Builder resourceRules(@Nullable List<NamedRuleWithOperations> resourceRules) {
+
             this.resourceRules = resourceRules;
             return this;
         }
@@ -205,13 +210,13 @@ public final class MatchResources {
             return resourceRules(List.of(resourceRules));
         }
         public MatchResources build() {
-            final var o = new MatchResources();
-            o.excludeResourceRules = excludeResourceRules;
-            o.matchPolicy = matchPolicy;
-            o.namespaceSelector = namespaceSelector;
-            o.objectSelector = objectSelector;
-            o.resourceRules = resourceRules;
-            return o;
+            final var _resultValue = new MatchResources();
+            _resultValue.excludeResourceRules = excludeResourceRules;
+            _resultValue.matchPolicy = matchPolicy;
+            _resultValue.namespaceSelector = namespaceSelector;
+            _resultValue.objectSelector = objectSelector;
+            _resultValue.resourceRules = resourceRules;
+            return _resultValue;
         }
     }
 }

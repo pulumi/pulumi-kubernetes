@@ -59,6 +59,7 @@ public final class HostAlias {
 
         @CustomType.Setter
         public Builder hostnames(@Nullable List<String> hostnames) {
+
             this.hostnames = hostnames;
             return this;
         }
@@ -67,14 +68,15 @@ public final class HostAlias {
         }
         @CustomType.Setter
         public Builder ip(@Nullable String ip) {
+
             this.ip = ip;
             return this;
         }
         public HostAlias build() {
-            final var o = new HostAlias();
-            o.hostnames = hostnames;
-            o.ip = ip;
-            return o;
+            final var _resultValue = new HostAlias();
+            _resultValue.hostnames = hostnames;
+            _resultValue.ip = ip;
+            return _resultValue;
         }
     }
 }

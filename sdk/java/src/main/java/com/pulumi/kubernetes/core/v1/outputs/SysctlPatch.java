@@ -58,19 +58,21 @@ public final class SysctlPatch {
 
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder value(@Nullable String value) {
+
             this.value = value;
             return this;
         }
         public SysctlPatch build() {
-            final var o = new SysctlPatch();
-            o.name = name;
-            o.value = value;
-            return o;
+            final var _resultValue = new SysctlPatch();
+            _resultValue.name = name;
+            _resultValue.value = value;
+            return _resultValue;
         }
     }
 }

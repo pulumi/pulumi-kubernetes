@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.flowcontrol.v1beta3.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.flowcontrol.v1beta3.inputs.ExemptPriorityLevelConfigurationArgs;
 import com.pulumi.kubernetes.flowcontrol.v1beta3.inputs.LimitedPriorityLevelConfigurationArgs;
 import java.lang.String;
@@ -156,7 +157,9 @@ public final class PriorityLevelConfigurationSpecArgs extends com.pulumi.resourc
         }
 
         public PriorityLevelConfigurationSpecArgs build() {
-            $.type = Objects.requireNonNull($.type, "expected parameter 'type' to be non-null");
+            if ($.type == null) {
+                throw new MissingRequiredPropertyException("PriorityLevelConfigurationSpecArgs", "type");
+            }
             return $;
         }
     }

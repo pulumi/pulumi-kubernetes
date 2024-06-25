@@ -80,25 +80,28 @@ public final class StatusCausePatch {
 
         @CustomType.Setter
         public Builder field(@Nullable String field) {
+
             this.field = field;
             return this;
         }
         @CustomType.Setter
         public Builder message(@Nullable String message) {
+
             this.message = message;
             return this;
         }
         @CustomType.Setter
         public Builder reason(@Nullable String reason) {
+
             this.reason = reason;
             return this;
         }
         public StatusCausePatch build() {
-            final var o = new StatusCausePatch();
-            o.field = field;
-            o.message = message;
-            o.reason = reason;
-            return o;
+            final var _resultValue = new StatusCausePatch();
+            _resultValue.field = field;
+            _resultValue.message = message;
+            _resultValue.reason = reason;
+            return _resultValue;
         }
     }
 }

@@ -72,25 +72,28 @@ public final class QueuingConfigurationPatch {
 
         @CustomType.Setter
         public Builder handSize(@Nullable Integer handSize) {
+
             this.handSize = handSize;
             return this;
         }
         @CustomType.Setter
         public Builder queueLengthLimit(@Nullable Integer queueLengthLimit) {
+
             this.queueLengthLimit = queueLengthLimit;
             return this;
         }
         @CustomType.Setter
         public Builder queues(@Nullable Integer queues) {
+
             this.queues = queues;
             return this;
         }
         public QueuingConfigurationPatch build() {
-            final var o = new QueuingConfigurationPatch();
-            o.handSize = handSize;
-            o.queueLengthLimit = queueLengthLimit;
-            o.queues = queues;
-            return o;
+            final var _resultValue = new QueuingConfigurationPatch();
+            _resultValue.handSize = handSize;
+            _resultValue.queueLengthLimit = queueLengthLimit;
+            _resultValue.queues = queues;
+            return _resultValue;
         }
     }
 }

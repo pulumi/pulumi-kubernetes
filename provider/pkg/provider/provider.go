@@ -1743,8 +1743,12 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 	}
 
 	if metadata.ReplaceUnready(newInputs) {
-		switch newInputs.GetKind() {
-		case "Job":
+		switch {
+		case k.clusterUnreachable:
+			// Check if the cluster is unreachable. If it is, we can't check the status of the resource otherwise
+			// a panic occurs due to the client being nil.
+			_ = k.host.Log(ctx, diag.Warning, urn, "Cluster is unreachable, skipping replaceUnready check")
+		case newInputs.GetKind() == "Job":
 			// Fetch current Job status and check point-in-time readiness. Errors are ignored.
 			if live, err := k.readLiveObject(oldLive); err == nil {
 				jobChecker := checkjob.NewJobChecker()
@@ -2358,7 +2362,7 @@ func (k *kubeProvider) Update(
 			return nil, err
 		}
 
-		obj := checkpointObject(newInputs, oldLive, newResInputs, initialAPIVersion, fieldManager)
+		obj := checkpointObject(newInputs, newInputs, newResInputs, initialAPIVersion, fieldManager)
 		inputsAndComputed, err := plugin.MarshalProperties(
 			obj, plugin.MarshalOptions{
 				Label:        fmt.Sprintf("%s.inputsAndComputed", label),
@@ -2677,6 +2681,7 @@ func (k *kubeProvider) gvkFromURN(urn resource.URN) (schema.GroupVersionKind, er
 
 func (k *kubeProvider) readLiveObject(obj *unstructured.Unstructured) (*unstructured.Unstructured, error) {
 	contract.Assertf(obj.GetName() != "", "expected object name to be nonempty: %v", obj)
+	contract.Assertf(k.clientSet != nil, "expected Kubernetes client-set to be non-nil")
 	rc, err := k.clientSet.ResourceClientForObject(obj)
 	if err != nil {
 		return nil, err

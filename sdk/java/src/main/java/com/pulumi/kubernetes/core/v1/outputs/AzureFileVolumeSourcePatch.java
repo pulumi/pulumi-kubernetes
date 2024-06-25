@@ -73,25 +73,28 @@ public final class AzureFileVolumeSourcePatch {
 
         @CustomType.Setter
         public Builder readOnly(@Nullable Boolean readOnly) {
+
             this.readOnly = readOnly;
             return this;
         }
         @CustomType.Setter
         public Builder secretName(@Nullable String secretName) {
+
             this.secretName = secretName;
             return this;
         }
         @CustomType.Setter
         public Builder shareName(@Nullable String shareName) {
+
             this.shareName = shareName;
             return this;
         }
         public AzureFileVolumeSourcePatch build() {
-            final var o = new AzureFileVolumeSourcePatch();
-            o.readOnly = readOnly;
-            o.secretName = secretName;
-            o.shareName = shareName;
-            return o;
+            final var _resultValue = new AzureFileVolumeSourcePatch();
+            _resultValue.readOnly = readOnly;
+            _resultValue.secretName = secretName;
+            _resultValue.shareName = shareName;
+            return _resultValue;
         }
     }
 }

@@ -101,37 +101,42 @@ public final class Toleration {
 
         @CustomType.Setter
         public Builder effect(@Nullable String effect) {
+
             this.effect = effect;
             return this;
         }
         @CustomType.Setter
         public Builder key(@Nullable String key) {
+
             this.key = key;
             return this;
         }
         @CustomType.Setter
         public Builder operator(@Nullable String operator) {
+
             this.operator = operator;
             return this;
         }
         @CustomType.Setter
         public Builder tolerationSeconds(@Nullable Integer tolerationSeconds) {
+
             this.tolerationSeconds = tolerationSeconds;
             return this;
         }
         @CustomType.Setter
         public Builder value(@Nullable String value) {
+
             this.value = value;
             return this;
         }
         public Toleration build() {
-            final var o = new Toleration();
-            o.effect = effect;
-            o.key = key;
-            o.operator = operator;
-            o.tolerationSeconds = tolerationSeconds;
-            o.value = value;
-            return o;
+            final var _resultValue = new Toleration();
+            _resultValue.effect = effect;
+            _resultValue.key = key;
+            _resultValue.operator = operator;
+            _resultValue.tolerationSeconds = tolerationSeconds;
+            _resultValue.value = value;
+            return _resultValue;
         }
     }
 }

@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.core.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.inputs.PodAffinityTermArgs;
 import java.lang.Integer;
 import java.util.Objects;
@@ -116,8 +117,12 @@ public final class WeightedPodAffinityTermArgs extends com.pulumi.resources.Reso
         }
 
         public WeightedPodAffinityTermArgs build() {
-            $.podAffinityTerm = Objects.requireNonNull($.podAffinityTerm, "expected parameter 'podAffinityTerm' to be non-null");
-            $.weight = Objects.requireNonNull($.weight, "expected parameter 'weight' to be non-null");
+            if ($.podAffinityTerm == null) {
+                throw new MissingRequiredPropertyException("WeightedPodAffinityTermArgs", "podAffinityTerm");
+            }
+            if ($.weight == null) {
+                throw new MissingRequiredPropertyException("WeightedPodAffinityTermArgs", "weight");
+            }
             return $;
         }
     }

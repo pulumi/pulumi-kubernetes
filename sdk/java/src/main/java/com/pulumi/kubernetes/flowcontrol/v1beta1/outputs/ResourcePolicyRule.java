@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.flowcontrol.v1beta1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Boolean;
 import java.lang.String;
 import java.util.List;
@@ -102,7 +103,10 @@ public final class ResourcePolicyRule {
 
         @CustomType.Setter
         public Builder apiGroups(List<String> apiGroups) {
-            this.apiGroups = Objects.requireNonNull(apiGroups);
+            if (apiGroups == null) {
+              throw new MissingRequiredPropertyException("ResourcePolicyRule", "apiGroups");
+            }
+            this.apiGroups = apiGroups;
             return this;
         }
         public Builder apiGroups(String... apiGroups) {
@@ -110,11 +114,13 @@ public final class ResourcePolicyRule {
         }
         @CustomType.Setter
         public Builder clusterScope(@Nullable Boolean clusterScope) {
+
             this.clusterScope = clusterScope;
             return this;
         }
         @CustomType.Setter
         public Builder namespaces(@Nullable List<String> namespaces) {
+
             this.namespaces = namespaces;
             return this;
         }
@@ -123,7 +129,10 @@ public final class ResourcePolicyRule {
         }
         @CustomType.Setter
         public Builder resources(List<String> resources) {
-            this.resources = Objects.requireNonNull(resources);
+            if (resources == null) {
+              throw new MissingRequiredPropertyException("ResourcePolicyRule", "resources");
+            }
+            this.resources = resources;
             return this;
         }
         public Builder resources(String... resources) {
@@ -131,20 +140,23 @@ public final class ResourcePolicyRule {
         }
         @CustomType.Setter
         public Builder verbs(List<String> verbs) {
-            this.verbs = Objects.requireNonNull(verbs);
+            if (verbs == null) {
+              throw new MissingRequiredPropertyException("ResourcePolicyRule", "verbs");
+            }
+            this.verbs = verbs;
             return this;
         }
         public Builder verbs(String... verbs) {
             return verbs(List.of(verbs));
         }
         public ResourcePolicyRule build() {
-            final var o = new ResourcePolicyRule();
-            o.apiGroups = apiGroups;
-            o.clusterScope = clusterScope;
-            o.namespaces = namespaces;
-            o.resources = resources;
-            o.verbs = verbs;
-            return o;
+            final var _resultValue = new ResourcePolicyRule();
+            _resultValue.apiGroups = apiGroups;
+            _resultValue.clusterScope = clusterScope;
+            _resultValue.namespaces = namespaces;
+            _resultValue.resources = resources;
+            _resultValue.verbs = verbs;
+            return _resultValue;
         }
     }
 }

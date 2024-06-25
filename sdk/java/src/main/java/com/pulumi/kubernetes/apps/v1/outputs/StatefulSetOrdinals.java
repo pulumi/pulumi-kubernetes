@@ -50,13 +50,14 @@ public final class StatefulSetOrdinals {
 
         @CustomType.Setter
         public Builder start(@Nullable Integer start) {
+
             this.start = start;
             return this;
         }
         public StatefulSetOrdinals build() {
-            final var o = new StatefulSetOrdinals();
-            o.start = start;
-            return o;
+            final var _resultValue = new StatefulSetOrdinals();
+            _resultValue.start = start;
+            return _resultValue;
         }
     }
 }

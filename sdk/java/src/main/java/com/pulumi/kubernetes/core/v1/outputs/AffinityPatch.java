@@ -74,25 +74,28 @@ public final class AffinityPatch {
 
         @CustomType.Setter
         public Builder nodeAffinity(@Nullable NodeAffinityPatch nodeAffinity) {
+
             this.nodeAffinity = nodeAffinity;
             return this;
         }
         @CustomType.Setter
         public Builder podAffinity(@Nullable PodAffinityPatch podAffinity) {
+
             this.podAffinity = podAffinity;
             return this;
         }
         @CustomType.Setter
         public Builder podAntiAffinity(@Nullable PodAntiAffinityPatch podAntiAffinity) {
+
             this.podAntiAffinity = podAntiAffinity;
             return this;
         }
         public AffinityPatch build() {
-            final var o = new AffinityPatch();
-            o.nodeAffinity = nodeAffinity;
-            o.podAffinity = podAffinity;
-            o.podAntiAffinity = podAntiAffinity;
-            return o;
+            final var _resultValue = new AffinityPatch();
+            _resultValue.nodeAffinity = nodeAffinity;
+            _resultValue.podAffinity = podAffinity;
+            _resultValue.podAntiAffinity = podAntiAffinity;
+            return _resultValue;
         }
     }
 }

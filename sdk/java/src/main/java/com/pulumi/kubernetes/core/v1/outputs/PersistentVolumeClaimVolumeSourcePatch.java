@@ -59,19 +59,21 @@ public final class PersistentVolumeClaimVolumeSourcePatch {
 
         @CustomType.Setter
         public Builder claimName(@Nullable String claimName) {
+
             this.claimName = claimName;
             return this;
         }
         @CustomType.Setter
         public Builder readOnly(@Nullable Boolean readOnly) {
+
             this.readOnly = readOnly;
             return this;
         }
         public PersistentVolumeClaimVolumeSourcePatch build() {
-            final var o = new PersistentVolumeClaimVolumeSourcePatch();
-            o.claimName = claimName;
-            o.readOnly = readOnly;
-            return o;
+            final var _resultValue = new PersistentVolumeClaimVolumeSourcePatch();
+            _resultValue.claimName = claimName;
+            _resultValue.readOnly = readOnly;
+            return _resultValue;
         }
     }
 }

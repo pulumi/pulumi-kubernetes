@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.outputs.ObjectReference;
 import java.lang.String;
 import java.util.Objects;
@@ -87,31 +88,37 @@ public final class EndpointAddress {
 
         @CustomType.Setter
         public Builder hostname(@Nullable String hostname) {
+
             this.hostname = hostname;
             return this;
         }
         @CustomType.Setter
         public Builder ip(String ip) {
-            this.ip = Objects.requireNonNull(ip);
+            if (ip == null) {
+              throw new MissingRequiredPropertyException("EndpointAddress", "ip");
+            }
+            this.ip = ip;
             return this;
         }
         @CustomType.Setter
         public Builder nodeName(@Nullable String nodeName) {
+
             this.nodeName = nodeName;
             return this;
         }
         @CustomType.Setter
         public Builder targetRef(@Nullable ObjectReference targetRef) {
+
             this.targetRef = targetRef;
             return this;
         }
         public EndpointAddress build() {
-            final var o = new EndpointAddress();
-            o.hostname = hostname;
-            o.ip = ip;
-            o.nodeName = nodeName;
-            o.targetRef = targetRef;
-            return o;
+            final var _resultValue = new EndpointAddress();
+            _resultValue.hostname = hostname;
+            _resultValue.ip = ip;
+            _resultValue.nodeName = nodeName;
+            _resultValue.targetRef = targetRef;
+            return _resultValue;
         }
     }
 }

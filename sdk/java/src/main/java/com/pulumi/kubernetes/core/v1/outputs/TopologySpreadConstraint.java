@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.meta.v1.outputs.LabelSelector;
 import java.lang.Integer;
 import java.lang.String;
@@ -167,11 +168,13 @@ public final class TopologySpreadConstraint {
 
         @CustomType.Setter
         public Builder labelSelector(@Nullable LabelSelector labelSelector) {
+
             this.labelSelector = labelSelector;
             return this;
         }
         @CustomType.Setter
         public Builder matchLabelKeys(@Nullable List<String> matchLabelKeys) {
+
             this.matchLabelKeys = matchLabelKeys;
             return this;
         }
@@ -180,45 +183,57 @@ public final class TopologySpreadConstraint {
         }
         @CustomType.Setter
         public Builder maxSkew(Integer maxSkew) {
-            this.maxSkew = Objects.requireNonNull(maxSkew);
+            if (maxSkew == null) {
+              throw new MissingRequiredPropertyException("TopologySpreadConstraint", "maxSkew");
+            }
+            this.maxSkew = maxSkew;
             return this;
         }
         @CustomType.Setter
         public Builder minDomains(@Nullable Integer minDomains) {
+
             this.minDomains = minDomains;
             return this;
         }
         @CustomType.Setter
         public Builder nodeAffinityPolicy(@Nullable String nodeAffinityPolicy) {
+
             this.nodeAffinityPolicy = nodeAffinityPolicy;
             return this;
         }
         @CustomType.Setter
         public Builder nodeTaintsPolicy(@Nullable String nodeTaintsPolicy) {
+
             this.nodeTaintsPolicy = nodeTaintsPolicy;
             return this;
         }
         @CustomType.Setter
         public Builder topologyKey(String topologyKey) {
-            this.topologyKey = Objects.requireNonNull(topologyKey);
+            if (topologyKey == null) {
+              throw new MissingRequiredPropertyException("TopologySpreadConstraint", "topologyKey");
+            }
+            this.topologyKey = topologyKey;
             return this;
         }
         @CustomType.Setter
         public Builder whenUnsatisfiable(String whenUnsatisfiable) {
-            this.whenUnsatisfiable = Objects.requireNonNull(whenUnsatisfiable);
+            if (whenUnsatisfiable == null) {
+              throw new MissingRequiredPropertyException("TopologySpreadConstraint", "whenUnsatisfiable");
+            }
+            this.whenUnsatisfiable = whenUnsatisfiable;
             return this;
         }
         public TopologySpreadConstraint build() {
-            final var o = new TopologySpreadConstraint();
-            o.labelSelector = labelSelector;
-            o.matchLabelKeys = matchLabelKeys;
-            o.maxSkew = maxSkew;
-            o.minDomains = minDomains;
-            o.nodeAffinityPolicy = nodeAffinityPolicy;
-            o.nodeTaintsPolicy = nodeTaintsPolicy;
-            o.topologyKey = topologyKey;
-            o.whenUnsatisfiable = whenUnsatisfiable;
-            return o;
+            final var _resultValue = new TopologySpreadConstraint();
+            _resultValue.labelSelector = labelSelector;
+            _resultValue.matchLabelKeys = matchLabelKeys;
+            _resultValue.maxSkew = maxSkew;
+            _resultValue.minDomains = minDomains;
+            _resultValue.nodeAffinityPolicy = nodeAffinityPolicy;
+            _resultValue.nodeTaintsPolicy = nodeTaintsPolicy;
+            _resultValue.topologyKey = topologyKey;
+            _resultValue.whenUnsatisfiable = whenUnsatisfiable;
+            return _resultValue;
         }
     }
 }

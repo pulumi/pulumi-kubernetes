@@ -87,31 +87,35 @@ public final class NodeConfigStatus {
 
         @CustomType.Setter
         public Builder active(@Nullable NodeConfigSource active) {
+
             this.active = active;
             return this;
         }
         @CustomType.Setter
         public Builder assigned(@Nullable NodeConfigSource assigned) {
+
             this.assigned = assigned;
             return this;
         }
         @CustomType.Setter
         public Builder error(@Nullable String error) {
+
             this.error = error;
             return this;
         }
         @CustomType.Setter
         public Builder lastKnownGood(@Nullable NodeConfigSource lastKnownGood) {
+
             this.lastKnownGood = lastKnownGood;
             return this;
         }
         public NodeConfigStatus build() {
-            final var o = new NodeConfigStatus();
-            o.active = active;
-            o.assigned = assigned;
-            o.error = error;
-            o.lastKnownGood = lastKnownGood;
-            return o;
+            final var _resultValue = new NodeConfigStatus();
+            _resultValue.active = active;
+            _resultValue.assigned = assigned;
+            _resultValue.error = error;
+            _resultValue.lastKnownGood = lastKnownGood;
+            return _resultValue;
         }
     }
 }

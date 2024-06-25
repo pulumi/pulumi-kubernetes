@@ -60,19 +60,21 @@ public final class TCPSocketActionPatch {
 
         @CustomType.Setter
         public Builder host(@Nullable String host) {
+
             this.host = host;
             return this;
         }
         @CustomType.Setter
         public Builder port(@Nullable Either<Integer,String> port) {
+
             this.port = port;
             return this;
         }
         public TCPSocketActionPatch build() {
-            final var o = new TCPSocketActionPatch();
-            o.host = host;
-            o.port = port;
-            return o;
+            final var _resultValue = new TCPSocketActionPatch();
+            _resultValue.host = host;
+            _resultValue.port = port;
+            return _resultValue;
         }
     }
 }

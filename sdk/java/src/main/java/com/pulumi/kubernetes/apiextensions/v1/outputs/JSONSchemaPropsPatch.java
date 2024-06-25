@@ -446,26 +446,31 @@ public final class JSONSchemaPropsPatch {
 
         @CustomType.Setter
         public Builder $ref(@Nullable String $ref) {
+
             this.$ref = $ref;
             return this;
         }
         @CustomType.Setter
         public Builder $schema(@Nullable String $schema) {
+
             this.$schema = $schema;
             return this;
         }
         @CustomType.Setter
         public Builder additionalItems(@Nullable Either<JSONSchemaProps,Boolean> additionalItems) {
+
             this.additionalItems = additionalItems;
             return this;
         }
         @CustomType.Setter
         public Builder additionalProperties(@Nullable Either<JSONSchemaProps,Boolean> additionalProperties) {
+
             this.additionalProperties = additionalProperties;
             return this;
         }
         @CustomType.Setter
         public Builder allOf(@Nullable List<JSONSchemaPropsPatch> allOf) {
+
             this.allOf = allOf;
             return this;
         }
@@ -474,6 +479,7 @@ public final class JSONSchemaPropsPatch {
         }
         @CustomType.Setter
         public Builder anyOf(@Nullable List<JSONSchemaPropsPatch> anyOf) {
+
             this.anyOf = anyOf;
             return this;
         }
@@ -482,26 +488,31 @@ public final class JSONSchemaPropsPatch {
         }
         @CustomType.Setter("default")
         public Builder default_(@Nullable JsonElement default_) {
+
             this.default_ = default_;
             return this;
         }
         @CustomType.Setter
         public Builder definitions(@Nullable Map<String,JSONSchemaProps> definitions) {
+
             this.definitions = definitions;
             return this;
         }
         @CustomType.Setter
         public Builder dependencies(@Nullable Map<String,Either<JSONSchemaProps,List<String>>> dependencies) {
+
             this.dependencies = dependencies;
             return this;
         }
         @CustomType.Setter
         public Builder description(@Nullable String description) {
+
             this.description = description;
             return this;
         }
         @CustomType.Setter("enum")
         public Builder enum_(@Nullable List<JsonElement> enum_) {
+
             this.enum_ = enum_;
             return this;
         }
@@ -510,96 +521,115 @@ public final class JSONSchemaPropsPatch {
         }
         @CustomType.Setter
         public Builder example(@Nullable JsonElement example) {
+
             this.example = example;
             return this;
         }
         @CustomType.Setter
         public Builder exclusiveMaximum(@Nullable Boolean exclusiveMaximum) {
+
             this.exclusiveMaximum = exclusiveMaximum;
             return this;
         }
         @CustomType.Setter
         public Builder exclusiveMinimum(@Nullable Boolean exclusiveMinimum) {
+
             this.exclusiveMinimum = exclusiveMinimum;
             return this;
         }
         @CustomType.Setter
         public Builder externalDocs(@Nullable ExternalDocumentationPatch externalDocs) {
+
             this.externalDocs = externalDocs;
             return this;
         }
         @CustomType.Setter
         public Builder format(@Nullable String format) {
+
             this.format = format;
             return this;
         }
         @CustomType.Setter
         public Builder id(@Nullable String id) {
+
             this.id = id;
             return this;
         }
         @CustomType.Setter
         public Builder items(@Nullable Either<JSONSchemaProps,List<JsonElement>> items) {
+
             this.items = items;
             return this;
         }
         @CustomType.Setter
         public Builder maxItems(@Nullable Integer maxItems) {
+
             this.maxItems = maxItems;
             return this;
         }
         @CustomType.Setter
         public Builder maxLength(@Nullable Integer maxLength) {
+
             this.maxLength = maxLength;
             return this;
         }
         @CustomType.Setter
         public Builder maxProperties(@Nullable Integer maxProperties) {
+
             this.maxProperties = maxProperties;
             return this;
         }
         @CustomType.Setter
         public Builder maximum(@Nullable Double maximum) {
+
             this.maximum = maximum;
             return this;
         }
         @CustomType.Setter
         public Builder minItems(@Nullable Integer minItems) {
+
             this.minItems = minItems;
             return this;
         }
         @CustomType.Setter
         public Builder minLength(@Nullable Integer minLength) {
+
             this.minLength = minLength;
             return this;
         }
         @CustomType.Setter
         public Builder minProperties(@Nullable Integer minProperties) {
+
             this.minProperties = minProperties;
             return this;
         }
         @CustomType.Setter
         public Builder minimum(@Nullable Double minimum) {
+
             this.minimum = minimum;
             return this;
         }
         @CustomType.Setter
         public Builder multipleOf(@Nullable Double multipleOf) {
+
             this.multipleOf = multipleOf;
             return this;
         }
         @CustomType.Setter
         public Builder not(@Nullable JSONSchemaPropsPatch not) {
+
             this.not = not;
             return this;
         }
         @CustomType.Setter
         public Builder nullable(@Nullable Boolean nullable) {
+
             this.nullable = nullable;
             return this;
         }
         @CustomType.Setter
         public Builder oneOf(@Nullable List<JSONSchemaPropsPatch> oneOf) {
+
             this.oneOf = oneOf;
             return this;
         }
@@ -608,21 +638,25 @@ public final class JSONSchemaPropsPatch {
         }
         @CustomType.Setter
         public Builder pattern(@Nullable String pattern) {
+
             this.pattern = pattern;
             return this;
         }
         @CustomType.Setter
         public Builder patternProperties(@Nullable Map<String,JSONSchemaProps> patternProperties) {
+
             this.patternProperties = patternProperties;
             return this;
         }
         @CustomType.Setter
         public Builder properties(@Nullable Map<String,JSONSchemaProps> properties) {
+
             this.properties = properties;
             return this;
         }
         @CustomType.Setter
         public Builder required(@Nullable List<String> required) {
+
             this.required = required;
             return this;
         }
@@ -631,31 +665,37 @@ public final class JSONSchemaPropsPatch {
         }
         @CustomType.Setter
         public Builder title(@Nullable String title) {
+
             this.title = title;
             return this;
         }
         @CustomType.Setter
         public Builder type(@Nullable String type) {
+
             this.type = type;
             return this;
         }
         @CustomType.Setter
         public Builder uniqueItems(@Nullable Boolean uniqueItems) {
+
             this.uniqueItems = uniqueItems;
             return this;
         }
         @CustomType.Setter
         public Builder x_kubernetes_embedded_resource(@Nullable Boolean x_kubernetes_embedded_resource) {
+
             this.x_kubernetes_embedded_resource = x_kubernetes_embedded_resource;
             return this;
         }
         @CustomType.Setter
         public Builder x_kubernetes_int_or_string(@Nullable Boolean x_kubernetes_int_or_string) {
+
             this.x_kubernetes_int_or_string = x_kubernetes_int_or_string;
             return this;
         }
         @CustomType.Setter
         public Builder x_kubernetes_list_map_keys(@Nullable List<String> x_kubernetes_list_map_keys) {
+
             this.x_kubernetes_list_map_keys = x_kubernetes_list_map_keys;
             return this;
         }
@@ -664,21 +704,25 @@ public final class JSONSchemaPropsPatch {
         }
         @CustomType.Setter
         public Builder x_kubernetes_list_type(@Nullable String x_kubernetes_list_type) {
+
             this.x_kubernetes_list_type = x_kubernetes_list_type;
             return this;
         }
         @CustomType.Setter
         public Builder x_kubernetes_map_type(@Nullable String x_kubernetes_map_type) {
+
             this.x_kubernetes_map_type = x_kubernetes_map_type;
             return this;
         }
         @CustomType.Setter
         public Builder x_kubernetes_preserve_unknown_fields(@Nullable Boolean x_kubernetes_preserve_unknown_fields) {
+
             this.x_kubernetes_preserve_unknown_fields = x_kubernetes_preserve_unknown_fields;
             return this;
         }
         @CustomType.Setter
         public Builder x_kubernetes_validations(@Nullable List<ValidationRulePatch> x_kubernetes_validations) {
+
             this.x_kubernetes_validations = x_kubernetes_validations;
             return this;
         }
@@ -686,52 +730,52 @@ public final class JSONSchemaPropsPatch {
             return x_kubernetes_validations(List.of(x_kubernetes_validations));
         }
         public JSONSchemaPropsPatch build() {
-            final var o = new JSONSchemaPropsPatch();
-            o.$ref = $ref;
-            o.$schema = $schema;
-            o.additionalItems = additionalItems;
-            o.additionalProperties = additionalProperties;
-            o.allOf = allOf;
-            o.anyOf = anyOf;
-            o.default_ = default_;
-            o.definitions = definitions;
-            o.dependencies = dependencies;
-            o.description = description;
-            o.enum_ = enum_;
-            o.example = example;
-            o.exclusiveMaximum = exclusiveMaximum;
-            o.exclusiveMinimum = exclusiveMinimum;
-            o.externalDocs = externalDocs;
-            o.format = format;
-            o.id = id;
-            o.items = items;
-            o.maxItems = maxItems;
-            o.maxLength = maxLength;
-            o.maxProperties = maxProperties;
-            o.maximum = maximum;
-            o.minItems = minItems;
-            o.minLength = minLength;
-            o.minProperties = minProperties;
-            o.minimum = minimum;
-            o.multipleOf = multipleOf;
-            o.not = not;
-            o.nullable = nullable;
-            o.oneOf = oneOf;
-            o.pattern = pattern;
-            o.patternProperties = patternProperties;
-            o.properties = properties;
-            o.required = required;
-            o.title = title;
-            o.type = type;
-            o.uniqueItems = uniqueItems;
-            o.x_kubernetes_embedded_resource = x_kubernetes_embedded_resource;
-            o.x_kubernetes_int_or_string = x_kubernetes_int_or_string;
-            o.x_kubernetes_list_map_keys = x_kubernetes_list_map_keys;
-            o.x_kubernetes_list_type = x_kubernetes_list_type;
-            o.x_kubernetes_map_type = x_kubernetes_map_type;
-            o.x_kubernetes_preserve_unknown_fields = x_kubernetes_preserve_unknown_fields;
-            o.x_kubernetes_validations = x_kubernetes_validations;
-            return o;
+            final var _resultValue = new JSONSchemaPropsPatch();
+            _resultValue.$ref = $ref;
+            _resultValue.$schema = $schema;
+            _resultValue.additionalItems = additionalItems;
+            _resultValue.additionalProperties = additionalProperties;
+            _resultValue.allOf = allOf;
+            _resultValue.anyOf = anyOf;
+            _resultValue.default_ = default_;
+            _resultValue.definitions = definitions;
+            _resultValue.dependencies = dependencies;
+            _resultValue.description = description;
+            _resultValue.enum_ = enum_;
+            _resultValue.example = example;
+            _resultValue.exclusiveMaximum = exclusiveMaximum;
+            _resultValue.exclusiveMinimum = exclusiveMinimum;
+            _resultValue.externalDocs = externalDocs;
+            _resultValue.format = format;
+            _resultValue.id = id;
+            _resultValue.items = items;
+            _resultValue.maxItems = maxItems;
+            _resultValue.maxLength = maxLength;
+            _resultValue.maxProperties = maxProperties;
+            _resultValue.maximum = maximum;
+            _resultValue.minItems = minItems;
+            _resultValue.minLength = minLength;
+            _resultValue.minProperties = minProperties;
+            _resultValue.minimum = minimum;
+            _resultValue.multipleOf = multipleOf;
+            _resultValue.not = not;
+            _resultValue.nullable = nullable;
+            _resultValue.oneOf = oneOf;
+            _resultValue.pattern = pattern;
+            _resultValue.patternProperties = patternProperties;
+            _resultValue.properties = properties;
+            _resultValue.required = required;
+            _resultValue.title = title;
+            _resultValue.type = type;
+            _resultValue.uniqueItems = uniqueItems;
+            _resultValue.x_kubernetes_embedded_resource = x_kubernetes_embedded_resource;
+            _resultValue.x_kubernetes_int_or_string = x_kubernetes_int_or_string;
+            _resultValue.x_kubernetes_list_map_keys = x_kubernetes_list_map_keys;
+            _resultValue.x_kubernetes_list_type = x_kubernetes_list_type;
+            _resultValue.x_kubernetes_map_type = x_kubernetes_map_type;
+            _resultValue.x_kubernetes_preserve_unknown_fields = x_kubernetes_preserve_unknown_fields;
+            _resultValue.x_kubernetes_validations = x_kubernetes_validations;
+            return _resultValue;
         }
     }
 }

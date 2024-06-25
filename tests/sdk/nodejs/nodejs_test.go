@@ -1140,7 +1140,7 @@ func TestReadonlyMetadata(t *testing.T) {
 
 func TestRenderYAML(t *testing.T) {
 	// Create a temporary directory to hold rendered YAML manifests.
-	dir, err := ioutil.TempDir("", "")
+	dir, err := os.MkdirTemp("", "render-yaml-test")
 	assert.NoError(t, err)
 	defer os.RemoveAll(dir)
 
@@ -1168,6 +1168,19 @@ func TestRenderYAML(t *testing.T) {
 			files, err = ioutil.ReadDir(filepath.Join(dir, "1-manifest"))
 			assert.NoError(t, err)
 			assert.Equal(t, len(files), 2)
+		},
+		EditDirs: []integration.EditDir{
+			{
+				// Change some fields.
+				Dir:      filepath.Join("render-yaml", "step2"),
+				Additive: true,
+			},
+			{
+				// Ensure updates do not cause a spurrious diff when re-running `pulumi up`.
+				Dir:             filepath.Join("render-yaml", "step2"),
+				Additive:        true,
+				ExpectNoChanges: true,
+			},
 		},
 	})
 

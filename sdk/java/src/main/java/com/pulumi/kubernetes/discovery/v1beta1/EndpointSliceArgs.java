@@ -6,6 +6,7 @@ package com.pulumi.kubernetes.discovery.v1beta1;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.core.internal.Codegen;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.discovery.v1beta1.inputs.EndpointArgs;
 import com.pulumi.kubernetes.discovery.v1beta1.inputs.EndpointPortArgs;
 import com.pulumi.kubernetes.meta.v1.inputs.ObjectMetaArgs;
@@ -286,9 +287,13 @@ public final class EndpointSliceArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         public EndpointSliceArgs build() {
-            $.addressType = Objects.requireNonNull($.addressType, "expected parameter 'addressType' to be non-null");
+            if ($.addressType == null) {
+                throw new MissingRequiredPropertyException("EndpointSliceArgs", "addressType");
+            }
             $.apiVersion = Codegen.stringProp("apiVersion").output().arg($.apiVersion).getNullable();
-            $.endpoints = Objects.requireNonNull($.endpoints, "expected parameter 'endpoints' to be non-null");
+            if ($.endpoints == null) {
+                throw new MissingRequiredPropertyException("EndpointSliceArgs", "endpoints");
+            }
             $.kind = Codegen.stringProp("kind").output().arg($.kind).getNullable();
             return $;
         }

@@ -99,16 +99,19 @@ public final class PodFailurePolicyRulePatch {
 
         @CustomType.Setter
         public Builder action(@Nullable String action) {
+
             this.action = action;
             return this;
         }
         @CustomType.Setter
         public Builder onExitCodes(@Nullable PodFailurePolicyOnExitCodesRequirementPatch onExitCodes) {
+
             this.onExitCodes = onExitCodes;
             return this;
         }
         @CustomType.Setter
         public Builder onPodConditions(@Nullable List<PodFailurePolicyOnPodConditionsPatternPatch> onPodConditions) {
+
             this.onPodConditions = onPodConditions;
             return this;
         }
@@ -116,11 +119,11 @@ public final class PodFailurePolicyRulePatch {
             return onPodConditions(List.of(onPodConditions));
         }
         public PodFailurePolicyRulePatch build() {
-            final var o = new PodFailurePolicyRulePatch();
-            o.action = action;
-            o.onExitCodes = onExitCodes;
-            o.onPodConditions = onPodConditions;
-            return o;
+            final var _resultValue = new PodFailurePolicyRulePatch();
+            _resultValue.action = action;
+            _resultValue.onExitCodes = onExitCodes;
+            _resultValue.onPodConditions = onPodConditions;
+            return _resultValue;
         }
     }
 }

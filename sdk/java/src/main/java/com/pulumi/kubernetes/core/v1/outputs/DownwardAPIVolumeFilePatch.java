@@ -89,31 +89,35 @@ public final class DownwardAPIVolumeFilePatch {
 
         @CustomType.Setter
         public Builder fieldRef(@Nullable ObjectFieldSelectorPatch fieldRef) {
+
             this.fieldRef = fieldRef;
             return this;
         }
         @CustomType.Setter
         public Builder mode(@Nullable Integer mode) {
+
             this.mode = mode;
             return this;
         }
         @CustomType.Setter
         public Builder path(@Nullable String path) {
+
             this.path = path;
             return this;
         }
         @CustomType.Setter
         public Builder resourceFieldRef(@Nullable ResourceFieldSelectorPatch resourceFieldRef) {
+
             this.resourceFieldRef = resourceFieldRef;
             return this;
         }
         public DownwardAPIVolumeFilePatch build() {
-            final var o = new DownwardAPIVolumeFilePatch();
-            o.fieldRef = fieldRef;
-            o.mode = mode;
-            o.path = path;
-            o.resourceFieldRef = resourceFieldRef;
-            return o;
+            final var _resultValue = new DownwardAPIVolumeFilePatch();
+            _resultValue.fieldRef = fieldRef;
+            _resultValue.mode = mode;
+            _resultValue.path = path;
+            _resultValue.resourceFieldRef = resourceFieldRef;
+            return _resultValue;
         }
     }
 }

@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.certificates.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Integer;
 import java.lang.String;
 import java.util.List;
@@ -233,16 +234,19 @@ public final class CertificateSigningRequestSpec {
 
         @CustomType.Setter
         public Builder expirationSeconds(@Nullable Integer expirationSeconds) {
+
             this.expirationSeconds = expirationSeconds;
             return this;
         }
         @CustomType.Setter
         public Builder extra(@Nullable Map<String,List<String>> extra) {
+
             this.extra = extra;
             return this;
         }
         @CustomType.Setter
         public Builder groups(@Nullable List<String> groups) {
+
             this.groups = groups;
             return this;
         }
@@ -251,21 +255,29 @@ public final class CertificateSigningRequestSpec {
         }
         @CustomType.Setter
         public Builder request(String request) {
-            this.request = Objects.requireNonNull(request);
+            if (request == null) {
+              throw new MissingRequiredPropertyException("CertificateSigningRequestSpec", "request");
+            }
+            this.request = request;
             return this;
         }
         @CustomType.Setter
         public Builder signerName(String signerName) {
-            this.signerName = Objects.requireNonNull(signerName);
+            if (signerName == null) {
+              throw new MissingRequiredPropertyException("CertificateSigningRequestSpec", "signerName");
+            }
+            this.signerName = signerName;
             return this;
         }
         @CustomType.Setter
         public Builder uid(@Nullable String uid) {
+
             this.uid = uid;
             return this;
         }
         @CustomType.Setter
         public Builder usages(@Nullable List<String> usages) {
+
             this.usages = usages;
             return this;
         }
@@ -274,20 +286,21 @@ public final class CertificateSigningRequestSpec {
         }
         @CustomType.Setter
         public Builder username(@Nullable String username) {
+
             this.username = username;
             return this;
         }
         public CertificateSigningRequestSpec build() {
-            final var o = new CertificateSigningRequestSpec();
-            o.expirationSeconds = expirationSeconds;
-            o.extra = extra;
-            o.groups = groups;
-            o.request = request;
-            o.signerName = signerName;
-            o.uid = uid;
-            o.usages = usages;
-            o.username = username;
-            return o;
+            final var _resultValue = new CertificateSigningRequestSpec();
+            _resultValue.expirationSeconds = expirationSeconds;
+            _resultValue.extra = extra;
+            _resultValue.groups = groups;
+            _resultValue.request = request;
+            _resultValue.signerName = signerName;
+            _resultValue.uid = uid;
+            _resultValue.usages = usages;
+            _resultValue.username = username;
+            return _resultValue;
         }
     }
 }

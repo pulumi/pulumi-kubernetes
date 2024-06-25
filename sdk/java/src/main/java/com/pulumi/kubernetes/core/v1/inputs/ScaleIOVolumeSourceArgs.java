@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.core.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.inputs.LocalObjectReferenceArgs;
 import java.lang.Boolean;
 import java.lang.String;
@@ -415,9 +416,15 @@ public final class ScaleIOVolumeSourceArgs extends com.pulumi.resources.Resource
         }
 
         public ScaleIOVolumeSourceArgs build() {
-            $.gateway = Objects.requireNonNull($.gateway, "expected parameter 'gateway' to be non-null");
-            $.secretRef = Objects.requireNonNull($.secretRef, "expected parameter 'secretRef' to be non-null");
-            $.system = Objects.requireNonNull($.system, "expected parameter 'system' to be non-null");
+            if ($.gateway == null) {
+                throw new MissingRequiredPropertyException("ScaleIOVolumeSourceArgs", "gateway");
+            }
+            if ($.secretRef == null) {
+                throw new MissingRequiredPropertyException("ScaleIOVolumeSourceArgs", "secretRef");
+            }
+            if ($.system == null) {
+                throw new MissingRequiredPropertyException("ScaleIOVolumeSourceArgs", "system");
+            }
             return $;
         }
     }

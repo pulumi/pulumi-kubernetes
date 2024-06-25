@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.apps.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.apps.v1.outputs.DaemonSetUpdateStrategy;
 import com.pulumi.kubernetes.core.v1.outputs.PodTemplateSpec;
 import com.pulumi.kubernetes.meta.v1.outputs.LabelSelector;
@@ -103,37 +104,46 @@ public final class DaemonSetSpec {
 
         @CustomType.Setter
         public Builder minReadySeconds(@Nullable Integer minReadySeconds) {
+
             this.minReadySeconds = minReadySeconds;
             return this;
         }
         @CustomType.Setter
         public Builder revisionHistoryLimit(@Nullable Integer revisionHistoryLimit) {
+
             this.revisionHistoryLimit = revisionHistoryLimit;
             return this;
         }
         @CustomType.Setter
         public Builder selector(LabelSelector selector) {
-            this.selector = Objects.requireNonNull(selector);
+            if (selector == null) {
+              throw new MissingRequiredPropertyException("DaemonSetSpec", "selector");
+            }
+            this.selector = selector;
             return this;
         }
         @CustomType.Setter
         public Builder template(PodTemplateSpec template) {
-            this.template = Objects.requireNonNull(template);
+            if (template == null) {
+              throw new MissingRequiredPropertyException("DaemonSetSpec", "template");
+            }
+            this.template = template;
             return this;
         }
         @CustomType.Setter
         public Builder updateStrategy(@Nullable DaemonSetUpdateStrategy updateStrategy) {
+
             this.updateStrategy = updateStrategy;
             return this;
         }
         public DaemonSetSpec build() {
-            final var o = new DaemonSetSpec();
-            o.minReadySeconds = minReadySeconds;
-            o.revisionHistoryLimit = revisionHistoryLimit;
-            o.selector = selector;
-            o.template = template;
-            o.updateStrategy = updateStrategy;
-            return o;
+            final var _resultValue = new DaemonSetSpec();
+            _resultValue.minReadySeconds = minReadySeconds;
+            _resultValue.revisionHistoryLimit = revisionHistoryLimit;
+            _resultValue.selector = selector;
+            _resultValue.template = template;
+            _resultValue.updateStrategy = updateStrategy;
+            return _resultValue;
         }
     }
 }

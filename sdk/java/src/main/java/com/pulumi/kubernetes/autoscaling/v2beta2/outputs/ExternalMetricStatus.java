@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.autoscaling.v2beta2.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.autoscaling.v2beta2.outputs.MetricIdentifier;
 import com.pulumi.kubernetes.autoscaling.v2beta2.outputs.MetricValueStatus;
 import java.util.Objects;
@@ -57,19 +58,25 @@ public final class ExternalMetricStatus {
 
         @CustomType.Setter
         public Builder current(MetricValueStatus current) {
-            this.current = Objects.requireNonNull(current);
+            if (current == null) {
+              throw new MissingRequiredPropertyException("ExternalMetricStatus", "current");
+            }
+            this.current = current;
             return this;
         }
         @CustomType.Setter
         public Builder metric(MetricIdentifier metric) {
-            this.metric = Objects.requireNonNull(metric);
+            if (metric == null) {
+              throw new MissingRequiredPropertyException("ExternalMetricStatus", "metric");
+            }
+            this.metric = metric;
             return this;
         }
         public ExternalMetricStatus build() {
-            final var o = new ExternalMetricStatus();
-            o.current = current;
-            o.metric = metric;
-            return o;
+            final var _resultValue = new ExternalMetricStatus();
+            _resultValue.current = current;
+            _resultValue.metric = metric;
+            return _resultValue;
         }
     }
 }

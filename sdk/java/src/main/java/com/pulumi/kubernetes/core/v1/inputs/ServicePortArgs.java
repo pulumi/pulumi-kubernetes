@@ -6,6 +6,7 @@ package com.pulumi.kubernetes.core.v1.inputs;
 import com.pulumi.core.Either;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Integer;
 import java.lang.String;
 import java.util.Objects;
@@ -323,7 +324,9 @@ public final class ServicePortArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         public ServicePortArgs build() {
-            $.port = Objects.requireNonNull($.port, "expected parameter 'port' to be non-null");
+            if ($.port == null) {
+                throw new MissingRequiredPropertyException("ServicePortArgs", "port");
+            }
             return $;
         }
     }

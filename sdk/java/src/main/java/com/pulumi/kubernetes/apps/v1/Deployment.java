@@ -45,7 +45,8 @@ import javax.annotation.Nullable;
  * 
  * ## Example Usage
  * ### Create a Deployment with auto-naming
- * ```java
+ * <pre>
+ * {@code
  * package generated_program;
  * 
  * import com.pulumi.Context;
@@ -71,23 +72,23 @@ import javax.annotation.Nullable;
  *     }
  * 
  *     public static void stack(Context ctx) {
- *         var deployment = new Deployment(&#34;deployment&#34;, DeploymentArgs.builder()        
+ *         var deployment = new Deployment("deployment", DeploymentArgs.builder()        
  *             .metadata(ObjectMetaArgs.builder()
- *                 .labels(Map.of(&#34;app&#34;, &#34;nginx&#34;))
+ *                 .labels(Map.of("app", "nginx"))
  *                 .build())
  *             .spec(DeploymentSpecArgs.builder()
  *                 .replicas(3)
  *                 .selector(LabelSelectorArgs.builder()
- *                     .matchLabels(Map.of(&#34;app&#34;, &#34;nginx&#34;))
+ *                     .matchLabels(Map.of("app", "nginx"))
  *                     .build())
  *                 .template(PodTemplateSpecArgs.builder()
  *                     .metadata(ObjectMetaArgs.builder()
- *                         .labels(Map.of(&#34;app&#34;, &#34;nginx&#34;))
+ *                         .labels(Map.of("app", "nginx"))
  *                         .build())
  *                     .spec(PodSpecArgs.builder()
  *                         .containers(ContainerArgs.builder()
- *                             .image(&#34;nginx:1.14.2&#34;)
- *                             .name(&#34;nginx&#34;)
+ *                             .image("nginx:1.14.2")
+ *                             .name("nginx")
  *                             .ports(ContainerPortArgs.builder()
  *                                 .containerPort(80)
  *                                 .build())
@@ -99,9 +100,11 @@ import javax.annotation.Nullable;
  * 
  *     }
  * }
- * ```
+ * }
+ * </pre>
  * ### Create a Deployment with a user-specified name
- * ```java
+ * <pre>
+ * {@code
  * package generated_program;
  * 
  * import com.pulumi.Context;
@@ -127,24 +130,24 @@ import javax.annotation.Nullable;
  *     }
  * 
  *     public static void stack(Context ctx) {
- *         var deployment = new Deployment(&#34;deployment&#34;, DeploymentArgs.builder()        
+ *         var deployment = new Deployment("deployment", DeploymentArgs.builder()        
  *             .metadata(ObjectMetaArgs.builder()
- *                 .labels(Map.of(&#34;app&#34;, &#34;nginx&#34;))
- *                 .name(&#34;nginx-deployment&#34;)
+ *                 .labels(Map.of("app", "nginx"))
+ *                 .name("nginx-deployment")
  *                 .build())
  *             .spec(DeploymentSpecArgs.builder()
  *                 .replicas(3)
  *                 .selector(LabelSelectorArgs.builder()
- *                     .matchLabels(Map.of(&#34;app&#34;, &#34;nginx&#34;))
+ *                     .matchLabels(Map.of("app", "nginx"))
  *                     .build())
  *                 .template(PodTemplateSpecArgs.builder()
  *                     .metadata(ObjectMetaArgs.builder()
- *                         .labels(Map.of(&#34;app&#34;, &#34;nginx&#34;))
+ *                         .labels(Map.of("app", "nginx"))
  *                         .build())
  *                     .spec(PodSpecArgs.builder()
  *                         .containers(ContainerArgs.builder()
- *                             .image(&#34;nginx:1.14.2&#34;)
- *                             .name(&#34;nginx&#34;)
+ *                             .image("nginx:1.14.2")
+ *                             .name("nginx")
  *                             .ports(ContainerPortArgs.builder()
  *                                 .containerPort(80)
  *                                 .build())
@@ -156,7 +159,8 @@ import javax.annotation.Nullable;
  * 
  *     }
  * }
- * ```
+ * }
+ * </pre>
  * 
  */
 @ResourceType(type="kubernetes:apps/v1:Deployment")

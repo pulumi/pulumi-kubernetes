@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.core.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.inputs.SecretReferenceArgs;
 import java.lang.Boolean;
 import java.lang.String;
@@ -278,7 +279,9 @@ public final class CephFSPersistentVolumeSourceArgs extends com.pulumi.resources
         }
 
         public CephFSPersistentVolumeSourceArgs build() {
-            $.monitors = Objects.requireNonNull($.monitors, "expected parameter 'monitors' to be non-null");
+            if ($.monitors == null) {
+                throw new MissingRequiredPropertyException("CephFSPersistentVolumeSourceArgs", "monitors");
+            }
             return $;
         }
     }

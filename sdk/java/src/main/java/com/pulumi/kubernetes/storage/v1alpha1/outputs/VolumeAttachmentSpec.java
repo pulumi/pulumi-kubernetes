@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.storage.v1alpha1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.storage.v1alpha1.outputs.VolumeAttachmentSource;
 import java.lang.String;
 import java.util.Objects;
@@ -71,25 +72,34 @@ public final class VolumeAttachmentSpec {
 
         @CustomType.Setter
         public Builder attacher(String attacher) {
-            this.attacher = Objects.requireNonNull(attacher);
+            if (attacher == null) {
+              throw new MissingRequiredPropertyException("VolumeAttachmentSpec", "attacher");
+            }
+            this.attacher = attacher;
             return this;
         }
         @CustomType.Setter
         public Builder nodeName(String nodeName) {
-            this.nodeName = Objects.requireNonNull(nodeName);
+            if (nodeName == null) {
+              throw new MissingRequiredPropertyException("VolumeAttachmentSpec", "nodeName");
+            }
+            this.nodeName = nodeName;
             return this;
         }
         @CustomType.Setter
         public Builder source(VolumeAttachmentSource source) {
-            this.source = Objects.requireNonNull(source);
+            if (source == null) {
+              throw new MissingRequiredPropertyException("VolumeAttachmentSpec", "source");
+            }
+            this.source = source;
             return this;
         }
         public VolumeAttachmentSpec build() {
-            final var o = new VolumeAttachmentSpec();
-            o.attacher = attacher;
-            o.nodeName = nodeName;
-            o.source = source;
-            return o;
+            final var _resultValue = new VolumeAttachmentSpec();
+            _resultValue.attacher = attacher;
+            _resultValue.nodeName = nodeName;
+            _resultValue.source = source;
+            return _resultValue;
         }
     }
 }

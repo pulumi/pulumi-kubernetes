@@ -114,43 +114,49 @@ public final class RepositoryOpts {
 
         @CustomType.Setter
         public Builder caFile(@Nullable String caFile) {
+
             this.caFile = caFile;
             return this;
         }
         @CustomType.Setter
         public Builder certFile(@Nullable String certFile) {
+
             this.certFile = certFile;
             return this;
         }
         @CustomType.Setter
         public Builder keyFile(@Nullable String keyFile) {
+
             this.keyFile = keyFile;
             return this;
         }
         @CustomType.Setter
         public Builder password(@Nullable String password) {
+
             this.password = password;
             return this;
         }
         @CustomType.Setter
         public Builder repo(@Nullable String repo) {
+
             this.repo = repo;
             return this;
         }
         @CustomType.Setter
         public Builder username(@Nullable String username) {
+
             this.username = username;
             return this;
         }
         public RepositoryOpts build() {
-            final var o = new RepositoryOpts();
-            o.caFile = caFile;
-            o.certFile = certFile;
-            o.keyFile = keyFile;
-            o.password = password;
-            o.repo = repo;
-            o.username = username;
-            return o;
+            final var _resultValue = new RepositoryOpts();
+            _resultValue.caFile = caFile;
+            _resultValue.certFile = certFile;
+            _resultValue.keyFile = keyFile;
+            _resultValue.password = password;
+            _resultValue.repo = repo;
+            _resultValue.username = username;
+            return _resultValue;
         }
     }
 }

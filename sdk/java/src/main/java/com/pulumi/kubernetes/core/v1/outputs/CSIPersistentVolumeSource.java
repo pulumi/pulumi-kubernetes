@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.outputs.SecretReference;
 import java.lang.Boolean;
 import java.lang.String;
@@ -173,67 +174,81 @@ public final class CSIPersistentVolumeSource {
 
         @CustomType.Setter
         public Builder controllerExpandSecretRef(@Nullable SecretReference controllerExpandSecretRef) {
+
             this.controllerExpandSecretRef = controllerExpandSecretRef;
             return this;
         }
         @CustomType.Setter
         public Builder controllerPublishSecretRef(@Nullable SecretReference controllerPublishSecretRef) {
+
             this.controllerPublishSecretRef = controllerPublishSecretRef;
             return this;
         }
         @CustomType.Setter
         public Builder driver(String driver) {
-            this.driver = Objects.requireNonNull(driver);
+            if (driver == null) {
+              throw new MissingRequiredPropertyException("CSIPersistentVolumeSource", "driver");
+            }
+            this.driver = driver;
             return this;
         }
         @CustomType.Setter
         public Builder fsType(@Nullable String fsType) {
+
             this.fsType = fsType;
             return this;
         }
         @CustomType.Setter
         public Builder nodeExpandSecretRef(@Nullable SecretReference nodeExpandSecretRef) {
+
             this.nodeExpandSecretRef = nodeExpandSecretRef;
             return this;
         }
         @CustomType.Setter
         public Builder nodePublishSecretRef(@Nullable SecretReference nodePublishSecretRef) {
+
             this.nodePublishSecretRef = nodePublishSecretRef;
             return this;
         }
         @CustomType.Setter
         public Builder nodeStageSecretRef(@Nullable SecretReference nodeStageSecretRef) {
+
             this.nodeStageSecretRef = nodeStageSecretRef;
             return this;
         }
         @CustomType.Setter
         public Builder readOnly(@Nullable Boolean readOnly) {
+
             this.readOnly = readOnly;
             return this;
         }
         @CustomType.Setter
         public Builder volumeAttributes(@Nullable Map<String,String> volumeAttributes) {
+
             this.volumeAttributes = volumeAttributes;
             return this;
         }
         @CustomType.Setter
         public Builder volumeHandle(String volumeHandle) {
-            this.volumeHandle = Objects.requireNonNull(volumeHandle);
+            if (volumeHandle == null) {
+              throw new MissingRequiredPropertyException("CSIPersistentVolumeSource", "volumeHandle");
+            }
+            this.volumeHandle = volumeHandle;
             return this;
         }
         public CSIPersistentVolumeSource build() {
-            final var o = new CSIPersistentVolumeSource();
-            o.controllerExpandSecretRef = controllerExpandSecretRef;
-            o.controllerPublishSecretRef = controllerPublishSecretRef;
-            o.driver = driver;
-            o.fsType = fsType;
-            o.nodeExpandSecretRef = nodeExpandSecretRef;
-            o.nodePublishSecretRef = nodePublishSecretRef;
-            o.nodeStageSecretRef = nodeStageSecretRef;
-            o.readOnly = readOnly;
-            o.volumeAttributes = volumeAttributes;
-            o.volumeHandle = volumeHandle;
-            return o;
+            final var _resultValue = new CSIPersistentVolumeSource();
+            _resultValue.controllerExpandSecretRef = controllerExpandSecretRef;
+            _resultValue.controllerPublishSecretRef = controllerPublishSecretRef;
+            _resultValue.driver = driver;
+            _resultValue.fsType = fsType;
+            _resultValue.nodeExpandSecretRef = nodeExpandSecretRef;
+            _resultValue.nodePublishSecretRef = nodePublishSecretRef;
+            _resultValue.nodeStageSecretRef = nodeStageSecretRef;
+            _resultValue.readOnly = readOnly;
+            _resultValue.volumeAttributes = volumeAttributes;
+            _resultValue.volumeHandle = volumeHandle;
+            return _resultValue;
         }
     }
 }

@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.extensions.v1beta1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.List;
 import java.util.Objects;
@@ -128,7 +129,9 @@ public final class IPBlockArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         public IPBlockArgs build() {
-            $.cidr = Objects.requireNonNull($.cidr, "expected parameter 'cidr' to be non-null");
+            if ($.cidr == null) {
+                throw new MissingRequiredPropertyException("IPBlockArgs", "cidr");
+            }
             return $;
         }
     }

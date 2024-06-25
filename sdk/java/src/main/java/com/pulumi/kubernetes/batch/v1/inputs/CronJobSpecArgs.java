@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.batch.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.batch.v1.inputs.JobTemplateSpecArgs;
 import java.lang.Boolean;
 import java.lang.Integer;
@@ -350,8 +351,12 @@ public final class CronJobSpecArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         public CronJobSpecArgs build() {
-            $.jobTemplate = Objects.requireNonNull($.jobTemplate, "expected parameter 'jobTemplate' to be non-null");
-            $.schedule = Objects.requireNonNull($.schedule, "expected parameter 'schedule' to be non-null");
+            if ($.jobTemplate == null) {
+                throw new MissingRequiredPropertyException("CronJobSpecArgs", "jobTemplate");
+            }
+            if ($.schedule == null) {
+                throw new MissingRequiredPropertyException("CronJobSpecArgs", "schedule");
+            }
             return $;
         }
     }

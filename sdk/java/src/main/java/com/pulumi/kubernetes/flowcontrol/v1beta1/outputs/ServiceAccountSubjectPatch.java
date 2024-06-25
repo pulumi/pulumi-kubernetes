@@ -58,19 +58,21 @@ public final class ServiceAccountSubjectPatch {
 
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder namespace(@Nullable String namespace) {
+
             this.namespace = namespace;
             return this;
         }
         public ServiceAccountSubjectPatch build() {
-            final var o = new ServiceAccountSubjectPatch();
-            o.name = name;
-            o.namespace = namespace;
-            return o;
+            final var _resultValue = new ServiceAccountSubjectPatch();
+            _resultValue.name = name;
+            _resultValue.namespace = namespace;
+            return _resultValue;
         }
     }
 }

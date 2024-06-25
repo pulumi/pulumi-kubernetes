@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.autoscaling.v2beta2.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.autoscaling.v2beta2.outputs.ContainerResourceMetricSource;
 import com.pulumi.kubernetes.autoscaling.v2beta2.outputs.ExternalMetricSource;
 import com.pulumi.kubernetes.autoscaling.v2beta2.outputs.ObjectMetricSource;
@@ -119,43 +120,51 @@ public final class MetricSpec {
 
         @CustomType.Setter
         public Builder containerResource(@Nullable ContainerResourceMetricSource containerResource) {
+
             this.containerResource = containerResource;
             return this;
         }
         @CustomType.Setter
         public Builder external(@Nullable ExternalMetricSource external) {
+
             this.external = external;
             return this;
         }
         @CustomType.Setter
         public Builder object(@Nullable ObjectMetricSource object) {
+
             this.object = object;
             return this;
         }
         @CustomType.Setter
         public Builder pods(@Nullable PodsMetricSource pods) {
+
             this.pods = pods;
             return this;
         }
         @CustomType.Setter
         public Builder resource(@Nullable ResourceMetricSource resource) {
+
             this.resource = resource;
             return this;
         }
         @CustomType.Setter
         public Builder type(String type) {
-            this.type = Objects.requireNonNull(type);
+            if (type == null) {
+              throw new MissingRequiredPropertyException("MetricSpec", "type");
+            }
+            this.type = type;
             return this;
         }
         public MetricSpec build() {
-            final var o = new MetricSpec();
-            o.containerResource = containerResource;
-            o.external = external;
-            o.object = object;
-            o.pods = pods;
-            o.resource = resource;
-            o.type = type;
-            return o;
+            final var _resultValue = new MetricSpec();
+            _resultValue.containerResource = containerResource;
+            _resultValue.external = external;
+            _resultValue.object = object;
+            _resultValue.pods = pods;
+            _resultValue.resource = resource;
+            _resultValue.type = type;
+            return _resultValue;
         }
     }
 }

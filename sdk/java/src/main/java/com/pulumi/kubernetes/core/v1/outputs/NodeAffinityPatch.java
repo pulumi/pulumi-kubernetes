@@ -60,6 +60,7 @@ public final class NodeAffinityPatch {
 
         @CustomType.Setter
         public Builder preferredDuringSchedulingIgnoredDuringExecution(@Nullable List<PreferredSchedulingTermPatch> preferredDuringSchedulingIgnoredDuringExecution) {
+
             this.preferredDuringSchedulingIgnoredDuringExecution = preferredDuringSchedulingIgnoredDuringExecution;
             return this;
         }
@@ -68,14 +69,15 @@ public final class NodeAffinityPatch {
         }
         @CustomType.Setter
         public Builder requiredDuringSchedulingIgnoredDuringExecution(@Nullable NodeSelectorPatch requiredDuringSchedulingIgnoredDuringExecution) {
+
             this.requiredDuringSchedulingIgnoredDuringExecution = requiredDuringSchedulingIgnoredDuringExecution;
             return this;
         }
         public NodeAffinityPatch build() {
-            final var o = new NodeAffinityPatch();
-            o.preferredDuringSchedulingIgnoredDuringExecution = preferredDuringSchedulingIgnoredDuringExecution;
-            o.requiredDuringSchedulingIgnoredDuringExecution = requiredDuringSchedulingIgnoredDuringExecution;
-            return o;
+            final var _resultValue = new NodeAffinityPatch();
+            _resultValue.preferredDuringSchedulingIgnoredDuringExecution = preferredDuringSchedulingIgnoredDuringExecution;
+            _resultValue.requiredDuringSchedulingIgnoredDuringExecution = requiredDuringSchedulingIgnoredDuringExecution;
+            return _resultValue;
         }
     }
 }

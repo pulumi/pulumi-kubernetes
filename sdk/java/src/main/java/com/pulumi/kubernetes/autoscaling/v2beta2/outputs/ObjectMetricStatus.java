@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.autoscaling.v2beta2.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.autoscaling.v2beta2.outputs.CrossVersionObjectReference;
 import com.pulumi.kubernetes.autoscaling.v2beta2.outputs.MetricIdentifier;
 import com.pulumi.kubernetes.autoscaling.v2beta2.outputs.MetricValueStatus;
@@ -64,25 +65,34 @@ public final class ObjectMetricStatus {
 
         @CustomType.Setter
         public Builder current(MetricValueStatus current) {
-            this.current = Objects.requireNonNull(current);
+            if (current == null) {
+              throw new MissingRequiredPropertyException("ObjectMetricStatus", "current");
+            }
+            this.current = current;
             return this;
         }
         @CustomType.Setter
         public Builder describedObject(CrossVersionObjectReference describedObject) {
-            this.describedObject = Objects.requireNonNull(describedObject);
+            if (describedObject == null) {
+              throw new MissingRequiredPropertyException("ObjectMetricStatus", "describedObject");
+            }
+            this.describedObject = describedObject;
             return this;
         }
         @CustomType.Setter
         public Builder metric(MetricIdentifier metric) {
-            this.metric = Objects.requireNonNull(metric);
+            if (metric == null) {
+              throw new MissingRequiredPropertyException("ObjectMetricStatus", "metric");
+            }
+            this.metric = metric;
             return this;
         }
         public ObjectMetricStatus build() {
-            final var o = new ObjectMetricStatus();
-            o.current = current;
-            o.describedObject = describedObject;
-            o.metric = metric;
-            return o;
+            final var _resultValue = new ObjectMetricStatus();
+            _resultValue.current = current;
+            _resultValue.describedObject = describedObject;
+            _resultValue.metric = metric;
+            return _resultValue;
         }
     }
 }

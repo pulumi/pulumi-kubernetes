@@ -131,49 +131,56 @@ public final class CronJobSpecPatch {
 
         @CustomType.Setter
         public Builder concurrencyPolicy(@Nullable String concurrencyPolicy) {
+
             this.concurrencyPolicy = concurrencyPolicy;
             return this;
         }
         @CustomType.Setter
         public Builder failedJobsHistoryLimit(@Nullable Integer failedJobsHistoryLimit) {
+
             this.failedJobsHistoryLimit = failedJobsHistoryLimit;
             return this;
         }
         @CustomType.Setter
         public Builder jobTemplate(@Nullable JobTemplateSpecPatch jobTemplate) {
+
             this.jobTemplate = jobTemplate;
             return this;
         }
         @CustomType.Setter
         public Builder schedule(@Nullable String schedule) {
+
             this.schedule = schedule;
             return this;
         }
         @CustomType.Setter
         public Builder startingDeadlineSeconds(@Nullable Integer startingDeadlineSeconds) {
+
             this.startingDeadlineSeconds = startingDeadlineSeconds;
             return this;
         }
         @CustomType.Setter
         public Builder successfulJobsHistoryLimit(@Nullable Integer successfulJobsHistoryLimit) {
+
             this.successfulJobsHistoryLimit = successfulJobsHistoryLimit;
             return this;
         }
         @CustomType.Setter
         public Builder suspend(@Nullable Boolean suspend) {
+
             this.suspend = suspend;
             return this;
         }
         public CronJobSpecPatch build() {
-            final var o = new CronJobSpecPatch();
-            o.concurrencyPolicy = concurrencyPolicy;
-            o.failedJobsHistoryLimit = failedJobsHistoryLimit;
-            o.jobTemplate = jobTemplate;
-            o.schedule = schedule;
-            o.startingDeadlineSeconds = startingDeadlineSeconds;
-            o.successfulJobsHistoryLimit = successfulJobsHistoryLimit;
-            o.suspend = suspend;
-            return o;
+            final var _resultValue = new CronJobSpecPatch();
+            _resultValue.concurrencyPolicy = concurrencyPolicy;
+            _resultValue.failedJobsHistoryLimit = failedJobsHistoryLimit;
+            _resultValue.jobTemplate = jobTemplate;
+            _resultValue.schedule = schedule;
+            _resultValue.startingDeadlineSeconds = startingDeadlineSeconds;
+            _resultValue.successfulJobsHistoryLimit = successfulJobsHistoryLimit;
+            _resultValue.suspend = suspend;
+            return _resultValue;
         }
     }
 }

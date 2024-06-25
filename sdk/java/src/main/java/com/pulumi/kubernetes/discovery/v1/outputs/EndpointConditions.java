@@ -72,25 +72,28 @@ public final class EndpointConditions {
 
         @CustomType.Setter
         public Builder ready(@Nullable Boolean ready) {
+
             this.ready = ready;
             return this;
         }
         @CustomType.Setter
         public Builder serving(@Nullable Boolean serving) {
+
             this.serving = serving;
             return this;
         }
         @CustomType.Setter
         public Builder terminating(@Nullable Boolean terminating) {
+
             this.terminating = terminating;
             return this;
         }
         public EndpointConditions build() {
-            final var o = new EndpointConditions();
-            o.ready = ready;
-            o.serving = serving;
-            o.terminating = terminating;
-            return o;
+            final var _resultValue = new EndpointConditions();
+            _resultValue.ready = ready;
+            _resultValue.serving = serving;
+            _resultValue.terminating = terminating;
+            return _resultValue;
         }
     }
 }

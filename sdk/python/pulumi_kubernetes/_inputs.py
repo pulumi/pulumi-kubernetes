@@ -4,15 +4,52 @@
 
 import copy
 import warnings
+import sys
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
+if sys.version_info >= (3, 11):
+    from typing import NotRequired, TypedDict, TypeAlias
+else:
+    from typing_extensions import NotRequired, TypedDict, TypeAlias
 from . import _utilities
 
 __all__ = [
     'HelmReleaseSettingsArgs',
+    'HelmReleaseSettingsArgsDict',
     'KubeClientSettingsArgs',
+    'KubeClientSettingsArgsDict',
 ]
+
+MYPY = False
+
+if not MYPY:
+    class HelmReleaseSettingsArgsDict(TypedDict):
+        """
+        Options to configure the Helm Release resource.
+        """
+        driver: NotRequired[pulumi.Input[str]]
+        """
+        The backend storage driver for Helm. Values are: configmap, secret, memory, sql.
+        """
+        plugins_path: NotRequired[pulumi.Input[str]]
+        """
+        The path to the helm plugins directory.
+        """
+        registry_config_path: NotRequired[pulumi.Input[str]]
+        """
+        The path to the registry config file.
+        """
+        repository_cache: NotRequired[pulumi.Input[str]]
+        """
+        The path to the directory containing cached repository indexes.
+        """
+        repository_config_path: NotRequired[pulumi.Input[str]]
+        """
+        The path to the file containing repository names and URLs.
+        """
+elif False:
+    HelmReleaseSettingsArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class HelmReleaseSettingsArgs:
@@ -111,6 +148,26 @@ class HelmReleaseSettingsArgs:
     def repository_config_path(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "repository_config_path", value)
 
+
+if not MYPY:
+    class KubeClientSettingsArgsDict(TypedDict):
+        """
+        Options for tuning the Kubernetes client used by a Provider.
+        """
+        burst: NotRequired[pulumi.Input[int]]
+        """
+        Maximum burst for throttle. Default value is 120.
+        """
+        qps: NotRequired[pulumi.Input[float]]
+        """
+        Maximum queries per second (QPS) to the API server from this client. Default value is 50.
+        """
+        timeout: NotRequired[pulumi.Input[int]]
+        """
+        Maximum time in seconds to wait before cancelling a HTTP request to the Kubernetes server. Default value is 32.
+        """
+elif False:
+    KubeClientSettingsArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class KubeClientSettingsArgs:

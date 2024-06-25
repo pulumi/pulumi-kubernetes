@@ -60,11 +60,13 @@ public final class ProjectedVolumeSourcePatch {
 
         @CustomType.Setter
         public Builder defaultMode(@Nullable Integer defaultMode) {
+
             this.defaultMode = defaultMode;
             return this;
         }
         @CustomType.Setter
         public Builder sources(@Nullable List<VolumeProjectionPatch> sources) {
+
             this.sources = sources;
             return this;
         }
@@ -72,10 +74,10 @@ public final class ProjectedVolumeSourcePatch {
             return sources(List.of(sources));
         }
         public ProjectedVolumeSourcePatch build() {
-            final var o = new ProjectedVolumeSourcePatch();
-            o.defaultMode = defaultMode;
-            o.sources = sources;
-            return o;
+            final var _resultValue = new ProjectedVolumeSourcePatch();
+            _resultValue.defaultMode = defaultMode;
+            _resultValue.sources = sources;
+            return _resultValue;
         }
     }
 }

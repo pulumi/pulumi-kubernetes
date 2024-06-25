@@ -44,6 +44,7 @@ public final class DownwardAPIProjection {
 
         @CustomType.Setter
         public Builder items(@Nullable List<DownwardAPIVolumeFile> items) {
+
             this.items = items;
             return this;
         }
@@ -51,9 +52,9 @@ public final class DownwardAPIProjection {
             return items(List.of(items));
         }
         public DownwardAPIProjection build() {
-            final var o = new DownwardAPIProjection();
-            o.items = items;
-            return o;
+            final var _resultValue = new DownwardAPIProjection();
+            _resultValue.items = items;
+            return _resultValue;
         }
     }
 }

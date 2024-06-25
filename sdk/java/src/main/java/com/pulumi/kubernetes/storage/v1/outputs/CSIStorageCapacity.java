@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.storage.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.meta.v1.outputs.LabelSelector;
 import com.pulumi.kubernetes.meta.v1.outputs.ObjectMeta;
 import java.lang.String;
@@ -146,49 +147,58 @@ public final class CSIStorageCapacity {
 
         @CustomType.Setter
         public Builder apiVersion(@Nullable String apiVersion) {
+
             this.apiVersion = apiVersion;
             return this;
         }
         @CustomType.Setter
         public Builder capacity(@Nullable String capacity) {
+
             this.capacity = capacity;
             return this;
         }
         @CustomType.Setter
         public Builder kind(@Nullable String kind) {
+
             this.kind = kind;
             return this;
         }
         @CustomType.Setter
         public Builder maximumVolumeSize(@Nullable String maximumVolumeSize) {
+
             this.maximumVolumeSize = maximumVolumeSize;
             return this;
         }
         @CustomType.Setter
         public Builder metadata(@Nullable ObjectMeta metadata) {
+
             this.metadata = metadata;
             return this;
         }
         @CustomType.Setter
         public Builder nodeTopology(@Nullable LabelSelector nodeTopology) {
+
             this.nodeTopology = nodeTopology;
             return this;
         }
         @CustomType.Setter
         public Builder storageClassName(String storageClassName) {
-            this.storageClassName = Objects.requireNonNull(storageClassName);
+            if (storageClassName == null) {
+              throw new MissingRequiredPropertyException("CSIStorageCapacity", "storageClassName");
+            }
+            this.storageClassName = storageClassName;
             return this;
         }
         public CSIStorageCapacity build() {
-            final var o = new CSIStorageCapacity();
-            o.apiVersion = apiVersion;
-            o.capacity = capacity;
-            o.kind = kind;
-            o.maximumVolumeSize = maximumVolumeSize;
-            o.metadata = metadata;
-            o.nodeTopology = nodeTopology;
-            o.storageClassName = storageClassName;
-            return o;
+            final var _resultValue = new CSIStorageCapacity();
+            _resultValue.apiVersion = apiVersion;
+            _resultValue.capacity = capacity;
+            _resultValue.kind = kind;
+            _resultValue.maximumVolumeSize = maximumVolumeSize;
+            _resultValue.metadata = metadata;
+            _resultValue.nodeTopology = nodeTopology;
+            _resultValue.storageClassName = storageClassName;
+            return _resultValue;
         }
     }
 }

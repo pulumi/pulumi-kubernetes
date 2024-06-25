@@ -93,25 +93,28 @@ public final class HTTPIngressPathPatch {
 
         @CustomType.Setter
         public Builder backend(@Nullable IngressBackendPatch backend) {
+
             this.backend = backend;
             return this;
         }
         @CustomType.Setter
         public Builder path(@Nullable String path) {
+
             this.path = path;
             return this;
         }
         @CustomType.Setter
         public Builder pathType(@Nullable String pathType) {
+
             this.pathType = pathType;
             return this;
         }
         public HTTPIngressPathPatch build() {
-            final var o = new HTTPIngressPathPatch();
-            o.backend = backend;
-            o.path = path;
-            o.pathType = pathType;
-            return o;
+            final var _resultValue = new HTTPIngressPathPatch();
+            _resultValue.backend = backend;
+            _resultValue.path = path;
+            _resultValue.pathType = pathType;
+            return _resultValue;
         }
     }
 }

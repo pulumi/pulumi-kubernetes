@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.batch.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.batch.v1.outputs.PodFailurePolicyRule;
 import java.util.List;
 import java.util.Objects;
@@ -43,16 +44,19 @@ public final class PodFailurePolicy {
 
         @CustomType.Setter
         public Builder rules(List<PodFailurePolicyRule> rules) {
-            this.rules = Objects.requireNonNull(rules);
+            if (rules == null) {
+              throw new MissingRequiredPropertyException("PodFailurePolicy", "rules");
+            }
+            this.rules = rules;
             return this;
         }
         public Builder rules(PodFailurePolicyRule... rules) {
             return rules(List.of(rules));
         }
         public PodFailurePolicy build() {
-            final var o = new PodFailurePolicy();
-            o.rules = rules;
-            return o;
+            final var _resultValue = new PodFailurePolicy();
+            _resultValue.rules = rules;
+            return _resultValue;
         }
     }
 }

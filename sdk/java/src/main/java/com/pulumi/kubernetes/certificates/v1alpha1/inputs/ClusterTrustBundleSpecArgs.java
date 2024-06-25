@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.certificates.v1alpha1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -165,7 +166,9 @@ public final class ClusterTrustBundleSpecArgs extends com.pulumi.resources.Resou
         }
 
         public ClusterTrustBundleSpecArgs build() {
-            $.trustBundle = Objects.requireNonNull($.trustBundle, "expected parameter 'trustBundle' to be non-null");
+            if ($.trustBundle == null) {
+                throw new MissingRequiredPropertyException("ClusterTrustBundleSpecArgs", "trustBundle");
+            }
             return $;
         }
     }

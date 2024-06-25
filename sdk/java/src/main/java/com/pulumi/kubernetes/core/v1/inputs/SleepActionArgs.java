@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.core.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Integer;
 import java.util.Objects;
 
@@ -78,7 +79,9 @@ public final class SleepActionArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         public SleepActionArgs build() {
-            $.seconds = Objects.requireNonNull($.seconds, "expected parameter 'seconds' to be non-null");
+            if ($.seconds == null) {
+                throw new MissingRequiredPropertyException("SleepActionArgs", "seconds");
+            }
             return $;
         }
     }

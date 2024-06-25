@@ -75,11 +75,13 @@ public final class CustomResourceDefinitionStatusPatch {
 
         @CustomType.Setter
         public Builder acceptedNames(@Nullable CustomResourceDefinitionNamesPatch acceptedNames) {
+
             this.acceptedNames = acceptedNames;
             return this;
         }
         @CustomType.Setter
         public Builder conditions(@Nullable List<CustomResourceDefinitionConditionPatch> conditions) {
+
             this.conditions = conditions;
             return this;
         }
@@ -88,6 +90,7 @@ public final class CustomResourceDefinitionStatusPatch {
         }
         @CustomType.Setter
         public Builder storedVersions(@Nullable List<String> storedVersions) {
+
             this.storedVersions = storedVersions;
             return this;
         }
@@ -95,11 +98,11 @@ public final class CustomResourceDefinitionStatusPatch {
             return storedVersions(List.of(storedVersions));
         }
         public CustomResourceDefinitionStatusPatch build() {
-            final var o = new CustomResourceDefinitionStatusPatch();
-            o.acceptedNames = acceptedNames;
-            o.conditions = conditions;
-            o.storedVersions = storedVersions;
-            return o;
+            final var _resultValue = new CustomResourceDefinitionStatusPatch();
+            _resultValue.acceptedNames = acceptedNames;
+            _resultValue.conditions = conditions;
+            _resultValue.storedVersions = storedVersions;
+            return _resultValue;
         }
     }
 }

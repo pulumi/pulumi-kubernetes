@@ -4,9 +4,14 @@
 
 import copy
 import warnings
+import sys
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
+if sys.version_info >= (3, 11):
+    from typing import NotRequired, TypedDict, TypeAlias
+else:
+    from typing_extensions import NotRequired, TypedDict, TypeAlias
 from ... import _utilities
 from . import outputs
 from ... import core as _core
@@ -300,17 +305,17 @@ class Event(pulumi.CustomResource):
                  deprecated_count: Optional[pulumi.Input[int]] = None,
                  deprecated_first_timestamp: Optional[pulumi.Input[str]] = None,
                  deprecated_last_timestamp: Optional[pulumi.Input[str]] = None,
-                 deprecated_source: Optional[pulumi.Input[pulumi.InputType['_core.v1.EventSourceArgs']]] = None,
+                 deprecated_source: Optional[pulumi.Input[Union['_core.v1.EventSourceArgs', '_core.v1.EventSourceArgsDict']]] = None,
                  event_time: Optional[pulumi.Input[str]] = None,
                  kind: Optional[pulumi.Input[str]] = None,
-                 metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']]] = None,
+                 metadata: Optional[pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
                  note: Optional[pulumi.Input[str]] = None,
                  reason: Optional[pulumi.Input[str]] = None,
-                 regarding: Optional[pulumi.Input[pulumi.InputType['_core.v1.ObjectReferenceArgs']]] = None,
-                 related: Optional[pulumi.Input[pulumi.InputType['_core.v1.ObjectReferenceArgs']]] = None,
+                 regarding: Optional[pulumi.Input[Union['_core.v1.ObjectReferenceArgs', '_core.v1.ObjectReferenceArgsDict']]] = None,
+                 related: Optional[pulumi.Input[Union['_core.v1.ObjectReferenceArgs', '_core.v1.ObjectReferenceArgsDict']]] = None,
                  reporting_controller: Optional[pulumi.Input[str]] = None,
                  reporting_instance: Optional[pulumi.Input[str]] = None,
-                 series: Optional[pulumi.Input[pulumi.InputType['EventSeriesArgs']]] = None,
+                 series: Optional[pulumi.Input[Union['EventSeriesArgs', 'EventSeriesArgsDict']]] = None,
                  type: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
@@ -323,16 +328,16 @@ class Event(pulumi.CustomResource):
         :param pulumi.Input[int] deprecated_count: Deprecated field assuring backward compatibility with core.v1 Event type
         :param pulumi.Input[str] deprecated_first_timestamp: Deprecated field assuring backward compatibility with core.v1 Event type
         :param pulumi.Input[str] deprecated_last_timestamp: Deprecated field assuring backward compatibility with core.v1 Event type
-        :param pulumi.Input[pulumi.InputType['_core.v1.EventSourceArgs']] deprecated_source: Deprecated field assuring backward compatibility with core.v1 Event type
+        :param pulumi.Input[Union['_core.v1.EventSourceArgs', '_core.v1.EventSourceArgsDict']] deprecated_source: Deprecated field assuring backward compatibility with core.v1 Event type
         :param pulumi.Input[str] event_time: Required. Time when this Event was first observed.
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input[str] note: Optional. A human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
         :param pulumi.Input[str] reason: Why the action was taken.
-        :param pulumi.Input[pulumi.InputType['_core.v1.ObjectReferenceArgs']] regarding: The object this Event is about. In most cases it's an Object reporting controller implements. E.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
-        :param pulumi.Input[pulumi.InputType['_core.v1.ObjectReferenceArgs']] related: Optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
+        :param pulumi.Input[Union['_core.v1.ObjectReferenceArgs', '_core.v1.ObjectReferenceArgsDict']] regarding: The object this Event is about. In most cases it's an Object reporting controller implements. E.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
+        :param pulumi.Input[Union['_core.v1.ObjectReferenceArgs', '_core.v1.ObjectReferenceArgsDict']] related: Optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
         :param pulumi.Input[str] reporting_controller: Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
         :param pulumi.Input[str] reporting_instance: ID of the controller instance, e.g. `kubelet-xyzf`.
-        :param pulumi.Input[pulumi.InputType['EventSeriesArgs']] series: Data about the Event series this event represents or nil if it's a singleton Event.
+        :param pulumi.Input[Union['EventSeriesArgs', 'EventSeriesArgsDict']] series: Data about the Event series this event represents or nil if it's a singleton Event.
         :param pulumi.Input[str] type: Type of this event (Normal, Warning), new types could be added in the future.
         """
         ...
@@ -364,17 +369,17 @@ class Event(pulumi.CustomResource):
                  deprecated_count: Optional[pulumi.Input[int]] = None,
                  deprecated_first_timestamp: Optional[pulumi.Input[str]] = None,
                  deprecated_last_timestamp: Optional[pulumi.Input[str]] = None,
-                 deprecated_source: Optional[pulumi.Input[pulumi.InputType['_core.v1.EventSourceArgs']]] = None,
+                 deprecated_source: Optional[pulumi.Input[Union['_core.v1.EventSourceArgs', '_core.v1.EventSourceArgsDict']]] = None,
                  event_time: Optional[pulumi.Input[str]] = None,
                  kind: Optional[pulumi.Input[str]] = None,
-                 metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']]] = None,
+                 metadata: Optional[pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
                  note: Optional[pulumi.Input[str]] = None,
                  reason: Optional[pulumi.Input[str]] = None,
-                 regarding: Optional[pulumi.Input[pulumi.InputType['_core.v1.ObjectReferenceArgs']]] = None,
-                 related: Optional[pulumi.Input[pulumi.InputType['_core.v1.ObjectReferenceArgs']]] = None,
+                 regarding: Optional[pulumi.Input[Union['_core.v1.ObjectReferenceArgs', '_core.v1.ObjectReferenceArgsDict']]] = None,
+                 related: Optional[pulumi.Input[Union['_core.v1.ObjectReferenceArgs', '_core.v1.ObjectReferenceArgsDict']]] = None,
                  reporting_controller: Optional[pulumi.Input[str]] = None,
                  reporting_instance: Optional[pulumi.Input[str]] = None,
-                 series: Optional[pulumi.Input[pulumi.InputType['EventSeriesArgs']]] = None,
+                 series: Optional[pulumi.Input[Union['EventSeriesArgs', 'EventSeriesArgsDict']]] = None,
                  type: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)

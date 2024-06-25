@@ -6,6 +6,7 @@ package com.pulumi.kubernetes.helm.v4;
 import com.pulumi.asset.AssetOrArchive;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.helm.v4.inputs.PostRendererArgs;
 import com.pulumi.kubernetes.helm.v4.inputs.RepositoryOptsArgs;
 import java.lang.Boolean;
@@ -611,7 +612,9 @@ public final class ChartArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         public ChartArgs build() {
-            $.chart = Objects.requireNonNull($.chart, "expected parameter 'chart' to be non-null");
+            if ($.chart == null) {
+                throw new MissingRequiredPropertyException("ChartArgs", "chart");
+            }
             return $;
         }
     }

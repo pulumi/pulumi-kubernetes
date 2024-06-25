@@ -59,6 +59,7 @@ public final class PodAffinity {
 
         @CustomType.Setter
         public Builder preferredDuringSchedulingIgnoredDuringExecution(@Nullable List<WeightedPodAffinityTerm> preferredDuringSchedulingIgnoredDuringExecution) {
+
             this.preferredDuringSchedulingIgnoredDuringExecution = preferredDuringSchedulingIgnoredDuringExecution;
             return this;
         }
@@ -67,6 +68,7 @@ public final class PodAffinity {
         }
         @CustomType.Setter
         public Builder requiredDuringSchedulingIgnoredDuringExecution(@Nullable List<PodAffinityTerm> requiredDuringSchedulingIgnoredDuringExecution) {
+
             this.requiredDuringSchedulingIgnoredDuringExecution = requiredDuringSchedulingIgnoredDuringExecution;
             return this;
         }
@@ -74,10 +76,10 @@ public final class PodAffinity {
             return requiredDuringSchedulingIgnoredDuringExecution(List.of(requiredDuringSchedulingIgnoredDuringExecution));
         }
         public PodAffinity build() {
-            final var o = new PodAffinity();
-            o.preferredDuringSchedulingIgnoredDuringExecution = preferredDuringSchedulingIgnoredDuringExecution;
-            o.requiredDuringSchedulingIgnoredDuringExecution = requiredDuringSchedulingIgnoredDuringExecution;
-            return o;
+            final var _resultValue = new PodAffinity();
+            _resultValue.preferredDuringSchedulingIgnoredDuringExecution = preferredDuringSchedulingIgnoredDuringExecution;
+            _resultValue.requiredDuringSchedulingIgnoredDuringExecution = requiredDuringSchedulingIgnoredDuringExecution;
+            return _resultValue;
         }
     }
 }

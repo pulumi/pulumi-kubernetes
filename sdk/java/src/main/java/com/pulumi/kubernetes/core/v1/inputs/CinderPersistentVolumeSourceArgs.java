@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.core.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.inputs.SecretReferenceArgs;
 import java.lang.Boolean;
 import java.lang.String;
@@ -193,7 +194,9 @@ public final class CinderPersistentVolumeSourceArgs extends com.pulumi.resources
         }
 
         public CinderPersistentVolumeSourceArgs build() {
-            $.volumeID = Objects.requireNonNull($.volumeID, "expected parameter 'volumeID' to be non-null");
+            if ($.volumeID == null) {
+                throw new MissingRequiredPropertyException("CinderPersistentVolumeSourceArgs", "volumeID");
+            }
             return $;
         }
     }

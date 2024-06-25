@@ -44,13 +44,14 @@ public final class SessionAffinityConfigPatch {
 
         @CustomType.Setter
         public Builder clientIP(@Nullable ClientIPConfigPatch clientIP) {
+
             this.clientIP = clientIP;
             return this;
         }
         public SessionAffinityConfigPatch build() {
-            final var o = new SessionAffinityConfigPatch();
-            o.clientIP = clientIP;
-            return o;
+            final var _resultValue = new SessionAffinityConfigPatch();
+            _resultValue.clientIP = clientIP;
+            return _resultValue;
         }
     }
 }

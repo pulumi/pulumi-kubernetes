@@ -223,15 +223,17 @@ func PulumiSchema(swagger map[string]any) pschema.PackageSpec {
 		"helm.sh/v2":    "Helm.V2",
 		"helm.sh/v3":    "Helm.V3",
 		"helm.sh/v4":    "Helm.V4",
+		"kustomize/v2":  "Kustomize.V2",
 		"yaml":          "Yaml",
 		"yaml/v2":       "Yaml.V2",
 		"":              "Provider",
 	}
 	javaPackages := map[string]string{
-		"helm.sh/v2": "helm.v2",
-		"helm.sh/v3": "helm.v3",
-		"helm.sh/v4": "helm.v4",
-		"yaml/v2":    "yaml.v2",
+		"helm.sh/v2":   "helm.v2",
+		"helm.sh/v3":   "helm.v3",
+		"helm.sh/v4":   "helm.v4",
+		"kustomize/v2": "kustomize.v2",
+		"yaml/v2":      "yaml.v2",
 	}
 	modToPkg := map[string]string{
 		"apiextensions.k8s.io": "apiextensions",
@@ -241,9 +243,10 @@ func PulumiSchema(swagger map[string]any) pschema.PackageSpec {
 		"helm.sh/v4":           "helm/v4",
 	}
 	pkgImportAliases := map[string]string{
-		"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v3": "helmv3",
-		"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v4": "helmv4",
-		"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/yaml/v2": "yamlv2",
+		"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v3":      "helmv3",
+		"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v4":      "helmv4",
+		"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/kustomize/v2": "kustomizev2",
+		"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/yaml/v2":      "yamlv2",
 	}
 
 	definitions := swagger["definitions"].(map[string]any)
@@ -469,6 +472,7 @@ additional information about using Server-Side Apply to manage Kubernetes resour
 	const kubernetes20 = "kubernetes20"
 
 	pkg.Language["csharp"] = rawMessage(map[string]any{
+		"respectSchemaVersion": true,
 		"packageReferences": map[string]string{
 			"Glob":   "1.1.5",
 			"Pulumi": "3.*",
@@ -480,9 +484,14 @@ additional information about using Server-Side Apply to manage Kubernetes resour
 
 	pkg.Language["java"] = rawMessage(map[string]any{
 		"packages": javaPackages,
+		"dependencies": map[string]string{
+			"net.bytebuddy:byte-buddy": "1.14.15",
+			"com.google.guava:guava":   "32.1.2-jre",
+		},
 	})
 
 	pkg.Language["go"] = rawMessage(map[string]any{
+		"respectSchemaVersion":           true,
 		"importBasePath":                 goImportPath,
 		"moduleToPackage":                modToPkg,
 		"packageImportAliases":           pkgImportAliases,
@@ -491,7 +500,8 @@ additional information about using Server-Side Apply to manage Kubernetes resour
 		"internalModuleName":             "utilities",
 	})
 	pkg.Language["nodejs"] = rawMessage(map[string]any{
-		"compatibility": kubernetes20,
+		"respectSchemaVersion": true,
+		"compatibility":        kubernetes20,
 		"dependencies": map[string]string{
 			"@pulumi/pulumi":    "^3.25.0",
 			"shell-quote":       "^1.6.1",
@@ -524,6 +534,7 @@ Use the navigation below to see detailed documentation for each of the supported
 `,
 	})
 	pkg.Language["python"] = rawMessage(map[string]any{
+		"respectSchemaVersion": true,
 		"requires": map[string]string{
 			"pulumi":   ">=3.109.0,<4.0.0",
 			"requests": ">=2.21,<3.0",
@@ -534,6 +545,7 @@ Use the navigation below to see detailed documentation for each of the supported
 		"moduleNameOverrides": modToPkg,
 		"compatibility":       kubernetes20,
 		"usesIOClasses":       true,
+		"inputTypes":          "classes-and-dicts",
 		"readme": `The Kubernetes provider package offers support for all Kubernetes resources and their properties.
 Resources are exposed as types from modules based on Kubernetes API groups such as 'apps', 'core',
 'rbac', and 'storage', among many others. Additionally, support for deploying Helm charts ('helm')

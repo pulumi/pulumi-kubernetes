@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.storagemigration.v1alpha1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.storagemigration.v1alpha1.inputs.GroupVersionResourceArgs;
 import java.lang.String;
 import java.util.Objects;
@@ -118,7 +119,9 @@ public final class StorageVersionMigrationSpecArgs extends com.pulumi.resources.
         }
 
         public StorageVersionMigrationSpecArgs build() {
-            $.resource = Objects.requireNonNull($.resource, "expected parameter 'resource' to be non-null");
+            if ($.resource == null) {
+                throw new MissingRequiredPropertyException("StorageVersionMigrationSpecArgs", "resource");
+            }
             return $;
         }
     }

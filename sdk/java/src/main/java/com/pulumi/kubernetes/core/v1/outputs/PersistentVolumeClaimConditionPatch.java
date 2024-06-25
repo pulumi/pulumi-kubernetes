@@ -98,43 +98,49 @@ public final class PersistentVolumeClaimConditionPatch {
 
         @CustomType.Setter
         public Builder lastProbeTime(@Nullable String lastProbeTime) {
+
             this.lastProbeTime = lastProbeTime;
             return this;
         }
         @CustomType.Setter
         public Builder lastTransitionTime(@Nullable String lastTransitionTime) {
+
             this.lastTransitionTime = lastTransitionTime;
             return this;
         }
         @CustomType.Setter
         public Builder message(@Nullable String message) {
+
             this.message = message;
             return this;
         }
         @CustomType.Setter
         public Builder reason(@Nullable String reason) {
+
             this.reason = reason;
             return this;
         }
         @CustomType.Setter
         public Builder status(@Nullable String status) {
+
             this.status = status;
             return this;
         }
         @CustomType.Setter
         public Builder type(@Nullable String type) {
+
             this.type = type;
             return this;
         }
         public PersistentVolumeClaimConditionPatch build() {
-            final var o = new PersistentVolumeClaimConditionPatch();
-            o.lastProbeTime = lastProbeTime;
-            o.lastTransitionTime = lastTransitionTime;
-            o.message = message;
-            o.reason = reason;
-            o.status = status;
-            o.type = type;
-            return o;
+            final var _resultValue = new PersistentVolumeClaimConditionPatch();
+            _resultValue.lastProbeTime = lastProbeTime;
+            _resultValue.lastTransitionTime = lastTransitionTime;
+            _resultValue.message = message;
+            _resultValue.reason = reason;
+            _resultValue.status = status;
+            _resultValue.type = type;
+            return _resultValue;
         }
     }
 }

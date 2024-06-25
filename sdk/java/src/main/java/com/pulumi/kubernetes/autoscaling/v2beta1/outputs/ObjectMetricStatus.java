@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.autoscaling.v2beta1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.autoscaling.v2beta1.outputs.CrossVersionObjectReference;
 import com.pulumi.kubernetes.meta.v1.outputs.LabelSelector;
 import java.lang.String;
@@ -102,37 +103,48 @@ public final class ObjectMetricStatus {
 
         @CustomType.Setter
         public Builder averageValue(@Nullable String averageValue) {
+
             this.averageValue = averageValue;
             return this;
         }
         @CustomType.Setter
         public Builder currentValue(String currentValue) {
-            this.currentValue = Objects.requireNonNull(currentValue);
+            if (currentValue == null) {
+              throw new MissingRequiredPropertyException("ObjectMetricStatus", "currentValue");
+            }
+            this.currentValue = currentValue;
             return this;
         }
         @CustomType.Setter
         public Builder metricName(String metricName) {
-            this.metricName = Objects.requireNonNull(metricName);
+            if (metricName == null) {
+              throw new MissingRequiredPropertyException("ObjectMetricStatus", "metricName");
+            }
+            this.metricName = metricName;
             return this;
         }
         @CustomType.Setter
         public Builder selector(@Nullable LabelSelector selector) {
+
             this.selector = selector;
             return this;
         }
         @CustomType.Setter
         public Builder target(CrossVersionObjectReference target) {
-            this.target = Objects.requireNonNull(target);
+            if (target == null) {
+              throw new MissingRequiredPropertyException("ObjectMetricStatus", "target");
+            }
+            this.target = target;
             return this;
         }
         public ObjectMetricStatus build() {
-            final var o = new ObjectMetricStatus();
-            o.averageValue = averageValue;
-            o.currentValue = currentValue;
-            o.metricName = metricName;
-            o.selector = selector;
-            o.target = target;
-            return o;
+            final var _resultValue = new ObjectMetricStatus();
+            _resultValue.averageValue = averageValue;
+            _resultValue.currentValue = currentValue;
+            _resultValue.metricName = metricName;
+            _resultValue.selector = selector;
+            _resultValue.target = target;
+            return _resultValue;
         }
     }
 }

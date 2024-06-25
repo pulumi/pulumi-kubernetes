@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Boolean;
 import java.lang.String;
 import java.util.Objects;
@@ -73,25 +74,32 @@ public final class NFSVolumeSource {
 
         @CustomType.Setter
         public Builder path(String path) {
-            this.path = Objects.requireNonNull(path);
+            if (path == null) {
+              throw new MissingRequiredPropertyException("NFSVolumeSource", "path");
+            }
+            this.path = path;
             return this;
         }
         @CustomType.Setter
         public Builder readOnly(@Nullable Boolean readOnly) {
+
             this.readOnly = readOnly;
             return this;
         }
         @CustomType.Setter
         public Builder server(String server) {
-            this.server = Objects.requireNonNull(server);
+            if (server == null) {
+              throw new MissingRequiredPropertyException("NFSVolumeSource", "server");
+            }
+            this.server = server;
             return this;
         }
         public NFSVolumeSource build() {
-            final var o = new NFSVolumeSource();
-            o.path = path;
-            o.readOnly = readOnly;
-            o.server = server;
-            return o;
+            final var _resultValue = new NFSVolumeSource();
+            _resultValue.path = path;
+            _resultValue.readOnly = readOnly;
+            _resultValue.server = server;
+            return _resultValue;
         }
     }
 }

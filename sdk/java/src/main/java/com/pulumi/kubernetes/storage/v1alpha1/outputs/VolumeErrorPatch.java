@@ -58,19 +58,21 @@ public final class VolumeErrorPatch {
 
         @CustomType.Setter
         public Builder message(@Nullable String message) {
+
             this.message = message;
             return this;
         }
         @CustomType.Setter
         public Builder time(@Nullable String time) {
+
             this.time = time;
             return this;
         }
         public VolumeErrorPatch build() {
-            final var o = new VolumeErrorPatch();
-            o.message = message;
-            o.time = time;
-            return o;
+            final var _resultValue = new VolumeErrorPatch();
+            _resultValue.message = message;
+            _resultValue.time = time;
+            return _resultValue;
         }
     }
 }

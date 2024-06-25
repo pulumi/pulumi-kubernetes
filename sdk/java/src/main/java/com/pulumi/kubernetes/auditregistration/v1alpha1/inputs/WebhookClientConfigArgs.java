@@ -65,7 +65,7 @@ public final class WebhookClientConfigArgs extends com.pulumi.resources.Resource
      * 
      * A path is optional, and if present may be any string permissible in a URL. You may use the path to pass an arbitrary string to the webhook, for example, a cluster identifier.
      * 
-     * Attempting to use a user or basic auth e.g. &#34;user:password@&#34; is not allowed. Fragments (&#34;#...&#34;) and query parameters (&#34;?...&#34;) are not allowed, either.
+     * Attempting to use a user or basic auth e.g. &#34;user:password{@literal @}&#34; is not allowed. Fragments (&#34;#...&#34;) and query parameters (&#34;?...&#34;) are not allowed, either.
      * 
      */
     @Import(name="url")
@@ -82,7 +82,7 @@ public final class WebhookClientConfigArgs extends com.pulumi.resources.Resource
      * 
      * A path is optional, and if present may be any string permissible in a URL. You may use the path to pass an arbitrary string to the webhook, for example, a cluster identifier.
      * 
-     * Attempting to use a user or basic auth e.g. &#34;user:password@&#34; is not allowed. Fragments (&#34;#...&#34;) and query parameters (&#34;?...&#34;) are not allowed, either.
+     * Attempting to use a user or basic auth e.g. &#34;user:password{@literal @}&#34; is not allowed. Fragments (&#34;#...&#34;) and query parameters (&#34;?...&#34;) are not allowed, either.
      * 
      */
     public Optional<Output<String>> url() {
@@ -172,7 +172,7 @@ public final class WebhookClientConfigArgs extends com.pulumi.resources.Resource
          * 
          * A path is optional, and if present may be any string permissible in a URL. You may use the path to pass an arbitrary string to the webhook, for example, a cluster identifier.
          * 
-         * Attempting to use a user or basic auth e.g. &#34;user:password@&#34; is not allowed. Fragments (&#34;#...&#34;) and query parameters (&#34;?...&#34;) are not allowed, either.
+         * Attempting to use a user or basic auth e.g. &#34;user:password{@literal @}&#34; is not allowed. Fragments (&#34;#...&#34;) and query parameters (&#34;?...&#34;) are not allowed, either.
          * 
          * @return builder
          * 
@@ -193,7 +193,7 @@ public final class WebhookClientConfigArgs extends com.pulumi.resources.Resource
          * 
          * A path is optional, and if present may be any string permissible in a URL. You may use the path to pass an arbitrary string to the webhook, for example, a cluster identifier.
          * 
-         * Attempting to use a user or basic auth e.g. &#34;user:password@&#34; is not allowed. Fragments (&#34;#...&#34;) and query parameters (&#34;?...&#34;) are not allowed, either.
+         * Attempting to use a user or basic auth e.g. &#34;user:password{@literal @}&#34; is not allowed. Fragments (&#34;#...&#34;) and query parameters (&#34;?...&#34;) are not allowed, either.
          * 
          * @return builder
          * 

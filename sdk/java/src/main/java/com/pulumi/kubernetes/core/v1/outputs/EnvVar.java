@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.outputs.EnvVarSource;
 import java.lang.String;
 import java.util.Objects;
@@ -73,25 +74,30 @@ public final class EnvVar {
 
         @CustomType.Setter
         public Builder name(String name) {
-            this.name = Objects.requireNonNull(name);
+            if (name == null) {
+              throw new MissingRequiredPropertyException("EnvVar", "name");
+            }
+            this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder value(@Nullable String value) {
+
             this.value = value;
             return this;
         }
         @CustomType.Setter
         public Builder valueFrom(@Nullable EnvVarSource valueFrom) {
+
             this.valueFrom = valueFrom;
             return this;
         }
         public EnvVar build() {
-            final var o = new EnvVar();
-            o.name = name;
-            o.value = value;
-            o.valueFrom = valueFrom;
-            return o;
+            final var _resultValue = new EnvVar();
+            _resultValue.name = name;
+            _resultValue.value = value;
+            _resultValue.valueFrom = valueFrom;
+            return _resultValue;
         }
     }
 }

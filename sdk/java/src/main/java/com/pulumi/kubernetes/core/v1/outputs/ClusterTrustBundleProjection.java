@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.meta.v1.outputs.LabelSelector;
 import java.lang.Boolean;
 import java.lang.String;
@@ -102,37 +103,44 @@ public final class ClusterTrustBundleProjection {
 
         @CustomType.Setter
         public Builder labelSelector(@Nullable LabelSelector labelSelector) {
+
             this.labelSelector = labelSelector;
             return this;
         }
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder optional(@Nullable Boolean optional) {
+
             this.optional = optional;
             return this;
         }
         @CustomType.Setter
         public Builder path(String path) {
-            this.path = Objects.requireNonNull(path);
+            if (path == null) {
+              throw new MissingRequiredPropertyException("ClusterTrustBundleProjection", "path");
+            }
+            this.path = path;
             return this;
         }
         @CustomType.Setter
         public Builder signerName(@Nullable String signerName) {
+
             this.signerName = signerName;
             return this;
         }
         public ClusterTrustBundleProjection build() {
-            final var o = new ClusterTrustBundleProjection();
-            o.labelSelector = labelSelector;
-            o.name = name;
-            o.optional = optional;
-            o.path = path;
-            o.signerName = signerName;
-            return o;
+            final var _resultValue = new ClusterTrustBundleProjection();
+            _resultValue.labelSelector = labelSelector;
+            _resultValue.name = name;
+            _resultValue.optional = optional;
+            _resultValue.path = path;
+            _resultValue.signerName = signerName;
+            return _resultValue;
         }
     }
 }

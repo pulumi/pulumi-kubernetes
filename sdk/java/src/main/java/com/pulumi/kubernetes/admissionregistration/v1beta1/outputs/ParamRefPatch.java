@@ -123,31 +123,35 @@ public final class ParamRefPatch {
 
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder namespace(@Nullable String namespace) {
+
             this.namespace = namespace;
             return this;
         }
         @CustomType.Setter
         public Builder parameterNotFoundAction(@Nullable String parameterNotFoundAction) {
+
             this.parameterNotFoundAction = parameterNotFoundAction;
             return this;
         }
         @CustomType.Setter
         public Builder selector(@Nullable LabelSelectorPatch selector) {
+
             this.selector = selector;
             return this;
         }
         public ParamRefPatch build() {
-            final var o = new ParamRefPatch();
-            o.name = name;
-            o.namespace = namespace;
-            o.parameterNotFoundAction = parameterNotFoundAction;
-            o.selector = selector;
-            return o;
+            final var _resultValue = new ParamRefPatch();
+            _resultValue.name = name;
+            _resultValue.namespace = namespace;
+            _resultValue.parameterNotFoundAction = parameterNotFoundAction;
+            _resultValue.selector = selector;
+            return _resultValue;
         }
     }
 }

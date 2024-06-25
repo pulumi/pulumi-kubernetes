@@ -4,17 +4,55 @@
 
 import copy
 import warnings
+import sys
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
+if sys.version_info >= (3, 11):
+    from typing import NotRequired, TypedDict, TypeAlias
+else:
+    from typing_extensions import NotRequired, TypedDict, TypeAlias
 from ... import _utilities
 from ... import meta as _meta
 
 __all__ = [
     'ClusterTrustBundleSpecPatchArgs',
+    'ClusterTrustBundleSpecPatchArgsDict',
     'ClusterTrustBundleSpecArgs',
+    'ClusterTrustBundleSpecArgsDict',
     'ClusterTrustBundleArgs',
+    'ClusterTrustBundleArgsDict',
 ]
+
+MYPY = False
+
+if not MYPY:
+    class ClusterTrustBundleSpecPatchArgsDict(TypedDict):
+        """
+        ClusterTrustBundleSpec contains the signer and trust anchors.
+        """
+        signer_name: NotRequired[pulumi.Input[str]]
+        """
+        signerName indicates the associated signer, if any.
+
+        In order to create or update a ClusterTrustBundle that sets signerName, you must have the following cluster-scoped permission: group=certificates.k8s.io resource=signers resourceName=<the signer name> verb=attest.
+
+        If signerName is not empty, then the ClusterTrustBundle object must be named with the signer name as a prefix (translating slashes to colons). For example, for the signer name `example.com/foo`, valid ClusterTrustBundle object names include `example.com:foo:abc` and `example.com:foo:v1`.
+
+        If signerName is empty, then the ClusterTrustBundle object's name must not have such a prefix.
+
+        List/watch requests for ClusterTrustBundles can filter on this field using a `spec.signerName=NAME` field selector.
+        """
+        trust_bundle: NotRequired[pulumi.Input[str]]
+        """
+        trustBundle contains the individual X.509 trust anchors for this bundle, as PEM bundle of PEM-wrapped, DER-formatted X.509 certificates.
+
+        The data must consist only of PEM certificate blocks that parse as valid X.509 certificates.  Each certificate must include a basic constraints extension with the CA bit set.  The API server will reject objects that contain duplicate certificates, or that use PEM block headers.
+
+        Users of ClusterTrustBundles, including Kubelet, are free to reorder and deduplicate certificate blocks in this file according to their own logic, as well as to drop PEM block headers and inter-block data.
+        """
+elif False:
+    ClusterTrustBundleSpecPatchArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class ClusterTrustBundleSpecPatchArgs:
@@ -80,6 +118,34 @@ class ClusterTrustBundleSpecPatchArgs:
         pulumi.set(self, "trust_bundle", value)
 
 
+if not MYPY:
+    class ClusterTrustBundleSpecArgsDict(TypedDict):
+        """
+        ClusterTrustBundleSpec contains the signer and trust anchors.
+        """
+        trust_bundle: pulumi.Input[str]
+        """
+        trustBundle contains the individual X.509 trust anchors for this bundle, as PEM bundle of PEM-wrapped, DER-formatted X.509 certificates.
+
+        The data must consist only of PEM certificate blocks that parse as valid X.509 certificates.  Each certificate must include a basic constraints extension with the CA bit set.  The API server will reject objects that contain duplicate certificates, or that use PEM block headers.
+
+        Users of ClusterTrustBundles, including Kubelet, are free to reorder and deduplicate certificate blocks in this file according to their own logic, as well as to drop PEM block headers and inter-block data.
+        """
+        signer_name: NotRequired[pulumi.Input[str]]
+        """
+        signerName indicates the associated signer, if any.
+
+        In order to create or update a ClusterTrustBundle that sets signerName, you must have the following cluster-scoped permission: group=certificates.k8s.io resource=signers resourceName=<the signer name> verb=attest.
+
+        If signerName is not empty, then the ClusterTrustBundle object must be named with the signer name as a prefix (translating slashes to colons). For example, for the signer name `example.com/foo`, valid ClusterTrustBundle object names include `example.com:foo:abc` and `example.com:foo:v1`.
+
+        If signerName is empty, then the ClusterTrustBundle object's name must not have such a prefix.
+
+        List/watch requests for ClusterTrustBundles can filter on this field using a `spec.signerName=NAME` field selector.
+        """
+elif False:
+    ClusterTrustBundleSpecArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class ClusterTrustBundleSpecArgs:
     def __init__(__self__, *,
@@ -142,6 +208,34 @@ class ClusterTrustBundleSpecArgs:
     def signer_name(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "signer_name", value)
 
+
+if not MYPY:
+    class ClusterTrustBundleArgsDict(TypedDict):
+        """
+        ClusterTrustBundle is a cluster-scoped container for X.509 trust anchors (root certificates).
+
+        ClusterTrustBundle objects are considered to be readable by any authenticated user in the cluster, because they can be mounted by pods using the `clusterTrustBundle` projection.  All service accounts have read access to ClusterTrustBundles by default.  Users who only have namespace-level access to a cluster can read ClusterTrustBundles by impersonating a serviceaccount that they have access to.
+
+        It can be optionally associated with a particular assigner, in which case it contains one valid set of trust anchors for that signer. Signers may have multiple associated ClusterTrustBundles; each is an independent set of trust anchors for that signer. Admission control is used to enforce that only users with permissions on the signer can create or modify the corresponding bundle.
+        """
+        spec: pulumi.Input['ClusterTrustBundleSpecArgsDict']
+        """
+        spec contains the signer (if any) and trust anchors.
+        """
+        api_version: NotRequired[pulumi.Input[str]]
+        """
+        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        """
+        kind: NotRequired[pulumi.Input[str]]
+        """
+        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        """
+        metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
+        """
+        metadata contains the object metadata.
+        """
+elif False:
+    ClusterTrustBundleArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class ClusterTrustBundleArgs:

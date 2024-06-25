@@ -88,31 +88,35 @@ public final class GCEPersistentDiskVolumeSourcePatch {
 
         @CustomType.Setter
         public Builder fsType(@Nullable String fsType) {
+
             this.fsType = fsType;
             return this;
         }
         @CustomType.Setter
         public Builder partition(@Nullable Integer partition) {
+
             this.partition = partition;
             return this;
         }
         @CustomType.Setter
         public Builder pdName(@Nullable String pdName) {
+
             this.pdName = pdName;
             return this;
         }
         @CustomType.Setter
         public Builder readOnly(@Nullable Boolean readOnly) {
+
             this.readOnly = readOnly;
             return this;
         }
         public GCEPersistentDiskVolumeSourcePatch build() {
-            final var o = new GCEPersistentDiskVolumeSourcePatch();
-            o.fsType = fsType;
-            o.partition = partition;
-            o.pdName = pdName;
-            o.readOnly = readOnly;
-            return o;
+            final var _resultValue = new GCEPersistentDiskVolumeSourcePatch();
+            _resultValue.fsType = fsType;
+            _resultValue.partition = partition;
+            _resultValue.pdName = pdName;
+            _resultValue.readOnly = readOnly;
+            return _resultValue;
         }
     }
 }

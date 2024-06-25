@@ -175,6 +175,7 @@ public final class PersistentVolumeClaimSpec {
 
         @CustomType.Setter
         public Builder accessModes(@Nullable List<String> accessModes) {
+
             this.accessModes = accessModes;
             return this;
         }
@@ -183,56 +184,64 @@ public final class PersistentVolumeClaimSpec {
         }
         @CustomType.Setter
         public Builder dataSource(@Nullable TypedLocalObjectReference dataSource) {
+
             this.dataSource = dataSource;
             return this;
         }
         @CustomType.Setter
         public Builder dataSourceRef(@Nullable TypedObjectReference dataSourceRef) {
+
             this.dataSourceRef = dataSourceRef;
             return this;
         }
         @CustomType.Setter
         public Builder resources(@Nullable VolumeResourceRequirements resources) {
+
             this.resources = resources;
             return this;
         }
         @CustomType.Setter
         public Builder selector(@Nullable LabelSelector selector) {
+
             this.selector = selector;
             return this;
         }
         @CustomType.Setter
         public Builder storageClassName(@Nullable String storageClassName) {
+
             this.storageClassName = storageClassName;
             return this;
         }
         @CustomType.Setter
         public Builder volumeAttributesClassName(@Nullable String volumeAttributesClassName) {
+
             this.volumeAttributesClassName = volumeAttributesClassName;
             return this;
         }
         @CustomType.Setter
         public Builder volumeMode(@Nullable String volumeMode) {
+
             this.volumeMode = volumeMode;
             return this;
         }
         @CustomType.Setter
         public Builder volumeName(@Nullable String volumeName) {
+
             this.volumeName = volumeName;
             return this;
         }
         public PersistentVolumeClaimSpec build() {
-            final var o = new PersistentVolumeClaimSpec();
-            o.accessModes = accessModes;
-            o.dataSource = dataSource;
-            o.dataSourceRef = dataSourceRef;
-            o.resources = resources;
-            o.selector = selector;
-            o.storageClassName = storageClassName;
-            o.volumeAttributesClassName = volumeAttributesClassName;
-            o.volumeMode = volumeMode;
-            o.volumeName = volumeName;
-            return o;
+            final var _resultValue = new PersistentVolumeClaimSpec();
+            _resultValue.accessModes = accessModes;
+            _resultValue.dataSource = dataSource;
+            _resultValue.dataSourceRef = dataSourceRef;
+            _resultValue.resources = resources;
+            _resultValue.selector = selector;
+            _resultValue.storageClassName = storageClassName;
+            _resultValue.volumeAttributesClassName = volumeAttributesClassName;
+            _resultValue.volumeMode = volumeMode;
+            _resultValue.volumeName = volumeName;
+            return _resultValue;
         }
     }
 }

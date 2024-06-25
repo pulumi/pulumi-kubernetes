@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.core.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.inputs.ContainerPortArgs;
 import com.pulumi.kubernetes.core.v1.inputs.ContainerResizePolicyArgs;
 import com.pulumi.kubernetes.core.v1.inputs.EnvFromSourceArgs;
@@ -1023,7 +1024,9 @@ public final class ContainerArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         public ContainerArgs build() {
-            $.name = Objects.requireNonNull($.name, "expected parameter 'name' to be non-null");
+            if ($.name == null) {
+                throw new MissingRequiredPropertyException("ContainerArgs", "name");
+            }
             return $;
         }
     }

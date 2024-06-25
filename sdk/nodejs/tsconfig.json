@@ -302,6 +302,8 @@
         "index.ts",
         "kustomize/index.ts",
         "kustomize/kustomize.ts",
+        "kustomize/v2/directory.ts",
+        "kustomize/v2/index.ts",
         "meta/index.ts",
         "meta/v1/index.ts",
         "meta/v1/status.ts",

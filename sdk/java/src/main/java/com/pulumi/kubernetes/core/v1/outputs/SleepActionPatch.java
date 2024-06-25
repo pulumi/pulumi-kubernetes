@@ -44,13 +44,14 @@ public final class SleepActionPatch {
 
         @CustomType.Setter
         public Builder seconds(@Nullable Integer seconds) {
+
             this.seconds = seconds;
             return this;
         }
         public SleepActionPatch build() {
-            final var o = new SleepActionPatch();
-            o.seconds = seconds;
-            return o;
+            final var _resultValue = new SleepActionPatch();
+            _resultValue.seconds = seconds;
+            return _resultValue;
         }
     }
 }

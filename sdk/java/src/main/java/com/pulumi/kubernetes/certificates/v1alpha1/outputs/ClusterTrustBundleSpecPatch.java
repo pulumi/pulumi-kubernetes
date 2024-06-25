@@ -82,19 +82,21 @@ public final class ClusterTrustBundleSpecPatch {
 
         @CustomType.Setter
         public Builder signerName(@Nullable String signerName) {
+
             this.signerName = signerName;
             return this;
         }
         @CustomType.Setter
         public Builder trustBundle(@Nullable String trustBundle) {
+
             this.trustBundle = trustBundle;
             return this;
         }
         public ClusterTrustBundleSpecPatch build() {
-            final var o = new ClusterTrustBundleSpecPatch();
-            o.signerName = signerName;
-            o.trustBundle = trustBundle;
-            return o;
+            final var _resultValue = new ClusterTrustBundleSpecPatch();
+            _resultValue.signerName = signerName;
+            _resultValue.trustBundle = trustBundle;
+            return _resultValue;
         }
     }
 }

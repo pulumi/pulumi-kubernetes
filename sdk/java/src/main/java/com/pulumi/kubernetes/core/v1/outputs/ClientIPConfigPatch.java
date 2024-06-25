@@ -44,13 +44,14 @@ public final class ClientIPConfigPatch {
 
         @CustomType.Setter
         public Builder timeoutSeconds(@Nullable Integer timeoutSeconds) {
+
             this.timeoutSeconds = timeoutSeconds;
             return this;
         }
         public ClientIPConfigPatch build() {
-            final var o = new ClientIPConfigPatch();
-            o.timeoutSeconds = timeoutSeconds;
-            return o;
+            final var _resultValue = new ClientIPConfigPatch();
+            _resultValue.timeoutSeconds = timeoutSeconds;
+            return _resultValue;
         }
     }
 }

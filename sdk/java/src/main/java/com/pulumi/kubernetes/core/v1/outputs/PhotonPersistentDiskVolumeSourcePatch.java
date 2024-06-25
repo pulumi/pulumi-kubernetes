@@ -58,19 +58,21 @@ public final class PhotonPersistentDiskVolumeSourcePatch {
 
         @CustomType.Setter
         public Builder fsType(@Nullable String fsType) {
+
             this.fsType = fsType;
             return this;
         }
         @CustomType.Setter
         public Builder pdID(@Nullable String pdID) {
+
             this.pdID = pdID;
             return this;
         }
         public PhotonPersistentDiskVolumeSourcePatch build() {
-            final var o = new PhotonPersistentDiskVolumeSourcePatch();
-            o.fsType = fsType;
-            o.pdID = pdID;
-            return o;
+            final var _resultValue = new PhotonPersistentDiskVolumeSourcePatch();
+            _resultValue.fsType = fsType;
+            _resultValue.pdID = pdID;
+            return _resultValue;
         }
     }
 }

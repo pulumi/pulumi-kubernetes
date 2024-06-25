@@ -148,6 +148,7 @@ public final class PodDisruptionBudgetStatusPatch {
 
         @CustomType.Setter
         public Builder conditions(@Nullable List<ConditionPatch> conditions) {
+
             this.conditions = conditions;
             return this;
         }
@@ -156,44 +157,50 @@ public final class PodDisruptionBudgetStatusPatch {
         }
         @CustomType.Setter
         public Builder currentHealthy(@Nullable Integer currentHealthy) {
+
             this.currentHealthy = currentHealthy;
             return this;
         }
         @CustomType.Setter
         public Builder desiredHealthy(@Nullable Integer desiredHealthy) {
+
             this.desiredHealthy = desiredHealthy;
             return this;
         }
         @CustomType.Setter
         public Builder disruptedPods(@Nullable Map<String,String> disruptedPods) {
+
             this.disruptedPods = disruptedPods;
             return this;
         }
         @CustomType.Setter
         public Builder disruptionsAllowed(@Nullable Integer disruptionsAllowed) {
+
             this.disruptionsAllowed = disruptionsAllowed;
             return this;
         }
         @CustomType.Setter
         public Builder expectedPods(@Nullable Integer expectedPods) {
+
             this.expectedPods = expectedPods;
             return this;
         }
         @CustomType.Setter
         public Builder observedGeneration(@Nullable Integer observedGeneration) {
+
             this.observedGeneration = observedGeneration;
             return this;
         }
         public PodDisruptionBudgetStatusPatch build() {
-            final var o = new PodDisruptionBudgetStatusPatch();
-            o.conditions = conditions;
-            o.currentHealthy = currentHealthy;
-            o.desiredHealthy = desiredHealthy;
-            o.disruptedPods = disruptedPods;
-            o.disruptionsAllowed = disruptionsAllowed;
-            o.expectedPods = expectedPods;
-            o.observedGeneration = observedGeneration;
-            return o;
+            final var _resultValue = new PodDisruptionBudgetStatusPatch();
+            _resultValue.conditions = conditions;
+            _resultValue.currentHealthy = currentHealthy;
+            _resultValue.desiredHealthy = desiredHealthy;
+            _resultValue.disruptedPods = disruptedPods;
+            _resultValue.disruptionsAllowed = disruptionsAllowed;
+            _resultValue.expectedPods = expectedPods;
+            _resultValue.observedGeneration = observedGeneration;
+            return _resultValue;
         }
     }
 }

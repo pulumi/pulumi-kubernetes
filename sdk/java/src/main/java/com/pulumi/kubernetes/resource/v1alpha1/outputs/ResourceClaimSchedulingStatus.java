@@ -63,11 +63,13 @@ public final class ResourceClaimSchedulingStatus {
 
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder unsuitableNodes(@Nullable List<String> unsuitableNodes) {
+
             this.unsuitableNodes = unsuitableNodes;
             return this;
         }
@@ -75,10 +77,10 @@ public final class ResourceClaimSchedulingStatus {
             return unsuitableNodes(List.of(unsuitableNodes));
         }
         public ResourceClaimSchedulingStatus build() {
-            final var o = new ResourceClaimSchedulingStatus();
-            o.name = name;
-            o.unsuitableNodes = unsuitableNodes;
-            return o;
+            final var _resultValue = new ResourceClaimSchedulingStatus();
+            _resultValue.name = name;
+            _resultValue.unsuitableNodes = unsuitableNodes;
+            return _resultValue;
         }
     }
 }

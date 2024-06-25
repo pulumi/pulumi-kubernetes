@@ -75,11 +75,13 @@ public final class DriverRequests {
 
         @CustomType.Setter
         public Builder driverName(@Nullable String driverName) {
+
             this.driverName = driverName;
             return this;
         }
         @CustomType.Setter
         public Builder requests(@Nullable List<ResourceRequest> requests) {
+
             this.requests = requests;
             return this;
         }
@@ -88,15 +90,16 @@ public final class DriverRequests {
         }
         @CustomType.Setter
         public Builder vendorParameters(@Nullable JsonElement vendorParameters) {
+
             this.vendorParameters = vendorParameters;
             return this;
         }
         public DriverRequests build() {
-            final var o = new DriverRequests();
-            o.driverName = driverName;
-            o.requests = requests;
-            o.vendorParameters = vendorParameters;
-            return o;
+            final var _resultValue = new DriverRequests();
+            _resultValue.driverName = driverName;
+            _resultValue.requests = requests;
+            _resultValue.vendorParameters = vendorParameters;
+            return _resultValue;
         }
     }
 }

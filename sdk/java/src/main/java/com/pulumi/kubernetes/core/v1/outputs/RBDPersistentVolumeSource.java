@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.outputs.SecretReference;
 import java.lang.Boolean;
 import java.lang.String;
@@ -145,22 +146,30 @@ public final class RBDPersistentVolumeSource {
 
         @CustomType.Setter
         public Builder fsType(@Nullable String fsType) {
+
             this.fsType = fsType;
             return this;
         }
         @CustomType.Setter
         public Builder image(String image) {
-            this.image = Objects.requireNonNull(image);
+            if (image == null) {
+              throw new MissingRequiredPropertyException("RBDPersistentVolumeSource", "image");
+            }
+            this.image = image;
             return this;
         }
         @CustomType.Setter
         public Builder keyring(@Nullable String keyring) {
+
             this.keyring = keyring;
             return this;
         }
         @CustomType.Setter
         public Builder monitors(List<String> monitors) {
-            this.monitors = Objects.requireNonNull(monitors);
+            if (monitors == null) {
+              throw new MissingRequiredPropertyException("RBDPersistentVolumeSource", "monitors");
+            }
+            this.monitors = monitors;
             return this;
         }
         public Builder monitors(String... monitors) {
@@ -168,35 +177,39 @@ public final class RBDPersistentVolumeSource {
         }
         @CustomType.Setter
         public Builder pool(@Nullable String pool) {
+
             this.pool = pool;
             return this;
         }
         @CustomType.Setter
         public Builder readOnly(@Nullable Boolean readOnly) {
+
             this.readOnly = readOnly;
             return this;
         }
         @CustomType.Setter
         public Builder secretRef(@Nullable SecretReference secretRef) {
+
             this.secretRef = secretRef;
             return this;
         }
         @CustomType.Setter
         public Builder user(@Nullable String user) {
+
             this.user = user;
             return this;
         }
         public RBDPersistentVolumeSource build() {
-            final var o = new RBDPersistentVolumeSource();
-            o.fsType = fsType;
-            o.image = image;
-            o.keyring = keyring;
-            o.monitors = monitors;
-            o.pool = pool;
-            o.readOnly = readOnly;
-            o.secretRef = secretRef;
-            o.user = user;
-            return o;
+            final var _resultValue = new RBDPersistentVolumeSource();
+            _resultValue.fsType = fsType;
+            _resultValue.image = image;
+            _resultValue.keyring = keyring;
+            _resultValue.monitors = monitors;
+            _resultValue.pool = pool;
+            _resultValue.readOnly = readOnly;
+            _resultValue.secretRef = secretRef;
+            _resultValue.user = user;
+            return _resultValue;
         }
     }
 }

@@ -72,25 +72,28 @@ public final class TypedLocalObjectReferencePatch {
 
         @CustomType.Setter
         public Builder apiGroup(@Nullable String apiGroup) {
+
             this.apiGroup = apiGroup;
             return this;
         }
         @CustomType.Setter
         public Builder kind(@Nullable String kind) {
+
             this.kind = kind;
             return this;
         }
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         public TypedLocalObjectReferencePatch build() {
-            final var o = new TypedLocalObjectReferencePatch();
-            o.apiGroup = apiGroup;
-            o.kind = kind;
-            o.name = name;
-            return o;
+            final var _resultValue = new TypedLocalObjectReferencePatch();
+            _resultValue.apiGroup = apiGroup;
+            _resultValue.kind = kind;
+            _resultValue.name = name;
+            return _resultValue;
         }
     }
 }

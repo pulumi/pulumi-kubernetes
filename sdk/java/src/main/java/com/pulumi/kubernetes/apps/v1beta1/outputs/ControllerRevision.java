@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.apps.v1beta1.outputs;
 
 import com.google.gson.JsonElement;
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.meta.v1.outputs.ObjectMeta;
 import java.lang.Integer;
 import java.lang.String;
@@ -103,37 +104,44 @@ public final class ControllerRevision {
 
         @CustomType.Setter
         public Builder apiVersion(@Nullable String apiVersion) {
+
             this.apiVersion = apiVersion;
             return this;
         }
         @CustomType.Setter
         public Builder data(@Nullable JsonElement data) {
+
             this.data = data;
             return this;
         }
         @CustomType.Setter
         public Builder kind(@Nullable String kind) {
+
             this.kind = kind;
             return this;
         }
         @CustomType.Setter
         public Builder metadata(@Nullable ObjectMeta metadata) {
+
             this.metadata = metadata;
             return this;
         }
         @CustomType.Setter
         public Builder revision(Integer revision) {
-            this.revision = Objects.requireNonNull(revision);
+            if (revision == null) {
+              throw new MissingRequiredPropertyException("ControllerRevision", "revision");
+            }
+            this.revision = revision;
             return this;
         }
         public ControllerRevision build() {
-            final var o = new ControllerRevision();
-            o.apiVersion = apiVersion;
-            o.data = data;
-            o.kind = kind;
-            o.metadata = metadata;
-            o.revision = revision;
-            return o;
+            final var _resultValue = new ControllerRevision();
+            _resultValue.apiVersion = apiVersion;
+            _resultValue.data = data;
+            _resultValue.kind = kind;
+            _resultValue.metadata = metadata;
+            _resultValue.revision = revision;
+            return _resultValue;
         }
     }
 }

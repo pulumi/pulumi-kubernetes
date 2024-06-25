@@ -59,6 +59,7 @@ public final class NetworkPolicyEgressRulePatch {
 
         @CustomType.Setter
         public Builder ports(@Nullable List<NetworkPolicyPortPatch> ports) {
+
             this.ports = ports;
             return this;
         }
@@ -67,6 +68,7 @@ public final class NetworkPolicyEgressRulePatch {
         }
         @CustomType.Setter
         public Builder to(@Nullable List<NetworkPolicyPeerPatch> to) {
+
             this.to = to;
             return this;
         }
@@ -74,10 +76,10 @@ public final class NetworkPolicyEgressRulePatch {
             return to(List.of(to));
         }
         public NetworkPolicyEgressRulePatch build() {
-            final var o = new NetworkPolicyEgressRulePatch();
-            o.ports = ports;
-            o.to = to;
-            return o;
+            final var _resultValue = new NetworkPolicyEgressRulePatch();
+            _resultValue.ports = ports;
+            _resultValue.to = to;
+            return _resultValue;
         }
     }
 }

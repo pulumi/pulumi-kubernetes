@@ -44,6 +44,7 @@ public final class HTTPIngressRuleValuePatch {
 
         @CustomType.Setter
         public Builder paths(@Nullable List<HTTPIngressPathPatch> paths) {
+
             this.paths = paths;
             return this;
         }
@@ -51,9 +52,9 @@ public final class HTTPIngressRuleValuePatch {
             return paths(List.of(paths));
         }
         public HTTPIngressRuleValuePatch build() {
-            final var o = new HTTPIngressRuleValuePatch();
-            o.paths = paths;
-            return o;
+            final var _resultValue = new HTTPIngressRuleValuePatch();
+            _resultValue.paths = paths;
+            return _resultValue;
         }
     }
 }

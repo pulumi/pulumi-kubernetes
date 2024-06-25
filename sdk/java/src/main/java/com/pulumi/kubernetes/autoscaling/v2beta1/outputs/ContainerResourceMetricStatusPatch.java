@@ -87,31 +87,35 @@ public final class ContainerResourceMetricStatusPatch {
 
         @CustomType.Setter
         public Builder container(@Nullable String container) {
+
             this.container = container;
             return this;
         }
         @CustomType.Setter
         public Builder currentAverageUtilization(@Nullable Integer currentAverageUtilization) {
+
             this.currentAverageUtilization = currentAverageUtilization;
             return this;
         }
         @CustomType.Setter
         public Builder currentAverageValue(@Nullable String currentAverageValue) {
+
             this.currentAverageValue = currentAverageValue;
             return this;
         }
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         public ContainerResourceMetricStatusPatch build() {
-            final var o = new ContainerResourceMetricStatusPatch();
-            o.container = container;
-            o.currentAverageUtilization = currentAverageUtilization;
-            o.currentAverageValue = currentAverageValue;
-            o.name = name;
-            return o;
+            final var _resultValue = new ContainerResourceMetricStatusPatch();
+            _resultValue.container = container;
+            _resultValue.currentAverageUtilization = currentAverageUtilization;
+            _resultValue.currentAverageValue = currentAverageValue;
+            _resultValue.name = name;
+            return _resultValue;
         }
     }
 }

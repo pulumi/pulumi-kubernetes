@@ -61,19 +61,21 @@ public final class IngressRule {
 
         @CustomType.Setter
         public Builder host(@Nullable String host) {
+
             this.host = host;
             return this;
         }
         @CustomType.Setter
         public Builder http(@Nullable HTTPIngressRuleValue http) {
+
             this.http = http;
             return this;
         }
         public IngressRule build() {
-            final var o = new IngressRule();
-            o.host = host;
-            o.http = http;
-            return o;
+            final var _resultValue = new IngressRule();
+            _resultValue.host = host;
+            _resultValue.http = http;
+            return _resultValue;
         }
     }
 }

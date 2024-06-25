@@ -73,25 +73,28 @@ public final class GlusterfsVolumeSourcePatch {
 
         @CustomType.Setter
         public Builder endpoints(@Nullable String endpoints) {
+
             this.endpoints = endpoints;
             return this;
         }
         @CustomType.Setter
         public Builder path(@Nullable String path) {
+
             this.path = path;
             return this;
         }
         @CustomType.Setter
         public Builder readOnly(@Nullable Boolean readOnly) {
+
             this.readOnly = readOnly;
             return this;
         }
         public GlusterfsVolumeSourcePatch build() {
-            final var o = new GlusterfsVolumeSourcePatch();
-            o.endpoints = endpoints;
-            o.path = path;
-            o.readOnly = readOnly;
-            return o;
+            final var _resultValue = new GlusterfsVolumeSourcePatch();
+            _resultValue.endpoints = endpoints;
+            _resultValue.path = path;
+            _resultValue.readOnly = readOnly;
+            return _resultValue;
         }
     }
 }

@@ -73,25 +73,28 @@ public final class ServiceReferencePatch {
 
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder namespace(@Nullable String namespace) {
+
             this.namespace = namespace;
             return this;
         }
         @CustomType.Setter
         public Builder port(@Nullable Integer port) {
+
             this.port = port;
             return this;
         }
         public ServiceReferencePatch build() {
-            final var o = new ServiceReferencePatch();
-            o.name = name;
-            o.namespace = namespace;
-            o.port = port;
-            return o;
+            final var _resultValue = new ServiceReferencePatch();
+            _resultValue.name = name;
+            _resultValue.namespace = namespace;
+            _resultValue.port = port;
+            return _resultValue;
         }
     }
 }

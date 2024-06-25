@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -76,19 +77,23 @@ public final class ModifyVolumeStatus {
 
         @CustomType.Setter
         public Builder status(String status) {
-            this.status = Objects.requireNonNull(status);
+            if (status == null) {
+              throw new MissingRequiredPropertyException("ModifyVolumeStatus", "status");
+            }
+            this.status = status;
             return this;
         }
         @CustomType.Setter
         public Builder targetVolumeAttributesClassName(@Nullable String targetVolumeAttributesClassName) {
+
             this.targetVolumeAttributesClassName = targetVolumeAttributesClassName;
             return this;
         }
         public ModifyVolumeStatus build() {
-            final var o = new ModifyVolumeStatus();
-            o.status = status;
-            o.targetVolumeAttributesClassName = targetVolumeAttributesClassName;
-            return o;
+            final var _resultValue = new ModifyVolumeStatus();
+            _resultValue.status = status;
+            _resultValue.targetVolumeAttributesClassName = targetVolumeAttributesClassName;
+            return _resultValue;
         }
     }
 }

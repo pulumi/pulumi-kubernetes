@@ -119,43 +119,49 @@ public final class MetricSpecPatch {
 
         @CustomType.Setter
         public Builder containerResource(@Nullable ContainerResourceMetricSourcePatch containerResource) {
+
             this.containerResource = containerResource;
             return this;
         }
         @CustomType.Setter
         public Builder external(@Nullable ExternalMetricSourcePatch external) {
+
             this.external = external;
             return this;
         }
         @CustomType.Setter
         public Builder object(@Nullable ObjectMetricSourcePatch object) {
+
             this.object = object;
             return this;
         }
         @CustomType.Setter
         public Builder pods(@Nullable PodsMetricSourcePatch pods) {
+
             this.pods = pods;
             return this;
         }
         @CustomType.Setter
         public Builder resource(@Nullable ResourceMetricSourcePatch resource) {
+
             this.resource = resource;
             return this;
         }
         @CustomType.Setter
         public Builder type(@Nullable String type) {
+
             this.type = type;
             return this;
         }
         public MetricSpecPatch build() {
-            final var o = new MetricSpecPatch();
-            o.containerResource = containerResource;
-            o.external = external;
-            o.object = object;
-            o.pods = pods;
-            o.resource = resource;
-            o.type = type;
-            return o;
+            final var _resultValue = new MetricSpecPatch();
+            _resultValue.containerResource = containerResource;
+            _resultValue.external = external;
+            _resultValue.object = object;
+            _resultValue.pods = pods;
+            _resultValue.resource = resource;
+            _resultValue.type = type;
+            return _resultValue;
         }
     }
 }

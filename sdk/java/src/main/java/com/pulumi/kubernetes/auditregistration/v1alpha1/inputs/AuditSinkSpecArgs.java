@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.auditregistration.v1alpha1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.auditregistration.v1alpha1.inputs.PolicyArgs;
 import com.pulumi.kubernetes.auditregistration.v1alpha1.inputs.WebhookArgs;
 import java.util.Objects;
@@ -116,8 +117,12 @@ public final class AuditSinkSpecArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         public AuditSinkSpecArgs build() {
-            $.policy = Objects.requireNonNull($.policy, "expected parameter 'policy' to be non-null");
-            $.webhook = Objects.requireNonNull($.webhook, "expected parameter 'webhook' to be non-null");
+            if ($.policy == null) {
+                throw new MissingRequiredPropertyException("AuditSinkSpecArgs", "policy");
+            }
+            if ($.webhook == null) {
+                throw new MissingRequiredPropertyException("AuditSinkSpecArgs", "webhook");
+            }
             return $;
         }
     }

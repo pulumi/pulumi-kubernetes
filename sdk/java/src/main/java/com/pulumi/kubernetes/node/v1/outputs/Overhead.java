@@ -44,13 +44,14 @@ public final class Overhead {
 
         @CustomType.Setter
         public Builder podFixed(@Nullable Map<String,String> podFixed) {
+
             this.podFixed = podFixed;
             return this;
         }
         public Overhead build() {
-            final var o = new Overhead();
-            o.podFixed = podFixed;
-            return o;
+            final var _resultValue = new Overhead();
+            _resultValue.podFixed = podFixed;
+            return _resultValue;
         }
     }
 }

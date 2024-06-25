@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.outputs.SecretReference;
 import java.lang.Boolean;
 import java.lang.String;
@@ -117,7 +118,10 @@ public final class CephFSPersistentVolumeSource {
 
         @CustomType.Setter
         public Builder monitors(List<String> monitors) {
-            this.monitors = Objects.requireNonNull(monitors);
+            if (monitors == null) {
+              throw new MissingRequiredPropertyException("CephFSPersistentVolumeSource", "monitors");
+            }
+            this.monitors = monitors;
             return this;
         }
         public Builder monitors(String... monitors) {
@@ -125,38 +129,43 @@ public final class CephFSPersistentVolumeSource {
         }
         @CustomType.Setter
         public Builder path(@Nullable String path) {
+
             this.path = path;
             return this;
         }
         @CustomType.Setter
         public Builder readOnly(@Nullable Boolean readOnly) {
+
             this.readOnly = readOnly;
             return this;
         }
         @CustomType.Setter
         public Builder secretFile(@Nullable String secretFile) {
+
             this.secretFile = secretFile;
             return this;
         }
         @CustomType.Setter
         public Builder secretRef(@Nullable SecretReference secretRef) {
+
             this.secretRef = secretRef;
             return this;
         }
         @CustomType.Setter
         public Builder user(@Nullable String user) {
+
             this.user = user;
             return this;
         }
         public CephFSPersistentVolumeSource build() {
-            final var o = new CephFSPersistentVolumeSource();
-            o.monitors = monitors;
-            o.path = path;
-            o.readOnly = readOnly;
-            o.secretFile = secretFile;
-            o.secretRef = secretRef;
-            o.user = user;
-            return o;
+            final var _resultValue = new CephFSPersistentVolumeSource();
+            _resultValue.monitors = monitors;
+            _resultValue.path = path;
+            _resultValue.readOnly = readOnly;
+            _resultValue.secretFile = secretFile;
+            _resultValue.secretRef = secretRef;
+            _resultValue.user = user;
+            return _resultValue;
         }
     }
 }

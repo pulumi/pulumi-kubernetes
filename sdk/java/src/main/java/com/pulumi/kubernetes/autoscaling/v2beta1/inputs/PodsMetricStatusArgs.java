@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.autoscaling.v2beta1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.meta.v1.inputs.LabelSelectorArgs;
 import java.lang.String;
 import java.util.Objects;
@@ -155,8 +156,12 @@ public final class PodsMetricStatusArgs extends com.pulumi.resources.ResourceArg
         }
 
         public PodsMetricStatusArgs build() {
-            $.currentAverageValue = Objects.requireNonNull($.currentAverageValue, "expected parameter 'currentAverageValue' to be non-null");
-            $.metricName = Objects.requireNonNull($.metricName, "expected parameter 'metricName' to be non-null");
+            if ($.currentAverageValue == null) {
+                throw new MissingRequiredPropertyException("PodsMetricStatusArgs", "currentAverageValue");
+            }
+            if ($.metricName == null) {
+                throw new MissingRequiredPropertyException("PodsMetricStatusArgs", "metricName");
+            }
             return $;
         }
     }

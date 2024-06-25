@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -86,31 +87,37 @@ public final class VsphereVirtualDiskVolumeSource {
 
         @CustomType.Setter
         public Builder fsType(@Nullable String fsType) {
+
             this.fsType = fsType;
             return this;
         }
         @CustomType.Setter
         public Builder storagePolicyID(@Nullable String storagePolicyID) {
+
             this.storagePolicyID = storagePolicyID;
             return this;
         }
         @CustomType.Setter
         public Builder storagePolicyName(@Nullable String storagePolicyName) {
+
             this.storagePolicyName = storagePolicyName;
             return this;
         }
         @CustomType.Setter
         public Builder volumePath(String volumePath) {
-            this.volumePath = Objects.requireNonNull(volumePath);
+            if (volumePath == null) {
+              throw new MissingRequiredPropertyException("VsphereVirtualDiskVolumeSource", "volumePath");
+            }
+            this.volumePath = volumePath;
             return this;
         }
         public VsphereVirtualDiskVolumeSource build() {
-            final var o = new VsphereVirtualDiskVolumeSource();
-            o.fsType = fsType;
-            o.storagePolicyID = storagePolicyID;
-            o.storagePolicyName = storagePolicyName;
-            o.volumePath = volumePath;
-            return o;
+            final var _resultValue = new VsphereVirtualDiskVolumeSource();
+            _resultValue.fsType = fsType;
+            _resultValue.storagePolicyID = storagePolicyID;
+            _resultValue.storagePolicyName = storagePolicyName;
+            _resultValue.volumePath = volumePath;
+            return _resultValue;
         }
     }
 }

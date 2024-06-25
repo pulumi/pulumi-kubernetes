@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.resource.v1alpha1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.resource.v1alpha1.inputs.ResourceClaimParametersReferenceArgs;
 import java.lang.String;
 import java.util.Objects;
@@ -163,7 +164,9 @@ public final class ResourceClaimSpecArgs extends com.pulumi.resources.ResourceAr
         }
 
         public ResourceClaimSpecArgs build() {
-            $.resourceClassName = Objects.requireNonNull($.resourceClassName, "expected parameter 'resourceClassName' to be non-null");
+            if ($.resourceClassName == null) {
+                throw new MissingRequiredPropertyException("ResourceClaimSpecArgs", "resourceClassName");
+            }
             return $;
         }
     }

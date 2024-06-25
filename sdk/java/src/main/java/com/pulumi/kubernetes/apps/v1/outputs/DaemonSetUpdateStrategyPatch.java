@@ -59,19 +59,21 @@ public final class DaemonSetUpdateStrategyPatch {
 
         @CustomType.Setter
         public Builder rollingUpdate(@Nullable RollingUpdateDaemonSetPatch rollingUpdate) {
+
             this.rollingUpdate = rollingUpdate;
             return this;
         }
         @CustomType.Setter
         public Builder type(@Nullable String type) {
+
             this.type = type;
             return this;
         }
         public DaemonSetUpdateStrategyPatch build() {
-            final var o = new DaemonSetUpdateStrategyPatch();
-            o.rollingUpdate = rollingUpdate;
-            o.type = type;
-            return o;
+            final var _resultValue = new DaemonSetUpdateStrategyPatch();
+            _resultValue.rollingUpdate = rollingUpdate;
+            _resultValue.type = type;
+            return _resultValue;
         }
     }
 }

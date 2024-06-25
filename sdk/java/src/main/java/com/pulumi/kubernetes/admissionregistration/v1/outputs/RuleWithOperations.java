@@ -113,6 +113,7 @@ public final class RuleWithOperations {
 
         @CustomType.Setter
         public Builder apiGroups(@Nullable List<String> apiGroups) {
+
             this.apiGroups = apiGroups;
             return this;
         }
@@ -121,6 +122,7 @@ public final class RuleWithOperations {
         }
         @CustomType.Setter
         public Builder apiVersions(@Nullable List<String> apiVersions) {
+
             this.apiVersions = apiVersions;
             return this;
         }
@@ -129,6 +131,7 @@ public final class RuleWithOperations {
         }
         @CustomType.Setter
         public Builder operations(@Nullable List<String> operations) {
+
             this.operations = operations;
             return this;
         }
@@ -137,6 +140,7 @@ public final class RuleWithOperations {
         }
         @CustomType.Setter
         public Builder resources(@Nullable List<String> resources) {
+
             this.resources = resources;
             return this;
         }
@@ -145,17 +149,18 @@ public final class RuleWithOperations {
         }
         @CustomType.Setter
         public Builder scope(@Nullable String scope) {
+
             this.scope = scope;
             return this;
         }
         public RuleWithOperations build() {
-            final var o = new RuleWithOperations();
-            o.apiGroups = apiGroups;
-            o.apiVersions = apiVersions;
-            o.operations = operations;
-            o.resources = resources;
-            o.scope = scope;
-            return o;
+            final var _resultValue = new RuleWithOperations();
+            _resultValue.apiGroups = apiGroups;
+            _resultValue.apiVersions = apiVersions;
+            _resultValue.operations = operations;
+            _resultValue.resources = resources;
+            _resultValue.scope = scope;
+            return _resultValue;
         }
     }
 }

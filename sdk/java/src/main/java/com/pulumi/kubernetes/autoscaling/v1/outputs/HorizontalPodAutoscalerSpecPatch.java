@@ -87,31 +87,35 @@ public final class HorizontalPodAutoscalerSpecPatch {
 
         @CustomType.Setter
         public Builder maxReplicas(@Nullable Integer maxReplicas) {
+
             this.maxReplicas = maxReplicas;
             return this;
         }
         @CustomType.Setter
         public Builder minReplicas(@Nullable Integer minReplicas) {
+
             this.minReplicas = minReplicas;
             return this;
         }
         @CustomType.Setter
         public Builder scaleTargetRef(@Nullable CrossVersionObjectReferencePatch scaleTargetRef) {
+
             this.scaleTargetRef = scaleTargetRef;
             return this;
         }
         @CustomType.Setter
         public Builder targetCPUUtilizationPercentage(@Nullable Integer targetCPUUtilizationPercentage) {
+
             this.targetCPUUtilizationPercentage = targetCPUUtilizationPercentage;
             return this;
         }
         public HorizontalPodAutoscalerSpecPatch build() {
-            final var o = new HorizontalPodAutoscalerSpecPatch();
-            o.maxReplicas = maxReplicas;
-            o.minReplicas = minReplicas;
-            o.scaleTargetRef = scaleTargetRef;
-            o.targetCPUUtilizationPercentage = targetCPUUtilizationPercentage;
-            return o;
+            final var _resultValue = new HorizontalPodAutoscalerSpecPatch();
+            _resultValue.maxReplicas = maxReplicas;
+            _resultValue.minReplicas = minReplicas;
+            _resultValue.scaleTargetRef = scaleTargetRef;
+            _resultValue.targetCPUUtilizationPercentage = targetCPUUtilizationPercentage;
+            return _resultValue;
         }
     }
 }

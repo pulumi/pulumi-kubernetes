@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.autoscaling.v2beta1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.meta.v1.outputs.LabelSelector;
 import java.lang.String;
 import java.util.Objects;
@@ -87,31 +88,37 @@ public final class ExternalMetricSource {
 
         @CustomType.Setter
         public Builder metricName(String metricName) {
-            this.metricName = Objects.requireNonNull(metricName);
+            if (metricName == null) {
+              throw new MissingRequiredPropertyException("ExternalMetricSource", "metricName");
+            }
+            this.metricName = metricName;
             return this;
         }
         @CustomType.Setter
         public Builder metricSelector(@Nullable LabelSelector metricSelector) {
+
             this.metricSelector = metricSelector;
             return this;
         }
         @CustomType.Setter
         public Builder targetAverageValue(@Nullable String targetAverageValue) {
+
             this.targetAverageValue = targetAverageValue;
             return this;
         }
         @CustomType.Setter
         public Builder targetValue(@Nullable String targetValue) {
+
             this.targetValue = targetValue;
             return this;
         }
         public ExternalMetricSource build() {
-            final var o = new ExternalMetricSource();
-            o.metricName = metricName;
-            o.metricSelector = metricSelector;
-            o.targetAverageValue = targetAverageValue;
-            o.targetValue = targetValue;
-            return o;
+            final var _resultValue = new ExternalMetricSource();
+            _resultValue.metricName = metricName;
+            _resultValue.metricSelector = metricSelector;
+            _resultValue.targetAverageValue = targetAverageValue;
+            _resultValue.targetValue = targetValue;
+            return _resultValue;
         }
     }
 }

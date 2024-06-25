@@ -134,7 +134,7 @@ jobs:
         allowed-changes: |-
           sdk/**/pulumi-plugin.json
           sdk/dotnet/Pulumi.*.csproj
-          sdk/go/*/internal/pulumiUtilities.go
+          sdk/go/**/pulumiUtilities.go
           sdk/nodejs/package.json
           sdk/python/pyproject.toml
     - run: git status --porcelain
@@ -239,7 +239,7 @@ jobs:
         allowed-changes: |-
           sdk/**/pulumi-plugin.json
           sdk/dotnet/Pulumi.*.csproj
-          sdk/go/*/internal/pulumiUtilities.go
+          sdk/go/**/pulumiUtilities.go
           sdk/nodejs/package.json
           sdk/python/pyproject.toml
     - run: git status --porcelain
@@ -415,8 +415,14 @@ jobs:
     runs-on: ubuntu-latest
     name: sentinel
     steps:
-    - name: Is workflow a success
-      run: echo yes
+    - name: Mark workflow as successful
+      uses: guibranco/github-status-action-v2@0849440ec82c5fa69b2377725b9b7852a3977e76
+      with:
+        authToken: ${{ secrets.GITHUB_TOKEN }}
+        context: Sentinel
+        state: success
+        description: Sentinel checks passed
+        sha: ${{ github.event.pull_request.head.sha || github.sha }}
     if: github.event_name == 'repository_dispatch' ||
       github.event.pull_request.head.repo.full_name == github.repository
     needs:

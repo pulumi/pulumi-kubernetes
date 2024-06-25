@@ -161,61 +161,70 @@ public final class DeploymentSpecPatch {
 
         @CustomType.Setter
         public Builder minReadySeconds(@Nullable Integer minReadySeconds) {
+
             this.minReadySeconds = minReadySeconds;
             return this;
         }
         @CustomType.Setter
         public Builder paused(@Nullable Boolean paused) {
+
             this.paused = paused;
             return this;
         }
         @CustomType.Setter
         public Builder progressDeadlineSeconds(@Nullable Integer progressDeadlineSeconds) {
+
             this.progressDeadlineSeconds = progressDeadlineSeconds;
             return this;
         }
         @CustomType.Setter
         public Builder replicas(@Nullable Integer replicas) {
+
             this.replicas = replicas;
             return this;
         }
         @CustomType.Setter
         public Builder revisionHistoryLimit(@Nullable Integer revisionHistoryLimit) {
+
             this.revisionHistoryLimit = revisionHistoryLimit;
             return this;
         }
         @CustomType.Setter
         public Builder rollbackTo(@Nullable RollbackConfigPatch rollbackTo) {
+
             this.rollbackTo = rollbackTo;
             return this;
         }
         @CustomType.Setter
         public Builder selector(@Nullable LabelSelectorPatch selector) {
+
             this.selector = selector;
             return this;
         }
         @CustomType.Setter
         public Builder strategy(@Nullable DeploymentStrategyPatch strategy) {
+
             this.strategy = strategy;
             return this;
         }
         @CustomType.Setter
         public Builder template(@Nullable PodTemplateSpecPatch template) {
+
             this.template = template;
             return this;
         }
         public DeploymentSpecPatch build() {
-            final var o = new DeploymentSpecPatch();
-            o.minReadySeconds = minReadySeconds;
-            o.paused = paused;
-            o.progressDeadlineSeconds = progressDeadlineSeconds;
-            o.replicas = replicas;
-            o.revisionHistoryLimit = revisionHistoryLimit;
-            o.rollbackTo = rollbackTo;
-            o.selector = selector;
-            o.strategy = strategy;
-            o.template = template;
-            return o;
+            final var _resultValue = new DeploymentSpecPatch();
+            _resultValue.minReadySeconds = minReadySeconds;
+            _resultValue.paused = paused;
+            _resultValue.progressDeadlineSeconds = progressDeadlineSeconds;
+            _resultValue.replicas = replicas;
+            _resultValue.revisionHistoryLimit = revisionHistoryLimit;
+            _resultValue.rollbackTo = rollbackTo;
+            _resultValue.selector = selector;
+            _resultValue.strategy = strategy;
+            _resultValue.template = template;
+            return _resultValue;
         }
     }
 }

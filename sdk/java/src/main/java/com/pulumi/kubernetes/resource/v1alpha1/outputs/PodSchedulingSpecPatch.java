@@ -63,6 +63,7 @@ public final class PodSchedulingSpecPatch {
 
         @CustomType.Setter
         public Builder potentialNodes(@Nullable List<String> potentialNodes) {
+
             this.potentialNodes = potentialNodes;
             return this;
         }
@@ -71,14 +72,15 @@ public final class PodSchedulingSpecPatch {
         }
         @CustomType.Setter
         public Builder selectedNode(@Nullable String selectedNode) {
+
             this.selectedNode = selectedNode;
             return this;
         }
         public PodSchedulingSpecPatch build() {
-            final var o = new PodSchedulingSpecPatch();
-            o.potentialNodes = potentialNodes;
-            o.selectedNode = selectedNode;
-            return o;
+            final var _resultValue = new PodSchedulingSpecPatch();
+            _resultValue.potentialNodes = potentialNodes;
+            _resultValue.selectedNode = selectedNode;
+            return _resultValue;
         }
     }
 }

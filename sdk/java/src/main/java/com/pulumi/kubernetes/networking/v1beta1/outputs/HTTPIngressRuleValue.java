@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.networking.v1beta1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.networking.v1beta1.outputs.HTTPIngressPath;
 import java.util.List;
 import java.util.Objects;
@@ -43,16 +44,19 @@ public final class HTTPIngressRuleValue {
 
         @CustomType.Setter
         public Builder paths(List<HTTPIngressPath> paths) {
-            this.paths = Objects.requireNonNull(paths);
+            if (paths == null) {
+              throw new MissingRequiredPropertyException("HTTPIngressRuleValue", "paths");
+            }
+            this.paths = paths;
             return this;
         }
         public Builder paths(HTTPIngressPath... paths) {
             return paths(List.of(paths));
         }
         public HTTPIngressRuleValue build() {
-            final var o = new HTTPIngressRuleValue();
-            o.paths = paths;
-            return o;
+            final var _resultValue = new HTTPIngressRuleValue();
+            _resultValue.paths = paths;
+            return _resultValue;
         }
     }
 }

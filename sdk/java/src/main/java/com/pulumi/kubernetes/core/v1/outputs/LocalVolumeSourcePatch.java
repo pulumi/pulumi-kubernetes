@@ -58,19 +58,21 @@ public final class LocalVolumeSourcePatch {
 
         @CustomType.Setter
         public Builder fsType(@Nullable String fsType) {
+
             this.fsType = fsType;
             return this;
         }
         @CustomType.Setter
         public Builder path(@Nullable String path) {
+
             this.path = path;
             return this;
         }
         public LocalVolumeSourcePatch build() {
-            final var o = new LocalVolumeSourcePatch();
-            o.fsType = fsType;
-            o.path = path;
-            return o;
+            final var _resultValue = new LocalVolumeSourcePatch();
+            _resultValue.fsType = fsType;
+            _resultValue.path = path;
+            return _resultValue;
         }
     }
 }

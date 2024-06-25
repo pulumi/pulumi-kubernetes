@@ -238,6 +238,7 @@ public final class PersistentVolumeClaimStatusPatch {
 
         @CustomType.Setter
         public Builder accessModes(@Nullable List<String> accessModes) {
+
             this.accessModes = accessModes;
             return this;
         }
@@ -246,21 +247,25 @@ public final class PersistentVolumeClaimStatusPatch {
         }
         @CustomType.Setter
         public Builder allocatedResourceStatuses(@Nullable Map<String,String> allocatedResourceStatuses) {
+
             this.allocatedResourceStatuses = allocatedResourceStatuses;
             return this;
         }
         @CustomType.Setter
         public Builder allocatedResources(@Nullable Map<String,String> allocatedResources) {
+
             this.allocatedResources = allocatedResources;
             return this;
         }
         @CustomType.Setter
         public Builder capacity(@Nullable Map<String,String> capacity) {
+
             this.capacity = capacity;
             return this;
         }
         @CustomType.Setter
         public Builder conditions(@Nullable List<PersistentVolumeClaimConditionPatch> conditions) {
+
             this.conditions = conditions;
             return this;
         }
@@ -269,36 +274,40 @@ public final class PersistentVolumeClaimStatusPatch {
         }
         @CustomType.Setter
         public Builder currentVolumeAttributesClassName(@Nullable String currentVolumeAttributesClassName) {
+
             this.currentVolumeAttributesClassName = currentVolumeAttributesClassName;
             return this;
         }
         @CustomType.Setter
         public Builder modifyVolumeStatus(@Nullable ModifyVolumeStatusPatch modifyVolumeStatus) {
+
             this.modifyVolumeStatus = modifyVolumeStatus;
             return this;
         }
         @CustomType.Setter
         public Builder phase(@Nullable String phase) {
+
             this.phase = phase;
             return this;
         }
         @CustomType.Setter
         public Builder resizeStatus(@Nullable String resizeStatus) {
+
             this.resizeStatus = resizeStatus;
             return this;
         }
         public PersistentVolumeClaimStatusPatch build() {
-            final var o = new PersistentVolumeClaimStatusPatch();
-            o.accessModes = accessModes;
-            o.allocatedResourceStatuses = allocatedResourceStatuses;
-            o.allocatedResources = allocatedResources;
-            o.capacity = capacity;
-            o.conditions = conditions;
-            o.currentVolumeAttributesClassName = currentVolumeAttributesClassName;
-            o.modifyVolumeStatus = modifyVolumeStatus;
-            o.phase = phase;
-            o.resizeStatus = resizeStatus;
-            return o;
+            final var _resultValue = new PersistentVolumeClaimStatusPatch();
+            _resultValue.accessModes = accessModes;
+            _resultValue.allocatedResourceStatuses = allocatedResourceStatuses;
+            _resultValue.allocatedResources = allocatedResources;
+            _resultValue.capacity = capacity;
+            _resultValue.conditions = conditions;
+            _resultValue.currentVolumeAttributesClassName = currentVolumeAttributesClassName;
+            _resultValue.modifyVolumeStatus = modifyVolumeStatus;
+            _resultValue.phase = phase;
+            _resultValue.resizeStatus = resizeStatus;
+            return _resultValue;
         }
     }
 }

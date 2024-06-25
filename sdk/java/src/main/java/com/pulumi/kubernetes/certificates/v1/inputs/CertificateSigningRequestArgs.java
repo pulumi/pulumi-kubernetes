@@ -6,6 +6,7 @@ package com.pulumi.kubernetes.certificates.v1.inputs;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.core.internal.Codegen;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.certificates.v1.inputs.CertificateSigningRequestSpecArgs;
 import com.pulumi.kubernetes.certificates.v1.inputs.CertificateSigningRequestStatusArgs;
 import com.pulumi.kubernetes.meta.v1.inputs.ObjectMetaArgs;
@@ -220,7 +221,9 @@ public final class CertificateSigningRequestArgs extends com.pulumi.resources.Re
         public CertificateSigningRequestArgs build() {
             $.apiVersion = Codegen.stringProp("apiVersion").output().arg($.apiVersion).getNullable();
             $.kind = Codegen.stringProp("kind").output().arg($.kind).getNullable();
-            $.spec = Objects.requireNonNull($.spec, "expected parameter 'spec' to be non-null");
+            if ($.spec == null) {
+                throw new MissingRequiredPropertyException("CertificateSigningRequestArgs", "spec");
+            }
             return $;
         }
     }

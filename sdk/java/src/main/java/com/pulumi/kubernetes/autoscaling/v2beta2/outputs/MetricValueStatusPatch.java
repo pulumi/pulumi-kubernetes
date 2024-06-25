@@ -73,25 +73,28 @@ public final class MetricValueStatusPatch {
 
         @CustomType.Setter
         public Builder averageUtilization(@Nullable Integer averageUtilization) {
+
             this.averageUtilization = averageUtilization;
             return this;
         }
         @CustomType.Setter
         public Builder averageValue(@Nullable String averageValue) {
+
             this.averageValue = averageValue;
             return this;
         }
         @CustomType.Setter
         public Builder value(@Nullable String value) {
+
             this.value = value;
             return this;
         }
         public MetricValueStatusPatch build() {
-            final var o = new MetricValueStatusPatch();
-            o.averageUtilization = averageUtilization;
-            o.averageValue = averageValue;
-            o.value = value;
-            return o;
+            final var _resultValue = new MetricValueStatusPatch();
+            _resultValue.averageUtilization = averageUtilization;
+            _resultValue.averageValue = averageValue;
+            _resultValue.value = value;
+            return _resultValue;
         }
     }
 }

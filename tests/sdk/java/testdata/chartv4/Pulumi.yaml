@@ -1,0 +1,18 @@
+name: chartv4
+runtime: yaml
+description: |
+  Installs cert-manager using Helm Chart v4 resource.
+  Features used:
+  - Chart resource
+variables: {}
+outputs:
+  resources: ${install.resources}
+resources:
+  ns:
+    type: kubernetes:core/v1:Namespace
+  install:
+    type: kubernetes:helm.sh/v4:Chart
+    properties:
+      namespace: ${ns.metadata.name}
+      chart: oci://registry-1.docker.io/bitnamicharts/cert-manager
+      version: "1.3.1"

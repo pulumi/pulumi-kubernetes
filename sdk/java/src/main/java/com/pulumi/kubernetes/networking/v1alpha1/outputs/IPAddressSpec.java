@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.networking.v1alpha1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.networking.v1alpha1.outputs.ParentReference;
 import java.util.Objects;
 
@@ -42,13 +43,16 @@ public final class IPAddressSpec {
 
         @CustomType.Setter
         public Builder parentRef(ParentReference parentRef) {
-            this.parentRef = Objects.requireNonNull(parentRef);
+            if (parentRef == null) {
+              throw new MissingRequiredPropertyException("IPAddressSpec", "parentRef");
+            }
+            this.parentRef = parentRef;
             return this;
         }
         public IPAddressSpec build() {
-            final var o = new IPAddressSpec();
-            o.parentRef = parentRef;
-            return o;
+            final var _resultValue = new IPAddressSpec();
+            _resultValue.parentRef = parentRef;
+            return _resultValue;
         }
     }
 }

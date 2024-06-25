@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.Either;
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Integer;
 import java.lang.String;
 import java.util.Objects;
@@ -60,19 +61,23 @@ public final class TCPSocketAction {
 
         @CustomType.Setter
         public Builder host(@Nullable String host) {
+
             this.host = host;
             return this;
         }
         @CustomType.Setter
         public Builder port(Either<Integer,String> port) {
-            this.port = Objects.requireNonNull(port);
+            if (port == null) {
+              throw new MissingRequiredPropertyException("TCPSocketAction", "port");
+            }
+            this.port = port;
             return this;
         }
         public TCPSocketAction build() {
-            final var o = new TCPSocketAction();
-            o.host = host;
-            o.port = port;
-            return o;
+            final var _resultValue = new TCPSocketAction();
+            _resultValue.host = host;
+            _resultValue.port = port;
+            return _resultValue;
         }
     }
 }

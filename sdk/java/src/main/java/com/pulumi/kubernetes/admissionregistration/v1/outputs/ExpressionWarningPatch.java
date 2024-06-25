@@ -58,19 +58,21 @@ public final class ExpressionWarningPatch {
 
         @CustomType.Setter
         public Builder fieldRef(@Nullable String fieldRef) {
+
             this.fieldRef = fieldRef;
             return this;
         }
         @CustomType.Setter
         public Builder warning(@Nullable String warning) {
+
             this.warning = warning;
             return this;
         }
         public ExpressionWarningPatch build() {
-            final var o = new ExpressionWarningPatch();
-            o.fieldRef = fieldRef;
-            o.warning = warning;
-            return o;
+            final var _resultValue = new ExpressionWarningPatch();
+            _resultValue.fieldRef = fieldRef;
+            _resultValue.warning = warning;
+            return _resultValue;
         }
     }
 }

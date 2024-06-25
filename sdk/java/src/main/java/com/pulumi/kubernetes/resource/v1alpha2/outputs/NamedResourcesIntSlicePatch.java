@@ -44,6 +44,7 @@ public final class NamedResourcesIntSlicePatch {
 
         @CustomType.Setter
         public Builder ints(@Nullable List<Integer> ints) {
+
             this.ints = ints;
             return this;
         }
@@ -51,9 +52,9 @@ public final class NamedResourcesIntSlicePatch {
             return ints(List.of(ints));
         }
         public NamedResourcesIntSlicePatch build() {
-            final var o = new NamedResourcesIntSlicePatch();
-            o.ints = ints;
-            return o;
+            final var _resultValue = new NamedResourcesIntSlicePatch();
+            _resultValue.ints = ints;
+            return _resultValue;
         }
     }
 }

@@ -76,19 +76,21 @@ public final class ModifyVolumeStatusPatch {
 
         @CustomType.Setter
         public Builder status(@Nullable String status) {
+
             this.status = status;
             return this;
         }
         @CustomType.Setter
         public Builder targetVolumeAttributesClassName(@Nullable String targetVolumeAttributesClassName) {
+
             this.targetVolumeAttributesClassName = targetVolumeAttributesClassName;
             return this;
         }
         public ModifyVolumeStatusPatch build() {
-            final var o = new ModifyVolumeStatusPatch();
-            o.status = status;
-            o.targetVolumeAttributesClassName = targetVolumeAttributesClassName;
-            return o;
+            final var _resultValue = new ModifyVolumeStatusPatch();
+            _resultValue.status = status;
+            _resultValue.targetVolumeAttributesClassName = targetVolumeAttributesClassName;
+            return _resultValue;
         }
     }
 }

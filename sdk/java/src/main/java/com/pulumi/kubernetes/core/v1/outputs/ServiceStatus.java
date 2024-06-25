@@ -60,6 +60,7 @@ public final class ServiceStatus {
 
         @CustomType.Setter
         public Builder conditions(@Nullable List<Condition> conditions) {
+
             this.conditions = conditions;
             return this;
         }
@@ -68,14 +69,15 @@ public final class ServiceStatus {
         }
         @CustomType.Setter
         public Builder loadBalancer(@Nullable LoadBalancerStatus loadBalancer) {
+
             this.loadBalancer = loadBalancer;
             return this;
         }
         public ServiceStatus build() {
-            final var o = new ServiceStatus();
-            o.conditions = conditions;
-            o.loadBalancer = loadBalancer;
-            return o;
+            final var _resultValue = new ServiceStatus();
+            _resultValue.conditions = conditions;
+            _resultValue.loadBalancer = loadBalancer;
+            return _resultValue;
         }
     }
 }

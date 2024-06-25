@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.flowcontrol.v1beta1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.flowcontrol.v1beta1.outputs.GroupSubject;
 import com.pulumi.kubernetes.flowcontrol.v1beta1.outputs.ServiceAccountSubject;
 import com.pulumi.kubernetes.flowcontrol.v1beta1.outputs.UserSubject;
@@ -65,31 +66,37 @@ public final class Subject {
 
         @CustomType.Setter
         public Builder group(@Nullable GroupSubject group) {
+
             this.group = group;
             return this;
         }
         @CustomType.Setter
         public Builder kind(String kind) {
-            this.kind = Objects.requireNonNull(kind);
+            if (kind == null) {
+              throw new MissingRequiredPropertyException("Subject", "kind");
+            }
+            this.kind = kind;
             return this;
         }
         @CustomType.Setter
         public Builder serviceAccount(@Nullable ServiceAccountSubject serviceAccount) {
+
             this.serviceAccount = serviceAccount;
             return this;
         }
         @CustomType.Setter
         public Builder user(@Nullable UserSubject user) {
+
             this.user = user;
             return this;
         }
         public Subject build() {
-            final var o = new Subject();
-            o.group = group;
-            o.kind = kind;
-            o.serviceAccount = serviceAccount;
-            o.user = user;
-            return o;
+            final var _resultValue = new Subject();
+            _resultValue.group = group;
+            _resultValue.kind = kind;
+            _resultValue.serviceAccount = serviceAccount;
+            _resultValue.user = user;
+            return _resultValue;
         }
     }
 }

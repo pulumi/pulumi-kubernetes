@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.core.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
 
@@ -115,8 +116,12 @@ public final class ContainerResizePolicyArgs extends com.pulumi.resources.Resour
         }
 
         public ContainerResizePolicyArgs build() {
-            $.resourceName = Objects.requireNonNull($.resourceName, "expected parameter 'resourceName' to be non-null");
-            $.restartPolicy = Objects.requireNonNull($.restartPolicy, "expected parameter 'restartPolicy' to be non-null");
+            if ($.resourceName == null) {
+                throw new MissingRequiredPropertyException("ContainerResizePolicyArgs", "resourceName");
+            }
+            if ($.restartPolicy == null) {
+                throw new MissingRequiredPropertyException("ContainerResizePolicyArgs", "restartPolicy");
+            }
             return $;
         }
     }

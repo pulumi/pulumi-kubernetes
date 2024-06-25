@@ -123,11 +123,13 @@ public final class ResourceClaimParameters {
 
         @CustomType.Setter
         public Builder apiVersion(@Nullable String apiVersion) {
+
             this.apiVersion = apiVersion;
             return this;
         }
         @CustomType.Setter
         public Builder driverRequests(@Nullable List<DriverRequests> driverRequests) {
+
             this.driverRequests = driverRequests;
             return this;
         }
@@ -136,33 +138,37 @@ public final class ResourceClaimParameters {
         }
         @CustomType.Setter
         public Builder generatedFrom(@Nullable ResourceClaimParametersReference generatedFrom) {
+
             this.generatedFrom = generatedFrom;
             return this;
         }
         @CustomType.Setter
         public Builder kind(@Nullable String kind) {
+
             this.kind = kind;
             return this;
         }
         @CustomType.Setter
         public Builder metadata(@Nullable ObjectMeta metadata) {
+
             this.metadata = metadata;
             return this;
         }
         @CustomType.Setter
         public Builder shareable(@Nullable Boolean shareable) {
+
             this.shareable = shareable;
             return this;
         }
         public ResourceClaimParameters build() {
-            final var o = new ResourceClaimParameters();
-            o.apiVersion = apiVersion;
-            o.driverRequests = driverRequests;
-            o.generatedFrom = generatedFrom;
-            o.kind = kind;
-            o.metadata = metadata;
-            o.shareable = shareable;
-            return o;
+            final var _resultValue = new ResourceClaimParameters();
+            _resultValue.apiVersion = apiVersion;
+            _resultValue.driverRequests = driverRequests;
+            _resultValue.generatedFrom = generatedFrom;
+            _resultValue.kind = kind;
+            _resultValue.metadata = metadata;
+            _resultValue.shareable = shareable;
+            return _resultValue;
         }
     }
 }

@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.flowcontrol.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.flowcontrol.v1.outputs.ExemptPriorityLevelConfiguration;
 import com.pulumi.kubernetes.flowcontrol.v1.outputs.LimitedPriorityLevelConfiguration;
 import java.lang.String;
@@ -74,25 +75,30 @@ public final class PriorityLevelConfigurationSpec {
 
         @CustomType.Setter
         public Builder exempt(@Nullable ExemptPriorityLevelConfiguration exempt) {
+
             this.exempt = exempt;
             return this;
         }
         @CustomType.Setter
         public Builder limited(@Nullable LimitedPriorityLevelConfiguration limited) {
+
             this.limited = limited;
             return this;
         }
         @CustomType.Setter
         public Builder type(String type) {
-            this.type = Objects.requireNonNull(type);
+            if (type == null) {
+              throw new MissingRequiredPropertyException("PriorityLevelConfigurationSpec", "type");
+            }
+            this.type = type;
             return this;
         }
         public PriorityLevelConfigurationSpec build() {
-            final var o = new PriorityLevelConfigurationSpec();
-            o.exempt = exempt;
-            o.limited = limited;
-            o.type = type;
-            return o;
+            final var _resultValue = new PriorityLevelConfigurationSpec();
+            _resultValue.exempt = exempt;
+            _resultValue.limited = limited;
+            _resultValue.type = type;
+            return _resultValue;
         }
     }
 }

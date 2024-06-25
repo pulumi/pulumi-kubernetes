@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.Either;
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.outputs.HTTPHeader;
 import java.lang.Integer;
 import java.lang.String;
@@ -104,11 +105,13 @@ public final class HTTPGetAction {
 
         @CustomType.Setter
         public Builder host(@Nullable String host) {
+
             this.host = host;
             return this;
         }
         @CustomType.Setter
         public Builder httpHeaders(@Nullable List<HTTPHeader> httpHeaders) {
+
             this.httpHeaders = httpHeaders;
             return this;
         }
@@ -117,27 +120,32 @@ public final class HTTPGetAction {
         }
         @CustomType.Setter
         public Builder path(@Nullable String path) {
+
             this.path = path;
             return this;
         }
         @CustomType.Setter
         public Builder port(Either<Integer,String> port) {
-            this.port = Objects.requireNonNull(port);
+            if (port == null) {
+              throw new MissingRequiredPropertyException("HTTPGetAction", "port");
+            }
+            this.port = port;
             return this;
         }
         @CustomType.Setter
         public Builder scheme(@Nullable String scheme) {
+
             this.scheme = scheme;
             return this;
         }
         public HTTPGetAction build() {
-            final var o = new HTTPGetAction();
-            o.host = host;
-            o.httpHeaders = httpHeaders;
-            o.path = path;
-            o.port = port;
-            o.scheme = scheme;
-            return o;
+            final var _resultValue = new HTTPGetAction();
+            _resultValue.host = host;
+            _resultValue.httpHeaders = httpHeaders;
+            _resultValue.path = path;
+            _resultValue.port = port;
+            _resultValue.scheme = scheme;
+            return _resultValue;
         }
     }
 }

@@ -19,7 +19,7 @@ SCHEMA_FILE     := provider/cmd/pulumi-resource-kubernetes/schema.json
 GOPATH			:= $(shell go env GOPATH)
 
 JAVA_GEN		 := pulumi-java-gen
-JAVA_GEN_VERSION := v0.8.0
+JAVA_GEN_VERSION := v0.12.0
 
 WORKING_DIR     := $(shell pwd)
 
@@ -65,27 +65,25 @@ test_provider::
 
 dotnet_sdk:: DOTNET_VERSION := $(shell pulumictl convert-version --language dotnet -v "$(VERSION_GENERIC)")
 dotnet_sdk::
-	$(WORKING_DIR)/bin/$(CODEGEN) -version=${DOTNET_VERSION} dotnet $(SCHEMA_FILE) $(CURDIR)
+	$(WORKING_DIR)/bin/$(CODEGEN) -version=${VERSION_GENERIC} dotnet $(SCHEMA_FILE) $(CURDIR)
 	rm -rf sdk/dotnet/bin/Debug
 	cd ${PACKDIR}/dotnet/&& \
 		echo "module fake_dotnet_module // Exclude this directory from Go tools\n\ngo 1.17" > go.mod && \
-		echo "${DOTNET_VERSION}" >version.txt && \
-		dotnet build /p:Version=${DOTNET_VERSION}
+		dotnet build
 
 go_sdk::
 	# Delete generated SDK before regenerating.
 	rm -rf sdk/go/kubernetes
-	$(WORKING_DIR)/bin/$(CODEGEN) -version=${VERSION} go $(SCHEMA_FILE) $(CURDIR)
+	$(WORKING_DIR)/bin/$(CODEGEN) -version=${VERSION_GENERIC} go $(SCHEMA_FILE) $(CURDIR)
 
 nodejs_sdk:: NODE_VERSION := $(shell pulumictl convert-version --language javascript -v "$(VERSION_GENERIC)")
 nodejs_sdk::
-	$(WORKING_DIR)/bin/$(CODEGEN) -version=${NODE_VERSION} nodejs $(SCHEMA_FILE) $(CURDIR)
+	$(WORKING_DIR)/bin/$(CODEGEN) -version=${VERSION_GENERIC} nodejs $(SCHEMA_FILE) $(CURDIR)
 	cd ${PACKDIR}/nodejs/ && \
 		echo "module fake_nodejs_module // Exclude this directory from Go tools\n\ngo 1.17" > go.mod && \
 		yarn install && \
 		yarn run tsc
 	cp README.md LICENSE ${PACKDIR}/nodejs/package.json ${PACKDIR}/nodejs/yarn.lock ${PACKDIR}/nodejs/bin/
-	sed -i.bak 's/$${VERSION}/$(NODE_VERSION)/g' ${PACKDIR}/nodejs/bin/package.json
 
 python_sdk:: PYPI_VERSION := $(shell pulumictl convert-version --language python -v "$(VERSION_GENERIC)")
 python_sdk::
@@ -93,13 +91,14 @@ python_sdk::
 	rm -rf sdk/python/pulumi_kubernetes/*/ sdk/python/pulumi_kubernetes/__init__.py
 	# Delete files not tracked in Git
 	cd ${PACKDIR}/python/ && git clean -fxd
-	$(WORKING_DIR)/bin/$(CODEGEN) -version=${VERSION} python $(SCHEMA_FILE) $(CURDIR)
+	$(WORKING_DIR)/bin/$(CODEGEN) -version=${VERSION_GENERIC} python $(SCHEMA_FILE) $(CURDIR)
 	cp README.md ${PACKDIR}/python/
 	PYPI_VERSION=$(PYPI_VERSION) ./scripts/build_python_sdk.sh
 
 java_sdk:: PACKAGE_VERSION := $(shell pulumictl convert-version --language generic -v "$(VERSION_GENERIC)")
 java_sdk:: bin/pulumi-java-gen
-	$(WORKING_DIR)/bin/$(JAVA_GEN) generate --schema $(SCHEMA_FILE) --out sdk/java --build gradle-nexus
+	$(WORKING_DIR)/bin/$(JAVA_GEN) generate --schema $(SCHEMA_FILE) --overlay provider/pkg/gen/java-templates \
+		--out sdk/java --build gradle-nexus
 	cd ${PACKDIR}/java/ && \
 		echo "module fake_java_module // Exclude this directory from Go tools\n\ngo 1.17" > go.mod && \
 		gradle --console=plain build

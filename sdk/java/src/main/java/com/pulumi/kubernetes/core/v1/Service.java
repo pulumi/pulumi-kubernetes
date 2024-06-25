@@ -46,7 +46,8 @@ import javax.annotation.Nullable;
  * 
  * ## Example Usage
  * ### Create a Service with auto-naming
- * ```java
+ * <pre>
+ * {@code
  * package generated_program;
  * 
  * import com.pulumi.Context;
@@ -68,22 +69,24 @@ import javax.annotation.Nullable;
  *     }
  * 
  *     public static void stack(Context ctx) {
- *         var service = new Service(&#34;service&#34;, ServiceArgs.builder()        
+ *         var service = new Service("service", ServiceArgs.builder()        
  *             .spec(ServiceSpecArgs.builder()
  *                 .ports(ServicePortArgs.builder()
  *                     .port(80)
- *                     .protocol(&#34;TCP&#34;)
+ *                     .protocol("TCP")
  *                     .targetPort(9376)
  *                     .build())
- *                 .selector(Map.of(&#34;app&#34;, &#34;MyApp&#34;))
+ *                 .selector(Map.of("app", "MyApp"))
  *                 .build())
  *             .build());
  * 
  *     }
  * }
- * ```
+ * }
+ * </pre>
  * ### Create a Service with a user-specified name
- * ```java
+ * <pre>
+ * {@code
  * package generated_program;
  * 
  * import com.pulumi.Context;
@@ -106,23 +109,24 @@ import javax.annotation.Nullable;
  *     }
  * 
  *     public static void stack(Context ctx) {
- *         var service = new Service(&#34;service&#34;, ServiceArgs.builder()        
+ *         var service = new Service("service", ServiceArgs.builder()        
  *             .metadata(ObjectMetaArgs.builder()
- *                 .name(&#34;my-service&#34;)
+ *                 .name("my-service")
  *                 .build())
  *             .spec(ServiceSpecArgs.builder()
  *                 .ports(ServicePortArgs.builder()
  *                     .port(80)
- *                     .protocol(&#34;TCP&#34;)
+ *                     .protocol("TCP")
  *                     .targetPort(9376)
  *                     .build())
- *                 .selector(Map.of(&#34;app&#34;, &#34;MyApp&#34;))
+ *                 .selector(Map.of("app", "MyApp"))
  *                 .build())
  *             .build());
  * 
  *     }
  * }
- * ```
+ * }
+ * </pre>
  * 
  */
 @ResourceType(type="kubernetes:core/v1:Service")

@@ -73,16 +73,19 @@ public final class ScopedResourceSelectorRequirementPatch {
 
         @CustomType.Setter
         public Builder operator(@Nullable String operator) {
+
             this.operator = operator;
             return this;
         }
         @CustomType.Setter
         public Builder scopeName(@Nullable String scopeName) {
+
             this.scopeName = scopeName;
             return this;
         }
         @CustomType.Setter
         public Builder values(@Nullable List<String> values) {
+
             this.values = values;
             return this;
         }
@@ -90,11 +93,11 @@ public final class ScopedResourceSelectorRequirementPatch {
             return values(List.of(values));
         }
         public ScopedResourceSelectorRequirementPatch build() {
-            final var o = new ScopedResourceSelectorRequirementPatch();
-            o.operator = operator;
-            o.scopeName = scopeName;
-            o.values = values;
-            return o;
+            final var _resultValue = new ScopedResourceSelectorRequirementPatch();
+            _resultValue.operator = operator;
+            _resultValue.scopeName = scopeName;
+            _resultValue.values = values;
+            return _resultValue;
         }
     }
 }

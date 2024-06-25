@@ -4,17 +4,55 @@
 
 import copy
 import warnings
+import sys
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
+if sys.version_info >= (3, 11):
+    from typing import NotRequired, TypedDict, TypeAlias
+else:
+    from typing_extensions import NotRequired, TypedDict, TypeAlias
 from ... import _utilities
 from ... import meta as _meta
 
 __all__ = [
     'LeaseSpecPatchArgs',
+    'LeaseSpecPatchArgsDict',
     'LeaseSpecArgs',
+    'LeaseSpecArgsDict',
     'LeaseArgs',
+    'LeaseArgsDict',
 ]
+
+MYPY = False
+
+if not MYPY:
+    class LeaseSpecPatchArgsDict(TypedDict):
+        """
+        LeaseSpec is a specification of a Lease.
+        """
+        acquire_time: NotRequired[pulumi.Input[str]]
+        """
+        acquireTime is a time when the current lease was acquired.
+        """
+        holder_identity: NotRequired[pulumi.Input[str]]
+        """
+        holderIdentity contains the identity of the holder of a current lease.
+        """
+        lease_duration_seconds: NotRequired[pulumi.Input[int]]
+        """
+        leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed renewTime.
+        """
+        lease_transitions: NotRequired[pulumi.Input[int]]
+        """
+        leaseTransitions is the number of transitions of a lease between holders.
+        """
+        renew_time: NotRequired[pulumi.Input[str]]
+        """
+        renewTime is a time when the current holder of a lease has last updated the lease.
+        """
+elif False:
+    LeaseSpecPatchArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class LeaseSpecPatchArgs:
@@ -104,6 +142,34 @@ class LeaseSpecPatchArgs:
         pulumi.set(self, "renew_time", value)
 
 
+if not MYPY:
+    class LeaseSpecArgsDict(TypedDict):
+        """
+        LeaseSpec is a specification of a Lease.
+        """
+        acquire_time: NotRequired[pulumi.Input[str]]
+        """
+        acquireTime is a time when the current lease was acquired.
+        """
+        holder_identity: NotRequired[pulumi.Input[str]]
+        """
+        holderIdentity contains the identity of the holder of a current lease.
+        """
+        lease_duration_seconds: NotRequired[pulumi.Input[int]]
+        """
+        leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed renewTime.
+        """
+        lease_transitions: NotRequired[pulumi.Input[int]]
+        """
+        leaseTransitions is the number of transitions of a lease between holders.
+        """
+        renew_time: NotRequired[pulumi.Input[str]]
+        """
+        renewTime is a time when the current holder of a lease has last updated the lease.
+        """
+elif False:
+    LeaseSpecArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class LeaseSpecArgs:
     def __init__(__self__, *,
@@ -191,6 +257,30 @@ class LeaseSpecArgs:
     def renew_time(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "renew_time", value)
 
+
+if not MYPY:
+    class LeaseArgsDict(TypedDict):
+        """
+        Lease defines a lease concept.
+        """
+        api_version: NotRequired[pulumi.Input[str]]
+        """
+        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        """
+        kind: NotRequired[pulumi.Input[str]]
+        """
+        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        """
+        metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
+        """
+        More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        """
+        spec: NotRequired[pulumi.Input['LeaseSpecArgsDict']]
+        """
+        spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        """
+elif False:
+    LeaseArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class LeaseArgs:

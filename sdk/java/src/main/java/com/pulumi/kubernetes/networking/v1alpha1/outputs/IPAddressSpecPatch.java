@@ -44,13 +44,14 @@ public final class IPAddressSpecPatch {
 
         @CustomType.Setter
         public Builder parentRef(@Nullable ParentReferencePatch parentRef) {
+
             this.parentRef = parentRef;
             return this;
         }
         public IPAddressSpecPatch build() {
-            final var o = new IPAddressSpecPatch();
-            o.parentRef = parentRef;
-            return o;
+            final var _resultValue = new IPAddressSpecPatch();
+            _resultValue.parentRef = parentRef;
+            return _resultValue;
         }
     }
 }

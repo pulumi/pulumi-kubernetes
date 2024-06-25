@@ -1230,6 +1230,55 @@ var kustomizeDirectoryResource = pschema.ResourceSpec{
 	},
 }
 
+//go:embed examples/overlays/kustomizeDirectoryV2.md
+var kustomizeDirectoryV2MD string
+
+var kustomizeDirectoryV2Resource = pschema.ResourceSpec{
+	IsComponent: true,
+	ObjectTypeSpec: pschema.ObjectTypeSpec{
+		IsOverlay:   false,
+		Description: kustomizeDirectoryV2MD,
+		Properties: map[string]pschema.PropertySpec{
+			"resources": {
+				TypeSpec: pschema.TypeSpec{
+					Type: "string",
+				},
+				Description: "Resources created by the Directory resource.",
+			},
+		},
+		Type: "object",
+	},
+	InputProperties: map[string]pschema.PropertySpec{
+		"directory": {
+			TypeSpec: pschema.TypeSpec{
+				Type: "string",
+			},
+			Description: "The directory containing the kustomization to apply. The value can be a local directory or a folder in a\ngit repository.\nExample: ./helloWorld\nExample: https://github.com/kubernetes-sigs/kustomize/tree/master/examples/helloWorld",
+		},
+		"namespace": {
+			TypeSpec: pschema.TypeSpec{
+				Type: "string",
+			},
+			Description: "The default namespace to apply to the resources. Defaults to the provider's namespace.",
+		},
+		"resourcePrefix": {
+			TypeSpec: pschema.TypeSpec{
+				Type: "string",
+			},
+			Description: "A prefix for the auto-generated resource names. Defaults to the name of the Directory resource. Example: A resource created with resourcePrefix=\"foo\" would produce a resource named \"foo:resourceName\".",
+		},
+		"skipAwait": {
+			TypeSpec: pschema.TypeSpec{
+				Type: "boolean",
+			},
+			Description: "Indicates that child resources should skip the await logic.",
+		},
+	},
+	RequiredInputs: []string{
+		"directory",
+	},
+}
+
 //go:embed examples/overlays/configFile.md
 var configFileMD string
 
@@ -1615,6 +1664,7 @@ func init() {
 	resourceOverlays["kubernetes:helm.sh/v4:Chart"] = helmV4ChartResource
 	resourceOverlays["kubernetes:helm.sh/v3:Release"] = helmV3ReleaseResource
 	resourceOverlays["kubernetes:kustomize:Directory"] = kustomizeDirectoryResource
+	resourceOverlays["kubernetes:kustomize/v2:Directory"] = kustomizeDirectoryV2Resource
 	resourceOverlays["kubernetes:yaml:ConfigFile"] = yamlConfigFileResource
 	resourceOverlays["kubernetes:yaml/v2:ConfigFile"] = yamlConfigFileV2Resource
 	resourceOverlays["kubernetes:yaml:ConfigGroup"] = yamlConfigGroupResource

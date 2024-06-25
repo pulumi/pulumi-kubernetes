@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.batch.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Integer;
 import java.lang.String;
 import java.util.List;
@@ -198,8 +199,12 @@ public final class PodFailurePolicyOnExitCodesRequirementArgs extends com.pulumi
         }
 
         public PodFailurePolicyOnExitCodesRequirementArgs build() {
-            $.operator = Objects.requireNonNull($.operator, "expected parameter 'operator' to be non-null");
-            $.values = Objects.requireNonNull($.values, "expected parameter 'values' to be non-null");
+            if ($.operator == null) {
+                throw new MissingRequiredPropertyException("PodFailurePolicyOnExitCodesRequirementArgs", "operator");
+            }
+            if ($.values == null) {
+                throw new MissingRequiredPropertyException("PodFailurePolicyOnExitCodesRequirementArgs", "values");
+            }
             return $;
         }
     }

@@ -58,19 +58,21 @@ public final class EmptyDirVolumeSource {
 
         @CustomType.Setter
         public Builder medium(@Nullable String medium) {
+
             this.medium = medium;
             return this;
         }
         @CustomType.Setter
         public Builder sizeLimit(@Nullable String sizeLimit) {
+
             this.sizeLimit = sizeLimit;
             return this;
         }
         public EmptyDirVolumeSource build() {
-            final var o = new EmptyDirVolumeSource();
-            o.medium = medium;
-            o.sizeLimit = sizeLimit;
-            return o;
+            final var _resultValue = new EmptyDirVolumeSource();
+            _resultValue.medium = medium;
+            _resultValue.sizeLimit = sizeLimit;
+            return _resultValue;
         }
     }
 }

@@ -79,25 +79,28 @@ public final class PortStatusPatch {
 
         @CustomType.Setter
         public Builder error(@Nullable String error) {
+
             this.error = error;
             return this;
         }
         @CustomType.Setter
         public Builder port(@Nullable Integer port) {
+
             this.port = port;
             return this;
         }
         @CustomType.Setter
         public Builder protocol(@Nullable String protocol) {
+
             this.protocol = protocol;
             return this;
         }
         public PortStatusPatch build() {
-            final var o = new PortStatusPatch();
-            o.error = error;
-            o.port = port;
-            o.protocol = protocol;
-            return o;
+            final var _resultValue = new PortStatusPatch();
+            _resultValue.error = error;
+            _resultValue.port = port;
+            _resultValue.protocol = protocol;
+            return _resultValue;
         }
     }
 }

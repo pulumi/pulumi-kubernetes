@@ -74,25 +74,28 @@ public final class ContainerState {
 
         @CustomType.Setter
         public Builder running(@Nullable ContainerStateRunning running) {
+
             this.running = running;
             return this;
         }
         @CustomType.Setter
         public Builder terminated(@Nullable ContainerStateTerminated terminated) {
+
             this.terminated = terminated;
             return this;
         }
         @CustomType.Setter
         public Builder waiting(@Nullable ContainerStateWaiting waiting) {
+
             this.waiting = waiting;
             return this;
         }
         public ContainerState build() {
-            final var o = new ContainerState();
-            o.running = running;
-            o.terminated = terminated;
-            o.waiting = waiting;
-            return o;
+            final var _resultValue = new ContainerState();
+            _resultValue.running = running;
+            _resultValue.terminated = terminated;
+            _resultValue.waiting = waiting;
+            return _resultValue;
         }
     }
 }

@@ -59,19 +59,21 @@ public final class DeploymentStrategy {
 
         @CustomType.Setter
         public Builder rollingUpdate(@Nullable RollingUpdateDeployment rollingUpdate) {
+
             this.rollingUpdate = rollingUpdate;
             return this;
         }
         @CustomType.Setter
         public Builder type(@Nullable String type) {
+
             this.type = type;
             return this;
         }
         public DeploymentStrategy build() {
-            final var o = new DeploymentStrategy();
-            o.rollingUpdate = rollingUpdate;
-            o.type = type;
-            return o;
+            final var _resultValue = new DeploymentStrategy();
+            _resultValue.rollingUpdate = rollingUpdate;
+            _resultValue.type = type;
+            return _resultValue;
         }
     }
 }

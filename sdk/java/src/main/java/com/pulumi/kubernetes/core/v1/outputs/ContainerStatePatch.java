@@ -74,25 +74,28 @@ public final class ContainerStatePatch {
 
         @CustomType.Setter
         public Builder running(@Nullable ContainerStateRunningPatch running) {
+
             this.running = running;
             return this;
         }
         @CustomType.Setter
         public Builder terminated(@Nullable ContainerStateTerminatedPatch terminated) {
+
             this.terminated = terminated;
             return this;
         }
         @CustomType.Setter
         public Builder waiting(@Nullable ContainerStateWaitingPatch waiting) {
+
             this.waiting = waiting;
             return this;
         }
         public ContainerStatePatch build() {
-            final var o = new ContainerStatePatch();
-            o.running = running;
-            o.terminated = terminated;
-            o.waiting = waiting;
-            return o;
+            final var _resultValue = new ContainerStatePatch();
+            _resultValue.running = running;
+            _resultValue.terminated = terminated;
+            _resultValue.waiting = waiting;
+            return _resultValue;
         }
     }
 }

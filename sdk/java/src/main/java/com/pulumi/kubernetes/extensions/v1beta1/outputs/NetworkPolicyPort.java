@@ -60,19 +60,21 @@ public final class NetworkPolicyPort {
 
         @CustomType.Setter
         public Builder port(@Nullable Either<Integer,String> port) {
+
             this.port = port;
             return this;
         }
         @CustomType.Setter
         public Builder protocol(@Nullable String protocol) {
+
             this.protocol = protocol;
             return this;
         }
         public NetworkPolicyPort build() {
-            final var o = new NetworkPolicyPort();
-            o.port = port;
-            o.protocol = protocol;
-            return o;
+            final var _resultValue = new NetworkPolicyPort();
+            _resultValue.port = port;
+            _resultValue.protocol = protocol;
+            return _resultValue;
         }
     }
 }

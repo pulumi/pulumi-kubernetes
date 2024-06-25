@@ -6,6 +6,7 @@ package com.pulumi.kubernetes.resource.v1alpha2.inputs;
 import com.google.gson.JsonElement;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.resource.v1alpha2.inputs.DriverAllocationResultArgs;
 import java.lang.String;
 import java.util.List;
@@ -204,7 +205,9 @@ public final class StructuredResourceHandleArgs extends com.pulumi.resources.Res
         }
 
         public StructuredResourceHandleArgs build() {
-            $.results = Objects.requireNonNull($.results, "expected parameter 'results' to be non-null");
+            if ($.results == null) {
+                throw new MissingRequiredPropertyException("StructuredResourceHandleArgs", "results");
+            }
             return $;
         }
     }

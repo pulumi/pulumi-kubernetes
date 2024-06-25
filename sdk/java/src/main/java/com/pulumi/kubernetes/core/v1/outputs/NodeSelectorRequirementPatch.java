@@ -73,16 +73,19 @@ public final class NodeSelectorRequirementPatch {
 
         @CustomType.Setter
         public Builder key(@Nullable String key) {
+
             this.key = key;
             return this;
         }
         @CustomType.Setter
         public Builder operator(@Nullable String operator) {
+
             this.operator = operator;
             return this;
         }
         @CustomType.Setter
         public Builder values(@Nullable List<String> values) {
+
             this.values = values;
             return this;
         }
@@ -90,11 +93,11 @@ public final class NodeSelectorRequirementPatch {
             return values(List.of(values));
         }
         public NodeSelectorRequirementPatch build() {
-            final var o = new NodeSelectorRequirementPatch();
-            o.key = key;
-            o.operator = operator;
-            o.values = values;
-            return o;
+            final var _resultValue = new NodeSelectorRequirementPatch();
+            _resultValue.key = key;
+            _resultValue.operator = operator;
+            _resultValue.values = values;
+            return _resultValue;
         }
     }
 }

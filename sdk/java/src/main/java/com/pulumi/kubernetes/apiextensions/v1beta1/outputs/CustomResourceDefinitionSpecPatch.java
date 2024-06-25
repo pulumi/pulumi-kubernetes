@@ -178,6 +178,7 @@ public final class CustomResourceDefinitionSpecPatch {
 
         @CustomType.Setter
         public Builder additionalPrinterColumns(@Nullable List<CustomResourceColumnDefinitionPatch> additionalPrinterColumns) {
+
             this.additionalPrinterColumns = additionalPrinterColumns;
             return this;
         }
@@ -186,46 +187,55 @@ public final class CustomResourceDefinitionSpecPatch {
         }
         @CustomType.Setter
         public Builder conversion(@Nullable CustomResourceConversionPatch conversion) {
+
             this.conversion = conversion;
             return this;
         }
         @CustomType.Setter
         public Builder group(@Nullable String group) {
+
             this.group = group;
             return this;
         }
         @CustomType.Setter
         public Builder names(@Nullable CustomResourceDefinitionNamesPatch names) {
+
             this.names = names;
             return this;
         }
         @CustomType.Setter
         public Builder preserveUnknownFields(@Nullable Boolean preserveUnknownFields) {
+
             this.preserveUnknownFields = preserveUnknownFields;
             return this;
         }
         @CustomType.Setter
         public Builder scope(@Nullable String scope) {
+
             this.scope = scope;
             return this;
         }
         @CustomType.Setter
         public Builder subresources(@Nullable CustomResourceSubresourcesPatch subresources) {
+
             this.subresources = subresources;
             return this;
         }
         @CustomType.Setter
         public Builder validation(@Nullable CustomResourceValidationPatch validation) {
+
             this.validation = validation;
             return this;
         }
         @CustomType.Setter
         public Builder version(@Nullable String version) {
+
             this.version = version;
             return this;
         }
         @CustomType.Setter
         public Builder versions(@Nullable List<CustomResourceDefinitionVersionPatch> versions) {
+
             this.versions = versions;
             return this;
         }
@@ -233,18 +243,18 @@ public final class CustomResourceDefinitionSpecPatch {
             return versions(List.of(versions));
         }
         public CustomResourceDefinitionSpecPatch build() {
-            final var o = new CustomResourceDefinitionSpecPatch();
-            o.additionalPrinterColumns = additionalPrinterColumns;
-            o.conversion = conversion;
-            o.group = group;
-            o.names = names;
-            o.preserveUnknownFields = preserveUnknownFields;
-            o.scope = scope;
-            o.subresources = subresources;
-            o.validation = validation;
-            o.version = version;
-            o.versions = versions;
-            return o;
+            final var _resultValue = new CustomResourceDefinitionSpecPatch();
+            _resultValue.additionalPrinterColumns = additionalPrinterColumns;
+            _resultValue.conversion = conversion;
+            _resultValue.group = group;
+            _resultValue.names = names;
+            _resultValue.preserveUnknownFields = preserveUnknownFields;
+            _resultValue.scope = scope;
+            _resultValue.subresources = subresources;
+            _resultValue.validation = validation;
+            _resultValue.version = version;
+            _resultValue.versions = versions;
+            return _resultValue;
         }
     }
 }

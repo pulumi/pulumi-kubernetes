@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.storage.v1beta1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.storage.v1beta1.inputs.VolumeErrorArgs;
 import java.lang.Boolean;
 import java.lang.String;
@@ -194,7 +195,9 @@ public final class VolumeAttachmentStatusArgs extends com.pulumi.resources.Resou
         }
 
         public VolumeAttachmentStatusArgs build() {
-            $.attached = Objects.requireNonNull($.attached, "expected parameter 'attached' to be non-null");
+            if ($.attached == null) {
+                throw new MissingRequiredPropertyException("VolumeAttachmentStatusArgs", "attached");
+            }
             return $;
         }
     }

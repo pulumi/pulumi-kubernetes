@@ -44,13 +44,14 @@ public final class GroupSubjectPatch {
 
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         public GroupSubjectPatch build() {
-            final var o = new GroupSubjectPatch();
-            o.name = name;
-            return o;
+            final var _resultValue = new GroupSubjectPatch();
+            _resultValue.name = name;
+            return _resultValue;
         }
     }
 }

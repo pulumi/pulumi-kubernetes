@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.core.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Integer;
 import java.lang.String;
 import java.util.List;
@@ -129,7 +130,9 @@ public final class ContainerImageArgs extends com.pulumi.resources.ResourceArgs 
         }
 
         public ContainerImageArgs build() {
-            $.names = Objects.requireNonNull($.names, "expected parameter 'names' to be non-null");
+            if ($.names == null) {
+                throw new MissingRequiredPropertyException("ContainerImageArgs", "names");
+            }
             return $;
         }
     }

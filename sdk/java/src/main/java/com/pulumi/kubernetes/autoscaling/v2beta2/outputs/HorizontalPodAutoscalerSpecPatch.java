@@ -104,16 +104,19 @@ public final class HorizontalPodAutoscalerSpecPatch {
 
         @CustomType.Setter
         public Builder behavior(@Nullable HorizontalPodAutoscalerBehaviorPatch behavior) {
+
             this.behavior = behavior;
             return this;
         }
         @CustomType.Setter
         public Builder maxReplicas(@Nullable Integer maxReplicas) {
+
             this.maxReplicas = maxReplicas;
             return this;
         }
         @CustomType.Setter
         public Builder metrics(@Nullable List<MetricSpecPatch> metrics) {
+
             this.metrics = metrics;
             return this;
         }
@@ -122,22 +125,24 @@ public final class HorizontalPodAutoscalerSpecPatch {
         }
         @CustomType.Setter
         public Builder minReplicas(@Nullable Integer minReplicas) {
+
             this.minReplicas = minReplicas;
             return this;
         }
         @CustomType.Setter
         public Builder scaleTargetRef(@Nullable CrossVersionObjectReferencePatch scaleTargetRef) {
+
             this.scaleTargetRef = scaleTargetRef;
             return this;
         }
         public HorizontalPodAutoscalerSpecPatch build() {
-            final var o = new HorizontalPodAutoscalerSpecPatch();
-            o.behavior = behavior;
-            o.maxReplicas = maxReplicas;
-            o.metrics = metrics;
-            o.minReplicas = minReplicas;
-            o.scaleTargetRef = scaleTargetRef;
-            return o;
+            final var _resultValue = new HorizontalPodAutoscalerSpecPatch();
+            _resultValue.behavior = behavior;
+            _resultValue.maxReplicas = maxReplicas;
+            _resultValue.metrics = metrics;
+            _resultValue.minReplicas = minReplicas;
+            _resultValue.scaleTargetRef = scaleTargetRef;
+            return _resultValue;
         }
     }
 }

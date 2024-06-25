@@ -104,26 +104,31 @@ public final class ClusterRole {
 
         @CustomType.Setter
         public Builder aggregationRule(@Nullable AggregationRule aggregationRule) {
+
             this.aggregationRule = aggregationRule;
             return this;
         }
         @CustomType.Setter
         public Builder apiVersion(@Nullable String apiVersion) {
+
             this.apiVersion = apiVersion;
             return this;
         }
         @CustomType.Setter
         public Builder kind(@Nullable String kind) {
+
             this.kind = kind;
             return this;
         }
         @CustomType.Setter
         public Builder metadata(@Nullable ObjectMeta metadata) {
+
             this.metadata = metadata;
             return this;
         }
         @CustomType.Setter
         public Builder rules(@Nullable List<PolicyRule> rules) {
+
             this.rules = rules;
             return this;
         }
@@ -131,13 +136,13 @@ public final class ClusterRole {
             return rules(List.of(rules));
         }
         public ClusterRole build() {
-            final var o = new ClusterRole();
-            o.aggregationRule = aggregationRule;
-            o.apiVersion = apiVersion;
-            o.kind = kind;
-            o.metadata = metadata;
-            o.rules = rules;
-            return o;
+            final var _resultValue = new ClusterRole();
+            _resultValue.aggregationRule = aggregationRule;
+            _resultValue.apiVersion = apiVersion;
+            _resultValue.kind = kind;
+            _resultValue.metadata = metadata;
+            _resultValue.rules = rules;
+            return _resultValue;
         }
     }
 }

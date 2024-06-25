@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.policy.v1beta1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Integer;
 import java.lang.String;
 import java.util.Map;
@@ -116,43 +117,57 @@ public final class PodDisruptionBudgetStatus {
 
         @CustomType.Setter
         public Builder currentHealthy(Integer currentHealthy) {
-            this.currentHealthy = Objects.requireNonNull(currentHealthy);
+            if (currentHealthy == null) {
+              throw new MissingRequiredPropertyException("PodDisruptionBudgetStatus", "currentHealthy");
+            }
+            this.currentHealthy = currentHealthy;
             return this;
         }
         @CustomType.Setter
         public Builder desiredHealthy(Integer desiredHealthy) {
-            this.desiredHealthy = Objects.requireNonNull(desiredHealthy);
+            if (desiredHealthy == null) {
+              throw new MissingRequiredPropertyException("PodDisruptionBudgetStatus", "desiredHealthy");
+            }
+            this.desiredHealthy = desiredHealthy;
             return this;
         }
         @CustomType.Setter
         public Builder disruptedPods(@Nullable Map<String,String> disruptedPods) {
+
             this.disruptedPods = disruptedPods;
             return this;
         }
         @CustomType.Setter
         public Builder disruptionsAllowed(Integer disruptionsAllowed) {
-            this.disruptionsAllowed = Objects.requireNonNull(disruptionsAllowed);
+            if (disruptionsAllowed == null) {
+              throw new MissingRequiredPropertyException("PodDisruptionBudgetStatus", "disruptionsAllowed");
+            }
+            this.disruptionsAllowed = disruptionsAllowed;
             return this;
         }
         @CustomType.Setter
         public Builder expectedPods(Integer expectedPods) {
-            this.expectedPods = Objects.requireNonNull(expectedPods);
+            if (expectedPods == null) {
+              throw new MissingRequiredPropertyException("PodDisruptionBudgetStatus", "expectedPods");
+            }
+            this.expectedPods = expectedPods;
             return this;
         }
         @CustomType.Setter
         public Builder observedGeneration(@Nullable Integer observedGeneration) {
+
             this.observedGeneration = observedGeneration;
             return this;
         }
         public PodDisruptionBudgetStatus build() {
-            final var o = new PodDisruptionBudgetStatus();
-            o.currentHealthy = currentHealthy;
-            o.desiredHealthy = desiredHealthy;
-            o.disruptedPods = disruptedPods;
-            o.disruptionsAllowed = disruptionsAllowed;
-            o.expectedPods = expectedPods;
-            o.observedGeneration = observedGeneration;
-            return o;
+            final var _resultValue = new PodDisruptionBudgetStatus();
+            _resultValue.currentHealthy = currentHealthy;
+            _resultValue.desiredHealthy = desiredHealthy;
+            _resultValue.disruptedPods = disruptedPods;
+            _resultValue.disruptionsAllowed = disruptionsAllowed;
+            _resultValue.expectedPods = expectedPods;
+            _resultValue.observedGeneration = observedGeneration;
+            return _resultValue;
         }
     }
 }

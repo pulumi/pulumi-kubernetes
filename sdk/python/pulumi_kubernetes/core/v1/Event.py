@@ -4,9 +4,14 @@
 
 import copy
 import warnings
+import sys
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
+if sys.version_info >= (3, 11):
+    from typing import NotRequired, TypedDict, TypeAlias
+else:
+    from typing_extensions import NotRequired, TypedDict, TypeAlias
 from ... import _utilities
 from . import outputs
 from ... import meta as _meta
@@ -302,17 +307,17 @@ class Event(pulumi.CustomResource):
                  count: Optional[pulumi.Input[int]] = None,
                  event_time: Optional[pulumi.Input[str]] = None,
                  first_timestamp: Optional[pulumi.Input[str]] = None,
-                 involved_object: Optional[pulumi.Input[pulumi.InputType['ObjectReferenceArgs']]] = None,
+                 involved_object: Optional[pulumi.Input[Union['ObjectReferenceArgs', 'ObjectReferenceArgsDict']]] = None,
                  kind: Optional[pulumi.Input[str]] = None,
                  last_timestamp: Optional[pulumi.Input[str]] = None,
                  message: Optional[pulumi.Input[str]] = None,
-                 metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']]] = None,
+                 metadata: Optional[pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
                  reason: Optional[pulumi.Input[str]] = None,
-                 related: Optional[pulumi.Input[pulumi.InputType['ObjectReferenceArgs']]] = None,
+                 related: Optional[pulumi.Input[Union['ObjectReferenceArgs', 'ObjectReferenceArgsDict']]] = None,
                  reporting_component: Optional[pulumi.Input[str]] = None,
                  reporting_instance: Optional[pulumi.Input[str]] = None,
-                 series: Optional[pulumi.Input[pulumi.InputType['EventSeriesArgs']]] = None,
-                 source: Optional[pulumi.Input[pulumi.InputType['EventSourceArgs']]] = None,
+                 series: Optional[pulumi.Input[Union['EventSeriesArgs', 'EventSeriesArgsDict']]] = None,
+                 source: Optional[pulumi.Input[Union['EventSourceArgs', 'EventSourceArgsDict']]] = None,
                  type: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
@@ -325,17 +330,17 @@ class Event(pulumi.CustomResource):
         :param pulumi.Input[int] count: The number of times this event has occurred.
         :param pulumi.Input[str] event_time: Time when this Event was first observed.
         :param pulumi.Input[str] first_timestamp: The time at which the event was first recorded. (Time of server receipt is in TypeMeta.)
-        :param pulumi.Input[pulumi.InputType['ObjectReferenceArgs']] involved_object: The object that this event is about.
+        :param pulumi.Input[Union['ObjectReferenceArgs', 'ObjectReferenceArgsDict']] involved_object: The object that this event is about.
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input[str] last_timestamp: The time at which the most recent occurrence of this event was recorded.
         :param pulumi.Input[str] message: A human-readable description of the status of this operation.
-        :param pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        :param pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param pulumi.Input[str] reason: This should be a short, machine understandable string that gives the reason for the transition into the object's current status.
-        :param pulumi.Input[pulumi.InputType['ObjectReferenceArgs']] related: Optional secondary object for more complex actions.
+        :param pulumi.Input[Union['ObjectReferenceArgs', 'ObjectReferenceArgsDict']] related: Optional secondary object for more complex actions.
         :param pulumi.Input[str] reporting_component: Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
         :param pulumi.Input[str] reporting_instance: ID of the controller instance, e.g. `kubelet-xyzf`.
-        :param pulumi.Input[pulumi.InputType['EventSeriesArgs']] series: Data about the Event series this event represents or nil if it's a singleton Event.
-        :param pulumi.Input[pulumi.InputType['EventSourceArgs']] source: The component reporting this event. Should be a short machine understandable string.
+        :param pulumi.Input[Union['EventSeriesArgs', 'EventSeriesArgsDict']] series: Data about the Event series this event represents or nil if it's a singleton Event.
+        :param pulumi.Input[Union['EventSourceArgs', 'EventSourceArgsDict']] source: The component reporting this event. Should be a short machine understandable string.
         :param pulumi.Input[str] type: Type of this event (Normal, Warning), new types could be added in the future
         """
         ...
@@ -367,17 +372,17 @@ class Event(pulumi.CustomResource):
                  count: Optional[pulumi.Input[int]] = None,
                  event_time: Optional[pulumi.Input[str]] = None,
                  first_timestamp: Optional[pulumi.Input[str]] = None,
-                 involved_object: Optional[pulumi.Input[pulumi.InputType['ObjectReferenceArgs']]] = None,
+                 involved_object: Optional[pulumi.Input[Union['ObjectReferenceArgs', 'ObjectReferenceArgsDict']]] = None,
                  kind: Optional[pulumi.Input[str]] = None,
                  last_timestamp: Optional[pulumi.Input[str]] = None,
                  message: Optional[pulumi.Input[str]] = None,
-                 metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']]] = None,
+                 metadata: Optional[pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
                  reason: Optional[pulumi.Input[str]] = None,
-                 related: Optional[pulumi.Input[pulumi.InputType['ObjectReferenceArgs']]] = None,
+                 related: Optional[pulumi.Input[Union['ObjectReferenceArgs', 'ObjectReferenceArgsDict']]] = None,
                  reporting_component: Optional[pulumi.Input[str]] = None,
                  reporting_instance: Optional[pulumi.Input[str]] = None,
-                 series: Optional[pulumi.Input[pulumi.InputType['EventSeriesArgs']]] = None,
-                 source: Optional[pulumi.Input[pulumi.InputType['EventSourceArgs']]] = None,
+                 series: Optional[pulumi.Input[Union['EventSeriesArgs', 'EventSeriesArgsDict']]] = None,
+                 source: Optional[pulumi.Input[Union['EventSourceArgs', 'EventSourceArgsDict']]] = None,
                  type: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)

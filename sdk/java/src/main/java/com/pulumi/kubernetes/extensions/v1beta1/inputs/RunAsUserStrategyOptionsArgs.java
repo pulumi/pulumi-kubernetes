@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.extensions.v1beta1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.extensions.v1beta1.inputs.IDRangeArgs;
 import java.lang.String;
 import java.util.List;
@@ -129,7 +130,9 @@ public final class RunAsUserStrategyOptionsArgs extends com.pulumi.resources.Res
         }
 
         public RunAsUserStrategyOptionsArgs build() {
-            $.rule = Objects.requireNonNull($.rule, "expected parameter 'rule' to be non-null");
+            if ($.rule == null) {
+                throw new MissingRequiredPropertyException("RunAsUserStrategyOptionsArgs", "rule");
+            }
             return $;
         }
     }

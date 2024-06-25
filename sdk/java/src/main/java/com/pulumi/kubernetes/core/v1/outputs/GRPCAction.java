@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Integer;
 import java.lang.String;
 import java.util.Objects;
@@ -63,19 +64,23 @@ public final class GRPCAction {
 
         @CustomType.Setter
         public Builder port(Integer port) {
-            this.port = Objects.requireNonNull(port);
+            if (port == null) {
+              throw new MissingRequiredPropertyException("GRPCAction", "port");
+            }
+            this.port = port;
             return this;
         }
         @CustomType.Setter
         public Builder service(@Nullable String service) {
+
             this.service = service;
             return this;
         }
         public GRPCAction build() {
-            final var o = new GRPCAction();
-            o.port = port;
-            o.service = service;
-            return o;
+            final var _resultValue = new GRPCAction();
+            _resultValue.port = port;
+            _resultValue.service = service;
+            return _resultValue;
         }
     }
 }

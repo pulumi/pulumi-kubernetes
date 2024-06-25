@@ -2,19 +2,49 @@
 
 ### Added
 
+- `TypedDict` input types for the Python SDK (https://github.com/pulumi/pulumi-kubernetes/pull/3070)
+
+### Changed
+
+- The `Release` resource no longer ignores empty lists when merging values. (https://github.com/pulumi/pulumi-kubernetes/pull/2995)
+
+### Fixed
+
+- `Chart` v4 now handles an array of assets. (https://github.com/pulumi/pulumi-kubernetes/pull/3061)
+
+## 4.13.0 (June 4, 2024)
+
+### Added
+
+- Kustomize Directory v2 resource (https://github.com/pulumi/pulumi-kubernetes/pull/3036) 
+- CustomResource for Java SDK (https://github.com/pulumi/pulumi-kubernetes/pull/3020)
+
+### Changed
+
+- Update to pulumi-java v0.12.0 (https://github.com/pulumi/pulumi-kubernetes/pull/3025)
+
+### Fixed
+
+- Fixed Chart v4 fails on update (https://github.com/pulumi/pulumi-kubernetes/pull/3046)
+- Fixed a panic that occurs when diffing Job resources containing `replaceUnready` annotations and an unreachable cluster connection. (https://github.com/pulumi/pulumi-kubernetes/pull/3024)
+- Fixed spurious diffing for updates when in renderYaml mode (https://github.com/pulumi/pulumi-kubernetes/pull/3030)
+
+## 4.12.0 (May 21, 2024)
+
+### Added
+
 - Added a new Helm Chart v4 resource. (https://github.com/pulumi/pulumi-kubernetes/pull/2947)
-- Added a new `deletionPropagationPolicy` annotation. (https://github.com/pulumi/pulumi-kubernetes/pull/3011)
+- Added support for deletion propagation policies (e.g. Orphan). (https://github.com/pulumi/pulumi-kubernetes/pull/3011)
 - Server-side apply conflict errors now include the original field manager's name. (https://github.com/pulumi/pulumi-kubernetes/pull/2983)
 
 ### Changed 
 
 - Pulumi will now wait for DaemonSets to become ready. (https://github.com/pulumi/pulumi-kubernetes/pull/2953)
 - The Release resource's merge behavior for `valueYamlFiles` now more closely matches Helm's behavior. (https://github.com/pulumi/pulumi-kubernetes/pull/2963)
-- The Release resource no longer ignores empty lists when merging values. (https://github.com/pulumi/pulumi-kubernetes/pull/2995)
 
 ### Fixed
 
-- Chart previews no longer fail when the cluster is unreachable. (https://github.com/pulumi/pulumi-kubernetes/pull/2992)
+- Helm Chart V3 previews no longer fail when the cluster is unreachable. (https://github.com/pulumi/pulumi-kubernetes/pull/2992)
 - Fixed a panic that could occur when a missing field became `null`. (https://github.com/pulumi/pulumi-kubernetes/issues/1970)
 
 ## 4.11.0 (April 17, 2024)

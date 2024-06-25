@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.apps.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.apps.v1.inputs.DeploymentStrategyArgs;
 import com.pulumi.kubernetes.core.v1.inputs.PodTemplateSpecArgs;
 import com.pulumi.kubernetes.meta.v1.inputs.LabelSelectorArgs;
@@ -343,8 +344,12 @@ public final class DeploymentSpecArgs extends com.pulumi.resources.ResourceArgs 
         }
 
         public DeploymentSpecArgs build() {
-            $.selector = Objects.requireNonNull($.selector, "expected parameter 'selector' to be non-null");
-            $.template = Objects.requireNonNull($.template, "expected parameter 'template' to be non-null");
+            if ($.selector == null) {
+                throw new MissingRequiredPropertyException("DeploymentSpecArgs", "selector");
+            }
+            if ($.template == null) {
+                throw new MissingRequiredPropertyException("DeploymentSpecArgs", "template");
+            }
             return $;
         }
     }

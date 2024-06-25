@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.outputs.NodeSelectorTerm;
 import java.lang.Integer;
 import java.util.Objects;
@@ -57,19 +58,25 @@ public final class PreferredSchedulingTerm {
 
         @CustomType.Setter
         public Builder preference(NodeSelectorTerm preference) {
-            this.preference = Objects.requireNonNull(preference);
+            if (preference == null) {
+              throw new MissingRequiredPropertyException("PreferredSchedulingTerm", "preference");
+            }
+            this.preference = preference;
             return this;
         }
         @CustomType.Setter
         public Builder weight(Integer weight) {
-            this.weight = Objects.requireNonNull(weight);
+            if (weight == null) {
+              throw new MissingRequiredPropertyException("PreferredSchedulingTerm", "weight");
+            }
+            this.weight = weight;
             return this;
         }
         public PreferredSchedulingTerm build() {
-            final var o = new PreferredSchedulingTerm();
-            o.preference = preference;
-            o.weight = weight;
-            return o;
+            final var _resultValue = new PreferredSchedulingTerm();
+            _resultValue.preference = preference;
+            _resultValue.weight = weight;
+            return _resultValue;
         }
     }
 }

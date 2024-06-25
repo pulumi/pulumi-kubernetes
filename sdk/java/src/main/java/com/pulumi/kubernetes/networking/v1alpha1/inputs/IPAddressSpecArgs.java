@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.networking.v1alpha1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.networking.v1alpha1.inputs.ParentReferenceArgs;
 import java.util.Objects;
 
@@ -78,7 +79,9 @@ public final class IPAddressSpecArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         public IPAddressSpecArgs build() {
-            $.parentRef = Objects.requireNonNull($.parentRef, "expected parameter 'parentRef' to be non-null");
+            if ($.parentRef == null) {
+                throw new MissingRequiredPropertyException("IPAddressSpecArgs", "parentRef");
+            }
             return $;
         }
     }

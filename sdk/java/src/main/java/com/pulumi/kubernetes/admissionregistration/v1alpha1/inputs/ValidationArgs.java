@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.admissionregistration.v1alpha1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -291,7 +292,9 @@ public final class ValidationArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         public ValidationArgs build() {
-            $.expression = Objects.requireNonNull($.expression, "expected parameter 'expression' to be non-null");
+            if ($.expression == null) {
+                throw new MissingRequiredPropertyException("ValidationArgs", "expression");
+            }
             return $;
         }
     }

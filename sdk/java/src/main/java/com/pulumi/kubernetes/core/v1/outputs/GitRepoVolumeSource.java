@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -72,25 +73,30 @@ public final class GitRepoVolumeSource {
 
         @CustomType.Setter
         public Builder directory(@Nullable String directory) {
+
             this.directory = directory;
             return this;
         }
         @CustomType.Setter
         public Builder repository(String repository) {
-            this.repository = Objects.requireNonNull(repository);
+            if (repository == null) {
+              throw new MissingRequiredPropertyException("GitRepoVolumeSource", "repository");
+            }
+            this.repository = repository;
             return this;
         }
         @CustomType.Setter
         public Builder revision(@Nullable String revision) {
+
             this.revision = revision;
             return this;
         }
         public GitRepoVolumeSource build() {
-            final var o = new GitRepoVolumeSource();
-            o.directory = directory;
-            o.repository = repository;
-            o.revision = revision;
-            return o;
+            final var _resultValue = new GitRepoVolumeSource();
+            _resultValue.directory = directory;
+            _resultValue.repository = repository;
+            _resultValue.revision = revision;
+            return _resultValue;
         }
     }
 }

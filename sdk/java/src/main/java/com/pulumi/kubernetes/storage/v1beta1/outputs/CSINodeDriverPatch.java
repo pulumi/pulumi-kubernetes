@@ -88,21 +88,25 @@ public final class CSINodeDriverPatch {
 
         @CustomType.Setter
         public Builder allocatable(@Nullable VolumeNodeResourcesPatch allocatable) {
+
             this.allocatable = allocatable;
             return this;
         }
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder nodeID(@Nullable String nodeID) {
+
             this.nodeID = nodeID;
             return this;
         }
         @CustomType.Setter
         public Builder topologyKeys(@Nullable List<String> topologyKeys) {
+
             this.topologyKeys = topologyKeys;
             return this;
         }
@@ -110,12 +114,12 @@ public final class CSINodeDriverPatch {
             return topologyKeys(List.of(topologyKeys));
         }
         public CSINodeDriverPatch build() {
-            final var o = new CSINodeDriverPatch();
-            o.allocatable = allocatable;
-            o.name = name;
-            o.nodeID = nodeID;
-            o.topologyKeys = topologyKeys;
-            return o;
+            final var _resultValue = new CSINodeDriverPatch();
+            _resultValue.allocatable = allocatable;
+            _resultValue.name = name;
+            _resultValue.nodeID = nodeID;
+            _resultValue.topologyKeys = topologyKeys;
+            return _resultValue;
         }
     }
 }

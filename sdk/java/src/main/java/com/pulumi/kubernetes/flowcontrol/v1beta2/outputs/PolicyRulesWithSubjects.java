@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.flowcontrol.v1beta2.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.flowcontrol.v1beta2.outputs.NonResourcePolicyRule;
 import com.pulumi.kubernetes.flowcontrol.v1beta2.outputs.ResourcePolicyRule;
 import com.pulumi.kubernetes.flowcontrol.v1beta2.outputs.Subject;
@@ -74,6 +75,7 @@ public final class PolicyRulesWithSubjects {
 
         @CustomType.Setter
         public Builder nonResourceRules(@Nullable List<NonResourcePolicyRule> nonResourceRules) {
+
             this.nonResourceRules = nonResourceRules;
             return this;
         }
@@ -82,6 +84,7 @@ public final class PolicyRulesWithSubjects {
         }
         @CustomType.Setter
         public Builder resourceRules(@Nullable List<ResourcePolicyRule> resourceRules) {
+
             this.resourceRules = resourceRules;
             return this;
         }
@@ -90,18 +93,21 @@ public final class PolicyRulesWithSubjects {
         }
         @CustomType.Setter
         public Builder subjects(List<Subject> subjects) {
-            this.subjects = Objects.requireNonNull(subjects);
+            if (subjects == null) {
+              throw new MissingRequiredPropertyException("PolicyRulesWithSubjects", "subjects");
+            }
+            this.subjects = subjects;
             return this;
         }
         public Builder subjects(Subject... subjects) {
             return subjects(List.of(subjects));
         }
         public PolicyRulesWithSubjects build() {
-            final var o = new PolicyRulesWithSubjects();
-            o.nonResourceRules = nonResourceRules;
-            o.resourceRules = resourceRules;
-            o.subjects = subjects;
-            return o;
+            final var _resultValue = new PolicyRulesWithSubjects();
+            _resultValue.nonResourceRules = nonResourceRules;
+            _resultValue.resourceRules = resourceRules;
+            _resultValue.subjects = subjects;
+            return _resultValue;
         }
     }
 }

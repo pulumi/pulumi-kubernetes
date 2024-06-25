@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.apiextensions.v1beta1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.apiextensions.v1beta1.outputs.CustomResourceColumnDefinition;
 import com.pulumi.kubernetes.apiextensions.v1beta1.outputs.CustomResourceSubresources;
 import com.pulumi.kubernetes.apiextensions.v1beta1.outputs.CustomResourceValidation;
@@ -147,6 +148,7 @@ public final class CustomResourceDefinitionVersion {
 
         @CustomType.Setter
         public Builder additionalPrinterColumns(@Nullable List<CustomResourceColumnDefinition> additionalPrinterColumns) {
+
             this.additionalPrinterColumns = additionalPrinterColumns;
             return this;
         }
@@ -155,50 +157,63 @@ public final class CustomResourceDefinitionVersion {
         }
         @CustomType.Setter
         public Builder deprecated(@Nullable Boolean deprecated) {
+
             this.deprecated = deprecated;
             return this;
         }
         @CustomType.Setter
         public Builder deprecationWarning(@Nullable String deprecationWarning) {
+
             this.deprecationWarning = deprecationWarning;
             return this;
         }
         @CustomType.Setter
         public Builder name(String name) {
-            this.name = Objects.requireNonNull(name);
+            if (name == null) {
+              throw new MissingRequiredPropertyException("CustomResourceDefinitionVersion", "name");
+            }
+            this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder schema(@Nullable CustomResourceValidation schema) {
+
             this.schema = schema;
             return this;
         }
         @CustomType.Setter
         public Builder served(Boolean served) {
-            this.served = Objects.requireNonNull(served);
+            if (served == null) {
+              throw new MissingRequiredPropertyException("CustomResourceDefinitionVersion", "served");
+            }
+            this.served = served;
             return this;
         }
         @CustomType.Setter
         public Builder storage(Boolean storage) {
-            this.storage = Objects.requireNonNull(storage);
+            if (storage == null) {
+              throw new MissingRequiredPropertyException("CustomResourceDefinitionVersion", "storage");
+            }
+            this.storage = storage;
             return this;
         }
         @CustomType.Setter
         public Builder subresources(@Nullable CustomResourceSubresources subresources) {
+
             this.subresources = subresources;
             return this;
         }
         public CustomResourceDefinitionVersion build() {
-            final var o = new CustomResourceDefinitionVersion();
-            o.additionalPrinterColumns = additionalPrinterColumns;
-            o.deprecated = deprecated;
-            o.deprecationWarning = deprecationWarning;
-            o.name = name;
-            o.schema = schema;
-            o.served = served;
-            o.storage = storage;
-            o.subresources = subresources;
-            return o;
+            final var _resultValue = new CustomResourceDefinitionVersion();
+            _resultValue.additionalPrinterColumns = additionalPrinterColumns;
+            _resultValue.deprecated = deprecated;
+            _resultValue.deprecationWarning = deprecationWarning;
+            _resultValue.name = name;
+            _resultValue.schema = schema;
+            _resultValue.served = served;
+            _resultValue.storage = storage;
+            _resultValue.subresources = subresources;
+            return _resultValue;
         }
     }
 }

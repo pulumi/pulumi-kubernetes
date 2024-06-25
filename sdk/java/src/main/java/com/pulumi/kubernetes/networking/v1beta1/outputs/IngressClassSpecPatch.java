@@ -59,19 +59,21 @@ public final class IngressClassSpecPatch {
 
         @CustomType.Setter
         public Builder controller(@Nullable String controller) {
+
             this.controller = controller;
             return this;
         }
         @CustomType.Setter
         public Builder parameters(@Nullable TypedLocalObjectReferencePatch parameters) {
+
             this.parameters = parameters;
             return this;
         }
         public IngressClassSpecPatch build() {
-            final var o = new IngressClassSpecPatch();
-            o.controller = controller;
-            o.parameters = parameters;
-            return o;
+            final var _resultValue = new IngressClassSpecPatch();
+            _resultValue.controller = controller;
+            _resultValue.parameters = parameters;
+            return _resultValue;
         }
     }
 }

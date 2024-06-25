@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.certificates.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Integer;
 import java.lang.String;
 import java.util.List;
@@ -551,8 +552,12 @@ public final class CertificateSigningRequestSpecArgs extends com.pulumi.resource
         }
 
         public CertificateSigningRequestSpecArgs build() {
-            $.request = Objects.requireNonNull($.request, "expected parameter 'request' to be non-null");
-            $.signerName = Objects.requireNonNull($.signerName, "expected parameter 'signerName' to be non-null");
+            if ($.request == null) {
+                throw new MissingRequiredPropertyException("CertificateSigningRequestSpecArgs", "request");
+            }
+            if ($.signerName == null) {
+                throw new MissingRequiredPropertyException("CertificateSigningRequestSpecArgs", "signerName");
+            }
             return $;
         }
     }

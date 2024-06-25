@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.policy.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.meta.v1.inputs.ConditionArgs;
 import java.lang.Integer;
 import java.lang.String;
@@ -356,10 +357,18 @@ public final class PodDisruptionBudgetStatusArgs extends com.pulumi.resources.Re
         }
 
         public PodDisruptionBudgetStatusArgs build() {
-            $.currentHealthy = Objects.requireNonNull($.currentHealthy, "expected parameter 'currentHealthy' to be non-null");
-            $.desiredHealthy = Objects.requireNonNull($.desiredHealthy, "expected parameter 'desiredHealthy' to be non-null");
-            $.disruptionsAllowed = Objects.requireNonNull($.disruptionsAllowed, "expected parameter 'disruptionsAllowed' to be non-null");
-            $.expectedPods = Objects.requireNonNull($.expectedPods, "expected parameter 'expectedPods' to be non-null");
+            if ($.currentHealthy == null) {
+                throw new MissingRequiredPropertyException("PodDisruptionBudgetStatusArgs", "currentHealthy");
+            }
+            if ($.desiredHealthy == null) {
+                throw new MissingRequiredPropertyException("PodDisruptionBudgetStatusArgs", "desiredHealthy");
+            }
+            if ($.disruptionsAllowed == null) {
+                throw new MissingRequiredPropertyException("PodDisruptionBudgetStatusArgs", "disruptionsAllowed");
+            }
+            if ($.expectedPods == null) {
+                throw new MissingRequiredPropertyException("PodDisruptionBudgetStatusArgs", "expectedPods");
+            }
             return $;
         }
     }

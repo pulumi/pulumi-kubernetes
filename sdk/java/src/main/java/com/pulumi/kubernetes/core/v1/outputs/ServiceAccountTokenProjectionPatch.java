@@ -73,25 +73,28 @@ public final class ServiceAccountTokenProjectionPatch {
 
         @CustomType.Setter
         public Builder audience(@Nullable String audience) {
+
             this.audience = audience;
             return this;
         }
         @CustomType.Setter
         public Builder expirationSeconds(@Nullable Integer expirationSeconds) {
+
             this.expirationSeconds = expirationSeconds;
             return this;
         }
         @CustomType.Setter
         public Builder path(@Nullable String path) {
+
             this.path = path;
             return this;
         }
         public ServiceAccountTokenProjectionPatch build() {
-            final var o = new ServiceAccountTokenProjectionPatch();
-            o.audience = audience;
-            o.expirationSeconds = expirationSeconds;
-            o.path = path;
-            return o;
+            final var _resultValue = new ServiceAccountTokenProjectionPatch();
+            _resultValue.audience = audience;
+            _resultValue.expirationSeconds = expirationSeconds;
+            _resultValue.path = path;
+            return _resultValue;
         }
     }
 }

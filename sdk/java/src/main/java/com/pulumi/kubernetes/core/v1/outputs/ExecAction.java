@@ -44,6 +44,7 @@ public final class ExecAction {
 
         @CustomType.Setter
         public Builder command(@Nullable List<String> command) {
+
             this.command = command;
             return this;
         }
@@ -51,9 +52,9 @@ public final class ExecAction {
             return command(List.of(command));
         }
         public ExecAction build() {
-            final var o = new ExecAction();
-            o.command = command;
-            return o;
+            final var _resultValue = new ExecAction();
+            _resultValue.command = command;
+            return _resultValue;
         }
     }
 }

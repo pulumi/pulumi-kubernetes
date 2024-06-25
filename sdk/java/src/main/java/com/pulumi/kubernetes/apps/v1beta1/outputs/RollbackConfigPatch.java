@@ -44,13 +44,14 @@ public final class RollbackConfigPatch {
 
         @CustomType.Setter
         public Builder revision(@Nullable Integer revision) {
+
             this.revision = revision;
             return this;
         }
         public RollbackConfigPatch build() {
-            final var o = new RollbackConfigPatch();
-            o.revision = revision;
-            return o;
+            final var _resultValue = new RollbackConfigPatch();
+            _resultValue.revision = revision;
+            return _resultValue;
         }
     }
 }

@@ -73,25 +73,28 @@ public final class SecretKeySelectorPatch {
 
         @CustomType.Setter
         public Builder key(@Nullable String key) {
+
             this.key = key;
             return this;
         }
         @CustomType.Setter
         public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
         @CustomType.Setter
         public Builder optional(@Nullable Boolean optional) {
+
             this.optional = optional;
             return this;
         }
         public SecretKeySelectorPatch build() {
-            final var o = new SecretKeySelectorPatch();
-            o.key = key;
-            o.name = name;
-            o.optional = optional;
-            return o;
+            final var _resultValue = new SecretKeySelectorPatch();
+            _resultValue.key = key;
+            _resultValue.name = name;
+            _resultValue.optional = optional;
+            return _resultValue;
         }
     }
 }

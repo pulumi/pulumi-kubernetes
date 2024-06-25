@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.core.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Boolean;
 import java.lang.String;
 import java.util.Objects;
@@ -155,8 +156,12 @@ public final class NFSVolumeSourceArgs extends com.pulumi.resources.ResourceArgs
         }
 
         public NFSVolumeSourceArgs build() {
-            $.path = Objects.requireNonNull($.path, "expected parameter 'path' to be non-null");
-            $.server = Objects.requireNonNull($.server, "expected parameter 'server' to be non-null");
+            if ($.path == null) {
+                throw new MissingRequiredPropertyException("NFSVolumeSourceArgs", "path");
+            }
+            if ($.server == null) {
+                throw new MissingRequiredPropertyException("NFSVolumeSourceArgs", "server");
+            }
             return $;
         }
     }

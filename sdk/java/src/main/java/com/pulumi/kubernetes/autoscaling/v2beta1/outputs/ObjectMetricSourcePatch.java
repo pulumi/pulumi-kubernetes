@@ -102,37 +102,42 @@ public final class ObjectMetricSourcePatch {
 
         @CustomType.Setter
         public Builder averageValue(@Nullable String averageValue) {
+
             this.averageValue = averageValue;
             return this;
         }
         @CustomType.Setter
         public Builder metricName(@Nullable String metricName) {
+
             this.metricName = metricName;
             return this;
         }
         @CustomType.Setter
         public Builder selector(@Nullable LabelSelectorPatch selector) {
+
             this.selector = selector;
             return this;
         }
         @CustomType.Setter
         public Builder target(@Nullable CrossVersionObjectReferencePatch target) {
+
             this.target = target;
             return this;
         }
         @CustomType.Setter
         public Builder targetValue(@Nullable String targetValue) {
+
             this.targetValue = targetValue;
             return this;
         }
         public ObjectMetricSourcePatch build() {
-            final var o = new ObjectMetricSourcePatch();
-            o.averageValue = averageValue;
-            o.metricName = metricName;
-            o.selector = selector;
-            o.target = target;
-            o.targetValue = targetValue;
-            return o;
+            final var _resultValue = new ObjectMetricSourcePatch();
+            _resultValue.averageValue = averageValue;
+            _resultValue.metricName = metricName;
+            _resultValue.selector = selector;
+            _resultValue.target = target;
+            _resultValue.targetValue = targetValue;
+            return _resultValue;
         }
     }
 }

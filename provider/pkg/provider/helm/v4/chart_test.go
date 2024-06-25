@@ -128,7 +128,26 @@ var _ = Describe("Construct", func() {
 			Expect(err).ShouldNot(HaveOccurred())
 			Expect(executor.Action().DryRun).To(BeTrue())
 			Expect(executor.Action().DryRunOption).To(Equal("server"))
-			Expect(executor.Action().ClientOnly).To(BeFalse())
+			Expect(executor.Action().ClientOnly).To(BeTrue())
+		})
+		Describe("Capabilities", func() {
+			BeforeEach(func() {
+				inputs["values"] = resource.NewObjectProperty(resource.NewPropertyMapFromMap(map[string]any{
+					"versionCheck": ">=1.21-0",
+				}))
+			})
+			It("should have the correct kubeversion", func(ctx context.Context) {
+				_, err := pulumiprovider.Construct(ctx, req, tc.EngineConn(), k.Construct)
+				Expect(err).ShouldNot(HaveOccurred())
+				v := fake.DefaultServerVersion
+				Expect(executor.Action().KubeVersion).To(PointTo(Equal(
+					chartutil.KubeVersion{Version: v.GitVersion, Major: v.Major, Minor: v.Minor})))
+			})
+			It("should have the correct apiversions", func(ctx context.Context) {
+				_, err := pulumiprovider.Construct(ctx, req, tc.EngineConn(), k.Construct)
+				Expect(err).ShouldNot(HaveOccurred())
+				Expect(executor.Action().APIVersions).To(Not(BeEmpty()))
+			})
 		})
 	})
 

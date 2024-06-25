@@ -103,37 +103,42 @@ public final class DaemonSetSpecPatch {
 
         @CustomType.Setter
         public Builder minReadySeconds(@Nullable Integer minReadySeconds) {
+
             this.minReadySeconds = minReadySeconds;
             return this;
         }
         @CustomType.Setter
         public Builder revisionHistoryLimit(@Nullable Integer revisionHistoryLimit) {
+
             this.revisionHistoryLimit = revisionHistoryLimit;
             return this;
         }
         @CustomType.Setter
         public Builder selector(@Nullable LabelSelectorPatch selector) {
+
             this.selector = selector;
             return this;
         }
         @CustomType.Setter
         public Builder template(@Nullable PodTemplateSpecPatch template) {
+
             this.template = template;
             return this;
         }
         @CustomType.Setter
         public Builder updateStrategy(@Nullable DaemonSetUpdateStrategyPatch updateStrategy) {
+
             this.updateStrategy = updateStrategy;
             return this;
         }
         public DaemonSetSpecPatch build() {
-            final var o = new DaemonSetSpecPatch();
-            o.minReadySeconds = minReadySeconds;
-            o.revisionHistoryLimit = revisionHistoryLimit;
-            o.selector = selector;
-            o.template = template;
-            o.updateStrategy = updateStrategy;
-            return o;
+            final var _resultValue = new DaemonSetSpecPatch();
+            _resultValue.minReadySeconds = minReadySeconds;
+            _resultValue.revisionHistoryLimit = revisionHistoryLimit;
+            _resultValue.selector = selector;
+            _resultValue.template = template;
+            _resultValue.updateStrategy = updateStrategy;
+            return _resultValue;
         }
     }
 }

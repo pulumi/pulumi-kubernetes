@@ -131,49 +131,56 @@ public final class Secret {
 
         @CustomType.Setter
         public Builder apiVersion(@Nullable String apiVersion) {
+
             this.apiVersion = apiVersion;
             return this;
         }
         @CustomType.Setter
         public Builder data(@Nullable Map<String,String> data) {
+
             this.data = data;
             return this;
         }
         @CustomType.Setter
         public Builder immutable(@Nullable Boolean immutable) {
+
             this.immutable = immutable;
             return this;
         }
         @CustomType.Setter
         public Builder kind(@Nullable String kind) {
+
             this.kind = kind;
             return this;
         }
         @CustomType.Setter
         public Builder metadata(@Nullable ObjectMeta metadata) {
+
             this.metadata = metadata;
             return this;
         }
         @CustomType.Setter
         public Builder stringData(@Nullable Map<String,String> stringData) {
+
             this.stringData = stringData;
             return this;
         }
         @CustomType.Setter
         public Builder type(@Nullable String type) {
+
             this.type = type;
             return this;
         }
         public Secret build() {
-            final var o = new Secret();
-            o.apiVersion = apiVersion;
-            o.data = data;
-            o.immutable = immutable;
-            o.kind = kind;
-            o.metadata = metadata;
-            o.stringData = stringData;
-            o.type = type;
-            return o;
+            final var _resultValue = new Secret();
+            _resultValue.apiVersion = apiVersion;
+            _resultValue.data = data;
+            _resultValue.immutable = immutable;
+            _resultValue.kind = kind;
+            _resultValue.metadata = metadata;
+            _resultValue.stringData = stringData;
+            _resultValue.type = type;
+            return _resultValue;
         }
     }
 }

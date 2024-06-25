@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.discovery.v1beta1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.outputs.ObjectReference;
 import com.pulumi.kubernetes.discovery.v1beta1.outputs.EndpointConditions;
 import java.lang.String;
@@ -130,7 +131,10 @@ public final class Endpoint {
 
         @CustomType.Setter
         public Builder addresses(List<String> addresses) {
-            this.addresses = Objects.requireNonNull(addresses);
+            if (addresses == null) {
+              throw new MissingRequiredPropertyException("Endpoint", "addresses");
+            }
+            this.addresses = addresses;
             return this;
         }
         public Builder addresses(String... addresses) {
@@ -138,38 +142,43 @@ public final class Endpoint {
         }
         @CustomType.Setter
         public Builder conditions(@Nullable EndpointConditions conditions) {
+
             this.conditions = conditions;
             return this;
         }
         @CustomType.Setter
         public Builder hostname(@Nullable String hostname) {
+
             this.hostname = hostname;
             return this;
         }
         @CustomType.Setter
         public Builder nodeName(@Nullable String nodeName) {
+
             this.nodeName = nodeName;
             return this;
         }
         @CustomType.Setter
         public Builder targetRef(@Nullable ObjectReference targetRef) {
+
             this.targetRef = targetRef;
             return this;
         }
         @CustomType.Setter
         public Builder topology(@Nullable Map<String,String> topology) {
+
             this.topology = topology;
             return this;
         }
         public Endpoint build() {
-            final var o = new Endpoint();
-            o.addresses = addresses;
-            o.conditions = conditions;
-            o.hostname = hostname;
-            o.nodeName = nodeName;
-            o.targetRef = targetRef;
-            o.topology = topology;
-            return o;
+            final var _resultValue = new Endpoint();
+            _resultValue.addresses = addresses;
+            _resultValue.conditions = conditions;
+            _resultValue.hostname = hostname;
+            _resultValue.nodeName = nodeName;
+            _resultValue.targetRef = targetRef;
+            _resultValue.topology = topology;
+            return _resultValue;
         }
     }
 }
