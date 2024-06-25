@@ -42,6 +42,20 @@ namespace Pulumi.Kubernetes
             set => _cluster.Set(value);
         }
 
+        private static readonly __Value<string?> _clusterIdentifier = new __Value<string?>(() => __config.Get("clusterIdentifier"));
+        /// <summary>
+        /// If present, this value will control the provider's replacement behavior. In particular, the provider will _only_ be replaced when `clusterIdentifier` changes; all other changes to provider configuration will be treated as updates.
+        /// 
+        /// Kubernetes does not yet offer an API for cluster identification, so Pulumi uses heuristics to decide when a provider resource should be replaced or updated. These heuristics can sometimes lead to destructive replace operations when an update would be more appropriate, or vice versa.
+        /// 
+        /// Use `clusterIdentifier` for more fine-grained control of the provider resource's lifecycle.
+        /// </summary>
+        public static string? ClusterIdentifier
+        {
+            get => _clusterIdentifier.Get();
+            set => _clusterIdentifier.Set(value);
+        }
+
         private static readonly __Value<string?> _context = new __Value<string?>(() => __config.Get("context"));
         /// <summary>
         /// If present, the name of the kubeconfig context to use.

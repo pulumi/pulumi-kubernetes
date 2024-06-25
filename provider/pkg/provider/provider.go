@@ -97,6 +97,7 @@ const (
 	initialAPIVersionKey = "__initialApiVersion"
 	fieldManagerKey      = "__fieldManager"
 	secretKind           = "Secret"
+	clusterIdentifierKey = "clusterIdentifier"
 )
 
 type cancellationContext struct {
@@ -355,7 +356,7 @@ func (k *kubeProvider) CheckConfig(ctx context.Context, req *pulumirpc.CheckRequ
 }
 
 // DiffConfig diffs the configuration for this provider.
-func (k *kubeProvider) DiffConfig(ctx context.Context, req *pulumirpc.DiffRequest) (*pulumirpc.DiffResponse, error) {
+func (k *kubeProvider) DiffConfig(_ context.Context, req *pulumirpc.DiffRequest) (resp *pulumirpc.DiffResponse, err error) {
 	urn := resource.URN(req.GetUrn())
 	label := fmt.Sprintf("%s.DiffConfig(%s)", k.label(), urn)
 	logger.V(9).Infof("%s executing", label)
@@ -376,20 +377,41 @@ func (k *kubeProvider) DiffConfig(ctx context.Context, req *pulumirpc.DiffReques
 	if err != nil {
 		return nil, fmt.Errorf("DiffConfig failed because of malformed resource inputs: %w", err)
 	}
+	var diffs, replaces []string
+	diff := olds.Diff(news)
+	if diff == nil {
+		return &pulumirpc.DiffResponse{
+			Changes: pulumirpc.DiffResponse_DIFF_NONE,
+		}, nil
+	}
+
+	// If clusterIdentifier is configured, we change our replacement behavior
+	// to trigger when the identifier has changed. We don't do this when adding
+	// or removing the identifier in order to make on- and off-boarding less
+	// risky.
+	if diff.Updated(clusterIdentifierKey) {
+		replaces = append(replaces, clusterIdentifierKey)
+	}
+	// Similarly, we ignore replacements when the identifier is unchanged from
+	// what it was previously set to.
+	if diff.Same(clusterIdentifierKey) && news.HasValue(clusterIdentifierKey) {
+		// Modify our response to no longer replace anything.
+		defer func() { resp.Replaces = nil }()
+	}
 
 	// We can't tell for sure if a computed value has changed, so we make the conservative choice
 	// and force a replacement. Note that getActiveClusterFromConfig relies on all three of the below properties.
 	for _, key := range []resource.PropertyKey{"kubeconfig", "context", "cluster"} {
 		if news[key].IsComputed() {
-			return &pulumirpc.DiffResponse{
+			replaces = append(replaces, string(key))
+			resp = &pulumirpc.DiffResponse{
 				Changes:  pulumirpc.DiffResponse_DIFF_SOME,
 				Diffs:    []string{string(key)},
-				Replaces: []string{string(key)},
-			}, nil
+				Replaces: replaces,
+			}
+			return resp, nil
 		}
 	}
-
-	var diffs, replaces []string
 
 	oldConfig, err := parseKubeconfigPropertyValue(olds["kubeconfig"])
 	if err != nil {
@@ -401,7 +423,6 @@ func (k *kubeProvider) DiffConfig(ctx context.Context, req *pulumirpc.DiffReques
 	}
 
 	// Check for differences in provider overrides.
-	diff := olds.Diff(news)
 	for _, k := range diff.ChangedKeys() {
 		diffs = append(diffs, string(k))
 
@@ -427,9 +448,7 @@ func (k *kubeProvider) DiffConfig(ctx context.Context, req *pulumirpc.DiffReques
 	// happening.
 	oldActiveCluster, oldFound := getActiveClusterFromConfig(oldConfig, olds)
 	activeCluster, found := getActiveClusterFromConfig(newConfig, news)
-	if !oldFound || !found {
-		// The config is either ambient or invalid, so we can't draw any conclusions.
-	} else if !reflect.DeepEqual(oldActiveCluster, activeCluster) {
+	if oldFound && found && !reflect.DeepEqual(oldActiveCluster, activeCluster) {
 		// one of these properties must have changed for the active cluster to change.
 		for _, key := range []string{"kubeconfig", "context", "cluster"} {
 			if slices.Contains(diffs, key) {
@@ -439,17 +458,12 @@ func (k *kubeProvider) DiffConfig(ctx context.Context, req *pulumirpc.DiffReques
 	}
 	logger.V(7).Infof("%s: diffs %v / replaces %v", label, diffs, replaces)
 
-	if len(diffs) > 0 || len(replaces) > 0 {
-		return &pulumirpc.DiffResponse{
-			Changes:  pulumirpc.DiffResponse_DIFF_SOME,
-			Diffs:    diffs,
-			Replaces: replaces,
-		}, nil
+	resp = &pulumirpc.DiffResponse{
+		Changes:  pulumirpc.DiffResponse_DIFF_SOME,
+		Diffs:    diffs,
+		Replaces: replaces,
 	}
-
-	return &pulumirpc.DiffResponse{
-		Changes: pulumirpc.DiffResponse_DIFF_NONE,
-	}, nil
+	return resp, nil
 }
 
 // Configure configures the resource provider with "globals" that control its behavior.

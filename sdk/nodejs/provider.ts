@@ -38,6 +38,7 @@ export class Provider extends pulumi.ProviderResource {
         opts = opts || {};
         {
             resourceInputs["cluster"] = args ? args.cluster : undefined;
+            resourceInputs["clusterIdentifier"] = args ? args.clusterIdentifier : undefined;
             resourceInputs["context"] = args ? args.context : undefined;
             resourceInputs["deleteUnreachable"] = pulumi.output((args ? args.deleteUnreachable : undefined) ?? utilities.getEnvBoolean("PULUMI_K8S_DELETE_UNREACHABLE")).apply(JSON.stringify);
             resourceInputs["enableConfigMapMutable"] = pulumi.output((args ? args.enableConfigMapMutable : undefined) ?? utilities.getEnvBoolean("PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE")).apply(JSON.stringify);
@@ -64,6 +65,14 @@ export interface ProviderArgs {
      * If present, the name of the kubeconfig cluster to use.
      */
     cluster?: pulumi.Input<string>;
+    /**
+     * If present, this value will control the provider's replacement behavior. In particular, the provider will _only_ be replaced when `clusterIdentifier` changes; all other changes to provider configuration will be treated as updates.
+     *
+     * Kubernetes does not yet offer an API for cluster identification, so Pulumi uses heuristics to decide when a provider resource should be replaced or updated. These heuristics can sometimes lead to destructive replace operations when an update would be more appropriate, or vice versa.
+     *
+     * Use `clusterIdentifier` for more fine-grained control of the provider resource's lifecycle.
+     */
+    clusterIdentifier?: pulumi.Input<string>;
     /**
      * If present, the name of the kubeconfig context to use.
      */

@@ -76,6 +76,12 @@ func NewProvider(ctx *pulumi.Context,
 type providerArgs struct {
 	// If present, the name of the kubeconfig cluster to use.
 	Cluster *string `pulumi:"cluster"`
+	// If present, this value will control the provider's replacement behavior. In particular, the provider will _only_ be replaced when `clusterIdentifier` changes; all other changes to provider configuration will be treated as updates.
+	//
+	// Kubernetes does not yet offer an API for cluster identification, so Pulumi uses heuristics to decide when a provider resource should be replaced or updated. These heuristics can sometimes lead to destructive replace operations when an update would be more appropriate, or vice versa.
+	//
+	// Use `clusterIdentifier` for more fine-grained control of the provider resource's lifecycle.
+	ClusterIdentifier *string `pulumi:"clusterIdentifier"`
 	// If present, the name of the kubeconfig context to use.
 	Context *string `pulumi:"context"`
 	// If present and set to true, the provider will delete resources associated with an unreachable Kubernetes cluster from Pulumi state
@@ -124,6 +130,12 @@ type providerArgs struct {
 type ProviderArgs struct {
 	// If present, the name of the kubeconfig cluster to use.
 	Cluster pulumi.StringPtrInput
+	// If present, this value will control the provider's replacement behavior. In particular, the provider will _only_ be replaced when `clusterIdentifier` changes; all other changes to provider configuration will be treated as updates.
+	//
+	// Kubernetes does not yet offer an API for cluster identification, so Pulumi uses heuristics to decide when a provider resource should be replaced or updated. These heuristics can sometimes lead to destructive replace operations when an update would be more appropriate, or vice versa.
+	//
+	// Use `clusterIdentifier` for more fine-grained control of the provider resource's lifecycle.
+	ClusterIdentifier pulumi.StringPtrInput
 	// If present, the name of the kubeconfig context to use.
 	Context pulumi.StringPtrInput
 	// If present and set to true, the provider will delete resources associated with an unreachable Kubernetes cluster from Pulumi state

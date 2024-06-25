@@ -1,0 +1,11 @@
+-- olds --
+clusterIdentifier: foo
+
+-- news --
+clusterIdentifier: bar
+
+-- wantDiffs --
+- clusterIdentifier
+
+-- wantReplaces --
+- clusterIdentifier
