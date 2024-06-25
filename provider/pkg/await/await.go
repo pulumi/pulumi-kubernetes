@@ -46,6 +46,7 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/apimachinery/pkg/watch"
+	"k8s.io/apiserver/pkg/storage/names"
 	"k8s.io/client-go/dynamic"
 	k8sopenapi "k8s.io/kubectl/pkg/util/openapi"
 	"sigs.k8s.io/structured-merge-diff/v4/fieldpath"
@@ -223,19 +224,10 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 				// creates with SSA enabled. This means that we currently always upsert the object.
 				if c.Preview &&
 					(apierrors.IsInvalid(err) && strings.Contains(err.Error(), apivalidation.FieldImmutableErrorMsg)) {
-					const previewSuffix = "-preview"
-					objName := c.Inputs.GetName()
-
-					// Set the name to have the "-preview" suffix. Ensure we don't have a string over 253 characters, which is
-					// the maximum length for a name in Kubernetes.
-					var previewName string
-					if len(objName) > 253-len(previewSuffix) {
-						previewName = objName[:253-len(previewSuffix)] + previewSuffix
-					} else {
-						previewName = objName + previewSuffix
-					}
-
+					previewName := names.SimpleNameGenerator.GenerateName(c.Inputs.GetName())
+					c.Host.Log(c.Context, diag.Info, c.URN, fmt.Sprintf("Preview creation failed due to immutable fields; retrying with name %q", previewName))
 					c.Inputs.SetName(previewName)
+
 					objYAML, errYaml := yaml.Marshal(c.Inputs.Object)
 					if errYaml != nil {
 						return err
