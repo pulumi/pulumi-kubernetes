@@ -136,8 +136,7 @@ type Release struct {
 	Status *ReleaseStatus `json:"status,omitempty"`
 }
 
-type ReleaseSpec struct {
-}
+type ReleaseSpec struct{}
 
 // Specification defining the Helm chart repository to use.
 type RepositoryOpts struct {
@@ -276,10 +275,8 @@ func (r *helmReleaseProvider) getActionConfig(namespace string) (*action.Configu
 	return conf, nil
 }
 
-var (
-	// mapReplExtractValues extracts pure values from the property map.
-	mapReplExtractValues = combineMapReplv(mapReplStripSecrets, mapReplStripComputed)
-)
+// mapReplExtractValues extracts pure values from the property map.
+var mapReplExtractValues = combineMapReplv(mapReplStripSecrets, mapReplStripComputed)
 
 func decodeRelease(pm resource.PropertyMap, label string) (*Release, error) {
 	var release Release
@@ -1328,12 +1325,12 @@ func logValues(values map[string]any) error {
 // Merges a and b map, preferring values from b map
 func mergeMaps(a, b map[string]any, allowNullValues bool) (map[string]any, error) {
 	if allowNullValues {
-		a = mapToInterface(a).(map[string]any)
-		b = mapToInterface(b).(map[string]any)
-	} else {
-		a = excludeNulls(a).(map[string]any)
-		b = excludeNulls(b).(map[string]any)
+		// Use upstream's behavior.
+		return helm.MergeMaps(a, b), nil
 	}
+
+	a = excludeNulls(a).(map[string]any)
+	b = excludeNulls(b).(map[string]any)
 	if err := mergo.Merge(&a, b, mergo.WithOverride, mergo.WithTypeCheck); err != nil {
 		return nil, err
 	}
@@ -1365,31 +1362,6 @@ func excludeNulls(in any) any {
 			if i != nil {
 				out = append(out, excludeNulls(i))
 			}
-		}
-		return out
-	}
-	return in
-}
-
-func mapToInterface(in any) any {
-	switch reflect.TypeOf(in).Kind() {
-	case reflect.Map:
-		out := map[string]any{}
-		m := in.(map[string]any)
-		for k, v := range m {
-			val := reflect.ValueOf(v)
-			if !val.IsValid() {
-				out[k] = v
-				continue
-			}
-			out[k] = mapToInterface(v)
-		}
-		return out
-	case reflect.Slice, reflect.Array:
-		var out []any
-		s := in.([]any)
-		for _, i := range s {
-			out = append(out, mapToInterface(i))
 		}
 		return out
 	}
@@ -1706,8 +1678,7 @@ func getTimeoutOrDefault(timeout int) time.Duration {
 
 // noSchema implements a trivial lookup function for patch metadata (i.e. patch strategy and merge key).
 // CreateThreeWayMergePatch supports various strategies for merging maps and slices, but we use the default strategy.
-type noSchema struct {
-}
+type noSchema struct{}
 
 var _ strategicpatch.LookupPatchMeta = &noSchema{}
 
