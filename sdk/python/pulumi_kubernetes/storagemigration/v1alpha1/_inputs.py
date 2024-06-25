@@ -4,21 +4,55 @@
 
 import copy
 import warnings
+import sys
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
+if sys.version_info >= (3, 11):
+    from typing import NotRequired, TypedDict, TypeAlias
+else:
+    from typing_extensions import NotRequired, TypedDict, TypeAlias
 from ... import _utilities
 from ... import meta as _meta
 
 __all__ = [
     'GroupVersionResourcePatchArgs',
+    'GroupVersionResourcePatchArgsDict',
     'GroupVersionResourceArgs',
+    'GroupVersionResourceArgsDict',
     'MigrationConditionArgs',
+    'MigrationConditionArgsDict',
     'StorageVersionMigrationSpecPatchArgs',
+    'StorageVersionMigrationSpecPatchArgsDict',
     'StorageVersionMigrationSpecArgs',
+    'StorageVersionMigrationSpecArgsDict',
     'StorageVersionMigrationStatusArgs',
+    'StorageVersionMigrationStatusArgsDict',
     'StorageVersionMigrationArgs',
+    'StorageVersionMigrationArgsDict',
 ]
+
+MYPY = False
+
+if not MYPY:
+    class GroupVersionResourcePatchArgsDict(TypedDict):
+        """
+        The names of the group, the version, and the resource.
+        """
+        group: NotRequired[pulumi.Input[str]]
+        """
+        The name of the group.
+        """
+        resource: NotRequired[pulumi.Input[str]]
+        """
+        The name of the resource.
+        """
+        version: NotRequired[pulumi.Input[str]]
+        """
+        The name of the version.
+        """
+elif False:
+    GroupVersionResourcePatchArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class GroupVersionResourcePatchArgs:
@@ -76,6 +110,26 @@ class GroupVersionResourcePatchArgs:
         pulumi.set(self, "version", value)
 
 
+if not MYPY:
+    class GroupVersionResourceArgsDict(TypedDict):
+        """
+        The names of the group, the version, and the resource.
+        """
+        group: NotRequired[pulumi.Input[str]]
+        """
+        The name of the group.
+        """
+        resource: NotRequired[pulumi.Input[str]]
+        """
+        The name of the resource.
+        """
+        version: NotRequired[pulumi.Input[str]]
+        """
+        The name of the version.
+        """
+elif False:
+    GroupVersionResourceArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class GroupVersionResourceArgs:
     def __init__(__self__, *,
@@ -131,6 +185,34 @@ class GroupVersionResourceArgs:
     def version(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "version", value)
 
+
+if not MYPY:
+    class MigrationConditionArgsDict(TypedDict):
+        """
+        Describes the state of a migration at a certain point.
+        """
+        status: pulumi.Input[str]
+        """
+        Status of the condition, one of True, False, Unknown.
+        """
+        type: pulumi.Input[str]
+        """
+        Type of the condition.
+        """
+        last_update_time: NotRequired[pulumi.Input[str]]
+        """
+        The last time this condition was updated.
+        """
+        message: NotRequired[pulumi.Input[str]]
+        """
+        A human readable message indicating details about the transition.
+        """
+        reason: NotRequired[pulumi.Input[str]]
+        """
+        The reason for the condition's last transition.
+        """
+elif False:
+    MigrationConditionArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class MigrationConditionArgs:
@@ -218,6 +300,22 @@ class MigrationConditionArgs:
         pulumi.set(self, "reason", value)
 
 
+if not MYPY:
+    class StorageVersionMigrationSpecPatchArgsDict(TypedDict):
+        """
+        Spec of the storage version migration.
+        """
+        continue_token: NotRequired[pulumi.Input[str]]
+        """
+        The token used in the list options to get the next chunk of objects to migrate. When the .status.conditions indicates the migration is "Running", users can use this token to check the progress of the migration.
+        """
+        resource: NotRequired[pulumi.Input['GroupVersionResourcePatchArgsDict']]
+        """
+        The resource that is being migrated. The migrator sends requests to the endpoint serving the resource. Immutable.
+        """
+elif False:
+    StorageVersionMigrationSpecPatchArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class StorageVersionMigrationSpecPatchArgs:
     def __init__(__self__, *,
@@ -258,6 +356,22 @@ class StorageVersionMigrationSpecPatchArgs:
         pulumi.set(self, "resource", value)
 
 
+if not MYPY:
+    class StorageVersionMigrationSpecArgsDict(TypedDict):
+        """
+        Spec of the storage version migration.
+        """
+        resource: pulumi.Input['GroupVersionResourceArgsDict']
+        """
+        The resource that is being migrated. The migrator sends requests to the endpoint serving the resource. Immutable.
+        """
+        continue_token: NotRequired[pulumi.Input[str]]
+        """
+        The token used in the list options to get the next chunk of objects to migrate. When the .status.conditions indicates the migration is "Running", users can use this token to check the progress of the migration.
+        """
+elif False:
+    StorageVersionMigrationSpecArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class StorageVersionMigrationSpecArgs:
     def __init__(__self__, *,
@@ -296,6 +410,22 @@ class StorageVersionMigrationSpecArgs:
     def continue_token(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "continue_token", value)
 
+
+if not MYPY:
+    class StorageVersionMigrationStatusArgsDict(TypedDict):
+        """
+        Status of the storage version migration.
+        """
+        conditions: NotRequired[pulumi.Input[Sequence[pulumi.Input['MigrationConditionArgsDict']]]]
+        """
+        The latest available observations of the migration's current state.
+        """
+        resource_version: NotRequired[pulumi.Input[str]]
+        """
+        ResourceVersion to compare with the GC cache for performing the migration. This is the current resource version of given group, version and resource when kube-controller-manager first observes this StorageVersionMigration resource.
+        """
+elif False:
+    StorageVersionMigrationStatusArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class StorageVersionMigrationStatusArgs:
@@ -336,6 +466,34 @@ class StorageVersionMigrationStatusArgs:
     def resource_version(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "resource_version", value)
 
+
+if not MYPY:
+    class StorageVersionMigrationArgsDict(TypedDict):
+        """
+        StorageVersionMigration represents a migration of stored data to the latest storage version.
+        """
+        api_version: NotRequired[pulumi.Input[str]]
+        """
+        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        """
+        kind: NotRequired[pulumi.Input[str]]
+        """
+        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        """
+        metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
+        """
+        Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        """
+        spec: NotRequired[pulumi.Input['StorageVersionMigrationSpecArgsDict']]
+        """
+        Specification of the migration.
+        """
+        status: NotRequired[pulumi.Input['StorageVersionMigrationStatusArgsDict']]
+        """
+        Status of the migration.
+        """
+elif False:
+    StorageVersionMigrationArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class StorageVersionMigrationArgs:

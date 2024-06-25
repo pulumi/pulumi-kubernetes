@@ -4,15 +4,40 @@
 
 import copy
 import warnings
+import sys
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
+if sys.version_info >= (3, 11):
+    from typing import NotRequired, TypedDict, TypeAlias
+else:
+    from typing_extensions import NotRequired, TypedDict, TypeAlias
 from ... import _utilities
 
 __all__ = [
     'PostRendererArgs',
+    'PostRendererArgsDict',
     'RepositoryOptsArgs',
+    'RepositoryOptsArgsDict',
 ]
+
+MYPY = False
+
+if not MYPY:
+    class PostRendererArgsDict(TypedDict):
+        """
+        Specification defining the post-renderer to use.
+        """
+        command: pulumi.Input[str]
+        """
+        Path to an executable to be used for post rendering.
+        """
+        args: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
+        """
+        Arguments to pass to the post-renderer command.
+        """
+elif False:
+    PostRendererArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class PostRendererArgs:
@@ -52,6 +77,38 @@ class PostRendererArgs:
     def args(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
         pulumi.set(self, "args", value)
 
+
+if not MYPY:
+    class RepositoryOptsArgsDict(TypedDict):
+        """
+        Specification defining the Helm chart repository to use.
+        """
+        ca_file: NotRequired[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]]
+        """
+        The Repository's CA File
+        """
+        cert_file: NotRequired[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]]
+        """
+        The repository's cert file
+        """
+        key_file: NotRequired[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]]
+        """
+        The repository's cert key file
+        """
+        password: NotRequired[pulumi.Input[str]]
+        """
+        Password for HTTP basic authentication
+        """
+        repo: NotRequired[pulumi.Input[str]]
+        """
+        Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository.
+        """
+        username: NotRequired[pulumi.Input[str]]
+        """
+        Username for HTTP basic authentication
+        """
+elif False:
+    RepositoryOptsArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class RepositoryOptsArgs:

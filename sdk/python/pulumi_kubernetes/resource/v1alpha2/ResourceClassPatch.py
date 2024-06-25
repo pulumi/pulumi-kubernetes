@@ -4,9 +4,14 @@
 
 import copy
 import warnings
+import sys
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
+if sys.version_info >= (3, 11):
+    from typing import NotRequired, TypedDict, TypeAlias
+else:
+    from typing_extensions import NotRequired, TypedDict, TypeAlias
 from ... import _utilities
 from . import outputs
 from ... import core as _core
@@ -151,10 +156,10 @@ class ResourceClassPatch(pulumi.CustomResource):
                  api_version: Optional[pulumi.Input[str]] = None,
                  driver_name: Optional[pulumi.Input[str]] = None,
                  kind: Optional[pulumi.Input[str]] = None,
-                 metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaPatchArgs']]] = None,
-                 parameters_ref: Optional[pulumi.Input[pulumi.InputType['ResourceClassParametersReferencePatchArgs']]] = None,
+                 metadata: Optional[pulumi.Input[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict']]] = None,
+                 parameters_ref: Optional[pulumi.Input[Union['ResourceClassParametersReferencePatchArgs', 'ResourceClassParametersReferencePatchArgsDict']]] = None,
                  structured_parameters: Optional[pulumi.Input[bool]] = None,
-                 suitable_nodes: Optional[pulumi.Input[pulumi.InputType['_core.v1.NodeSelectorPatchArgs']]] = None,
+                 suitable_nodes: Optional[pulumi.Input[Union['_core.v1.NodeSelectorPatchArgs', '_core.v1.NodeSelectorPatchArgsDict']]] = None,
                  __props__=None):
         """
         Patch resources are used to modify existing Kubernetes resources by using
@@ -174,10 +179,10 @@ class ResourceClassPatch(pulumi.CustomResource):
                
                Resource drivers have a unique name in forward domain order (acme.example.com).
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaPatchArgs']] metadata: Standard object metadata
-        :param pulumi.Input[pulumi.InputType['ResourceClassParametersReferencePatchArgs']] parameters_ref: ParametersRef references an arbitrary separate object that may hold parameters that will be used by the driver when allocating a resource that uses this class. A dynamic resource driver can distinguish between parameters stored here and and those stored in ResourceClaimSpec.
+        :param pulumi.Input[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict']] metadata: Standard object metadata
+        :param pulumi.Input[Union['ResourceClassParametersReferencePatchArgs', 'ResourceClassParametersReferencePatchArgsDict']] parameters_ref: ParametersRef references an arbitrary separate object that may hold parameters that will be used by the driver when allocating a resource that uses this class. A dynamic resource driver can distinguish between parameters stored here and and those stored in ResourceClaimSpec.
         :param pulumi.Input[bool] structured_parameters: If and only if allocation of claims using this class is handled via structured parameters, then StructuredParameters must be set to true.
-        :param pulumi.Input[pulumi.InputType['_core.v1.NodeSelectorPatchArgs']] suitable_nodes: Only nodes matching the selector will be considered by the scheduler when trying to find a Node that fits a Pod when that Pod uses a ResourceClaim that has not been allocated yet.
+        :param pulumi.Input[Union['_core.v1.NodeSelectorPatchArgs', '_core.v1.NodeSelectorPatchArgsDict']] suitable_nodes: Only nodes matching the selector will be considered by the scheduler when trying to find a Node that fits a Pod when that Pod uses a ResourceClaim that has not been allocated yet.
                
                Setting this field is optional. If null, all nodes are candidates.
         """
@@ -216,10 +221,10 @@ class ResourceClassPatch(pulumi.CustomResource):
                  api_version: Optional[pulumi.Input[str]] = None,
                  driver_name: Optional[pulumi.Input[str]] = None,
                  kind: Optional[pulumi.Input[str]] = None,
-                 metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaPatchArgs']]] = None,
-                 parameters_ref: Optional[pulumi.Input[pulumi.InputType['ResourceClassParametersReferencePatchArgs']]] = None,
+                 metadata: Optional[pulumi.Input[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict']]] = None,
+                 parameters_ref: Optional[pulumi.Input[Union['ResourceClassParametersReferencePatchArgs', 'ResourceClassParametersReferencePatchArgsDict']]] = None,
                  structured_parameters: Optional[pulumi.Input[bool]] = None,
-                 suitable_nodes: Optional[pulumi.Input[pulumi.InputType['_core.v1.NodeSelectorPatchArgs']]] = None,
+                 suitable_nodes: Optional[pulumi.Input[Union['_core.v1.NodeSelectorPatchArgs', '_core.v1.NodeSelectorPatchArgsDict']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):

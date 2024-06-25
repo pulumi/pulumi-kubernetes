@@ -4,9 +4,14 @@
 
 import copy
 import warnings
+import sys
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
+if sys.version_info >= (3, 11):
+    from typing import NotRequired, TypedDict, TypeAlias
+else:
+    from typing_extensions import NotRequired, TypedDict, TypeAlias
 from . import _utilities
 from ._inputs import *
 
@@ -288,8 +293,8 @@ class Provider(pulumi.ProviderResource):
                  delete_unreachable: Optional[pulumi.Input[bool]] = None,
                  enable_config_map_mutable: Optional[pulumi.Input[bool]] = None,
                  enable_server_side_apply: Optional[pulumi.Input[bool]] = None,
-                 helm_release_settings: Optional[pulumi.Input[pulumi.InputType['HelmReleaseSettingsArgs']]] = None,
-                 kube_client_settings: Optional[pulumi.Input[pulumi.InputType['KubeClientSettingsArgs']]] = None,
+                 helm_release_settings: Optional[pulumi.Input[Union['HelmReleaseSettingsArgs', 'HelmReleaseSettingsArgsDict']]] = None,
+                 kube_client_settings: Optional[pulumi.Input[Union['KubeClientSettingsArgs', 'KubeClientSettingsArgsDict']]] = None,
                  kubeconfig: Optional[pulumi.Input[str]] = None,
                  namespace: Optional[pulumi.Input[str]] = None,
                  render_yaml_to_directory: Optional[pulumi.Input[str]] = None,
@@ -313,8 +318,8 @@ class Provider(pulumi.ProviderResource):
                2. The `PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE` environment variable.
         :param pulumi.Input[bool] enable_server_side_apply: If present and set to false, disable Server-Side Apply mode.
                See https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.
-        :param pulumi.Input[pulumi.InputType['HelmReleaseSettingsArgs']] helm_release_settings: Options to configure the Helm Release resource.
-        :param pulumi.Input[pulumi.InputType['KubeClientSettingsArgs']] kube_client_settings: Options for tuning the Kubernetes client used by a Provider.
+        :param pulumi.Input[Union['HelmReleaseSettingsArgs', 'HelmReleaseSettingsArgsDict']] helm_release_settings: Options to configure the Helm Release resource.
+        :param pulumi.Input[Union['KubeClientSettingsArgs', 'KubeClientSettingsArgsDict']] kube_client_settings: Options for tuning the Kubernetes client used by a Provider.
         :param pulumi.Input[str] kubeconfig: The contents of a kubeconfig file or the path to a kubeconfig file.
         :param pulumi.Input[str] namespace: If present, the default namespace to use. This flag is ignored for cluster-scoped resources.
                
@@ -363,8 +368,8 @@ class Provider(pulumi.ProviderResource):
                  delete_unreachable: Optional[pulumi.Input[bool]] = None,
                  enable_config_map_mutable: Optional[pulumi.Input[bool]] = None,
                  enable_server_side_apply: Optional[pulumi.Input[bool]] = None,
-                 helm_release_settings: Optional[pulumi.Input[pulumi.InputType['HelmReleaseSettingsArgs']]] = None,
-                 kube_client_settings: Optional[pulumi.Input[pulumi.InputType['KubeClientSettingsArgs']]] = None,
+                 helm_release_settings: Optional[pulumi.Input[Union['HelmReleaseSettingsArgs', 'HelmReleaseSettingsArgsDict']]] = None,
+                 kube_client_settings: Optional[pulumi.Input[Union['KubeClientSettingsArgs', 'KubeClientSettingsArgsDict']]] = None,
                  kubeconfig: Optional[pulumi.Input[str]] = None,
                  namespace: Optional[pulumi.Input[str]] = None,
                  render_yaml_to_directory: Optional[pulumi.Input[str]] = None,

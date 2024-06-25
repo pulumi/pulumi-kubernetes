@@ -4,9 +4,14 @@
 
 import copy
 import warnings
+import sys
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
+if sys.version_info >= (3, 11):
+    from typing import NotRequired, TypedDict, TypeAlias
+else:
+    from typing_extensions import NotRequired, TypedDict, TypeAlias
 from ... import _utilities
 from . import outputs
 from ... import meta as _meta
@@ -129,8 +134,8 @@ class ResourceSlice(pulumi.CustomResource):
                  api_version: Optional[pulumi.Input[str]] = None,
                  driver_name: Optional[pulumi.Input[str]] = None,
                  kind: Optional[pulumi.Input[str]] = None,
-                 metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']]] = None,
-                 named_resources: Optional[pulumi.Input[pulumi.InputType['NamedResourcesResourcesArgs']]] = None,
+                 metadata: Optional[pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
+                 named_resources: Optional[pulumi.Input[Union['NamedResourcesResourcesArgs', 'NamedResourcesResourcesArgsDict']]] = None,
                  node_name: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
@@ -141,8 +146,8 @@ class ResourceSlice(pulumi.CustomResource):
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] driver_name: DriverName identifies the DRA driver providing the capacity information. A field selector can be used to list only ResourceSlice objects with a certain driver name.
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']] metadata: Standard object metadata
-        :param pulumi.Input[pulumi.InputType['NamedResourcesResourcesArgs']] named_resources: NamedResources describes available resources using the named resources model.
+        :param pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']] metadata: Standard object metadata
+        :param pulumi.Input[Union['NamedResourcesResourcesArgs', 'NamedResourcesResourcesArgsDict']] named_resources: NamedResources describes available resources using the named resources model.
         :param pulumi.Input[str] node_name: NodeName identifies the node which provides the resources if they are local to a node.
                
                A field selector can be used to list only ResourceSlice objects with a certain node name.
@@ -174,8 +179,8 @@ class ResourceSlice(pulumi.CustomResource):
                  api_version: Optional[pulumi.Input[str]] = None,
                  driver_name: Optional[pulumi.Input[str]] = None,
                  kind: Optional[pulumi.Input[str]] = None,
-                 metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']]] = None,
-                 named_resources: Optional[pulumi.Input[pulumi.InputType['NamedResourcesResourcesArgs']]] = None,
+                 metadata: Optional[pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
+                 named_resources: Optional[pulumi.Input[Union['NamedResourcesResourcesArgs', 'NamedResourcesResourcesArgsDict']]] = None,
                  node_name: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
