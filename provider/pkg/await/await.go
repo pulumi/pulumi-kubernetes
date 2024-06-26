@@ -225,7 +225,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 				if c.Preview &&
 					(apierrors.IsInvalid(err) && strings.Contains(err.Error(), apivalidation.FieldImmutableErrorMsg)) {
 					previewName := names.SimpleNameGenerator.GenerateName(c.Inputs.GetName())
-					c.Host.Log(c.Context, diag.Info, c.URN, fmt.Sprintf("Preview creation failed due to immutable fields; retrying with name %q", previewName))
+					_ = c.Host.Log(c.Context, diag.Info, c.URN, fmt.Sprintf("Preview creation failed due to immutable fields; retrying with name %q", previewName))
 					c.Inputs.SetName(previewName)
 
 					objYAML, errYaml := yaml.Marshal(c.Inputs.Object)
