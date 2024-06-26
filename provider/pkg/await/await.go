@@ -39,12 +39,14 @@ import (
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
 	apierrors "k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/api/meta"
+	apivalidation "k8s.io/apimachinery/pkg/api/validation"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/fields"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/apimachinery/pkg/watch"
+	"k8s.io/apiserver/pkg/storage/names"
 	"k8s.io/client-go/dynamic"
 	k8sopenapi "k8s.io/kubectl/pkg/util/openapi"
 	"sigs.k8s.io/structured-merge-diff/v4/fieldpath"
@@ -212,6 +214,28 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 				}
 				outputs, err = client.Patch(
 					c.Context, c.Inputs.GetName(), types.ApplyPatchType, objYAML, options)
+
+				// Handle the preview scenario where we need to re-create the object due to immutable fields.
+				// To avoid the immutable field error reported by the API server, we append "-preview" to the name
+				// so that the dry-run operation can succeed. This is a workaround for the limitation of the
+				// server-side apply API, which does not support replacement dry-run operations.
+				//
+				// Note that the AlreadyExists error does not occur since we always send a PATCH request during
+				// creates with SSA enabled. This means that we currently always upsert the object.
+				if c.Preview &&
+					(apierrors.IsInvalid(err) && strings.Contains(err.Error(), apivalidation.FieldImmutableErrorMsg)) {
+					previewName := names.SimpleNameGenerator.GenerateName(c.Inputs.GetName())
+					_ = c.Host.Log(c.Context, diag.Info, c.URN, fmt.Sprintf("Preview creation failed due to immutable fields; retrying with name %q", previewName))
+					c.Inputs.SetName(previewName)
+
+					objYAML, errYaml := yaml.Marshal(c.Inputs.Object)
+					if errYaml != nil {
+						return err
+					}
+
+					outputs, err = client.Patch(
+						c.Context, c.Inputs.GetName(), types.ApplyPatchType, objYAML, options)
+				}
 
 				err = handleSSAErr(err, c.FieldManager)
 			} else {
