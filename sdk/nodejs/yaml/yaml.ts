@@ -3363,7 +3363,8 @@ export interface ConfigOpts {
     return {
         parent: parent,
         ...opts?.version && {version: opts.version},
-        ...opts?.pluginDownloadURL && {pluginDownloadURL: opts.pluginDownloadURL}
+        ...opts?.pluginDownloadURL && {pluginDownloadURL: opts.pluginDownloadURL},
+        ...opts?.retainOnDelete && {retainOnDelete: opts.retainOnDelete},
     };
 }
 

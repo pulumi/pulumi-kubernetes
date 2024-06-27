@@ -155,6 +155,7 @@ func (r *DirectoryProvider) Construct(ctx *pulumi.Context, typ, name string, inp
 		Objects:         objs,
 		ResourcePrefix:  *directoryArgs.ResourcePrefix,
 		SkipAwait:       directoryArgs.SkipAwait,
+		ParentOptions:   options,
 		ResourceOptions: []pulumi.ResourceOption{pulumi.Parent(comp)},
 	}
 	resources, err := provideryamlv2.Register(ctx, registerOpts)
