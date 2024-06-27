@@ -9,7 +9,7 @@
     <PackageProjectUrl>https://pulumi.com</PackageProjectUrl>
     <RepositoryUrl>https://github.com/pulumi/pulumi-kubernetes</RepositoryUrl>
     <PackageIcon>logo.png</PackageIcon>
-    <Version>4.0.0-alpha.0+dev</Version>
+    <Version>4.14.0-alpha.1719439666+d418c9a</Version>
 
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
