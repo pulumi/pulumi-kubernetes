@@ -433,6 +433,19 @@ func TestCRDs(t *testing.T) {
 				Additive: true,
 				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 					assert.NotNil(t, stackInfo.Deployment)
+
+					//
+					// Assert that the CR was gotten.
+					//
+					ct1ref := tests.SearchResourcesByName(stackInfo, "", "kubernetes:stable.example.com/v1:FooBar", "my-new-foobar-object-ref")
+					assert.NotNil(t, ct1ref)
+				},
+			},
+			{
+				Dir:      filepath.Join("crds", "step3"),
+				Additive: true,
+				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+					assert.NotNil(t, stackInfo.Deployment)
 					assert.Equal(t, 4, len(stackInfo.Deployment.Resources))
 
 					tests.SortResourcesByURN(stackInfo)

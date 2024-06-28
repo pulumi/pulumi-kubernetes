@@ -18,12 +18,15 @@
 package apiextensions
 
 import (
+	"context"
+	"errors"
 	"fmt"
 	"reflect"
 
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/internals"
 )
 
 // CustomResource represents a resource definition we'd use to create an instance of a
@@ -47,7 +50,11 @@ type CustomResource struct {
 func NewCustomResource(ctx *pulumi.Context,
 	name string, args *CustomResourceArgs, opts ...pulumi.ResourceOption) (*CustomResource, error) {
 	if args == nil {
-		args = &CustomResourceArgs{}
+		return nil, errors.New("missing one or more required arguments")
+	}
+	apiVersion, kind, err := getApiVersionAndKind(ctx.Context(), args.ApiVersion, args.Kind)
+	if err != nil {
+		return nil, err
 	}
 
 	untyped := kubernetes.UntypedArgs{}
@@ -59,7 +66,7 @@ func NewCustomResource(ctx *pulumi.Context,
 	untyped["metadata"] = args.Metadata
 
 	var resource CustomResource
-	err := ctx.RegisterResource(fmt.Sprintf("kubernetes:%s:%s", args.ApiVersion, args.Kind), name, untyped, &resource, opts...)
+	err = ctx.RegisterResource(fmt.Sprintf("kubernetes:%s:%s", apiVersion, kind), name, untyped, &resource, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -71,7 +78,15 @@ func NewCustomResource(ctx *pulumi.Context,
 func GetCustomResource(ctx *pulumi.Context,
 	name string, id pulumi.IDInput, state *CustomResourceState, opts ...pulumi.ResourceOption) (*CustomResource, error) {
 	var resource CustomResource
-	err := ctx.ReadResource(fmt.Sprintf("kubernetes:%s:%s", state.ApiVersion, state.Kind), name, id, state, &resource, opts...)
+	if state == nil {
+		return nil, errors.New("missing one or more required arguments")
+	}
+	apiVersion, kind, err := getApiVersionAndKind(ctx.Context(), state.ApiVersion, state.Kind)
+	if err != nil {
+		return nil, err
+	}
+
+	err = ctx.ReadResource(fmt.Sprintf("kubernetes:%s:%s", apiVersion, kind), name, id, state, &resource, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -126,4 +141,35 @@ type CustomResourceArgs struct {
 
 func (CustomResourceArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*customResourceArgs)(nil)).Elem()
+}
+
+type stringPtrOutput interface {
+	ToStringPtrOutputWithContext(ctx context.Context) pulumi.StringPtrOutput
+}
+
+// getApiVersionAndKind gets the apiVersion and kind from the given inputs.
+func getApiVersionAndKind(ctx context.Context, apiVersion, kind stringPtrOutput) (string, string, error) {
+	if apiVersion == nil {
+		return "", "", errors.New("Missing required property 'apiVersion'")
+	}
+	a, err := internals.UnsafeAwaitOutput(ctx, apiVersion.ToStringPtrOutputWithContext(ctx))
+	if err != nil {
+		return "", "", fmt.Errorf("error getting property 'apiVersion': %w", err)
+	}
+	if !a.Known {
+		return "", "", errors.New("Unknown value for property 'apiVersion'")
+	}
+
+	if kind == nil {
+		return "", "", errors.New("Missing required property 'kind'")
+	}
+	k, err := internals.UnsafeAwaitOutput(ctx, kind.ToStringPtrOutputWithContext(ctx))
+	if err != nil {
+		return "", "", fmt.Errorf("error getting property 'kind': %w", err)
+	}
+	if !k.Known {
+		return "", "", errors.New("Unknown value for property 'kind'")
+	}
+
+	return *a.Value.(*string), *k.Value.(*string), nil
 }
