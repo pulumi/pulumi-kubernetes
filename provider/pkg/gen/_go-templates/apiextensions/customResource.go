@@ -18,6 +18,7 @@
 package apiextensions
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"reflect"
@@ -25,6 +26,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/internals"
 )
 
 // CustomResource represents a resource definition we'd use to create an instance of a
@@ -50,6 +52,10 @@ func NewCustomResource(ctx *pulumi.Context,
 	if args == nil {
 		return nil, errors.New("missing one or more required arguments")
 	}
+	apiVersion, kind, err := getApiVersionAndKind(ctx.Context(), args.ApiVersion, args.Kind)
+	if err != nil {
+		return nil, err
+	}
 
 	untyped := kubernetes.UntypedArgs{}
 	for k, v := range args.OtherFields {
@@ -60,7 +66,7 @@ func NewCustomResource(ctx *pulumi.Context,
 	untyped["metadata"] = args.Metadata
 
 	var resource CustomResource
-	err := ctx.RegisterResource(fmt.Sprintf("kubernetes:%s:%s", args.ApiVersion, args.Kind), name, untyped, &resource, opts...)
+	err = ctx.RegisterResource(fmt.Sprintf("kubernetes:%s:%s", apiVersion, kind), name, untyped, &resource, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -72,7 +78,15 @@ func NewCustomResource(ctx *pulumi.Context,
 func GetCustomResource(ctx *pulumi.Context,
 	name string, id pulumi.IDInput, state *CustomResourceState, opts ...pulumi.ResourceOption) (*CustomResource, error) {
 	var resource CustomResource
-	err := ctx.ReadResource(fmt.Sprintf("kubernetes:%s:%s", state.ApiVersion, state.Kind), name, id, state, &resource, opts...)
+	if state == nil {
+		return nil, errors.New("missing one or more required arguments")
+	}
+	apiVersion, kind, err := getApiVersionAndKind(ctx.Context(), state.ApiVersion, state.Kind)
+	if err != nil {
+		return nil, err
+	}
+
+	err = ctx.ReadResource(fmt.Sprintf("kubernetes:%s:%s", apiVersion, kind), name, id, state, &resource, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -116,9 +130,9 @@ type customResourceArgs struct {
 // The set of arguments for constructing a CustomResource resource.
 type CustomResourceArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion string
+	ApiVersion pulumi.StringInput
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind string
+	Kind pulumi.StringInput
 	// Standard object metadata.
 	Metadata metav1.ObjectMetaPtrInput
 	// Untyped map that holds any user-defined fields.
@@ -127,4 +141,35 @@ type CustomResourceArgs struct {
 
 func (CustomResourceArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*customResourceArgs)(nil)).Elem()
+}
+
+type stringPtrOutput interface {
+	ToStringPtrOutputWithContext(ctx context.Context) pulumi.StringPtrOutput
+}
+
+// getApiVersionAndKind gets the apiVersion and kind from the given inputs.
+func getApiVersionAndKind(ctx context.Context, apiVersion, kind stringPtrOutput) (string, string, error) {
+	if apiVersion == nil {
+		return "", "", errors.New("apiVersion is required")
+	}
+	a, err := internals.UnsafeAwaitOutput(ctx, apiVersion.ToStringPtrOutputWithContext(ctx))
+	if err != nil {
+		return "", "", fmt.Errorf("error getting apiVersion: %w", err)
+	}
+	if !a.Known || len(*a.Value.(*string)) == 0 {
+		return "", "", errors.New("apiVersion has an invalid value")
+	}
+
+	if kind == nil {
+		return "", "", errors.New("kind is required")
+	}
+	k, err := internals.UnsafeAwaitOutput(ctx, kind.ToStringPtrOutputWithContext(ctx))
+	if err != nil {
+		return "", "", fmt.Errorf("error getting kind: %w", err)
+	}
+	if !k.Known || len(*k.Value.(*string)) == 0 {
+		return "", "", errors.New("kind has an invalid value")
+	}
+
+	return *a.Value.(*string), *k.Value.(*string), nil
 }

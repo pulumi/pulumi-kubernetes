@@ -50,6 +50,10 @@ func NewCustomResourcePatch(ctx *pulumi.Context,
 	if args == nil {
 		return nil, errors.New("missing one or more required arguments")
 	}
+	apiVersion, kind, err := getApiVersionAndKind(ctx.Context(), args.ApiVersion, args.Kind)
+	if err != nil {
+		return nil, err
+	}
 
 	untyped := kubernetes.UntypedArgs{}
 	for k, v := range args.OtherFields {
@@ -60,7 +64,7 @@ func NewCustomResourcePatch(ctx *pulumi.Context,
 	untyped["metadata"] = args.Metadata
 
 	var resource CustomResourcePatch
-	err := ctx.RegisterResource(fmt.Sprintf("kubernetes:%s:%sPatch", args.ApiVersion, args.Kind), name, untyped, &resource, opts...)
+	err = ctx.RegisterResource(fmt.Sprintf("kubernetes:%s:%sPatch", apiVersion, kind), name, untyped, &resource, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -81,9 +85,9 @@ type customResourcePatchArgs struct {
 // The set of arguments for constructing a CustomResourcePatch resource.
 type CustomResourcePatchArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion string
+	ApiVersion pulumi.StringInput
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind string
+	Kind pulumi.StringInput
 	// Standard object metadata.
 	Metadata metav1.ObjectMetaPtrInput
 	// Untyped map that holds any user-defined fields.
