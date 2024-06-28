@@ -1,5 +1,7 @@
 ## Unreleased
 
+## 4.14.0 (June 28, 2024)
+
 ### Added
 
 - `TypedDict` input types for the Python SDK (https://github.com/pulumi/pulumi-kubernetes/pull/3070)
@@ -13,7 +15,7 @@
 - `Chart` v4 now handles an array of assets. (https://github.com/pulumi/pulumi-kubernetes/pull/3061)
 - Fix previews always failing when a resource is to be replaced (https://github.com/pulumi/pulumi-kubernetes/pull/3053)
 
-## 4.13.0 (June 4, 2024)
+## 4.13.1 (June 4, 2024)
 
 ### Added
 
