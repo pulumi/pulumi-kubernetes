@@ -77,6 +77,12 @@ export class CustomResource extends pulumi.CustomResource {
         let inputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
+            if ((!args || args.apiVersion === undefined) && !opts.urn) {
+                throw new Error("Missing required property 'apiVersion'");
+            }
+            if ((!args || args.kind === undefined) && !opts.urn) {
+                throw new Error("Missing required property 'kind'");
+            }
             for (const key of Object.keys(args)) {
                 inputs[key] = (args as any)[key];
             }
@@ -106,7 +112,7 @@ export interface CustomResourceArgs {
      * values. More info:
      * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
      */
-    apiVersion: pulumi.Input<string>;
+    apiVersion: string;
 
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may
@@ -114,7 +120,7 @@ export interface CustomResourceArgs {
      * CamelCase. More info:
      * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
      */
-    kind: pulumi.Input<string>;
+    kind: string;
 
     /**
      * Standard object metadata; More info:
@@ -133,13 +139,13 @@ export interface CustomResourceGetOptions extends pulumi.CustomResourceOptions {
      * apiVersion is the API version of the apiExtensions.CustomResource we wish to select,
      * as specified by the CustomResourceDefinition that defines it on the API server.
      */
-    apiVersion: pulumi.Input<string>;
+    apiVersion: string;
 
     /**
      * kind is the kind of the apiextensions.CustomResource we wish to select, as specified by
      * the CustomResourceDefinition that defines it on the API server.
      */
-    kind: pulumi.Input<string>
+    kind: string;
 
     /**
      * An ID for the Kubernetes resource to retrieve. Takes the form [namespace]/[name] or

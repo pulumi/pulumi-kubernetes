@@ -18,6 +18,7 @@
 package apiextensions
 
 import (
+	"errors"
 	"fmt"
 	"reflect"
 
@@ -47,7 +48,7 @@ type CustomResource struct {
 func NewCustomResource(ctx *pulumi.Context,
 	name string, args *CustomResourceArgs, opts ...pulumi.ResourceOption) (*CustomResource, error) {
 	if args == nil {
-		args = &CustomResourceArgs{}
+		return nil, errors.New("missing one or more required arguments")
 	}
 
 	untyped := kubernetes.UntypedArgs{}
@@ -115,9 +116,9 @@ type customResourceArgs struct {
 // The set of arguments for constructing a CustomResource resource.
 type CustomResourceArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringInput
+	ApiVersion string
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringInput
+	Kind string
 	// Standard object metadata.
 	Metadata metav1.ObjectMetaPtrInput
 	// Untyped map that holds any user-defined fields.

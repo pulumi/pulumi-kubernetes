@@ -62,7 +62,7 @@ namespace Pulumi.Kubernetes.ApiExtensions
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public CustomResource(string name, CustomResourceArgs args, CustomResourceOptions? options = null)
-            : base(args.Type, name, args, options)
+            : base($"kubernetes:{args.ApiVersion}:{args.Kind}", name, args, options)
         {
         }
 
@@ -97,8 +97,8 @@ namespace Pulumi.Kubernetes.ApiExtensions
         /// values. More info:
         /// https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
         /// </summary>
-        [Input("apiVersion")]
-        public Input<string> ApiVersion { get; }
+        [Input("apiVersion", required: true)]
+        public string ApiVersion { get; } = null!;
 
         /// <summary>
         /// Kind is a string value representing the REST resource this object represents. Servers may
@@ -106,8 +106,8 @@ namespace Pulumi.Kubernetes.ApiExtensions
         /// CamelCase. More info:
         /// https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
         /// </summary>
-        [Input("kind")]
-        public Input<string> Kind { get; }
+        [Input("kind", required: true)]
+        public string Kind { get; } = null!;
 
         /// <summary>
         /// Standard object's metadata. More info:
@@ -116,18 +116,10 @@ namespace Pulumi.Kubernetes.ApiExtensions
         [Input("metadata")]
         public Input<ObjectMetaArgs>? Metadata { get; set; }
 
-        /// <summary>
-        /// Resource type name, e.g. `kubernetes:stable.example.com:CronTab`.
-        /// We can't extract it from ApiVersion and Kind because they are Inputs, while we need
-        /// a plain string in the CustomResource constructor.
-        /// </summary>
-        internal string Type { get; }
-
         protected CustomResourceArgs(string apiVersion, string kind)
         {
             this.ApiVersion = apiVersion;
             this.Kind = kind;
-            this.Type = $"kubernetes:{apiVersion}:{kind}";
         }
     }
 }
