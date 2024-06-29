@@ -107,8 +107,8 @@ public class CustomResourcePatch extends com.pulumi.resources.CustomResource {
 
     private static String makeType(CustomResourcePatchArgsBase args) {
         Objects.requireNonNull(args, "args must not be null");
-        String apiVersion = args.apiVersion();
-        String kind = args.kind();
+        String apiVersion = args.apiVersion().map(Internal::of).map(CustomResourcePatch::getOutputValue).orElse("");
+        String kind = args.kind().map(Internal::of).map(CustomResourcePatch::getOutputValue).orElse("");
         return String.format("kubernetes:%s:%sPatch", apiVersion, kind);
     }
 

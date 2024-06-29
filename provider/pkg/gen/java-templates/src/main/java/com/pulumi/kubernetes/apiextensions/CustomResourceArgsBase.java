@@ -26,30 +26,30 @@ public abstract class CustomResourceArgsBase extends com.pulumi.resources.Resour
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      * 
      */
-    @Import(name="apiVersion", required=true)
-    String apiVersion;
+    @Import(name="apiVersion")
+    @Nullable Output<String> apiVersion;
 
     /**
      * @return APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      * 
      */
-    public String apiVersion() {
-        return this.apiVersion;
+    public Optional<Output<String>> apiVersion() {
+        return Optional.ofNullable(this.apiVersion);
     }
 
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * 
      */
-    @Import(name="kind", required=true)
-    String kind;
+    @Import(name="kind")
+    @Nullable Output<String> kind;
 
     /**
      * @return Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * 
      */
-    public String kind() {
-        return this.kind;
+    public Optional<Output<String>> kind() {
+        return Optional.ofNullable(this.kind);
     }
 
     /**
@@ -109,8 +109,29 @@ public abstract class CustomResourceArgsBase extends com.pulumi.resources.Resour
          * @return builder
          * 
          */
-        public U apiVersion(String apiVersion) {
+        public U apiVersion(@Nullable Output<String> apiVersion) {
             $.apiVersion = apiVersion;
+            return (U) this;
+        }
+
+        /**
+         * @param apiVersion APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+         * 
+         * @return builder
+         * 
+         */
+        public U apiVersion(String apiVersion) {
+            return apiVersion(Output.of(apiVersion));
+        }
+
+        /**
+         * @param kind Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+         * 
+         * @return builder
+         * 
+         */
+        public U kind(@Nullable Output<String> kind) {
+            $.kind = kind;
             return (U) this;
         }
 
@@ -121,8 +142,7 @@ public abstract class CustomResourceArgsBase extends com.pulumi.resources.Resour
          * 
          */
         public U kind(String kind) {
-            $.kind = kind;
-            return (U) this;
+            return kind(Output.of(kind));
         }
 
         /**
@@ -176,8 +196,8 @@ public abstract class CustomResourceArgsBase extends com.pulumi.resources.Resour
         }
 
         public T build() {
-            $.apiVersion = Codegen.stringProp("apiVersion").arg($.apiVersion).require();
-            $.kind = Codegen.stringProp("kind").arg($.kind).require();
+            $.apiVersion = Codegen.stringProp("apiVersion").output().arg($.apiVersion).getNullable();
+            $.kind = Codegen.stringProp("kind").output().arg($.kind).getNullable();
             return (T) $;
         }
     }
