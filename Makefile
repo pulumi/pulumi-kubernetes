@@ -39,7 +39,7 @@ ensure::
 	cd tests && go mod tidy
 
 k8sgen::
-	(cd provider && CGO_ENABLED=1 go build -o $(WORKING_DIR)/bin/${CODEGEN} -ldflags "-X ${PROJECT}/${VERSION_PATH}=${VERSION_GENERIC}" ${PROJECT}/${PROVIDER_PATH}/cmd/$(CODEGEN))
+	(cd provider && CGO_ENABLED=0 go build -o $(WORKING_DIR)/bin/${CODEGEN} -ldflags "-X ${PROJECT}/${VERSION_PATH}=${VERSION_GENERIC}" ${PROJECT}/${PROVIDER_PATH}/cmd/$(CODEGEN))
 
 schema:: k8sgen
 	@echo "Generating Pulumi schema..."
