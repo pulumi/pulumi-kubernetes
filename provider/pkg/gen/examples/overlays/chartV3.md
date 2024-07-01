@@ -139,7 +139,7 @@ func main() {
 		_, err := helm.NewChart(ctx, "nginx-ingress", helm.ChartArgs{
 			Chart:   pulumi.String("nginx-ingress"),
 			Version: pulumi.String("1.24.4"),
-			Fetchargs: helm.FetchArgs{
+			FetchArgs: helm.FetchArgs{
 				Repo: pulumi.String("https://charts.helm.sh/stable"),
 			},
 		})
