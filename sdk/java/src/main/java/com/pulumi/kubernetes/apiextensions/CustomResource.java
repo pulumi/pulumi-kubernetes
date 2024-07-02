@@ -106,8 +106,8 @@ public class CustomResource extends com.pulumi.resources.CustomResource {
 
     private static String makeType(CustomResourceArgsBase args) {
         Objects.requireNonNull(args, "args must not be null");
-        String apiVersion = args.apiVersion();
-        String kind = args.kind();
+        String apiVersion = args.apiVersion().map(Internal::of).map(CustomResource::getOutputValue).orElse("");
+        String kind = args.kind().map(Internal::of).map(CustomResource::getOutputValue).orElse("");
         return String.format("kubernetes:%s:%s", apiVersion, kind);
     }
 
