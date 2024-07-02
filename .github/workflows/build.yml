@@ -71,6 +71,8 @@ jobs:
         repo: pulumi/pulumictl
     - name: Install Pulumi CLI
       uses: pulumi/actions@v5
+      with:
+        pulumi-version-file: .pulumi.version
     - if: github.event_name == 'pull_request'
       name: Install Schema Tools
       uses: jaxxstorm/action-install-gh-release@v1.11.0
@@ -176,6 +178,8 @@ jobs:
         repo: pulumi/pulumictl
     - name: Install Pulumi CLI
       uses: pulumi/actions@v5
+      with:
+        pulumi-version-file: .pulumi.version
     - name: Setup Node
       uses: actions/setup-node@v4
       with:
@@ -276,6 +280,8 @@ jobs:
         repo: pulumi/pulumictl
     - name: Install Pulumi CLI
       uses: pulumi/actions@v5
+      with:
+        pulumi-version-file: .pulumi.version
     - name: Setup Node
       uses: actions/setup-node@v4
       with:
@@ -422,6 +428,8 @@ jobs:
         repo: pulumi/pulumictl
     - name: Install Pulumi CLI
       uses: pulumi/actions@v5
+      with:
+        pulumi-version-file: .pulumi.version
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v4
       with:
@@ -515,7 +523,7 @@ jobs:
       run: tar -zxf ${{github.workspace}}/sdk/nodejs.tar.gz -C
         ${{github.workspace}}/sdk/nodejs
     - name: Install Twine
-      run: python -m pip install pip twine
+      run: python -m pip install twine==5.0.0
     - name: Publish SDKs
       run: ./ci-scripts/ci/publish-tfgen-package ${{ github.workspace }}
       env:
@@ -622,6 +630,8 @@ jobs:
         cache-dependency-path: "**/*.sum"
     - name: Install Pulumi CLI
       uses: pulumi/actions@v5
+      with:
+        pulumi-version-file: .pulumi.version
     - name: Setup Node
       uses: actions/setup-node@v4
       with:
@@ -684,6 +694,8 @@ jobs:
         cache-dependency-path: "**/*.sum"
     - name: Install Pulumi CLI
       uses: pulumi/actions@v5
+      with:
+        pulumi-version-file: .pulumi.version
     - name: Setup Node
       uses: actions/setup-node@v4
       with:
