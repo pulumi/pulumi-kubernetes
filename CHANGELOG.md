@@ -9,6 +9,7 @@
 ### Changed
 
 - The `Release` resource no longer ignores empty lists when merging values. (https://github.com/pulumi/pulumi-kubernetes/pull/2995)
+- `CustomResource` should have plain `apiVersion` and `kind` properties (https://github.com/pulumi/pulumi-kubernetes/pull/3079)
 
 ### Fixed
 
