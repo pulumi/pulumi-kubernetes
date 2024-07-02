@@ -3,6 +3,7 @@
 
 package com.pulumi.kubernetes.apiextensions;
 
+import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
@@ -90,7 +91,7 @@ public class CustomResourcePatch extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public CustomResourcePatch(String name, @Nullable CustomResourcePatchArgsBase args) {
+    public CustomResourcePatch(String name, CustomResourcePatchArgsBase args) {
         this(name, args, null);
     }
     
@@ -100,11 +101,12 @@ public class CustomResourcePatch extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public CustomResourcePatch(String name, @Nullable CustomResourcePatchArgsBase args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public CustomResourcePatch(String name, CustomResourcePatchArgsBase args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super(makeType(args), name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
     }
 
-    private static String makeType(@Nullable CustomResourcePatchArgsBase args) {
+    private static String makeType(CustomResourcePatchArgsBase args) {
+        Objects.requireNonNull(args, "args must not be null");
         String apiVersion = args.apiVersion().map(Internal::of).map(CustomResourcePatch::getOutputValue).orElse("");
         String kind = args.kind().map(Internal::of).map(CustomResourcePatch::getOutputValue).orElse("");
         return String.format("kubernetes:%s:%sPatch", apiVersion, kind);
@@ -119,9 +121,7 @@ public class CustomResourcePatch extends com.pulumi.resources.CustomResource {
     }
 
     private static ResourceArgs makeArgs(@Nullable CustomResourcePatchArgsBase args) {
-        if (args == null) {
-            return null;
-        }
+        Objects.requireNonNull(args, "args must not be null");
         if (args.otherFields().isEmpty() || args.otherFields().get().isEmpty()) {
             // optimization: if there are no "other" fields, we can just use the args as-is.
             // Otherwise we generate a subclass of ResourceArgs that includes the "other" fields.

@@ -16,14 +16,14 @@ __all__ = ['CustomResourcePatchArgs', 'CustomResourcePatch']
 @pulumi.input_type
 class CustomResourcePatchArgs:
     def __init__(__self__, *,
-                 api_version: pulumi.Input[str],
-                 kind: pulumi.Input[str],
+                 api_version: str,
+                 kind: str,
                  metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
                  spec: Optional[Any] = None):
         """
         The set of arguments for constructing a CustomResourcePatch resource.
-        :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        :param str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object metadata.
         :param Any spec: Specification of the CustomResourcePatch.
         """
@@ -36,26 +36,26 @@ class CustomResourcePatchArgs:
 
     @property
     @pulumi.getter(name="apiVersion")
-    def api_version(self) -> pulumi.Input[str]:
+    def api_version(self) -> str:
         """
         APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         """
         return pulumi.get(self, "api_version")
 
     @api_version.setter
-    def api_version(self, value: pulumi.Input[str]):
+    def api_version(self, value: str):
         pulumi.set(self, "api_version", value)
 
     @property
     @pulumi.getter
-    def kind(self) -> pulumi.Input[str]:
+    def kind(self) -> str:
         """
         Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
         return pulumi.get(self, "kind")
 
     @kind.setter
-    def kind(self, value: pulumi.Input[str]):
+    def kind(self, value: str):
         pulumi.set(self, "kind", value)
 
     @property

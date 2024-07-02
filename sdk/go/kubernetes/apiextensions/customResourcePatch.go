@@ -18,6 +18,7 @@
 package apiextensions
 
 import (
+	"errors"
 	"fmt"
 	"reflect"
 
@@ -47,7 +48,11 @@ type CustomResourcePatch struct {
 func NewCustomResourcePatch(ctx *pulumi.Context,
 	name string, args *CustomResourcePatchArgs, opts ...pulumi.ResourceOption) (*CustomResourcePatch, error) {
 	if args == nil {
-		args = &CustomResourcePatchArgs{}
+		return nil, errors.New("missing one or more required arguments")
+	}
+	apiVersion, kind, err := getApiVersionAndKind(ctx.Context(), args.ApiVersion, args.Kind)
+	if err != nil {
+		return nil, err
 	}
 
 	untyped := kubernetes.UntypedArgs{}
@@ -59,7 +64,7 @@ func NewCustomResourcePatch(ctx *pulumi.Context,
 	untyped["metadata"] = args.Metadata
 
 	var resource CustomResourcePatch
-	err := ctx.RegisterResource(fmt.Sprintf("kubernetes:%s:%sPatch", args.ApiVersion, args.Kind), name, untyped, &resource, opts...)
+	err = ctx.RegisterResource(fmt.Sprintf("kubernetes:%s:%sPatch", apiVersion, kind), name, untyped, &resource, opts...)
 	if err != nil {
 		return nil, err
 	}

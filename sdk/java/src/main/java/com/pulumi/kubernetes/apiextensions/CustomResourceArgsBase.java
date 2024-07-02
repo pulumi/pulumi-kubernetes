@@ -13,6 +13,7 @@ import javax.annotation.Nullable;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.core.internal.Codegen;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.meta.v1.inputs.ObjectMetaArgs;
 
 /**
