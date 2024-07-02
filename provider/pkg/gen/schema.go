@@ -27,14 +27,49 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 )
 
-// typeOverlays augment the types defined by the kubernetes schema.
-var typeOverlays = map[string]pschema.ComplexTypeSpec{}
+type schemaGenerator struct {
+	// typeOverlays augment the types defined by the kubernetes schema.
+	typeOverlays map[string]pschema.ComplexTypeSpec
 
-// resourceOverlays augment the resources defined by the kubernetes schema.
-var resourceOverlays = map[string]pschema.ResourceSpec{}
+	// resourceOverlays augment the resources defined by the kubernetes schema.
+	resourceOverlays map[string]pschema.ResourceSpec
+}
+
+type schemaGeneratorOption interface {
+	apply(*schemaGenerator)
+}
+
+type withTypeOverlaysOption struct {
+	typeOverlays map[string]pschema.ComplexTypeSpec
+}
+
+func (o *withTypeOverlaysOption) apply(sg *schemaGenerator) {
+	sg.typeOverlays = o.typeOverlays
+}
+
+func WithTypeOverlays(typeOverlays map[string]pschema.ComplexTypeSpec) schemaGeneratorOption {
+	return &withTypeOverlaysOption{typeOverlays: typeOverlays}
+}
+
+type withResourceOverlaysOption struct {
+	resourceOverlays map[string]pschema.ResourceSpec
+}
+
+func (o *withResourceOverlaysOption) apply(sg *schemaGenerator) {
+	sg.resourceOverlays = o.resourceOverlays
+}
+
+func WithResourceOverlays(resourceOverlays map[string]pschema.ResourceSpec) schemaGeneratorOption {
+	return &withResourceOverlaysOption{resourceOverlays: resourceOverlays}
+}
 
 // PulumiSchema will generate a Pulumi schema for the given k8s schema.
-func PulumiSchema(swagger map[string]any) pschema.PackageSpec {
+func PulumiSchema(swagger map[string]any, opts ...schemaGeneratorOption) pschema.PackageSpec {
+	gen := &schemaGenerator{}
+	for _, o := range opts {
+		o.apply(gen)
+	}
+
 	pkg := pschema.PackageSpec{
 		Name:        "kubernetes",
 		Description: "A Pulumi package for creating and managing Kubernetes resources.",
@@ -241,6 +276,7 @@ func PulumiSchema(swagger map[string]any) pschema.PackageSpec {
 		"helm.sh/v2":           "helm/v2",
 		"helm.sh/v3":           "helm/v3",
 		"helm.sh/v4":           "helm/v4",
+		"argoproj.io":          "argoproj",
 	}
 	pkgImportAliases := map[string]string{
 		"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v3":      "helmv3",
@@ -288,7 +324,7 @@ func PulumiSchema(swagger map[string]any) pschema.PackageSpec {
 				objectSpec.Language["nodejs"] = rawMessage(map[string][]string{"requiredOutputs": propNames})
 
 				// Check if the current type exists in the overlays and overwrite types accordingly.
-				if overlaySpec, hasType := typeOverlays[tok]; hasType {
+				if overlaySpec, hasType := gen.typeOverlays[tok]; hasType {
 					for propName, overlayProp := range overlaySpec.Properties {
 						// If overlay prop types are defined, overwrite the k8s schema prop type.
 						if len(overlayProp.OneOf) > 1 {
@@ -302,7 +338,7 @@ func PulumiSchema(swagger map[string]any) pschema.PackageSpec {
 						}
 					}
 				}
-
+				// for each property, if it's an object without a ref add it as a new type?
 				pkg.Types[tok] = pschema.ComplexTypeSpec{
 					ObjectTypeSpec: objectSpec,
 				}
@@ -327,7 +363,7 @@ func PulumiSchema(swagger map[string]any) pschema.PackageSpec {
 					patchSpec.Language["nodejs"] = rawMessage(map[string][]string{"requiredOutputs": propNames})
 
 					// Check if the current type exists in the overlays and overwrite types accordingly.
-					if overlaySpec, hasType := typeOverlays[tok]; hasType {
+					if overlaySpec, hasType := gen.typeOverlays[tok]; hasType {
 						for propName, overlayProp := range overlaySpec.Properties {
 							// If overlay prop types are defined, overwrite the k8s schema prop type.
 							if len(overlayProp.OneOf) > 1 {
@@ -377,7 +413,7 @@ func PulumiSchema(swagger map[string]any) pschema.PackageSpec {
 				}
 
 				// Check if the current resource exists in the overlays and overwrite types accordingly.
-				if overlaySpec, hasResource := resourceOverlays[tok]; hasResource {
+				if overlaySpec, hasResource := gen.resourceOverlays[tok]; hasResource {
 					for propName, overlayProp := range overlaySpec.InputProperties {
 						// If overlay prop types are defined, overwrite the k8s schema prop type.
 						if len(overlayProp.OneOf) > 1 {
@@ -416,7 +452,7 @@ func PulumiSchema(swagger map[string]any) pschema.PackageSpec {
 					}
 
 					// Check if the current resource exists in the overlays and overwrite types accordingly.
-					if overlaySpec, hasResource := resourceOverlays[patchTok]; hasResource {
+					if overlaySpec, hasResource := gen.resourceOverlays[patchTok]; hasResource {
 						for propName, overlayProp := range overlaySpec.InputProperties {
 							// If overlay prop types are defined, overwrite the k8s schema prop type.
 							if len(overlayProp.OneOf) > 1 {
@@ -446,16 +482,16 @@ additional information about using Server-Side Apply to manage Kubernetes resour
 		}
 
 		// If there are types in the overlays that do not exist in the schema (i.e. enum types), add them.
-		for tok, overlayType := range typeOverlays {
+		for tok, overlayType := range gen.typeOverlays {
 			if _, typeExists := pkg.Types[tok]; !typeExists {
 				pkg.Types[tok] = overlayType
 			}
 		}
 
 		// Finally, add overlay resources that weren't in the schema.
-		for tok := range resourceOverlays {
+		for tok := range gen.resourceOverlays {
 			if _, resourceExists := pkg.Resources[tok]; !resourceExists {
-				pkg.Resources[tok] = resourceOverlays[tok]
+				pkg.Resources[tok] = gen.resourceOverlays[tok]
 			}
 		}
 	}
@@ -564,6 +600,7 @@ If this is your first time using this package, these two resources may be helpfu
 	return pkg
 }
 
+// TODO: recurse
 func genPropertySpec(p Property, resourceKind string) pschema.PropertySpec {
 	var typ pschema.TypeSpec
 	err := json.Unmarshal([]byte(p.SchemaType()), &typ)
@@ -621,6 +658,7 @@ func genPropertySpec(p Property, resourceKind string) pschema.PropertySpec {
 			"csharp": rawMessage(map[string]any{
 				"name": strings.ToUpper(p.name[1:2]) + p.name[2:],
 			}),
+			// TODO: Other languages
 		}
 	}
 	if resourceKind == "Secret" {

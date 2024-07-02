@@ -191,8 +191,7 @@ func (d definition) defaultAPIVersion() string {
 }
 
 func (d definition) isTopLevel() bool {
-	gvks, gvkExists :=
-		d.data["x-kubernetes-group-version-kind"].([]any)
+	gvks, gvkExists := d.data["x-kubernetes-group-version-kind"].([]any)
 	hasGVK := gvkExists && len(gvks) > 0
 	if !hasGVK {
 		return false
@@ -238,13 +237,14 @@ func (d definition) isTopLevel() bool {
 		return false
 	}
 
-	ref, hasRef := meta["$ref"]
+	metaRef, hasRef := meta["$ref"]
 	if !hasRef {
 		return false
 	}
 
-	return ref == "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta" ||
-		ref == "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta"
+	return metaRef == "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta" ||
+		metaRef == "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta" ||
+		metaRef == "#/types/kubernetes:meta/v1:ObjectMeta"
 }
 
 // --------------------------------------------------------------------------
@@ -253,14 +253,29 @@ func (d definition) isTopLevel() bool {
 
 // --------------------------------------------------------------------------
 
-func gvkFromRef(ref string) schema.GroupVersionKind {
+func GVKFromRef(ref string) schema.GroupVersionKind {
 	split := strings.Split(ref, ".")
-	gvk := schema.GroupVersionKind{
-		Kind:    split[len(split)-1],
-		Version: split[len(split)-2],
-		Group:   split[len(split)-3],
+	if len(split) >= 3 {
+		return schema.GroupVersionKind{
+			Kind:    split[len(split)-1],
+			Version: split[len(split)-2],
+			Group:   split[len(split)-3],
+		}
 	}
-	return gvk
+	split = strings.Split(ref, ":")
+	if len(split) >= 2 {
+		kind := split[len(split)-1]
+		groupVersion := split[len(split)-2]
+		if parts := strings.Split(groupVersion, "/"); len(parts) >= 2 {
+			return schema.GroupVersionKind{
+				Kind:    kind,
+				Version: parts[len(parts)-1],
+				Group:   parts[len(parts)-2],
+			}
+		}
+	}
+
+	return schema.GroupVersionKind{}
 }
 
 func stripPrefix(name string) string {
@@ -334,6 +349,10 @@ const (
 	v1CRSubresourceStatus               = apiextensionsV1 + ".CustomResourceSubresourceStatus"
 )
 
+func MakeType(prop map[string]any) pschema.TypeSpec {
+	return makeSchemaTypeSpec(prop, map[string]string{"meta": "meta"})
+}
+
 func makeSchemaTypeSpec(prop map[string]any, canonicalGroups map[string]string) pschema.TypeSpec {
 	if t, exists := prop["type"]; exists {
 		switch t := t.(string); t {
@@ -356,6 +375,14 @@ func makeSchemaTypeSpec(prop map[string]any, canonicalGroups map[string]string) 
 			}
 		default:
 			return pschema.TypeSpec{Type: t}
+		}
+	}
+
+	if properties, ok := prop["properties"]; ok {
+		elemSpec := makeSchemaTypeSpec(properties.(map[string]any), canonicalGroups)
+		return pschema.TypeSpec{
+			Type:                 "object",
+			AdditionalProperties: &elemSpec,
 		}
 	}
 
@@ -421,7 +448,7 @@ func makeSchemaTypeSpec(prop map[string]any, canonicalGroups map[string]string) 
 		return pschema.TypeSpec{Ref: "pulumi.json#/Json"}
 	}
 
-	gvk := gvkFromRef(ref)
+	gvk := GVKFromRef(ref)
 	if canonicalGroup, ok := canonicalGroups[gvk.Group]; ok {
 		return pschema.TypeSpec{Ref: fmt.Sprintf("#/types/kubernetes:%s/%s:%s",
 			canonicalGroup, gvk.Version, gvk.Kind)}
@@ -430,6 +457,18 @@ func makeSchemaTypeSpec(prop map[string]any, canonicalGroups map[string]string) 
 }
 
 func makeSchemaType(prop map[string]any, canonicalGroups map[string]string) string {
+	// if props, ok := prop["properties"]; ok {
+	// 	spec := pschema.ComplexTypeSpec{
+	// 		ObjectTypeSpec: pschema.ObjectTypeSpec{
+	// 			Type: ,
+	// 			Properties:
+	// 			Required:
+	// 			Des
+
+	// 		},
+	// 	}
+	// }
+
 	spec := makeSchemaTypeSpec(prop, canonicalGroups)
 	b, err := json.Marshal(spec)
 	contract.AssertNoErrorf(err, "unexpected error while marshaling JSON")
@@ -451,7 +490,7 @@ func createGroups(definitionsJSON map[string]any) []GroupConfig {
 	linq.From(definitionsJSON).
 		SelectT(func(kv linq.KeyValue) definition {
 			defName := kv.Key.(string)
-			gvk := gvkFromRef(defName)
+			gvk := GVKFromRef(defName)
 			def := definition{
 				gvk:  gvk,
 				name: defName,
@@ -479,7 +518,7 @@ func createGroups(definitionsJSON map[string]any) []GroupConfig {
 	linq.From(definitionsJSON).
 		SelectT(func(kv linq.KeyValue) definition {
 			defName := kv.Key.(string)
-			gvk := gvkFromRef(defName)
+			gvk := GVKFromRef(defName)
 			def := definition{
 				gvk:  gvk,
 				name: defName,
@@ -581,6 +620,7 @@ func createGroups(definitionsJSON map[string]any) []GroupConfig {
 					propName := kv.Key.(string)
 					prop := d.data["properties"].(map[string]any)[propName].(map[string]any)
 
+					// This isn't handling nesting?
 					schemaType := makeSchemaType(prop, canonicalGroups)
 
 					// `-` is invalid in variable names, so replace with `_`

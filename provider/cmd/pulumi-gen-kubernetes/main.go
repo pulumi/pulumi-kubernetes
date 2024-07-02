@@ -168,7 +168,10 @@ func generateSchema(swaggerPath string) schema.PackageSpec {
 	}
 
 	// Generate schema
-	return gen.PulumiSchema(schemaMap)
+	return gen.PulumiSchema(schemaMap,
+		gen.WithTypeOverlays(gen.TypeOverlays),
+		gen.WithResourceOverlays(gen.ResourceOverlays),
+	)
 }
 
 // This is to mostly filter resources from the spec.
@@ -335,10 +338,10 @@ func writeDotnetClient(pkg *schema.Package, outdir, templateDir string) {
 	for filename, contents := range files {
 		path := filepath.Join(outdir, filename)
 
-		if err = os.MkdirAll(filepath.Dir(path), 0755); err != nil {
+		if err = os.MkdirAll(filepath.Dir(path), 0o755); err != nil {
 			panic(err)
 		}
-		err := os.WriteFile(path, contents, 0644)
+		err := os.WriteFile(path, contents, 0o644)
 		if err != nil {
 			panic(err)
 		}
@@ -498,10 +501,10 @@ func mustWriteFiles(rootDir string, files map[string][]byte) {
 func mustWriteFile(rootDir, filename string, contents []byte) {
 	outPath := filepath.Join(rootDir, filename)
 
-	if err := os.MkdirAll(filepath.Dir(outPath), 0755); err != nil {
+	if err := os.MkdirAll(filepath.Dir(outPath), 0o755); err != nil {
 		panic(err)
 	}
-	err := os.WriteFile(outPath, contents, 0644)
+	err := os.WriteFile(outPath, contents, 0o644)
 	if err != nil {
 		panic(err)
 	}
@@ -710,7 +713,7 @@ func buildPulumiFieldsFromTerraform(path string, block *TerraformBlockSchema) ma
 		// Manual fixups for the schema, most of these look like pluralization issues, but not sure if there's
 		// a safe way to do this automatically.
 
-		//1. kubernetes_deployment has a field "container" which is a list, but we call it "containers"
+		// 1. kubernetes_deployment has a field "container" which is a list, but we call it "containers"
 		if path == "kubernetes_deployment.spec.template.spec" && blockName == "container" {
 			field["name"] = "containers"
 		}

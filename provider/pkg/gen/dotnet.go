@@ -16,7 +16,7 @@
 package gen
 
 import (
-	"fmt"
+	"github.com/pulumi/pulumi/pkg/v3/codegen/cgstrings"
 )
 
 var pascalCaseMapping = map[string]string{
@@ -65,7 +65,7 @@ var pascalCaseMapping = map[string]string{
 func pascalCase(name string) string {
 	pascal, ok := pascalCaseMapping[name]
 	if !ok {
-		panic(fmt.Sprintf("no case mapping for %q", name))
+		return cgstrings.UppercaseFirst(name)
 	}
 	return pascal
 }
