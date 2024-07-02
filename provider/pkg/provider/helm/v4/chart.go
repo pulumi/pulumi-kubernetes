@@ -260,9 +260,11 @@ func (r *ChartProvider) Construct(ctx *pulumi.Context, typ, name string, inputs 
 		Objects:         objs,
 		ResourcePrefix:  *chartArgs.ResourcePrefix,
 		SkipAwait:       chartArgs.SkipAwait,
+		ParentOptions:   options,
 		ResourceOptions: []pulumi.ResourceOption{pulumi.Parent(comp)},
 		PreRegisterF: func(ctx *pulumi.Context, apiVersion, kind, resourceName string, obj *unstructured.Unstructured,
-			resourceOpts []pulumi.ResourceOption) (*unstructured.Unstructured, []pulumi.ResourceOption) {
+			resourceOpts []pulumi.ResourceOption,
+		) (*unstructured.Unstructured, []pulumi.ResourceOption) {
 			return preregister(ctx, comp, obj, resourceOpts)
 		},
 	}
@@ -276,8 +278,8 @@ func (r *ChartProvider) Construct(ctx *pulumi.Context, typ, name string, inputs 
 }
 
 func preregister(ctx *pulumi.Context, comp *ChartState, obj *unstructured.Unstructured,
-	resourceOpts []pulumi.ResourceOption) (*unstructured.Unstructured, []pulumi.ResourceOption) {
-
+	resourceOpts []pulumi.ResourceOption,
+) (*unstructured.Unstructured, []pulumi.ResourceOption) {
 	// Implement support for Helm resource policies.
 	// https://helm.sh/docs/howto/charts_tips_and_tricks/#tell-helm-not-to-uninstall-a-resource
 	policy, hasPolicy, err := unstructured.NestedString(obj.Object, "metadata", "annotations", helmkube.ResourcePolicyAnno)

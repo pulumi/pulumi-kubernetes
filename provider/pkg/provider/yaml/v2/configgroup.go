@@ -118,10 +118,10 @@ func (k *ConfigGroupProvider) Construct(ctx *pulumi.Context, typ, name string, i
 			Objects:         objs,
 			ResourcePrefix:  resourcePrefix,
 			SkipAwait:       skipAwait,
+			ParentOptions:   options,
 			ResourceOptions: []pulumi.ResourceOption{pulumi.Parent(comp)},
 		}
 		return Register(ctx, registerOpts)
-
 	}).(pulumi.ArrayOutput)
 
 	// issue: https://github.com/pulumi/pulumi/issues/15527

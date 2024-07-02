@@ -219,6 +219,7 @@ type RegisterOptions struct {
 	Objects         []unstructured.Unstructured
 	ResourcePrefix  string
 	SkipAwait       bool
+	ParentOptions   pulumi.ResourceOption
 	ResourceOptions []pulumi.ResourceOption
 	PreRegisterF    PreRegisterFunc
 }
@@ -246,12 +247,19 @@ func Register(ctx *pulumi.Context, opts RegisterOptions) (pulumi.ArrayOutput, er
 	}
 	subsets := cliutilsgraph.HydrateSetList(sorted, objs)
 
+	snapshot, err := pulumi.NewResourceOptions(opts.ParentOptions)
+	if err != nil {
+		return pulumi.ArrayOutput{}, err
+	}
+
 	resources := pulumi.Array{}
 	objToResource := map[cliutilsobject.ObjMetadata]pulumi.Resource{}
 	for _, subset := range subsets {
 		for _, obj := range subset {
-			var resourceOptions []pulumi.ResourceOption
-			resourceOptions = append(resourceOptions, opts.ResourceOptions...)
+			resourceOptions := []pulumi.ResourceOption(opts.ResourceOptions)
+			if snapshot.RetainOnDelete {
+				resourceOptions = append(resourceOptions, pulumi.RetainOnDelete(true))
+			}
 
 			// Depend on the explicit dependencies.
 			// The subsets are ordered such that the dependency is guaranteed to be registered before the dependent.
@@ -285,7 +293,6 @@ func register(
 	opts RegisterOptions,
 	resourceOpts []pulumi.ResourceOption,
 ) (pulumi.CustomResource, error) {
-
 	contract.Requiref(obj != nil, "obj", "expected != nil")
 
 	kind := obj.GetKind()

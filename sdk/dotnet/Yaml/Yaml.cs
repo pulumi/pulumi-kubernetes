@@ -894,6 +894,7 @@ namespace Pulumi.Kubernetes.Yaml
                 DependsOn = dependsOn,
                 Version = options?.Version,
                 PluginDownloadURL = options?.PluginDownloadURL,
+                RetainOnDelete = options?.RetainOnDelete,
             };
         }
 

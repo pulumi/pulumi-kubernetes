@@ -46,6 +46,9 @@ func GetChildOptions(parent pulumi.Resource, opts []pulumi.ResourceOption) ([]pu
 	if snapshot.PluginDownloadURL != "" {
 		childOpts = append(childOpts, pulumi.PluginDownloadURL(snapshot.PluginDownloadURL))
 	}
+	if snapshot.RetainOnDelete {
+		childOpts = append(childOpts, pulumi.RetainOnDelete(true))
+	}
 	return childOpts, nil
 }
 

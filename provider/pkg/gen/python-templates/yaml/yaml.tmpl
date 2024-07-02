@@ -410,6 +410,8 @@ def _get_child_options(parent: pulumi.Resource, opts: pulumi.ResourceOptions):
         child_opts.version = opts.version
     if opts.plugin_download_url is not None:
         child_opts.plugin_download_url = opts.plugin_download_url
+    if opts.retain_on_delete is not None:
+        child_opts.retain_on_delete = opts.retain_on_delete
     return child_opts
 
 def _get_invoke_options(opts: pulumi.ResourceOptions):

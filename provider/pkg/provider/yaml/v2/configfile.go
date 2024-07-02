@@ -108,6 +108,7 @@ func (k *ConfigFileProvider) Construct(ctx *pulumi.Context, typ, name string, in
 			Objects:         objs,
 			ResourcePrefix:  resourcePrefix,
 			SkipAwait:       skipAwait,
+			ParentOptions:   options,
 			ResourceOptions: []pulumi.ResourceOption{pulumi.Parent(comp)},
 		}
 		return Register(ctx, registerOpts)
