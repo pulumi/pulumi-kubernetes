@@ -1,5 +1,13 @@
 ## Unreleased
 
+### Added
+
+### Changed
+
+- `CustomResource` should have plain `apiVersion` and `kind` properties (https://github.com/pulumi/pulumi-kubernetes/pull/3079)
+
+### Fixed
+
 ## 4.14.0 (June 28, 2024)
 
 ### Added
@@ -9,7 +17,6 @@
 ### Changed
 
 - The `Release` resource no longer ignores empty lists when merging values. (https://github.com/pulumi/pulumi-kubernetes/pull/2995)
-- `CustomResource` should have plain `apiVersion` and `kind` properties (https://github.com/pulumi/pulumi-kubernetes/pull/3079)
 
 ### Fixed
 
