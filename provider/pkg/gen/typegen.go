@@ -22,8 +22,10 @@ import (
 	"strings"
 
 	"github.com/ahmetb/go-linq"
+	"github.com/ettle/strcase"
 	pschema "github.com/pulumi/pulumi/pkg/v3/codegen/schema"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
+	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/util/sets"
 )
@@ -350,14 +352,14 @@ const (
 )
 
 func MakeType(prop map[string]any) pschema.TypeSpec {
-	return makeSchemaTypeSpec(prop, map[string]string{"meta": "meta"})
+	return makePropertyTypeSpec(prop, map[string]string{"meta": "meta"})
 }
 
-func makeSchemaTypeSpec(prop map[string]any, canonicalGroups map[string]string) pschema.TypeSpec {
+func makePropertyTypeSpec(prop map[string]any, canonicalGroups map[string]string) pschema.TypeSpec {
 	if t, exists := prop["type"]; exists {
 		switch t := t.(string); t {
 		case "array":
-			elemSpec := makeSchemaTypeSpec(prop["items"].(map[string]any), canonicalGroups)
+			elemSpec := makePropertyTypeSpec(prop["items"].(map[string]any), canonicalGroups)
 			return pschema.TypeSpec{
 				Type:  "array",
 				Items: &elemSpec,
@@ -368,7 +370,7 @@ func makeSchemaTypeSpec(prop map[string]any, canonicalGroups map[string]string) 
 				return pschema.TypeSpec{Type: "object"}
 			}
 
-			elemSpec := makeSchemaTypeSpec(additionalProperties.(map[string]any), canonicalGroups)
+			elemSpec := makePropertyTypeSpec(additionalProperties.(map[string]any), canonicalGroups)
 			return pschema.TypeSpec{
 				Type:                 "object",
 				AdditionalProperties: &elemSpec,
@@ -379,7 +381,7 @@ func makeSchemaTypeSpec(prop map[string]any, canonicalGroups map[string]string) 
 	}
 
 	if properties, ok := prop["properties"]; ok {
-		elemSpec := makeSchemaTypeSpec(properties.(map[string]any), canonicalGroups)
+		elemSpec := makePropertyTypeSpec(properties.(map[string]any), canonicalGroups)
 		return pschema.TypeSpec{
 			Type:                 "object",
 			AdditionalProperties: &elemSpec,
@@ -456,23 +458,67 @@ func makeSchemaTypeSpec(prop map[string]any, canonicalGroups map[string]string) 
 	panic("Canonical group not set for ref: " + ref)
 }
 
-func makeSchemaType(prop map[string]any, canonicalGroups map[string]string) string {
-	// if props, ok := prop["properties"]; ok {
-	// 	spec := pschema.ComplexTypeSpec{
-	// 		ObjectTypeSpec: pschema.ObjectTypeSpec{
-	// 			Type: ,
-	// 			Properties:
-	// 			Required:
-	// 			Des
+func makePropertyType(prop map[string]any, canonicalGroups map[string]string) string {
+	if _, ok := prop["properties"]; ok {
+		return makeObjectType(prop, canonicalGroups)
+	}
 
-	// 		},
-	// 	}
-	// }
-
-	spec := makeSchemaTypeSpec(prop, canonicalGroups)
+	spec := makePropertyTypeSpec(prop, canonicalGroups)
 	b, err := json.Marshal(spec)
 	contract.AssertNoErrorf(err, "unexpected error while marshaling JSON")
 	return string(b)
+}
+
+func makeObjectType(obj map[string]any, canonicalGroups map[string]string) string {
+	spec := makeObjectTypeSpec(obj, canonicalGroups)
+	b, err := json.Marshal(spec)
+	contract.AssertNoErrorf(err, "unexpected error while marshaling JSON")
+	return string(b)
+}
+
+func makeObjectTypeSpec(obj map[string]any, canonicalGroups map[string]string) pschema.ComplexTypeSpec {
+	properties, foundProperties, _ := unstructured.NestedMap(obj, "properties")
+	description, _, _ := unstructured.NestedString(obj, "description")
+	schemaType, _, _ := unstructured.NestedString(obj, "type")
+	required, _, _ := unstructured.NestedStringSlice(obj, "required")
+
+	propertySpecs := map[string]pschema.PropertySpec{}
+	for propertyName := range properties {
+		// Ignore unnamed properties like "-".
+		camelCase := strcase.ToCamel(propertyName)
+		if camelCase == "" {
+			continue
+		}
+		propertySchema, _, _ := unstructured.NestedMap(properties, propertyName)
+		propertyDescription, _, _ := unstructured.NestedString(propertySchema, "description")
+		typeSpec := makePropertyTypeSpec(propertySchema, canonicalGroups)
+		// GetTypeSpec(propertySchema, name+strcase.ToCamel(propertyName), types)
+
+		// Pulumi's schema doesn't support defaults for objects, so ignore them.
+		var defaultValue any
+		if !(typeSpec.Type == "object" || typeSpec.Type == "array") {
+			defaultValue, _, _ = unstructured.NestedFieldNoCopy(propertySchema, "default")
+		}
+		propertySpecs[propertyName] = pschema.PropertySpec{
+			TypeSpec:    typeSpec,
+			Description: propertyDescription,
+			Default:     defaultValue,
+		}
+	}
+
+	// If the type wasn't specified but we found properties, then we can infer that the type is an object
+	if foundProperties && schemaType == "" {
+		schemaType = "object"
+	}
+
+	return pschema.ComplexTypeSpec{
+		ObjectTypeSpec: pschema.ObjectTypeSpec{
+			Type:        schemaType,
+			Properties:  propertySpecs,
+			Required:    required,
+			Description: description,
+		},
+	}
 }
 
 // --------------------------------------------------------------------------
@@ -621,7 +667,7 @@ func createGroups(definitionsJSON map[string]any) []GroupConfig {
 					prop := d.data["properties"].(map[string]any)[propName].(map[string]any)
 
 					// This isn't handling nesting?
-					schemaType := makeSchemaType(prop, canonicalGroups)
+					schemaType := makePropertyType(prop, canonicalGroups)
 
 					// `-` is invalid in variable names, so replace with `_`
 					switch propName {

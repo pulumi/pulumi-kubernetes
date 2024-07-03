@@ -11,6 +11,7 @@ replace (
 
 require (
 	github.com/ahmetb/go-linq v3.0.0+incompatible
+	github.com/ettle/strcase v0.1.1
 	github.com/evanphx/json-patch v5.7.0+incompatible
 	github.com/fluxcd/pkg/ssa v0.28.1
 	github.com/golang/protobuf v1.5.4
@@ -211,7 +212,7 @@ require (
 	gopkg.in/warnings.v0 v0.1.2 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	k8s.io/apiextensions-apiserver v0.29.0 // indirect
-	k8s.io/apiserver v0.29.0 // indirect
+	k8s.io/apiserver v0.29.0
 	k8s.io/component-base v0.30.0 // indirect
 	k8s.io/klog/v2 v2.120.1 // indirect
 	k8s.io/utils v0.0.0-20230726121419-3b25d923346b
