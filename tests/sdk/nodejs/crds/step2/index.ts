@@ -12,16 +12,53 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import * as pulumi from "@pulumi/pulumi";
 import * as k8s from "@pulumi/kubernetes";
 
 const namespace = new k8s.core.v1.Namespace("test-namespace");
 
 //
-// Delete the CustomResourceDefinition. On the next refresh, the CustomResource will be
-// automatically deleted from the state rather than returning a "kind not found" error.
-// This is a contrived example for testing, and it doesn't make any sense to delete a
-// CRD while leaving related CRs.
+// Create a CustomResourceDefinition and a CustomResource.
 //
+
+new k8s.apiextensions.v1.CustomResourceDefinition("foobar", {
+    metadata: { name: "foobars.stable.example.com" },
+    spec: {
+        group: "stable.example.com",
+        versions: [
+            {
+                name: "v1",
+                served: true,
+                storage: true,
+                schema: {
+                    openAPIV3Schema: {
+                        type: "object",
+                        properties: {
+                            spec: {
+                                type: "object",
+                                properties: {
+                                    foo: {
+                                        type: "string",
+                                    },
+                                    bar: {
+                                        type: "string",
+                                    },
+                                },
+                            }
+                        }
+                    }
+                }
+            }
+        ],
+        scope: "Namespaced",
+        names: {
+            plural: "foobars",
+            singular: "foobar",
+            kind: "FooBar",
+            shortNames: ["fb"]
+        }
+    }
+});
 
 new k8s.apiextensions.CustomResource(
     "my-new-foobar-object",
@@ -32,6 +69,15 @@ new k8s.apiextensions.CustomResource(
             namespace: namespace.metadata.name,
             name: "my-new-foobar-object",
         },
-        spec: { foo: "such amaze" }
+        spec: { foo: "such amaze", bar: "wow" }
     },
 );
+
+//
+// Get the CustomResource.
+//
+export const objRef = k8s.apiextensions.CustomResource.get("my-new-foobar-object-ref", {
+    apiVersion: "stable.example.com/v1",
+    kind: "FooBar",
+    id: pulumi.interpolate`${namespace.metadata.name}/my-new-foobar-object`
+});
