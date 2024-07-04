@@ -125,6 +125,7 @@ type kubeProvider struct {
 	version          string
 	pulumiSchema     []byte
 	terraformMapping []byte
+	helmMapping      []byte
 	providerPackage  string
 	opts             kubeOpts
 	defaultNamespace string
@@ -165,7 +166,7 @@ type kubeProvider struct {
 var _ pulumirpc.ResourceProviderServer = (*kubeProvider)(nil)
 
 func makeKubeProvider(
-	host host.HostClient, name, version string, pulumiSchema, terraformMapping []byte,
+	host host.HostClient, name, version string, pulumiSchema, terraformMapping, helmMapping []byte,
 ) (*kubeProvider, error) {
 	return &kubeProvider{
 		host:                        host,
@@ -174,6 +175,7 @@ func makeKubeProvider(
 		version:                     version,
 		pulumiSchema:                pulumiSchema,
 		terraformMapping:            terraformMapping,
+		helmMapping:                 helmMapping,
 		providerPackage:             name,
 		enableSecrets:               false,
 		suppressDeprecationWarnings: false,
@@ -230,6 +232,19 @@ func (k *kubeProvider) Call(ctx context.Context, req *pulumirpc.CallRequest) (*p
 	return nil, status.Error(codes.Unimplemented, "Call is not yet implemented")
 }
 
+func (k *kubeProvider) GetMappings(ctx context.Context, request *pulumirpc.GetMappingsRequest) (*pulumirpc.GetMappingsResponse, error) {
+	switch request.Key {
+	case "terraform":
+		return &pulumirpc.GetMappingsResponse{
+			Providers: []string{"kubernetes", "helm"},
+		}, nil
+	default:
+		return &pulumirpc.GetMappingsResponse{
+			Providers: []string{},
+		}, nil
+	}
+}
+
 // GetMapping fetches the mapping for this resource provider, if any. A provider should return an empty
 // response (not an error) if it doesn't have a mapping for the given key.
 func (k *kubeProvider) GetMapping(ctx context.Context, request *pulumirpc.GetMappingRequest) (*pulumirpc.GetMappingResponse, error) {
@@ -239,10 +254,22 @@ func (k *kubeProvider) GetMapping(ctx context.Context, request *pulumirpc.GetMap
 		return &pulumirpc.GetMappingResponse{}, nil
 	}
 
-	return &pulumirpc.GetMappingResponse{
-		Provider: "kubernetes",
-		Data:     k.terraformMapping,
-	}, nil
+	switch request.Provider {
+	case "":
+		fallthrough
+	case "kubernetes":
+		return &pulumirpc.GetMappingResponse{
+			Provider: "kubernetes",
+			Data:     k.terraformMapping,
+		}, nil
+	case "helm":
+		return &pulumirpc.GetMappingResponse{
+			Provider: "helm",
+			Data:     k.helmMapping,
+		}, nil
+	default:
+		return nil, fmt.Errorf("unknown provider %q", request.Provider)
+	}
 }
 
 // GetSchema returns the JSON-encoded schema for this provider's package.
