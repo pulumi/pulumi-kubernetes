@@ -8,6 +8,8 @@
 
 ### Fixed
 
+- Prevent CustomResourceDefinitions from always being applied to the cluster during preview operations (https://github.com/pulumi/pulumi-kubernetes/pull/3096)
+
 ## 4.14.0 (June 28, 2024)
 
 ### Added
