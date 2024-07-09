@@ -496,7 +496,16 @@ func updateResource(c *UpdateConfig, liveOldObj *unstructured.Unstructured, clie
 		// results in the immediate replacement of the CRD without deleting it, or any CustomResources that depend on
 		// it. The PUT operation is still validated by the api server, so a badly formed request will fail as usual.
 		c.Inputs.SetResourceVersion(liveOldObj.GetResourceVersion())
-		currentOutputs, err = client.Update(c.Context, c.Inputs, metav1.UpdateOptions{})
+
+		options := metav1.UpdateOptions{
+			FieldManager: c.FieldManager,
+		}
+
+		if c.Preview {
+			options.DryRun = []string{metav1.DryRunAll}
+		}
+
+		currentOutputs, err = client.Update(c.Context, c.Inputs, options)
 	case c.ServerSideApply:
 		currentOutputs, err = ssaUpdate(c, liveOldObj, client)
 	default:
