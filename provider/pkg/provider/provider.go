@@ -234,7 +234,7 @@ func (k *kubeProvider) Construct(ctx context.Context, req *pulumirpc.ConstructRe
 
 // Parameterize is called by the engine when the Kubernetes provider is used for CRDs.
 func (k *kubeProvider) Parameterize(ctx context.Context, req *pulumirpc.ParameterizeRequest) (*pulumirpc.ParameterizeResponse, error) {
-	crdPackageName := req.Key
+	crdPackageName := req.String()
 	var crdPackage *pulumischema.Package
 
 	switch p := req.Parameters.(type) {
@@ -291,7 +291,7 @@ func (k *kubeProvider) GetSchema(ctx context.Context, req *pulumirpc.GetSchemaRe
 	case 0:
 		return &pulumirpc.GetSchemaResponse{Schema: string(k.pulumiSchema)}, nil
 	case 1:
-		crdname := req.Key
+		crdname := req.String()
 		flattenedSchema, err := json.Marshal(k.crdSchemas[crdname])
 		if err != nil {
 			return nil, err

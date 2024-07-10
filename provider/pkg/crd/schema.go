@@ -21,9 +21,7 @@ import (
 	"strconv"
 
 	"github.com/iancoleman/strcase"
-	kversion "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/version"
 	pschema "github.com/pulumi/pulumi/pkg/v3/codegen/schema"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/slice"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
@@ -116,9 +114,9 @@ func genPackage(
 	}
 	sort.Strings(allowedPackages)
 
-	crds := slice.Map[CustomResourceGenerator, unstructured.Unstructured](resourceGenerators, func(resourceGenerator CustomResourceGenerator) unstructured.Unstructured {
-		return resourceGenerator.CustomResourceDefinition
-	})
+	// crds := slice.Map[CustomResourceGenerator, unstructured.Unstructured](resourceGenerators, func(resourceGenerator CustomResourceGenerator) unstructured.Unstructured {
+	// 	return resourceGenerator.CustomResourceDefinition
+	// })
 
 	pkgSpec := pschema.PackageSpec{
 		Name:                name,
@@ -126,11 +124,11 @@ func genPackage(
 		Types:               types,
 		Resources:           resources,
 		AllowedPackageNames: allowedPackages,
-		Extension: &pschema.PackageExtensionSpec{
-			Name:      "kubernetes",
-			Version:   kversion.Version,
-			Parameter: crds,
-		},
+		// Extension: &pschema.PackageExtensionSpec{
+		// 	Name:      "kubernetes",
+		// 	Version:   kversion.Version,
+		// 	Parameter: crds,
+		// },
 	}
 
 	pkg, err := pschema.ImportSpec(pkgSpec, nil)
