@@ -751,7 +751,7 @@ func adoptOldNameIfUnnamed(new, old resource.PropertyMap) {
 func assignNameIfAutonameable(pm resource.PropertyMap, urn resource.URN) {
 	name, ok := pm["name"]
 	if !ok || (name.IsString() && name.StringValue() == "") {
-		prefix := urn.Name().String() + "-"
+		prefix := urn.Name() + "-"
 		autoname, err := resource.NewUniqueHex(prefix, 0, 0)
 		contract.AssertNoErrorf(err, "unexpected error while executing NewUniqueHex")
 		pm["name"] = resource.NewStringProperty(autoname)
