@@ -1,5 +1,0 @@
-deprecated: true
-description: Chart to test KubeVersion
-name: apiversions-test
-version: 0.0.1
-kubernetesVersion: ">1.24.0, <1.24.2"

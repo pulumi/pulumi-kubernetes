@@ -1,3 +1,0 @@
-name: dotnet_yaml_local
-description: A test of ConfigGroup parsing YAML files.
-runtime: dotnet

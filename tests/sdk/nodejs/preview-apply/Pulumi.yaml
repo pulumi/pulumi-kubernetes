@@ -1,3 +1,0 @@
-name: preview-apply-tests
-description: Tests SSA previews with apply on status subresource
-runtime: nodejs
