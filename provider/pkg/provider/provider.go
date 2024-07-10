@@ -21,6 +21,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"net/url"
 	"os"
@@ -234,7 +235,7 @@ func (k *kubeProvider) Construct(ctx context.Context, req *pulumirpc.ConstructRe
 
 // Parameterize is called by the engine when the Kubernetes provider is used for CRDs.
 func (k *kubeProvider) Parameterize(ctx context.Context, req *pulumirpc.ParameterizeRequest) (*pulumirpc.ParameterizeResponse, error) {
-	crdPackageName := req.String()
+	crdPackageName := "mycrd"
 	var crdPackage *pulumischema.Package
 
 	switch p := req.Parameters.(type) {
@@ -288,14 +289,27 @@ func (k *kubeProvider) Parameterize(ctx context.Context, req *pulumirpc.Paramete
 func (k *kubeProvider) GetSchema(ctx context.Context, req *pulumirpc.GetSchemaRequest) (*pulumirpc.GetSchemaResponse, error) {
 	v := req.GetVersion()
 	switch v {
-	case 0:
-		return &pulumirpc.GetSchemaResponse{Schema: string(k.pulumiSchema)}, nil
-	case 1:
-		crdname := req.String()
-		flattenedSchema, err := json.Marshal(k.crdSchemas[crdname])
+	// case 0:
+	// 	return &pulumirpc.GetSchemaResponse{Schema: string(k.pulumiSchema)}, nil
+	case 0, 1:
+		crdname := "mycrd"
+		crd := k.crdSchemas[crdname]
+		if crd == nil {
+			return nil, fmt.Errorf("CRD schema not found")
+		}
+
+		(crd).Types = nil
+		// (crd).Language = nil
+		// (crd).Provider = nil
+		// (crd).Config = nil
+		// crd.Functions = nil
+		crd.Resources = nil
+
+		flattenedSchema, err := json.Marshal(*crd)
 		if err != nil {
 			return nil, err
 		}
+		log.Println("CRD schema generated successfully", string(flattenedSchema))
 		return &pulumirpc.GetSchemaResponse{Schema: string(flattenedSchema)}, nil
 	}
 	return nil, fmt.Errorf("unsupported schema version %d", v)
