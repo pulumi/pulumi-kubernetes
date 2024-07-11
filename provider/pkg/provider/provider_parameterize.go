@@ -18,12 +18,19 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"io"
 	"log"
+	"os"
+	"strings"
 	"sync"
 
 	pulumischema "github.com/pulumi/pulumi/pkg/v3/codegen/schema"
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
 	"github.com/spf13/pflag"
+	extensionv1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
+	"k8s.io/apiextensions-apiserver/pkg/controller/openapi/builder"
+	"k8s.io/apimachinery/pkg/util/yaml"
+	"k8s.io/kube-openapi/pkg/validation/spec"
 )
 
 // crdSchemaMap is a map of CRD schemas that are generated from the CRD manifests with an
@@ -42,6 +49,10 @@ func (c *crdSchemaMap) getSchema(name string) *pulumischema.Package {
 func (c *crdSchemaMap) setCRDSchema(name string, schema *pulumischema.Package) {
 	c.Lock()
 	defer c.Unlock()
+	if c.crdSchemas == nil {
+		c.crdSchemas = make(map[string]*pulumischema.Package)
+	}
+
 	c.crdSchemas[name] = schema
 }
 
@@ -78,6 +89,81 @@ func parseCrdArgs(args []string) (*ParameterizedArgs, error) {
 	}, nil
 }
 
+// fillDefaultNames sets the default names for the CRD if they are not specified.
+// This allows the OpenAPI builder to generate the swagger specs correctly with
+// the correct defaults.
+func setCRDDefaults(crd *extensionv1.CustomResourceDefinition) {
+	if crd.Spec.Names.Singular == "" {
+		crd.Spec.Names.Singular = strings.ToLower(crd.Spec.Names.Kind)
+	}
+	if crd.Spec.Names.ListKind == "" {
+		crd.Spec.Names.ListKind = crd.Spec.Names.Kind + "List"
+	}
+}
+
+// crdToOpenAPI generates the OpenAPI specs for a given CRD manifest.
+func crdToOpenAPI(crd *extensionv1.CustomResourceDefinition) ([]*spec.Swagger, error) {
+	var crdSpecs []*spec.Swagger
+
+	setCRDDefaults(crd)
+
+	for _, v := range crd.Spec.Versions {
+		if !v.Served {
+			continue
+		}
+		// Defaults are not pruned here, but before being served.
+		sw, err := builder.BuildOpenAPIV2(crd, v.Name, builder.Options{V2: true, StripValueValidation: false, StripNullable: false, AllowNonStructural: false})
+		if err != nil {
+			return nil, err
+		}
+		crdSpecs = append(crdSpecs, sw)
+	}
+
+	return crdSpecs, nil
+}
+
+// readCRDManifest reads the CRD manifest from the given file path.
+func readCRDManifest(filepath string) (*extensionv1.CustomResourceDefinition, error) {
+	f, err := os.Open(filepath)
+	if err != nil {
+		return nil, fmt.Errorf("error opening CRD manifest file: %w", err)
+	}
+	defer f.Close()
+
+	decoder := yaml.NewYAMLOrJSONDecoder(f, 4096)
+	crd := new(extensionv1.CustomResourceDefinition)
+	for {
+		err = decoder.Decode(crd)
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+
+			return nil, fmt.Errorf("error decoding CRD manifest: %w", err)
+		}
+	}
+
+	return crd, nil
+}
+
+// mergeSpecs merges the given OpenAPI specs into a single OpenAPI spec.
+func mergeSpecs(specs []*spec.Swagger) (*spec.Swagger, error) {
+	if len(specs) == 0 {
+		return nil, errors.New("no OpenAPI specs to merge")
+	}
+
+	mergedSpecs, err := builder.MergeSpecs(specs[0], specs[1:]...)
+	if err != nil {
+		return nil, fmt.Errorf("error merging OpenAPI specs: %w", err)
+	}
+
+	return mergedSpecs, nil
+}
+
+func generateSchema(swagger *spec.Swagger) *pulumischema.Package {
+	return nil
+}
+
 // Parameterize is called by the engine when the Kubernetes provider is used for CRDs.
 func (k *kubeProvider) Parameterize(ctx context.Context, req *pulumirpc.ParameterizeRequest) (*pulumirpc.ParameterizeResponse, error) {
 	log.Println("Parameterizing CRD schemas...")
@@ -86,12 +172,29 @@ func (k *kubeProvider) Parameterize(ctx context.Context, req *pulumirpc.Paramete
 
 	switch p := req.Parameters.(type) {
 	case *pulumirpc.ParameterizeRequest_Args:
-		_, err := parseCrdArgs(p.Args.GetArgs())
+		args, err := parseCrdArgs(p.Args.GetArgs())
 		if err != nil {
 			return nil, err
 		}
 
-		// TODO: Implement the logic to generate the CRD schema from the CRD manifests.
+		crd, err := readCRDManifest(args.CRDManifestPaths[0])
+		if err != nil {
+			return nil, fmt.Errorf("error reading CRD manifest: %w", err)
+		}
+
+		crdSpecs, err := crdToOpenAPI(crd)
+		if err != nil {
+			return nil, fmt.Errorf("error generating OpenAPI specs for given CRD %q: %w", crd.Name, err)
+		}
+
+		mergedSpecs, err := mergeSpecs(crdSpecs)
+		if err != nil {
+			return nil, fmt.Errorf("error merging OpenAPI specs for given CRD %q: %w", crd.Name, err)
+		}
+
+		crdPackage = generateSchema(mergedSpecs)
+
+		k.crdSchemas.setCRDSchema(crdPackageName, crdPackage)
 
 	case *pulumirpc.ParameterizeRequest_Value:
 		// TODO: Implement the logic to generate the CRD schema from the CRD manifests.

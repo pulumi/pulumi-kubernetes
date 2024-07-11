@@ -20,6 +20,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"log"
 	"net/http"
 	"net/url"
 	"os"
@@ -255,7 +256,23 @@ func (k *kubeProvider) GetSchema(ctx context.Context, req *pulumirpc.GetSchemaRe
 		return nil, fmt.Errorf("unsupported schema version %d", v)
 	}
 
-	return &pulumirpc.GetSchemaResponse{Schema: string(k.pulumiSchema)}, nil
+	for n, p := range k.crdSchemas.crdSchemas {
+		if p == nil {
+			log.Printf("CRD schema for %s is nil", n)
+			continue
+		}
+
+		b, err := json.Marshal(*p)
+		if err != nil {
+			log.Printf("failed to marshal CRD schema: %v", err)
+			continue
+		}
+		return &pulumirpc.GetSchemaResponse{Schema: string(b)}, nil
+	}
+
+	return nil, fmt.Errorf("no CRD schemas found")
+
+	// return &pulumirpc.GetSchemaResponse{Schema: string(k.pulumiSchema)}, nil
 }
 
 // CheckConfig validates the configuration for this provider.
