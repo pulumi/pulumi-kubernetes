@@ -162,6 +162,8 @@ type kubeProvider struct {
 	resourcesMutex sync.RWMutex
 
 	resourceProviders map[string]providerresource.ResourceProviderFactory
+
+	crdSchemas crdSchemaMap // In memory cache of CRD types from Parameterize calls.
 }
 
 var _ pulumirpc.ResourceProviderServer = (*kubeProvider)(nil)
