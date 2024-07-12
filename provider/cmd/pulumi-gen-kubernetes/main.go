@@ -170,7 +170,7 @@ func generateSchema(swaggerPath string) schema.PackageSpec {
 	}
 
 	// Generate schema
-	return gen.PulumiSchema(schemaMap)
+	return gen.PulumiSchema(schemaMap, gen.WithResourceOverlays(gen.ResourceOverlays), gen.WithTypeOverlays(gen.TypeOverlays))
 }
 
 // This is to mostly filter resources from the spec.

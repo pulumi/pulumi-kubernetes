@@ -262,6 +262,8 @@ func (k *kubeProvider) GetSchema(ctx context.Context, req *pulumirpc.GetSchemaRe
 			continue
 		}
 
+		p.Version = k.version
+
 		b, err := json.Marshal(*p)
 		if err != nil {
 			log.Printf("failed to marshal CRD schema: %v", err)

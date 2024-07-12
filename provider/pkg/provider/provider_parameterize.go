@@ -16,6 +16,7 @@ package provider
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -24,6 +25,7 @@ import (
 	"strings"
 	"sync"
 
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/gen"
 	pulumischema "github.com/pulumi/pulumi/pkg/v3/codegen/schema"
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
 	"github.com/spf13/pflag"
@@ -37,20 +39,20 @@ import (
 // internal lock to prevent concurrent access.
 type crdSchemaMap struct {
 	sync.Mutex
-	crdSchemas map[string]*pulumischema.Package
+	crdSchemas map[string]*pulumischema.PackageSpec
 }
 
-func (c *crdSchemaMap) getSchema(name string) *pulumischema.Package {
+func (c *crdSchemaMap) getSchema(name string) *pulumischema.PackageSpec {
 	c.Lock()
 	defer c.Unlock()
 	return c.crdSchemas[name]
 }
 
-func (c *crdSchemaMap) setCRDSchema(name string, schema *pulumischema.Package) {
+func (c *crdSchemaMap) setCRDSchema(name string, schema *pulumischema.PackageSpec) {
 	c.Lock()
 	defer c.Unlock()
 	if c.crdSchemas == nil {
-		c.crdSchemas = make(map[string]*pulumischema.Package)
+		c.crdSchemas = make(map[string]*pulumischema.PackageSpec)
 	}
 
 	c.crdSchemas[name] = schema
@@ -160,15 +162,54 @@ func mergeSpecs(specs []*spec.Swagger) (*spec.Swagger, error) {
 	return mergedSpecs, nil
 }
 
-func generateSchema(swagger *spec.Swagger) *pulumischema.Package {
-	return nil
+func generateSchema(swagger *spec.Swagger) *pulumischema.PackageSpec {
+	b, err := json.Marshal(swagger)
+	if err != nil {
+		log.Fatalf("error marshalling OpenAPI spec: %v", err)
+	}
+
+	var openAPISchema = map[string]any{}
+	err = json.Unmarshal(b, &openAPISchema)
+	if err != nil {
+		log.Fatalf("error unmarshalling OpenAPI spec: %v", err)
+	}
+
+	gen.PascalCaseMapping.Add("stable", "Stable")
+	pSchema := gen.PulumiSchema(openAPISchema)
+
+	return &pSchema
+}
+
+func openAsOpenAPI(filepath string) (*spec.Swagger, error) {
+	f, err := os.Open(filepath)
+	if err != nil {
+		return nil, fmt.Errorf("error opening OpenAPI spec file: %w", err)
+	}
+	defer f.Close()
+
+	decoder := yaml.NewYAMLOrJSONDecoder(f, 4096)
+	sw := new(spec.Swagger)
+
+	for {
+		err = decoder.Decode(sw)
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+
+			return nil, fmt.Errorf("error decoding OpenAPI spec: %w", err)
+		}
+
+	}
+
+	return sw, nil
 }
 
 // Parameterize is called by the engine when the Kubernetes provider is used for CRDs.
 func (k *kubeProvider) Parameterize(ctx context.Context, req *pulumirpc.ParameterizeRequest) (*pulumirpc.ParameterizeResponse, error) {
 	log.Println("Parameterizing CRD schemas...")
 	crdPackageName := "mycrd"
-	var crdPackage *pulumischema.Package
+	var crdPackage *pulumischema.PackageSpec
 
 	switch p := req.Parameters.(type) {
 	case *pulumirpc.ParameterizeRequest_Args:
@@ -189,7 +230,13 @@ func (k *kubeProvider) Parameterize(ctx context.Context, req *pulumirpc.Paramete
 
 		mergedSpecs, err := mergeSpecs(crdSpecs)
 		if err != nil {
-			return nil, fmt.Errorf("error merging OpenAPI specs for given CRD %q: %w", crd.Name, err)
+			// return nil, fmt.Errorf("error merging OpenAPI specs for given CRD %q: %w", crd.Name, err)
+
+			// Try reading file as OpenAPI spec.
+			mergedSpecs, err = openAsOpenAPI(args.CRDManifestPaths[0])
+			if err != nil {
+				return nil, fmt.Errorf("error reading OpenAPI spec: %w", err)
+			}
 		}
 
 		crdPackage = generateSchema(mergedSpecs)

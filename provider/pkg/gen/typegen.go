@@ -191,8 +191,7 @@ func (d definition) defaultAPIVersion() string {
 }
 
 func (d definition) isTopLevel() bool {
-	gvks, gvkExists :=
-		d.data["x-kubernetes-group-version-kind"].([]any)
+	gvks, gvkExists := d.data["x-kubernetes-group-version-kind"].([]any)
 	hasGVK := gvkExists && len(gvks) > 0
 	if !hasGVK {
 		return false
@@ -253,7 +252,7 @@ func (d definition) isTopLevel() bool {
 
 // --------------------------------------------------------------------------
 
-func gvkFromRef(ref string) schema.GroupVersionKind {
+func GVKFromRef(ref string) schema.GroupVersionKind {
 	split := strings.Split(ref, ".")
 	gvk := schema.GroupVersionKind{
 		Kind:    split[len(split)-1],
@@ -421,7 +420,7 @@ func makeSchemaTypeSpec(prop map[string]any, canonicalGroups map[string]string) 
 		return pschema.TypeSpec{Ref: "pulumi.json#/Json"}
 	}
 
-	gvk := gvkFromRef(ref)
+	gvk := GVKFromRef(ref)
 	if canonicalGroup, ok := canonicalGroups[gvk.Group]; ok {
 		return pschema.TypeSpec{Ref: fmt.Sprintf("#/types/kubernetes:%s/%s:%s",
 			canonicalGroup, gvk.Version, gvk.Kind)}
@@ -442,7 +441,7 @@ func makeSchemaType(prop map[string]any, canonicalGroups map[string]string) stri
 
 // --------------------------------------------------------------------------
 
-func createGroups(definitionsJSON map[string]any) []GroupConfig {
+func createGroups(definitionsJSON map[string]any, allowHyphens bool) []GroupConfig {
 	// Map Group -> canonical Group
 	// e.g., flowcontrol -> flowcontrol.apiserver.k8s.io
 	canonicalGroups := map[string]string{
@@ -451,7 +450,7 @@ func createGroups(definitionsJSON map[string]any) []GroupConfig {
 	linq.From(definitionsJSON).
 		SelectT(func(kv linq.KeyValue) definition {
 			defName := kv.Key.(string)
-			gvk := gvkFromRef(defName)
+			gvk := GVKFromRef(defName)
 			def := definition{
 				gvk:  gvk,
 				name: defName,
@@ -479,7 +478,7 @@ func createGroups(definitionsJSON map[string]any) []GroupConfig {
 	linq.From(definitionsJSON).
 		SelectT(func(kv linq.KeyValue) definition {
 			defName := kv.Key.(string)
-			gvk := gvkFromRef(defName)
+			gvk := GVKFromRef(defName)
 			def := definition{
 				gvk:  gvk,
 				name: defName,
@@ -600,7 +599,10 @@ func createGroups(definitionsJSON map[string]any) []GroupConfig {
 					case "x-kubernetes-validations":
 						propName = "x_kubernetes_validations" //nolint:gosec
 					}
-					contract.Assertf(!strings.Contains(propName, "-"), "property names may not contain `-`")
+
+					if !allowHyphens {
+						contract.Assertf(!strings.Contains(propName, "-"), "property names may not contain `-`")
+					}
 
 					// Create a const value for the field.
 					var constValue string
