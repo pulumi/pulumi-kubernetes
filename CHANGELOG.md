@@ -1,5 +1,9 @@
 ## Unreleased
 
+### Fixed
+
+- Updated logic to accurately detect if a resource is a Patch variant (https://github.com/pulumi/pulumi-kubernetes/pull/3102)
+
 ## 4.15.0 (July 9, 2024)
 
 ### Changed
