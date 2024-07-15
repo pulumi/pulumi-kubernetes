@@ -125,7 +125,8 @@ func Test_Apps_StatefulSet(t *testing.T) {
 				object: statefulsetCreating(inputNamespace, inputName, targetService, ""),
 				subErrors: []string{
 					"0 out of 2 replicas succeeded readiness checks",
-				}},
+				},
+			},
 		},
 		{
 			description: "Should fail if timeout occurs before successful update rollout",
@@ -144,7 +145,8 @@ func Test_Apps_StatefulSet(t *testing.T) {
 				subErrors: []string{
 					"0 out of 2 replicas succeeded readiness checks",
 					"StatefulSet controller failed to advance from revision \"foo-7b5cf87b78\" to revision \"foo-789c4b994f\"",
-				}},
+				},
+			},
 		},
 		{
 			description: "[Revision 1] Failure should only report Pods from active StatefulSet, part 1",
@@ -167,7 +169,8 @@ func Test_Apps_StatefulSet(t *testing.T) {
 				object: statefulsetProgressing(inputNamespace, inputName, targetService, ""),
 				subErrors: []string{
 					"1 out of 2 replicas succeeded readiness checks",
-				}},
+				},
+			},
 		},
 		{
 			description: "[Revision 2] Failure should only report Pods from active StatefulSet, part 1",
@@ -191,7 +194,8 @@ func Test_Apps_StatefulSet(t *testing.T) {
 				subErrors: []string{
 					"0 out of 2 replicas succeeded readiness checks",
 					"StatefulSet controller failed to advance from revision \"foo-7b5cf87b78\" to revision \"foo-789c4b994f\"",
-				}},
+				},
+			},
 		},
 		{
 			description: "[Revision 1] Failure should only report Pods from active StatefulSet, part 2",
@@ -214,8 +218,9 @@ func Test_Apps_StatefulSet(t *testing.T) {
 				object: statefulsetProgressing(inputNamespace, inputName, targetService, ""),
 				subErrors: []string{
 					"1 out of 2 replicas succeeded readiness checks",
-					"[Pod foo-0]: containers with unready status: [nginx] -- [ErrImagePull] manifest for nginx:busted not found",
-				}},
+					"[Pod foo-0]: containers with unready status: [nginx][ErrImagePull] manifest for nginx:busted not found",
+				},
+			},
 		},
 		{
 			description: "[Revision 2] Failure should only report Pods from active StatefulSet, part 2",
@@ -239,8 +244,9 @@ func Test_Apps_StatefulSet(t *testing.T) {
 				subErrors: []string{
 					"0 out of 2 replicas succeeded readiness checks",
 					"StatefulSet controller failed to advance from revision \"foo-7b5cf87b78\" to revision \"foo-789c4b994f\"",
-					"[Pod foo-0]: containers with unready status: [nginx] -- [ErrImagePull] manifest for nginx:busted not found",
-				}},
+					"[Pod foo-0]: containers with unready status: [nginx][ErrImagePull] manifest for nginx:busted not found",
+				},
+			},
 		},
 	}
 
@@ -285,7 +291,8 @@ func Test_Apps_StatefulSet_MultipleUpdates(t *testing.T) {
 				object: statefulsetFailed(),
 				subErrors: []string{
 					"0 out of 2 replicas succeeded readiness checks",
-				}},
+				},
+			},
 			secondUpdate: func(statefulset, pods chan watch.Event, timeout chan time.Time) {
 				statefulset <- watchAddedEvent(statefulsetUpdatedAfterFailed())
 				statefulset <- watchAddedEvent(statefulsetSucceedAfterFailed())

@@ -175,7 +175,8 @@ func Test_Apps_Deployment(t *testing.T) {
 				object: deploymentAdded(inputNamespace, deploymentInputName, revision1),
 				subErrors: []string{
 					"Minimum number of live Pods was not attained",
-				}},
+				},
+			},
 		},
 		{
 			description: "[Revision 2] Should fail if unrelated Deployment succeeds",
@@ -196,7 +197,8 @@ func Test_Apps_Deployment(t *testing.T) {
 				object: deploymentAdded(inputNamespace, deploymentInputName, revision2),
 				subErrors: []string{
 					"Minimum number of live Pods was not attained",
-				}},
+				},
+			},
 		},
 		{
 			description: "[Revision 1] Should succeed when unrelated deployment fails",
@@ -275,7 +277,8 @@ func Test_Apps_Deployment(t *testing.T) {
 				object: deploymentAdded(inputNamespace, deploymentInputName, revision1),
 				subErrors: []string{
 					"Minimum number of live Pods was not attained",
-				}},
+				},
+			},
 		},
 		{
 			description: "[Revision 2] Should fail if timeout occurs before Deployment controller progresses",
@@ -294,7 +297,8 @@ func Test_Apps_Deployment(t *testing.T) {
 				object: deploymentAdded(inputNamespace, deploymentInputName, revision2),
 				subErrors: []string{
 					"Minimum number of live Pods was not attained",
-				}},
+				},
+			},
 		},
 		{
 			description: "[Revision 2] Should fail if timeout occurs before ReplicaSet is created",
@@ -312,7 +316,9 @@ func Test_Apps_Deployment(t *testing.T) {
 			expectedError: &timeoutError{
 				object: deploymentProgressing(inputNamespace, deploymentInputName, revision2),
 				subErrors: []string{
-					"Minimum number of live Pods was not attained"}},
+					"Minimum number of live Pods was not attained",
+				},
+			},
 		},
 		{
 			description: "[Revision 2] Should fail if timeout occurs before ReplicaSet becomes available",
@@ -333,7 +339,9 @@ func Test_Apps_Deployment(t *testing.T) {
 				object: deploymentProgressingUnavailable(inputNamespace, deploymentInputName, revision2),
 				subErrors: []string{
 					"[MinimumReplicasUnavailable] Deployment does not have minimum availability.",
-					"Minimum number of live Pods was not attained"}},
+					"Minimum number of live Pods was not attained",
+				},
+			},
 		},
 		{
 			description: "[Revision 2] Should fail if new ReplicaSet isn't created after an update",
@@ -349,7 +357,9 @@ func Test_Apps_Deployment(t *testing.T) {
 			expectedError: &timeoutError{
 				object: deploymentUpdated(inputNamespace, deploymentInputName, revision2),
 				subErrors: []string{
-					"Attempted to roll forward to new ReplicaSet, but minimum number of Pods did not become live"}},
+					"Attempted to roll forward to new ReplicaSet, but minimum number of Pods did not become live",
+				},
+			},
 		},
 		{
 			description: "[Revision 2] Should fail if timeout before new ReplicaSet becomes available",
@@ -367,7 +377,9 @@ func Test_Apps_Deployment(t *testing.T) {
 			expectedError: &timeoutError{
 				object: deploymentUpdatedReplicaSetProgressing(inputNamespace, deploymentInputName, revision2),
 				subErrors: []string{
-					"Minimum number of Pods to consider the application live was not attained"}},
+					"Minimum number of Pods to consider the application live was not attained",
+				},
+			},
 		},
 		{
 			description: "[Revision 1] Deployment should succeed and not report 'Progressing' condition",
@@ -405,7 +417,9 @@ func Test_Apps_Deployment(t *testing.T) {
 			expectedError: &timeoutError{
 				object: deploymentRevision2Created(inputNamespace, deploymentInputName),
 				subErrors: []string{
-					"Minimum number of Pods to consider the application live was not attained"}},
+					"Minimum number of Pods to consider the application live was not attained",
+				},
+			},
 		},
 		{
 			description: "[Revision 2] Deployment should fail if Deployment reports 'Progressing' failure",
@@ -429,7 +443,9 @@ func Test_Apps_Deployment(t *testing.T) {
 				subErrors: []string{
 					`[ProgressDeadlineExceeded] ReplicaSet "foo-13y9rdnu-b94df86d6" has timed ` +
 						`out progressing.`,
-					"Minimum number of Pods to consider the application live was not attained"}},
+					"Minimum number of Pods to consider the application live was not attained",
+				},
+			},
 		},
 		{
 			description: "[Revision 2] Should fail if Deployment is progressing but new ReplicaSet not available",
@@ -452,7 +468,8 @@ func Test_Apps_Deployment(t *testing.T) {
 				object: deploymentProgressingInvalidContainer(inputNamespace, deploymentInputName, revision2),
 				subErrors: []string{
 					"Minimum number of Pods to consider the application live was not attained",
-				}},
+				},
+			},
 		},
 		{
 			description: "[Revision 1] Failure should only report Pods from active ReplicaSet, part 1",
@@ -477,7 +494,8 @@ func Test_Apps_Deployment(t *testing.T) {
 				object: deploymentProgressing(inputNamespace, deploymentInputName, revision1),
 				subErrors: []string{
 					"Minimum number of live Pods was not attained",
-				}},
+				},
+			},
 		},
 		{
 			description: "[Revision 2] Failure should only report Pods from active ReplicaSet, part 1",
@@ -502,7 +520,8 @@ func Test_Apps_Deployment(t *testing.T) {
 				object: deploymentProgressing(inputNamespace, deploymentInputName, revision2),
 				subErrors: []string{
 					"Minimum number of live Pods was not attained",
-				}},
+				},
+			},
 		},
 		{
 			description: "[Revision 1] Failure should only report Pods from active ReplicaSet, part 2",
@@ -527,8 +546,9 @@ func Test_Apps_Deployment(t *testing.T) {
 				object: deploymentProgressing(inputNamespace, deploymentInputName, revision1),
 				subErrors: []string{
 					"Minimum number of live Pods was not attained",
-					`[Pod foo-4setj4y6-7cdf7ddc54-kvh2w]: containers with unready status: [nginx] -- [ImagePullBackOff] Back-off pulling image "sdkjlsdlkj"`,
-				}},
+					`[Pod foo-4setj4y6-7cdf7ddc54-kvh2w]: containers with unready status: [nginx][ImagePullBackOff] Back-off pulling image "sdkjlsdlkj"`,
+				},
+			},
 		},
 		{
 			description: "[Revision 2] Failure should only report Pods from active ReplicaSet, part 2",
@@ -553,8 +573,9 @@ func Test_Apps_Deployment(t *testing.T) {
 				object: deploymentProgressing(inputNamespace, deploymentInputName, revision2),
 				subErrors: []string{
 					"Minimum number of live Pods was not attained",
-					`[Pod foo-4setj4y6-7cdf7ddc54-kvh2w]: containers with unready status: [nginx] -- [ImagePullBackOff] Back-off pulling image "sdkjlsdlkj"`,
-				}},
+					`[Pod foo-4setj4y6-7cdf7ddc54-kvh2w]: containers with unready status: [nginx][ImagePullBackOff] Back-off pulling image "sdkjlsdlkj"`,
+				},
+			},
 		},
 		{
 			description: "Should fail if ReplicaSet generations do not match",
@@ -570,7 +591,9 @@ func Test_Apps_Deployment(t *testing.T) {
 			expectedError: &timeoutError{
 				object: deploymentRolloutComplete(inputNamespace, deploymentInputName, revision1),
 				subErrors: []string{
-					"Minimum number of Pods to consider the application live was not attained"}},
+					"Minimum number of Pods to consider the application live was not attained",
+				},
+			},
 		},
 	}
 
@@ -626,7 +649,9 @@ func Test_Apps_Deployment_With_PersistentVolumeClaims(t *testing.T) {
 				subErrors: []string{
 					`[ProgressDeadlineExceeded] ReplicaSet "foo-13y9rdnu-b94df86d6" has timed ` +
 						`out progressing.`,
-					fmt.Sprintf("Failed to bind PersistentVolumeClaim(s): %q", pvcInputName)}},
+					fmt.Sprintf("Failed to bind PersistentVolumeClaim(s): %q", pvcInputName),
+				},
+			},
 		},
 	}
 
@@ -838,7 +863,8 @@ func Test_Core_Deployment_Read(t *testing.T) {
 			replicaset:         availableReplicaSet,
 			replicaSetRevision: revision2,
 			expectedSubErrors: []string{
-				"Minimum number of Pods to consider the application live was not attained"},
+				"Minimum number of Pods to consider the application live was not attained",
+			},
 		},
 		{
 			description:        "[Revision 2] Read should fail if Deployment progressing but unavailable",
@@ -848,7 +874,8 @@ func Test_Core_Deployment_Read(t *testing.T) {
 			replicaSetRevision: revision2,
 			expectedSubErrors: []string{
 				"[MinimumReplicasUnavailable] Deployment does not have minimum availability.",
-				"Minimum number of live Pods was not attained"},
+				"Minimum number of live Pods was not attained",
+			},
 		},
 		{
 			description: "[Revision 1] Read should succeed if Deployment reported available",
@@ -866,7 +893,8 @@ func Test_Core_Deployment_Read(t *testing.T) {
 			replicaset:         availableReplicaSet,
 			replicaSetRevision: revision2,
 			expectedSubErrors: []string{
-				"Minimum number of Pods to consider the application live was not attained"},
+				"Minimum number of Pods to consider the application live was not attained",
+			},
 		},
 		{
 			description:        "[Revision 2] Read should succeed if rollout completes",
@@ -892,7 +920,8 @@ func Test_Core_Deployment_Read(t *testing.T) {
 			replicaset:         availableReplicaSet,
 			replicaSetRevision: revision2,
 			expectedSubErrors: []string{
-				"Minimum number of Pods to consider the application live was not attained"},
+				"Minimum number of Pods to consider the application live was not attained",
+			},
 		},
 		{
 			description:        "[Revision 2] Read should succeed Deployment if new ReplicaSet still rolled out",
@@ -2279,7 +2308,6 @@ func regressionDeploymentScaled3() *unstructured.Unstructured {
         "updatedReplicas": 3
     }
 }`)
-
 	if err != nil {
 		panic(err)
 	}
@@ -2391,7 +2419,6 @@ func regressionDeploymentScaled3ExplicitDefault() *unstructured.Unstructured {
         "updatedReplicas": 3
     }
 }`)
-
 	if err != nil {
 		panic(err)
 	}
@@ -2503,7 +2530,6 @@ func regressionDeploymentScaled5() *unstructured.Unstructured {
         "updatedReplicas": 5
     }
 }`)
-
 	if err != nil {
 		panic(err)
 	}
