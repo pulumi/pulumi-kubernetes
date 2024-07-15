@@ -1174,6 +1174,7 @@ var kustomizeDirectoryResource = pschema.ResourceSpec{
 	IsComponent: true,
 	ObjectTypeSpec: pschema.ObjectTypeSpec{
 		IsOverlay:   true,
+		OverlaySupportedLanguages: []string{"csharp", "go", "python", "nodejs"},
 		Description: kustomizeDirectoryMD,
 		Properties: map[string]pschema.PropertySpec{
 			"directory": {
@@ -1287,6 +1288,7 @@ var yamlConfigFileResource = pschema.ResourceSpec{
 	IsComponent: true,
 	ObjectTypeSpec: pschema.ObjectTypeSpec{
 		IsOverlay:   true,
+		OverlaySupportedLanguages: []string{"csharp", "go", "python", "nodejs"},
 		Description: configFileMD,
 		Properties: map[string]pschema.PropertySpec{
 			"resources": {
@@ -1379,6 +1381,7 @@ var yamlConfigGroupResource = pschema.ResourceSpec{
 	IsComponent: true,
 	ObjectTypeSpec: pschema.ObjectTypeSpec{
 		IsOverlay:   true,
+		OverlaySupportedLanguages: []string{"csharp", "go", "python", "nodejs"},
 		Description: configGroupMD,
 		Properties: map[string]pschema.PropertySpec{
 			"resources": {
@@ -1521,6 +1524,7 @@ var yamlConfigGroupV2Resource = pschema.ResourceSpec{
 var apiextensionsCustomResource = pschema.ResourceSpec{
 	ObjectTypeSpec: pschema.ObjectTypeSpec{
 		IsOverlay:   true,
+		OverlaySupportedLanguages: []string{"csharp", "go", "python", "nodejs"},
 		Description: "CustomResource represents an instance of a CustomResourceDefinition (CRD). For example, the\n CoreOS Prometheus operator exposes a CRD `monitoring.coreos.com/ServiceMonitor`; to\n instantiate this as a Pulumi resource, one could call `new CustomResource`, passing the\n `ServiceMonitor` resource definition as an argument.",
 		Properties: map[string]pschema.PropertySpec{
 			"apiVersion": {
@@ -1588,6 +1592,7 @@ var apiextensionsCustomResource = pschema.ResourceSpec{
 var apiextensionsCustomResourcePatch = pschema.ResourceSpec{
 	ObjectTypeSpec: pschema.ObjectTypeSpec{
 		IsOverlay:   true,
+		OverlaySupportedLanguages: []string{"csharp", "go", "python", "nodejs"},
 		Description: "CustomResourcePatch represents an instance of a CustomResourceDefinition (CRD). For example, the\n CoreOS Prometheus operator exposes a CRD `monitoring.coreos.com/ServiceMonitor`; to\n instantiate this as a Pulumi resource, one could call `new CustomResourcePatch`, passing the\n `ServiceMonitor` resource definition as an argument.",
 		Properties: map[string]pschema.PropertySpec{
 			"apiVersion": {
