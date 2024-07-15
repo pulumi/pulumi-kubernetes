@@ -1,0 +1,41 @@
+# Creates a namespace, a deployment, and two custom resources. One of the custom resources contains `Patch` in the suffix of its kind.
+name: patch-resources
+runtime: yaml
+resources:
+  provider:
+    type: pulumi:providers:kubernetes
+
+  # Namespace
+  patch-rsc-namespace:
+    type: kubernetes:core/v1:Namespace
+    options:
+      provider: ${provider}
+
+  # Deployment
+  deployment:
+    type: kubernetes:apps/v1:Deployment
+    properties:
+      metadata:
+        namespace: ${patch-rsc-namespace.metadata.name}
+        labels:
+          app: nginx
+      spec:
+        replicas: 1
+        selector:
+          matchLabels:
+            app: nginx
+        template:
+          metadata:
+            labels:
+              app: nginx
+          spec:
+            containers:
+              - image: nginx:1.14.2
+                name: nginx
+                ports:
+                  - containerPort: 80
+    options:
+      provider: ${provider}
+outputs:
+  nsName: ${patch-rsc-namespace.metadata.name}
+  depName: ${deployment.metadata.name}

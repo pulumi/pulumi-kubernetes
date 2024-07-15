@@ -155,44 +155,6 @@ func Test_equalNumbers(t *testing.T) {
 	}
 }
 
-func Test_isPatchURN(t *testing.T) {
-	type args struct {
-		urn resource.URN
-	}
-	tests := []struct {
-		name string
-		args args
-		want bool
-	}{
-		{
-			name: "patch URN",
-			args: args{
-				urn: resource.NewURN("test", "test", "", "kubernetes:apps/v1:DeploymentPatch", "test"),
-			},
-			want: true,
-		},
-		{
-			name: "regular URN",
-			args: args{
-				urn: resource.NewURN("test", "test", "", "kubernetes:apps/v1:Deployment", "test"),
-			},
-			want: false,
-		},
-		{
-			name: "CustomResource with Patch suffix",
-			args: args{
-				urn: resource.NewURN("test", "test", "", "kubernetes:kuma.io/v1alpha1:MeshProxyPatch", "test"),
-			},
-			want: false,
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			assert.Equalf(t, tt.want, kinds.IsPatchURN(tt.args.urn), "isPatchURN(%v)", tt.args.urn)
-		})
-	}
-}
-
 func Test_isListURN(t *testing.T) {
 	type args struct {
 		urn resource.URN

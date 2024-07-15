@@ -496,7 +496,16 @@ func updateResource(c *UpdateConfig, liveOldObj *unstructured.Unstructured, clie
 		// results in the immediate replacement of the CRD without deleting it, or any CustomResources that depend on
 		// it. The PUT operation is still validated by the api server, so a badly formed request will fail as usual.
 		c.Inputs.SetResourceVersion(liveOldObj.GetResourceVersion())
-		currentOutputs, err = client.Update(c.Context, c.Inputs, metav1.UpdateOptions{})
+
+		options := metav1.UpdateOptions{
+			FieldManager: c.FieldManager,
+		}
+
+		if c.Preview {
+			options.DryRun = []string{metav1.DryRunAll}
+		}
+
+		currentOutputs, err = client.Update(c.Context, c.Inputs, options)
 	case c.ServerSideApply:
 		currentOutputs, err = ssaUpdate(c, liveOldObj, client)
 	default:
@@ -712,7 +721,7 @@ func ensureFieldsAreMembers(s *fieldpath.Set) *fieldpath.Set {
 // fixCSAFieldManagers patches the field managers for an existing resource that was managed using client-side apply.
 // The new server-side apply field manager takes ownership of all these fields to avoid conflicts.
 func fixCSAFieldManagers(c *UpdateConfig, liveOldObj *unstructured.Unstructured, client dynamic.ResourceInterface) (*unstructured.Unstructured, error) {
-	if kinds.IsPatchURN(c.URN) {
+	if kinds.IsPatchResource(c.URN, c.Inputs.GetKind()) {
 		// When dealing with a patch resource, there's no need to patch the field managers.
 		// Doing so would inadvertently make us responsible for managing fields that are not relevant to us during updates,
 		// which occurs when reusing a patch resource. Patch resources do not need to worry about other fields
@@ -805,7 +814,7 @@ func Deletion(c DeleteConfig) error {
 		return nilIfGVKDeleted(err)
 	}
 
-	patchResource := kinds.IsPatchURN(c.URN)
+	patchResource := kinds.IsPatchResource(c.URN, c.Inputs.GetKind())
 	if c.ServerSideApply && patchResource {
 		err = ssa.Relinquish(c.Context, client, c.Outputs, c.FieldManager)
 		return err

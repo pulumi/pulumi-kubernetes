@@ -16,6 +16,20 @@
   Use `terminationMessagePolicy: FallbackToLogsOnError` to use the pod's logs
   as its termination message.
 
+### Fixed
+
+- Updated logic to accurately detect if a resource is a Patch variant (https://github.com/pulumi/pulumi-kubernetes/pull/3102)
+
+## 4.15.0 (July 9, 2024)
+
+### Changed
+
+- `CustomResource` should have plain `apiVersion` and `kind` properties (https://github.com/pulumi/pulumi-kubernetes/pull/3079)
+
+### Fixed
+
+- Prevent CustomResourceDefinitions from always being applied to the cluster during preview operations (https://github.com/pulumi/pulumi-kubernetes/pull/3096)
+
 ## 4.14.0 (June 28, 2024)
 
 ### Added
