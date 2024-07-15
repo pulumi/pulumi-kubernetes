@@ -214,7 +214,7 @@ require (
 	github.com/prometheus/common v0.44.0 // indirect
 	github.com/prometheus/procfs v0.12.0 // indirect
 	github.com/pulumi/appdash v0.0.0-20231130102222-75f619a67231 // indirect
-	github.com/pulumi/cloud-ready-checks v1.1.0 // indirect
+	github.com/pulumi/cloud-ready-checks v1.1.1-0.20240703193359-05f180685ea5 // indirect
 	github.com/pulumi/esc v0.9.1 // indirect
 	github.com/rivo/uniseg v0.4.4 // indirect
 	github.com/rogpeppe/go-internal v1.12.0 // indirect
