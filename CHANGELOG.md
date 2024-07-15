@@ -3,11 +3,11 @@
 ### Added
 
 - Pod errors now include the pod's last termination state, as well as the pod's
-  termination message if applicable.
+  termination message if available.
   (https://github.com/pulumi/pulumi-kubernetes/pull/3091)
 
   The pod's termination message can be helpful in `CrashLoopBackOff` situations but
-  will only be reported if was correctly configured.
+  will only be reported if it was correctly configured.
 
   By default, the pod's termination message is read from
   `/dev/termination-log`. This location can be configured with
