@@ -2,7 +2,7 @@
 
 ### Added
 
-- Define Supported Languages for Chart v3 (https://github.com/pulumi/pulumi-kubernetes/pull/3107)
+- Define Supported Languages for Overlays (https://github.com/pulumi/pulumi-kubernetes/pull/3107)
 
 ### Fixed
 
