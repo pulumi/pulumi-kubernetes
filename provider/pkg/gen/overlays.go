@@ -55,6 +55,7 @@ var helmV3ChartResource = pschema.ResourceSpec{
 	IsComponent: true,
 	ObjectTypeSpec: pschema.ObjectTypeSpec{
 		IsOverlay:   true,
+		OverlaySupportedLanguages: []string{"csharp", "go", "python", "nodejs"},
 		Description: helmV3ChartMD,
 		Properties: map[string]pschema.PropertySpec{
 			"resources": {
