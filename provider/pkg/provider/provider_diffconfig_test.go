@@ -65,7 +65,6 @@ var _ = Describe("RPC:DiffConfig", func() {
 	})
 
 	Describe("Cluster Change Detection", func() {
-
 		Describe("kubeconfig", func() {
 			Context("when kubeconfig is a computed value", func() {
 				BeforeEach(func() {
@@ -135,12 +134,89 @@ var _ = Describe("RPC:DiffConfig", func() {
 					news["kubeconfig"] = resource.NewStringProperty(WriteKubeconfigToFile(newConfig))
 				})
 
-				It("should suggest replacement since the underlying cluster may be different", func() {
+				Context("without a clusterIdentifier", func() {
+					It("should suggest replacement since the underlying cluster may be different", func() {
+						resp, err := k.DiffConfig(context.Background(), req)
+						Expect(err).ShouldNot(HaveOccurred())
+						Expect(resp.Changes).To(Equal(pulumirpc.DiffResponse_DIFF_SOME))
+						Expect(resp.Diffs).To(ContainElements("kubeconfig"))
+						Expect(resp.Replaces).To(ContainElements("kubeconfig"))
+					})
+				})
+
+				Context("with an unchanged cluster identifier", func() {
+					BeforeEach(func() {
+						olds["clusterIdentifier"] = resource.NewStringProperty("foo")
+						news["clusterIdentifier"] = resource.NewStringProperty("foo")
+					})
+
+					It("shouldn't suggest replacement", func() {
+						resp, err := k.DiffConfig(context.Background(), req)
+						Expect(err).ShouldNot(HaveOccurred())
+						Expect(resp.Changes).To(Equal(pulumirpc.DiffResponse_DIFF_SOME))
+						Expect(resp.Diffs).To(ContainElements("kubeconfig"))
+						Expect(resp.Replaces).To(BeEmpty())
+					})
+				})
+
+				Context("with a different cluster identifier", func() {
+					BeforeEach(func() {
+						olds["clusterIdentifier"] = resource.NewStringProperty("foo")
+						news["clusterIdentifier"] = resource.NewStringProperty("bar")
+					})
+
+					It("should suggest replacement", func() {
+						resp, err := k.DiffConfig(context.Background(), req)
+						Expect(err).ShouldNot(HaveOccurred())
+						Expect(resp.Changes).To(Equal(pulumirpc.DiffResponse_DIFF_SOME))
+						Expect(resp.Diffs).To(ContainElements("kubeconfig"))
+						Expect(resp.Replaces).To(ContainElements("kubeconfig"))
+					})
+				})
+			})
+		})
+
+		Describe("clusterIdentifier", func() {
+			Context("when added", func() {
+				BeforeEach(func() {
+					news["clusterIdentifier"] = resource.NewStringProperty("foo")
+				})
+
+				It("should report a diff (no replace) on the clusterIdentifier property", func() {
 					resp, err := k.DiffConfig(context.Background(), req)
 					Expect(err).ShouldNot(HaveOccurred())
 					Expect(resp.Changes).To(Equal(pulumirpc.DiffResponse_DIFF_SOME))
-					Expect(resp.Diffs).To(ContainElements("kubeconfig"))
-					Expect(resp.Replaces).To(ContainElements("kubeconfig"))
+					Expect(resp.Diffs).To(ContainElements("clusterIdentifier"))
+					Expect(resp.Replaces).To(BeEmpty())
+				})
+			})
+
+			Context("when removed", func() {
+				BeforeEach(func() {
+					olds["clusterIdentifier"] = resource.NewStringProperty("foo")
+				})
+
+				It("should report a diff (no replace) on the clusterIdentifier property", func() {
+					resp, err := k.DiffConfig(context.Background(), req)
+					Expect(err).ShouldNot(HaveOccurred())
+					Expect(resp.Changes).To(Equal(pulumirpc.DiffResponse_DIFF_SOME))
+					Expect(resp.Diffs).To(ContainElements("clusterIdentifier"))
+					Expect(resp.Replaces).To(BeEmpty())
+				})
+			})
+
+			Context("when changed", func() {
+				BeforeEach(func() {
+					olds["clusterIdentifier"] = resource.NewStringProperty("foo")
+					news["clusterIdentifier"] = resource.NewStringProperty("bar")
+				})
+
+				It("should suggest replacement", func() {
+					resp, err := k.DiffConfig(context.Background(), req)
+					Expect(err).ShouldNot(HaveOccurred())
+					Expect(resp.Changes).To(Equal(pulumirpc.DiffResponse_DIFF_SOME))
+					Expect(resp.Diffs).To(ContainElements("clusterIdentifier"))
+					Expect(resp.Replaces).To(ContainElements("clusterIdentifier"))
 				})
 			})
 		})
@@ -188,12 +264,44 @@ var _ = Describe("RPC:DiffConfig", func() {
 					news["context"] = resource.NewStringProperty("context2")
 				})
 
-				It("should suggest replacement since the underlying cluster may be different", func() {
-					resp, err := k.DiffConfig(context.Background(), req)
-					Expect(err).ShouldNot(HaveOccurred())
-					Expect(resp.Changes).To(Equal(pulumirpc.DiffResponse_DIFF_SOME))
-					Expect(resp.Diffs).To(ContainElements("context"))
-					Expect(resp.Replaces).To(ContainElements("context"))
+				Context("without a cluster identifier", func() {
+					It("should suggest replacement since the underlying cluster may be different", func() {
+						resp, err := k.DiffConfig(context.Background(), req)
+						Expect(err).ShouldNot(HaveOccurred())
+						Expect(resp.Changes).To(Equal(pulumirpc.DiffResponse_DIFF_SOME))
+						Expect(resp.Diffs).To(ContainElements("context"))
+						Expect(resp.Replaces).To(ContainElements("context"))
+					})
+				})
+
+				Context("with an unchanged cluster identifier", func() {
+					BeforeEach(func() {
+						olds["clusterIdentifier"] = resource.NewStringProperty("foo")
+						news["clusterIdentifier"] = resource.NewStringProperty("foo")
+					})
+
+					It("shouldn't suggest replacement", func() {
+						resp, err := k.DiffConfig(context.Background(), req)
+						Expect(err).ShouldNot(HaveOccurred())
+						Expect(resp.Changes).To(Equal(pulumirpc.DiffResponse_DIFF_SOME))
+						Expect(resp.Diffs).To(ContainElements("context"))
+						Expect(resp.Replaces).To(BeEmpty())
+					})
+				})
+
+				Context("with a different cluster identifier", func() {
+					BeforeEach(func() {
+						olds["clusterIdentifier"] = resource.NewStringProperty("foo")
+						news["clusterIdentifier"] = resource.NewStringProperty("bar")
+					})
+
+					It("should suggest replacement", func() {
+						resp, err := k.DiffConfig(context.Background(), req)
+						Expect(err).ShouldNot(HaveOccurred())
+						Expect(resp.Changes).To(Equal(pulumirpc.DiffResponse_DIFF_SOME))
+						Expect(resp.Diffs).To(ContainElements("context"))
+						Expect(resp.Replaces).To(ContainElements("context"))
+					})
 				})
 			})
 		})
