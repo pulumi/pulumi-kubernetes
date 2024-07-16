@@ -870,8 +870,8 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 
 // Invoke dynamically executes a built-in function in the provider.
 func (k *kubeProvider) Invoke(ctx context.Context,
-	req *pulumirpc.InvokeRequest) (*pulumirpc.InvokeResponse, error) {
-
+	req *pulumirpc.InvokeRequest,
+) (*pulumirpc.InvokeResponse, error) {
 	// Important: Some invoke logic is intended to run during preview, and the Kubernetes provider
 	// inputs may not have resolved yet. Any invoke logic that depends on an active cluster must check
 	// k.clusterUnreachable and handle that condition appropriately.
@@ -979,8 +979,8 @@ func (k *kubeProvider) Invoke(ctx context.Context,
 // StreamInvoke dynamically executes a built-in function in the provider. The result is streamed
 // back as a series of messages.
 func (k *kubeProvider) StreamInvoke(
-	req *pulumirpc.InvokeRequest, server pulumirpc.ResourceProvider_StreamInvokeServer) error {
-
+	req *pulumirpc.InvokeRequest, server pulumirpc.ResourceProvider_StreamInvokeServer,
+) error {
 	// Important: Some invoke logic is intended to run during preview, and the Kubernetes provider
 	// inputs may not have resolved yet. Any invoke logic that depends on an active cluster must check
 	// k.clusterUnreachable and handle that condition appropriately.
@@ -1506,7 +1506,6 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 				// types, we fail here.
 				return nil, fmt.Errorf("unable to fetch schema for resource type %s/%s: %w",
 					newInputs.GetAPIVersion(), newInputs.GetKind(), err)
-
 			}
 		}
 	}
@@ -1649,7 +1648,6 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 		} else {
 			return nil, fmt.Errorf(
 				"API server returned error when asked if resource type %s is namespaced: %w", gvk, err)
-
 		}
 	}
 
@@ -1692,7 +1690,6 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 		return nil, fmt.Errorf(
 			"Failed to check for changes in resource %q because of an error serializing "+
 				"the JSON patch describing resource changes: %w", urn, err)
-
 	}
 
 	hasChanges := pulumirpc.DiffResponse_DIFF_NONE
@@ -1710,7 +1707,6 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 				"Failed to check for changes in resource %q because of an error "+
 					"converting JSON patch describing resource changes to a diff: %w",
 				urn, err)
-
 		}
 
 		// Remove any ignored changes from the computed diff.
@@ -1781,8 +1777,7 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 
 	// Delete before replacement if we are forced to replace the old object, and the new version of
 	// that object MUST have the same name.
-	deleteBeforeReplace :=
-		// 1. We know resource must be replaced.
+	deleteBeforeReplace := // 1. We know resource must be replaced.
 		len(replaces) > 0 &&
 			// 2. Object is named (i.e., not using metadata.generateName).
 			metadata.IsNamed(newInputs, newResInputs) &&
@@ -1961,7 +1956,6 @@ func (k *kubeProvider) Create(
 			// Object creation failed.
 			return nil, fmt.Errorf(
 				"resource %q was not successfully created by the Kubernetes API server: %w", urn, awaitErr)
-
 		}
 
 		// Resource was created, but failed to become fully initialized.
@@ -2433,7 +2427,6 @@ func (k *kubeProvider) Update(
 				"update of resource %q failed because the Kubernetes API server "+
 					"reported that the apiVersion for this resource does not exist. "+
 					"Verify that any required CRDs have been created: %w", urn, awaitErr)
-
 		}
 
 		var getErr error
@@ -2925,8 +2918,8 @@ func initialAPIVersion(state resource.PropertyMap, oldInputs *unstructured.Unstr
 }
 
 func checkpointObject(inputs, live *unstructured.Unstructured, fromInputs resource.PropertyMap,
-	initialAPIVersion, fieldManager string) resource.PropertyMap {
-
+	initialAPIVersion, fieldManager string,
+) resource.PropertyMap {
 	object := resource.NewPropertyMapFromMap(live.Object)
 	inputsPM := resource.NewPropertyMapFromMap(inputs.Object)
 
@@ -3339,20 +3332,20 @@ func renderYaml(resource *unstructured.Unstructured, yamlDirectory string) error
 	manifestDirectory := filepath.Join(yamlDirectory, "1-manifest")
 
 	if _, err := os.Stat(crdDirectory); os.IsNotExist(err) {
-		err = os.MkdirAll(crdDirectory, 0700)
+		err = os.MkdirAll(crdDirectory, 0o700)
 		if err != nil {
 			return fmt.Errorf("failed to create directory for rendered YAML: %q: %w", crdDirectory, err)
 		}
 	}
 	if _, err := os.Stat(manifestDirectory); os.IsNotExist(err) {
-		err = os.MkdirAll(manifestDirectory, 0700)
+		err = os.MkdirAll(manifestDirectory, 0o700)
 		if err != nil {
 			return fmt.Errorf("failed to create directory for rendered YAML: %q: %w", manifestDirectory, err)
 		}
 	}
 
 	path := renderPathForResource(resource, yamlDirectory)
-	err = os.WriteFile(path, yamlBytes, 0600)
+	err = os.WriteFile(path, yamlBytes, 0o600)
 	if err != nil {
 		return fmt.Errorf("failed to write YAML file: %q: %w", path, err)
 	}
