@@ -68,7 +68,7 @@ func TestPatchResources(t *testing.T) {
 		return objOutput, nil
 	}
 
-	// Apply the required CRDs for this test to the cluster. We manage this separatedly from the Pulumi program since it is cluster scoped,
+	// Apply the required CRDs for this test to the cluster. We manage this separately from the Pulumi program since it is cluster scoped,
 	// and can be used by all sub-tests.
 	_, err := tests.Kubectl("apply", "-f", filepath.Join(testFolder, "crds.yaml"))
 	if err != nil {
