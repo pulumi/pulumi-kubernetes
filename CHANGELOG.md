@@ -1,5 +1,9 @@
 ## Unreleased
 
+### Added
+
+- Define Supported Languages for Overlays (https://github.com/pulumi/pulumi-kubernetes/pull/3107)
+
 ### Fixed
 
 - Updated logic to accurately detect if a resource is a Patch variant (https://github.com/pulumi/pulumi-kubernetes/pull/3102)
