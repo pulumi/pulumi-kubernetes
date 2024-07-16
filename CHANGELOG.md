@@ -1,14 +1,44 @@
+
 ## Unreleased
 
 ### Added
 
-- `clusterIdentifier` configuration for manual control of provider replacement behavior. (https://github.com/pulumi/pulumi-kubernetes/pull/3068)
+- `clusterIdentifier` configuration can now be used to manually control the
+  replacement behavior of a provider resource.
+  (https://github.com/pulumi/pulumi-kubernetes/pull/3068)
+- Documentation is now generated for all languages supported by overlay types.
+  (https://github.com/pulumi/pulumi-kubernetes/pull/3107)
 
 ### Fixed
 
-- Chart v4 now handles an array of assets. (https://github.com/pulumi/pulumi-kubernetes/pull/3061)
+- Updated logic to accurately detect if a resource is a Patch variant. (https://github.com/pulumi/pulumi-kubernetes/pull/3102)
 
-## 4.13.0 (June 4, 2024)
+## 4.15.0 (July 9, 2024)
+
+### Changed
+
+- `CustomResource` should have plain `apiVersion` and `kind` properties (https://github.com/pulumi/pulumi-kubernetes/pull/3079)
+
+### Fixed
+
+- Prevent CustomResourceDefinitions from always being applied to the cluster during preview operations (https://github.com/pulumi/pulumi-kubernetes/pull/3096)
+
+## 4.14.0 (June 28, 2024)
+
+### Added
+
+- `TypedDict` input types for the Python SDK (https://github.com/pulumi/pulumi-kubernetes/pull/3070)
+
+### Changed
+
+- The `Release` resource no longer ignores empty lists when merging values. (https://github.com/pulumi/pulumi-kubernetes/pull/2995)
+
+### Fixed
+
+- `Chart` v4 now handles an array of assets. (https://github.com/pulumi/pulumi-kubernetes/pull/3061)
+- Fix previews always failing when a resource is to be replaced (https://github.com/pulumi/pulumi-kubernetes/pull/3053)
+
+## 4.13.1 (June 4, 2024)
 
 ### Added
 

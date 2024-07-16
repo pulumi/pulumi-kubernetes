@@ -39,12 +39,14 @@ import (
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
 	apierrors "k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/api/meta"
+	apivalidation "k8s.io/apimachinery/pkg/api/validation"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/fields"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/apimachinery/pkg/watch"
+	"k8s.io/apiserver/pkg/storage/names"
 	"k8s.io/client-go/dynamic"
 	k8sopenapi "k8s.io/kubectl/pkg/util/openapi"
 	"sigs.k8s.io/structured-merge-diff/v4/fieldpath"
@@ -212,6 +214,28 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 				}
 				outputs, err = client.Patch(
 					c.Context, c.Inputs.GetName(), types.ApplyPatchType, objYAML, options)
+
+				// Handle the preview scenario where we need to re-create the object due to immutable fields.
+				// To avoid the immutable field error reported by the API server, we append "-preview" to the name
+				// so that the dry-run operation can succeed. This is a workaround for the limitation of the
+				// server-side apply API, which does not support replacement dry-run operations.
+				//
+				// Note that the AlreadyExists error does not occur since we always send a PATCH request during
+				// creates with SSA enabled. This means that we currently always upsert the object.
+				if c.Preview &&
+					(apierrors.IsInvalid(err) && strings.Contains(err.Error(), apivalidation.FieldImmutableErrorMsg)) {
+					previewName := names.SimpleNameGenerator.GenerateName(c.Inputs.GetName())
+					_ = c.Host.Log(c.Context, diag.Info, c.URN, fmt.Sprintf("Preview creation failed due to immutable fields; retrying with name %q", previewName))
+					c.Inputs.SetName(previewName)
+
+					objYAML, errYaml := yaml.Marshal(c.Inputs.Object)
+					if errYaml != nil {
+						return err
+					}
+
+					outputs, err = client.Patch(
+						c.Context, c.Inputs.GetName(), types.ApplyPatchType, objYAML, options)
+				}
 
 				err = handleSSAErr(err, c.FieldManager)
 			} else {
@@ -472,7 +496,16 @@ func updateResource(c *UpdateConfig, liveOldObj *unstructured.Unstructured, clie
 		// results in the immediate replacement of the CRD without deleting it, or any CustomResources that depend on
 		// it. The PUT operation is still validated by the api server, so a badly formed request will fail as usual.
 		c.Inputs.SetResourceVersion(liveOldObj.GetResourceVersion())
-		currentOutputs, err = client.Update(c.Context, c.Inputs, metav1.UpdateOptions{})
+
+		options := metav1.UpdateOptions{
+			FieldManager: c.FieldManager,
+		}
+
+		if c.Preview {
+			options.DryRun = []string{metav1.DryRunAll}
+		}
+
+		currentOutputs, err = client.Update(c.Context, c.Inputs, options)
 	case c.ServerSideApply:
 		currentOutputs, err = ssaUpdate(c, liveOldObj, client)
 	default:
@@ -688,7 +721,7 @@ func ensureFieldsAreMembers(s *fieldpath.Set) *fieldpath.Set {
 // fixCSAFieldManagers patches the field managers for an existing resource that was managed using client-side apply.
 // The new server-side apply field manager takes ownership of all these fields to avoid conflicts.
 func fixCSAFieldManagers(c *UpdateConfig, liveOldObj *unstructured.Unstructured, client dynamic.ResourceInterface) (*unstructured.Unstructured, error) {
-	if kinds.IsPatchURN(c.URN) {
+	if kinds.IsPatchResource(c.URN, c.Inputs.GetKind()) {
 		// When dealing with a patch resource, there's no need to patch the field managers.
 		// Doing so would inadvertently make us responsible for managing fields that are not relevant to us during updates,
 		// which occurs when reusing a patch resource. Patch resources do not need to worry about other fields
@@ -781,7 +814,7 @@ func Deletion(c DeleteConfig) error {
 		return nilIfGVKDeleted(err)
 	}
 
-	patchResource := kinds.IsPatchURN(c.URN)
+	patchResource := kinds.IsPatchResource(c.URN, c.Inputs.GetKind())
 	if c.ServerSideApply && patchResource {
 		err = ssa.Relinquish(c.Context, client, c.Outputs, c.FieldManager)
 		return err

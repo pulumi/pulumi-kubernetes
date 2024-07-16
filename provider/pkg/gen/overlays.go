@@ -55,6 +55,7 @@ var helmV3ChartResource = pschema.ResourceSpec{
 	IsComponent: true,
 	ObjectTypeSpec: pschema.ObjectTypeSpec{
 		IsOverlay:   true,
+		OverlaySupportedLanguages: []string{"csharp", "go", "python", "nodejs"},
 		Description: helmV3ChartMD,
 		Properties: map[string]pschema.PropertySpec{
 			"resources": {
@@ -1173,6 +1174,7 @@ var kustomizeDirectoryResource = pschema.ResourceSpec{
 	IsComponent: true,
 	ObjectTypeSpec: pschema.ObjectTypeSpec{
 		IsOverlay:   true,
+		OverlaySupportedLanguages: []string{"csharp", "go", "python", "nodejs"},
 		Description: kustomizeDirectoryMD,
 		Properties: map[string]pschema.PropertySpec{
 			"directory": {
@@ -1286,6 +1288,7 @@ var yamlConfigFileResource = pschema.ResourceSpec{
 	IsComponent: true,
 	ObjectTypeSpec: pschema.ObjectTypeSpec{
 		IsOverlay:   true,
+		OverlaySupportedLanguages: []string{"csharp", "go", "python", "nodejs"},
 		Description: configFileMD,
 		Properties: map[string]pschema.PropertySpec{
 			"resources": {
@@ -1378,6 +1381,7 @@ var yamlConfigGroupResource = pschema.ResourceSpec{
 	IsComponent: true,
 	ObjectTypeSpec: pschema.ObjectTypeSpec{
 		IsOverlay:   true,
+		OverlaySupportedLanguages: []string{"csharp", "go", "python", "nodejs"},
 		Description: configGroupMD,
 		Properties: map[string]pschema.PropertySpec{
 			"resources": {
@@ -1517,20 +1521,23 @@ var yamlConfigGroupV2Resource = pschema.ResourceSpec{
 	},
 }
 
-var apiextentionsCustomResource = pschema.ResourceSpec{
+var apiextensionsCustomResource = pschema.ResourceSpec{
 	ObjectTypeSpec: pschema.ObjectTypeSpec{
 		IsOverlay:   true,
+		OverlaySupportedLanguages: []string{"csharp", "go", "python", "nodejs"},
 		Description: "CustomResource represents an instance of a CustomResourceDefinition (CRD). For example, the\n CoreOS Prometheus operator exposes a CRD `monitoring.coreos.com/ServiceMonitor`; to\n instantiate this as a Pulumi resource, one could call `new CustomResource`, passing the\n `ServiceMonitor` resource definition as an argument.",
 		Properties: map[string]pschema.PropertySpec{
 			"apiVersion": {
 				TypeSpec: pschema.TypeSpec{
-					Type: "string",
+					Type:  "string",
+					Plain: true,
 				},
 				Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
 			},
 			"kind": {
 				TypeSpec: pschema.TypeSpec{
-					Type: "string",
+					Type:  "string",
+					Plain: true,
 				},
 				Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
 			},
@@ -1582,20 +1589,23 @@ var apiextentionsCustomResource = pschema.ResourceSpec{
 	},
 }
 
-var apiextentionsCustomResourcePatch = pschema.ResourceSpec{
+var apiextensionsCustomResourcePatch = pschema.ResourceSpec{
 	ObjectTypeSpec: pschema.ObjectTypeSpec{
 		IsOverlay:   true,
+		OverlaySupportedLanguages: []string{"csharp", "go", "python", "nodejs"},
 		Description: "CustomResourcePatch represents an instance of a CustomResourceDefinition (CRD). For example, the\n CoreOS Prometheus operator exposes a CRD `monitoring.coreos.com/ServiceMonitor`; to\n instantiate this as a Pulumi resource, one could call `new CustomResourcePatch`, passing the\n `ServiceMonitor` resource definition as an argument.",
 		Properties: map[string]pschema.PropertySpec{
 			"apiVersion": {
 				TypeSpec: pschema.TypeSpec{
-					Type: "string",
+					Type:  "string",
+					Plain: true,
 				},
 				Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
 			},
 			"kind": {
 				TypeSpec: pschema.TypeSpec{
-					Type: "string",
+					Type:  "string",
+					Plain: true,
 				},
 				Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
 			},
@@ -1658,8 +1668,8 @@ func init() {
 	typeOverlays["kubernetes:index:KubeClientSettings"] = kubeClientSettings
 	typeOverlays["kubernetes:index:HelmReleaseSettings"] = helmReleaseSettings
 
-	resourceOverlays["kubernetes:apiextensions.k8s.io:CustomResource"] = apiextentionsCustomResource
-	resourceOverlays["kubernetes:apiextensions.k8s.io:CustomResourcePatch"] = apiextentionsCustomResourcePatch
+	resourceOverlays["kubernetes:apiextensions.k8s.io:CustomResource"] = apiextensionsCustomResource
+	resourceOverlays["kubernetes:apiextensions.k8s.io:CustomResourcePatch"] = apiextensionsCustomResourcePatch
 	resourceOverlays["kubernetes:helm.sh/v3:Chart"] = helmV3ChartResource
 	resourceOverlays["kubernetes:helm.sh/v4:Chart"] = helmV4ChartResource
 	resourceOverlays["kubernetes:helm.sh/v3:Release"] = helmV3ReleaseResource

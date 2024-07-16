@@ -4,9 +4,14 @@
 
 import copy
 import warnings
+import sys
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
+if sys.version_info >= (3, 11):
+    from typing import NotRequired, TypedDict, TypeAlias
+else:
+    from typing_extensions import NotRequired, TypedDict, TypeAlias
 from ... import _utilities
 from ._inputs import *
 
@@ -270,8 +275,8 @@ class Chart(pulumi.ComponentResource):
                  keyring: Optional[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  namespace: Optional[pulumi.Input[str]] = None,
-                 post_renderer: Optional[pulumi.Input[pulumi.InputType['PostRendererArgs']]] = None,
-                 repository_opts: Optional[pulumi.Input[pulumi.InputType['RepositoryOptsArgs']]] = None,
+                 post_renderer: Optional[pulumi.Input[Union['PostRendererArgs', 'PostRendererArgsDict']]] = None,
+                 repository_opts: Optional[pulumi.Input[Union['RepositoryOptsArgs', 'RepositoryOptsArgsDict']]] = None,
                  resource_prefix: Optional[pulumi.Input[str]] = None,
                  skip_await: Optional[pulumi.Input[bool]] = None,
                  skip_crds: Optional[pulumi.Input[bool]] = None,
@@ -453,8 +458,8 @@ class Chart(pulumi.ComponentResource):
         :param pulumi.Input[Union[pulumi.Asset, pulumi.Archive]] keyring: Location of public keys used for verification. Used only if `verify` is true
         :param pulumi.Input[str] name: Release name.
         :param pulumi.Input[str] namespace: Namespace for the release.
-        :param pulumi.Input[pulumi.InputType['PostRendererArgs']] post_renderer: Specification defining the post-renderer to use.
-        :param pulumi.Input[pulumi.InputType['RepositoryOptsArgs']] repository_opts: Specification defining the Helm chart repository to use.
+        :param pulumi.Input[Union['PostRendererArgs', 'PostRendererArgsDict']] post_renderer: Specification defining the post-renderer to use.
+        :param pulumi.Input[Union['RepositoryOptsArgs', 'RepositoryOptsArgsDict']] repository_opts: Specification defining the Helm chart repository to use.
         :param pulumi.Input[str] resource_prefix: An optional prefix for the auto-generated resource names. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo:resourceName".
         :param pulumi.Input[bool] skip_await: By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic.
         :param pulumi.Input[bool] skip_crds: If set, no CRDs will be installed. By default, CRDs are installed if not already present.
@@ -655,8 +660,8 @@ class Chart(pulumi.ComponentResource):
                  keyring: Optional[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  namespace: Optional[pulumi.Input[str]] = None,
-                 post_renderer: Optional[pulumi.Input[pulumi.InputType['PostRendererArgs']]] = None,
-                 repository_opts: Optional[pulumi.Input[pulumi.InputType['RepositoryOptsArgs']]] = None,
+                 post_renderer: Optional[pulumi.Input[Union['PostRendererArgs', 'PostRendererArgsDict']]] = None,
+                 repository_opts: Optional[pulumi.Input[Union['RepositoryOptsArgs', 'RepositoryOptsArgsDict']]] = None,
                  resource_prefix: Optional[pulumi.Input[str]] = None,
                  skip_await: Optional[pulumi.Input[bool]] = None,
                  skip_crds: Optional[pulumi.Input[bool]] = None,

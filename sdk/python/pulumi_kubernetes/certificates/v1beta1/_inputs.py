@@ -4,19 +4,60 @@
 
 import copy
 import warnings
+import sys
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
+if sys.version_info >= (3, 11):
+    from typing import NotRequired, TypedDict, TypeAlias
+else:
+    from typing_extensions import NotRequired, TypedDict, TypeAlias
 from ... import _utilities
 from ... import meta as _meta
 
 __all__ = [
     'CertificateSigningRequestConditionArgs',
+    'CertificateSigningRequestConditionArgsDict',
     'CertificateSigningRequestSpecPatchArgs',
+    'CertificateSigningRequestSpecPatchArgsDict',
     'CertificateSigningRequestSpecArgs',
+    'CertificateSigningRequestSpecArgsDict',
     'CertificateSigningRequestStatusArgs',
+    'CertificateSigningRequestStatusArgsDict',
     'CertificateSigningRequestArgs',
+    'CertificateSigningRequestArgsDict',
 ]
+
+MYPY = False
+
+if not MYPY:
+    class CertificateSigningRequestConditionArgsDict(TypedDict):
+        type: pulumi.Input[str]
+        """
+        request approval state, currently Approved or Denied.
+        """
+        last_transition_time: NotRequired[pulumi.Input[str]]
+        """
+        lastTransitionTime is the time the condition last transitioned from one status to another. If unset, when a new condition type is added or an existing condition's status is changed, the server defaults this to the current time.
+        """
+        last_update_time: NotRequired[pulumi.Input[str]]
+        """
+        timestamp for the last update to this condition
+        """
+        message: NotRequired[pulumi.Input[str]]
+        """
+        human readable message with details about the request state
+        """
+        reason: NotRequired[pulumi.Input[str]]
+        """
+        brief reason for the request state
+        """
+        status: NotRequired[pulumi.Input[str]]
+        """
+        Status of the condition, one of True, False, Unknown. Approved, Denied, and Failed conditions may not be "False" or "Unknown". Defaults to "True". If unset, should be treated as "True".
+        """
+elif False:
+    CertificateSigningRequestConditionArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class CertificateSigningRequestConditionArgs:
@@ -119,6 +160,49 @@ class CertificateSigningRequestConditionArgs:
     def status(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "status", value)
 
+
+if not MYPY:
+    class CertificateSigningRequestSpecPatchArgsDict(TypedDict):
+        """
+        This information is immutable after the request is created. Only the Request and Usages fields can be set on creation, other fields are derived by Kubernetes and cannot be modified by users.
+        """
+        extra: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[str]]]]]]
+        """
+        Extra information about the requesting user. See user.Info interface for details.
+        """
+        groups: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
+        """
+        Group information about the requesting user. See user.Info interface for details.
+        """
+        request: NotRequired[pulumi.Input[str]]
+        """
+        Base64-encoded PKCS#10 CSR data
+        """
+        signer_name: NotRequired[pulumi.Input[str]]
+        """
+        Requested signer for the request. It is a qualified name in the form: `scope-hostname.io/name`. If empty, it will be defaulted:
+         1. If it's a kubelet client certificate, it is assigned
+            "kubernetes.io/kube-apiserver-client-kubelet".
+         2. If it's a kubelet serving certificate, it is assigned
+            "kubernetes.io/kubelet-serving".
+         3. Otherwise, it is assigned "kubernetes.io/legacy-unknown".
+        Distribution of trust for signers happens out of band. You can select on this field using `spec.signerName`.
+        """
+        uid: NotRequired[pulumi.Input[str]]
+        """
+        UID information about the requesting user. See user.Info interface for details.
+        """
+        usages: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
+        """
+        allowedUsages specifies a set of usage contexts the key will be valid for. See: https://tools.ietf.org/html/rfc5280#section-4.2.1.3
+             https://tools.ietf.org/html/rfc5280#section-4.2.1.12
+        """
+        username: NotRequired[pulumi.Input[str]]
+        """
+        Information about the requesting user. See user.Info interface for details.
+        """
+elif False:
+    CertificateSigningRequestSpecPatchArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class CertificateSigningRequestSpecPatchArgs:
@@ -254,6 +338,49 @@ class CertificateSigningRequestSpecPatchArgs:
         pulumi.set(self, "username", value)
 
 
+if not MYPY:
+    class CertificateSigningRequestSpecArgsDict(TypedDict):
+        """
+        This information is immutable after the request is created. Only the Request and Usages fields can be set on creation, other fields are derived by Kubernetes and cannot be modified by users.
+        """
+        request: pulumi.Input[str]
+        """
+        Base64-encoded PKCS#10 CSR data
+        """
+        extra: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[str]]]]]]
+        """
+        Extra information about the requesting user. See user.Info interface for details.
+        """
+        groups: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
+        """
+        Group information about the requesting user. See user.Info interface for details.
+        """
+        signer_name: NotRequired[pulumi.Input[str]]
+        """
+        Requested signer for the request. It is a qualified name in the form: `scope-hostname.io/name`. If empty, it will be defaulted:
+         1. If it's a kubelet client certificate, it is assigned
+            "kubernetes.io/kube-apiserver-client-kubelet".
+         2. If it's a kubelet serving certificate, it is assigned
+            "kubernetes.io/kubelet-serving".
+         3. Otherwise, it is assigned "kubernetes.io/legacy-unknown".
+        Distribution of trust for signers happens out of band. You can select on this field using `spec.signerName`.
+        """
+        uid: NotRequired[pulumi.Input[str]]
+        """
+        UID information about the requesting user. See user.Info interface for details.
+        """
+        usages: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
+        """
+        allowedUsages specifies a set of usage contexts the key will be valid for. See: https://tools.ietf.org/html/rfc5280#section-4.2.1.3
+             https://tools.ietf.org/html/rfc5280#section-4.2.1.12
+        """
+        username: NotRequired[pulumi.Input[str]]
+        """
+        Information about the requesting user. See user.Info interface for details.
+        """
+elif False:
+    CertificateSigningRequestSpecArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class CertificateSigningRequestSpecArgs:
     def __init__(__self__, *,
@@ -387,6 +514,19 @@ class CertificateSigningRequestSpecArgs:
         pulumi.set(self, "username", value)
 
 
+if not MYPY:
+    class CertificateSigningRequestStatusArgsDict(TypedDict):
+        certificate: NotRequired[pulumi.Input[str]]
+        """
+        If request was approved, the controller will place the issued certificate here.
+        """
+        conditions: NotRequired[pulumi.Input[Sequence[pulumi.Input['CertificateSigningRequestConditionArgsDict']]]]
+        """
+        Conditions applied to the request, such as approval or denial.
+        """
+elif False:
+    CertificateSigningRequestStatusArgsDict: TypeAlias = Mapping[str, Any]
+
 @pulumi.input_type
 class CertificateSigningRequestStatusArgs:
     def __init__(__self__, *,
@@ -425,6 +565,31 @@ class CertificateSigningRequestStatusArgs:
     def conditions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['CertificateSigningRequestConditionArgs']]]]):
         pulumi.set(self, "conditions", value)
 
+
+if not MYPY:
+    class CertificateSigningRequestArgsDict(TypedDict):
+        """
+        Describes a certificate signing request
+        """
+        api_version: NotRequired[pulumi.Input[str]]
+        """
+        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        """
+        kind: NotRequired[pulumi.Input[str]]
+        """
+        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        """
+        metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
+        spec: NotRequired[pulumi.Input['CertificateSigningRequestSpecArgsDict']]
+        """
+        The certificate request itself and any additional information.
+        """
+        status: NotRequired[pulumi.Input['CertificateSigningRequestStatusArgsDict']]
+        """
+        Derived information about the request.
+        """
+elif False:
+    CertificateSigningRequestArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class CertificateSigningRequestArgs:

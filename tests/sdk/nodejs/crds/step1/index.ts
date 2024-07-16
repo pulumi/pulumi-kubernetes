@@ -64,10 +64,10 @@ new k8s.apiextensions.CustomResource(
     {
         apiVersion: "stable.example.com/v1",
         kind: "FooBar",
-      metadata: {
-        namespace: namespace.metadata.name,
-        name: "my-new-foobar-object",
-      },
+        metadata: {
+            namespace: namespace.metadata.name,
+            name: "my-new-foobar-object",
+        },
         spec: { foo: "such amaze", bar: "wow" }
     },
 );

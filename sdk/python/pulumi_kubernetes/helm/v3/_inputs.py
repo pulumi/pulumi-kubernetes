@@ -4,14 +4,54 @@
 
 import copy
 import warnings
+import sys
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
+if sys.version_info >= (3, 11):
+    from typing import NotRequired, TypedDict, TypeAlias
+else:
+    from typing_extensions import NotRequired, TypedDict, TypeAlias
 from ... import _utilities
 
 __all__ = [
     'RepositoryOptsArgs',
+    'RepositoryOptsArgsDict',
 ]
+
+MYPY = False
+
+if not MYPY:
+    class RepositoryOptsArgsDict(TypedDict):
+        """
+        Specification defining the Helm chart repository to use.
+        """
+        ca_file: NotRequired[pulumi.Input[str]]
+        """
+        The Repository's CA File
+        """
+        cert_file: NotRequired[pulumi.Input[str]]
+        """
+        The repository's cert file
+        """
+        key_file: NotRequired[pulumi.Input[str]]
+        """
+        The repository's cert key file
+        """
+        password: NotRequired[pulumi.Input[str]]
+        """
+        Password for HTTP basic authentication
+        """
+        repo: NotRequired[pulumi.Input[str]]
+        """
+        Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository.
+        """
+        username: NotRequired[pulumi.Input[str]]
+        """
+        Username for HTTP basic authentication
+        """
+elif False:
+    RepositoryOptsArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class RepositoryOptsArgs:

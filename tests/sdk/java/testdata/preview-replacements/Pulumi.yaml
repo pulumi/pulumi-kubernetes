@@ -1,0 +1,32 @@
+name: job-unreachable
+runtime: yaml
+resources:
+  provider:
+    type: pulumi:providers:kubernetes
+  ns:
+    type: kubernetes:core/v1:Namespace
+    options:
+      provider: ${provider}
+  job:
+    type: kubernetes:batch/v1:Job
+    properties:
+      metadata:
+        name: test-job-previews
+        namespace: ${ns.metadata.name}
+        annotations:
+          pulumi.com/skipAwait: "true"
+      spec:
+        template:
+          metadata:
+            name: test-job-unreachable
+          spec:
+            containers:
+              - name: test-job-unreachable-container
+                image: busybox
+                command:
+                  - sh
+                  - -c
+                  - exit 0
+            restartPolicy: Never
+    options:
+      provider: ${provider}

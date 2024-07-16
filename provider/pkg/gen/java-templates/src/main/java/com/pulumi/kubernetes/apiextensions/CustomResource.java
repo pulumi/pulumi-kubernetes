@@ -3,6 +3,7 @@
 
 package com.pulumi.kubernetes.apiextensions;
 
+import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
@@ -84,7 +85,7 @@ public class CustomResource extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public CustomResource(String name, @Nullable CustomResourceArgsBase args) {
+    public CustomResource(String name, CustomResourceArgsBase args) {
         this(name, args, null);
     }
     
@@ -94,7 +95,7 @@ public class CustomResource extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public CustomResource(String name, @Nullable CustomResourceArgsBase args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public CustomResource(String name, CustomResourceArgsBase args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super(makeType(args), name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
     }
 
@@ -103,7 +104,8 @@ public class CustomResource extends com.pulumi.resources.CustomResource {
         super(String.format("kubernetes:%s:%s", apiVersion, kind), name, null, makeResourceOptions(options, id));
     }
 
-    private static String makeType(@Nullable CustomResourceArgsBase args) {
+    private static String makeType(CustomResourceArgsBase args) {
+        Objects.requireNonNull(args, "args must not be null");
         String apiVersion = args.apiVersion().map(Internal::of).map(CustomResource::getOutputValue).orElse("");
         String kind = args.kind().map(Internal::of).map(CustomResource::getOutputValue).orElse("");
         return String.format("kubernetes:%s:%s", apiVersion, kind);
@@ -117,10 +119,8 @@ public class CustomResource extends com.pulumi.resources.CustomResource {
         }
     }
 
-    private static ResourceArgs makeArgs(@Nullable CustomResourceArgsBase args) {
-        if (args == null) {
-            return null;
-        }
+    private static ResourceArgs makeArgs(CustomResourceArgsBase args) {
+        Objects.requireNonNull(args, "args must not be null");
         if (args.otherFields().isEmpty() || args.otherFields().get().isEmpty()) {
             // optimization: if there are no "other" fields, we can just return the args as-is.
             // Otherwise we generate a subclass of ResourceArgs that includes the "other" fields.

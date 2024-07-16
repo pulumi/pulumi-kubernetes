@@ -132,6 +132,73 @@ func Test_MergeMaps(t *testing.T) {
 				},
 			},
 		},
+		{
+			name:     "allow nil can clear values",
+			allowNil: true,
+			dest: map[string]any{
+				"string": "foo",
+			},
+			src: map[string]any{
+				"string": nil,
+			},
+			expected: map[string]any{
+				"string": nil,
+			},
+		},
+		{
+			name:     "allow nil can clear lists",
+			allowNil: true,
+			dest: map[string]any{
+				"list": []any{1, 2, 3},
+			},
+			src: map[string]any{
+				"list": []any{},
+			},
+			expected: map[string]any{
+				"list": []any{},
+			},
+		},
+		{
+			name:     "allow nil doesn't clear objects",
+			allowNil: true,
+			dest: map[string]any{
+				"object": map[string]any{"foo": "bar"},
+			},
+			src: map[string]any{
+				"object": map[string]any{},
+			},
+			expected: map[string]any{
+				"object": map[string]any{"foo": "bar"},
+			},
+		},
+		{
+			name:     "allow nil can clear keys",
+			allowNil: true,
+			dest: map[string]any{
+				"livenessProbe": map[string]any{
+					"httpGet": map[string]any{
+						"path": "/user/login",
+						"port": "http",
+					},
+				},
+			},
+			src: map[string]any{
+				"livenessProbe": map[string]any{
+					"httpGet": nil,
+					"exec": map[string]any{
+						"command": []any{"foo"},
+					},
+				},
+			},
+			expected: map[string]any{
+				"livenessProbe": map[string]any{
+					"httpGet": nil,
+					"exec": map[string]any{
+						"command": []any{"foo"},
+					},
+				},
+			},
+		},
 	} {
 		t.Run(test.name, func(t *testing.T) {
 			merged, err := mergeMaps(test.dest, test.src, test.allowNil)
@@ -223,7 +290,28 @@ image:
 			},
 		},
 		{
-			name: "valueYamlFiles with literals and allowNullValues=false",
+			name: "valueYamlFiles with array literal and allowNullValues=true",
+			given: resource.PropertyMap{
+				"allowNullValues": resource.NewBoolProperty(true),
+				"values": resource.NewObjectProperty(resource.PropertyMap{
+					"images": resource.NewArrayProperty([]resource.PropertyValue{}),
+				},
+				),
+				"valueYamlFiles": resource.NewArrayProperty([]resource.PropertyValue{
+					resource.NewAssetProperty(&asset.Asset{Text: `
+images: ["bitnami/nginx"]
+`}),
+				}),
+			},
+			want: &Release{
+				AllowNullValues: true,
+				Values: map[string]any{
+					"images": []any{},
+				},
+			},
+		},
+		{
+			name: "valueYamlFiles with string literal and allowNullValues=false",
 			given: resource.PropertyMap{
 				"values": resource.NewObjectProperty(resource.PropertyMap{
 					"image": resource.NewObjectProperty(resource.PropertyMap{
@@ -247,8 +335,10 @@ image:
 	}
 
 	for _, tt := range tests {
-		actual, err := decodeRelease(tt.given, "")
-		assert.NoError(t, err)
-		assert.Equal(t, tt.want, actual)
+		t.Run(tt.name, func(t *testing.T) {
+			actual, err := decodeRelease(tt.given, "")
+			assert.NoError(t, err)
+			assert.Equal(t, tt.want, actual)
+		})
 	}
 }
