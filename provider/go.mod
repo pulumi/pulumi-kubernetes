@@ -24,8 +24,8 @@ require (
 	github.com/pulumi/cloud-ready-checks v1.1.0
 	github.com/pulumi/pulumi-kubernetes/sdk/v4 v4.0.0
 	github.com/pulumi/pulumi-kubernetes/tests/v4 v4.0.0-20240302002028-652829a1ed71
-	github.com/pulumi/pulumi/pkg/v3 v3.123.0
-	github.com/pulumi/pulumi/sdk/v3 v3.123.0
+	github.com/pulumi/pulumi/pkg/v3 v3.124.0
+	github.com/pulumi/pulumi/sdk/v3 v3.124.0
 	github.com/stretchr/testify v1.9.0
 	golang.org/x/crypto v0.24.0
 	golang.org/x/exp v0.0.0-20240604190554-fc45aab8b7f8
