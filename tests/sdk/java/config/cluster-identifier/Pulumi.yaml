@@ -1,0 +1,30 @@
+name: cluster-identifier
+runtime: yaml
+description: |
+  Changing a provider's kubeconfig with a fixed `clusterIdentifier` should
+  trigger an update and not a replacement.
+resources:
+  provider:
+    type: pulumi:providers:kubernetes
+    properties:
+      clusterIdentifier: unchanged
+      kubeconfig: |
+        apiVersion: v1
+        clusters:
+          - cluster:
+              certificate-authority-data: Zm9vYmFyCg==
+              server: https://127.0.0.1:1
+            name: fake-cluster
+        contexts:
+          - context:
+              cluster: fake-cluster
+              user: fake-user
+            name: fake
+        current-context: fake
+        kind: Config
+        preferences: {}
+        users:
+          - name: fake-user
+            user:
+              client-certificate-data: Zm9vYmFyCg==
+              client-key-data: Zm9vYmFyCg==

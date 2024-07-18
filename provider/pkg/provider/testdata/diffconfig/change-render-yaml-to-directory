@@ -1,0 +1,11 @@
+-- olds --
+renderYamlToDirectory: /foo
+
+-- news --
+renderYamlToDirectory: /bar
+
+-- wantDiffs --
+- renderYamlToDirectory
+
+-- wantReplaces --
+- renderYamlToDirectory

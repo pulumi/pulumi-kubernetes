@@ -35,6 +35,29 @@ public final class ProviderArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * If present, this value will control the provider&#39;s replacement behavior. In particular, the provider will _only_ be replaced when `clusterIdentifier` changes; all other changes to provider configuration will be treated as updates.
+     * 
+     * Kubernetes does not yet offer an API for cluster identification, so Pulumi uses heuristics to decide when a provider resource should be replaced or updated. These heuristics can sometimes lead to destructive replace operations when an update would be more appropriate, or vice versa.
+     * 
+     * Use `clusterIdentifier` for more fine-grained control of the provider resource&#39;s lifecycle.
+     * 
+     */
+    @Import(name="clusterIdentifier")
+    private @Nullable Output<String> clusterIdentifier;
+
+    /**
+     * @return If present, this value will control the provider&#39;s replacement behavior. In particular, the provider will _only_ be replaced when `clusterIdentifier` changes; all other changes to provider configuration will be treated as updates.
+     * 
+     * Kubernetes does not yet offer an API for cluster identification, so Pulumi uses heuristics to decide when a provider resource should be replaced or updated. These heuristics can sometimes lead to destructive replace operations when an update would be more appropriate, or vice versa.
+     * 
+     * Use `clusterIdentifier` for more fine-grained control of the provider resource&#39;s lifecycle.
+     * 
+     */
+    public Optional<Output<String>> clusterIdentifier() {
+        return Optional.ofNullable(this.clusterIdentifier);
+    }
+
+    /**
      * If present, the name of the kubeconfig context to use.
      * 
      */
@@ -254,6 +277,7 @@ public final class ProviderArgs extends com.pulumi.resources.ResourceArgs {
 
     private ProviderArgs(ProviderArgs $) {
         this.cluster = $.cluster;
+        this.clusterIdentifier = $.clusterIdentifier;
         this.context = $.context;
         this.deleteUnreachable = $.deleteUnreachable;
         this.enableConfigMapMutable = $.enableConfigMapMutable;
@@ -305,6 +329,35 @@ public final class ProviderArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder cluster(String cluster) {
             return cluster(Output.of(cluster));
+        }
+
+        /**
+         * @param clusterIdentifier If present, this value will control the provider&#39;s replacement behavior. In particular, the provider will _only_ be replaced when `clusterIdentifier` changes; all other changes to provider configuration will be treated as updates.
+         * 
+         * Kubernetes does not yet offer an API for cluster identification, so Pulumi uses heuristics to decide when a provider resource should be replaced or updated. These heuristics can sometimes lead to destructive replace operations when an update would be more appropriate, or vice versa.
+         * 
+         * Use `clusterIdentifier` for more fine-grained control of the provider resource&#39;s lifecycle.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder clusterIdentifier(@Nullable Output<String> clusterIdentifier) {
+            $.clusterIdentifier = clusterIdentifier;
+            return this;
+        }
+
+        /**
+         * @param clusterIdentifier If present, this value will control the provider&#39;s replacement behavior. In particular, the provider will _only_ be replaced when `clusterIdentifier` changes; all other changes to provider configuration will be treated as updates.
+         * 
+         * Kubernetes does not yet offer an API for cluster identification, so Pulumi uses heuristics to decide when a provider resource should be replaced or updated. These heuristics can sometimes lead to destructive replace operations when an update would be more appropriate, or vice versa.
+         * 
+         * Use `clusterIdentifier` for more fine-grained control of the provider resource&#39;s lifecycle.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder clusterIdentifier(String clusterIdentifier) {
+            return clusterIdentifier(Output.of(clusterIdentifier));
         }
 
         /**

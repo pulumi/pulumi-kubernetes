@@ -15,12 +15,20 @@
 package provider
 
 import (
+	"context"
+	"os"
+	"path/filepath"
 	"testing"
 
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/resource/plugin"
+	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
+	"golang.org/x/tools/txtar"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
+	"sigs.k8s.io/yaml"
 )
 
 var (
@@ -189,6 +197,64 @@ func Test_isListURN(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			assert.Equalf(t, tt.want, kinds.IsListURN(tt.args.urn), "isListURN(%v)", tt.args.urn)
+		})
+	}
+}
+
+// TestDiffConfig loads txtar files under testdata/diffconfig and uses them to
+// craft a DiffConfig request to a provider.
+//
+// To add a new test case, create a new file with `olds` and `news` files in
+// YAML format. `wantDiffs` and/or `wantReplaces` should be a list of key
+// names.
+func TestDiffConfig(t *testing.T) {
+	dir := filepath.Join("testdata", "diffconfig")
+	tests, err := os.ReadDir(dir)
+	require.NoError(t, err)
+
+	for _, tt := range tests {
+		t.Run(tt.Name(), func(t *testing.T) {
+			archive, err := txtar.ParseFile(filepath.Join(dir, tt.Name()))
+			require.NoError(t, err)
+
+			var olds, news resource.PropertyMap
+			var wantDiffs, wantReplaces []string
+
+			for _, f := range archive.Files {
+				var parsed map[string]any
+				err := yaml.Unmarshal(f.Data, &parsed)
+				switch f.Name {
+				case "olds":
+					require.NoError(t, err, f.Name)
+					olds = resource.NewPropertyMapFromMap(parsed)
+				case "news":
+					require.NoError(t, err, f.Name)
+					news = resource.NewPropertyMapFromMap(parsed)
+				case "wantDiffs":
+					err = yaml.Unmarshal(f.Data, &wantDiffs)
+					require.NoError(t, err, f.Name)
+				case "wantReplaces":
+					err = yaml.Unmarshal(f.Data, &wantReplaces)
+					require.NoError(t, err, f.Name)
+				default:
+					t.Fatal("unrecognized filename", f.Name)
+				}
+			}
+
+			// Construct a protobuf request from our inputs.
+			opts := plugin.MarshalOptions{KeepUnknowns: true, KeepSecrets: true}
+			oldspb, err := plugin.MarshalProperties(olds, opts)
+			require.NoError(t, err)
+			newspb, err := plugin.MarshalProperties(news, opts)
+			require.NoError(t, err)
+			req := &pulumirpc.DiffRequest{Olds: oldspb, OldInputs: oldspb, News: newspb}
+
+			k := kubeProvider{}
+			actual, err := k.DiffConfig(context.Background(), req)
+			assert.NoError(t, err)
+
+			assert.ElementsMatch(t, wantDiffs, actual.Diffs, "diff mismatch")
+			assert.ElementsMatch(t, wantReplaces, actual.Replaces, "replace mismatch")
 		})
 	}
 }

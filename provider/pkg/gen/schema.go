@@ -65,6 +65,10 @@ func PulumiSchema(swagger map[string]any) pschema.PackageSpec {
 					Description: "If present, the name of the kubeconfig cluster to use.",
 					TypeSpec:    pschema.TypeSpec{Type: "string"},
 				},
+				"clusterIdentifier": {
+					Description: "If present, this value will control the provider's replacement behavior. In particular, the provider will _only_ be replaced when `clusterIdentifier` changes; all other changes to provider configuration will be treated as updates.\n\nKubernetes does not yet offer an API for cluster identification, so Pulumi uses heuristics to decide when a provider resource should be replaced or updated. These heuristics can sometimes lead to destructive replace operations when an update would be more appropriate, or vice versa.\n\nUse `clusterIdentifier` for more fine-grained control of the provider resource's lifecycle.",
+					TypeSpec:    pschema.TypeSpec{Type: "string"},
+				},
 				"namespace": {
 					Description: "If present, the default namespace to use. This flag is ignored for cluster-scoped resources.\n\nA namespace can be specified in multiple places, and the precedence is as follows:\n1. `.metadata.namespace` set on the resource.\n2. This `namespace` parameter.\n3. `namespace` set for the active context in the kubeconfig.",
 					TypeSpec:    pschema.TypeSpec{Type: "string"},
@@ -135,6 +139,10 @@ func PulumiSchema(swagger map[string]any) pschema.PackageSpec {
 				},
 				"cluster": {
 					Description: "If present, the name of the kubeconfig cluster to use.",
+					TypeSpec:    pschema.TypeSpec{Type: "string"},
+				},
+				"clusterIdentifier": {
+					Description: "If present, this value will control the provider's replacement behavior. In particular, the provider will _only_ be replaced when `clusterIdentifier` changes; all other changes to provider configuration will be treated as updates.\n\nKubernetes does not yet offer an API for cluster identification, so Pulumi uses heuristics to decide when a provider resource should be replaced or updated. These heuristics can sometimes lead to destructive replace operations when an update would be more appropriate, or vice versa.\n\nUse `clusterIdentifier` for more fine-grained control of the provider resource's lifecycle.",
 					TypeSpec:    pschema.TypeSpec{Type: "string"},
 				},
 				"deleteUnreachable": {

@@ -2,11 +2,15 @@
 
 ### Added
 
-- Define Supported Languages for Overlays (https://github.com/pulumi/pulumi-kubernetes/pull/3107)
+- `clusterIdentifier` configuration can now be used to manually control the
+  replacement behavior of a provider resource.
+  (https://github.com/pulumi/pulumi-kubernetes/pull/3068)
+- Documentation is now generated for all languages supported by overlay types.
+  (https://github.com/pulumi/pulumi-kubernetes/pull/3107)
 
 ### Fixed
 
-- Updated logic to accurately detect if a resource is a Patch variant (https://github.com/pulumi/pulumi-kubernetes/pull/3102)
+- Updated logic to accurately detect if a resource is a Patch variant. (https://github.com/pulumi/pulumi-kubernetes/pull/3102)
 
 ## 4.15.0 (July 9, 2024)
 
