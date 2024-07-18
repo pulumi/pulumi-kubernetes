@@ -21,6 +21,7 @@ __all__ = ['ProviderArgs', 'Provider']
 class ProviderArgs:
     def __init__(__self__, *,
                  cluster: Optional[pulumi.Input[str]] = None,
+                 cluster_identifier: Optional[pulumi.Input[str]] = None,
                  context: Optional[pulumi.Input[str]] = None,
                  delete_unreachable: Optional[pulumi.Input[bool]] = None,
                  enable_config_map_mutable: Optional[pulumi.Input[bool]] = None,
@@ -36,6 +37,11 @@ class ProviderArgs:
         """
         The set of arguments for constructing a Provider resource.
         :param pulumi.Input[str] cluster: If present, the name of the kubeconfig cluster to use.
+        :param pulumi.Input[str] cluster_identifier: If present, this value will control the provider's replacement behavior. In particular, the provider will _only_ be replaced when `clusterIdentifier` changes; all other changes to provider configuration will be treated as updates.
+               
+               Kubernetes does not yet offer an API for cluster identification, so Pulumi uses heuristics to decide when a provider resource should be replaced or updated. These heuristics can sometimes lead to destructive replace operations when an update would be more appropriate, or vice versa.
+               
+               Use `clusterIdentifier` for more fine-grained control of the provider resource's lifecycle.
         :param pulumi.Input[str] context: If present, the name of the kubeconfig context to use.
         :param pulumi.Input[bool] delete_unreachable: If present and set to true, the provider will delete resources associated with an unreachable Kubernetes cluster from Pulumi state
         :param pulumi.Input[bool] enable_config_map_mutable: BETA FEATURE - If present and set to true, allow ConfigMaps to be mutated.
@@ -69,6 +75,8 @@ class ProviderArgs:
         """
         if cluster is not None:
             pulumi.set(__self__, "cluster", cluster)
+        if cluster_identifier is not None:
+            pulumi.set(__self__, "cluster_identifier", cluster_identifier)
         if context is not None:
             pulumi.set(__self__, "context", context)
         if delete_unreachable is None:
@@ -119,6 +127,22 @@ class ProviderArgs:
     @cluster.setter
     def cluster(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "cluster", value)
+
+    @property
+    @pulumi.getter(name="clusterIdentifier")
+    def cluster_identifier(self) -> Optional[pulumi.Input[str]]:
+        """
+        If present, this value will control the provider's replacement behavior. In particular, the provider will _only_ be replaced when `clusterIdentifier` changes; all other changes to provider configuration will be treated as updates.
+
+        Kubernetes does not yet offer an API for cluster identification, so Pulumi uses heuristics to decide when a provider resource should be replaced or updated. These heuristics can sometimes lead to destructive replace operations when an update would be more appropriate, or vice versa.
+
+        Use `clusterIdentifier` for more fine-grained control of the provider resource's lifecycle.
+        """
+        return pulumi.get(self, "cluster_identifier")
+
+    @cluster_identifier.setter
+    def cluster_identifier(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "cluster_identifier", value)
 
     @property
     @pulumi.getter
@@ -289,6 +313,7 @@ class Provider(pulumi.ProviderResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  cluster: Optional[pulumi.Input[str]] = None,
+                 cluster_identifier: Optional[pulumi.Input[str]] = None,
                  context: Optional[pulumi.Input[str]] = None,
                  delete_unreachable: Optional[pulumi.Input[bool]] = None,
                  enable_config_map_mutable: Optional[pulumi.Input[bool]] = None,
@@ -308,6 +333,11 @@ class Provider(pulumi.ProviderResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] cluster: If present, the name of the kubeconfig cluster to use.
+        :param pulumi.Input[str] cluster_identifier: If present, this value will control the provider's replacement behavior. In particular, the provider will _only_ be replaced when `clusterIdentifier` changes; all other changes to provider configuration will be treated as updates.
+               
+               Kubernetes does not yet offer an API for cluster identification, so Pulumi uses heuristics to decide when a provider resource should be replaced or updated. These heuristics can sometimes lead to destructive replace operations when an update would be more appropriate, or vice versa.
+               
+               Use `clusterIdentifier` for more fine-grained control of the provider resource's lifecycle.
         :param pulumi.Input[str] context: If present, the name of the kubeconfig context to use.
         :param pulumi.Input[bool] delete_unreachable: If present and set to true, the provider will delete resources associated with an unreachable Kubernetes cluster from Pulumi state
         :param pulumi.Input[bool] enable_config_map_mutable: BETA FEATURE - If present and set to true, allow ConfigMaps to be mutated.
@@ -364,6 +394,7 @@ class Provider(pulumi.ProviderResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  cluster: Optional[pulumi.Input[str]] = None,
+                 cluster_identifier: Optional[pulumi.Input[str]] = None,
                  context: Optional[pulumi.Input[str]] = None,
                  delete_unreachable: Optional[pulumi.Input[bool]] = None,
                  enable_config_map_mutable: Optional[pulumi.Input[bool]] = None,
@@ -386,6 +417,7 @@ class Provider(pulumi.ProviderResource):
             __props__ = ProviderArgs.__new__(ProviderArgs)
 
             __props__.__dict__["cluster"] = cluster
+            __props__.__dict__["cluster_identifier"] = cluster_identifier
             __props__.__dict__["context"] = context
             if delete_unreachable is None:
                 delete_unreachable = _utilities.get_env_bool('PULUMI_K8S_DELETE_UNREACHABLE')

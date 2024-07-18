@@ -97,6 +97,7 @@ const (
 	initialAPIVersionKey = "__initialApiVersion"
 	fieldManagerKey      = "__fieldManager"
 	secretKind           = "Secret"
+	clusterIdentifierKey = "clusterIdentifier"
 )
 
 type cancellationContext struct {
@@ -355,7 +356,7 @@ func (k *kubeProvider) CheckConfig(ctx context.Context, req *pulumirpc.CheckRequ
 }
 
 // DiffConfig diffs the configuration for this provider.
-func (k *kubeProvider) DiffConfig(ctx context.Context, req *pulumirpc.DiffRequest) (*pulumirpc.DiffResponse, error) {
+func (k *kubeProvider) DiffConfig(_ context.Context, req *pulumirpc.DiffRequest) (resp *pulumirpc.DiffResponse, err error) {
 	urn := resource.URN(req.GetUrn())
 	label := fmt.Sprintf("%s.DiffConfig(%s)", k.label(), urn)
 	logger.V(9).Infof("%s executing", label)
@@ -376,20 +377,41 @@ func (k *kubeProvider) DiffConfig(ctx context.Context, req *pulumirpc.DiffReques
 	if err != nil {
 		return nil, fmt.Errorf("DiffConfig failed because of malformed resource inputs: %w", err)
 	}
+	var diffs, replaces []string
+	diff := olds.Diff(news)
+	if diff == nil {
+		return &pulumirpc.DiffResponse{
+			Changes: pulumirpc.DiffResponse_DIFF_NONE,
+		}, nil
+	}
+
+	// If clusterIdentifier is configured, we change our replacement behavior
+	// to trigger when the identifier has changed. We don't do this when adding
+	// or removing the identifier in order to make on- and off-boarding less
+	// risky.
+	if diff.Updated(clusterIdentifierKey) {
+		replaces = append(replaces, clusterIdentifierKey)
+	}
+	// Similarly, we ignore replacements when the identifier is unchanged from
+	// what it was previously set to.
+	if diff.Same(clusterIdentifierKey) && news.HasValue(clusterIdentifierKey) {
+		// Modify our response to no longer replace anything.
+		defer func() { resp.Replaces = nil }()
+	}
 
 	// We can't tell for sure if a computed value has changed, so we make the conservative choice
 	// and force a replacement. Note that getActiveClusterFromConfig relies on all three of the below properties.
 	for _, key := range []resource.PropertyKey{"kubeconfig", "context", "cluster"} {
 		if news[key].IsComputed() {
-			return &pulumirpc.DiffResponse{
+			replaces = append(replaces, string(key))
+			resp = &pulumirpc.DiffResponse{
 				Changes:  pulumirpc.DiffResponse_DIFF_SOME,
 				Diffs:    []string{string(key)},
-				Replaces: []string{string(key)},
-			}, nil
+				Replaces: replaces,
+			}
+			return resp, nil
 		}
 	}
-
-	var diffs, replaces []string
 
 	oldConfig, err := parseKubeconfigPropertyValue(olds["kubeconfig"])
 	if err != nil {
@@ -401,7 +423,6 @@ func (k *kubeProvider) DiffConfig(ctx context.Context, req *pulumirpc.DiffReques
 	}
 
 	// Check for differences in provider overrides.
-	diff := olds.Diff(news)
 	for _, k := range diff.ChangedKeys() {
 		diffs = append(diffs, string(k))
 
@@ -427,9 +448,7 @@ func (k *kubeProvider) DiffConfig(ctx context.Context, req *pulumirpc.DiffReques
 	// happening.
 	oldActiveCluster, oldFound := getActiveClusterFromConfig(oldConfig, olds)
 	activeCluster, found := getActiveClusterFromConfig(newConfig, news)
-	if !oldFound || !found {
-		// The config is either ambient or invalid, so we can't draw any conclusions.
-	} else if !reflect.DeepEqual(oldActiveCluster, activeCluster) {
+	if oldFound && found && !reflect.DeepEqual(oldActiveCluster, activeCluster) {
 		// one of these properties must have changed for the active cluster to change.
 		for _, key := range []string{"kubeconfig", "context", "cluster"} {
 			if slices.Contains(diffs, key) {
@@ -439,17 +458,12 @@ func (k *kubeProvider) DiffConfig(ctx context.Context, req *pulumirpc.DiffReques
 	}
 	logger.V(7).Infof("%s: diffs %v / replaces %v", label, diffs, replaces)
 
-	if len(diffs) > 0 || len(replaces) > 0 {
-		return &pulumirpc.DiffResponse{
-			Changes:  pulumirpc.DiffResponse_DIFF_SOME,
-			Diffs:    diffs,
-			Replaces: replaces,
-		}, nil
+	resp = &pulumirpc.DiffResponse{
+		Changes:  pulumirpc.DiffResponse_DIFF_SOME,
+		Diffs:    diffs,
+		Replaces: replaces,
 	}
-
-	return &pulumirpc.DiffResponse{
-		Changes: pulumirpc.DiffResponse_DIFF_NONE,
-	}, nil
+	return resp, nil
 }
 
 // Configure configures the resource provider with "globals" that control its behavior.
@@ -856,8 +870,8 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 
 // Invoke dynamically executes a built-in function in the provider.
 func (k *kubeProvider) Invoke(ctx context.Context,
-	req *pulumirpc.InvokeRequest) (*pulumirpc.InvokeResponse, error) {
-
+	req *pulumirpc.InvokeRequest,
+) (*pulumirpc.InvokeResponse, error) {
 	// Important: Some invoke logic is intended to run during preview, and the Kubernetes provider
 	// inputs may not have resolved yet. Any invoke logic that depends on an active cluster must check
 	// k.clusterUnreachable and handle that condition appropriately.
@@ -965,8 +979,8 @@ func (k *kubeProvider) Invoke(ctx context.Context,
 // StreamInvoke dynamically executes a built-in function in the provider. The result is streamed
 // back as a series of messages.
 func (k *kubeProvider) StreamInvoke(
-	req *pulumirpc.InvokeRequest, server pulumirpc.ResourceProvider_StreamInvokeServer) error {
-
+	req *pulumirpc.InvokeRequest, server pulumirpc.ResourceProvider_StreamInvokeServer,
+) error {
 	// Important: Some invoke logic is intended to run during preview, and the Kubernetes provider
 	// inputs may not have resolved yet. Any invoke logic that depends on an active cluster must check
 	// k.clusterUnreachable and handle that condition appropriately.
@@ -1492,7 +1506,6 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 				// types, we fail here.
 				return nil, fmt.Errorf("unable to fetch schema for resource type %s/%s: %w",
 					newInputs.GetAPIVersion(), newInputs.GetKind(), err)
-
 			}
 		}
 	}
@@ -1635,7 +1648,6 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 		} else {
 			return nil, fmt.Errorf(
 				"API server returned error when asked if resource type %s is namespaced: %w", gvk, err)
-
 		}
 	}
 
@@ -1678,7 +1690,6 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 		return nil, fmt.Errorf(
 			"Failed to check for changes in resource %q because of an error serializing "+
 				"the JSON patch describing resource changes: %w", urn, err)
-
 	}
 
 	hasChanges := pulumirpc.DiffResponse_DIFF_NONE
@@ -1696,7 +1707,6 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 				"Failed to check for changes in resource %q because of an error "+
 					"converting JSON patch describing resource changes to a diff: %w",
 				urn, err)
-
 		}
 
 		// Remove any ignored changes from the computed diff.
@@ -1767,8 +1777,7 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 
 	// Delete before replacement if we are forced to replace the old object, and the new version of
 	// that object MUST have the same name.
-	deleteBeforeReplace :=
-		// 1. We know resource must be replaced.
+	deleteBeforeReplace := // 1. We know resource must be replaced.
 		len(replaces) > 0 &&
 			// 2. Object is named (i.e., not using metadata.generateName).
 			metadata.IsNamed(newInputs, newResInputs) &&
@@ -1947,7 +1956,6 @@ func (k *kubeProvider) Create(
 			// Object creation failed.
 			return nil, fmt.Errorf(
 				"resource %q was not successfully created by the Kubernetes API server: %w", urn, awaitErr)
-
 		}
 
 		// Resource was created, but failed to become fully initialized.
@@ -2419,7 +2427,6 @@ func (k *kubeProvider) Update(
 				"update of resource %q failed because the Kubernetes API server "+
 					"reported that the apiVersion for this resource does not exist. "+
 					"Verify that any required CRDs have been created: %w", urn, awaitErr)
-
 		}
 
 		var getErr error
@@ -2911,8 +2918,8 @@ func initialAPIVersion(state resource.PropertyMap, oldInputs *unstructured.Unstr
 }
 
 func checkpointObject(inputs, live *unstructured.Unstructured, fromInputs resource.PropertyMap,
-	initialAPIVersion, fieldManager string) resource.PropertyMap {
-
+	initialAPIVersion, fieldManager string,
+) resource.PropertyMap {
 	object := resource.NewPropertyMapFromMap(live.Object)
 	inputsPM := resource.NewPropertyMapFromMap(inputs.Object)
 
@@ -3325,20 +3332,20 @@ func renderYaml(resource *unstructured.Unstructured, yamlDirectory string) error
 	manifestDirectory := filepath.Join(yamlDirectory, "1-manifest")
 
 	if _, err := os.Stat(crdDirectory); os.IsNotExist(err) {
-		err = os.MkdirAll(crdDirectory, 0700)
+		err = os.MkdirAll(crdDirectory, 0o700)
 		if err != nil {
 			return fmt.Errorf("failed to create directory for rendered YAML: %q: %w", crdDirectory, err)
 		}
 	}
 	if _, err := os.Stat(manifestDirectory); os.IsNotExist(err) {
-		err = os.MkdirAll(manifestDirectory, 0700)
+		err = os.MkdirAll(manifestDirectory, 0o700)
 		if err != nil {
 			return fmt.Errorf("failed to create directory for rendered YAML: %q: %w", manifestDirectory, err)
 		}
 	}
 
 	path := renderPathForResource(resource, yamlDirectory)
-	err = os.WriteFile(path, yamlBytes, 0600)
+	err = os.WriteFile(path, yamlBytes, 0o600)
 	if err != nil {
 		return fmt.Errorf("failed to write YAML file: %q: %w", path, err)
 	}

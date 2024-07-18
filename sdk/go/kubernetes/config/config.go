@@ -16,6 +16,15 @@ func GetCluster(ctx *pulumi.Context) string {
 	return config.Get(ctx, "kubernetes:cluster")
 }
 
+// If present, this value will control the provider's replacement behavior. In particular, the provider will _only_ be replaced when `clusterIdentifier` changes; all other changes to provider configuration will be treated as updates.
+//
+// Kubernetes does not yet offer an API for cluster identification, so Pulumi uses heuristics to decide when a provider resource should be replaced or updated. These heuristics can sometimes lead to destructive replace operations when an update would be more appropriate, or vice versa.
+//
+// Use `clusterIdentifier` for more fine-grained control of the provider resource's lifecycle.
+func GetClusterIdentifier(ctx *pulumi.Context) string {
+	return config.Get(ctx, "kubernetes:clusterIdentifier")
+}
+
 // If present, the name of the kubeconfig context to use.
 func GetContext(ctx *pulumi.Context) string {
 	return config.Get(ctx, "kubernetes:context")
