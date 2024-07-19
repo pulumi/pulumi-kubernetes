@@ -54,9 +54,9 @@ var helmV3ChartMD string
 var helmV3ChartResource = pschema.ResourceSpec{
 	IsComponent: true,
 	ObjectTypeSpec: pschema.ObjectTypeSpec{
-		IsOverlay:   true,
+		IsOverlay:                 true,
 		OverlaySupportedLanguages: []string{"csharp", "go", "python", "nodejs"},
-		Description: helmV3ChartMD,
+		Description:               helmV3ChartMD,
 		Properties: map[string]pschema.PropertySpec{
 			"resources": {
 				TypeSpec: pschema.TypeSpec{
@@ -1173,9 +1173,9 @@ var kustomizeDirectoryMD string
 var kustomizeDirectoryResource = pschema.ResourceSpec{
 	IsComponent: true,
 	ObjectTypeSpec: pschema.ObjectTypeSpec{
-		IsOverlay:   true,
+		IsOverlay:                 true,
 		OverlaySupportedLanguages: []string{"csharp", "go", "python", "nodejs"},
-		Description: kustomizeDirectoryMD,
+		Description:               kustomizeDirectoryMD,
 		Properties: map[string]pschema.PropertySpec{
 			"directory": {
 				TypeSpec: pschema.TypeSpec{
@@ -1287,9 +1287,9 @@ var configFileMD string
 var yamlConfigFileResource = pschema.ResourceSpec{
 	IsComponent: true,
 	ObjectTypeSpec: pschema.ObjectTypeSpec{
-		IsOverlay:   true,
+		IsOverlay:                 true,
 		OverlaySupportedLanguages: []string{"csharp", "go", "python", "nodejs"},
-		Description: configFileMD,
+		Description:               configFileMD,
 		Properties: map[string]pschema.PropertySpec{
 			"resources": {
 				TypeSpec: pschema.TypeSpec{
@@ -1380,9 +1380,9 @@ var configGroupMD string
 var yamlConfigGroupResource = pschema.ResourceSpec{
 	IsComponent: true,
 	ObjectTypeSpec: pschema.ObjectTypeSpec{
-		IsOverlay:   true,
+		IsOverlay:                 true,
 		OverlaySupportedLanguages: []string{"csharp", "go", "python", "nodejs"},
-		Description: configGroupMD,
+		Description:               configGroupMD,
 		Properties: map[string]pschema.PropertySpec{
 			"resources": {
 				TypeSpec: pschema.TypeSpec{
@@ -1523,9 +1523,9 @@ var yamlConfigGroupV2Resource = pschema.ResourceSpec{
 
 var apiextensionsCustomResource = pschema.ResourceSpec{
 	ObjectTypeSpec: pschema.ObjectTypeSpec{
-		IsOverlay:   true,
+		IsOverlay:                 true,
 		OverlaySupportedLanguages: []string{"csharp", "go", "python", "nodejs"},
-		Description: "CustomResource represents an instance of a CustomResourceDefinition (CRD). For example, the\n CoreOS Prometheus operator exposes a CRD `monitoring.coreos.com/ServiceMonitor`; to\n instantiate this as a Pulumi resource, one could call `new CustomResource`, passing the\n `ServiceMonitor` resource definition as an argument.",
+		Description:               "CustomResource represents an instance of a CustomResourceDefinition (CRD). For example, the\n CoreOS Prometheus operator exposes a CRD `monitoring.coreos.com/ServiceMonitor`; to\n instantiate this as a Pulumi resource, one could call `new CustomResource`, passing the\n `ServiceMonitor` resource definition as an argument.",
 		Properties: map[string]pschema.PropertySpec{
 			"apiVersion": {
 				TypeSpec: pschema.TypeSpec{
@@ -1591,9 +1591,9 @@ var apiextensionsCustomResource = pschema.ResourceSpec{
 
 var apiextensionsCustomResourcePatch = pschema.ResourceSpec{
 	ObjectTypeSpec: pschema.ObjectTypeSpec{
-		IsOverlay:   true,
+		IsOverlay:                 true,
 		OverlaySupportedLanguages: []string{"csharp", "go", "python", "nodejs"},
-		Description: "CustomResourcePatch represents an instance of a CustomResourceDefinition (CRD). For example, the\n CoreOS Prometheus operator exposes a CRD `monitoring.coreos.com/ServiceMonitor`; to\n instantiate this as a Pulumi resource, one could call `new CustomResourcePatch`, passing the\n `ServiceMonitor` resource definition as an argument.",
+		Description:               "CustomResourcePatch represents an instance of a CustomResourceDefinition (CRD). For example, the\n CoreOS Prometheus operator exposes a CRD `monitoring.coreos.com/ServiceMonitor`; to\n instantiate this as a Pulumi resource, one could call `new CustomResourcePatch`, passing the\n `ServiceMonitor` resource definition as an argument.",
 		Properties: map[string]pschema.PropertySpec{
 			"apiVersion": {
 				TypeSpec: pschema.TypeSpec{

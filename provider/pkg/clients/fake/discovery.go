@@ -57,7 +57,7 @@ var serverresources embed.FS
 
 func loadServerResources() ([]*metav1.APIResourceList, error) {
 	all := []*metav1.APIResourceList{}
-	err := fs.WalkDir(serverresources, ".", func(path string, d fs.DirEntry, err error) error {
+	err := fs.WalkDir(serverresources, ".", func(path string, d fs.DirEntry, _ error) error {
 		if d.IsDir() || d.Name() != "serverresources.json" {
 			return nil
 		}
