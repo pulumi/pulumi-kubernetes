@@ -32,7 +32,7 @@ type TemplateProperty struct {
 // Type returns the property type. This could be either a constant value or the type definition.
 func (tp TemplateProperty) Type() string {
 	if len(tp.ConstValue) > 0 {
-		return fmt.Sprintf("%s", tp.ConstValue)
+		return tp.ConstValue
 	}
 	return tp.Package
 }
@@ -123,7 +123,7 @@ func (gv GroupVersion) GVConstName() string {
 	contract.Assertf(len(parts) == 2, "expected GroupVersion to have two parts: %s", gv)
 
 	group, version := parts[0], parts[1]
-	groupName := strings.Title(strings.SplitN(group, ".", 2)[0])
+	groupName := strings.Title(strings.SplitN(group, ".", 2)[0]) //nolint:staticcheck // Not unicode input.
 	version = strings.Replace(version, "v", "V", -1)
 	version = strings.Replace(version, "alpha", "A", -1)
 	version = strings.Replace(version, "beta", "B", -1)

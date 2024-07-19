@@ -377,8 +377,6 @@ func Test_Deletion(t *testing.T) {
 
 	type reactionF func(t *testing.T, ctx testCtx, action kubetesting.Action) (handled bool, ret runtime.Object, err error)
 
-	type watchReactionF func(t *testing.T, ctx testCtx, action kubetesting.Action) (handled bool, ret watch.Interface, err error)
-
 	type expectF func(t *testing.T, ctx testCtx, err error)
 
 	// reactions
@@ -427,7 +425,7 @@ func Test_Deletion(t *testing.T) {
 		}
 	}
 	deleted := func(ns, name string) expectF {
-		return func(t *testing.T, ctx testCtx, err error) {
+		return func(t *testing.T, ctx testCtx, _ error) {
 			gvr, err := clients.GVRForGVK(ctx.mapper, ctx.config.Inputs.GroupVersionKind())
 			require.NoError(t, err)
 			_, err = ctx.client.Tracker().Get(gvr, ns, name)

@@ -1,32 +1,29 @@
 linters:
   enable-all: false
   enable:
-    - deadcode
+    - unused
     - errcheck
     - goconst
     - gofmt
-    - golint
+    - staticcheck
     - gosec
     - govet
     - ineffassign
     - misspell
     - nakedret
-    - structcheck
     - unconvert
-    - varcheck
+    - gosimple
   disable:
     - lll
-    - megacheck # Disabled due to OOM errors in golangci-lint@v1.18.0
-    - staticcheck # Disabled due to OOM errors in golangci-lint@v1.18.0
 run:
   skip-files:
-  - schema.go
+    - schema.go
   skip-dirs:
-  - provider/pkg/gen
+    - provider/pkg/gen
   skip-dirs-use-default: true
   modules-download-mode: readonly
   timeout: 10m
 issues:
   exclude-rules:
-      path: "provider/cmd/pulumi-resource-kubernetes"
-      source: "^//go:embed"
+    path: "provider/cmd/pulumi-resource-kubernetes"
+    source: "^//go:embed"
