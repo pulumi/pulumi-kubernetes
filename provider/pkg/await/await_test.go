@@ -654,7 +654,7 @@ func TestDeletion(t *testing.T) {
 	// reactions
 
 	suppressDeletion := func(t *testing.T, ctx testCtx, action kubetesting.Action) (bool, runtime.Object, error) {
-		return true, nil, nil
+		return true, ctx.config.Outputs, nil
 	}
 
 	cancelAwait := func(t *testing.T, ctx testCtx, action kubetesting.Action) (bool, runtime.Object, error) {

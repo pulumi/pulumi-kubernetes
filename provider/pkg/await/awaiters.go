@@ -33,7 +33,6 @@ import (
 	storagev1 "k8s.io/api/storage/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
-	"k8s.io/client-go/dynamic"
 )
 
 // awaitConfig specifies on which conditions we are to consider a resource created and fully
@@ -61,15 +60,9 @@ func (cac *awaitConfig) Clock() clockwork.Clock {
 	return clockwork.NewRealClock()
 }
 
-type deleteAwaitConfig struct {
-	awaitConfig
-	clientForResource dynamic.ResourceInterface
-}
-
 type (
-	awaiter         func(awaitConfig) error
-	readAwaiter     func(awaitConfig) error
-	deletionAwaiter func(deleteAwaitConfig) error
+	awaiter     func(awaitConfig) error
+	readAwaiter func(awaitConfig) error
 )
 
 func (cac *awaitConfig) getTimeout(defaultSeconds int) time.Duration {
@@ -132,9 +125,8 @@ const (
 )
 
 type awaitSpec struct {
-	await         awaiter
-	awaitRead     readAwaiter
-	awaitDeletion deletionAwaiter
+	await     awaiter
+	awaitRead readAwaiter
 }
 
 var deploymentAwaiter = awaitSpec{
@@ -144,7 +136,6 @@ var deploymentAwaiter = awaitSpec{
 	awaitRead: func(c awaitConfig) error {
 		return makeDeploymentInitAwaiter(c).Read()
 	},
-	awaitDeletion: untilAppsDeploymentDeleted,
 }
 
 var ingressAwaiter = awaitSpec{
@@ -159,7 +150,6 @@ var jobAwaiter = awaitSpec{
 	awaitRead: func(c awaitConfig) error {
 		return makeJobInitAwaiter(c).Read()
 	},
-	awaitDeletion: untilBatchV1JobDeleted,
 }
 
 var statefulsetAwaiter = awaitSpec{
@@ -169,7 +159,6 @@ var statefulsetAwaiter = awaitSpec{
 	awaitRead: func(c awaitConfig) error {
 		return makeStatefulSetInitAwaiter(c).Read()
 	},
-	awaitDeletion: untilAppsStatefulSetDeleted,
 }
 
 var daemonsetAwaiter = awaitSpec{
@@ -178,9 +167,6 @@ var daemonsetAwaiter = awaitSpec{
 	},
 	awaitRead: func(c awaitConfig) error {
 		return newDaemonSetAwaiter(c).Read()
-	},
-	awaitDeletion: func(c deleteAwaitConfig) error {
-		return newDaemonSetAwaiter(c.awaitConfig).Delete()
 	},
 }
 
@@ -201,9 +187,6 @@ var awaiters = map[string]awaitSpec{
 	batchV1Job:                           jobAwaiter,
 	coreV1ConfigMap:                      { /* NONE */ },
 	coreV1LimitRange:                     { /* NONE */ },
-	coreV1Namespace: {
-		awaitDeletion: untilCoreV1NamespaceDeleted,
-	},
 	coreV1PersistentVolume: {
 		await: untilCoreV1PersistentVolumeInitialized,
 	},
@@ -211,13 +194,11 @@ var awaiters = map[string]awaitSpec{
 		await: untilCoreV1PersistentVolumeClaimReady,
 	},
 	coreV1Pod: {
-		await:         awaitPodInit,
-		awaitRead:     awaitPodRead,
-		awaitDeletion: untilCoreV1PodDeleted,
+		await:     awaitPodInit,
+		awaitRead: awaitPodRead,
 	},
 	coreV1ReplicationController: {
-		await:         untilCoreV1ReplicationControllerInitialized,
-		awaitDeletion: untilCoreV1ReplicationControllerDeleted,
+		await: untilCoreV1ReplicationControllerInitialized,
 	},
 	coreV1ResourceQuota: {
 		await: untilCoreV1ResourceQuotaInitialized,
@@ -260,156 +241,6 @@ var awaiters = map[string]awaitSpec{
 // A collection of functions that block until some operation (e.g., create, delete) on a given
 // resource is completed. For example, in the case of `v1.Service` we will create the object and
 // then wait until it is fully initialized and ready to receive traffic.
-
-// --------------------------------------------------------------------------
-
-// --------------------------------------------------------------------------
-
-// apps/v1/Deployment, apps/v1beta1/Deployment, apps/v1beta2/Deployment,
-// extensions/v1beta1/Deployment
-
-// --------------------------------------------------------------------------
-
-func deploymentSpecReplicas(deployment *unstructured.Unstructured) (any, bool) {
-	return openapi.Pluck(deployment.Object, "spec", "replicas")
-}
-
-func untilAppsDeploymentDeleted(config deleteAwaitConfig) error {
-	//
-	// TODO(hausdorff): Should we scale pods to 0 and then delete instead? Kubernetes should allow us
-	// to check the status after deletion, but there is some possibility if there is a long-ish
-	// transient network partition (or something) that it could be successfully deleted and GC'd
-	// before we get to check it, which I think would require manual intervention.
-	//
-	statusReplicas := func(deployment *unstructured.Unstructured) (any, bool) {
-		return openapi.Pluck(deployment.Object, "status", "replicas")
-	}
-
-	deploymentMissing := func(d *unstructured.Unstructured, err error) error {
-		if is404(err) {
-			return nil
-		} else if err != nil {
-			logger.V(3).Infof("Received error deleting deployment '%s': %#v", d.GetName(), err)
-			return err
-		}
-
-		currReplicas, _ := statusReplicas(d)
-		specReplicas, _ := deploymentSpecReplicas(d)
-
-		return watcher.RetryableError(
-			fmt.Errorf("deployment %q still exists (%d / %d replicas exist)", d.GetName(),
-				currReplicas, specReplicas))
-	}
-
-	// Wait until all replicas are gone. 10 minutes should be enough for ~10k replicas.
-	timeout := config.getTimeout(600)
-	err := watcher.ForObject(config.ctx, config.clientForResource, config.currentOutputs.GetName()).
-		RetryUntil(deploymentMissing, timeout)
-	if err != nil {
-		return err
-	}
-
-	logger.V(3).Infof("Deployment '%s' deleted", config.currentOutputs.GetName())
-
-	return nil
-}
-
-// --------------------------------------------------------------------------
-
-// apps/v1/StatefulSet, apps/v1beta1/StatefulSet, apps/v1beta2/StatefulSet,
-
-// --------------------------------------------------------------------------
-
-func untilAppsStatefulSetDeleted(config deleteAwaitConfig) error {
-	specReplicas := func(statefulset *unstructured.Unstructured) (any, bool) {
-		return openapi.Pluck(statefulset.Object, "spec", "replicas")
-	}
-	statusReplicas := func(statefulset *unstructured.Unstructured) (any, bool) {
-		return openapi.Pluck(statefulset.Object, "status", "replicas")
-	}
-
-	statefulsetmissing := func(d *unstructured.Unstructured, err error) error {
-		if is404(err) {
-			return nil
-		} else if err != nil {
-			logger.V(3).Infof("Received error deleting StatefulSet %q: %#v", d.GetName(), err)
-			return err
-		}
-
-		currReplicas, _ := statusReplicas(d)
-		specReplicas, _ := specReplicas(d)
-
-		return watcher.RetryableError(
-			fmt.Errorf("StatefulSet %q still exists (%d / %d replicas exist)", d.GetName(),
-				currReplicas, specReplicas))
-	}
-
-	// Wait until all replicas are gone. 10 minutes should be enough for ~10k replicas.
-	timeout := config.getTimeout(600)
-	err := watcher.ForObject(config.ctx, config.clientForResource, config.currentOutputs.GetName()).
-		RetryUntil(statefulsetmissing, timeout)
-	if err != nil {
-		return err
-	}
-
-	logger.V(3).Infof("StatefulSet %q deleted", config.currentOutputs.GetName())
-
-	return nil
-}
-
-// --------------------------------------------------------------------------
-
-// batch/v1/Job
-
-// --------------------------------------------------------------------------
-
-func untilBatchV1JobDeleted(config deleteAwaitConfig) error {
-	jobMissingOrKilled := func(pod *unstructured.Unstructured, err error) error {
-		if is404(err) {
-			return nil
-		} else if err != nil {
-			return err
-		}
-
-		e := fmt.Errorf("job %q still exists", pod.GetName())
-		return watcher.RetryableError(e)
-	}
-
-	timeout := config.getTimeout(300)
-	return watcher.ForObject(config.ctx, config.clientForResource, config.currentOutputs.GetName()).
-		RetryUntil(jobMissingOrKilled, timeout)
-}
-
-// --------------------------------------------------------------------------
-
-// core/v1/Namespace
-
-// --------------------------------------------------------------------------
-
-func untilCoreV1NamespaceDeleted(config deleteAwaitConfig) error {
-	namespaceMissingOrKilled := func(ns *unstructured.Unstructured, err error) error {
-		if is404(err) {
-			return nil
-		} else if err != nil {
-			logger.V(3).Infof("Received error deleting namespace %q: %#v",
-				ns.GetName(), err)
-			return err
-		}
-
-		statusPhase, _, _ := unstructured.NestedString(ns.Object, "status", "phase")
-		logger.V(3).Infof("Namespace %q status received: %#v", ns.GetName(), statusPhase)
-		if statusPhase == "" {
-			return nil
-		}
-
-		return watcher.RetryableError(fmt.Errorf("namespace %q still exists (%v)",
-			ns.GetName(), statusPhase))
-	}
-
-	timeout := config.getTimeout(300)
-	return watcher.ForObject(config.ctx, config.clientForResource, config.currentOutputs.GetName()).
-		RetryUntil(namespaceMissingOrKilled, timeout)
-}
 
 // --------------------------------------------------------------------------
 
@@ -503,32 +334,6 @@ func pvcBindMode(
 
 // --------------------------------------------------------------------------
 
-// core/v1/Pod
-
-// --------------------------------------------------------------------------
-
-// TODO(lblackstone): unify the function signatures across awaiters
-func untilCoreV1PodDeleted(config deleteAwaitConfig) error {
-	podMissingOrKilled := func(pod *unstructured.Unstructured, err error) error {
-		if is404(err) {
-			return nil
-		} else if err != nil {
-			return err
-		}
-
-		statusPhase, _ := openapi.Pluck(pod.Object, "status", "phase")
-		logger.V(3).Infof("Current state of pod %q: %#v", pod.GetName(), statusPhase)
-		e := fmt.Errorf("pod %q still exists (%v)", pod.GetName(), statusPhase)
-		return watcher.RetryableError(e)
-	}
-
-	timeout := config.getTimeout(300)
-	return watcher.ForObject(config.ctx, config.clientForResource, config.currentOutputs.GetName()).
-		RetryUntil(podMissingOrKilled, timeout)
-}
-
-// --------------------------------------------------------------------------
-
 // core/v1/ReplicationController
 
 // --------------------------------------------------------------------------
@@ -566,46 +371,6 @@ func untilCoreV1ReplicationControllerInitialized(c awaitConfig) error {
 
 	logger.V(3).Infof("Replication controller %q initialized: %#v", name,
 		c.currentOutputs)
-
-	return nil
-}
-
-func untilCoreV1ReplicationControllerDeleted(config deleteAwaitConfig) error {
-	//
-	// TODO(hausdorff): Should we scale pods to 0 and then delete instead? Kubernetes should allow us
-	// to check the status after deletion, but there is some possibility if there is a long-ish
-	// transient network partition (or something) that it could be successfully deleted and GC'd
-	// before we get to check it, which I think would require manual intervention.
-	//
-	statusReplicas := func(rc *unstructured.Unstructured) (any, bool) {
-		return openapi.Pluck(rc.Object, "status", "replicas")
-	}
-
-	rcMissing := func(rc *unstructured.Unstructured, err error) error {
-		if is404(err) {
-			return nil
-		} else if err != nil {
-			logger.V(3).Infof("Received error deleting ReplicationController %q: %#v", rc.GetName(), err)
-			return err
-		}
-
-		currReplicas, _ := statusReplicas(rc)
-		specReplicas, _ := deploymentSpecReplicas(rc)
-
-		return watcher.RetryableError(
-			fmt.Errorf("ReplicationController %q still exists (%d / %d replicas exist)",
-				rc.GetName(), currReplicas, specReplicas))
-	}
-
-	// Wait until all replicas are gone. 10 minutes should be enough for ~10k replicas.
-	timeout := config.getTimeout(600)
-	err := watcher.ForObject(config.ctx, config.clientForResource, config.currentOutputs.GetName()).
-		RetryUntil(rcMissing, timeout)
-	if err != nil {
-		return err
-	}
-
-	logger.V(3).Infof("ReplicationController %q deleted", config.currentOutputs.GetName())
 
 	return nil
 }
