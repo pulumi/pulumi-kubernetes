@@ -17,13 +17,16 @@ package await
 import (
 	"testing"
 
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	corev1 "k8s.io/api/core/v1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime/schema"
+	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
+	"k8s.io/apimachinery/pkg/runtime"
 )
 
 func TestRelatedResource(t *testing.T) {
-	pod := &corev1.Pod{
+	p := &corev1.Pod{
 		TypeMeta: v1.TypeMeta{
 			APIVersion: "v1",
 			Kind:       "Pod",
@@ -50,66 +53,153 @@ func TestRelatedResource(t *testing.T) {
 			},
 		},
 	}
-	type args struct {
-		owner  ResourceID
-		object v1.Object
-	}
+	obj, err := runtime.DefaultUnstructuredConverter.ToUnstructured(p)
+	require.NoError(t, err)
+	pod := &unstructured.Unstructured{Object: obj}
+
 	tests := []struct {
-		name string
-		args args
-		want bool
+		name   string
+		owner  *unstructured.Unstructured
+		object *unstructured.Unstructured
+		want   bool
 	}{
-		{"Matching pod", args{
-			owner: ResourceID{
-				Name:       "baz",
-				Namespace:  "bar",
-				GVK:        schema.GroupVersionKind{Group: "batch", Version: "v1", Kind: "Job"},
-				Generation: 0,
-			},
+		{
+			name: "Matching pod",
+			owner: &unstructured.Unstructured{Object: map[string]any{
+				"apiVersion": "batch/v1",
+				"kind":       "Job",
+				"metadata": map[string]any{
+					"name":       "baz",
+					"namespace":  "bar",
+					"uid":        "14ba58cc-cf83-11e9-8c3a-025000000001",
+					"generation": 0,
+				},
+			}},
 			object: pod,
-		}, true},
-		{"Different namespace", args{
-			owner: ResourceID{
-				Name:       "baz",
-				Namespace:  "default",
-				GVK:        schema.GroupVersionKind{Group: "batch", Version: "v1", Kind: "Job"},
-				Generation: 0,
-			},
+			want:   true,
+		},
+		{
+			name: "Different namespace",
+			owner: &unstructured.Unstructured{Object: map[string]any{
+				"apiVersion": "batch/v1",
+				"kind":       "Job",
+				"metadata": map[string]any{
+					"name":       "baz",
+					"namespace":  "default",
+					"generation": 0,
+				},
+			}},
 			object: pod,
-		}, false},
-		{"Different name", args{
-			owner: ResourceID{
-				Name:       "different",
-				Namespace:  "bar",
-				GVK:        schema.GroupVersionKind{Group: "batch", Version: "v1", Kind: "Job"},
-				Generation: 0,
-			},
+			want:   false,
+		},
+		{
+			name: "Different name",
+			owner: &unstructured.Unstructured{Object: map[string]any{
+				"apiVersion": "batch/v1",
+				"kind":       "Job",
+				"metadata": map[string]any{
+					"name":       "different",
+					"namespace":  "bar",
+					"generation": 0,
+				},
+			}},
 			object: pod,
-		}, false},
-		{"Different GVK", args{
-			owner: ResourceID{
-				Name:       "baz",
-				Namespace:  "bar",
-				GVK:        schema.GroupVersionKind{Group: "core", Version: "v1", Kind: "Pod"},
-				Generation: 0,
-			},
+			want:   false,
+		},
+		{
+			name: "Different GVK",
+			owner: &unstructured.Unstructured{Object: map[string]any{
+				"apiVersion": "v1",
+				"kind":       "Pod",
+				"metadata": map[string]any{
+					"name":       "baz",
+					"namespace":  "bar",
+					"generation": 0,
+				},
+			}},
 			object: pod,
-		}, false},
-		{"Different generation", args{
-			owner: ResourceID{
-				Name:       "baz",
-				Namespace:  "bar",
-				GVK:        schema.GroupVersionKind{Group: "batch", Version: "v1", Kind: "Job"},
-				Generation: 1,
+			want:   false,
+		},
+		{
+			name: "pod owned by daemonset, UID match",
+			object: &unstructured.Unstructured{
+				Object: map[string]any{
+					"apiVersion": "v1",
+					"kind":       "Pod",
+					"metadata": map[string]any{
+						"name":      "uid-match",
+						"namespace": "default",
+						"labels": map[string]any{
+							"pod-template-generation": "12",
+						},
+						"ownerReferences": []any{map[string]any{
+							"apiVersion": "apps/v1",
+							"kind":       "DaemonSet",
+							"name":       "ds-owner",
+							"uid":        "7a83550a-3ccf-4ee2-b5b2-dd3b2bd6061b",
+						}},
+						"uid": "de21966d-f6a2-4214-a33b-ecf94a361bee",
+					},
+				},
 			},
-			object: pod,
-		}, false},
+			owner: &unstructured.Unstructured{
+				Object: map[string]any{
+					"apiVersion": "apps/v1",
+					"kind":       "DaemonSet",
+					"metadata": map[string]any{
+						"name":      "ds-owner",
+						"namespace": "default",
+						"ownerReferences": []any{map[string]any{
+							"apiVersion": "pulumi.com/v1",
+							"kind":       "Foo",
+							"name":       "foo",
+							"uid":        "a0a92f2e-c3cb-4948-9c81-136c3ea72490",
+						}},
+						"generation": int64(10),
+						"uid":        "7a83550a-3ccf-4ee2-b5b2-dd3b2bd6061b",
+					},
+				},
+			},
+
+			want: true,
+		},
+		{
+			name: "indirect pod/deployment relationship",
+			object: &unstructured.Unstructured{
+				Object: map[string]any{
+					"apiVersion": "v1",
+					"kind":       "Pod",
+					"metadata": map[string]any{
+						"name":      "replica-set-owner",
+						"namespace": "default",
+						"ownerReferences": []any{map[string]any{
+							"apiVersion": "apps/v1",
+							"kind":       "ReplicaSet",
+							"name":       "deployment-owner",
+							"uid":        "1ff8ab6a-eb8a-47e0-b198-ac505289714d",
+						}},
+						"uid": "29045f16-ecc8-4d1a-af3b-06089f005ad3",
+					},
+				},
+			},
+			owner: &unstructured.Unstructured{
+				Object: map[string]any{
+					"apiVersion": "apps/v1",
+					"kind":       "Deployment",
+					"metadata": map[string]any{
+						"name":      "deployment-owner",
+						"namespace": "default",
+						"uid":       "81beaa42-2aae-47dc-95b2-23036c408adc",
+					},
+				},
+			},
+			want: false,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := relatedResource(tt.args.owner, tt.args.object); got != tt.want {
-				t.Errorf("relatedResource() = %v, want %v", got, tt.want)
-			}
+			got := relatedResource(tt.owner, tt.object)
+			assert.Equal(t, tt.want, got)
 		})
 	}
 }

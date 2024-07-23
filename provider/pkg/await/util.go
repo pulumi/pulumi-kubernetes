@@ -98,42 +98,18 @@ func is404(err error) bool {
 
 // --------------------------------------------------------------------------
 
-// TODO: Remove in favor of PodAggregator.
+// isOwnedBy returns true if possibleOwner is contained in the ownerReferences
+// of obj. Indirect ownership (like Deployment -> ReplicaSet -> Pod) is not
+// handled. Matches are exact and based on resource UIDs.
 func isOwnedBy(obj, possibleOwner *unstructured.Unstructured) bool {
 	if possibleOwner == nil {
 		return false
 	}
-
-	var possibleOwnerAPIVersion string
-
-	// Canonicalize apiVersion.
-	switch possibleOwner.GetKind() {
-	case "Deployment":
-		possibleOwnerAPIVersion = canonicalizeDeploymentAPIVersion(possibleOwner.GetAPIVersion())
-	case "StatefulSet":
-		possibleOwnerAPIVersion = canonicalizeStatefulSetAPIVersion(possibleOwner.GetAPIVersion())
-	default:
-		possibleOwnerAPIVersion = possibleOwner.GetAPIVersion()
-	}
-
 	owners := obj.GetOwnerReferences()
 	for _, owner := range owners {
-		var ownerAPIVersion string
-		switch owner.Kind {
-		case "Deployment":
-			ownerAPIVersion = canonicalizeDeploymentAPIVersion(owner.APIVersion)
-		case "StatefulSet":
-			ownerAPIVersion = canonicalizeStatefulSetAPIVersion(owner.APIVersion)
-		default:
-			ownerAPIVersion = owner.APIVersion
-		}
-
-		if ownerAPIVersion == possibleOwnerAPIVersion &&
-			possibleOwner.GetKind() == owner.Kind &&
-			possibleOwner.GetName() == owner.Name {
+		if owner.UID == possibleOwner.GetUID() {
 			return true
 		}
 	}
-
 	return false
 }

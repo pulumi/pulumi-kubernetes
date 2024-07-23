@@ -117,33 +117,6 @@ type DeleteConfig struct {
 	Timeout float64
 }
 
-type ResourceID struct {
-	Name       string
-	Namespace  string // Namespace should never be "" (use "default" instead).
-	GVK        schema.GroupVersionKind
-	Generation int64
-}
-
-func (r ResourceID) String() string {
-	if len(r.Namespace) > 0 {
-		return r.Namespace + "/" + r.Name
-	}
-	return r.Name
-}
-
-func (r ResourceID) GVKString() string {
-	return fmt.Sprintf(`'[%s] %s'`, r.GVK, r.String())
-}
-
-func ResourceIDFromUnstructured(uns *unstructured.Unstructured) ResourceID {
-	return ResourceID{
-		Namespace:  clients.NamespaceOrDefault(uns.GetNamespace()),
-		Name:       uns.GetName(),
-		GVK:        uns.GroupVersionKind(),
-		Generation: uns.GetGeneration(),
-	}
-}
-
 // skipRetry checks if we should skip retrying creation for unresolvable errors.
 func skipRetry(gvk schema.GroupVersionKind, k8sVersion *cluster.ServerVersion, err error,
 ) (bool, *cluster.ServerVersion) {

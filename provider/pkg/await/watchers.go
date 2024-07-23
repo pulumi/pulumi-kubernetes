@@ -23,7 +23,6 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/labels"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -38,7 +37,7 @@ type PodAggregator struct {
 	stopped bool
 
 	// Owner identity
-	owner ResourceID
+	owner *unstructured.Unstructured
 
 	// Pod checker
 	checker *checker.StateChecker
@@ -56,7 +55,7 @@ type lister interface {
 }
 
 // NewPodAggregator returns an initialized PodAggregator.
-func NewPodAggregator(owner ResourceID, lister lister) *PodAggregator {
+func NewPodAggregator(owner *unstructured.Unstructured, lister lister) *PodAggregator {
 	pa := &PodAggregator{
 		owner:    owner,
 		lister:   lister,
@@ -76,12 +75,13 @@ func (pa *PodAggregator) run(informChan <-chan watch.Event) {
 	defer close(pa.messages)
 
 	checkPod := func(object runtime.Object) {
-		pod, err := clients.PodFromUnstructured(object.(*unstructured.Unstructured))
+		obj := object.(*unstructured.Unstructured)
+		pod, err := clients.PodFromUnstructured(obj)
 		if err != nil {
 			logger.V(3).Infof("Failed to unmarshal Pod event: %v", err)
 			return
 		}
-		if relatedResource(pa.owner, pod) {
+		if relatedResource(pa.owner, obj) {
 			_, results := pa.checker.ReadyDetails(pod)
 			messages := results.Messages().MessagesWithSeverity(diag.Warning, diag.Error)
 			if len(messages) > 0 {
@@ -106,12 +106,13 @@ func (pa *PodAggregator) run(informChan <-chan watch.Event) {
 func (pa *PodAggregator) Read() logging.Messages {
 	var messages logging.Messages
 	checkPod := func(object runtime.Object) {
-		pod, err := clients.PodFromUnstructured(object.(*unstructured.Unstructured))
+		obj := object.(*unstructured.Unstructured)
+		pod, err := clients.PodFromUnstructured(obj)
 		if err != nil {
 			logger.V(3).Infof("Failed to unmarshal Pod event: %v", err)
 			return
 		}
-		if relatedResource(pa.owner, pod) {
+		if relatedResource(pa.owner, obj) {
 			_, results := pa.checker.ReadyDetails(pod)
 			messages = results.Messages().MessagesWithSeverity(diag.Warning, diag.Error)
 		}
@@ -165,26 +166,11 @@ func (pa *PodAggregator) ResultChan() <-chan logging.Messages {
 //	    "name": "foo",
 //	    "uid": "14ba58cc-cf83-11e9-8c3a-025000000001"
 //	}
-func relatedResource(owner ResourceID, object metav1.Object) bool {
-	if owner.Namespace != object.GetNamespace() {
+func relatedResource(owner *unstructured.Unstructured, obj *unstructured.Unstructured) bool {
+	if owner.GetNamespace() != obj.GetNamespace() {
 		return false
 	}
-	if owner.Generation != object.GetGeneration() {
-		return false
-	}
-	for _, ref := range object.GetOwnerReferences() {
-		if ref.APIVersion != owner.GVK.GroupVersion().String() {
-			continue
-		}
-		if ref.Kind != owner.GVK.Kind {
-			continue
-		}
-		if ref.Name != owner.Name {
-			continue
-		}
-		return true
-	}
-	return false
+	return isOwnedBy(obj, owner)
 }
 
 // staticLister can be used as a lister in situations where results are already
