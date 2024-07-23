@@ -1,5 +1,14 @@
 ## Unreleased
 
+### Added
+
+- A warning is now emitted if an object has finalizers which might be blocking
+  deletion. (https://github.com/pulumi/pulumi-kubernetes/issues/1418)
+
+### Fixed
+
+- Fixed a panic that could occur during deletion. (https://github.com/pulumi/pulumi-kubernetes/issues/3157)
+
 ## 4.16.0 (August 7, 2024)
 
 ### Added
