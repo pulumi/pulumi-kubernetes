@@ -98,7 +98,14 @@ public class Directory extends com.pulumi.resources.ComponentResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public Directory(String name, DirectoryArgs args, @Nullable com.pulumi.resources.ComponentResourceOptions options) {
-        super("kubernetes:kustomize/v2:Directory", name, args == null ? DirectoryArgs.Empty : args, makeResourceOptions(options, Codegen.empty()), true);
+        super("kubernetes:kustomize/v2:Directory", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), true);
+    }
+
+    private static DirectoryArgs makeArgs(DirectoryArgs args, @Nullable com.pulumi.resources.ComponentResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
+        return args == null ? DirectoryArgs.Empty : args;
     }
 
     private static com.pulumi.resources.ComponentResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.ComponentResourceOptions options, @Nullable Output<String> id) {

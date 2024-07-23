@@ -100,14 +100,17 @@ public class StorageVersionMigrationList extends com.pulumi.resources.CustomReso
      * @param options A bag of options that control this resource's behavior.
      */
     public StorageVersionMigrationList(String name, StorageVersionMigrationListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:storagemigration.k8s.io/v1alpha1:StorageVersionMigrationList", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:storagemigration.k8s.io/v1alpha1:StorageVersionMigrationList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private StorageVersionMigrationList(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:storagemigration.k8s.io/v1alpha1:StorageVersionMigrationList", name, null, makeResourceOptions(options, id));
     }
 
-    private static StorageVersionMigrationListArgs makeArgs(StorageVersionMigrationListArgs args) {
+    private static StorageVersionMigrationListArgs makeArgs(StorageVersionMigrationListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? StorageVersionMigrationListArgs.builder() : StorageVersionMigrationListArgs.builder(args);
         return builder
             .apiVersion("storagemigration.k8s.io/v1alpha1")

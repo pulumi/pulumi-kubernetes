@@ -100,14 +100,17 @@ public class ClusterCIDRList extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public ClusterCIDRList(String name, ClusterCIDRListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:networking.k8s.io/v1alpha1:ClusterCIDRList", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:networking.k8s.io/v1alpha1:ClusterCIDRList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private ClusterCIDRList(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:networking.k8s.io/v1alpha1:ClusterCIDRList", name, null, makeResourceOptions(options, id));
     }
 
-    private static ClusterCIDRListArgs makeArgs(ClusterCIDRListArgs args) {
+    private static ClusterCIDRListArgs makeArgs(ClusterCIDRListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? ClusterCIDRListArgs.builder() : ClusterCIDRListArgs.builder(args);
         return builder
             .apiVersion("networking.k8s.io/v1alpha1")

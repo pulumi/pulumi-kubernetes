@@ -242,14 +242,17 @@ public class Job extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public Job(String name, @Nullable JobArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:batch/v1:Job", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:batch/v1:Job", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private Job(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:batch/v1:Job", name, null, makeResourceOptions(options, id));
     }
 
-    private static JobArgs makeArgs(@Nullable JobArgs args) {
+    private static JobArgs makeArgs(@Nullable JobArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? JobArgs.builder() : JobArgs.builder(args);
         return builder
             .apiVersion("batch/v1")

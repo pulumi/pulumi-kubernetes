@@ -163,14 +163,17 @@ public class StatusPatch extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public StatusPatch(String name, @Nullable StatusPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:meta/v1:StatusPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:meta/v1:StatusPatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private StatusPatch(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:meta/v1:StatusPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static StatusPatchArgs makeArgs(@Nullable StatusPatchArgs args) {
+    private static StatusPatchArgs makeArgs(@Nullable StatusPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? StatusPatchArgs.builder() : StatusPatchArgs.builder(args);
         return builder
             .apiVersion("v1")

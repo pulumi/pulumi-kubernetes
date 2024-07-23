@@ -121,14 +121,17 @@ public class PersistentVolumePatch extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public PersistentVolumePatch(String name, @Nullable PersistentVolumePatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:core/v1:PersistentVolumePatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:core/v1:PersistentVolumePatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private PersistentVolumePatch(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:core/v1:PersistentVolumePatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static PersistentVolumePatchArgs makeArgs(@Nullable PersistentVolumePatchArgs args) {
+    private static PersistentVolumePatchArgs makeArgs(@Nullable PersistentVolumePatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? PersistentVolumePatchArgs.builder() : PersistentVolumePatchArgs.builder(args);
         return builder
             .apiVersion("v1")

@@ -100,14 +100,17 @@ public class CSIStorageCapacityList extends com.pulumi.resources.CustomResource 
      * @param options A bag of options that control this resource's behavior.
      */
     public CSIStorageCapacityList(String name, CSIStorageCapacityListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:storage.k8s.io/v1:CSIStorageCapacityList", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:storage.k8s.io/v1:CSIStorageCapacityList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private CSIStorageCapacityList(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:storage.k8s.io/v1:CSIStorageCapacityList", name, null, makeResourceOptions(options, id));
     }
 
-    private static CSIStorageCapacityListArgs makeArgs(CSIStorageCapacityListArgs args) {
+    private static CSIStorageCapacityListArgs makeArgs(CSIStorageCapacityListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? CSIStorageCapacityListArgs.builder() : CSIStorageCapacityListArgs.builder(args);
         return builder
             .apiVersion("storage.k8s.io/v1")

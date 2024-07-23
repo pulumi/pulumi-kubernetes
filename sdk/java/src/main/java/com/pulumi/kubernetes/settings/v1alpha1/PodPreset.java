@@ -83,14 +83,17 @@ public class PodPreset extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public PodPreset(String name, @Nullable PodPresetArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:settings.k8s.io/v1alpha1:PodPreset", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:settings.k8s.io/v1alpha1:PodPreset", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private PodPreset(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:settings.k8s.io/v1alpha1:PodPreset", name, null, makeResourceOptions(options, id));
     }
 
-    private static PodPresetArgs makeArgs(@Nullable PodPresetArgs args) {
+    private static PodPresetArgs makeArgs(@Nullable PodPresetArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? PodPresetArgs.builder() : PodPresetArgs.builder(args);
         return builder
             .apiVersion("settings.k8s.io/v1alpha1")

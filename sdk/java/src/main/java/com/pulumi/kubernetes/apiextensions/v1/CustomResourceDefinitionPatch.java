@@ -123,14 +123,17 @@ public class CustomResourceDefinitionPatch extends com.pulumi.resources.CustomRe
      * @param options A bag of options that control this resource's behavior.
      */
     public CustomResourceDefinitionPatch(String name, @Nullable CustomResourceDefinitionPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinitionPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinitionPatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private CustomResourceDefinitionPatch(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinitionPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static CustomResourceDefinitionPatchArgs makeArgs(@Nullable CustomResourceDefinitionPatchArgs args) {
+    private static CustomResourceDefinitionPatchArgs makeArgs(@Nullable CustomResourceDefinitionPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? CustomResourceDefinitionPatchArgs.builder() : CustomResourceDefinitionPatchArgs.builder(args);
         return builder
             .apiVersion("apiextensions.k8s.io/v1")

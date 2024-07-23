@@ -123,14 +123,17 @@ public class ControllerRevisionPatch extends com.pulumi.resources.CustomResource
      * @param options A bag of options that control this resource's behavior.
      */
     public ControllerRevisionPatch(String name, @Nullable ControllerRevisionPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:apps/v1:ControllerRevisionPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:apps/v1:ControllerRevisionPatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private ControllerRevisionPatch(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:apps/v1:ControllerRevisionPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static ControllerRevisionPatchArgs makeArgs(@Nullable ControllerRevisionPatchArgs args) {
+    private static ControllerRevisionPatchArgs makeArgs(@Nullable ControllerRevisionPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? ControllerRevisionPatchArgs.builder() : ControllerRevisionPatchArgs.builder(args);
         return builder
             .apiVersion("apps/v1")

@@ -100,14 +100,17 @@ public class NetworkPolicyList extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public NetworkPolicyList(String name, NetworkPolicyListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:networking.k8s.io/v1:NetworkPolicyList", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:networking.k8s.io/v1:NetworkPolicyList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private NetworkPolicyList(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:networking.k8s.io/v1:NetworkPolicyList", name, null, makeResourceOptions(options, id));
     }
 
-    private static NetworkPolicyListArgs makeArgs(NetworkPolicyListArgs args) {
+    private static NetworkPolicyListArgs makeArgs(NetworkPolicyListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? NetworkPolicyListArgs.builder() : NetworkPolicyListArgs.builder(args);
         return builder
             .apiVersion("networking.k8s.io/v1")

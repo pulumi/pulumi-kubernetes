@@ -115,14 +115,17 @@ public class Node extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public Node(String name, @Nullable NodeArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:core/v1:Node", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:core/v1:Node", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private Node(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:core/v1:Node", name, null, makeResourceOptions(options, id));
     }
 
-    private static NodeArgs makeArgs(@Nullable NodeArgs args) {
+    private static NodeArgs makeArgs(@Nullable NodeArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? NodeArgs.builder() : NodeArgs.builder(args);
         return builder
             .apiVersion("v1")

@@ -98,14 +98,17 @@ public class AuditSinkPatch extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public AuditSinkPatch(String name, @Nullable AuditSinkPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:auditregistration.k8s.io/v1alpha1:AuditSinkPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:auditregistration.k8s.io/v1alpha1:AuditSinkPatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private AuditSinkPatch(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:auditregistration.k8s.io/v1alpha1:AuditSinkPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static AuditSinkPatchArgs makeArgs(@Nullable AuditSinkPatchArgs args) {
+    private static AuditSinkPatchArgs makeArgs(@Nullable AuditSinkPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? AuditSinkPatchArgs.builder() : AuditSinkPatchArgs.builder(args);
         return builder
             .apiVersion("auditregistration.k8s.io/v1alpha1")

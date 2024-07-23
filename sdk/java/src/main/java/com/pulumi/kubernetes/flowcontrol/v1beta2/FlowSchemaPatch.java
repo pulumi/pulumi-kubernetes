@@ -123,14 +123,17 @@ public class FlowSchemaPatch extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public FlowSchemaPatch(String name, @Nullable FlowSchemaPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:flowcontrol.apiserver.k8s.io/v1beta2:FlowSchemaPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:flowcontrol.apiserver.k8s.io/v1beta2:FlowSchemaPatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private FlowSchemaPatch(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:flowcontrol.apiserver.k8s.io/v1beta2:FlowSchemaPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static FlowSchemaPatchArgs makeArgs(@Nullable FlowSchemaPatchArgs args) {
+    private static FlowSchemaPatchArgs makeArgs(@Nullable FlowSchemaPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? FlowSchemaPatchArgs.builder() : FlowSchemaPatchArgs.builder(args);
         return builder
             .apiVersion("flowcontrol.apiserver.k8s.io/v1beta2")

@@ -100,14 +100,17 @@ public class NodeList extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public NodeList(String name, NodeListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:core/v1:NodeList", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:core/v1:NodeList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private NodeList(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:core/v1:NodeList", name, null, makeResourceOptions(options, id));
     }
 
-    private static NodeListArgs makeArgs(NodeListArgs args) {
+    private static NodeListArgs makeArgs(NodeListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? NodeListArgs.builder() : NodeListArgs.builder(args);
         return builder
             .apiVersion("v1")

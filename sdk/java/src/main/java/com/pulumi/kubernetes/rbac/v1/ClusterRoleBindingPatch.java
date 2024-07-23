@@ -123,14 +123,17 @@ public class ClusterRoleBindingPatch extends com.pulumi.resources.CustomResource
      * @param options A bag of options that control this resource's behavior.
      */
     public ClusterRoleBindingPatch(String name, @Nullable ClusterRoleBindingPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:rbac.authorization.k8s.io/v1:ClusterRoleBindingPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:rbac.authorization.k8s.io/v1:ClusterRoleBindingPatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private ClusterRoleBindingPatch(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:rbac.authorization.k8s.io/v1:ClusterRoleBindingPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static ClusterRoleBindingPatchArgs makeArgs(@Nullable ClusterRoleBindingPatchArgs args) {
+    private static ClusterRoleBindingPatchArgs makeArgs(@Nullable ClusterRoleBindingPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? ClusterRoleBindingPatchArgs.builder() : ClusterRoleBindingPatchArgs.builder(args);
         return builder
             .apiVersion("rbac.authorization.k8s.io/v1")

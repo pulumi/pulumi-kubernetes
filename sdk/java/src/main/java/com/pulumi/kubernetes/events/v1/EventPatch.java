@@ -293,14 +293,17 @@ public class EventPatch extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public EventPatch(String name, @Nullable EventPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:events.k8s.io/v1:EventPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:events.k8s.io/v1:EventPatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private EventPatch(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:events.k8s.io/v1:EventPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static EventPatchArgs makeArgs(@Nullable EventPatchArgs args) {
+    private static EventPatchArgs makeArgs(@Nullable EventPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? EventPatchArgs.builder() : EventPatchArgs.builder(args);
         return builder
             .apiVersion("events.k8s.io/v1")

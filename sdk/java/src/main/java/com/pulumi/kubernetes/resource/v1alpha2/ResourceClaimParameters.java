@@ -134,14 +134,17 @@ public class ResourceClaimParameters extends com.pulumi.resources.CustomResource
      * @param options A bag of options that control this resource's behavior.
      */
     public ResourceClaimParameters(String name, @Nullable ResourceClaimParametersArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:resource.k8s.io/v1alpha2:ResourceClaimParameters", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:resource.k8s.io/v1alpha2:ResourceClaimParameters", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private ResourceClaimParameters(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:resource.k8s.io/v1alpha2:ResourceClaimParameters", name, null, makeResourceOptions(options, id));
     }
 
-    private static ResourceClaimParametersArgs makeArgs(@Nullable ResourceClaimParametersArgs args) {
+    private static ResourceClaimParametersArgs makeArgs(@Nullable ResourceClaimParametersArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? ResourceClaimParametersArgs.builder() : ResourceClaimParametersArgs.builder(args);
         return builder
             .apiVersion("resource.k8s.io/v1alpha2")

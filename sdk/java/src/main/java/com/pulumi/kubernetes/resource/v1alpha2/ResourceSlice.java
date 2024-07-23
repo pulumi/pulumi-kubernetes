@@ -131,14 +131,17 @@ public class ResourceSlice extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public ResourceSlice(String name, ResourceSliceArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:resource.k8s.io/v1alpha2:ResourceSlice", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:resource.k8s.io/v1alpha2:ResourceSlice", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private ResourceSlice(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:resource.k8s.io/v1alpha2:ResourceSlice", name, null, makeResourceOptions(options, id));
     }
 
-    private static ResourceSliceArgs makeArgs(ResourceSliceArgs args) {
+    private static ResourceSliceArgs makeArgs(ResourceSliceArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? ResourceSliceArgs.builder() : ResourceSliceArgs.builder(args);
         return builder
             .apiVersion("resource.k8s.io/v1alpha2")

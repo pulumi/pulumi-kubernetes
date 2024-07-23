@@ -157,14 +157,17 @@ public class Status extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public Status(String name, @Nullable StatusArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:meta/v1:Status", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:meta/v1:Status", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private Status(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:meta/v1:Status", name, null, makeResourceOptions(options, id));
     }
 
-    private static StatusArgs makeArgs(@Nullable StatusArgs args) {
+    private static StatusArgs makeArgs(@Nullable StatusArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? StatusArgs.builder() : StatusArgs.builder(args);
         return builder
             .apiVersion("v1")

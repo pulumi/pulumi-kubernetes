@@ -100,14 +100,17 @@ public class RoleList extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public RoleList(String name, RoleListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:rbac.authorization.k8s.io/v1beta1:RoleList", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:rbac.authorization.k8s.io/v1beta1:RoleList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private RoleList(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:rbac.authorization.k8s.io/v1beta1:RoleList", name, null, makeResourceOptions(options, id));
     }
 
-    private static RoleListArgs makeArgs(RoleListArgs args) {
+    private static RoleListArgs makeArgs(RoleListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? RoleListArgs.builder() : RoleListArgs.builder(args);
         return builder
             .apiVersion("rbac.authorization.k8s.io/v1beta1")

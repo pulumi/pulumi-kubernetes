@@ -100,14 +100,17 @@ public class PersistentVolumeClaimList extends com.pulumi.resources.CustomResour
      * @param options A bag of options that control this resource's behavior.
      */
     public PersistentVolumeClaimList(String name, PersistentVolumeClaimListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:core/v1:PersistentVolumeClaimList", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:core/v1:PersistentVolumeClaimList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private PersistentVolumeClaimList(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:core/v1:PersistentVolumeClaimList", name, null, makeResourceOptions(options, id));
     }
 
-    private static PersistentVolumeClaimListArgs makeArgs(PersistentVolumeClaimListArgs args) {
+    private static PersistentVolumeClaimListArgs makeArgs(PersistentVolumeClaimListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? PersistentVolumeClaimListArgs.builder() : PersistentVolumeClaimListArgs.builder(args);
         return builder
             .apiVersion("v1")

@@ -100,14 +100,17 @@ public class ValidatingAdmissionPolicyList extends com.pulumi.resources.CustomRe
      * @param options A bag of options that control this resource's behavior.
      */
     public ValidatingAdmissionPolicyList(String name, @Nullable ValidatingAdmissionPolicyListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:admissionregistration.k8s.io/v1:ValidatingAdmissionPolicyList", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:admissionregistration.k8s.io/v1:ValidatingAdmissionPolicyList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private ValidatingAdmissionPolicyList(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:admissionregistration.k8s.io/v1:ValidatingAdmissionPolicyList", name, null, makeResourceOptions(options, id));
     }
 
-    private static ValidatingAdmissionPolicyListArgs makeArgs(@Nullable ValidatingAdmissionPolicyListArgs args) {
+    private static ValidatingAdmissionPolicyListArgs makeArgs(@Nullable ValidatingAdmissionPolicyListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? ValidatingAdmissionPolicyListArgs.builder() : ValidatingAdmissionPolicyListArgs.builder(args);
         return builder
             .apiVersion("admissionregistration.k8s.io/v1")

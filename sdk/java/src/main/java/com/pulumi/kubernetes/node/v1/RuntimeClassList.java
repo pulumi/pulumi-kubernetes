@@ -100,14 +100,17 @@ public class RuntimeClassList extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public RuntimeClassList(String name, RuntimeClassListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:node.k8s.io/v1:RuntimeClassList", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:node.k8s.io/v1:RuntimeClassList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private RuntimeClassList(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:node.k8s.io/v1:RuntimeClassList", name, null, makeResourceOptions(options, id));
     }
 
-    private static RuntimeClassListArgs makeArgs(RuntimeClassListArgs args) {
+    private static RuntimeClassListArgs makeArgs(RuntimeClassListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? RuntimeClassListArgs.builder() : RuntimeClassListArgs.builder(args);
         return builder
             .apiVersion("node.k8s.io/v1")

@@ -112,14 +112,17 @@ public class ValidatingAdmissionPolicyBindingPatch extends com.pulumi.resources.
      * @param options A bag of options that control this resource's behavior.
      */
     public ValidatingAdmissionPolicyBindingPatch(String name, @Nullable ValidatingAdmissionPolicyBindingPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:admissionregistration.k8s.io/v1alpha1:ValidatingAdmissionPolicyBindingPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:admissionregistration.k8s.io/v1alpha1:ValidatingAdmissionPolicyBindingPatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private ValidatingAdmissionPolicyBindingPatch(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:admissionregistration.k8s.io/v1alpha1:ValidatingAdmissionPolicyBindingPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static ValidatingAdmissionPolicyBindingPatchArgs makeArgs(@Nullable ValidatingAdmissionPolicyBindingPatchArgs args) {
+    private static ValidatingAdmissionPolicyBindingPatchArgs makeArgs(@Nullable ValidatingAdmissionPolicyBindingPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? ValidatingAdmissionPolicyBindingPatchArgs.builder() : ValidatingAdmissionPolicyBindingPatchArgs.builder(args);
         return builder
             .apiVersion("admissionregistration.k8s.io/v1alpha1")

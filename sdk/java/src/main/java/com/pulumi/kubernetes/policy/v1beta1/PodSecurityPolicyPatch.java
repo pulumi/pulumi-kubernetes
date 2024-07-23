@@ -108,14 +108,17 @@ public class PodSecurityPolicyPatch extends com.pulumi.resources.CustomResource 
      * @param options A bag of options that control this resource's behavior.
      */
     public PodSecurityPolicyPatch(String name, @Nullable PodSecurityPolicyPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:policy/v1beta1:PodSecurityPolicyPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:policy/v1beta1:PodSecurityPolicyPatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private PodSecurityPolicyPatch(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:policy/v1beta1:PodSecurityPolicyPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static PodSecurityPolicyPatchArgs makeArgs(@Nullable PodSecurityPolicyPatchArgs args) {
+    private static PodSecurityPolicyPatchArgs makeArgs(@Nullable PodSecurityPolicyPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? PodSecurityPolicyPatchArgs.builder() : PodSecurityPolicyPatchArgs.builder(args);
         return builder
             .apiVersion("policy/v1beta1")

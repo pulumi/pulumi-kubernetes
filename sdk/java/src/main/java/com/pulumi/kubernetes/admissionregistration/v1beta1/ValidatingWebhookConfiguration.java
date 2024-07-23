@@ -101,14 +101,17 @@ public class ValidatingWebhookConfiguration extends com.pulumi.resources.CustomR
      * @param options A bag of options that control this resource's behavior.
      */
     public ValidatingWebhookConfiguration(String name, @Nullable ValidatingWebhookConfigurationArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingWebhookConfiguration", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingWebhookConfiguration", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private ValidatingWebhookConfiguration(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingWebhookConfiguration", name, null, makeResourceOptions(options, id));
     }
 
-    private static ValidatingWebhookConfigurationArgs makeArgs(@Nullable ValidatingWebhookConfigurationArgs args) {
+    private static ValidatingWebhookConfigurationArgs makeArgs(@Nullable ValidatingWebhookConfigurationArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? ValidatingWebhookConfigurationArgs.builder() : ValidatingWebhookConfigurationArgs.builder(args);
         return builder
             .apiVersion("admissionregistration.k8s.io/v1beta1")

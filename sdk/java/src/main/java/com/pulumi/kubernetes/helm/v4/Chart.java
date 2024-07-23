@@ -276,7 +276,14 @@ public class Chart extends com.pulumi.resources.ComponentResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public Chart(String name, ChartArgs args, @Nullable com.pulumi.resources.ComponentResourceOptions options) {
-        super("kubernetes:helm.sh/v4:Chart", name, args == null ? ChartArgs.Empty : args, makeResourceOptions(options, Codegen.empty()), true);
+        super("kubernetes:helm.sh/v4:Chart", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), true);
+    }
+
+    private static ChartArgs makeArgs(ChartArgs args, @Nullable com.pulumi.resources.ComponentResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
+        return args == null ? ChartArgs.Empty : args;
     }
 
     private static com.pulumi.resources.ComponentResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.ComponentResourceOptions options, @Nullable Output<String> id) {

@@ -100,14 +100,17 @@ public class VolumeAttributesClassList extends com.pulumi.resources.CustomResour
      * @param options A bag of options that control this resource's behavior.
      */
     public VolumeAttributesClassList(String name, VolumeAttributesClassListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:storage.k8s.io/v1alpha1:VolumeAttributesClassList", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:storage.k8s.io/v1alpha1:VolumeAttributesClassList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private VolumeAttributesClassList(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:storage.k8s.io/v1alpha1:VolumeAttributesClassList", name, null, makeResourceOptions(options, id));
     }
 
-    private static VolumeAttributesClassListArgs makeArgs(VolumeAttributesClassListArgs args) {
+    private static VolumeAttributesClassListArgs makeArgs(VolumeAttributesClassListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? VolumeAttributesClassListArgs.builder() : VolumeAttributesClassListArgs.builder(args);
         return builder
             .apiVersion("storage.k8s.io/v1alpha1")

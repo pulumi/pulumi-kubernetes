@@ -99,14 +99,17 @@ public class IPAddress extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public IPAddress(String name, @Nullable IPAddressArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:networking.k8s.io/v1alpha1:IPAddress", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:networking.k8s.io/v1alpha1:IPAddress", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private IPAddress(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:networking.k8s.io/v1alpha1:IPAddress", name, null, makeResourceOptions(options, id));
     }
 
-    private static IPAddressArgs makeArgs(@Nullable IPAddressArgs args) {
+    private static IPAddressArgs makeArgs(@Nullable IPAddressArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? IPAddressArgs.builder() : IPAddressArgs.builder(args);
         return builder
             .apiVersion("networking.k8s.io/v1alpha1")
