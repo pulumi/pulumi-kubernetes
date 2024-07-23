@@ -1524,7 +1524,7 @@ var yamlConfigGroupV2Resource = pschema.ResourceSpec{
 var apiextensionsCustomResource = pschema.ResourceSpec{
 	ObjectTypeSpec: pschema.ObjectTypeSpec{
 		IsOverlay:                 true,
-		OverlaySupportedLanguages: []string{"csharp", "go", "python", "nodejs"},
+		OverlaySupportedLanguages: []string{"csharp", "go", "python", "nodejs", "java"},
 		Description:               "CustomResource represents an instance of a CustomResourceDefinition (CRD). For example, the\n CoreOS Prometheus operator exposes a CRD `monitoring.coreos.com/ServiceMonitor`; to\n instantiate this as a Pulumi resource, one could call `new CustomResource`, passing the\n `ServiceMonitor` resource definition as an argument.",
 		Properties: map[string]pschema.PropertySpec{
 			"apiVersion": {
@@ -1592,7 +1592,7 @@ var apiextensionsCustomResource = pschema.ResourceSpec{
 var apiextensionsCustomResourcePatch = pschema.ResourceSpec{
 	ObjectTypeSpec: pschema.ObjectTypeSpec{
 		IsOverlay:                 true,
-		OverlaySupportedLanguages: []string{"csharp", "go", "python", "nodejs"},
+		OverlaySupportedLanguages: []string{"csharp", "go", "python", "nodejs", "java"},
 		Description:               "CustomResourcePatch represents an instance of a CustomResourceDefinition (CRD). For example, the\n CoreOS Prometheus operator exposes a CRD `monitoring.coreos.com/ServiceMonitor`; to\n instantiate this as a Pulumi resource, one could call `new CustomResourcePatch`, passing the\n `ServiceMonitor` resource definition as an argument.",
 		Properties: map[string]pschema.PropertySpec{
 			"apiVersion": {
