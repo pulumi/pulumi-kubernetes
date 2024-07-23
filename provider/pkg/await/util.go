@@ -112,6 +112,8 @@ func isOwnedBy(obj, possibleOwner *unstructured.Unstructured) bool {
 		possibleOwnerAPIVersion = canonicalizeDeploymentAPIVersion(possibleOwner.GetAPIVersion())
 	case "StatefulSet":
 		possibleOwnerAPIVersion = canonicalizeStatefulSetAPIVersion(possibleOwner.GetAPIVersion())
+	default:
+		possibleOwnerAPIVersion = possibleOwner.GetAPIVersion()
 	}
 
 	owners := obj.GetOwnerReferences()
@@ -122,10 +124,13 @@ func isOwnedBy(obj, possibleOwner *unstructured.Unstructured) bool {
 			ownerAPIVersion = canonicalizeDeploymentAPIVersion(owner.APIVersion)
 		case "StatefulSet":
 			ownerAPIVersion = canonicalizeStatefulSetAPIVersion(owner.APIVersion)
+		default:
+			ownerAPIVersion = owner.APIVersion
 		}
 
 		if ownerAPIVersion == possibleOwnerAPIVersion &&
-			possibleOwner.GetKind() == owner.Kind && possibleOwner.GetName() == owner.Name {
+			possibleOwner.GetKind() == owner.Kind &&
+			possibleOwner.GetName() == owner.Name {
 			return true
 		}
 	}
