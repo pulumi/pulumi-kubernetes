@@ -15,10 +15,14 @@
 package metadata
 
 import (
+	"context"
 	"strings"
 
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/condition"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/logging"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
+	"k8s.io/client-go/dynamic"
 )
 
 const (
@@ -103,7 +107,30 @@ func GetAnnotationValue(obj *unstructured.Unstructured, key string) string {
 	return annotations[key]
 }
 
+// GetDeletedCondition inspects the object's annotations and returns a
+// condition.Satisfier appropriate for using when awaiting deletion.
+func GetDeletedCondition(
+	ctx context.Context,
+	source condition.Source,
+	clientset clientGetter,
+	logger *logging.DedupLogger,
+	obj *unstructured.Unstructured,
+) (condition.Satisfier, error) {
+	if IsAnnotationTrue(obj, AnnotationSkipAwait) {
+		return condition.NewImmediate(logger, obj), nil
+	}
+	getter, err := clientset.ResourceClientForObject(obj)
+	if err != nil {
+		return nil, err
+	}
+	return condition.NewDeleted(ctx, source, getter, logger, obj)
+}
+
 func isComputedValue(v any) bool {
 	_, isComputed := v.(resource.Computed)
 	return isComputed
+}
+
+type clientGetter interface {
+	ResourceClientForObject(*unstructured.Unstructured) (dynamic.ResourceInterface, error)
 }

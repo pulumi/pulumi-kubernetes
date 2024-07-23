@@ -15,11 +15,16 @@
 package metadata
 
 import (
+	"context"
 	"testing"
 
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/condition"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/logging"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
+	"k8s.io/client-go/dynamic"
 )
 
 func TestSetAnnotation(t *testing.T) {
@@ -55,15 +60,19 @@ func TestSetAnnotation(t *testing.T) {
 		args args
 	}{
 		{"set-with-no-annotation", args{
-			obj: noAnnotationObj, key: "foo", value: "bar", expectSet: true, expectKey: "foo", expectValue: "bar"}},
+			obj: noAnnotationObj, key: "foo", value: "bar", expectSet: true, expectKey: "foo", expectValue: "bar",
+		}},
 		{"set-with-existing-annotations", args{
-			obj: existingAnnotationObj, key: "foo", value: "bar", expectSet: true, expectKey: "foo", expectValue: "bar"}},
+			obj: existingAnnotationObj, key: "foo", value: "bar", expectSet: true, expectKey: "foo", expectValue: "bar",
+		}},
 
 		// Computed fields cannot be set, so SetAnnotation is a no-op.
 		{"set-with-computed-metadata", args{
-			obj: computedMetadataObj, key: "foo", value: "bar", expectSet: false}},
+			obj: computedMetadataObj, key: "foo", value: "bar", expectSet: false,
+		}},
 		{"set-with-computed-annotation", args{
-			obj: computedAnnotationObj, key: "foo", value: "bar", expectSet: false}},
+			obj: computedAnnotationObj, key: "foo", value: "bar", expectSet: false,
+		}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -76,4 +85,53 @@ func TestSetAnnotation(t *testing.T) {
 			}
 		})
 	}
+}
+
+func TestSkipAwait(t *testing.T) {
+	tests := []struct {
+		name   string
+		getter func(context.Context, condition.Source, clientGetter, *logging.DedupLogger, *unstructured.Unstructured) (condition.Satisfier, error)
+		obj    *unstructured.Unstructured
+		want   condition.Satisfier
+	}{
+		{
+			name: "skipAwait=true takes priority over delete condition",
+			obj: &unstructured.Unstructured{Object: map[string]any{
+				"metadata": map[string]any{
+					"annotations": map[string]any{
+						AnnotationSkipAwait: "true",
+					},
+				},
+			}},
+			getter: GetDeletedCondition,
+			want:   condition.Immediate{},
+		},
+		{
+			name: "skipAwait=false doesn't take priority over delete condition",
+			obj: &unstructured.Unstructured{Object: map[string]any{
+				"metadata": map[string]any{
+					"annotations": map[string]any{
+						AnnotationSkipAwait: "false",
+					},
+				},
+			}},
+			getter: GetDeletedCondition,
+			want:   &condition.Deleted{},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			condition, err := tt.getter(context.Background(), nil, noopClientGetter{}, nil, tt.obj)
+			require.NoError(t, err)
+
+			assert.IsType(t, tt.want, condition)
+		})
+	}
+}
+
+type noopClientGetter struct{}
+
+func (noopClientGetter) ResourceClientForObject(*unstructured.Unstructured) (dynamic.ResourceInterface, error) {
+	return nil, nil
 }

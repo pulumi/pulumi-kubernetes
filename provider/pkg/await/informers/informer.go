@@ -86,6 +86,10 @@ func ForGVR(gvr schema.GroupVersionResource) InformerOption {
 // the provided informerFactory for a particular GVR.
 // A GVR must be specified through either ForGVR option or one of the convenience
 // wrappers around it in this package.
+//
+// The primary difference between an Informer vs. a Watcher is that Informers
+// handle re-connections automatically, so consumers don't need to handle watch
+// errors.
 func New(
 	informerFactory dynamicinformer.DynamicSharedInformerFactory,
 	opts ...InformerOption,

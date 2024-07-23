@@ -8,6 +8,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/condition"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients/fake"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/cluster"
@@ -392,23 +393,16 @@ func Test_Deletion(t *testing.T) {
 
 	// awaiters
 
-	awaitNoop := func(t *testing.T, ctx testCtx) deletionAwaiter {
-		return func(dac deleteAwaitConfig) error {
-			return nil
-		}
+	awaitNoop := func(t *testing.T, ctx testCtx) condition.Satisfier {
+		return condition.NewImmediate(ctx.config.DedupLogger, ctx.config.Inputs)
 	}
 
-	awaitError := func(t *testing.T, ctx testCtx) deletionAwaiter {
-		return func(dac deleteAwaitConfig) error {
-			return serviceUnavailableErr
-		}
+	awaitError := func(t *testing.T, ctx testCtx) condition.Satisfier {
+		return condition.NewFailure(serviceUnavailableErr)
 	}
 
-	awaitUnexpected := func(t *testing.T, ctx testCtx) deletionAwaiter {
-		return func(dac deleteAwaitConfig) error {
-			require.Fail(t, "Unexpected call to awaiter")
-			return nil
-		}
+	awaitUnexpected := func(t *testing.T, ctx testCtx) condition.Satisfier {
+		return condition.NewFailure(fmt.Errorf("unexpected call to await"))
 	}
 
 	// expectations
@@ -434,13 +428,13 @@ func Test_Deletion(t *testing.T) {
 	}
 
 	tests := []struct {
-		name     string
-		client   client
-		args     args
-		expect   []expectF
-		reaction []reactionF
-		watcher  *watch.RaceFreeFakeWatcher
-		awaiter  func(t *testing.T, ctx testCtx) deletionAwaiter
+		name      string
+		client    client
+		args      args
+		expect    []expectF
+		reaction  []reactionF
+		watcher   *watch.RaceFreeFakeWatcher
+		condition func(*testing.T, testCtx) condition.Satisfier
 	}{
 		{
 			name: "ServiceUnavailable",
@@ -467,8 +461,8 @@ func Test_Deletion(t *testing.T) {
 				inputs:  validPodUnstructured,
 				outputs: validPodUnstructured,
 			},
-			awaiter: awaitNoop,
-			expect:  []expectF{succeeded(), deleted("default", "foo")},
+			condition: awaitNoop,
+			expect:    []expectF{succeeded(), deleted("default", "foo")},
 		},
 		{
 			name: "NonNamespaced",
@@ -479,8 +473,8 @@ func Test_Deletion(t *testing.T) {
 				inputs:  validClusterRoleUnstructured,
 				outputs: validClusterRoleUnstructured,
 			},
-			awaiter: awaitNoop,
-			expect:  []expectF{succeeded(), deleted("default", "foo")},
+			condition: awaitNoop,
+			expect:    []expectF{succeeded(), deleted("default", "foo")},
 		},
 		{
 			name: "Gone",
@@ -491,8 +485,8 @@ func Test_Deletion(t *testing.T) {
 				inputs:  validPodUnstructured,
 				outputs: validPodUnstructured,
 			},
-			awaiter: awaitUnexpected,
-			expect:  []expectF{succeeded()},
+			condition: awaitUnexpected,
+			expect:    []expectF{succeeded()},
 		},
 		{
 			name: "SkipAwait",
@@ -501,10 +495,9 @@ func Test_Deletion(t *testing.T) {
 				name:    "foo",
 				objects: []runtime.Object{validPodUnstructured},
 				inputs:  withSkipAwait(validPodUnstructured),
-				outputs: validPodUnstructured,
+				outputs: withSkipAwait(validPodUnstructured),
 			},
 			reaction: []reactionF{suppressDeletion}, // suppress deletion to safeguard that the built-in watcher is not used.
-			awaiter:  awaitUnexpected,
 			expect:   []expectF{succeeded()},
 		},
 		{
@@ -516,8 +509,8 @@ func Test_Deletion(t *testing.T) {
 				inputs:  validPodUnstructured,
 				outputs: validPodUnstructured,
 			},
-			awaiter: awaitError,
-			expect:  []expectF{failed(serviceUnavailableErr)},
+			condition: awaitError,
+			expect:    []expectF{failed(serviceUnavailableErr)},
 		},
 		{
 			name: "Deleted",
@@ -528,64 +521,8 @@ func Test_Deletion(t *testing.T) {
 				inputs:  validPodUnstructured,
 				outputs: validPodUnstructured,
 			},
-			awaiter: nil,
-			expect:  []expectF{succeeded(), deleted("default", "foo")},
-		},
-		{
-			name: "WatchTimeout",
-			args: args{
-				resType: tokens.Type("kubernetes:core/v1:Pod"),
-				name:    "foo",
-				objects: []runtime.Object{validPodUnstructured},
-				inputs:  validPodUnstructured,
-				outputs: validPodUnstructured,
-			},
-			reaction: []reactionF{suppressDeletion},
-			awaiter:  nil,
-			watcher:  withWatchClosed(watch.NewRaceFreeFake()),
-			expect:   []expectF{failed(&timeoutError{})},
-		},
-		{
-			name: "WatchTimeoutWithRecovery",
-			args: args{
-				resType: tokens.Type("kubernetes:core/v1:Pod"),
-				name:    "foo",
-				objects: []runtime.Object{validPodUnstructured},
-				inputs:  validPodUnstructured,
-				outputs: validPodUnstructured,
-			},
-			reaction: nil,
-			awaiter:  nil,
-			watcher:  withWatchClosed(watch.NewRaceFreeFake()),
-			expect:   []expectF{succeeded()},
-		},
-		{
-			name: "WatchError",
-			args: args{
-				resType: tokens.Type("kubernetes:core/v1:Pod"),
-				name:    "foo",
-				objects: []runtime.Object{validPodUnstructured},
-				inputs:  validPodUnstructured,
-				outputs: validPodUnstructured,
-			},
-			reaction: []reactionF{suppressDeletion},
-			awaiter:  nil,
-			watcher:  withWatchError(watch.NewRaceFreeFake(), apierrors.NewTimeoutError("test", 30)),
-			expect:   []expectF{failed(&initializationError{})},
-		},
-		{
-			name: "WatchErrorWithRecovery",
-			args: args{
-				resType: tokens.Type("kubernetes:core/v1:Pod"),
-				name:    "foo",
-				objects: []runtime.Object{validPodUnstructured},
-				inputs:  validPodUnstructured,
-				outputs: validPodUnstructured,
-			},
-			reaction: nil,
-			awaiter:  nil,
-			watcher:  withWatchError(watch.NewRaceFreeFake(), apierrors.NewTimeoutError("test", 30)),
-			expect:   []expectF{succeeded()},
+			condition: awaitNoop,
+			expect:    []expectF{succeeded(), deleted("default", "foo")},
 		},
 		{
 			name: "Cancel",
@@ -597,7 +534,6 @@ func Test_Deletion(t *testing.T) {
 				outputs: validPodUnstructured,
 			},
 			reaction: []reactionF{cancelAwait, suppressDeletion},
-			awaiter:  nil,
 			expect:   []expectF{failed(&cancellationError{})},
 		},
 		{
@@ -609,9 +545,9 @@ func Test_Deletion(t *testing.T) {
 				inputs:  validPodUnstructured,
 				outputs: validPodUnstructured,
 			},
-			reaction: []reactionF{cancelAwait},
-			awaiter:  nil,
-			expect:   []expectF{succeeded()},
+			reaction:  []reactionF{cancelAwait},
+			condition: awaitNoop,
+			expect:    []expectF{succeeded()},
 		},
 	}
 
@@ -674,11 +610,8 @@ func Test_Deletion(t *testing.T) {
 					return true, tt.watcher, nil
 				})
 			}
-			if tt.awaiter != nil {
-				id := fmt.Sprintf("%s/%s", tt.args.inputs.GetAPIVersion(), tt.args.inputs.GetKind())
-				config.awaiters[id] = awaitSpec{
-					awaitDeletion: tt.awaiter(t, testCtx),
-				}
+			if tt.condition != nil {
+				config.condition = tt.condition(t, testCtx)
 			}
 			err = Deletion(config)
 			for _, e := range tt.expect {
@@ -774,17 +707,6 @@ func withGenerateName(obj *unstructured.Unstructured) *unstructured.Unstructured
 	copy.SetGenerateName(fmt.Sprintf("%s-", obj.GetName()))
 	copy.SetName("")
 	return copy
-}
-
-func withWatchError(watcher *watch.RaceFreeFakeWatcher, err *apierrors.StatusError) *watch.RaceFreeFakeWatcher {
-	obj := err.Status()
-	watcher.Error(&obj)
-	return watcher
-}
-
-func withWatchClosed(watcher *watch.RaceFreeFakeWatcher) *watch.RaceFreeFakeWatcher {
-	watcher.Stop()
-	return watcher
 }
 
 // --------------------------------------------------------------------------
