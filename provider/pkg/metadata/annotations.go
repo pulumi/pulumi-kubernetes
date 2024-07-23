@@ -30,6 +30,7 @@ const (
 
 	AnnotationAutonamed      = AnnotationPrefix + "autonamed"
 	AnnotationSkipAwait      = AnnotationPrefix + "skipAwait"
+	AnnotationWaitFor        = AnnotationPrefix + "waitFor"
 	AnnotationTimeoutSeconds = AnnotationPrefix + "timeoutSeconds"
 	AnnotationReplaceUnready = AnnotationPrefix + "replaceUnready"
 
