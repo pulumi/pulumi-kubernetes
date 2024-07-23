@@ -16,10 +16,15 @@
   to trigger updates for downstream dependencies like `Deployments`) are
   recommended to explicitly specify `immutable: true`.
 
+- A warning is now emitted if an object has finalizers which might be blocking
+  deletion. (https://github.com/pulumi/pulumi-kubernetes/issues/1418)
+
 ### Fixed
 
 - The `immutable` field is now respected for `ConfigMaps` when the provider is configured with `enableConfigMapMutable`.
   (https://github.com/pulumi/pulumi-kubernetes/issues/3181)
+
+- Fixed a panic that could occur during deletion. (https://github.com/pulumi/pulumi-kubernetes/issues/3157)
 
 ## 4.17.1 (August 16, 2024)
 
