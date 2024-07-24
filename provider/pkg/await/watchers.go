@@ -81,7 +81,7 @@ func (pa *PodAggregator) run(informChan <-chan watch.Event) {
 			logger.V(3).Infof("Failed to unmarshal Pod event: %v", err)
 			return
 		}
-		if relatedResource(pa.owner, obj) {
+		if isOwnedBy(obj, pa.owner) {
 			_, results := pa.checker.ReadyDetails(pod)
 			messages := results.Messages().MessagesWithSeverity(diag.Warning, diag.Error)
 			if len(messages) > 0 {
@@ -112,7 +112,7 @@ func (pa *PodAggregator) Read() logging.Messages {
 			logger.V(3).Infof("Failed to unmarshal Pod event: %v", err)
 			return
 		}
-		if relatedResource(pa.owner, obj) {
+		if isOwnedBy(obj, pa.owner) {
 			_, results := pa.checker.ReadyDetails(pod)
 			messages = results.Messages().MessagesWithSeverity(diag.Warning, diag.Error)
 		}
@@ -151,26 +151,6 @@ func (pa *PodAggregator) stopping() bool {
 // communicate warning/error messages to a resource awaiter.
 func (pa *PodAggregator) ResultChan() <-chan logging.Messages {
 	return pa.messages
-}
-
-// relatedResource returns true if a resource ownerReference and metadata matches the provided owner
-// ResourceID, false otherwise.
-//
-// Example ownerReference:
-//
-//	{
-//	    "apiVersion": "batch/v1",
-//	    "blockOwnerDeletion": true,
-//	    "controller": true,
-//	    "kind": "Job",
-//	    "name": "foo",
-//	    "uid": "14ba58cc-cf83-11e9-8c3a-025000000001"
-//	}
-func relatedResource(owner *unstructured.Unstructured, obj *unstructured.Unstructured) bool {
-	if owner.GetNamespace() != obj.GetNamespace() {
-		return false
-	}
-	return isOwnedBy(obj, owner)
 }
 
 // staticLister can be used as a lister in situations where results are already
