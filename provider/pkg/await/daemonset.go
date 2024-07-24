@@ -111,7 +111,7 @@ func (dsa *dsAwaiter) Delete() error {
 		dsa.config.logStatus(
 			diag.Info,
 			fmt.Sprintf(
-				"DaemonSet %q still exists (%d pods misscheduled)",
+				"DaemonSet %q still exists (%v pods misscheduled)",
 				ds.GetName(),
 				misscheduled,
 			),
