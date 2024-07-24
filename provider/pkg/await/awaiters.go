@@ -30,13 +30,11 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
+	corev1 "k8s.io/api/core/v1"
+	storagev1 "k8s.io/api/storage/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/client-go/dynamic"
-)
-
-const (
-	statusAvailable = "Available"
-	statusBound     = "Bound"
 )
 
 // createAwaitConfig specifies on which conditions we are to consider a resource created and fully
@@ -244,7 +242,7 @@ var awaiters = map[string]awaitSpec{
 		awaitCreation: untilCoreV1PersistentVolumeInitialized,
 	},
 	coreV1PersistentVolumeClaim: {
-		awaitCreation: untilCoreV1PersistentVolumeClaimBound,
+		awaitCreation: untilCoreV1PersistentVolumeClaimReady,
 	},
 	coreV1Pod: {
 		awaitCreation: awaitPodInit,
@@ -458,15 +456,17 @@ func untilCoreV1NamespaceDeleted(config deleteAwaitConfig) error {
 // --------------------------------------------------------------------------
 
 func untilCoreV1PersistentVolumeInitialized(c createAwaitConfig) error {
+	available := string(corev1.VolumeAvailable)
+	bound := string(corev1.VolumeBound)
 	pvAvailableOrBound := func(pv *unstructured.Unstructured) bool {
-		statusPhase, _ := openapi.Pluck(pv.Object, "status", "phase")
-		logger.V(3).Infof("Persistent volume %q status received: %#v", pv.GetName(), statusPhase)
-		if statusPhase == statusAvailable {
-			c.logStatus(diag.Info, "✅ PVC marked available")
-		} else if statusPhase == statusBound {
-			c.logStatus(diag.Info, "✅ PVC has been bound")
+		phase, _ := openapi.Pluck(pv.Object, "status", "phase")
+		logger.V(3).Infof("Persistent volume %q status received: %#v", pv.GetName(), phase)
+		if phase == available {
+			c.logStatus(diag.Info, "✅ PV marked available")
+		} else if phase == bound {
+			c.logStatus(diag.Info, "✅ PV has been bound")
 		}
-		return statusPhase == statusAvailable || statusPhase == statusBound
+		return phase == available || phase == bound
 	}
 
 	client, err := c.clientSet.ResourceClientForObject(c.currentOutputs)
@@ -483,11 +483,25 @@ func untilCoreV1PersistentVolumeInitialized(c createAwaitConfig) error {
 
 // --------------------------------------------------------------------------
 
-func untilCoreV1PersistentVolumeClaimBound(c createAwaitConfig) error {
-	pvcBound := func(pvc *unstructured.Unstructured) bool {
-		statusPhase, _ := openapi.Pluck(pvc.Object, "status", "phase")
-		logger.V(3).Infof("Persistent volume claim %s status received: %#v", pvc.GetName(), statusPhase)
-		return statusPhase == statusBound
+func untilCoreV1PersistentVolumeClaimReady(c createAwaitConfig) error {
+	var bindMode string
+	pvcReady := func(pvc *unstructured.Unstructured) bool {
+		// Lookup the PVC's storage class once it's available.
+		if bindMode == "" {
+			b, err := pvcBindMode(c.ctx, c.clientSet, pvc)
+			if err != nil {
+				c.logStatus(diag.Warning, err.Error())
+			}
+			bindMode = b
+		}
+
+		phase, _ := openapi.Pluck(pvc.Object, "status", "phase")
+		logger.V(3).Infof("Persistent volume claim %s status received: %#v", pvc.GetName(), phase)
+
+		if bindMode == string(storagev1.VolumeBindingWaitForFirstConsumer) {
+			return phase == string(corev1.ClaimPending)
+		}
+		return phase == string(corev1.ClaimBound)
 	}
 
 	client, err := c.clientSet.ResourceClientForObject(c.currentOutputs)
@@ -495,7 +509,31 @@ func untilCoreV1PersistentVolumeClaimBound(c createAwaitConfig) error {
 		return err
 	}
 	return watcher.ForObject(c.ctx, client, c.currentOutputs.GetName()).
-		WatchUntil(pvcBound, 5*time.Minute)
+		WatchUntil(pvcReady, 5*time.Minute)
+}
+
+// pvcBindMode attempts to fetch a PVC's StorageClass and returns its
+// volumeBindingMode.
+func pvcBindMode(
+	ctx context.Context,
+	clientset *clients.DynamicClientSet,
+	pvc *unstructured.Unstructured,
+) (string, error) {
+	gvk := storagev1.SchemeGroupVersion.WithKind("StorageClass")
+	scClient, err := clientset.ResourceClient(gvk, "")
+	if err != nil {
+		return "", fmt.Errorf("getting storageclass client: %w", err)
+	}
+	name, _, err := unstructured.NestedString(pvc.Object, "spec", "storageClassName")
+	if err != nil {
+		return "", err
+	}
+	sc, err := scClient.Get(ctx, name, metav1.GetOptions{})
+	if err != nil {
+		return "", fmt.Errorf("getting storagclass %q: %w", name, err)
+	}
+	bindMode, _, err := unstructured.NestedString(sc.Object, "volumeBindingMode")
+	return bindMode, err
 }
 
 // --------------------------------------------------------------------------

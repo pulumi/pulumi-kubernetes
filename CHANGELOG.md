@@ -12,6 +12,8 @@
 
 - Updated logic to accurately detect if a resource is a Patch variant. (https://github.com/pulumi/pulumi-kubernetes/pull/3102)
 - Added java as supported language for CustomResource overlays. (https://github.com/pulumi/pulumi-kubernetes/pull/3120)
+- `PersistentVolumeClaims` with a bind mode of `WaitForFirstConsumer` will no
+  long hang indefinitely.
 
 ## 4.15.0 (July 9, 2024)
 
