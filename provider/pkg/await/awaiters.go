@@ -434,7 +434,7 @@ func untilCoreV1NamespaceDeleted(config deleteAwaitConfig) error {
 			return err
 		}
 
-		statusPhase, _ := openapi.Pluck(ns.Object, "status", "phase")
+		statusPhase, _, _ := unstructured.NestedString(ns.Object, "status", "phase")
 		logger.V(3).Infof("Namespace %q status received: %#v", ns.GetName(), statusPhase)
 		if statusPhase == "" {
 			return nil
@@ -495,7 +495,7 @@ func untilCoreV1PersistentVolumeClaimReady(c createAwaitConfig) error {
 			bindMode = b
 		}
 
-		phase, _ := openapi.Pluck(pvc.Object, "status", "phase")
+		phase, _, _ := unstructured.NestedString(pvc.Object, "status", "phase")
 		logger.V(3).Infof("Persistent volume claim %s status received: %#v", pvc.GetName(), phase)
 
 		if bindMode == string(storagev1.VolumeBindingWaitForFirstConsumer) {
@@ -527,6 +527,9 @@ func pvcBindMode(
 	name, _, err := unstructured.NestedString(pvc.Object, "spec", "storageClassName")
 	if err != nil {
 		return "", err
+	}
+	if name == "" {
+		return "", fmt.Errorf("no storage class found for %q", pvc.GetName())
 	}
 	sc, err := scClient.Get(ctx, name, metav1.GetOptions{})
 	if err != nil {
