@@ -32,5 +32,32 @@ resources:
       dependsOn:
         - ${storage}
 
+  # Add a deployment to consume the PVC.
+  deployment:
+    type: kubernetes:apps/v1:Deployment
+    properties:
+      spec:
+        replicas: 1
+        selector:
+          matchLabels:
+            app: nginx
+        template:
+          metadata:
+            labels:
+              app: nginx
+          spec:
+            containers:
+              - name: nginx
+                image: nginx:stable-alpine3.17-slim
+                volumeMounts:
+                  - name: local
+                    mountPath: /usr/share/nginx/html
+            volumes:
+              - name: local
+                persistentVolumeClaim:
+                  claimName: ${pvc.metadata.name}
+    options:
+      provider: ${provider}
+
 outputs:
   status: ${pvc.status.phase}
