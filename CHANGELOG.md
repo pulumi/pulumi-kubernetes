@@ -29,6 +29,8 @@
 - Added java as supported language for CustomResource overlays. (https://github.com/pulumi/pulumi-kubernetes/pull/3120)
 - Status messages reported during updates are now more accurately scoped to the
   affected resource. (https://github.com/pulumi/pulumi-kubernetes/pull/3128)
+- `PersistentVolumeClaims` with a bind mode of `WaitForFirstConsumer` will no
+  longer hang indefinitely. (https://github.com/pulumi/pulumi-kubernetes/pull/3130)
 
 ## 4.15.0 (July 9, 2024)
 

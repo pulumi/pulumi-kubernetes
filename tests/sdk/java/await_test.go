@@ -72,3 +72,23 @@ func TestAwaitDaemonSet(t *testing.T) {
 	_, err := test.CurrentStack().Up(context.Background())
 	assert.ErrorContains(t, err, `the Kubernetes API server reported that "default/await-daemonset" failed to fully initialize or become live: timed out waiting for the condition`)
 }
+
+func TestAwaitPVC(t *testing.T) {
+	t.Parallel()
+
+	test := pulumitest.NewPulumiTest(t,
+		"testdata/await/pvc",
+		opttest.SkipInstall(),
+	)
+	t.Cleanup(func() {
+		test.Destroy()
+	})
+
+	// WaitUntilFirstConsumer PVC should still be Pending.
+	up := test.Up()
+	assert.Equal(t, "Pending", up.Outputs["status"].Value)
+
+	// Adding a Deployment to consume the PVC should succeed.
+	test.UpdateSource("testdata/await/pvc/step2")
+	up = test.Up()
+}

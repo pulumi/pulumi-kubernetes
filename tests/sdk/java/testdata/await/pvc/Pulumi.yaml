@@ -1,0 +1,37 @@
+name: pvc
+runtime: yaml
+description: |
+  Tests PVC with WaitForFirstConsumer (https://github.com/pulumi/pulumi-kubernetes/issues/895)
+
+resources:
+  ns:
+    type: kubernetes:core/v1:Namespace
+
+  provider:
+    type: pulumi:providers:kubernetes
+    properties:
+      namespace: ${ns.metadata.name}
+
+  sc:
+    type: kubernetes:storage.k8s.io/v1:StorageClass
+    properties:
+      volumeBindingMode: WaitForFirstConsumer
+      provisioner: rancher.io/local-path
+    options:
+      provider: ${provider}
+
+  pvc:
+    type: kubernetes:core/v1:PersistentVolumeClaim
+    properties:
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        storageClassName: ${sc.metadata.name}
+        resources:
+          requests:
+            storage: 1Mi
+    options:
+      provider: ${provider}
+
+outputs:
+  status: ${pvc.status.phase}

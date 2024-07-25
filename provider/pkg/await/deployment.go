@@ -28,6 +28,8 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/cmdutil"
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
+	appsv1 "k8s.io/api/apps/v1"
+	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -334,7 +336,6 @@ func (dia *deploymentInitAwaiter) await(
 	timeout,
 	aggregateErrorTicker <-chan time.Time,
 ) error {
-
 	// Before we start processing any ReplicaSet, PVC or Pod events, we need to wait until the Deployment controller
 	// has seen and updated the status of the Deployment object.
 	if err := dia.waitUntilDeploymentControllerReconciles(deploymentEvents, timeout); err != nil {
@@ -551,7 +552,7 @@ func (dia *deploymentInitAwaiter) processDeploymentEvent(event watch.Event) {
 			dia.replicaSetAvailable = condition["reason"] == "NewReplicaSetAvailable" && isProgressing
 		}
 
-		if condition["type"] == statusAvailable {
+		if condition["type"] == string(appsv1.DeploymentAvailable) {
 			dia.deploymentAvailable = condition["status"] == trueStatus
 			if !dia.deploymentAvailable {
 				rawReason, hasReason := condition["reason"]
@@ -749,7 +750,7 @@ func (dia *deploymentInitAwaiter) checkPersistentVolumeClaimStatus() {
 
 		// Success only occurs when there are no PersistentVolumeClaims
 		// defined, or when all PVCs have a status of 'Bound'
-		if phase != statusBound {
+		if phase != string(corev1.ClaimBound) {
 			allPVCsReady = false
 			message := fmt.Sprintf(
 				"PersistentVolumeClaim: [%s] is not ready. status.phase currently at: %s", pvc.GetName(), phase)
@@ -855,7 +856,7 @@ func (dia *deploymentInitAwaiter) getFailedPersistentValueClaims() []string {
 	failed := make([]string, 0)
 	for _, pvc := range dia.pvcs {
 		phase, _ := openapi.Pluck(pvc.Object, "status", "phase")
-		if phase != statusBound {
+		if phase != string(corev1.ClaimBound) {
 			failed = append(failed, pvc.GetName())
 		}
 	}
