@@ -7,15 +7,18 @@ resources:
   ns:
     type: kubernetes:core/v1:Namespace
 
-  storage:
-    type: kubernetes:yaml/v2:ConfigFile
-    properties:
-      file: https://raw.githubusercontent.com/rancher/local-path-provisioner/v0.0.28/deploy/local-path-storage.yaml
-
   provider:
     type: pulumi:providers:kubernetes
     properties:
       namespace: ${ns.metadata.name}
+
+  sc:
+    type: kubernetes:storage.k8s.io/v1:StorageClass
+    properties:
+      volumeBindingMode: WaitForFirstConsumer
+      provisioner: rancher.io/local-path
+    options:
+      provider: ${provider}
 
   pvc:
     type: kubernetes:core/v1:PersistentVolumeClaim
@@ -23,14 +26,12 @@ resources:
       spec:
         accessModes:
           - ReadWriteOnce
-        storageClassName: local-path
+        storageClassName: ${sc.metadata.name}
         resources:
           requests:
             storage: 1Mi
     options:
       provider: ${provider}
-      dependsOn:
-        - ${storage}
 
   # Add a deployment to consume the PVC.
   deployment:
