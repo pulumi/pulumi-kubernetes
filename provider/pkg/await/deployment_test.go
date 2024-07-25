@@ -175,7 +175,8 @@ func Test_Apps_Deployment(t *testing.T) {
 				object: deploymentAdded(inputNamespace, deploymentInputName, revision1),
 				subErrors: []string{
 					"Minimum number of live Pods was not attained",
-				}},
+				},
+			},
 		},
 		{
 			description: "[Revision 2] Should fail if unrelated Deployment succeeds",
@@ -196,7 +197,8 @@ func Test_Apps_Deployment(t *testing.T) {
 				object: deploymentAdded(inputNamespace, deploymentInputName, revision2),
 				subErrors: []string{
 					"Minimum number of live Pods was not attained",
-				}},
+				},
+			},
 		},
 		{
 			description: "[Revision 1] Should succeed when unrelated deployment fails",
@@ -275,7 +277,8 @@ func Test_Apps_Deployment(t *testing.T) {
 				object: deploymentAdded(inputNamespace, deploymentInputName, revision1),
 				subErrors: []string{
 					"Minimum number of live Pods was not attained",
-				}},
+				},
+			},
 		},
 		{
 			description: "[Revision 2] Should fail if timeout occurs before Deployment controller progresses",
@@ -294,7 +297,8 @@ func Test_Apps_Deployment(t *testing.T) {
 				object: deploymentAdded(inputNamespace, deploymentInputName, revision2),
 				subErrors: []string{
 					"Minimum number of live Pods was not attained",
-				}},
+				},
+			},
 		},
 		{
 			description: "[Revision 2] Should fail if timeout occurs before ReplicaSet is created",
@@ -312,7 +316,9 @@ func Test_Apps_Deployment(t *testing.T) {
 			expectedError: &timeoutError{
 				object: deploymentProgressing(inputNamespace, deploymentInputName, revision2),
 				subErrors: []string{
-					"Minimum number of live Pods was not attained"}},
+					"Minimum number of live Pods was not attained",
+				},
+			},
 		},
 		{
 			description: "[Revision 2] Should fail if timeout occurs before ReplicaSet becomes available",
@@ -333,7 +339,9 @@ func Test_Apps_Deployment(t *testing.T) {
 				object: deploymentProgressingUnavailable(inputNamespace, deploymentInputName, revision2),
 				subErrors: []string{
 					"[MinimumReplicasUnavailable] Deployment does not have minimum availability.",
-					"Minimum number of live Pods was not attained"}},
+					"Minimum number of live Pods was not attained",
+				},
+			},
 		},
 		{
 			description: "[Revision 2] Should fail if new ReplicaSet isn't created after an update",
@@ -349,7 +357,9 @@ func Test_Apps_Deployment(t *testing.T) {
 			expectedError: &timeoutError{
 				object: deploymentUpdated(inputNamespace, deploymentInputName, revision2),
 				subErrors: []string{
-					"Attempted to roll forward to new ReplicaSet, but minimum number of Pods did not become live"}},
+					"Attempted to roll forward to new ReplicaSet, but minimum number of Pods did not become live",
+				},
+			},
 		},
 		{
 			description: "[Revision 2] Should fail if timeout before new ReplicaSet becomes available",
@@ -367,7 +377,9 @@ func Test_Apps_Deployment(t *testing.T) {
 			expectedError: &timeoutError{
 				object: deploymentUpdatedReplicaSetProgressing(inputNamespace, deploymentInputName, revision2),
 				subErrors: []string{
-					"Minimum number of Pods to consider the application live was not attained"}},
+					"Minimum number of Pods to consider the application live was not attained",
+				},
+			},
 		},
 		{
 			description: "[Revision 1] Deployment should succeed and not report 'Progressing' condition",
@@ -405,7 +417,9 @@ func Test_Apps_Deployment(t *testing.T) {
 			expectedError: &timeoutError{
 				object: deploymentRevision2Created(inputNamespace, deploymentInputName),
 				subErrors: []string{
-					"Minimum number of Pods to consider the application live was not attained"}},
+					"Minimum number of Pods to consider the application live was not attained",
+				},
+			},
 		},
 		{
 			description: "[Revision 2] Deployment should fail if Deployment reports 'Progressing' failure",
@@ -429,7 +443,9 @@ func Test_Apps_Deployment(t *testing.T) {
 				subErrors: []string{
 					`[ProgressDeadlineExceeded] ReplicaSet "foo-13y9rdnu-b94df86d6" has timed ` +
 						`out progressing.`,
-					"Minimum number of Pods to consider the application live was not attained"}},
+					"Minimum number of Pods to consider the application live was not attained",
+				},
+			},
 		},
 		{
 			description: "[Revision 2] Should fail if Deployment is progressing but new ReplicaSet not available",
@@ -452,7 +468,8 @@ func Test_Apps_Deployment(t *testing.T) {
 				object: deploymentProgressingInvalidContainer(inputNamespace, deploymentInputName, revision2),
 				subErrors: []string{
 					"Minimum number of Pods to consider the application live was not attained",
-				}},
+				},
+			},
 		},
 		{
 			description: "[Revision 1] Failure should only report Pods from active ReplicaSet, part 1",
@@ -477,7 +494,8 @@ func Test_Apps_Deployment(t *testing.T) {
 				object: deploymentProgressing(inputNamespace, deploymentInputName, revision1),
 				subErrors: []string{
 					"Minimum number of live Pods was not attained",
-				}},
+				},
+			},
 		},
 		{
 			description: "[Revision 2] Failure should only report Pods from active ReplicaSet, part 1",
@@ -502,7 +520,8 @@ func Test_Apps_Deployment(t *testing.T) {
 				object: deploymentProgressing(inputNamespace, deploymentInputName, revision2),
 				subErrors: []string{
 					"Minimum number of live Pods was not attained",
-				}},
+				},
+			},
 		},
 		{
 			description: "[Revision 1] Failure should only report Pods from active ReplicaSet, part 2",
@@ -527,8 +546,9 @@ func Test_Apps_Deployment(t *testing.T) {
 				object: deploymentProgressing(inputNamespace, deploymentInputName, revision1),
 				subErrors: []string{
 					"Minimum number of live Pods was not attained",
-					`[Pod foo-4setj4y6-7cdf7ddc54-kvh2w]: containers with unready status: [nginx] -- [ImagePullBackOff] Back-off pulling image "sdkjlsdlkj"`,
-				}},
+					`[Pod foo-4setj4y6-7cdf7ddc54-kvh2w]: containers with unready status: [nginx][ImagePullBackOff] Back-off pulling image "sdkjlsdlkj"`,
+				},
+			},
 		},
 		{
 			description: "[Revision 2] Failure should only report Pods from active ReplicaSet, part 2",
@@ -553,8 +573,9 @@ func Test_Apps_Deployment(t *testing.T) {
 				object: deploymentProgressing(inputNamespace, deploymentInputName, revision2),
 				subErrors: []string{
 					"Minimum number of live Pods was not attained",
-					`[Pod foo-4setj4y6-7cdf7ddc54-kvh2w]: containers with unready status: [nginx] -- [ImagePullBackOff] Back-off pulling image "sdkjlsdlkj"`,
-				}},
+					`[Pod foo-4setj4y6-7cdf7ddc54-kvh2w]: containers with unready status: [nginx][ImagePullBackOff] Back-off pulling image "sdkjlsdlkj"`,
+				},
+			},
 		},
 		{
 			description: "Should fail if ReplicaSet generations do not match",
@@ -570,7 +591,9 @@ func Test_Apps_Deployment(t *testing.T) {
 			expectedError: &timeoutError{
 				object: deploymentRolloutComplete(inputNamespace, deploymentInputName, revision1),
 				subErrors: []string{
-					"Minimum number of Pods to consider the application live was not attained"}},
+					"Minimum number of Pods to consider the application live was not attained",
+				},
+			},
 		},
 	}
 
@@ -626,7 +649,9 @@ func Test_Apps_Deployment_With_PersistentVolumeClaims(t *testing.T) {
 				subErrors: []string{
 					`[ProgressDeadlineExceeded] ReplicaSet "foo-13y9rdnu-b94df86d6" has timed ` +
 						`out progressing.`,
-					fmt.Sprintf("Failed to bind PersistentVolumeClaim(s): %q", pvcInputName)}},
+					fmt.Sprintf("Failed to bind PersistentVolumeClaim(s): %q", pvcInputName),
+				},
+			},
 		},
 	}
 
@@ -838,7 +863,8 @@ func Test_Core_Deployment_Read(t *testing.T) {
 			replicaset:         availableReplicaSet,
 			replicaSetRevision: revision2,
 			expectedSubErrors: []string{
-				"Minimum number of Pods to consider the application live was not attained"},
+				"Minimum number of Pods to consider the application live was not attained",
+			},
 		},
 		{
 			description:        "[Revision 2] Read should fail if Deployment progressing but unavailable",
@@ -848,7 +874,8 @@ func Test_Core_Deployment_Read(t *testing.T) {
 			replicaSetRevision: revision2,
 			expectedSubErrors: []string{
 				"[MinimumReplicasUnavailable] Deployment does not have minimum availability.",
-				"Minimum number of live Pods was not attained"},
+				"Minimum number of live Pods was not attained",
+			},
 		},
 		{
 			description: "[Revision 1] Read should succeed if Deployment reported available",
@@ -866,7 +893,8 @@ func Test_Core_Deployment_Read(t *testing.T) {
 			replicaset:         availableReplicaSet,
 			replicaSetRevision: revision2,
 			expectedSubErrors: []string{
-				"Minimum number of Pods to consider the application live was not attained"},
+				"Minimum number of Pods to consider the application live was not attained",
+			},
 		},
 		{
 			description:        "[Revision 2] Read should succeed if rollout completes",
@@ -892,7 +920,8 @@ func Test_Core_Deployment_Read(t *testing.T) {
 			replicaset:         availableReplicaSet,
 			replicaSetRevision: revision2,
 			expectedSubErrors: []string{
-				"Minimum number of Pods to consider the application live was not attained"},
+				"Minimum number of Pods to consider the application live was not attained",
+			},
 		},
 		{
 			description:        "[Revision 2] Read should succeed Deployment if new ReplicaSet still rolled out",
@@ -927,39 +956,40 @@ func Test_Core_Deployment_Read(t *testing.T) {
 
 func deploymentInput(namespace, name string) *unstructured.Unstructured {
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
-    "kind": "Deployment",
-    "apiVersion": "apps/v1",
-    "metadata": {
-        "namespace": "%s",
-        "name": "%s",
-        "labels": {
-            "app": "foo"
-        }
-    },
-    "spec": {
-        "replicas": 1,
-        "selector": {
-            "matchLabels": {
-                "app": "foo"
-            }
-        },
-        "template": {
-            "metadata": {
-                "labels": {
-                    "app": "foo"
-                }
-            },
-            "spec": {
-                "containers": [
-                    {
-                        "name": "nginx",
-                        "image": "nginx"
-                    }
-                ]
-            }
-        }
-    }
-}`, namespace, name))
+	"kind": "Deployment",
+	"apiVersion": "apps/v1",
+	"metadata": {
+		"namespace": "%s",
+		"name": "%s",
+        "uid": "%s-deployment-uid",
+		"labels": {
+			"app": "foo"
+		}
+	},
+	"spec": {
+		"replicas": 1,
+		"selector": {
+			"matchLabels": {
+				"app": "foo"
+			}
+		},
+		"template": {
+			"metadata": {
+				"labels": {
+					"app": "foo"
+				}
+			},
+			"spec": {
+				"containers": [
+					{
+						"name": "nginx",
+						"image": "nginx"
+					}
+				]
+			}
+		}
+	}
+}`, namespace, name, name))
 	if err != nil {
 		panic(err)
 	}
@@ -968,48 +998,49 @@ func deploymentInput(namespace, name string) *unstructured.Unstructured {
 
 func deploymentAdded(namespace, name, revision string) *unstructured.Unstructured {
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
-    "kind": "Deployment",
-    "apiVersion": "apps/v1",
-    "metadata": {
-        "namespace": "%s",
-        "name": "%s",
-        "generation": 1,
-        "labels": {
-            "app": "foo"
-        },
-        "annotations": {
-            "deployment.kubernetes.io/revision": "%s",
-            "pulumi.com/autonamed": "true"
-        }
-    },
-    "spec": {
-        "replicas": 1,
-        "selector": {
-            "matchLabels": {
-                "app": "foo"
-            }
-        },
-        "template": {
-            "metadata": {
-                "creationTimestamp": null,
-                "labels": {
-                    "app": "foo"
-                }
-            },
-            "spec": {
-                "containers": [
-                    {
-                        "name": "nginx",
-                        "image": "nginx"
-                    }
-                ]
-            }
-        }
-    },
-    "status": {
-        "observedGeneration": 1
-    }
-}`, namespace, name, revision))
+	"kind": "Deployment",
+	"apiVersion": "apps/v1",
+	"metadata": {
+		"namespace": "%s",
+		"name": "%s",
+        "uid": "%s-deployment-uid",
+		"generation": 1,
+		"labels": {
+			"app": "foo"
+		},
+		"annotations": {
+			"deployment.kubernetes.io/revision": "%s",
+			"pulumi.com/autonamed": "true"
+		}
+	},
+	"spec": {
+		"replicas": 1,
+		"selector": {
+			"matchLabels": {
+				"app": "foo"
+			}
+		},
+		"template": {
+			"metadata": {
+				"creationTimestamp": null,
+				"labels": {
+					"app": "foo"
+				}
+			},
+			"spec": {
+				"containers": [
+					{
+						"name": "nginx",
+						"image": "nginx"
+					}
+				]
+			}
+		}
+	},
+	"status": {
+		"observedGeneration": 1
+	}
+}`, namespace, name, name, revision))
 	if err != nil {
 		panic(err)
 	}
@@ -1018,58 +1049,59 @@ func deploymentAdded(namespace, name, revision string) *unstructured.Unstructure
 
 func deploymentProgressing(namespace, name, revision string) *unstructured.Unstructured {
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
-    "kind": "Deployment",
-    "apiVersion": "apps/v1",
-    "metadata": {
-        "namespace": "%s",
-        "name": "%s",
-        "generation": 1,
-        "labels": {
-            "app": "foo"
-        },
-        "annotations": {
-            "deployment.kubernetes.io/revision": "%s",
-            "pulumi.com/autonamed": "true"
-        }
-    },
-    "spec": {
-        "replicas": 1,
-        "selector": {
-            "matchLabels": {
-                "app": "foo"
-            }
-        },
-        "template": {
-            "metadata": {
-                "creationTimestamp": null,
-                "labels": {
-                    "app": "foo"
-                }
-            },
-            "spec": {
-                "containers": [
-                    {
-                        "name": "nginx",
-                        "image": "nginx"
-                    }
-                ]
-            }
-        }
-    },
-    "status": {
-        "observedGeneration": 1,
-        "conditions": [
-            {
-                "type": "Progressing",
-                "status": "True",
-                "lastUpdateTime": "2018-07-31T21:49:04Z",
-                "lastTransitionTime": "2018-07-31T21:49:04Z",
-                "reason": "NewReplicaSetCreated",
-                "message": "Created new replica set \"foo-lobqxn87-546cb87d96\""
-            }
-        ]
-    }
-}`, namespace, name, revision))
+	"kind": "Deployment",
+	"apiVersion": "apps/v1",
+	"metadata": {
+		"namespace": "%s",
+		"name": "%s",
+        "uid": "%s-deployment-uid",
+		"generation": 1,
+		"labels": {
+			"app": "foo"
+		},
+		"annotations": {
+			"deployment.kubernetes.io/revision": "%s",
+			"pulumi.com/autonamed": "true"
+		}
+	},
+	"spec": {
+		"replicas": 1,
+		"selector": {
+			"matchLabels": {
+				"app": "foo"
+			}
+		},
+		"template": {
+			"metadata": {
+				"creationTimestamp": null,
+				"labels": {
+					"app": "foo"
+				}
+			},
+			"spec": {
+				"containers": [
+					{
+						"name": "nginx",
+						"image": "nginx"
+					}
+				]
+			}
+		}
+	},
+	"status": {
+		"observedGeneration": 1,
+		"conditions": [
+			{
+				"type": "Progressing",
+				"status": "True",
+				"lastUpdateTime": "2018-07-31T21:49:04Z",
+				"lastTransitionTime": "2018-07-31T21:49:04Z",
+				"reason": "NewReplicaSetCreated",
+				"message": "Created new replica set \"foo-lobqxn87-546cb87d96\""
+			}
+		]
+	}
+}`, namespace, name, name, revision))
 	if err != nil {
 		panic(err)
 	}
@@ -1078,71 +1110,72 @@ func deploymentProgressing(namespace, name, revision string) *unstructured.Unstr
 
 func deploymentNotProgressing(namespace, name, revision string) *unstructured.Unstructured {
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
-    "apiVersion": "apps/v1",
-    "kind": "Deployment",
-    "metadata": {
-        "generation": 3,
-        "labels": {
-            "app": "foo"
-        },
-        "namespace": "%s",
-        "name": "%s",
-        "annotations": {
-            "deployment.kubernetes.io/revision": "%s",
-            "pulumi.com/autonamed": "true"
-        }
-    },
-    "spec": {
-        "replicas": 1,
-        "selector": {
-            "matchLabels": {
-                "app": "foo"
-            }
-        },
-        "template": {
-            "metadata": {
-                "creationTimestamp": null,
-                "labels": {
-                    "app": "foo"
-                }
-            },
-            "spec": {
-                "containers": [
-                    {
-                        "image": "sdkjsdjkljklds",
-                        "name": "nginx"
-                    }
-                ]
-            }
-        }
-    },
-    "status": {
-        "availableReplicas": 1,
-        "conditions": [
-            {
-                "lastTransitionTime": "2018-07-31T23:42:21Z",
-                "lastUpdateTime": "2018-07-31T23:42:21Z",
-                "message": "Deployment has minimum availability.",
-                "reason": "MinimumReplicasAvailable",
-                "status": "True",
-                "type": "Available"
-            },
-            {
-                "lastTransitionTime": "2018-08-01T02:46:31Z",
-                "lastUpdateTime": "2018-08-01T02:46:31Z",
-                "message": "ReplicaSet \"foo-13y9rdnu-b94df86d6\" has timed out progressing.",
-                "reason": "ProgressDeadlineExceeded",
-                "status": "False",
-                "type": "Progressing"
-            }
-        ],
-        "observedGeneration": 3,
-        "readyReplicas": 1,
-        "replicas": 2,
-        "unavailableReplicas": 1,
-        "updatedReplicas": 1
-    }
-}`, namespace, name, revision))
+	"apiVersion": "apps/v1",
+	"kind": "Deployment",
+	"metadata": {
+		"generation": 3,
+		"labels": {
+			"app": "foo"
+		},
+		"namespace": "%s",
+		"name": "%s",
+        "uid": "%s-deployment-uid",
+		"annotations": {
+			"deployment.kubernetes.io/revision": "%s",
+			"pulumi.com/autonamed": "true"
+		}
+	},
+	"spec": {
+		"replicas": 1,
+		"selector": {
+			"matchLabels": {
+				"app": "foo"
+			}
+		},
+		"template": {
+			"metadata": {
+				"creationTimestamp": null,
+				"labels": {
+					"app": "foo"
+				}
+			},
+			"spec": {
+				"containers": [
+					{
+						"image": "sdkjsdjkljklds",
+						"name": "nginx"
+					}
+				]
+			}
+		}
+	},
+	"status": {
+		"availableReplicas": 1,
+		"conditions": [
+			{
+				"lastTransitionTime": "2018-07-31T23:42:21Z",
+				"lastUpdateTime": "2018-07-31T23:42:21Z",
+				"message": "Deployment has minimum availability.",
+				"reason": "MinimumReplicasAvailable",
+				"status": "True",
+				"type": "Available"
+			},
+			{
+				"lastTransitionTime": "2018-08-01T02:46:31Z",
+				"lastUpdateTime": "2018-08-01T02:46:31Z",
+				"message": "ReplicaSet \"foo-13y9rdnu-b94df86d6\" has timed out progressing.",
+				"reason": "ProgressDeadlineExceeded",
+				"status": "False",
+				"type": "Progressing"
+			}
+		],
+		"observedGeneration": 3,
+		"readyReplicas": 1,
+		"replicas": 2,
+		"unavailableReplicas": 1,
+		"updatedReplicas": 1
+	}
+}`, namespace, name, name, revision))
 	if err != nil {
 		panic(err)
 	}
@@ -1151,73 +1184,74 @@ func deploymentNotProgressing(namespace, name, revision string) *unstructured.Un
 
 func deploymentProgressingInvalidContainer(namespace, name, revision string) *unstructured.Unstructured {
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
-    "apiVersion": "apps/v1",
-    "kind": "Deployment",
-    "metadata": {
-        "generation": 4,
-        "labels": {
-            "app": "foo"
-        },
-        "namespace": "%s",
-        "name": "%s",
-        "annotations": {
-            "deployment.kubernetes.io/revision": "%s",
-            "pulumi.com/autonamed": "true"
-        }
-    },
-    "spec": {
-        "replicas": 1,
-        "selector": {
-            "matchLabels": {
-                "app": "foo"
-            }
-        },
-        "template": {
-            "metadata": {
-                "creationTimestamp": null,
-                "labels": {
-                    "app": "foo"
-                }
-            },
-            "spec": {
-                "containers": [
-                    {
-                        "image": "sdkjlsdlkj",
-                        "imagePullPolicy": "Always",
-                        "name": "nginx"
-                    }
-                ]
-            }
-        }
-    },
-    "status": {
-        "availableReplicas": 1,
-        "conditions": [
-            {
-                "lastTransitionTime": "2018-07-31T23:42:21Z",
-                "lastUpdateTime": "2018-07-31T23:42:21Z",
-                "message": "Deployment has minimum availability.",
-                "reason": "MinimumReplicasAvailable",
-                "status": "True",
-                "type": "Available"
-            },
-            {
-                "lastTransitionTime": "2018-08-01T03:04:50Z",
-                "lastUpdateTime": "2018-08-01T03:04:50Z",
-                "message": "ReplicaSet \"foo-13y9rdnu-58ddf8f46\" is progressing.",
-                "reason": "ReplicaSetUpdated",
-                "status": "True",
-                "type": "Progressing"
-            }
-        ],
-        "observedGeneration": 4,
-        "readyReplicas": 1,
-        "replicas": 2,
-        "unavailableReplicas": 1,
-        "updatedReplicas": 1
-    }
+	"apiVersion": "apps/v1",
+	"kind": "Deployment",
+	"metadata": {
+		"generation": 4,
+		"labels": {
+			"app": "foo"
+		},
+		"namespace": "%s",
+		"name": "%s",
+        "uid": "%s-deployment-uid",
+		"annotations": {
+			"deployment.kubernetes.io/revision": "%s",
+			"pulumi.com/autonamed": "true"
+		}
+	},
+	"spec": {
+		"replicas": 1,
+		"selector": {
+			"matchLabels": {
+				"app": "foo"
+			}
+		},
+		"template": {
+			"metadata": {
+				"creationTimestamp": null,
+				"labels": {
+					"app": "foo"
+				}
+			},
+			"spec": {
+				"containers": [
+					{
+						"image": "sdkjlsdlkj",
+						"imagePullPolicy": "Always",
+						"name": "nginx"
+					}
+				]
+			}
+		}
+	},
+	"status": {
+		"availableReplicas": 1,
+		"conditions": [
+			{
+				"lastTransitionTime": "2018-07-31T23:42:21Z",
+				"lastUpdateTime": "2018-07-31T23:42:21Z",
+				"message": "Deployment has minimum availability.",
+				"reason": "MinimumReplicasAvailable",
+				"status": "True",
+				"type": "Available"
+			},
+			{
+				"lastTransitionTime": "2018-08-01T03:04:50Z",
+				"lastUpdateTime": "2018-08-01T03:04:50Z",
+				"message": "ReplicaSet \"foo-13y9rdnu-58ddf8f46\" is progressing.",
+				"reason": "ReplicaSetUpdated",
+				"status": "True",
+				"type": "Progressing"
+			}
+		],
+		"observedGeneration": 4,
+		"readyReplicas": 1,
+		"replicas": 2,
+		"unavailableReplicas": 1,
+		"updatedReplicas": 1
+	}
 }
-`, namespace, name, revision))
+`, namespace, name, name, revision))
 	if err != nil {
 		panic(err)
 	}
@@ -1226,69 +1260,70 @@ func deploymentProgressingInvalidContainer(namespace, name, revision string) *un
 
 func deploymentProgressingUnavailable(namespace, name, revision string) *unstructured.Unstructured {
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
-    "kind": "Deployment",
-    "apiVersion": "apps/v1",
-    "metadata": {
-        "namespace": "%s",
-        "name": "%s",
-        "generation": 1,
-        "labels": {
-            "app": "foo"
-        },
-        "annotations": {
-            "deployment.kubernetes.io/revision": "%s",
-            "pulumi.com/autonamed": "true"
-        }
-    },
-    "spec": {
-        "replicas": 1,
-        "selector": {
-            "matchLabels": {
-                "app": "foo"
-            }
-        },
-        "template": {
-            "metadata": {
-                "creationTimestamp": null,
-                "labels": {
-                    "app": "foo"
-                }
-            },
-            "spec": {
-                "containers": [
-                    {
-                        "name": "nginx",
-                        "image": "nginx"
-                    }
-                ]
-            }
-        }
-    },
-    "status": {
-        "observedGeneration": 1,
-        "replicas": 1,
-        "updatedReplicas": 1,
-        "unavailableReplicas": 1,
-        "conditions": [
-            {
-                "type": "Progressing",
-                "status": "True",
-                "lastUpdateTime": "2018-07-31T21:49:04Z",
-                "lastTransitionTime": "2018-07-31T21:49:04Z",
-                "reason": "NewReplicaSetCreated",
-                "message": "Created new replica set \"foo-lobqxn87-546cb87d96\""
-            },
-            {
-                "type": "Available",
-                "status": "False",
-                "lastUpdateTime": "2018-07-31T21:49:04Z",
-                "lastTransitionTime": "2018-07-31T21:49:04Z",
-                "reason": "MinimumReplicasUnavailable",
-                "message": "Deployment does not have minimum availability."
-            }
-        ]
-    }
-}`, namespace, name, revision))
+	"kind": "Deployment",
+	"apiVersion": "apps/v1",
+	"metadata": {
+		"namespace": "%s",
+		"name": "%s",
+        "uid": "%s-deployment-uid",
+		"generation": 1,
+		"labels": {
+			"app": "foo"
+		},
+		"annotations": {
+			"deployment.kubernetes.io/revision": "%s",
+			"pulumi.com/autonamed": "true"
+		}
+	},
+	"spec": {
+		"replicas": 1,
+		"selector": {
+			"matchLabels": {
+				"app": "foo"
+			}
+		},
+		"template": {
+			"metadata": {
+				"creationTimestamp": null,
+				"labels": {
+					"app": "foo"
+				}
+			},
+			"spec": {
+				"containers": [
+					{
+						"name": "nginx",
+						"image": "nginx"
+					}
+				]
+			}
+		}
+	},
+	"status": {
+		"observedGeneration": 1,
+		"replicas": 1,
+		"updatedReplicas": 1,
+		"unavailableReplicas": 1,
+		"conditions": [
+			{
+				"type": "Progressing",
+				"status": "True",
+				"lastUpdateTime": "2018-07-31T21:49:04Z",
+				"lastTransitionTime": "2018-07-31T21:49:04Z",
+				"reason": "NewReplicaSetCreated",
+				"message": "Created new replica set \"foo-lobqxn87-546cb87d96\""
+			},
+			{
+				"type": "Available",
+				"status": "False",
+				"lastUpdateTime": "2018-07-31T21:49:04Z",
+				"lastTransitionTime": "2018-07-31T21:49:04Z",
+				"reason": "MinimumReplicasUnavailable",
+				"message": "Deployment does not have minimum availability."
+			}
+		]
+	}
+}`, namespace, name, name, revision))
 	if err != nil {
 		panic(err)
 	}
@@ -1300,62 +1335,63 @@ func deploymentProgressingUnavailable(namespace, name, revision string) *unstruc
 // report that the ReplicaSet is available to succeed.
 func deploymentRevision1Created(namespace, name string) *unstructured.Unstructured {
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
-    "kind": "Deployment",
-    "apiVersion": "apps/v1",
-    "metadata": {
-        "namespace": "%s",
-        "name": "%s",
-        "generation": 1,
-        "labels": {
-            "app": "foo"
-        },
-        "annotations": {
-            "deployment.kubernetes.io/revision": "1",
-            "pulumi.com/autonamed": "true"
-        }
-    },
-    "spec": {
-        "replicas": 1,
-        "selector": {
-            "matchLabels": {
-                "app": "foo"
-            }
-        },
-        "template": {
-            "metadata": {
-                "creationTimestamp": null,
-                "labels": {
-                    "app": "foo"
-                }
-            },
-            "spec": {
-                "containers": [
-                    {
-                        "name": "nginx",
-                        "image": "nginx"
-                    }
-                ]
-            }
-        }
-    },
-    "status": {
-        "observedGeneration": 1,
-        "replicas": 1,
-        "updatedReplicas": 1,
-        "readyReplicas": 1,
-        "availableReplicas": 1,
-        "conditions": [
-            {
-                "type": "Available",
-                "status": "True",
-                "lastUpdateTime": "2018-07-31T21:49:11Z",
-                "lastTransitionTime": "2018-07-31T21:49:11Z",
-                "reason": "MinimumReplicasAvailable",
-                "message": "Deployment has minimum availability."
-            }
-        ]
-    }
-}`, namespace, name))
+	"kind": "Deployment",
+	"apiVersion": "apps/v1",
+	"metadata": {
+		"namespace": "%s",
+		"name": "%s",
+        "uid": "%s-deployment-uid",
+		"generation": 1,
+		"labels": {
+			"app": "foo"
+		},
+		"annotations": {
+			"deployment.kubernetes.io/revision": "1",
+			"pulumi.com/autonamed": "true"
+		}
+	},
+	"spec": {
+		"replicas": 1,
+		"selector": {
+			"matchLabels": {
+				"app": "foo"
+			}
+		},
+		"template": {
+			"metadata": {
+				"creationTimestamp": null,
+				"labels": {
+					"app": "foo"
+				}
+			},
+			"spec": {
+				"containers": [
+					{
+						"name": "nginx",
+						"image": "nginx"
+					}
+				]
+			}
+		}
+	},
+	"status": {
+		"observedGeneration": 1,
+		"replicas": 1,
+		"updatedReplicas": 1,
+		"readyReplicas": 1,
+		"availableReplicas": 1,
+		"conditions": [
+			{
+				"type": "Available",
+				"status": "True",
+				"lastUpdateTime": "2018-07-31T21:49:11Z",
+				"lastTransitionTime": "2018-07-31T21:49:11Z",
+				"reason": "MinimumReplicasAvailable",
+				"message": "Deployment has minimum availability."
+			}
+		]
+	}
+}`, namespace, name, name))
 	if err != nil {
 		panic(err)
 	}
@@ -1366,62 +1402,63 @@ func deploymentRevision1Created(namespace, name string) *unstructured.Unstructur
 // instead of 1. Because the 'Progressing' condition is missing, this should cause a failure.
 func deploymentRevision2Created(namespace, name string) *unstructured.Unstructured {
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
-    "kind": "Deployment",
-    "apiVersion": "apps/v1",
-    "metadata": {
-        "namespace": "%s",
-        "name": "%s",
-        "generation": 1,
-        "labels": {
-            "app": "foo"
-        },
-        "annotations": {
-            "deployment.kubernetes.io/revision": "2",
-            "pulumi.com/autonamed": "true"
-        }
-    },
-    "spec": {
-        "replicas": 1,
-        "selector": {
-            "matchLabels": {
-                "app": "foo"
-            }
-        },
-        "template": {
-            "metadata": {
-                "creationTimestamp": null,
-                "labels": {
-                    "app": "foo"
-                }
-            },
-            "spec": {
-                "containers": [
-                    {
-                        "name": "nginx",
-                        "image": "nginx"
-                    }
-                ]
-            }
-        }
-    },
-    "status": {
-        "observedGeneration": 1,
-        "replicas": 1,
-        "updatedReplicas": 1,
-        "readyReplicas": 1,
-        "availableReplicas": 1,
-        "conditions": [
-            {
-                "type": "Available",
-                "status": "True",
-                "lastUpdateTime": "2018-07-31T21:49:11Z",
-                "lastTransitionTime": "2018-07-31T21:49:11Z",
-                "reason": "MinimumReplicasAvailable",
-                "message": "Deployment has minimum availability."
-            }
-        ]
-    }
-}`, namespace, name))
+	"kind": "Deployment",
+	"apiVersion": "apps/v1",
+	"metadata": {
+		"namespace": "%s",
+		"name": "%s",
+        "uid": "%s-deployment-uid",
+		"generation": 1,
+		"labels": {
+			"app": "foo"
+		},
+		"annotations": {
+			"deployment.kubernetes.io/revision": "2",
+			"pulumi.com/autonamed": "true"
+		}
+	},
+	"spec": {
+		"replicas": 1,
+		"selector": {
+			"matchLabels": {
+				"app": "foo"
+			}
+		},
+		"template": {
+			"metadata": {
+				"creationTimestamp": null,
+				"labels": {
+					"app": "foo"
+				}
+			},
+			"spec": {
+				"containers": [
+					{
+						"name": "nginx",
+						"image": "nginx"
+					}
+				]
+			}
+		}
+	},
+	"status": {
+		"observedGeneration": 1,
+		"replicas": 1,
+		"updatedReplicas": 1,
+		"readyReplicas": 1,
+		"availableReplicas": 1,
+		"conditions": [
+			{
+				"type": "Available",
+				"status": "True",
+				"lastUpdateTime": "2018-07-31T21:49:11Z",
+				"lastTransitionTime": "2018-07-31T21:49:11Z",
+				"reason": "MinimumReplicasAvailable",
+				"message": "Deployment has minimum availability."
+			}
+		]
+	}
+}`, namespace, name, name))
 	if err != nil {
 		panic(err)
 	}
@@ -1430,70 +1467,71 @@ func deploymentRevision2Created(namespace, name string) *unstructured.Unstructur
 
 func deploymentRolloutComplete(namespace, name, revision string) *unstructured.Unstructured {
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
-    "kind": "Deployment",
-    "apiVersion": "apps/v1",
-    "metadata": {
-        "namespace": "%s",
-        "name": "%s",
-        "generation": 1,
-        "labels": {
-            "app": "foo"
-        },
-        "annotations": {
-            "deployment.kubernetes.io/revision": "%s",
-            "pulumi.com/autonamed": "true"
-        }
-    },
-    "spec": {
-        "replicas": 1,
-        "selector": {
-            "matchLabels": {
-                "app": "foo"
-            }
-        },
-        "template": {
-            "metadata": {
-                "creationTimestamp": null,
-                "labels": {
-                    "app": "foo"
-                }
-            },
-            "spec": {
-                "containers": [
-                    {
-                        "name": "nginx",
-                        "image": "nginx"
-                    }
-                ]
-            }
-        }
-    },
-    "status": {
-        "observedGeneration": 1,
-        "replicas": 1,
-        "updatedReplicas": 1,
-        "readyReplicas": 1,
-        "availableReplicas": 1,
-        "conditions": [
-            {
-                "type": "Available",
-                "status": "True",
-                "lastUpdateTime": "2018-07-31T21:49:11Z",
-                "lastTransitionTime": "2018-07-31T21:49:11Z",
-                "reason": "MinimumReplicasAvailable",
-                "message": "Deployment has minimum availability."
-            },
-            {
-                "type": "Progressing",
-                "status": "True",
-                "lastUpdateTime": "2018-07-31T21:49:11Z",
-                "lastTransitionTime": "2018-07-31T21:49:04Z",
-                "reason": "NewReplicaSetAvailable",
-                "message": "ReplicaSet \"foo-lobqxn87-546cb87d96\" has successfully progressed."
-            }
-        ]
-    }
-}`, namespace, name, revision))
+	"kind": "Deployment",
+	"apiVersion": "apps/v1",
+	"metadata": {
+		"namespace": "%s",
+		"name": "%s",
+        "uid": "%s-deployment-uid",
+		"generation": 1,
+		"labels": {
+			"app": "foo"
+		},
+		"annotations": {
+			"deployment.kubernetes.io/revision": "%s",
+			"pulumi.com/autonamed": "true"
+		}
+	},
+	"spec": {
+		"replicas": 1,
+		"selector": {
+			"matchLabels": {
+				"app": "foo"
+			}
+		},
+		"template": {
+			"metadata": {
+				"creationTimestamp": null,
+				"labels": {
+					"app": "foo"
+				}
+			},
+			"spec": {
+				"containers": [
+					{
+						"name": "nginx",
+						"image": "nginx"
+					}
+				]
+			}
+		}
+	},
+	"status": {
+		"observedGeneration": 1,
+		"replicas": 1,
+		"updatedReplicas": 1,
+		"readyReplicas": 1,
+		"availableReplicas": 1,
+		"conditions": [
+			{
+				"type": "Available",
+				"status": "True",
+				"lastUpdateTime": "2018-07-31T21:49:11Z",
+				"lastTransitionTime": "2018-07-31T21:49:11Z",
+				"reason": "MinimumReplicasAvailable",
+				"message": "Deployment has minimum availability."
+			},
+			{
+				"type": "Progressing",
+				"status": "True",
+				"lastUpdateTime": "2018-07-31T21:49:11Z",
+				"lastTransitionTime": "2018-07-31T21:49:04Z",
+				"reason": "NewReplicaSetAvailable",
+				"message": "ReplicaSet \"foo-lobqxn87-546cb87d96\" has successfully progressed."
+			}
+		]
+	}
+}`, namespace, name, name, revision))
 	if err != nil {
 		panic(err)
 	}
@@ -1502,70 +1540,71 @@ func deploymentRolloutComplete(namespace, name, revision string) *unstructured.U
 
 func deploymentUpdated(namespace, name, revision string) *unstructured.Unstructured {
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
-    "kind": "Deployment",
-    "apiVersion": "apps/v1",
-    "metadata": {
-        "namespace": "%s",
-        "name": "%s",
-        "generation": 2,
-        "labels": {
-            "app": "foo"
-        },
-        "annotations": {
-            "deployment.kubernetes.io/revision": "%s",
-            "pulumi.com/autonamed": "true"
-        }
-    },
-    "spec": {
-        "replicas": 1,
-        "selector": {
-            "matchLabels": {
-                "app": "foo"
-            }
-        },
-        "template": {
-            "metadata": {
-                "creationTimestamp": null,
-                "labels": {
-                    "app": "foo"
-                }
-            },
-            "spec": {
-                "containers": [
-                    {
-                        "name": "nginx",
-                        "image": "nginx:1.15-alpine"
-                    }
-                ]
-            }
-        }
-    },
-    "status": {
-        "observedGeneration": 2,
-        "replicas": 1,
-        "updatedReplicas": 1,
-        "readyReplicas": 1,
-        "availableReplicas": 1,
-        "conditions": [
-            {
-                "type": "Available",
-                "status": "True",
-                "lastUpdateTime": "2018-07-31T23:42:21Z",
-                "lastTransitionTime": "2018-07-31T23:42:21Z",
-                "reason": "MinimumReplicasAvailable",
-                "message": "Deployment has minimum availability."
-            },
-            {
-                "type": "Progressing",
-                "status": "True",
-                "lastUpdateTime": "2018-07-31T23:42:21Z",
-                "lastTransitionTime": "2018-07-31T23:42:19Z",
-                "reason": "NewReplicaSetAvailable",
-                "message": "ReplicaSet \"foo-13y9rdnu-546cb87d96\" has successfully progressed."
-            }
-        ]
-    }
-}`, namespace, name, revision))
+	"kind": "Deployment",
+	"apiVersion": "apps/v1",
+	"metadata": {
+		"namespace": "%s",
+		"name": "%s",
+        "uid": "%s-deployment-uid",
+		"generation": 2,
+		"labels": {
+			"app": "foo"
+		},
+		"annotations": {
+			"deployment.kubernetes.io/revision": "%s",
+			"pulumi.com/autonamed": "true"
+		}
+	},
+	"spec": {
+		"replicas": 1,
+		"selector": {
+			"matchLabels": {
+				"app": "foo"
+			}
+		},
+		"template": {
+			"metadata": {
+				"creationTimestamp": null,
+				"labels": {
+					"app": "foo"
+				}
+			},
+			"spec": {
+				"containers": [
+					{
+						"name": "nginx",
+						"image": "nginx:1.15-alpine"
+					}
+				]
+			}
+		}
+	},
+	"status": {
+		"observedGeneration": 2,
+		"replicas": 1,
+		"updatedReplicas": 1,
+		"readyReplicas": 1,
+		"availableReplicas": 1,
+		"conditions": [
+			{
+				"type": "Available",
+				"status": "True",
+				"lastUpdateTime": "2018-07-31T23:42:21Z",
+				"lastTransitionTime": "2018-07-31T23:42:21Z",
+				"reason": "MinimumReplicasAvailable",
+				"message": "Deployment has minimum availability."
+			},
+			{
+				"type": "Progressing",
+				"status": "True",
+				"lastUpdateTime": "2018-07-31T23:42:21Z",
+				"lastTransitionTime": "2018-07-31T23:42:19Z",
+				"reason": "NewReplicaSetAvailable",
+				"message": "ReplicaSet \"foo-13y9rdnu-546cb87d96\" has successfully progressed."
+			}
+		]
+	}
+}`, namespace, name, name, revision))
 	if err != nil {
 		panic(err)
 	}
@@ -1574,67 +1613,68 @@ func deploymentUpdated(namespace, name, revision string) *unstructured.Unstructu
 
 func deploymentScaledToZero(namespace, name, revision string) *unstructured.Unstructured {
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
-    "kind": "Deployment",
-    "apiVersion": "apps/v1",
-    "metadata": {
-        "namespace": "%s",
-        "name": "%s",
-        "generation": 2,
-        "labels": {
-            "app": "foo"
-        },
-        "annotations": {
-            "deployment.kubernetes.io/revision": "%s",
-            "pulumi.com/autonamed": "true"
-        }
-    },
-    "spec": {
-        "replicas": 1,
-        "selector": {
-            "matchLabels": {
-                "app": "foo"
-            }
-        },
-        "template": {
-            "metadata": {
-                "creationTimestamp": null,
-                "labels": {
-                    "app": "foo"
-                }
-            },
-            "spec": {
-                "containers": [
-                    {
-                        "name": "nginx",
-                        "image": "nginx:1.15-alpine"
-                    }
-                ]
-            }
-        }
-    },
-    "status": {
-        "observedGeneration": 2,
-        "replicas": 0,
-        "conditions": [
-            {
-                "type": "Available",
-                "status": "True",
-                "lastUpdateTime": "2018-07-31T23:42:21Z",
-                "lastTransitionTime": "2018-07-31T23:42:21Z",
-                "reason": "MinimumReplicasAvailable",
-                "message": "Deployment has minimum availability."
-            },
-            {
-                "type": "Progressing",
-                "status": "True",
-                "lastUpdateTime": "2018-07-31T23:42:21Z",
-                "lastTransitionTime": "2018-07-31T23:42:19Z",
-                "reason": "NewReplicaSetAvailable",
-                "message": "ReplicaSet \"foo-13y9rdnu-546cb87d96\" has successfully progressed."
-            }
-        ]
-    }
-}`, namespace, name, revision))
+	"kind": "Deployment",
+	"apiVersion": "apps/v1",
+	"metadata": {
+		"namespace": "%s",
+		"name": "%s",
+        "uid": "%s-deployment-uid",
+		"generation": 2,
+		"labels": {
+			"app": "foo"
+		},
+		"annotations": {
+			"deployment.kubernetes.io/revision": "%s",
+			"pulumi.com/autonamed": "true"
+		}
+	},
+	"spec": {
+		"replicas": 1,
+		"selector": {
+			"matchLabels": {
+				"app": "foo"
+			}
+		},
+		"template": {
+			"metadata": {
+				"creationTimestamp": null,
+				"labels": {
+					"app": "foo"
+				}
+			},
+			"spec": {
+				"containers": [
+					{
+						"name": "nginx",
+						"image": "nginx:1.15-alpine"
+					}
+				]
+			}
+		}
+	},
+	"status": {
+		"observedGeneration": 2,
+		"replicas": 0,
+		"conditions": [
+			{
+				"type": "Available",
+				"status": "True",
+				"lastUpdateTime": "2018-07-31T23:42:21Z",
+				"lastTransitionTime": "2018-07-31T23:42:21Z",
+				"reason": "MinimumReplicasAvailable",
+				"message": "Deployment has minimum availability."
+			},
+			{
+				"type": "Progressing",
+				"status": "True",
+				"lastUpdateTime": "2018-07-31T23:42:21Z",
+				"lastTransitionTime": "2018-07-31T23:42:19Z",
+				"reason": "NewReplicaSetAvailable",
+				"message": "ReplicaSet \"foo-13y9rdnu-546cb87d96\" has successfully progressed."
+			}
+		]
+	}
+}`, namespace, name, name, revision))
 	if err != nil {
 		panic(err)
 	}
@@ -1643,70 +1683,71 @@ func deploymentScaledToZero(namespace, name, revision string) *unstructured.Unst
 
 func deploymentUpdatedReplicaSetProgressing(namespace, name, revision string) *unstructured.Unstructured {
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
-    "kind": "Deployment",
-    "apiVersion": "apps/v1",
-    "metadata": {
-        "namespace": "%s",
-        "name": "%s",
-        "generation": 2,
-        "labels": {
-            "app": "foo"
-        },
-        "annotations": {
-            "deployment.kubernetes.io/revision": "%s",
-            "pulumi.com/autonamed": "true"
-        }
-    },
-    "spec": {
-        "replicas": 1,
-        "selector": {
-            "matchLabels": {
-                "app": "foo"
-            }
-        },
-        "template": {
-            "metadata": {
-                "creationTimestamp": null,
-                "labels": {
-                    "app": "foo"
-                }
-            },
-            "spec": {
-                "containers": [
-                    {
-                        "name": "nginx",
-                        "image": "nginx:1.15-alpine"
-                    }
-                ]
-            }
-        }
-    },
-    "status": {
-        "observedGeneration": 2,
-        "replicas": 2,
-        "updatedReplicas": 1,
-        "readyReplicas": 2,
-        "availableReplicas": 2,
-        "conditions": [
-            {
-                "type": "Available",
-                "status": "True",
-                "lastUpdateTime": "2018-07-31T23:42:21Z",
-                "lastTransitionTime": "2018-07-31T23:42:21Z",
-                "reason": "MinimumReplicasAvailable",
-                "message": "Deployment has minimum availability."
-            },
-            {
-                "type": "Progressing",
-                "status": "True",
-                "lastUpdateTime": "2018-07-31T23:43:18Z",
-                "lastTransitionTime": "2018-07-31T23:42:19Z",
-                "reason": "ReplicaSetUpdated",
-                "message": "ReplicaSet \"foo-13y9rdnu-5694b49bf5\" is progressing."
-            }
-        ]
-    }
-}`, namespace, name, revision))
+	"kind": "Deployment",
+	"apiVersion": "apps/v1",
+	"metadata": {
+		"namespace": "%s",
+		"name": "%s",
+        "uid": "%s-deployment-uid",
+		"generation": 2,
+		"labels": {
+			"app": "foo"
+		},
+		"annotations": {
+			"deployment.kubernetes.io/revision": "%s",
+			"pulumi.com/autonamed": "true"
+		}
+	},
+	"spec": {
+		"replicas": 1,
+		"selector": {
+			"matchLabels": {
+				"app": "foo"
+			}
+		},
+		"template": {
+			"metadata": {
+				"creationTimestamp": null,
+				"labels": {
+					"app": "foo"
+				}
+			},
+			"spec": {
+				"containers": [
+					{
+						"name": "nginx",
+						"image": "nginx:1.15-alpine"
+					}
+				]
+			}
+		}
+	},
+	"status": {
+		"observedGeneration": 2,
+		"replicas": 2,
+		"updatedReplicas": 1,
+		"readyReplicas": 2,
+		"availableReplicas": 2,
+		"conditions": [
+			{
+				"type": "Available",
+				"status": "True",
+				"lastUpdateTime": "2018-07-31T23:42:21Z",
+				"lastTransitionTime": "2018-07-31T23:42:21Z",
+				"reason": "MinimumReplicasAvailable",
+				"message": "Deployment has minimum availability."
+			},
+			{
+				"type": "Progressing",
+				"status": "True",
+				"lastUpdateTime": "2018-07-31T23:43:18Z",
+				"lastTransitionTime": "2018-07-31T23:42:19Z",
+				"reason": "ReplicaSetUpdated",
+				"message": "ReplicaSet \"foo-13y9rdnu-5694b49bf5\" is progressing."
+			}
+		]
+	}
+}`, namespace, name, name, revision))
 	if err != nil {
 		panic(err)
 	}
@@ -1715,75 +1756,76 @@ func deploymentUpdatedReplicaSetProgressing(namespace, name, revision string) *u
 
 func deploymentUpdatedReplicaSetProgressed(namespace, name, revision string) *unstructured.Unstructured {
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
-    "kind": "Deployment",
-    "apiVersion": "apps/v1",
-    "metadata": {
-        "namespace": "%s",
-        "name": "%s",
-        "generation": 2,
-        "labels": {
-            "app": "foo"
-        },
-        "annotations": {
-            "deployment.kubernetes.io/revision": "%s",
-            "pulumi.com/autonamed": "true"
-        }
-    },
-    "spec": {
-        "replicas": 1,
-        "selector": {
-            "matchLabels": {
-                "app": "foo"
-            }
-        },
-        "template": {
-            "metadata": {
-                "creationTimestamp": null,
-                "labels": {
-                    "app": "foo"
-                }
-            },
-            "spec": {
-                "containers": [
-                    {
-                        "name": "nginx",
-                        "image": "nginx:1.15-alpine"
-                    }
-                ],
-                "restartPolicy": "Always",
-                "terminationGracePeriodSeconds": 30,
-                "dnsPolicy": "ClusterFirst",
-                "securityContext": {},
-                "schedulerName": "default-scheduler"
-            }
-        }
-    },
-    "status": {
-        "observedGeneration": 2,
-        "replicas": 1,
-        "updatedReplicas": 1,
-        "readyReplicas": 1,
-        "availableReplicas": 1,
-        "conditions": [
-            {
-                "type": "Available",
-                "status": "True",
-                "lastUpdateTime": "2018-07-31T23:42:21Z",
-                "lastTransitionTime": "2018-07-31T23:42:21Z",
-                "reason": "MinimumReplicasAvailable",
-                "message": "Deployment has minimum availability."
-            },
-            {
-                "type": "Progressing",
-                "status": "True",
-                "lastUpdateTime": "2018-07-31T23:43:18Z",
-                "lastTransitionTime": "2018-07-31T23:42:19Z",
-                "reason": "NewReplicaSetAvailable",
-                "message": "ReplicaSet \"foo-13y9rdnu-5694b49bf5\" has successfully progressed."
-            }
-        ]
-    }
-}`, namespace, name, revision))
+	"kind": "Deployment",
+	"apiVersion": "apps/v1",
+	"metadata": {
+		"namespace": "%s",
+		"name": "%s",
+        "uid": "%s-deployment-uid",
+		"generation": 2,
+		"labels": {
+			"app": "foo"
+		},
+		"annotations": {
+			"deployment.kubernetes.io/revision": "%s",
+			"pulumi.com/autonamed": "true"
+		}
+	},
+	"spec": {
+		"replicas": 1,
+		"selector": {
+			"matchLabels": {
+				"app": "foo"
+			}
+		},
+		"template": {
+			"metadata": {
+				"creationTimestamp": null,
+				"labels": {
+					"app": "foo"
+				}
+			},
+			"spec": {
+				"containers": [
+					{
+						"name": "nginx",
+						"image": "nginx:1.15-alpine"
+					}
+				],
+				"restartPolicy": "Always",
+				"terminationGracePeriodSeconds": 30,
+				"dnsPolicy": "ClusterFirst",
+				"securityContext": {},
+				"schedulerName": "default-scheduler"
+			}
+		}
+	},
+	"status": {
+		"observedGeneration": 2,
+		"replicas": 1,
+		"updatedReplicas": 1,
+		"readyReplicas": 1,
+		"availableReplicas": 1,
+		"conditions": [
+			{
+				"type": "Available",
+				"status": "True",
+				"lastUpdateTime": "2018-07-31T23:42:21Z",
+				"lastTransitionTime": "2018-07-31T23:42:21Z",
+				"reason": "MinimumReplicasAvailable",
+				"message": "Deployment has minimum availability."
+			},
+			{
+				"type": "Progressing",
+				"status": "True",
+				"lastUpdateTime": "2018-07-31T23:43:18Z",
+				"lastTransitionTime": "2018-07-31T23:42:19Z",
+				"reason": "NewReplicaSetAvailable",
+				"message": "ReplicaSet \"foo-13y9rdnu-5694b49bf5\" has successfully progressed."
+			}
+		]
+	}
+}`, namespace, name, name, revision))
 	if err != nil {
 		panic(err)
 	}
@@ -1792,62 +1834,63 @@ func deploymentUpdatedReplicaSetProgressed(namespace, name, revision string) *un
 
 func deploymentWithPVCAdded(namespace, name, revision, pvcName string) *unstructured.Unstructured {
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
-    "kind": "Deployment",
-    "apiVersion": "apps/v1",
-    "metadata": {
-        "namespace": "%s",
-        "name": "%s",
-        "generation": 1,
-        "labels": {
-            "app": "foo"
-        },
-        "annotations": {
-            "deployment.kubernetes.io/revision": "%s",
-            "pulumi.com/autonamed": "true"
-        }
-    },
-    "spec": {
-        "replicas": 1,
-        "selector": {
-            "matchLabels": {
-                "app": "foo"
-            }
-        },
-        "template": {
-            "metadata": {
-                "creationTimestamp": null,
-                "labels": {
-                    "app": "foo"
-                }
-            },
-            "spec": {
-                "containers": [
-                    {
-                        "name": "nginx",
-                        "image": "nginx",
-                        "volumeMounts": [
-                            {
-                                "mountPath": "/opt/data",
-                                "name": "data"
-                            }
-                        ]
-                    }
-                ],
-                "volumes": [
-                    {
-                        "name": "data",
-                        "persistentVolumeClaim": {
-                            "claimName": "%s"
-                        }
-                    }
-                ]
-            }
-        }
-    },
-    "status": {
-        "observedGeneration": 1
-    }
-}`, namespace, name, revision, pvcName))
+	"kind": "Deployment",
+	"apiVersion": "apps/v1",
+	"metadata": {
+		"namespace": "%s",
+		"name": "%s",
+        "uid": "%s-deployment-uid",
+		"generation": 1,
+		"labels": {
+			"app": "foo"
+		},
+		"annotations": {
+			"deployment.kubernetes.io/revision": "%s",
+			"pulumi.com/autonamed": "true"
+		}
+	},
+	"spec": {
+		"replicas": 1,
+		"selector": {
+			"matchLabels": {
+				"app": "foo"
+			}
+		},
+		"template": {
+			"metadata": {
+				"creationTimestamp": null,
+				"labels": {
+					"app": "foo"
+				}
+			},
+			"spec": {
+				"containers": [
+					{
+						"name": "nginx",
+						"image": "nginx",
+						"volumeMounts": [
+							{
+								"mountPath": "/opt/data",
+								"name": "data"
+							}
+						]
+					}
+				],
+				"volumes": [
+					{
+						"name": "data",
+						"persistentVolumeClaim": {
+							"claimName": "%s"
+						}
+					}
+				]
+			}
+		}
+	},
+	"status": {
+		"observedGeneration": 1
+	}
+}`, namespace, name, name, revision, pvcName))
 	if err != nil {
 		panic(err)
 	}
@@ -1856,72 +1899,73 @@ func deploymentWithPVCAdded(namespace, name, revision, pvcName string) *unstruct
 
 func deploymentWithPVCProgressing(namespace, name, revision, pvcName string) *unstructured.Unstructured {
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
-    "kind": "Deployment",
-    "apiVersion": "apps/v1",
-    "metadata": {
-        "namespace": "%s",
-        "name": "%s",
-        "generation": 1,
-        "labels": {
-            "app": "foo"
-        },
-        "annotations": {
-            "deployment.kubernetes.io/revision": "%s",
-            "pulumi.com/autonamed": "true"
-        }
-    },
-    "spec": {
-        "replicas": 1,
-        "selector": {
-            "matchLabels": {
-                "app": "foo"
-            }
-        },
-        "template": {
-            "metadata": {
-                "creationTimestamp": null,
-                "labels": {
-                    "app": "foo"
-                }
-            },
-            "spec": {
-                "containers": [
-                    {
-                        "name": "nginx",
-                        "image": "nginx",
-                        "volumeMounts": [
-                            {
-                                "mountPath": "/opt/data",
-                                "name": "data"
-                            }
-                        ]
-                    }
-                ],
-                "volumes": [
-                    {
-                        "name": "data",
-                        "persistentVolumeClaim": {
-                            "claimName": "%s"
-                        }
-                    }
-                ]
-            }
-        }
-    },
-    "status": {
-        "observedGeneration": 1,
-        "conditions": [
-            {
-                "type": "Progressing",
-                "status": "True",
-                "lastUpdateTime": "2018-07-31T21:49:04Z",
-                "lastTransitionTime": "2018-07-31T21:49:04Z",
-                "reason": "NewReplicaSetCreated",
-                "message": "Created new replica set \"foo-lobqxn87-546cb87d96\""
-            }
-        ]
-    }
-}`, namespace, name, revision, pvcName))
+	"kind": "Deployment",
+	"apiVersion": "apps/v1",
+	"metadata": {
+		"namespace": "%s",
+		"name": "%s",
+        "uid": "%s-deployment-uid",
+		"generation": 1,
+		"labels": {
+			"app": "foo"
+		},
+		"annotations": {
+			"deployment.kubernetes.io/revision": "%s",
+			"pulumi.com/autonamed": "true"
+		}
+	},
+	"spec": {
+		"replicas": 1,
+		"selector": {
+			"matchLabels": {
+				"app": "foo"
+			}
+		},
+		"template": {
+			"metadata": {
+				"creationTimestamp": null,
+				"labels": {
+					"app": "foo"
+				}
+			},
+			"spec": {
+				"containers": [
+					{
+						"name": "nginx",
+						"image": "nginx",
+						"volumeMounts": [
+							{
+								"mountPath": "/opt/data",
+								"name": "data"
+							}
+						]
+					}
+				],
+				"volumes": [
+					{
+						"name": "data",
+						"persistentVolumeClaim": {
+							"claimName": "%s"
+						}
+					}
+				]
+			}
+		}
+	},
+	"status": {
+		"observedGeneration": 1,
+		"conditions": [
+			{
+				"type": "Progressing",
+				"status": "True",
+				"lastUpdateTime": "2018-07-31T21:49:04Z",
+				"lastTransitionTime": "2018-07-31T21:49:04Z",
+				"reason": "NewReplicaSetCreated",
+				"message": "Created new replica set \"foo-lobqxn87-546cb87d96\""
+			}
+		]
+	}
+}`, namespace, name, name, revision, pvcName))
 	if err != nil {
 		panic(err)
 	}
@@ -1930,85 +1974,86 @@ func deploymentWithPVCProgressing(namespace, name, revision, pvcName string) *un
 
 func deploymentWithPVCNotProgressing(namespace, name, revision, pvcName string) *unstructured.Unstructured {
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
-    "apiVersion": "apps/v1",
-    "kind": "Deployment",
-    "metadata": {
-        "generation": 3,
-        "labels": {
-            "app": "foo"
-        },
-        "namespace": "%s",
-        "name": "%s",
-        "annotations": {
-            "deployment.kubernetes.io/revision": "%s",
-            "pulumi.com/autonamed": "true"
-        }
-    },
-    "spec": {
-        "replicas": 1,
-        "selector": {
-            "matchLabels": {
-                "app": "foo"
-            }
-        },
-        "template": {
-            "metadata": {
-                "creationTimestamp": null,
-                "labels": {
-                    "app": "foo"
-                }
-            },
-            "spec": {
-                "containers": [
-                    {
+	"apiVersion": "apps/v1",
+	"kind": "Deployment",
+	"metadata": {
+		"generation": 3,
+		"labels": {
+			"app": "foo"
+		},
+		"namespace": "%s",
+		"name": "%s",
+        "uid": "%s-deployment-uid",
+		"annotations": {
+			"deployment.kubernetes.io/revision": "%s",
+			"pulumi.com/autonamed": "true"
+		}
+	},
+	"spec": {
+		"replicas": 1,
+		"selector": {
+			"matchLabels": {
+				"app": "foo"
+			}
+		},
+		"template": {
+			"metadata": {
+				"creationTimestamp": null,
+				"labels": {
+					"app": "foo"
+				}
+			},
+			"spec": {
+				"containers": [
+					{
 						"name": "nginx",
-                        "image": "nginx",
-                        "volumeMounts": [
-                            {
-                                "mountPath": "/opt/data",
-                                "name": "data"
-                            }
-                        ]
-                    }
-                ],
-                "volumes": [
-                    {
-                        "name": "data",
-                        "persistentVolumeClaim": {
-                            "claimName": "%s"
-                        }
-                    }
-                ]
-            }
-        }
-    },
-    "status": {
-        "availableReplicas": 1,
-        "conditions": [
-            {
-                "lastTransitionTime": "2018-07-31T23:42:21Z",
-                "lastUpdateTime": "2018-07-31T23:42:21Z",
-                "message": "Deployment has minimum availability.",
-                "reason": "MinimumReplicasAvailable",
-                "status": "True",
-                "type": "Available"
-            },
-            {
-                "lastTransitionTime": "2018-08-01T02:46:31Z",
-                "lastUpdateTime": "2018-08-01T02:46:31Z",
-                "message": "ReplicaSet \"foo-13y9rdnu-b94df86d6\" has timed out progressing.",
-                "reason": "ProgressDeadlineExceeded",
-                "status": "False",
-                "type": "Progressing"
-            }
-        ],
-        "observedGeneration": 3,
-        "readyReplicas": 1,
-        "replicas": 2,
-        "unavailableReplicas": 1,
-        "updatedReplicas": 1
-    }
-}`, namespace, name, revision, pvcName))
+						"image": "nginx",
+						"volumeMounts": [
+							{
+								"mountPath": "/opt/data",
+								"name": "data"
+							}
+						]
+					}
+				],
+				"volumes": [
+					{
+						"name": "data",
+						"persistentVolumeClaim": {
+							"claimName": "%s"
+						}
+					}
+				]
+			}
+		}
+	},
+	"status": {
+		"availableReplicas": 1,
+		"conditions": [
+			{
+				"lastTransitionTime": "2018-07-31T23:42:21Z",
+				"lastUpdateTime": "2018-07-31T23:42:21Z",
+				"message": "Deployment has minimum availability.",
+				"reason": "MinimumReplicasAvailable",
+				"status": "True",
+				"type": "Available"
+			},
+			{
+				"lastTransitionTime": "2018-08-01T02:46:31Z",
+				"lastUpdateTime": "2018-08-01T02:46:31Z",
+				"message": "ReplicaSet \"foo-13y9rdnu-b94df86d6\" has timed out progressing.",
+				"reason": "ProgressDeadlineExceeded",
+				"status": "False",
+				"type": "Progressing"
+			}
+		],
+		"observedGeneration": 3,
+		"readyReplicas": 1,
+		"replicas": 2,
+		"unavailableReplicas": 1,
+		"updatedReplicas": 1
+	}
+}`, namespace, name, name, revision, pvcName))
 	if err != nil {
 		panic(err)
 	}
@@ -2017,53 +2062,54 @@ func deploymentWithPVCNotProgressing(namespace, name, revision, pvcName string) 
 
 func deploymentWithPVCInput(namespace, name, pvcName string) *unstructured.Unstructured {
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
-    "kind": "Deployment",
-    "apiVersion": "apps/v1",
-    "metadata": {
-        "namespace": "%s",
-        "name": "%s",
-        "labels": {
-            "app": "foo"
-        }
-    },
-    "spec": {
-        "replicas": 1,
-        "selector": {
-            "matchLabels": {
-                "app": "foo"
-            }
-        },
-        "template": {
-            "metadata": {
-                "labels": {
-                    "app": "foo"
-                }
-            },
-            "spec": {
-                "containers": [
-                    {
-                        "name": "nginx",
-                        "image": "nginx",
-                        "volumeMounts": [
-                            {
-                                "mountPath": "/opt/data",
-                                "name": "data"
-                            }
-                        ]
-                    }
-                ],
-                "volumes": [
-                    {
-                        "name": "data",
-                        "persistentVolumeClaim": {
-                            "claimName": "%s"
-                        }
-                    }
-                ]
-            }
-        }
-    }
-}`, namespace, name, pvcName))
+	"kind": "Deployment",
+	"apiVersion": "apps/v1",
+	"metadata": {
+		"namespace": "%s",
+		"name": "%s",
+        "uid": "%s-deployment-uid",
+		"labels": {
+			"app": "foo"
+		}
+	},
+	"spec": {
+		"replicas": 1,
+		"selector": {
+			"matchLabels": {
+				"app": "foo"
+			}
+		},
+		"template": {
+			"metadata": {
+				"labels": {
+					"app": "foo"
+				}
+			},
+			"spec": {
+				"containers": [
+					{
+						"name": "nginx",
+						"image": "nginx",
+						"volumeMounts": [
+							{
+								"mountPath": "/opt/data",
+								"name": "data"
+							}
+						]
+					}
+				],
+				"volumes": [
+					{
+						"name": "data",
+						"persistentVolumeClaim": {
+							"claimName": "%s"
+						}
+					}
+				]
+			}
+		}
+	}
+}`, namespace, name, name, pvcName))
 	if err != nil {
 		panic(err)
 	}
@@ -2078,27 +2124,27 @@ func deploymentWithPVCInput(namespace, name, pvcName string) *unstructured.Unstr
 
 func persistentVolumeClaimInput(namespace, name string) *unstructured.Unstructured {
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
-    "kind": "PersistentVolumeClaim",
-    "apiVersion": "v1",
-    "metadata": {
-        "namespace": "%s",
-        "name": "%s",
-        "labels": {
-            "app": "foo"
-        }
-    },
-    "spec": {
-        "accessModes": [
-            "ReadWriteOnce"
-        ],
-        "dataSource": null,
-        "resources": {
-            "requests": {
-                "storage": "1Gi"
-            }
-        },
-        "storageClassName": "standard"
-    }
+	"kind": "PersistentVolumeClaim",
+	"apiVersion": "v1",
+	"metadata": {
+		"namespace": "%s",
+		"name": "%s",
+		"labels": {
+			"app": "foo"
+		}
+	},
+	"spec": {
+		"accessModes": [
+			"ReadWriteOnce"
+		],
+		"dataSource": null,
+		"resources": {
+			"requests": {
+				"storage": "1Gi"
+			}
+		},
+		"storageClassName": "standard"
+	}
 }`, namespace, name))
 	if err != nil {
 		panic(err)
@@ -2108,27 +2154,27 @@ func persistentVolumeClaimInput(namespace, name string) *unstructured.Unstructur
 
 func persistentVolumeClaimPending(namespace, name string) *unstructured.Unstructured {
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
-    "kind": "PersistentVolumeClaim",
-    "apiVersion": "v1",
-    "metadata": {
-        "namespace": "%s",
-        "name": "%s"
-    },
-    "spec": {
-        "accessModes": [
-            "ReadWriteOnce"
-        ],
-        "dataSource": null,
-        "resources": {
-            "requests": {
-                "storage": "1Gi"
-            }
-        },
-        "storageClassName": "standard"
-    },
-    "status": {
-        "phase": "Pending"
-    }
+	"kind": "PersistentVolumeClaim",
+	"apiVersion": "v1",
+	"metadata": {
+		"namespace": "%s",
+		"name": "%s"
+	},
+	"spec": {
+		"accessModes": [
+			"ReadWriteOnce"
+		],
+		"dataSource": null,
+		"resources": {
+			"requests": {
+				"storage": "1Gi"
+			}
+		},
+		"storageClassName": "standard"
+	},
+	"status": {
+		"phase": "Pending"
+	}
 }`, namespace, name))
 	if err != nil {
 		panic(err)
@@ -2144,29 +2190,30 @@ func persistentVolumeClaimPending(namespace, name string) *unstructured.Unstruct
 
 func regressionDeploymentScaled3Output() *unstructured.Unstructured {
 	obj, err := decodeUnstructured(`{
-    "apiVersion": "apps/v1",
-    "kind": "Deployment",
-    "metadata": {
-        "name": "frontend-ur1fwk62",
-        "namespace": "default",
-        "annotations": {
-            "deployment.kubernetes.io/revision": "1"
-        }
-    },
-    "spec": {
-        "selector": { "matchLabels": { "app": "frontend" } },
-        "replicas": 3,
-        "template": {
-            "metadata": { "labels": { "app": "frontend" } },
-            "spec": { "containers": [{
-                "name": "php-redis",
-                "image": "us-docker.pkg.dev/google-samples/containers/gke/gb-frontend:v5",
-                "resources": { "requests": { "cpu": "100m", "memory": "100Mi" } },
-                "env": [{ "name": "GET_HOSTS_FROM", "value": "dns" }],
-                "ports": [{ "containerPort": 80 }]
-            }] }
-        }
-    }
+	"apiVersion": "apps/v1",
+	"kind": "Deployment",
+	"metadata": {
+		"name": "frontend-ur1fwk62",
+		"uid": "frontend-ur1fwk62-deployment-uid",
+		"namespace": "default",
+		"annotations": {
+			"deployment.kubernetes.io/revision": "1"
+		}
+	},
+	"spec": {
+		"selector": { "matchLabels": { "app": "frontend" } },
+		"replicas": 3,
+		"template": {
+			"metadata": { "labels": { "app": "frontend" } },
+			"spec": { "containers": [{
+				"name": "php-redis",
+				"image": "us-docker.pkg.dev/google-samples/containers/gke/gb-frontend:v5",
+				"resources": { "requests": { "cpu": "100m", "memory": "100Mi" } },
+				"env": [{ "name": "GET_HOSTS_FROM", "value": "dns" }],
+				"ports": [{ "containerPort": 80 }]
+			}] }
+		}
+	}
 }`)
 	if err != nil {
 		panic(err)
@@ -2176,110 +2223,110 @@ func regressionDeploymentScaled3Output() *unstructured.Unstructured {
 
 func regressionDeploymentScaled3() *unstructured.Unstructured {
 	obj, err := decodeUnstructured(`{
-    "apiVersion": "apps/v1",
-    "kind": "Deployment",
-    "metadata": {
-        "annotations": {
-            "deployment.kubernetes.io/revision": "1",
-            "pulumi.com/autonamed": "true"
-        },
-        "creationTimestamp": "2018-08-21T21:55:11Z",
-        "generation": 1,
-        "labels": {
-            "app": "frontend"
-        },
-        "name": "frontend-ur1fwk62",
-        "namespace": "default",
-        "resourceVersion": "917821",
-        "selfLink": "/apis/apps/v1/namespaces/default/deployments/frontend-ur1fwk62",
-        "uid": "e0a51d3c-a58c-11e8-8cb4-080027bd9056"
-    },
-    "spec": {
-        "progressDeadlineSeconds": 600,
-        "replicas": 3,
-        "revisionHistoryLimit": 2,
-        "selector": {
-            "matchLabels": {
-                "app": "frontend"
-            }
-        },
-        "strategy": {
-            "rollingUpdate": {
-                "maxSurge": "25%",
-                "maxUnavailable": "25%"
-            },
-            "type": "RollingUpdate"
-        },
-        "template": {
-            "metadata": {
-                "creationTimestamp": null,
-                "labels": {
-                    "app": "frontend"
-                }
-            },
-            "spec": {
-                "containers": [
-                    {
-                        "env": [
-                            {
-                                "name": "GET_HOSTS_FROM",
-                                "value": "dns"
-                            }
-                        ],
-                        "image": "us-docker.pkg.dev/google-samples/containers/gke/gb-frontend:v5",
-                        "imagePullPolicy": "IfNotPresent",
-                        "name": "php-redis",
-                        "ports": [
-                            {
-                                "containerPort": 80,
-                                "protocol": "TCP"
-                            }
-                        ],
-                        "resources": {
-                            "requests": {
-                                "cpu": "100m",
-                                "memory": "100Mi"
-                            }
-                        },
-                        "terminationMessagePath": "/dev/termination-log",
-                        "terminationMessagePolicy": "File"
-                    }
-                ],
-                "dnsPolicy": "ClusterFirst",
-                "restartPolicy": "Always",
-                "schedulerName": "default-scheduler",
-                "securityContext": {},
-                "terminationGracePeriodSeconds": 30
-            }
-        }
-    },
-    "status": {
-        "availableReplicas": 3,
-        "conditions": [
-            {
-                "lastTransitionTime": "2018-08-21T21:55:16Z",
-                "lastUpdateTime": "2018-08-21T21:55:16Z",
-                "message": "Deployment has minimum availability.",
-                "reason": "MinimumReplicasAvailable",
-                "status": "True",
-                "type": "Available"
-            },
-            {
-                "lastTransitionTime": "2018-08-21T21:55:11Z",
-                "lastUpdateTime": "2018-08-21T21:55:16Z",
-                "message": "ReplicaSet \"frontend-ur1fwk62-777d669468\" has successfully progressed.",
-                "reason": "NewReplicaSetAvailable",
-                "status": "True",
-                "type": "Progressing"
-            }
-        ],
-        "observedGeneration": 1,
-        "readyReplicas": 3,
-        "replicas": 3,
-        "updatedReplicas": 3
-    }
+	"apiVersion": "apps/v1",
+	"kind": "Deployment",
+	"metadata": {
+		"annotations": {
+			"deployment.kubernetes.io/revision": "1",
+			"pulumi.com/autonamed": "true"
+		},
+		"creationTimestamp": "2018-08-21T21:55:11Z",
+		"generation": 1,
+		"labels": {
+			"app": "frontend"
+		},
+		"name": "frontend-ur1fwk62",
+		"uid": "frontend-ur1fwk62-deployment-uid",
+		"namespace": "default",
+		"resourceVersion": "917821",
+		"selfLink": "/apis/apps/v1/namespaces/default/deployments/frontend-ur1fwk62",
+		"uid": "e0a51d3c-a58c-11e8-8cb4-080027bd9056"
+	},
+	"spec": {
+		"progressDeadlineSeconds": 600,
+		"replicas": 3,
+		"revisionHistoryLimit": 2,
+		"selector": {
+			"matchLabels": {
+				"app": "frontend"
+			}
+		},
+		"strategy": {
+			"rollingUpdate": {
+				"maxSurge": "25%",
+				"maxUnavailable": "25%"
+			},
+			"type": "RollingUpdate"
+		},
+		"template": {
+			"metadata": {
+				"creationTimestamp": null,
+				"labels": {
+					"app": "frontend"
+				}
+			},
+			"spec": {
+				"containers": [
+					{
+						"env": [
+							{
+								"name": "GET_HOSTS_FROM",
+								"value": "dns"
+							}
+						],
+						"image": "us-docker.pkg.dev/google-samples/containers/gke/gb-frontend:v5",
+						"imagePullPolicy": "IfNotPresent",
+						"name": "php-redis",
+						"ports": [
+							{
+								"containerPort": 80,
+								"protocol": "TCP"
+							}
+						],
+						"resources": {
+							"requests": {
+								"cpu": "100m",
+								"memory": "100Mi"
+							}
+						},
+						"terminationMessagePath": "/dev/termination-log",
+						"terminationMessagePolicy": "File"
+					}
+				],
+				"dnsPolicy": "ClusterFirst",
+				"restartPolicy": "Always",
+				"schedulerName": "default-scheduler",
+				"securityContext": {},
+				"terminationGracePeriodSeconds": 30
+			}
+		}
+	},
+	"status": {
+		"availableReplicas": 3,
+		"conditions": [
+			{
+				"lastTransitionTime": "2018-08-21T21:55:16Z",
+				"lastUpdateTime": "2018-08-21T21:55:16Z",
+				"message": "Deployment has minimum availability.",
+				"reason": "MinimumReplicasAvailable",
+				"status": "True",
+				"type": "Available"
+			},
+			{
+				"lastTransitionTime": "2018-08-21T21:55:11Z",
+				"lastUpdateTime": "2018-08-21T21:55:16Z",
+				"message": "ReplicaSet \"frontend-ur1fwk62-777d669468\" has successfully progressed.",
+				"reason": "NewReplicaSetAvailable",
+				"status": "True",
+				"type": "Progressing"
+			}
+		],
+		"observedGeneration": 1,
+		"readyReplicas": 3,
+		"replicas": 3,
+		"updatedReplicas": 3
+	}
 }`)
-
 	if err != nil {
 		panic(err)
 	}
@@ -2288,110 +2335,109 @@ func regressionDeploymentScaled3() *unstructured.Unstructured {
 
 func regressionDeploymentScaled3ExplicitDefault() *unstructured.Unstructured {
 	obj, err := decodeUnstructured(`{
-    "apiVersion": "apps/v1",
-    "kind": "Deployment",
-    "metadata": {
-        "annotations": {
-            "deployment.kubernetes.io/revision": "1",
-            "pulumi.com/autonamed": "true"
-        },
-        "creationTimestamp": "2018-08-21T21:55:11Z",
-        "generation": 2,
-        "labels": {
-            "app": "frontend"
-        },
-        "name": "frontend-ur1fwk62",
-        "namespace": "default",
-        "resourceVersion": "917821",
-        "selfLink": "/apis/apps/v1/namespaces/default/deployments/frontend-ur1fwk62",
-        "uid": "e0a51d3c-a58c-11e8-8cb4-080027bd9056"
-    },
-    "spec": {
-        "progressDeadlineSeconds": 600,
-        "replicas": 3,
-        "revisionHistoryLimit": 2,
-        "selector": {
-            "matchLabels": {
-                "app": "frontend"
-            }
-        },
-        "strategy": {
-            "rollingUpdate": {
-                "maxSurge": "25%",
-                "maxUnavailable": "25%"
-            },
-            "type": "RollingUpdate"
-        },
-        "template": {
-            "metadata": {
-                "creationTimestamp": null,
-                "labels": {
-                    "app": "frontend"
-                }
-            },
-            "spec": {
-                "containers": [
-                    {
-                        "env": [
-                            {
-                                "name": "GET_HOSTS_FROM",
-                                "value": "dns"
-                            }
-                        ],
-                        "image": "us-docker.pkg.dev/google-samples/containers/gke/gb-frontend:v5",
-                        "imagePullPolicy": "IfNotPresent",
-                        "name": "php-redis",
-                        "ports": [
-                            {
-                                "containerPort": 80,
-                                "protocol": "TCP"
-                            }
-                        ],
-                        "resources": {
-                            "requests": {
-                                "cpu": "100m",
-                                "memory": "100Mi"
-                            }
-                        },
-                        "terminationMessagePath": "/dev/termination-log",
-                        "terminationMessagePolicy": "File"
-                    }
-                ],
-                "dnsPolicy": "ClusterFirst",
-                "restartPolicy": "Always",
-                "schedulerName": "default-scheduler",
-                "securityContext": {},
-                "terminationGracePeriodSeconds": 30
-            }
-        }
-    },
-    "status": {
-        "availableReplicas": 3,
-        "conditions": [
-            {
-                "lastTransitionTime": "2018-08-21T21:55:16Z",
-                "lastUpdateTime": "2018-08-21T21:55:16Z",
-                "message": "Deployment has minimum availability.",
-                "reason": "MinimumReplicasAvailable",
-                "status": "True",
-                "type": "Available"
-            },
-            {
-                "lastTransitionTime": "2018-08-21T21:55:11Z",
-                "lastUpdateTime": "2018-08-21T21:55:16Z",
-                "message": "ReplicaSet \"frontend-ur1fwk62-777d669468\" has successfully progressed.",
-                "reason": "NewReplicaSetAvailable",
-                "status": "True",
-                "type": "Progressing"
-            }
-        ],
-        "observedGeneration": 2,
-        "readyReplicas": 3,
-        "replicas": 3,
-        "updatedReplicas": 3
-    }
+	"apiVersion": "apps/v1",
+	"kind": "Deployment",
+	"metadata": {
+		"annotations": {
+			"deployment.kubernetes.io/revision": "1",
+			"pulumi.com/autonamed": "true"
+		},
+		"creationTimestamp": "2018-08-21T21:55:11Z",
+		"generation": 2,
+		"labels": {
+			"app": "frontend"
+		},
+		"name": "frontend-ur1fwk62",
+		"namespace": "default",
+		"resourceVersion": "917821",
+		"selfLink": "/apis/apps/v1/namespaces/default/deployments/frontend-ur1fwk62",
+		"uid": "e0a51d3c-a58c-11e8-8cb4-080027bd9056"
+	},
+	"spec": {
+		"progressDeadlineSeconds": 600,
+		"replicas": 3,
+		"revisionHistoryLimit": 2,
+		"selector": {
+			"matchLabels": {
+				"app": "frontend"
+			}
+		},
+		"strategy": {
+			"rollingUpdate": {
+				"maxSurge": "25%",
+				"maxUnavailable": "25%"
+			},
+			"type": "RollingUpdate"
+		},
+		"template": {
+			"metadata": {
+				"creationTimestamp": null,
+				"labels": {
+					"app": "frontend"
+				}
+			},
+			"spec": {
+				"containers": [
+					{
+						"env": [
+							{
+								"name": "GET_HOSTS_FROM",
+								"value": "dns"
+							}
+						],
+						"image": "us-docker.pkg.dev/google-samples/containers/gke/gb-frontend:v5",
+						"imagePullPolicy": "IfNotPresent",
+						"name": "php-redis",
+						"ports": [
+							{
+								"containerPort": 80,
+								"protocol": "TCP"
+							}
+						],
+						"resources": {
+							"requests": {
+								"cpu": "100m",
+								"memory": "100Mi"
+							}
+						},
+						"terminationMessagePath": "/dev/termination-log",
+						"terminationMessagePolicy": "File"
+					}
+				],
+				"dnsPolicy": "ClusterFirst",
+				"restartPolicy": "Always",
+				"schedulerName": "default-scheduler",
+				"securityContext": {},
+				"terminationGracePeriodSeconds": 30
+			}
+		}
+	},
+	"status": {
+		"availableReplicas": 3,
+		"conditions": [
+			{
+				"lastTransitionTime": "2018-08-21T21:55:16Z",
+				"lastUpdateTime": "2018-08-21T21:55:16Z",
+				"message": "Deployment has minimum availability.",
+				"reason": "MinimumReplicasAvailable",
+				"status": "True",
+				"type": "Available"
+			},
+			{
+				"lastTransitionTime": "2018-08-21T21:55:11Z",
+				"lastUpdateTime": "2018-08-21T21:55:16Z",
+				"message": "ReplicaSet \"frontend-ur1fwk62-777d669468\" has successfully progressed.",
+				"reason": "NewReplicaSetAvailable",
+				"status": "True",
+				"type": "Progressing"
+			}
+		],
+		"observedGeneration": 2,
+		"readyReplicas": 3,
+		"replicas": 3,
+		"updatedReplicas": 3
+	}
 }`)
-
 	if err != nil {
 		panic(err)
 	}
@@ -2400,110 +2446,109 @@ func regressionDeploymentScaled3ExplicitDefault() *unstructured.Unstructured {
 
 func regressionDeploymentScaled5() *unstructured.Unstructured {
 	obj, err := decodeUnstructured(`{
-    "apiVersion": "apps/v1",
-    "kind": "Deployment",
-    "metadata": {
-        "annotations": {
-            "deployment.kubernetes.io/revision": "1",
-            "pulumi.com/autonamed": "true"
-        },
-        "creationTimestamp": "2018-08-21T21:55:11Z",
-        "generation": 2,
-        "labels": {
-            "app": "frontend"
-        },
-        "name": "frontend-ur1fwk62",
-        "namespace": "default",
-        "resourceVersion": "918077",
-        "selfLink": "/apis/apps/v1/namespaces/default/deployments/frontend-ur1fwk62",
-        "uid": "e0a51d3c-a58c-11e8-8cb4-080027bd9056"
-    },
-    "spec": {
-        "progressDeadlineSeconds": 600,
-        "replicas": 5,
-        "revisionHistoryLimit": 2,
-        "selector": {
-            "matchLabels": {
-                "app": "frontend"
-            }
-        },
-        "strategy": {
-            "rollingUpdate": {
-                "maxSurge": "25%",
-                "maxUnavailable": "25%"
-            },
-            "type": "RollingUpdate"
-        },
-        "template": {
-            "metadata": {
-                "creationTimestamp": null,
-                "labels": {
-                    "app": "frontend"
-                }
-            },
-            "spec": {
-                "containers": [
-                    {
-                        "env": [
-                            {
-                                "name": "GET_HOSTS_FROM",
-                                "value": "dns"
-                            }
-                        ],
-                        "image": "us-docker.pkg.dev/google-samples/containers/gke/gb-frontend:v5",
-                        "imagePullPolicy": "IfNotPresent",
-                        "name": "php-redis",
-                        "ports": [
-                            {
-                                "containerPort": 80,
-                                "protocol": "TCP"
-                            }
-                        ],
-                        "resources": {
-                            "requests": {
-                                "cpu": "100m",
-                                "memory": "100Mi"
-                            }
-                        },
-                        "terminationMessagePath": "/dev/termination-log",
-                        "terminationMessagePolicy": "File"
-                    }
-                ],
-                "dnsPolicy": "ClusterFirst",
-                "restartPolicy": "Always",
-                "schedulerName": "default-scheduler",
-                "securityContext": {},
-                "terminationGracePeriodSeconds": 30
-            }
-        }
-    },
-    "status": {
-        "availableReplicas": 5,
-        "conditions": [
-            {
-                "lastTransitionTime": "2018-08-21T21:55:11Z",
-                "lastUpdateTime": "2018-08-21T21:55:16Z",
-                "message": "ReplicaSet \"frontend-ur1fwk62-777d669468\" has successfully progressed.",
-                "reason": "NewReplicaSetAvailable",
-                "status": "True",
-                "type": "Progressing"
-            },
-            {
-                "lastTransitionTime": "2018-08-21T21:58:27Z",
-                "lastUpdateTime": "2018-08-21T21:58:27Z",
-                "message": "Deployment has minimum availability.",
-                "reason": "MinimumReplicasAvailable",
-                "status": "True",
-                "type": "Available"
-            }
-        ],
-        "observedGeneration": 2,
-        "readyReplicas": 5,
-        "replicas": 5,
-        "updatedReplicas": 5
-    }
+	"apiVersion": "apps/v1",
+	"kind": "Deployment",
+	"metadata": {
+		"annotations": {
+			"deployment.kubernetes.io/revision": "1",
+			"pulumi.com/autonamed": "true"
+		},
+		"creationTimestamp": "2018-08-21T21:55:11Z",
+		"generation": 2,
+		"labels": {
+			"app": "frontend"
+		},
+		"name": "frontend-ur1fwk62",
+		"uid": "frontend-ur1fwk62-deployment-uid",
+		"namespace": "default",
+		"resourceVersion": "918077",
+		"selfLink": "/apis/apps/v1/namespaces/default/deployments/frontend-ur1fwk62"
+	},
+	"spec": {
+		"progressDeadlineSeconds": 600,
+		"replicas": 5,
+		"revisionHistoryLimit": 2,
+		"selector": {
+			"matchLabels": {
+				"app": "frontend"
+			}
+		},
+		"strategy": {
+			"rollingUpdate": {
+				"maxSurge": "25%",
+				"maxUnavailable": "25%"
+			},
+			"type": "RollingUpdate"
+		},
+		"template": {
+			"metadata": {
+				"creationTimestamp": null,
+				"labels": {
+					"app": "frontend"
+				}
+			},
+			"spec": {
+				"containers": [
+					{
+						"env": [
+							{
+								"name": "GET_HOSTS_FROM",
+								"value": "dns"
+							}
+						],
+						"image": "us-docker.pkg.dev/google-samples/containers/gke/gb-frontend:v5",
+						"imagePullPolicy": "IfNotPresent",
+						"name": "php-redis",
+						"ports": [
+							{
+								"containerPort": 80,
+								"protocol": "TCP"
+							}
+						],
+						"resources": {
+							"requests": {
+								"cpu": "100m",
+								"memory": "100Mi"
+							}
+						},
+						"terminationMessagePath": "/dev/termination-log",
+						"terminationMessagePolicy": "File"
+					}
+				],
+				"dnsPolicy": "ClusterFirst",
+				"restartPolicy": "Always",
+				"schedulerName": "default-scheduler",
+				"securityContext": {},
+				"terminationGracePeriodSeconds": 30
+			}
+		}
+	},
+	"status": {
+		"availableReplicas": 5,
+		"conditions": [
+			{
+				"lastTransitionTime": "2018-08-21T21:55:11Z",
+				"lastUpdateTime": "2018-08-21T21:55:16Z",
+				"message": "ReplicaSet \"frontend-ur1fwk62-777d669468\" has successfully progressed.",
+				"reason": "NewReplicaSetAvailable",
+				"status": "True",
+				"type": "Progressing"
+			},
+			{
+				"lastTransitionTime": "2018-08-21T21:58:27Z",
+				"lastUpdateTime": "2018-08-21T21:58:27Z",
+				"message": "Deployment has minimum availability.",
+				"reason": "MinimumReplicasAvailable",
+				"status": "True",
+				"type": "Available"
+			}
+		],
+		"observedGeneration": 2,
+		"readyReplicas": 5,
+		"replicas": 5,
+		"updatedReplicas": 5
+	}
 }`)
-
 	if err != nil {
 		panic(err)
 	}
@@ -2512,96 +2557,96 @@ func regressionDeploymentScaled5() *unstructured.Unstructured {
 
 func regressionReplicaSetScaled3() *unstructured.Unstructured {
 	obj, err := decodeUnstructured(`{
-    "apiVersion": "apps/v1",
-    "kind": "ReplicaSet",
-    "metadata": {
-        "annotations": {
-            "deployment.kubernetes.io/desired-replicas": "3",
-            "deployment.kubernetes.io/max-replicas": "4",
-            "deployment.kubernetes.io/revision": "1",
-            "pulumi.com/autonamed": "true"
-        },
-        "creationTimestamp": "2018-08-21T23:28:40Z",
-        "generation": 1,
-        "labels": {
-            "app": "frontend",
-            "pod-template-hash": "3338225024"
-        },
-        "name": "frontend-ur1fwk62-777d669468",
-        "namespace": "default",
-        "ownerReferences": [
-            {
-                "apiVersion": "apps/v1",
-                "blockOwnerDeletion": true,
-                "controller": true,
-                "kind": "Deployment",
-                "name": "frontend-ur1fwk62",
-                "uid": "ef9a0d10-a599-11e8-8cb4-080027bd9056"
-            }
-        ],
-        "resourceVersion": "924664",
-        "selfLink": "/apis/apps/v1/namespaces/default/replicasets/frontend-ur1fwk62-777d669468",
-        "uid": "ef9a880f-a599-11e8-8cb4-080027bd9056"
-    },
-    "spec": {
-        "replicas": 3,
-        "selector": {
-            "matchLabels": {
-                "app": "frontend",
-                "pod-template-hash": "3338225024"
-            }
-        },
-        "template": {
-            "metadata": {
-                "creationTimestamp": null,
-                "labels": {
-                    "app": "frontend",
-                    "pod-template-hash": "3338225024"
-                }
-            },
-            "spec": {
-                "containers": [
-                    {
-                        "env": [
-                            {
-                                "name": "GET_HOSTS_FROM",
-                                "value": "dns"
-                            }
-                        ],
-                        "image": "us-docker.pkg.dev/google-samples/containers/gke/gb-frontend:v5",
-                        "imagePullPolicy": "IfNotPresent",
-                        "name": "php-redis",
-                        "ports": [
-                            {
-                                "containerPort": 80,
-                                "protocol": "TCP"
-                            }
-                        ],
-                        "resources": {
-                            "requests": {
-                                "cpu": "100m",
-                                "memory": "100Mi"
-                            }
-                        },
-                        "terminationMessagePath": "/dev/termination-log",
-                        "terminationMessagePolicy": "File"
-                    }
-                ],
-                "dnsPolicy": "ClusterFirst",
-                "restartPolicy": "Always",
-                "schedulerName": "default-scheduler",
-                "securityContext": {},
-                "terminationGracePeriodSeconds": 30
-            }
-        }
-    },
-    "status": {
-        "availableReplicas": 3,
-        "fullyLabeledReplicas": 3,
-        "observedGeneration": 1,
-        "readyReplicas": 3,
-        "replicas": 3
-    }
+	"apiVersion": "apps/v1",
+	"kind": "ReplicaSet",
+	"metadata": {
+		"annotations": {
+			"deployment.kubernetes.io/desired-replicas": "3",
+			"deployment.kubernetes.io/max-replicas": "4",
+			"deployment.kubernetes.io/revision": "1",
+			"pulumi.com/autonamed": "true"
+		},
+		"creationTimestamp": "2018-08-21T23:28:40Z",
+		"generation": 1,
+		"labels": {
+			"app": "frontend",
+			"pod-template-hash": "3338225024"
+		},
+		"name": "frontend-ur1fwk62-777d669468",
+		"uid": "frontend-ur1fwk62-777d669468-replicaset-uid",
+		"namespace": "default",
+		"ownerReferences": [
+			{
+				"apiVersion": "apps/v1",
+				"blockOwnerDeletion": true,
+				"controller": true,
+				"kind": "Deployment",
+				"name": "frontend-ur1fwk62",
+				"uid": "frontend-ur1fwk62-deployment-uid"
+			}
+		],
+		"resourceVersion": "924664",
+		"selfLink": "/apis/apps/v1/namespaces/default/replicasets/frontend-ur1fwk62-777d669468"
+	},
+	"spec": {
+		"replicas": 3,
+		"selector": {
+			"matchLabels": {
+				"app": "frontend",
+				"pod-template-hash": "3338225024"
+			}
+		},
+		"template": {
+			"metadata": {
+				"creationTimestamp": null,
+				"labels": {
+					"app": "frontend",
+					"pod-template-hash": "3338225024"
+				}
+			},
+			"spec": {
+				"containers": [
+					{
+						"env": [
+							{
+								"name": "GET_HOSTS_FROM",
+								"value": "dns"
+							}
+						],
+						"image": "us-docker.pkg.dev/google-samples/containers/gke/gb-frontend:v5",
+						"imagePullPolicy": "IfNotPresent",
+						"name": "php-redis",
+						"ports": [
+							{
+								"containerPort": 80,
+								"protocol": "TCP"
+							}
+						],
+						"resources": {
+							"requests": {
+								"cpu": "100m",
+								"memory": "100Mi"
+							}
+						},
+						"terminationMessagePath": "/dev/termination-log",
+						"terminationMessagePolicy": "File"
+					}
+				],
+				"dnsPolicy": "ClusterFirst",
+				"restartPolicy": "Always",
+				"schedulerName": "default-scheduler",
+				"securityContext": {},
+				"terminationGracePeriodSeconds": 30
+			}
+		}
+	},
+	"status": {
+		"availableReplicas": 3,
+		"fullyLabeledReplicas": 3,
+		"observedGeneration": 1,
+		"readyReplicas": 3,
+		"replicas": 3
+	}
 }`)
 	if err != nil {
 		panic(err)
@@ -2611,96 +2656,96 @@ func regressionReplicaSetScaled3() *unstructured.Unstructured {
 
 func regressionReplicaSetScaled5() *unstructured.Unstructured {
 	obj, err := decodeUnstructured(`{
-    "apiVersion": "apps/v1",
-    "kind": "ReplicaSet",
-    "metadata": {
-        "annotations": {
-            "deployment.kubernetes.io/desired-replicas": "5",
-            "deployment.kubernetes.io/max-replicas": "7",
-            "deployment.kubernetes.io/revision": "1",
-            "pulumi.com/autonamed": "true"
-        },
-        "creationTimestamp": "2018-08-21T21:55:11Z",
-        "generation": 2,
-        "labels": {
-            "app": "frontend",
-            "pod-template-hash": "3338225024"
-        },
-        "name": "frontend-ur1fwk62-777d669468",
-        "namespace": "default",
-        "ownerReferences": [
-            {
-                "apiVersion": "apps/v1",
-                "blockOwnerDeletion": true,
-                "controller": true,
-                "kind": "Deployment",
-                "name": "frontend-ur1fwk62",
-                "uid": "e0a51d3c-a58c-11e8-8cb4-080027bd9056"
-            }
-        ],
-        "resourceVersion": "918076",
-        "selfLink": "/apis/apps/v1/namespaces/default/replicasets/frontend-ur1fwk62-777d669468",
-        "uid": "e0a588b0-a58c-11e8-8cb4-080027bd9056"
-    },
-    "spec": {
-        "replicas": 5,
-        "selector": {
-            "matchLabels": {
-                "app": "frontend",
-                "pod-template-hash": "3338225024"
-            }
-        },
-        "template": {
-            "metadata": {
-                "creationTimestamp": null,
-                "labels": {
-                    "app": "frontend",
-                    "pod-template-hash": "3338225024"
-                }
-            },
-            "spec": {
-                "containers": [
-                    {
-                        "env": [
-                            {
-                                "name": "GET_HOSTS_FROM",
-                                "value": "dns"
-                            }
-                        ],
-                        "image": "us-docker.pkg.dev/google-samples/containers/gke/gb-frontend:v5",
-                        "imagePullPolicy": "IfNotPresent",
-                        "name": "php-redis",
-                        "ports": [
-                            {
-                                "containerPort": 80,
-                                "protocol": "TCP"
-                            }
-                        ],
-                        "resources": {
-                            "requests": {
-                                "cpu": "100m",
-                                "memory": "100Mi"
-                            }
-                        },
-                        "terminationMessagePath": "/dev/termination-log",
-                        "terminationMessagePolicy": "File"
-                    }
-                ],
-                "dnsPolicy": "ClusterFirst",
-                "restartPolicy": "Always",
-                "schedulerName": "default-scheduler",
-                "securityContext": {},
-                "terminationGracePeriodSeconds": 30
-            }
-        }
-    },
-    "status": {
-        "availableReplicas": 5,
-        "fullyLabeledReplicas": 5,
-        "observedGeneration": 2,
-        "readyReplicas": 5,
-        "replicas": 5
-    }
+	"apiVersion": "apps/v1",
+	"kind": "ReplicaSet",
+	"metadata": {
+		"annotations": {
+			"deployment.kubernetes.io/desired-replicas": "5",
+			"deployment.kubernetes.io/max-replicas": "7",
+			"deployment.kubernetes.io/revision": "1",
+			"pulumi.com/autonamed": "true"
+		},
+		"creationTimestamp": "2018-08-21T21:55:11Z",
+		"generation": 2,
+		"labels": {
+			"app": "frontend",
+			"pod-template-hash": "3338225024"
+		},
+		"name": "frontend-ur1fwk62-777d669468",
+		"uid": "frontend-ur1fwk62-777d669468-replicaset-uid",
+		"namespace": "default",
+		"ownerReferences": [
+			{
+				"apiVersion": "apps/v1",
+				"blockOwnerDeletion": true,
+				"controller": true,
+				"kind": "Deployment",
+				"name": "frontend-ur1fwk62",
+				"uid": "frontend-ur1fwk62-deployment-uid"
+			}
+		],
+		"resourceVersion": "918076",
+		"selfLink": "/apis/apps/v1/namespaces/default/replicasets/frontend-ur1fwk62-777d669468"
+	},
+	"spec": {
+		"replicas": 5,
+		"selector": {
+			"matchLabels": {
+				"app": "frontend",
+				"pod-template-hash": "3338225024"
+			}
+		},
+		"template": {
+			"metadata": {
+				"creationTimestamp": null,
+				"labels": {
+					"app": "frontend",
+					"pod-template-hash": "3338225024"
+				}
+			},
+			"spec": {
+				"containers": [
+					{
+						"env": [
+							{
+								"name": "GET_HOSTS_FROM",
+								"value": "dns"
+							}
+						],
+						"image": "us-docker.pkg.dev/google-samples/containers/gke/gb-frontend:v5",
+						"imagePullPolicy": "IfNotPresent",
+						"name": "php-redis",
+						"ports": [
+							{
+								"containerPort": 80,
+								"protocol": "TCP"
+							}
+						],
+						"resources": {
+							"requests": {
+								"cpu": "100m",
+								"memory": "100Mi"
+							}
+						},
+						"terminationMessagePath": "/dev/termination-log",
+						"terminationMessagePolicy": "File"
+					}
+				],
+				"dnsPolicy": "ClusterFirst",
+				"restartPolicy": "Always",
+				"schedulerName": "default-scheduler",
+				"securityContext": {},
+				"terminationGracePeriodSeconds": 30
+			}
+		}
+	},
+	"status": {
+		"availableReplicas": 5,
+		"fullyLabeledReplicas": 5,
+		"observedGeneration": 2,
+		"readyReplicas": 5,
+		"replicas": 5
+	}
 }`)
 	if err != nil {
 		panic(err)
@@ -2717,95 +2762,96 @@ func regressionReplicaSetScaled5() *unstructured.Unstructured {
 func availableReplicaSet(namespace, name, deploymentName, revision string) *unstructured.Unstructured {
 	// nolint
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
-    "apiVersion": "apps/v1",
-    "kind": "ReplicaSet",
-    "metadata": {
-        "annotations": {
-            "deployment.kubernetes.io/desired-replicas": "3",
-            "deployment.kubernetes.io/max-replicas": "4",
-            "deployment.kubernetes.io/revision": "%s",
-            "deployment.kubernetes.io/revision-history": "3",
-            "moolumi.com/metricsChecked": "true",
-            "pulumi.com/autonamed": "true"
-        },
-        "creationTimestamp": "2018-08-03T05:03:53Z",
-        "generation": 1,
-        "labels": {
-            "app": "foo",
-            "pod-template-hash": "3789388710"
-        },
-        "namespace": "%s",
-        "name": "%s",
-        "ownerReferences": [
-            {
-                "apiVersion": "apps/v1",
-                "blockOwnerDeletion": true,
-                "controller": true,
-                "kind": "Deployment",
-                "name": "%s",
-                "uid": "e4a728af-96d9-11e8-9050-080027bd9056"
-            }
-        ]
-    },
-    "spec": {
-        "replicas": 3,
-        "selector": {
-            "matchLabels": {
-                "app": "foo",
-                "pod-template-hash": "3789388710"
-            }
-        },
-        "template": {
-            "metadata": {
-                "creationTimestamp": null,
-                "labels": {
-                    "app": "foo",
-                    "pod-template-hash": "3789388710"
-                }
-            },
-            "spec": {
-                "containers": [
-                    {
-                        "image": "nginx:1.15-alpine",
-                        "imagePullPolicy": "Always",
-                        "name": "nginx",
-                        "resources": {},
-                        "terminationMessagePath": "/dev/termination-log",
-                        "terminationMessagePolicy": "File",
-                        "volumeMounts": [
-                            {
-                                "mountPath": "/etc/config",
-                                "name": "config-volume"
-                            }
-                        ]
-                    }
-                ],
-                "dnsPolicy": "ClusterFirst",
-                "restartPolicy": "Always",
-                "schedulerName": "default-scheduler",
-                "securityContext": {},
-                "terminationGracePeriodSeconds": 30,
-                "volumes": [
-                    {
-                        "configMap": {
-                            "defaultMode": 420,
-                            "name": "configmap-rollout-mfonkaf3"
-                        },
-                        "name": "config-volume"
-                    }
-                ]
-            }
-        }
-    },
-    "status": {
-        "availableReplicas": 3,
-        "fullyLabeledReplicas": 3,
-        "observedGeneration": 3,
-        "readyReplicas": 3,
-        "replicas": 3
-    }
+	"apiVersion": "apps/v1",
+	"kind": "ReplicaSet",
+	"metadata": {
+		"annotations": {
+			"deployment.kubernetes.io/desired-replicas": "3",
+			"deployment.kubernetes.io/max-replicas": "4",
+			"deployment.kubernetes.io/revision": "%s",
+			"deployment.kubernetes.io/revision-history": "3",
+			"moolumi.com/metricsChecked": "true",
+			"pulumi.com/autonamed": "true"
+		},
+		"creationTimestamp": "2018-08-03T05:03:53Z",
+		"generation": 1,
+		"labels": {
+			"app": "foo",
+			"pod-template-hash": "3789388710"
+		},
+		"namespace": "%s",
+		"name": "%s",
+		"uid": "%s-replicaset-uid",
+		"ownerReferences": [
+			{
+				"apiVersion": "apps/v1",
+				"blockOwnerDeletion": true,
+				"controller": true,
+				"kind": "Deployment",
+				"name": "%s",
+				"uid": "%s-deployment-uid"
+			}
+		]
+	},
+	"spec": {
+		"replicas": 3,
+		"selector": {
+			"matchLabels": {
+				"app": "foo",
+				"pod-template-hash": "3789388710"
+			}
+		},
+		"template": {
+			"metadata": {
+				"creationTimestamp": null,
+				"labels": {
+					"app": "foo",
+					"pod-template-hash": "3789388710"
+				}
+			},
+			"spec": {
+				"containers": [
+					{
+						"image": "nginx:1.15-alpine",
+						"imagePullPolicy": "Always",
+						"name": "nginx",
+						"resources": {},
+						"terminationMessagePath": "/dev/termination-log",
+						"terminationMessagePolicy": "File",
+						"volumeMounts": [
+							{
+								"mountPath": "/etc/config",
+								"name": "config-volume"
+							}
+						]
+					}
+				],
+				"dnsPolicy": "ClusterFirst",
+				"restartPolicy": "Always",
+				"schedulerName": "default-scheduler",
+				"securityContext": {},
+				"terminationGracePeriodSeconds": 30,
+				"volumes": [
+					{
+						"configMap": {
+							"defaultMode": 420,
+							"name": "configmap-rollout-mfonkaf3"
+						},
+						"name": "config-volume"
+					}
+				]
+			}
+		}
+	},
+	"status": {
+		"availableReplicas": 3,
+		"fullyLabeledReplicas": 3,
+		"observedGeneration": 3,
+		"readyReplicas": 3,
+		"replicas": 3
+	}
 }
-`, revision, namespace, name, deploymentName))
+`, revision, namespace, name, name, deploymentName, deploymentName))
 	if err != nil {
 		panic(err)
 	}
@@ -2815,92 +2861,93 @@ func availableReplicaSet(namespace, name, deploymentName, revision string) *unst
 func inactiveReplicaSet(namespace, name, deploymentName, revision string) *unstructured.Unstructured {
 	// nolint
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
-    "apiVersion": "apps/v1",
-    "kind": "ReplicaSet",
-    "metadata": {
-        "annotations": {
-            "deployment.kubernetes.io/desired-replicas": "0",
-            "deployment.kubernetes.io/max-replicas": "0",
-            "deployment.kubernetes.io/revision": "%s",
-            "deployment.kubernetes.io/revision-history": "2",
-            "moolumi.com/metricsChecked": "true",
-            "pulumi.com/autonamed": "true"
-        },
-        "creationTimestamp": "2018-08-03T05:03:53Z",
-        "generation": 2,
-        "labels": {
-            "app": "foo",
-            "pod-template-hash": "3789388710"
-        },
-        "namespace": "%s",
-        "name": "%s",
-        "ownerReferences": [
-            {
-                "apiVersion": "apps/v1",
-                "blockOwnerDeletion": true,
-                "controller": true,
-                "kind": "Deployment",
-                "name": "%s",
-                "uid": "e4a728af-96d9-11e8-9050-080027bd9056"
-            }
-        ]
-    },
-    "spec": {
-        "replicas": 0,
-        "selector": {
-            "matchLabels": {
-                "app": "foo",
-                "pod-template-hash": "3789388710"
-            }
-        },
-        "template": {
-            "metadata": {
-                "creationTimestamp": null,
-                "labels": {
-                    "app": "foo",
-                    "pod-template-hash": "3789388710"
-                }
-            },
-            "spec": {
-                "containers": [
-                    {
-                        "image": "nginx:1.15-alpine",
-                        "imagePullPolicy": "Always",
-                        "name": "nginx",
-                        "resources": {},
-                        "terminationMessagePath": "/dev/termination-log",
-                        "terminationMessagePolicy": "File",
-                        "volumeMounts": [
-                            {
-                                "mountPath": "/etc/config",
-                                "name": "config-volume"
-                            }
-                        ]
-                    }
-                ],
-                "dnsPolicy": "ClusterFirst",
-                "restartPolicy": "Always",
-                "schedulerName": "default-scheduler",
-                "securityContext": {},
-                "terminationGracePeriodSeconds": 30,
-                "volumes": [
-                    {
-                        "configMap": {
-                            "defaultMode": 420,
-                            "name": "configmap-rollout-mfonkaf3"
-                        },
-                        "name": "config-volume"
-                    }
-                ]
-            }
-        }
-    },
-    "status": {
-        "observedGeneration": 2,
-        "replicas": 0
-    }
+	"apiVersion": "apps/v1",
+	"kind": "ReplicaSet",
+	"metadata": {
+		"annotations": {
+			"deployment.kubernetes.io/desired-replicas": "0",
+			"deployment.kubernetes.io/max-replicas": "0",
+			"deployment.kubernetes.io/revision": "%s",
+			"deployment.kubernetes.io/revision-history": "2",
+			"moolumi.com/metricsChecked": "true",
+			"pulumi.com/autonamed": "true"
+		},
+		"creationTimestamp": "2018-08-03T05:03:53Z",
+		"generation": 2,
+		"labels": {
+			"app": "foo",
+			"pod-template-hash": "3789388710"
+		},
+		"namespace": "%s",
+		"name": "%s",
+        "uid": "%s-replicaset-uid",
+		"ownerReferences": [
+			{
+				"apiVersion": "apps/v1",
+				"blockOwnerDeletion": true,
+				"controller": true,
+				"kind": "Deployment",
+				"name": "%s",
+				"uid": "%s-deployment-uid"
+			}
+		]
+	},
+	"spec": {
+		"replicas": 0,
+		"selector": {
+			"matchLabels": {
+				"app": "foo",
+				"pod-template-hash": "3789388710"
+			}
+		},
+		"template": {
+			"metadata": {
+				"creationTimestamp": null,
+				"labels": {
+					"app": "foo",
+					"pod-template-hash": "3789388710"
+				}
+			},
+			"spec": {
+				"containers": [
+					{
+						"image": "nginx:1.15-alpine",
+						"imagePullPolicy": "Always",
+						"name": "nginx",
+						"resources": {},
+						"terminationMessagePath": "/dev/termination-log",
+						"terminationMessagePolicy": "File",
+						"volumeMounts": [
+							{
+								"mountPath": "/etc/config",
+								"name": "config-volume"
+							}
+						]
+					}
+				],
+				"dnsPolicy": "ClusterFirst",
+				"restartPolicy": "Always",
+				"schedulerName": "default-scheduler",
+				"securityContext": {},
+				"terminationGracePeriodSeconds": 30,
+				"volumes": [
+					{
+						"configMap": {
+							"defaultMode": 420,
+							"name": "configmap-rollout-mfonkaf3"
+						},
+						"name": "config-volume"
+					}
+				]
+			}
+		}
+	},
+	"status": {
+		"observedGeneration": 2,
+		"replicas": 0
+	}
 }
-`, revision, namespace, name, deploymentName))
+`, revision, namespace, name, name, deploymentName, deploymentName))
 	if err != nil {
 		panic(err)
 	}
@@ -2910,94 +2957,95 @@ func inactiveReplicaSet(namespace, name, deploymentName, revision string) *unstr
 func availableReplicaSetWithPVC(namespace, name, deploymentName, revision, pvcName string) *unstructured.Unstructured {
 	// nolint
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
-    "apiVersion": "apps/v1",
-    "kind": "ReplicaSet",
-    "metadata": {
-        "annotations": {
-            "deployment.kubernetes.io/desired-replicas": "3",
-            "deployment.kubernetes.io/max-replicas": "4",
-            "deployment.kubernetes.io/revision": "%s",
-            "deployment.kubernetes.io/revision-history": "3",
-            "moolumi.com/metricsChecked": "true",
-            "pulumi.com/autonamed": "true"
-        },
-        "creationTimestamp": "2018-08-03T05:03:53Z",
-        "generation": 1,
-        "labels": {
-            "app": "foo",
-            "pod-template-hash": "3789388710"
-        },
-        "namespace": "%s",
-        "name": "%s",
-        "ownerReferences": [
-            {
-                "apiVersion": "apps/v1",
-                "blockOwnerDeletion": true,
-                "controller": true,
-                "kind": "Deployment",
-                "name": "%s",
-                "uid": "e4a728af-96d9-11e8-9050-080027bd9056"
-            }
-        ]
-    },
-    "spec": {
-        "replicas": 3,
-        "selector": {
-            "matchLabels": {
-                "app": "foo",
-                "pod-template-hash": "3789388710"
-            }
-        },
-        "template": {
-            "metadata": {
-                "creationTimestamp": null,
-                "labels": {
-                    "app": "foo",
-                    "pod-template-hash": "3789388710"
-                }
-            },
-            "spec": {
-                "containers": [
-                    {
-                        "image": "nginx:1.15-alpine",
-                        "imagePullPolicy": "Always",
-                        "name": "nginx",
-                        "resources": {},
-                        "terminationMessagePath": "/dev/termination-log",
-                        "terminationMessagePolicy": "File",
-                        "volumeMounts": [
-                            {
-                                "mountPath": "/opt/data",
-                                "name": "data"
-                            }
-                        ]
-                    }
-                ],
-                "dnsPolicy": "ClusterFirst",
-                "restartPolicy": "Always",
-                "schedulerName": "default-scheduler",
-                "securityContext": {},
-                "terminationGracePeriodSeconds": 30,
-                "volumes": [
-                    {
-                        "name": "data",
-                        "persistentVolumeClaim": {
-                            "claimName": "%s"
-                        }
-                    }
-                ]
-            }
-        }
-    },
-    "status": {
-        "availableReplicas": 3,
-        "fullyLabeledReplicas": 3,
-        "observedGeneration": 3,
-        "readyReplicas": 3,
-        "replicas": 3
-    }
+	"apiVersion": "apps/v1",
+	"kind": "ReplicaSet",
+	"metadata": {
+		"annotations": {
+			"deployment.kubernetes.io/desired-replicas": "3",
+			"deployment.kubernetes.io/max-replicas": "4",
+			"deployment.kubernetes.io/revision": "%s",
+			"deployment.kubernetes.io/revision-history": "3",
+			"moolumi.com/metricsChecked": "true",
+			"pulumi.com/autonamed": "true"
+		},
+		"creationTimestamp": "2018-08-03T05:03:53Z",
+		"generation": 1,
+		"labels": {
+			"app": "foo",
+			"pod-template-hash": "3789388710"
+		},
+		"namespace": "%s",
+		"name": "%s",
+		"uid": "%s-replicaset-uid",
+		"ownerReferences": [
+			{
+				"apiVersion": "apps/v1",
+				"blockOwnerDeletion": true,
+				"controller": true,
+				"kind": "Deployment",
+				"name": "%s",
+				"uid": "%s-deployment-uid"
+			}
+		]
+	},
+	"spec": {
+		"replicas": 3,
+		"selector": {
+			"matchLabels": {
+				"app": "foo",
+				"pod-template-hash": "3789388710"
+			}
+		},
+		"template": {
+			"metadata": {
+				"creationTimestamp": null,
+				"labels": {
+					"app": "foo",
+					"pod-template-hash": "3789388710"
+				}
+			},
+			"spec": {
+				"containers": [
+					{
+						"image": "nginx:1.15-alpine",
+						"imagePullPolicy": "Always",
+						"name": "nginx",
+						"resources": {},
+						"terminationMessagePath": "/dev/termination-log",
+						"terminationMessagePolicy": "File",
+						"volumeMounts": [
+							{
+								"mountPath": "/opt/data",
+								"name": "data"
+							}
+						]
+					}
+				],
+				"dnsPolicy": "ClusterFirst",
+				"restartPolicy": "Always",
+				"schedulerName": "default-scheduler",
+				"securityContext": {},
+				"terminationGracePeriodSeconds": 30,
+				"volumes": [
+					{
+						"name": "data",
+						"persistentVolumeClaim": {
+							"claimName": "%s"
+						}
+					}
+				]
+			}
+		}
+	},
+	"status": {
+		"availableReplicas": 3,
+		"fullyLabeledReplicas": 3,
+		"observedGeneration": 3,
+		"readyReplicas": 3,
+		"replicas": 3
+	}
 }
-`, revision, namespace, name, deploymentName, pvcName))
+`, revision, namespace, name, name, deploymentName, deploymentName, pvcName))
 	if err != nil {
 		panic(err)
 	}
@@ -3013,124 +3061,125 @@ func availableReplicaSetWithPVC(namespace, name, deploymentName, revision, pvcNa
 func deployedReadyPod(namespace, name, replicaSetName string) *unstructured.Unstructured {
 	// nolint
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
-    "apiVersion": "v1",
-    "kind": "Pod",
-    "metadata": {
-        "annotations": {
-            "kubernetes.io/created-by": "{\"kind\":\"SerializedReference\",\"apiVersion\":\"v1\",\"reference\":{\"kind\":\"ReplicaSet\",\"namespace\":\"default\",\"name\":\"%s\",\"uid\":\"9e300c56-96da-11e8-9050-080027bd9056\",\"apiVersion\":\"extensions\",\"resourceVersion\":\"813941\"}}\n"
-        },
-        "creationTimestamp": "2018-08-03T05:04:10Z",
-        "generateName": "%s-",
-        "labels": {
-            "app": "foo",
-            "pod-template-hash": "3789388710"
-        },
-        "namespace": "%s",
-        "name": "%s",
-        "ownerReferences": [
-            {
-                "apiVersion": "apps/v1",
-                "blockOwnerDeletion": true,
-                "controller": true,
-                "kind": "ReplicaSet",
-                "name": "%s",
-                "uid": "9e300c56-96da-11e8-9050-080027bd9056"
-            }
-        ]
-    },
-    "spec": {
-        "containers": [
-            {
-                "image": "nginx:1.15-alpine",
-                "imagePullPolicy": "Always",
-                "name": "nginx",
-                "resources": {},
-                "terminationMessagePath": "/dev/termination-log",
-                "terminationMessagePolicy": "File",
-                "volumeMounts": [
-                    {
-                        "mountPath": "/etc/config",
-                        "name": "config-volume"
-                    },
-                    {
-                        "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
-                        "name": "default-token-rkzb2",
-                        "readOnly": true
-                    }
-                ]
-            }
-        ],
-        "dnsPolicy": "ClusterFirst",
-        "nodeName": "minikube",
-        "restartPolicy": "Always",
-        "schedulerName": "default-scheduler",
-        "securityContext": {},
-        "serviceAccount": "default",
-        "serviceAccountName": "default",
-        "terminationGracePeriodSeconds": 30,
-        "volumes": [
-            {
-                "configMap": {
-                    "defaultMode": 420,
-                    "name": "configmap-rollout-mfonkaf3"
-                },
-                "name": "config-volume"
-            },
-            {
-                "name": "default-token-rkzb2",
-                "secret": {
-                    "defaultMode": 420,
-                    "secretName": "default-token-rkzb2"
-                }
-            }
-        ]
-    },
-    "status": {
-        "conditions": [
-            {
-                "lastProbeTime": null,
-                "lastTransitionTime": "2018-08-03T05:04:10Z",
-                "status": "True",
-                "type": "Initialized"
-            },
-            {
-                "lastProbeTime": null,
-                "lastTransitionTime": "2018-08-03T05:04:13Z",
-                "status": "True",
-                "type": "Ready"
-            },
-            {
-                "lastProbeTime": null,
-                "lastTransitionTime": "2018-08-03T05:04:10Z",
-                "status": "True",
-                "type": "PodScheduled"
-            }
-        ],
-        "containerStatuses": [
-            {
-                "containerID": "docker://a91bc460f583402484ceeef5801a0f6221bb71f184359e79a8e795e7f463ba02",
-                "image": "nginx:1.15-alpine",
-                "imageID": "docker-pullable://nginx@sha256:23e4dacbc60479fa7f23b3b8e18aad41bd8445706d0538b25ba1d575a6e2410b",
-                "lastState": {},
-                "name": "nginx",
-                "ready": true,
-                "restartCount": 0,
-                "state": {
-                    "running": {
-                        "startedAt": "2018-08-03T05:04:13Z"
-                    }
-                }
-            }
-        ],
-        "hostIP": "192.168.99.100",
-        "phase": "Running",
-        "podIP": "172.17.0.5",
-        "qosClass": "BestEffort",
-        "startTime": "2018-08-03T05:04:10Z"
-    }
+	"apiVersion": "v1",
+	"kind": "Pod",
+	"metadata": {
+		"annotations": {
+			"kubernetes.io/created-by": "{\"kind\":\"SerializedReference\",\"apiVersion\":\"v1\",\"reference\":{\"kind\":\"ReplicaSet\",\"namespace\":\"default\",\"name\":\"%s\",\"uid\":\"9e300c56-96da-11e8-9050-080027bd9056\",\"apiVersion\":\"extensions\",\"resourceVersion\":\"813941\"}}\n"
+		},
+		"creationTimestamp": "2018-08-03T05:04:10Z",
+		"generateName": "%s-",
+		"labels": {
+			"app": "foo",
+			"pod-template-hash": "3789388710"
+		},
+		"namespace": "%s",
+		"name": "%s",
+		"uid": "%s-pod-uid",
+		"ownerReferences": [
+			{
+				"apiVersion": "apps/v1",
+				"blockOwnerDeletion": true,
+				"controller": true,
+				"kind": "ReplicaSet",
+				"name": "%s",
+				"uid": "%s-replicaset-uid"
+			}
+		]
+	},
+	"spec": {
+		"containers": [
+			{
+				"image": "nginx:1.15-alpine",
+				"imagePullPolicy": "Always",
+				"name": "nginx",
+				"resources": {},
+				"terminationMessagePath": "/dev/termination-log",
+				"terminationMessagePolicy": "File",
+				"volumeMounts": [
+					{
+						"mountPath": "/etc/config",
+						"name": "config-volume"
+					},
+					{
+						"mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+						"name": "default-token-rkzb2",
+						"readOnly": true
+					}
+				]
+			}
+		],
+		"dnsPolicy": "ClusterFirst",
+		"nodeName": "minikube",
+		"restartPolicy": "Always",
+		"schedulerName": "default-scheduler",
+		"securityContext": {},
+		"serviceAccount": "default",
+		"serviceAccountName": "default",
+		"terminationGracePeriodSeconds": 30,
+		"volumes": [
+			{
+				"configMap": {
+					"defaultMode": 420,
+					"name": "configmap-rollout-mfonkaf3"
+				},
+				"name": "config-volume"
+			},
+			{
+				"name": "default-token-rkzb2",
+				"secret": {
+					"defaultMode": 420,
+					"secretName": "default-token-rkzb2"
+				}
+			}
+		]
+	},
+	"status": {
+		"conditions": [
+			{
+				"lastProbeTime": null,
+				"lastTransitionTime": "2018-08-03T05:04:10Z",
+				"status": "True",
+				"type": "Initialized"
+			},
+			{
+				"lastProbeTime": null,
+				"lastTransitionTime": "2018-08-03T05:04:13Z",
+				"status": "True",
+				"type": "Ready"
+			},
+			{
+				"lastProbeTime": null,
+				"lastTransitionTime": "2018-08-03T05:04:10Z",
+				"status": "True",
+				"type": "PodScheduled"
+			}
+		],
+		"containerStatuses": [
+			{
+				"containerID": "docker://a91bc460f583402484ceeef5801a0f6221bb71f184359e79a8e795e7f463ba02",
+				"image": "nginx:1.15-alpine",
+				"imageID": "docker-pullable://nginx@sha256:23e4dacbc60479fa7f23b3b8e18aad41bd8445706d0538b25ba1d575a6e2410b",
+				"lastState": {},
+				"name": "nginx",
+				"ready": true,
+				"restartCount": 0,
+				"state": {
+					"running": {
+						"startedAt": "2018-08-03T05:04:13Z"
+					}
+				}
+			}
+		],
+		"hostIP": "192.168.99.100",
+		"phase": "Running",
+		"podIP": "172.17.0.5",
+		"qosClass": "BestEffort",
+		"startTime": "2018-08-03T05:04:10Z"
+	}
 }
 
-`, replicaSetName, replicaSetName, namespace, name, replicaSetName))
+`, replicaSetName, replicaSetName, namespace, name, name, replicaSetName, replicaSetName))
 	if err != nil {
 		panic(err)
 	}
@@ -3140,123 +3189,124 @@ func deployedReadyPod(namespace, name, replicaSetName string) *unstructured.Unst
 func deployedFailedPod(namespace, name, replicaSetName string) *unstructured.Unstructured {
 	// nolint
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
-    "apiVersion": "v1",
-    "kind": "Pod",
-    "metadata": {
-        "annotations": {
-            "kubernetes.io/created-by": "{\"kind\":\"SerializedReference\",\"apiVersion\":\"v1\",\"reference\":{\"kind\":\"ReplicaSet\",\"namespace\":\"default\",\"name\":\"%s\",\"uid\":\"c80dda50-96e4-11e8-9050-080027bd9056\",\"apiVersion\":\"extensions\",\"resourceVersion\":\"819008\"}}\n"
-        },
-        "generateName": "%s-",
-        "labels": {
-            "app": "foo",
-            "pod-template-hash": "3789350985"
-        },
-        "namespace": "%s",
-        "name": "%s",
-        "ownerReferences": [
-            {
-                "apiVersion": "apps/v1",
-                "blockOwnerDeletion": true,
-                "controller": true,
-                "kind": "ReplicaSet",
-                "name": "%s",
-                "uid": "c80dda50-96e4-11e8-9050-080027bd9056"
-            }
-        ]
-    },
-    "spec": {
-        "containers": [
-            {
-                "image": "sdkjlsdlkj",
-                "imagePullPolicy": "Always",
-                "name": "nginx",
-                "resources": {},
-                "terminationMessagePath": "/dev/termination-log",
-                "terminationMessagePolicy": "File",
-                "volumeMounts": [
-                    {
-                        "mountPath": "/etc/config",
-                        "name": "config-volume"
-                    },
-                    {
-                        "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
-                        "name": "default-token-rkzb2",
-                        "readOnly": true
-                    }
-                ]
-            }
-        ],
-        "dnsPolicy": "ClusterFirst",
-        "nodeName": "minikube",
-        "restartPolicy": "Always",
-        "schedulerName": "default-scheduler",
-        "securityContext": {},
-        "serviceAccount": "default",
-        "serviceAccountName": "default",
-        "terminationGracePeriodSeconds": 30,
-        "volumes": [
-            {
-                "configMap": {
-                    "defaultMode": 420,
-                    "name": "configmap-rollout-mfonkaf3"
-                },
-                "name": "config-volume"
-            },
-            {
-                "name": "default-token-rkzb2",
-                "secret": {
-                    "defaultMode": 420,
-                    "secretName": "default-token-rkzb2"
-                }
-            }
-        ]
-    },
-    "status": {
-        "conditions": [
-            {
-                "lastProbeTime": null,
-                "lastTransitionTime": "2018-08-03T06:16:38Z",
-                "status": "True",
-                "type": "Initialized"
-            },
-            {
-                "lastProbeTime": null,
-                "lastTransitionTime": "2018-08-03T06:16:38Z",
-                "message": "containers with unready status: [nginx]",
-                "reason": "ContainersNotReady",
-                "status": "False",
-                "type": "Ready"
-            },
-            {
-                "lastProbeTime": null,
-                "lastTransitionTime": "2018-08-03T06:16:38Z",
-                "status": "True",
-                "type": "PodScheduled"
-            }
-        ],
-        "containerStatuses": [
-            {
-                "image": "sdkjlsdlkj",
-                "imageID": "",
-                "lastState": {},
-                "name": "nginx",
-                "ready": false,
-                "restartCount": 0,
-                "state": {
-                    "waiting": {
-                        "message": "Back-off pulling image \"sdkjlsdlkj\"",
-                        "reason": "ImagePullBackOff"
-                    }
-                }
-            }
-        ],
-        "hostIP": "192.168.99.100",
-        "phase": "Pending",
-        "podIP": "172.17.0.7",
-        "qosClass": "BestEffort",
-        "startTime": "2018-08-03T06:16:38Z"
-    }
-}`, replicaSetName, replicaSetName, namespace, name, replicaSetName))
+	"apiVersion": "v1",
+	"kind": "Pod",
+	"metadata": {
+		"annotations": {
+			"kubernetes.io/created-by": "{\"kind\":\"SerializedReference\",\"apiVersion\":\"v1\",\"reference\":{\"kind\":\"ReplicaSet\",\"namespace\":\"default\",\"name\":\"%s\",\"uid\":\"c80dda50-96e4-11e8-9050-080027bd9056\",\"apiVersion\":\"extensions\",\"resourceVersion\":\"819008\"}}\n"
+		},
+		"generateName": "%s-",
+		"labels": {
+			"app": "foo",
+			"pod-template-hash": "3789350985"
+		},
+		"namespace": "%s",
+		"name": "%s",
+		"uid": "%s-pod-uid",
+		"ownerReferences": [
+			{
+				"apiVersion": "apps/v1",
+				"blockOwnerDeletion": true,
+				"controller": true,
+				"kind": "ReplicaSet",
+				"name": "%s",
+				"uid": "%s-replicaset-uid"
+			}
+		]
+	},
+	"spec": {
+		"containers": [
+			{
+				"image": "sdkjlsdlkj",
+				"imagePullPolicy": "Always",
+				"name": "nginx",
+				"resources": {},
+				"terminationMessagePath": "/dev/termination-log",
+				"terminationMessagePolicy": "File",
+				"volumeMounts": [
+					{
+						"mountPath": "/etc/config",
+						"name": "config-volume"
+					},
+					{
+						"mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+						"name": "default-token-rkzb2",
+						"readOnly": true
+					}
+				]
+			}
+		],
+		"dnsPolicy": "ClusterFirst",
+		"nodeName": "minikube",
+		"restartPolicy": "Always",
+		"schedulerName": "default-scheduler",
+		"securityContext": {},
+		"serviceAccount": "default",
+		"serviceAccountName": "default",
+		"terminationGracePeriodSeconds": 30,
+		"volumes": [
+			{
+				"configMap": {
+					"defaultMode": 420,
+					"name": "configmap-rollout-mfonkaf3"
+				},
+				"name": "config-volume"
+			},
+			{
+				"name": "default-token-rkzb2",
+				"secret": {
+					"defaultMode": 420,
+					"secretName": "default-token-rkzb2"
+				}
+			}
+		]
+	},
+	"status": {
+		"conditions": [
+			{
+				"lastProbeTime": null,
+				"lastTransitionTime": "2018-08-03T06:16:38Z",
+				"status": "True",
+				"type": "Initialized"
+			},
+			{
+				"lastProbeTime": null,
+				"lastTransitionTime": "2018-08-03T06:16:38Z",
+				"message": "containers with unready status: [nginx]",
+				"reason": "ContainersNotReady",
+				"status": "False",
+				"type": "Ready"
+			},
+			{
+				"lastProbeTime": null,
+				"lastTransitionTime": "2018-08-03T06:16:38Z",
+				"status": "True",
+				"type": "PodScheduled"
+			}
+		],
+		"containerStatuses": [
+			{
+				"image": "sdkjlsdlkj",
+				"imageID": "",
+				"lastState": {},
+				"name": "nginx",
+				"ready": false,
+				"restartCount": 0,
+				"state": {
+					"waiting": {
+						"message": "Back-off pulling image \"sdkjlsdlkj\"",
+						"reason": "ImagePullBackOff"
+					}
+				}
+			}
+		],
+		"hostIP": "192.168.99.100",
+		"phase": "Pending",
+		"podIP": "172.17.0.7",
+		"qosClass": "BestEffort",
+		"startTime": "2018-08-03T06:16:38Z"
+	}
+}`, replicaSetName, replicaSetName, namespace, name, name, replicaSetName, replicaSetName))
 	if err != nil {
 		panic(err)
 	}

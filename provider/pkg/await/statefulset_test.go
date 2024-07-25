@@ -125,7 +125,8 @@ func Test_Apps_StatefulSet(t *testing.T) {
 				object: statefulsetCreating(inputNamespace, inputName, targetService, ""),
 				subErrors: []string{
 					"0 out of 2 replicas succeeded readiness checks",
-				}},
+				},
+			},
 		},
 		{
 			description: "Should fail if timeout occurs before successful update rollout",
@@ -144,7 +145,8 @@ func Test_Apps_StatefulSet(t *testing.T) {
 				subErrors: []string{
 					"0 out of 2 replicas succeeded readiness checks",
 					"StatefulSet controller failed to advance from revision \"foo-7b5cf87b78\" to revision \"foo-789c4b994f\"",
-				}},
+				},
+			},
 		},
 		{
 			description: "[Revision 1] Failure should only report Pods from active StatefulSet, part 1",
@@ -167,7 +169,8 @@ func Test_Apps_StatefulSet(t *testing.T) {
 				object: statefulsetProgressing(inputNamespace, inputName, targetService, ""),
 				subErrors: []string{
 					"1 out of 2 replicas succeeded readiness checks",
-				}},
+				},
+			},
 		},
 		{
 			description: "[Revision 2] Failure should only report Pods from active StatefulSet, part 1",
@@ -191,7 +194,8 @@ func Test_Apps_StatefulSet(t *testing.T) {
 				subErrors: []string{
 					"0 out of 2 replicas succeeded readiness checks",
 					"StatefulSet controller failed to advance from revision \"foo-7b5cf87b78\" to revision \"foo-789c4b994f\"",
-				}},
+				},
+			},
 		},
 		{
 			description: "[Revision 1] Failure should only report Pods from active StatefulSet, part 2",
@@ -214,8 +218,9 @@ func Test_Apps_StatefulSet(t *testing.T) {
 				object: statefulsetProgressing(inputNamespace, inputName, targetService, ""),
 				subErrors: []string{
 					"1 out of 2 replicas succeeded readiness checks",
-					"[Pod foo-0]: containers with unready status: [nginx] -- [ErrImagePull] manifest for nginx:busted not found",
-				}},
+					"[Pod foo-0]: containers with unready status: [nginx][ErrImagePull] manifest for nginx:busted not found",
+				},
+			},
 		},
 		{
 			description: "[Revision 2] Failure should only report Pods from active StatefulSet, part 2",
@@ -239,8 +244,9 @@ func Test_Apps_StatefulSet(t *testing.T) {
 				subErrors: []string{
 					"0 out of 2 replicas succeeded readiness checks",
 					"StatefulSet controller failed to advance from revision \"foo-7b5cf87b78\" to revision \"foo-789c4b994f\"",
-					"[Pod foo-0]: containers with unready status: [nginx] -- [ErrImagePull] manifest for nginx:busted not found",
-				}},
+					"[Pod foo-0]: containers with unready status: [nginx][ErrImagePull] manifest for nginx:busted not found",
+				},
+			},
 		},
 	}
 
@@ -285,7 +291,8 @@ func Test_Apps_StatefulSet_MultipleUpdates(t *testing.T) {
 				object: statefulsetFailed(),
 				subErrors: []string{
 					"0 out of 2 replicas succeeded readiness checks",
-				}},
+				},
+			},
 			secondUpdate: func(statefulset, pods chan watch.Event, timeout chan time.Time) {
 				statefulset <- watchAddedEvent(statefulsetUpdatedAfterFailed())
 				statefulset <- watchAddedEvent(statefulsetSucceedAfterFailed())
@@ -387,48 +394,49 @@ func statefulsetInput(namespace, name, targetService, updateStrategy string) *un
 		updateStrategy = rollingUpdate
 	}
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
-    "kind": "StatefulSet",
-    "apiVersion": "apps/v1beta1",
-    "metadata": {
-        "namespace": "%s",
-        "name": "%s",
-        "labels": {
-            "app": "foo"
-        }
-    },
-    "spec": {
-        "replicas": 2,
-        "selector": {
-            "matchLabels": {
-                "app": "foo"
-            }
-        },
+	"kind": "StatefulSet",
+	"apiVersion": "apps/v1beta1",
+	"metadata": {
+		"namespace": "%s",
+		"name": "%s",
+		"uid": "%s-statefulset-uid",
+		"labels": {
+			"app": "foo"
+		}
+	},
+	"spec": {
+		"replicas": 2,
+		"selector": {
+			"matchLabels": {
+				"app": "foo"
+			}
+		},
 		"serviceName": "%s",
-        "template": {
-            "metadata": {
-                "labels": {
-                    "app": "foo"
-                }
-            },
-            "spec": {
-                "containers": [
-                    {
-                        "name": "nginx",
-                        "image": "nginx",
+		"template": {
+			"metadata": {
+				"labels": {
+					"app": "foo"
+				}
+			},
+			"spec": {
+				"containers": [
+					{
+						"name": "nginx",
+						"image": "nginx",
 						"volumeMounts": [
 							{
 								"mountPath": "/usr/share/nginx/html",
 								"name": "www"
 							}
 						]
-                    }
-                ],
+					}
+				],
 				"terminationGracePeriodSeconds": 10
-            }
-        },
-        "updateStrategy": {
-            "type": "%s"
-        },
+			}
+		},
+		"updateStrategy": {
+			"type": "%s"
+		},
 		"volumeClaimTemplates": [
 			{
 				"metadata": {
@@ -446,8 +454,8 @@ func statefulsetInput(namespace, name, targetService, updateStrategy string) *un
 				}
 			}
 		]
-    }
-}`, namespace, name, targetService, updateStrategy))
+	}
+}`, namespace, name, name, targetService, updateStrategy))
 	if err != nil {
 		panic(err)
 	}
@@ -460,49 +468,50 @@ func statefulsetAdded(namespace, name, targetService, updateStrategy string) *un
 		updateStrategy = rollingUpdate
 	}
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
-    "kind": "StatefulSet",
-    "apiVersion": "apps/v1beta1",
-    "metadata": {
-        "namespace": "%s",
-        "name": "%s",
+	"kind": "StatefulSet",
+	"apiVersion": "apps/v1beta1",
+	"metadata": {
+		"namespace": "%s",
+		"name": "%s",
+		"uid": "%s-statefulset-uid",
 		"generation": 1,
-        "labels": {
-            "app": "foo"
-        }
-    },
-    "spec": {
-        "replicas": 2,
-        "selector": {
-            "matchLabels": {
-                "app": "foo"
-            }
-        },
+		"labels": {
+			"app": "foo"
+		}
+	},
+	"spec": {
+		"replicas": 2,
+		"selector": {
+			"matchLabels": {
+				"app": "foo"
+			}
+		},
 		"serviceName": "%s",
-        "template": {
-            "metadata": {
-                "labels": {
-                    "app": "foo"
-                }
-            },
-            "spec": {
-                "containers": [
-                    {
-                        "name": "nginx",
-                        "image": "nginx",
+		"template": {
+			"metadata": {
+				"labels": {
+					"app": "foo"
+				}
+			},
+			"spec": {
+				"containers": [
+					{
+						"name": "nginx",
+						"image": "nginx",
 						"volumeMounts": [
 							{
 								"mountPath": "/usr/share/nginx/html",
 								"name": "www"
 							}
 						]
-                    }
-                ],
+					}
+				],
 				"terminationGracePeriodSeconds": 10
-            }
-        },
-        "updateStrategy": {
-            "type": "%s"
-        },
+			}
+		},
+		"updateStrategy": {
+			"type": "%s"
+		},
 		"volumeClaimTemplates": [
 			{
 				"metadata": {
@@ -520,11 +529,11 @@ func statefulsetAdded(namespace, name, targetService, updateStrategy string) *un
 				}
 			}
 		]
-    },
+	},
 	"status": {
-        "replicas": 0
-    }
-}`, namespace, name, targetService, updateStrategy))
+		"replicas": 0
+	}
+}`, namespace, name, name, targetService, updateStrategy))
 	if err != nil {
 		panic(err)
 	}
@@ -537,49 +546,50 @@ func statefulsetCreating(namespace, name, targetService, updateStrategy string) 
 		updateStrategy = rollingUpdate
 	}
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
-    "kind": "StatefulSet",
-    "apiVersion": "apps/v1beta1",
-    "metadata": {
-        "namespace": "%s",
-        "name": "%s",
+	"kind": "StatefulSet",
+	"apiVersion": "apps/v1beta1",
+	"metadata": {
+		"namespace": "%s",
+		"name": "%s",
+		"uid" :"%s-statefulset-uid",
 		"generation": 1,
-        "labels": {
-            "app": "foo"
-        }
-    },
-    "spec": {
-        "replicas": 2,
-        "selector": {
-            "matchLabels": {
-                "app": "foo"
-            }
-        },
+		"labels": {
+			"app": "foo"
+		}
+	},
+	"spec": {
+		"replicas": 2,
+		"selector": {
+			"matchLabels": {
+				"app": "foo"
+			}
+		},
 		"serviceName": "%s",
-        "template": {
-            "metadata": {
-                "labels": {
-                    "app": "foo"
-                }
-            },
-            "spec": {
-                "containers": [
-                    {
-                        "name": "nginx",
-                        "image": "nginx",
+		"template": {
+			"metadata": {
+				"labels": {
+					"app": "foo"
+				}
+			},
+			"spec": {
+				"containers": [
+					{
+						"name": "nginx",
+						"image": "nginx",
 						"volumeMounts": [
 							{
 								"mountPath": "/usr/share/nginx/html",
 								"name": "www"
 							}
 						]
-                    }
-                ],
+					}
+				],
 				"terminationGracePeriodSeconds": 10
-            }
-        },
-        "updateStrategy": {
-            "type": "%s"
-        },
+			}
+		},
+		"updateStrategy": {
+			"type": "%s"
+		},
 		"volumeClaimTemplates": [
 			{
 				"metadata": {
@@ -597,7 +607,7 @@ func statefulsetCreating(namespace, name, targetService, updateStrategy string) 
 				}
 			}
 		]
-    },
+	},
 	"status": {
 		"replicas": 1,
 		"collisionCount": 0,
@@ -605,8 +615,8 @@ func statefulsetCreating(namespace, name, targetService, updateStrategy string) 
 		"currentRevision": "foo-7b5cf87b78",
 		"observedGeneration": 1,
 		"updateRevision": "foo-7b5cf87b78"
-    }
-}`, namespace, name, targetService, updateStrategy))
+	}
+}`, namespace, name, name, targetService, updateStrategy))
 	if err != nil {
 		panic(err)
 	}
@@ -619,49 +629,50 @@ func statefulsetProgressing(namespace, name, targetService, updateStrategy strin
 		updateStrategy = rollingUpdate
 	}
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
-    "kind": "StatefulSet",
-    "apiVersion": "apps/v1beta1",
-    "metadata": {
-        "namespace": "%s",
-        "name": "%s",
+	"kind": "StatefulSet",
+	"apiVersion": "apps/v1beta1",
+	"metadata": {
+		"namespace": "%s",
+		"name": "%s",
+		"uid": "%s-statefulset-uid",
 		"generation": 1,
-        "labels": {
-            "app": "foo"
-        }
-    },
-    "spec": {
-        "replicas": 2,
-        "selector": {
-            "matchLabels": {
-                "app": "foo"
-            }
-        },
+		"labels": {
+			"app": "foo"
+		}
+	},
+	"spec": {
+		"replicas": 2,
+		"selector": {
+			"matchLabels": {
+				"app": "foo"
+			}
+		},
 		"serviceName": "%s",
-        "template": {
-            "metadata": {
-                "labels": {
-                    "app": "foo"
-                }
-            },
-            "spec": {
-                "containers": [
-                    {
-                        "name": "nginx",
-                        "image": "nginx",
+		"template": {
+			"metadata": {
+				"labels": {
+					"app": "foo"
+				}
+			},
+			"spec": {
+				"containers": [
+					{
+						"name": "nginx",
+						"image": "nginx",
 						"volumeMounts": [
 							{
 								"mountPath": "/usr/share/nginx/html",
 								"name": "www"
 							}
 						]
-                    }
-                ],
+					}
+				],
 				"terminationGracePeriodSeconds": 10
-            }
-        },
-        "updateStrategy": {
-            "type": "%s"
-        },
+			}
+		},
+		"updateStrategy": {
+			"type": "%s"
+		},
 		"volumeClaimTemplates": [
 			{
 				"metadata": {
@@ -679,7 +690,7 @@ func statefulsetProgressing(namespace, name, targetService, updateStrategy strin
 				}
 			}
 		]
-    },
+	},
 	"status": {
 		"replicas": 2,
 		"collisionCount": 0,
@@ -688,8 +699,8 @@ func statefulsetProgressing(namespace, name, targetService, updateStrategy strin
 		"observedGeneration": 1,
 		"updateRevision": "foo-7b5cf87b78",
 		"readyReplicas": 1
-    }
-}`, namespace, name, targetService, updateStrategy))
+	}
+}`, namespace, name, name, targetService, updateStrategy))
 	if err != nil {
 		panic(err)
 	}
@@ -702,49 +713,50 @@ func statefulsetReady(namespace, name, targetService, updateStrategy string) *un
 		updateStrategy = rollingUpdate
 	}
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
-    "kind": "StatefulSet",
-    "apiVersion": "apps/v1beta1",
-    "metadata": {
-        "namespace": "%s",
-        "name": "%s",
+	"kind": "StatefulSet",
+	"apiVersion": "apps/v1beta1",
+	"metadata": {
+		"namespace": "%s",
+		"name": "%s",
+		"uid":"%s-statefulset-uid",
 		"generation": 1,
-        "labels": {
-            "app": "foo"
-        }
-    },
-    "spec": {
-        "replicas": 2,
-        "selector": {
-            "matchLabels": {
-                "app": "foo"
-            }
-        },
+		"labels": {
+			"app": "foo"
+		}
+	},
+	"spec": {
+		"replicas": 2,
+		"selector": {
+			"matchLabels": {
+				"app": "foo"
+			}
+		},
 		"serviceName": "%s",
-        "template": {
-            "metadata": {
-                "labels": {
-                    "app": "foo"
-                }
-            },
-            "spec": {
-                "containers": [
-                    {
-                        "name": "nginx",
-                        "image": "nginx",
+		"template": {
+			"metadata": {
+				"labels": {
+					"app": "foo"
+				}
+			},
+			"spec": {
+				"containers": [
+					{
+						"name": "nginx",
+						"image": "nginx",
 						"volumeMounts": [
 							{
 								"mountPath": "/usr/share/nginx/html",
 								"name": "www"
 							}
 						]
-                    }
-                ],
+					}
+				],
 				"terminationGracePeriodSeconds": 10
-            }
-        },
-        "updateStrategy": {
-            "type": "%s"
-        },
+			}
+		},
+		"updateStrategy": {
+			"type": "%s"
+		},
 		"volumeClaimTemplates": [
 			{
 				"metadata": {
@@ -762,7 +774,7 @@ func statefulsetReady(namespace, name, targetService, updateStrategy string) *un
 				}
 			}
 		]
-    },
+	},
 	"status": {
 		"replicas": 2,
 		"collisionCount": 0,
@@ -771,8 +783,8 @@ func statefulsetReady(namespace, name, targetService, updateStrategy string) *un
 		"observedGeneration": 1,
 		"updateRevision": "foo-7b5cf87b78",
 		"readyReplicas": 2
-    }
-}`, namespace, name, targetService, updateStrategy))
+	}
+}`, namespace, name, name, targetService, updateStrategy))
 	if err != nil {
 		panic(err)
 	}
@@ -785,49 +797,50 @@ func statefulsetUpdate(namespace, name, targetService, updateStrategy string) *u
 		updateStrategy = rollingUpdate
 	}
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
-    "kind": "StatefulSet",
-    "apiVersion": "apps/v1beta1",
-    "metadata": {
-        "namespace": "%s",
-        "name": "%s",
+	"kind": "StatefulSet",
+	"apiVersion": "apps/v1beta1",
+	"metadata": {
+		"namespace": "%s",
+		"name": "%s",
+		"uid": "%s-statefulset-uid",
 		"generation": 2,
-        "labels": {
-            "app": "foo"
-        }
-    },
-    "spec": {
-        "replicas": 2,
-        "selector": {
-            "matchLabels": {
-                "app": "foo"
-            }
-        },
+		"labels": {
+			"app": "foo"
+		}
+	},
+	"spec": {
+		"replicas": 2,
+		"selector": {
+			"matchLabels": {
+				"app": "foo"
+			}
+		},
 		"serviceName": "%s",
-        "template": {
-            "metadata": {
-                "labels": {
-                    "app": "foo"
-                }
-            },
-            "spec": {
-                "containers": [
-                    {
-                        "name": "nginx",
-                        "image": "nginx:stable",
+		"template": {
+			"metadata": {
+				"labels": {
+					"app": "foo"
+				}
+			},
+			"spec": {
+				"containers": [
+					{
+						"name": "nginx",
+						"image": "nginx:stable",
 						"volumeMounts": [
 							{
 								"mountPath": "/usr/share/nginx/html",
 								"name": "www"
 							}
 						]
-                    }
-                ],
+					}
+				],
 				"terminationGracePeriodSeconds": 10
-            }
-        },
-        "updateStrategy": {
-            "type": "%s"
-        },
+			}
+		},
+		"updateStrategy": {
+			"type": "%s"
+		},
 		"volumeClaimTemplates": [
 			{
 				"metadata": {
@@ -845,8 +858,8 @@ func statefulsetUpdate(namespace, name, targetService, updateStrategy string) *u
 				}
 			}
 		]
-    }
-}`, namespace, name, targetService, updateStrategy))
+	}
+}`, namespace, name, name, targetService, updateStrategy))
 	if err != nil {
 		panic(err)
 	}
@@ -859,49 +872,50 @@ func statefulsetUpdating(namespace, name, targetService, updateStrategy string) 
 		updateStrategy = rollingUpdate
 	}
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
-    "kind": "StatefulSet",
-    "apiVersion": "apps/v1beta1",
-    "metadata": {
-        "namespace": "%s",
-        "name": "%s",
+	"kind": "StatefulSet",
+	"apiVersion": "apps/v1beta1",
+	"metadata": {
+		"namespace": "%s",
+		"name": "%s",
+		"uid": "%s-statefulset-uid",
 		"generation": 2,
-        "labels": {
-            "app": "foo"
-        }
-    },
-    "spec": {
-        "replicas": 2,
-        "selector": {
-            "matchLabels": {
-                "app": "foo"
-            }
-        },
+		"labels": {
+			"app": "foo"
+		}
+	},
+	"spec": {
+		"replicas": 2,
+		"selector": {
+			"matchLabels": {
+				"app": "foo"
+			}
+		},
 		"serviceName": "%s",
-        "template": {
-            "metadata": {
-                "labels": {
-                    "app": "foo"
-                }
-            },
-            "spec": {
-                "containers": [
-                    {
-                        "name": "nginx",
-                        "image": "nginx:stable",
+		"template": {
+			"metadata": {
+				"labels": {
+					"app": "foo"
+				}
+			},
+			"spec": {
+				"containers": [
+					{
+						"name": "nginx",
+						"image": "nginx:stable",
 						"volumeMounts": [
 							{
 								"mountPath": "/usr/share/nginx/html",
 								"name": "www"
 							}
 						]
-                    }
-                ],
+					}
+				],
 				"terminationGracePeriodSeconds": 10
-            }
-        },
-        "updateStrategy": {
-            "type": "%s"
-        },
+			}
+		},
+		"updateStrategy": {
+			"type": "%s"
+		},
 		"volumeClaimTemplates": [
 			{
 				"metadata": {
@@ -919,7 +933,7 @@ func statefulsetUpdating(namespace, name, targetService, updateStrategy string) 
 				}
 			}
 		]
-    },
+	},
 	"status": {
 		"replicas": 2,
 		"collisionCount": 0,
@@ -928,8 +942,8 @@ func statefulsetUpdating(namespace, name, targetService, updateStrategy string) 
 		"observedGeneration": 2,
 		"updateRevision": "foo-789c4b994f",
 		"readyReplicas": 2
-    }
-}`, namespace, name, targetService, updateStrategy))
+	}
+}`, namespace, name, name, targetService, updateStrategy))
 	if err != nil {
 		panic(err)
 	}
@@ -943,49 +957,50 @@ func statefulsetUpdatingOnDelete(namespace, name, targetService, updateStrategy 
 		updateStrategy = rollingUpdate
 	}
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
-    "kind": "StatefulSet",
-    "apiVersion": "apps/v1beta1",
-    "metadata": {
-        "namespace": "%s",
-        "name": "%s",
+	"kind": "StatefulSet",
+	"apiVersion": "apps/v1beta1",
+	"metadata": {
+		"namespace": "%s",
+		"name": "%s",
+		"uid": "%s-statefulset-uid",
 		"generation": 2,
-        "labels": {
-            "app": "foo"
-        }
-    },
-    "spec": {
-        "replicas": 2,
-        "selector": {
-            "matchLabels": {
-                "app": "foo"
-            }
-        },
+		"labels": {
+			"app": "foo"
+		}
+	},
+	"spec": {
+		"replicas": 2,
+		"selector": {
+			"matchLabels": {
+				"app": "foo"
+			}
+		},
 		"serviceName": "%s",
-        "template": {
-            "metadata": {
-                "labels": {
-                    "app": "foo"
-                }
-            },
-            "spec": {
-                "containers": [
-                    {
-                        "name": "nginx",
-                        "image": "nginx:stable",
+		"template": {
+			"metadata": {
+				"labels": {
+					"app": "foo"
+				}
+			},
+			"spec": {
+				"containers": [
+					{
+						"name": "nginx",
+						"image": "nginx:stable",
 						"volumeMounts": [
 							{
 								"mountPath": "/usr/share/nginx/html",
 								"name": "www"
 							}
 						]
-                    }
-                ],
+					}
+				],
 				"terminationGracePeriodSeconds": 10
-            }
-        },
-        "updateStrategy": {
-            "type": "%s"
-        },
+			}
+		},
+		"updateStrategy": {
+			"type": "%s"
+		},
 		"volumeClaimTemplates": [
 			{
 				"metadata": {
@@ -1003,7 +1018,7 @@ func statefulsetUpdatingOnDelete(namespace, name, targetService, updateStrategy 
 				}
 			}
 		]
-    },
+	},
 	"status": {
 		"replicas": 2,
 		"collisionCount": 0,
@@ -1011,8 +1026,8 @@ func statefulsetUpdatingOnDelete(namespace, name, targetService, updateStrategy 
 		"observedGeneration": 2,
 		"updateRevision": "foo-789c4b994f",
 		"readyReplicas": 2
-    }
-}`, namespace, name, targetService, updateStrategy))
+	}
+}`, namespace, name, name, targetService, updateStrategy))
 	if err != nil {
 		panic(err)
 	}
@@ -1025,49 +1040,50 @@ func statefulsetUpdatingWithActiveReplica(namespace, name, targetService, update
 		updateStrategy = rollingUpdate
 	}
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
-    "kind": "StatefulSet",
-    "apiVersion": "apps/v1beta1",
-    "metadata": {
-        "namespace": "%s",
-        "name": "%s",
+	"kind": "StatefulSet",
+	"apiVersion": "apps/v1beta1",
+	"metadata": {
+		"namespace": "%s",
+		"name": "%s",
+		"uid": "%s-statefulset-uid",
 		"generation": 2,
-        "labels": {
-            "app": "foo"
-        }
-    },
-    "spec": {
-        "replicas": 2,
-        "selector": {
-            "matchLabels": {
-                "app": "foo"
-            }
-        },
+		"labels": {
+			"app": "foo"
+		}
+	},
+	"spec": {
+		"replicas": 2,
+		"selector": {
+			"matchLabels": {
+				"app": "foo"
+			}
+		},
 		"serviceName": "%s",
-        "template": {
-            "metadata": {
-                "labels": {
-                    "app": "foo"
-                }
-            },
-            "spec": {
-                "containers": [
-                    {
-                        "name": "nginx",
-                        "image": "nginx:stable",
+		"template": {
+			"metadata": {
+				"labels": {
+					"app": "foo"
+				}
+			},
+			"spec": {
+				"containers": [
+					{
+						"name": "nginx",
+						"image": "nginx:stable",
 						"volumeMounts": [
 							{
 								"mountPath": "/usr/share/nginx/html",
 								"name": "www"
 							}
 						]
-                    }
-                ],
+					}
+				],
 				"terminationGracePeriodSeconds": 10
-            }
-        },
-        "updateStrategy": {
-            "type": "%s"
-        },
+			}
+		},
+		"updateStrategy": {
+			"type": "%s"
+		},
 		"volumeClaimTemplates": [
 			{
 				"metadata": {
@@ -1085,7 +1101,7 @@ func statefulsetUpdatingWithActiveReplica(namespace, name, targetService, update
 				}
 			}
 		]
-    },
+	},
 	"status": {
 		"replicas": 2,
 		"collisionCount": 0,
@@ -1095,8 +1111,8 @@ func statefulsetUpdatingWithActiveReplica(namespace, name, targetService, update
 		"updateRevision": "foo-789c4b994f",
 		"readyReplicas": 1,
 		"updatedReplicas": 1
-    }
-}`, namespace, name, targetService, updateStrategy))
+	}
+}`, namespace, name, name, targetService, updateStrategy))
 	if err != nil {
 		panic(err)
 	}
@@ -1110,49 +1126,50 @@ func statefulsetUpdatingWithActiveReplicaOnDelete(namespace, name, targetService
 		updateStrategy = rollingUpdate
 	}
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
-    "kind": "StatefulSet",
-    "apiVersion": "apps/v1beta1",
-    "metadata": {
-        "namespace": "%s",
-        "name": "%s",
+	"kind": "StatefulSet",
+	"apiVersion": "apps/v1beta1",
+	"metadata": {
+		"namespace": "%s",
+		"name": "%s",
+		"uid": "%s-statefulset-uid",
 		"generation": 2,
-        "labels": {
-            "app": "foo"
-        }
-    },
-    "spec": {
-        "replicas": 2,
-        "selector": {
-            "matchLabels": {
-                "app": "foo"
-            }
-        },
+		"labels": {
+			"app": "foo"
+		}
+	},
+	"spec": {
+		"replicas": 2,
+		"selector": {
+			"matchLabels": {
+				"app": "foo"
+			}
+		},
 		"serviceName": "%s",
-        "template": {
-            "metadata": {
-                "labels": {
-                    "app": "foo"
-                }
-            },
-            "spec": {
-                "containers": [
-                    {
-                        "name": "nginx",
-                        "image": "nginx:stable",
+		"template": {
+			"metadata": {
+				"labels": {
+					"app": "foo"
+				}
+			},
+			"spec": {
+				"containers": [
+					{
+						"name": "nginx",
+						"image": "nginx:stable",
 						"volumeMounts": [
 							{
 								"mountPath": "/usr/share/nginx/html",
 								"name": "www"
 							}
 						]
-                    }
-                ],
+					}
+				],
 				"terminationGracePeriodSeconds": 10
-            }
-        },
-        "updateStrategy": {
-            "type": "%s"
-        },
+			}
+		},
+		"updateStrategy": {
+			"type": "%s"
+		},
 		"volumeClaimTemplates": [
 			{
 				"metadata": {
@@ -1170,7 +1187,7 @@ func statefulsetUpdatingWithActiveReplicaOnDelete(namespace, name, targetService
 				}
 			}
 		]
-    },
+	},
 	"status": {
 		"replicas": 2,
 		"collisionCount": 0,
@@ -1179,8 +1196,8 @@ func statefulsetUpdatingWithActiveReplicaOnDelete(namespace, name, targetService
 		"updateRevision": "foo-789c4b994f",
 		"readyReplicas": 1,
 		"updatedReplicas": 1
-    }
-}`, namespace, name, targetService, updateStrategy))
+	}
+}`, namespace, name, name, targetService, updateStrategy))
 	if err != nil {
 		panic(err)
 	}
@@ -1193,49 +1210,50 @@ func statefulsetUpdateSuccess(namespace, name, targetService, updateStrategy str
 		updateStrategy = rollingUpdate
 	}
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
-    "kind": "StatefulSet",
-    "apiVersion": "apps/v1beta1",
-    "metadata": {
-        "namespace": "%s",
-        "name": "%s",
+	"kind": "StatefulSet",
+	"apiVersion": "apps/v1beta1",
+	"metadata": {
+		"namespace": "%s",
+		"name": "%s",
+		"uid": "%s-statefulset-uid",
 		"generation": 2,
-        "labels": {
-            "app": "foo"
-        }
-    },
-    "spec": {
-        "replicas": 2,
-        "selector": {
-            "matchLabels": {
-                "app": "foo"
-            }
-        },
+		"labels": {
+			"app": "foo"
+		}
+	},
+	"spec": {
+		"replicas": 2,
+		"selector": {
+			"matchLabels": {
+				"app": "foo"
+			}
+		},
 		"serviceName": "%s",
-        "template": {
-            "metadata": {
-                "labels": {
-                    "app": "foo"
-                }
-            },
-            "spec": {
-                "containers": [
-                    {
-                        "name": "nginx",
-                        "image": "nginx:stable",
+		"template": {
+			"metadata": {
+				"labels": {
+					"app": "foo"
+				}
+			},
+			"spec": {
+				"containers": [
+					{
+						"name": "nginx",
+						"image": "nginx:stable",
 						"volumeMounts": [
 							{
 								"mountPath": "/usr/share/nginx/html",
 								"name": "www"
 							}
 						]
-                    }
-                ],
+					}
+				],
 				"terminationGracePeriodSeconds": 10
-            }
-        },
-        "updateStrategy": {
-            "type": "%s"
-        },
+			}
+		},
+		"updateStrategy": {
+			"type": "%s"
+		},
 		"volumeClaimTemplates": [
 			{
 				"metadata": {
@@ -1253,7 +1271,7 @@ func statefulsetUpdateSuccess(namespace, name, targetService, updateStrategy str
 				}
 			}
 		]
-    },
+	},
 	"status": {
 		"replicas": 2,
 		"collisionCount": 0,
@@ -1262,8 +1280,8 @@ func statefulsetUpdateSuccess(namespace, name, targetService, updateStrategy str
 		"observedGeneration": 2,
 		"updateRevision": "foo-789c4b994f",
 		"readyReplicas": 2
-    }
-}`, namespace, name, targetService, updateStrategy))
+	}
+}`, namespace, name, name, targetService, updateStrategy))
 	if err != nil {
 		panic(err)
 	}
@@ -1277,49 +1295,50 @@ func statefulsetUpdateSuccessOnDelete(namespace, name, targetService, updateStra
 		updateStrategy = rollingUpdate
 	}
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
-    "kind": "StatefulSet",
-    "apiVersion": "apps/v1beta1",
-    "metadata": {
-        "namespace": "%s",
-        "name": "%s",
+	"kind": "StatefulSet",
+	"apiVersion": "apps/v1beta1",
+	"metadata": {
+		"namespace": "%s",
+		"name": "%s",
+		"uid": "%s-statefulset-uid",
 		"generation": 2,
-        "labels": {
-            "app": "foo"
-        }
-    },
-    "spec": {
-        "replicas": 2,
-        "selector": {
-            "matchLabels": {
-                "app": "foo"
-            }
-        },
+		"labels": {
+			"app": "foo"
+		}
+	},
+	"spec": {
+		"replicas": 2,
+		"selector": {
+			"matchLabels": {
+				"app": "foo"
+			}
+		},
 		"serviceName": "%s",
-        "template": {
-            "metadata": {
-                "labels": {
-                    "app": "foo"
-                }
-            },
-            "spec": {
-                "containers": [
-                    {
-                        "name": "nginx",
-                        "image": "nginx:stable",
+		"template": {
+			"metadata": {
+				"labels": {
+					"app": "foo"
+				}
+			},
+			"spec": {
+				"containers": [
+					{
+						"name": "nginx",
+						"image": "nginx:stable",
 						"volumeMounts": [
 							{
 								"mountPath": "/usr/share/nginx/html",
 								"name": "www"
 							}
 						]
-                    }
-                ],
+					}
+				],
 				"terminationGracePeriodSeconds": 10
-            }
-        },
-        "updateStrategy": {
-            "type": "%s"
-        },
+			}
+		},
+		"updateStrategy": {
+			"type": "%s"
+		},
 		"volumeClaimTemplates": [
 			{
 				"metadata": {
@@ -1337,7 +1356,7 @@ func statefulsetUpdateSuccessOnDelete(namespace, name, targetService, updateStra
 				}
 			}
 		]
-    },
+	},
 	"status": {
 		"replicas": 2,
 		"collisionCount": 0,
@@ -1345,8 +1364,8 @@ func statefulsetUpdateSuccessOnDelete(namespace, name, targetService, updateStra
 		"observedGeneration": 2,
 		"updateRevision": "foo-789c4b994f",
 		"readyReplicas": 2
-    }
-}`, namespace, name, targetService, updateStrategy))
+	}
+}`, namespace, name, name, targetService, updateStrategy))
 	if err != nil {
 		panic(err)
 	}
@@ -1357,159 +1376,159 @@ func statefulsetUpdateSuccessOnDelete(namespace, name, targetService, updateStra
 func statefulsetReadyPod(namespace, name, statefulsetName string) *unstructured.Unstructured {
 	// nolint
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
-    "apiVersion": "v1",
-    "kind": "Pod",
-    "metadata": {
-        "annotations": {
-            "kubernetes.io/limit-ranger": "LimitRanger plugin set: cpu request for container nginx"
-        },
-        "creationTimestamp": "2018-11-30T21:59:10Z",
-        "generateName": "%s-",
-        "labels": {
-            "app": "foo",
-            "controller-revision-hash": "foo-78fd4cddbd",
-            "statefulset.kubernetes.io/pod-name": "%s-0"
-        },
-        "name": "%s",
-        "namespace": "%s",
-        "ownerReferences": [
-            {
-                "apiVersion": "apps/v1",
-                "blockOwnerDeletion": true,
-                "controller": true,
-                "kind": "StatefulSet",
-                "name": "%s",
-                "uid": "984ac0f5-f4ea-11e8-bebe-42010a8a0080"
-            }
-        ],
-        "resourceVersion": "459191",
-        "selfLink": "/api/v1/namespaces/default/pods/%s-0",
-        "uid": "2a73a5d2-f4eb-11e8-bebe-42010a8a0080"
-    },
-    "spec": {
-        "containers": [
-            {
-                "image": "nginx",
-                "imagePullPolicy": "IfNotPresent",
-                "name": "nginx",
-                "ports": [
-                    {
-                        "containerPort": 80,
-                        "name": "web",
-                        "protocol": "TCP"
-                    }
-                ],
-                "resources": {
-                    "requests": {
-                        "cpu": "100m"
-                    }
-                },
-                "terminationMessagePath": "/dev/termination-log",
-                "terminationMessagePolicy": "File",
-                "volumeMounts": [
-                    {
-                        "mountPath": "/usr/share/nginx/html",
-                        "name": "www"
-                    },
-                    {
-                        "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
-                        "name": "default-token-p74mp",
-                        "readOnly": true
-                    }
-                ]
-            }
-        ],
-        "dnsPolicy": "ClusterFirst",
-        "hostname": "foo-0",
-        "nodeName": "gke-gke-cluster-8d214cd-default-pool-df2b3fc2-zlkv",
-        "priority": 0,
-        "restartPolicy": "Always",
-        "schedulerName": "default-scheduler",
-        "securityContext": {},
-        "serviceAccount": "default",
-        "serviceAccountName": "default",
-        "subdomain": "ss-service",
-        "terminationGracePeriodSeconds": 10,
-        "tolerations": [
-            {
-                "effect": "NoExecute",
-                "key": "node.kubernetes.io/not-ready",
-                "operator": "Exists",
-                "tolerationSeconds": 300
-            },
-            {
-                "effect": "NoExecute",
-                "key": "node.kubernetes.io/unreachable",
-                "operator": "Exists",
-                "tolerationSeconds": 300
-            }
-        ],
-        "volumes": [
-            {
-                "name": "www",
-                "persistentVolumeClaim": {
-                    "claimName": "www-%s-0"
-                }
-            },
-            {
-                "name": "default-token-p74mp",
-                "secret": {
-                    "defaultMode": 420,
-                    "secretName": "default-token-p74mp"
-                }
-            }
-        ]
-    },
-    "status": {
-        "conditions": [
-            {
-                "lastProbeTime": null,
-                "lastTransitionTime": "2018-11-30T21:59:10Z",
-                "status": "True",
-                "type": "Initialized"
-            },
-            {
-                "lastProbeTime": null,
-                "lastTransitionTime": "2018-11-30T21:59:21Z",
-                "status": "True",
-                "type": "Ready"
-            },
-            {
-                "lastProbeTime": null,
-                "lastTransitionTime": null,
-                "status": "True",
-                "type": "ContainersReady"
-            },
-            {
-                "lastProbeTime": null,
-                "lastTransitionTime": "2018-11-30T21:59:10Z",
-                "status": "True",
-                "type": "PodScheduled"
-            }
-        ],
-        "containerStatuses": [
-            {
-                "containerID": "docker://4a89a0e2ab5ad945aad2af0fb12d9660a2715ea77a2e9f214a732a5446088c55",
-                "image": "nginx:latest",
-                "imageID": "docker-pullable://nginx@sha256:87e9b6904b4286b8d41bba4461c0b736835fcc218f7ecbe5544b53fdd467189f",
-                "lastState": {},
-                "name": "nginx",
-                "ready": true,
-                "restartCount": 0,
-                "state": {
-                    "running": {
-                        "startedAt": "2018-11-30T21:59:21Z"
-                    }
-                }
-            }
-        ],
-        "hostIP": "10.138.0.2",
-        "phase": "Running",
-        "podIP": "10.32.1.26",
-        "qosClass": "Burstable",
-        "startTime": "2018-11-30T21:59:10Z"
-    }
-}`, statefulsetName, statefulsetName, name, namespace, statefulsetName, statefulsetName, statefulsetName))
+	"apiVersion": "v1",
+	"kind": "Pod",
+	"metadata": {
+		"annotations": {
+			"kubernetes.io/limit-ranger": "LimitRanger plugin set: cpu request for container nginx"
+		},
+		"creationTimestamp": "2018-11-30T21:59:10Z",
+		"generateName": "%s-",
+		"labels": {
+			"app": "foo",
+			"controller-revision-hash": "foo-78fd4cddbd",
+			"statefulset.kubernetes.io/pod-name": "%s-0"
+		},
+		"name": "%s",
+		"namespace": "%s",
+		"ownerReferences": [
+			{
+				"apiVersion": "apps/v1",
+				"blockOwnerDeletion": true,
+				"controller": true,
+				"kind": "StatefulSet",
+				"name": "%s",
+				"uid": "%s-statefulset-uid"
+			}
+		],
+		"resourceVersion": "459191",
+		"selfLink": "/api/v1/namespaces/default/pods/%s-0",
+		"uid": "2a73a5d2-f4eb-11e8-bebe-42010a8a0080"
+	},
+	"spec": {
+		"containers": [
+			{
+				"image": "nginx",
+				"imagePullPolicy": "IfNotPresent",
+				"name": "nginx",
+				"ports": [
+					{
+						"containerPort": 80,
+						"name": "web",
+						"protocol": "TCP"
+					}
+				],
+				"resources": {
+					"requests": {
+						"cpu": "100m"
+					}
+				},
+				"terminationMessagePath": "/dev/termination-log",
+				"terminationMessagePolicy": "File",
+				"volumeMounts": [
+					{
+						"mountPath": "/usr/share/nginx/html",
+						"name": "www"
+					},
+					{
+						"mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+						"name": "default-token-p74mp",
+						"readOnly": true
+					}
+				]
+			}
+		],
+		"dnsPolicy": "ClusterFirst",
+		"hostname": "foo-0",
+		"nodeName": "gke-gke-cluster-8d214cd-default-pool-df2b3fc2-zlkv",
+		"priority": 0,
+		"restartPolicy": "Always",
+		"schedulerName": "default-scheduler",
+		"securityContext": {},
+		"serviceAccount": "default",
+		"serviceAccountName": "default",
+		"subdomain": "ss-service",
+		"terminationGracePeriodSeconds": 10,
+		"tolerations": [
+			{
+				"effect": "NoExecute",
+				"key": "node.kubernetes.io/not-ready",
+				"operator": "Exists",
+				"tolerationSeconds": 300
+			},
+			{
+				"effect": "NoExecute",
+				"key": "node.kubernetes.io/unreachable",
+				"operator": "Exists",
+				"tolerationSeconds": 300
+			}
+		],
+		"volumes": [
+			{
+				"name": "www",
+				"persistentVolumeClaim": {
+					"claimName": "www-%s-0"
+				}
+			},
+			{
+				"name": "default-token-p74mp",
+				"secret": {
+					"defaultMode": 420,
+					"secretName": "default-token-p74mp"
+				}
+			}
+		]
+	},
+	"status": {
+		"conditions": [
+			{
+				"lastProbeTime": null,
+				"lastTransitionTime": "2018-11-30T21:59:10Z",
+				"status": "True",
+				"type": "Initialized"
+			},
+			{
+				"lastProbeTime": null,
+				"lastTransitionTime": "2018-11-30T21:59:21Z",
+				"status": "True",
+				"type": "Ready"
+			},
+			{
+				"lastProbeTime": null,
+				"lastTransitionTime": null,
+				"status": "True",
+				"type": "ContainersReady"
+			},
+			{
+				"lastProbeTime": null,
+				"lastTransitionTime": "2018-11-30T21:59:10Z",
+				"status": "True",
+				"type": "PodScheduled"
+			}
+		],
+		"containerStatuses": [
+			{
+				"containerID": "docker://4a89a0e2ab5ad945aad2af0fb12d9660a2715ea77a2e9f214a732a5446088c55",
+				"image": "nginx:latest",
+				"imageID": "docker-pullable://nginx@sha256:87e9b6904b4286b8d41bba4461c0b736835fcc218f7ecbe5544b53fdd467189f",
+				"lastState": {},
+				"name": "nginx",
+				"ready": true,
+				"restartCount": 0,
+				"state": {
+					"running": {
+						"startedAt": "2018-11-30T21:59:21Z"
+					}
+				}
+			}
+		],
+		"hostIP": "10.138.0.2",
+		"phase": "Running",
+		"podIP": "10.32.1.26",
+		"qosClass": "Burstable",
+		"startTime": "2018-11-30T21:59:10Z"
+	}
+}`, statefulsetName, statefulsetName, name, namespace, statefulsetName, statefulsetName, statefulsetName, statefulsetName))
 	if err != nil {
 		panic(err)
 	}
@@ -1520,163 +1539,163 @@ func statefulsetReadyPod(namespace, name, statefulsetName string) *unstructured.
 func statefulsetFailedPod(namespace, name, statefulsetName string) *unstructured.Unstructured {
 	// nolint
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
-    "apiVersion": "v1",
-    "kind": "Pod",
-    "metadata": {
-        "annotations": {
-            "kubernetes.io/limit-ranger": "LimitRanger plugin set: cpu request for container nginx"
-        },
-        "creationTimestamp": "2018-11-30T21:59:10Z",
-        "generateName": "%s-",
-        "labels": {
-            "app": "foo",
-            "controller-revision-hash": "foo-78fd4cddbd",
-            "statefulset.kubernetes.io/pod-name": "%s-0"
-        },
-        "name": "%s",
-        "namespace": "%s",
-        "ownerReferences": [
-            {
-                "apiVersion": "apps/v1",
-                "blockOwnerDeletion": true,
-                "controller": true,
-                "kind": "StatefulSet",
-                "name": "%s",
-                "uid": "984ac0f5-f4ea-11e8-bebe-42010a8a0080"
-            }
-        ],
-        "resourceVersion": "459191",
-        "selfLink": "/api/v1/namespaces/default/pods/%s-0",
-        "uid": "2a73a5d2-f4eb-11e8-bebe-42010a8a0080"
-    },
-    "spec": {
-        "containers": [
-            {
-                "image": "nginx:busted",
-                "imagePullPolicy": "IfNotPresent",
-                "name": "nginx",
-                "ports": [
-                    {
-                        "containerPort": 80,
-                        "name": "web",
-                        "protocol": "TCP"
-                    }
-                ],
-                "resources": {
-                    "requests": {
-                        "cpu": "100m"
-                    }
-                },
-                "terminationMessagePath": "/dev/termination-log",
-                "terminationMessagePolicy": "File",
-                "volumeMounts": [
-                    {
-                        "mountPath": "/usr/share/nginx/html",
-                        "name": "www"
-                    },
-                    {
-                        "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
-                        "name": "default-token-p74mp",
-                        "readOnly": true
-                    }
-                ]
-            }
-        ],
-        "dnsPolicy": "ClusterFirst",
-        "hostname": "foo-0",
-        "nodeName": "gke-gke-cluster-8d214cd-default-pool-df2b3fc2-zlkv",
-        "priority": 0,
-        "restartPolicy": "Always",
-        "schedulerName": "default-scheduler",
-        "securityContext": {},
-        "serviceAccount": "default",
-        "serviceAccountName": "default",
-        "subdomain": "ss-service",
-        "terminationGracePeriodSeconds": 10,
-        "tolerations": [
-            {
-                "effect": "NoExecute",
-                "key": "node.kubernetes.io/not-ready",
-                "operator": "Exists",
-                "tolerationSeconds": 300
-            },
-            {
-                "effect": "NoExecute",
-                "key": "node.kubernetes.io/unreachable",
-                "operator": "Exists",
-                "tolerationSeconds": 300
-            }
-        ],
-        "volumes": [
-            {
-                "name": "www",
-                "persistentVolumeClaim": {
-                    "claimName": "www-%s-0"
-                }
-            },
-            {
-                "name": "default-token-p74mp",
-                "secret": {
-                    "defaultMode": 420,
-                    "secretName": "default-token-p74mp"
-                }
-            }
-        ]
-    },
+	"apiVersion": "v1",
+	"kind": "Pod",
+	"metadata": {
+		"annotations": {
+			"kubernetes.io/limit-ranger": "LimitRanger plugin set: cpu request for container nginx"
+		},
+		"creationTimestamp": "2018-11-30T21:59:10Z",
+		"generateName": "%s-",
+		"labels": {
+			"app": "foo",
+			"controller-revision-hash": "foo-78fd4cddbd",
+			"statefulset.kubernetes.io/pod-name": "%s-0"
+		},
+		"name": "%s",
+		"namespace": "%s",
+		"ownerReferences": [
+			{
+				"apiVersion": "apps/v1",
+				"blockOwnerDeletion": true,
+				"controller": true,
+				"kind": "StatefulSet",
+				"name": "%s",
+				"uid": "%s-statefulset-uid"
+			}
+		],
+		"resourceVersion": "459191",
+		"selfLink": "/api/v1/namespaces/default/pods/%s-0",
+		"uid": "2a73a5d2-f4eb-11e8-bebe-42010a8a0080"
+	},
+	"spec": {
+		"containers": [
+			{
+				"image": "nginx:busted",
+				"imagePullPolicy": "IfNotPresent",
+				"name": "nginx",
+				"ports": [
+					{
+						"containerPort": 80,
+						"name": "web",
+						"protocol": "TCP"
+					}
+				],
+				"resources": {
+					"requests": {
+						"cpu": "100m"
+					}
+				},
+				"terminationMessagePath": "/dev/termination-log",
+				"terminationMessagePolicy": "File",
+				"volumeMounts": [
+					{
+						"mountPath": "/usr/share/nginx/html",
+						"name": "www"
+					},
+					{
+						"mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+						"name": "default-token-p74mp",
+						"readOnly": true
+					}
+				]
+			}
+		],
+		"dnsPolicy": "ClusterFirst",
+		"hostname": "foo-0",
+		"nodeName": "gke-gke-cluster-8d214cd-default-pool-df2b3fc2-zlkv",
+		"priority": 0,
+		"restartPolicy": "Always",
+		"schedulerName": "default-scheduler",
+		"securityContext": {},
+		"serviceAccount": "default",
+		"serviceAccountName": "default",
+		"subdomain": "ss-service",
+		"terminationGracePeriodSeconds": 10,
+		"tolerations": [
+			{
+				"effect": "NoExecute",
+				"key": "node.kubernetes.io/not-ready",
+				"operator": "Exists",
+				"tolerationSeconds": 300
+			},
+			{
+				"effect": "NoExecute",
+				"key": "node.kubernetes.io/unreachable",
+				"operator": "Exists",
+				"tolerationSeconds": 300
+			}
+		],
+		"volumes": [
+			{
+				"name": "www",
+				"persistentVolumeClaim": {
+					"claimName": "www-%s-0"
+				}
+			},
+			{
+				"name": "default-token-p74mp",
+				"secret": {
+					"defaultMode": 420,
+					"secretName": "default-token-p74mp"
+				}
+			}
+		]
+	},
 	"status": {
-        "conditions": [
-            {
-                "lastProbeTime": null,
-                "lastTransitionTime": "2018-11-30T23:10:58Z",
-                "status": "True",
-                "type": "Initialized"
-            },
-            {
-                "lastProbeTime": null,
-                "lastTransitionTime": "2018-11-30T23:10:58Z",
-                "message": "containers with unready status: [nginx]",
-                "reason": "ContainersNotReady",
-                "status": "False",
-                "type": "Ready"
-            },
-            {
-                "lastProbeTime": null,
-                "lastTransitionTime": null,
-                "message": "containers with unready status: [nginx]",
-                "reason": "ContainersNotReady",
-                "status": "False",
-                "type": "ContainersReady"
-            },
-            {
-                "lastProbeTime": null,
-                "lastTransitionTime": "2018-11-30T23:10:58Z",
-                "status": "True",
-                "type": "PodScheduled"
-            }
-        ],
-        "containerStatuses": [
-            {
-                "image": "nginx:busted",
-                "imageID": "",
-                "lastState": {},
-                "name": "nginx",
-                "ready": false,
-                "restartCount": 0,
-                "state": {
-                    "waiting": {
-                        "message": "rpc error: code = Unknown desc = Error response from daemon: manifest for nginx:busted not found",
-                        "reason": "ErrImagePull"
-                    }
-                }
-            }
-        ],
-        "hostIP": "10.138.0.2",
-        "phase": "Running",
-        "podIP": "10.32.1.26",
-        "qosClass": "Burstable",
-        "startTime": "2018-11-30T21:59:10Z"
-    }
-}`, statefulsetName, statefulsetName, name, namespace, statefulsetName, statefulsetName, statefulsetName))
+		"conditions": [
+			{
+				"lastProbeTime": null,
+				"lastTransitionTime": "2018-11-30T23:10:58Z",
+				"status": "True",
+				"type": "Initialized"
+			},
+			{
+				"lastProbeTime": null,
+				"lastTransitionTime": "2018-11-30T23:10:58Z",
+				"message": "containers with unready status: [nginx]",
+				"reason": "ContainersNotReady",
+				"status": "False",
+				"type": "Ready"
+			},
+			{
+				"lastProbeTime": null,
+				"lastTransitionTime": null,
+				"message": "containers with unready status: [nginx]",
+				"reason": "ContainersNotReady",
+				"status": "False",
+				"type": "ContainersReady"
+			},
+			{
+				"lastProbeTime": null,
+				"lastTransitionTime": "2018-11-30T23:10:58Z",
+				"status": "True",
+				"type": "PodScheduled"
+			}
+		],
+		"containerStatuses": [
+			{
+				"image": "nginx:busted",
+				"imageID": "",
+				"lastState": {},
+				"name": "nginx",
+				"ready": false,
+				"restartCount": 0,
+				"state": {
+					"waiting": {
+						"message": "rpc error: code = Unknown desc = Error response from daemon: manifest for nginx:busted not found",
+						"reason": "ErrImagePull"
+					}
+				}
+			}
+		],
+		"hostIP": "10.138.0.2",
+		"phase": "Running",
+		"podIP": "10.32.1.26",
+		"qosClass": "Burstable",
+		"startTime": "2018-11-30T21:59:10Z"
+	}
+}`, statefulsetName, statefulsetName, name, namespace, statefulsetName, statefulsetName, statefulsetName, statefulsetName))
 	if err != nil {
 		panic(err)
 	}
@@ -1686,46 +1705,46 @@ func statefulsetFailedPod(namespace, name, statefulsetName string) *unstructured
 // statefulsetFailed is the state of the StatefulSet object that is failing to be ready (invalid image)
 func statefulsetFailed() *unstructured.Unstructured {
 	obj, err := decodeUnstructured(`{
-    "kind": "StatefulSet",
-    "apiVersion": "apps/v1beta1",
-    "metadata": {
-        "namespace": "default",
-        "name": "foo",
+	"kind": "StatefulSet",
+	"apiVersion": "apps/v1beta1",
+	"metadata": {
+		"namespace": "default",
+		"name": "foo",
 		"generation": 1,
-        "labels": {
-            "app": "foo"
-        }
-    },
-    "spec": {
-        "replicas": 2,
-        "selector": {
-            "matchLabels": {
-                "app": "foo"
-            }
-        },
+		"labels": {
+			"app": "foo"
+		}
+	},
+	"spec": {
+		"replicas": 2,
+		"selector": {
+			"matchLabels": {
+				"app": "foo"
+			}
+		},
 		"serviceName": "ss-service",
-        "template": {
-            "metadata": {
-                "labels": {
-                    "app": "foo"
-                }
-            },
-            "spec": {
-                "containers": [
-                    {
-                        "name": "nginx",
-                        "image": "nginx:busted",
+		"template": {
+			"metadata": {
+				"labels": {
+					"app": "foo"
+				}
+			},
+			"spec": {
+				"containers": [
+					{
+						"name": "nginx",
+						"image": "nginx:busted",
 						"volumeMounts": [
 							{
 								"mountPath": "/usr/share/nginx/html",
 								"name": "www"
 							}
 						]
-                    }
-                ],
+					}
+				],
 				"terminationGracePeriodSeconds": 10
-            }
-        },
+			}
+		},
 		"volumeClaimTemplates": [
 			{
 				"metadata": {
@@ -1743,7 +1762,7 @@ func statefulsetFailed() *unstructured.Unstructured {
 				}
 			}
 		]
-    },
+	},
 	"status": {
 		"replicas": 1,
 		"collisionCount": 0,
@@ -1751,7 +1770,7 @@ func statefulsetFailed() *unstructured.Unstructured {
 		"currentRevision": "foo-7b5cf87b78",
 		"observedGeneration": 1,
 		"updateRevision": "foo-7b5cf87b78"
-    }
+	}
 }`)
 	if err != nil {
 		panic(err)
@@ -1762,46 +1781,46 @@ func statefulsetFailed() *unstructured.Unstructured {
 // statefulsetFailed is the state of the StatefulSet object that is updating after failing to be ready (invalid image)
 func statefulsetUpdatedAfterFailed() *unstructured.Unstructured {
 	obj, err := decodeUnstructured(`{
-    "kind": "StatefulSet",
-    "apiVersion": "apps/v1beta1",
-    "metadata": {
-        "namespace": "default",
-        "name": "foo",
+	"kind": "StatefulSet",
+	"apiVersion": "apps/v1beta1",
+	"metadata": {
+		"namespace": "default",
+		"name": "foo",
 		"generation": 2,
-        "labels": {
-            "app": "foo"
-        }
-    },
-    "spec": {
-        "replicas": 2,
-        "selector": {
-            "matchLabels": {
-                "app": "foo"
-            }
-        },
+		"labels": {
+			"app": "foo"
+		}
+	},
+	"spec": {
+		"replicas": 2,
+		"selector": {
+			"matchLabels": {
+				"app": "foo"
+			}
+		},
 		"serviceName": "ss-service",
-        "template": {
-            "metadata": {
-                "labels": {
-                    "app": "foo"
-                }
-            },
-            "spec": {
-                "containers": [
-                    {
-                        "name": "nginx",
-                        "image": "nginx:stable",
+		"template": {
+			"metadata": {
+				"labels": {
+					"app": "foo"
+				}
+			},
+			"spec": {
+				"containers": [
+					{
+						"name": "nginx",
+						"image": "nginx:stable",
 						"volumeMounts": [
 							{
 								"mountPath": "/usr/share/nginx/html",
 								"name": "www"
 							}
 						]
-                    }
-                ],
+					}
+				],
 				"terminationGracePeriodSeconds": 10
-            }
-        },
+			}
+		},
 		"volumeClaimTemplates": [
 			{
 				"metadata": {
@@ -1819,7 +1838,7 @@ func statefulsetUpdatedAfterFailed() *unstructured.Unstructured {
 				}
 			}
 		]
-    },
+	},
 	"status": {
 		"collisionCount": 0,
 		"currentRevision": "foo-7b5cf87b78",
@@ -1828,7 +1847,7 @@ func statefulsetUpdatedAfterFailed() *unstructured.Unstructured {
 		"replicas": 2,
 		"updateRevision": "foo-789c4b994f",
 		"updatedReplicas": 1
-    }
+	}
 }`)
 	if err != nil {
 		panic(err)
@@ -1840,46 +1859,46 @@ func statefulsetUpdatedAfterFailed() *unstructured.Unstructured {
 // after failing to be ready (invalid image)
 func statefulsetSucceedAfterFailed() *unstructured.Unstructured {
 	obj, err := decodeUnstructured(`{
-    "kind": "StatefulSet",
-    "apiVersion": "apps/v1beta1",
-    "metadata": {
-        "namespace": "default",
-        "name": "foo",
+	"kind": "StatefulSet",
+	"apiVersion": "apps/v1beta1",
+	"metadata": {
+		"namespace": "default",
+		"name": "foo",
 		"generation": 2,
-        "labels": {
-            "app": "foo"
-        }
-    },
-    "spec": {
-        "replicas": 2,
-        "selector": {
-            "matchLabels": {
-                "app": "foo"
-            }
-        },
+		"labels": {
+			"app": "foo"
+		}
+	},
+	"spec": {
+		"replicas": 2,
+		"selector": {
+			"matchLabels": {
+				"app": "foo"
+			}
+		},
 		"serviceName": "ss-service",
-        "template": {
-            "metadata": {
-                "labels": {
-                    "app": "foo"
-                }
-            },
-            "spec": {
-                "containers": [
-                    {
-                        "name": "nginx",
-                        "image": "nginx:stable",
+		"template": {
+			"metadata": {
+				"labels": {
+					"app": "foo"
+				}
+			},
+			"spec": {
+				"containers": [
+					{
+						"name": "nginx",
+						"image": "nginx:stable",
 						"volumeMounts": [
 							{
 								"mountPath": "/usr/share/nginx/html",
 								"name": "www"
 							}
 						]
-                    }
-                ],
+					}
+				],
 				"terminationGracePeriodSeconds": 10
-            }
-        },
+			}
+		},
 		"volumeClaimTemplates": [
 			{
 				"metadata": {
@@ -1897,7 +1916,7 @@ func statefulsetSucceedAfterFailed() *unstructured.Unstructured {
 				}
 			}
 		]
-    },
+	},
 	"status": {
 		"collisionCount": 0,
 		"currentReplicas": 2,
@@ -1906,7 +1925,7 @@ func statefulsetSucceedAfterFailed() *unstructured.Unstructured {
 		"readyReplicas": 2,
 		"replicas": 2,
 		"updateRevision": "foo-789c4b994f"
-    }
+	}
 }`)
 	if err != nil {
 		panic(err)

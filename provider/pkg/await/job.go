@@ -83,7 +83,7 @@ type jobInitAwaiter struct {
 	config   createAwaitConfig
 	checker  *checker.StateChecker
 	errors   logging.TimeOrderedLogSet
-	resource ResourceID
+	resource *unstructured.Unstructured
 	ready    bool
 }
 
@@ -92,7 +92,7 @@ func makeJobInitAwaiter(c createAwaitConfig) *jobInitAwaiter {
 		config:   c,
 		job:      c.currentOutputs,
 		checker:  job.NewJobChecker(),
-		resource: ResourceIDFromUnstructured(c.currentOutputs),
+		resource: c.currentOutputs,
 	}
 }
 
@@ -118,7 +118,7 @@ func (jia *jobInitAwaiter) Await() error {
 	}
 	go podInformer.Informer().Run(stopper)
 
-	podAggregator := NewPodAggregator(ResourceIDFromUnstructured(jia.job), podInformer.Lister())
+	podAggregator := NewPodAggregator(jia.job, podInformer.Lister())
 	podAggregator.Start(podEvents)
 	defer podAggregator.Stop()
 
@@ -184,7 +184,7 @@ func (jia *jobInitAwaiter) Read() error {
 	}
 	go podInformer.Informer().Run(stopper)
 
-	podAggregator := NewPodAggregator(ResourceIDFromUnstructured(jia.job), podInformer.Lister())
+	podAggregator := NewPodAggregator(jia.job, podInformer.Lister())
 	messages := podAggregator.Read()
 	for _, message := range messages {
 		jia.errors.Add(message)
