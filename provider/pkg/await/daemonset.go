@@ -111,7 +111,7 @@ func (dsa *dsAwaiter) Delete() error {
 		dsa.config.logStatus(
 			diag.Info,
 			fmt.Sprintf(
-				"DaemonSet %q still exists (%d pods misscheduled)",
+				"DaemonSet %q still exists (%v pods misscheduled)",
 				ds.GetName(),
 				misscheduled,
 			),
@@ -152,7 +152,7 @@ func (dsa *dsAwaiter) Read() error {
 		)
 		pods = &unstructured.UnstructuredList{Items: []unstructured.Unstructured{}}
 	}
-	pa := NewPodAggregator(ResourceIDFromUnstructured(ds), &staticLister{pods})
+	pa := NewPodAggregator(ds, &staticLister{pods})
 	messages := pa.Read()
 	dsa.processPodMessages(messages)
 
@@ -216,7 +216,7 @@ func (dsa *dsAwaiter) await(done func() bool) error {
 	}
 	go podInformer.Informer().Run(stopper)
 
-	podAggregator := NewPodAggregator(ResourceIDFromUnstructured(dsa.ds), podInformer.Lister())
+	podAggregator := NewPodAggregator(dsa.ds, podInformer.Lister())
 	podAggregator.Start(podEvents)
 	defer podAggregator.Stop()
 

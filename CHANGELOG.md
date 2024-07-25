@@ -12,6 +12,8 @@
 
 - Updated logic to accurately detect if a resource is a Patch variant. (https://github.com/pulumi/pulumi-kubernetes/pull/3102)
 - Added java as supported language for CustomResource overlays. (https://github.com/pulumi/pulumi-kubernetes/pull/3120)
+- Status messages reported during updates are now more accurately scoped to the
+  affected resource. (https://github.com/pulumi/pulumi-kubernetes/pull/3128)
 
 ## 4.15.0 (July 9, 2024)
 
