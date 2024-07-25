@@ -604,8 +604,8 @@ github.com/prometheus/procfs v0.12.0 h1:jluTpSng7V9hY0O2R9DzzJHYb2xULk9VTR1V1R/k
 github.com/prometheus/procfs v0.12.0/go.mod h1:pcuDEFsWDnvcgNzo4EEweacyhjeA9Zk3cnaOZAZEfOo=
 github.com/pulumi/appdash v0.0.0-20231130102222-75f619a67231 h1:vkHw5I/plNdTr435cARxCW6q9gc0S/Yxz7Mkd38pOb0=
 github.com/pulumi/appdash v0.0.0-20231130102222-75f619a67231/go.mod h1:murToZ2N9hNJzewjHBgfFdXhZKjY3z5cYC1VXk+lbFE=
-github.com/pulumi/cloud-ready-checks v1.1.0 h1:H1oSuKUgteBrGjNWjYHxcczd7uyeDsGqp77JIETyuig=
-github.com/pulumi/cloud-ready-checks v1.1.0/go.mod h1:Y9ZSBwq/3S4ex3LSh80tvh/apJKDd/4terkiV1qhIAo=
+github.com/pulumi/cloud-ready-checks v1.1.1-0.20240717171930-a3f4dba303cb h1:ARX+hM03EBTvwj43NC2MedBA7PJXwcYrTVdvRKfjD4o=
+github.com/pulumi/cloud-ready-checks v1.1.1-0.20240717171930-a3f4dba303cb/go.mod h1:BYOOMDgS+3pvXCJIXPUPIl7wqCnF3qt1hi5zGB9GoUI=
 github.com/pulumi/esc v0.9.1 h1:HH5eEv8sgyxSpY5a8yePyqFXzA8cvBvapfH8457+mIs=
 github.com/pulumi/esc v0.9.1/go.mod h1:oEJ6bOsjYlQUpjf70GiX+CXn3VBmpwFDxUTlmtUN84c=
 github.com/pulumi/providertest v0.0.12 h1:UjcFQHHs4AGJyJqxhvC2q8yVQ7Li+UyCyP95HZcK03U=

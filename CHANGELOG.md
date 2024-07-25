@@ -5,6 +5,21 @@
 - `clusterIdentifier` configuration can now be used to manually control the
   replacement behavior of a provider resource.
   (https://github.com/pulumi/pulumi-kubernetes/pull/3068)
+
+- Pod errors now include the pod's last termination state, as well as the pod's
+  termination message if available.
+  (https://github.com/pulumi/pulumi-kubernetes/pull/3091)
+
+  The pod's termination message can be helpful in `CrashLoopBackOff` situations but
+  will only be reported if it was correctly configured.
+
+  By default, the pod's termination message is read from
+  `/dev/termination-log`. This location can be configured with
+  `terminationMessagePath`.
+
+  Use `terminationMessagePolicy: FallbackToLogsOnError` to use the pod's logs
+  as its termination message.
+
 - Documentation is now generated for all languages supported by overlay types.
   (https://github.com/pulumi/pulumi-kubernetes/pull/3107)
 

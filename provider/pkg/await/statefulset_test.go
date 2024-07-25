@@ -218,7 +218,7 @@ func Test_Apps_StatefulSet(t *testing.T) {
 				object: statefulsetProgressing(inputNamespace, inputName, targetService, ""),
 				subErrors: []string{
 					"1 out of 2 replicas succeeded readiness checks",
-					"[Pod foo-0]: containers with unready status: [nginx] -- [ErrImagePull] manifest for nginx:busted not found",
+					"[Pod foo-0]: containers with unready status: [nginx][ErrImagePull] manifest for nginx:busted not found",
 				},
 			},
 		},
@@ -244,7 +244,7 @@ func Test_Apps_StatefulSet(t *testing.T) {
 				subErrors: []string{
 					"0 out of 2 replicas succeeded readiness checks",
 					"StatefulSet controller failed to advance from revision \"foo-7b5cf87b78\" to revision \"foo-789c4b994f\"",
-					"[Pod foo-0]: containers with unready status: [nginx] -- [ErrImagePull] manifest for nginx:busted not found",
+					"[Pod foo-0]: containers with unready status: [nginx][ErrImagePull] manifest for nginx:busted not found",
 				},
 			},
 		},

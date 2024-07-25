@@ -546,7 +546,7 @@ func Test_Apps_Deployment(t *testing.T) {
 				object: deploymentProgressing(inputNamespace, deploymentInputName, revision1),
 				subErrors: []string{
 					"Minimum number of live Pods was not attained",
-					`[Pod foo-4setj4y6-7cdf7ddc54-kvh2w]: containers with unready status: [nginx] -- [ImagePullBackOff] Back-off pulling image "sdkjlsdlkj"`,
+					`[Pod foo-4setj4y6-7cdf7ddc54-kvh2w]: containers with unready status: [nginx][ImagePullBackOff] Back-off pulling image "sdkjlsdlkj"`,
 				},
 			},
 		},
@@ -573,7 +573,7 @@ func Test_Apps_Deployment(t *testing.T) {
 				object: deploymentProgressing(inputNamespace, deploymentInputName, revision2),
 				subErrors: []string{
 					"Minimum number of live Pods was not attained",
-					`[Pod foo-4setj4y6-7cdf7ddc54-kvh2w]: containers with unready status: [nginx] -- [ImagePullBackOff] Back-off pulling image "sdkjlsdlkj"`,
+					`[Pod foo-4setj4y6-7cdf7ddc54-kvh2w]: containers with unready status: [nginx][ImagePullBackOff] Back-off pulling image "sdkjlsdlkj"`,
 				},
 			},
 		},
