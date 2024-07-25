@@ -73,8 +73,8 @@ type ingressInitAwaiter struct {
 	ingressReady              bool
 	endpointsSettled          bool
 	endpointEventsCount       uint64
-	knownEndpointObjects      sets.String
-	knownExternalNameServices sets.String
+	knownEndpointObjects      sets.Set[string]
+	knownExternalNameServices sets.Set[string]
 }
 
 func makeIngressInitAwaiter(c createAwaitConfig) *ingressInitAwaiter {
@@ -83,8 +83,8 @@ func makeIngressInitAwaiter(c createAwaitConfig) *ingressInitAwaiter {
 		ingress:                   c.currentOutputs,
 		ingressReady:              false,
 		endpointsSettled:          false,
-		knownEndpointObjects:      sets.NewString(),
-		knownExternalNameServices: sets.NewString(),
+		knownEndpointObjects:      sets.Set[string]{},
+		knownExternalNameServices: sets.Set[string]{},
 	}
 }
 

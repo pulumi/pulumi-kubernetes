@@ -301,19 +301,19 @@ func (k *kubeProvider) CheckConfig(ctx context.Context, req *pulumirpc.CheckRequ
 
 		if providers.IsDefaultProvider(urn) {
 			failures = append(failures, &pulumirpc.CheckFailure{
-				Reason: fmt.Sprintf("strict mode prohibits default provider"),
+				Reason: "strict mode prohibits default provider",
 			})
 		}
 		if v := news["kubeconfig"]; !v.HasValue() || v.StringValue() == "" {
 			failures = append(failures, &pulumirpc.CheckFailure{
 				Property: "kubeconfig",
-				Reason:   fmt.Sprintf(`strict mode requires Provider "kubeconfig" argument`),
+				Reason:   `strict mode requires Provider "kubeconfig" argument`,
 			})
 		}
 		if v := news["context"]; !v.HasValue() || v.StringValue() == "" {
 			failures = append(failures, &pulumirpc.CheckFailure{
 				Property: "context",
-				Reason:   fmt.Sprintf(`strict mode requires Provider "context" argument`),
+				Reason:   `strict mode requires Provider "context" argument`,
 			})
 		}
 
@@ -1542,6 +1542,8 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 	return &pulumirpc.CheckResponse{Inputs: autonamedInputs, Failures: failures}, nil
 }
 
+var testHooks = regexp.MustCompile(`test|test-success|test-failure`)
+
 // helmHookWarning logs a warning if a Chart contains unsupported hooks. The warning can be disabled by setting
 // the suppressHelmHookWarnings provider flag or related ENV var.
 func (k *kubeProvider) helmHookWarning(ctx context.Context, newInputs *unstructured.Unstructured, urn resource.URN) {
@@ -1556,7 +1558,7 @@ func (k *kubeProvider) helmHookWarning(ctx context.Context, newInputs *unstructu
 		// If the Helm hook annotation is found, set the hasHelmHook flag.
 		if has := metadata.IsHelmHookAnnotation(key); has {
 			// Test hooks are handled, so ignore this one.
-			if match, _ := regexp.MatchString(`test|test-success|test-failure`, value); !match {
+			if testHooks.MatchString(value) {
 				hasHelmHook = hasHelmHook || has
 			}
 		}
