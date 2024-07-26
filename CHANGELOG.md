@@ -40,6 +40,10 @@
   Existing readiness logic is unaffected by this setting.
   (https://github.com/pulumi/pulumi-kubernetes/issues/2996)
 
+- Pulumi will now emit logs for any Kubernetes "Warning" Events associated with
+  resources being created, updated or deleted.
+  (https://github.com/pulumi/pulumi-kubernetes/pull/3135/files)
+
 ### Fixed
 
 - Updated logic to accurately detect if a resource is a Patch variant. (https://github.com/pulumi/pulumi-kubernetes/pull/3102)

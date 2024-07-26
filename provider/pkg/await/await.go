@@ -299,6 +299,9 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 
 	awaiter, err := internal.NewAwaiter(
 		internal.WithCondition(ready),
+		internal.WithObservers(
+			NewEventAggregator(ctx, source, c.DedupLogger, outputs),
+		),
 		internal.WithNamespace(outputs.GetNamespace()),
 		internal.WithLogger(c.DedupLogger),
 	)
@@ -456,6 +459,9 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 
 	awaiter, err := internal.NewAwaiter(
 		internal.WithCondition(ready),
+		internal.WithObservers(
+			NewEventAggregator(ctx, source, c.DedupLogger, currentOutputs),
+		),
 		internal.WithNamespace(currentOutputs.GetNamespace()),
 		internal.WithLogger(c.DedupLogger),
 	)
@@ -847,6 +853,9 @@ func Deletion(c DeleteConfig) error {
 
 	awaiter, err := internal.NewAwaiter(
 		internal.WithCondition(deleted),
+		internal.WithObservers(
+			NewEventAggregator(ctx, source, c.DedupLogger, c.Outputs),
+		),
 		internal.WithNamespace(c.Outputs.GetNamespace()),
 		internal.WithLogger(c.DedupLogger),
 	)
