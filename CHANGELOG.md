@@ -1,5 +1,9 @@
 ## Unreleased
 
+### Changed
+
+- Whenever namespace is explicitly set to an empty string, it will not add the default namespace to the namespaced resource.
+
 ### Added
 
 - `clusterIdentifier` configuration can now be used to manually control the
