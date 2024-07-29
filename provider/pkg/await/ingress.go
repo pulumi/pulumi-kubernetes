@@ -68,7 +68,7 @@ const (
 )
 
 type ingressInitAwaiter struct {
-	config                    createAwaitConfig
+	config                    awaitConfig
 	ingress                   *unstructured.Unstructured
 	ingressReady              bool
 	endpointsSettled          bool
@@ -77,7 +77,7 @@ type ingressInitAwaiter struct {
 	knownExternalNameServices sets.Set[string]
 }
 
-func makeIngressInitAwaiter(c createAwaitConfig) *ingressInitAwaiter {
+func makeIngressInitAwaiter(c awaitConfig) *ingressInitAwaiter {
 	return &ingressInitAwaiter{
 		config:                    c,
 		ingress:                   c.currentOutputs,
@@ -88,11 +88,11 @@ func makeIngressInitAwaiter(c createAwaitConfig) *ingressInitAwaiter {
 	}
 }
 
-func awaitIngressInit(c createAwaitConfig) error {
+func awaitIngressInit(c awaitConfig) error {
 	return makeIngressInitAwaiter(c).Await()
 }
 
-func awaitIngressRead(c createAwaitConfig) error {
+func awaitIngressRead(c awaitConfig) error {
 	return makeIngressInitAwaiter(c).Read()
 }
 

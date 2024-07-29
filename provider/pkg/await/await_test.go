@@ -108,8 +108,8 @@ func Test_Creation(t *testing.T) {
 
 	// awaiters
 
-	touch := func(t *testing.T, ctx testCtx) createAwaiter {
-		return func(cac createAwaitConfig) error {
+	touch := func(t *testing.T, ctx testCtx) awaiter {
+		return func(cac awaitConfig) error {
 			require.False(t, metadata.SkipAwaitLogic(cac.currentOutputs), "Await logic should not execute when SkipWait is set")
 
 			// get the live object from the fake API Server
@@ -131,14 +131,14 @@ func Test_Creation(t *testing.T) {
 		}
 	}
 
-	awaitError := func(t *testing.T, ctx testCtx) createAwaiter {
-		return func(cac createAwaitConfig) error {
+	awaitError := func(t *testing.T, ctx testCtx) awaiter {
+		return func(cac awaitConfig) error {
 			return serviceUnavailableErr
 		}
 	}
 
-	awaitUnexpected := func(t *testing.T, ctx testCtx) createAwaiter {
-		return func(cac createAwaitConfig) error {
+	awaitUnexpected := func(t *testing.T, ctx testCtx) awaiter {
+		return func(cac awaitConfig) error {
 			require.Fail(t, "Unexpected call to awaiter")
 			return nil
 		}
@@ -192,7 +192,7 @@ func Test_Creation(t *testing.T) {
 		client  client
 		args    args
 		expect  []expectF
-		awaiter func(t *testing.T, ctx testCtx) createAwaiter
+		awaiter func(t *testing.T, ctx testCtx) awaiter
 	}{
 		{
 			name: "NoMatchError",
@@ -341,7 +341,7 @@ func Test_Creation(t *testing.T) {
 			if tt.awaiter != nil {
 				id := fmt.Sprintf("%s/%s", tt.args.inputs.GetAPIVersion(), tt.args.inputs.GetKind())
 				config.awaiters[id] = awaitSpec{
-					awaitCreation: tt.awaiter(t, testCtx),
+					await: tt.awaiter(t, testCtx),
 				}
 			}
 			actual, err := Creation(config)

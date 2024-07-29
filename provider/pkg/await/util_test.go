@@ -16,15 +16,15 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 )
 
-func mockAwaitConfig(outputs *unstructured.Unstructured) createAwaitConfig {
-	return createAwaitConfig{
+func mockAwaitConfig(outputs *unstructured.Unstructured) awaitConfig {
+	return awaitConfig{
 		ctx:            context.Background(),
 		currentOutputs: outputs,
 		logger:         logging.NewLogger(context.Background(), nil, ""),
 	}
 }
 
-func mockUpdateConfig(outputs *unstructured.Unstructured, previous *unstructured.Unstructured) createAwaitConfig {
+func mockUpdateConfig(outputs *unstructured.Unstructured, previous *unstructured.Unstructured) awaitConfig {
 	c := mockAwaitConfig(outputs)
 	c.lastOutputs = previous
 	return c

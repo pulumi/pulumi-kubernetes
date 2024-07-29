@@ -106,13 +106,13 @@ const (
 
 type podInitAwaiter struct {
 	pod      *unstructured.Unstructured
-	config   createAwaitConfig
+	config   awaitConfig
 	checker  *checker.StateChecker
 	ready    bool
 	messages logging.Messages
 }
 
-func makePodInitAwaiter(c createAwaitConfig) *podInitAwaiter {
+func makePodInitAwaiter(c awaitConfig) *podInitAwaiter {
 	return &podInitAwaiter{
 		config:  c,
 		pod:     c.currentOutputs,
@@ -132,11 +132,11 @@ func (pia *podInitAwaiter) errorMessages() []string {
 	return messages
 }
 
-func awaitPodInit(c createAwaitConfig) error {
+func awaitPodInit(c awaitConfig) error {
 	return makePodInitAwaiter(c).Await()
 }
 
-func awaitPodRead(c createAwaitConfig) error {
+func awaitPodRead(c awaitConfig) error {
 	return makePodInitAwaiter(c).Read()
 }
 
