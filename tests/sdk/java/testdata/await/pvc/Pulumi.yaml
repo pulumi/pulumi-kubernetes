@@ -16,7 +16,8 @@ resources:
     type: kubernetes:storage.k8s.io/v1:StorageClass
     properties:
       volumeBindingMode: WaitForFirstConsumer
-      provisioner: rancher.io/local-path
+      provisioner: kubernetes.io/no-provisioner
+      reclaimPolicy: Delete
     options:
       provider: ${provider}
 

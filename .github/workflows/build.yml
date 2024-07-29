@@ -7,6 +7,7 @@ on:
     - master
     - main
     - feature-**
+    - blampe/pvc-await
     paths-ignore:
     - CHANGELOG.md
     tags-ignore:
