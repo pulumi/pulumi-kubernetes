@@ -96,10 +96,6 @@ func awaitIngressRead(c createAwaitConfig) error {
 	return makeIngressInitAwaiter(c).Read()
 }
 
-func awaitIngressUpdate(u updateAwaitConfig) error {
-	return makeIngressInitAwaiter(u.createAwaitConfig).Await()
-}
-
 func (iia *ingressInitAwaiter) Await() error {
 	//
 	// We succeed only when all of the following are true:

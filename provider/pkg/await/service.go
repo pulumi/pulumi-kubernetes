@@ -116,10 +116,6 @@ func awaitServiceRead(c createAwaitConfig) error {
 	return makeServiceInitAwaiter(c).Read()
 }
 
-func awaitServiceUpdate(u updateAwaitConfig) error {
-	return makeServiceInitAwaiter(u.createAwaitConfig).Await()
-}
-
 func (sia *serviceInitAwaiter) Await() error {
 	//
 	// We succeed only when all of the following are true:

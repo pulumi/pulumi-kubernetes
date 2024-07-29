@@ -66,13 +66,13 @@ const (
 // Importantly, this means OnDelete rollouts will wait until pods have been
 // manually cleaned up unless the skipAwait annotation is present.
 type dsAwaiter struct {
-	config  updateAwaitConfig
+	config  createAwaitConfig
 	ds      *unstructured.Unstructured
 	deleted bool
 }
 
 // newDaemonSetAwaiter returns a new dsAwaiter.
-func newDaemonSetAwaiter(c updateAwaitConfig) *dsAwaiter {
+func newDaemonSetAwaiter(c createAwaitConfig) *dsAwaiter {
 	return &dsAwaiter{
 		config: c,
 		ds:     c.currentOutputs,

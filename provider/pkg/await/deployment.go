@@ -107,7 +107,7 @@ const (
 )
 
 type deploymentInitAwaiter struct {
-	config                 updateAwaitConfig
+	config                 createAwaitConfig
 	deploymentAvailable    bool
 	replicaSetAvailable    bool
 	pvcsAvailable          bool
@@ -122,7 +122,7 @@ type deploymentInitAwaiter struct {
 	pvcs        map[string]*unstructured.Unstructured
 }
 
-func makeDeploymentInitAwaiter(c updateAwaitConfig) *deploymentInitAwaiter {
+func makeDeploymentInitAwaiter(c createAwaitConfig) *deploymentInitAwaiter {
 	return &deploymentInitAwaiter{
 		config:                 c,
 		deploymentAvailable:    false,

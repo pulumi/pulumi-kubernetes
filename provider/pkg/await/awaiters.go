@@ -46,7 +46,8 @@ type createAwaitConfig struct {
 	initialAPIVersion string
 	logger            *logging.DedupLogger
 	clientSet         *clients.DynamicClientSet
-	currentOutputs    *unstructured.Unstructured
+	currentOutputs    *unstructured.Unstructured // The result our our create/update.
+	lastOutputs       *unstructured.Unstructured // The state of the object before we changed it. `nil` if this is a create.
 	timeout           *time.Duration
 	clusterVersion    *cluster.ServerVersion
 	clock             clockwork.Clock
@@ -60,17 +61,6 @@ func (cac *createAwaitConfig) Clock() clockwork.Clock {
 	return clockwork.NewRealClock()
 }
 
-// updateAwaitConfig specifies on which conditions we are to consider a resource "fully updated",
-// i.e., the spec of the API object has changed and the controllers have reached a steady state. For
-// example, we might consider a `Deployment` "fully updated" only when the previous generation of
-// Pods has been killed and the new generation's live number of Pods reaches the minimum liveness
-// threshold. `pool` and `disco` are provided typically from a client pool so that polling is
-// reasonably efficient.
-type updateAwaitConfig struct {
-	createAwaitConfig
-	lastOutputs *unstructured.Unstructured
-}
-
 type deleteAwaitConfig struct {
 	createAwaitConfig
 	clientForResource dynamic.ResourceInterface
@@ -78,7 +68,6 @@ type deleteAwaitConfig struct {
 
 type (
 	createAwaiter   func(createAwaitConfig) error
-	updateAwaiter   func(updateAwaitConfig) error
 	readAwaiter     func(createAwaitConfig) error
 	deletionAwaiter func(deleteAwaitConfig) error
 )
@@ -144,20 +133,16 @@ const (
 
 type awaitSpec struct {
 	awaitCreation createAwaiter
-	awaitUpdate   updateAwaiter
 	awaitRead     readAwaiter
 	awaitDeletion deletionAwaiter
 }
 
 var deploymentAwaiter = awaitSpec{
 	awaitCreation: func(c createAwaitConfig) error {
-		return makeDeploymentInitAwaiter(updateAwaitConfig{createAwaitConfig: c}).Await()
-	},
-	awaitUpdate: func(u updateAwaitConfig) error {
-		return makeDeploymentInitAwaiter(u).Await()
+		return makeDeploymentInitAwaiter(c).Await()
 	},
 	awaitRead: func(c createAwaitConfig) error {
-		return makeDeploymentInitAwaiter(updateAwaitConfig{createAwaitConfig: c}).Read()
+		return makeDeploymentInitAwaiter(c).Read()
 	},
 	awaitDeletion: untilAppsDeploymentDeleted,
 }
@@ -165,15 +150,11 @@ var deploymentAwaiter = awaitSpec{
 var ingressAwaiter = awaitSpec{
 	awaitCreation: awaitIngressInit,
 	awaitRead:     awaitIngressRead,
-	awaitUpdate:   awaitIngressUpdate,
 }
 
 var jobAwaiter = awaitSpec{
 	awaitCreation: func(c createAwaitConfig) error {
 		return makeJobInitAwaiter(c).Await()
-	},
-	awaitUpdate: func(u updateAwaitConfig) error {
-		return makeJobInitAwaiter(u.createAwaitConfig).Await()
 	},
 	awaitRead: func(c createAwaitConfig) error {
 		return makeJobInitAwaiter(c).Read()
@@ -183,29 +164,23 @@ var jobAwaiter = awaitSpec{
 
 var statefulsetAwaiter = awaitSpec{
 	awaitCreation: func(c createAwaitConfig) error {
-		return makeStatefulSetInitAwaiter(updateAwaitConfig{createAwaitConfig: c}).Await()
-	},
-	awaitUpdate: func(u updateAwaitConfig) error {
-		return makeStatefulSetInitAwaiter(u).Await()
+		return makeStatefulSetInitAwaiter(c).Await()
 	},
 	awaitRead: func(c createAwaitConfig) error {
-		return makeStatefulSetInitAwaiter(updateAwaitConfig{createAwaitConfig: c}).Read()
+		return makeStatefulSetInitAwaiter(c).Read()
 	},
 	awaitDeletion: untilAppsStatefulSetDeleted,
 }
 
 var daemonsetAwaiter = awaitSpec{
 	awaitCreation: func(c createAwaitConfig) error {
-		return newDaemonSetAwaiter(updateAwaitConfig{createAwaitConfig: c}).Await()
-	},
-	awaitUpdate: func(u updateAwaitConfig) error {
-		return newDaemonSetAwaiter(u).Await()
+		return newDaemonSetAwaiter(c).Await()
 	},
 	awaitRead: func(c createAwaitConfig) error {
-		return newDaemonSetAwaiter(updateAwaitConfig{createAwaitConfig: c}).Read()
+		return newDaemonSetAwaiter(c).Read()
 	},
 	awaitDeletion: func(c deleteAwaitConfig) error {
-		return newDaemonSetAwaiter(updateAwaitConfig{createAwaitConfig: c.createAwaitConfig}).Delete()
+		return newDaemonSetAwaiter(c.createAwaitConfig).Delete()
 	},
 }
 
@@ -238,17 +213,14 @@ var awaiters = map[string]awaitSpec{
 	coreV1Pod: {
 		awaitCreation: awaitPodInit,
 		awaitRead:     awaitPodRead,
-		awaitUpdate:   awaitPodUpdate,
 		awaitDeletion: untilCoreV1PodDeleted,
 	},
 	coreV1ReplicationController: {
 		awaitCreation: untilCoreV1ReplicationControllerInitialized,
-		awaitUpdate:   untilCoreV1ReplicationControllerUpdated,
 		awaitDeletion: untilCoreV1ReplicationControllerDeleted,
 	},
 	coreV1ResourceQuota: {
 		awaitCreation: untilCoreV1ResourceQuotaInitialized,
-		awaitUpdate:   untilCoreV1ResourceQuotaUpdated,
 	},
 	coreV1Secret: {
 		awaitCreation: untilCoreV1SecretInitialized,
@@ -256,7 +228,6 @@ var awaiters = map[string]awaitSpec{
 	coreV1Service: {
 		awaitCreation: awaitServiceInit,
 		awaitRead:     awaitServiceRead,
-		awaitUpdate:   awaitServiceUpdate,
 	},
 	coreV1ServiceAccount: {
 		awaitCreation: untilCoreV1ServiceAccountInitialized,
@@ -599,10 +570,6 @@ func untilCoreV1ReplicationControllerInitialized(c createAwaitConfig) error {
 	return nil
 }
 
-func untilCoreV1ReplicationControllerUpdated(c updateAwaitConfig) error {
-	return untilCoreV1ReplicationControllerInitialized(c.createAwaitConfig)
-}
-
 func untilCoreV1ReplicationControllerDeleted(config deleteAwaitConfig) error {
 	//
 	// TODO(hausdorff): Should we scale pods to 0 and then delete instead? Kubernetes should allow us
@@ -672,15 +639,6 @@ func untilCoreV1ResourceQuotaInitialized(c createAwaitConfig) error {
 	}
 	return watcher.ForObject(c.ctx, client, c.currentOutputs.GetName()).
 		WatchUntil(rqInitialized, 1*time.Minute)
-}
-
-func untilCoreV1ResourceQuotaUpdated(c updateAwaitConfig) error {
-	oldSpec, _ := openapi.Pluck(c.lastOutputs.Object, "spec")
-	newSpec, _ := openapi.Pluck(c.currentOutputs.Object, "spec")
-	if !reflect.DeepEqual(oldSpec, newSpec) {
-		return untilCoreV1ResourceQuotaInitialized(c.createAwaitConfig)
-	}
-	return nil
 }
 
 // --------------------------------------------------------------------------
