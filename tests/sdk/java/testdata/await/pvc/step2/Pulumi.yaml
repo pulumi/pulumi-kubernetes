@@ -21,6 +21,29 @@ resources:
     options:
       provider: ${provider}
 
+  pv:
+    type: kubernetes:core/v1:PersistentVolume
+    properties:
+      spec:
+        capacity:
+          storage: 1Mi
+        volumeMode: Filesystem
+        accessModes:
+          - ReadWriteOnce
+        persistentVolumeReclaimPolicy: Delete
+        storageClassName: ${sc.metadata.name}
+        hostPath:
+          path: /tmp/foo
+          type: DirectoryOrCreate
+        nodeAffinity:
+          required:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: Exists
+    options:
+      provider: ${provider}
+
   pvc:
     type: kubernetes:core/v1:PersistentVolumeClaim
     properties:
