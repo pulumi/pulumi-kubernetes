@@ -490,14 +490,13 @@ func untilCoreV1PersistentVolumeClaimReady(c createAwaitConfig) error {
 		if bindMode == "" {
 			b, err := pvcBindMode(c.ctx, c.clientSet, pvc)
 			if err != nil {
-				fmt.Println("error getting bind mode:", err.Error())
 				c.logStatus(diag.Warning, err.Error())
 			}
 			bindMode = b
 		}
 
 		phase, _, _ := unstructured.NestedString(pvc.Object, "status", "phase")
-		fmt.Println("Persistent volume claim status received", pvc.GetName(), phase)
+		logger.V(3).Infof("Persistent volume claim %s status received: %#v", pvc.GetName(), phase)
 
 		if bindMode == string(storagev1.VolumeBindingWaitForFirstConsumer) {
 			return phase == string(corev1.ClaimPending)

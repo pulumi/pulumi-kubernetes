@@ -35,12 +35,6 @@ resources:
         hostPath:
           path: /tmp/foo
           type: DirectoryOrCreate
-        nodeAffinity:
-          required:
-            nodeSelectorTerms:
-              - matchExpressions:
-                  - key: kubernetes.io/hostname
-                    operator: Exists
     options:
       provider: ${provider}
 
