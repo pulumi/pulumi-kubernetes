@@ -16,7 +16,25 @@ resources:
     type: kubernetes:storage.k8s.io/v1:StorageClass
     properties:
       volumeBindingMode: WaitForFirstConsumer
-      provisioner: rancher.io/local-path
+      provisioner: kubernetes.io/no-provisioner
+      reclaimPolicy: Delete
+    options:
+      provider: ${provider}
+
+  pv:
+    type: kubernetes:core/v1:PersistentVolume
+    properties:
+      spec:
+        capacity:
+          storage: 1Mi
+        volumeMode: Filesystem
+        accessModes:
+          - ReadWriteOnce
+        persistentVolumeReclaimPolicy: Delete
+        storageClassName: ${sc.metadata.name}
+        hostPath:
+          path: /tmp/foo
+          type: DirectoryOrCreate
     options:
       provider: ${provider}
 
