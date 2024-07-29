@@ -80,7 +80,7 @@ const (
 )
 
 type serviceInitAwaiter struct {
-	config           createAwaitConfig
+	config           awaitConfig
 	service          *unstructured.Unstructured
 	serviceReady     bool
 	endpointsReady   bool
@@ -88,7 +88,7 @@ type serviceInitAwaiter struct {
 	serviceType      string
 }
 
-func makeServiceInitAwaiter(c createAwaitConfig) *serviceInitAwaiter {
+func makeServiceInitAwaiter(c awaitConfig) *serviceInitAwaiter {
 	specType, _ := openapi.Pluck(c.currentOutputs.Object, "spec", "type")
 	var t string
 	if specTypeString, isString := specType.(string); isString {
@@ -108,11 +108,11 @@ func makeServiceInitAwaiter(c createAwaitConfig) *serviceInitAwaiter {
 	}
 }
 
-func awaitServiceInit(c createAwaitConfig) error {
+func awaitServiceInit(c awaitConfig) error {
 	return makeServiceInitAwaiter(c).Await()
 }
 
-func awaitServiceRead(c createAwaitConfig) error {
+func awaitServiceRead(c awaitConfig) error {
 	return makeServiceInitAwaiter(c).Read()
 }
 
@@ -418,14 +418,12 @@ func (sia *serviceInitAwaiter) makeClients() (
 	if err != nil {
 		return nil, nil, fmt.Errorf("Could not make client to read Service %q: %w",
 			sia.config.currentOutputs.GetName(), err)
-
 	}
 	endpointClient, err = clients.ResourceClient(
 		kinds.Endpoints, sia.config.currentOutputs.GetNamespace(), sia.config.clientSet)
 	if err != nil {
 		return nil, nil, fmt.Errorf("Could not make client to read Endpoints associated with Service %q: %w",
 			sia.config.currentOutputs.GetName(), err)
-
 	}
 
 	return serviceClient, endpointClient, nil

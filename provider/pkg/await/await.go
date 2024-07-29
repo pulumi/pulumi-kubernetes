@@ -269,9 +269,9 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 		if metadata.SkipAwaitLogic(c.Inputs) {
 			logger.V(1).Infof("Skipping await logic for %v", outputs.GetName())
 		} else {
-			if awaiter.awaitCreation != nil {
+			if awaiter.await != nil {
 				timeout := metadata.TimeoutDuration(c.Timeout, c.Inputs)
-				conf := createAwaitConfig{
+				conf := awaitConfig{
 					ctx:               c.Context,
 					urn:               c.URN,
 					initialAPIVersion: c.InitialAPIVersion,
@@ -282,7 +282,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 					clusterVersion:    c.ClusterVersion,
 					clock:             c.clock,
 				}
-				waitErr := awaiter.awaitCreation(conf)
+				waitErr := awaiter.await(conf)
 				if waitErr != nil {
 					return nil, waitErr
 				}
@@ -336,7 +336,7 @@ func Read(c ReadConfig) (*unstructured.Unstructured, error) {
 			logger.V(1).Infof("Skipping await logic for %v", c.Inputs.GetName())
 		} else {
 			if awaiter.awaitRead != nil {
-				conf := createAwaitConfig{
+				conf := awaitConfig{
 					ctx:               c.Context,
 					urn:               c.URN,
 					initialAPIVersion: c.InitialAPIVersion,
@@ -418,9 +418,9 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 		if metadata.SkipAwaitLogic(c.Inputs) {
 			logger.V(1).Infof("Skipping await logic for %v", currentOutputs.GetName())
 		} else {
-			if awaiter.awaitCreation != nil {
+			if awaiter.await != nil {
 				timeout := metadata.TimeoutDuration(c.Timeout, c.Inputs)
-				conf := createAwaitConfig{
+				conf := awaitConfig{
 					ctx:               c.Context,
 					urn:               c.URN,
 					initialAPIVersion: c.InitialAPIVersion,
@@ -432,7 +432,7 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 					clusterVersion:    c.ClusterVersion,
 					clock:             c.clock,
 				}
-				waitErr := awaiter.awaitCreation(conf)
+				waitErr := awaiter.await(conf)
 				if waitErr != nil {
 					return nil, waitErr
 				}

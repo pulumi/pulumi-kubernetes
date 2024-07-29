@@ -36,11 +36,11 @@ import (
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
-// createAwaitConfig specifies on which conditions we are to consider a resource created and fully
+// awaitConfig specifies on which conditions we are to consider a resource created and fully
 // initialized. For example, we might consider a `Deployment` created and initialized only when the
 // live number of Pods reaches the minimum liveness threshold. `pool` and `disco` are provided
 // typically from a client pool so that polling is reasonably efficient.
-type createAwaitConfig struct {
+type awaitConfig struct {
 	ctx               context.Context
 	urn               resource.URN
 	initialAPIVersion string
@@ -53,16 +53,16 @@ type createAwaitConfig struct {
 	clock             clockwork.Clock
 }
 
-func (cac *createAwaitConfig) logStatus(sev diag.Severity, message string) {
+func (cac *awaitConfig) logStatus(sev diag.Severity, message string) {
 	cac.logMessage(checkerlog.Message{S: message, Severity: sev})
 }
 
-func (cac *createAwaitConfig) logMessage(message checkerlog.Message) {
+func (cac *awaitConfig) logMessage(message checkerlog.Message) {
 	cac.logger.LogMessage(message)
 }
 
 // Clock returns a real or mock clock for the config as appropriate.
-func (cac *createAwaitConfig) Clock() clockwork.Clock {
+func (cac *awaitConfig) Clock() clockwork.Clock {
 	if cac.clock != nil {
 		return cac.clock
 	}
@@ -70,11 +70,11 @@ func (cac *createAwaitConfig) Clock() clockwork.Clock {
 }
 
 type (
-	createAwaiter func(createAwaitConfig) error
-	readAwaiter   func(createAwaitConfig) error
+	awaiter     func(awaitConfig) error
+	readAwaiter func(awaitConfig) error
 )
 
-func (cac *createAwaitConfig) getTimeout(defaultSeconds int) time.Duration {
+func (cac *awaitConfig) getTimeout(defaultSeconds int) time.Duration {
 	if cac.timeout != nil {
 		return *cac.timeout
 	}
@@ -134,47 +134,47 @@ const (
 )
 
 type awaitSpec struct {
-	awaitCreation createAwaiter
-	awaitRead     readAwaiter
+	await     awaiter
+	awaitRead readAwaiter
 }
 
 var deploymentAwaiter = awaitSpec{
-	awaitCreation: func(c createAwaitConfig) error {
+	await: func(c awaitConfig) error {
 		return makeDeploymentInitAwaiter(c).Await()
 	},
-	awaitRead: func(c createAwaitConfig) error {
+	awaitRead: func(c awaitConfig) error {
 		return makeDeploymentInitAwaiter(c).Read()
 	},
 }
 
 var ingressAwaiter = awaitSpec{
-	awaitCreation: awaitIngressInit,
-	awaitRead:     awaitIngressRead,
+	await:     awaitIngressInit,
+	awaitRead: awaitIngressRead,
 }
 
 var jobAwaiter = awaitSpec{
-	awaitCreation: func(c createAwaitConfig) error {
+	await: func(c awaitConfig) error {
 		return makeJobInitAwaiter(c).Await()
 	},
-	awaitRead: func(c createAwaitConfig) error {
+	awaitRead: func(c awaitConfig) error {
 		return makeJobInitAwaiter(c).Read()
 	},
 }
 
 var statefulsetAwaiter = awaitSpec{
-	awaitCreation: func(c createAwaitConfig) error {
+	await: func(c awaitConfig) error {
 		return makeStatefulSetInitAwaiter(c).Await()
 	},
-	awaitRead: func(c createAwaitConfig) error {
+	awaitRead: func(c awaitConfig) error {
 		return makeStatefulSetInitAwaiter(c).Read()
 	},
 }
 
 var daemonsetAwaiter = awaitSpec{
-	awaitCreation: func(c createAwaitConfig) error {
+	await: func(c awaitConfig) error {
 		return newDaemonSetAwaiter(c).Await()
 	},
-	awaitRead: func(c createAwaitConfig) error {
+	awaitRead: func(c awaitConfig) error {
 		return newDaemonSetAwaiter(c).Read()
 	},
 }
@@ -197,30 +197,30 @@ var awaiters = map[string]awaitSpec{
 	coreV1ConfigMap:                      { /* NONE */ },
 	coreV1LimitRange:                     { /* NONE */ },
 	coreV1PersistentVolume: {
-		awaitCreation: untilCoreV1PersistentVolumeInitialized,
+		await: untilCoreV1PersistentVolumeInitialized,
 	},
 	coreV1PersistentVolumeClaim: {
-		awaitCreation: untilCoreV1PersistentVolumeClaimReady,
+		await: untilCoreV1PersistentVolumeClaimReady,
 	},
 	coreV1Pod: {
-		awaitCreation: awaitPodInit,
-		awaitRead:     awaitPodRead,
+		await:     awaitPodInit,
+		awaitRead: awaitPodRead,
 	},
 	coreV1ReplicationController: {
-		awaitCreation: untilCoreV1ReplicationControllerInitialized,
+		await: untilCoreV1ReplicationControllerInitialized,
 	},
 	coreV1ResourceQuota: {
-		awaitCreation: untilCoreV1ResourceQuotaInitialized,
+		await: untilCoreV1ResourceQuotaInitialized,
 	},
 	coreV1Secret: {
-		awaitCreation: untilCoreV1SecretInitialized,
+		await: untilCoreV1SecretInitialized,
 	},
 	coreV1Service: {
-		awaitCreation: awaitServiceInit,
-		awaitRead:     awaitServiceRead,
+		await:     awaitServiceInit,
+		awaitRead: awaitServiceRead,
 	},
 	coreV1ServiceAccount: {
-		awaitCreation: untilCoreV1ServiceAccountInitialized,
+		await: untilCoreV1ServiceAccountInitialized,
 	},
 	extensionsV1Beta1DaemonSet:  daemonsetAwaiter,
 	extensionsV1Beta1Deployment: deploymentAwaiter,
@@ -257,7 +257,7 @@ var awaiters = map[string]awaitSpec{
 
 // --------------------------------------------------------------------------
 
-func untilCoreV1PersistentVolumeInitialized(c createAwaitConfig) error {
+func untilCoreV1PersistentVolumeInitialized(c awaitConfig) error {
 	available := string(corev1.VolumeAvailable)
 	bound := string(corev1.VolumeBound)
 	pvAvailableOrBound := func(pv *unstructured.Unstructured) bool {
@@ -285,7 +285,7 @@ func untilCoreV1PersistentVolumeInitialized(c createAwaitConfig) error {
 
 // --------------------------------------------------------------------------
 
-func untilCoreV1PersistentVolumeClaimReady(c createAwaitConfig) error {
+func untilCoreV1PersistentVolumeClaimReady(c awaitConfig) error {
 	var bindMode string
 	pvcReady := func(pvc *unstructured.Unstructured) bool {
 		// Lookup the PVC's storage class once it's available.
@@ -351,7 +351,7 @@ func replicationControllerSpecReplicas(rc *unstructured.Unstructured) (any, bool
 	return openapi.Pluck(rc.Object, "spec", "replicas")
 }
 
-func untilCoreV1ReplicationControllerInitialized(c createAwaitConfig) error {
+func untilCoreV1ReplicationControllerInitialized(c awaitConfig) error {
 	availableReplicas := func(rc *unstructured.Unstructured) (any, bool) {
 		return openapi.Pluck(rc.Object, "status", "availableReplicas")
 	}
@@ -390,7 +390,7 @@ func untilCoreV1ReplicationControllerInitialized(c createAwaitConfig) error {
 
 // --------------------------------------------------------------------------
 
-func untilCoreV1ResourceQuotaInitialized(c createAwaitConfig) error {
+func untilCoreV1ResourceQuotaInitialized(c awaitConfig) error {
 	rqInitialized := func(quota *unstructured.Unstructured) bool {
 		hardRaw, _ := openapi.Pluck(quota.Object, "spec", "hard")
 		hardStatusRaw, _ := openapi.Pluck(quota.Object, "status", "hard")
@@ -421,7 +421,7 @@ func untilCoreV1ResourceQuotaInitialized(c createAwaitConfig) error {
 
 // --------------------------------------------------------------------------
 
-func untilCoreV1SecretInitialized(c createAwaitConfig) error {
+func untilCoreV1SecretInitialized(c awaitConfig) error {
 	//
 	// Some types secrets do not have data available immediately and therefore are not considered initialized where data map is empty.
 	// For example service-account-token as described in the docs: https://kubernetes.io/docs/reference/access-authn-authz/service-accounts-admin/#to-create-additional-api-tokens
@@ -459,7 +459,7 @@ func untilCoreV1SecretInitialized(c createAwaitConfig) error {
 
 // --------------------------------------------------------------------------
 
-func untilCoreV1ServiceAccountInitialized(c createAwaitConfig) error {
+func untilCoreV1ServiceAccountInitialized(c awaitConfig) error {
 	// k8s v1.24 changed the default secret provisioning behavior for ServiceAccount resources, so don't wait for
 	// clusters >= v1.24 to provision a secret before marking the resource as ready.
 	// https://github.com/kubernetes/kubernetes/blob/v1.24.3/CHANGELOG/CHANGELOG-1.24.md#urgent-upgrade-notes
