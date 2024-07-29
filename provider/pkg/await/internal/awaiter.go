@@ -161,6 +161,6 @@ type errObject struct {
 	object *unstructured.Unstructured
 }
 
-func (e errObject) Object() (*unstructured.Unstructured, error) {
-	return e.object, nil
+func (e errObject) Object() *unstructured.Unstructured {
+	return e.object
 }

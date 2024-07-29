@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/condition"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/internal"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients/fake"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/cluster"
@@ -957,6 +958,16 @@ func Test_Watcher_Interface_Timeout(t *testing.T) {
 	_, isPartialErr := err.(PartialError)
 	assert.True(t, isPartialErr, "Timed out watcher should emit `await.PartialError`")
 	assert.Equal(t, "Timeout occurred polling for ''", err.Error())
+}
+
+func TestAwaiterInterfaceTimeout(t *testing.T) {
+	awaiter, err := internal.NewAwaiter(internal.WithCondition(condition.NewNever(nil)))
+	require.NoError(t, err)
+	ctx, cancel := context.WithCancel(context.Background())
+	cancel()
+	err = awaiter.Await(ctx)
+	_, isPartialErr := err.(PartialError)
+	assert.True(t, isPartialErr, "Timed out watcher should emit `await.PartialError`")
 }
 
 // --------------------------------------------------------------------------
