@@ -140,10 +140,6 @@ func awaitPodRead(c createAwaitConfig) error {
 	return makePodInitAwaiter(c).Read()
 }
 
-func awaitPodUpdate(u updateAwaitConfig) error {
-	return makePodInitAwaiter(u.createAwaitConfig).Await()
-}
-
 func (pia *podInitAwaiter) Await() error {
 	stopper := make(chan struct{})
 	defer close(stopper)

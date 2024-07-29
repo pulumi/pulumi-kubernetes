@@ -252,9 +252,8 @@ func Test_Apps_StatefulSet(t *testing.T) {
 
 	for _, test := range tests {
 		awaiter := makeStatefulSetInitAwaiter(
-			updateAwaitConfig{
-				createAwaitConfig: mockAwaitConfig(statefulsetInput(inputNamespace, inputName, targetService, "")),
-			})
+			mockAwaitConfig(statefulsetInput(inputNamespace, inputName, targetService, "")),
+		)
 		statefulsets := make(chan watch.Event)
 		pods := make(chan watch.Event)
 
@@ -305,10 +304,8 @@ func Test_Apps_StatefulSet_MultipleUpdates(t *testing.T) {
 
 	for _, test := range tests {
 		awaiter := makeStatefulSetInitAwaiter(
-			updateAwaitConfig{
-				createAwaitConfig: mockAwaitConfig(test.outputs()),
-				lastOutputs:       statefulsetFailed(),
-			})
+			mockUpdateConfig(test.outputs(), statefulsetFailed()),
+		)
 		statefulsets := make(chan watch.Event)
 		pods := make(chan watch.Event)
 
@@ -369,9 +366,8 @@ func Test_Apps_StatefulSetRead(t *testing.T) {
 
 	for _, test := range tests {
 		awaiter := makeStatefulSetInitAwaiter(
-			updateAwaitConfig{
-				createAwaitConfig: mockAwaitConfig(statefulsetInput(inputNamespace, inputName, targetService, "")),
-			})
+			mockAwaitConfig(statefulsetInput(inputNamespace, inputName, targetService, "")),
+		)
 		statefulset := test.statefulset(inputNamespace, inputName, targetService, "")
 		err := awaiter.read(statefulset, unstructuredList())
 		if test.expectedSubErrors != nil {

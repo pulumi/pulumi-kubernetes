@@ -96,10 +96,6 @@ func awaitIngressRead(c createAwaitConfig) error {
 	return makeIngressInitAwaiter(c).Read()
 }
 
-func awaitIngressUpdate(u updateAwaitConfig) error {
-	return makeIngressInitAwaiter(u.createAwaitConfig).Await()
-}
-
 func (iia *ingressInitAwaiter) Await() error {
 	//
 	// We succeed only when all of the following are true:
@@ -177,7 +173,8 @@ func (iia *ingressInitAwaiter) Read() error {
 }
 
 func (iia *ingressInitAwaiter) read(ingress *unstructured.Unstructured, endpoints *unstructured.UnstructuredList,
-	services *unstructured.UnstructuredList) error {
+	services *unstructured.UnstructuredList,
+) error {
 	iia.processIngressEvent(watchAddedEvent(ingress))
 
 	err := services.EachListItem(func(service runtime.Object) error {
@@ -511,21 +508,18 @@ func (iia *ingressInitAwaiter) makeClients() (
 	if err != nil {
 		return nil, nil, nil, fmt.Errorf("Could not make client to watch Ingress %q: %w",
 			iia.config.currentOutputs.GetName(), err)
-
 	}
 	endpointsClient, err = clients.ResourceClient(
 		kinds.Endpoints, iia.config.currentOutputs.GetNamespace(), iia.config.clientSet)
 	if err != nil {
 		return nil, nil, nil, fmt.Errorf("Could not make client to watch Endpoints associated with Ingress %q: %w",
 			iia.config.currentOutputs.GetName(), err)
-
 	}
 	servicesClient, err = clients.ResourceClient(
 		kinds.Service, iia.config.currentOutputs.GetNamespace(), iia.config.clientSet)
 	if err != nil {
 		return nil, nil, nil, fmt.Errorf("Could not make client to watch Services associated with Ingress %q: %w",
 			iia.config.currentOutputs.GetName(), err)
-
 	}
 
 	return

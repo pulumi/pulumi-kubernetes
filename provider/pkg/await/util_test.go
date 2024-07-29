@@ -24,6 +24,12 @@ func mockAwaitConfig(outputs *unstructured.Unstructured) createAwaitConfig {
 	}
 }
 
+func mockUpdateConfig(outputs *unstructured.Unstructured, previous *unstructured.Unstructured) createAwaitConfig {
+	c := mockAwaitConfig(outputs)
+	c.lastOutputs = previous
+	return c
+}
+
 func decodeUnstructured(text string) (*unstructured.Unstructured, error) {
 	obj, _, err := unstructured.UnstructuredJSONScheme.Decode([]byte(text), nil, nil)
 	if err != nil {
