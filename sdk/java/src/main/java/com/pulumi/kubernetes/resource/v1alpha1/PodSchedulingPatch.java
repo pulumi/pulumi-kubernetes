@@ -123,14 +123,17 @@ public class PodSchedulingPatch extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public PodSchedulingPatch(String name, @Nullable PodSchedulingPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:resource.k8s.io/v1alpha1:PodSchedulingPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:resource.k8s.io/v1alpha1:PodSchedulingPatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private PodSchedulingPatch(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:resource.k8s.io/v1alpha1:PodSchedulingPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static PodSchedulingPatchArgs makeArgs(@Nullable PodSchedulingPatchArgs args) {
+    private static PodSchedulingPatchArgs makeArgs(@Nullable PodSchedulingPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? PodSchedulingPatchArgs.builder() : PodSchedulingPatchArgs.builder(args);
         return builder
             .apiVersion("resource.k8s.io/v1alpha1")

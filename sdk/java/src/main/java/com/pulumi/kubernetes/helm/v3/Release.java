@@ -557,14 +557,17 @@ public class Release extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public Release(String name, ReleaseArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:helm.sh/v3:Release", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:helm.sh/v3:Release", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private Release(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:helm.sh/v3:Release", name, null, makeResourceOptions(options, id));
     }
 
-    private static ReleaseArgs makeArgs(ReleaseArgs args) {
+    private static ReleaseArgs makeArgs(ReleaseArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? ReleaseArgs.builder() : ReleaseArgs.builder(args);
         return builder
             .compat("true")

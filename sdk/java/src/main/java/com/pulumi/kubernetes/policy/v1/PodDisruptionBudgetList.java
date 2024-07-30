@@ -100,14 +100,17 @@ public class PodDisruptionBudgetList extends com.pulumi.resources.CustomResource
      * @param options A bag of options that control this resource's behavior.
      */
     public PodDisruptionBudgetList(String name, PodDisruptionBudgetListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:policy/v1:PodDisruptionBudgetList", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:policy/v1:PodDisruptionBudgetList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private PodDisruptionBudgetList(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:policy/v1:PodDisruptionBudgetList", name, null, makeResourceOptions(options, id));
     }
 
-    private static PodDisruptionBudgetListArgs makeArgs(PodDisruptionBudgetListArgs args) {
+    private static PodDisruptionBudgetListArgs makeArgs(PodDisruptionBudgetListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? PodDisruptionBudgetListArgs.builder() : PodDisruptionBudgetListArgs.builder(args);
         return builder
             .apiVersion("policy/v1")

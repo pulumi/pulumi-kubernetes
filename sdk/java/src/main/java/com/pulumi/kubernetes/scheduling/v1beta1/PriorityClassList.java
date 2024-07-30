@@ -100,14 +100,17 @@ public class PriorityClassList extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public PriorityClassList(String name, PriorityClassListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:scheduling.k8s.io/v1beta1:PriorityClassList", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:scheduling.k8s.io/v1beta1:PriorityClassList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private PriorityClassList(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:scheduling.k8s.io/v1beta1:PriorityClassList", name, null, makeResourceOptions(options, id));
     }
 
-    private static PriorityClassListArgs makeArgs(PriorityClassListArgs args) {
+    private static PriorityClassListArgs makeArgs(PriorityClassListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? PriorityClassListArgs.builder() : PriorityClassListArgs.builder(args);
         return builder
             .apiVersion("scheduling.k8s.io/v1beta1")

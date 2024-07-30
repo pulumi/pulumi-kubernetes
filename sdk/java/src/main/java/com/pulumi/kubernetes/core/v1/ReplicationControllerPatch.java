@@ -121,14 +121,17 @@ public class ReplicationControllerPatch extends com.pulumi.resources.CustomResou
      * @param options A bag of options that control this resource's behavior.
      */
     public ReplicationControllerPatch(String name, @Nullable ReplicationControllerPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:core/v1:ReplicationControllerPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:core/v1:ReplicationControllerPatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private ReplicationControllerPatch(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:core/v1:ReplicationControllerPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static ReplicationControllerPatchArgs makeArgs(@Nullable ReplicationControllerPatchArgs args) {
+    private static ReplicationControllerPatchArgs makeArgs(@Nullable ReplicationControllerPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? ReplicationControllerPatchArgs.builder() : ReplicationControllerPatchArgs.builder(args);
         return builder
             .apiVersion("v1")

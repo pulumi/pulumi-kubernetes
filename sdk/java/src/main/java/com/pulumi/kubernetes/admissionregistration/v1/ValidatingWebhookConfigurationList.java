@@ -100,14 +100,17 @@ public class ValidatingWebhookConfigurationList extends com.pulumi.resources.Cus
      * @param options A bag of options that control this resource's behavior.
      */
     public ValidatingWebhookConfigurationList(String name, ValidatingWebhookConfigurationListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfigurationList", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfigurationList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private ValidatingWebhookConfigurationList(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfigurationList", name, null, makeResourceOptions(options, id));
     }
 
-    private static ValidatingWebhookConfigurationListArgs makeArgs(ValidatingWebhookConfigurationListArgs args) {
+    private static ValidatingWebhookConfigurationListArgs makeArgs(ValidatingWebhookConfigurationListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? ValidatingWebhookConfigurationListArgs.builder() : ValidatingWebhookConfigurationListArgs.builder(args);
         return builder
             .apiVersion("admissionregistration.k8s.io/v1")

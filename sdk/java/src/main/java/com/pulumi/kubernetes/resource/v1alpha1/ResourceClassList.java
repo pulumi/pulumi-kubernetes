@@ -100,14 +100,17 @@ public class ResourceClassList extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public ResourceClassList(String name, ResourceClassListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:resource.k8s.io/v1alpha1:ResourceClassList", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:resource.k8s.io/v1alpha1:ResourceClassList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private ResourceClassList(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:resource.k8s.io/v1alpha1:ResourceClassList", name, null, makeResourceOptions(options, id));
     }
 
-    private static ResourceClassListArgs makeArgs(ResourceClassListArgs args) {
+    private static ResourceClassListArgs makeArgs(ResourceClassListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? ResourceClassListArgs.builder() : ResourceClassListArgs.builder(args);
         return builder
             .apiVersion("resource.k8s.io/v1alpha1")

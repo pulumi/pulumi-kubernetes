@@ -112,14 +112,17 @@ public class ResourceClaimTemplatePatch extends com.pulumi.resources.CustomResou
      * @param options A bag of options that control this resource's behavior.
      */
     public ResourceClaimTemplatePatch(String name, @Nullable ResourceClaimTemplatePatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:resource.k8s.io/v1alpha1:ResourceClaimTemplatePatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:resource.k8s.io/v1alpha1:ResourceClaimTemplatePatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private ResourceClaimTemplatePatch(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:resource.k8s.io/v1alpha1:ResourceClaimTemplatePatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static ResourceClaimTemplatePatchArgs makeArgs(@Nullable ResourceClaimTemplatePatchArgs args) {
+    private static ResourceClaimTemplatePatchArgs makeArgs(@Nullable ResourceClaimTemplatePatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? ResourceClaimTemplatePatchArgs.builder() : ResourceClaimTemplatePatchArgs.builder(args);
         return builder
             .apiVersion("resource.k8s.io/v1alpha1")

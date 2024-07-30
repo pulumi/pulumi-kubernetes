@@ -112,14 +112,17 @@ public class Endpoints extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public Endpoints(String name, @Nullable EndpointsArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:core/v1:Endpoints", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:core/v1:Endpoints", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private Endpoints(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:core/v1:Endpoints", name, null, makeResourceOptions(options, id));
     }
 
-    private static EndpointsArgs makeArgs(@Nullable EndpointsArgs args) {
+    private static EndpointsArgs makeArgs(@Nullable EndpointsArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? EndpointsArgs.builder() : EndpointsArgs.builder(args);
         return builder
             .apiVersion("v1")

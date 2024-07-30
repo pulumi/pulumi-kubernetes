@@ -100,14 +100,17 @@ public class EventList extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public EventList(String name, EventListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:core/v1:EventList", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:core/v1:EventList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private EventList(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:core/v1:EventList", name, null, makeResourceOptions(options, id));
     }
 
-    private static EventListArgs makeArgs(EventListArgs args) {
+    private static EventListArgs makeArgs(EventListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? EventListArgs.builder() : EventListArgs.builder(args);
         return builder
             .apiVersion("v1")

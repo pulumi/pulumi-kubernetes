@@ -125,14 +125,17 @@ public class VolumeAttachmentPatch extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public VolumeAttachmentPatch(String name, @Nullable VolumeAttachmentPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:storage.k8s.io/v1:VolumeAttachmentPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:storage.k8s.io/v1:VolumeAttachmentPatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private VolumeAttachmentPatch(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:storage.k8s.io/v1:VolumeAttachmentPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static VolumeAttachmentPatchArgs makeArgs(@Nullable VolumeAttachmentPatchArgs args) {
+    private static VolumeAttachmentPatchArgs makeArgs(@Nullable VolumeAttachmentPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? VolumeAttachmentPatchArgs.builder() : VolumeAttachmentPatchArgs.builder(args);
         return builder
             .apiVersion("storage.k8s.io/v1")

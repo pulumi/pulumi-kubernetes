@@ -100,14 +100,17 @@ public class ClusterTrustBundleList extends com.pulumi.resources.CustomResource 
      * @param options A bag of options that control this resource's behavior.
      */
     public ClusterTrustBundleList(String name, ClusterTrustBundleListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:certificates.k8s.io/v1alpha1:ClusterTrustBundleList", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:certificates.k8s.io/v1alpha1:ClusterTrustBundleList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private ClusterTrustBundleList(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:certificates.k8s.io/v1alpha1:ClusterTrustBundleList", name, null, makeResourceOptions(options, id));
     }
 
-    private static ClusterTrustBundleListArgs makeArgs(ClusterTrustBundleListArgs args) {
+    private static ClusterTrustBundleListArgs makeArgs(ClusterTrustBundleListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? ClusterTrustBundleListArgs.builder() : ClusterTrustBundleListArgs.builder(args);
         return builder
             .apiVersion("certificates.k8s.io/v1alpha1")

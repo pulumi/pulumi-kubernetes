@@ -153,14 +153,17 @@ public class Secret extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public Secret(String name, @Nullable SecretArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:core/v1:Secret", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:core/v1:Secret", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private Secret(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:core/v1:Secret", name, null, makeResourceOptions(options, id));
     }
 
-    private static SecretArgs makeArgs(@Nullable SecretArgs args) {
+    private static SecretArgs makeArgs(@Nullable SecretArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? SecretArgs.builder() : SecretArgs.builder(args);
         return builder
             .apiVersion("v1")

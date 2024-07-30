@@ -106,14 +106,17 @@ public class IPAddressPatch extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public IPAddressPatch(String name, @Nullable IPAddressPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:networking.k8s.io/v1alpha1:IPAddressPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:networking.k8s.io/v1alpha1:IPAddressPatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private IPAddressPatch(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:networking.k8s.io/v1alpha1:IPAddressPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static IPAddressPatchArgs makeArgs(@Nullable IPAddressPatchArgs args) {
+    private static IPAddressPatchArgs makeArgs(@Nullable IPAddressPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? IPAddressPatchArgs.builder() : IPAddressPatchArgs.builder(args);
         return builder
             .apiVersion("networking.k8s.io/v1alpha1")

@@ -100,14 +100,17 @@ public class ResourceQuotaList extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public ResourceQuotaList(String name, ResourceQuotaListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:core/v1:ResourceQuotaList", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:core/v1:ResourceQuotaList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private ResourceQuotaList(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:core/v1:ResourceQuotaList", name, null, makeResourceOptions(options, id));
     }
 
-    private static ResourceQuotaListArgs makeArgs(ResourceQuotaListArgs args) {
+    private static ResourceQuotaListArgs makeArgs(ResourceQuotaListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? ResourceQuotaListArgs.builder() : ResourceQuotaListArgs.builder(args);
         return builder
             .apiVersion("v1")

@@ -84,14 +84,17 @@ public class StatefulSetList extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public StatefulSetList(String name, StatefulSetListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:apps/v1beta1:StatefulSetList", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:apps/v1beta1:StatefulSetList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private StatefulSetList(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:apps/v1beta1:StatefulSetList", name, null, makeResourceOptions(options, id));
     }
 
-    private static StatefulSetListArgs makeArgs(StatefulSetListArgs args) {
+    private static StatefulSetListArgs makeArgs(StatefulSetListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? StatefulSetListArgs.builder() : StatefulSetListArgs.builder(args);
         return builder
             .apiVersion("apps/v1beta1")

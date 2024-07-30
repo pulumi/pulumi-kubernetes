@@ -100,14 +100,17 @@ public class CronJobList extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public CronJobList(String name, CronJobListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:batch/v1beta1:CronJobList", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:batch/v1beta1:CronJobList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private CronJobList(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:batch/v1beta1:CronJobList", name, null, makeResourceOptions(options, id));
     }
 
-    private static CronJobListArgs makeArgs(CronJobListArgs args) {
+    private static CronJobListArgs makeArgs(CronJobListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? CronJobListArgs.builder() : CronJobListArgs.builder(args);
         return builder
             .apiVersion("batch/v1beta1")

@@ -132,14 +132,17 @@ public class RuntimeClass extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public RuntimeClass(String name, RuntimeClassArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:node.k8s.io/v1:RuntimeClass", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:node.k8s.io/v1:RuntimeClass", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private RuntimeClass(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:node.k8s.io/v1:RuntimeClass", name, null, makeResourceOptions(options, id));
     }
 
-    private static RuntimeClassArgs makeArgs(RuntimeClassArgs args) {
+    private static RuntimeClassArgs makeArgs(RuntimeClassArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? RuntimeClassArgs.builder() : RuntimeClassArgs.builder(args);
         return builder
             .apiVersion("node.k8s.io/v1")

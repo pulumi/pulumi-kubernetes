@@ -147,14 +147,17 @@ public class ResourceClassPatch extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public ResourceClassPatch(String name, @Nullable ResourceClassPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:resource.k8s.io/v1alpha1:ResourceClassPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:resource.k8s.io/v1alpha1:ResourceClassPatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private ResourceClassPatch(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:resource.k8s.io/v1alpha1:ResourceClassPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static ResourceClassPatchArgs makeArgs(@Nullable ResourceClassPatchArgs args) {
+    private static ResourceClassPatchArgs makeArgs(@Nullable ResourceClassPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? ResourceClassPatchArgs.builder() : ResourceClassPatchArgs.builder(args);
         return builder
             .apiVersion("resource.k8s.io/v1alpha1")

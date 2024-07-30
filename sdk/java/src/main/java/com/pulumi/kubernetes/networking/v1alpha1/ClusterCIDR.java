@@ -99,14 +99,17 @@ public class ClusterCIDR extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public ClusterCIDR(String name, @Nullable ClusterCIDRArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:networking.k8s.io/v1alpha1:ClusterCIDR", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:networking.k8s.io/v1alpha1:ClusterCIDR", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private ClusterCIDR(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:networking.k8s.io/v1alpha1:ClusterCIDR", name, null, makeResourceOptions(options, id));
     }
 
-    private static ClusterCIDRArgs makeArgs(@Nullable ClusterCIDRArgs args) {
+    private static ClusterCIDRArgs makeArgs(@Nullable ClusterCIDRArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? ClusterCIDRArgs.builder() : ClusterCIDRArgs.builder(args);
         return builder
             .apiVersion("networking.k8s.io/v1alpha1")

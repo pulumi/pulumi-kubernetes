@@ -114,7 +114,14 @@ public class ConfigFile extends com.pulumi.resources.ComponentResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public ConfigFile(String name, ConfigFileArgs args, @Nullable com.pulumi.resources.ComponentResourceOptions options) {
-        super("kubernetes:yaml/v2:ConfigFile", name, args == null ? ConfigFileArgs.Empty : args, makeResourceOptions(options, Codegen.empty()), true);
+        super("kubernetes:yaml/v2:ConfigFile", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), true);
+    }
+
+    private static ConfigFileArgs makeArgs(ConfigFileArgs args, @Nullable com.pulumi.resources.ComponentResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
+        return args == null ? ConfigFileArgs.Empty : args;
     }
 
     private static com.pulumi.resources.ComponentResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.ComponentResourceOptions options, @Nullable Output<String> id) {

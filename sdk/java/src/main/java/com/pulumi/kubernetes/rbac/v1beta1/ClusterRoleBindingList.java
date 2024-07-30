@@ -100,14 +100,17 @@ public class ClusterRoleBindingList extends com.pulumi.resources.CustomResource 
      * @param options A bag of options that control this resource's behavior.
      */
     public ClusterRoleBindingList(String name, ClusterRoleBindingListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRoleBindingList", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRoleBindingList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private ClusterRoleBindingList(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRoleBindingList", name, null, makeResourceOptions(options, id));
     }
 
-    private static ClusterRoleBindingListArgs makeArgs(ClusterRoleBindingListArgs args) {
+    private static ClusterRoleBindingListArgs makeArgs(ClusterRoleBindingListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? ClusterRoleBindingListArgs.builder() : ClusterRoleBindingListArgs.builder(args);
         return builder
             .apiVersion("rbac.authorization.k8s.io/v1beta1")

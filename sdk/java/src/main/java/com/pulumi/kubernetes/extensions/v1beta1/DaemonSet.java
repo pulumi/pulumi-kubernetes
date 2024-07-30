@@ -121,14 +121,17 @@ public class DaemonSet extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public DaemonSet(String name, @Nullable DaemonSetArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:extensions/v1beta1:DaemonSet", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:extensions/v1beta1:DaemonSet", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private DaemonSet(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:extensions/v1beta1:DaemonSet", name, null, makeResourceOptions(options, id));
     }
 
-    private static DaemonSetArgs makeArgs(@Nullable DaemonSetArgs args) {
+    private static DaemonSetArgs makeArgs(@Nullable DaemonSetArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? DaemonSetArgs.builder() : DaemonSetArgs.builder(args);
         return builder
             .apiVersion("extensions/v1beta1")

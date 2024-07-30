@@ -123,14 +123,17 @@ public class PriorityLevelConfigurationPatch extends com.pulumi.resources.Custom
      * @param options A bag of options that control this resource's behavior.
      */
     public PriorityLevelConfigurationPatch(String name, @Nullable PriorityLevelConfigurationPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:PriorityLevelConfigurationPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:PriorityLevelConfigurationPatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private PriorityLevelConfigurationPatch(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:PriorityLevelConfigurationPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static PriorityLevelConfigurationPatchArgs makeArgs(@Nullable PriorityLevelConfigurationPatchArgs args) {
+    private static PriorityLevelConfigurationPatchArgs makeArgs(@Nullable PriorityLevelConfigurationPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? PriorityLevelConfigurationPatchArgs.builder() : PriorityLevelConfigurationPatchArgs.builder(args);
         return builder
             .apiVersion("flowcontrol.apiserver.k8s.io/v1beta1")

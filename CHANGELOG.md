@@ -35,6 +35,7 @@
   affected resource. (https://github.com/pulumi/pulumi-kubernetes/pull/3128)
 - `PersistentVolumeClaims` with a bind mode of `WaitForFirstConsumer` will no
   longer hang indefinitely. (https://github.com/pulumi/pulumi-kubernetes/pull/3130)
+- [sdk/java] Child resource cannot be registered by Chart v4 (https://github.com/pulumi/pulumi-kubernetes/pull/3119)
 
 ## 4.15.0 (July 9, 2024)
 

@@ -100,14 +100,17 @@ public class CustomResourceDefinitionList extends com.pulumi.resources.CustomRes
      * @param options A bag of options that control this resource's behavior.
      */
     public CustomResourceDefinitionList(String name, CustomResourceDefinitionListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinitionList", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinitionList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private CustomResourceDefinitionList(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinitionList", name, null, makeResourceOptions(options, id));
     }
 
-    private static CustomResourceDefinitionListArgs makeArgs(CustomResourceDefinitionListArgs args) {
+    private static CustomResourceDefinitionListArgs makeArgs(CustomResourceDefinitionListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? CustomResourceDefinitionListArgs.builder() : CustomResourceDefinitionListArgs.builder(args);
         return builder
             .apiVersion("apiextensions.k8s.io/v1")

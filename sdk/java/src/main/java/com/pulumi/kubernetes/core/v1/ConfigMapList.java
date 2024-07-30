@@ -100,14 +100,17 @@ public class ConfigMapList extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public ConfigMapList(String name, ConfigMapListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:core/v1:ConfigMapList", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:core/v1:ConfigMapList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private ConfigMapList(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:core/v1:ConfigMapList", name, null, makeResourceOptions(options, id));
     }
 
-    private static ConfigMapListArgs makeArgs(ConfigMapListArgs args) {
+    private static ConfigMapListArgs makeArgs(ConfigMapListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? ConfigMapListArgs.builder() : ConfigMapListArgs.builder(args);
         return builder
             .apiVersion("v1")

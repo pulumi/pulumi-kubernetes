@@ -100,14 +100,17 @@ public class VolumeAttachmentList extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public VolumeAttachmentList(String name, VolumeAttachmentListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:storage.k8s.io/v1:VolumeAttachmentList", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:storage.k8s.io/v1:VolumeAttachmentList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private VolumeAttachmentList(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:storage.k8s.io/v1:VolumeAttachmentList", name, null, makeResourceOptions(options, id));
     }
 
-    private static VolumeAttachmentListArgs makeArgs(VolumeAttachmentListArgs args) {
+    private static VolumeAttachmentListArgs makeArgs(VolumeAttachmentListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? VolumeAttachmentListArgs.builder() : VolumeAttachmentListArgs.builder(args);
         return builder
             .apiVersion("storage.k8s.io/v1")

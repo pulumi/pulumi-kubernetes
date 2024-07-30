@@ -100,14 +100,17 @@ public class SecretList extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public SecretList(String name, SecretListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:core/v1:SecretList", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:core/v1:SecretList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private SecretList(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:core/v1:SecretList", name, null, makeResourceOptions(options, id));
     }
 
-    private static SecretListArgs makeArgs(SecretListArgs args) {
+    private static SecretListArgs makeArgs(SecretListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? SecretListArgs.builder() : SecretListArgs.builder(args);
         return builder
             .apiVersion("v1")

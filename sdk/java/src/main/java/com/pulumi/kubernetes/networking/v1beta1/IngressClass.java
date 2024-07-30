@@ -101,14 +101,17 @@ public class IngressClass extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public IngressClass(String name, @Nullable IngressClassArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:networking.k8s.io/v1beta1:IngressClass", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:networking.k8s.io/v1beta1:IngressClass", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private IngressClass(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:networking.k8s.io/v1beta1:IngressClass", name, null, makeResourceOptions(options, id));
     }
 
-    private static IngressClassArgs makeArgs(@Nullable IngressClassArgs args) {
+    private static IngressClassArgs makeArgs(@Nullable IngressClassArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? IngressClassArgs.builder() : IngressClassArgs.builder(args);
         return builder
             .apiVersion("networking.k8s.io/v1beta1")

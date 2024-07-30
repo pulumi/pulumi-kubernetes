@@ -123,14 +123,17 @@ public class ReplicaSetPatch extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public ReplicaSetPatch(String name, @Nullable ReplicaSetPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:apps/v1:ReplicaSetPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:apps/v1:ReplicaSetPatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private ReplicaSetPatch(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:apps/v1:ReplicaSetPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static ReplicaSetPatchArgs makeArgs(@Nullable ReplicaSetPatchArgs args) {
+    private static ReplicaSetPatchArgs makeArgs(@Nullable ReplicaSetPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? ReplicaSetPatchArgs.builder() : ReplicaSetPatchArgs.builder(args);
         return builder
             .apiVersion("apps/v1")

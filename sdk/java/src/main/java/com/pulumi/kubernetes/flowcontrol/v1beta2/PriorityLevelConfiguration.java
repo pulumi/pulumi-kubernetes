@@ -117,14 +117,17 @@ public class PriorityLevelConfiguration extends com.pulumi.resources.CustomResou
      * @param options A bag of options that control this resource's behavior.
      */
     public PriorityLevelConfiguration(String name, @Nullable PriorityLevelConfigurationArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:flowcontrol.apiserver.k8s.io/v1beta2:PriorityLevelConfiguration", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:flowcontrol.apiserver.k8s.io/v1beta2:PriorityLevelConfiguration", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private PriorityLevelConfiguration(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:flowcontrol.apiserver.k8s.io/v1beta2:PriorityLevelConfiguration", name, null, makeResourceOptions(options, id));
     }
 
-    private static PriorityLevelConfigurationArgs makeArgs(@Nullable PriorityLevelConfigurationArgs args) {
+    private static PriorityLevelConfigurationArgs makeArgs(@Nullable PriorityLevelConfigurationArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? PriorityLevelConfigurationArgs.builder() : PriorityLevelConfigurationArgs.builder(args);
         return builder
             .apiVersion("flowcontrol.apiserver.k8s.io/v1beta2")

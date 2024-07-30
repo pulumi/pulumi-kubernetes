@@ -121,14 +121,17 @@ public class ResourceQuotaPatch extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public ResourceQuotaPatch(String name, @Nullable ResourceQuotaPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:core/v1:ResourceQuotaPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:core/v1:ResourceQuotaPatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private ResourceQuotaPatch(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:core/v1:ResourceQuotaPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static ResourceQuotaPatchArgs makeArgs(@Nullable ResourceQuotaPatchArgs args) {
+    private static ResourceQuotaPatchArgs makeArgs(@Nullable ResourceQuotaPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? ResourceQuotaPatchArgs.builder() : ResourceQuotaPatchArgs.builder(args);
         return builder
             .apiVersion("v1")

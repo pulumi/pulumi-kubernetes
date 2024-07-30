@@ -151,14 +151,17 @@ public class PriorityClassPatch extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public PriorityClassPatch(String name, @Nullable PriorityClassPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:scheduling.k8s.io/v1alpha1:PriorityClassPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:scheduling.k8s.io/v1alpha1:PriorityClassPatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private PriorityClassPatch(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:scheduling.k8s.io/v1alpha1:PriorityClassPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static PriorityClassPatchArgs makeArgs(@Nullable PriorityClassPatchArgs args) {
+    private static PriorityClassPatchArgs makeArgs(@Nullable PriorityClassPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? PriorityClassPatchArgs.builder() : PriorityClassPatchArgs.builder(args);
         return builder
             .apiVersion("scheduling.k8s.io/v1alpha1")

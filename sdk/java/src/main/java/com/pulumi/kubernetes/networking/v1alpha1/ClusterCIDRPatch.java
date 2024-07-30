@@ -106,14 +106,17 @@ public class ClusterCIDRPatch extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public ClusterCIDRPatch(String name, @Nullable ClusterCIDRPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:networking.k8s.io/v1alpha1:ClusterCIDRPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:networking.k8s.io/v1alpha1:ClusterCIDRPatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private ClusterCIDRPatch(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:networking.k8s.io/v1alpha1:ClusterCIDRPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static ClusterCIDRPatchArgs makeArgs(@Nullable ClusterCIDRPatchArgs args) {
+    private static ClusterCIDRPatchArgs makeArgs(@Nullable ClusterCIDRPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? ClusterCIDRPatchArgs.builder() : ClusterCIDRPatchArgs.builder(args);
         return builder
             .apiVersion("networking.k8s.io/v1alpha1")
