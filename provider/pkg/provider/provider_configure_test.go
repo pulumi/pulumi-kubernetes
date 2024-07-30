@@ -106,6 +106,19 @@ var _ = Describe("RPC:Configure", func() {
 				Expect(helmFlags.Namespace).To(PointTo(Equal("pulumi")))
 			})
 		})
+
+		Context("when explicitly configured to use an empty namespace", func() {
+			JustBeforeEach(func() {
+				req.Variables["kubernetes:config:namespace"] = ""
+			})
+			It("should use the empty namespace as the default namespace", func() {
+				_, err := k.Configure(context.Background(), req)
+				Expect(err).ShouldNot(HaveOccurred())
+				Expect(k.defaultNamespace).To(Equal(""))
+				helmFlags := k.helmSettings.RESTClientGetter().(*genericclioptions.ConfigFlags)
+				Expect(helmFlags.Namespace).To(PointTo(Equal("")))
+			})
+		})
 	})
 
 	Describe("Kubeconfig Parsing", func() {
