@@ -27,18 +27,10 @@ import javax.annotation.Nullable;
  * 1. Service object exists.
  * 2. Related Endpoint objects are created. Each time we get an update, wait 10 seconds
  *    for any stragglers.
- * 3. The endpoints objects target some number of living objects (unless the Service is
- *    an &#34;empty headless&#34; Service [1] or a Service with &#39;.spec.type: ExternalName&#39;).
+ * 3. There are no &#34;not ready&#34; endpoints -- unless the Service is an &#34;empty
+ *    headless&#34; Service [1], a Service with &#39;.spec.type: ExternalName&#39;, or a Service
+ *    without a selector.
  * 4. External IP address is allocated (if Service has &#39;.spec.type: LoadBalancer&#39;).
- * 
- * Known limitations:
- * Services targeting ReplicaSets (and, by extension, Deployments,
- * StatefulSets, etc.) with &#39;.spec.replicas&#39; set to 0 are not handled, and will time
- * out. To work around this limitation, set &#39;pulumi.com/skipAwait: &#34;true&#34;&#39; on
- * &#39;.metadata.annotations&#39; for the Service. Work to handle this case is in progress [2].
- * 
- * [1] https://kubernetes.io/docs/concepts/services-networking/service/#headless-services
- * [2] https://github.com/pulumi/pulumi-kubernetes/pull/703
  * 
  * If the Service has not reached a Ready state after 10 minutes, it will
  * time out and mark the resource update as Failed. You can override the default timeout value

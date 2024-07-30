@@ -61,7 +61,9 @@ func Test_Core_Service(t *testing.T) {
 				subErrors: []string{
 					"Service does not target any Pods. Selected Pods may not be ready, or " +
 						"field '.spec.selector' may not match labels on any Pods",
-					"Service was not allocated an IP address; does your cloud provider support this?"}},
+					"Service was not allocated an IP address; does your cloud provider support this?",
+				},
+			},
 		},
 		{
 			description:  "Should succeed when unrelated Service fails",
@@ -104,7 +106,22 @@ func Test_Core_Service(t *testing.T) {
 				subErrors: []string{
 					"Service does not target any Pods. Selected Pods may not be ready, or " +
 						"field '.spec.selector' may not match labels on any Pods",
-					"Service was not allocated an IP address; does your cloud provider support this?"}},
+					"Service was not allocated an IP address; does your cloud provider support this?",
+				},
+			},
+		},
+		{
+			description:  "Should succeed with no endpoints",
+			serviceInput: serviceInput,
+			do: func(services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time) {
+				// API server passes initialized service back.
+				services <- watchAddedEvent(initializedService("default", "foo-4setj4y6"))
+
+				// Pass uninitialized endpoint objects. Mark them as settled.
+				endpoints <- watchAddedEvent(
+					emptyEndpoint("default", "foo-4setj4y6"))
+				settled <- struct{}{}
+			},
 		},
 		{
 			description:  "Should fail if Endpoints have not initialized",
@@ -125,7 +142,9 @@ func Test_Core_Service(t *testing.T) {
 				object: initializedService("default", "foo-4setj4y6"),
 				subErrors: []string{
 					"Service does not target any Pods. Selected Pods may not be ready, or " +
-						"field '.spec.selector' may not match labels on any Pods"}},
+						"field '.spec.selector' may not match labels on any Pods",
+				},
+			},
 		},
 		{
 			description:  "Should fail if Service is not allocated an IP address",
@@ -146,7 +165,8 @@ func Test_Core_Service(t *testing.T) {
 				object: serviceInput("default", "foo-4setj4y6"),
 				subErrors: []string{
 					"Service was not allocated an IP address; does your cloud provider support this?",
-				}},
+				},
+			},
 		},
 
 		{
@@ -212,6 +232,13 @@ func Test_Core_Service(t *testing.T) {
 				timeout <- time.Now()
 			},
 		},
+		{
+			description:  "Should succeed if no selector",
+			serviceInput: serviceWithoutSelector,
+			do: func(services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time) {
+				services <- watchAddedEvent(serviceWithoutSelector("default", "foo-4setj4y6"))
+			},
+		},
 	}
 
 	for _, test := range tests {
@@ -245,7 +272,8 @@ func Test_Core_Service_Read(t *testing.T) {
 			endpoint:     uninitializedEndpoint,
 			expectedSubErrors: []string{
 				"Service does not target any Pods. Selected Pods may not be ready, or " +
-					"field '.spec.selector' may not match labels on any Pods"},
+					"field '.spec.selector' may not match labels on any Pods",
+			},
 		},
 		{
 			description:  "Read should succeed if Service does target Pods",
@@ -287,21 +315,23 @@ func Test_Core_Service_Read(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		awaiter := makeServiceInitAwaiter(mockAwaitConfig(test.serviceInput("default", "foo-4setj4y6")))
-		service := test.service("default", "foo-4setj4y6")
+		t.Run(test.description, func(t *testing.T) {
+			awaiter := makeServiceInitAwaiter(mockAwaitConfig(test.serviceInput("default", "foo-4setj4y6")))
+			service := test.service("default", "foo-4setj4y6")
 
-		var err error
-		if test.endpoint != nil {
-			endpoint := test.endpoint("default", "foo-4setj4y6")
-			err = awaiter.read(service, unstructuredList(*endpoint), test.version)
-		} else {
-			err = awaiter.read(service, unstructuredList(), test.version)
-		}
-		if test.expectedSubErrors != nil {
-			assert.Equal(t, test.expectedSubErrors, err.(*initializationError).SubErrors(), test.description)
-		} else {
-			assert.Nil(t, err, test.description)
-		}
+			var err error
+			if test.endpoint != nil {
+				endpoint := test.endpoint("default", "foo-4setj4y6")
+				err = awaiter.read(service, unstructuredList(*endpoint), test.version)
+			} else {
+				err = awaiter.read(service, unstructuredList(), test.version)
+			}
+			if test.expectedSubErrors != nil {
+				assert.Equal(t, test.expectedSubErrors, err.(*initializationError).SubErrors(), test.description)
+			} else {
+				assert.Nil(t, err, test.description)
+			}
+		})
 	}
 }
 
@@ -393,6 +423,44 @@ func initializedService(namespace, name string) *unstructured.Unstructured {
 	return obj
 }
 
+func serviceWithoutSelector(namespace, name string) *unstructured.Unstructured {
+	obj, _ := decodeUnstructured(fmt.Sprintf(`{
+    "apiVersion": "v1",
+    "kind": "Service",
+    "metadata": {
+        "name": "%s",
+        "namespace": "%s"
+    },
+    "spec": {
+        "ports": [
+            {
+                "port": 6379
+            }
+        ]
+      }
+	}`, name, namespace))
+	return obj
+}
+
+func emptyEndpoint(namespace, name string) *unstructured.Unstructured {
+	obj, err := decodeUnstructured(
+		fmt.Sprintf(`{
+    "apiVersion": "v1",
+    "kind": "Endpoints",
+    "metadata": {
+        "labels": {
+            "app": "%s"
+        },
+        "name": "%s",
+        "namespace": "%s"
+    }
+}`, name, name, namespace))
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
 func uninitializedEndpoint(namespace, name string) *unstructured.Unstructured {
 	obj, err := decodeUnstructured(
 		fmt.Sprintf(`{
@@ -405,7 +473,22 @@ func uninitializedEndpoint(namespace, name string) *unstructured.Unstructured {
         "name": "%s",
         "namespace": "%s"
     },
-    "subsets": null
+    "subsets": [
+        {
+            "notReadyAddresses": [
+                {
+                    "ip": "35.192.99.34"
+                }
+            ],
+            "ports": [
+                {
+                    "name": "https",
+                    "port": 443,
+                    "protocol": "TCP"
+                }
+            ]
+        }
+    ]
 }`, name, name, namespace))
 	if err != nil {
 		panic(err)
@@ -496,7 +579,6 @@ func headlessEmptyServiceInput(namespace, name string) *unstructured.Unstructure
 		panic(err)
 	}
 	return obj
-
 }
 
 func headlessEmptyServiceOutput1(namespace, name string) *unstructured.Unstructured {
@@ -620,6 +702,7 @@ func headlessNonemptyServiceOutput(namespace, name string) *unstructured.Unstruc
 	}
 	return obj
 }
+
 func unstructuredList(us ...unstructured.Unstructured) *unstructured.UnstructuredList {
 	return &unstructured.UnstructuredList{Items: us}
 }

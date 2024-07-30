@@ -1,0 +1,64 @@
+name: await-deployment
+runtime: yaml
+description: Test await logic with services.
+
+resources:
+  ns:
+    type: kubernetes:core/v1:Namespace
+
+  provider:
+    type: pulumi:providers:kubernetes
+    properties:
+      namespace: ${ns.metadata.name}
+
+  deployment:
+    type: kubernetes:apps/v1:Deployment
+    properties:
+      spec:
+        replicas: 1
+        selector:
+          matchLabels:
+            app: nginx
+        template:
+          metadata:
+            labels:
+              app: nginx
+          spec:
+            containers:
+              - name: nginx
+                image: nginx:stable-alpine3.17-slim
+                ports:
+                  - containerPort: 80
+    options:
+      provider: ${provider}
+
+  # Create a service without a selector and a manual/external IP.
+  service:
+    type: kubernetes:core/v1:Service
+    properties:
+      spec:
+        ports:
+          - protocol: TCP
+            port: 80
+            targetPort: 80
+    options:
+      provider: ${provider}
+      dependsOn:
+        - ${deployment}
+
+  endpoints:
+    type: kubernetes:core/v1:Endpoints
+    properties:
+      metadata:
+        name: ${service.metadata.name}
+      subsets:
+        - addresses:
+            - ip: "100.123.100.123"
+          ports:
+            - name: "foo"
+              port: 12345
+
+outputs:
+  selector: ${service.spec.selector}
+  replicas: ${deployment.spec.replicas}
+  label: ${deployment.spec.template.metadata.labels["app"]}
