@@ -1,0 +1,55 @@
+name: await-deployment
+runtime: yaml
+description: Test await logic with services.
+
+resources:
+  ns:
+    type: kubernetes:core/v1:Namespace
+
+  provider:
+    type: pulumi:providers:kubernetes
+    properties:
+      namespace: ${ns.metadata.name}
+
+  deployment:
+    type: kubernetes:apps/v1:Deployment
+    properties:
+      spec:
+        replicas: 0 # Scale our replicas to 0. This shouldn't hang.
+        selector:
+          matchLabels:
+            app: nginx
+        template:
+          metadata:
+            labels:
+              app: nginx
+          spec:
+            containers:
+              - name: nginx
+                image: nginx:stable-alpine3.17-slim
+                ports:
+                  - containerPort: 80
+    options:
+      provider: ${provider}
+
+  # Add a selector pointing to the scaled-down deployment. This won't have any
+  # pods associated with it -- shouldn't hang..
+  service:
+    type: kubernetes:core/v1:Service
+    properties:
+      spec:
+        selector:
+          app: nginx
+        ports:
+          - protocol: TCP
+            port: 80
+            targetPort: 80
+    options:
+      provider: ${provider}
+      dependsOn:
+        - ${deployment}
+
+outputs:
+  selector: ${service.spec.selector["app"]}
+  replicas: ${deployment.spec.replicas}
+  label: ${deployment.spec.template.metadata.labels["app"]}

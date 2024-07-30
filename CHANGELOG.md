@@ -1,5 +1,12 @@
 ## Unreleased
 
+### Fixed
+
+- `Services` with selectors targeting 0 `Pods` will no longer hang indefinitely.
+  (https://github.com/pulumi/pulumi-kubernetes/issues/605)
+- `Services` without selectors will no longer hang indefinitely.
+  (https://github.com/pulumi/pulumi-kubernetes/issues/799)
+
 ## 4.16.0 (August 7, 2024)
 
 ### Added

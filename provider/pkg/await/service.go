@@ -27,6 +27,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/cmdutil"
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
+	corev1 "k8s.io/api/core/v1"
 	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
@@ -83,7 +84,8 @@ type serviceInitAwaiter struct {
 	config           createAwaitConfig
 	service          *unstructured.Unstructured
 	serviceReady     bool
-	endpointsReady   bool
+	endpointsReady   bool // True if the service has at least 1 ready endpoint.
+	endpointsPending bool // True if any endpoints are non-ready.
 	endpointsSettled bool
 	serviceType      string
 }
@@ -103,6 +105,7 @@ func makeServiceInitAwaiter(c createAwaitConfig) *serviceInitAwaiter {
 		service:          c.currentOutputs,
 		serviceReady:     false,
 		endpointsReady:   false,
+		endpointsPending: false,
 		endpointsSettled: false,
 		serviceType:      t,
 	}
@@ -244,7 +247,7 @@ func (sia *serviceInitAwaiter) await(
 		select {
 		case <-sia.config.ctx.Done():
 			// On cancel, check one last time if the service is ready.
-			if sia.serviceReady && sia.endpointsReady {
+			if sia.serviceReady && !sia.endpointsPending {
 				return nil
 			}
 			return &cancellationError{
@@ -253,7 +256,7 @@ func (sia *serviceInitAwaiter) await(
 			}
 		case <-timeout:
 			// On timeout, check one last time if the service is ready.
-			if sia.serviceReady && sia.endpointsReady {
+			if sia.serviceReady && !sia.endpointsPending {
 				return nil
 			}
 			return &timeoutError{
@@ -318,10 +321,10 @@ func (sia *serviceInitAwaiter) processEndpointEvent(event watch.Event, settledCh
 	inputServiceName := sia.config.currentOutputs.GetName()
 
 	// Get endpoint object.
-	endpoint, isUnstructured := event.Object.(*unstructured.Unstructured)
+	obj, isUnstructured := event.Object.(*unstructured.Unstructured)
 	if !isUnstructured {
 		logger.V(3).Infof("Endpoint watch received unknown object type %q",
-			reflect.TypeOf(endpoint))
+			reflect.TypeOf(obj))
 		return
 	}
 
@@ -329,22 +332,14 @@ func (sia *serviceInitAwaiter) processEndpointEvent(event watch.Event, settledCh
 	//
 	// NOTE: Because the client pool is per-namespace, the endpointName can be used as an
 	// ID, as it's guaranteed by the API server to be unique.
-	if endpoint.GetName() != inputServiceName {
+	if obj.GetName() != inputServiceName {
 		return
 	}
 
-	// Start over, prove that service is ready.
-	sia.endpointsReady = false
-
-	// Update status of endpoint objects so we can check success.
-	if event.Type == watch.Added || event.Type == watch.Modified {
-		subsets, hasTargets := openapi.Pluck(endpoint.Object, "subsets")
-		targets, targetsIsSlice := subsets.([]any)
-		endpointTargetsPod := hasTargets && targetsIsSlice && len(targets) > 0
-
-		sia.endpointsReady = endpointTargetsPod
-	} else if event.Type == watch.Deleted {
-		sia.endpointsReady = false
+	var endpoints corev1.Endpoints
+	err := runtime.DefaultUnstructuredConverter.FromUnstructured(obj.Object, &endpoints)
+	if err != nil {
+		return
 	}
 
 	// Every time we get an update to one of our endpoints objects, give it a few seconds
@@ -354,6 +349,19 @@ func (sia *serviceInitAwaiter) processEndpointEvent(event watch.Event, settledCh
 		time.Sleep(10 * time.Second)
 		settledCh <- struct{}{}
 	}()
+
+	// Start over, prove that the service is ready.
+	sia.endpointsReady = false
+	sia.endpointsPending = false
+
+	if event.Type == watch.Deleted {
+		return
+	}
+
+	for _, subset := range endpoints.Subsets {
+		sia.endpointsReady = sia.endpointsReady || len(subset.Addresses) > 0
+		sia.endpointsPending = sia.endpointsPending || len(subset.NotReadyAddresses) > 0
+	}
 }
 
 func (sia *serviceInitAwaiter) errorMessages() []string {
@@ -387,11 +395,15 @@ func (sia *serviceInitAwaiter) isExternalNameService() bool {
 	return sia.serviceType == string(v1.ServiceTypeExternalName)
 }
 
+func (sia *serviceInitAwaiter) isWithoutSelector() bool {
+	selector, _, _ := unstructured.NestedMap(sia.service.Object, "spec", "selector")
+	return len(selector) == 0
+}
+
 // shouldWaitForPods determines whether to wait for Pods to be ready before marking the Service ready.
 func (sia *serviceInitAwaiter) shouldWaitForPods() bool {
 	// For these special cases, skip the wait for Pod logic.
-	if sia.isExternalNameService() || sia.isHeadlessService() {
-		sia.endpointsReady = true
+	if sia.isExternalNameService() || sia.isHeadlessService() || sia.isWithoutSelector() {
 		return false
 	}
 
@@ -403,7 +415,7 @@ func (sia *serviceInitAwaiter) checkAndLogStatus() bool {
 		return sia.serviceReady
 	}
 
-	success := sia.serviceReady && sia.endpointsSettled && sia.endpointsReady
+	success := sia.serviceReady && sia.endpointsSettled && !sia.endpointsPending
 	if success {
 		sia.config.logger.LogStatus(diag.Info,
 			fmt.Sprintf("%sService initialization complete", cmdutil.EmojiOr("✅ ", "")))
