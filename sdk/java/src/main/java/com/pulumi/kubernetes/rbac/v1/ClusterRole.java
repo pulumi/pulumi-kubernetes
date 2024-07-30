@@ -116,14 +116,17 @@ public class ClusterRole extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public ClusterRole(String name, @Nullable ClusterRoleArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:rbac.authorization.k8s.io/v1:ClusterRole", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:rbac.authorization.k8s.io/v1:ClusterRole", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private ClusterRole(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:rbac.authorization.k8s.io/v1:ClusterRole", name, null, makeResourceOptions(options, id));
     }
 
-    private static ClusterRoleArgs makeArgs(@Nullable ClusterRoleArgs args) {
+    private static ClusterRoleArgs makeArgs(@Nullable ClusterRoleArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? ClusterRoleArgs.builder() : ClusterRoleArgs.builder(args);
         return builder
             .apiVersion("rbac.authorization.k8s.io/v1")

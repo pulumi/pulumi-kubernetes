@@ -100,14 +100,17 @@ public class EndpointSliceList extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public EndpointSliceList(String name, EndpointSliceListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:discovery.k8s.io/v1beta1:EndpointSliceList", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:discovery.k8s.io/v1beta1:EndpointSliceList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private EndpointSliceList(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:discovery.k8s.io/v1beta1:EndpointSliceList", name, null, makeResourceOptions(options, id));
     }
 
-    private static EndpointSliceListArgs makeArgs(EndpointSliceListArgs args) {
+    private static EndpointSliceListArgs makeArgs(EndpointSliceListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? EndpointSliceListArgs.builder() : EndpointSliceListArgs.builder(args);
         return builder
             .apiVersion("discovery.k8s.io/v1beta1")

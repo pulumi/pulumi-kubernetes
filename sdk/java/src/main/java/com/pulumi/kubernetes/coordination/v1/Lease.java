@@ -101,14 +101,17 @@ public class Lease extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public Lease(String name, @Nullable LeaseArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:coordination.k8s.io/v1:Lease", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:coordination.k8s.io/v1:Lease", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private Lease(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:coordination.k8s.io/v1:Lease", name, null, makeResourceOptions(options, id));
     }
 
-    private static LeaseArgs makeArgs(@Nullable LeaseArgs args) {
+    private static LeaseArgs makeArgs(@Nullable LeaseArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? LeaseArgs.builder() : LeaseArgs.builder(args);
         return builder
             .apiVersion("coordination.k8s.io/v1")

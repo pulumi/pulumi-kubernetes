@@ -123,14 +123,17 @@ public class RoleBindingPatch extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public RoleBindingPatch(String name, @Nullable RoleBindingPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:rbac.authorization.k8s.io/v1:RoleBindingPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:rbac.authorization.k8s.io/v1:RoleBindingPatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private RoleBindingPatch(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:rbac.authorization.k8s.io/v1:RoleBindingPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static RoleBindingPatchArgs makeArgs(@Nullable RoleBindingPatchArgs args) {
+    private static RoleBindingPatchArgs makeArgs(@Nullable RoleBindingPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? RoleBindingPatchArgs.builder() : RoleBindingPatchArgs.builder(args);
         return builder
             .apiVersion("rbac.authorization.k8s.io/v1")

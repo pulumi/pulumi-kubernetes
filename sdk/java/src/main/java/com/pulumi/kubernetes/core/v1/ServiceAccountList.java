@@ -100,14 +100,17 @@ public class ServiceAccountList extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public ServiceAccountList(String name, ServiceAccountListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:core/v1:ServiceAccountList", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:core/v1:ServiceAccountList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private ServiceAccountList(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:core/v1:ServiceAccountList", name, null, makeResourceOptions(options, id));
     }
 
-    private static ServiceAccountListArgs makeArgs(ServiceAccountListArgs args) {
+    private static ServiceAccountListArgs makeArgs(ServiceAccountListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? ServiceAccountListArgs.builder() : ServiceAccountListArgs.builder(args);
         return builder
             .apiVersion("v1")

@@ -100,14 +100,17 @@ public class ServiceCIDRList extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public ServiceCIDRList(String name, ServiceCIDRListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:networking.k8s.io/v1alpha1:ServiceCIDRList", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:networking.k8s.io/v1alpha1:ServiceCIDRList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private ServiceCIDRList(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:networking.k8s.io/v1alpha1:ServiceCIDRList", name, null, makeResourceOptions(options, id));
     }
 
-    private static ServiceCIDRListArgs makeArgs(ServiceCIDRListArgs args) {
+    private static ServiceCIDRListArgs makeArgs(ServiceCIDRListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? ServiceCIDRListArgs.builder() : ServiceCIDRListArgs.builder(args);
         return builder
             .apiVersion("networking.k8s.io/v1alpha1")

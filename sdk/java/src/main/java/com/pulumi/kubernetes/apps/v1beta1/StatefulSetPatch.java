@@ -135,14 +135,17 @@ public class StatefulSetPatch extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public StatefulSetPatch(String name, @Nullable StatefulSetPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:apps/v1beta1:StatefulSetPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:apps/v1beta1:StatefulSetPatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private StatefulSetPatch(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:apps/v1beta1:StatefulSetPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static StatefulSetPatchArgs makeArgs(@Nullable StatefulSetPatchArgs args) {
+    private static StatefulSetPatchArgs makeArgs(@Nullable StatefulSetPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? StatefulSetPatchArgs.builder() : StatefulSetPatchArgs.builder(args);
         return builder
             .apiVersion("apps/v1beta1")

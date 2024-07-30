@@ -137,14 +137,17 @@ public class RuntimeClassPatch extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public RuntimeClassPatch(String name, @Nullable RuntimeClassPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:node.k8s.io/v1beta1:RuntimeClassPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:node.k8s.io/v1beta1:RuntimeClassPatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private RuntimeClassPatch(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:node.k8s.io/v1beta1:RuntimeClassPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static RuntimeClassPatchArgs makeArgs(@Nullable RuntimeClassPatchArgs args) {
+    private static RuntimeClassPatchArgs makeArgs(@Nullable RuntimeClassPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? RuntimeClassPatchArgs.builder() : RuntimeClassPatchArgs.builder(args);
         return builder
             .apiVersion("node.k8s.io/v1beta1")

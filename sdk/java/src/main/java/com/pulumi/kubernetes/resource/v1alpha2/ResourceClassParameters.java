@@ -130,14 +130,17 @@ public class ResourceClassParameters extends com.pulumi.resources.CustomResource
      * @param options A bag of options that control this resource's behavior.
      */
     public ResourceClassParameters(String name, @Nullable ResourceClassParametersArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:resource.k8s.io/v1alpha2:ResourceClassParameters", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:resource.k8s.io/v1alpha2:ResourceClassParameters", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private ResourceClassParameters(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:resource.k8s.io/v1alpha2:ResourceClassParameters", name, null, makeResourceOptions(options, id));
     }
 
-    private static ResourceClassParametersArgs makeArgs(@Nullable ResourceClassParametersArgs args) {
+    private static ResourceClassParametersArgs makeArgs(@Nullable ResourceClassParametersArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? ResourceClassParametersArgs.builder() : ResourceClassParametersArgs.builder(args);
         return builder
             .apiVersion("resource.k8s.io/v1alpha2")

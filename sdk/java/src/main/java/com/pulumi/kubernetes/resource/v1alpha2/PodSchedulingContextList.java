@@ -100,14 +100,17 @@ public class PodSchedulingContextList extends com.pulumi.resources.CustomResourc
      * @param options A bag of options that control this resource's behavior.
      */
     public PodSchedulingContextList(String name, PodSchedulingContextListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:resource.k8s.io/v1alpha2:PodSchedulingContextList", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:resource.k8s.io/v1alpha2:PodSchedulingContextList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private PodSchedulingContextList(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:resource.k8s.io/v1alpha2:PodSchedulingContextList", name, null, makeResourceOptions(options, id));
     }
 
-    private static PodSchedulingContextListArgs makeArgs(PodSchedulingContextListArgs args) {
+    private static PodSchedulingContextListArgs makeArgs(PodSchedulingContextListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? PodSchedulingContextListArgs.builder() : PodSchedulingContextListArgs.builder(args);
         return builder
             .apiVersion("resource.k8s.io/v1alpha2")

@@ -136,14 +136,17 @@ public class PodPatch extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public PodPatch(String name, @Nullable PodPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:core/v1:PodPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:core/v1:PodPatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private PodPatch(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:core/v1:PodPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static PodPatchArgs makeArgs(@Nullable PodPatchArgs args) {
+    private static PodPatchArgs makeArgs(@Nullable PodPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? PodPatchArgs.builder() : PodPatchArgs.builder(args);
         return builder
             .apiVersion("v1")

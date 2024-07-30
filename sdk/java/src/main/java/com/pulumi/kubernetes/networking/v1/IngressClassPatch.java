@@ -108,14 +108,17 @@ public class IngressClassPatch extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public IngressClassPatch(String name, @Nullable IngressClassPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:networking.k8s.io/v1:IngressClassPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:networking.k8s.io/v1:IngressClassPatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private IngressClassPatch(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:networking.k8s.io/v1:IngressClassPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static IngressClassPatchArgs makeArgs(@Nullable IngressClassPatchArgs args) {
+    private static IngressClassPatchArgs makeArgs(@Nullable IngressClassPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? IngressClassPatchArgs.builder() : IngressClassPatchArgs.builder(args);
         return builder
             .apiVersion("networking.k8s.io/v1")

@@ -121,14 +121,17 @@ public class ReplicaSet extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public ReplicaSet(String name, @Nullable ReplicaSetArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:extensions/v1beta1:ReplicaSet", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:extensions/v1beta1:ReplicaSet", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private ReplicaSet(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:extensions/v1beta1:ReplicaSet", name, null, makeResourceOptions(options, id));
     }
 
-    private static ReplicaSetArgs makeArgs(@Nullable ReplicaSetArgs args) {
+    private static ReplicaSetArgs makeArgs(@Nullable ReplicaSetArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? ReplicaSetArgs.builder() : ReplicaSetArgs.builder(args);
         return builder
             .apiVersion("extensions/v1beta1")

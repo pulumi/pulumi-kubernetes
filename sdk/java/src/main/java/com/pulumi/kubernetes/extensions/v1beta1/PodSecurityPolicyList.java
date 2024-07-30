@@ -100,14 +100,17 @@ public class PodSecurityPolicyList extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public PodSecurityPolicyList(String name, PodSecurityPolicyListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:extensions/v1beta1:PodSecurityPolicyList", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:extensions/v1beta1:PodSecurityPolicyList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private PodSecurityPolicyList(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:extensions/v1beta1:PodSecurityPolicyList", name, null, makeResourceOptions(options, id));
     }
 
-    private static PodSecurityPolicyListArgs makeArgs(PodSecurityPolicyListArgs args) {
+    private static PodSecurityPolicyListArgs makeArgs(PodSecurityPolicyListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? PodSecurityPolicyListArgs.builder() : PodSecurityPolicyListArgs.builder(args);
         return builder
             .apiVersion("extensions/v1beta1")

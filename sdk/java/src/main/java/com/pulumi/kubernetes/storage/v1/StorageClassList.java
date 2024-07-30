@@ -100,14 +100,17 @@ public class StorageClassList extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public StorageClassList(String name, StorageClassListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:storage.k8s.io/v1:StorageClassList", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:storage.k8s.io/v1:StorageClassList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private StorageClassList(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:storage.k8s.io/v1:StorageClassList", name, null, makeResourceOptions(options, id));
     }
 
-    private static StorageClassListArgs makeArgs(StorageClassListArgs args) {
+    private static StorageClassListArgs makeArgs(StorageClassListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? StorageClassListArgs.builder() : StorageClassListArgs.builder(args);
         return builder
             .apiVersion("storage.k8s.io/v1")

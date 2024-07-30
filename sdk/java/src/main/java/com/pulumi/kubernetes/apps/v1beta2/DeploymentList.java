@@ -100,14 +100,17 @@ public class DeploymentList extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public DeploymentList(String name, DeploymentListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:apps/v1beta2:DeploymentList", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:apps/v1beta2:DeploymentList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private DeploymentList(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:apps/v1beta2:DeploymentList", name, null, makeResourceOptions(options, id));
     }
 
-    private static DeploymentListArgs makeArgs(DeploymentListArgs args) {
+    private static DeploymentListArgs makeArgs(DeploymentListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? DeploymentListArgs.builder() : DeploymentListArgs.builder(args);
         return builder
             .apiVersion("apps/v1beta2")

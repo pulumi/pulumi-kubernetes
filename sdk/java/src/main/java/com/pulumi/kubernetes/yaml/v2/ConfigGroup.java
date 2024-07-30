@@ -195,7 +195,14 @@ public class ConfigGroup extends com.pulumi.resources.ComponentResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public ConfigGroup(String name, @Nullable ConfigGroupArgs args, @Nullable com.pulumi.resources.ComponentResourceOptions options) {
-        super("kubernetes:yaml/v2:ConfigGroup", name, args == null ? ConfigGroupArgs.Empty : args, makeResourceOptions(options, Codegen.empty()), true);
+        super("kubernetes:yaml/v2:ConfigGroup", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), true);
+    }
+
+    private static ConfigGroupArgs makeArgs(@Nullable ConfigGroupArgs args, @Nullable com.pulumi.resources.ComponentResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
+        return args == null ? ConfigGroupArgs.Empty : args;
     }
 
     private static com.pulumi.resources.ComponentResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.ComponentResourceOptions options, @Nullable Output<String> id) {

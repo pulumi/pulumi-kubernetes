@@ -159,14 +159,17 @@ public class SecretPatch extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public SecretPatch(String name, @Nullable SecretPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:core/v1:SecretPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:core/v1:SecretPatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private SecretPatch(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:core/v1:SecretPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static SecretPatchArgs makeArgs(@Nullable SecretPatchArgs args) {
+    private static SecretPatchArgs makeArgs(@Nullable SecretPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? SecretPatchArgs.builder() : SecretPatchArgs.builder(args);
         return builder
             .apiVersion("v1")

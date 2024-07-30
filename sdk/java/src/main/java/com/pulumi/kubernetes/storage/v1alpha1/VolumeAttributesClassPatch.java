@@ -124,14 +124,17 @@ public class VolumeAttributesClassPatch extends com.pulumi.resources.CustomResou
      * @param options A bag of options that control this resource's behavior.
      */
     public VolumeAttributesClassPatch(String name, @Nullable VolumeAttributesClassPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:storage.k8s.io/v1alpha1:VolumeAttributesClassPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:storage.k8s.io/v1alpha1:VolumeAttributesClassPatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private VolumeAttributesClassPatch(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:storage.k8s.io/v1alpha1:VolumeAttributesClassPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static VolumeAttributesClassPatchArgs makeArgs(@Nullable VolumeAttributesClassPatchArgs args) {
+    private static VolumeAttributesClassPatchArgs makeArgs(@Nullable VolumeAttributesClassPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? VolumeAttributesClassPatchArgs.builder() : VolumeAttributesClassPatchArgs.builder(args);
         return builder
             .apiVersion("storage.k8s.io/v1alpha1")

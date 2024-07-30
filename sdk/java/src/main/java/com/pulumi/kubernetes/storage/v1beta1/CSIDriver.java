@@ -101,14 +101,17 @@ public class CSIDriver extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public CSIDriver(String name, CSIDriverArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:storage.k8s.io/v1beta1:CSIDriver", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:storage.k8s.io/v1beta1:CSIDriver", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private CSIDriver(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:storage.k8s.io/v1beta1:CSIDriver", name, null, makeResourceOptions(options, id));
     }
 
-    private static CSIDriverArgs makeArgs(CSIDriverArgs args) {
+    private static CSIDriverArgs makeArgs(CSIDriverArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? CSIDriverArgs.builder() : CSIDriverArgs.builder(args);
         return builder
             .apiVersion("storage.k8s.io/v1beta1")

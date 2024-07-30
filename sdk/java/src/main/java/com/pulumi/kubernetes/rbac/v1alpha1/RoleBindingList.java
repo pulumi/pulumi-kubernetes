@@ -100,14 +100,17 @@ public class RoleBindingList extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public RoleBindingList(String name, RoleBindingListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:rbac.authorization.k8s.io/v1alpha1:RoleBindingList", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:rbac.authorization.k8s.io/v1alpha1:RoleBindingList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private RoleBindingList(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:rbac.authorization.k8s.io/v1alpha1:RoleBindingList", name, null, makeResourceOptions(options, id));
     }
 
-    private static RoleBindingListArgs makeArgs(RoleBindingListArgs args) {
+    private static RoleBindingListArgs makeArgs(RoleBindingListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? RoleBindingListArgs.builder() : RoleBindingListArgs.builder(args);
         return builder
             .apiVersion("rbac.authorization.k8s.io/v1alpha1")

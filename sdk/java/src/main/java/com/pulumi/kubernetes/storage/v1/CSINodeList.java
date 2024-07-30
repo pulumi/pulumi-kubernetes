@@ -100,14 +100,17 @@ public class CSINodeList extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public CSINodeList(String name, CSINodeListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:storage.k8s.io/v1:CSINodeList", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:storage.k8s.io/v1:CSINodeList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private CSINodeList(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:storage.k8s.io/v1:CSINodeList", name, null, makeResourceOptions(options, id));
     }
 
-    private static CSINodeListArgs makeArgs(CSINodeListArgs args) {
+    private static CSINodeListArgs makeArgs(CSINodeListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? CSINodeListArgs.builder() : CSINodeListArgs.builder(args);
         return builder
             .apiVersion("storage.k8s.io/v1")

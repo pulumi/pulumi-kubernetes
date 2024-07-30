@@ -106,14 +106,17 @@ public class BindingPatch extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public BindingPatch(String name, @Nullable BindingPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:core/v1:BindingPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:core/v1:BindingPatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private BindingPatch(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:core/v1:BindingPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static BindingPatchArgs makeArgs(@Nullable BindingPatchArgs args) {
+    private static BindingPatchArgs makeArgs(@Nullable BindingPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? BindingPatchArgs.builder() : BindingPatchArgs.builder(args);
         return builder
             .apiVersion("v1")

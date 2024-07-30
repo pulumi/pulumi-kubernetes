@@ -100,14 +100,17 @@ public class FlowSchemaList extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public FlowSchemaList(String name, FlowSchemaListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:FlowSchemaList", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:FlowSchemaList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private FlowSchemaList(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:FlowSchemaList", name, null, makeResourceOptions(options, id));
     }
 
-    private static FlowSchemaListArgs makeArgs(FlowSchemaListArgs args) {
+    private static FlowSchemaListArgs makeArgs(FlowSchemaListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? FlowSchemaListArgs.builder() : FlowSchemaListArgs.builder(args);
         return builder
             .apiVersion("flowcontrol.apiserver.k8s.io/v1alpha1")

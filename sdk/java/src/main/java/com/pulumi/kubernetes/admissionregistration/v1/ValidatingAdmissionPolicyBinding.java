@@ -105,14 +105,17 @@ public class ValidatingAdmissionPolicyBinding extends com.pulumi.resources.Custo
      * @param options A bag of options that control this resource's behavior.
      */
     public ValidatingAdmissionPolicyBinding(String name, @Nullable ValidatingAdmissionPolicyBindingArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:admissionregistration.k8s.io/v1:ValidatingAdmissionPolicyBinding", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:admissionregistration.k8s.io/v1:ValidatingAdmissionPolicyBinding", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private ValidatingAdmissionPolicyBinding(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:admissionregistration.k8s.io/v1:ValidatingAdmissionPolicyBinding", name, null, makeResourceOptions(options, id));
     }
 
-    private static ValidatingAdmissionPolicyBindingArgs makeArgs(@Nullable ValidatingAdmissionPolicyBindingArgs args) {
+    private static ValidatingAdmissionPolicyBindingArgs makeArgs(@Nullable ValidatingAdmissionPolicyBindingArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? ValidatingAdmissionPolicyBindingArgs.builder() : ValidatingAdmissionPolicyBindingArgs.builder(args);
         return builder
             .apiVersion("admissionregistration.k8s.io/v1")

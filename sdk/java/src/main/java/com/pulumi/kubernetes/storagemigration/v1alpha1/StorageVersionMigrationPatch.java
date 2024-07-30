@@ -121,14 +121,17 @@ public class StorageVersionMigrationPatch extends com.pulumi.resources.CustomRes
      * @param options A bag of options that control this resource's behavior.
      */
     public StorageVersionMigrationPatch(String name, @Nullable StorageVersionMigrationPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:storagemigration.k8s.io/v1alpha1:StorageVersionMigrationPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:storagemigration.k8s.io/v1alpha1:StorageVersionMigrationPatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private StorageVersionMigrationPatch(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:storagemigration.k8s.io/v1alpha1:StorageVersionMigrationPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static StorageVersionMigrationPatchArgs makeArgs(@Nullable StorageVersionMigrationPatchArgs args) {
+    private static StorageVersionMigrationPatchArgs makeArgs(@Nullable StorageVersionMigrationPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? StorageVersionMigrationPatchArgs.builder() : StorageVersionMigrationPatchArgs.builder(args);
         return builder
             .apiVersion("storagemigration.k8s.io/v1alpha1")

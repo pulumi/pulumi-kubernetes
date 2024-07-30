@@ -100,14 +100,17 @@ public class HorizontalPodAutoscalerList extends com.pulumi.resources.CustomReso
      * @param options A bag of options that control this resource's behavior.
      */
     public HorizontalPodAutoscalerList(String name, HorizontalPodAutoscalerListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:autoscaling/v1:HorizontalPodAutoscalerList", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:autoscaling/v1:HorizontalPodAutoscalerList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private HorizontalPodAutoscalerList(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:autoscaling/v1:HorizontalPodAutoscalerList", name, null, makeResourceOptions(options, id));
     }
 
-    private static HorizontalPodAutoscalerListArgs makeArgs(HorizontalPodAutoscalerListArgs args) {
+    private static HorizontalPodAutoscalerListArgs makeArgs(HorizontalPodAutoscalerListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? HorizontalPodAutoscalerListArgs.builder() : HorizontalPodAutoscalerListArgs.builder(args);
         return builder
             .apiVersion("autoscaling/v1")

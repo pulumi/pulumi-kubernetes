@@ -101,14 +101,17 @@ public class APIServiceList extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public APIServiceList(String name, APIServiceListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:apiregistration.k8s.io/v1:APIServiceList", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:apiregistration.k8s.io/v1:APIServiceList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private APIServiceList(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:apiregistration.k8s.io/v1:APIServiceList", name, null, makeResourceOptions(options, id));
     }
 
-    private static APIServiceListArgs makeArgs(APIServiceListArgs args) {
+    private static APIServiceListArgs makeArgs(APIServiceListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? APIServiceListArgs.builder() : APIServiceListArgs.builder(args);
         return builder
             .apiVersion("apiregistration.k8s.io/v1")

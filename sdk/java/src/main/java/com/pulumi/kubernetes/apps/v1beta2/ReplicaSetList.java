@@ -100,14 +100,17 @@ public class ReplicaSetList extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public ReplicaSetList(String name, ReplicaSetListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:apps/v1beta2:ReplicaSetList", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:apps/v1beta2:ReplicaSetList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private ReplicaSetList(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:apps/v1beta2:ReplicaSetList", name, null, makeResourceOptions(options, id));
     }
 
-    private static ReplicaSetListArgs makeArgs(ReplicaSetListArgs args) {
+    private static ReplicaSetListArgs makeArgs(ReplicaSetListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? ReplicaSetListArgs.builder() : ReplicaSetListArgs.builder(args);
         return builder
             .apiVersion("apps/v1beta2")

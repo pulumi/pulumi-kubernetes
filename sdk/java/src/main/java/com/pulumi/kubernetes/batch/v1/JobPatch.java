@@ -141,14 +141,17 @@ public class JobPatch extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public JobPatch(String name, @Nullable JobPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:batch/v1:JobPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:batch/v1:JobPatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private JobPatch(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:batch/v1:JobPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static JobPatchArgs makeArgs(@Nullable JobPatchArgs args) {
+    private static JobPatchArgs makeArgs(@Nullable JobPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? JobPatchArgs.builder() : JobPatchArgs.builder(args);
         return builder
             .apiVersion("batch/v1")

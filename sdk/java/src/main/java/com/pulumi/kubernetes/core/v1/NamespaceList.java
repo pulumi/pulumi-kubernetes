@@ -100,14 +100,17 @@ public class NamespaceList extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public NamespaceList(String name, NamespaceListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:core/v1:NamespaceList", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:core/v1:NamespaceList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private NamespaceList(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:core/v1:NamespaceList", name, null, makeResourceOptions(options, id));
     }
 
-    private static NamespaceListArgs makeArgs(NamespaceListArgs args) {
+    private static NamespaceListArgs makeArgs(NamespaceListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? NamespaceListArgs.builder() : NamespaceListArgs.builder(args);
         return builder
             .apiVersion("v1")

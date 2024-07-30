@@ -106,14 +106,17 @@ public class LimitRangePatch extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public LimitRangePatch(String name, @Nullable LimitRangePatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:core/v1:LimitRangePatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:core/v1:LimitRangePatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private LimitRangePatch(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:core/v1:LimitRangePatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static LimitRangePatchArgs makeArgs(@Nullable LimitRangePatchArgs args) {
+    private static LimitRangePatchArgs makeArgs(@Nullable LimitRangePatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? LimitRangePatchArgs.builder() : LimitRangePatchArgs.builder(args);
         return builder
             .apiVersion("v1")

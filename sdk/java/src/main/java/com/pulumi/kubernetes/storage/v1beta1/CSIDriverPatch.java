@@ -108,14 +108,17 @@ public class CSIDriverPatch extends com.pulumi.resources.CustomResource {
      * @param options A bag of options that control this resource's behavior.
      */
     public CSIDriverPatch(String name, @Nullable CSIDriverPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:storage.k8s.io/v1beta1:CSIDriverPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:storage.k8s.io/v1beta1:CSIDriverPatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private CSIDriverPatch(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:storage.k8s.io/v1beta1:CSIDriverPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static CSIDriverPatchArgs makeArgs(@Nullable CSIDriverPatchArgs args) {
+    private static CSIDriverPatchArgs makeArgs(@Nullable CSIDriverPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? CSIDriverPatchArgs.builder() : CSIDriverPatchArgs.builder(args);
         return builder
             .apiVersion("storage.k8s.io/v1beta1")

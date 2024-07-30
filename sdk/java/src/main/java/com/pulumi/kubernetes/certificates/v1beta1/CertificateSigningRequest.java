@@ -109,14 +109,17 @@ public class CertificateSigningRequest extends com.pulumi.resources.CustomResour
      * @param options A bag of options that control this resource's behavior.
      */
     public CertificateSigningRequest(String name, @Nullable CertificateSigningRequestArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:certificates.k8s.io/v1beta1:CertificateSigningRequest", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
+        super("kubernetes:certificates.k8s.io/v1beta1:CertificateSigningRequest", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
     private CertificateSigningRequest(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:certificates.k8s.io/v1beta1:CertificateSigningRequest", name, null, makeResourceOptions(options, id));
     }
 
-    private static CertificateSigningRequestArgs makeArgs(@Nullable CertificateSigningRequestArgs args) {
+    private static CertificateSigningRequestArgs makeArgs(@Nullable CertificateSigningRequestArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        if (options != null && options.getUrn().isPresent()) {
+            return null;
+        }
         var builder = args == null ? CertificateSigningRequestArgs.builder() : CertificateSigningRequestArgs.builder(args);
         return builder
             .apiVersion("certificates.k8s.io/v1beta1")
