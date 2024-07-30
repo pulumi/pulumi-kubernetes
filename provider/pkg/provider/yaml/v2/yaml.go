@@ -170,7 +170,7 @@ func Normalize(objs []unstructured.Unstructured, defaultNamespace string, client
 		if err != nil {
 			return nil, err
 		}
-		if isNamespaced && obj.GetNamespace() == "" {
+		if isNamespaced && obj.GetNamespace() == "" && defaultNamespace != "" {
 			obj.SetNamespace(defaultNamespace)
 		}
 	}
