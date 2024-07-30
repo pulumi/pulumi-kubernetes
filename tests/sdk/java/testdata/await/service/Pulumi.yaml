@@ -57,3 +57,8 @@ resources:
           ports:
             - name: "foo"
               port: 12345
+
+outputs:
+  selector: ${service.spec.selector}
+  replicas: ${deployment.spec.replicas}
+  label: ${deployment.spec.template.metadata.labels["app"]}
