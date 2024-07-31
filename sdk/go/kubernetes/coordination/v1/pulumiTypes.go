@@ -309,14 +309,18 @@ func (o LeasePatchTypeOutput) Spec() LeaseSpecPatchPtrOutput {
 type LeaseSpec struct {
 	// acquireTime is a time when the current lease was acquired.
 	AcquireTime *string `pulumi:"acquireTime"`
-	// holderIdentity contains the identity of the holder of a current lease.
+	// holderIdentity contains the identity of the holder of a current lease. If Coordinated Leader Election is used, the holder identity must be equal to the elected LeaseCandidate.metadata.name field.
 	HolderIdentity *string `pulumi:"holderIdentity"`
-	// leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed renewTime.
+	// leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measured against the time of last observed renewTime.
 	LeaseDurationSeconds *int `pulumi:"leaseDurationSeconds"`
 	// leaseTransitions is the number of transitions of a lease between holders.
 	LeaseTransitions *int `pulumi:"leaseTransitions"`
+	// PreferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
+	PreferredHolder *string `pulumi:"preferredHolder"`
 	// renewTime is a time when the current holder of a lease has last updated the lease.
 	RenewTime *string `pulumi:"renewTime"`
+	// Strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+	Strategy *string `pulumi:"strategy"`
 }
 
 // LeaseSpecInput is an input type that accepts LeaseSpecArgs and LeaseSpecOutput values.
@@ -334,14 +338,18 @@ type LeaseSpecInput interface {
 type LeaseSpecArgs struct {
 	// acquireTime is a time when the current lease was acquired.
 	AcquireTime pulumi.StringPtrInput `pulumi:"acquireTime"`
-	// holderIdentity contains the identity of the holder of a current lease.
+	// holderIdentity contains the identity of the holder of a current lease. If Coordinated Leader Election is used, the holder identity must be equal to the elected LeaseCandidate.metadata.name field.
 	HolderIdentity pulumi.StringPtrInput `pulumi:"holderIdentity"`
-	// leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed renewTime.
+	// leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measured against the time of last observed renewTime.
 	LeaseDurationSeconds pulumi.IntPtrInput `pulumi:"leaseDurationSeconds"`
 	// leaseTransitions is the number of transitions of a lease between holders.
 	LeaseTransitions pulumi.IntPtrInput `pulumi:"leaseTransitions"`
+	// PreferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
+	PreferredHolder pulumi.StringPtrInput `pulumi:"preferredHolder"`
 	// renewTime is a time when the current holder of a lease has last updated the lease.
 	RenewTime pulumi.StringPtrInput `pulumi:"renewTime"`
+	// Strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+	Strategy pulumi.StringPtrInput `pulumi:"strategy"`
 }
 
 func (LeaseSpecArgs) ElementType() reflect.Type {
@@ -427,12 +435,12 @@ func (o LeaseSpecOutput) AcquireTime() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LeaseSpec) *string { return v.AcquireTime }).(pulumi.StringPtrOutput)
 }
 
-// holderIdentity contains the identity of the holder of a current lease.
+// holderIdentity contains the identity of the holder of a current lease. If Coordinated Leader Election is used, the holder identity must be equal to the elected LeaseCandidate.metadata.name field.
 func (o LeaseSpecOutput) HolderIdentity() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LeaseSpec) *string { return v.HolderIdentity }).(pulumi.StringPtrOutput)
 }
 
-// leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed renewTime.
+// leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measured against the time of last observed renewTime.
 func (o LeaseSpecOutput) LeaseDurationSeconds() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v LeaseSpec) *int { return v.LeaseDurationSeconds }).(pulumi.IntPtrOutput)
 }
@@ -442,9 +450,19 @@ func (o LeaseSpecOutput) LeaseTransitions() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v LeaseSpec) *int { return v.LeaseTransitions }).(pulumi.IntPtrOutput)
 }
 
+// PreferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
+func (o LeaseSpecOutput) PreferredHolder() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v LeaseSpec) *string { return v.PreferredHolder }).(pulumi.StringPtrOutput)
+}
+
 // renewTime is a time when the current holder of a lease has last updated the lease.
 func (o LeaseSpecOutput) RenewTime() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LeaseSpec) *string { return v.RenewTime }).(pulumi.StringPtrOutput)
+}
+
+// Strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+func (o LeaseSpecOutput) Strategy() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v LeaseSpec) *string { return v.Strategy }).(pulumi.StringPtrOutput)
 }
 
 type LeaseSpecPtrOutput struct{ *pulumi.OutputState }
@@ -481,7 +499,7 @@ func (o LeaseSpecPtrOutput) AcquireTime() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// holderIdentity contains the identity of the holder of a current lease.
+// holderIdentity contains the identity of the holder of a current lease. If Coordinated Leader Election is used, the holder identity must be equal to the elected LeaseCandidate.metadata.name field.
 func (o LeaseSpecPtrOutput) HolderIdentity() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *LeaseSpec) *string {
 		if v == nil {
@@ -491,7 +509,7 @@ func (o LeaseSpecPtrOutput) HolderIdentity() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed renewTime.
+// leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measured against the time of last observed renewTime.
 func (o LeaseSpecPtrOutput) LeaseDurationSeconds() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *LeaseSpec) *int {
 		if v == nil {
@@ -511,6 +529,16 @@ func (o LeaseSpecPtrOutput) LeaseTransitions() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
+// PreferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
+func (o LeaseSpecPtrOutput) PreferredHolder() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *LeaseSpec) *string {
+		if v == nil {
+			return nil
+		}
+		return v.PreferredHolder
+	}).(pulumi.StringPtrOutput)
+}
+
 // renewTime is a time when the current holder of a lease has last updated the lease.
 func (o LeaseSpecPtrOutput) RenewTime() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *LeaseSpec) *string {
@@ -521,18 +549,32 @@ func (o LeaseSpecPtrOutput) RenewTime() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+// Strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+func (o LeaseSpecPtrOutput) Strategy() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *LeaseSpec) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Strategy
+	}).(pulumi.StringPtrOutput)
+}
+
 // LeaseSpec is a specification of a Lease.
 type LeaseSpecPatch struct {
 	// acquireTime is a time when the current lease was acquired.
 	AcquireTime *string `pulumi:"acquireTime"`
-	// holderIdentity contains the identity of the holder of a current lease.
+	// holderIdentity contains the identity of the holder of a current lease. If Coordinated Leader Election is used, the holder identity must be equal to the elected LeaseCandidate.metadata.name field.
 	HolderIdentity *string `pulumi:"holderIdentity"`
-	// leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed renewTime.
+	// leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measured against the time of last observed renewTime.
 	LeaseDurationSeconds *int `pulumi:"leaseDurationSeconds"`
 	// leaseTransitions is the number of transitions of a lease between holders.
 	LeaseTransitions *int `pulumi:"leaseTransitions"`
+	// PreferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
+	PreferredHolder *string `pulumi:"preferredHolder"`
 	// renewTime is a time when the current holder of a lease has last updated the lease.
 	RenewTime *string `pulumi:"renewTime"`
+	// Strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+	Strategy *string `pulumi:"strategy"`
 }
 
 // LeaseSpecPatchInput is an input type that accepts LeaseSpecPatchArgs and LeaseSpecPatchOutput values.
@@ -550,14 +592,18 @@ type LeaseSpecPatchInput interface {
 type LeaseSpecPatchArgs struct {
 	// acquireTime is a time when the current lease was acquired.
 	AcquireTime pulumi.StringPtrInput `pulumi:"acquireTime"`
-	// holderIdentity contains the identity of the holder of a current lease.
+	// holderIdentity contains the identity of the holder of a current lease. If Coordinated Leader Election is used, the holder identity must be equal to the elected LeaseCandidate.metadata.name field.
 	HolderIdentity pulumi.StringPtrInput `pulumi:"holderIdentity"`
-	// leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed renewTime.
+	// leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measured against the time of last observed renewTime.
 	LeaseDurationSeconds pulumi.IntPtrInput `pulumi:"leaseDurationSeconds"`
 	// leaseTransitions is the number of transitions of a lease between holders.
 	LeaseTransitions pulumi.IntPtrInput `pulumi:"leaseTransitions"`
+	// PreferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
+	PreferredHolder pulumi.StringPtrInput `pulumi:"preferredHolder"`
 	// renewTime is a time when the current holder of a lease has last updated the lease.
 	RenewTime pulumi.StringPtrInput `pulumi:"renewTime"`
+	// Strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+	Strategy pulumi.StringPtrInput `pulumi:"strategy"`
 }
 
 func (LeaseSpecPatchArgs) ElementType() reflect.Type {
@@ -643,12 +689,12 @@ func (o LeaseSpecPatchOutput) AcquireTime() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LeaseSpecPatch) *string { return v.AcquireTime }).(pulumi.StringPtrOutput)
 }
 
-// holderIdentity contains the identity of the holder of a current lease.
+// holderIdentity contains the identity of the holder of a current lease. If Coordinated Leader Election is used, the holder identity must be equal to the elected LeaseCandidate.metadata.name field.
 func (o LeaseSpecPatchOutput) HolderIdentity() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LeaseSpecPatch) *string { return v.HolderIdentity }).(pulumi.StringPtrOutput)
 }
 
-// leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed renewTime.
+// leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measured against the time of last observed renewTime.
 func (o LeaseSpecPatchOutput) LeaseDurationSeconds() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v LeaseSpecPatch) *int { return v.LeaseDurationSeconds }).(pulumi.IntPtrOutput)
 }
@@ -658,9 +704,19 @@ func (o LeaseSpecPatchOutput) LeaseTransitions() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v LeaseSpecPatch) *int { return v.LeaseTransitions }).(pulumi.IntPtrOutput)
 }
 
+// PreferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
+func (o LeaseSpecPatchOutput) PreferredHolder() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v LeaseSpecPatch) *string { return v.PreferredHolder }).(pulumi.StringPtrOutput)
+}
+
 // renewTime is a time when the current holder of a lease has last updated the lease.
 func (o LeaseSpecPatchOutput) RenewTime() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LeaseSpecPatch) *string { return v.RenewTime }).(pulumi.StringPtrOutput)
+}
+
+// Strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+func (o LeaseSpecPatchOutput) Strategy() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v LeaseSpecPatch) *string { return v.Strategy }).(pulumi.StringPtrOutput)
 }
 
 type LeaseSpecPatchPtrOutput struct{ *pulumi.OutputState }
@@ -697,7 +753,7 @@ func (o LeaseSpecPatchPtrOutput) AcquireTime() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// holderIdentity contains the identity of the holder of a current lease.
+// holderIdentity contains the identity of the holder of a current lease. If Coordinated Leader Election is used, the holder identity must be equal to the elected LeaseCandidate.metadata.name field.
 func (o LeaseSpecPatchPtrOutput) HolderIdentity() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *LeaseSpecPatch) *string {
 		if v == nil {
@@ -707,7 +763,7 @@ func (o LeaseSpecPatchPtrOutput) HolderIdentity() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed renewTime.
+// leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measured against the time of last observed renewTime.
 func (o LeaseSpecPatchPtrOutput) LeaseDurationSeconds() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *LeaseSpecPatch) *int {
 		if v == nil {
@@ -727,6 +783,16 @@ func (o LeaseSpecPatchPtrOutput) LeaseTransitions() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
+// PreferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
+func (o LeaseSpecPatchPtrOutput) PreferredHolder() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *LeaseSpecPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.PreferredHolder
+	}).(pulumi.StringPtrOutput)
+}
+
 // renewTime is a time when the current holder of a lease has last updated the lease.
 func (o LeaseSpecPatchPtrOutput) RenewTime() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *LeaseSpecPatch) *string {
@@ -734,6 +800,16 @@ func (o LeaseSpecPatchPtrOutput) RenewTime() pulumi.StringPtrOutput {
 			return nil
 		}
 		return v.RenewTime
+	}).(pulumi.StringPtrOutput)
+}
+
+// Strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+func (o LeaseSpecPatchPtrOutput) Strategy() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *LeaseSpecPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Strategy
 	}).(pulumi.StringPtrOutput)
 }
 

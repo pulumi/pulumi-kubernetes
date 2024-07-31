@@ -1692,6 +1692,242 @@ func (o DeleteOptionsPatchPtrOutput) PropagationPolicy() pulumi.StringPtrOutput 
 	}).(pulumi.StringPtrOutput)
 }
 
+// FieldSelectorRequirement is a selector that contains values, a key, and an operator that relates the key and values.
+type FieldSelectorRequirement struct {
+	// key is the field selector key that the requirement applies to.
+	Key string `pulumi:"key"`
+	// operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. The list of operators may grow in the future.
+	Operator string `pulumi:"operator"`
+	// values is an array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty.
+	Values []string `pulumi:"values"`
+}
+
+// FieldSelectorRequirementInput is an input type that accepts FieldSelectorRequirementArgs and FieldSelectorRequirementOutput values.
+// You can construct a concrete instance of `FieldSelectorRequirementInput` via:
+//
+//	FieldSelectorRequirementArgs{...}
+type FieldSelectorRequirementInput interface {
+	pulumi.Input
+
+	ToFieldSelectorRequirementOutput() FieldSelectorRequirementOutput
+	ToFieldSelectorRequirementOutputWithContext(context.Context) FieldSelectorRequirementOutput
+}
+
+// FieldSelectorRequirement is a selector that contains values, a key, and an operator that relates the key and values.
+type FieldSelectorRequirementArgs struct {
+	// key is the field selector key that the requirement applies to.
+	Key pulumi.StringInput `pulumi:"key"`
+	// operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. The list of operators may grow in the future.
+	Operator pulumi.StringInput `pulumi:"operator"`
+	// values is an array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty.
+	Values pulumi.StringArrayInput `pulumi:"values"`
+}
+
+func (FieldSelectorRequirementArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*FieldSelectorRequirement)(nil)).Elem()
+}
+
+func (i FieldSelectorRequirementArgs) ToFieldSelectorRequirementOutput() FieldSelectorRequirementOutput {
+	return i.ToFieldSelectorRequirementOutputWithContext(context.Background())
+}
+
+func (i FieldSelectorRequirementArgs) ToFieldSelectorRequirementOutputWithContext(ctx context.Context) FieldSelectorRequirementOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FieldSelectorRequirementOutput)
+}
+
+// FieldSelectorRequirementArrayInput is an input type that accepts FieldSelectorRequirementArray and FieldSelectorRequirementArrayOutput values.
+// You can construct a concrete instance of `FieldSelectorRequirementArrayInput` via:
+//
+//	FieldSelectorRequirementArray{ FieldSelectorRequirementArgs{...} }
+type FieldSelectorRequirementArrayInput interface {
+	pulumi.Input
+
+	ToFieldSelectorRequirementArrayOutput() FieldSelectorRequirementArrayOutput
+	ToFieldSelectorRequirementArrayOutputWithContext(context.Context) FieldSelectorRequirementArrayOutput
+}
+
+type FieldSelectorRequirementArray []FieldSelectorRequirementInput
+
+func (FieldSelectorRequirementArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]FieldSelectorRequirement)(nil)).Elem()
+}
+
+func (i FieldSelectorRequirementArray) ToFieldSelectorRequirementArrayOutput() FieldSelectorRequirementArrayOutput {
+	return i.ToFieldSelectorRequirementArrayOutputWithContext(context.Background())
+}
+
+func (i FieldSelectorRequirementArray) ToFieldSelectorRequirementArrayOutputWithContext(ctx context.Context) FieldSelectorRequirementArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FieldSelectorRequirementArrayOutput)
+}
+
+// FieldSelectorRequirement is a selector that contains values, a key, and an operator that relates the key and values.
+type FieldSelectorRequirementOutput struct{ *pulumi.OutputState }
+
+func (FieldSelectorRequirementOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FieldSelectorRequirement)(nil)).Elem()
+}
+
+func (o FieldSelectorRequirementOutput) ToFieldSelectorRequirementOutput() FieldSelectorRequirementOutput {
+	return o
+}
+
+func (o FieldSelectorRequirementOutput) ToFieldSelectorRequirementOutputWithContext(ctx context.Context) FieldSelectorRequirementOutput {
+	return o
+}
+
+// key is the field selector key that the requirement applies to.
+func (o FieldSelectorRequirementOutput) Key() pulumi.StringOutput {
+	return o.ApplyT(func(v FieldSelectorRequirement) string { return v.Key }).(pulumi.StringOutput)
+}
+
+// operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. The list of operators may grow in the future.
+func (o FieldSelectorRequirementOutput) Operator() pulumi.StringOutput {
+	return o.ApplyT(func(v FieldSelectorRequirement) string { return v.Operator }).(pulumi.StringOutput)
+}
+
+// values is an array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty.
+func (o FieldSelectorRequirementOutput) Values() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v FieldSelectorRequirement) []string { return v.Values }).(pulumi.StringArrayOutput)
+}
+
+type FieldSelectorRequirementArrayOutput struct{ *pulumi.OutputState }
+
+func (FieldSelectorRequirementArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]FieldSelectorRequirement)(nil)).Elem()
+}
+
+func (o FieldSelectorRequirementArrayOutput) ToFieldSelectorRequirementArrayOutput() FieldSelectorRequirementArrayOutput {
+	return o
+}
+
+func (o FieldSelectorRequirementArrayOutput) ToFieldSelectorRequirementArrayOutputWithContext(ctx context.Context) FieldSelectorRequirementArrayOutput {
+	return o
+}
+
+func (o FieldSelectorRequirementArrayOutput) Index(i pulumi.IntInput) FieldSelectorRequirementOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) FieldSelectorRequirement {
+		return vs[0].([]FieldSelectorRequirement)[vs[1].(int)]
+	}).(FieldSelectorRequirementOutput)
+}
+
+// FieldSelectorRequirement is a selector that contains values, a key, and an operator that relates the key and values.
+type FieldSelectorRequirementPatch struct {
+	// key is the field selector key that the requirement applies to.
+	Key *string `pulumi:"key"`
+	// operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. The list of operators may grow in the future.
+	Operator *string `pulumi:"operator"`
+	// values is an array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty.
+	Values []string `pulumi:"values"`
+}
+
+// FieldSelectorRequirementPatchInput is an input type that accepts FieldSelectorRequirementPatchArgs and FieldSelectorRequirementPatchOutput values.
+// You can construct a concrete instance of `FieldSelectorRequirementPatchInput` via:
+//
+//	FieldSelectorRequirementPatchArgs{...}
+type FieldSelectorRequirementPatchInput interface {
+	pulumi.Input
+
+	ToFieldSelectorRequirementPatchOutput() FieldSelectorRequirementPatchOutput
+	ToFieldSelectorRequirementPatchOutputWithContext(context.Context) FieldSelectorRequirementPatchOutput
+}
+
+// FieldSelectorRequirement is a selector that contains values, a key, and an operator that relates the key and values.
+type FieldSelectorRequirementPatchArgs struct {
+	// key is the field selector key that the requirement applies to.
+	Key pulumi.StringPtrInput `pulumi:"key"`
+	// operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. The list of operators may grow in the future.
+	Operator pulumi.StringPtrInput `pulumi:"operator"`
+	// values is an array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty.
+	Values pulumi.StringArrayInput `pulumi:"values"`
+}
+
+func (FieldSelectorRequirementPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*FieldSelectorRequirementPatch)(nil)).Elem()
+}
+
+func (i FieldSelectorRequirementPatchArgs) ToFieldSelectorRequirementPatchOutput() FieldSelectorRequirementPatchOutput {
+	return i.ToFieldSelectorRequirementPatchOutputWithContext(context.Background())
+}
+
+func (i FieldSelectorRequirementPatchArgs) ToFieldSelectorRequirementPatchOutputWithContext(ctx context.Context) FieldSelectorRequirementPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FieldSelectorRequirementPatchOutput)
+}
+
+// FieldSelectorRequirementPatchArrayInput is an input type that accepts FieldSelectorRequirementPatchArray and FieldSelectorRequirementPatchArrayOutput values.
+// You can construct a concrete instance of `FieldSelectorRequirementPatchArrayInput` via:
+//
+//	FieldSelectorRequirementPatchArray{ FieldSelectorRequirementPatchArgs{...} }
+type FieldSelectorRequirementPatchArrayInput interface {
+	pulumi.Input
+
+	ToFieldSelectorRequirementPatchArrayOutput() FieldSelectorRequirementPatchArrayOutput
+	ToFieldSelectorRequirementPatchArrayOutputWithContext(context.Context) FieldSelectorRequirementPatchArrayOutput
+}
+
+type FieldSelectorRequirementPatchArray []FieldSelectorRequirementPatchInput
+
+func (FieldSelectorRequirementPatchArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]FieldSelectorRequirementPatch)(nil)).Elem()
+}
+
+func (i FieldSelectorRequirementPatchArray) ToFieldSelectorRequirementPatchArrayOutput() FieldSelectorRequirementPatchArrayOutput {
+	return i.ToFieldSelectorRequirementPatchArrayOutputWithContext(context.Background())
+}
+
+func (i FieldSelectorRequirementPatchArray) ToFieldSelectorRequirementPatchArrayOutputWithContext(ctx context.Context) FieldSelectorRequirementPatchArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FieldSelectorRequirementPatchArrayOutput)
+}
+
+// FieldSelectorRequirement is a selector that contains values, a key, and an operator that relates the key and values.
+type FieldSelectorRequirementPatchOutput struct{ *pulumi.OutputState }
+
+func (FieldSelectorRequirementPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FieldSelectorRequirementPatch)(nil)).Elem()
+}
+
+func (o FieldSelectorRequirementPatchOutput) ToFieldSelectorRequirementPatchOutput() FieldSelectorRequirementPatchOutput {
+	return o
+}
+
+func (o FieldSelectorRequirementPatchOutput) ToFieldSelectorRequirementPatchOutputWithContext(ctx context.Context) FieldSelectorRequirementPatchOutput {
+	return o
+}
+
+// key is the field selector key that the requirement applies to.
+func (o FieldSelectorRequirementPatchOutput) Key() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v FieldSelectorRequirementPatch) *string { return v.Key }).(pulumi.StringPtrOutput)
+}
+
+// operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. The list of operators may grow in the future.
+func (o FieldSelectorRequirementPatchOutput) Operator() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v FieldSelectorRequirementPatch) *string { return v.Operator }).(pulumi.StringPtrOutput)
+}
+
+// values is an array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty.
+func (o FieldSelectorRequirementPatchOutput) Values() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v FieldSelectorRequirementPatch) []string { return v.Values }).(pulumi.StringArrayOutput)
+}
+
+type FieldSelectorRequirementPatchArrayOutput struct{ *pulumi.OutputState }
+
+func (FieldSelectorRequirementPatchArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]FieldSelectorRequirementPatch)(nil)).Elem()
+}
+
+func (o FieldSelectorRequirementPatchArrayOutput) ToFieldSelectorRequirementPatchArrayOutput() FieldSelectorRequirementPatchArrayOutput {
+	return o
+}
+
+func (o FieldSelectorRequirementPatchArrayOutput) ToFieldSelectorRequirementPatchArrayOutputWithContext(ctx context.Context) FieldSelectorRequirementPatchArrayOutput {
+	return o
+}
+
+func (o FieldSelectorRequirementPatchArrayOutput) Index(i pulumi.IntInput) FieldSelectorRequirementPatchOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) FieldSelectorRequirementPatch {
+		return vs[0].([]FieldSelectorRequirementPatch)[vs[1].(int)]
+	}).(FieldSelectorRequirementPatchOutput)
+}
+
 // GroupVersion contains the "group/version" and "version" string of a version. It is made a struct to keep extensibility.
 type GroupVersionForDiscovery struct {
 	// groupVersion specifies the API group and version in the form "group/version"
@@ -6367,6 +6603,10 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*DeleteOptionsPtrInput)(nil)).Elem(), DeleteOptionsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DeleteOptionsPatchInput)(nil)).Elem(), DeleteOptionsPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DeleteOptionsPatchPtrInput)(nil)).Elem(), DeleteOptionsPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FieldSelectorRequirementInput)(nil)).Elem(), FieldSelectorRequirementArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FieldSelectorRequirementArrayInput)(nil)).Elem(), FieldSelectorRequirementArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FieldSelectorRequirementPatchInput)(nil)).Elem(), FieldSelectorRequirementPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FieldSelectorRequirementPatchArrayInput)(nil)).Elem(), FieldSelectorRequirementPatchArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GroupVersionForDiscoveryInput)(nil)).Elem(), GroupVersionForDiscoveryArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GroupVersionForDiscoveryPtrInput)(nil)).Elem(), GroupVersionForDiscoveryArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GroupVersionForDiscoveryArrayInput)(nil)).Elem(), GroupVersionForDiscoveryArray{})
@@ -6437,6 +6677,10 @@ func init() {
 	pulumi.RegisterOutputType(DeleteOptionsPtrOutput{})
 	pulumi.RegisterOutputType(DeleteOptionsPatchOutput{})
 	pulumi.RegisterOutputType(DeleteOptionsPatchPtrOutput{})
+	pulumi.RegisterOutputType(FieldSelectorRequirementOutput{})
+	pulumi.RegisterOutputType(FieldSelectorRequirementArrayOutput{})
+	pulumi.RegisterOutputType(FieldSelectorRequirementPatchOutput{})
+	pulumi.RegisterOutputType(FieldSelectorRequirementPatchArrayOutput{})
 	pulumi.RegisterOutputType(GroupVersionForDiscoveryOutput{})
 	pulumi.RegisterOutputType(GroupVersionForDiscoveryPtrOutput{})
 	pulumi.RegisterOutputType(GroupVersionForDiscoveryArrayOutput{})

@@ -20,11 +20,19 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// Name must match the name of one entry in pod.spec.resourceClaims of the Pod where this field is used. It makes that resource available inside a container.
         /// </summary>
         public readonly string Name;
+        /// <summary>
+        /// Request is the name chosen for a request in the referenced claim. If empty, everything from the claim is made available, otherwise only the result of this request.
+        /// </summary>
+        public readonly string Request;
 
         [OutputConstructor]
-        private ResourceClaim(string name)
+        private ResourceClaim(
+            string name,
+
+            string request)
         {
             Name = name;
+            Request = request;
         }
     }
 }

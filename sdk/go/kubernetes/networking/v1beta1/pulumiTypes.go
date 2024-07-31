@@ -593,6 +593,577 @@ func (o HTTPIngressRuleValuePatchPtrOutput) Paths() HTTPIngressPathPatchArrayOut
 	}).(HTTPIngressPathPatchArrayOutput)
 }
 
+// IPAddress represents a single IP of a single IP Family. The object is designed to be used by APIs that operate on IP addresses. The object is used by the Service core API for allocation of IP addresses. An IP address can be represented in different formats, to guarantee the uniqueness of the IP, the name of the object is the IP address in canonical format, four decimal digits separated by dots suppressing leading zeros for IPv4 and the representation defined by RFC 5952 for IPv6. Valid: 192.168.1.5 or 2001:db8::1 or 2001:db8:aaaa:bbbb:cccc:dddd:eeee:1 Invalid: 10.01.2.3 or 2001:db8:0:0:0::1
+type IPAddressType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	// spec is the desired state of the IPAddress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Spec *IPAddressSpec `pulumi:"spec"`
+}
+
+// IPAddressTypeInput is an input type that accepts IPAddressTypeArgs and IPAddressTypeOutput values.
+// You can construct a concrete instance of `IPAddressTypeInput` via:
+//
+//	IPAddressTypeArgs{...}
+type IPAddressTypeInput interface {
+	pulumi.Input
+
+	ToIPAddressTypeOutput() IPAddressTypeOutput
+	ToIPAddressTypeOutputWithContext(context.Context) IPAddressTypeOutput
+}
+
+// IPAddress represents a single IP of a single IP Family. The object is designed to be used by APIs that operate on IP addresses. The object is used by the Service core API for allocation of IP addresses. An IP address can be represented in different formats, to guarantee the uniqueness of the IP, the name of the object is the IP address in canonical format, four decimal digits separated by dots suppressing leading zeros for IPv4 and the representation defined by RFC 5952 for IPv6. Valid: 192.168.1.5 or 2001:db8::1 or 2001:db8:aaaa:bbbb:cccc:dddd:eeee:1 Invalid: 10.01.2.3 or 2001:db8:0:0:0::1
+type IPAddressTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	// spec is the desired state of the IPAddress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Spec IPAddressSpecPtrInput `pulumi:"spec"`
+}
+
+func (IPAddressTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*IPAddressType)(nil)).Elem()
+}
+
+func (i IPAddressTypeArgs) ToIPAddressTypeOutput() IPAddressTypeOutput {
+	return i.ToIPAddressTypeOutputWithContext(context.Background())
+}
+
+func (i IPAddressTypeArgs) ToIPAddressTypeOutputWithContext(ctx context.Context) IPAddressTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IPAddressTypeOutput)
+}
+
+// IPAddressTypeArrayInput is an input type that accepts IPAddressTypeArray and IPAddressTypeArrayOutput values.
+// You can construct a concrete instance of `IPAddressTypeArrayInput` via:
+//
+//	IPAddressTypeArray{ IPAddressTypeArgs{...} }
+type IPAddressTypeArrayInput interface {
+	pulumi.Input
+
+	ToIPAddressTypeArrayOutput() IPAddressTypeArrayOutput
+	ToIPAddressTypeArrayOutputWithContext(context.Context) IPAddressTypeArrayOutput
+}
+
+type IPAddressTypeArray []IPAddressTypeInput
+
+func (IPAddressTypeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]IPAddressType)(nil)).Elem()
+}
+
+func (i IPAddressTypeArray) ToIPAddressTypeArrayOutput() IPAddressTypeArrayOutput {
+	return i.ToIPAddressTypeArrayOutputWithContext(context.Background())
+}
+
+func (i IPAddressTypeArray) ToIPAddressTypeArrayOutputWithContext(ctx context.Context) IPAddressTypeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IPAddressTypeArrayOutput)
+}
+
+// IPAddress represents a single IP of a single IP Family. The object is designed to be used by APIs that operate on IP addresses. The object is used by the Service core API for allocation of IP addresses. An IP address can be represented in different formats, to guarantee the uniqueness of the IP, the name of the object is the IP address in canonical format, four decimal digits separated by dots suppressing leading zeros for IPv4 and the representation defined by RFC 5952 for IPv6. Valid: 192.168.1.5 or 2001:db8::1 or 2001:db8:aaaa:bbbb:cccc:dddd:eeee:1 Invalid: 10.01.2.3 or 2001:db8:0:0:0::1
+type IPAddressTypeOutput struct{ *pulumi.OutputState }
+
+func (IPAddressTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*IPAddressType)(nil)).Elem()
+}
+
+func (o IPAddressTypeOutput) ToIPAddressTypeOutput() IPAddressTypeOutput {
+	return o
+}
+
+func (o IPAddressTypeOutput) ToIPAddressTypeOutputWithContext(ctx context.Context) IPAddressTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o IPAddressTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v IPAddressType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o IPAddressTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v IPAddressType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o IPAddressTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v IPAddressType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// spec is the desired state of the IPAddress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+func (o IPAddressTypeOutput) Spec() IPAddressSpecPtrOutput {
+	return o.ApplyT(func(v IPAddressType) *IPAddressSpec { return v.Spec }).(IPAddressSpecPtrOutput)
+}
+
+type IPAddressTypeArrayOutput struct{ *pulumi.OutputState }
+
+func (IPAddressTypeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]IPAddressType)(nil)).Elem()
+}
+
+func (o IPAddressTypeArrayOutput) ToIPAddressTypeArrayOutput() IPAddressTypeArrayOutput {
+	return o
+}
+
+func (o IPAddressTypeArrayOutput) ToIPAddressTypeArrayOutputWithContext(ctx context.Context) IPAddressTypeArrayOutput {
+	return o
+}
+
+func (o IPAddressTypeArrayOutput) Index(i pulumi.IntInput) IPAddressTypeOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) IPAddressType {
+		return vs[0].([]IPAddressType)[vs[1].(int)]
+	}).(IPAddressTypeOutput)
+}
+
+// IPAddressList contains a list of IPAddress.
+type IPAddressListType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// items is the list of IPAddresses.
+	Items []IPAddressType `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
+}
+
+// IPAddressListTypeInput is an input type that accepts IPAddressListTypeArgs and IPAddressListTypeOutput values.
+// You can construct a concrete instance of `IPAddressListTypeInput` via:
+//
+//	IPAddressListTypeArgs{...}
+type IPAddressListTypeInput interface {
+	pulumi.Input
+
+	ToIPAddressListTypeOutput() IPAddressListTypeOutput
+	ToIPAddressListTypeOutputWithContext(context.Context) IPAddressListTypeOutput
+}
+
+// IPAddressList contains a list of IPAddress.
+type IPAddressListTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// items is the list of IPAddresses.
+	Items IPAddressTypeArrayInput `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+}
+
+func (IPAddressListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*IPAddressListType)(nil)).Elem()
+}
+
+func (i IPAddressListTypeArgs) ToIPAddressListTypeOutput() IPAddressListTypeOutput {
+	return i.ToIPAddressListTypeOutputWithContext(context.Background())
+}
+
+func (i IPAddressListTypeArgs) ToIPAddressListTypeOutputWithContext(ctx context.Context) IPAddressListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IPAddressListTypeOutput)
+}
+
+// IPAddressList contains a list of IPAddress.
+type IPAddressListTypeOutput struct{ *pulumi.OutputState }
+
+func (IPAddressListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*IPAddressListType)(nil)).Elem()
+}
+
+func (o IPAddressListTypeOutput) ToIPAddressListTypeOutput() IPAddressListTypeOutput {
+	return o
+}
+
+func (o IPAddressListTypeOutput) ToIPAddressListTypeOutputWithContext(ctx context.Context) IPAddressListTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o IPAddressListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v IPAddressListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// items is the list of IPAddresses.
+func (o IPAddressListTypeOutput) Items() IPAddressTypeArrayOutput {
+	return o.ApplyT(func(v IPAddressListType) []IPAddressType { return v.Items }).(IPAddressTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o IPAddressListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v IPAddressListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o IPAddressListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v IPAddressListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+}
+
+// IPAddress represents a single IP of a single IP Family. The object is designed to be used by APIs that operate on IP addresses. The object is used by the Service core API for allocation of IP addresses. An IP address can be represented in different formats, to guarantee the uniqueness of the IP, the name of the object is the IP address in canonical format, four decimal digits separated by dots suppressing leading zeros for IPv4 and the representation defined by RFC 5952 for IPv6. Valid: 192.168.1.5 or 2001:db8::1 or 2001:db8:aaaa:bbbb:cccc:dddd:eeee:1 Invalid: 10.01.2.3 or 2001:db8:0:0:0::1
+type IPAddressPatchType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
+	// spec is the desired state of the IPAddress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Spec *IPAddressSpecPatch `pulumi:"spec"`
+}
+
+// IPAddressPatchTypeInput is an input type that accepts IPAddressPatchTypeArgs and IPAddressPatchTypeOutput values.
+// You can construct a concrete instance of `IPAddressPatchTypeInput` via:
+//
+//	IPAddressPatchTypeArgs{...}
+type IPAddressPatchTypeInput interface {
+	pulumi.Input
+
+	ToIPAddressPatchTypeOutput() IPAddressPatchTypeOutput
+	ToIPAddressPatchTypeOutputWithContext(context.Context) IPAddressPatchTypeOutput
+}
+
+// IPAddress represents a single IP of a single IP Family. The object is designed to be used by APIs that operate on IP addresses. The object is used by the Service core API for allocation of IP addresses. An IP address can be represented in different formats, to guarantee the uniqueness of the IP, the name of the object is the IP address in canonical format, four decimal digits separated by dots suppressing leading zeros for IPv4 and the representation defined by RFC 5952 for IPv6. Valid: 192.168.1.5 or 2001:db8::1 or 2001:db8:aaaa:bbbb:cccc:dddd:eeee:1 Invalid: 10.01.2.3 or 2001:db8:0:0:0::1
+type IPAddressPatchTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
+	// spec is the desired state of the IPAddress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Spec IPAddressSpecPatchPtrInput `pulumi:"spec"`
+}
+
+func (IPAddressPatchTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*IPAddressPatchType)(nil)).Elem()
+}
+
+func (i IPAddressPatchTypeArgs) ToIPAddressPatchTypeOutput() IPAddressPatchTypeOutput {
+	return i.ToIPAddressPatchTypeOutputWithContext(context.Background())
+}
+
+func (i IPAddressPatchTypeArgs) ToIPAddressPatchTypeOutputWithContext(ctx context.Context) IPAddressPatchTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IPAddressPatchTypeOutput)
+}
+
+// IPAddress represents a single IP of a single IP Family. The object is designed to be used by APIs that operate on IP addresses. The object is used by the Service core API for allocation of IP addresses. An IP address can be represented in different formats, to guarantee the uniqueness of the IP, the name of the object is the IP address in canonical format, four decimal digits separated by dots suppressing leading zeros for IPv4 and the representation defined by RFC 5952 for IPv6. Valid: 192.168.1.5 or 2001:db8::1 or 2001:db8:aaaa:bbbb:cccc:dddd:eeee:1 Invalid: 10.01.2.3 or 2001:db8:0:0:0::1
+type IPAddressPatchTypeOutput struct{ *pulumi.OutputState }
+
+func (IPAddressPatchTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*IPAddressPatchType)(nil)).Elem()
+}
+
+func (o IPAddressPatchTypeOutput) ToIPAddressPatchTypeOutput() IPAddressPatchTypeOutput {
+	return o
+}
+
+func (o IPAddressPatchTypeOutput) ToIPAddressPatchTypeOutputWithContext(ctx context.Context) IPAddressPatchTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o IPAddressPatchTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v IPAddressPatchType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o IPAddressPatchTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v IPAddressPatchType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o IPAddressPatchTypeOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
+	return o.ApplyT(func(v IPAddressPatchType) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
+}
+
+// spec is the desired state of the IPAddress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+func (o IPAddressPatchTypeOutput) Spec() IPAddressSpecPatchPtrOutput {
+	return o.ApplyT(func(v IPAddressPatchType) *IPAddressSpecPatch { return v.Spec }).(IPAddressSpecPatchPtrOutput)
+}
+
+// IPAddressSpec describe the attributes in an IP Address.
+type IPAddressSpec struct {
+	// ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
+	ParentRef ParentReference `pulumi:"parentRef"`
+}
+
+// IPAddressSpecInput is an input type that accepts IPAddressSpecArgs and IPAddressSpecOutput values.
+// You can construct a concrete instance of `IPAddressSpecInput` via:
+//
+//	IPAddressSpecArgs{...}
+type IPAddressSpecInput interface {
+	pulumi.Input
+
+	ToIPAddressSpecOutput() IPAddressSpecOutput
+	ToIPAddressSpecOutputWithContext(context.Context) IPAddressSpecOutput
+}
+
+// IPAddressSpec describe the attributes in an IP Address.
+type IPAddressSpecArgs struct {
+	// ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
+	ParentRef ParentReferenceInput `pulumi:"parentRef"`
+}
+
+func (IPAddressSpecArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*IPAddressSpec)(nil)).Elem()
+}
+
+func (i IPAddressSpecArgs) ToIPAddressSpecOutput() IPAddressSpecOutput {
+	return i.ToIPAddressSpecOutputWithContext(context.Background())
+}
+
+func (i IPAddressSpecArgs) ToIPAddressSpecOutputWithContext(ctx context.Context) IPAddressSpecOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IPAddressSpecOutput)
+}
+
+func (i IPAddressSpecArgs) ToIPAddressSpecPtrOutput() IPAddressSpecPtrOutput {
+	return i.ToIPAddressSpecPtrOutputWithContext(context.Background())
+}
+
+func (i IPAddressSpecArgs) ToIPAddressSpecPtrOutputWithContext(ctx context.Context) IPAddressSpecPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IPAddressSpecOutput).ToIPAddressSpecPtrOutputWithContext(ctx)
+}
+
+// IPAddressSpecPtrInput is an input type that accepts IPAddressSpecArgs, IPAddressSpecPtr and IPAddressSpecPtrOutput values.
+// You can construct a concrete instance of `IPAddressSpecPtrInput` via:
+//
+//	        IPAddressSpecArgs{...}
+//
+//	or:
+//
+//	        nil
+type IPAddressSpecPtrInput interface {
+	pulumi.Input
+
+	ToIPAddressSpecPtrOutput() IPAddressSpecPtrOutput
+	ToIPAddressSpecPtrOutputWithContext(context.Context) IPAddressSpecPtrOutput
+}
+
+type ipaddressSpecPtrType IPAddressSpecArgs
+
+func IPAddressSpecPtr(v *IPAddressSpecArgs) IPAddressSpecPtrInput {
+	return (*ipaddressSpecPtrType)(v)
+}
+
+func (*ipaddressSpecPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**IPAddressSpec)(nil)).Elem()
+}
+
+func (i *ipaddressSpecPtrType) ToIPAddressSpecPtrOutput() IPAddressSpecPtrOutput {
+	return i.ToIPAddressSpecPtrOutputWithContext(context.Background())
+}
+
+func (i *ipaddressSpecPtrType) ToIPAddressSpecPtrOutputWithContext(ctx context.Context) IPAddressSpecPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IPAddressSpecPtrOutput)
+}
+
+// IPAddressSpec describe the attributes in an IP Address.
+type IPAddressSpecOutput struct{ *pulumi.OutputState }
+
+func (IPAddressSpecOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*IPAddressSpec)(nil)).Elem()
+}
+
+func (o IPAddressSpecOutput) ToIPAddressSpecOutput() IPAddressSpecOutput {
+	return o
+}
+
+func (o IPAddressSpecOutput) ToIPAddressSpecOutputWithContext(ctx context.Context) IPAddressSpecOutput {
+	return o
+}
+
+func (o IPAddressSpecOutput) ToIPAddressSpecPtrOutput() IPAddressSpecPtrOutput {
+	return o.ToIPAddressSpecPtrOutputWithContext(context.Background())
+}
+
+func (o IPAddressSpecOutput) ToIPAddressSpecPtrOutputWithContext(ctx context.Context) IPAddressSpecPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v IPAddressSpec) *IPAddressSpec {
+		return &v
+	}).(IPAddressSpecPtrOutput)
+}
+
+// ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
+func (o IPAddressSpecOutput) ParentRef() ParentReferenceOutput {
+	return o.ApplyT(func(v IPAddressSpec) ParentReference { return v.ParentRef }).(ParentReferenceOutput)
+}
+
+type IPAddressSpecPtrOutput struct{ *pulumi.OutputState }
+
+func (IPAddressSpecPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**IPAddressSpec)(nil)).Elem()
+}
+
+func (o IPAddressSpecPtrOutput) ToIPAddressSpecPtrOutput() IPAddressSpecPtrOutput {
+	return o
+}
+
+func (o IPAddressSpecPtrOutput) ToIPAddressSpecPtrOutputWithContext(ctx context.Context) IPAddressSpecPtrOutput {
+	return o
+}
+
+func (o IPAddressSpecPtrOutput) Elem() IPAddressSpecOutput {
+	return o.ApplyT(func(v *IPAddressSpec) IPAddressSpec {
+		if v != nil {
+			return *v
+		}
+		var ret IPAddressSpec
+		return ret
+	}).(IPAddressSpecOutput)
+}
+
+// ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
+func (o IPAddressSpecPtrOutput) ParentRef() ParentReferencePtrOutput {
+	return o.ApplyT(func(v *IPAddressSpec) *ParentReference {
+		if v == nil {
+			return nil
+		}
+		return &v.ParentRef
+	}).(ParentReferencePtrOutput)
+}
+
+// IPAddressSpec describe the attributes in an IP Address.
+type IPAddressSpecPatch struct {
+	// ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
+	ParentRef *ParentReferencePatch `pulumi:"parentRef"`
+}
+
+// IPAddressSpecPatchInput is an input type that accepts IPAddressSpecPatchArgs and IPAddressSpecPatchOutput values.
+// You can construct a concrete instance of `IPAddressSpecPatchInput` via:
+//
+//	IPAddressSpecPatchArgs{...}
+type IPAddressSpecPatchInput interface {
+	pulumi.Input
+
+	ToIPAddressSpecPatchOutput() IPAddressSpecPatchOutput
+	ToIPAddressSpecPatchOutputWithContext(context.Context) IPAddressSpecPatchOutput
+}
+
+// IPAddressSpec describe the attributes in an IP Address.
+type IPAddressSpecPatchArgs struct {
+	// ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
+	ParentRef ParentReferencePatchPtrInput `pulumi:"parentRef"`
+}
+
+func (IPAddressSpecPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*IPAddressSpecPatch)(nil)).Elem()
+}
+
+func (i IPAddressSpecPatchArgs) ToIPAddressSpecPatchOutput() IPAddressSpecPatchOutput {
+	return i.ToIPAddressSpecPatchOutputWithContext(context.Background())
+}
+
+func (i IPAddressSpecPatchArgs) ToIPAddressSpecPatchOutputWithContext(ctx context.Context) IPAddressSpecPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IPAddressSpecPatchOutput)
+}
+
+func (i IPAddressSpecPatchArgs) ToIPAddressSpecPatchPtrOutput() IPAddressSpecPatchPtrOutput {
+	return i.ToIPAddressSpecPatchPtrOutputWithContext(context.Background())
+}
+
+func (i IPAddressSpecPatchArgs) ToIPAddressSpecPatchPtrOutputWithContext(ctx context.Context) IPAddressSpecPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IPAddressSpecPatchOutput).ToIPAddressSpecPatchPtrOutputWithContext(ctx)
+}
+
+// IPAddressSpecPatchPtrInput is an input type that accepts IPAddressSpecPatchArgs, IPAddressSpecPatchPtr and IPAddressSpecPatchPtrOutput values.
+// You can construct a concrete instance of `IPAddressSpecPatchPtrInput` via:
+//
+//	        IPAddressSpecPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type IPAddressSpecPatchPtrInput interface {
+	pulumi.Input
+
+	ToIPAddressSpecPatchPtrOutput() IPAddressSpecPatchPtrOutput
+	ToIPAddressSpecPatchPtrOutputWithContext(context.Context) IPAddressSpecPatchPtrOutput
+}
+
+type ipaddressSpecPatchPtrType IPAddressSpecPatchArgs
+
+func IPAddressSpecPatchPtr(v *IPAddressSpecPatchArgs) IPAddressSpecPatchPtrInput {
+	return (*ipaddressSpecPatchPtrType)(v)
+}
+
+func (*ipaddressSpecPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**IPAddressSpecPatch)(nil)).Elem()
+}
+
+func (i *ipaddressSpecPatchPtrType) ToIPAddressSpecPatchPtrOutput() IPAddressSpecPatchPtrOutput {
+	return i.ToIPAddressSpecPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *ipaddressSpecPatchPtrType) ToIPAddressSpecPatchPtrOutputWithContext(ctx context.Context) IPAddressSpecPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IPAddressSpecPatchPtrOutput)
+}
+
+// IPAddressSpec describe the attributes in an IP Address.
+type IPAddressSpecPatchOutput struct{ *pulumi.OutputState }
+
+func (IPAddressSpecPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*IPAddressSpecPatch)(nil)).Elem()
+}
+
+func (o IPAddressSpecPatchOutput) ToIPAddressSpecPatchOutput() IPAddressSpecPatchOutput {
+	return o
+}
+
+func (o IPAddressSpecPatchOutput) ToIPAddressSpecPatchOutputWithContext(ctx context.Context) IPAddressSpecPatchOutput {
+	return o
+}
+
+func (o IPAddressSpecPatchOutput) ToIPAddressSpecPatchPtrOutput() IPAddressSpecPatchPtrOutput {
+	return o.ToIPAddressSpecPatchPtrOutputWithContext(context.Background())
+}
+
+func (o IPAddressSpecPatchOutput) ToIPAddressSpecPatchPtrOutputWithContext(ctx context.Context) IPAddressSpecPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v IPAddressSpecPatch) *IPAddressSpecPatch {
+		return &v
+	}).(IPAddressSpecPatchPtrOutput)
+}
+
+// ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
+func (o IPAddressSpecPatchOutput) ParentRef() ParentReferencePatchPtrOutput {
+	return o.ApplyT(func(v IPAddressSpecPatch) *ParentReferencePatch { return v.ParentRef }).(ParentReferencePatchPtrOutput)
+}
+
+type IPAddressSpecPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (IPAddressSpecPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**IPAddressSpecPatch)(nil)).Elem()
+}
+
+func (o IPAddressSpecPatchPtrOutput) ToIPAddressSpecPatchPtrOutput() IPAddressSpecPatchPtrOutput {
+	return o
+}
+
+func (o IPAddressSpecPatchPtrOutput) ToIPAddressSpecPatchPtrOutputWithContext(ctx context.Context) IPAddressSpecPatchPtrOutput {
+	return o
+}
+
+func (o IPAddressSpecPatchPtrOutput) Elem() IPAddressSpecPatchOutput {
+	return o.ApplyT(func(v *IPAddressSpecPatch) IPAddressSpecPatch {
+		if v != nil {
+			return *v
+		}
+		var ret IPAddressSpecPatch
+		return ret
+	}).(IPAddressSpecPatchOutput)
+}
+
+// ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
+func (o IPAddressSpecPatchPtrOutput) ParentRef() ParentReferencePatchPtrOutput {
+	return o.ApplyT(func(v *IPAddressSpecPatch) *ParentReferencePatch {
+		if v == nil {
+			return nil
+		}
+		return v.ParentRef
+	}).(ParentReferencePatchPtrOutput)
+}
+
 // Ingress is a collection of rules that allow inbound connections to reach the endpoints defined by a backend. An Ingress can be configured to give services externally-reachable urls, load balance traffic, terminate SSL, offer name based virtual hosting etc.
 //
 // This resource waits until its status is ready before registering success
@@ -3089,6 +3660,1269 @@ func (o IngressTLSPatchArrayOutput) Index(i pulumi.IntInput) IngressTLSPatchOutp
 	}).(IngressTLSPatchOutput)
 }
 
+// ParentReference describes a reference to a parent object.
+type ParentReference struct {
+	// Group is the group of the object being referenced.
+	Group *string `pulumi:"group"`
+	// Name is the name of the object being referenced.
+	Name string `pulumi:"name"`
+	// Namespace is the namespace of the object being referenced.
+	Namespace *string `pulumi:"namespace"`
+	// Resource is the resource of the object being referenced.
+	Resource string `pulumi:"resource"`
+}
+
+// ParentReferenceInput is an input type that accepts ParentReferenceArgs and ParentReferenceOutput values.
+// You can construct a concrete instance of `ParentReferenceInput` via:
+//
+//	ParentReferenceArgs{...}
+type ParentReferenceInput interface {
+	pulumi.Input
+
+	ToParentReferenceOutput() ParentReferenceOutput
+	ToParentReferenceOutputWithContext(context.Context) ParentReferenceOutput
+}
+
+// ParentReference describes a reference to a parent object.
+type ParentReferenceArgs struct {
+	// Group is the group of the object being referenced.
+	Group pulumi.StringPtrInput `pulumi:"group"`
+	// Name is the name of the object being referenced.
+	Name pulumi.StringInput `pulumi:"name"`
+	// Namespace is the namespace of the object being referenced.
+	Namespace pulumi.StringPtrInput `pulumi:"namespace"`
+	// Resource is the resource of the object being referenced.
+	Resource pulumi.StringInput `pulumi:"resource"`
+}
+
+func (ParentReferenceArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ParentReference)(nil)).Elem()
+}
+
+func (i ParentReferenceArgs) ToParentReferenceOutput() ParentReferenceOutput {
+	return i.ToParentReferenceOutputWithContext(context.Background())
+}
+
+func (i ParentReferenceArgs) ToParentReferenceOutputWithContext(ctx context.Context) ParentReferenceOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ParentReferenceOutput)
+}
+
+func (i ParentReferenceArgs) ToParentReferencePtrOutput() ParentReferencePtrOutput {
+	return i.ToParentReferencePtrOutputWithContext(context.Background())
+}
+
+func (i ParentReferenceArgs) ToParentReferencePtrOutputWithContext(ctx context.Context) ParentReferencePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ParentReferenceOutput).ToParentReferencePtrOutputWithContext(ctx)
+}
+
+// ParentReferencePtrInput is an input type that accepts ParentReferenceArgs, ParentReferencePtr and ParentReferencePtrOutput values.
+// You can construct a concrete instance of `ParentReferencePtrInput` via:
+//
+//	        ParentReferenceArgs{...}
+//
+//	or:
+//
+//	        nil
+type ParentReferencePtrInput interface {
+	pulumi.Input
+
+	ToParentReferencePtrOutput() ParentReferencePtrOutput
+	ToParentReferencePtrOutputWithContext(context.Context) ParentReferencePtrOutput
+}
+
+type parentReferencePtrType ParentReferenceArgs
+
+func ParentReferencePtr(v *ParentReferenceArgs) ParentReferencePtrInput {
+	return (*parentReferencePtrType)(v)
+}
+
+func (*parentReferencePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ParentReference)(nil)).Elem()
+}
+
+func (i *parentReferencePtrType) ToParentReferencePtrOutput() ParentReferencePtrOutput {
+	return i.ToParentReferencePtrOutputWithContext(context.Background())
+}
+
+func (i *parentReferencePtrType) ToParentReferencePtrOutputWithContext(ctx context.Context) ParentReferencePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ParentReferencePtrOutput)
+}
+
+// ParentReference describes a reference to a parent object.
+type ParentReferenceOutput struct{ *pulumi.OutputState }
+
+func (ParentReferenceOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ParentReference)(nil)).Elem()
+}
+
+func (o ParentReferenceOutput) ToParentReferenceOutput() ParentReferenceOutput {
+	return o
+}
+
+func (o ParentReferenceOutput) ToParentReferenceOutputWithContext(ctx context.Context) ParentReferenceOutput {
+	return o
+}
+
+func (o ParentReferenceOutput) ToParentReferencePtrOutput() ParentReferencePtrOutput {
+	return o.ToParentReferencePtrOutputWithContext(context.Background())
+}
+
+func (o ParentReferenceOutput) ToParentReferencePtrOutputWithContext(ctx context.Context) ParentReferencePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ParentReference) *ParentReference {
+		return &v
+	}).(ParentReferencePtrOutput)
+}
+
+// Group is the group of the object being referenced.
+func (o ParentReferenceOutput) Group() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ParentReference) *string { return v.Group }).(pulumi.StringPtrOutput)
+}
+
+// Name is the name of the object being referenced.
+func (o ParentReferenceOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v ParentReference) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// Namespace is the namespace of the object being referenced.
+func (o ParentReferenceOutput) Namespace() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ParentReference) *string { return v.Namespace }).(pulumi.StringPtrOutput)
+}
+
+// Resource is the resource of the object being referenced.
+func (o ParentReferenceOutput) Resource() pulumi.StringOutput {
+	return o.ApplyT(func(v ParentReference) string { return v.Resource }).(pulumi.StringOutput)
+}
+
+type ParentReferencePtrOutput struct{ *pulumi.OutputState }
+
+func (ParentReferencePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ParentReference)(nil)).Elem()
+}
+
+func (o ParentReferencePtrOutput) ToParentReferencePtrOutput() ParentReferencePtrOutput {
+	return o
+}
+
+func (o ParentReferencePtrOutput) ToParentReferencePtrOutputWithContext(ctx context.Context) ParentReferencePtrOutput {
+	return o
+}
+
+func (o ParentReferencePtrOutput) Elem() ParentReferenceOutput {
+	return o.ApplyT(func(v *ParentReference) ParentReference {
+		if v != nil {
+			return *v
+		}
+		var ret ParentReference
+		return ret
+	}).(ParentReferenceOutput)
+}
+
+// Group is the group of the object being referenced.
+func (o ParentReferencePtrOutput) Group() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ParentReference) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Group
+	}).(pulumi.StringPtrOutput)
+}
+
+// Name is the name of the object being referenced.
+func (o ParentReferencePtrOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ParentReference) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Name
+	}).(pulumi.StringPtrOutput)
+}
+
+// Namespace is the namespace of the object being referenced.
+func (o ParentReferencePtrOutput) Namespace() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ParentReference) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Namespace
+	}).(pulumi.StringPtrOutput)
+}
+
+// Resource is the resource of the object being referenced.
+func (o ParentReferencePtrOutput) Resource() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ParentReference) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Resource
+	}).(pulumi.StringPtrOutput)
+}
+
+// ParentReference describes a reference to a parent object.
+type ParentReferencePatch struct {
+	// Group is the group of the object being referenced.
+	Group *string `pulumi:"group"`
+	// Name is the name of the object being referenced.
+	Name *string `pulumi:"name"`
+	// Namespace is the namespace of the object being referenced.
+	Namespace *string `pulumi:"namespace"`
+	// Resource is the resource of the object being referenced.
+	Resource *string `pulumi:"resource"`
+}
+
+// ParentReferencePatchInput is an input type that accepts ParentReferencePatchArgs and ParentReferencePatchOutput values.
+// You can construct a concrete instance of `ParentReferencePatchInput` via:
+//
+//	ParentReferencePatchArgs{...}
+type ParentReferencePatchInput interface {
+	pulumi.Input
+
+	ToParentReferencePatchOutput() ParentReferencePatchOutput
+	ToParentReferencePatchOutputWithContext(context.Context) ParentReferencePatchOutput
+}
+
+// ParentReference describes a reference to a parent object.
+type ParentReferencePatchArgs struct {
+	// Group is the group of the object being referenced.
+	Group pulumi.StringPtrInput `pulumi:"group"`
+	// Name is the name of the object being referenced.
+	Name pulumi.StringPtrInput `pulumi:"name"`
+	// Namespace is the namespace of the object being referenced.
+	Namespace pulumi.StringPtrInput `pulumi:"namespace"`
+	// Resource is the resource of the object being referenced.
+	Resource pulumi.StringPtrInput `pulumi:"resource"`
+}
+
+func (ParentReferencePatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ParentReferencePatch)(nil)).Elem()
+}
+
+func (i ParentReferencePatchArgs) ToParentReferencePatchOutput() ParentReferencePatchOutput {
+	return i.ToParentReferencePatchOutputWithContext(context.Background())
+}
+
+func (i ParentReferencePatchArgs) ToParentReferencePatchOutputWithContext(ctx context.Context) ParentReferencePatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ParentReferencePatchOutput)
+}
+
+func (i ParentReferencePatchArgs) ToParentReferencePatchPtrOutput() ParentReferencePatchPtrOutput {
+	return i.ToParentReferencePatchPtrOutputWithContext(context.Background())
+}
+
+func (i ParentReferencePatchArgs) ToParentReferencePatchPtrOutputWithContext(ctx context.Context) ParentReferencePatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ParentReferencePatchOutput).ToParentReferencePatchPtrOutputWithContext(ctx)
+}
+
+// ParentReferencePatchPtrInput is an input type that accepts ParentReferencePatchArgs, ParentReferencePatchPtr and ParentReferencePatchPtrOutput values.
+// You can construct a concrete instance of `ParentReferencePatchPtrInput` via:
+//
+//	        ParentReferencePatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type ParentReferencePatchPtrInput interface {
+	pulumi.Input
+
+	ToParentReferencePatchPtrOutput() ParentReferencePatchPtrOutput
+	ToParentReferencePatchPtrOutputWithContext(context.Context) ParentReferencePatchPtrOutput
+}
+
+type parentReferencePatchPtrType ParentReferencePatchArgs
+
+func ParentReferencePatchPtr(v *ParentReferencePatchArgs) ParentReferencePatchPtrInput {
+	return (*parentReferencePatchPtrType)(v)
+}
+
+func (*parentReferencePatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ParentReferencePatch)(nil)).Elem()
+}
+
+func (i *parentReferencePatchPtrType) ToParentReferencePatchPtrOutput() ParentReferencePatchPtrOutput {
+	return i.ToParentReferencePatchPtrOutputWithContext(context.Background())
+}
+
+func (i *parentReferencePatchPtrType) ToParentReferencePatchPtrOutputWithContext(ctx context.Context) ParentReferencePatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ParentReferencePatchPtrOutput)
+}
+
+// ParentReference describes a reference to a parent object.
+type ParentReferencePatchOutput struct{ *pulumi.OutputState }
+
+func (ParentReferencePatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ParentReferencePatch)(nil)).Elem()
+}
+
+func (o ParentReferencePatchOutput) ToParentReferencePatchOutput() ParentReferencePatchOutput {
+	return o
+}
+
+func (o ParentReferencePatchOutput) ToParentReferencePatchOutputWithContext(ctx context.Context) ParentReferencePatchOutput {
+	return o
+}
+
+func (o ParentReferencePatchOutput) ToParentReferencePatchPtrOutput() ParentReferencePatchPtrOutput {
+	return o.ToParentReferencePatchPtrOutputWithContext(context.Background())
+}
+
+func (o ParentReferencePatchOutput) ToParentReferencePatchPtrOutputWithContext(ctx context.Context) ParentReferencePatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ParentReferencePatch) *ParentReferencePatch {
+		return &v
+	}).(ParentReferencePatchPtrOutput)
+}
+
+// Group is the group of the object being referenced.
+func (o ParentReferencePatchOutput) Group() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ParentReferencePatch) *string { return v.Group }).(pulumi.StringPtrOutput)
+}
+
+// Name is the name of the object being referenced.
+func (o ParentReferencePatchOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ParentReferencePatch) *string { return v.Name }).(pulumi.StringPtrOutput)
+}
+
+// Namespace is the namespace of the object being referenced.
+func (o ParentReferencePatchOutput) Namespace() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ParentReferencePatch) *string { return v.Namespace }).(pulumi.StringPtrOutput)
+}
+
+// Resource is the resource of the object being referenced.
+func (o ParentReferencePatchOutput) Resource() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ParentReferencePatch) *string { return v.Resource }).(pulumi.StringPtrOutput)
+}
+
+type ParentReferencePatchPtrOutput struct{ *pulumi.OutputState }
+
+func (ParentReferencePatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ParentReferencePatch)(nil)).Elem()
+}
+
+func (o ParentReferencePatchPtrOutput) ToParentReferencePatchPtrOutput() ParentReferencePatchPtrOutput {
+	return o
+}
+
+func (o ParentReferencePatchPtrOutput) ToParentReferencePatchPtrOutputWithContext(ctx context.Context) ParentReferencePatchPtrOutput {
+	return o
+}
+
+func (o ParentReferencePatchPtrOutput) Elem() ParentReferencePatchOutput {
+	return o.ApplyT(func(v *ParentReferencePatch) ParentReferencePatch {
+		if v != nil {
+			return *v
+		}
+		var ret ParentReferencePatch
+		return ret
+	}).(ParentReferencePatchOutput)
+}
+
+// Group is the group of the object being referenced.
+func (o ParentReferencePatchPtrOutput) Group() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ParentReferencePatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Group
+	}).(pulumi.StringPtrOutput)
+}
+
+// Name is the name of the object being referenced.
+func (o ParentReferencePatchPtrOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ParentReferencePatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Name
+	}).(pulumi.StringPtrOutput)
+}
+
+// Namespace is the namespace of the object being referenced.
+func (o ParentReferencePatchPtrOutput) Namespace() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ParentReferencePatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Namespace
+	}).(pulumi.StringPtrOutput)
+}
+
+// Resource is the resource of the object being referenced.
+func (o ParentReferencePatchPtrOutput) Resource() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ParentReferencePatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Resource
+	}).(pulumi.StringPtrOutput)
+}
+
+// ServiceCIDR defines a range of IP addresses using CIDR format (e.g. 192.168.0.0/24 or 2001:db2::/64). This range is used to allocate ClusterIPs to Service objects.
+type ServiceCIDRType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	// spec is the desired state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Spec *ServiceCIDRSpec `pulumi:"spec"`
+	// status represents the current state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Status *ServiceCIDRStatus `pulumi:"status"`
+}
+
+// ServiceCIDRTypeInput is an input type that accepts ServiceCIDRTypeArgs and ServiceCIDRTypeOutput values.
+// You can construct a concrete instance of `ServiceCIDRTypeInput` via:
+//
+//	ServiceCIDRTypeArgs{...}
+type ServiceCIDRTypeInput interface {
+	pulumi.Input
+
+	ToServiceCIDRTypeOutput() ServiceCIDRTypeOutput
+	ToServiceCIDRTypeOutputWithContext(context.Context) ServiceCIDRTypeOutput
+}
+
+// ServiceCIDR defines a range of IP addresses using CIDR format (e.g. 192.168.0.0/24 or 2001:db2::/64). This range is used to allocate ClusterIPs to Service objects.
+type ServiceCIDRTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	// spec is the desired state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Spec ServiceCIDRSpecPtrInput `pulumi:"spec"`
+	// status represents the current state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Status ServiceCIDRStatusPtrInput `pulumi:"status"`
+}
+
+func (ServiceCIDRTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ServiceCIDRType)(nil)).Elem()
+}
+
+func (i ServiceCIDRTypeArgs) ToServiceCIDRTypeOutput() ServiceCIDRTypeOutput {
+	return i.ToServiceCIDRTypeOutputWithContext(context.Background())
+}
+
+func (i ServiceCIDRTypeArgs) ToServiceCIDRTypeOutputWithContext(ctx context.Context) ServiceCIDRTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ServiceCIDRTypeOutput)
+}
+
+// ServiceCIDRTypeArrayInput is an input type that accepts ServiceCIDRTypeArray and ServiceCIDRTypeArrayOutput values.
+// You can construct a concrete instance of `ServiceCIDRTypeArrayInput` via:
+//
+//	ServiceCIDRTypeArray{ ServiceCIDRTypeArgs{...} }
+type ServiceCIDRTypeArrayInput interface {
+	pulumi.Input
+
+	ToServiceCIDRTypeArrayOutput() ServiceCIDRTypeArrayOutput
+	ToServiceCIDRTypeArrayOutputWithContext(context.Context) ServiceCIDRTypeArrayOutput
+}
+
+type ServiceCIDRTypeArray []ServiceCIDRTypeInput
+
+func (ServiceCIDRTypeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ServiceCIDRType)(nil)).Elem()
+}
+
+func (i ServiceCIDRTypeArray) ToServiceCIDRTypeArrayOutput() ServiceCIDRTypeArrayOutput {
+	return i.ToServiceCIDRTypeArrayOutputWithContext(context.Background())
+}
+
+func (i ServiceCIDRTypeArray) ToServiceCIDRTypeArrayOutputWithContext(ctx context.Context) ServiceCIDRTypeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ServiceCIDRTypeArrayOutput)
+}
+
+// ServiceCIDR defines a range of IP addresses using CIDR format (e.g. 192.168.0.0/24 or 2001:db2::/64). This range is used to allocate ClusterIPs to Service objects.
+type ServiceCIDRTypeOutput struct{ *pulumi.OutputState }
+
+func (ServiceCIDRTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ServiceCIDRType)(nil)).Elem()
+}
+
+func (o ServiceCIDRTypeOutput) ToServiceCIDRTypeOutput() ServiceCIDRTypeOutput {
+	return o
+}
+
+func (o ServiceCIDRTypeOutput) ToServiceCIDRTypeOutputWithContext(ctx context.Context) ServiceCIDRTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o ServiceCIDRTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ServiceCIDRType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o ServiceCIDRTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ServiceCIDRType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o ServiceCIDRTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v ServiceCIDRType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// spec is the desired state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+func (o ServiceCIDRTypeOutput) Spec() ServiceCIDRSpecPtrOutput {
+	return o.ApplyT(func(v ServiceCIDRType) *ServiceCIDRSpec { return v.Spec }).(ServiceCIDRSpecPtrOutput)
+}
+
+// status represents the current state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+func (o ServiceCIDRTypeOutput) Status() ServiceCIDRStatusPtrOutput {
+	return o.ApplyT(func(v ServiceCIDRType) *ServiceCIDRStatus { return v.Status }).(ServiceCIDRStatusPtrOutput)
+}
+
+type ServiceCIDRTypeArrayOutput struct{ *pulumi.OutputState }
+
+func (ServiceCIDRTypeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ServiceCIDRType)(nil)).Elem()
+}
+
+func (o ServiceCIDRTypeArrayOutput) ToServiceCIDRTypeArrayOutput() ServiceCIDRTypeArrayOutput {
+	return o
+}
+
+func (o ServiceCIDRTypeArrayOutput) ToServiceCIDRTypeArrayOutputWithContext(ctx context.Context) ServiceCIDRTypeArrayOutput {
+	return o
+}
+
+func (o ServiceCIDRTypeArrayOutput) Index(i pulumi.IntInput) ServiceCIDRTypeOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ServiceCIDRType {
+		return vs[0].([]ServiceCIDRType)[vs[1].(int)]
+	}).(ServiceCIDRTypeOutput)
+}
+
+// ServiceCIDRList contains a list of ServiceCIDR objects.
+type ServiceCIDRListType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// items is the list of ServiceCIDRs.
+	Items []ServiceCIDRType `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
+}
+
+// ServiceCIDRListTypeInput is an input type that accepts ServiceCIDRListTypeArgs and ServiceCIDRListTypeOutput values.
+// You can construct a concrete instance of `ServiceCIDRListTypeInput` via:
+//
+//	ServiceCIDRListTypeArgs{...}
+type ServiceCIDRListTypeInput interface {
+	pulumi.Input
+
+	ToServiceCIDRListTypeOutput() ServiceCIDRListTypeOutput
+	ToServiceCIDRListTypeOutputWithContext(context.Context) ServiceCIDRListTypeOutput
+}
+
+// ServiceCIDRList contains a list of ServiceCIDR objects.
+type ServiceCIDRListTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// items is the list of ServiceCIDRs.
+	Items ServiceCIDRTypeArrayInput `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+}
+
+func (ServiceCIDRListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ServiceCIDRListType)(nil)).Elem()
+}
+
+func (i ServiceCIDRListTypeArgs) ToServiceCIDRListTypeOutput() ServiceCIDRListTypeOutput {
+	return i.ToServiceCIDRListTypeOutputWithContext(context.Background())
+}
+
+func (i ServiceCIDRListTypeArgs) ToServiceCIDRListTypeOutputWithContext(ctx context.Context) ServiceCIDRListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ServiceCIDRListTypeOutput)
+}
+
+// ServiceCIDRList contains a list of ServiceCIDR objects.
+type ServiceCIDRListTypeOutput struct{ *pulumi.OutputState }
+
+func (ServiceCIDRListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ServiceCIDRListType)(nil)).Elem()
+}
+
+func (o ServiceCIDRListTypeOutput) ToServiceCIDRListTypeOutput() ServiceCIDRListTypeOutput {
+	return o
+}
+
+func (o ServiceCIDRListTypeOutput) ToServiceCIDRListTypeOutputWithContext(ctx context.Context) ServiceCIDRListTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o ServiceCIDRListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ServiceCIDRListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// items is the list of ServiceCIDRs.
+func (o ServiceCIDRListTypeOutput) Items() ServiceCIDRTypeArrayOutput {
+	return o.ApplyT(func(v ServiceCIDRListType) []ServiceCIDRType { return v.Items }).(ServiceCIDRTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o ServiceCIDRListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ServiceCIDRListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o ServiceCIDRListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v ServiceCIDRListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+}
+
+// ServiceCIDR defines a range of IP addresses using CIDR format (e.g. 192.168.0.0/24 or 2001:db2::/64). This range is used to allocate ClusterIPs to Service objects.
+type ServiceCIDRPatchType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
+	// spec is the desired state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Spec *ServiceCIDRSpecPatch `pulumi:"spec"`
+	// status represents the current state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Status *ServiceCIDRStatusPatch `pulumi:"status"`
+}
+
+// ServiceCIDRPatchTypeInput is an input type that accepts ServiceCIDRPatchTypeArgs and ServiceCIDRPatchTypeOutput values.
+// You can construct a concrete instance of `ServiceCIDRPatchTypeInput` via:
+//
+//	ServiceCIDRPatchTypeArgs{...}
+type ServiceCIDRPatchTypeInput interface {
+	pulumi.Input
+
+	ToServiceCIDRPatchTypeOutput() ServiceCIDRPatchTypeOutput
+	ToServiceCIDRPatchTypeOutputWithContext(context.Context) ServiceCIDRPatchTypeOutput
+}
+
+// ServiceCIDR defines a range of IP addresses using CIDR format (e.g. 192.168.0.0/24 or 2001:db2::/64). This range is used to allocate ClusterIPs to Service objects.
+type ServiceCIDRPatchTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
+	// spec is the desired state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Spec ServiceCIDRSpecPatchPtrInput `pulumi:"spec"`
+	// status represents the current state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Status ServiceCIDRStatusPatchPtrInput `pulumi:"status"`
+}
+
+func (ServiceCIDRPatchTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ServiceCIDRPatchType)(nil)).Elem()
+}
+
+func (i ServiceCIDRPatchTypeArgs) ToServiceCIDRPatchTypeOutput() ServiceCIDRPatchTypeOutput {
+	return i.ToServiceCIDRPatchTypeOutputWithContext(context.Background())
+}
+
+func (i ServiceCIDRPatchTypeArgs) ToServiceCIDRPatchTypeOutputWithContext(ctx context.Context) ServiceCIDRPatchTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ServiceCIDRPatchTypeOutput)
+}
+
+// ServiceCIDR defines a range of IP addresses using CIDR format (e.g. 192.168.0.0/24 or 2001:db2::/64). This range is used to allocate ClusterIPs to Service objects.
+type ServiceCIDRPatchTypeOutput struct{ *pulumi.OutputState }
+
+func (ServiceCIDRPatchTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ServiceCIDRPatchType)(nil)).Elem()
+}
+
+func (o ServiceCIDRPatchTypeOutput) ToServiceCIDRPatchTypeOutput() ServiceCIDRPatchTypeOutput {
+	return o
+}
+
+func (o ServiceCIDRPatchTypeOutput) ToServiceCIDRPatchTypeOutputWithContext(ctx context.Context) ServiceCIDRPatchTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o ServiceCIDRPatchTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ServiceCIDRPatchType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o ServiceCIDRPatchTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ServiceCIDRPatchType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o ServiceCIDRPatchTypeOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
+	return o.ApplyT(func(v ServiceCIDRPatchType) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
+}
+
+// spec is the desired state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+func (o ServiceCIDRPatchTypeOutput) Spec() ServiceCIDRSpecPatchPtrOutput {
+	return o.ApplyT(func(v ServiceCIDRPatchType) *ServiceCIDRSpecPatch { return v.Spec }).(ServiceCIDRSpecPatchPtrOutput)
+}
+
+// status represents the current state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+func (o ServiceCIDRPatchTypeOutput) Status() ServiceCIDRStatusPatchPtrOutput {
+	return o.ApplyT(func(v ServiceCIDRPatchType) *ServiceCIDRStatusPatch { return v.Status }).(ServiceCIDRStatusPatchPtrOutput)
+}
+
+// ServiceCIDRSpec define the CIDRs the user wants to use for allocating ClusterIPs for Services.
+type ServiceCIDRSpec struct {
+	// CIDRs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
+	Cidrs []string `pulumi:"cidrs"`
+}
+
+// ServiceCIDRSpecInput is an input type that accepts ServiceCIDRSpecArgs and ServiceCIDRSpecOutput values.
+// You can construct a concrete instance of `ServiceCIDRSpecInput` via:
+//
+//	ServiceCIDRSpecArgs{...}
+type ServiceCIDRSpecInput interface {
+	pulumi.Input
+
+	ToServiceCIDRSpecOutput() ServiceCIDRSpecOutput
+	ToServiceCIDRSpecOutputWithContext(context.Context) ServiceCIDRSpecOutput
+}
+
+// ServiceCIDRSpec define the CIDRs the user wants to use for allocating ClusterIPs for Services.
+type ServiceCIDRSpecArgs struct {
+	// CIDRs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
+	Cidrs pulumi.StringArrayInput `pulumi:"cidrs"`
+}
+
+func (ServiceCIDRSpecArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ServiceCIDRSpec)(nil)).Elem()
+}
+
+func (i ServiceCIDRSpecArgs) ToServiceCIDRSpecOutput() ServiceCIDRSpecOutput {
+	return i.ToServiceCIDRSpecOutputWithContext(context.Background())
+}
+
+func (i ServiceCIDRSpecArgs) ToServiceCIDRSpecOutputWithContext(ctx context.Context) ServiceCIDRSpecOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ServiceCIDRSpecOutput)
+}
+
+func (i ServiceCIDRSpecArgs) ToServiceCIDRSpecPtrOutput() ServiceCIDRSpecPtrOutput {
+	return i.ToServiceCIDRSpecPtrOutputWithContext(context.Background())
+}
+
+func (i ServiceCIDRSpecArgs) ToServiceCIDRSpecPtrOutputWithContext(ctx context.Context) ServiceCIDRSpecPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ServiceCIDRSpecOutput).ToServiceCIDRSpecPtrOutputWithContext(ctx)
+}
+
+// ServiceCIDRSpecPtrInput is an input type that accepts ServiceCIDRSpecArgs, ServiceCIDRSpecPtr and ServiceCIDRSpecPtrOutput values.
+// You can construct a concrete instance of `ServiceCIDRSpecPtrInput` via:
+//
+//	        ServiceCIDRSpecArgs{...}
+//
+//	or:
+//
+//	        nil
+type ServiceCIDRSpecPtrInput interface {
+	pulumi.Input
+
+	ToServiceCIDRSpecPtrOutput() ServiceCIDRSpecPtrOutput
+	ToServiceCIDRSpecPtrOutputWithContext(context.Context) ServiceCIDRSpecPtrOutput
+}
+
+type serviceCIDRSpecPtrType ServiceCIDRSpecArgs
+
+func ServiceCIDRSpecPtr(v *ServiceCIDRSpecArgs) ServiceCIDRSpecPtrInput {
+	return (*serviceCIDRSpecPtrType)(v)
+}
+
+func (*serviceCIDRSpecPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ServiceCIDRSpec)(nil)).Elem()
+}
+
+func (i *serviceCIDRSpecPtrType) ToServiceCIDRSpecPtrOutput() ServiceCIDRSpecPtrOutput {
+	return i.ToServiceCIDRSpecPtrOutputWithContext(context.Background())
+}
+
+func (i *serviceCIDRSpecPtrType) ToServiceCIDRSpecPtrOutputWithContext(ctx context.Context) ServiceCIDRSpecPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ServiceCIDRSpecPtrOutput)
+}
+
+// ServiceCIDRSpec define the CIDRs the user wants to use for allocating ClusterIPs for Services.
+type ServiceCIDRSpecOutput struct{ *pulumi.OutputState }
+
+func (ServiceCIDRSpecOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ServiceCIDRSpec)(nil)).Elem()
+}
+
+func (o ServiceCIDRSpecOutput) ToServiceCIDRSpecOutput() ServiceCIDRSpecOutput {
+	return o
+}
+
+func (o ServiceCIDRSpecOutput) ToServiceCIDRSpecOutputWithContext(ctx context.Context) ServiceCIDRSpecOutput {
+	return o
+}
+
+func (o ServiceCIDRSpecOutput) ToServiceCIDRSpecPtrOutput() ServiceCIDRSpecPtrOutput {
+	return o.ToServiceCIDRSpecPtrOutputWithContext(context.Background())
+}
+
+func (o ServiceCIDRSpecOutput) ToServiceCIDRSpecPtrOutputWithContext(ctx context.Context) ServiceCIDRSpecPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ServiceCIDRSpec) *ServiceCIDRSpec {
+		return &v
+	}).(ServiceCIDRSpecPtrOutput)
+}
+
+// CIDRs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
+func (o ServiceCIDRSpecOutput) Cidrs() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v ServiceCIDRSpec) []string { return v.Cidrs }).(pulumi.StringArrayOutput)
+}
+
+type ServiceCIDRSpecPtrOutput struct{ *pulumi.OutputState }
+
+func (ServiceCIDRSpecPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ServiceCIDRSpec)(nil)).Elem()
+}
+
+func (o ServiceCIDRSpecPtrOutput) ToServiceCIDRSpecPtrOutput() ServiceCIDRSpecPtrOutput {
+	return o
+}
+
+func (o ServiceCIDRSpecPtrOutput) ToServiceCIDRSpecPtrOutputWithContext(ctx context.Context) ServiceCIDRSpecPtrOutput {
+	return o
+}
+
+func (o ServiceCIDRSpecPtrOutput) Elem() ServiceCIDRSpecOutput {
+	return o.ApplyT(func(v *ServiceCIDRSpec) ServiceCIDRSpec {
+		if v != nil {
+			return *v
+		}
+		var ret ServiceCIDRSpec
+		return ret
+	}).(ServiceCIDRSpecOutput)
+}
+
+// CIDRs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
+func (o ServiceCIDRSpecPtrOutput) Cidrs() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *ServiceCIDRSpec) []string {
+		if v == nil {
+			return nil
+		}
+		return v.Cidrs
+	}).(pulumi.StringArrayOutput)
+}
+
+// ServiceCIDRSpec define the CIDRs the user wants to use for allocating ClusterIPs for Services.
+type ServiceCIDRSpecPatch struct {
+	// CIDRs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
+	Cidrs []string `pulumi:"cidrs"`
+}
+
+// ServiceCIDRSpecPatchInput is an input type that accepts ServiceCIDRSpecPatchArgs and ServiceCIDRSpecPatchOutput values.
+// You can construct a concrete instance of `ServiceCIDRSpecPatchInput` via:
+//
+//	ServiceCIDRSpecPatchArgs{...}
+type ServiceCIDRSpecPatchInput interface {
+	pulumi.Input
+
+	ToServiceCIDRSpecPatchOutput() ServiceCIDRSpecPatchOutput
+	ToServiceCIDRSpecPatchOutputWithContext(context.Context) ServiceCIDRSpecPatchOutput
+}
+
+// ServiceCIDRSpec define the CIDRs the user wants to use for allocating ClusterIPs for Services.
+type ServiceCIDRSpecPatchArgs struct {
+	// CIDRs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
+	Cidrs pulumi.StringArrayInput `pulumi:"cidrs"`
+}
+
+func (ServiceCIDRSpecPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ServiceCIDRSpecPatch)(nil)).Elem()
+}
+
+func (i ServiceCIDRSpecPatchArgs) ToServiceCIDRSpecPatchOutput() ServiceCIDRSpecPatchOutput {
+	return i.ToServiceCIDRSpecPatchOutputWithContext(context.Background())
+}
+
+func (i ServiceCIDRSpecPatchArgs) ToServiceCIDRSpecPatchOutputWithContext(ctx context.Context) ServiceCIDRSpecPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ServiceCIDRSpecPatchOutput)
+}
+
+func (i ServiceCIDRSpecPatchArgs) ToServiceCIDRSpecPatchPtrOutput() ServiceCIDRSpecPatchPtrOutput {
+	return i.ToServiceCIDRSpecPatchPtrOutputWithContext(context.Background())
+}
+
+func (i ServiceCIDRSpecPatchArgs) ToServiceCIDRSpecPatchPtrOutputWithContext(ctx context.Context) ServiceCIDRSpecPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ServiceCIDRSpecPatchOutput).ToServiceCIDRSpecPatchPtrOutputWithContext(ctx)
+}
+
+// ServiceCIDRSpecPatchPtrInput is an input type that accepts ServiceCIDRSpecPatchArgs, ServiceCIDRSpecPatchPtr and ServiceCIDRSpecPatchPtrOutput values.
+// You can construct a concrete instance of `ServiceCIDRSpecPatchPtrInput` via:
+//
+//	        ServiceCIDRSpecPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type ServiceCIDRSpecPatchPtrInput interface {
+	pulumi.Input
+
+	ToServiceCIDRSpecPatchPtrOutput() ServiceCIDRSpecPatchPtrOutput
+	ToServiceCIDRSpecPatchPtrOutputWithContext(context.Context) ServiceCIDRSpecPatchPtrOutput
+}
+
+type serviceCIDRSpecPatchPtrType ServiceCIDRSpecPatchArgs
+
+func ServiceCIDRSpecPatchPtr(v *ServiceCIDRSpecPatchArgs) ServiceCIDRSpecPatchPtrInput {
+	return (*serviceCIDRSpecPatchPtrType)(v)
+}
+
+func (*serviceCIDRSpecPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ServiceCIDRSpecPatch)(nil)).Elem()
+}
+
+func (i *serviceCIDRSpecPatchPtrType) ToServiceCIDRSpecPatchPtrOutput() ServiceCIDRSpecPatchPtrOutput {
+	return i.ToServiceCIDRSpecPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *serviceCIDRSpecPatchPtrType) ToServiceCIDRSpecPatchPtrOutputWithContext(ctx context.Context) ServiceCIDRSpecPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ServiceCIDRSpecPatchPtrOutput)
+}
+
+// ServiceCIDRSpec define the CIDRs the user wants to use for allocating ClusterIPs for Services.
+type ServiceCIDRSpecPatchOutput struct{ *pulumi.OutputState }
+
+func (ServiceCIDRSpecPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ServiceCIDRSpecPatch)(nil)).Elem()
+}
+
+func (o ServiceCIDRSpecPatchOutput) ToServiceCIDRSpecPatchOutput() ServiceCIDRSpecPatchOutput {
+	return o
+}
+
+func (o ServiceCIDRSpecPatchOutput) ToServiceCIDRSpecPatchOutputWithContext(ctx context.Context) ServiceCIDRSpecPatchOutput {
+	return o
+}
+
+func (o ServiceCIDRSpecPatchOutput) ToServiceCIDRSpecPatchPtrOutput() ServiceCIDRSpecPatchPtrOutput {
+	return o.ToServiceCIDRSpecPatchPtrOutputWithContext(context.Background())
+}
+
+func (o ServiceCIDRSpecPatchOutput) ToServiceCIDRSpecPatchPtrOutputWithContext(ctx context.Context) ServiceCIDRSpecPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ServiceCIDRSpecPatch) *ServiceCIDRSpecPatch {
+		return &v
+	}).(ServiceCIDRSpecPatchPtrOutput)
+}
+
+// CIDRs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
+func (o ServiceCIDRSpecPatchOutput) Cidrs() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v ServiceCIDRSpecPatch) []string { return v.Cidrs }).(pulumi.StringArrayOutput)
+}
+
+type ServiceCIDRSpecPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (ServiceCIDRSpecPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ServiceCIDRSpecPatch)(nil)).Elem()
+}
+
+func (o ServiceCIDRSpecPatchPtrOutput) ToServiceCIDRSpecPatchPtrOutput() ServiceCIDRSpecPatchPtrOutput {
+	return o
+}
+
+func (o ServiceCIDRSpecPatchPtrOutput) ToServiceCIDRSpecPatchPtrOutputWithContext(ctx context.Context) ServiceCIDRSpecPatchPtrOutput {
+	return o
+}
+
+func (o ServiceCIDRSpecPatchPtrOutput) Elem() ServiceCIDRSpecPatchOutput {
+	return o.ApplyT(func(v *ServiceCIDRSpecPatch) ServiceCIDRSpecPatch {
+		if v != nil {
+			return *v
+		}
+		var ret ServiceCIDRSpecPatch
+		return ret
+	}).(ServiceCIDRSpecPatchOutput)
+}
+
+// CIDRs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
+func (o ServiceCIDRSpecPatchPtrOutput) Cidrs() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *ServiceCIDRSpecPatch) []string {
+		if v == nil {
+			return nil
+		}
+		return v.Cidrs
+	}).(pulumi.StringArrayOutput)
+}
+
+// ServiceCIDRStatus describes the current state of the ServiceCIDR.
+type ServiceCIDRStatus struct {
+	// conditions holds an array of metav1.Condition that describe the state of the ServiceCIDR. Current service state
+	Conditions []metav1.Condition `pulumi:"conditions"`
+}
+
+// ServiceCIDRStatusInput is an input type that accepts ServiceCIDRStatusArgs and ServiceCIDRStatusOutput values.
+// You can construct a concrete instance of `ServiceCIDRStatusInput` via:
+//
+//	ServiceCIDRStatusArgs{...}
+type ServiceCIDRStatusInput interface {
+	pulumi.Input
+
+	ToServiceCIDRStatusOutput() ServiceCIDRStatusOutput
+	ToServiceCIDRStatusOutputWithContext(context.Context) ServiceCIDRStatusOutput
+}
+
+// ServiceCIDRStatus describes the current state of the ServiceCIDR.
+type ServiceCIDRStatusArgs struct {
+	// conditions holds an array of metav1.Condition that describe the state of the ServiceCIDR. Current service state
+	Conditions metav1.ConditionArrayInput `pulumi:"conditions"`
+}
+
+func (ServiceCIDRStatusArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ServiceCIDRStatus)(nil)).Elem()
+}
+
+func (i ServiceCIDRStatusArgs) ToServiceCIDRStatusOutput() ServiceCIDRStatusOutput {
+	return i.ToServiceCIDRStatusOutputWithContext(context.Background())
+}
+
+func (i ServiceCIDRStatusArgs) ToServiceCIDRStatusOutputWithContext(ctx context.Context) ServiceCIDRStatusOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ServiceCIDRStatusOutput)
+}
+
+func (i ServiceCIDRStatusArgs) ToServiceCIDRStatusPtrOutput() ServiceCIDRStatusPtrOutput {
+	return i.ToServiceCIDRStatusPtrOutputWithContext(context.Background())
+}
+
+func (i ServiceCIDRStatusArgs) ToServiceCIDRStatusPtrOutputWithContext(ctx context.Context) ServiceCIDRStatusPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ServiceCIDRStatusOutput).ToServiceCIDRStatusPtrOutputWithContext(ctx)
+}
+
+// ServiceCIDRStatusPtrInput is an input type that accepts ServiceCIDRStatusArgs, ServiceCIDRStatusPtr and ServiceCIDRStatusPtrOutput values.
+// You can construct a concrete instance of `ServiceCIDRStatusPtrInput` via:
+//
+//	        ServiceCIDRStatusArgs{...}
+//
+//	or:
+//
+//	        nil
+type ServiceCIDRStatusPtrInput interface {
+	pulumi.Input
+
+	ToServiceCIDRStatusPtrOutput() ServiceCIDRStatusPtrOutput
+	ToServiceCIDRStatusPtrOutputWithContext(context.Context) ServiceCIDRStatusPtrOutput
+}
+
+type serviceCIDRStatusPtrType ServiceCIDRStatusArgs
+
+func ServiceCIDRStatusPtr(v *ServiceCIDRStatusArgs) ServiceCIDRStatusPtrInput {
+	return (*serviceCIDRStatusPtrType)(v)
+}
+
+func (*serviceCIDRStatusPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ServiceCIDRStatus)(nil)).Elem()
+}
+
+func (i *serviceCIDRStatusPtrType) ToServiceCIDRStatusPtrOutput() ServiceCIDRStatusPtrOutput {
+	return i.ToServiceCIDRStatusPtrOutputWithContext(context.Background())
+}
+
+func (i *serviceCIDRStatusPtrType) ToServiceCIDRStatusPtrOutputWithContext(ctx context.Context) ServiceCIDRStatusPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ServiceCIDRStatusPtrOutput)
+}
+
+// ServiceCIDRStatus describes the current state of the ServiceCIDR.
+type ServiceCIDRStatusOutput struct{ *pulumi.OutputState }
+
+func (ServiceCIDRStatusOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ServiceCIDRStatus)(nil)).Elem()
+}
+
+func (o ServiceCIDRStatusOutput) ToServiceCIDRStatusOutput() ServiceCIDRStatusOutput {
+	return o
+}
+
+func (o ServiceCIDRStatusOutput) ToServiceCIDRStatusOutputWithContext(ctx context.Context) ServiceCIDRStatusOutput {
+	return o
+}
+
+func (o ServiceCIDRStatusOutput) ToServiceCIDRStatusPtrOutput() ServiceCIDRStatusPtrOutput {
+	return o.ToServiceCIDRStatusPtrOutputWithContext(context.Background())
+}
+
+func (o ServiceCIDRStatusOutput) ToServiceCIDRStatusPtrOutputWithContext(ctx context.Context) ServiceCIDRStatusPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ServiceCIDRStatus) *ServiceCIDRStatus {
+		return &v
+	}).(ServiceCIDRStatusPtrOutput)
+}
+
+// conditions holds an array of metav1.Condition that describe the state of the ServiceCIDR. Current service state
+func (o ServiceCIDRStatusOutput) Conditions() metav1.ConditionArrayOutput {
+	return o.ApplyT(func(v ServiceCIDRStatus) []metav1.Condition { return v.Conditions }).(metav1.ConditionArrayOutput)
+}
+
+type ServiceCIDRStatusPtrOutput struct{ *pulumi.OutputState }
+
+func (ServiceCIDRStatusPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ServiceCIDRStatus)(nil)).Elem()
+}
+
+func (o ServiceCIDRStatusPtrOutput) ToServiceCIDRStatusPtrOutput() ServiceCIDRStatusPtrOutput {
+	return o
+}
+
+func (o ServiceCIDRStatusPtrOutput) ToServiceCIDRStatusPtrOutputWithContext(ctx context.Context) ServiceCIDRStatusPtrOutput {
+	return o
+}
+
+func (o ServiceCIDRStatusPtrOutput) Elem() ServiceCIDRStatusOutput {
+	return o.ApplyT(func(v *ServiceCIDRStatus) ServiceCIDRStatus {
+		if v != nil {
+			return *v
+		}
+		var ret ServiceCIDRStatus
+		return ret
+	}).(ServiceCIDRStatusOutput)
+}
+
+// conditions holds an array of metav1.Condition that describe the state of the ServiceCIDR. Current service state
+func (o ServiceCIDRStatusPtrOutput) Conditions() metav1.ConditionArrayOutput {
+	return o.ApplyT(func(v *ServiceCIDRStatus) []metav1.Condition {
+		if v == nil {
+			return nil
+		}
+		return v.Conditions
+	}).(metav1.ConditionArrayOutput)
+}
+
+// ServiceCIDRStatus describes the current state of the ServiceCIDR.
+type ServiceCIDRStatusPatch struct {
+	// conditions holds an array of metav1.Condition that describe the state of the ServiceCIDR. Current service state
+	Conditions []metav1.ConditionPatch `pulumi:"conditions"`
+}
+
+// ServiceCIDRStatusPatchInput is an input type that accepts ServiceCIDRStatusPatchArgs and ServiceCIDRStatusPatchOutput values.
+// You can construct a concrete instance of `ServiceCIDRStatusPatchInput` via:
+//
+//	ServiceCIDRStatusPatchArgs{...}
+type ServiceCIDRStatusPatchInput interface {
+	pulumi.Input
+
+	ToServiceCIDRStatusPatchOutput() ServiceCIDRStatusPatchOutput
+	ToServiceCIDRStatusPatchOutputWithContext(context.Context) ServiceCIDRStatusPatchOutput
+}
+
+// ServiceCIDRStatus describes the current state of the ServiceCIDR.
+type ServiceCIDRStatusPatchArgs struct {
+	// conditions holds an array of metav1.Condition that describe the state of the ServiceCIDR. Current service state
+	Conditions metav1.ConditionPatchArrayInput `pulumi:"conditions"`
+}
+
+func (ServiceCIDRStatusPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ServiceCIDRStatusPatch)(nil)).Elem()
+}
+
+func (i ServiceCIDRStatusPatchArgs) ToServiceCIDRStatusPatchOutput() ServiceCIDRStatusPatchOutput {
+	return i.ToServiceCIDRStatusPatchOutputWithContext(context.Background())
+}
+
+func (i ServiceCIDRStatusPatchArgs) ToServiceCIDRStatusPatchOutputWithContext(ctx context.Context) ServiceCIDRStatusPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ServiceCIDRStatusPatchOutput)
+}
+
+func (i ServiceCIDRStatusPatchArgs) ToServiceCIDRStatusPatchPtrOutput() ServiceCIDRStatusPatchPtrOutput {
+	return i.ToServiceCIDRStatusPatchPtrOutputWithContext(context.Background())
+}
+
+func (i ServiceCIDRStatusPatchArgs) ToServiceCIDRStatusPatchPtrOutputWithContext(ctx context.Context) ServiceCIDRStatusPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ServiceCIDRStatusPatchOutput).ToServiceCIDRStatusPatchPtrOutputWithContext(ctx)
+}
+
+// ServiceCIDRStatusPatchPtrInput is an input type that accepts ServiceCIDRStatusPatchArgs, ServiceCIDRStatusPatchPtr and ServiceCIDRStatusPatchPtrOutput values.
+// You can construct a concrete instance of `ServiceCIDRStatusPatchPtrInput` via:
+//
+//	        ServiceCIDRStatusPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type ServiceCIDRStatusPatchPtrInput interface {
+	pulumi.Input
+
+	ToServiceCIDRStatusPatchPtrOutput() ServiceCIDRStatusPatchPtrOutput
+	ToServiceCIDRStatusPatchPtrOutputWithContext(context.Context) ServiceCIDRStatusPatchPtrOutput
+}
+
+type serviceCIDRStatusPatchPtrType ServiceCIDRStatusPatchArgs
+
+func ServiceCIDRStatusPatchPtr(v *ServiceCIDRStatusPatchArgs) ServiceCIDRStatusPatchPtrInput {
+	return (*serviceCIDRStatusPatchPtrType)(v)
+}
+
+func (*serviceCIDRStatusPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ServiceCIDRStatusPatch)(nil)).Elem()
+}
+
+func (i *serviceCIDRStatusPatchPtrType) ToServiceCIDRStatusPatchPtrOutput() ServiceCIDRStatusPatchPtrOutput {
+	return i.ToServiceCIDRStatusPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *serviceCIDRStatusPatchPtrType) ToServiceCIDRStatusPatchPtrOutputWithContext(ctx context.Context) ServiceCIDRStatusPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ServiceCIDRStatusPatchPtrOutput)
+}
+
+// ServiceCIDRStatus describes the current state of the ServiceCIDR.
+type ServiceCIDRStatusPatchOutput struct{ *pulumi.OutputState }
+
+func (ServiceCIDRStatusPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ServiceCIDRStatusPatch)(nil)).Elem()
+}
+
+func (o ServiceCIDRStatusPatchOutput) ToServiceCIDRStatusPatchOutput() ServiceCIDRStatusPatchOutput {
+	return o
+}
+
+func (o ServiceCIDRStatusPatchOutput) ToServiceCIDRStatusPatchOutputWithContext(ctx context.Context) ServiceCIDRStatusPatchOutput {
+	return o
+}
+
+func (o ServiceCIDRStatusPatchOutput) ToServiceCIDRStatusPatchPtrOutput() ServiceCIDRStatusPatchPtrOutput {
+	return o.ToServiceCIDRStatusPatchPtrOutputWithContext(context.Background())
+}
+
+func (o ServiceCIDRStatusPatchOutput) ToServiceCIDRStatusPatchPtrOutputWithContext(ctx context.Context) ServiceCIDRStatusPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ServiceCIDRStatusPatch) *ServiceCIDRStatusPatch {
+		return &v
+	}).(ServiceCIDRStatusPatchPtrOutput)
+}
+
+// conditions holds an array of metav1.Condition that describe the state of the ServiceCIDR. Current service state
+func (o ServiceCIDRStatusPatchOutput) Conditions() metav1.ConditionPatchArrayOutput {
+	return o.ApplyT(func(v ServiceCIDRStatusPatch) []metav1.ConditionPatch { return v.Conditions }).(metav1.ConditionPatchArrayOutput)
+}
+
+type ServiceCIDRStatusPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (ServiceCIDRStatusPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ServiceCIDRStatusPatch)(nil)).Elem()
+}
+
+func (o ServiceCIDRStatusPatchPtrOutput) ToServiceCIDRStatusPatchPtrOutput() ServiceCIDRStatusPatchPtrOutput {
+	return o
+}
+
+func (o ServiceCIDRStatusPatchPtrOutput) ToServiceCIDRStatusPatchPtrOutputWithContext(ctx context.Context) ServiceCIDRStatusPatchPtrOutput {
+	return o
+}
+
+func (o ServiceCIDRStatusPatchPtrOutput) Elem() ServiceCIDRStatusPatchOutput {
+	return o.ApplyT(func(v *ServiceCIDRStatusPatch) ServiceCIDRStatusPatch {
+		if v != nil {
+			return *v
+		}
+		var ret ServiceCIDRStatusPatch
+		return ret
+	}).(ServiceCIDRStatusPatchOutput)
+}
+
+// conditions holds an array of metav1.Condition that describe the state of the ServiceCIDR. Current service state
+func (o ServiceCIDRStatusPatchPtrOutput) Conditions() metav1.ConditionPatchArrayOutput {
+	return o.ApplyT(func(v *ServiceCIDRStatusPatch) []metav1.ConditionPatch {
+		if v == nil {
+			return nil
+		}
+		return v.Conditions
+	}).(metav1.ConditionPatchArrayOutput)
+}
+
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*HTTPIngressPathInput)(nil)).Elem(), HTTPIngressPathArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*HTTPIngressPathArrayInput)(nil)).Elem(), HTTPIngressPathArray{})
@@ -3098,6 +4932,14 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*HTTPIngressRuleValuePtrInput)(nil)).Elem(), HTTPIngressRuleValueArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*HTTPIngressRuleValuePatchInput)(nil)).Elem(), HTTPIngressRuleValuePatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*HTTPIngressRuleValuePatchPtrInput)(nil)).Elem(), HTTPIngressRuleValuePatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IPAddressTypeInput)(nil)).Elem(), IPAddressTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IPAddressTypeArrayInput)(nil)).Elem(), IPAddressTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IPAddressListTypeInput)(nil)).Elem(), IPAddressListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IPAddressPatchTypeInput)(nil)).Elem(), IPAddressPatchTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IPAddressSpecInput)(nil)).Elem(), IPAddressSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IPAddressSpecPtrInput)(nil)).Elem(), IPAddressSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IPAddressSpecPatchInput)(nil)).Elem(), IPAddressSpecPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IPAddressSpecPatchPtrInput)(nil)).Elem(), IPAddressSpecPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*IngressTypeInput)(nil)).Elem(), IngressTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*IngressTypeArrayInput)(nil)).Elem(), IngressTypeArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*IngressBackendInput)(nil)).Elem(), IngressBackendArgs{})
@@ -3130,6 +4972,22 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*IngressTLSArrayInput)(nil)).Elem(), IngressTLSArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*IngressTLSPatchInput)(nil)).Elem(), IngressTLSPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*IngressTLSPatchArrayInput)(nil)).Elem(), IngressTLSPatchArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ParentReferenceInput)(nil)).Elem(), ParentReferenceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ParentReferencePtrInput)(nil)).Elem(), ParentReferenceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ParentReferencePatchInput)(nil)).Elem(), ParentReferencePatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ParentReferencePatchPtrInput)(nil)).Elem(), ParentReferencePatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceCIDRTypeInput)(nil)).Elem(), ServiceCIDRTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceCIDRTypeArrayInput)(nil)).Elem(), ServiceCIDRTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceCIDRListTypeInput)(nil)).Elem(), ServiceCIDRListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceCIDRPatchTypeInput)(nil)).Elem(), ServiceCIDRPatchTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceCIDRSpecInput)(nil)).Elem(), ServiceCIDRSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceCIDRSpecPtrInput)(nil)).Elem(), ServiceCIDRSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceCIDRSpecPatchInput)(nil)).Elem(), ServiceCIDRSpecPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceCIDRSpecPatchPtrInput)(nil)).Elem(), ServiceCIDRSpecPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceCIDRStatusInput)(nil)).Elem(), ServiceCIDRStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceCIDRStatusPtrInput)(nil)).Elem(), ServiceCIDRStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceCIDRStatusPatchInput)(nil)).Elem(), ServiceCIDRStatusPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceCIDRStatusPatchPtrInput)(nil)).Elem(), ServiceCIDRStatusPatchArgs{})
 	pulumi.RegisterOutputType(HTTPIngressPathOutput{})
 	pulumi.RegisterOutputType(HTTPIngressPathArrayOutput{})
 	pulumi.RegisterOutputType(HTTPIngressPathPatchOutput{})
@@ -3138,6 +4996,14 @@ func init() {
 	pulumi.RegisterOutputType(HTTPIngressRuleValuePtrOutput{})
 	pulumi.RegisterOutputType(HTTPIngressRuleValuePatchOutput{})
 	pulumi.RegisterOutputType(HTTPIngressRuleValuePatchPtrOutput{})
+	pulumi.RegisterOutputType(IPAddressTypeOutput{})
+	pulumi.RegisterOutputType(IPAddressTypeArrayOutput{})
+	pulumi.RegisterOutputType(IPAddressListTypeOutput{})
+	pulumi.RegisterOutputType(IPAddressPatchTypeOutput{})
+	pulumi.RegisterOutputType(IPAddressSpecOutput{})
+	pulumi.RegisterOutputType(IPAddressSpecPtrOutput{})
+	pulumi.RegisterOutputType(IPAddressSpecPatchOutput{})
+	pulumi.RegisterOutputType(IPAddressSpecPatchPtrOutput{})
 	pulumi.RegisterOutputType(IngressTypeOutput{})
 	pulumi.RegisterOutputType(IngressTypeArrayOutput{})
 	pulumi.RegisterOutputType(IngressBackendOutput{})
@@ -3170,4 +5036,20 @@ func init() {
 	pulumi.RegisterOutputType(IngressTLSArrayOutput{})
 	pulumi.RegisterOutputType(IngressTLSPatchOutput{})
 	pulumi.RegisterOutputType(IngressTLSPatchArrayOutput{})
+	pulumi.RegisterOutputType(ParentReferenceOutput{})
+	pulumi.RegisterOutputType(ParentReferencePtrOutput{})
+	pulumi.RegisterOutputType(ParentReferencePatchOutput{})
+	pulumi.RegisterOutputType(ParentReferencePatchPtrOutput{})
+	pulumi.RegisterOutputType(ServiceCIDRTypeOutput{})
+	pulumi.RegisterOutputType(ServiceCIDRTypeArrayOutput{})
+	pulumi.RegisterOutputType(ServiceCIDRListTypeOutput{})
+	pulumi.RegisterOutputType(ServiceCIDRPatchTypeOutput{})
+	pulumi.RegisterOutputType(ServiceCIDRSpecOutput{})
+	pulumi.RegisterOutputType(ServiceCIDRSpecPtrOutput{})
+	pulumi.RegisterOutputType(ServiceCIDRSpecPatchOutput{})
+	pulumi.RegisterOutputType(ServiceCIDRSpecPatchPtrOutput{})
+	pulumi.RegisterOutputType(ServiceCIDRStatusOutput{})
+	pulumi.RegisterOutputType(ServiceCIDRStatusPtrOutput{})
+	pulumi.RegisterOutputType(ServiceCIDRStatusPatchOutput{})
+	pulumi.RegisterOutputType(ServiceCIDRStatusPatchPtrOutput{})
 }

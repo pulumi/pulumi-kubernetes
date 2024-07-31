@@ -16,7 +16,7 @@ import javax.annotation.Nullable;
 
 
 /**
- * Projection that may be projected along with other supported volume types
+ * Projection that may be projected along with other supported volume types. Exactly one of these fields must be set.
  * 
  */
 public final class VolumeProjectionArgs extends com.pulumi.resources.ResourceArgs {

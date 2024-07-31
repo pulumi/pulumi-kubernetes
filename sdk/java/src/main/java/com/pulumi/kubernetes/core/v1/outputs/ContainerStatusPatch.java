@@ -5,7 +5,9 @@ package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
 import com.pulumi.kubernetes.core.v1.outputs.ContainerStatePatch;
+import com.pulumi.kubernetes.core.v1.outputs.ContainerUserPatch;
 import com.pulumi.kubernetes.core.v1.outputs.ResourceRequirementsPatch;
+import com.pulumi.kubernetes.core.v1.outputs.ResourceStatusPatch;
 import com.pulumi.kubernetes.core.v1.outputs.VolumeMountStatusPatch;
 import java.lang.Boolean;
 import java.lang.Integer;
@@ -23,6 +25,11 @@ public final class ContainerStatusPatch {
      * 
      */
     private @Nullable Map<String,String> allocatedResources;
+    /**
+     * @return AllocatedResourcesStatus represents the status of various resources allocated for this Pod.
+     * 
+     */
+    private @Nullable List<ResourceStatusPatch> allocatedResourcesStatus;
     /**
      * @return ContainerID is the ID of the container in the format &#39;&lt;type&gt;://&lt;container_id&gt;&#39;. Where type is a container runtime identifier, returned from Version call of CRI API (for example &#34;containerd&#34;).
      * 
@@ -76,6 +83,11 @@ public final class ContainerStatusPatch {
      */
     private @Nullable ContainerStatePatch state;
     /**
+     * @return User represents user identity information initially attached to the first process of the container
+     * 
+     */
+    private @Nullable ContainerUserPatch user;
+    /**
      * @return Status of volume mounts.
      * 
      */
@@ -88,6 +100,13 @@ public final class ContainerStatusPatch {
      */
     public Map<String,String> allocatedResources() {
         return this.allocatedResources == null ? Map.of() : this.allocatedResources;
+    }
+    /**
+     * @return AllocatedResourcesStatus represents the status of various resources allocated for this Pod.
+     * 
+     */
+    public List<ResourceStatusPatch> allocatedResourcesStatus() {
+        return this.allocatedResourcesStatus == null ? List.of() : this.allocatedResourcesStatus;
     }
     /**
      * @return ContainerID is the ID of the container in the format &#39;&lt;type&gt;://&lt;container_id&gt;&#39;. Where type is a container runtime identifier, returned from Version call of CRI API (for example &#34;containerd&#34;).
@@ -162,6 +181,13 @@ public final class ContainerStatusPatch {
         return Optional.ofNullable(this.state);
     }
     /**
+     * @return User represents user identity information initially attached to the first process of the container
+     * 
+     */
+    public Optional<ContainerUserPatch> user() {
+        return Optional.ofNullable(this.user);
+    }
+    /**
      * @return Status of volume mounts.
      * 
      */
@@ -179,6 +205,7 @@ public final class ContainerStatusPatch {
     @CustomType.Builder
     public static final class Builder {
         private @Nullable Map<String,String> allocatedResources;
+        private @Nullable List<ResourceStatusPatch> allocatedResourcesStatus;
         private @Nullable String containerID;
         private @Nullable String image;
         private @Nullable String imageID;
@@ -189,11 +216,13 @@ public final class ContainerStatusPatch {
         private @Nullable Integer restartCount;
         private @Nullable Boolean started;
         private @Nullable ContainerStatePatch state;
+        private @Nullable ContainerUserPatch user;
         private @Nullable List<VolumeMountStatusPatch> volumeMounts;
         public Builder() {}
         public Builder(ContainerStatusPatch defaults) {
     	      Objects.requireNonNull(defaults);
     	      this.allocatedResources = defaults.allocatedResources;
+    	      this.allocatedResourcesStatus = defaults.allocatedResourcesStatus;
     	      this.containerID = defaults.containerID;
     	      this.image = defaults.image;
     	      this.imageID = defaults.imageID;
@@ -204,6 +233,7 @@ public final class ContainerStatusPatch {
     	      this.restartCount = defaults.restartCount;
     	      this.started = defaults.started;
     	      this.state = defaults.state;
+    	      this.user = defaults.user;
     	      this.volumeMounts = defaults.volumeMounts;
         }
 
@@ -212,6 +242,15 @@ public final class ContainerStatusPatch {
 
             this.allocatedResources = allocatedResources;
             return this;
+        }
+        @CustomType.Setter
+        public Builder allocatedResourcesStatus(@Nullable List<ResourceStatusPatch> allocatedResourcesStatus) {
+
+            this.allocatedResourcesStatus = allocatedResourcesStatus;
+            return this;
+        }
+        public Builder allocatedResourcesStatus(ResourceStatusPatch... allocatedResourcesStatus) {
+            return allocatedResourcesStatus(List.of(allocatedResourcesStatus));
         }
         @CustomType.Setter
         public Builder containerID(@Nullable String containerID) {
@@ -274,6 +313,12 @@ public final class ContainerStatusPatch {
             return this;
         }
         @CustomType.Setter
+        public Builder user(@Nullable ContainerUserPatch user) {
+
+            this.user = user;
+            return this;
+        }
+        @CustomType.Setter
         public Builder volumeMounts(@Nullable List<VolumeMountStatusPatch> volumeMounts) {
 
             this.volumeMounts = volumeMounts;
@@ -285,6 +330,7 @@ public final class ContainerStatusPatch {
         public ContainerStatusPatch build() {
             final var _resultValue = new ContainerStatusPatch();
             _resultValue.allocatedResources = allocatedResources;
+            _resultValue.allocatedResourcesStatus = allocatedResourcesStatus;
             _resultValue.containerID = containerID;
             _resultValue.image = image;
             _resultValue.imageID = imageID;
@@ -295,6 +341,7 @@ public final class ContainerStatusPatch {
             _resultValue.restartCount = restartCount;
             _resultValue.started = started;
             _resultValue.state = state;
+            _resultValue.user = user;
             _resultValue.volumeMounts = volumeMounts;
             return _resultValue;
         }

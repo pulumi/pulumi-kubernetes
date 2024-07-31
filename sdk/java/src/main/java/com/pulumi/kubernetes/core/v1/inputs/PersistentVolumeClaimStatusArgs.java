@@ -177,14 +177,14 @@ public final class PersistentVolumeClaimStatusArgs extends com.pulumi.resources.
     }
 
     /**
-     * currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim This is an alpha field and requires enabling VolumeAttributesClass feature.
+     * currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
      * 
      */
     @Import(name="currentVolumeAttributesClassName")
     private @Nullable Output<String> currentVolumeAttributesClassName;
 
     /**
-     * @return currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim This is an alpha field and requires enabling VolumeAttributesClass feature.
+     * @return currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
      * 
      */
     public Optional<Output<String>> currentVolumeAttributesClassName() {
@@ -192,14 +192,14 @@ public final class PersistentVolumeClaimStatusArgs extends com.pulumi.resources.
     }
 
     /**
-     * ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted. This is an alpha field and requires enabling VolumeAttributesClass feature.
+     * ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted. This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
      * 
      */
     @Import(name="modifyVolumeStatus")
     private @Nullable Output<ModifyVolumeStatusArgs> modifyVolumeStatus;
 
     /**
-     * @return ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted. This is an alpha field and requires enabling VolumeAttributesClass feature.
+     * @return ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted. This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
      * 
      */
     public Optional<Output<ModifyVolumeStatusArgs>> modifyVolumeStatus() {
@@ -472,7 +472,7 @@ public final class PersistentVolumeClaimStatusArgs extends com.pulumi.resources.
         }
 
         /**
-         * @param currentVolumeAttributesClassName currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim This is an alpha field and requires enabling VolumeAttributesClass feature.
+         * @param currentVolumeAttributesClassName currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
          * 
          * @return builder
          * 
@@ -483,7 +483,7 @@ public final class PersistentVolumeClaimStatusArgs extends com.pulumi.resources.
         }
 
         /**
-         * @param currentVolumeAttributesClassName currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim This is an alpha field and requires enabling VolumeAttributesClass feature.
+         * @param currentVolumeAttributesClassName currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
          * 
          * @return builder
          * 
@@ -493,7 +493,7 @@ public final class PersistentVolumeClaimStatusArgs extends com.pulumi.resources.
         }
 
         /**
-         * @param modifyVolumeStatus ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted. This is an alpha field and requires enabling VolumeAttributesClass feature.
+         * @param modifyVolumeStatus ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted. This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
          * 
          * @return builder
          * 
@@ -504,7 +504,7 @@ public final class PersistentVolumeClaimStatusArgs extends com.pulumi.resources.
         }
 
         /**
-         * @param modifyVolumeStatus ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted. This is an alpha field and requires enabling VolumeAttributesClass feature.
+         * @param modifyVolumeStatus ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted. This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
          * 
          * @return builder
          * 

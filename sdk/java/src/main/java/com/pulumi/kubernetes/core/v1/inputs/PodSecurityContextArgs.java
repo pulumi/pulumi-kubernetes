@@ -156,18 +156,33 @@ public final class PodSecurityContextArgs extends com.pulumi.resources.ResourceA
     }
 
     /**
-     * A list of groups applied to the first process run in each container, in addition to the container&#39;s primary GID, the fsGroup (if specified), and group memberships defined in the container image for the uid of the container process. If unspecified, no additional groups are added to any container. Note that group memberships defined in the container image for the uid of the container process are still effective, even if they are not included in this list. Note that this field cannot be set when spec.os.name is windows.
+     * A list of groups applied to the first process run in each container, in addition to the container&#39;s primary GID and fsGroup (if specified).  If the SupplementalGroupsPolicy feature is enabled, the supplementalGroupsPolicy field determines whether these are in addition to or instead of any group memberships defined in the container image. If unspecified, no additional groups are added, though group memberships defined in the container image may still be used, depending on the supplementalGroupsPolicy field. Note that this field cannot be set when spec.os.name is windows.
      * 
      */
     @Import(name="supplementalGroups")
     private @Nullable Output<List<Integer>> supplementalGroups;
 
     /**
-     * @return A list of groups applied to the first process run in each container, in addition to the container&#39;s primary GID, the fsGroup (if specified), and group memberships defined in the container image for the uid of the container process. If unspecified, no additional groups are added to any container. Note that group memberships defined in the container image for the uid of the container process are still effective, even if they are not included in this list. Note that this field cannot be set when spec.os.name is windows.
+     * @return A list of groups applied to the first process run in each container, in addition to the container&#39;s primary GID and fsGroup (if specified).  If the SupplementalGroupsPolicy feature is enabled, the supplementalGroupsPolicy field determines whether these are in addition to or instead of any group memberships defined in the container image. If unspecified, no additional groups are added, though group memberships defined in the container image may still be used, depending on the supplementalGroupsPolicy field. Note that this field cannot be set when spec.os.name is windows.
      * 
      */
     public Optional<Output<List<Integer>>> supplementalGroups() {
         return Optional.ofNullable(this.supplementalGroups);
+    }
+
+    /**
+     * Defines how supplemental groups of the first container processes are calculated. Valid values are &#34;Merge&#34; and &#34;Strict&#34;. If not specified, &#34;Merge&#34; is used. (Alpha) Using the field requires the SupplementalGroupsPolicy feature gate to be enabled and the container runtime must implement support for this feature. Note that this field cannot be set when spec.os.name is windows.
+     * 
+     */
+    @Import(name="supplementalGroupsPolicy")
+    private @Nullable Output<String> supplementalGroupsPolicy;
+
+    /**
+     * @return Defines how supplemental groups of the first container processes are calculated. Valid values are &#34;Merge&#34; and &#34;Strict&#34;. If not specified, &#34;Merge&#34; is used. (Alpha) Using the field requires the SupplementalGroupsPolicy feature gate to be enabled and the container runtime must implement support for this feature. Note that this field cannot be set when spec.os.name is windows.
+     * 
+     */
+    public Optional<Output<String>> supplementalGroupsPolicy() {
+        return Optional.ofNullable(this.supplementalGroupsPolicy);
     }
 
     /**
@@ -212,6 +227,7 @@ public final class PodSecurityContextArgs extends com.pulumi.resources.ResourceA
         this.seLinuxOptions = $.seLinuxOptions;
         this.seccompProfile = $.seccompProfile;
         this.supplementalGroups = $.supplementalGroups;
+        this.supplementalGroupsPolicy = $.supplementalGroupsPolicy;
         this.sysctls = $.sysctls;
         this.windowsOptions = $.windowsOptions;
     }
@@ -411,7 +427,7 @@ public final class PodSecurityContextArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param supplementalGroups A list of groups applied to the first process run in each container, in addition to the container&#39;s primary GID, the fsGroup (if specified), and group memberships defined in the container image for the uid of the container process. If unspecified, no additional groups are added to any container. Note that group memberships defined in the container image for the uid of the container process are still effective, even if they are not included in this list. Note that this field cannot be set when spec.os.name is windows.
+         * @param supplementalGroups A list of groups applied to the first process run in each container, in addition to the container&#39;s primary GID and fsGroup (if specified).  If the SupplementalGroupsPolicy feature is enabled, the supplementalGroupsPolicy field determines whether these are in addition to or instead of any group memberships defined in the container image. If unspecified, no additional groups are added, though group memberships defined in the container image may still be used, depending on the supplementalGroupsPolicy field. Note that this field cannot be set when spec.os.name is windows.
          * 
          * @return builder
          * 
@@ -422,7 +438,7 @@ public final class PodSecurityContextArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param supplementalGroups A list of groups applied to the first process run in each container, in addition to the container&#39;s primary GID, the fsGroup (if specified), and group memberships defined in the container image for the uid of the container process. If unspecified, no additional groups are added to any container. Note that group memberships defined in the container image for the uid of the container process are still effective, even if they are not included in this list. Note that this field cannot be set when spec.os.name is windows.
+         * @param supplementalGroups A list of groups applied to the first process run in each container, in addition to the container&#39;s primary GID and fsGroup (if specified).  If the SupplementalGroupsPolicy feature is enabled, the supplementalGroupsPolicy field determines whether these are in addition to or instead of any group memberships defined in the container image. If unspecified, no additional groups are added, though group memberships defined in the container image may still be used, depending on the supplementalGroupsPolicy field. Note that this field cannot be set when spec.os.name is windows.
          * 
          * @return builder
          * 
@@ -432,13 +448,34 @@ public final class PodSecurityContextArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param supplementalGroups A list of groups applied to the first process run in each container, in addition to the container&#39;s primary GID, the fsGroup (if specified), and group memberships defined in the container image for the uid of the container process. If unspecified, no additional groups are added to any container. Note that group memberships defined in the container image for the uid of the container process are still effective, even if they are not included in this list. Note that this field cannot be set when spec.os.name is windows.
+         * @param supplementalGroups A list of groups applied to the first process run in each container, in addition to the container&#39;s primary GID and fsGroup (if specified).  If the SupplementalGroupsPolicy feature is enabled, the supplementalGroupsPolicy field determines whether these are in addition to or instead of any group memberships defined in the container image. If unspecified, no additional groups are added, though group memberships defined in the container image may still be used, depending on the supplementalGroupsPolicy field. Note that this field cannot be set when spec.os.name is windows.
          * 
          * @return builder
          * 
          */
         public Builder supplementalGroups(Integer... supplementalGroups) {
             return supplementalGroups(List.of(supplementalGroups));
+        }
+
+        /**
+         * @param supplementalGroupsPolicy Defines how supplemental groups of the first container processes are calculated. Valid values are &#34;Merge&#34; and &#34;Strict&#34;. If not specified, &#34;Merge&#34; is used. (Alpha) Using the field requires the SupplementalGroupsPolicy feature gate to be enabled and the container runtime must implement support for this feature. Note that this field cannot be set when spec.os.name is windows.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder supplementalGroupsPolicy(@Nullable Output<String> supplementalGroupsPolicy) {
+            $.supplementalGroupsPolicy = supplementalGroupsPolicy;
+            return this;
+        }
+
+        /**
+         * @param supplementalGroupsPolicy Defines how supplemental groups of the first container processes are calculated. Valid values are &#34;Merge&#34; and &#34;Strict&#34;. If not specified, &#34;Merge&#34; is used. (Alpha) Using the field requires the SupplementalGroupsPolicy feature gate to be enabled and the container runtime must implement support for this feature. Note that this field cannot be set when spec.os.name is windows.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder supplementalGroupsPolicy(String supplementalGroupsPolicy) {
+            return supplementalGroupsPolicy(Output.of(supplementalGroupsPolicy));
         }
 
         /**

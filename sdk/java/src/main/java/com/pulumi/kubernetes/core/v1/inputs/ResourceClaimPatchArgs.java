@@ -34,10 +34,26 @@ public final class ResourceClaimPatchArgs extends com.pulumi.resources.ResourceA
         return Optional.ofNullable(this.name);
     }
 
+    /**
+     * Request is the name chosen for a request in the referenced claim. If empty, everything from the claim is made available, otherwise only the result of this request.
+     * 
+     */
+    @Import(name="request")
+    private @Nullable Output<String> request;
+
+    /**
+     * @return Request is the name chosen for a request in the referenced claim. If empty, everything from the claim is made available, otherwise only the result of this request.
+     * 
+     */
+    public Optional<Output<String>> request() {
+        return Optional.ofNullable(this.request);
+    }
+
     private ResourceClaimPatchArgs() {}
 
     private ResourceClaimPatchArgs(ResourceClaimPatchArgs $) {
         this.name = $.name;
+        this.request = $.request;
     }
 
     public static Builder builder() {
@@ -77,6 +93,27 @@ public final class ResourceClaimPatchArgs extends com.pulumi.resources.ResourceA
          */
         public Builder name(String name) {
             return name(Output.of(name));
+        }
+
+        /**
+         * @param request Request is the name chosen for a request in the referenced claim. If empty, everything from the claim is made available, otherwise only the result of this request.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder request(@Nullable Output<String> request) {
+            $.request = request;
+            return this;
+        }
+
+        /**
+         * @param request Request is the name chosen for a request in the referenced claim. If empty, everything from the claim is made available, otherwise only the result of this request.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder request(String request) {
+            return request(Output.of(request));
         }
 
         public ResourceClaimPatchArgs build() {

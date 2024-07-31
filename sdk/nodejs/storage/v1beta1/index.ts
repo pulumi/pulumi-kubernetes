@@ -80,6 +80,21 @@ export type VolumeAttachmentPatch = import("./volumeAttachmentPatch").VolumeAtta
 export const VolumeAttachmentPatch: typeof import("./volumeAttachmentPatch").VolumeAttachmentPatch = null as any;
 utilities.lazyLoad(exports, ["VolumeAttachmentPatch"], () => require("./volumeAttachmentPatch"));
 
+export { VolumeAttributesClassArgs } from "./volumeAttributesClass";
+export type VolumeAttributesClass = import("./volumeAttributesClass").VolumeAttributesClass;
+export const VolumeAttributesClass: typeof import("./volumeAttributesClass").VolumeAttributesClass = null as any;
+utilities.lazyLoad(exports, ["VolumeAttributesClass"], () => require("./volumeAttributesClass"));
+
+export { VolumeAttributesClassListArgs } from "./volumeAttributesClassList";
+export type VolumeAttributesClassList = import("./volumeAttributesClassList").VolumeAttributesClassList;
+export const VolumeAttributesClassList: typeof import("./volumeAttributesClassList").VolumeAttributesClassList = null as any;
+utilities.lazyLoad(exports, ["VolumeAttributesClassList"], () => require("./volumeAttributesClassList"));
+
+export { VolumeAttributesClassPatchArgs } from "./volumeAttributesClassPatch";
+export type VolumeAttributesClassPatch = import("./volumeAttributesClassPatch").VolumeAttributesClassPatch;
+export const VolumeAttributesClassPatch: typeof import("./volumeAttributesClassPatch").VolumeAttributesClassPatch = null as any;
+utilities.lazyLoad(exports, ["VolumeAttributesClassPatch"], () => require("./volumeAttributesClassPatch"));
+
 
 const _module = {
     version: utilities.getVersion(),
@@ -115,6 +130,12 @@ const _module = {
                 return new VolumeAttachmentList(name, <any>undefined, { urn })
             case "kubernetes:storage.k8s.io/v1beta1:VolumeAttachmentPatch":
                 return new VolumeAttachmentPatch(name, <any>undefined, { urn })
+            case "kubernetes:storage.k8s.io/v1beta1:VolumeAttributesClass":
+                return new VolumeAttributesClass(name, <any>undefined, { urn })
+            case "kubernetes:storage.k8s.io/v1beta1:VolumeAttributesClassList":
+                return new VolumeAttributesClassList(name, <any>undefined, { urn })
+            case "kubernetes:storage.k8s.io/v1beta1:VolumeAttributesClassPatch":
+                return new VolumeAttributesClassPatch(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }

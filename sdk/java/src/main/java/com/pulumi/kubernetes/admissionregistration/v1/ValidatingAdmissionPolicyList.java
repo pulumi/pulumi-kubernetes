@@ -90,7 +90,7 @@ public class ValidatingAdmissionPolicyList extends com.pulumi.resources.CustomRe
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public ValidatingAdmissionPolicyList(String name, @Nullable ValidatingAdmissionPolicyListArgs args) {
+    public ValidatingAdmissionPolicyList(String name, ValidatingAdmissionPolicyListArgs args) {
         this(name, args, null);
     }
     /**
@@ -99,7 +99,7 @@ public class ValidatingAdmissionPolicyList extends com.pulumi.resources.CustomRe
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public ValidatingAdmissionPolicyList(String name, @Nullable ValidatingAdmissionPolicyListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public ValidatingAdmissionPolicyList(String name, ValidatingAdmissionPolicyListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:admissionregistration.k8s.io/v1:ValidatingAdmissionPolicyList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
@@ -107,7 +107,7 @@ public class ValidatingAdmissionPolicyList extends com.pulumi.resources.CustomRe
         super("kubernetes:admissionregistration.k8s.io/v1:ValidatingAdmissionPolicyList", name, null, makeResourceOptions(options, id));
     }
 
-    private static ValidatingAdmissionPolicyListArgs makeArgs(@Nullable ValidatingAdmissionPolicyListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    private static ValidatingAdmissionPolicyListArgs makeArgs(ValidatingAdmissionPolicyListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         if (options != null && options.getUrn().isPresent()) {
             return null;
         }

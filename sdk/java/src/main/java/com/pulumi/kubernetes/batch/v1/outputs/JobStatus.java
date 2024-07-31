@@ -52,7 +52,7 @@ public final class JobStatus {
      */
     private @Nullable String failedIndexes;
     /**
-     * @return The number of pods which have a Ready condition.
+     * @return The number of active pods which have a Ready condition and are not terminating (without a deletionTimestamp).
      * 
      */
     private @Nullable Integer ready;
@@ -138,7 +138,7 @@ public final class JobStatus {
         return Optional.ofNullable(this.failedIndexes);
     }
     /**
-     * @return The number of pods which have a Ready condition.
+     * @return The number of active pods which have a Ready condition and are not terminating (without a deletionTimestamp).
      * 
      */
     public Optional<Integer> ready() {

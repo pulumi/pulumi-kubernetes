@@ -2229,7 +2229,7 @@ if not MYPY:
         """
         x_kubernetes_validations: NotRequired[pulumi.Input[Sequence[pulumi.Input['ValidationRulePatchArgsDict']]]]
         """
-        x-kubernetes-validations describes a list of validation rules written in the CEL expression language. This field is an alpha-level. Using this field requires the feature gate `CustomResourceValidationExpressions` to be enabled.
+        x-kubernetes-validations describes a list of validation rules written in the CEL expression language.
         """
 elif False:
     JSONSchemaPropsPatchArgsDict: TypeAlias = Mapping[str, Any]
@@ -2326,7 +2326,7 @@ class JSONSchemaPropsPatchArgs:
                2) `atomic`: the list is treated as a single entity, like a scalar.
                     Atomic maps will be entirely replaced when updated.
         :param pulumi.Input[bool] x_kubernetes_preserve_unknown_fields: x-kubernetes-preserve-unknown-fields stops the API server decoding step from pruning fields which are not specified in the validation schema. This affects fields recursively, but switches back to normal pruning behaviour if nested properties or additionalProperties are specified in the schema. This can either be true or undefined. False is forbidden.
-        :param pulumi.Input[Sequence[pulumi.Input['ValidationRulePatchArgs']]] x_kubernetes_validations: x-kubernetes-validations describes a list of validation rules written in the CEL expression language. This field is an alpha-level. Using this field requires the feature gate `CustomResourceValidationExpressions` to be enabled.
+        :param pulumi.Input[Sequence[pulumi.Input['ValidationRulePatchArgs']]] x_kubernetes_validations: x-kubernetes-validations describes a list of validation rules written in the CEL expression language.
         """
         if _ref is not None:
             pulumi.set(__self__, "_ref", _ref)
@@ -2867,7 +2867,7 @@ class JSONSchemaPropsPatchArgs:
     @pulumi.getter
     def x_kubernetes_validations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ValidationRulePatchArgs']]]]:
         """
-        x-kubernetes-validations describes a list of validation rules written in the CEL expression language. This field is an alpha-level. Using this field requires the feature gate `CustomResourceValidationExpressions` to be enabled.
+        x-kubernetes-validations describes a list of validation rules written in the CEL expression language.
         """
         return pulumi.get(self, "x_kubernetes_validations")
 
@@ -2985,7 +2985,7 @@ if not MYPY:
         """
         x_kubernetes_validations: NotRequired[pulumi.Input[Sequence[pulumi.Input['ValidationRuleArgsDict']]]]
         """
-        x-kubernetes-validations describes a list of validation rules written in the CEL expression language. This field is an alpha-level. Using this field requires the feature gate `CustomResourceValidationExpressions` to be enabled.
+        x-kubernetes-validations describes a list of validation rules written in the CEL expression language.
         """
 elif False:
     JSONSchemaPropsArgsDict: TypeAlias = Mapping[str, Any]
@@ -3082,7 +3082,7 @@ class JSONSchemaPropsArgs:
                2) `atomic`: the list is treated as a single entity, like a scalar.
                     Atomic maps will be entirely replaced when updated.
         :param pulumi.Input[bool] x_kubernetes_preserve_unknown_fields: x-kubernetes-preserve-unknown-fields stops the API server decoding step from pruning fields which are not specified in the validation schema. This affects fields recursively, but switches back to normal pruning behaviour if nested properties or additionalProperties are specified in the schema. This can either be true or undefined. False is forbidden.
-        :param pulumi.Input[Sequence[pulumi.Input['ValidationRuleArgs']]] x_kubernetes_validations: x-kubernetes-validations describes a list of validation rules written in the CEL expression language. This field is an alpha-level. Using this field requires the feature gate `CustomResourceValidationExpressions` to be enabled.
+        :param pulumi.Input[Sequence[pulumi.Input['ValidationRuleArgs']]] x_kubernetes_validations: x-kubernetes-validations describes a list of validation rules written in the CEL expression language.
         """
         if _ref is not None:
             pulumi.set(__self__, "_ref", _ref)
@@ -3623,7 +3623,7 @@ class JSONSchemaPropsArgs:
     @pulumi.getter
     def x_kubernetes_validations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ValidationRuleArgs']]]]:
         """
-        x-kubernetes-validations describes a list of validation rules written in the CEL expression language. This field is an alpha-level. Using this field requires the feature gate `CustomResourceValidationExpressions` to be enabled.
+        x-kubernetes-validations describes a list of validation rules written in the CEL expression language.
         """
         return pulumi.get(self, "x_kubernetes_validations")
 

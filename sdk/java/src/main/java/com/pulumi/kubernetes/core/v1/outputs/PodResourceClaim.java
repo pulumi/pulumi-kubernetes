@@ -19,6 +19,24 @@ public final class PodResourceClaim {
      */
     private String name;
     /**
+     * @return ResourceClaimName is the name of a ResourceClaim object in the same namespace as this pod.
+     * 
+     * Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
+     * 
+     */
+    private @Nullable String resourceClaimName;
+    /**
+     * @return ResourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace as this pod.
+     * 
+     * The template will be used to create a new ResourceClaim, which will be bound to this pod. When this pod is deleted, the ResourceClaim will also be deleted. The pod name and resource name, along with a generated component, will be used to form a unique name for the ResourceClaim, which will be recorded in pod.status.resourceClaimStatuses.
+     * 
+     * This field is immutable and no changes will be made to the corresponding ResourceClaim by the control plane after creating the ResourceClaim.
+     * 
+     * Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
+     * 
+     */
+    private @Nullable String resourceClaimTemplateName;
+    /**
      * @return Source describes where to find the ResourceClaim.
      * 
      */
@@ -31,6 +49,28 @@ public final class PodResourceClaim {
      */
     public String name() {
         return this.name;
+    }
+    /**
+     * @return ResourceClaimName is the name of a ResourceClaim object in the same namespace as this pod.
+     * 
+     * Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
+     * 
+     */
+    public Optional<String> resourceClaimName() {
+        return Optional.ofNullable(this.resourceClaimName);
+    }
+    /**
+     * @return ResourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace as this pod.
+     * 
+     * The template will be used to create a new ResourceClaim, which will be bound to this pod. When this pod is deleted, the ResourceClaim will also be deleted. The pod name and resource name, along with a generated component, will be used to form a unique name for the ResourceClaim, which will be recorded in pod.status.resourceClaimStatuses.
+     * 
+     * This field is immutable and no changes will be made to the corresponding ResourceClaim by the control plane after creating the ResourceClaim.
+     * 
+     * Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
+     * 
+     */
+    public Optional<String> resourceClaimTemplateName() {
+        return Optional.ofNullable(this.resourceClaimTemplateName);
     }
     /**
      * @return Source describes where to find the ResourceClaim.
@@ -50,11 +90,15 @@ public final class PodResourceClaim {
     @CustomType.Builder
     public static final class Builder {
         private String name;
+        private @Nullable String resourceClaimName;
+        private @Nullable String resourceClaimTemplateName;
         private @Nullable ClaimSource source;
         public Builder() {}
         public Builder(PodResourceClaim defaults) {
     	      Objects.requireNonNull(defaults);
     	      this.name = defaults.name;
+    	      this.resourceClaimName = defaults.resourceClaimName;
+    	      this.resourceClaimTemplateName = defaults.resourceClaimTemplateName;
     	      this.source = defaults.source;
         }
 
@@ -67,6 +111,18 @@ public final class PodResourceClaim {
             return this;
         }
         @CustomType.Setter
+        public Builder resourceClaimName(@Nullable String resourceClaimName) {
+
+            this.resourceClaimName = resourceClaimName;
+            return this;
+        }
+        @CustomType.Setter
+        public Builder resourceClaimTemplateName(@Nullable String resourceClaimTemplateName) {
+
+            this.resourceClaimTemplateName = resourceClaimTemplateName;
+            return this;
+        }
+        @CustomType.Setter
         public Builder source(@Nullable ClaimSource source) {
 
             this.source = source;
@@ -75,6 +131,8 @@ public final class PodResourceClaim {
         public PodResourceClaim build() {
             final var _resultValue = new PodResourceClaim();
             _resultValue.name = name;
+            _resultValue.resourceClaimName = resourceClaimName;
+            _resultValue.resourceClaimTemplateName = resourceClaimTemplateName;
             _resultValue.source = source;
             return _resultValue;
         }

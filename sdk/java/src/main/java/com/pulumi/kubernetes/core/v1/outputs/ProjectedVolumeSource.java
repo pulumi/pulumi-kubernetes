@@ -20,7 +20,7 @@ public final class ProjectedVolumeSource {
      */
     private @Nullable Integer defaultMode;
     /**
-     * @return sources is the list of volume projections
+     * @return sources is the list of volume projections. Each entry in this list handles one source.
      * 
      */
     private List<VolumeProjection> sources;
@@ -34,7 +34,7 @@ public final class ProjectedVolumeSource {
         return Optional.ofNullable(this.defaultMode);
     }
     /**
-     * @return sources is the list of volume projections
+     * @return sources is the list of volume projections. Each entry in this list handles one source.
      * 
      */
     public List<VolumeProjection> sources() {

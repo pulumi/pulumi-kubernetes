@@ -18,8 +18,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         /// <summary>
         /// IP is the IP address assigned to the pod
         /// </summary>
-        [Input("ip")]
-        public Input<string>? Ip { get; set; }
+        [Input("ip", required: true)]
+        public Input<string> Ip { get; set; } = null!;
 
         public PodIPArgs()
         {

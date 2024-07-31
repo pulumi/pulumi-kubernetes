@@ -21,6 +21,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         [Input("name", required: true)]
         public Input<string> Name { get; set; } = null!;
 
+        /// <summary>
+        /// Request is the name chosen for a request in the referenced claim. If empty, everything from the claim is made available, otherwise only the result of this request.
+        /// </summary>
+        [Input("request")]
+        public Input<string>? Request { get; set; }
+
         public ResourceClaimArgs()
         {
         }

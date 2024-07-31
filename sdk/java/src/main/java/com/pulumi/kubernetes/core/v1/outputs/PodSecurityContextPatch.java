@@ -64,10 +64,15 @@ public final class PodSecurityContextPatch {
      */
     private @Nullable SeccompProfilePatch seccompProfile;
     /**
-     * @return A list of groups applied to the first process run in each container, in addition to the container&#39;s primary GID, the fsGroup (if specified), and group memberships defined in the container image for the uid of the container process. If unspecified, no additional groups are added to any container. Note that group memberships defined in the container image for the uid of the container process are still effective, even if they are not included in this list. Note that this field cannot be set when spec.os.name is windows.
+     * @return A list of groups applied to the first process run in each container, in addition to the container&#39;s primary GID and fsGroup (if specified).  If the SupplementalGroupsPolicy feature is enabled, the supplementalGroupsPolicy field determines whether these are in addition to or instead of any group memberships defined in the container image. If unspecified, no additional groups are added, though group memberships defined in the container image may still be used, depending on the supplementalGroupsPolicy field. Note that this field cannot be set when spec.os.name is windows.
      * 
      */
     private @Nullable List<Integer> supplementalGroups;
+    /**
+     * @return Defines how supplemental groups of the first container processes are calculated. Valid values are &#34;Merge&#34; and &#34;Strict&#34;. If not specified, &#34;Merge&#34; is used. (Alpha) Using the field requires the SupplementalGroupsPolicy feature gate to be enabled and the container runtime must implement support for this feature. Note that this field cannot be set when spec.os.name is windows.
+     * 
+     */
+    private @Nullable String supplementalGroupsPolicy;
     /**
      * @return Sysctls hold a list of namespaced sysctls used for the pod. Pods with unsupported sysctls (by the container runtime) might fail to launch. Note that this field cannot be set when spec.os.name is windows.
      * 
@@ -141,11 +146,18 @@ public final class PodSecurityContextPatch {
         return Optional.ofNullable(this.seccompProfile);
     }
     /**
-     * @return A list of groups applied to the first process run in each container, in addition to the container&#39;s primary GID, the fsGroup (if specified), and group memberships defined in the container image for the uid of the container process. If unspecified, no additional groups are added to any container. Note that group memberships defined in the container image for the uid of the container process are still effective, even if they are not included in this list. Note that this field cannot be set when spec.os.name is windows.
+     * @return A list of groups applied to the first process run in each container, in addition to the container&#39;s primary GID and fsGroup (if specified).  If the SupplementalGroupsPolicy feature is enabled, the supplementalGroupsPolicy field determines whether these are in addition to or instead of any group memberships defined in the container image. If unspecified, no additional groups are added, though group memberships defined in the container image may still be used, depending on the supplementalGroupsPolicy field. Note that this field cannot be set when spec.os.name is windows.
      * 
      */
     public List<Integer> supplementalGroups() {
         return this.supplementalGroups == null ? List.of() : this.supplementalGroups;
+    }
+    /**
+     * @return Defines how supplemental groups of the first container processes are calculated. Valid values are &#34;Merge&#34; and &#34;Strict&#34;. If not specified, &#34;Merge&#34; is used. (Alpha) Using the field requires the SupplementalGroupsPolicy feature gate to be enabled and the container runtime must implement support for this feature. Note that this field cannot be set when spec.os.name is windows.
+     * 
+     */
+    public Optional<String> supplementalGroupsPolicy() {
+        return Optional.ofNullable(this.supplementalGroupsPolicy);
     }
     /**
      * @return Sysctls hold a list of namespaced sysctls used for the pod. Pods with unsupported sysctls (by the container runtime) might fail to launch. Note that this field cannot be set when spec.os.name is windows.
@@ -180,6 +192,7 @@ public final class PodSecurityContextPatch {
         private @Nullable SELinuxOptionsPatch seLinuxOptions;
         private @Nullable SeccompProfilePatch seccompProfile;
         private @Nullable List<Integer> supplementalGroups;
+        private @Nullable String supplementalGroupsPolicy;
         private @Nullable List<SysctlPatch> sysctls;
         private @Nullable WindowsSecurityContextOptionsPatch windowsOptions;
         public Builder() {}
@@ -194,6 +207,7 @@ public final class PodSecurityContextPatch {
     	      this.seLinuxOptions = defaults.seLinuxOptions;
     	      this.seccompProfile = defaults.seccompProfile;
     	      this.supplementalGroups = defaults.supplementalGroups;
+    	      this.supplementalGroupsPolicy = defaults.supplementalGroupsPolicy;
     	      this.sysctls = defaults.sysctls;
     	      this.windowsOptions = defaults.windowsOptions;
         }
@@ -256,6 +270,12 @@ public final class PodSecurityContextPatch {
             return supplementalGroups(List.of(supplementalGroups));
         }
         @CustomType.Setter
+        public Builder supplementalGroupsPolicy(@Nullable String supplementalGroupsPolicy) {
+
+            this.supplementalGroupsPolicy = supplementalGroupsPolicy;
+            return this;
+        }
+        @CustomType.Setter
         public Builder sysctls(@Nullable List<SysctlPatch> sysctls) {
 
             this.sysctls = sysctls;
@@ -281,6 +301,7 @@ public final class PodSecurityContextPatch {
             _resultValue.seLinuxOptions = seLinuxOptions;
             _resultValue.seccompProfile = seccompProfile;
             _resultValue.supplementalGroups = supplementalGroups;
+            _resultValue.supplementalGroupsPolicy = supplementalGroupsPolicy;
             _resultValue.sysctls = sysctls;
             _resultValue.windowsOptions = windowsOptions;
             return _resultValue;

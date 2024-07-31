@@ -61,6 +61,8 @@ const (
 	DaemonSetList                        Kind = "DaemonSetList"
 	Deployment                           Kind = "Deployment"
 	DeploymentList                       Kind = "DeploymentList"
+	DeviceClass                          Kind = "DeviceClass"
+	DeviceClassList                      Kind = "DeviceClassList"
 	EndpointSlice                        Kind = "EndpointSlice"
 	EndpointSliceList                    Kind = "EndpointSliceList"
 	Endpoints                            Kind = "Endpoints"
@@ -80,6 +82,8 @@ const (
 	Job                                  Kind = "Job"
 	JobList                              Kind = "JobList"
 	Lease                                Kind = "Lease"
+	LeaseCandidate                       Kind = "LeaseCandidate"
+	LeaseCandidateList                   Kind = "LeaseCandidateList"
 	LeaseList                            Kind = "LeaseList"
 	LimitRange                           Kind = "LimitRange"
 	LimitRangeList                       Kind = "LimitRangeList"
@@ -119,18 +123,13 @@ const (
 	ReplicationControllerList            Kind = "ReplicationControllerList"
 	ResourceClaim                        Kind = "ResourceClaim"
 	ResourceClaimList                    Kind = "ResourceClaimList"
-	ResourceClaimParameters              Kind = "ResourceClaimParameters"
-	ResourceClaimParametersList          Kind = "ResourceClaimParametersList"
 	ResourceClaimTemplate                Kind = "ResourceClaimTemplate"
 	ResourceClaimTemplateList            Kind = "ResourceClaimTemplateList"
 	ResourceClass                        Kind = "ResourceClass"
 	ResourceClassList                    Kind = "ResourceClassList"
-	ResourceClassParameters              Kind = "ResourceClassParameters"
-	ResourceClassParametersList          Kind = "ResourceClassParametersList"
 	ResourceQuota                        Kind = "ResourceQuota"
 	ResourceQuotaList                    Kind = "ResourceQuotaList"
 	ResourceSlice                        Kind = "ResourceSlice"
-	ResourceSliceList                    Kind = "ResourceSliceList"
 	Role                                 Kind = "Role"
 	RoleBinding                          Kind = "RoleBinding"
 	RoleBindingList                      Kind = "RoleBindingList"
@@ -257,6 +256,7 @@ const (
 	CertificatesV1A1          groupVersion = "certificates.k8s.io/v1alpha1"
 	CertificatesV1B1          groupVersion = "certificates.k8s.io/v1beta1"
 	CoordinationV1            groupVersion = "coordination.k8s.io/v1"
+	CoordinationV1A1          groupVersion = "coordination.k8s.io/v1alpha1"
 	CoordinationV1B1          groupVersion = "coordination.k8s.io/v1beta1"
 	CoreV1                    groupVersion = "core/v1"
 	DiscoveryV1               groupVersion = "discovery.k8s.io/v1"
@@ -283,6 +283,7 @@ const (
 	RbacV1B1                  groupVersion = "rbac.authorization.k8s.io/v1beta1"
 	ResourceV1A1              groupVersion = "resource.k8s.io/v1alpha1"
 	ResourceV1A2              groupVersion = "resource.k8s.io/v1alpha2"
+	ResourceV1A3              groupVersion = "resource.k8s.io/v1alpha3"
 	SchedulingV1              groupVersion = "scheduling.k8s.io/v1"
 	SchedulingV1A1            groupVersion = "scheduling.k8s.io/v1alpha1"
 	SchedulingV1B1            groupVersion = "scheduling.k8s.io/v1beta1"
@@ -329,6 +330,7 @@ var KnownGroupVersions = codegen.NewStringSet(
 	"certificates.k8s.io/v1alpha1",
 	"certificates.k8s.io/v1beta1",
 	"coordination.k8s.io/v1",
+	"coordination.k8s.io/v1alpha1",
 	"coordination.k8s.io/v1beta1",
 	"core/v1",
 	"discovery.k8s.io/v1",
@@ -355,6 +357,7 @@ var KnownGroupVersions = codegen.NewStringSet(
 	"rbac.authorization.k8s.io/v1beta1",
 	"resource.k8s.io/v1alpha1",
 	"resource.k8s.io/v1alpha2",
+	"resource.k8s.io/v1alpha3",
 	"scheduling.k8s.io/v1",
 	"scheduling.k8s.io/v1alpha1",
 	"scheduling.k8s.io/v1beta1",
@@ -409,6 +412,7 @@ var ListQualifiedTypes = codegen.NewStringSet(
 	"kubernetes:certificates.k8s.io/v1alpha1:ClusterTrustBundleList",
 	"kubernetes:certificates.k8s.io/v1beta1:CertificateSigningRequestList",
 	"kubernetes:coordination.k8s.io/v1:LeaseList",
+	"kubernetes:coordination.k8s.io/v1alpha1:LeaseCandidateList",
 	"kubernetes:coordination.k8s.io/v1beta1:LeaseList",
 	"kubernetes:core/v1:ConfigMapList",
 	"kubernetes:core/v1:EndpointsList",
@@ -450,9 +454,10 @@ var ListQualifiedTypes = codegen.NewStringSet(
 	"kubernetes:networking.k8s.io/v1:NetworkPolicyList",
 	"kubernetes:networking.k8s.io/v1alpha1:ClusterCIDRList",
 	"kubernetes:networking.k8s.io/v1alpha1:IPAddressList",
-	"kubernetes:networking.k8s.io/v1alpha1:ServiceCIDRList",
+	"kubernetes:networking.k8s.io/v1beta1:IPAddressList",
 	"kubernetes:networking.k8s.io/v1beta1:IngressClassList",
 	"kubernetes:networking.k8s.io/v1beta1:IngressList",
+	"kubernetes:networking.k8s.io/v1beta1:ServiceCIDRList",
 	"kubernetes:node.k8s.io/v1:RuntimeClassList",
 	"kubernetes:node.k8s.io/v1alpha1:RuntimeClassList",
 	"kubernetes:node.k8s.io/v1beta1:RuntimeClassList",
@@ -477,11 +482,12 @@ var ListQualifiedTypes = codegen.NewStringSet(
 	"kubernetes:resource.k8s.io/v1alpha1:ResourceClassList",
 	"kubernetes:resource.k8s.io/v1alpha2:PodSchedulingContextList",
 	"kubernetes:resource.k8s.io/v1alpha2:ResourceClaimList",
-	"kubernetes:resource.k8s.io/v1alpha2:ResourceClaimParametersList",
 	"kubernetes:resource.k8s.io/v1alpha2:ResourceClaimTemplateList",
 	"kubernetes:resource.k8s.io/v1alpha2:ResourceClassList",
-	"kubernetes:resource.k8s.io/v1alpha2:ResourceClassParametersList",
-	"kubernetes:resource.k8s.io/v1alpha2:ResourceSliceList",
+	"kubernetes:resource.k8s.io/v1alpha3:DeviceClassList",
+	"kubernetes:resource.k8s.io/v1alpha3:PodSchedulingContextList",
+	"kubernetes:resource.k8s.io/v1alpha3:ResourceClaimList",
+	"kubernetes:resource.k8s.io/v1alpha3:ResourceClaimTemplateList",
 	"kubernetes:scheduling.k8s.io/v1:PriorityClassList",
 	"kubernetes:scheduling.k8s.io/v1alpha1:PriorityClassList",
 	"kubernetes:scheduling.k8s.io/v1beta1:PriorityClassList",
@@ -498,5 +504,6 @@ var ListQualifiedTypes = codegen.NewStringSet(
 	"kubernetes:storage.k8s.io/v1beta1:CSIStorageCapacityList",
 	"kubernetes:storage.k8s.io/v1beta1:StorageClassList",
 	"kubernetes:storage.k8s.io/v1beta1:VolumeAttachmentList",
+	"kubernetes:storage.k8s.io/v1beta1:VolumeAttributesClassList",
 	"kubernetes:storagemigration.k8s.io/v1alpha1:StorageVersionMigrationList",
 )

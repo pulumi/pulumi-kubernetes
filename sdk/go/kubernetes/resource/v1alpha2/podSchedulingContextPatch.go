@@ -45,6 +45,12 @@ func NewPodSchedulingContextPatch(ctx *pulumi.Context,
 
 	args.ApiVersion = pulumi.StringPtr("resource.k8s.io/v1alpha2")
 	args.Kind = pulumi.StringPtr("PodSchedulingContext")
+	aliases := pulumi.Aliases([]pulumi.Alias{
+		{
+			Type: pulumi.String("kubernetes:resource.k8s.io/v1alpha3:PodSchedulingContextPatch"),
+		},
+	})
+	opts = append(opts, aliases)
 	opts = utilities.PkgResourceDefaultOpts(opts)
 	var resource PodSchedulingContextPatch
 	err := ctx.RegisterResource("kubernetes:resource.k8s.io/v1alpha2:PodSchedulingContextPatch", name, args, &resource, opts...)

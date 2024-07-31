@@ -38,14 +38,14 @@ public final class ProjectedVolumeSourceArgs extends com.pulumi.resources.Resour
     }
 
     /**
-     * sources is the list of volume projections
+     * sources is the list of volume projections. Each entry in this list handles one source.
      * 
      */
     @Import(name="sources", required=true)
     private Output<List<VolumeProjectionArgs>> sources;
 
     /**
-     * @return sources is the list of volume projections
+     * @return sources is the list of volume projections. Each entry in this list handles one source.
      * 
      */
     public Output<List<VolumeProjectionArgs>> sources() {
@@ -99,7 +99,7 @@ public final class ProjectedVolumeSourceArgs extends com.pulumi.resources.Resour
         }
 
         /**
-         * @param sources sources is the list of volume projections
+         * @param sources sources is the list of volume projections. Each entry in this list handles one source.
          * 
          * @return builder
          * 
@@ -110,7 +110,7 @@ public final class ProjectedVolumeSourceArgs extends com.pulumi.resources.Resour
         }
 
         /**
-         * @param sources sources is the list of volume projections
+         * @param sources sources is the list of volume projections. Each entry in this list handles one source.
          * 
          * @return builder
          * 
@@ -120,7 +120,7 @@ public final class ProjectedVolumeSourceArgs extends com.pulumi.resources.Resour
         }
 
         /**
-         * @param sources sources is the list of volume projections
+         * @param sources sources is the list of volume projections. Each entry in this list handles one source.
          * 
          * @return builder
          * 

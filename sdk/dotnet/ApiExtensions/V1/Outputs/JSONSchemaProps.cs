@@ -119,7 +119,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions.V1
         /// </summary>
         public readonly bool X_kubernetes_preserve_unknown_fields;
         /// <summary>
-        /// x-kubernetes-validations describes a list of validation rules written in the CEL expression language. This field is an alpha-level. Using this field requires the feature gate `CustomResourceValidationExpressions` to be enabled.
+        /// x-kubernetes-validations describes a list of validation rules written in the CEL expression language.
         /// </summary>
         public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.ApiExtensions.V1.ValidationRule> X_kubernetes_validations;
 

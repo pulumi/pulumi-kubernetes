@@ -5,10 +5,9 @@ package com.pulumi.kubernetes.core.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
-import java.util.Optional;
-import javax.annotation.Nullable;
 
 
 /**
@@ -23,15 +22,15 @@ public final class PodIPArgs extends com.pulumi.resources.ResourceArgs {
      * IP is the IP address assigned to the pod
      * 
      */
-    @Import(name="ip")
-    private @Nullable Output<String> ip;
+    @Import(name="ip", required=true)
+    private Output<String> ip;
 
     /**
      * @return IP is the IP address assigned to the pod
      * 
      */
-    public Optional<Output<String>> ip() {
-        return Optional.ofNullable(this.ip);
+    public Output<String> ip() {
+        return this.ip;
     }
 
     private PodIPArgs() {}
@@ -64,7 +63,7 @@ public final class PodIPArgs extends com.pulumi.resources.ResourceArgs {
          * @return builder
          * 
          */
-        public Builder ip(@Nullable Output<String> ip) {
+        public Builder ip(Output<String> ip) {
             $.ip = ip;
             return this;
         }
@@ -80,6 +79,9 @@ public final class PodIPArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         public PodIPArgs build() {
+            if ($.ip == null) {
+                throw new MissingRequiredPropertyException("PodIPArgs", "ip");
+            }
             return $;
         }
     }

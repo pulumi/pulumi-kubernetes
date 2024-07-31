@@ -33,12 +33,6 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &IPAddressList{}
 	case "kubernetes:networking.k8s.io/v1alpha1:IPAddressPatch":
 		r = &IPAddressPatch{}
-	case "kubernetes:networking.k8s.io/v1alpha1:ServiceCIDR":
-		r = &ServiceCIDR{}
-	case "kubernetes:networking.k8s.io/v1alpha1:ServiceCIDRList":
-		r = &ServiceCIDRList{}
-	case "kubernetes:networking.k8s.io/v1alpha1:ServiceCIDRPatch":
-		r = &ServiceCIDRPatch{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}

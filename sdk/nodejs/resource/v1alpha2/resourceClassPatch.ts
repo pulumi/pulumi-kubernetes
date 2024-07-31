@@ -68,10 +68,6 @@ export class ResourceClassPatch extends pulumi.CustomResource {
      */
     public readonly parametersRef!: pulumi.Output<outputs.resource.v1alpha2.ResourceClassParametersReferencePatch>;
     /**
-     * If and only if allocation of claims using this class is handled via structured parameters, then StructuredParameters must be set to true.
-     */
-    public readonly structuredParameters!: pulumi.Output<boolean>;
-    /**
      * Only nodes matching the selector will be considered by the scheduler when trying to find a Node that fits a Pod when that Pod uses a ResourceClaim that has not been allocated yet.
      *
      * Setting this field is optional. If null, all nodes are candidates.
@@ -94,7 +90,6 @@ export class ResourceClassPatch extends pulumi.CustomResource {
             resourceInputs["kind"] = "ResourceClass";
             resourceInputs["metadata"] = args ? args.metadata : undefined;
             resourceInputs["parametersRef"] = args ? args.parametersRef : undefined;
-            resourceInputs["structuredParameters"] = args ? args.structuredParameters : undefined;
             resourceInputs["suitableNodes"] = args ? args.suitableNodes : undefined;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;
@@ -102,7 +97,6 @@ export class ResourceClassPatch extends pulumi.CustomResource {
             resourceInputs["kind"] = undefined /*out*/;
             resourceInputs["metadata"] = undefined /*out*/;
             resourceInputs["parametersRef"] = undefined /*out*/;
-            resourceInputs["structuredParameters"] = undefined /*out*/;
             resourceInputs["suitableNodes"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
@@ -138,10 +132,6 @@ export interface ResourceClassPatchArgs {
      * ParametersRef references an arbitrary separate object that may hold parameters that will be used by the driver when allocating a resource that uses this class. A dynamic resource driver can distinguish between parameters stored here and and those stored in ResourceClaimSpec.
      */
     parametersRef?: pulumi.Input<inputs.resource.v1alpha2.ResourceClassParametersReferencePatch>;
-    /**
-     * If and only if allocation of claims using this class is handled via structured parameters, then StructuredParameters must be set to true.
-     */
-    structuredParameters?: pulumi.Input<boolean>;
     /**
      * Only nodes matching the selector will be considered by the scheduler when trying to find a Node that fits a Pod when that Pod uses a ResourceClaim that has not been allocated yet.
      *

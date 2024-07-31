@@ -41,10 +41,6 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha2
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha2.ResourceClassParametersReference ParametersRef;
         /// <summary>
-        /// If and only if allocation of claims using this class is handled via structured parameters, then StructuredParameters must be set to true.
-        /// </summary>
-        public readonly bool StructuredParameters;
-        /// <summary>
         /// Only nodes matching the selector will be considered by the scheduler when trying to find a Node that fits a Pod when that Pod uses a ResourceClaim that has not been allocated yet.
         /// 
         /// Setting this field is optional. If null, all nodes are candidates.
@@ -63,8 +59,6 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha2
 
             Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha2.ResourceClassParametersReference parametersRef,
 
-            bool structuredParameters,
-
             Pulumi.Kubernetes.Types.Outputs.Core.V1.NodeSelector suitableNodes)
         {
             ApiVersion = apiVersion;
@@ -72,7 +66,6 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha2
             Kind = kind;
             Metadata = metadata;
             ParametersRef = parametersRef;
-            StructuredParameters = structuredParameters;
             SuitableNodes = suitableNodes;
         }
     }

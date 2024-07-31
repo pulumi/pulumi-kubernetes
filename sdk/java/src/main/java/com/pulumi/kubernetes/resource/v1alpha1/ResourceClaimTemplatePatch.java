@@ -134,7 +134,8 @@ public class ResourceClaimTemplatePatch extends com.pulumi.resources.CustomResou
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .aliases(List.of(
-                Output.of(Alias.builder().type("kubernetes:resource.k8s.io/v1alpha2:ResourceClaimTemplatePatch").build())
+                Output.of(Alias.builder().type("kubernetes:resource.k8s.io/v1alpha2:ResourceClaimTemplatePatch").build()),
+                Output.of(Alias.builder().type("kubernetes:resource.k8s.io/v1alpha3:ResourceClaimTemplatePatch").build())
             ))
             .build();
         return com.pulumi.resources.CustomResourceOptions.merge(defaultOptions, options, id);

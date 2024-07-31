@@ -126,14 +126,14 @@ public final class JobStatusArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * The number of pods which have a Ready condition.
+     * The number of active pods which have a Ready condition and are not terminating (without a deletionTimestamp).
      * 
      */
     @Import(name="ready")
     private @Nullable Output<Integer> ready;
 
     /**
-     * @return The number of pods which have a Ready condition.
+     * @return The number of active pods which have a Ready condition and are not terminating (without a deletionTimestamp).
      * 
      */
     public Optional<Output<Integer>> ready() {
@@ -409,7 +409,7 @@ public final class JobStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param ready The number of pods which have a Ready condition.
+         * @param ready The number of active pods which have a Ready condition and are not terminating (without a deletionTimestamp).
          * 
          * @return builder
          * 
@@ -420,7 +420,7 @@ public final class JobStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param ready The number of pods which have a Ready condition.
+         * @param ready The number of active pods which have a Ready condition and are not terminating (without a deletionTimestamp).
          * 
          * @return builder
          * 

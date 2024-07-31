@@ -32,8 +32,6 @@ type ResourceClass struct {
 	Metadata metav1.ObjectMetaOutput `pulumi:"metadata"`
 	// ParametersRef references an arbitrary separate object that may hold parameters that will be used by the driver when allocating a resource that uses this class. A dynamic resource driver can distinguish between parameters stored here and and those stored in ResourceClaimSpec.
 	ParametersRef ResourceClassParametersReferenceOutput `pulumi:"parametersRef"`
-	// If and only if allocation of claims using this class is handled via structured parameters, then StructuredParameters must be set to true.
-	StructuredParameters pulumi.BoolOutput `pulumi:"structuredParameters"`
 	// Only nodes matching the selector will be considered by the scheduler when trying to find a Node that fits a Pod when that Pod uses a ResourceClaim that has not been allocated yet.
 	//
 	// Setting this field is optional. If null, all nodes are candidates.
@@ -103,8 +101,6 @@ type resourceClassArgs struct {
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// ParametersRef references an arbitrary separate object that may hold parameters that will be used by the driver when allocating a resource that uses this class. A dynamic resource driver can distinguish between parameters stored here and and those stored in ResourceClaimSpec.
 	ParametersRef *ResourceClassParametersReference `pulumi:"parametersRef"`
-	// If and only if allocation of claims using this class is handled via structured parameters, then StructuredParameters must be set to true.
-	StructuredParameters *bool `pulumi:"structuredParameters"`
 	// Only nodes matching the selector will be considered by the scheduler when trying to find a Node that fits a Pod when that Pod uses a ResourceClaim that has not been allocated yet.
 	//
 	// Setting this field is optional. If null, all nodes are candidates.
@@ -125,8 +121,6 @@ type ResourceClassArgs struct {
 	Metadata metav1.ObjectMetaPtrInput
 	// ParametersRef references an arbitrary separate object that may hold parameters that will be used by the driver when allocating a resource that uses this class. A dynamic resource driver can distinguish between parameters stored here and and those stored in ResourceClaimSpec.
 	ParametersRef ResourceClassParametersReferencePtrInput
-	// If and only if allocation of claims using this class is handled via structured parameters, then StructuredParameters must be set to true.
-	StructuredParameters pulumi.BoolPtrInput
 	// Only nodes matching the selector will be considered by the scheduler when trying to find a Node that fits a Pod when that Pod uses a ResourceClaim that has not been allocated yet.
 	//
 	// Setting this field is optional. If null, all nodes are candidates.
@@ -245,11 +239,6 @@ func (o ResourceClassOutput) Metadata() metav1.ObjectMetaOutput {
 // ParametersRef references an arbitrary separate object that may hold parameters that will be used by the driver when allocating a resource that uses this class. A dynamic resource driver can distinguish between parameters stored here and and those stored in ResourceClaimSpec.
 func (o ResourceClassOutput) ParametersRef() ResourceClassParametersReferenceOutput {
 	return o.ApplyT(func(v *ResourceClass) ResourceClassParametersReferenceOutput { return v.ParametersRef }).(ResourceClassParametersReferenceOutput)
-}
-
-// If and only if allocation of claims using this class is handled via structured parameters, then StructuredParameters must be set to true.
-func (o ResourceClassOutput) StructuredParameters() pulumi.BoolOutput {
-	return o.ApplyT(func(v *ResourceClass) pulumi.BoolOutput { return v.StructuredParameters }).(pulumi.BoolOutput)
 }
 
 // Only nodes matching the selector will be considered by the scheduler when trying to find a Node that fits a Pod when that Pod uses a ResourceClaim that has not been allocated yet.
