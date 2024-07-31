@@ -133,6 +133,74 @@ func TestDeletionPropagation(t *testing.T) {
 	}
 }
 
+func TestReadyCondition(t *testing.T) {
+	tests := []struct {
+		name           string
+		obj            *unstructured.Unstructured
+		inputs         *unstructured.Unstructured
+		genericEnabled bool
+		want           any
+		wantErr        string
+	}{
+		{
+			name:           "no annotation, generic await enabled",
+			inputs:         &unstructured.Unstructured{Object: map[string]any{}},
+			genericEnabled: true,
+			want:           &condition.Ready{},
+		},
+		{
+			name:   "no annotation, generic await disabled",
+			inputs: &unstructured.Unstructured{Object: map[string]any{}},
+			want:   condition.Immediate{},
+		},
+		{
+			name: "skipAwait=true, generic await disabled",
+			inputs: &unstructured.Unstructured{
+				Object: map[string]any{
+					"metadata": map[string]any{
+						"annotations": map[string]any{
+							AnnotationSkipAwait: "true",
+						},
+					},
+				},
+			},
+			want: condition.Immediate{},
+		},
+		{
+			name: "skipAwait=true, generic await enabled",
+			inputs: &unstructured.Unstructured{
+				Object: map[string]any{
+					"metadata": map[string]any{
+						"annotations": map[string]any{
+							AnnotationSkipAwait: "true",
+						},
+					},
+				},
+			},
+			genericEnabled: true,
+			want:           condition.Immediate{},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if tt.genericEnabled {
+				t.Setenv("PULUMI_K8S_AWAIT_ALL", "true")
+			}
+			obj := tt.obj
+			if obj == nil {
+				obj = tt.inputs
+			}
+			cond, err := ReadyCondition(context.Background(), nil, nil, nil, tt.inputs, obj)
+			if tt.wantErr != "" {
+				assert.ErrorContains(t, err, tt.wantErr)
+				return
+			}
+			assert.IsType(t, tt.want, cond)
+		})
+	}
+}
+
 func TestDeletedCondition(t *testing.T) {
 	tests := []struct {
 		name   string

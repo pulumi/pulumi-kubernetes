@@ -322,7 +322,9 @@ func IsConfigMap(obj *unstructured.Unstructured) bool {
 	return (gvk.Group == corev1.GroupName || gvk.Group == "core") && gvk.Kind == string(kinds.ConfigMap)
 }
 
+// GVRForGVK queries the API server to determine the resource for the given GroupVersionKind.
 func GVRForGVK(mapper meta.RESTMapper, gvk schema.GroupVersionKind) (schema.GroupVersionResource, error) {
+	// TODO: Cache this?
 	mapping, err := mapper.RESTMapping(gvk.GroupKind(), gvk.Version)
 	if err != nil {
 		return schema.GroupVersionResource{}, err
