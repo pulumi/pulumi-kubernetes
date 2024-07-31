@@ -4,7 +4,6 @@
 package com.pulumi.kubernetes.networking.v1alpha1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
-import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -21,7 +20,7 @@ public final class ParentReference {
      * @return Name is the name of the object being referenced.
      * 
      */
-    private String name;
+    private @Nullable String name;
     /**
      * @return Namespace is the namespace of the object being referenced.
      * 
@@ -31,7 +30,7 @@ public final class ParentReference {
      * @return Resource is the resource of the object being referenced.
      * 
      */
-    private String resource;
+    private @Nullable String resource;
     /**
      * @return UID is the uid of the object being referenced.
      * 
@@ -50,8 +49,8 @@ public final class ParentReference {
      * @return Name is the name of the object being referenced.
      * 
      */
-    public String name() {
-        return this.name;
+    public Optional<String> name() {
+        return Optional.ofNullable(this.name);
     }
     /**
      * @return Namespace is the namespace of the object being referenced.
@@ -64,8 +63,8 @@ public final class ParentReference {
      * @return Resource is the resource of the object being referenced.
      * 
      */
-    public String resource() {
-        return this.resource;
+    public Optional<String> resource() {
+        return Optional.ofNullable(this.resource);
     }
     /**
      * @return UID is the uid of the object being referenced.
@@ -85,9 +84,9 @@ public final class ParentReference {
     @CustomType.Builder
     public static final class Builder {
         private @Nullable String group;
-        private String name;
+        private @Nullable String name;
         private @Nullable String namespace;
-        private String resource;
+        private @Nullable String resource;
         private @Nullable String uid;
         public Builder() {}
         public Builder(ParentReference defaults) {
@@ -106,10 +105,8 @@ public final class ParentReference {
             return this;
         }
         @CustomType.Setter
-        public Builder name(String name) {
-            if (name == null) {
-              throw new MissingRequiredPropertyException("ParentReference", "name");
-            }
+        public Builder name(@Nullable String name) {
+
             this.name = name;
             return this;
         }
@@ -120,10 +117,8 @@ public final class ParentReference {
             return this;
         }
         @CustomType.Setter
-        public Builder resource(String resource) {
-            if (resource == null) {
-              throw new MissingRequiredPropertyException("ParentReference", "resource");
-            }
+        public Builder resource(@Nullable String resource) {
+
             this.resource = resource;
             return this;
         }

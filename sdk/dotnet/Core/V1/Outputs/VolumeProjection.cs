@@ -11,7 +11,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
     /// <summary>
-    /// Projection that may be projected along with other supported volume types
+    /// Projection that may be projected along with other supported volume types. Exactly one of these fields must be set.
     /// </summary>
     [OutputType]
     public sealed class VolumeProjection

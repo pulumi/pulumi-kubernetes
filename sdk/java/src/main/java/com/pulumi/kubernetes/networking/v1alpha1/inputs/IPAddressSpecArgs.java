@@ -5,9 +5,10 @@ package com.pulumi.kubernetes.networking.v1alpha1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
-import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.networking.v1alpha1.inputs.ParentReferenceArgs;
 import java.util.Objects;
+import java.util.Optional;
+import javax.annotation.Nullable;
 
 
 /**
@@ -22,15 +23,15 @@ public final class IPAddressSpecArgs extends com.pulumi.resources.ResourceArgs {
      * ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
      * 
      */
-    @Import(name="parentRef", required=true)
-    private Output<ParentReferenceArgs> parentRef;
+    @Import(name="parentRef")
+    private @Nullable Output<ParentReferenceArgs> parentRef;
 
     /**
      * @return ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
      * 
      */
-    public Output<ParentReferenceArgs> parentRef() {
-        return this.parentRef;
+    public Optional<Output<ParentReferenceArgs>> parentRef() {
+        return Optional.ofNullable(this.parentRef);
     }
 
     private IPAddressSpecArgs() {}
@@ -63,7 +64,7 @@ public final class IPAddressSpecArgs extends com.pulumi.resources.ResourceArgs {
          * @return builder
          * 
          */
-        public Builder parentRef(Output<ParentReferenceArgs> parentRef) {
+        public Builder parentRef(@Nullable Output<ParentReferenceArgs> parentRef) {
             $.parentRef = parentRef;
             return this;
         }
@@ -79,9 +80,6 @@ public final class IPAddressSpecArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         public IPAddressSpecArgs build() {
-            if ($.parentRef == null) {
-                throw new MissingRequiredPropertyException("IPAddressSpecArgs", "parentRef");
-            }
             return $;
         }
     }

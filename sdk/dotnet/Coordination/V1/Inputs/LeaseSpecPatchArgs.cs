@@ -22,13 +22,13 @@ namespace Pulumi.Kubernetes.Types.Inputs.Coordination.V1
         public Input<string>? AcquireTime { get; set; }
 
         /// <summary>
-        /// holderIdentity contains the identity of the holder of a current lease.
+        /// holderIdentity contains the identity of the holder of a current lease. If Coordinated Leader Election is used, the holder identity must be equal to the elected LeaseCandidate.metadata.name field.
         /// </summary>
         [Input("holderIdentity")]
         public Input<string>? HolderIdentity { get; set; }
 
         /// <summary>
-        /// leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed renewTime.
+        /// leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measured against the time of last observed renewTime.
         /// </summary>
         [Input("leaseDurationSeconds")]
         public Input<int>? LeaseDurationSeconds { get; set; }
@@ -40,10 +40,22 @@ namespace Pulumi.Kubernetes.Types.Inputs.Coordination.V1
         public Input<int>? LeaseTransitions { get; set; }
 
         /// <summary>
+        /// PreferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
+        /// </summary>
+        [Input("preferredHolder")]
+        public Input<string>? PreferredHolder { get; set; }
+
+        /// <summary>
         /// renewTime is a time when the current holder of a lease has last updated the lease.
         /// </summary>
         [Input("renewTime")]
         public Input<string>? RenewTime { get; set; }
+
+        /// <summary>
+        /// Strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+        /// </summary>
+        [Input("strategy")]
+        public Input<string>? Strategy { get; set; }
 
         public LeaseSpecPatchArgs()
         {

@@ -258,7 +258,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1
         private InputList<Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1.ValidationRuleArgs>? _x_kubernetes_validations;
 
         /// <summary>
-        /// x-kubernetes-validations describes a list of validation rules written in the CEL expression language. This field is an alpha-level. Using this field requires the feature gate `CustomResourceValidationExpressions` to be enabled.
+        /// x-kubernetes-validations describes a list of validation rules written in the CEL expression language.
         /// </summary>
         public InputList<Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1.ValidationRuleArgs> X_kubernetes_validations
         {

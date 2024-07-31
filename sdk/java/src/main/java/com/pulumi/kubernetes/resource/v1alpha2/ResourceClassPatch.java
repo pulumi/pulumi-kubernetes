@@ -13,7 +13,6 @@ import com.pulumi.kubernetes.core.v1.outputs.NodeSelectorPatch;
 import com.pulumi.kubernetes.meta.v1.outputs.ObjectMetaPatch;
 import com.pulumi.kubernetes.resource.v1alpha2.ResourceClassPatchArgs;
 import com.pulumi.kubernetes.resource.v1alpha2.outputs.ResourceClassParametersReferencePatch;
-import java.lang.Boolean;
 import java.lang.String;
 import java.util.List;
 import java.util.Optional;
@@ -106,20 +105,6 @@ public class ResourceClassPatch extends com.pulumi.resources.CustomResource {
      */
     public Output<Optional<ResourceClassParametersReferencePatch>> parametersRef() {
         return Codegen.optional(this.parametersRef);
-    }
-    /**
-     * If and only if allocation of claims using this class is handled via structured parameters, then StructuredParameters must be set to true.
-     * 
-     */
-    @Export(name="structuredParameters", refs={Boolean.class}, tree="[0]")
-    private Output</* @Nullable */ Boolean> structuredParameters;
-
-    /**
-     * @return If and only if allocation of claims using this class is handled via structured parameters, then StructuredParameters must be set to true.
-     * 
-     */
-    public Output<Optional<Boolean>> structuredParameters() {
-        return Codegen.optional(this.structuredParameters);
     }
     /**
      * Only nodes matching the selector will be considered by the scheduler when trying to find a Node that fits a Pod when that Pod uses a ResourceClaim that has not been allocated yet.

@@ -24,8 +24,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1Alpha1
         /// <summary>
         /// Name is the name of the object being referenced.
         /// </summary>
-        [Input("name", required: true)]
-        public Input<string> Name { get; set; } = null!;
+        [Input("name")]
+        public Input<string>? Name { get; set; }
 
         /// <summary>
         /// Namespace is the namespace of the object being referenced.
@@ -36,8 +36,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1Alpha1
         /// <summary>
         /// Resource is the resource of the object being referenced.
         /// </summary>
-        [Input("resource", required: true)]
-        public Input<string> Resource { get; set; } = null!;
+        [Input("resource")]
+        public Input<string>? Resource { get; set; }
 
         /// <summary>
         /// UID is the uid of the object being referenced.

@@ -21,6 +21,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly ImmutableDictionary<string, string> AllocatedResources;
         /// <summary>
+        /// AllocatedResourcesStatus represents the status of various resources allocated for this Pod.
+        /// </summary>
+        public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.ResourceStatusPatch> AllocatedResourcesStatus;
+        /// <summary>
         /// ContainerID is the ID of the container in the format '&lt;type&gt;://&lt;container_id&gt;'. Where type is a container runtime identifier, returned from Version call of CRI API (for example "containerd").
         /// </summary>
         public readonly string ContainerID;
@@ -63,6 +67,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.ContainerStatePatch State;
         /// <summary>
+        /// User represents user identity information initially attached to the first process of the container
+        /// </summary>
+        public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.ContainerUserPatch User;
+        /// <summary>
         /// Status of volume mounts.
         /// </summary>
         public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.VolumeMountStatusPatch> VolumeMounts;
@@ -70,6 +78,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         [OutputConstructor]
         private ContainerStatusPatch(
             ImmutableDictionary<string, string> allocatedResources,
+
+            ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.ResourceStatusPatch> allocatedResourcesStatus,
 
             string containerID,
 
@@ -91,9 +101,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 
             Pulumi.Kubernetes.Types.Outputs.Core.V1.ContainerStatePatch state,
 
+            Pulumi.Kubernetes.Types.Outputs.Core.V1.ContainerUserPatch user,
+
             ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.VolumeMountStatusPatch> volumeMounts)
         {
             AllocatedResources = allocatedResources;
+            AllocatedResourcesStatus = allocatedResourcesStatus;
             ContainerID = containerID;
             Image = image;
             ImageID = imageID;
@@ -104,6 +117,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
             RestartCount = restartCount;
             Started = started;
             State = state;
+            User = user;
             VolumeMounts = volumeMounts;
         }
     }

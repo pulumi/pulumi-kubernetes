@@ -336,14 +336,14 @@ public final class ServiceSpecArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to &#34;PreferClose&#34;, implementations should prioritize endpoints that are topologically close (e.g., same zone).
+     * TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to &#34;PreferClose&#34;, implementations should prioritize endpoints that are topologically close (e.g., same zone). This is an alpha field and requires enabling ServiceTrafficDistribution feature.
      * 
      */
     @Import(name="trafficDistribution")
     private @Nullable Output<String> trafficDistribution;
 
     /**
-     * @return TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to &#34;PreferClose&#34;, implementations should prioritize endpoints that are topologically close (e.g., same zone).
+     * @return TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to &#34;PreferClose&#34;, implementations should prioritize endpoints that are topologically close (e.g., same zone). This is an alpha field and requires enabling ServiceTrafficDistribution feature.
      * 
      */
     public Optional<Output<String>> trafficDistribution() {
@@ -903,7 +903,7 @@ public final class ServiceSpecArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param trafficDistribution TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to &#34;PreferClose&#34;, implementations should prioritize endpoints that are topologically close (e.g., same zone).
+         * @param trafficDistribution TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to &#34;PreferClose&#34;, implementations should prioritize endpoints that are topologically close (e.g., same zone). This is an alpha field and requires enabling ServiceTrafficDistribution feature.
          * 
          * @return builder
          * 
@@ -914,7 +914,7 @@ public final class ServiceSpecArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param trafficDistribution TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to &#34;PreferClose&#34;, implementations should prioritize endpoints that are topologically close (e.g., same zone).
+         * @param trafficDistribution TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to &#34;PreferClose&#34;, implementations should prioritize endpoints that are topologically close (e.g., same zone). This is an alpha field and requires enabling ServiceTrafficDistribution feature.
          * 
          * @return builder
          * 

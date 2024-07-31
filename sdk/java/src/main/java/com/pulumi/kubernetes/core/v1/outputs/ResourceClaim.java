@@ -7,6 +7,8 @@ import com.pulumi.core.annotations.CustomType;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
+import java.util.Optional;
+import javax.annotation.Nullable;
 
 @CustomType
 public final class ResourceClaim {
@@ -15,6 +17,11 @@ public final class ResourceClaim {
      * 
      */
     private String name;
+    /**
+     * @return Request is the name chosen for a request in the referenced claim. If empty, everything from the claim is made available, otherwise only the result of this request.
+     * 
+     */
+    private @Nullable String request;
 
     private ResourceClaim() {}
     /**
@@ -23,6 +30,13 @@ public final class ResourceClaim {
      */
     public String name() {
         return this.name;
+    }
+    /**
+     * @return Request is the name chosen for a request in the referenced claim. If empty, everything from the claim is made available, otherwise only the result of this request.
+     * 
+     */
+    public Optional<String> request() {
+        return Optional.ofNullable(this.request);
     }
 
     public static Builder builder() {
@@ -35,10 +49,12 @@ public final class ResourceClaim {
     @CustomType.Builder
     public static final class Builder {
         private String name;
+        private @Nullable String request;
         public Builder() {}
         public Builder(ResourceClaim defaults) {
     	      Objects.requireNonNull(defaults);
     	      this.name = defaults.name;
+    	      this.request = defaults.request;
         }
 
         @CustomType.Setter
@@ -49,9 +65,16 @@ public final class ResourceClaim {
             this.name = name;
             return this;
         }
+        @CustomType.Setter
+        public Builder request(@Nullable String request) {
+
+            this.request = request;
+            return this;
+        }
         public ResourceClaim build() {
             final var _resultValue = new ResourceClaim();
             _resultValue.name = name;
+            _resultValue.request = request;
             return _resultValue;
         }
     }

@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.core.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.List;
 import java.util.Objects;
@@ -39,15 +40,15 @@ public final class HostAliasArgs extends com.pulumi.resources.ResourceArgs {
      * IP address of the host file entry.
      * 
      */
-    @Import(name="ip")
-    private @Nullable Output<String> ip;
+    @Import(name="ip", required=true)
+    private Output<String> ip;
 
     /**
      * @return IP address of the host file entry.
      * 
      */
-    public Optional<Output<String>> ip() {
-        return Optional.ofNullable(this.ip);
+    public Output<String> ip() {
+        return this.ip;
     }
 
     private HostAliasArgs() {}
@@ -112,7 +113,7 @@ public final class HostAliasArgs extends com.pulumi.resources.ResourceArgs {
          * @return builder
          * 
          */
-        public Builder ip(@Nullable Output<String> ip) {
+        public Builder ip(Output<String> ip) {
             $.ip = ip;
             return this;
         }
@@ -128,6 +129,9 @@ public final class HostAliasArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         public HostAliasArgs build() {
+            if ($.ip == null) {
+                throw new MissingRequiredPropertyException("HostAliasArgs", "ip");
+            }
             return $;
         }
     }

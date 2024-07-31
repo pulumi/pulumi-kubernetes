@@ -32,7 +32,7 @@ public final class NodeSystemInfoPatch {
      */
     private @Nullable String kernelVersion;
     /**
-     * @return KubeProxy Version reported by the node.
+     * @return Deprecated: KubeProxy Version reported by the node.
      * 
      */
     private @Nullable String kubeProxyVersion;
@@ -92,7 +92,7 @@ public final class NodeSystemInfoPatch {
         return Optional.ofNullable(this.kernelVersion);
     }
     /**
-     * @return KubeProxy Version reported by the node.
+     * @return Deprecated: KubeProxy Version reported by the node.
      * 
      */
     public Optional<String> kubeProxyVersion() {

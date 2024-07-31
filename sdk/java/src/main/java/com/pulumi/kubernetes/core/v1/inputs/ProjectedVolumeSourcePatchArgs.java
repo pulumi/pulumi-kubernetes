@@ -37,14 +37,14 @@ public final class ProjectedVolumeSourcePatchArgs extends com.pulumi.resources.R
     }
 
     /**
-     * sources is the list of volume projections
+     * sources is the list of volume projections. Each entry in this list handles one source.
      * 
      */
     @Import(name="sources")
     private @Nullable Output<List<VolumeProjectionPatchArgs>> sources;
 
     /**
-     * @return sources is the list of volume projections
+     * @return sources is the list of volume projections. Each entry in this list handles one source.
      * 
      */
     public Optional<Output<List<VolumeProjectionPatchArgs>>> sources() {
@@ -98,7 +98,7 @@ public final class ProjectedVolumeSourcePatchArgs extends com.pulumi.resources.R
         }
 
         /**
-         * @param sources sources is the list of volume projections
+         * @param sources sources is the list of volume projections. Each entry in this list handles one source.
          * 
          * @return builder
          * 
@@ -109,7 +109,7 @@ public final class ProjectedVolumeSourcePatchArgs extends com.pulumi.resources.R
         }
 
         /**
-         * @param sources sources is the list of volume projections
+         * @param sources sources is the list of volume projections. Each entry in this list handles one source.
          * 
          * @return builder
          * 
@@ -119,7 +119,7 @@ public final class ProjectedVolumeSourcePatchArgs extends com.pulumi.resources.R
         }
 
         /**
-         * @param sources sources is the list of volume projections
+         * @param sources sources is the list of volume projections. Each entry in this list handles one source.
          * 
          * @return builder
          * 

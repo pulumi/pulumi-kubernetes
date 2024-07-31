@@ -14,6 +14,642 @@ import (
 
 var _ = utilities.GetEnvOrDefault
 
+// FieldSelectorAttributes indicates a field limited access. Webhook authors are encouraged to * ensure rawSelector and requirements are not both set * consider the requirements field if set * not try to parse or consider the rawSelector field if set. This is to avoid another CVE-2022-2880 (i.e. getting different systems to agree on how exactly to parse a query is not something we want), see https://www.oxeye.io/resources/golang-parameter-smuggling-attack for more details. For the *SubjectAccessReview endpoints of the kube-apiserver: * If rawSelector is empty and requirements are empty, the request is not limited. * If rawSelector is present and requirements are empty, the rawSelector will be parsed and limited if the parsing succeeds. * If rawSelector is empty and requirements are present, the requirements should be honored * If rawSelector is present and requirements are present, the request is invalid.
+type FieldSelectorAttributes struct {
+	// rawSelector is the serialization of a field selector that would be included in a query parameter. Webhook implementations are encouraged to ignore rawSelector. The kube-apiserver's *SubjectAccessReview will parse the rawSelector as long as the requirements are not present.
+	RawSelector *string `pulumi:"rawSelector"`
+	// requirements is the parsed interpretation of a field selector. All requirements must be met for a resource instance to match the selector. Webhook implementations should handle requirements, but how to handle them is up to the webhook. Since requirements can only limit the request, it is safe to authorize as unlimited request if the requirements are not understood.
+	Requirements []metav1.FieldSelectorRequirement `pulumi:"requirements"`
+}
+
+// FieldSelectorAttributesInput is an input type that accepts FieldSelectorAttributesArgs and FieldSelectorAttributesOutput values.
+// You can construct a concrete instance of `FieldSelectorAttributesInput` via:
+//
+//	FieldSelectorAttributesArgs{...}
+type FieldSelectorAttributesInput interface {
+	pulumi.Input
+
+	ToFieldSelectorAttributesOutput() FieldSelectorAttributesOutput
+	ToFieldSelectorAttributesOutputWithContext(context.Context) FieldSelectorAttributesOutput
+}
+
+// FieldSelectorAttributes indicates a field limited access. Webhook authors are encouraged to * ensure rawSelector and requirements are not both set * consider the requirements field if set * not try to parse or consider the rawSelector field if set. This is to avoid another CVE-2022-2880 (i.e. getting different systems to agree on how exactly to parse a query is not something we want), see https://www.oxeye.io/resources/golang-parameter-smuggling-attack for more details. For the *SubjectAccessReview endpoints of the kube-apiserver: * If rawSelector is empty and requirements are empty, the request is not limited. * If rawSelector is present and requirements are empty, the rawSelector will be parsed and limited if the parsing succeeds. * If rawSelector is empty and requirements are present, the requirements should be honored * If rawSelector is present and requirements are present, the request is invalid.
+type FieldSelectorAttributesArgs struct {
+	// rawSelector is the serialization of a field selector that would be included in a query parameter. Webhook implementations are encouraged to ignore rawSelector. The kube-apiserver's *SubjectAccessReview will parse the rawSelector as long as the requirements are not present.
+	RawSelector pulumi.StringPtrInput `pulumi:"rawSelector"`
+	// requirements is the parsed interpretation of a field selector. All requirements must be met for a resource instance to match the selector. Webhook implementations should handle requirements, but how to handle them is up to the webhook. Since requirements can only limit the request, it is safe to authorize as unlimited request if the requirements are not understood.
+	Requirements metav1.FieldSelectorRequirementArrayInput `pulumi:"requirements"`
+}
+
+func (FieldSelectorAttributesArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*FieldSelectorAttributes)(nil)).Elem()
+}
+
+func (i FieldSelectorAttributesArgs) ToFieldSelectorAttributesOutput() FieldSelectorAttributesOutput {
+	return i.ToFieldSelectorAttributesOutputWithContext(context.Background())
+}
+
+func (i FieldSelectorAttributesArgs) ToFieldSelectorAttributesOutputWithContext(ctx context.Context) FieldSelectorAttributesOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FieldSelectorAttributesOutput)
+}
+
+func (i FieldSelectorAttributesArgs) ToFieldSelectorAttributesPtrOutput() FieldSelectorAttributesPtrOutput {
+	return i.ToFieldSelectorAttributesPtrOutputWithContext(context.Background())
+}
+
+func (i FieldSelectorAttributesArgs) ToFieldSelectorAttributesPtrOutputWithContext(ctx context.Context) FieldSelectorAttributesPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FieldSelectorAttributesOutput).ToFieldSelectorAttributesPtrOutputWithContext(ctx)
+}
+
+// FieldSelectorAttributesPtrInput is an input type that accepts FieldSelectorAttributesArgs, FieldSelectorAttributesPtr and FieldSelectorAttributesPtrOutput values.
+// You can construct a concrete instance of `FieldSelectorAttributesPtrInput` via:
+//
+//	        FieldSelectorAttributesArgs{...}
+//
+//	or:
+//
+//	        nil
+type FieldSelectorAttributesPtrInput interface {
+	pulumi.Input
+
+	ToFieldSelectorAttributesPtrOutput() FieldSelectorAttributesPtrOutput
+	ToFieldSelectorAttributesPtrOutputWithContext(context.Context) FieldSelectorAttributesPtrOutput
+}
+
+type fieldSelectorAttributesPtrType FieldSelectorAttributesArgs
+
+func FieldSelectorAttributesPtr(v *FieldSelectorAttributesArgs) FieldSelectorAttributesPtrInput {
+	return (*fieldSelectorAttributesPtrType)(v)
+}
+
+func (*fieldSelectorAttributesPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**FieldSelectorAttributes)(nil)).Elem()
+}
+
+func (i *fieldSelectorAttributesPtrType) ToFieldSelectorAttributesPtrOutput() FieldSelectorAttributesPtrOutput {
+	return i.ToFieldSelectorAttributesPtrOutputWithContext(context.Background())
+}
+
+func (i *fieldSelectorAttributesPtrType) ToFieldSelectorAttributesPtrOutputWithContext(ctx context.Context) FieldSelectorAttributesPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FieldSelectorAttributesPtrOutput)
+}
+
+// FieldSelectorAttributes indicates a field limited access. Webhook authors are encouraged to * ensure rawSelector and requirements are not both set * consider the requirements field if set * not try to parse or consider the rawSelector field if set. This is to avoid another CVE-2022-2880 (i.e. getting different systems to agree on how exactly to parse a query is not something we want), see https://www.oxeye.io/resources/golang-parameter-smuggling-attack for more details. For the *SubjectAccessReview endpoints of the kube-apiserver: * If rawSelector is empty and requirements are empty, the request is not limited. * If rawSelector is present and requirements are empty, the rawSelector will be parsed and limited if the parsing succeeds. * If rawSelector is empty and requirements are present, the requirements should be honored * If rawSelector is present and requirements are present, the request is invalid.
+type FieldSelectorAttributesOutput struct{ *pulumi.OutputState }
+
+func (FieldSelectorAttributesOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FieldSelectorAttributes)(nil)).Elem()
+}
+
+func (o FieldSelectorAttributesOutput) ToFieldSelectorAttributesOutput() FieldSelectorAttributesOutput {
+	return o
+}
+
+func (o FieldSelectorAttributesOutput) ToFieldSelectorAttributesOutputWithContext(ctx context.Context) FieldSelectorAttributesOutput {
+	return o
+}
+
+func (o FieldSelectorAttributesOutput) ToFieldSelectorAttributesPtrOutput() FieldSelectorAttributesPtrOutput {
+	return o.ToFieldSelectorAttributesPtrOutputWithContext(context.Background())
+}
+
+func (o FieldSelectorAttributesOutput) ToFieldSelectorAttributesPtrOutputWithContext(ctx context.Context) FieldSelectorAttributesPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v FieldSelectorAttributes) *FieldSelectorAttributes {
+		return &v
+	}).(FieldSelectorAttributesPtrOutput)
+}
+
+// rawSelector is the serialization of a field selector that would be included in a query parameter. Webhook implementations are encouraged to ignore rawSelector. The kube-apiserver's *SubjectAccessReview will parse the rawSelector as long as the requirements are not present.
+func (o FieldSelectorAttributesOutput) RawSelector() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v FieldSelectorAttributes) *string { return v.RawSelector }).(pulumi.StringPtrOutput)
+}
+
+// requirements is the parsed interpretation of a field selector. All requirements must be met for a resource instance to match the selector. Webhook implementations should handle requirements, but how to handle them is up to the webhook. Since requirements can only limit the request, it is safe to authorize as unlimited request if the requirements are not understood.
+func (o FieldSelectorAttributesOutput) Requirements() metav1.FieldSelectorRequirementArrayOutput {
+	return o.ApplyT(func(v FieldSelectorAttributes) []metav1.FieldSelectorRequirement { return v.Requirements }).(metav1.FieldSelectorRequirementArrayOutput)
+}
+
+type FieldSelectorAttributesPtrOutput struct{ *pulumi.OutputState }
+
+func (FieldSelectorAttributesPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**FieldSelectorAttributes)(nil)).Elem()
+}
+
+func (o FieldSelectorAttributesPtrOutput) ToFieldSelectorAttributesPtrOutput() FieldSelectorAttributesPtrOutput {
+	return o
+}
+
+func (o FieldSelectorAttributesPtrOutput) ToFieldSelectorAttributesPtrOutputWithContext(ctx context.Context) FieldSelectorAttributesPtrOutput {
+	return o
+}
+
+func (o FieldSelectorAttributesPtrOutput) Elem() FieldSelectorAttributesOutput {
+	return o.ApplyT(func(v *FieldSelectorAttributes) FieldSelectorAttributes {
+		if v != nil {
+			return *v
+		}
+		var ret FieldSelectorAttributes
+		return ret
+	}).(FieldSelectorAttributesOutput)
+}
+
+// rawSelector is the serialization of a field selector that would be included in a query parameter. Webhook implementations are encouraged to ignore rawSelector. The kube-apiserver's *SubjectAccessReview will parse the rawSelector as long as the requirements are not present.
+func (o FieldSelectorAttributesPtrOutput) RawSelector() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *FieldSelectorAttributes) *string {
+		if v == nil {
+			return nil
+		}
+		return v.RawSelector
+	}).(pulumi.StringPtrOutput)
+}
+
+// requirements is the parsed interpretation of a field selector. All requirements must be met for a resource instance to match the selector. Webhook implementations should handle requirements, but how to handle them is up to the webhook. Since requirements can only limit the request, it is safe to authorize as unlimited request if the requirements are not understood.
+func (o FieldSelectorAttributesPtrOutput) Requirements() metav1.FieldSelectorRequirementArrayOutput {
+	return o.ApplyT(func(v *FieldSelectorAttributes) []metav1.FieldSelectorRequirement {
+		if v == nil {
+			return nil
+		}
+		return v.Requirements
+	}).(metav1.FieldSelectorRequirementArrayOutput)
+}
+
+// FieldSelectorAttributes indicates a field limited access. Webhook authors are encouraged to * ensure rawSelector and requirements are not both set * consider the requirements field if set * not try to parse or consider the rawSelector field if set. This is to avoid another CVE-2022-2880 (i.e. getting different systems to agree on how exactly to parse a query is not something we want), see https://www.oxeye.io/resources/golang-parameter-smuggling-attack for more details. For the *SubjectAccessReview endpoints of the kube-apiserver: * If rawSelector is empty and requirements are empty, the request is not limited. * If rawSelector is present and requirements are empty, the rawSelector will be parsed and limited if the parsing succeeds. * If rawSelector is empty and requirements are present, the requirements should be honored * If rawSelector is present and requirements are present, the request is invalid.
+type FieldSelectorAttributesPatch struct {
+	// rawSelector is the serialization of a field selector that would be included in a query parameter. Webhook implementations are encouraged to ignore rawSelector. The kube-apiserver's *SubjectAccessReview will parse the rawSelector as long as the requirements are not present.
+	RawSelector *string `pulumi:"rawSelector"`
+	// requirements is the parsed interpretation of a field selector. All requirements must be met for a resource instance to match the selector. Webhook implementations should handle requirements, but how to handle them is up to the webhook. Since requirements can only limit the request, it is safe to authorize as unlimited request if the requirements are not understood.
+	Requirements []metav1.FieldSelectorRequirementPatch `pulumi:"requirements"`
+}
+
+// FieldSelectorAttributesPatchInput is an input type that accepts FieldSelectorAttributesPatchArgs and FieldSelectorAttributesPatchOutput values.
+// You can construct a concrete instance of `FieldSelectorAttributesPatchInput` via:
+//
+//	FieldSelectorAttributesPatchArgs{...}
+type FieldSelectorAttributesPatchInput interface {
+	pulumi.Input
+
+	ToFieldSelectorAttributesPatchOutput() FieldSelectorAttributesPatchOutput
+	ToFieldSelectorAttributesPatchOutputWithContext(context.Context) FieldSelectorAttributesPatchOutput
+}
+
+// FieldSelectorAttributes indicates a field limited access. Webhook authors are encouraged to * ensure rawSelector and requirements are not both set * consider the requirements field if set * not try to parse or consider the rawSelector field if set. This is to avoid another CVE-2022-2880 (i.e. getting different systems to agree on how exactly to parse a query is not something we want), see https://www.oxeye.io/resources/golang-parameter-smuggling-attack for more details. For the *SubjectAccessReview endpoints of the kube-apiserver: * If rawSelector is empty and requirements are empty, the request is not limited. * If rawSelector is present and requirements are empty, the rawSelector will be parsed and limited if the parsing succeeds. * If rawSelector is empty and requirements are present, the requirements should be honored * If rawSelector is present and requirements are present, the request is invalid.
+type FieldSelectorAttributesPatchArgs struct {
+	// rawSelector is the serialization of a field selector that would be included in a query parameter. Webhook implementations are encouraged to ignore rawSelector. The kube-apiserver's *SubjectAccessReview will parse the rawSelector as long as the requirements are not present.
+	RawSelector pulumi.StringPtrInput `pulumi:"rawSelector"`
+	// requirements is the parsed interpretation of a field selector. All requirements must be met for a resource instance to match the selector. Webhook implementations should handle requirements, but how to handle them is up to the webhook. Since requirements can only limit the request, it is safe to authorize as unlimited request if the requirements are not understood.
+	Requirements metav1.FieldSelectorRequirementPatchArrayInput `pulumi:"requirements"`
+}
+
+func (FieldSelectorAttributesPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*FieldSelectorAttributesPatch)(nil)).Elem()
+}
+
+func (i FieldSelectorAttributesPatchArgs) ToFieldSelectorAttributesPatchOutput() FieldSelectorAttributesPatchOutput {
+	return i.ToFieldSelectorAttributesPatchOutputWithContext(context.Background())
+}
+
+func (i FieldSelectorAttributesPatchArgs) ToFieldSelectorAttributesPatchOutputWithContext(ctx context.Context) FieldSelectorAttributesPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FieldSelectorAttributesPatchOutput)
+}
+
+func (i FieldSelectorAttributesPatchArgs) ToFieldSelectorAttributesPatchPtrOutput() FieldSelectorAttributesPatchPtrOutput {
+	return i.ToFieldSelectorAttributesPatchPtrOutputWithContext(context.Background())
+}
+
+func (i FieldSelectorAttributesPatchArgs) ToFieldSelectorAttributesPatchPtrOutputWithContext(ctx context.Context) FieldSelectorAttributesPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FieldSelectorAttributesPatchOutput).ToFieldSelectorAttributesPatchPtrOutputWithContext(ctx)
+}
+
+// FieldSelectorAttributesPatchPtrInput is an input type that accepts FieldSelectorAttributesPatchArgs, FieldSelectorAttributesPatchPtr and FieldSelectorAttributesPatchPtrOutput values.
+// You can construct a concrete instance of `FieldSelectorAttributesPatchPtrInput` via:
+//
+//	        FieldSelectorAttributesPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type FieldSelectorAttributesPatchPtrInput interface {
+	pulumi.Input
+
+	ToFieldSelectorAttributesPatchPtrOutput() FieldSelectorAttributesPatchPtrOutput
+	ToFieldSelectorAttributesPatchPtrOutputWithContext(context.Context) FieldSelectorAttributesPatchPtrOutput
+}
+
+type fieldSelectorAttributesPatchPtrType FieldSelectorAttributesPatchArgs
+
+func FieldSelectorAttributesPatchPtr(v *FieldSelectorAttributesPatchArgs) FieldSelectorAttributesPatchPtrInput {
+	return (*fieldSelectorAttributesPatchPtrType)(v)
+}
+
+func (*fieldSelectorAttributesPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**FieldSelectorAttributesPatch)(nil)).Elem()
+}
+
+func (i *fieldSelectorAttributesPatchPtrType) ToFieldSelectorAttributesPatchPtrOutput() FieldSelectorAttributesPatchPtrOutput {
+	return i.ToFieldSelectorAttributesPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *fieldSelectorAttributesPatchPtrType) ToFieldSelectorAttributesPatchPtrOutputWithContext(ctx context.Context) FieldSelectorAttributesPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FieldSelectorAttributesPatchPtrOutput)
+}
+
+// FieldSelectorAttributes indicates a field limited access. Webhook authors are encouraged to * ensure rawSelector and requirements are not both set * consider the requirements field if set * not try to parse or consider the rawSelector field if set. This is to avoid another CVE-2022-2880 (i.e. getting different systems to agree on how exactly to parse a query is not something we want), see https://www.oxeye.io/resources/golang-parameter-smuggling-attack for more details. For the *SubjectAccessReview endpoints of the kube-apiserver: * If rawSelector is empty and requirements are empty, the request is not limited. * If rawSelector is present and requirements are empty, the rawSelector will be parsed and limited if the parsing succeeds. * If rawSelector is empty and requirements are present, the requirements should be honored * If rawSelector is present and requirements are present, the request is invalid.
+type FieldSelectorAttributesPatchOutput struct{ *pulumi.OutputState }
+
+func (FieldSelectorAttributesPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FieldSelectorAttributesPatch)(nil)).Elem()
+}
+
+func (o FieldSelectorAttributesPatchOutput) ToFieldSelectorAttributesPatchOutput() FieldSelectorAttributesPatchOutput {
+	return o
+}
+
+func (o FieldSelectorAttributesPatchOutput) ToFieldSelectorAttributesPatchOutputWithContext(ctx context.Context) FieldSelectorAttributesPatchOutput {
+	return o
+}
+
+func (o FieldSelectorAttributesPatchOutput) ToFieldSelectorAttributesPatchPtrOutput() FieldSelectorAttributesPatchPtrOutput {
+	return o.ToFieldSelectorAttributesPatchPtrOutputWithContext(context.Background())
+}
+
+func (o FieldSelectorAttributesPatchOutput) ToFieldSelectorAttributesPatchPtrOutputWithContext(ctx context.Context) FieldSelectorAttributesPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v FieldSelectorAttributesPatch) *FieldSelectorAttributesPatch {
+		return &v
+	}).(FieldSelectorAttributesPatchPtrOutput)
+}
+
+// rawSelector is the serialization of a field selector that would be included in a query parameter. Webhook implementations are encouraged to ignore rawSelector. The kube-apiserver's *SubjectAccessReview will parse the rawSelector as long as the requirements are not present.
+func (o FieldSelectorAttributesPatchOutput) RawSelector() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v FieldSelectorAttributesPatch) *string { return v.RawSelector }).(pulumi.StringPtrOutput)
+}
+
+// requirements is the parsed interpretation of a field selector. All requirements must be met for a resource instance to match the selector. Webhook implementations should handle requirements, but how to handle them is up to the webhook. Since requirements can only limit the request, it is safe to authorize as unlimited request if the requirements are not understood.
+func (o FieldSelectorAttributesPatchOutput) Requirements() metav1.FieldSelectorRequirementPatchArrayOutput {
+	return o.ApplyT(func(v FieldSelectorAttributesPatch) []metav1.FieldSelectorRequirementPatch { return v.Requirements }).(metav1.FieldSelectorRequirementPatchArrayOutput)
+}
+
+type FieldSelectorAttributesPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (FieldSelectorAttributesPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**FieldSelectorAttributesPatch)(nil)).Elem()
+}
+
+func (o FieldSelectorAttributesPatchPtrOutput) ToFieldSelectorAttributesPatchPtrOutput() FieldSelectorAttributesPatchPtrOutput {
+	return o
+}
+
+func (o FieldSelectorAttributesPatchPtrOutput) ToFieldSelectorAttributesPatchPtrOutputWithContext(ctx context.Context) FieldSelectorAttributesPatchPtrOutput {
+	return o
+}
+
+func (o FieldSelectorAttributesPatchPtrOutput) Elem() FieldSelectorAttributesPatchOutput {
+	return o.ApplyT(func(v *FieldSelectorAttributesPatch) FieldSelectorAttributesPatch {
+		if v != nil {
+			return *v
+		}
+		var ret FieldSelectorAttributesPatch
+		return ret
+	}).(FieldSelectorAttributesPatchOutput)
+}
+
+// rawSelector is the serialization of a field selector that would be included in a query parameter. Webhook implementations are encouraged to ignore rawSelector. The kube-apiserver's *SubjectAccessReview will parse the rawSelector as long as the requirements are not present.
+func (o FieldSelectorAttributesPatchPtrOutput) RawSelector() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *FieldSelectorAttributesPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.RawSelector
+	}).(pulumi.StringPtrOutput)
+}
+
+// requirements is the parsed interpretation of a field selector. All requirements must be met for a resource instance to match the selector. Webhook implementations should handle requirements, but how to handle them is up to the webhook. Since requirements can only limit the request, it is safe to authorize as unlimited request if the requirements are not understood.
+func (o FieldSelectorAttributesPatchPtrOutput) Requirements() metav1.FieldSelectorRequirementPatchArrayOutput {
+	return o.ApplyT(func(v *FieldSelectorAttributesPatch) []metav1.FieldSelectorRequirementPatch {
+		if v == nil {
+			return nil
+		}
+		return v.Requirements
+	}).(metav1.FieldSelectorRequirementPatchArrayOutput)
+}
+
+// LabelSelectorAttributes indicates a label limited access. Webhook authors are encouraged to * ensure rawSelector and requirements are not both set * consider the requirements field if set * not try to parse or consider the rawSelector field if set. This is to avoid another CVE-2022-2880 (i.e. getting different systems to agree on how exactly to parse a query is not something we want), see https://www.oxeye.io/resources/golang-parameter-smuggling-attack for more details. For the *SubjectAccessReview endpoints of the kube-apiserver: * If rawSelector is empty and requirements are empty, the request is not limited. * If rawSelector is present and requirements are empty, the rawSelector will be parsed and limited if the parsing succeeds. * If rawSelector is empty and requirements are present, the requirements should be honored * If rawSelector is present and requirements are present, the request is invalid.
+type LabelSelectorAttributes struct {
+	// rawSelector is the serialization of a field selector that would be included in a query parameter. Webhook implementations are encouraged to ignore rawSelector. The kube-apiserver's *SubjectAccessReview will parse the rawSelector as long as the requirements are not present.
+	RawSelector *string `pulumi:"rawSelector"`
+	// requirements is the parsed interpretation of a label selector. All requirements must be met for a resource instance to match the selector. Webhook implementations should handle requirements, but how to handle them is up to the webhook. Since requirements can only limit the request, it is safe to authorize as unlimited request if the requirements are not understood.
+	Requirements []metav1.LabelSelectorRequirement `pulumi:"requirements"`
+}
+
+// LabelSelectorAttributesInput is an input type that accepts LabelSelectorAttributesArgs and LabelSelectorAttributesOutput values.
+// You can construct a concrete instance of `LabelSelectorAttributesInput` via:
+//
+//	LabelSelectorAttributesArgs{...}
+type LabelSelectorAttributesInput interface {
+	pulumi.Input
+
+	ToLabelSelectorAttributesOutput() LabelSelectorAttributesOutput
+	ToLabelSelectorAttributesOutputWithContext(context.Context) LabelSelectorAttributesOutput
+}
+
+// LabelSelectorAttributes indicates a label limited access. Webhook authors are encouraged to * ensure rawSelector and requirements are not both set * consider the requirements field if set * not try to parse or consider the rawSelector field if set. This is to avoid another CVE-2022-2880 (i.e. getting different systems to agree on how exactly to parse a query is not something we want), see https://www.oxeye.io/resources/golang-parameter-smuggling-attack for more details. For the *SubjectAccessReview endpoints of the kube-apiserver: * If rawSelector is empty and requirements are empty, the request is not limited. * If rawSelector is present and requirements are empty, the rawSelector will be parsed and limited if the parsing succeeds. * If rawSelector is empty and requirements are present, the requirements should be honored * If rawSelector is present and requirements are present, the request is invalid.
+type LabelSelectorAttributesArgs struct {
+	// rawSelector is the serialization of a field selector that would be included in a query parameter. Webhook implementations are encouraged to ignore rawSelector. The kube-apiserver's *SubjectAccessReview will parse the rawSelector as long as the requirements are not present.
+	RawSelector pulumi.StringPtrInput `pulumi:"rawSelector"`
+	// requirements is the parsed interpretation of a label selector. All requirements must be met for a resource instance to match the selector. Webhook implementations should handle requirements, but how to handle them is up to the webhook. Since requirements can only limit the request, it is safe to authorize as unlimited request if the requirements are not understood.
+	Requirements metav1.LabelSelectorRequirementArrayInput `pulumi:"requirements"`
+}
+
+func (LabelSelectorAttributesArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*LabelSelectorAttributes)(nil)).Elem()
+}
+
+func (i LabelSelectorAttributesArgs) ToLabelSelectorAttributesOutput() LabelSelectorAttributesOutput {
+	return i.ToLabelSelectorAttributesOutputWithContext(context.Background())
+}
+
+func (i LabelSelectorAttributesArgs) ToLabelSelectorAttributesOutputWithContext(ctx context.Context) LabelSelectorAttributesOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(LabelSelectorAttributesOutput)
+}
+
+func (i LabelSelectorAttributesArgs) ToLabelSelectorAttributesPtrOutput() LabelSelectorAttributesPtrOutput {
+	return i.ToLabelSelectorAttributesPtrOutputWithContext(context.Background())
+}
+
+func (i LabelSelectorAttributesArgs) ToLabelSelectorAttributesPtrOutputWithContext(ctx context.Context) LabelSelectorAttributesPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(LabelSelectorAttributesOutput).ToLabelSelectorAttributesPtrOutputWithContext(ctx)
+}
+
+// LabelSelectorAttributesPtrInput is an input type that accepts LabelSelectorAttributesArgs, LabelSelectorAttributesPtr and LabelSelectorAttributesPtrOutput values.
+// You can construct a concrete instance of `LabelSelectorAttributesPtrInput` via:
+//
+//	        LabelSelectorAttributesArgs{...}
+//
+//	or:
+//
+//	        nil
+type LabelSelectorAttributesPtrInput interface {
+	pulumi.Input
+
+	ToLabelSelectorAttributesPtrOutput() LabelSelectorAttributesPtrOutput
+	ToLabelSelectorAttributesPtrOutputWithContext(context.Context) LabelSelectorAttributesPtrOutput
+}
+
+type labelSelectorAttributesPtrType LabelSelectorAttributesArgs
+
+func LabelSelectorAttributesPtr(v *LabelSelectorAttributesArgs) LabelSelectorAttributesPtrInput {
+	return (*labelSelectorAttributesPtrType)(v)
+}
+
+func (*labelSelectorAttributesPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**LabelSelectorAttributes)(nil)).Elem()
+}
+
+func (i *labelSelectorAttributesPtrType) ToLabelSelectorAttributesPtrOutput() LabelSelectorAttributesPtrOutput {
+	return i.ToLabelSelectorAttributesPtrOutputWithContext(context.Background())
+}
+
+func (i *labelSelectorAttributesPtrType) ToLabelSelectorAttributesPtrOutputWithContext(ctx context.Context) LabelSelectorAttributesPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(LabelSelectorAttributesPtrOutput)
+}
+
+// LabelSelectorAttributes indicates a label limited access. Webhook authors are encouraged to * ensure rawSelector and requirements are not both set * consider the requirements field if set * not try to parse or consider the rawSelector field if set. This is to avoid another CVE-2022-2880 (i.e. getting different systems to agree on how exactly to parse a query is not something we want), see https://www.oxeye.io/resources/golang-parameter-smuggling-attack for more details. For the *SubjectAccessReview endpoints of the kube-apiserver: * If rawSelector is empty and requirements are empty, the request is not limited. * If rawSelector is present and requirements are empty, the rawSelector will be parsed and limited if the parsing succeeds. * If rawSelector is empty and requirements are present, the requirements should be honored * If rawSelector is present and requirements are present, the request is invalid.
+type LabelSelectorAttributesOutput struct{ *pulumi.OutputState }
+
+func (LabelSelectorAttributesOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*LabelSelectorAttributes)(nil)).Elem()
+}
+
+func (o LabelSelectorAttributesOutput) ToLabelSelectorAttributesOutput() LabelSelectorAttributesOutput {
+	return o
+}
+
+func (o LabelSelectorAttributesOutput) ToLabelSelectorAttributesOutputWithContext(ctx context.Context) LabelSelectorAttributesOutput {
+	return o
+}
+
+func (o LabelSelectorAttributesOutput) ToLabelSelectorAttributesPtrOutput() LabelSelectorAttributesPtrOutput {
+	return o.ToLabelSelectorAttributesPtrOutputWithContext(context.Background())
+}
+
+func (o LabelSelectorAttributesOutput) ToLabelSelectorAttributesPtrOutputWithContext(ctx context.Context) LabelSelectorAttributesPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v LabelSelectorAttributes) *LabelSelectorAttributes {
+		return &v
+	}).(LabelSelectorAttributesPtrOutput)
+}
+
+// rawSelector is the serialization of a field selector that would be included in a query parameter. Webhook implementations are encouraged to ignore rawSelector. The kube-apiserver's *SubjectAccessReview will parse the rawSelector as long as the requirements are not present.
+func (o LabelSelectorAttributesOutput) RawSelector() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v LabelSelectorAttributes) *string { return v.RawSelector }).(pulumi.StringPtrOutput)
+}
+
+// requirements is the parsed interpretation of a label selector. All requirements must be met for a resource instance to match the selector. Webhook implementations should handle requirements, but how to handle them is up to the webhook. Since requirements can only limit the request, it is safe to authorize as unlimited request if the requirements are not understood.
+func (o LabelSelectorAttributesOutput) Requirements() metav1.LabelSelectorRequirementArrayOutput {
+	return o.ApplyT(func(v LabelSelectorAttributes) []metav1.LabelSelectorRequirement { return v.Requirements }).(metav1.LabelSelectorRequirementArrayOutput)
+}
+
+type LabelSelectorAttributesPtrOutput struct{ *pulumi.OutputState }
+
+func (LabelSelectorAttributesPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**LabelSelectorAttributes)(nil)).Elem()
+}
+
+func (o LabelSelectorAttributesPtrOutput) ToLabelSelectorAttributesPtrOutput() LabelSelectorAttributesPtrOutput {
+	return o
+}
+
+func (o LabelSelectorAttributesPtrOutput) ToLabelSelectorAttributesPtrOutputWithContext(ctx context.Context) LabelSelectorAttributesPtrOutput {
+	return o
+}
+
+func (o LabelSelectorAttributesPtrOutput) Elem() LabelSelectorAttributesOutput {
+	return o.ApplyT(func(v *LabelSelectorAttributes) LabelSelectorAttributes {
+		if v != nil {
+			return *v
+		}
+		var ret LabelSelectorAttributes
+		return ret
+	}).(LabelSelectorAttributesOutput)
+}
+
+// rawSelector is the serialization of a field selector that would be included in a query parameter. Webhook implementations are encouraged to ignore rawSelector. The kube-apiserver's *SubjectAccessReview will parse the rawSelector as long as the requirements are not present.
+func (o LabelSelectorAttributesPtrOutput) RawSelector() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *LabelSelectorAttributes) *string {
+		if v == nil {
+			return nil
+		}
+		return v.RawSelector
+	}).(pulumi.StringPtrOutput)
+}
+
+// requirements is the parsed interpretation of a label selector. All requirements must be met for a resource instance to match the selector. Webhook implementations should handle requirements, but how to handle them is up to the webhook. Since requirements can only limit the request, it is safe to authorize as unlimited request if the requirements are not understood.
+func (o LabelSelectorAttributesPtrOutput) Requirements() metav1.LabelSelectorRequirementArrayOutput {
+	return o.ApplyT(func(v *LabelSelectorAttributes) []metav1.LabelSelectorRequirement {
+		if v == nil {
+			return nil
+		}
+		return v.Requirements
+	}).(metav1.LabelSelectorRequirementArrayOutput)
+}
+
+// LabelSelectorAttributes indicates a label limited access. Webhook authors are encouraged to * ensure rawSelector and requirements are not both set * consider the requirements field if set * not try to parse or consider the rawSelector field if set. This is to avoid another CVE-2022-2880 (i.e. getting different systems to agree on how exactly to parse a query is not something we want), see https://www.oxeye.io/resources/golang-parameter-smuggling-attack for more details. For the *SubjectAccessReview endpoints of the kube-apiserver: * If rawSelector is empty and requirements are empty, the request is not limited. * If rawSelector is present and requirements are empty, the rawSelector will be parsed and limited if the parsing succeeds. * If rawSelector is empty and requirements are present, the requirements should be honored * If rawSelector is present and requirements are present, the request is invalid.
+type LabelSelectorAttributesPatch struct {
+	// rawSelector is the serialization of a field selector that would be included in a query parameter. Webhook implementations are encouraged to ignore rawSelector. The kube-apiserver's *SubjectAccessReview will parse the rawSelector as long as the requirements are not present.
+	RawSelector *string `pulumi:"rawSelector"`
+	// requirements is the parsed interpretation of a label selector. All requirements must be met for a resource instance to match the selector. Webhook implementations should handle requirements, but how to handle them is up to the webhook. Since requirements can only limit the request, it is safe to authorize as unlimited request if the requirements are not understood.
+	Requirements []metav1.LabelSelectorRequirementPatch `pulumi:"requirements"`
+}
+
+// LabelSelectorAttributesPatchInput is an input type that accepts LabelSelectorAttributesPatchArgs and LabelSelectorAttributesPatchOutput values.
+// You can construct a concrete instance of `LabelSelectorAttributesPatchInput` via:
+//
+//	LabelSelectorAttributesPatchArgs{...}
+type LabelSelectorAttributesPatchInput interface {
+	pulumi.Input
+
+	ToLabelSelectorAttributesPatchOutput() LabelSelectorAttributesPatchOutput
+	ToLabelSelectorAttributesPatchOutputWithContext(context.Context) LabelSelectorAttributesPatchOutput
+}
+
+// LabelSelectorAttributes indicates a label limited access. Webhook authors are encouraged to * ensure rawSelector and requirements are not both set * consider the requirements field if set * not try to parse or consider the rawSelector field if set. This is to avoid another CVE-2022-2880 (i.e. getting different systems to agree on how exactly to parse a query is not something we want), see https://www.oxeye.io/resources/golang-parameter-smuggling-attack for more details. For the *SubjectAccessReview endpoints of the kube-apiserver: * If rawSelector is empty and requirements are empty, the request is not limited. * If rawSelector is present and requirements are empty, the rawSelector will be parsed and limited if the parsing succeeds. * If rawSelector is empty and requirements are present, the requirements should be honored * If rawSelector is present and requirements are present, the request is invalid.
+type LabelSelectorAttributesPatchArgs struct {
+	// rawSelector is the serialization of a field selector that would be included in a query parameter. Webhook implementations are encouraged to ignore rawSelector. The kube-apiserver's *SubjectAccessReview will parse the rawSelector as long as the requirements are not present.
+	RawSelector pulumi.StringPtrInput `pulumi:"rawSelector"`
+	// requirements is the parsed interpretation of a label selector. All requirements must be met for a resource instance to match the selector. Webhook implementations should handle requirements, but how to handle them is up to the webhook. Since requirements can only limit the request, it is safe to authorize as unlimited request if the requirements are not understood.
+	Requirements metav1.LabelSelectorRequirementPatchArrayInput `pulumi:"requirements"`
+}
+
+func (LabelSelectorAttributesPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*LabelSelectorAttributesPatch)(nil)).Elem()
+}
+
+func (i LabelSelectorAttributesPatchArgs) ToLabelSelectorAttributesPatchOutput() LabelSelectorAttributesPatchOutput {
+	return i.ToLabelSelectorAttributesPatchOutputWithContext(context.Background())
+}
+
+func (i LabelSelectorAttributesPatchArgs) ToLabelSelectorAttributesPatchOutputWithContext(ctx context.Context) LabelSelectorAttributesPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(LabelSelectorAttributesPatchOutput)
+}
+
+func (i LabelSelectorAttributesPatchArgs) ToLabelSelectorAttributesPatchPtrOutput() LabelSelectorAttributesPatchPtrOutput {
+	return i.ToLabelSelectorAttributesPatchPtrOutputWithContext(context.Background())
+}
+
+func (i LabelSelectorAttributesPatchArgs) ToLabelSelectorAttributesPatchPtrOutputWithContext(ctx context.Context) LabelSelectorAttributesPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(LabelSelectorAttributesPatchOutput).ToLabelSelectorAttributesPatchPtrOutputWithContext(ctx)
+}
+
+// LabelSelectorAttributesPatchPtrInput is an input type that accepts LabelSelectorAttributesPatchArgs, LabelSelectorAttributesPatchPtr and LabelSelectorAttributesPatchPtrOutput values.
+// You can construct a concrete instance of `LabelSelectorAttributesPatchPtrInput` via:
+//
+//	        LabelSelectorAttributesPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type LabelSelectorAttributesPatchPtrInput interface {
+	pulumi.Input
+
+	ToLabelSelectorAttributesPatchPtrOutput() LabelSelectorAttributesPatchPtrOutput
+	ToLabelSelectorAttributesPatchPtrOutputWithContext(context.Context) LabelSelectorAttributesPatchPtrOutput
+}
+
+type labelSelectorAttributesPatchPtrType LabelSelectorAttributesPatchArgs
+
+func LabelSelectorAttributesPatchPtr(v *LabelSelectorAttributesPatchArgs) LabelSelectorAttributesPatchPtrInput {
+	return (*labelSelectorAttributesPatchPtrType)(v)
+}
+
+func (*labelSelectorAttributesPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**LabelSelectorAttributesPatch)(nil)).Elem()
+}
+
+func (i *labelSelectorAttributesPatchPtrType) ToLabelSelectorAttributesPatchPtrOutput() LabelSelectorAttributesPatchPtrOutput {
+	return i.ToLabelSelectorAttributesPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *labelSelectorAttributesPatchPtrType) ToLabelSelectorAttributesPatchPtrOutputWithContext(ctx context.Context) LabelSelectorAttributesPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(LabelSelectorAttributesPatchPtrOutput)
+}
+
+// LabelSelectorAttributes indicates a label limited access. Webhook authors are encouraged to * ensure rawSelector and requirements are not both set * consider the requirements field if set * not try to parse or consider the rawSelector field if set. This is to avoid another CVE-2022-2880 (i.e. getting different systems to agree on how exactly to parse a query is not something we want), see https://www.oxeye.io/resources/golang-parameter-smuggling-attack for more details. For the *SubjectAccessReview endpoints of the kube-apiserver: * If rawSelector is empty and requirements are empty, the request is not limited. * If rawSelector is present and requirements are empty, the rawSelector will be parsed and limited if the parsing succeeds. * If rawSelector is empty and requirements are present, the requirements should be honored * If rawSelector is present and requirements are present, the request is invalid.
+type LabelSelectorAttributesPatchOutput struct{ *pulumi.OutputState }
+
+func (LabelSelectorAttributesPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*LabelSelectorAttributesPatch)(nil)).Elem()
+}
+
+func (o LabelSelectorAttributesPatchOutput) ToLabelSelectorAttributesPatchOutput() LabelSelectorAttributesPatchOutput {
+	return o
+}
+
+func (o LabelSelectorAttributesPatchOutput) ToLabelSelectorAttributesPatchOutputWithContext(ctx context.Context) LabelSelectorAttributesPatchOutput {
+	return o
+}
+
+func (o LabelSelectorAttributesPatchOutput) ToLabelSelectorAttributesPatchPtrOutput() LabelSelectorAttributesPatchPtrOutput {
+	return o.ToLabelSelectorAttributesPatchPtrOutputWithContext(context.Background())
+}
+
+func (o LabelSelectorAttributesPatchOutput) ToLabelSelectorAttributesPatchPtrOutputWithContext(ctx context.Context) LabelSelectorAttributesPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v LabelSelectorAttributesPatch) *LabelSelectorAttributesPatch {
+		return &v
+	}).(LabelSelectorAttributesPatchPtrOutput)
+}
+
+// rawSelector is the serialization of a field selector that would be included in a query parameter. Webhook implementations are encouraged to ignore rawSelector. The kube-apiserver's *SubjectAccessReview will parse the rawSelector as long as the requirements are not present.
+func (o LabelSelectorAttributesPatchOutput) RawSelector() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v LabelSelectorAttributesPatch) *string { return v.RawSelector }).(pulumi.StringPtrOutput)
+}
+
+// requirements is the parsed interpretation of a label selector. All requirements must be met for a resource instance to match the selector. Webhook implementations should handle requirements, but how to handle them is up to the webhook. Since requirements can only limit the request, it is safe to authorize as unlimited request if the requirements are not understood.
+func (o LabelSelectorAttributesPatchOutput) Requirements() metav1.LabelSelectorRequirementPatchArrayOutput {
+	return o.ApplyT(func(v LabelSelectorAttributesPatch) []metav1.LabelSelectorRequirementPatch { return v.Requirements }).(metav1.LabelSelectorRequirementPatchArrayOutput)
+}
+
+type LabelSelectorAttributesPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (LabelSelectorAttributesPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**LabelSelectorAttributesPatch)(nil)).Elem()
+}
+
+func (o LabelSelectorAttributesPatchPtrOutput) ToLabelSelectorAttributesPatchPtrOutput() LabelSelectorAttributesPatchPtrOutput {
+	return o
+}
+
+func (o LabelSelectorAttributesPatchPtrOutput) ToLabelSelectorAttributesPatchPtrOutputWithContext(ctx context.Context) LabelSelectorAttributesPatchPtrOutput {
+	return o
+}
+
+func (o LabelSelectorAttributesPatchPtrOutput) Elem() LabelSelectorAttributesPatchOutput {
+	return o.ApplyT(func(v *LabelSelectorAttributesPatch) LabelSelectorAttributesPatch {
+		if v != nil {
+			return *v
+		}
+		var ret LabelSelectorAttributesPatch
+		return ret
+	}).(LabelSelectorAttributesPatchOutput)
+}
+
+// rawSelector is the serialization of a field selector that would be included in a query parameter. Webhook implementations are encouraged to ignore rawSelector. The kube-apiserver's *SubjectAccessReview will parse the rawSelector as long as the requirements are not present.
+func (o LabelSelectorAttributesPatchPtrOutput) RawSelector() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *LabelSelectorAttributesPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.RawSelector
+	}).(pulumi.StringPtrOutput)
+}
+
+// requirements is the parsed interpretation of a label selector. All requirements must be met for a resource instance to match the selector. Webhook implementations should handle requirements, but how to handle them is up to the webhook. Since requirements can only limit the request, it is safe to authorize as unlimited request if the requirements are not understood.
+func (o LabelSelectorAttributesPatchPtrOutput) Requirements() metav1.LabelSelectorRequirementPatchArrayOutput {
+	return o.ApplyT(func(v *LabelSelectorAttributesPatch) []metav1.LabelSelectorRequirementPatch {
+		if v == nil {
+			return nil
+		}
+		return v.Requirements
+	}).(metav1.LabelSelectorRequirementPatchArrayOutput)
+}
+
 // LocalSubjectAccessReview checks whether or not a user or group can perform an action in a given namespace. Having a namespace scoped resource makes it much easier to grant namespace scoped policy that includes permissions checking.
 type LocalSubjectAccessReview struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -734,8 +1370,16 @@ func (o NonResourceRulePatchArrayOutput) Index(i pulumi.IntInput) NonResourceRul
 
 // ResourceAttributes includes the authorization attributes available for resource requests to the Authorizer interface
 type ResourceAttributes struct {
+	// fieldSelector describes the limitation on access based on field.  It can only limit access, not broaden it.
+	//
+	// This field  is alpha-level. To use this field, you must enable the `AuthorizeWithSelectors` feature gate (disabled by default).
+	FieldSelector *FieldSelectorAttributes `pulumi:"fieldSelector"`
 	// Group is the API Group of the Resource.  "*" means all.
 	Group *string `pulumi:"group"`
+	// labelSelector describes the limitation on access based on labels.  It can only limit access, not broaden it.
+	//
+	// This field  is alpha-level. To use this field, you must enable the `AuthorizeWithSelectors` feature gate (disabled by default).
+	LabelSelector *LabelSelectorAttributes `pulumi:"labelSelector"`
 	// Name is the name of the resource being requested for a "get" or deleted for a "delete". "" (empty) means all.
 	Name *string `pulumi:"name"`
 	// Namespace is the namespace of the action being requested.  Currently, there is no distinction between no namespace and all namespaces "" (empty) is defaulted for LocalSubjectAccessReviews "" (empty) is empty for cluster-scoped resources "" (empty) means "all" for namespace scoped resources from a SubjectAccessReview or SelfSubjectAccessReview
@@ -763,8 +1407,16 @@ type ResourceAttributesInput interface {
 
 // ResourceAttributes includes the authorization attributes available for resource requests to the Authorizer interface
 type ResourceAttributesArgs struct {
+	// fieldSelector describes the limitation on access based on field.  It can only limit access, not broaden it.
+	//
+	// This field  is alpha-level. To use this field, you must enable the `AuthorizeWithSelectors` feature gate (disabled by default).
+	FieldSelector FieldSelectorAttributesPtrInput `pulumi:"fieldSelector"`
 	// Group is the API Group of the Resource.  "*" means all.
 	Group pulumi.StringPtrInput `pulumi:"group"`
+	// labelSelector describes the limitation on access based on labels.  It can only limit access, not broaden it.
+	//
+	// This field  is alpha-level. To use this field, you must enable the `AuthorizeWithSelectors` feature gate (disabled by default).
+	LabelSelector LabelSelectorAttributesPtrInput `pulumi:"labelSelector"`
 	// Name is the name of the resource being requested for a "get" or deleted for a "delete". "" (empty) means all.
 	Name pulumi.StringPtrInput `pulumi:"name"`
 	// Namespace is the namespace of the action being requested.  Currently, there is no distinction between no namespace and all namespaces "" (empty) is defaulted for LocalSubjectAccessReviews "" (empty) is empty for cluster-scoped resources "" (empty) means "all" for namespace scoped resources from a SubjectAccessReview or SelfSubjectAccessReview
@@ -857,9 +1509,23 @@ func (o ResourceAttributesOutput) ToResourceAttributesPtrOutputWithContext(ctx c
 	}).(ResourceAttributesPtrOutput)
 }
 
+// fieldSelector describes the limitation on access based on field.  It can only limit access, not broaden it.
+//
+// This field  is alpha-level. To use this field, you must enable the `AuthorizeWithSelectors` feature gate (disabled by default).
+func (o ResourceAttributesOutput) FieldSelector() FieldSelectorAttributesPtrOutput {
+	return o.ApplyT(func(v ResourceAttributes) *FieldSelectorAttributes { return v.FieldSelector }).(FieldSelectorAttributesPtrOutput)
+}
+
 // Group is the API Group of the Resource.  "*" means all.
 func (o ResourceAttributesOutput) Group() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ResourceAttributes) *string { return v.Group }).(pulumi.StringPtrOutput)
+}
+
+// labelSelector describes the limitation on access based on labels.  It can only limit access, not broaden it.
+//
+// This field  is alpha-level. To use this field, you must enable the `AuthorizeWithSelectors` feature gate (disabled by default).
+func (o ResourceAttributesOutput) LabelSelector() LabelSelectorAttributesPtrOutput {
+	return o.ApplyT(func(v ResourceAttributes) *LabelSelectorAttributes { return v.LabelSelector }).(LabelSelectorAttributesPtrOutput)
 }
 
 // Name is the name of the resource being requested for a "get" or deleted for a "delete". "" (empty) means all.
@@ -916,6 +1582,18 @@ func (o ResourceAttributesPtrOutput) Elem() ResourceAttributesOutput {
 	}).(ResourceAttributesOutput)
 }
 
+// fieldSelector describes the limitation on access based on field.  It can only limit access, not broaden it.
+//
+// This field  is alpha-level. To use this field, you must enable the `AuthorizeWithSelectors` feature gate (disabled by default).
+func (o ResourceAttributesPtrOutput) FieldSelector() FieldSelectorAttributesPtrOutput {
+	return o.ApplyT(func(v *ResourceAttributes) *FieldSelectorAttributes {
+		if v == nil {
+			return nil
+		}
+		return v.FieldSelector
+	}).(FieldSelectorAttributesPtrOutput)
+}
+
 // Group is the API Group of the Resource.  "*" means all.
 func (o ResourceAttributesPtrOutput) Group() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ResourceAttributes) *string {
@@ -924,6 +1602,18 @@ func (o ResourceAttributesPtrOutput) Group() pulumi.StringPtrOutput {
 		}
 		return v.Group
 	}).(pulumi.StringPtrOutput)
+}
+
+// labelSelector describes the limitation on access based on labels.  It can only limit access, not broaden it.
+//
+// This field  is alpha-level. To use this field, you must enable the `AuthorizeWithSelectors` feature gate (disabled by default).
+func (o ResourceAttributesPtrOutput) LabelSelector() LabelSelectorAttributesPtrOutput {
+	return o.ApplyT(func(v *ResourceAttributes) *LabelSelectorAttributes {
+		if v == nil {
+			return nil
+		}
+		return v.LabelSelector
+	}).(LabelSelectorAttributesPtrOutput)
 }
 
 // Name is the name of the resource being requested for a "get" or deleted for a "delete". "" (empty) means all.
@@ -988,8 +1678,16 @@ func (o ResourceAttributesPtrOutput) Version() pulumi.StringPtrOutput {
 
 // ResourceAttributes includes the authorization attributes available for resource requests to the Authorizer interface
 type ResourceAttributesPatch struct {
+	// fieldSelector describes the limitation on access based on field.  It can only limit access, not broaden it.
+	//
+	// This field  is alpha-level. To use this field, you must enable the `AuthorizeWithSelectors` feature gate (disabled by default).
+	FieldSelector *FieldSelectorAttributesPatch `pulumi:"fieldSelector"`
 	// Group is the API Group of the Resource.  "*" means all.
 	Group *string `pulumi:"group"`
+	// labelSelector describes the limitation on access based on labels.  It can only limit access, not broaden it.
+	//
+	// This field  is alpha-level. To use this field, you must enable the `AuthorizeWithSelectors` feature gate (disabled by default).
+	LabelSelector *LabelSelectorAttributesPatch `pulumi:"labelSelector"`
 	// Name is the name of the resource being requested for a "get" or deleted for a "delete". "" (empty) means all.
 	Name *string `pulumi:"name"`
 	// Namespace is the namespace of the action being requested.  Currently, there is no distinction between no namespace and all namespaces "" (empty) is defaulted for LocalSubjectAccessReviews "" (empty) is empty for cluster-scoped resources "" (empty) means "all" for namespace scoped resources from a SubjectAccessReview or SelfSubjectAccessReview
@@ -1017,8 +1715,16 @@ type ResourceAttributesPatchInput interface {
 
 // ResourceAttributes includes the authorization attributes available for resource requests to the Authorizer interface
 type ResourceAttributesPatchArgs struct {
+	// fieldSelector describes the limitation on access based on field.  It can only limit access, not broaden it.
+	//
+	// This field  is alpha-level. To use this field, you must enable the `AuthorizeWithSelectors` feature gate (disabled by default).
+	FieldSelector FieldSelectorAttributesPatchPtrInput `pulumi:"fieldSelector"`
 	// Group is the API Group of the Resource.  "*" means all.
 	Group pulumi.StringPtrInput `pulumi:"group"`
+	// labelSelector describes the limitation on access based on labels.  It can only limit access, not broaden it.
+	//
+	// This field  is alpha-level. To use this field, you must enable the `AuthorizeWithSelectors` feature gate (disabled by default).
+	LabelSelector LabelSelectorAttributesPatchPtrInput `pulumi:"labelSelector"`
 	// Name is the name of the resource being requested for a "get" or deleted for a "delete". "" (empty) means all.
 	Name pulumi.StringPtrInput `pulumi:"name"`
 	// Namespace is the namespace of the action being requested.  Currently, there is no distinction between no namespace and all namespaces "" (empty) is defaulted for LocalSubjectAccessReviews "" (empty) is empty for cluster-scoped resources "" (empty) means "all" for namespace scoped resources from a SubjectAccessReview or SelfSubjectAccessReview
@@ -1111,9 +1817,23 @@ func (o ResourceAttributesPatchOutput) ToResourceAttributesPatchPtrOutputWithCon
 	}).(ResourceAttributesPatchPtrOutput)
 }
 
+// fieldSelector describes the limitation on access based on field.  It can only limit access, not broaden it.
+//
+// This field  is alpha-level. To use this field, you must enable the `AuthorizeWithSelectors` feature gate (disabled by default).
+func (o ResourceAttributesPatchOutput) FieldSelector() FieldSelectorAttributesPatchPtrOutput {
+	return o.ApplyT(func(v ResourceAttributesPatch) *FieldSelectorAttributesPatch { return v.FieldSelector }).(FieldSelectorAttributesPatchPtrOutput)
+}
+
 // Group is the API Group of the Resource.  "*" means all.
 func (o ResourceAttributesPatchOutput) Group() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ResourceAttributesPatch) *string { return v.Group }).(pulumi.StringPtrOutput)
+}
+
+// labelSelector describes the limitation on access based on labels.  It can only limit access, not broaden it.
+//
+// This field  is alpha-level. To use this field, you must enable the `AuthorizeWithSelectors` feature gate (disabled by default).
+func (o ResourceAttributesPatchOutput) LabelSelector() LabelSelectorAttributesPatchPtrOutput {
+	return o.ApplyT(func(v ResourceAttributesPatch) *LabelSelectorAttributesPatch { return v.LabelSelector }).(LabelSelectorAttributesPatchPtrOutput)
 }
 
 // Name is the name of the resource being requested for a "get" or deleted for a "delete". "" (empty) means all.
@@ -1170,6 +1890,18 @@ func (o ResourceAttributesPatchPtrOutput) Elem() ResourceAttributesPatchOutput {
 	}).(ResourceAttributesPatchOutput)
 }
 
+// fieldSelector describes the limitation on access based on field.  It can only limit access, not broaden it.
+//
+// This field  is alpha-level. To use this field, you must enable the `AuthorizeWithSelectors` feature gate (disabled by default).
+func (o ResourceAttributesPatchPtrOutput) FieldSelector() FieldSelectorAttributesPatchPtrOutput {
+	return o.ApplyT(func(v *ResourceAttributesPatch) *FieldSelectorAttributesPatch {
+		if v == nil {
+			return nil
+		}
+		return v.FieldSelector
+	}).(FieldSelectorAttributesPatchPtrOutput)
+}
+
 // Group is the API Group of the Resource.  "*" means all.
 func (o ResourceAttributesPatchPtrOutput) Group() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ResourceAttributesPatch) *string {
@@ -1178,6 +1910,18 @@ func (o ResourceAttributesPatchPtrOutput) Group() pulumi.StringPtrOutput {
 		}
 		return v.Group
 	}).(pulumi.StringPtrOutput)
+}
+
+// labelSelector describes the limitation on access based on labels.  It can only limit access, not broaden it.
+//
+// This field  is alpha-level. To use this field, you must enable the `AuthorizeWithSelectors` feature gate (disabled by default).
+func (o ResourceAttributesPatchPtrOutput) LabelSelector() LabelSelectorAttributesPatchPtrOutput {
+	return o.ApplyT(func(v *ResourceAttributesPatch) *LabelSelectorAttributesPatch {
+		if v == nil {
+			return nil
+		}
+		return v.LabelSelector
+	}).(LabelSelectorAttributesPatchPtrOutput)
 }
 
 // Name is the name of the resource being requested for a "get" or deleted for a "delete". "" (empty) means all.
@@ -3590,6 +4334,14 @@ func (o SubjectRulesReviewStatusPatchPtrOutput) ResourceRules() ResourceRulePatc
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*FieldSelectorAttributesInput)(nil)).Elem(), FieldSelectorAttributesArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FieldSelectorAttributesPtrInput)(nil)).Elem(), FieldSelectorAttributesArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FieldSelectorAttributesPatchInput)(nil)).Elem(), FieldSelectorAttributesPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FieldSelectorAttributesPatchPtrInput)(nil)).Elem(), FieldSelectorAttributesPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*LabelSelectorAttributesInput)(nil)).Elem(), LabelSelectorAttributesArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*LabelSelectorAttributesPtrInput)(nil)).Elem(), LabelSelectorAttributesArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*LabelSelectorAttributesPatchInput)(nil)).Elem(), LabelSelectorAttributesPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*LabelSelectorAttributesPatchPtrInput)(nil)).Elem(), LabelSelectorAttributesPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*LocalSubjectAccessReviewInput)(nil)).Elem(), LocalSubjectAccessReviewArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*LocalSubjectAccessReviewPatchInput)(nil)).Elem(), LocalSubjectAccessReviewPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NonResourceAttributesInput)(nil)).Elem(), NonResourceAttributesArgs{})
@@ -3631,6 +4383,14 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*SubjectRulesReviewStatusPtrInput)(nil)).Elem(), SubjectRulesReviewStatusArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SubjectRulesReviewStatusPatchInput)(nil)).Elem(), SubjectRulesReviewStatusPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SubjectRulesReviewStatusPatchPtrInput)(nil)).Elem(), SubjectRulesReviewStatusPatchArgs{})
+	pulumi.RegisterOutputType(FieldSelectorAttributesOutput{})
+	pulumi.RegisterOutputType(FieldSelectorAttributesPtrOutput{})
+	pulumi.RegisterOutputType(FieldSelectorAttributesPatchOutput{})
+	pulumi.RegisterOutputType(FieldSelectorAttributesPatchPtrOutput{})
+	pulumi.RegisterOutputType(LabelSelectorAttributesOutput{})
+	pulumi.RegisterOutputType(LabelSelectorAttributesPtrOutput{})
+	pulumi.RegisterOutputType(LabelSelectorAttributesPatchOutput{})
+	pulumi.RegisterOutputType(LabelSelectorAttributesPatchPtrOutput{})
 	pulumi.RegisterOutputType(LocalSubjectAccessReviewOutput{})
 	pulumi.RegisterOutputType(LocalSubjectAccessReviewPatchOutput{})
 	pulumi.RegisterOutputType(NonResourceAttributesOutput{})

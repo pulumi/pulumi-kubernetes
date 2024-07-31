@@ -30,8 +30,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         /// <summary>
         /// IP address of the host file entry.
         /// </summary>
-        [Input("ip")]
-        public Input<string>? Ip { get; set; }
+        [Input("ip", required: true)]
+        public Input<string> Ip { get; set; } = null!;
 
         public HostAliasArgs()
         {

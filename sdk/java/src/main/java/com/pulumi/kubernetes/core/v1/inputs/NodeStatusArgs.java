@@ -11,6 +11,7 @@ import com.pulumi.kubernetes.core.v1.inputs.NodeAddressArgs;
 import com.pulumi.kubernetes.core.v1.inputs.NodeConditionArgs;
 import com.pulumi.kubernetes.core.v1.inputs.NodeConfigStatusArgs;
 import com.pulumi.kubernetes.core.v1.inputs.NodeDaemonEndpointsArgs;
+import com.pulumi.kubernetes.core.v1.inputs.NodeFeaturesArgs;
 import com.pulumi.kubernetes.core.v1.inputs.NodeRuntimeHandlerArgs;
 import com.pulumi.kubernetes.core.v1.inputs.NodeSystemInfoArgs;
 import java.lang.String;
@@ -60,14 +61,14 @@ public final class NodeStatusArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Capacity represents the total resources of a node. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity
+     * Capacity represents the total resources of a node. More info: https://kubernetes.io/docs/reference/node/node-status/#capacity
      * 
      */
     @Import(name="capacity")
     private @Nullable Output<Map<String,String>> capacity;
 
     /**
-     * @return Capacity represents the total resources of a node. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity
+     * @return Capacity represents the total resources of a node. More info: https://kubernetes.io/docs/reference/node/node-status/#capacity
      * 
      */
     public Optional<Output<Map<String,String>>> capacity() {
@@ -117,6 +118,21 @@ public final class NodeStatusArgs extends com.pulumi.resources.ResourceArgs {
      */
     public Optional<Output<NodeDaemonEndpointsArgs>> daemonEndpoints() {
         return Optional.ofNullable(this.daemonEndpoints);
+    }
+
+    /**
+     * Features describes the set of features implemented by the CRI implementation.
+     * 
+     */
+    @Import(name="features")
+    private @Nullable Output<NodeFeaturesArgs> features;
+
+    /**
+     * @return Features describes the set of features implemented by the CRI implementation.
+     * 
+     */
+    public Optional<Output<NodeFeaturesArgs>> features() {
+        return Optional.ofNullable(this.features);
     }
 
     /**
@@ -218,6 +234,7 @@ public final class NodeStatusArgs extends com.pulumi.resources.ResourceArgs {
         this.conditions = $.conditions;
         this.config = $.config;
         this.daemonEndpoints = $.daemonEndpoints;
+        this.features = $.features;
         this.images = $.images;
         this.nodeInfo = $.nodeInfo;
         this.phase = $.phase;
@@ -297,7 +314,7 @@ public final class NodeStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param capacity Capacity represents the total resources of a node. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity
+         * @param capacity Capacity represents the total resources of a node. More info: https://kubernetes.io/docs/reference/node/node-status/#capacity
          * 
          * @return builder
          * 
@@ -308,7 +325,7 @@ public final class NodeStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param capacity Capacity represents the total resources of a node. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity
+         * @param capacity Capacity represents the total resources of a node. More info: https://kubernetes.io/docs/reference/node/node-status/#capacity
          * 
          * @return builder
          * 
@@ -388,6 +405,27 @@ public final class NodeStatusArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder daemonEndpoints(NodeDaemonEndpointsArgs daemonEndpoints) {
             return daemonEndpoints(Output.of(daemonEndpoints));
+        }
+
+        /**
+         * @param features Features describes the set of features implemented by the CRI implementation.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder features(@Nullable Output<NodeFeaturesArgs> features) {
+            $.features = features;
+            return this;
+        }
+
+        /**
+         * @param features Features describes the set of features implemented by the CRI implementation.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder features(NodeFeaturesArgs features) {
+            return features(Output.of(features));
         }
 
         /**

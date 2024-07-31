@@ -25,7 +25,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly ImmutableDictionary<string, string> Allocatable;
         /// <summary>
-        /// Capacity represents the total resources of a node. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity
+        /// Capacity represents the total resources of a node. More info: https://kubernetes.io/docs/reference/node/node-status/#capacity
         /// </summary>
         public readonly ImmutableDictionary<string, string> Capacity;
         /// <summary>
@@ -40,6 +40,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// Endpoints of daemons running on the Node.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.NodeDaemonEndpoints DaemonEndpoints;
+        /// <summary>
+        /// Features describes the set of features implemented by the CRI implementation.
+        /// </summary>
+        public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.NodeFeatures Features;
         /// <summary>
         /// List of container images on this node
         /// </summary>
@@ -79,6 +83,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 
             Pulumi.Kubernetes.Types.Outputs.Core.V1.NodeDaemonEndpoints daemonEndpoints,
 
+            Pulumi.Kubernetes.Types.Outputs.Core.V1.NodeFeatures features,
+
             ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.ContainerImage> images,
 
             Pulumi.Kubernetes.Types.Outputs.Core.V1.NodeSystemInfo nodeInfo,
@@ -97,6 +103,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
             Conditions = conditions;
             Config = config;
             DaemonEndpoints = daemonEndpoints;
+            Features = features;
             Images = images;
             NodeInfo = nodeInfo;
             Phase = phase;

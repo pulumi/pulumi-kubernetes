@@ -35,11 +35,47 @@ export type IngressPatch = import("./ingressPatch").IngressPatch;
 export const IngressPatch: typeof import("./ingressPatch").IngressPatch = null as any;
 utilities.lazyLoad(exports, ["IngressPatch"], () => require("./ingressPatch"));
 
+export { IPAddressArgs } from "./ipaddress";
+export type IPAddress = import("./ipaddress").IPAddress;
+export const IPAddress: typeof import("./ipaddress").IPAddress = null as any;
+utilities.lazyLoad(exports, ["IPAddress"], () => require("./ipaddress"));
+
+export { IPAddressListArgs } from "./ipaddressList";
+export type IPAddressList = import("./ipaddressList").IPAddressList;
+export const IPAddressList: typeof import("./ipaddressList").IPAddressList = null as any;
+utilities.lazyLoad(exports, ["IPAddressList"], () => require("./ipaddressList"));
+
+export { IPAddressPatchArgs } from "./ipaddressPatch";
+export type IPAddressPatch = import("./ipaddressPatch").IPAddressPatch;
+export const IPAddressPatch: typeof import("./ipaddressPatch").IPAddressPatch = null as any;
+utilities.lazyLoad(exports, ["IPAddressPatch"], () => require("./ipaddressPatch"));
+
+export { ServiceCIDRArgs } from "./serviceCIDR";
+export type ServiceCIDR = import("./serviceCIDR").ServiceCIDR;
+export const ServiceCIDR: typeof import("./serviceCIDR").ServiceCIDR = null as any;
+utilities.lazyLoad(exports, ["ServiceCIDR"], () => require("./serviceCIDR"));
+
+export { ServiceCIDRListArgs } from "./serviceCIDRList";
+export type ServiceCIDRList = import("./serviceCIDRList").ServiceCIDRList;
+export const ServiceCIDRList: typeof import("./serviceCIDRList").ServiceCIDRList = null as any;
+utilities.lazyLoad(exports, ["ServiceCIDRList"], () => require("./serviceCIDRList"));
+
+export { ServiceCIDRPatchArgs } from "./serviceCIDRPatch";
+export type ServiceCIDRPatch = import("./serviceCIDRPatch").ServiceCIDRPatch;
+export const ServiceCIDRPatch: typeof import("./serviceCIDRPatch").ServiceCIDRPatch = null as any;
+utilities.lazyLoad(exports, ["ServiceCIDRPatch"], () => require("./serviceCIDRPatch"));
+
 
 const _module = {
     version: utilities.getVersion(),
     construct: (name: string, type: string, urn: string): pulumi.Resource => {
         switch (type) {
+            case "kubernetes:networking.k8s.io/v1beta1:IPAddress":
+                return new IPAddress(name, <any>undefined, { urn })
+            case "kubernetes:networking.k8s.io/v1beta1:IPAddressList":
+                return new IPAddressList(name, <any>undefined, { urn })
+            case "kubernetes:networking.k8s.io/v1beta1:IPAddressPatch":
+                return new IPAddressPatch(name, <any>undefined, { urn })
             case "kubernetes:networking.k8s.io/v1beta1:Ingress":
                 return new Ingress(name, <any>undefined, { urn })
             case "kubernetes:networking.k8s.io/v1beta1:IngressClass":
@@ -52,6 +88,12 @@ const _module = {
                 return new IngressList(name, <any>undefined, { urn })
             case "kubernetes:networking.k8s.io/v1beta1:IngressPatch":
                 return new IngressPatch(name, <any>undefined, { urn })
+            case "kubernetes:networking.k8s.io/v1beta1:ServiceCIDR":
+                return new ServiceCIDR(name, <any>undefined, { urn })
+            case "kubernetes:networking.k8s.io/v1beta1:ServiceCIDRList":
+                return new ServiceCIDRList(name, <any>undefined, { urn })
+            case "kubernetes:networking.k8s.io/v1beta1:ServiceCIDRPatch":
+                return new ServiceCIDRPatch(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }

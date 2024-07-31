@@ -8,7 +8,6 @@ import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.outputs.NodeSelector;
 import com.pulumi.kubernetes.meta.v1.outputs.ObjectMeta;
 import com.pulumi.kubernetes.resource.v1alpha2.outputs.ResourceClassParametersReference;
-import java.lang.Boolean;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -43,11 +42,6 @@ public final class ResourceClass {
      * 
      */
     private @Nullable ResourceClassParametersReference parametersRef;
-    /**
-     * @return If and only if allocation of claims using this class is handled via structured parameters, then StructuredParameters must be set to true.
-     * 
-     */
-    private @Nullable Boolean structuredParameters;
     /**
      * @return Only nodes matching the selector will be considered by the scheduler when trying to find a Node that fits a Pod when that Pod uses a ResourceClaim that has not been allocated yet.
      * 
@@ -95,13 +89,6 @@ public final class ResourceClass {
         return Optional.ofNullable(this.parametersRef);
     }
     /**
-     * @return If and only if allocation of claims using this class is handled via structured parameters, then StructuredParameters must be set to true.
-     * 
-     */
-    public Optional<Boolean> structuredParameters() {
-        return Optional.ofNullable(this.structuredParameters);
-    }
-    /**
      * @return Only nodes matching the selector will be considered by the scheduler when trying to find a Node that fits a Pod when that Pod uses a ResourceClaim that has not been allocated yet.
      * 
      * Setting this field is optional. If null, all nodes are candidates.
@@ -125,7 +112,6 @@ public final class ResourceClass {
         private @Nullable String kind;
         private @Nullable ObjectMeta metadata;
         private @Nullable ResourceClassParametersReference parametersRef;
-        private @Nullable Boolean structuredParameters;
         private @Nullable NodeSelector suitableNodes;
         public Builder() {}
         public Builder(ResourceClass defaults) {
@@ -135,7 +121,6 @@ public final class ResourceClass {
     	      this.kind = defaults.kind;
     	      this.metadata = defaults.metadata;
     	      this.parametersRef = defaults.parametersRef;
-    	      this.structuredParameters = defaults.structuredParameters;
     	      this.suitableNodes = defaults.suitableNodes;
         }
 
@@ -172,12 +157,6 @@ public final class ResourceClass {
             return this;
         }
         @CustomType.Setter
-        public Builder structuredParameters(@Nullable Boolean structuredParameters) {
-
-            this.structuredParameters = structuredParameters;
-            return this;
-        }
-        @CustomType.Setter
         public Builder suitableNodes(@Nullable NodeSelector suitableNodes) {
 
             this.suitableNodes = suitableNodes;
@@ -190,7 +169,6 @@ public final class ResourceClass {
             _resultValue.kind = kind;
             _resultValue.metadata = metadata;
             _resultValue.parametersRef = parametersRef;
-            _resultValue.structuredParameters = structuredParameters;
             _resultValue.suitableNodes = suitableNodes;
             return _resultValue;
         }

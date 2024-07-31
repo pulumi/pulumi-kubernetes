@@ -10,6 +10,7 @@ import com.pulumi.kubernetes.core.v1.outputs.NodeAddressPatch;
 import com.pulumi.kubernetes.core.v1.outputs.NodeConditionPatch;
 import com.pulumi.kubernetes.core.v1.outputs.NodeConfigStatusPatch;
 import com.pulumi.kubernetes.core.v1.outputs.NodeDaemonEndpointsPatch;
+import com.pulumi.kubernetes.core.v1.outputs.NodeFeaturesPatch;
 import com.pulumi.kubernetes.core.v1.outputs.NodeRuntimeHandlerPatch;
 import com.pulumi.kubernetes.core.v1.outputs.NodeSystemInfoPatch;
 import java.lang.String;
@@ -32,7 +33,7 @@ public final class NodeStatusPatch {
      */
     private @Nullable Map<String,String> allocatable;
     /**
-     * @return Capacity represents the total resources of a node. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity
+     * @return Capacity represents the total resources of a node. More info: https://kubernetes.io/docs/reference/node/node-status/#capacity
      * 
      */
     private @Nullable Map<String,String> capacity;
@@ -51,6 +52,11 @@ public final class NodeStatusPatch {
      * 
      */
     private @Nullable NodeDaemonEndpointsPatch daemonEndpoints;
+    /**
+     * @return Features describes the set of features implemented by the CRI implementation.
+     * 
+     */
+    private @Nullable NodeFeaturesPatch features;
     /**
      * @return List of container images on this node
      * 
@@ -98,7 +104,7 @@ public final class NodeStatusPatch {
         return this.allocatable == null ? Map.of() : this.allocatable;
     }
     /**
-     * @return Capacity represents the total resources of a node. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity
+     * @return Capacity represents the total resources of a node. More info: https://kubernetes.io/docs/reference/node/node-status/#capacity
      * 
      */
     public Map<String,String> capacity() {
@@ -124,6 +130,13 @@ public final class NodeStatusPatch {
      */
     public Optional<NodeDaemonEndpointsPatch> daemonEndpoints() {
         return Optional.ofNullable(this.daemonEndpoints);
+    }
+    /**
+     * @return Features describes the set of features implemented by the CRI implementation.
+     * 
+     */
+    public Optional<NodeFeaturesPatch> features() {
+        return Optional.ofNullable(this.features);
     }
     /**
      * @return List of container images on this node
@@ -183,6 +196,7 @@ public final class NodeStatusPatch {
         private @Nullable List<NodeConditionPatch> conditions;
         private @Nullable NodeConfigStatusPatch config;
         private @Nullable NodeDaemonEndpointsPatch daemonEndpoints;
+        private @Nullable NodeFeaturesPatch features;
         private @Nullable List<ContainerImagePatch> images;
         private @Nullable NodeSystemInfoPatch nodeInfo;
         private @Nullable String phase;
@@ -198,6 +212,7 @@ public final class NodeStatusPatch {
     	      this.conditions = defaults.conditions;
     	      this.config = defaults.config;
     	      this.daemonEndpoints = defaults.daemonEndpoints;
+    	      this.features = defaults.features;
     	      this.images = defaults.images;
     	      this.nodeInfo = defaults.nodeInfo;
     	      this.phase = defaults.phase;
@@ -246,6 +261,12 @@ public final class NodeStatusPatch {
         public Builder daemonEndpoints(@Nullable NodeDaemonEndpointsPatch daemonEndpoints) {
 
             this.daemonEndpoints = daemonEndpoints;
+            return this;
+        }
+        @CustomType.Setter
+        public Builder features(@Nullable NodeFeaturesPatch features) {
+
+            this.features = features;
             return this;
         }
         @CustomType.Setter
@@ -304,6 +325,7 @@ public final class NodeStatusPatch {
             _resultValue.conditions = conditions;
             _resultValue.config = config;
             _resultValue.daemonEndpoints = daemonEndpoints;
+            _resultValue.features = features;
             _resultValue.images = images;
             _resultValue.nodeInfo = nodeInfo;
             _resultValue.phase = phase;
