@@ -11,7 +11,7 @@ CODEGEN         := pulumi-gen-${PACK}
 PROVIDER_PATH   := provider/v4
 VERSION_PATH     := ${PROVIDER_PATH}/pkg/version.Version
 
-KUBE_VERSION    ?= v1.30.0
+KUBE_VERSION    ?= v1.31.0-rc.0
 SWAGGER_URL     ?= https://github.com/kubernetes/kubernetes/raw/${KUBE_VERSION}/api/openapi-spec/swagger.json
 OPENAPI_DIR     := provider/pkg/gen/openapi-specs
 OPENAPI_FILE    := ${OPENAPI_DIR}/swagger-${KUBE_VERSION}.json
