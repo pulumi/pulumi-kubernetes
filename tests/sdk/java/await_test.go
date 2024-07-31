@@ -16,6 +16,11 @@ package test
 
 import (
 	"context"
+	_ "embed"
+	"encoding/json"
+	"os"
+	"os/exec"
+	"path/filepath"
 	"testing"
 	"time"
 
@@ -125,4 +130,157 @@ func TestAwaitSkip(t *testing.T) {
 	_ = test.Destroy()
 	took = time.Since(start)
 	assert.Less(t, took, 2*time.Minute, "didn't skip config map's stuck delete")
+}
+
+type awaitedResource struct {
+	Spec struct {
+		SomeField string `json:"someField"`
+	} `json:"spec"`
+	Status struct {
+		Conditions []struct {
+			Status string `json:"status"`
+			Type   string `json:"type"`
+		} `json:"conditions"`
+	} `json:"status"`
+}
+
+type expectation struct {
+	name            string
+	someField       string
+	conditionType   string
+	conditionStatus string
+}
+
+// With generic wait enabled & disabled
+func TestAwaitGeneric(t *testing.T) {
+	t.Parallel()
+
+	waitForCRDs := func() {
+		for {
+			time.Sleep(1 * time.Second)
+			cmd := exec.Command("kubectl", "get", "crd/genericawaiters.test.pulumi.com")
+			cmd.Stderr = os.Stderr
+			err := cmd.Run()
+			if err == nil {
+				break
+			}
+		}
+		// Wait another second for CRs.
+		time.Sleep(1 * time.Second)
+	}
+
+	touch := func(t *testing.T, dir string) {
+		cmd := exec.Command(filepath.Join(dir, "make-progressing.sh"))
+		cmd.Stdout = os.Stdout
+		cmd.Stderr = os.Stderr
+		err := cmd.Run()
+		require.NoError(t, err)
+	}
+
+	makeReady := func(t *testing.T, dir string) {
+		cmd := exec.Command(filepath.Join(dir, "make-ready.sh"))
+		cmd.Stdout = os.Stdout
+		cmd.Stderr = os.Stderr
+		err := cmd.Run()
+		require.NoError(t, err)
+	}
+
+	assertExpectations := func(t *testing.T, outputs auto.OutputMap, expect []expectation) {
+		for _, want := range expect {
+			t.Run(want.name, func(t *testing.T) {
+				obj := outputs[want.name].Value
+				bytes, err := json.Marshal(obj)
+				require.NoError(t, err)
+
+				var resource awaitedResource
+				err = json.Unmarshal(bytes, &resource)
+				require.NoError(t, err)
+
+				assert.Equal(t, want.someField, resource.Spec.SomeField)
+				if want.conditionType != "" {
+					require.Len(t, resource.Status.Conditions, 1)
+					assert.Equal(t, want.conditionType, resource.Status.Conditions[0].Type)
+					assert.Equal(t, want.conditionStatus, resource.Status.Conditions[0].Status)
+				}
+			})
+		}
+	}
+
+	assertReady := func(t *testing.T, outputs auto.OutputMap) {
+		expect := []expectation{
+			{
+				name:            "wantsReady",
+				someField:       "",
+				conditionType:   "Ready",
+				conditionStatus: "True",
+			},
+		}
+		assertExpectations(t, outputs, expect)
+	}
+
+	assertUntouched := func(t *testing.T, outputs auto.OutputMap) {
+		expect := []expectation{
+			{
+				name:            "wantsReady",
+				someField:       "",
+				conditionType:   "Ready",
+				conditionStatus: "False",
+			},
+		}
+		assertExpectations(t, outputs, expect)
+	}
+
+	t.Run("enabled", func(t *testing.T) {
+		test := pulumitest.NewPulumiTest(t,
+			"testdata/await/generic",
+			opttest.SkipInstall(),
+		)
+		dir := test.Source()
+		t.Cleanup(func() {
+			test.Destroy()
+		})
+		test.Install()
+
+		// Simulate an operator acting on our resources.
+		go func() {
+			waitForCRDs()
+
+			// First apply some unrelated changes.
+			touch(t, dir)
+
+			time.Sleep(2 * time.Second)
+
+			// Now make the resources ready.
+			makeReady(t, dir)
+		}()
+
+		up := test.Up()
+		assertReady(t, up.Outputs)
+	})
+
+	t.Run("disabled", func(t *testing.T) {
+		// With generic await disabled, CustomResources and other types without
+		// custom await logic should no-op instead of waiting for readiness.
+
+		test := pulumitest.NewPulumiTest(t,
+			"testdata/await/generic",
+			opttest.SkipInstall(),
+		)
+		dir := test.Source()
+		t.Cleanup(func() {
+			test.Destroy()
+		})
+		test.Install()
+
+		// Simulate an operator acting on our resources.
+		go func() {
+			waitForCRDs()
+			// Apply some unrelated changes -- our update should already be
+			// finished, so this shouldn't impact our stack.
+			touch(t, dir)
+		}()
+
+		up := test.Up()
+		assertUntouched(t, up.Outputs)
+	})
 }

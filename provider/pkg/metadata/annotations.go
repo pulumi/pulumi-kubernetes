@@ -131,6 +131,23 @@ func GetDeletedCondition(
 	return condition.NewDeleted(ctx, source, getter, logger, obj)
 }
 
+// GetReadyCondition reads annotations on the provided object and returns a
+// condition.Satisfier appropriate to await on for creates and updates:
+//   - If skipAwait is true, the ready condition will no-op.
+//   - Otherwise, if no annotations are provider, a generic/heuristic Ready condition is returned.
+func GetReadyCondition(
+	ctx context.Context,
+	source condition.Source,
+	_ clientGetter,
+	logger *logging.DedupLogger,
+	obj *unstructured.Unstructured,
+) (condition.Satisfier, error) {
+	if IsAnnotationTrue(obj, AnnotationSkipAwait) {
+		return condition.NewImmediate(logger, obj), nil
+	}
+	return condition.NewReady(ctx, source, logger, obj), nil
+}
+
 func isComputedValue(v any) bool {
 	_, isComputed := v.(resource.Computed)
 	return isComputed

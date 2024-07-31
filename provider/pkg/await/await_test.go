@@ -183,11 +183,6 @@ func TestCreation(t *testing.T) {
 			require.Equal(t, actualPhase, "Running", "Object should have status.phase of 'Running'")
 		}
 	}
-	logged := func() expectF {
-		return func(t *testing.T, ctx testCtx, actual *unstructured.Unstructured, err error) {
-			// FUTURE: assert that a log message was emitted to the fake host
-		}
-	}
 
 	tests := []struct {
 		name    string
@@ -196,6 +191,15 @@ func TestCreation(t *testing.T) {
 		expect  []expectF
 		awaiter func(t *testing.T, ctx testCtx) awaiter
 	}{
+		{
+			name: "AwaitError",
+			args: args{
+				resType: tokens.Type("kubernetes:core/v1:Pod"),
+				inputs:  validPodUnstructured,
+			},
+			awaiter: awaitError,
+			expect:  []expectF{failed(serviceUnavailableErr)},
+		},
 		{
 			name: "NoMatchError",
 			client: client{
@@ -208,7 +212,8 @@ func TestCreation(t *testing.T) {
 				resType: tokens.Type("kubernetes:core/v1:Pod"),
 				inputs:  validPodUnstructured,
 			},
-			expect: []expectF{created("default", "foo" /* after retry */)},
+			awaiter: touch,
+			expect:  []expectF{created("default", "foo" /* after retry */)},
 		},
 		{
 			name: "ServiceUnavailable",
@@ -264,17 +269,16 @@ func TestCreation(t *testing.T) {
 				resType: tokens.Type("kubernetes:core/v1:Pod"),
 				inputs:  withSkipAwait(validPodUnstructured),
 			},
-			awaiter: awaitUnexpected,
-			expect:  []expectF{created("default", "foo")},
+			expect: []expectF{created("default", "foo")},
 		},
 		{
-			name: "NoAwaiter",
+			name: "Generic awaiter fallback",
 			args: args{
 				resType: tokens.Type("kubernetes:core/v1:Pod"),
-				inputs:  validPodUnstructured,
+				inputs:  withReadyCondition(validPodUnstructured),
 			},
 			awaiter: nil,
-			expect:  []expectF{created("default", "foo"), logged()},
+			expect:  []expectF{created("default", "foo")},
 		},
 		{
 			name: "AwaitError",
@@ -343,9 +347,13 @@ func TestCreation(t *testing.T) {
 			if tt.awaiter != nil {
 				id := fmt.Sprintf("%s/%s", tt.args.inputs.GetAPIVersion(), tt.args.inputs.GetKind())
 				config.awaiters[id] = awaitSpec{
-					await: tt.awaiter(t, testCtx),
+					await: wrap(tt.awaiter(t, testCtx)),
 				}
 			}
+			// TODO
+			//else {
+			//	t.Setenv("PULUMI_KUBERNETES_AWAIT_ALL", "false")
+			//}
 			actual, err := Creation(config)
 			for _, e := range tt.expect {
 				e(t, testCtx, actual, err)
@@ -614,7 +622,7 @@ func TestUpdate(t *testing.T) {
 			if tt.awaiter != nil {
 				id := fmt.Sprintf("%s/%s", tt.args.inputs.GetAPIVersion(), tt.args.inputs.GetKind())
 				config.awaiters[id] = awaitSpec{
-					await: tt.awaiter(t, testCtx),
+					await: wrap(tt.awaiter(t, testCtx)),
 				}
 			}
 			actual, err := Update(config)
@@ -988,6 +996,18 @@ func withGenerateName(obj *unstructured.Unstructured) *unstructured.Unstructured
 	copy := obj.DeepCopy()
 	copy.SetGenerateName(fmt.Sprintf("%s-", obj.GetName()))
 	copy.SetName("")
+	return copy
+}
+
+func withReadyCondition(obj *unstructured.Unstructured) *unstructured.Unstructured {
+	copy := obj.DeepCopy()
+	copy.Object["status"] = map[string]any{
+		"conditions": []any{map[string]any{
+			"type":   "Ready",
+			"status": "True",
+		}},
+		"phase": "Running",
+	}
 	return copy
 }
 
