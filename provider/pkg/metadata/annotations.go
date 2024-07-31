@@ -16,6 +16,7 @@ package metadata
 
 import (
 	"context"
+	"os"
 	"strings"
 
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/condition"
@@ -134,7 +135,9 @@ func GetDeletedCondition(
 // GetReadyCondition reads annotations on the provided object and returns a
 // condition.Satisfier appropriate to await on for creates and updates:
 //   - If skipAwait is true, the ready condition will no-op.
-//   - Otherwise, if no annotations are provider, a generic/heuristic Ready condition is returned.
+//   - If PULUMI_K8S_AWAIT_ALL=true a generic/heuristic Ready condition is
+//     returned.
+//   - Otherwise we no-op.
 func GetReadyCondition(
 	ctx context.Context,
 	source condition.Source,
@@ -144,6 +147,9 @@ func GetReadyCondition(
 ) (condition.Satisfier, error) {
 	if IsAnnotationTrue(obj, AnnotationSkipAwait) {
 		return condition.NewImmediate(logger, obj), nil
+	}
+	if os.Getenv("PULUMI_K8S_AWAIT_ALL") != "true" {
+		return condition.NewImmediate(nil, obj), nil
 	}
 	return condition.NewReady(ctx, source, logger, obj), nil
 }

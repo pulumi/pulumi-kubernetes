@@ -218,6 +218,18 @@ func TestAwaitGeneric(t *testing.T) {
 		assertExpectations(t, outputs, expect)
 	}
 
+	assertTouched := func(t *testing.T, outputs auto.OutputMap) {
+		expect := []expectation{
+			{
+				name:            "wantsReady",
+				someField:       "not-needed",
+				conditionType:   "Ready",
+				conditionStatus: "False",
+			},
+		}
+		assertExpectations(t, outputs, expect)
+	}
+
 	assertUntouched := func(t *testing.T, outputs auto.OutputMap) {
 		expect := []expectation{
 			{
@@ -231,6 +243,8 @@ func TestAwaitGeneric(t *testing.T) {
 	}
 
 	t.Run("enabled", func(t *testing.T) {
+		t.Setenv("PULUMI_K8S_AWAIT_ALL", "true")
+
 		test := pulumitest.NewPulumiTest(t,
 			"testdata/await/generic",
 			opttest.SkipInstall(),
@@ -282,5 +296,13 @@ func TestAwaitGeneric(t *testing.T) {
 
 		up := test.Up()
 		assertUntouched(t, up.Outputs)
+
+		// Touch our resources and refresh in order to trigger an update later.
+		touch(t, dir)
+		test.Refresh()
+
+		// Updating should exit immediately and record the touched resources.
+		up = test.Up()
+		assertTouched(t, up.Outputs)
 	})
 }

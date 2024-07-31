@@ -88,20 +88,30 @@ func TestSetAnnotation(t *testing.T) {
 
 func TestGetReadyCondition(t *testing.T) {
 	tests := []struct {
-		name    string
-		uns     *unstructured.Unstructured
-		want    any
-		wantErr string
+		name           string
+		uns            *unstructured.Unstructured
+		genericEnabled bool
+		want           any
+		wantErr        string
 	}{
 		{
-			name: "no annotation",
+			name:           "no annotation, generic await enabled",
+			uns:            &unstructured.Unstructured{Object: map[string]any{}},
+			genericEnabled: true,
+			want:           &condition.Ready{},
+		},
+		{
+			name: "no annotation, generic await disabled",
 			uns:  &unstructured.Unstructured{Object: map[string]any{}},
-			want: &condition.Ready{},
+			want: condition.Immediate{},
 		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			if tt.genericEnabled {
+				t.Setenv("PULUMI_K8S_AWAIT_ALL", "true")
+			}
 			cond, err := GetReadyCondition(context.Background(), nil, nil, nil, tt.uns)
 			if tt.wantErr != "" {
 				assert.ErrorContains(t, err, tt.wantErr)
