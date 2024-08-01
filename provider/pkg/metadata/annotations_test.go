@@ -19,7 +19,6 @@ import (
 	"testing"
 
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/condition"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/logging"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -87,42 +86,57 @@ func TestSetAnnotation(t *testing.T) {
 	}
 }
 
-func TestSkipAwait(t *testing.T) {
+func TestGetDeletedCondition(t *testing.T) {
 	tests := []struct {
 		name   string
-		getter func(context.Context, condition.Source, clientGetter, *logging.DedupLogger, *unstructured.Unstructured) (condition.Satisfier, error)
+		inputs *unstructured.Unstructured
 		obj    *unstructured.Unstructured
 		want   condition.Satisfier
 	}{
 		{
-			name: "skipAwait=true takes priority over delete condition",
-			obj: &unstructured.Unstructured{Object: map[string]any{
-				"metadata": map[string]any{
-					"annotations": map[string]any{
-						AnnotationSkipAwait: "true",
+			name: "skipAwait=true",
+			inputs: &unstructured.Unstructured{
+				Object: map[string]any{
+					"metadata": map[string]any{
+						"annotations": map[string]any{
+							AnnotationSkipAwait: "true",
+						},
 					},
 				},
-			}},
-			getter: GetDeletedCondition,
-			want:   condition.Immediate{},
+			},
+			want: condition.Immediate{},
 		},
 		{
-			name: "skipAwait=false doesn't take priority over delete condition",
-			obj: &unstructured.Unstructured{Object: map[string]any{
-				"metadata": map[string]any{
-					"annotations": map[string]any{
-						AnnotationSkipAwait: "false",
+			name: "skipAwait=false",
+			inputs: &unstructured.Unstructured{
+				Object: map[string]any{
+					"metadata": map[string]any{
+						"annotations": map[string]any{
+							AnnotationSkipAwait: "false",
+						},
 					},
 				},
-			}},
-			getter: GetDeletedCondition,
-			want:   &condition.Deleted{},
+			},
+			want: &condition.Deleted{},
+		},
+		{
+			name: "skipAwait unset",
+			inputs: &unstructured.Unstructured{
+				Object: map[string]any{
+					"metadata": map[string]any{},
+				},
+			},
+			want: &condition.Deleted{},
 		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			condition, err := tt.getter(context.Background(), nil, noopClientGetter{}, nil, tt.obj)
+			obj := tt.obj
+			if obj == nil {
+				obj = tt.inputs
+			}
+			condition, err := GetDeletedCondition(context.Background(), nil, noopClientGetter{}, nil, tt.inputs, obj)
 			require.NoError(t, err)
 
 			assert.IsType(t, tt.want, condition)
