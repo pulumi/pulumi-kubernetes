@@ -182,6 +182,9 @@ func GetReadyCondition(
 	if err != nil {
 		values = append(values, val)
 	}
+	if len(values) == 0 {
+		return nil, fmt.Errorf("at least one condition must be specified")
+	}
 
 	conditions := make([]condition.Satisfier, 0, len(values))
 	for _, expr := range values {

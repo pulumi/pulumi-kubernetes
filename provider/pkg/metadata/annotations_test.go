@@ -172,7 +172,7 @@ func TestGetReadyCondition(t *testing.T) {
 			inputs: &unstructured.Unstructured{Object: map[string]any{
 				"metadata": map[string]any{
 					"annotations": map[string]any{
-						AnnotationWaitFor: `["jsonpath=.foo.bar", "condition=Custom"]`,
+						AnnotationWaitFor: `["jsonpath={.foo.bar}", "condition=Custom"]`,
 					},
 				},
 			}},
@@ -194,7 +194,7 @@ func TestGetReadyCondition(t *testing.T) {
 			inputs: &unstructured.Unstructured{Object: map[string]any{
 				"metadata": map[string]any{
 					"annotations": map[string]any{
-						AnnotationWaitFor: "jsonpath=.baz=boo",
+						AnnotationWaitFor: "jsonpath={.baz}=boo",
 					},
 				},
 			}},
@@ -205,7 +205,7 @@ func TestGetReadyCondition(t *testing.T) {
 			inputs: &unstructured.Unstructured{Object: map[string]any{
 				"metadata": map[string]any{
 					"annotations": map[string]any{
-						AnnotationWaitFor: ".baz=boo",
+						AnnotationWaitFor: "{.baz}=boo",
 					},
 				},
 			}},
