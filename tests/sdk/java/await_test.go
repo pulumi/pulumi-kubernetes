@@ -359,3 +359,17 @@ func TestAwaitGeneric(t *testing.T) {
 		assertWaitForResourcesReady(t, up.Outputs)
 	})
 }
+
+func TestAwaitCertManager(t *testing.T) {
+	t.Setenv("PULUMI_K8S_AWAIT_ALL", "true")
+
+	test := pulumitest.NewPulumiTest(t,
+		"testdata/await/cert-manager",
+	)
+	t.Cleanup(func() {
+		test.Destroy()
+	})
+
+	test.Up(optup.ProgressStreams(os.Stdout))
+	test.Destroy(optdestroy.ProgressStreams(os.Stdout))
+}
