@@ -12,6 +12,7 @@ import (
 	"github.com/pulumi/providertest/pulumitest"
 	"github.com/pulumi/pulumi/sdk/v3/go/auto"
 	"github.com/pulumi/pulumi/sdk/v3/go/auto/events"
+	"github.com/pulumi/pulumi/sdk/v3/go/auto/optdestroy"
 	"github.com/pulumi/pulumi/sdk/v3/go/auto/optrefresh"
 	"github.com/pulumi/pulumi/sdk/v3/go/auto/optup"
 	"github.com/stretchr/testify/assert"
@@ -255,4 +256,18 @@ func TestAwaitGeneric(t *testing.T) {
 		assertGenericResourceUntouched(t, up.Outputs)
 		assertWaitForResourcesReady(t, up.Outputs)
 	})
+}
+
+func TestAwaitCertManager(t *testing.T) {
+	t.Setenv("PULUMI_K8S_AWAIT_ALL", "true")
+
+	test := pulumitest.NewPulumiTest(t,
+		"testdata/await/cert-manager",
+	)
+	t.Cleanup(func() {
+		test.Destroy()
+	})
+
+	test.Up(optup.ProgressStreams(os.Stdout))
+	test.Destroy(optdestroy.ProgressStreams(os.Stdout))
 }

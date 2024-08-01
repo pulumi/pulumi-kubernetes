@@ -1,0 +1,3 @@
+name: await-custom-resource-status
+runtime: nodejs
+description: Tests that we await cert-manager's webhook's readiness.
