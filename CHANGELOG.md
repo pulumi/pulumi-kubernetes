@@ -33,6 +33,45 @@
   Existing readiness logic is unaffected by this setting.
   (https://github.com/pulumi/pulumi-kubernetes/issues/2996)
 
+- The `pulumi.com/waitFor` annotation was introduced to allow for custom
+  readiness checks. This override Pulumi's own await logic for the resource
+  (however the `pulumi.com/skipAwait` annotation still takes precedence).
+  
+  The value of this annotation can take 3 forms:
+    1. A string prefixed with `jsonpath=` followed by a
+       [JSONPath](https://kubernetes.io/docs/reference/kubectl/jsonpath/)
+       expression and an optional value.
+
+       The JSONPath expression accepts the same syntax as 
+       `kubectl get -o jsonpath={...}`.
+       
+       If a value is provided, the resource is considered ready when the
+       JSONPath expression evaluates to the same value. For example this
+       resource expects its "phase" field to have a value of "Running":
+     
+           `pulumi.com/waitFor: "jsonpath={.phase}=Running"` 
+       
+       If a value is not provided, the resource will be considered ready when
+       any value exists at the given path. This resource will wait until it has
+       a webhook configured with a CA bundle:
+    
+           `pulumi.com/waitFor: "jsonpath={.webhooks[].clientConfig.caBundle}"` 
+       
+    2. A string prefixed with `condition=` followed by the type of the
+       condition and an optional status. This matches the behavior of 
+       `kubectl --for=condition=...` and will wait until the resource has a
+       matching condition. The expected status defaults to "True" if not
+       specified.
+     
+           `pulumi.com/waitFor: "condition=Synced"`
+    
+           `pulumi.com/waitFor: "condition=Reconciling=False"`
+
+    3. A string containing a JSON array of multiple `jsonpath=` and
+       `condition=` expressions.
+    
+           `pulumi.com/waitFor: '["jsonpath={.foo}", "condition=Bar"]'` 
+
 ### Fixed
 
 - The `immutable` field is now respected for `ConfigMaps` when the provider is configured with `enableConfigMapMutable`.
