@@ -94,13 +94,16 @@ func TestAwaitPVC(t *testing.T) {
 	up = test.Up()
 }
 
-func TestSkipAwait(t *testing.T) {
+func TestAwaitSkip(t *testing.T) {
 	t.Parallel()
 
 	test := pulumitest.NewPulumiTest(t,
 		"testdata/await/skipawait",
 		opttest.SkipInstall(),
 	)
+	t.Cleanup(func() {
+		test.Destroy()
+	})
 
 	start := time.Now()
 	_ = test.Up()
