@@ -19,6 +19,11 @@
   Existing readiness logic is unaffected by this setting.
   (https://github.com/pulumi/pulumi-kubernetes/issues/2996)
 
+- The `pulumi.com/skipAwait` annotation now accepts values of "ready" or
+  "delete" to skip await behavior when creating/updating or when deleting a
+  resource, respectively.
+  (https://github.com/pulumi/pulumi-kubernetes/issues/2551)
+
 ### Fixed
 
 - Fixed a panic that could occur during deletion. (https://github.com/pulumi/pulumi-kubernetes/issues/3157)

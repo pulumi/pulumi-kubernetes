@@ -37,6 +37,15 @@ func SkipAwaitLogic(obj *unstructured.Unstructured) bool {
 	return IsAnnotationTrue(obj, AnnotationSkipAwait)
 }
 
+// SkipReadyCondition returns true if the inputs and type are annotated such that we
+// should not await readiness.
+func SkipReadyCondition(inputs *unstructured.Unstructured) bool {
+	if IsAnnotationTrue(inputs, AnnotationSkipAwait) {
+		return true
+	}
+	return strings.EqualFold(GetAnnotationValue(inputs, AnnotationSkipAwait), "ready")
+}
+
 // ReplaceUnready returns true if the `pulumi.com/replaceUnready` annotation is "true", false otherwise.
 func ReplaceUnready(obj *unstructured.Unstructured) bool {
 	return IsAnnotationTrue(obj, AnnotationReplaceUnready)
@@ -92,7 +101,7 @@ func ReadyCondition(
 	inputs *unstructured.Unstructured,
 	obj *unstructured.Unstructured,
 ) (condition.Satisfier, error) {
-	if SkipAwaitLogic(inputs) {
+	if SkipReadyCondition(inputs) {
 		return condition.NewImmediate(logger, obj), nil
 	}
 	if os.Getenv("PULUMI_K8S_AWAIT_ALL") != "true" {
@@ -116,6 +125,9 @@ func DeletedCondition(
 	obj *unstructured.Unstructured,
 ) (condition.Satisfier, error) {
 	if IsAnnotationTrue(inputs, AnnotationSkipAwait) && allowsSkipAwaitWithDelete(inputs) {
+		return condition.NewImmediate(logger, obj), nil
+	}
+	if strings.EqualFold(GetAnnotationValue(obj, AnnotationSkipAwait), "delete") {
 		return condition.NewImmediate(logger, obj), nil
 	}
 	getter, err := clientset.ResourceClientForObject(obj)

@@ -180,6 +180,52 @@ func TestReadyCondition(t *testing.T) {
 			genericEnabled: true,
 			want:           condition.Immediate{},
 		},
+		{
+			name: "skipAwait=ready, generic await disabled",
+			inputs: &unstructured.Unstructured{Object: map[string]any{
+				"metadata": map[string]any{
+					"annotations": map[string]any{
+						AnnotationSkipAwait: "ready",
+					},
+				},
+			}},
+			want: condition.Immediate{},
+		},
+		{
+			name: "skipAwait=ready, generic await enabled",
+			inputs: &unstructured.Unstructured{Object: map[string]any{
+				"metadata": map[string]any{
+					"annotations": map[string]any{
+						AnnotationSkipAwait: "ready",
+					},
+				},
+			}},
+			genericEnabled: true,
+			want:           condition.Immediate{},
+		},
+		{
+			name: "skipAwait=delete, generic await disabled",
+			inputs: &unstructured.Unstructured{Object: map[string]any{
+				"metadata": map[string]any{
+					"annotations": map[string]any{
+						AnnotationSkipAwait: "delete",
+					},
+				},
+			}},
+			want: condition.Immediate{},
+		},
+		{
+			name: "skipAwait=delete, generic await enabled",
+			inputs: &unstructured.Unstructured{Object: map[string]any{
+				"metadata": map[string]any{
+					"annotations": map[string]any{
+						AnnotationSkipAwait: "delete",
+					},
+				},
+			}},
+			genericEnabled: true,
+			want:           &condition.Ready{},
+		},
 	}
 
 	for _, tt := range tests {
@@ -235,6 +281,28 @@ func TestDeletedCondition(t *testing.T) {
 				},
 			},
 			want: condition.Immediate{},
+		},
+		{
+			name: "skipAwait=delete",
+			inputs: &unstructured.Unstructured{Object: map[string]any{
+				"metadata": map[string]any{
+					"annotations": map[string]any{
+						AnnotationSkipAwait: "delete",
+					},
+				},
+			}},
+			want: condition.Immediate{},
+		},
+		{
+			name: "skipAwait=ready",
+			inputs: &unstructured.Unstructured{Object: map[string]any{
+				"metadata": map[string]any{
+					"annotations": map[string]any{
+						AnnotationSkipAwait: "ready",
+					},
+				},
+			}},
+			want: &condition.Deleted{},
 		},
 		{
 			name: "skipAwait=false",

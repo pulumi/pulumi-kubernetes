@@ -918,7 +918,7 @@ func (l *legacyCreateCondition) Satisfied() (bool, error) {
 }
 
 func newLegacyCreateCondition(c awaitConfig, await func(awaitConfig) error) condition.Satisfier {
-	if metadata.SkipAwaitLogic(c.inputs) {
+	if metadata.SkipReadyCondition(c.inputs) {
 		return condition.NewImmediate(c.logger, c.currentOutputs)
 	}
 
