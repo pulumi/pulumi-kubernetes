@@ -274,7 +274,6 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 	if err != nil {
 		return outputs, err
 	}
-	// if ready isn't instant, and we have a custom one, use it?
 	id := fmt.Sprintf("%s/%s", outputs.GetAPIVersion(), outputs.GetKind())
 	a := awaiters
 	if c.awaiters != nil {
@@ -431,7 +430,6 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 	if err != nil {
 		return currentOutputs, err
 	}
-	// if ready isn't instant, and we have a custom one, use it?
 	id := fmt.Sprintf("%s/%s", currentOutputs.GetAPIVersion(), currentOutputs.GetKind())
 	a := awaiters
 	if c.awaiters != nil {
@@ -916,6 +914,11 @@ func (l *legacyCreateCondition) Satisfied() (bool, error) {
 }
 
 func newLegacyCreateCondition(c awaitConfig, await func(awaitConfig) error) condition.Satisfier {
+	skip := metadata.GetAnnotationValue(c.currentOutputs, metadata.AnnotationSkipAwait)
+	if skip == "true" || skip == "ready" {
+		return condition.NewImmediate(c.logger, c.currentOutputs)
+	}
+
 	source := condition.NewDynamicSource(c.ctx, c.clientSet, c.currentOutputs.GetNamespace())
 
 	return &legacyCreateCondition{

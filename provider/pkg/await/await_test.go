@@ -288,7 +288,8 @@ func TestCreation(t *testing.T) {
 				resType: tokens.Type("kubernetes:core/v1:Pod"),
 				inputs:  withSkipAwait(validPodUnstructured),
 			},
-			expect: []expectF{created("default", "foo")},
+			awaiter: awaitUnexpected,
+			expect:  []expectF{created("default", "foo")},
 		},
 		{
 			name: "NoAwaiter",
@@ -561,7 +562,8 @@ func TestUpdate(t *testing.T) {
 				resType: tokens.Type("kubernetes:core/v1:Pod"),
 				inputs:  withSkipAwait(validPodUnstructured),
 			},
-			expect: []expectF{updated("default", "foo")},
+			awaiter: awaitUnexpected,
+			expect:  []expectF{updated("default", "foo")},
 		},
 		// TODO: Handle this for create as well
 		{
