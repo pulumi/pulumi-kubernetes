@@ -109,14 +109,19 @@ func GetAnnotationValue(obj *unstructured.Unstructured, key string) string {
 
 // GetDeletedCondition inspects the object's annotations and returns a
 // condition.Satisfier appropriate for using when awaiting deletion.
+//
+// The "inputs" parameter is the source of truth for user-provided annotations,
+// but it is not guaranteed to be named. The "obj" parameter should be used for
+// conditions.
 func GetDeletedCondition(
 	ctx context.Context,
 	source condition.Source,
 	clientset clientGetter,
 	logger *logging.DedupLogger,
+	inputs *unstructured.Unstructured,
 	obj *unstructured.Unstructured,
 ) (condition.Satisfier, error) {
-	if IsAnnotationTrue(obj, AnnotationSkipAwait) {
+	if IsAnnotationTrue(inputs, AnnotationSkipAwait) {
 		return condition.NewImmediate(logger, obj), nil
 	}
 	getter, err := clientset.ResourceClientForObject(obj)

@@ -818,7 +818,7 @@ func Deletion(c DeleteConfig) error {
 	source := condition.NewDynamicSource(ctx, c.ClientSet, c.Outputs.GetNamespace())
 
 	// Determine the condition to wait for.
-	deleted, err := metadata.GetDeletedCondition(ctx, source, c.ClientSet, c.DedupLogger, c.Outputs)
+	deleted, err := metadata.GetDeletedCondition(ctx, source, c.ClientSet, c.DedupLogger, c.Inputs, c.Outputs)
 	if err != nil {
 		return err
 	}
