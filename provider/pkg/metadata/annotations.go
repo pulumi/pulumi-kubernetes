@@ -125,6 +125,9 @@ func GetDeletedCondition(
 	if IsAnnotationTrue(inputs, AnnotationSkipAwait) {
 		return condition.NewImmediate(logger, obj), nil
 	}
+	if strings.EqualFold(GetAnnotationValue(obj, AnnotationSkipAwait), "delete") {
+		return condition.NewImmediate(logger, obj), nil
+	}
 	getter, err := clientset.ResourceClientForObject(obj)
 	if err != nil {
 		return nil, err
@@ -162,7 +165,10 @@ func GetReadyCondition(
 // SkipReadyCondition returns true if the inputs are annotated such that we
 // should not await readiness.
 func SkipReadyCondition(inputs *unstructured.Unstructured) bool {
-	return IsAnnotationTrue(inputs, AnnotationSkipAwait)
+	if IsAnnotationTrue(inputs, AnnotationSkipAwait) {
+		return true
+	}
+	return strings.EqualFold(GetAnnotationValue(inputs, AnnotationSkipAwait), "ready")
 }
 
 func isComputedValue(v any) bool {

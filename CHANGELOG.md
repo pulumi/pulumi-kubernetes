@@ -40,6 +40,11 @@
   Existing readiness logic is unaffected by this setting.
   (https://github.com/pulumi/pulumi-kubernetes/issues/2996)
 
+- The `pulumi.com/skipAwait` annotation now accepts values of "ready" or
+  "delete" to skip await behavior when creating/updating or when deleting a
+  resource, respectively.
+  (https://github.com/pulumi/pulumi-kubernetes/issues/2551)
+
 ### Fixed
 
 - Updated logic to accurately detect if a resource is a Patch variant. (https://github.com/pulumi/pulumi-kubernetes/pull/3102)
