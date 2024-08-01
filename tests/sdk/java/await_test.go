@@ -259,6 +259,7 @@ func TestAwaitGeneric(t *testing.T) {
 		t.Cleanup(func() {
 			test.Destroy()
 		})
+		test.Install()
 
 		// Use kubectl to simulate an operator acting on our resources.
 		ch := make(chan events.EngineEvent)
@@ -300,6 +301,7 @@ func TestAwaitGeneric(t *testing.T) {
 		t.Cleanup(func() {
 			test.Destroy()
 		})
+		test.Install()
 
 		// Create should return immediately.
 		up := test.Up(optup.ProgressStreams(os.Stdout))
