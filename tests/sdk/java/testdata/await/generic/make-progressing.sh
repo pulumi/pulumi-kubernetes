@@ -2,4 +2,4 @@
 set -ex
 
 # Modify our resources but leave them un-ready.
-kubectl patch --type=merge -n=generic-await "genericawaiters.test.pulumi.com" wants-ready-condition -p '{"spec": {"someField": "not-needed"}}'
+kubectl patch --type=merge -n=generic-await "genericawaiters.test.pulumi.com" wants-ready-condition -p '{"spec": {"someField": "touched"}}'

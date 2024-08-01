@@ -21,12 +21,16 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"strings"
 	"testing"
 	"time"
 
 	"github.com/pulumi/providertest/pulumitest"
 	"github.com/pulumi/providertest/pulumitest/opttest"
 	"github.com/pulumi/pulumi/sdk/v3/go/auto"
+	"github.com/pulumi/pulumi/sdk/v3/go/auto/events"
+	"github.com/pulumi/pulumi/sdk/v3/go/auto/optrefresh"
+	"github.com/pulumi/pulumi/sdk/v3/go/auto/optup"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -151,25 +155,33 @@ type expectation struct {
 	conditionStatus string
 }
 
-// With generic wait enabled & disabled
 func TestAwaitGeneric(t *testing.T) {
-	t.Parallel()
+	// No t.Parallel because this touches environment variables.
 
-	waitForCRDs := func() {
-		for {
-			time.Sleep(1 * time.Second)
-			cmd := exec.Command("kubectl", "get", "crd/genericawaiters.test.pulumi.com")
-			cmd.Stderr = os.Stderr
-			err := cmd.Run()
-			if err == nil {
+	waitForCRDs := func(events <-chan events.EngineEvent) {
+		// Wait until we see a resource with a "Waiting for readiness message"
+		t.Helper()
+		t.Log("waiting for a resource to start awaiting")
+		for e := range events {
+			if e.DiagnosticEvent == nil {
+				continue
+			}
+			if strings.Contains(e.DiagnosticEvent.Message, "Waiting for readiness") {
+				go func() {
+					for range events {
+						// Need to exhaust the channel otherwise things deadlock.
+					}
+				}()
 				break
 			}
 		}
-		// Wait another second for CRs.
+		// Wait an extra second to let any other resources to get applied.
 		time.Sleep(1 * time.Second)
 	}
 
 	touch := func(t *testing.T, dir string) {
+		t.Helper()
+		t.Log("touching resources")
 		cmd := exec.Command(filepath.Join(dir, "make-progressing.sh"))
 		cmd.Stdout = os.Stdout
 		cmd.Stderr = os.Stderr
@@ -178,6 +190,10 @@ func TestAwaitGeneric(t *testing.T) {
 	}
 
 	makeReady := func(t *testing.T, dir string) {
+		touch(t, dir)
+		time.Sleep(1 * time.Second)
+		t.Log("marking resources ready")
+		t.Helper()
 		cmd := exec.Command(filepath.Join(dir, "make-ready.sh"))
 		cmd.Stdout = os.Stdout
 		cmd.Stderr = os.Stderr
@@ -186,31 +202,31 @@ func TestAwaitGeneric(t *testing.T) {
 	}
 
 	assertExpectations := func(t *testing.T, outputs auto.OutputMap, expect []expectation) {
+		t.Helper()
 		for _, want := range expect {
-			t.Run(want.name, func(t *testing.T) {
-				obj := outputs[want.name].Value
-				bytes, err := json.Marshal(obj)
-				require.NoError(t, err)
+			obj := outputs[want.name].Value
+			bytes, err := json.Marshal(obj)
+			require.NoError(t, err)
 
-				var resource awaitedResource
-				err = json.Unmarshal(bytes, &resource)
-				require.NoError(t, err)
+			var resource awaitedResource
+			err = json.Unmarshal(bytes, &resource)
+			require.NoError(t, err)
 
-				assert.Equal(t, want.someField, resource.Spec.SomeField)
-				if want.conditionType != "" {
-					require.Len(t, resource.Status.Conditions, 1)
-					assert.Equal(t, want.conditionType, resource.Status.Conditions[0].Type)
-					assert.Equal(t, want.conditionStatus, resource.Status.Conditions[0].Status)
-				}
-			})
+			assert.Equal(t, want.someField, resource.Spec.SomeField, want.name)
+			if want.conditionType != "" {
+				require.Len(t, resource.Status.Conditions, 1, want.name)
+				assert.Equal(t, want.conditionType, resource.Status.Conditions[0].Type, want.name)
+				assert.Equal(t, want.conditionStatus, resource.Status.Conditions[0].Status, want.name)
+			}
 		}
 	}
 
 	assertReady := func(t *testing.T, outputs auto.OutputMap) {
+		t.Helper()
 		expect := []expectation{
 			{
 				name:            "wantsReady",
-				someField:       "",
+				someField:       "touched",
 				conditionType:   "Ready",
 				conditionStatus: "True",
 			},
@@ -218,23 +234,12 @@ func TestAwaitGeneric(t *testing.T) {
 		assertExpectations(t, outputs, expect)
 	}
 
-	assertTouched := func(t *testing.T, outputs auto.OutputMap) {
-		expect := []expectation{
-			{
-				name:            "wantsReady",
-				someField:       "not-needed",
-				conditionType:   "Ready",
-				conditionStatus: "False",
-			},
-		}
-		assertExpectations(t, outputs, expect)
-	}
-
 	assertUntouched := func(t *testing.T, outputs auto.OutputMap) {
+		t.Helper()
 		expect := []expectation{
 			{
 				name:            "wantsReady",
-				someField:       "",
+				someField:       "untouched",
 				conditionType:   "Ready",
 				conditionStatus: "False",
 			},
@@ -253,22 +258,32 @@ func TestAwaitGeneric(t *testing.T) {
 		t.Cleanup(func() {
 			test.Destroy()
 		})
-		test.Install()
 
-		// Simulate an operator acting on our resources.
+		// Use kubectl to simulate an operator acting on our resources.
+		ch := make(chan events.EngineEvent)
 		go func() {
-			waitForCRDs()
-
-			// First apply some unrelated changes.
-			touch(t, dir)
-
-			time.Sleep(2 * time.Second)
-
-			// Now make the resources ready.
+			waitForCRDs(ch)
 			makeReady(t, dir)
 		}()
 
-		up := test.Up()
+		// Create
+		up := test.Up(optup.EventStreams(ch), optup.ProgressStreams(os.Stdout), optup.ErrorProgressStreams(os.Stderr))
+		assertReady(t, up.Outputs)
+
+		// Touch our resources and refresh in order to trigger an update later.
+		touch(t, dir)
+
+		// Read
+		test.Refresh(optrefresh.ProgressStreams(os.Stdout))
+
+		ch = make(chan events.EngineEvent)
+		go func() {
+			waitForCRDs(ch)
+			makeReady(t, dir)
+		}()
+
+		// Update
+		up = test.Up(optup.EventStreams(ch), optup.ProgressStreams(os.Stdout))
 		assertReady(t, up.Outputs)
 	})
 
@@ -284,25 +299,21 @@ func TestAwaitGeneric(t *testing.T) {
 		t.Cleanup(func() {
 			test.Destroy()
 		})
-		test.Install()
 
-		// Simulate an operator acting on our resources.
-		go func() {
-			waitForCRDs()
-			// Apply some unrelated changes -- our update should already be
-			// finished, so this shouldn't impact our stack.
-			touch(t, dir)
-		}()
-
-		up := test.Up()
+		// Create should return immediately.
+		up := test.Up(optup.ProgressStreams(os.Stdout))
 		assertUntouched(t, up.Outputs)
 
-		// Touch our resources and refresh in order to trigger an update later.
+		// Touch the resources and refresh to pick up the new state.
 		touch(t, dir)
-		test.Refresh()
 
-		// Updating should exit immediately and record the touched resources.
-		up = test.Up()
-		assertTouched(t, up.Outputs)
+		// Read
+		refresh := test.Refresh(optrefresh.ProgressStreams(os.Stdout))
+		require.NotNil(t, refresh.Summary.ResourceChanges)
+		assert.Equal(t, (*refresh.Summary.ResourceChanges)["update"], 1)
+
+		// Update should exit immediately and reflect the inputs again.
+		up = test.Up(optup.ProgressStreams(os.Stdout))
+		assertUntouched(t, up.Outputs)
 	})
 }

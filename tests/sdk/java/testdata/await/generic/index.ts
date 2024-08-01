@@ -28,6 +28,9 @@ export const wantsReady = new kubernetes.apiextensions.CustomResource(
         "pulumi.com/timeoutSeconds": "60",
       },
     },
+    spec: {
+      someField: "untouched",
+    },
     status: {
       conditions: [
         {
@@ -39,4 +42,3 @@ export const wantsReady = new kubernetes.apiextensions.CustomResource(
   },
   { provider: provider, dependsOn: [crds] }
 );
-
