@@ -47,7 +47,8 @@ type awaitConfig struct {
 	initialAPIVersion string
 	logger            *logging.DedupLogger
 	clientSet         *clients.DynamicClientSet
-	currentOutputs    *unstructured.Unstructured // The result our our create/update.
+	inputs            *unstructured.Unstructured
+	currentOutputs    *unstructured.Unstructured // The result of our create/update.
 	lastOutputs       *unstructured.Unstructured // The state of the object before we changed it. `nil` if this is a create.
 	timeout           *time.Duration
 	clusterVersion    *cluster.ServerVersion

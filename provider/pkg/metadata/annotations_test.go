@@ -58,52 +58,90 @@ func TestSetAnnotation(t *testing.T) {
 		name string
 		args args
 	}{
-		{"set-with-no-annotation", args{
-			obj: noAnnotationObj, key: "foo", value: "bar", expectSet: true, expectKey: "foo", expectValue: "bar",
-		}},
-		{"set-with-existing-annotations", args{
-			obj: existingAnnotationObj, key: "foo", value: "bar", expectSet: true, expectKey: "foo", expectValue: "bar",
-		}},
+		{
+			"set-with-no-annotation", args{
+				obj: noAnnotationObj, key: "foo", value: "bar", expectSet: true, expectKey: "foo", expectValue: "bar",
+			},
+		},
+		{
+			"set-with-existing-annotations", args{
+				obj: existingAnnotationObj, key: "foo", value: "bar", expectSet: true, expectKey: "foo", expectValue: "bar",
+			},
+		},
 
 		// Computed fields cannot be set, so SetAnnotation is a no-op.
-		{"set-with-computed-metadata", args{
-			obj: computedMetadataObj, key: "foo", value: "bar", expectSet: false,
-		}},
-		{"set-with-computed-annotation", args{
-			obj: computedAnnotationObj, key: "foo", value: "bar", expectSet: false,
-		}},
+		{
+			"set-with-computed-metadata", args{
+				obj: computedMetadataObj, key: "foo", value: "bar", expectSet: false,
+			},
+		},
+		{
+			"set-with-computed-annotation", args{
+				obj: computedAnnotationObj, key: "foo", value: "bar", expectSet: false,
+			},
+		},
 	}
 	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			SetAnnotation(tt.args.obj, tt.args.key, tt.args.value)
-			annotations := tt.args.obj.GetAnnotations()
-			value, ok := annotations[tt.args.expectKey]
-			assert.Equal(t, tt.args.expectSet, ok)
-			if ok {
-				assert.Equal(t, tt.args.expectValue, value)
-			}
-		})
+		t.Run(
+			tt.name, func(t *testing.T) {
+				SetAnnotation(tt.args.obj, tt.args.key, tt.args.value)
+				annotations := tt.args.obj.GetAnnotations()
+				value, ok := annotations[tt.args.expectKey]
+				assert.Equal(t, tt.args.expectSet, ok)
+				if ok {
+					assert.Equal(t, tt.args.expectValue, value)
+				}
+			},
+		)
 	}
 }
 
 func TestGetReadyCondition(t *testing.T) {
 	tests := []struct {
 		name           string
-		uns            *unstructured.Unstructured
+		obj            *unstructured.Unstructured
+		inputs         *unstructured.Unstructured
 		genericEnabled bool
 		want           any
 		wantErr        string
 	}{
 		{
 			name:           "no annotation, generic await enabled",
-			uns:            &unstructured.Unstructured{Object: map[string]any{}},
+			inputs:         &unstructured.Unstructured{Object: map[string]any{}},
 			genericEnabled: true,
 			want:           &condition.Ready{},
 		},
 		{
-			name: "no annotation, generic await disabled",
-			uns:  &unstructured.Unstructured{Object: map[string]any{}},
+			name:   "no annotation, generic await disabled",
+			inputs: &unstructured.Unstructured{Object: map[string]any{}},
+			want:   condition.Immediate{},
+		},
+		{
+			name: "skipAwait=true, generic await disabled",
+			inputs: &unstructured.Unstructured{
+				Object: map[string]any{
+					"metadata": map[string]any{
+						"annotations": map[string]any{
+							AnnotationSkipAwait: "true",
+						},
+					},
+				},
+			},
 			want: condition.Immediate{},
+		},
+		{
+			name: "skipAwait=true, generic await enabled",
+			inputs: &unstructured.Unstructured{
+				Object: map[string]any{
+					"metadata": map[string]any{
+						"annotations": map[string]any{
+							AnnotationSkipAwait: "true",
+						},
+					},
+				},
+			},
+			genericEnabled: true,
+			want:           condition.Immediate{},
 		},
 	}
 
@@ -112,7 +150,11 @@ func TestGetReadyCondition(t *testing.T) {
 			if tt.genericEnabled {
 				t.Setenv("PULUMI_K8S_AWAIT_ALL", "true")
 			}
-			cond, err := GetReadyCondition(context.Background(), nil, nil, nil, tt.uns)
+			obj := tt.obj
+			if obj == nil {
+				obj = tt.inputs
+			}
+			cond, err := GetReadyCondition(context.Background(), nil, nil, nil, tt.inputs, obj)
 			if tt.wantErr != "" {
 				assert.ErrorContains(t, err, tt.wantErr)
 				return

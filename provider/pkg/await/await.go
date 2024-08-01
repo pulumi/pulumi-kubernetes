@@ -194,7 +194,8 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 					return err
 				}
 				outputs, err = client.Patch(
-					c.Context, c.Inputs.GetName(), types.ApplyPatchType, objYAML, options)
+					c.Context, c.Inputs.GetName(), types.ApplyPatchType, objYAML, options,
+				)
 
 				// Handle the preview scenario where we need to re-create the object due to immutable fields.
 				// To avoid the immutable field error reported by the API server, we append "-preview" to the name
@@ -215,7 +216,8 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 					}
 
 					outputs, err = client.Patch(
-						c.Context, c.Inputs.GetName(), types.ApplyPatchType, objYAML, options)
+						c.Context, c.Inputs.GetName(), types.ApplyPatchType, objYAML, options,
+					)
 				}
 
 				err = handleSSAErr(err, c.FieldManager)
@@ -270,7 +272,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 	defer cancel()
 
 	source := condition.NewDynamicSource(ctx, c.ClientSet, outputs.GetNamespace())
-	ready, err := metadata.GetReadyCondition(ctx, source, c.ClientSet, c.DedupLogger, outputs)
+	ready, err := metadata.GetReadyCondition(ctx, source, c.ClientSet, c.DedupLogger, c.Inputs, outputs)
 	if err != nil {
 		return outputs, err
 	}
@@ -285,6 +287,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 			urn:               c.URN,
 			initialAPIVersion: c.InitialAPIVersion,
 			clientSet:         c.ClientSet,
+			inputs:            c.Inputs,
 			currentOutputs:    outputs,
 			logger:            c.DedupLogger,
 			timeout:           &timeout,
@@ -426,7 +429,7 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 	defer cancel()
 
 	source := condition.NewDynamicSource(ctx, c.ClientSet, currentOutputs.GetNamespace())
-	ready, err := metadata.GetReadyCondition(ctx, source, c.ClientSet, c.DedupLogger, currentOutputs)
+	ready, err := metadata.GetReadyCondition(ctx, source, c.ClientSet, c.DedupLogger, c.Inputs, currentOutputs)
 	if err != nil {
 		return currentOutputs, err
 	}
@@ -441,6 +444,7 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 			urn:               c.URN,
 			initialAPIVersion: c.InitialAPIVersion,
 			clientSet:         c.ClientSet,
+			inputs:            c.Inputs,
 			currentOutputs:    currentOutputs,
 			logger:            c.DedupLogger,
 			timeout:           &timeout,
@@ -914,8 +918,7 @@ func (l *legacyCreateCondition) Satisfied() (bool, error) {
 }
 
 func newLegacyCreateCondition(c awaitConfig, await func(awaitConfig) error) condition.Satisfier {
-	skip := metadata.GetAnnotationValue(c.currentOutputs, metadata.AnnotationSkipAwait)
-	if skip == "true" || skip == "ready" {
+	if metadata.SkipReadyCondition(c.inputs) {
 		return condition.NewImmediate(c.logger, c.currentOutputs)
 	}
 

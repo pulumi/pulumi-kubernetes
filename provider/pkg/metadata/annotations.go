@@ -138,20 +138,31 @@ func GetDeletedCondition(
 //   - If PULUMI_K8S_AWAIT_ALL=true a generic/heuristic Ready condition is
 //     returned.
 //   - Otherwise we no-op.
+//
+// The "inputs" parameter is the source of truth for user-provided annotations,
+// but it is not guaranteed to be named. The "obj" parameter should be used for
+// conditions.
 func GetReadyCondition(
 	ctx context.Context,
 	source condition.Source,
 	_ clientGetter,
 	logger *logging.DedupLogger,
+	inputs *unstructured.Unstructured,
 	obj *unstructured.Unstructured,
 ) (condition.Satisfier, error) {
-	if IsAnnotationTrue(obj, AnnotationSkipAwait) {
+	if SkipReadyCondition(inputs) {
 		return condition.NewImmediate(logger, obj), nil
 	}
 	if os.Getenv("PULUMI_K8S_AWAIT_ALL") != "true" {
 		return condition.NewImmediate(nil, obj), nil
 	}
 	return condition.NewReady(ctx, source, logger, obj), nil
+}
+
+// SkipReadyCondition returns true if the inputs are annotated such that we
+// should not await readiness.
+func SkipReadyCondition(inputs *unstructured.Unstructured) bool {
+	return IsAnnotationTrue(inputs, AnnotationSkipAwait)
 }
 
 func isComputedValue(v any) bool {
