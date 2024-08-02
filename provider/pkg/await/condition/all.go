@@ -2,37 +2,40 @@ package condition
 
 import (
 	"errors"
-	"sync"
-
+	"fmt"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
-	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/watch"
 )
 
 var _ Satisfier = (*All)(nil)
 
-// NewAll allows joining multiple Satisfiers of different GVKs.
-// The first condition is the only one considered for reporting resource state in errors.
+// NewAll joins multiple Satisfiers and resolves when all of them are
+// simultaneously satisfied. The conditions should all apply to the same object.
 func NewAll(conditions ...Satisfier) (*All, error) {
-	gvks := map[schema.GroupVersionKind][]Satisfier{}
+	if len(conditions) == 0 {
+		return nil, fmt.Errorf("requires a condition")
+	}
+	obj := conditions[0].Object()
+	if obj == nil {
+		return nil, fmt.Errorf("requires an object")
+	}
+	gvk := obj.GroupVersionKind()
 	for _, c := range conditions {
-		gvk := c.Object().GroupVersionKind()
-		gvks[gvk] = append(gvks[gvk], c)
+		if c.Object().GroupVersionKind() != gvk {
+			return nil, fmt.Errorf("GVK mismatch: %q != %q", c.Object().GroupVersionKind(), gvk)
+		}
 	}
 	cond := &All{
 		conditions: conditions,
-		gvks:       gvks,
 	}
 	return cond, nil
 }
 
 type All struct {
-	// mu         sync.Mutex
 	conditions []Satisfier
-	gvks       map[schema.GroupVersionKind][]Satisfier
 }
 
-// Satisfied returns true when all of the sub-conditions are true.
+// Satisfied returns true when all the sub-conditions are true.
 func (ac *All) Satisfied() (bool, error) {
 	for _, c := range ac.conditions {
 		done, err := c.Satisfied()
@@ -43,52 +46,22 @@ func (ac *All) Satisfied() (bool, error) {
 	return true, nil
 }
 
-func (a *All) Observe(e watch.Event) error {
-	// a.mu.Lock()
-	// defer a.mu.Unlock()
-
-	gvk := e.Object.GetObjectKind().GroupVersionKind()
+// Observe sends the given event to all sub-conditions.
+func (ac *All) Observe(e watch.Event) error {
 	var err error
-	for _, c := range a.gvks[gvk] {
+	for _, c := range ac.conditions {
 		err = errors.Join(err, c.Observe(e))
 	}
 	return err
 }
 
 // Object returns the first condition's current state.
-func (a *All) Object() *unstructured.Unstructured {
-	// Not sure about this
-	// panic("WHY DO I NEED THIS")
-	return a.conditions[0].Object()
+func (ac *All) Object() *unstructured.Unstructured {
+	return ac.conditions[0].Object()
 }
 
-func (a *All) Range(yield func(watch.Event) bool) {
-	wg := sync.WaitGroup{}
-	// for gvks, conditions := range a.gvks[gvk] {
-	// 	err = errors.Join(err, c.Observe(e))
-	// }
-	for _, c := range a.conditions {
-		c := c
-		// yy := func(e watch.Event) bool {
-		// 	x := yield(e)
-		// 	d, _ := a.Satisfied()
-		// 	if d {
-		// 		return false
-		// 	}
-
-		// 	return x
-		// 	// return yield(e)
-		// }
-		wg.Add(1)
-		go func(c Satisfier) {
-			defer wg.Done()
-			c.Range(yield)
-			// c.Range(yy)
-		}(c)
-	}
-	wg.Wait()
-
-	// for _, c := range a.conditions {
-	// 	c.Range(yy)
-	// }
+// Range iterates over the first condition's events since all conditions are
+// assumed to be watching the same object.
+func (ac *All) Range(yield func(watch.Event) bool) {
+	ac.conditions[0].Range(yield)
 }
