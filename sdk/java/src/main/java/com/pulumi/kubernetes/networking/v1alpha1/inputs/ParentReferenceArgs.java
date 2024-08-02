@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.networking.v1alpha1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -38,15 +39,15 @@ public final class ParentReferenceArgs extends com.pulumi.resources.ResourceArgs
      * Name is the name of the object being referenced.
      * 
      */
-    @Import(name="name")
-    private @Nullable Output<String> name;
+    @Import(name="name", required=true)
+    private Output<String> name;
 
     /**
      * @return Name is the name of the object being referenced.
      * 
      */
-    public Optional<Output<String>> name() {
-        return Optional.ofNullable(this.name);
+    public Output<String> name() {
+        return this.name;
     }
 
     /**
@@ -68,15 +69,15 @@ public final class ParentReferenceArgs extends com.pulumi.resources.ResourceArgs
      * Resource is the resource of the object being referenced.
      * 
      */
-    @Import(name="resource")
-    private @Nullable Output<String> resource;
+    @Import(name="resource", required=true)
+    private Output<String> resource;
 
     /**
      * @return Resource is the resource of the object being referenced.
      * 
      */
-    public Optional<Output<String>> resource() {
-        return Optional.ofNullable(this.resource);
+    public Output<String> resource() {
+        return this.resource;
     }
 
     /**
@@ -149,7 +150,7 @@ public final class ParentReferenceArgs extends com.pulumi.resources.ResourceArgs
          * @return builder
          * 
          */
-        public Builder name(@Nullable Output<String> name) {
+        public Builder name(Output<String> name) {
             $.name = name;
             return this;
         }
@@ -191,7 +192,7 @@ public final class ParentReferenceArgs extends com.pulumi.resources.ResourceArgs
          * @return builder
          * 
          */
-        public Builder resource(@Nullable Output<String> resource) {
+        public Builder resource(Output<String> resource) {
             $.resource = resource;
             return this;
         }
@@ -228,6 +229,12 @@ public final class ParentReferenceArgs extends com.pulumi.resources.ResourceArgs
         }
 
         public ParentReferenceArgs build() {
+            if ($.name == null) {
+                throw new MissingRequiredPropertyException("ParentReferenceArgs", "name");
+            }
+            if ($.resource == null) {
+                throw new MissingRequiredPropertyException("ParentReferenceArgs", "resource");
+            }
             return $;
         }
     }

@@ -633,7 +633,10 @@ _utilities.register(
    "kubernetes:networking.k8s.io/v1alpha1:ClusterCIDRPatch": "ClusterCIDRPatch",
    "kubernetes:networking.k8s.io/v1alpha1:IPAddress": "IPAddress",
    "kubernetes:networking.k8s.io/v1alpha1:IPAddressList": "IPAddressList",
-   "kubernetes:networking.k8s.io/v1alpha1:IPAddressPatch": "IPAddressPatch"
+   "kubernetes:networking.k8s.io/v1alpha1:IPAddressPatch": "IPAddressPatch",
+   "kubernetes:networking.k8s.io/v1alpha1:ServiceCIDR": "ServiceCIDR",
+   "kubernetes:networking.k8s.io/v1alpha1:ServiceCIDRList": "ServiceCIDRList",
+   "kubernetes:networking.k8s.io/v1alpha1:ServiceCIDRPatch": "ServiceCIDRPatch"
   }
  },
  {
@@ -794,13 +797,22 @@ _utilities.register(
    "kubernetes:resource.k8s.io/v1alpha2:PodSchedulingContextPatch": "PodSchedulingContextPatch",
    "kubernetes:resource.k8s.io/v1alpha2:ResourceClaim": "ResourceClaim",
    "kubernetes:resource.k8s.io/v1alpha2:ResourceClaimList": "ResourceClaimList",
+   "kubernetes:resource.k8s.io/v1alpha2:ResourceClaimParameters": "ResourceClaimParameters",
+   "kubernetes:resource.k8s.io/v1alpha2:ResourceClaimParametersList": "ResourceClaimParametersList",
+   "kubernetes:resource.k8s.io/v1alpha2:ResourceClaimParametersPatch": "ResourceClaimParametersPatch",
    "kubernetes:resource.k8s.io/v1alpha2:ResourceClaimPatch": "ResourceClaimPatch",
    "kubernetes:resource.k8s.io/v1alpha2:ResourceClaimTemplate": "ResourceClaimTemplate",
    "kubernetes:resource.k8s.io/v1alpha2:ResourceClaimTemplateList": "ResourceClaimTemplateList",
    "kubernetes:resource.k8s.io/v1alpha2:ResourceClaimTemplatePatch": "ResourceClaimTemplatePatch",
    "kubernetes:resource.k8s.io/v1alpha2:ResourceClass": "ResourceClass",
    "kubernetes:resource.k8s.io/v1alpha2:ResourceClassList": "ResourceClassList",
-   "kubernetes:resource.k8s.io/v1alpha2:ResourceClassPatch": "ResourceClassPatch"
+   "kubernetes:resource.k8s.io/v1alpha2:ResourceClassParameters": "ResourceClassParameters",
+   "kubernetes:resource.k8s.io/v1alpha2:ResourceClassParametersList": "ResourceClassParametersList",
+   "kubernetes:resource.k8s.io/v1alpha2:ResourceClassParametersPatch": "ResourceClassParametersPatch",
+   "kubernetes:resource.k8s.io/v1alpha2:ResourceClassPatch": "ResourceClassPatch",
+   "kubernetes:resource.k8s.io/v1alpha2:ResourceSlice": "ResourceSlice",
+   "kubernetes:resource.k8s.io/v1alpha2:ResourceSliceList": "ResourceSliceList",
+   "kubernetes:resource.k8s.io/v1alpha2:ResourceSlicePatch": "ResourceSlicePatch"
   }
  },
  {

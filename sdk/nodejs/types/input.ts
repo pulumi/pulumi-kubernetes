@@ -27751,7 +27751,7 @@ export namespace networking {
             /**
              * ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
              */
-            parentRef?: pulumi.Input<inputs.networking.v1alpha1.ParentReference>;
+            parentRef: pulumi.Input<inputs.networking.v1alpha1.ParentReference>;
         }
 
         /**
@@ -27775,7 +27775,7 @@ export namespace networking {
             /**
              * Name is the name of the object being referenced.
              */
-            name?: pulumi.Input<string>;
+            name: pulumi.Input<string>;
             /**
              * Namespace is the namespace of the object being referenced.
              */
@@ -27783,7 +27783,7 @@ export namespace networking {
             /**
              * Resource is the resource of the object being referenced.
              */
-            resource?: pulumi.Input<string>;
+            resource: pulumi.Input<string>;
             /**
              * UID is the uid of the object being referenced.
              */
@@ -27815,6 +27815,63 @@ export namespace networking {
              */
             uid?: pulumi.Input<string>;
         }
+
+        /**
+         * ServiceCIDR defines a range of IP addresses using CIDR format (e.g. 192.168.0.0/24 or 2001:db2::/64). This range is used to allocate ClusterIPs to Service objects.
+         */
+        export interface ServiceCIDR {
+            /**
+             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+             */
+            apiVersion?: pulumi.Input<"networking.k8s.io/v1alpha1">;
+            /**
+             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             */
+            kind?: pulumi.Input<"ServiceCIDR">;
+            /**
+             * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+             */
+            metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
+            /**
+             * spec is the desired state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+             */
+            spec?: pulumi.Input<inputs.networking.v1alpha1.ServiceCIDRSpec>;
+            /**
+             * status represents the current state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+             */
+            status?: pulumi.Input<inputs.networking.v1alpha1.ServiceCIDRStatus>;
+        }
+
+        /**
+         * ServiceCIDRSpec define the CIDRs the user wants to use for allocating ClusterIPs for Services.
+         */
+        export interface ServiceCIDRSpec {
+            /**
+             * CIDRs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
+             */
+            cidrs?: pulumi.Input<pulumi.Input<string>[]>;
+        }
+
+        /**
+         * ServiceCIDRSpec define the CIDRs the user wants to use for allocating ClusterIPs for Services.
+         */
+        export interface ServiceCIDRSpecPatch {
+            /**
+             * CIDRs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
+             */
+            cidrs?: pulumi.Input<pulumi.Input<string>[]>;
+        }
+
+        /**
+         * ServiceCIDRStatus describes the current state of the ServiceCIDR.
+         */
+        export interface ServiceCIDRStatus {
+            /**
+             * conditions holds an array of metav1.Condition that describe the state of the ServiceCIDR. Current service state
+             */
+            conditions?: pulumi.Input<pulumi.Input<inputs.meta.v1.Condition>[]>;
+        }
+
     }
 
     export namespace v1beta1 {
@@ -30499,6 +30556,290 @@ export namespace resource {
         }
 
         /**
+         * DriverAllocationResult contains vendor parameters and the allocation result for one request.
+         */
+        export interface DriverAllocationResult {
+            /**
+             * NamedResources describes the allocation result when using the named resources model.
+             */
+            namedResources?: pulumi.Input<inputs.resource.v1alpha2.NamedResourcesAllocationResult>;
+            /**
+             * VendorRequestParameters are the per-request configuration parameters from the time that the claim was allocated.
+             */
+            vendorRequestParameters?: any;
+        }
+
+        /**
+         * DriverRequests describes all resources that are needed from one particular driver.
+         */
+        export interface DriverRequests {
+            /**
+             * DriverName is the name used by the DRA driver kubelet plugin.
+             */
+            driverName?: pulumi.Input<string>;
+            /**
+             * Requests describes all resources that are needed from the driver.
+             */
+            requests?: pulumi.Input<pulumi.Input<inputs.resource.v1alpha2.ResourceRequest>[]>;
+            /**
+             * VendorParameters are arbitrary setup parameters for all requests of the claim. They are ignored while allocating the claim.
+             */
+            vendorParameters?: any;
+        }
+
+        /**
+         * DriverRequests describes all resources that are needed from one particular driver.
+         */
+        export interface DriverRequestsPatch {
+            /**
+             * DriverName is the name used by the DRA driver kubelet plugin.
+             */
+            driverName?: pulumi.Input<string>;
+            /**
+             * Requests describes all resources that are needed from the driver.
+             */
+            requests?: pulumi.Input<pulumi.Input<inputs.resource.v1alpha2.ResourceRequestPatch>[]>;
+            /**
+             * VendorParameters are arbitrary setup parameters for all requests of the claim. They are ignored while allocating the claim.
+             */
+            vendorParameters?: any;
+        }
+
+        /**
+         * NamedResourcesAllocationResult is used in AllocationResultModel.
+         */
+        export interface NamedResourcesAllocationResult {
+            /**
+             * Name is the name of the selected resource instance.
+             */
+            name: pulumi.Input<string>;
+        }
+
+        /**
+         * NamedResourcesAttribute is a combination of an attribute name and its value.
+         */
+        export interface NamedResourcesAttribute {
+            /**
+             * BoolValue is a true/false value.
+             */
+            bool?: pulumi.Input<boolean>;
+            /**
+             * IntValue is a 64-bit integer.
+             */
+            int?: pulumi.Input<number>;
+            /**
+             * IntSliceValue is an array of 64-bit integers.
+             */
+            intSlice?: pulumi.Input<inputs.resource.v1alpha2.NamedResourcesIntSlice>;
+            /**
+             * Name is unique identifier among all resource instances managed by the driver on the node. It must be a DNS subdomain.
+             */
+            name: pulumi.Input<string>;
+            /**
+             * QuantityValue is a quantity.
+             */
+            quantity?: pulumi.Input<string>;
+            /**
+             * StringValue is a string.
+             */
+            string?: pulumi.Input<string>;
+            /**
+             * StringSliceValue is an array of strings.
+             */
+            stringSlice?: pulumi.Input<inputs.resource.v1alpha2.NamedResourcesStringSlice>;
+            /**
+             * VersionValue is a semantic version according to semver.org spec 2.0.0.
+             */
+            version?: pulumi.Input<string>;
+        }
+
+        /**
+         * NamedResourcesAttribute is a combination of an attribute name and its value.
+         */
+        export interface NamedResourcesAttributePatch {
+            /**
+             * BoolValue is a true/false value.
+             */
+            bool?: pulumi.Input<boolean>;
+            /**
+             * IntValue is a 64-bit integer.
+             */
+            int?: pulumi.Input<number>;
+            /**
+             * IntSliceValue is an array of 64-bit integers.
+             */
+            intSlice?: pulumi.Input<inputs.resource.v1alpha2.NamedResourcesIntSlicePatch>;
+            /**
+             * Name is unique identifier among all resource instances managed by the driver on the node. It must be a DNS subdomain.
+             */
+            name?: pulumi.Input<string>;
+            /**
+             * QuantityValue is a quantity.
+             */
+            quantity?: pulumi.Input<string>;
+            /**
+             * StringValue is a string.
+             */
+            string?: pulumi.Input<string>;
+            /**
+             * StringSliceValue is an array of strings.
+             */
+            stringSlice?: pulumi.Input<inputs.resource.v1alpha2.NamedResourcesStringSlicePatch>;
+            /**
+             * VersionValue is a semantic version according to semver.org spec 2.0.0.
+             */
+            version?: pulumi.Input<string>;
+        }
+
+        /**
+         * NamedResourcesFilter is used in ResourceFilterModel.
+         */
+        export interface NamedResourcesFilter {
+            /**
+             * Selector is a CEL expression which must evaluate to true if a resource instance is suitable. The language is as defined in https://kubernetes.io/docs/reference/using-api/cel/
+             *
+             * In addition, for each type NamedResourcesin AttributeValue there is a map that resolves to the corresponding value of the instance under evaluation. For example:
+             *
+             *    attributes.quantity["a"].isGreaterThan(quantity("0")) &&
+             *    attributes.stringslice["b"].isSorted()
+             */
+            selector: pulumi.Input<string>;
+        }
+
+        /**
+         * NamedResourcesFilter is used in ResourceFilterModel.
+         */
+        export interface NamedResourcesFilterPatch {
+            /**
+             * Selector is a CEL expression which must evaluate to true if a resource instance is suitable. The language is as defined in https://kubernetes.io/docs/reference/using-api/cel/
+             *
+             * In addition, for each type NamedResourcesin AttributeValue there is a map that resolves to the corresponding value of the instance under evaluation. For example:
+             *
+             *    attributes.quantity["a"].isGreaterThan(quantity("0")) &&
+             *    attributes.stringslice["b"].isSorted()
+             */
+            selector?: pulumi.Input<string>;
+        }
+
+        /**
+         * NamedResourcesInstance represents one individual hardware instance that can be selected based on its attributes.
+         */
+        export interface NamedResourcesInstance {
+            /**
+             * Attributes defines the attributes of this resource instance. The name of each attribute must be unique.
+             */
+            attributes?: pulumi.Input<pulumi.Input<inputs.resource.v1alpha2.NamedResourcesAttribute>[]>;
+            /**
+             * Name is unique identifier among all resource instances managed by the driver on the node. It must be a DNS subdomain.
+             */
+            name: pulumi.Input<string>;
+        }
+
+        /**
+         * NamedResourcesInstance represents one individual hardware instance that can be selected based on its attributes.
+         */
+        export interface NamedResourcesInstancePatch {
+            /**
+             * Attributes defines the attributes of this resource instance. The name of each attribute must be unique.
+             */
+            attributes?: pulumi.Input<pulumi.Input<inputs.resource.v1alpha2.NamedResourcesAttributePatch>[]>;
+            /**
+             * Name is unique identifier among all resource instances managed by the driver on the node. It must be a DNS subdomain.
+             */
+            name?: pulumi.Input<string>;
+        }
+
+        /**
+         * NamedResourcesIntSlice contains a slice of 64-bit integers.
+         */
+        export interface NamedResourcesIntSlice {
+            /**
+             * Ints is the slice of 64-bit integers.
+             */
+            ints: pulumi.Input<pulumi.Input<number>[]>;
+        }
+
+        /**
+         * NamedResourcesIntSlice contains a slice of 64-bit integers.
+         */
+        export interface NamedResourcesIntSlicePatch {
+            /**
+             * Ints is the slice of 64-bit integers.
+             */
+            ints?: pulumi.Input<pulumi.Input<number>[]>;
+        }
+
+        /**
+         * NamedResourcesRequest is used in ResourceRequestModel.
+         */
+        export interface NamedResourcesRequest {
+            /**
+             * Selector is a CEL expression which must evaluate to true if a resource instance is suitable. The language is as defined in https://kubernetes.io/docs/reference/using-api/cel/
+             *
+             * In addition, for each type NamedResourcesin AttributeValue there is a map that resolves to the corresponding value of the instance under evaluation. For example:
+             *
+             *    attributes.quantity["a"].isGreaterThan(quantity("0")) &&
+             *    attributes.stringslice["b"].isSorted()
+             */
+            selector: pulumi.Input<string>;
+        }
+
+        /**
+         * NamedResourcesRequest is used in ResourceRequestModel.
+         */
+        export interface NamedResourcesRequestPatch {
+            /**
+             * Selector is a CEL expression which must evaluate to true if a resource instance is suitable. The language is as defined in https://kubernetes.io/docs/reference/using-api/cel/
+             *
+             * In addition, for each type NamedResourcesin AttributeValue there is a map that resolves to the corresponding value of the instance under evaluation. For example:
+             *
+             *    attributes.quantity["a"].isGreaterThan(quantity("0")) &&
+             *    attributes.stringslice["b"].isSorted()
+             */
+            selector?: pulumi.Input<string>;
+        }
+
+        /**
+         * NamedResourcesResources is used in ResourceModel.
+         */
+        export interface NamedResourcesResources {
+            /**
+             * The list of all individual resources instances currently available.
+             */
+            instances: pulumi.Input<pulumi.Input<inputs.resource.v1alpha2.NamedResourcesInstance>[]>;
+        }
+
+        /**
+         * NamedResourcesResources is used in ResourceModel.
+         */
+        export interface NamedResourcesResourcesPatch {
+            /**
+             * The list of all individual resources instances currently available.
+             */
+            instances?: pulumi.Input<pulumi.Input<inputs.resource.v1alpha2.NamedResourcesInstancePatch>[]>;
+        }
+
+        /**
+         * NamedResourcesStringSlice contains a slice of strings.
+         */
+        export interface NamedResourcesStringSlice {
+            /**
+             * Strings is the slice of strings.
+             */
+            strings: pulumi.Input<pulumi.Input<string>[]>;
+        }
+
+        /**
+         * NamedResourcesStringSlice contains a slice of strings.
+         */
+        export interface NamedResourcesStringSlicePatch {
+            /**
+             * Strings is the slice of strings.
+             */
+            strings?: pulumi.Input<pulumi.Input<string>[]>;
+        }
+
+        /**
          * PodSchedulingContext objects hold information that is needed to schedule a Pod with ResourceClaims that use "WaitForFirstConsumer" allocation mode.
          *
          * This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
@@ -30616,6 +30957,38 @@ export namespace resource {
              * UID identifies exactly one incarnation of the resource.
              */
             uid: pulumi.Input<string>;
+        }
+
+        /**
+         * ResourceClaimParameters defines resource requests for a ResourceClaim in an in-tree format understood by Kubernetes.
+         */
+        export interface ResourceClaimParameters {
+            /**
+             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+             */
+            apiVersion?: pulumi.Input<"resource.k8s.io/v1alpha2">;
+            /**
+             * DriverRequests describes all resources that are needed for the allocated claim. A single claim may use resources coming from different drivers. For each driver, this array has at most one entry which then may have one or more per-driver requests.
+             *
+             * May be empty, in which case the claim can always be allocated.
+             */
+            driverRequests?: pulumi.Input<pulumi.Input<inputs.resource.v1alpha2.DriverRequests>[]>;
+            /**
+             * If this object was created from some other resource, then this links back to that resource. This field is used to find the in-tree representation of the claim parameters when the parameter reference of the claim refers to some unknown type.
+             */
+            generatedFrom?: pulumi.Input<inputs.resource.v1alpha2.ResourceClaimParametersReference>;
+            /**
+             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             */
+            kind?: pulumi.Input<"ResourceClaimParameters">;
+            /**
+             * Standard object metadata
+             */
+            metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
+            /**
+             * Shareable indicates whether the allocated claim is meant to be shareable by multiple consumers at the same time.
+             */
+            shareable?: pulumi.Input<boolean>;
         }
 
         /**
@@ -30819,11 +31192,45 @@ export namespace resource {
              */
             parametersRef?: pulumi.Input<inputs.resource.v1alpha2.ResourceClassParametersReference>;
             /**
+             * If and only if allocation of claims using this class is handled via structured parameters, then StructuredParameters must be set to true.
+             */
+            structuredParameters?: pulumi.Input<boolean>;
+            /**
              * Only nodes matching the selector will be considered by the scheduler when trying to find a Node that fits a Pod when that Pod uses a ResourceClaim that has not been allocated yet.
              *
              * Setting this field is optional. If null, all nodes are candidates.
              */
             suitableNodes?: pulumi.Input<inputs.core.v1.NodeSelector>;
+        }
+
+        /**
+         * ResourceClassParameters defines resource requests for a ResourceClass in an in-tree format understood by Kubernetes.
+         */
+        export interface ResourceClassParameters {
+            /**
+             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+             */
+            apiVersion?: pulumi.Input<"resource.k8s.io/v1alpha2">;
+            /**
+             * Filters describes additional contraints that must be met when using the class.
+             */
+            filters?: pulumi.Input<pulumi.Input<inputs.resource.v1alpha2.ResourceFilter>[]>;
+            /**
+             * If this object was created from some other resource, then this links back to that resource. This field is used to find the in-tree representation of the class parameters when the parameter reference of the class refers to some unknown type.
+             */
+            generatedFrom?: pulumi.Input<inputs.resource.v1alpha2.ResourceClassParametersReference>;
+            /**
+             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             */
+            kind?: pulumi.Input<"ResourceClassParameters">;
+            /**
+             * Standard object metadata
+             */
+            metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
+            /**
+             * VendorParameters are arbitrary setup parameters for all claims using this class. They are ignored while allocating the claim. There must not be more than one entry per driver.
+             */
+            vendorParameters?: pulumi.Input<pulumi.Input<inputs.resource.v1alpha2.VendorParameters>[]>;
         }
 
         /**
@@ -30871,6 +31278,34 @@ export namespace resource {
         }
 
         /**
+         * ResourceFilter is a filter for resources from one particular driver.
+         */
+        export interface ResourceFilter {
+            /**
+             * DriverName is the name used by the DRA driver kubelet plugin.
+             */
+            driverName?: pulumi.Input<string>;
+            /**
+             * NamedResources describes a resource filter using the named resources model.
+             */
+            namedResources?: pulumi.Input<inputs.resource.v1alpha2.NamedResourcesFilter>;
+        }
+
+        /**
+         * ResourceFilter is a filter for resources from one particular driver.
+         */
+        export interface ResourceFilterPatch {
+            /**
+             * DriverName is the name used by the DRA driver kubelet plugin.
+             */
+            driverName?: pulumi.Input<string>;
+            /**
+             * NamedResources describes a resource filter using the named resources model.
+             */
+            namedResources?: pulumi.Input<inputs.resource.v1alpha2.NamedResourcesFilterPatch>;
+        }
+
+        /**
          * ResourceHandle holds opaque resource data for processing by a specific kubelet plugin.
          */
         export interface ResourceHandle {
@@ -30884,8 +31319,121 @@ export namespace resource {
              * DriverName specifies the name of the resource driver whose kubelet plugin should be invoked to process this ResourceHandle's data once it lands on a node. This may differ from the DriverName set in ResourceClaimStatus this ResourceHandle is embedded in.
              */
             driverName?: pulumi.Input<string>;
+            /**
+             * If StructuredData is set, then it needs to be used instead of Data.
+             */
+            structuredData?: pulumi.Input<inputs.resource.v1alpha2.StructuredResourceHandle>;
         }
 
+        /**
+         * ResourceRequest is a request for resources from one particular driver.
+         */
+        export interface ResourceRequest {
+            /**
+             * NamedResources describes a request for resources with the named resources model.
+             */
+            namedResources?: pulumi.Input<inputs.resource.v1alpha2.NamedResourcesRequest>;
+            /**
+             * VendorParameters are arbitrary setup parameters for the requested resource. They are ignored while allocating a claim.
+             */
+            vendorParameters?: any;
+        }
+
+        /**
+         * ResourceRequest is a request for resources from one particular driver.
+         */
+        export interface ResourceRequestPatch {
+            /**
+             * NamedResources describes a request for resources with the named resources model.
+             */
+            namedResources?: pulumi.Input<inputs.resource.v1alpha2.NamedResourcesRequestPatch>;
+            /**
+             * VendorParameters are arbitrary setup parameters for the requested resource. They are ignored while allocating a claim.
+             */
+            vendorParameters?: any;
+        }
+
+        /**
+         * ResourceSlice provides information about available resources on individual nodes.
+         */
+        export interface ResourceSlice {
+            /**
+             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+             */
+            apiVersion?: pulumi.Input<"resource.k8s.io/v1alpha2">;
+            /**
+             * DriverName identifies the DRA driver providing the capacity information. A field selector can be used to list only ResourceSlice objects with a certain driver name.
+             */
+            driverName: pulumi.Input<string>;
+            /**
+             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             */
+            kind?: pulumi.Input<"ResourceSlice">;
+            /**
+             * Standard object metadata
+             */
+            metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
+            /**
+             * NamedResources describes available resources using the named resources model.
+             */
+            namedResources?: pulumi.Input<inputs.resource.v1alpha2.NamedResourcesResources>;
+            /**
+             * NodeName identifies the node which provides the resources if they are local to a node.
+             *
+             * A field selector can be used to list only ResourceSlice objects with a certain node name.
+             */
+            nodeName?: pulumi.Input<string>;
+        }
+
+        /**
+         * StructuredResourceHandle is the in-tree representation of the allocation result.
+         */
+        export interface StructuredResourceHandle {
+            /**
+             * NodeName is the name of the node providing the necessary resources if the resources are local to a node.
+             */
+            nodeName?: pulumi.Input<string>;
+            /**
+             * Results lists all allocated driver resources.
+             */
+            results: pulumi.Input<pulumi.Input<inputs.resource.v1alpha2.DriverAllocationResult>[]>;
+            /**
+             * VendorClaimParameters are the per-claim configuration parameters from the resource claim parameters at the time that the claim was allocated.
+             */
+            vendorClaimParameters?: any;
+            /**
+             * VendorClassParameters are the per-claim configuration parameters from the resource class at the time that the claim was allocated.
+             */
+            vendorClassParameters?: any;
+        }
+
+        /**
+         * VendorParameters are opaque parameters for one particular driver.
+         */
+        export interface VendorParameters {
+            /**
+             * DriverName is the name used by the DRA driver kubelet plugin.
+             */
+            driverName?: pulumi.Input<string>;
+            /**
+             * Parameters can be arbitrary setup parameters. They are ignored while allocating a claim.
+             */
+            parameters?: any;
+        }
+
+        /**
+         * VendorParameters are opaque parameters for one particular driver.
+         */
+        export interface VendorParametersPatch {
+            /**
+             * DriverName is the name used by the DRA driver kubelet plugin.
+             */
+            driverName?: pulumi.Input<string>;
+            /**
+             * Parameters can be arbitrary setup parameters. They are ignored while allocating a claim.
+             */
+            parameters?: any;
+        }
     }
 
     export namespace v1alpha3 {

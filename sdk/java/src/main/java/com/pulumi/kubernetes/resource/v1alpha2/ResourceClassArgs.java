@@ -10,6 +10,7 @@ import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.inputs.NodeSelectorArgs;
 import com.pulumi.kubernetes.meta.v1.inputs.ObjectMetaArgs;
 import com.pulumi.kubernetes.resource.v1alpha2.inputs.ResourceClassParametersReferenceArgs;
+import java.lang.Boolean;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -100,6 +101,21 @@ public final class ResourceClassArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * If and only if allocation of claims using this class is handled via structured parameters, then StructuredParameters must be set to true.
+     * 
+     */
+    @Import(name="structuredParameters")
+    private @Nullable Output<Boolean> structuredParameters;
+
+    /**
+     * @return If and only if allocation of claims using this class is handled via structured parameters, then StructuredParameters must be set to true.
+     * 
+     */
+    public Optional<Output<Boolean>> structuredParameters() {
+        return Optional.ofNullable(this.structuredParameters);
+    }
+
+    /**
      * Only nodes matching the selector will be considered by the scheduler when trying to find a Node that fits a Pod when that Pod uses a ResourceClaim that has not been allocated yet.
      * 
      * Setting this field is optional. If null, all nodes are candidates.
@@ -126,6 +142,7 @@ public final class ResourceClassArgs extends com.pulumi.resources.ResourceArgs {
         this.kind = $.kind;
         this.metadata = $.metadata;
         this.parametersRef = $.parametersRef;
+        this.structuredParameters = $.structuredParameters;
         this.suitableNodes = $.suitableNodes;
     }
 
@@ -254,6 +271,27 @@ public final class ResourceClassArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder parametersRef(ResourceClassParametersReferenceArgs parametersRef) {
             return parametersRef(Output.of(parametersRef));
+        }
+
+        /**
+         * @param structuredParameters If and only if allocation of claims using this class is handled via structured parameters, then StructuredParameters must be set to true.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder structuredParameters(@Nullable Output<Boolean> structuredParameters) {
+            $.structuredParameters = structuredParameters;
+            return this;
+        }
+
+        /**
+         * @param structuredParameters If and only if allocation of claims using this class is handled via structured parameters, then StructuredParameters must be set to true.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder structuredParameters(Boolean structuredParameters) {
+            return structuredParameters(Output.of(structuredParameters));
         }
 
         /**

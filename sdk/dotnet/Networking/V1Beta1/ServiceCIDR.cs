@@ -80,6 +80,10 @@ namespace Pulumi.Kubernetes.Networking.V1Beta1
             var defaultOptions = new CustomResourceOptions
             {
                 Version = Utilities.Version,
+                Aliases =
+                {
+                    new global::Pulumi.Alias { Type = "kubernetes:networking.k8s.io/v1alpha1:ServiceCIDR" },
+                },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
             // Override the ID if one was specified for consistency with other language SDKs.
