@@ -122,6 +122,18 @@ out. To work around this limitation, set 'pulumi.com/skipAwait: "true"' on
    and '.status.readyReplicas'.
 2. The value of '.status.updateRevision' matches '.status.currentRevision'.
 `
+
+	case kinds.DaemonSet:
+		comment += `
+1. The desired number of pods are scheduled.
+2. The desired number of pods are initialized.
+3. The desired number of pods are ready.
+
+Pulumi will wait for the DaemonSet to become ready even when using the OnDelete
+update strategy, which may require old pods to be manually deleted before the
+DaemonSet can be considered ready.
+`
+
 	default:
 		panic("awaitComments: unhandled kind")
 	}
@@ -161,7 +173,7 @@ func PulumiComment(kind string) string {
 
 	k := kinds.Kind(kind)
 	switch k {
-	case kinds.Deployment, kinds.Ingress, kinds.Pod, kinds.Service, kinds.StatefulSet:
+	case kinds.Deployment, kinds.Ingress, kinds.Pod, kinds.Service, kinds.StatefulSet, kinds.DaemonSet:
 		return prefix + awaitComments(k)
 	case kinds.Job:
 		return prefix + awaitComments(k) + prefix + replaceUnreadyComment()

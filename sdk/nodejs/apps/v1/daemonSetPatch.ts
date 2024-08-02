@@ -15,6 +15,19 @@ import * as utilities from "../../utilities";
  * [Server-Side Apply Docs](https://www.pulumi.com/registry/packages/kubernetes/how-to-guides/managing-resources-with-server-side-apply/) for
  * additional information about using Server-Side Apply to manage Kubernetes resources with Pulumi.
  * DaemonSet represents the configuration of a daemon set.
+ *
+ * This resource waits until its status is ready before registering success
+ * for create/update, and populating output properties from the current state of the resource.
+ * The following conditions are used to determine whether the resource creation has
+ * succeeded or failed:
+ *
+ * 1. The desired number of pods are scheduled.
+ * 2. The desired number of pods are initialized.
+ * 3. The desired number of pods are ready.
+ *
+ * Pulumi will wait for the DaemonSet to become ready even when using the OnDelete
+ * update strategy, which may require old pods to be manually deleted before the
+ * DaemonSet can be considered ready.
  */
 export class DaemonSetPatch extends pulumi.CustomResource {
     /**

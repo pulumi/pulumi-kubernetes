@@ -646,6 +646,19 @@ func (o AllowedHostPathPatchArrayOutput) Index(i pulumi.IntInput) AllowedHostPat
 }
 
 // DaemonSet represents the configuration of a daemon set.
+//
+// This resource waits until its status is ready before registering success
+// for create/update, and populating output properties from the current state of the resource.
+// The following conditions are used to determine whether the resource creation has
+// succeeded or failed:
+//
+// 1. The desired number of pods are scheduled.
+// 2. The desired number of pods are initialized.
+// 3. The desired number of pods are ready.
+//
+// Pulumi will wait for the DaemonSet to become ready even when using the OnDelete
+// update strategy, which may require old pods to be manually deleted before the
+// DaemonSet can be considered ready.
 type DaemonSetType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -671,6 +684,19 @@ type DaemonSetTypeInput interface {
 }
 
 // DaemonSet represents the configuration of a daemon set.
+//
+// This resource waits until its status is ready before registering success
+// for create/update, and populating output properties from the current state of the resource.
+// The following conditions are used to determine whether the resource creation has
+// succeeded or failed:
+//
+// 1. The desired number of pods are scheduled.
+// 2. The desired number of pods are initialized.
+// 3. The desired number of pods are ready.
+//
+// Pulumi will wait for the DaemonSet to become ready even when using the OnDelete
+// update strategy, which may require old pods to be manually deleted before the
+// DaemonSet can be considered ready.
 type DaemonSetTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -722,6 +748,19 @@ func (i DaemonSetTypeArray) ToDaemonSetTypeArrayOutputWithContext(ctx context.Co
 }
 
 // DaemonSet represents the configuration of a daemon set.
+//
+// This resource waits until its status is ready before registering success
+// for create/update, and populating output properties from the current state of the resource.
+// The following conditions are used to determine whether the resource creation has
+// succeeded or failed:
+//
+// 1. The desired number of pods are scheduled.
+// 2. The desired number of pods are initialized.
+// 3. The desired number of pods are ready.
+//
+// Pulumi will wait for the DaemonSet to become ready even when using the OnDelete
+// update strategy, which may require old pods to be manually deleted before the
+// DaemonSet can be considered ready.
 type DaemonSetTypeOutput struct{ *pulumi.OutputState }
 
 func (DaemonSetTypeOutput) ElementType() reflect.Type {
@@ -1136,6 +1175,19 @@ func (o DaemonSetListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 }
 
 // DaemonSet represents the configuration of a daemon set.
+//
+// This resource waits until its status is ready before registering success
+// for create/update, and populating output properties from the current state of the resource.
+// The following conditions are used to determine whether the resource creation has
+// succeeded or failed:
+//
+// 1. The desired number of pods are scheduled.
+// 2. The desired number of pods are initialized.
+// 3. The desired number of pods are ready.
+//
+// Pulumi will wait for the DaemonSet to become ready even when using the OnDelete
+// update strategy, which may require old pods to be manually deleted before the
+// DaemonSet can be considered ready.
 type DaemonSetPatchType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -1161,6 +1213,19 @@ type DaemonSetPatchTypeInput interface {
 }
 
 // DaemonSet represents the configuration of a daemon set.
+//
+// This resource waits until its status is ready before registering success
+// for create/update, and populating output properties from the current state of the resource.
+// The following conditions are used to determine whether the resource creation has
+// succeeded or failed:
+//
+// 1. The desired number of pods are scheduled.
+// 2. The desired number of pods are initialized.
+// 3. The desired number of pods are ready.
+//
+// Pulumi will wait for the DaemonSet to become ready even when using the OnDelete
+// update strategy, which may require old pods to be manually deleted before the
+// DaemonSet can be considered ready.
 type DaemonSetPatchTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -1187,6 +1252,19 @@ func (i DaemonSetPatchTypeArgs) ToDaemonSetPatchTypeOutputWithContext(ctx contex
 }
 
 // DaemonSet represents the configuration of a daemon set.
+//
+// This resource waits until its status is ready before registering success
+// for create/update, and populating output properties from the current state of the resource.
+// The following conditions are used to determine whether the resource creation has
+// succeeded or failed:
+//
+// 1. The desired number of pods are scheduled.
+// 2. The desired number of pods are initialized.
+// 3. The desired number of pods are ready.
+//
+// Pulumi will wait for the DaemonSet to become ready even when using the OnDelete
+// update strategy, which may require old pods to be manually deleted before the
+// DaemonSet can be considered ready.
 type DaemonSetPatchTypeOutput struct{ *pulumi.OutputState }
 
 func (DaemonSetPatchTypeOutput) ElementType() reflect.Type {

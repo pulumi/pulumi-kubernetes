@@ -1146,6 +1146,19 @@ if not MYPY:
     class DaemonSetArgsDict(TypedDict):
         """
         DaemonSet represents the configuration of a daemon set.
+
+        This resource waits until its status is ready before registering success
+        for create/update, and populating output properties from the current state of the resource.
+        The following conditions are used to determine whether the resource creation has
+        succeeded or failed:
+
+        1. The desired number of pods are scheduled.
+        2. The desired number of pods are initialized.
+        3. The desired number of pods are ready.
+
+        Pulumi will wait for the DaemonSet to become ready even when using the OnDelete
+        update strategy, which may require old pods to be manually deleted before the
+        DaemonSet can be considered ready.
         """
         api_version: NotRequired[pulumi.Input[str]]
         """
@@ -1180,6 +1193,20 @@ class DaemonSetArgs:
                  status: Optional[pulumi.Input['DaemonSetStatusArgs']] = None):
         """
         DaemonSet represents the configuration of a daemon set.
+
+        This resource waits until its status is ready before registering success
+        for create/update, and populating output properties from the current state of the resource.
+        The following conditions are used to determine whether the resource creation has
+        succeeded or failed:
+
+        1. The desired number of pods are scheduled.
+        2. The desired number of pods are initialized.
+        3. The desired number of pods are ready.
+
+        Pulumi will wait for the DaemonSet to become ready even when using the OnDelete
+        update strategy, which may require old pods to be manually deleted before the
+        DaemonSet can be considered ready.
+
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
