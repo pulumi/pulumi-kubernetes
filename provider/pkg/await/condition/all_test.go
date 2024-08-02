@@ -10,35 +10,33 @@ import (
 	"k8s.io/apimachinery/pkg/watch"
 )
 
-// TODO: unit test the event filter stuff so the aggregator doesn't need to
-
 func TestAll(t *testing.T) {
 	ctx := context.Background()
 
-	source1 := Static(make(chan watch.Event))
-	source2 := Static(make(chan watch.Event))
+	source := Static(make(chan watch.Event))
 
-	obj := &unstructured.Unstructured{Object: map[string]any{
-		"metadata": map[string]any{
-			"name": "foo",
+	obj := &unstructured.Unstructured{
+		Object: map[string]any{
+			"metadata": map[string]any{
+				"name": "foo",
+			},
 		},
-	}}
+	}
 
 	want1 := watch.Event{Type: watch.Added, Object: obj}
 	want2 := watch.Event{Type: watch.Deleted, Object: obj}
 
 	cond, err := NewAll(
-		NewOn(ctx, source1, obj, want1),
-		NewOn(ctx, source2, obj, want2),
+		NewOn(ctx, source, obj, want1),
+		NewOn(ctx, source, obj, want2),
 	)
 	require.NoError(t, err)
 
 	go func() {
-		source1 <- want1
-		source2 <- watch.Event{Type: watch.Modified, Object: obj}
-		source2 <- want2
-		close(source1)
-		close(source2)
+		source <- want1
+		source <- watch.Event{Type: watch.Modified, Object: obj}
+		source <- want2
+		close(source)
 	}()
 
 	cond.Range(func(e watch.Event) bool {
