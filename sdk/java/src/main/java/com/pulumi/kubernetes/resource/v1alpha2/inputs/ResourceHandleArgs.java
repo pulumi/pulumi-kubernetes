@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.resource.v1alpha2.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.kubernetes.resource.v1alpha2.inputs.StructuredResourceHandleArgs;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -53,11 +54,27 @@ public final class ResourceHandleArgs extends com.pulumi.resources.ResourceArgs 
         return Optional.ofNullable(this.driverName);
     }
 
+    /**
+     * If StructuredData is set, then it needs to be used instead of Data.
+     * 
+     */
+    @Import(name="structuredData")
+    private @Nullable Output<StructuredResourceHandleArgs> structuredData;
+
+    /**
+     * @return If StructuredData is set, then it needs to be used instead of Data.
+     * 
+     */
+    public Optional<Output<StructuredResourceHandleArgs>> structuredData() {
+        return Optional.ofNullable(this.structuredData);
+    }
+
     private ResourceHandleArgs() {}
 
     private ResourceHandleArgs(ResourceHandleArgs $) {
         this.data = $.data;
         this.driverName = $.driverName;
+        this.structuredData = $.structuredData;
     }
 
     public static Builder builder() {
@@ -122,6 +139,27 @@ public final class ResourceHandleArgs extends com.pulumi.resources.ResourceArgs 
          */
         public Builder driverName(String driverName) {
             return driverName(Output.of(driverName));
+        }
+
+        /**
+         * @param structuredData If StructuredData is set, then it needs to be used instead of Data.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder structuredData(@Nullable Output<StructuredResourceHandleArgs> structuredData) {
+            $.structuredData = structuredData;
+            return this;
+        }
+
+        /**
+         * @param structuredData If StructuredData is set, then it needs to be used instead of Data.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder structuredData(StructuredResourceHandleArgs structuredData) {
+            return structuredData(Output.of(structuredData));
         }
 
         public ResourceHandleArgs build() {

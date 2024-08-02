@@ -403,6 +403,2764 @@ func (o AllocationResultPatchPtrOutput) Shareable() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
+// DriverAllocationResult contains vendor parameters and the allocation result for one request.
+type DriverAllocationResult struct {
+	// NamedResources describes the allocation result when using the named resources model.
+	NamedResources *NamedResourcesAllocationResult `pulumi:"namedResources"`
+	// VendorRequestParameters are the per-request configuration parameters from the time that the claim was allocated.
+	VendorRequestParameters interface{} `pulumi:"vendorRequestParameters"`
+}
+
+// DriverAllocationResultInput is an input type that accepts DriverAllocationResultArgs and DriverAllocationResultOutput values.
+// You can construct a concrete instance of `DriverAllocationResultInput` via:
+//
+//	DriverAllocationResultArgs{...}
+type DriverAllocationResultInput interface {
+	pulumi.Input
+
+	ToDriverAllocationResultOutput() DriverAllocationResultOutput
+	ToDriverAllocationResultOutputWithContext(context.Context) DriverAllocationResultOutput
+}
+
+// DriverAllocationResult contains vendor parameters and the allocation result for one request.
+type DriverAllocationResultArgs struct {
+	// NamedResources describes the allocation result when using the named resources model.
+	NamedResources NamedResourcesAllocationResultPtrInput `pulumi:"namedResources"`
+	// VendorRequestParameters are the per-request configuration parameters from the time that the claim was allocated.
+	VendorRequestParameters pulumi.Input `pulumi:"vendorRequestParameters"`
+}
+
+func (DriverAllocationResultArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*DriverAllocationResult)(nil)).Elem()
+}
+
+func (i DriverAllocationResultArgs) ToDriverAllocationResultOutput() DriverAllocationResultOutput {
+	return i.ToDriverAllocationResultOutputWithContext(context.Background())
+}
+
+func (i DriverAllocationResultArgs) ToDriverAllocationResultOutputWithContext(ctx context.Context) DriverAllocationResultOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DriverAllocationResultOutput)
+}
+
+// DriverAllocationResultArrayInput is an input type that accepts DriverAllocationResultArray and DriverAllocationResultArrayOutput values.
+// You can construct a concrete instance of `DriverAllocationResultArrayInput` via:
+//
+//	DriverAllocationResultArray{ DriverAllocationResultArgs{...} }
+type DriverAllocationResultArrayInput interface {
+	pulumi.Input
+
+	ToDriverAllocationResultArrayOutput() DriverAllocationResultArrayOutput
+	ToDriverAllocationResultArrayOutputWithContext(context.Context) DriverAllocationResultArrayOutput
+}
+
+type DriverAllocationResultArray []DriverAllocationResultInput
+
+func (DriverAllocationResultArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]DriverAllocationResult)(nil)).Elem()
+}
+
+func (i DriverAllocationResultArray) ToDriverAllocationResultArrayOutput() DriverAllocationResultArrayOutput {
+	return i.ToDriverAllocationResultArrayOutputWithContext(context.Background())
+}
+
+func (i DriverAllocationResultArray) ToDriverAllocationResultArrayOutputWithContext(ctx context.Context) DriverAllocationResultArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DriverAllocationResultArrayOutput)
+}
+
+// DriverAllocationResult contains vendor parameters and the allocation result for one request.
+type DriverAllocationResultOutput struct{ *pulumi.OutputState }
+
+func (DriverAllocationResultOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*DriverAllocationResult)(nil)).Elem()
+}
+
+func (o DriverAllocationResultOutput) ToDriverAllocationResultOutput() DriverAllocationResultOutput {
+	return o
+}
+
+func (o DriverAllocationResultOutput) ToDriverAllocationResultOutputWithContext(ctx context.Context) DriverAllocationResultOutput {
+	return o
+}
+
+// NamedResources describes the allocation result when using the named resources model.
+func (o DriverAllocationResultOutput) NamedResources() NamedResourcesAllocationResultPtrOutput {
+	return o.ApplyT(func(v DriverAllocationResult) *NamedResourcesAllocationResult { return v.NamedResources }).(NamedResourcesAllocationResultPtrOutput)
+}
+
+// VendorRequestParameters are the per-request configuration parameters from the time that the claim was allocated.
+func (o DriverAllocationResultOutput) VendorRequestParameters() pulumi.AnyOutput {
+	return o.ApplyT(func(v DriverAllocationResult) interface{} { return v.VendorRequestParameters }).(pulumi.AnyOutput)
+}
+
+type DriverAllocationResultArrayOutput struct{ *pulumi.OutputState }
+
+func (DriverAllocationResultArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]DriverAllocationResult)(nil)).Elem()
+}
+
+func (o DriverAllocationResultArrayOutput) ToDriverAllocationResultArrayOutput() DriverAllocationResultArrayOutput {
+	return o
+}
+
+func (o DriverAllocationResultArrayOutput) ToDriverAllocationResultArrayOutputWithContext(ctx context.Context) DriverAllocationResultArrayOutput {
+	return o
+}
+
+func (o DriverAllocationResultArrayOutput) Index(i pulumi.IntInput) DriverAllocationResultOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) DriverAllocationResult {
+		return vs[0].([]DriverAllocationResult)[vs[1].(int)]
+	}).(DriverAllocationResultOutput)
+}
+
+// DriverAllocationResult contains vendor parameters and the allocation result for one request.
+type DriverAllocationResultPatch struct {
+	// NamedResources describes the allocation result when using the named resources model.
+	NamedResources *NamedResourcesAllocationResultPatch `pulumi:"namedResources"`
+	// VendorRequestParameters are the per-request configuration parameters from the time that the claim was allocated.
+	VendorRequestParameters interface{} `pulumi:"vendorRequestParameters"`
+}
+
+// DriverAllocationResultPatchInput is an input type that accepts DriverAllocationResultPatchArgs and DriverAllocationResultPatchOutput values.
+// You can construct a concrete instance of `DriverAllocationResultPatchInput` via:
+//
+//	DriverAllocationResultPatchArgs{...}
+type DriverAllocationResultPatchInput interface {
+	pulumi.Input
+
+	ToDriverAllocationResultPatchOutput() DriverAllocationResultPatchOutput
+	ToDriverAllocationResultPatchOutputWithContext(context.Context) DriverAllocationResultPatchOutput
+}
+
+// DriverAllocationResult contains vendor parameters and the allocation result for one request.
+type DriverAllocationResultPatchArgs struct {
+	// NamedResources describes the allocation result when using the named resources model.
+	NamedResources NamedResourcesAllocationResultPatchPtrInput `pulumi:"namedResources"`
+	// VendorRequestParameters are the per-request configuration parameters from the time that the claim was allocated.
+	VendorRequestParameters pulumi.Input `pulumi:"vendorRequestParameters"`
+}
+
+func (DriverAllocationResultPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*DriverAllocationResultPatch)(nil)).Elem()
+}
+
+func (i DriverAllocationResultPatchArgs) ToDriverAllocationResultPatchOutput() DriverAllocationResultPatchOutput {
+	return i.ToDriverAllocationResultPatchOutputWithContext(context.Background())
+}
+
+func (i DriverAllocationResultPatchArgs) ToDriverAllocationResultPatchOutputWithContext(ctx context.Context) DriverAllocationResultPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DriverAllocationResultPatchOutput)
+}
+
+// DriverAllocationResultPatchArrayInput is an input type that accepts DriverAllocationResultPatchArray and DriverAllocationResultPatchArrayOutput values.
+// You can construct a concrete instance of `DriverAllocationResultPatchArrayInput` via:
+//
+//	DriverAllocationResultPatchArray{ DriverAllocationResultPatchArgs{...} }
+type DriverAllocationResultPatchArrayInput interface {
+	pulumi.Input
+
+	ToDriverAllocationResultPatchArrayOutput() DriverAllocationResultPatchArrayOutput
+	ToDriverAllocationResultPatchArrayOutputWithContext(context.Context) DriverAllocationResultPatchArrayOutput
+}
+
+type DriverAllocationResultPatchArray []DriverAllocationResultPatchInput
+
+func (DriverAllocationResultPatchArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]DriverAllocationResultPatch)(nil)).Elem()
+}
+
+func (i DriverAllocationResultPatchArray) ToDriverAllocationResultPatchArrayOutput() DriverAllocationResultPatchArrayOutput {
+	return i.ToDriverAllocationResultPatchArrayOutputWithContext(context.Background())
+}
+
+func (i DriverAllocationResultPatchArray) ToDriverAllocationResultPatchArrayOutputWithContext(ctx context.Context) DriverAllocationResultPatchArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DriverAllocationResultPatchArrayOutput)
+}
+
+// DriverAllocationResult contains vendor parameters and the allocation result for one request.
+type DriverAllocationResultPatchOutput struct{ *pulumi.OutputState }
+
+func (DriverAllocationResultPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*DriverAllocationResultPatch)(nil)).Elem()
+}
+
+func (o DriverAllocationResultPatchOutput) ToDriverAllocationResultPatchOutput() DriverAllocationResultPatchOutput {
+	return o
+}
+
+func (o DriverAllocationResultPatchOutput) ToDriverAllocationResultPatchOutputWithContext(ctx context.Context) DriverAllocationResultPatchOutput {
+	return o
+}
+
+// NamedResources describes the allocation result when using the named resources model.
+func (o DriverAllocationResultPatchOutput) NamedResources() NamedResourcesAllocationResultPatchPtrOutput {
+	return o.ApplyT(func(v DriverAllocationResultPatch) *NamedResourcesAllocationResultPatch { return v.NamedResources }).(NamedResourcesAllocationResultPatchPtrOutput)
+}
+
+// VendorRequestParameters are the per-request configuration parameters from the time that the claim was allocated.
+func (o DriverAllocationResultPatchOutput) VendorRequestParameters() pulumi.AnyOutput {
+	return o.ApplyT(func(v DriverAllocationResultPatch) interface{} { return v.VendorRequestParameters }).(pulumi.AnyOutput)
+}
+
+type DriverAllocationResultPatchArrayOutput struct{ *pulumi.OutputState }
+
+func (DriverAllocationResultPatchArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]DriverAllocationResultPatch)(nil)).Elem()
+}
+
+func (o DriverAllocationResultPatchArrayOutput) ToDriverAllocationResultPatchArrayOutput() DriverAllocationResultPatchArrayOutput {
+	return o
+}
+
+func (o DriverAllocationResultPatchArrayOutput) ToDriverAllocationResultPatchArrayOutputWithContext(ctx context.Context) DriverAllocationResultPatchArrayOutput {
+	return o
+}
+
+func (o DriverAllocationResultPatchArrayOutput) Index(i pulumi.IntInput) DriverAllocationResultPatchOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) DriverAllocationResultPatch {
+		return vs[0].([]DriverAllocationResultPatch)[vs[1].(int)]
+	}).(DriverAllocationResultPatchOutput)
+}
+
+// DriverRequests describes all resources that are needed from one particular driver.
+type DriverRequests struct {
+	// DriverName is the name used by the DRA driver kubelet plugin.
+	DriverName *string `pulumi:"driverName"`
+	// Requests describes all resources that are needed from the driver.
+	Requests []ResourceRequest `pulumi:"requests"`
+	// VendorParameters are arbitrary setup parameters for all requests of the claim. They are ignored while allocating the claim.
+	VendorParameters interface{} `pulumi:"vendorParameters"`
+}
+
+// DriverRequestsInput is an input type that accepts DriverRequestsArgs and DriverRequestsOutput values.
+// You can construct a concrete instance of `DriverRequestsInput` via:
+//
+//	DriverRequestsArgs{...}
+type DriverRequestsInput interface {
+	pulumi.Input
+
+	ToDriverRequestsOutput() DriverRequestsOutput
+	ToDriverRequestsOutputWithContext(context.Context) DriverRequestsOutput
+}
+
+// DriverRequests describes all resources that are needed from one particular driver.
+type DriverRequestsArgs struct {
+	// DriverName is the name used by the DRA driver kubelet plugin.
+	DriverName pulumi.StringPtrInput `pulumi:"driverName"`
+	// Requests describes all resources that are needed from the driver.
+	Requests ResourceRequestArrayInput `pulumi:"requests"`
+	// VendorParameters are arbitrary setup parameters for all requests of the claim. They are ignored while allocating the claim.
+	VendorParameters pulumi.Input `pulumi:"vendorParameters"`
+}
+
+func (DriverRequestsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*DriverRequests)(nil)).Elem()
+}
+
+func (i DriverRequestsArgs) ToDriverRequestsOutput() DriverRequestsOutput {
+	return i.ToDriverRequestsOutputWithContext(context.Background())
+}
+
+func (i DriverRequestsArgs) ToDriverRequestsOutputWithContext(ctx context.Context) DriverRequestsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DriverRequestsOutput)
+}
+
+// DriverRequestsArrayInput is an input type that accepts DriverRequestsArray and DriverRequestsArrayOutput values.
+// You can construct a concrete instance of `DriverRequestsArrayInput` via:
+//
+//	DriverRequestsArray{ DriverRequestsArgs{...} }
+type DriverRequestsArrayInput interface {
+	pulumi.Input
+
+	ToDriverRequestsArrayOutput() DriverRequestsArrayOutput
+	ToDriverRequestsArrayOutputWithContext(context.Context) DriverRequestsArrayOutput
+}
+
+type DriverRequestsArray []DriverRequestsInput
+
+func (DriverRequestsArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]DriverRequests)(nil)).Elem()
+}
+
+func (i DriverRequestsArray) ToDriverRequestsArrayOutput() DriverRequestsArrayOutput {
+	return i.ToDriverRequestsArrayOutputWithContext(context.Background())
+}
+
+func (i DriverRequestsArray) ToDriverRequestsArrayOutputWithContext(ctx context.Context) DriverRequestsArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DriverRequestsArrayOutput)
+}
+
+// DriverRequests describes all resources that are needed from one particular driver.
+type DriverRequestsOutput struct{ *pulumi.OutputState }
+
+func (DriverRequestsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*DriverRequests)(nil)).Elem()
+}
+
+func (o DriverRequestsOutput) ToDriverRequestsOutput() DriverRequestsOutput {
+	return o
+}
+
+func (o DriverRequestsOutput) ToDriverRequestsOutputWithContext(ctx context.Context) DriverRequestsOutput {
+	return o
+}
+
+// DriverName is the name used by the DRA driver kubelet plugin.
+func (o DriverRequestsOutput) DriverName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DriverRequests) *string { return v.DriverName }).(pulumi.StringPtrOutput)
+}
+
+// Requests describes all resources that are needed from the driver.
+func (o DriverRequestsOutput) Requests() ResourceRequestArrayOutput {
+	return o.ApplyT(func(v DriverRequests) []ResourceRequest { return v.Requests }).(ResourceRequestArrayOutput)
+}
+
+// VendorParameters are arbitrary setup parameters for all requests of the claim. They are ignored while allocating the claim.
+func (o DriverRequestsOutput) VendorParameters() pulumi.AnyOutput {
+	return o.ApplyT(func(v DriverRequests) interface{} { return v.VendorParameters }).(pulumi.AnyOutput)
+}
+
+type DriverRequestsArrayOutput struct{ *pulumi.OutputState }
+
+func (DriverRequestsArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]DriverRequests)(nil)).Elem()
+}
+
+func (o DriverRequestsArrayOutput) ToDriverRequestsArrayOutput() DriverRequestsArrayOutput {
+	return o
+}
+
+func (o DriverRequestsArrayOutput) ToDriverRequestsArrayOutputWithContext(ctx context.Context) DriverRequestsArrayOutput {
+	return o
+}
+
+func (o DriverRequestsArrayOutput) Index(i pulumi.IntInput) DriverRequestsOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) DriverRequests {
+		return vs[0].([]DriverRequests)[vs[1].(int)]
+	}).(DriverRequestsOutput)
+}
+
+// DriverRequests describes all resources that are needed from one particular driver.
+type DriverRequestsPatch struct {
+	// DriverName is the name used by the DRA driver kubelet plugin.
+	DriverName *string `pulumi:"driverName"`
+	// Requests describes all resources that are needed from the driver.
+	Requests []ResourceRequestPatch `pulumi:"requests"`
+	// VendorParameters are arbitrary setup parameters for all requests of the claim. They are ignored while allocating the claim.
+	VendorParameters interface{} `pulumi:"vendorParameters"`
+}
+
+// DriverRequestsPatchInput is an input type that accepts DriverRequestsPatchArgs and DriverRequestsPatchOutput values.
+// You can construct a concrete instance of `DriverRequestsPatchInput` via:
+//
+//	DriverRequestsPatchArgs{...}
+type DriverRequestsPatchInput interface {
+	pulumi.Input
+
+	ToDriverRequestsPatchOutput() DriverRequestsPatchOutput
+	ToDriverRequestsPatchOutputWithContext(context.Context) DriverRequestsPatchOutput
+}
+
+// DriverRequests describes all resources that are needed from one particular driver.
+type DriverRequestsPatchArgs struct {
+	// DriverName is the name used by the DRA driver kubelet plugin.
+	DriverName pulumi.StringPtrInput `pulumi:"driverName"`
+	// Requests describes all resources that are needed from the driver.
+	Requests ResourceRequestPatchArrayInput `pulumi:"requests"`
+	// VendorParameters are arbitrary setup parameters for all requests of the claim. They are ignored while allocating the claim.
+	VendorParameters pulumi.Input `pulumi:"vendorParameters"`
+}
+
+func (DriverRequestsPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*DriverRequestsPatch)(nil)).Elem()
+}
+
+func (i DriverRequestsPatchArgs) ToDriverRequestsPatchOutput() DriverRequestsPatchOutput {
+	return i.ToDriverRequestsPatchOutputWithContext(context.Background())
+}
+
+func (i DriverRequestsPatchArgs) ToDriverRequestsPatchOutputWithContext(ctx context.Context) DriverRequestsPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DriverRequestsPatchOutput)
+}
+
+// DriverRequestsPatchArrayInput is an input type that accepts DriverRequestsPatchArray and DriverRequestsPatchArrayOutput values.
+// You can construct a concrete instance of `DriverRequestsPatchArrayInput` via:
+//
+//	DriverRequestsPatchArray{ DriverRequestsPatchArgs{...} }
+type DriverRequestsPatchArrayInput interface {
+	pulumi.Input
+
+	ToDriverRequestsPatchArrayOutput() DriverRequestsPatchArrayOutput
+	ToDriverRequestsPatchArrayOutputWithContext(context.Context) DriverRequestsPatchArrayOutput
+}
+
+type DriverRequestsPatchArray []DriverRequestsPatchInput
+
+func (DriverRequestsPatchArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]DriverRequestsPatch)(nil)).Elem()
+}
+
+func (i DriverRequestsPatchArray) ToDriverRequestsPatchArrayOutput() DriverRequestsPatchArrayOutput {
+	return i.ToDriverRequestsPatchArrayOutputWithContext(context.Background())
+}
+
+func (i DriverRequestsPatchArray) ToDriverRequestsPatchArrayOutputWithContext(ctx context.Context) DriverRequestsPatchArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DriverRequestsPatchArrayOutput)
+}
+
+// DriverRequests describes all resources that are needed from one particular driver.
+type DriverRequestsPatchOutput struct{ *pulumi.OutputState }
+
+func (DriverRequestsPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*DriverRequestsPatch)(nil)).Elem()
+}
+
+func (o DriverRequestsPatchOutput) ToDriverRequestsPatchOutput() DriverRequestsPatchOutput {
+	return o
+}
+
+func (o DriverRequestsPatchOutput) ToDriverRequestsPatchOutputWithContext(ctx context.Context) DriverRequestsPatchOutput {
+	return o
+}
+
+// DriverName is the name used by the DRA driver kubelet plugin.
+func (o DriverRequestsPatchOutput) DriverName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DriverRequestsPatch) *string { return v.DriverName }).(pulumi.StringPtrOutput)
+}
+
+// Requests describes all resources that are needed from the driver.
+func (o DriverRequestsPatchOutput) Requests() ResourceRequestPatchArrayOutput {
+	return o.ApplyT(func(v DriverRequestsPatch) []ResourceRequestPatch { return v.Requests }).(ResourceRequestPatchArrayOutput)
+}
+
+// VendorParameters are arbitrary setup parameters for all requests of the claim. They are ignored while allocating the claim.
+func (o DriverRequestsPatchOutput) VendorParameters() pulumi.AnyOutput {
+	return o.ApplyT(func(v DriverRequestsPatch) interface{} { return v.VendorParameters }).(pulumi.AnyOutput)
+}
+
+type DriverRequestsPatchArrayOutput struct{ *pulumi.OutputState }
+
+func (DriverRequestsPatchArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]DriverRequestsPatch)(nil)).Elem()
+}
+
+func (o DriverRequestsPatchArrayOutput) ToDriverRequestsPatchArrayOutput() DriverRequestsPatchArrayOutput {
+	return o
+}
+
+func (o DriverRequestsPatchArrayOutput) ToDriverRequestsPatchArrayOutputWithContext(ctx context.Context) DriverRequestsPatchArrayOutput {
+	return o
+}
+
+func (o DriverRequestsPatchArrayOutput) Index(i pulumi.IntInput) DriverRequestsPatchOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) DriverRequestsPatch {
+		return vs[0].([]DriverRequestsPatch)[vs[1].(int)]
+	}).(DriverRequestsPatchOutput)
+}
+
+// NamedResourcesAllocationResult is used in AllocationResultModel.
+type NamedResourcesAllocationResult struct {
+	// Name is the name of the selected resource instance.
+	Name string `pulumi:"name"`
+}
+
+// NamedResourcesAllocationResultInput is an input type that accepts NamedResourcesAllocationResultArgs and NamedResourcesAllocationResultOutput values.
+// You can construct a concrete instance of `NamedResourcesAllocationResultInput` via:
+//
+//	NamedResourcesAllocationResultArgs{...}
+type NamedResourcesAllocationResultInput interface {
+	pulumi.Input
+
+	ToNamedResourcesAllocationResultOutput() NamedResourcesAllocationResultOutput
+	ToNamedResourcesAllocationResultOutputWithContext(context.Context) NamedResourcesAllocationResultOutput
+}
+
+// NamedResourcesAllocationResult is used in AllocationResultModel.
+type NamedResourcesAllocationResultArgs struct {
+	// Name is the name of the selected resource instance.
+	Name pulumi.StringInput `pulumi:"name"`
+}
+
+func (NamedResourcesAllocationResultArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NamedResourcesAllocationResult)(nil)).Elem()
+}
+
+func (i NamedResourcesAllocationResultArgs) ToNamedResourcesAllocationResultOutput() NamedResourcesAllocationResultOutput {
+	return i.ToNamedResourcesAllocationResultOutputWithContext(context.Background())
+}
+
+func (i NamedResourcesAllocationResultArgs) ToNamedResourcesAllocationResultOutputWithContext(ctx context.Context) NamedResourcesAllocationResultOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NamedResourcesAllocationResultOutput)
+}
+
+func (i NamedResourcesAllocationResultArgs) ToNamedResourcesAllocationResultPtrOutput() NamedResourcesAllocationResultPtrOutput {
+	return i.ToNamedResourcesAllocationResultPtrOutputWithContext(context.Background())
+}
+
+func (i NamedResourcesAllocationResultArgs) ToNamedResourcesAllocationResultPtrOutputWithContext(ctx context.Context) NamedResourcesAllocationResultPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NamedResourcesAllocationResultOutput).ToNamedResourcesAllocationResultPtrOutputWithContext(ctx)
+}
+
+// NamedResourcesAllocationResultPtrInput is an input type that accepts NamedResourcesAllocationResultArgs, NamedResourcesAllocationResultPtr and NamedResourcesAllocationResultPtrOutput values.
+// You can construct a concrete instance of `NamedResourcesAllocationResultPtrInput` via:
+//
+//	        NamedResourcesAllocationResultArgs{...}
+//
+//	or:
+//
+//	        nil
+type NamedResourcesAllocationResultPtrInput interface {
+	pulumi.Input
+
+	ToNamedResourcesAllocationResultPtrOutput() NamedResourcesAllocationResultPtrOutput
+	ToNamedResourcesAllocationResultPtrOutputWithContext(context.Context) NamedResourcesAllocationResultPtrOutput
+}
+
+type namedResourcesAllocationResultPtrType NamedResourcesAllocationResultArgs
+
+func NamedResourcesAllocationResultPtr(v *NamedResourcesAllocationResultArgs) NamedResourcesAllocationResultPtrInput {
+	return (*namedResourcesAllocationResultPtrType)(v)
+}
+
+func (*namedResourcesAllocationResultPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**NamedResourcesAllocationResult)(nil)).Elem()
+}
+
+func (i *namedResourcesAllocationResultPtrType) ToNamedResourcesAllocationResultPtrOutput() NamedResourcesAllocationResultPtrOutput {
+	return i.ToNamedResourcesAllocationResultPtrOutputWithContext(context.Background())
+}
+
+func (i *namedResourcesAllocationResultPtrType) ToNamedResourcesAllocationResultPtrOutputWithContext(ctx context.Context) NamedResourcesAllocationResultPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NamedResourcesAllocationResultPtrOutput)
+}
+
+// NamedResourcesAllocationResult is used in AllocationResultModel.
+type NamedResourcesAllocationResultOutput struct{ *pulumi.OutputState }
+
+func (NamedResourcesAllocationResultOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NamedResourcesAllocationResult)(nil)).Elem()
+}
+
+func (o NamedResourcesAllocationResultOutput) ToNamedResourcesAllocationResultOutput() NamedResourcesAllocationResultOutput {
+	return o
+}
+
+func (o NamedResourcesAllocationResultOutput) ToNamedResourcesAllocationResultOutputWithContext(ctx context.Context) NamedResourcesAllocationResultOutput {
+	return o
+}
+
+func (o NamedResourcesAllocationResultOutput) ToNamedResourcesAllocationResultPtrOutput() NamedResourcesAllocationResultPtrOutput {
+	return o.ToNamedResourcesAllocationResultPtrOutputWithContext(context.Background())
+}
+
+func (o NamedResourcesAllocationResultOutput) ToNamedResourcesAllocationResultPtrOutputWithContext(ctx context.Context) NamedResourcesAllocationResultPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NamedResourcesAllocationResult) *NamedResourcesAllocationResult {
+		return &v
+	}).(NamedResourcesAllocationResultPtrOutput)
+}
+
+// Name is the name of the selected resource instance.
+func (o NamedResourcesAllocationResultOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v NamedResourcesAllocationResult) string { return v.Name }).(pulumi.StringOutput)
+}
+
+type NamedResourcesAllocationResultPtrOutput struct{ *pulumi.OutputState }
+
+func (NamedResourcesAllocationResultPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**NamedResourcesAllocationResult)(nil)).Elem()
+}
+
+func (o NamedResourcesAllocationResultPtrOutput) ToNamedResourcesAllocationResultPtrOutput() NamedResourcesAllocationResultPtrOutput {
+	return o
+}
+
+func (o NamedResourcesAllocationResultPtrOutput) ToNamedResourcesAllocationResultPtrOutputWithContext(ctx context.Context) NamedResourcesAllocationResultPtrOutput {
+	return o
+}
+
+func (o NamedResourcesAllocationResultPtrOutput) Elem() NamedResourcesAllocationResultOutput {
+	return o.ApplyT(func(v *NamedResourcesAllocationResult) NamedResourcesAllocationResult {
+		if v != nil {
+			return *v
+		}
+		var ret NamedResourcesAllocationResult
+		return ret
+	}).(NamedResourcesAllocationResultOutput)
+}
+
+// Name is the name of the selected resource instance.
+func (o NamedResourcesAllocationResultPtrOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *NamedResourcesAllocationResult) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Name
+	}).(pulumi.StringPtrOutput)
+}
+
+// NamedResourcesAllocationResult is used in AllocationResultModel.
+type NamedResourcesAllocationResultPatch struct {
+	// Name is the name of the selected resource instance.
+	Name *string `pulumi:"name"`
+}
+
+// NamedResourcesAllocationResultPatchInput is an input type that accepts NamedResourcesAllocationResultPatchArgs and NamedResourcesAllocationResultPatchOutput values.
+// You can construct a concrete instance of `NamedResourcesAllocationResultPatchInput` via:
+//
+//	NamedResourcesAllocationResultPatchArgs{...}
+type NamedResourcesAllocationResultPatchInput interface {
+	pulumi.Input
+
+	ToNamedResourcesAllocationResultPatchOutput() NamedResourcesAllocationResultPatchOutput
+	ToNamedResourcesAllocationResultPatchOutputWithContext(context.Context) NamedResourcesAllocationResultPatchOutput
+}
+
+// NamedResourcesAllocationResult is used in AllocationResultModel.
+type NamedResourcesAllocationResultPatchArgs struct {
+	// Name is the name of the selected resource instance.
+	Name pulumi.StringPtrInput `pulumi:"name"`
+}
+
+func (NamedResourcesAllocationResultPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NamedResourcesAllocationResultPatch)(nil)).Elem()
+}
+
+func (i NamedResourcesAllocationResultPatchArgs) ToNamedResourcesAllocationResultPatchOutput() NamedResourcesAllocationResultPatchOutput {
+	return i.ToNamedResourcesAllocationResultPatchOutputWithContext(context.Background())
+}
+
+func (i NamedResourcesAllocationResultPatchArgs) ToNamedResourcesAllocationResultPatchOutputWithContext(ctx context.Context) NamedResourcesAllocationResultPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NamedResourcesAllocationResultPatchOutput)
+}
+
+func (i NamedResourcesAllocationResultPatchArgs) ToNamedResourcesAllocationResultPatchPtrOutput() NamedResourcesAllocationResultPatchPtrOutput {
+	return i.ToNamedResourcesAllocationResultPatchPtrOutputWithContext(context.Background())
+}
+
+func (i NamedResourcesAllocationResultPatchArgs) ToNamedResourcesAllocationResultPatchPtrOutputWithContext(ctx context.Context) NamedResourcesAllocationResultPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NamedResourcesAllocationResultPatchOutput).ToNamedResourcesAllocationResultPatchPtrOutputWithContext(ctx)
+}
+
+// NamedResourcesAllocationResultPatchPtrInput is an input type that accepts NamedResourcesAllocationResultPatchArgs, NamedResourcesAllocationResultPatchPtr and NamedResourcesAllocationResultPatchPtrOutput values.
+// You can construct a concrete instance of `NamedResourcesAllocationResultPatchPtrInput` via:
+//
+//	        NamedResourcesAllocationResultPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type NamedResourcesAllocationResultPatchPtrInput interface {
+	pulumi.Input
+
+	ToNamedResourcesAllocationResultPatchPtrOutput() NamedResourcesAllocationResultPatchPtrOutput
+	ToNamedResourcesAllocationResultPatchPtrOutputWithContext(context.Context) NamedResourcesAllocationResultPatchPtrOutput
+}
+
+type namedResourcesAllocationResultPatchPtrType NamedResourcesAllocationResultPatchArgs
+
+func NamedResourcesAllocationResultPatchPtr(v *NamedResourcesAllocationResultPatchArgs) NamedResourcesAllocationResultPatchPtrInput {
+	return (*namedResourcesAllocationResultPatchPtrType)(v)
+}
+
+func (*namedResourcesAllocationResultPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**NamedResourcesAllocationResultPatch)(nil)).Elem()
+}
+
+func (i *namedResourcesAllocationResultPatchPtrType) ToNamedResourcesAllocationResultPatchPtrOutput() NamedResourcesAllocationResultPatchPtrOutput {
+	return i.ToNamedResourcesAllocationResultPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *namedResourcesAllocationResultPatchPtrType) ToNamedResourcesAllocationResultPatchPtrOutputWithContext(ctx context.Context) NamedResourcesAllocationResultPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NamedResourcesAllocationResultPatchPtrOutput)
+}
+
+// NamedResourcesAllocationResult is used in AllocationResultModel.
+type NamedResourcesAllocationResultPatchOutput struct{ *pulumi.OutputState }
+
+func (NamedResourcesAllocationResultPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NamedResourcesAllocationResultPatch)(nil)).Elem()
+}
+
+func (o NamedResourcesAllocationResultPatchOutput) ToNamedResourcesAllocationResultPatchOutput() NamedResourcesAllocationResultPatchOutput {
+	return o
+}
+
+func (o NamedResourcesAllocationResultPatchOutput) ToNamedResourcesAllocationResultPatchOutputWithContext(ctx context.Context) NamedResourcesAllocationResultPatchOutput {
+	return o
+}
+
+func (o NamedResourcesAllocationResultPatchOutput) ToNamedResourcesAllocationResultPatchPtrOutput() NamedResourcesAllocationResultPatchPtrOutput {
+	return o.ToNamedResourcesAllocationResultPatchPtrOutputWithContext(context.Background())
+}
+
+func (o NamedResourcesAllocationResultPatchOutput) ToNamedResourcesAllocationResultPatchPtrOutputWithContext(ctx context.Context) NamedResourcesAllocationResultPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NamedResourcesAllocationResultPatch) *NamedResourcesAllocationResultPatch {
+		return &v
+	}).(NamedResourcesAllocationResultPatchPtrOutput)
+}
+
+// Name is the name of the selected resource instance.
+func (o NamedResourcesAllocationResultPatchOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NamedResourcesAllocationResultPatch) *string { return v.Name }).(pulumi.StringPtrOutput)
+}
+
+type NamedResourcesAllocationResultPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (NamedResourcesAllocationResultPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**NamedResourcesAllocationResultPatch)(nil)).Elem()
+}
+
+func (o NamedResourcesAllocationResultPatchPtrOutput) ToNamedResourcesAllocationResultPatchPtrOutput() NamedResourcesAllocationResultPatchPtrOutput {
+	return o
+}
+
+func (o NamedResourcesAllocationResultPatchPtrOutput) ToNamedResourcesAllocationResultPatchPtrOutputWithContext(ctx context.Context) NamedResourcesAllocationResultPatchPtrOutput {
+	return o
+}
+
+func (o NamedResourcesAllocationResultPatchPtrOutput) Elem() NamedResourcesAllocationResultPatchOutput {
+	return o.ApplyT(func(v *NamedResourcesAllocationResultPatch) NamedResourcesAllocationResultPatch {
+		if v != nil {
+			return *v
+		}
+		var ret NamedResourcesAllocationResultPatch
+		return ret
+	}).(NamedResourcesAllocationResultPatchOutput)
+}
+
+// Name is the name of the selected resource instance.
+func (o NamedResourcesAllocationResultPatchPtrOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *NamedResourcesAllocationResultPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Name
+	}).(pulumi.StringPtrOutput)
+}
+
+// NamedResourcesAttribute is a combination of an attribute name and its value.
+type NamedResourcesAttribute struct {
+	// BoolValue is a true/false value.
+	Bool *bool `pulumi:"bool"`
+	// IntValue is a 64-bit integer.
+	Int *int `pulumi:"int"`
+	// IntSliceValue is an array of 64-bit integers.
+	IntSlice *NamedResourcesIntSlice `pulumi:"intSlice"`
+	// Name is unique identifier among all resource instances managed by the driver on the node. It must be a DNS subdomain.
+	Name string `pulumi:"name"`
+	// QuantityValue is a quantity.
+	Quantity *string `pulumi:"quantity"`
+	// StringValue is a string.
+	String *string `pulumi:"string"`
+	// StringSliceValue is an array of strings.
+	StringSlice *NamedResourcesStringSlice `pulumi:"stringSlice"`
+	// VersionValue is a semantic version according to semver.org spec 2.0.0.
+	Version *string `pulumi:"version"`
+}
+
+// NamedResourcesAttributeInput is an input type that accepts NamedResourcesAttributeArgs and NamedResourcesAttributeOutput values.
+// You can construct a concrete instance of `NamedResourcesAttributeInput` via:
+//
+//	NamedResourcesAttributeArgs{...}
+type NamedResourcesAttributeInput interface {
+	pulumi.Input
+
+	ToNamedResourcesAttributeOutput() NamedResourcesAttributeOutput
+	ToNamedResourcesAttributeOutputWithContext(context.Context) NamedResourcesAttributeOutput
+}
+
+// NamedResourcesAttribute is a combination of an attribute name and its value.
+type NamedResourcesAttributeArgs struct {
+	// BoolValue is a true/false value.
+	Bool pulumi.BoolPtrInput `pulumi:"bool"`
+	// IntValue is a 64-bit integer.
+	Int pulumi.IntPtrInput `pulumi:"int"`
+	// IntSliceValue is an array of 64-bit integers.
+	IntSlice NamedResourcesIntSlicePtrInput `pulumi:"intSlice"`
+	// Name is unique identifier among all resource instances managed by the driver on the node. It must be a DNS subdomain.
+	Name pulumi.StringInput `pulumi:"name"`
+	// QuantityValue is a quantity.
+	Quantity pulumi.StringPtrInput `pulumi:"quantity"`
+	// StringValue is a string.
+	String pulumi.StringPtrInput `pulumi:"string"`
+	// StringSliceValue is an array of strings.
+	StringSlice NamedResourcesStringSlicePtrInput `pulumi:"stringSlice"`
+	// VersionValue is a semantic version according to semver.org spec 2.0.0.
+	Version pulumi.StringPtrInput `pulumi:"version"`
+}
+
+func (NamedResourcesAttributeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NamedResourcesAttribute)(nil)).Elem()
+}
+
+func (i NamedResourcesAttributeArgs) ToNamedResourcesAttributeOutput() NamedResourcesAttributeOutput {
+	return i.ToNamedResourcesAttributeOutputWithContext(context.Background())
+}
+
+func (i NamedResourcesAttributeArgs) ToNamedResourcesAttributeOutputWithContext(ctx context.Context) NamedResourcesAttributeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NamedResourcesAttributeOutput)
+}
+
+// NamedResourcesAttributeArrayInput is an input type that accepts NamedResourcesAttributeArray and NamedResourcesAttributeArrayOutput values.
+// You can construct a concrete instance of `NamedResourcesAttributeArrayInput` via:
+//
+//	NamedResourcesAttributeArray{ NamedResourcesAttributeArgs{...} }
+type NamedResourcesAttributeArrayInput interface {
+	pulumi.Input
+
+	ToNamedResourcesAttributeArrayOutput() NamedResourcesAttributeArrayOutput
+	ToNamedResourcesAttributeArrayOutputWithContext(context.Context) NamedResourcesAttributeArrayOutput
+}
+
+type NamedResourcesAttributeArray []NamedResourcesAttributeInput
+
+func (NamedResourcesAttributeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]NamedResourcesAttribute)(nil)).Elem()
+}
+
+func (i NamedResourcesAttributeArray) ToNamedResourcesAttributeArrayOutput() NamedResourcesAttributeArrayOutput {
+	return i.ToNamedResourcesAttributeArrayOutputWithContext(context.Background())
+}
+
+func (i NamedResourcesAttributeArray) ToNamedResourcesAttributeArrayOutputWithContext(ctx context.Context) NamedResourcesAttributeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NamedResourcesAttributeArrayOutput)
+}
+
+// NamedResourcesAttribute is a combination of an attribute name and its value.
+type NamedResourcesAttributeOutput struct{ *pulumi.OutputState }
+
+func (NamedResourcesAttributeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NamedResourcesAttribute)(nil)).Elem()
+}
+
+func (o NamedResourcesAttributeOutput) ToNamedResourcesAttributeOutput() NamedResourcesAttributeOutput {
+	return o
+}
+
+func (o NamedResourcesAttributeOutput) ToNamedResourcesAttributeOutputWithContext(ctx context.Context) NamedResourcesAttributeOutput {
+	return o
+}
+
+// BoolValue is a true/false value.
+func (o NamedResourcesAttributeOutput) Bool() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v NamedResourcesAttribute) *bool { return v.Bool }).(pulumi.BoolPtrOutput)
+}
+
+// IntValue is a 64-bit integer.
+func (o NamedResourcesAttributeOutput) Int() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v NamedResourcesAttribute) *int { return v.Int }).(pulumi.IntPtrOutput)
+}
+
+// IntSliceValue is an array of 64-bit integers.
+func (o NamedResourcesAttributeOutput) IntSlice() NamedResourcesIntSlicePtrOutput {
+	return o.ApplyT(func(v NamedResourcesAttribute) *NamedResourcesIntSlice { return v.IntSlice }).(NamedResourcesIntSlicePtrOutput)
+}
+
+// Name is unique identifier among all resource instances managed by the driver on the node. It must be a DNS subdomain.
+func (o NamedResourcesAttributeOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v NamedResourcesAttribute) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// QuantityValue is a quantity.
+func (o NamedResourcesAttributeOutput) Quantity() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NamedResourcesAttribute) *string { return v.Quantity }).(pulumi.StringPtrOutput)
+}
+
+// StringValue is a string.
+func (o NamedResourcesAttributeOutput) String() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NamedResourcesAttribute) *string { return v.String }).(pulumi.StringPtrOutput)
+}
+
+// StringSliceValue is an array of strings.
+func (o NamedResourcesAttributeOutput) StringSlice() NamedResourcesStringSlicePtrOutput {
+	return o.ApplyT(func(v NamedResourcesAttribute) *NamedResourcesStringSlice { return v.StringSlice }).(NamedResourcesStringSlicePtrOutput)
+}
+
+// VersionValue is a semantic version according to semver.org spec 2.0.0.
+func (o NamedResourcesAttributeOutput) Version() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NamedResourcesAttribute) *string { return v.Version }).(pulumi.StringPtrOutput)
+}
+
+type NamedResourcesAttributeArrayOutput struct{ *pulumi.OutputState }
+
+func (NamedResourcesAttributeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]NamedResourcesAttribute)(nil)).Elem()
+}
+
+func (o NamedResourcesAttributeArrayOutput) ToNamedResourcesAttributeArrayOutput() NamedResourcesAttributeArrayOutput {
+	return o
+}
+
+func (o NamedResourcesAttributeArrayOutput) ToNamedResourcesAttributeArrayOutputWithContext(ctx context.Context) NamedResourcesAttributeArrayOutput {
+	return o
+}
+
+func (o NamedResourcesAttributeArrayOutput) Index(i pulumi.IntInput) NamedResourcesAttributeOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) NamedResourcesAttribute {
+		return vs[0].([]NamedResourcesAttribute)[vs[1].(int)]
+	}).(NamedResourcesAttributeOutput)
+}
+
+// NamedResourcesAttribute is a combination of an attribute name and its value.
+type NamedResourcesAttributePatch struct {
+	// BoolValue is a true/false value.
+	Bool *bool `pulumi:"bool"`
+	// IntValue is a 64-bit integer.
+	Int *int `pulumi:"int"`
+	// IntSliceValue is an array of 64-bit integers.
+	IntSlice *NamedResourcesIntSlicePatch `pulumi:"intSlice"`
+	// Name is unique identifier among all resource instances managed by the driver on the node. It must be a DNS subdomain.
+	Name *string `pulumi:"name"`
+	// QuantityValue is a quantity.
+	Quantity *string `pulumi:"quantity"`
+	// StringValue is a string.
+	String *string `pulumi:"string"`
+	// StringSliceValue is an array of strings.
+	StringSlice *NamedResourcesStringSlicePatch `pulumi:"stringSlice"`
+	// VersionValue is a semantic version according to semver.org spec 2.0.0.
+	Version *string `pulumi:"version"`
+}
+
+// NamedResourcesAttributePatchInput is an input type that accepts NamedResourcesAttributePatchArgs and NamedResourcesAttributePatchOutput values.
+// You can construct a concrete instance of `NamedResourcesAttributePatchInput` via:
+//
+//	NamedResourcesAttributePatchArgs{...}
+type NamedResourcesAttributePatchInput interface {
+	pulumi.Input
+
+	ToNamedResourcesAttributePatchOutput() NamedResourcesAttributePatchOutput
+	ToNamedResourcesAttributePatchOutputWithContext(context.Context) NamedResourcesAttributePatchOutput
+}
+
+// NamedResourcesAttribute is a combination of an attribute name and its value.
+type NamedResourcesAttributePatchArgs struct {
+	// BoolValue is a true/false value.
+	Bool pulumi.BoolPtrInput `pulumi:"bool"`
+	// IntValue is a 64-bit integer.
+	Int pulumi.IntPtrInput `pulumi:"int"`
+	// IntSliceValue is an array of 64-bit integers.
+	IntSlice NamedResourcesIntSlicePatchPtrInput `pulumi:"intSlice"`
+	// Name is unique identifier among all resource instances managed by the driver on the node. It must be a DNS subdomain.
+	Name pulumi.StringPtrInput `pulumi:"name"`
+	// QuantityValue is a quantity.
+	Quantity pulumi.StringPtrInput `pulumi:"quantity"`
+	// StringValue is a string.
+	String pulumi.StringPtrInput `pulumi:"string"`
+	// StringSliceValue is an array of strings.
+	StringSlice NamedResourcesStringSlicePatchPtrInput `pulumi:"stringSlice"`
+	// VersionValue is a semantic version according to semver.org spec 2.0.0.
+	Version pulumi.StringPtrInput `pulumi:"version"`
+}
+
+func (NamedResourcesAttributePatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NamedResourcesAttributePatch)(nil)).Elem()
+}
+
+func (i NamedResourcesAttributePatchArgs) ToNamedResourcesAttributePatchOutput() NamedResourcesAttributePatchOutput {
+	return i.ToNamedResourcesAttributePatchOutputWithContext(context.Background())
+}
+
+func (i NamedResourcesAttributePatchArgs) ToNamedResourcesAttributePatchOutputWithContext(ctx context.Context) NamedResourcesAttributePatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NamedResourcesAttributePatchOutput)
+}
+
+// NamedResourcesAttributePatchArrayInput is an input type that accepts NamedResourcesAttributePatchArray and NamedResourcesAttributePatchArrayOutput values.
+// You can construct a concrete instance of `NamedResourcesAttributePatchArrayInput` via:
+//
+//	NamedResourcesAttributePatchArray{ NamedResourcesAttributePatchArgs{...} }
+type NamedResourcesAttributePatchArrayInput interface {
+	pulumi.Input
+
+	ToNamedResourcesAttributePatchArrayOutput() NamedResourcesAttributePatchArrayOutput
+	ToNamedResourcesAttributePatchArrayOutputWithContext(context.Context) NamedResourcesAttributePatchArrayOutput
+}
+
+type NamedResourcesAttributePatchArray []NamedResourcesAttributePatchInput
+
+func (NamedResourcesAttributePatchArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]NamedResourcesAttributePatch)(nil)).Elem()
+}
+
+func (i NamedResourcesAttributePatchArray) ToNamedResourcesAttributePatchArrayOutput() NamedResourcesAttributePatchArrayOutput {
+	return i.ToNamedResourcesAttributePatchArrayOutputWithContext(context.Background())
+}
+
+func (i NamedResourcesAttributePatchArray) ToNamedResourcesAttributePatchArrayOutputWithContext(ctx context.Context) NamedResourcesAttributePatchArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NamedResourcesAttributePatchArrayOutput)
+}
+
+// NamedResourcesAttribute is a combination of an attribute name and its value.
+type NamedResourcesAttributePatchOutput struct{ *pulumi.OutputState }
+
+func (NamedResourcesAttributePatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NamedResourcesAttributePatch)(nil)).Elem()
+}
+
+func (o NamedResourcesAttributePatchOutput) ToNamedResourcesAttributePatchOutput() NamedResourcesAttributePatchOutput {
+	return o
+}
+
+func (o NamedResourcesAttributePatchOutput) ToNamedResourcesAttributePatchOutputWithContext(ctx context.Context) NamedResourcesAttributePatchOutput {
+	return o
+}
+
+// BoolValue is a true/false value.
+func (o NamedResourcesAttributePatchOutput) Bool() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v NamedResourcesAttributePatch) *bool { return v.Bool }).(pulumi.BoolPtrOutput)
+}
+
+// IntValue is a 64-bit integer.
+func (o NamedResourcesAttributePatchOutput) Int() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v NamedResourcesAttributePatch) *int { return v.Int }).(pulumi.IntPtrOutput)
+}
+
+// IntSliceValue is an array of 64-bit integers.
+func (o NamedResourcesAttributePatchOutput) IntSlice() NamedResourcesIntSlicePatchPtrOutput {
+	return o.ApplyT(func(v NamedResourcesAttributePatch) *NamedResourcesIntSlicePatch { return v.IntSlice }).(NamedResourcesIntSlicePatchPtrOutput)
+}
+
+// Name is unique identifier among all resource instances managed by the driver on the node. It must be a DNS subdomain.
+func (o NamedResourcesAttributePatchOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NamedResourcesAttributePatch) *string { return v.Name }).(pulumi.StringPtrOutput)
+}
+
+// QuantityValue is a quantity.
+func (o NamedResourcesAttributePatchOutput) Quantity() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NamedResourcesAttributePatch) *string { return v.Quantity }).(pulumi.StringPtrOutput)
+}
+
+// StringValue is a string.
+func (o NamedResourcesAttributePatchOutput) String() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NamedResourcesAttributePatch) *string { return v.String }).(pulumi.StringPtrOutput)
+}
+
+// StringSliceValue is an array of strings.
+func (o NamedResourcesAttributePatchOutput) StringSlice() NamedResourcesStringSlicePatchPtrOutput {
+	return o.ApplyT(func(v NamedResourcesAttributePatch) *NamedResourcesStringSlicePatch { return v.StringSlice }).(NamedResourcesStringSlicePatchPtrOutput)
+}
+
+// VersionValue is a semantic version according to semver.org spec 2.0.0.
+func (o NamedResourcesAttributePatchOutput) Version() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NamedResourcesAttributePatch) *string { return v.Version }).(pulumi.StringPtrOutput)
+}
+
+type NamedResourcesAttributePatchArrayOutput struct{ *pulumi.OutputState }
+
+func (NamedResourcesAttributePatchArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]NamedResourcesAttributePatch)(nil)).Elem()
+}
+
+func (o NamedResourcesAttributePatchArrayOutput) ToNamedResourcesAttributePatchArrayOutput() NamedResourcesAttributePatchArrayOutput {
+	return o
+}
+
+func (o NamedResourcesAttributePatchArrayOutput) ToNamedResourcesAttributePatchArrayOutputWithContext(ctx context.Context) NamedResourcesAttributePatchArrayOutput {
+	return o
+}
+
+func (o NamedResourcesAttributePatchArrayOutput) Index(i pulumi.IntInput) NamedResourcesAttributePatchOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) NamedResourcesAttributePatch {
+		return vs[0].([]NamedResourcesAttributePatch)[vs[1].(int)]
+	}).(NamedResourcesAttributePatchOutput)
+}
+
+// NamedResourcesFilter is used in ResourceFilterModel.
+type NamedResourcesFilter struct {
+	// Selector is a CEL expression which must evaluate to true if a resource instance is suitable. The language is as defined in https://kubernetes.io/docs/reference/using-api/cel/
+	//
+	// In addition, for each type NamedResourcesin AttributeValue there is a map that resolves to the corresponding value of the instance under evaluation. For example:
+	//
+	//    attributes.quantity["a"].isGreaterThan(quantity("0")) &&
+	//    attributes.stringslice["b"].isSorted()
+	Selector string `pulumi:"selector"`
+}
+
+// NamedResourcesFilterInput is an input type that accepts NamedResourcesFilterArgs and NamedResourcesFilterOutput values.
+// You can construct a concrete instance of `NamedResourcesFilterInput` via:
+//
+//	NamedResourcesFilterArgs{...}
+type NamedResourcesFilterInput interface {
+	pulumi.Input
+
+	ToNamedResourcesFilterOutput() NamedResourcesFilterOutput
+	ToNamedResourcesFilterOutputWithContext(context.Context) NamedResourcesFilterOutput
+}
+
+// NamedResourcesFilter is used in ResourceFilterModel.
+type NamedResourcesFilterArgs struct {
+	// Selector is a CEL expression which must evaluate to true if a resource instance is suitable. The language is as defined in https://kubernetes.io/docs/reference/using-api/cel/
+	//
+	// In addition, for each type NamedResourcesin AttributeValue there is a map that resolves to the corresponding value of the instance under evaluation. For example:
+	//
+	//    attributes.quantity["a"].isGreaterThan(quantity("0")) &&
+	//    attributes.stringslice["b"].isSorted()
+	Selector pulumi.StringInput `pulumi:"selector"`
+}
+
+func (NamedResourcesFilterArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NamedResourcesFilter)(nil)).Elem()
+}
+
+func (i NamedResourcesFilterArgs) ToNamedResourcesFilterOutput() NamedResourcesFilterOutput {
+	return i.ToNamedResourcesFilterOutputWithContext(context.Background())
+}
+
+func (i NamedResourcesFilterArgs) ToNamedResourcesFilterOutputWithContext(ctx context.Context) NamedResourcesFilterOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NamedResourcesFilterOutput)
+}
+
+func (i NamedResourcesFilterArgs) ToNamedResourcesFilterPtrOutput() NamedResourcesFilterPtrOutput {
+	return i.ToNamedResourcesFilterPtrOutputWithContext(context.Background())
+}
+
+func (i NamedResourcesFilterArgs) ToNamedResourcesFilterPtrOutputWithContext(ctx context.Context) NamedResourcesFilterPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NamedResourcesFilterOutput).ToNamedResourcesFilterPtrOutputWithContext(ctx)
+}
+
+// NamedResourcesFilterPtrInput is an input type that accepts NamedResourcesFilterArgs, NamedResourcesFilterPtr and NamedResourcesFilterPtrOutput values.
+// You can construct a concrete instance of `NamedResourcesFilterPtrInput` via:
+//
+//	        NamedResourcesFilterArgs{...}
+//
+//	or:
+//
+//	        nil
+type NamedResourcesFilterPtrInput interface {
+	pulumi.Input
+
+	ToNamedResourcesFilterPtrOutput() NamedResourcesFilterPtrOutput
+	ToNamedResourcesFilterPtrOutputWithContext(context.Context) NamedResourcesFilterPtrOutput
+}
+
+type namedResourcesFilterPtrType NamedResourcesFilterArgs
+
+func NamedResourcesFilterPtr(v *NamedResourcesFilterArgs) NamedResourcesFilterPtrInput {
+	return (*namedResourcesFilterPtrType)(v)
+}
+
+func (*namedResourcesFilterPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**NamedResourcesFilter)(nil)).Elem()
+}
+
+func (i *namedResourcesFilterPtrType) ToNamedResourcesFilterPtrOutput() NamedResourcesFilterPtrOutput {
+	return i.ToNamedResourcesFilterPtrOutputWithContext(context.Background())
+}
+
+func (i *namedResourcesFilterPtrType) ToNamedResourcesFilterPtrOutputWithContext(ctx context.Context) NamedResourcesFilterPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NamedResourcesFilterPtrOutput)
+}
+
+// NamedResourcesFilter is used in ResourceFilterModel.
+type NamedResourcesFilterOutput struct{ *pulumi.OutputState }
+
+func (NamedResourcesFilterOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NamedResourcesFilter)(nil)).Elem()
+}
+
+func (o NamedResourcesFilterOutput) ToNamedResourcesFilterOutput() NamedResourcesFilterOutput {
+	return o
+}
+
+func (o NamedResourcesFilterOutput) ToNamedResourcesFilterOutputWithContext(ctx context.Context) NamedResourcesFilterOutput {
+	return o
+}
+
+func (o NamedResourcesFilterOutput) ToNamedResourcesFilterPtrOutput() NamedResourcesFilterPtrOutput {
+	return o.ToNamedResourcesFilterPtrOutputWithContext(context.Background())
+}
+
+func (o NamedResourcesFilterOutput) ToNamedResourcesFilterPtrOutputWithContext(ctx context.Context) NamedResourcesFilterPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NamedResourcesFilter) *NamedResourcesFilter {
+		return &v
+	}).(NamedResourcesFilterPtrOutput)
+}
+
+// Selector is a CEL expression which must evaluate to true if a resource instance is suitable. The language is as defined in https://kubernetes.io/docs/reference/using-api/cel/
+//
+// In addition, for each type NamedResourcesin AttributeValue there is a map that resolves to the corresponding value of the instance under evaluation. For example:
+//
+//	attributes.quantity["a"].isGreaterThan(quantity("0")) &&
+//	attributes.stringslice["b"].isSorted()
+func (o NamedResourcesFilterOutput) Selector() pulumi.StringOutput {
+	return o.ApplyT(func(v NamedResourcesFilter) string { return v.Selector }).(pulumi.StringOutput)
+}
+
+type NamedResourcesFilterPtrOutput struct{ *pulumi.OutputState }
+
+func (NamedResourcesFilterPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**NamedResourcesFilter)(nil)).Elem()
+}
+
+func (o NamedResourcesFilterPtrOutput) ToNamedResourcesFilterPtrOutput() NamedResourcesFilterPtrOutput {
+	return o
+}
+
+func (o NamedResourcesFilterPtrOutput) ToNamedResourcesFilterPtrOutputWithContext(ctx context.Context) NamedResourcesFilterPtrOutput {
+	return o
+}
+
+func (o NamedResourcesFilterPtrOutput) Elem() NamedResourcesFilterOutput {
+	return o.ApplyT(func(v *NamedResourcesFilter) NamedResourcesFilter {
+		if v != nil {
+			return *v
+		}
+		var ret NamedResourcesFilter
+		return ret
+	}).(NamedResourcesFilterOutput)
+}
+
+// Selector is a CEL expression which must evaluate to true if a resource instance is suitable. The language is as defined in https://kubernetes.io/docs/reference/using-api/cel/
+//
+// In addition, for each type NamedResourcesin AttributeValue there is a map that resolves to the corresponding value of the instance under evaluation. For example:
+//
+//	attributes.quantity["a"].isGreaterThan(quantity("0")) &&
+//	attributes.stringslice["b"].isSorted()
+func (o NamedResourcesFilterPtrOutput) Selector() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *NamedResourcesFilter) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Selector
+	}).(pulumi.StringPtrOutput)
+}
+
+// NamedResourcesFilter is used in ResourceFilterModel.
+type NamedResourcesFilterPatch struct {
+	// Selector is a CEL expression which must evaluate to true if a resource instance is suitable. The language is as defined in https://kubernetes.io/docs/reference/using-api/cel/
+	//
+	// In addition, for each type NamedResourcesin AttributeValue there is a map that resolves to the corresponding value of the instance under evaluation. For example:
+	//
+	//    attributes.quantity["a"].isGreaterThan(quantity("0")) &&
+	//    attributes.stringslice["b"].isSorted()
+	Selector *string `pulumi:"selector"`
+}
+
+// NamedResourcesFilterPatchInput is an input type that accepts NamedResourcesFilterPatchArgs and NamedResourcesFilterPatchOutput values.
+// You can construct a concrete instance of `NamedResourcesFilterPatchInput` via:
+//
+//	NamedResourcesFilterPatchArgs{...}
+type NamedResourcesFilterPatchInput interface {
+	pulumi.Input
+
+	ToNamedResourcesFilterPatchOutput() NamedResourcesFilterPatchOutput
+	ToNamedResourcesFilterPatchOutputWithContext(context.Context) NamedResourcesFilterPatchOutput
+}
+
+// NamedResourcesFilter is used in ResourceFilterModel.
+type NamedResourcesFilterPatchArgs struct {
+	// Selector is a CEL expression which must evaluate to true if a resource instance is suitable. The language is as defined in https://kubernetes.io/docs/reference/using-api/cel/
+	//
+	// In addition, for each type NamedResourcesin AttributeValue there is a map that resolves to the corresponding value of the instance under evaluation. For example:
+	//
+	//    attributes.quantity["a"].isGreaterThan(quantity("0")) &&
+	//    attributes.stringslice["b"].isSorted()
+	Selector pulumi.StringPtrInput `pulumi:"selector"`
+}
+
+func (NamedResourcesFilterPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NamedResourcesFilterPatch)(nil)).Elem()
+}
+
+func (i NamedResourcesFilterPatchArgs) ToNamedResourcesFilterPatchOutput() NamedResourcesFilterPatchOutput {
+	return i.ToNamedResourcesFilterPatchOutputWithContext(context.Background())
+}
+
+func (i NamedResourcesFilterPatchArgs) ToNamedResourcesFilterPatchOutputWithContext(ctx context.Context) NamedResourcesFilterPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NamedResourcesFilterPatchOutput)
+}
+
+func (i NamedResourcesFilterPatchArgs) ToNamedResourcesFilterPatchPtrOutput() NamedResourcesFilterPatchPtrOutput {
+	return i.ToNamedResourcesFilterPatchPtrOutputWithContext(context.Background())
+}
+
+func (i NamedResourcesFilterPatchArgs) ToNamedResourcesFilterPatchPtrOutputWithContext(ctx context.Context) NamedResourcesFilterPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NamedResourcesFilterPatchOutput).ToNamedResourcesFilterPatchPtrOutputWithContext(ctx)
+}
+
+// NamedResourcesFilterPatchPtrInput is an input type that accepts NamedResourcesFilterPatchArgs, NamedResourcesFilterPatchPtr and NamedResourcesFilterPatchPtrOutput values.
+// You can construct a concrete instance of `NamedResourcesFilterPatchPtrInput` via:
+//
+//	        NamedResourcesFilterPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type NamedResourcesFilterPatchPtrInput interface {
+	pulumi.Input
+
+	ToNamedResourcesFilterPatchPtrOutput() NamedResourcesFilterPatchPtrOutput
+	ToNamedResourcesFilterPatchPtrOutputWithContext(context.Context) NamedResourcesFilterPatchPtrOutput
+}
+
+type namedResourcesFilterPatchPtrType NamedResourcesFilterPatchArgs
+
+func NamedResourcesFilterPatchPtr(v *NamedResourcesFilterPatchArgs) NamedResourcesFilterPatchPtrInput {
+	return (*namedResourcesFilterPatchPtrType)(v)
+}
+
+func (*namedResourcesFilterPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**NamedResourcesFilterPatch)(nil)).Elem()
+}
+
+func (i *namedResourcesFilterPatchPtrType) ToNamedResourcesFilterPatchPtrOutput() NamedResourcesFilterPatchPtrOutput {
+	return i.ToNamedResourcesFilterPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *namedResourcesFilterPatchPtrType) ToNamedResourcesFilterPatchPtrOutputWithContext(ctx context.Context) NamedResourcesFilterPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NamedResourcesFilterPatchPtrOutput)
+}
+
+// NamedResourcesFilter is used in ResourceFilterModel.
+type NamedResourcesFilterPatchOutput struct{ *pulumi.OutputState }
+
+func (NamedResourcesFilterPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NamedResourcesFilterPatch)(nil)).Elem()
+}
+
+func (o NamedResourcesFilterPatchOutput) ToNamedResourcesFilterPatchOutput() NamedResourcesFilterPatchOutput {
+	return o
+}
+
+func (o NamedResourcesFilterPatchOutput) ToNamedResourcesFilterPatchOutputWithContext(ctx context.Context) NamedResourcesFilterPatchOutput {
+	return o
+}
+
+func (o NamedResourcesFilterPatchOutput) ToNamedResourcesFilterPatchPtrOutput() NamedResourcesFilterPatchPtrOutput {
+	return o.ToNamedResourcesFilterPatchPtrOutputWithContext(context.Background())
+}
+
+func (o NamedResourcesFilterPatchOutput) ToNamedResourcesFilterPatchPtrOutputWithContext(ctx context.Context) NamedResourcesFilterPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NamedResourcesFilterPatch) *NamedResourcesFilterPatch {
+		return &v
+	}).(NamedResourcesFilterPatchPtrOutput)
+}
+
+// Selector is a CEL expression which must evaluate to true if a resource instance is suitable. The language is as defined in https://kubernetes.io/docs/reference/using-api/cel/
+//
+// In addition, for each type NamedResourcesin AttributeValue there is a map that resolves to the corresponding value of the instance under evaluation. For example:
+//
+//	attributes.quantity["a"].isGreaterThan(quantity("0")) &&
+//	attributes.stringslice["b"].isSorted()
+func (o NamedResourcesFilterPatchOutput) Selector() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NamedResourcesFilterPatch) *string { return v.Selector }).(pulumi.StringPtrOutput)
+}
+
+type NamedResourcesFilterPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (NamedResourcesFilterPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**NamedResourcesFilterPatch)(nil)).Elem()
+}
+
+func (o NamedResourcesFilterPatchPtrOutput) ToNamedResourcesFilterPatchPtrOutput() NamedResourcesFilterPatchPtrOutput {
+	return o
+}
+
+func (o NamedResourcesFilterPatchPtrOutput) ToNamedResourcesFilterPatchPtrOutputWithContext(ctx context.Context) NamedResourcesFilterPatchPtrOutput {
+	return o
+}
+
+func (o NamedResourcesFilterPatchPtrOutput) Elem() NamedResourcesFilterPatchOutput {
+	return o.ApplyT(func(v *NamedResourcesFilterPatch) NamedResourcesFilterPatch {
+		if v != nil {
+			return *v
+		}
+		var ret NamedResourcesFilterPatch
+		return ret
+	}).(NamedResourcesFilterPatchOutput)
+}
+
+// Selector is a CEL expression which must evaluate to true if a resource instance is suitable. The language is as defined in https://kubernetes.io/docs/reference/using-api/cel/
+//
+// In addition, for each type NamedResourcesin AttributeValue there is a map that resolves to the corresponding value of the instance under evaluation. For example:
+//
+//	attributes.quantity["a"].isGreaterThan(quantity("0")) &&
+//	attributes.stringslice["b"].isSorted()
+func (o NamedResourcesFilterPatchPtrOutput) Selector() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *NamedResourcesFilterPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Selector
+	}).(pulumi.StringPtrOutput)
+}
+
+// NamedResourcesInstance represents one individual hardware instance that can be selected based on its attributes.
+type NamedResourcesInstance struct {
+	// Attributes defines the attributes of this resource instance. The name of each attribute must be unique.
+	Attributes []NamedResourcesAttribute `pulumi:"attributes"`
+	// Name is unique identifier among all resource instances managed by the driver on the node. It must be a DNS subdomain.
+	Name string `pulumi:"name"`
+}
+
+// NamedResourcesInstanceInput is an input type that accepts NamedResourcesInstanceArgs and NamedResourcesInstanceOutput values.
+// You can construct a concrete instance of `NamedResourcesInstanceInput` via:
+//
+//	NamedResourcesInstanceArgs{...}
+type NamedResourcesInstanceInput interface {
+	pulumi.Input
+
+	ToNamedResourcesInstanceOutput() NamedResourcesInstanceOutput
+	ToNamedResourcesInstanceOutputWithContext(context.Context) NamedResourcesInstanceOutput
+}
+
+// NamedResourcesInstance represents one individual hardware instance that can be selected based on its attributes.
+type NamedResourcesInstanceArgs struct {
+	// Attributes defines the attributes of this resource instance. The name of each attribute must be unique.
+	Attributes NamedResourcesAttributeArrayInput `pulumi:"attributes"`
+	// Name is unique identifier among all resource instances managed by the driver on the node. It must be a DNS subdomain.
+	Name pulumi.StringInput `pulumi:"name"`
+}
+
+func (NamedResourcesInstanceArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NamedResourcesInstance)(nil)).Elem()
+}
+
+func (i NamedResourcesInstanceArgs) ToNamedResourcesInstanceOutput() NamedResourcesInstanceOutput {
+	return i.ToNamedResourcesInstanceOutputWithContext(context.Background())
+}
+
+func (i NamedResourcesInstanceArgs) ToNamedResourcesInstanceOutputWithContext(ctx context.Context) NamedResourcesInstanceOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NamedResourcesInstanceOutput)
+}
+
+// NamedResourcesInstanceArrayInput is an input type that accepts NamedResourcesInstanceArray and NamedResourcesInstanceArrayOutput values.
+// You can construct a concrete instance of `NamedResourcesInstanceArrayInput` via:
+//
+//	NamedResourcesInstanceArray{ NamedResourcesInstanceArgs{...} }
+type NamedResourcesInstanceArrayInput interface {
+	pulumi.Input
+
+	ToNamedResourcesInstanceArrayOutput() NamedResourcesInstanceArrayOutput
+	ToNamedResourcesInstanceArrayOutputWithContext(context.Context) NamedResourcesInstanceArrayOutput
+}
+
+type NamedResourcesInstanceArray []NamedResourcesInstanceInput
+
+func (NamedResourcesInstanceArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]NamedResourcesInstance)(nil)).Elem()
+}
+
+func (i NamedResourcesInstanceArray) ToNamedResourcesInstanceArrayOutput() NamedResourcesInstanceArrayOutput {
+	return i.ToNamedResourcesInstanceArrayOutputWithContext(context.Background())
+}
+
+func (i NamedResourcesInstanceArray) ToNamedResourcesInstanceArrayOutputWithContext(ctx context.Context) NamedResourcesInstanceArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NamedResourcesInstanceArrayOutput)
+}
+
+// NamedResourcesInstance represents one individual hardware instance that can be selected based on its attributes.
+type NamedResourcesInstanceOutput struct{ *pulumi.OutputState }
+
+func (NamedResourcesInstanceOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NamedResourcesInstance)(nil)).Elem()
+}
+
+func (o NamedResourcesInstanceOutput) ToNamedResourcesInstanceOutput() NamedResourcesInstanceOutput {
+	return o
+}
+
+func (o NamedResourcesInstanceOutput) ToNamedResourcesInstanceOutputWithContext(ctx context.Context) NamedResourcesInstanceOutput {
+	return o
+}
+
+// Attributes defines the attributes of this resource instance. The name of each attribute must be unique.
+func (o NamedResourcesInstanceOutput) Attributes() NamedResourcesAttributeArrayOutput {
+	return o.ApplyT(func(v NamedResourcesInstance) []NamedResourcesAttribute { return v.Attributes }).(NamedResourcesAttributeArrayOutput)
+}
+
+// Name is unique identifier among all resource instances managed by the driver on the node. It must be a DNS subdomain.
+func (o NamedResourcesInstanceOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v NamedResourcesInstance) string { return v.Name }).(pulumi.StringOutput)
+}
+
+type NamedResourcesInstanceArrayOutput struct{ *pulumi.OutputState }
+
+func (NamedResourcesInstanceArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]NamedResourcesInstance)(nil)).Elem()
+}
+
+func (o NamedResourcesInstanceArrayOutput) ToNamedResourcesInstanceArrayOutput() NamedResourcesInstanceArrayOutput {
+	return o
+}
+
+func (o NamedResourcesInstanceArrayOutput) ToNamedResourcesInstanceArrayOutputWithContext(ctx context.Context) NamedResourcesInstanceArrayOutput {
+	return o
+}
+
+func (o NamedResourcesInstanceArrayOutput) Index(i pulumi.IntInput) NamedResourcesInstanceOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) NamedResourcesInstance {
+		return vs[0].([]NamedResourcesInstance)[vs[1].(int)]
+	}).(NamedResourcesInstanceOutput)
+}
+
+// NamedResourcesInstance represents one individual hardware instance that can be selected based on its attributes.
+type NamedResourcesInstancePatch struct {
+	// Attributes defines the attributes of this resource instance. The name of each attribute must be unique.
+	Attributes []NamedResourcesAttributePatch `pulumi:"attributes"`
+	// Name is unique identifier among all resource instances managed by the driver on the node. It must be a DNS subdomain.
+	Name *string `pulumi:"name"`
+}
+
+// NamedResourcesInstancePatchInput is an input type that accepts NamedResourcesInstancePatchArgs and NamedResourcesInstancePatchOutput values.
+// You can construct a concrete instance of `NamedResourcesInstancePatchInput` via:
+//
+//	NamedResourcesInstancePatchArgs{...}
+type NamedResourcesInstancePatchInput interface {
+	pulumi.Input
+
+	ToNamedResourcesInstancePatchOutput() NamedResourcesInstancePatchOutput
+	ToNamedResourcesInstancePatchOutputWithContext(context.Context) NamedResourcesInstancePatchOutput
+}
+
+// NamedResourcesInstance represents one individual hardware instance that can be selected based on its attributes.
+type NamedResourcesInstancePatchArgs struct {
+	// Attributes defines the attributes of this resource instance. The name of each attribute must be unique.
+	Attributes NamedResourcesAttributePatchArrayInput `pulumi:"attributes"`
+	// Name is unique identifier among all resource instances managed by the driver on the node. It must be a DNS subdomain.
+	Name pulumi.StringPtrInput `pulumi:"name"`
+}
+
+func (NamedResourcesInstancePatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NamedResourcesInstancePatch)(nil)).Elem()
+}
+
+func (i NamedResourcesInstancePatchArgs) ToNamedResourcesInstancePatchOutput() NamedResourcesInstancePatchOutput {
+	return i.ToNamedResourcesInstancePatchOutputWithContext(context.Background())
+}
+
+func (i NamedResourcesInstancePatchArgs) ToNamedResourcesInstancePatchOutputWithContext(ctx context.Context) NamedResourcesInstancePatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NamedResourcesInstancePatchOutput)
+}
+
+// NamedResourcesInstancePatchArrayInput is an input type that accepts NamedResourcesInstancePatchArray and NamedResourcesInstancePatchArrayOutput values.
+// You can construct a concrete instance of `NamedResourcesInstancePatchArrayInput` via:
+//
+//	NamedResourcesInstancePatchArray{ NamedResourcesInstancePatchArgs{...} }
+type NamedResourcesInstancePatchArrayInput interface {
+	pulumi.Input
+
+	ToNamedResourcesInstancePatchArrayOutput() NamedResourcesInstancePatchArrayOutput
+	ToNamedResourcesInstancePatchArrayOutputWithContext(context.Context) NamedResourcesInstancePatchArrayOutput
+}
+
+type NamedResourcesInstancePatchArray []NamedResourcesInstancePatchInput
+
+func (NamedResourcesInstancePatchArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]NamedResourcesInstancePatch)(nil)).Elem()
+}
+
+func (i NamedResourcesInstancePatchArray) ToNamedResourcesInstancePatchArrayOutput() NamedResourcesInstancePatchArrayOutput {
+	return i.ToNamedResourcesInstancePatchArrayOutputWithContext(context.Background())
+}
+
+func (i NamedResourcesInstancePatchArray) ToNamedResourcesInstancePatchArrayOutputWithContext(ctx context.Context) NamedResourcesInstancePatchArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NamedResourcesInstancePatchArrayOutput)
+}
+
+// NamedResourcesInstance represents one individual hardware instance that can be selected based on its attributes.
+type NamedResourcesInstancePatchOutput struct{ *pulumi.OutputState }
+
+func (NamedResourcesInstancePatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NamedResourcesInstancePatch)(nil)).Elem()
+}
+
+func (o NamedResourcesInstancePatchOutput) ToNamedResourcesInstancePatchOutput() NamedResourcesInstancePatchOutput {
+	return o
+}
+
+func (o NamedResourcesInstancePatchOutput) ToNamedResourcesInstancePatchOutputWithContext(ctx context.Context) NamedResourcesInstancePatchOutput {
+	return o
+}
+
+// Attributes defines the attributes of this resource instance. The name of each attribute must be unique.
+func (o NamedResourcesInstancePatchOutput) Attributes() NamedResourcesAttributePatchArrayOutput {
+	return o.ApplyT(func(v NamedResourcesInstancePatch) []NamedResourcesAttributePatch { return v.Attributes }).(NamedResourcesAttributePatchArrayOutput)
+}
+
+// Name is unique identifier among all resource instances managed by the driver on the node. It must be a DNS subdomain.
+func (o NamedResourcesInstancePatchOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NamedResourcesInstancePatch) *string { return v.Name }).(pulumi.StringPtrOutput)
+}
+
+type NamedResourcesInstancePatchArrayOutput struct{ *pulumi.OutputState }
+
+func (NamedResourcesInstancePatchArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]NamedResourcesInstancePatch)(nil)).Elem()
+}
+
+func (o NamedResourcesInstancePatchArrayOutput) ToNamedResourcesInstancePatchArrayOutput() NamedResourcesInstancePatchArrayOutput {
+	return o
+}
+
+func (o NamedResourcesInstancePatchArrayOutput) ToNamedResourcesInstancePatchArrayOutputWithContext(ctx context.Context) NamedResourcesInstancePatchArrayOutput {
+	return o
+}
+
+func (o NamedResourcesInstancePatchArrayOutput) Index(i pulumi.IntInput) NamedResourcesInstancePatchOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) NamedResourcesInstancePatch {
+		return vs[0].([]NamedResourcesInstancePatch)[vs[1].(int)]
+	}).(NamedResourcesInstancePatchOutput)
+}
+
+// NamedResourcesIntSlice contains a slice of 64-bit integers.
+type NamedResourcesIntSlice struct {
+	// Ints is the slice of 64-bit integers.
+	Ints []int `pulumi:"ints"`
+}
+
+// NamedResourcesIntSliceInput is an input type that accepts NamedResourcesIntSliceArgs and NamedResourcesIntSliceOutput values.
+// You can construct a concrete instance of `NamedResourcesIntSliceInput` via:
+//
+//	NamedResourcesIntSliceArgs{...}
+type NamedResourcesIntSliceInput interface {
+	pulumi.Input
+
+	ToNamedResourcesIntSliceOutput() NamedResourcesIntSliceOutput
+	ToNamedResourcesIntSliceOutputWithContext(context.Context) NamedResourcesIntSliceOutput
+}
+
+// NamedResourcesIntSlice contains a slice of 64-bit integers.
+type NamedResourcesIntSliceArgs struct {
+	// Ints is the slice of 64-bit integers.
+	Ints pulumi.IntArrayInput `pulumi:"ints"`
+}
+
+func (NamedResourcesIntSliceArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NamedResourcesIntSlice)(nil)).Elem()
+}
+
+func (i NamedResourcesIntSliceArgs) ToNamedResourcesIntSliceOutput() NamedResourcesIntSliceOutput {
+	return i.ToNamedResourcesIntSliceOutputWithContext(context.Background())
+}
+
+func (i NamedResourcesIntSliceArgs) ToNamedResourcesIntSliceOutputWithContext(ctx context.Context) NamedResourcesIntSliceOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NamedResourcesIntSliceOutput)
+}
+
+func (i NamedResourcesIntSliceArgs) ToNamedResourcesIntSlicePtrOutput() NamedResourcesIntSlicePtrOutput {
+	return i.ToNamedResourcesIntSlicePtrOutputWithContext(context.Background())
+}
+
+func (i NamedResourcesIntSliceArgs) ToNamedResourcesIntSlicePtrOutputWithContext(ctx context.Context) NamedResourcesIntSlicePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NamedResourcesIntSliceOutput).ToNamedResourcesIntSlicePtrOutputWithContext(ctx)
+}
+
+// NamedResourcesIntSlicePtrInput is an input type that accepts NamedResourcesIntSliceArgs, NamedResourcesIntSlicePtr and NamedResourcesIntSlicePtrOutput values.
+// You can construct a concrete instance of `NamedResourcesIntSlicePtrInput` via:
+//
+//	        NamedResourcesIntSliceArgs{...}
+//
+//	or:
+//
+//	        nil
+type NamedResourcesIntSlicePtrInput interface {
+	pulumi.Input
+
+	ToNamedResourcesIntSlicePtrOutput() NamedResourcesIntSlicePtrOutput
+	ToNamedResourcesIntSlicePtrOutputWithContext(context.Context) NamedResourcesIntSlicePtrOutput
+}
+
+type namedResourcesIntSlicePtrType NamedResourcesIntSliceArgs
+
+func NamedResourcesIntSlicePtr(v *NamedResourcesIntSliceArgs) NamedResourcesIntSlicePtrInput {
+	return (*namedResourcesIntSlicePtrType)(v)
+}
+
+func (*namedResourcesIntSlicePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**NamedResourcesIntSlice)(nil)).Elem()
+}
+
+func (i *namedResourcesIntSlicePtrType) ToNamedResourcesIntSlicePtrOutput() NamedResourcesIntSlicePtrOutput {
+	return i.ToNamedResourcesIntSlicePtrOutputWithContext(context.Background())
+}
+
+func (i *namedResourcesIntSlicePtrType) ToNamedResourcesIntSlicePtrOutputWithContext(ctx context.Context) NamedResourcesIntSlicePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NamedResourcesIntSlicePtrOutput)
+}
+
+// NamedResourcesIntSlice contains a slice of 64-bit integers.
+type NamedResourcesIntSliceOutput struct{ *pulumi.OutputState }
+
+func (NamedResourcesIntSliceOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NamedResourcesIntSlice)(nil)).Elem()
+}
+
+func (o NamedResourcesIntSliceOutput) ToNamedResourcesIntSliceOutput() NamedResourcesIntSliceOutput {
+	return o
+}
+
+func (o NamedResourcesIntSliceOutput) ToNamedResourcesIntSliceOutputWithContext(ctx context.Context) NamedResourcesIntSliceOutput {
+	return o
+}
+
+func (o NamedResourcesIntSliceOutput) ToNamedResourcesIntSlicePtrOutput() NamedResourcesIntSlicePtrOutput {
+	return o.ToNamedResourcesIntSlicePtrOutputWithContext(context.Background())
+}
+
+func (o NamedResourcesIntSliceOutput) ToNamedResourcesIntSlicePtrOutputWithContext(ctx context.Context) NamedResourcesIntSlicePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NamedResourcesIntSlice) *NamedResourcesIntSlice {
+		return &v
+	}).(NamedResourcesIntSlicePtrOutput)
+}
+
+// Ints is the slice of 64-bit integers.
+func (o NamedResourcesIntSliceOutput) Ints() pulumi.IntArrayOutput {
+	return o.ApplyT(func(v NamedResourcesIntSlice) []int { return v.Ints }).(pulumi.IntArrayOutput)
+}
+
+type NamedResourcesIntSlicePtrOutput struct{ *pulumi.OutputState }
+
+func (NamedResourcesIntSlicePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**NamedResourcesIntSlice)(nil)).Elem()
+}
+
+func (o NamedResourcesIntSlicePtrOutput) ToNamedResourcesIntSlicePtrOutput() NamedResourcesIntSlicePtrOutput {
+	return o
+}
+
+func (o NamedResourcesIntSlicePtrOutput) ToNamedResourcesIntSlicePtrOutputWithContext(ctx context.Context) NamedResourcesIntSlicePtrOutput {
+	return o
+}
+
+func (o NamedResourcesIntSlicePtrOutput) Elem() NamedResourcesIntSliceOutput {
+	return o.ApplyT(func(v *NamedResourcesIntSlice) NamedResourcesIntSlice {
+		if v != nil {
+			return *v
+		}
+		var ret NamedResourcesIntSlice
+		return ret
+	}).(NamedResourcesIntSliceOutput)
+}
+
+// Ints is the slice of 64-bit integers.
+func (o NamedResourcesIntSlicePtrOutput) Ints() pulumi.IntArrayOutput {
+	return o.ApplyT(func(v *NamedResourcesIntSlice) []int {
+		if v == nil {
+			return nil
+		}
+		return v.Ints
+	}).(pulumi.IntArrayOutput)
+}
+
+// NamedResourcesIntSlice contains a slice of 64-bit integers.
+type NamedResourcesIntSlicePatch struct {
+	// Ints is the slice of 64-bit integers.
+	Ints []int `pulumi:"ints"`
+}
+
+// NamedResourcesIntSlicePatchInput is an input type that accepts NamedResourcesIntSlicePatchArgs and NamedResourcesIntSlicePatchOutput values.
+// You can construct a concrete instance of `NamedResourcesIntSlicePatchInput` via:
+//
+//	NamedResourcesIntSlicePatchArgs{...}
+type NamedResourcesIntSlicePatchInput interface {
+	pulumi.Input
+
+	ToNamedResourcesIntSlicePatchOutput() NamedResourcesIntSlicePatchOutput
+	ToNamedResourcesIntSlicePatchOutputWithContext(context.Context) NamedResourcesIntSlicePatchOutput
+}
+
+// NamedResourcesIntSlice contains a slice of 64-bit integers.
+type NamedResourcesIntSlicePatchArgs struct {
+	// Ints is the slice of 64-bit integers.
+	Ints pulumi.IntArrayInput `pulumi:"ints"`
+}
+
+func (NamedResourcesIntSlicePatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NamedResourcesIntSlicePatch)(nil)).Elem()
+}
+
+func (i NamedResourcesIntSlicePatchArgs) ToNamedResourcesIntSlicePatchOutput() NamedResourcesIntSlicePatchOutput {
+	return i.ToNamedResourcesIntSlicePatchOutputWithContext(context.Background())
+}
+
+func (i NamedResourcesIntSlicePatchArgs) ToNamedResourcesIntSlicePatchOutputWithContext(ctx context.Context) NamedResourcesIntSlicePatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NamedResourcesIntSlicePatchOutput)
+}
+
+func (i NamedResourcesIntSlicePatchArgs) ToNamedResourcesIntSlicePatchPtrOutput() NamedResourcesIntSlicePatchPtrOutput {
+	return i.ToNamedResourcesIntSlicePatchPtrOutputWithContext(context.Background())
+}
+
+func (i NamedResourcesIntSlicePatchArgs) ToNamedResourcesIntSlicePatchPtrOutputWithContext(ctx context.Context) NamedResourcesIntSlicePatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NamedResourcesIntSlicePatchOutput).ToNamedResourcesIntSlicePatchPtrOutputWithContext(ctx)
+}
+
+// NamedResourcesIntSlicePatchPtrInput is an input type that accepts NamedResourcesIntSlicePatchArgs, NamedResourcesIntSlicePatchPtr and NamedResourcesIntSlicePatchPtrOutput values.
+// You can construct a concrete instance of `NamedResourcesIntSlicePatchPtrInput` via:
+//
+//	        NamedResourcesIntSlicePatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type NamedResourcesIntSlicePatchPtrInput interface {
+	pulumi.Input
+
+	ToNamedResourcesIntSlicePatchPtrOutput() NamedResourcesIntSlicePatchPtrOutput
+	ToNamedResourcesIntSlicePatchPtrOutputWithContext(context.Context) NamedResourcesIntSlicePatchPtrOutput
+}
+
+type namedResourcesIntSlicePatchPtrType NamedResourcesIntSlicePatchArgs
+
+func NamedResourcesIntSlicePatchPtr(v *NamedResourcesIntSlicePatchArgs) NamedResourcesIntSlicePatchPtrInput {
+	return (*namedResourcesIntSlicePatchPtrType)(v)
+}
+
+func (*namedResourcesIntSlicePatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**NamedResourcesIntSlicePatch)(nil)).Elem()
+}
+
+func (i *namedResourcesIntSlicePatchPtrType) ToNamedResourcesIntSlicePatchPtrOutput() NamedResourcesIntSlicePatchPtrOutput {
+	return i.ToNamedResourcesIntSlicePatchPtrOutputWithContext(context.Background())
+}
+
+func (i *namedResourcesIntSlicePatchPtrType) ToNamedResourcesIntSlicePatchPtrOutputWithContext(ctx context.Context) NamedResourcesIntSlicePatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NamedResourcesIntSlicePatchPtrOutput)
+}
+
+// NamedResourcesIntSlice contains a slice of 64-bit integers.
+type NamedResourcesIntSlicePatchOutput struct{ *pulumi.OutputState }
+
+func (NamedResourcesIntSlicePatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NamedResourcesIntSlicePatch)(nil)).Elem()
+}
+
+func (o NamedResourcesIntSlicePatchOutput) ToNamedResourcesIntSlicePatchOutput() NamedResourcesIntSlicePatchOutput {
+	return o
+}
+
+func (o NamedResourcesIntSlicePatchOutput) ToNamedResourcesIntSlicePatchOutputWithContext(ctx context.Context) NamedResourcesIntSlicePatchOutput {
+	return o
+}
+
+func (o NamedResourcesIntSlicePatchOutput) ToNamedResourcesIntSlicePatchPtrOutput() NamedResourcesIntSlicePatchPtrOutput {
+	return o.ToNamedResourcesIntSlicePatchPtrOutputWithContext(context.Background())
+}
+
+func (o NamedResourcesIntSlicePatchOutput) ToNamedResourcesIntSlicePatchPtrOutputWithContext(ctx context.Context) NamedResourcesIntSlicePatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NamedResourcesIntSlicePatch) *NamedResourcesIntSlicePatch {
+		return &v
+	}).(NamedResourcesIntSlicePatchPtrOutput)
+}
+
+// Ints is the slice of 64-bit integers.
+func (o NamedResourcesIntSlicePatchOutput) Ints() pulumi.IntArrayOutput {
+	return o.ApplyT(func(v NamedResourcesIntSlicePatch) []int { return v.Ints }).(pulumi.IntArrayOutput)
+}
+
+type NamedResourcesIntSlicePatchPtrOutput struct{ *pulumi.OutputState }
+
+func (NamedResourcesIntSlicePatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**NamedResourcesIntSlicePatch)(nil)).Elem()
+}
+
+func (o NamedResourcesIntSlicePatchPtrOutput) ToNamedResourcesIntSlicePatchPtrOutput() NamedResourcesIntSlicePatchPtrOutput {
+	return o
+}
+
+func (o NamedResourcesIntSlicePatchPtrOutput) ToNamedResourcesIntSlicePatchPtrOutputWithContext(ctx context.Context) NamedResourcesIntSlicePatchPtrOutput {
+	return o
+}
+
+func (o NamedResourcesIntSlicePatchPtrOutput) Elem() NamedResourcesIntSlicePatchOutput {
+	return o.ApplyT(func(v *NamedResourcesIntSlicePatch) NamedResourcesIntSlicePatch {
+		if v != nil {
+			return *v
+		}
+		var ret NamedResourcesIntSlicePatch
+		return ret
+	}).(NamedResourcesIntSlicePatchOutput)
+}
+
+// Ints is the slice of 64-bit integers.
+func (o NamedResourcesIntSlicePatchPtrOutput) Ints() pulumi.IntArrayOutput {
+	return o.ApplyT(func(v *NamedResourcesIntSlicePatch) []int {
+		if v == nil {
+			return nil
+		}
+		return v.Ints
+	}).(pulumi.IntArrayOutput)
+}
+
+// NamedResourcesRequest is used in ResourceRequestModel.
+type NamedResourcesRequest struct {
+	// Selector is a CEL expression which must evaluate to true if a resource instance is suitable. The language is as defined in https://kubernetes.io/docs/reference/using-api/cel/
+	//
+	// In addition, for each type NamedResourcesin AttributeValue there is a map that resolves to the corresponding value of the instance under evaluation. For example:
+	//
+	//    attributes.quantity["a"].isGreaterThan(quantity("0")) &&
+	//    attributes.stringslice["b"].isSorted()
+	Selector string `pulumi:"selector"`
+}
+
+// NamedResourcesRequestInput is an input type that accepts NamedResourcesRequestArgs and NamedResourcesRequestOutput values.
+// You can construct a concrete instance of `NamedResourcesRequestInput` via:
+//
+//	NamedResourcesRequestArgs{...}
+type NamedResourcesRequestInput interface {
+	pulumi.Input
+
+	ToNamedResourcesRequestOutput() NamedResourcesRequestOutput
+	ToNamedResourcesRequestOutputWithContext(context.Context) NamedResourcesRequestOutput
+}
+
+// NamedResourcesRequest is used in ResourceRequestModel.
+type NamedResourcesRequestArgs struct {
+	// Selector is a CEL expression which must evaluate to true if a resource instance is suitable. The language is as defined in https://kubernetes.io/docs/reference/using-api/cel/
+	//
+	// In addition, for each type NamedResourcesin AttributeValue there is a map that resolves to the corresponding value of the instance under evaluation. For example:
+	//
+	//    attributes.quantity["a"].isGreaterThan(quantity("0")) &&
+	//    attributes.stringslice["b"].isSorted()
+	Selector pulumi.StringInput `pulumi:"selector"`
+}
+
+func (NamedResourcesRequestArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NamedResourcesRequest)(nil)).Elem()
+}
+
+func (i NamedResourcesRequestArgs) ToNamedResourcesRequestOutput() NamedResourcesRequestOutput {
+	return i.ToNamedResourcesRequestOutputWithContext(context.Background())
+}
+
+func (i NamedResourcesRequestArgs) ToNamedResourcesRequestOutputWithContext(ctx context.Context) NamedResourcesRequestOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NamedResourcesRequestOutput)
+}
+
+func (i NamedResourcesRequestArgs) ToNamedResourcesRequestPtrOutput() NamedResourcesRequestPtrOutput {
+	return i.ToNamedResourcesRequestPtrOutputWithContext(context.Background())
+}
+
+func (i NamedResourcesRequestArgs) ToNamedResourcesRequestPtrOutputWithContext(ctx context.Context) NamedResourcesRequestPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NamedResourcesRequestOutput).ToNamedResourcesRequestPtrOutputWithContext(ctx)
+}
+
+// NamedResourcesRequestPtrInput is an input type that accepts NamedResourcesRequestArgs, NamedResourcesRequestPtr and NamedResourcesRequestPtrOutput values.
+// You can construct a concrete instance of `NamedResourcesRequestPtrInput` via:
+//
+//	        NamedResourcesRequestArgs{...}
+//
+//	or:
+//
+//	        nil
+type NamedResourcesRequestPtrInput interface {
+	pulumi.Input
+
+	ToNamedResourcesRequestPtrOutput() NamedResourcesRequestPtrOutput
+	ToNamedResourcesRequestPtrOutputWithContext(context.Context) NamedResourcesRequestPtrOutput
+}
+
+type namedResourcesRequestPtrType NamedResourcesRequestArgs
+
+func NamedResourcesRequestPtr(v *NamedResourcesRequestArgs) NamedResourcesRequestPtrInput {
+	return (*namedResourcesRequestPtrType)(v)
+}
+
+func (*namedResourcesRequestPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**NamedResourcesRequest)(nil)).Elem()
+}
+
+func (i *namedResourcesRequestPtrType) ToNamedResourcesRequestPtrOutput() NamedResourcesRequestPtrOutput {
+	return i.ToNamedResourcesRequestPtrOutputWithContext(context.Background())
+}
+
+func (i *namedResourcesRequestPtrType) ToNamedResourcesRequestPtrOutputWithContext(ctx context.Context) NamedResourcesRequestPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NamedResourcesRequestPtrOutput)
+}
+
+// NamedResourcesRequest is used in ResourceRequestModel.
+type NamedResourcesRequestOutput struct{ *pulumi.OutputState }
+
+func (NamedResourcesRequestOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NamedResourcesRequest)(nil)).Elem()
+}
+
+func (o NamedResourcesRequestOutput) ToNamedResourcesRequestOutput() NamedResourcesRequestOutput {
+	return o
+}
+
+func (o NamedResourcesRequestOutput) ToNamedResourcesRequestOutputWithContext(ctx context.Context) NamedResourcesRequestOutput {
+	return o
+}
+
+func (o NamedResourcesRequestOutput) ToNamedResourcesRequestPtrOutput() NamedResourcesRequestPtrOutput {
+	return o.ToNamedResourcesRequestPtrOutputWithContext(context.Background())
+}
+
+func (o NamedResourcesRequestOutput) ToNamedResourcesRequestPtrOutputWithContext(ctx context.Context) NamedResourcesRequestPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NamedResourcesRequest) *NamedResourcesRequest {
+		return &v
+	}).(NamedResourcesRequestPtrOutput)
+}
+
+// Selector is a CEL expression which must evaluate to true if a resource instance is suitable. The language is as defined in https://kubernetes.io/docs/reference/using-api/cel/
+//
+// In addition, for each type NamedResourcesin AttributeValue there is a map that resolves to the corresponding value of the instance under evaluation. For example:
+//
+//	attributes.quantity["a"].isGreaterThan(quantity("0")) &&
+//	attributes.stringslice["b"].isSorted()
+func (o NamedResourcesRequestOutput) Selector() pulumi.StringOutput {
+	return o.ApplyT(func(v NamedResourcesRequest) string { return v.Selector }).(pulumi.StringOutput)
+}
+
+type NamedResourcesRequestPtrOutput struct{ *pulumi.OutputState }
+
+func (NamedResourcesRequestPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**NamedResourcesRequest)(nil)).Elem()
+}
+
+func (o NamedResourcesRequestPtrOutput) ToNamedResourcesRequestPtrOutput() NamedResourcesRequestPtrOutput {
+	return o
+}
+
+func (o NamedResourcesRequestPtrOutput) ToNamedResourcesRequestPtrOutputWithContext(ctx context.Context) NamedResourcesRequestPtrOutput {
+	return o
+}
+
+func (o NamedResourcesRequestPtrOutput) Elem() NamedResourcesRequestOutput {
+	return o.ApplyT(func(v *NamedResourcesRequest) NamedResourcesRequest {
+		if v != nil {
+			return *v
+		}
+		var ret NamedResourcesRequest
+		return ret
+	}).(NamedResourcesRequestOutput)
+}
+
+// Selector is a CEL expression which must evaluate to true if a resource instance is suitable. The language is as defined in https://kubernetes.io/docs/reference/using-api/cel/
+//
+// In addition, for each type NamedResourcesin AttributeValue there is a map that resolves to the corresponding value of the instance under evaluation. For example:
+//
+//	attributes.quantity["a"].isGreaterThan(quantity("0")) &&
+//	attributes.stringslice["b"].isSorted()
+func (o NamedResourcesRequestPtrOutput) Selector() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *NamedResourcesRequest) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Selector
+	}).(pulumi.StringPtrOutput)
+}
+
+// NamedResourcesRequest is used in ResourceRequestModel.
+type NamedResourcesRequestPatch struct {
+	// Selector is a CEL expression which must evaluate to true if a resource instance is suitable. The language is as defined in https://kubernetes.io/docs/reference/using-api/cel/
+	//
+	// In addition, for each type NamedResourcesin AttributeValue there is a map that resolves to the corresponding value of the instance under evaluation. For example:
+	//
+	//    attributes.quantity["a"].isGreaterThan(quantity("0")) &&
+	//    attributes.stringslice["b"].isSorted()
+	Selector *string `pulumi:"selector"`
+}
+
+// NamedResourcesRequestPatchInput is an input type that accepts NamedResourcesRequestPatchArgs and NamedResourcesRequestPatchOutput values.
+// You can construct a concrete instance of `NamedResourcesRequestPatchInput` via:
+//
+//	NamedResourcesRequestPatchArgs{...}
+type NamedResourcesRequestPatchInput interface {
+	pulumi.Input
+
+	ToNamedResourcesRequestPatchOutput() NamedResourcesRequestPatchOutput
+	ToNamedResourcesRequestPatchOutputWithContext(context.Context) NamedResourcesRequestPatchOutput
+}
+
+// NamedResourcesRequest is used in ResourceRequestModel.
+type NamedResourcesRequestPatchArgs struct {
+	// Selector is a CEL expression which must evaluate to true if a resource instance is suitable. The language is as defined in https://kubernetes.io/docs/reference/using-api/cel/
+	//
+	// In addition, for each type NamedResourcesin AttributeValue there is a map that resolves to the corresponding value of the instance under evaluation. For example:
+	//
+	//    attributes.quantity["a"].isGreaterThan(quantity("0")) &&
+	//    attributes.stringslice["b"].isSorted()
+	Selector pulumi.StringPtrInput `pulumi:"selector"`
+}
+
+func (NamedResourcesRequestPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NamedResourcesRequestPatch)(nil)).Elem()
+}
+
+func (i NamedResourcesRequestPatchArgs) ToNamedResourcesRequestPatchOutput() NamedResourcesRequestPatchOutput {
+	return i.ToNamedResourcesRequestPatchOutputWithContext(context.Background())
+}
+
+func (i NamedResourcesRequestPatchArgs) ToNamedResourcesRequestPatchOutputWithContext(ctx context.Context) NamedResourcesRequestPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NamedResourcesRequestPatchOutput)
+}
+
+func (i NamedResourcesRequestPatchArgs) ToNamedResourcesRequestPatchPtrOutput() NamedResourcesRequestPatchPtrOutput {
+	return i.ToNamedResourcesRequestPatchPtrOutputWithContext(context.Background())
+}
+
+func (i NamedResourcesRequestPatchArgs) ToNamedResourcesRequestPatchPtrOutputWithContext(ctx context.Context) NamedResourcesRequestPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NamedResourcesRequestPatchOutput).ToNamedResourcesRequestPatchPtrOutputWithContext(ctx)
+}
+
+// NamedResourcesRequestPatchPtrInput is an input type that accepts NamedResourcesRequestPatchArgs, NamedResourcesRequestPatchPtr and NamedResourcesRequestPatchPtrOutput values.
+// You can construct a concrete instance of `NamedResourcesRequestPatchPtrInput` via:
+//
+//	        NamedResourcesRequestPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type NamedResourcesRequestPatchPtrInput interface {
+	pulumi.Input
+
+	ToNamedResourcesRequestPatchPtrOutput() NamedResourcesRequestPatchPtrOutput
+	ToNamedResourcesRequestPatchPtrOutputWithContext(context.Context) NamedResourcesRequestPatchPtrOutput
+}
+
+type namedResourcesRequestPatchPtrType NamedResourcesRequestPatchArgs
+
+func NamedResourcesRequestPatchPtr(v *NamedResourcesRequestPatchArgs) NamedResourcesRequestPatchPtrInput {
+	return (*namedResourcesRequestPatchPtrType)(v)
+}
+
+func (*namedResourcesRequestPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**NamedResourcesRequestPatch)(nil)).Elem()
+}
+
+func (i *namedResourcesRequestPatchPtrType) ToNamedResourcesRequestPatchPtrOutput() NamedResourcesRequestPatchPtrOutput {
+	return i.ToNamedResourcesRequestPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *namedResourcesRequestPatchPtrType) ToNamedResourcesRequestPatchPtrOutputWithContext(ctx context.Context) NamedResourcesRequestPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NamedResourcesRequestPatchPtrOutput)
+}
+
+// NamedResourcesRequest is used in ResourceRequestModel.
+type NamedResourcesRequestPatchOutput struct{ *pulumi.OutputState }
+
+func (NamedResourcesRequestPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NamedResourcesRequestPatch)(nil)).Elem()
+}
+
+func (o NamedResourcesRequestPatchOutput) ToNamedResourcesRequestPatchOutput() NamedResourcesRequestPatchOutput {
+	return o
+}
+
+func (o NamedResourcesRequestPatchOutput) ToNamedResourcesRequestPatchOutputWithContext(ctx context.Context) NamedResourcesRequestPatchOutput {
+	return o
+}
+
+func (o NamedResourcesRequestPatchOutput) ToNamedResourcesRequestPatchPtrOutput() NamedResourcesRequestPatchPtrOutput {
+	return o.ToNamedResourcesRequestPatchPtrOutputWithContext(context.Background())
+}
+
+func (o NamedResourcesRequestPatchOutput) ToNamedResourcesRequestPatchPtrOutputWithContext(ctx context.Context) NamedResourcesRequestPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NamedResourcesRequestPatch) *NamedResourcesRequestPatch {
+		return &v
+	}).(NamedResourcesRequestPatchPtrOutput)
+}
+
+// Selector is a CEL expression which must evaluate to true if a resource instance is suitable. The language is as defined in https://kubernetes.io/docs/reference/using-api/cel/
+//
+// In addition, for each type NamedResourcesin AttributeValue there is a map that resolves to the corresponding value of the instance under evaluation. For example:
+//
+//	attributes.quantity["a"].isGreaterThan(quantity("0")) &&
+//	attributes.stringslice["b"].isSorted()
+func (o NamedResourcesRequestPatchOutput) Selector() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NamedResourcesRequestPatch) *string { return v.Selector }).(pulumi.StringPtrOutput)
+}
+
+type NamedResourcesRequestPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (NamedResourcesRequestPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**NamedResourcesRequestPatch)(nil)).Elem()
+}
+
+func (o NamedResourcesRequestPatchPtrOutput) ToNamedResourcesRequestPatchPtrOutput() NamedResourcesRequestPatchPtrOutput {
+	return o
+}
+
+func (o NamedResourcesRequestPatchPtrOutput) ToNamedResourcesRequestPatchPtrOutputWithContext(ctx context.Context) NamedResourcesRequestPatchPtrOutput {
+	return o
+}
+
+func (o NamedResourcesRequestPatchPtrOutput) Elem() NamedResourcesRequestPatchOutput {
+	return o.ApplyT(func(v *NamedResourcesRequestPatch) NamedResourcesRequestPatch {
+		if v != nil {
+			return *v
+		}
+		var ret NamedResourcesRequestPatch
+		return ret
+	}).(NamedResourcesRequestPatchOutput)
+}
+
+// Selector is a CEL expression which must evaluate to true if a resource instance is suitable. The language is as defined in https://kubernetes.io/docs/reference/using-api/cel/
+//
+// In addition, for each type NamedResourcesin AttributeValue there is a map that resolves to the corresponding value of the instance under evaluation. For example:
+//
+//	attributes.quantity["a"].isGreaterThan(quantity("0")) &&
+//	attributes.stringslice["b"].isSorted()
+func (o NamedResourcesRequestPatchPtrOutput) Selector() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *NamedResourcesRequestPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Selector
+	}).(pulumi.StringPtrOutput)
+}
+
+// NamedResourcesResources is used in ResourceModel.
+type NamedResourcesResources struct {
+	// The list of all individual resources instances currently available.
+	Instances []NamedResourcesInstance `pulumi:"instances"`
+}
+
+// NamedResourcesResourcesInput is an input type that accepts NamedResourcesResourcesArgs and NamedResourcesResourcesOutput values.
+// You can construct a concrete instance of `NamedResourcesResourcesInput` via:
+//
+//	NamedResourcesResourcesArgs{...}
+type NamedResourcesResourcesInput interface {
+	pulumi.Input
+
+	ToNamedResourcesResourcesOutput() NamedResourcesResourcesOutput
+	ToNamedResourcesResourcesOutputWithContext(context.Context) NamedResourcesResourcesOutput
+}
+
+// NamedResourcesResources is used in ResourceModel.
+type NamedResourcesResourcesArgs struct {
+	// The list of all individual resources instances currently available.
+	Instances NamedResourcesInstanceArrayInput `pulumi:"instances"`
+}
+
+func (NamedResourcesResourcesArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NamedResourcesResources)(nil)).Elem()
+}
+
+func (i NamedResourcesResourcesArgs) ToNamedResourcesResourcesOutput() NamedResourcesResourcesOutput {
+	return i.ToNamedResourcesResourcesOutputWithContext(context.Background())
+}
+
+func (i NamedResourcesResourcesArgs) ToNamedResourcesResourcesOutputWithContext(ctx context.Context) NamedResourcesResourcesOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NamedResourcesResourcesOutput)
+}
+
+func (i NamedResourcesResourcesArgs) ToNamedResourcesResourcesPtrOutput() NamedResourcesResourcesPtrOutput {
+	return i.ToNamedResourcesResourcesPtrOutputWithContext(context.Background())
+}
+
+func (i NamedResourcesResourcesArgs) ToNamedResourcesResourcesPtrOutputWithContext(ctx context.Context) NamedResourcesResourcesPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NamedResourcesResourcesOutput).ToNamedResourcesResourcesPtrOutputWithContext(ctx)
+}
+
+// NamedResourcesResourcesPtrInput is an input type that accepts NamedResourcesResourcesArgs, NamedResourcesResourcesPtr and NamedResourcesResourcesPtrOutput values.
+// You can construct a concrete instance of `NamedResourcesResourcesPtrInput` via:
+//
+//	        NamedResourcesResourcesArgs{...}
+//
+//	or:
+//
+//	        nil
+type NamedResourcesResourcesPtrInput interface {
+	pulumi.Input
+
+	ToNamedResourcesResourcesPtrOutput() NamedResourcesResourcesPtrOutput
+	ToNamedResourcesResourcesPtrOutputWithContext(context.Context) NamedResourcesResourcesPtrOutput
+}
+
+type namedResourcesResourcesPtrType NamedResourcesResourcesArgs
+
+func NamedResourcesResourcesPtr(v *NamedResourcesResourcesArgs) NamedResourcesResourcesPtrInput {
+	return (*namedResourcesResourcesPtrType)(v)
+}
+
+func (*namedResourcesResourcesPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**NamedResourcesResources)(nil)).Elem()
+}
+
+func (i *namedResourcesResourcesPtrType) ToNamedResourcesResourcesPtrOutput() NamedResourcesResourcesPtrOutput {
+	return i.ToNamedResourcesResourcesPtrOutputWithContext(context.Background())
+}
+
+func (i *namedResourcesResourcesPtrType) ToNamedResourcesResourcesPtrOutputWithContext(ctx context.Context) NamedResourcesResourcesPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NamedResourcesResourcesPtrOutput)
+}
+
+// NamedResourcesResources is used in ResourceModel.
+type NamedResourcesResourcesOutput struct{ *pulumi.OutputState }
+
+func (NamedResourcesResourcesOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NamedResourcesResources)(nil)).Elem()
+}
+
+func (o NamedResourcesResourcesOutput) ToNamedResourcesResourcesOutput() NamedResourcesResourcesOutput {
+	return o
+}
+
+func (o NamedResourcesResourcesOutput) ToNamedResourcesResourcesOutputWithContext(ctx context.Context) NamedResourcesResourcesOutput {
+	return o
+}
+
+func (o NamedResourcesResourcesOutput) ToNamedResourcesResourcesPtrOutput() NamedResourcesResourcesPtrOutput {
+	return o.ToNamedResourcesResourcesPtrOutputWithContext(context.Background())
+}
+
+func (o NamedResourcesResourcesOutput) ToNamedResourcesResourcesPtrOutputWithContext(ctx context.Context) NamedResourcesResourcesPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NamedResourcesResources) *NamedResourcesResources {
+		return &v
+	}).(NamedResourcesResourcesPtrOutput)
+}
+
+// The list of all individual resources instances currently available.
+func (o NamedResourcesResourcesOutput) Instances() NamedResourcesInstanceArrayOutput {
+	return o.ApplyT(func(v NamedResourcesResources) []NamedResourcesInstance { return v.Instances }).(NamedResourcesInstanceArrayOutput)
+}
+
+type NamedResourcesResourcesPtrOutput struct{ *pulumi.OutputState }
+
+func (NamedResourcesResourcesPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**NamedResourcesResources)(nil)).Elem()
+}
+
+func (o NamedResourcesResourcesPtrOutput) ToNamedResourcesResourcesPtrOutput() NamedResourcesResourcesPtrOutput {
+	return o
+}
+
+func (o NamedResourcesResourcesPtrOutput) ToNamedResourcesResourcesPtrOutputWithContext(ctx context.Context) NamedResourcesResourcesPtrOutput {
+	return o
+}
+
+func (o NamedResourcesResourcesPtrOutput) Elem() NamedResourcesResourcesOutput {
+	return o.ApplyT(func(v *NamedResourcesResources) NamedResourcesResources {
+		if v != nil {
+			return *v
+		}
+		var ret NamedResourcesResources
+		return ret
+	}).(NamedResourcesResourcesOutput)
+}
+
+// The list of all individual resources instances currently available.
+func (o NamedResourcesResourcesPtrOutput) Instances() NamedResourcesInstanceArrayOutput {
+	return o.ApplyT(func(v *NamedResourcesResources) []NamedResourcesInstance {
+		if v == nil {
+			return nil
+		}
+		return v.Instances
+	}).(NamedResourcesInstanceArrayOutput)
+}
+
+// NamedResourcesResources is used in ResourceModel.
+type NamedResourcesResourcesPatch struct {
+	// The list of all individual resources instances currently available.
+	Instances []NamedResourcesInstancePatch `pulumi:"instances"`
+}
+
+// NamedResourcesResourcesPatchInput is an input type that accepts NamedResourcesResourcesPatchArgs and NamedResourcesResourcesPatchOutput values.
+// You can construct a concrete instance of `NamedResourcesResourcesPatchInput` via:
+//
+//	NamedResourcesResourcesPatchArgs{...}
+type NamedResourcesResourcesPatchInput interface {
+	pulumi.Input
+
+	ToNamedResourcesResourcesPatchOutput() NamedResourcesResourcesPatchOutput
+	ToNamedResourcesResourcesPatchOutputWithContext(context.Context) NamedResourcesResourcesPatchOutput
+}
+
+// NamedResourcesResources is used in ResourceModel.
+type NamedResourcesResourcesPatchArgs struct {
+	// The list of all individual resources instances currently available.
+	Instances NamedResourcesInstancePatchArrayInput `pulumi:"instances"`
+}
+
+func (NamedResourcesResourcesPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NamedResourcesResourcesPatch)(nil)).Elem()
+}
+
+func (i NamedResourcesResourcesPatchArgs) ToNamedResourcesResourcesPatchOutput() NamedResourcesResourcesPatchOutput {
+	return i.ToNamedResourcesResourcesPatchOutputWithContext(context.Background())
+}
+
+func (i NamedResourcesResourcesPatchArgs) ToNamedResourcesResourcesPatchOutputWithContext(ctx context.Context) NamedResourcesResourcesPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NamedResourcesResourcesPatchOutput)
+}
+
+func (i NamedResourcesResourcesPatchArgs) ToNamedResourcesResourcesPatchPtrOutput() NamedResourcesResourcesPatchPtrOutput {
+	return i.ToNamedResourcesResourcesPatchPtrOutputWithContext(context.Background())
+}
+
+func (i NamedResourcesResourcesPatchArgs) ToNamedResourcesResourcesPatchPtrOutputWithContext(ctx context.Context) NamedResourcesResourcesPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NamedResourcesResourcesPatchOutput).ToNamedResourcesResourcesPatchPtrOutputWithContext(ctx)
+}
+
+// NamedResourcesResourcesPatchPtrInput is an input type that accepts NamedResourcesResourcesPatchArgs, NamedResourcesResourcesPatchPtr and NamedResourcesResourcesPatchPtrOutput values.
+// You can construct a concrete instance of `NamedResourcesResourcesPatchPtrInput` via:
+//
+//	        NamedResourcesResourcesPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type NamedResourcesResourcesPatchPtrInput interface {
+	pulumi.Input
+
+	ToNamedResourcesResourcesPatchPtrOutput() NamedResourcesResourcesPatchPtrOutput
+	ToNamedResourcesResourcesPatchPtrOutputWithContext(context.Context) NamedResourcesResourcesPatchPtrOutput
+}
+
+type namedResourcesResourcesPatchPtrType NamedResourcesResourcesPatchArgs
+
+func NamedResourcesResourcesPatchPtr(v *NamedResourcesResourcesPatchArgs) NamedResourcesResourcesPatchPtrInput {
+	return (*namedResourcesResourcesPatchPtrType)(v)
+}
+
+func (*namedResourcesResourcesPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**NamedResourcesResourcesPatch)(nil)).Elem()
+}
+
+func (i *namedResourcesResourcesPatchPtrType) ToNamedResourcesResourcesPatchPtrOutput() NamedResourcesResourcesPatchPtrOutput {
+	return i.ToNamedResourcesResourcesPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *namedResourcesResourcesPatchPtrType) ToNamedResourcesResourcesPatchPtrOutputWithContext(ctx context.Context) NamedResourcesResourcesPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NamedResourcesResourcesPatchPtrOutput)
+}
+
+// NamedResourcesResources is used in ResourceModel.
+type NamedResourcesResourcesPatchOutput struct{ *pulumi.OutputState }
+
+func (NamedResourcesResourcesPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NamedResourcesResourcesPatch)(nil)).Elem()
+}
+
+func (o NamedResourcesResourcesPatchOutput) ToNamedResourcesResourcesPatchOutput() NamedResourcesResourcesPatchOutput {
+	return o
+}
+
+func (o NamedResourcesResourcesPatchOutput) ToNamedResourcesResourcesPatchOutputWithContext(ctx context.Context) NamedResourcesResourcesPatchOutput {
+	return o
+}
+
+func (o NamedResourcesResourcesPatchOutput) ToNamedResourcesResourcesPatchPtrOutput() NamedResourcesResourcesPatchPtrOutput {
+	return o.ToNamedResourcesResourcesPatchPtrOutputWithContext(context.Background())
+}
+
+func (o NamedResourcesResourcesPatchOutput) ToNamedResourcesResourcesPatchPtrOutputWithContext(ctx context.Context) NamedResourcesResourcesPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NamedResourcesResourcesPatch) *NamedResourcesResourcesPatch {
+		return &v
+	}).(NamedResourcesResourcesPatchPtrOutput)
+}
+
+// The list of all individual resources instances currently available.
+func (o NamedResourcesResourcesPatchOutput) Instances() NamedResourcesInstancePatchArrayOutput {
+	return o.ApplyT(func(v NamedResourcesResourcesPatch) []NamedResourcesInstancePatch { return v.Instances }).(NamedResourcesInstancePatchArrayOutput)
+}
+
+type NamedResourcesResourcesPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (NamedResourcesResourcesPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**NamedResourcesResourcesPatch)(nil)).Elem()
+}
+
+func (o NamedResourcesResourcesPatchPtrOutput) ToNamedResourcesResourcesPatchPtrOutput() NamedResourcesResourcesPatchPtrOutput {
+	return o
+}
+
+func (o NamedResourcesResourcesPatchPtrOutput) ToNamedResourcesResourcesPatchPtrOutputWithContext(ctx context.Context) NamedResourcesResourcesPatchPtrOutput {
+	return o
+}
+
+func (o NamedResourcesResourcesPatchPtrOutput) Elem() NamedResourcesResourcesPatchOutput {
+	return o.ApplyT(func(v *NamedResourcesResourcesPatch) NamedResourcesResourcesPatch {
+		if v != nil {
+			return *v
+		}
+		var ret NamedResourcesResourcesPatch
+		return ret
+	}).(NamedResourcesResourcesPatchOutput)
+}
+
+// The list of all individual resources instances currently available.
+func (o NamedResourcesResourcesPatchPtrOutput) Instances() NamedResourcesInstancePatchArrayOutput {
+	return o.ApplyT(func(v *NamedResourcesResourcesPatch) []NamedResourcesInstancePatch {
+		if v == nil {
+			return nil
+		}
+		return v.Instances
+	}).(NamedResourcesInstancePatchArrayOutput)
+}
+
+// NamedResourcesStringSlice contains a slice of strings.
+type NamedResourcesStringSlice struct {
+	// Strings is the slice of strings.
+	Strings []string `pulumi:"strings"`
+}
+
+// NamedResourcesStringSliceInput is an input type that accepts NamedResourcesStringSliceArgs and NamedResourcesStringSliceOutput values.
+// You can construct a concrete instance of `NamedResourcesStringSliceInput` via:
+//
+//	NamedResourcesStringSliceArgs{...}
+type NamedResourcesStringSliceInput interface {
+	pulumi.Input
+
+	ToNamedResourcesStringSliceOutput() NamedResourcesStringSliceOutput
+	ToNamedResourcesStringSliceOutputWithContext(context.Context) NamedResourcesStringSliceOutput
+}
+
+// NamedResourcesStringSlice contains a slice of strings.
+type NamedResourcesStringSliceArgs struct {
+	// Strings is the slice of strings.
+	Strings pulumi.StringArrayInput `pulumi:"strings"`
+}
+
+func (NamedResourcesStringSliceArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NamedResourcesStringSlice)(nil)).Elem()
+}
+
+func (i NamedResourcesStringSliceArgs) ToNamedResourcesStringSliceOutput() NamedResourcesStringSliceOutput {
+	return i.ToNamedResourcesStringSliceOutputWithContext(context.Background())
+}
+
+func (i NamedResourcesStringSliceArgs) ToNamedResourcesStringSliceOutputWithContext(ctx context.Context) NamedResourcesStringSliceOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NamedResourcesStringSliceOutput)
+}
+
+func (i NamedResourcesStringSliceArgs) ToNamedResourcesStringSlicePtrOutput() NamedResourcesStringSlicePtrOutput {
+	return i.ToNamedResourcesStringSlicePtrOutputWithContext(context.Background())
+}
+
+func (i NamedResourcesStringSliceArgs) ToNamedResourcesStringSlicePtrOutputWithContext(ctx context.Context) NamedResourcesStringSlicePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NamedResourcesStringSliceOutput).ToNamedResourcesStringSlicePtrOutputWithContext(ctx)
+}
+
+// NamedResourcesStringSlicePtrInput is an input type that accepts NamedResourcesStringSliceArgs, NamedResourcesStringSlicePtr and NamedResourcesStringSlicePtrOutput values.
+// You can construct a concrete instance of `NamedResourcesStringSlicePtrInput` via:
+//
+//	        NamedResourcesStringSliceArgs{...}
+//
+//	or:
+//
+//	        nil
+type NamedResourcesStringSlicePtrInput interface {
+	pulumi.Input
+
+	ToNamedResourcesStringSlicePtrOutput() NamedResourcesStringSlicePtrOutput
+	ToNamedResourcesStringSlicePtrOutputWithContext(context.Context) NamedResourcesStringSlicePtrOutput
+}
+
+type namedResourcesStringSlicePtrType NamedResourcesStringSliceArgs
+
+func NamedResourcesStringSlicePtr(v *NamedResourcesStringSliceArgs) NamedResourcesStringSlicePtrInput {
+	return (*namedResourcesStringSlicePtrType)(v)
+}
+
+func (*namedResourcesStringSlicePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**NamedResourcesStringSlice)(nil)).Elem()
+}
+
+func (i *namedResourcesStringSlicePtrType) ToNamedResourcesStringSlicePtrOutput() NamedResourcesStringSlicePtrOutput {
+	return i.ToNamedResourcesStringSlicePtrOutputWithContext(context.Background())
+}
+
+func (i *namedResourcesStringSlicePtrType) ToNamedResourcesStringSlicePtrOutputWithContext(ctx context.Context) NamedResourcesStringSlicePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NamedResourcesStringSlicePtrOutput)
+}
+
+// NamedResourcesStringSlice contains a slice of strings.
+type NamedResourcesStringSliceOutput struct{ *pulumi.OutputState }
+
+func (NamedResourcesStringSliceOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NamedResourcesStringSlice)(nil)).Elem()
+}
+
+func (o NamedResourcesStringSliceOutput) ToNamedResourcesStringSliceOutput() NamedResourcesStringSliceOutput {
+	return o
+}
+
+func (o NamedResourcesStringSliceOutput) ToNamedResourcesStringSliceOutputWithContext(ctx context.Context) NamedResourcesStringSliceOutput {
+	return o
+}
+
+func (o NamedResourcesStringSliceOutput) ToNamedResourcesStringSlicePtrOutput() NamedResourcesStringSlicePtrOutput {
+	return o.ToNamedResourcesStringSlicePtrOutputWithContext(context.Background())
+}
+
+func (o NamedResourcesStringSliceOutput) ToNamedResourcesStringSlicePtrOutputWithContext(ctx context.Context) NamedResourcesStringSlicePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NamedResourcesStringSlice) *NamedResourcesStringSlice {
+		return &v
+	}).(NamedResourcesStringSlicePtrOutput)
+}
+
+// Strings is the slice of strings.
+func (o NamedResourcesStringSliceOutput) Strings() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v NamedResourcesStringSlice) []string { return v.Strings }).(pulumi.StringArrayOutput)
+}
+
+type NamedResourcesStringSlicePtrOutput struct{ *pulumi.OutputState }
+
+func (NamedResourcesStringSlicePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**NamedResourcesStringSlice)(nil)).Elem()
+}
+
+func (o NamedResourcesStringSlicePtrOutput) ToNamedResourcesStringSlicePtrOutput() NamedResourcesStringSlicePtrOutput {
+	return o
+}
+
+func (o NamedResourcesStringSlicePtrOutput) ToNamedResourcesStringSlicePtrOutputWithContext(ctx context.Context) NamedResourcesStringSlicePtrOutput {
+	return o
+}
+
+func (o NamedResourcesStringSlicePtrOutput) Elem() NamedResourcesStringSliceOutput {
+	return o.ApplyT(func(v *NamedResourcesStringSlice) NamedResourcesStringSlice {
+		if v != nil {
+			return *v
+		}
+		var ret NamedResourcesStringSlice
+		return ret
+	}).(NamedResourcesStringSliceOutput)
+}
+
+// Strings is the slice of strings.
+func (o NamedResourcesStringSlicePtrOutput) Strings() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *NamedResourcesStringSlice) []string {
+		if v == nil {
+			return nil
+		}
+		return v.Strings
+	}).(pulumi.StringArrayOutput)
+}
+
+// NamedResourcesStringSlice contains a slice of strings.
+type NamedResourcesStringSlicePatch struct {
+	// Strings is the slice of strings.
+	Strings []string `pulumi:"strings"`
+}
+
+// NamedResourcesStringSlicePatchInput is an input type that accepts NamedResourcesStringSlicePatchArgs and NamedResourcesStringSlicePatchOutput values.
+// You can construct a concrete instance of `NamedResourcesStringSlicePatchInput` via:
+//
+//	NamedResourcesStringSlicePatchArgs{...}
+type NamedResourcesStringSlicePatchInput interface {
+	pulumi.Input
+
+	ToNamedResourcesStringSlicePatchOutput() NamedResourcesStringSlicePatchOutput
+	ToNamedResourcesStringSlicePatchOutputWithContext(context.Context) NamedResourcesStringSlicePatchOutput
+}
+
+// NamedResourcesStringSlice contains a slice of strings.
+type NamedResourcesStringSlicePatchArgs struct {
+	// Strings is the slice of strings.
+	Strings pulumi.StringArrayInput `pulumi:"strings"`
+}
+
+func (NamedResourcesStringSlicePatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NamedResourcesStringSlicePatch)(nil)).Elem()
+}
+
+func (i NamedResourcesStringSlicePatchArgs) ToNamedResourcesStringSlicePatchOutput() NamedResourcesStringSlicePatchOutput {
+	return i.ToNamedResourcesStringSlicePatchOutputWithContext(context.Background())
+}
+
+func (i NamedResourcesStringSlicePatchArgs) ToNamedResourcesStringSlicePatchOutputWithContext(ctx context.Context) NamedResourcesStringSlicePatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NamedResourcesStringSlicePatchOutput)
+}
+
+func (i NamedResourcesStringSlicePatchArgs) ToNamedResourcesStringSlicePatchPtrOutput() NamedResourcesStringSlicePatchPtrOutput {
+	return i.ToNamedResourcesStringSlicePatchPtrOutputWithContext(context.Background())
+}
+
+func (i NamedResourcesStringSlicePatchArgs) ToNamedResourcesStringSlicePatchPtrOutputWithContext(ctx context.Context) NamedResourcesStringSlicePatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NamedResourcesStringSlicePatchOutput).ToNamedResourcesStringSlicePatchPtrOutputWithContext(ctx)
+}
+
+// NamedResourcesStringSlicePatchPtrInput is an input type that accepts NamedResourcesStringSlicePatchArgs, NamedResourcesStringSlicePatchPtr and NamedResourcesStringSlicePatchPtrOutput values.
+// You can construct a concrete instance of `NamedResourcesStringSlicePatchPtrInput` via:
+//
+//	        NamedResourcesStringSlicePatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type NamedResourcesStringSlicePatchPtrInput interface {
+	pulumi.Input
+
+	ToNamedResourcesStringSlicePatchPtrOutput() NamedResourcesStringSlicePatchPtrOutput
+	ToNamedResourcesStringSlicePatchPtrOutputWithContext(context.Context) NamedResourcesStringSlicePatchPtrOutput
+}
+
+type namedResourcesStringSlicePatchPtrType NamedResourcesStringSlicePatchArgs
+
+func NamedResourcesStringSlicePatchPtr(v *NamedResourcesStringSlicePatchArgs) NamedResourcesStringSlicePatchPtrInput {
+	return (*namedResourcesStringSlicePatchPtrType)(v)
+}
+
+func (*namedResourcesStringSlicePatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**NamedResourcesStringSlicePatch)(nil)).Elem()
+}
+
+func (i *namedResourcesStringSlicePatchPtrType) ToNamedResourcesStringSlicePatchPtrOutput() NamedResourcesStringSlicePatchPtrOutput {
+	return i.ToNamedResourcesStringSlicePatchPtrOutputWithContext(context.Background())
+}
+
+func (i *namedResourcesStringSlicePatchPtrType) ToNamedResourcesStringSlicePatchPtrOutputWithContext(ctx context.Context) NamedResourcesStringSlicePatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NamedResourcesStringSlicePatchPtrOutput)
+}
+
+// NamedResourcesStringSlice contains a slice of strings.
+type NamedResourcesStringSlicePatchOutput struct{ *pulumi.OutputState }
+
+func (NamedResourcesStringSlicePatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NamedResourcesStringSlicePatch)(nil)).Elem()
+}
+
+func (o NamedResourcesStringSlicePatchOutput) ToNamedResourcesStringSlicePatchOutput() NamedResourcesStringSlicePatchOutput {
+	return o
+}
+
+func (o NamedResourcesStringSlicePatchOutput) ToNamedResourcesStringSlicePatchOutputWithContext(ctx context.Context) NamedResourcesStringSlicePatchOutput {
+	return o
+}
+
+func (o NamedResourcesStringSlicePatchOutput) ToNamedResourcesStringSlicePatchPtrOutput() NamedResourcesStringSlicePatchPtrOutput {
+	return o.ToNamedResourcesStringSlicePatchPtrOutputWithContext(context.Background())
+}
+
+func (o NamedResourcesStringSlicePatchOutput) ToNamedResourcesStringSlicePatchPtrOutputWithContext(ctx context.Context) NamedResourcesStringSlicePatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NamedResourcesStringSlicePatch) *NamedResourcesStringSlicePatch {
+		return &v
+	}).(NamedResourcesStringSlicePatchPtrOutput)
+}
+
+// Strings is the slice of strings.
+func (o NamedResourcesStringSlicePatchOutput) Strings() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v NamedResourcesStringSlicePatch) []string { return v.Strings }).(pulumi.StringArrayOutput)
+}
+
+type NamedResourcesStringSlicePatchPtrOutput struct{ *pulumi.OutputState }
+
+func (NamedResourcesStringSlicePatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**NamedResourcesStringSlicePatch)(nil)).Elem()
+}
+
+func (o NamedResourcesStringSlicePatchPtrOutput) ToNamedResourcesStringSlicePatchPtrOutput() NamedResourcesStringSlicePatchPtrOutput {
+	return o
+}
+
+func (o NamedResourcesStringSlicePatchPtrOutput) ToNamedResourcesStringSlicePatchPtrOutputWithContext(ctx context.Context) NamedResourcesStringSlicePatchPtrOutput {
+	return o
+}
+
+func (o NamedResourcesStringSlicePatchPtrOutput) Elem() NamedResourcesStringSlicePatchOutput {
+	return o.ApplyT(func(v *NamedResourcesStringSlicePatch) NamedResourcesStringSlicePatch {
+		if v != nil {
+			return *v
+		}
+		var ret NamedResourcesStringSlicePatch
+		return ret
+	}).(NamedResourcesStringSlicePatchOutput)
+}
+
+// Strings is the slice of strings.
+func (o NamedResourcesStringSlicePatchPtrOutput) Strings() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *NamedResourcesStringSlicePatch) []string {
+		if v == nil {
+			return nil
+		}
+		return v.Strings
+	}).(pulumi.StringArrayOutput)
+}
+
 // PodSchedulingContext objects hold information that is needed to schedule a Pod with ResourceClaims that use "WaitForFirstConsumer" allocation mode.
 //
 // This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
@@ -1717,6 +4475,347 @@ func (o ResourceClaimListTypeOutput) Kind() pulumi.StringPtrOutput {
 // Standard list metadata
 func (o ResourceClaimListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 	return o.ApplyT(func(v ResourceClaimListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+}
+
+// ResourceClaimParameters defines resource requests for a ResourceClaim in an in-tree format understood by Kubernetes.
+type ResourceClaimParametersType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// DriverRequests describes all resources that are needed for the allocated claim. A single claim may use resources coming from different drivers. For each driver, this array has at most one entry which then may have one or more per-driver requests.
+	//
+	// May be empty, in which case the claim can always be allocated.
+	DriverRequests []DriverRequests `pulumi:"driverRequests"`
+	// If this object was created from some other resource, then this links back to that resource. This field is used to find the in-tree representation of the claim parameters when the parameter reference of the claim refers to some unknown type.
+	GeneratedFrom *ResourceClaimParametersReference `pulumi:"generatedFrom"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard object metadata
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	// Shareable indicates whether the allocated claim is meant to be shareable by multiple consumers at the same time.
+	Shareable *bool `pulumi:"shareable"`
+}
+
+// ResourceClaimParametersTypeInput is an input type that accepts ResourceClaimParametersTypeArgs and ResourceClaimParametersTypeOutput values.
+// You can construct a concrete instance of `ResourceClaimParametersTypeInput` via:
+//
+//	ResourceClaimParametersTypeArgs{...}
+type ResourceClaimParametersTypeInput interface {
+	pulumi.Input
+
+	ToResourceClaimParametersTypeOutput() ResourceClaimParametersTypeOutput
+	ToResourceClaimParametersTypeOutputWithContext(context.Context) ResourceClaimParametersTypeOutput
+}
+
+// ResourceClaimParameters defines resource requests for a ResourceClaim in an in-tree format understood by Kubernetes.
+type ResourceClaimParametersTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// DriverRequests describes all resources that are needed for the allocated claim. A single claim may use resources coming from different drivers. For each driver, this array has at most one entry which then may have one or more per-driver requests.
+	//
+	// May be empty, in which case the claim can always be allocated.
+	DriverRequests DriverRequestsArrayInput `pulumi:"driverRequests"`
+	// If this object was created from some other resource, then this links back to that resource. This field is used to find the in-tree representation of the claim parameters when the parameter reference of the claim refers to some unknown type.
+	GeneratedFrom ResourceClaimParametersReferencePtrInput `pulumi:"generatedFrom"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object metadata
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	// Shareable indicates whether the allocated claim is meant to be shareable by multiple consumers at the same time.
+	Shareable pulumi.BoolPtrInput `pulumi:"shareable"`
+}
+
+func (ResourceClaimParametersTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ResourceClaimParametersType)(nil)).Elem()
+}
+
+func (i ResourceClaimParametersTypeArgs) ToResourceClaimParametersTypeOutput() ResourceClaimParametersTypeOutput {
+	return i.ToResourceClaimParametersTypeOutputWithContext(context.Background())
+}
+
+func (i ResourceClaimParametersTypeArgs) ToResourceClaimParametersTypeOutputWithContext(ctx context.Context) ResourceClaimParametersTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ResourceClaimParametersTypeOutput)
+}
+
+// ResourceClaimParametersTypeArrayInput is an input type that accepts ResourceClaimParametersTypeArray and ResourceClaimParametersTypeArrayOutput values.
+// You can construct a concrete instance of `ResourceClaimParametersTypeArrayInput` via:
+//
+//	ResourceClaimParametersTypeArray{ ResourceClaimParametersTypeArgs{...} }
+type ResourceClaimParametersTypeArrayInput interface {
+	pulumi.Input
+
+	ToResourceClaimParametersTypeArrayOutput() ResourceClaimParametersTypeArrayOutput
+	ToResourceClaimParametersTypeArrayOutputWithContext(context.Context) ResourceClaimParametersTypeArrayOutput
+}
+
+type ResourceClaimParametersTypeArray []ResourceClaimParametersTypeInput
+
+func (ResourceClaimParametersTypeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ResourceClaimParametersType)(nil)).Elem()
+}
+
+func (i ResourceClaimParametersTypeArray) ToResourceClaimParametersTypeArrayOutput() ResourceClaimParametersTypeArrayOutput {
+	return i.ToResourceClaimParametersTypeArrayOutputWithContext(context.Background())
+}
+
+func (i ResourceClaimParametersTypeArray) ToResourceClaimParametersTypeArrayOutputWithContext(ctx context.Context) ResourceClaimParametersTypeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ResourceClaimParametersTypeArrayOutput)
+}
+
+// ResourceClaimParameters defines resource requests for a ResourceClaim in an in-tree format understood by Kubernetes.
+type ResourceClaimParametersTypeOutput struct{ *pulumi.OutputState }
+
+func (ResourceClaimParametersTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ResourceClaimParametersType)(nil)).Elem()
+}
+
+func (o ResourceClaimParametersTypeOutput) ToResourceClaimParametersTypeOutput() ResourceClaimParametersTypeOutput {
+	return o
+}
+
+func (o ResourceClaimParametersTypeOutput) ToResourceClaimParametersTypeOutputWithContext(ctx context.Context) ResourceClaimParametersTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o ResourceClaimParametersTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ResourceClaimParametersType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// DriverRequests describes all resources that are needed for the allocated claim. A single claim may use resources coming from different drivers. For each driver, this array has at most one entry which then may have one or more per-driver requests.
+//
+// May be empty, in which case the claim can always be allocated.
+func (o ResourceClaimParametersTypeOutput) DriverRequests() DriverRequestsArrayOutput {
+	return o.ApplyT(func(v ResourceClaimParametersType) []DriverRequests { return v.DriverRequests }).(DriverRequestsArrayOutput)
+}
+
+// If this object was created from some other resource, then this links back to that resource. This field is used to find the in-tree representation of the claim parameters when the parameter reference of the claim refers to some unknown type.
+func (o ResourceClaimParametersTypeOutput) GeneratedFrom() ResourceClaimParametersReferencePtrOutput {
+	return o.ApplyT(func(v ResourceClaimParametersType) *ResourceClaimParametersReference { return v.GeneratedFrom }).(ResourceClaimParametersReferencePtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o ResourceClaimParametersTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ResourceClaimParametersType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object metadata
+func (o ResourceClaimParametersTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v ResourceClaimParametersType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// Shareable indicates whether the allocated claim is meant to be shareable by multiple consumers at the same time.
+func (o ResourceClaimParametersTypeOutput) Shareable() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ResourceClaimParametersType) *bool { return v.Shareable }).(pulumi.BoolPtrOutput)
+}
+
+type ResourceClaimParametersTypeArrayOutput struct{ *pulumi.OutputState }
+
+func (ResourceClaimParametersTypeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ResourceClaimParametersType)(nil)).Elem()
+}
+
+func (o ResourceClaimParametersTypeArrayOutput) ToResourceClaimParametersTypeArrayOutput() ResourceClaimParametersTypeArrayOutput {
+	return o
+}
+
+func (o ResourceClaimParametersTypeArrayOutput) ToResourceClaimParametersTypeArrayOutputWithContext(ctx context.Context) ResourceClaimParametersTypeArrayOutput {
+	return o
+}
+
+func (o ResourceClaimParametersTypeArrayOutput) Index(i pulumi.IntInput) ResourceClaimParametersTypeOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ResourceClaimParametersType {
+		return vs[0].([]ResourceClaimParametersType)[vs[1].(int)]
+	}).(ResourceClaimParametersTypeOutput)
+}
+
+// ResourceClaimParametersList is a collection of ResourceClaimParameters.
+type ResourceClaimParametersListType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Items is the list of node resource capacity objects.
+	Items []ResourceClaimParametersType `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard list metadata
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
+}
+
+// ResourceClaimParametersListTypeInput is an input type that accepts ResourceClaimParametersListTypeArgs and ResourceClaimParametersListTypeOutput values.
+// You can construct a concrete instance of `ResourceClaimParametersListTypeInput` via:
+//
+//	ResourceClaimParametersListTypeArgs{...}
+type ResourceClaimParametersListTypeInput interface {
+	pulumi.Input
+
+	ToResourceClaimParametersListTypeOutput() ResourceClaimParametersListTypeOutput
+	ToResourceClaimParametersListTypeOutputWithContext(context.Context) ResourceClaimParametersListTypeOutput
+}
+
+// ResourceClaimParametersList is a collection of ResourceClaimParameters.
+type ResourceClaimParametersListTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Items is the list of node resource capacity objects.
+	Items ResourceClaimParametersTypeArrayInput `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard list metadata
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+}
+
+func (ResourceClaimParametersListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ResourceClaimParametersListType)(nil)).Elem()
+}
+
+func (i ResourceClaimParametersListTypeArgs) ToResourceClaimParametersListTypeOutput() ResourceClaimParametersListTypeOutput {
+	return i.ToResourceClaimParametersListTypeOutputWithContext(context.Background())
+}
+
+func (i ResourceClaimParametersListTypeArgs) ToResourceClaimParametersListTypeOutputWithContext(ctx context.Context) ResourceClaimParametersListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ResourceClaimParametersListTypeOutput)
+}
+
+// ResourceClaimParametersList is a collection of ResourceClaimParameters.
+type ResourceClaimParametersListTypeOutput struct{ *pulumi.OutputState }
+
+func (ResourceClaimParametersListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ResourceClaimParametersListType)(nil)).Elem()
+}
+
+func (o ResourceClaimParametersListTypeOutput) ToResourceClaimParametersListTypeOutput() ResourceClaimParametersListTypeOutput {
+	return o
+}
+
+func (o ResourceClaimParametersListTypeOutput) ToResourceClaimParametersListTypeOutputWithContext(ctx context.Context) ResourceClaimParametersListTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o ResourceClaimParametersListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ResourceClaimParametersListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Items is the list of node resource capacity objects.
+func (o ResourceClaimParametersListTypeOutput) Items() ResourceClaimParametersTypeArrayOutput {
+	return o.ApplyT(func(v ResourceClaimParametersListType) []ResourceClaimParametersType { return v.Items }).(ResourceClaimParametersTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o ResourceClaimParametersListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ResourceClaimParametersListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard list metadata
+func (o ResourceClaimParametersListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v ResourceClaimParametersListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+}
+
+// ResourceClaimParameters defines resource requests for a ResourceClaim in an in-tree format understood by Kubernetes.
+type ResourceClaimParametersPatchType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// DriverRequests describes all resources that are needed for the allocated claim. A single claim may use resources coming from different drivers. For each driver, this array has at most one entry which then may have one or more per-driver requests.
+	//
+	// May be empty, in which case the claim can always be allocated.
+	DriverRequests []DriverRequestsPatch `pulumi:"driverRequests"`
+	// If this object was created from some other resource, then this links back to that resource. This field is used to find the in-tree representation of the claim parameters when the parameter reference of the claim refers to some unknown type.
+	GeneratedFrom *ResourceClaimParametersReferencePatch `pulumi:"generatedFrom"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard object metadata
+	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
+	// Shareable indicates whether the allocated claim is meant to be shareable by multiple consumers at the same time.
+	Shareable *bool `pulumi:"shareable"`
+}
+
+// ResourceClaimParametersPatchTypeInput is an input type that accepts ResourceClaimParametersPatchTypeArgs and ResourceClaimParametersPatchTypeOutput values.
+// You can construct a concrete instance of `ResourceClaimParametersPatchTypeInput` via:
+//
+//	ResourceClaimParametersPatchTypeArgs{...}
+type ResourceClaimParametersPatchTypeInput interface {
+	pulumi.Input
+
+	ToResourceClaimParametersPatchTypeOutput() ResourceClaimParametersPatchTypeOutput
+	ToResourceClaimParametersPatchTypeOutputWithContext(context.Context) ResourceClaimParametersPatchTypeOutput
+}
+
+// ResourceClaimParameters defines resource requests for a ResourceClaim in an in-tree format understood by Kubernetes.
+type ResourceClaimParametersPatchTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// DriverRequests describes all resources that are needed for the allocated claim. A single claim may use resources coming from different drivers. For each driver, this array has at most one entry which then may have one or more per-driver requests.
+	//
+	// May be empty, in which case the claim can always be allocated.
+	DriverRequests DriverRequestsPatchArrayInput `pulumi:"driverRequests"`
+	// If this object was created from some other resource, then this links back to that resource. This field is used to find the in-tree representation of the claim parameters when the parameter reference of the claim refers to some unknown type.
+	GeneratedFrom ResourceClaimParametersReferencePatchPtrInput `pulumi:"generatedFrom"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object metadata
+	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
+	// Shareable indicates whether the allocated claim is meant to be shareable by multiple consumers at the same time.
+	Shareable pulumi.BoolPtrInput `pulumi:"shareable"`
+}
+
+func (ResourceClaimParametersPatchTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ResourceClaimParametersPatchType)(nil)).Elem()
+}
+
+func (i ResourceClaimParametersPatchTypeArgs) ToResourceClaimParametersPatchTypeOutput() ResourceClaimParametersPatchTypeOutput {
+	return i.ToResourceClaimParametersPatchTypeOutputWithContext(context.Background())
+}
+
+func (i ResourceClaimParametersPatchTypeArgs) ToResourceClaimParametersPatchTypeOutputWithContext(ctx context.Context) ResourceClaimParametersPatchTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ResourceClaimParametersPatchTypeOutput)
+}
+
+// ResourceClaimParameters defines resource requests for a ResourceClaim in an in-tree format understood by Kubernetes.
+type ResourceClaimParametersPatchTypeOutput struct{ *pulumi.OutputState }
+
+func (ResourceClaimParametersPatchTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ResourceClaimParametersPatchType)(nil)).Elem()
+}
+
+func (o ResourceClaimParametersPatchTypeOutput) ToResourceClaimParametersPatchTypeOutput() ResourceClaimParametersPatchTypeOutput {
+	return o
+}
+
+func (o ResourceClaimParametersPatchTypeOutput) ToResourceClaimParametersPatchTypeOutputWithContext(ctx context.Context) ResourceClaimParametersPatchTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o ResourceClaimParametersPatchTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ResourceClaimParametersPatchType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// DriverRequests describes all resources that are needed for the allocated claim. A single claim may use resources coming from different drivers. For each driver, this array has at most one entry which then may have one or more per-driver requests.
+//
+// May be empty, in which case the claim can always be allocated.
+func (o ResourceClaimParametersPatchTypeOutput) DriverRequests() DriverRequestsPatchArrayOutput {
+	return o.ApplyT(func(v ResourceClaimParametersPatchType) []DriverRequestsPatch { return v.DriverRequests }).(DriverRequestsPatchArrayOutput)
+}
+
+// If this object was created from some other resource, then this links back to that resource. This field is used to find the in-tree representation of the claim parameters when the parameter reference of the claim refers to some unknown type.
+func (o ResourceClaimParametersPatchTypeOutput) GeneratedFrom() ResourceClaimParametersReferencePatchPtrOutput {
+	return o.ApplyT(func(v ResourceClaimParametersPatchType) *ResourceClaimParametersReferencePatch {
+		return v.GeneratedFrom
+	}).(ResourceClaimParametersReferencePatchPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o ResourceClaimParametersPatchTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ResourceClaimParametersPatchType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object metadata
+func (o ResourceClaimParametersPatchTypeOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
+	return o.ApplyT(func(v ResourceClaimParametersPatchType) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
+}
+
+// Shareable indicates whether the allocated claim is meant to be shareable by multiple consumers at the same time.
+func (o ResourceClaimParametersPatchTypeOutput) Shareable() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ResourceClaimParametersPatchType) *bool { return v.Shareable }).(pulumi.BoolPtrOutput)
 }
 
 // ResourceClaimParametersReference contains enough information to let you locate the parameters for a ResourceClaim. The object must be in the same namespace as the ResourceClaim.
@@ -3651,6 +6750,8 @@ type ResourceClassType struct {
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// ParametersRef references an arbitrary separate object that may hold parameters that will be used by the driver when allocating a resource that uses this class. A dynamic resource driver can distinguish between parameters stored here and and those stored in ResourceClaimSpec.
 	ParametersRef *ResourceClassParametersReference `pulumi:"parametersRef"`
+	// If and only if allocation of claims using this class is handled via structured parameters, then StructuredParameters must be set to true.
+	StructuredParameters *bool `pulumi:"structuredParameters"`
 	// Only nodes matching the selector will be considered by the scheduler when trying to find a Node that fits a Pod when that Pod uses a ResourceClaim that has not been allocated yet.
 	//
 	// Setting this field is optional. If null, all nodes are candidates.
@@ -3684,6 +6785,8 @@ type ResourceClassTypeArgs struct {
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// ParametersRef references an arbitrary separate object that may hold parameters that will be used by the driver when allocating a resource that uses this class. A dynamic resource driver can distinguish between parameters stored here and and those stored in ResourceClaimSpec.
 	ParametersRef ResourceClassParametersReferencePtrInput `pulumi:"parametersRef"`
+	// If and only if allocation of claims using this class is handled via structured parameters, then StructuredParameters must be set to true.
+	StructuredParameters pulumi.BoolPtrInput `pulumi:"structuredParameters"`
 	// Only nodes matching the selector will be considered by the scheduler when trying to find a Node that fits a Pod when that Pod uses a ResourceClaim that has not been allocated yet.
 	//
 	// Setting this field is optional. If null, all nodes are candidates.
@@ -3769,6 +6872,11 @@ func (o ResourceClassTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 // ParametersRef references an arbitrary separate object that may hold parameters that will be used by the driver when allocating a resource that uses this class. A dynamic resource driver can distinguish between parameters stored here and and those stored in ResourceClaimSpec.
 func (o ResourceClassTypeOutput) ParametersRef() ResourceClassParametersReferencePtrOutput {
 	return o.ApplyT(func(v ResourceClassType) *ResourceClassParametersReference { return v.ParametersRef }).(ResourceClassParametersReferencePtrOutput)
+}
+
+// If and only if allocation of claims using this class is handled via structured parameters, then StructuredParameters must be set to true.
+func (o ResourceClassTypeOutput) StructuredParameters() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ResourceClassType) *bool { return v.StructuredParameters }).(pulumi.BoolPtrOutput)
 }
 
 // Only nodes matching the selector will be considered by the scheduler when trying to find a Node that fits a Pod when that Pod uses a ResourceClaim that has not been allocated yet.
@@ -3878,6 +6986,335 @@ func (o ResourceClassListTypeOutput) Kind() pulumi.StringPtrOutput {
 // Standard list metadata
 func (o ResourceClassListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 	return o.ApplyT(func(v ResourceClassListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+}
+
+// ResourceClassParameters defines resource requests for a ResourceClass in an in-tree format understood by Kubernetes.
+type ResourceClassParametersType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Filters describes additional contraints that must be met when using the class.
+	Filters []ResourceFilter `pulumi:"filters"`
+	// If this object was created from some other resource, then this links back to that resource. This field is used to find the in-tree representation of the class parameters when the parameter reference of the class refers to some unknown type.
+	GeneratedFrom *ResourceClassParametersReference `pulumi:"generatedFrom"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard object metadata
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	// VendorParameters are arbitrary setup parameters for all claims using this class. They are ignored while allocating the claim. There must not be more than one entry per driver.
+	VendorParameters []VendorParameters `pulumi:"vendorParameters"`
+}
+
+// ResourceClassParametersTypeInput is an input type that accepts ResourceClassParametersTypeArgs and ResourceClassParametersTypeOutput values.
+// You can construct a concrete instance of `ResourceClassParametersTypeInput` via:
+//
+//	ResourceClassParametersTypeArgs{...}
+type ResourceClassParametersTypeInput interface {
+	pulumi.Input
+
+	ToResourceClassParametersTypeOutput() ResourceClassParametersTypeOutput
+	ToResourceClassParametersTypeOutputWithContext(context.Context) ResourceClassParametersTypeOutput
+}
+
+// ResourceClassParameters defines resource requests for a ResourceClass in an in-tree format understood by Kubernetes.
+type ResourceClassParametersTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Filters describes additional contraints that must be met when using the class.
+	Filters ResourceFilterArrayInput `pulumi:"filters"`
+	// If this object was created from some other resource, then this links back to that resource. This field is used to find the in-tree representation of the class parameters when the parameter reference of the class refers to some unknown type.
+	GeneratedFrom ResourceClassParametersReferencePtrInput `pulumi:"generatedFrom"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object metadata
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	// VendorParameters are arbitrary setup parameters for all claims using this class. They are ignored while allocating the claim. There must not be more than one entry per driver.
+	VendorParameters VendorParametersArrayInput `pulumi:"vendorParameters"`
+}
+
+func (ResourceClassParametersTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ResourceClassParametersType)(nil)).Elem()
+}
+
+func (i ResourceClassParametersTypeArgs) ToResourceClassParametersTypeOutput() ResourceClassParametersTypeOutput {
+	return i.ToResourceClassParametersTypeOutputWithContext(context.Background())
+}
+
+func (i ResourceClassParametersTypeArgs) ToResourceClassParametersTypeOutputWithContext(ctx context.Context) ResourceClassParametersTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ResourceClassParametersTypeOutput)
+}
+
+// ResourceClassParametersTypeArrayInput is an input type that accepts ResourceClassParametersTypeArray and ResourceClassParametersTypeArrayOutput values.
+// You can construct a concrete instance of `ResourceClassParametersTypeArrayInput` via:
+//
+//	ResourceClassParametersTypeArray{ ResourceClassParametersTypeArgs{...} }
+type ResourceClassParametersTypeArrayInput interface {
+	pulumi.Input
+
+	ToResourceClassParametersTypeArrayOutput() ResourceClassParametersTypeArrayOutput
+	ToResourceClassParametersTypeArrayOutputWithContext(context.Context) ResourceClassParametersTypeArrayOutput
+}
+
+type ResourceClassParametersTypeArray []ResourceClassParametersTypeInput
+
+func (ResourceClassParametersTypeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ResourceClassParametersType)(nil)).Elem()
+}
+
+func (i ResourceClassParametersTypeArray) ToResourceClassParametersTypeArrayOutput() ResourceClassParametersTypeArrayOutput {
+	return i.ToResourceClassParametersTypeArrayOutputWithContext(context.Background())
+}
+
+func (i ResourceClassParametersTypeArray) ToResourceClassParametersTypeArrayOutputWithContext(ctx context.Context) ResourceClassParametersTypeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ResourceClassParametersTypeArrayOutput)
+}
+
+// ResourceClassParameters defines resource requests for a ResourceClass in an in-tree format understood by Kubernetes.
+type ResourceClassParametersTypeOutput struct{ *pulumi.OutputState }
+
+func (ResourceClassParametersTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ResourceClassParametersType)(nil)).Elem()
+}
+
+func (o ResourceClassParametersTypeOutput) ToResourceClassParametersTypeOutput() ResourceClassParametersTypeOutput {
+	return o
+}
+
+func (o ResourceClassParametersTypeOutput) ToResourceClassParametersTypeOutputWithContext(ctx context.Context) ResourceClassParametersTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o ResourceClassParametersTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ResourceClassParametersType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Filters describes additional contraints that must be met when using the class.
+func (o ResourceClassParametersTypeOutput) Filters() ResourceFilterArrayOutput {
+	return o.ApplyT(func(v ResourceClassParametersType) []ResourceFilter { return v.Filters }).(ResourceFilterArrayOutput)
+}
+
+// If this object was created from some other resource, then this links back to that resource. This field is used to find the in-tree representation of the class parameters when the parameter reference of the class refers to some unknown type.
+func (o ResourceClassParametersTypeOutput) GeneratedFrom() ResourceClassParametersReferencePtrOutput {
+	return o.ApplyT(func(v ResourceClassParametersType) *ResourceClassParametersReference { return v.GeneratedFrom }).(ResourceClassParametersReferencePtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o ResourceClassParametersTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ResourceClassParametersType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object metadata
+func (o ResourceClassParametersTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v ResourceClassParametersType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// VendorParameters are arbitrary setup parameters for all claims using this class. They are ignored while allocating the claim. There must not be more than one entry per driver.
+func (o ResourceClassParametersTypeOutput) VendorParameters() VendorParametersArrayOutput {
+	return o.ApplyT(func(v ResourceClassParametersType) []VendorParameters { return v.VendorParameters }).(VendorParametersArrayOutput)
+}
+
+type ResourceClassParametersTypeArrayOutput struct{ *pulumi.OutputState }
+
+func (ResourceClassParametersTypeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ResourceClassParametersType)(nil)).Elem()
+}
+
+func (o ResourceClassParametersTypeArrayOutput) ToResourceClassParametersTypeArrayOutput() ResourceClassParametersTypeArrayOutput {
+	return o
+}
+
+func (o ResourceClassParametersTypeArrayOutput) ToResourceClassParametersTypeArrayOutputWithContext(ctx context.Context) ResourceClassParametersTypeArrayOutput {
+	return o
+}
+
+func (o ResourceClassParametersTypeArrayOutput) Index(i pulumi.IntInput) ResourceClassParametersTypeOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ResourceClassParametersType {
+		return vs[0].([]ResourceClassParametersType)[vs[1].(int)]
+	}).(ResourceClassParametersTypeOutput)
+}
+
+// ResourceClassParametersList is a collection of ResourceClassParameters.
+type ResourceClassParametersListType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Items is the list of node resource capacity objects.
+	Items []ResourceClassParametersType `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard list metadata
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
+}
+
+// ResourceClassParametersListTypeInput is an input type that accepts ResourceClassParametersListTypeArgs and ResourceClassParametersListTypeOutput values.
+// You can construct a concrete instance of `ResourceClassParametersListTypeInput` via:
+//
+//	ResourceClassParametersListTypeArgs{...}
+type ResourceClassParametersListTypeInput interface {
+	pulumi.Input
+
+	ToResourceClassParametersListTypeOutput() ResourceClassParametersListTypeOutput
+	ToResourceClassParametersListTypeOutputWithContext(context.Context) ResourceClassParametersListTypeOutput
+}
+
+// ResourceClassParametersList is a collection of ResourceClassParameters.
+type ResourceClassParametersListTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Items is the list of node resource capacity objects.
+	Items ResourceClassParametersTypeArrayInput `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard list metadata
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+}
+
+func (ResourceClassParametersListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ResourceClassParametersListType)(nil)).Elem()
+}
+
+func (i ResourceClassParametersListTypeArgs) ToResourceClassParametersListTypeOutput() ResourceClassParametersListTypeOutput {
+	return i.ToResourceClassParametersListTypeOutputWithContext(context.Background())
+}
+
+func (i ResourceClassParametersListTypeArgs) ToResourceClassParametersListTypeOutputWithContext(ctx context.Context) ResourceClassParametersListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ResourceClassParametersListTypeOutput)
+}
+
+// ResourceClassParametersList is a collection of ResourceClassParameters.
+type ResourceClassParametersListTypeOutput struct{ *pulumi.OutputState }
+
+func (ResourceClassParametersListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ResourceClassParametersListType)(nil)).Elem()
+}
+
+func (o ResourceClassParametersListTypeOutput) ToResourceClassParametersListTypeOutput() ResourceClassParametersListTypeOutput {
+	return o
+}
+
+func (o ResourceClassParametersListTypeOutput) ToResourceClassParametersListTypeOutputWithContext(ctx context.Context) ResourceClassParametersListTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o ResourceClassParametersListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ResourceClassParametersListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Items is the list of node resource capacity objects.
+func (o ResourceClassParametersListTypeOutput) Items() ResourceClassParametersTypeArrayOutput {
+	return o.ApplyT(func(v ResourceClassParametersListType) []ResourceClassParametersType { return v.Items }).(ResourceClassParametersTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o ResourceClassParametersListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ResourceClassParametersListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard list metadata
+func (o ResourceClassParametersListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v ResourceClassParametersListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+}
+
+// ResourceClassParameters defines resource requests for a ResourceClass in an in-tree format understood by Kubernetes.
+type ResourceClassParametersPatchType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Filters describes additional contraints that must be met when using the class.
+	Filters []ResourceFilterPatch `pulumi:"filters"`
+	// If this object was created from some other resource, then this links back to that resource. This field is used to find the in-tree representation of the class parameters when the parameter reference of the class refers to some unknown type.
+	GeneratedFrom *ResourceClassParametersReferencePatch `pulumi:"generatedFrom"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard object metadata
+	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
+	// VendorParameters are arbitrary setup parameters for all claims using this class. They are ignored while allocating the claim. There must not be more than one entry per driver.
+	VendorParameters []VendorParametersPatch `pulumi:"vendorParameters"`
+}
+
+// ResourceClassParametersPatchTypeInput is an input type that accepts ResourceClassParametersPatchTypeArgs and ResourceClassParametersPatchTypeOutput values.
+// You can construct a concrete instance of `ResourceClassParametersPatchTypeInput` via:
+//
+//	ResourceClassParametersPatchTypeArgs{...}
+type ResourceClassParametersPatchTypeInput interface {
+	pulumi.Input
+
+	ToResourceClassParametersPatchTypeOutput() ResourceClassParametersPatchTypeOutput
+	ToResourceClassParametersPatchTypeOutputWithContext(context.Context) ResourceClassParametersPatchTypeOutput
+}
+
+// ResourceClassParameters defines resource requests for a ResourceClass in an in-tree format understood by Kubernetes.
+type ResourceClassParametersPatchTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Filters describes additional contraints that must be met when using the class.
+	Filters ResourceFilterPatchArrayInput `pulumi:"filters"`
+	// If this object was created from some other resource, then this links back to that resource. This field is used to find the in-tree representation of the class parameters when the parameter reference of the class refers to some unknown type.
+	GeneratedFrom ResourceClassParametersReferencePatchPtrInput `pulumi:"generatedFrom"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object metadata
+	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
+	// VendorParameters are arbitrary setup parameters for all claims using this class. They are ignored while allocating the claim. There must not be more than one entry per driver.
+	VendorParameters VendorParametersPatchArrayInput `pulumi:"vendorParameters"`
+}
+
+func (ResourceClassParametersPatchTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ResourceClassParametersPatchType)(nil)).Elem()
+}
+
+func (i ResourceClassParametersPatchTypeArgs) ToResourceClassParametersPatchTypeOutput() ResourceClassParametersPatchTypeOutput {
+	return i.ToResourceClassParametersPatchTypeOutputWithContext(context.Background())
+}
+
+func (i ResourceClassParametersPatchTypeArgs) ToResourceClassParametersPatchTypeOutputWithContext(ctx context.Context) ResourceClassParametersPatchTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ResourceClassParametersPatchTypeOutput)
+}
+
+// ResourceClassParameters defines resource requests for a ResourceClass in an in-tree format understood by Kubernetes.
+type ResourceClassParametersPatchTypeOutput struct{ *pulumi.OutputState }
+
+func (ResourceClassParametersPatchTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ResourceClassParametersPatchType)(nil)).Elem()
+}
+
+func (o ResourceClassParametersPatchTypeOutput) ToResourceClassParametersPatchTypeOutput() ResourceClassParametersPatchTypeOutput {
+	return o
+}
+
+func (o ResourceClassParametersPatchTypeOutput) ToResourceClassParametersPatchTypeOutputWithContext(ctx context.Context) ResourceClassParametersPatchTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o ResourceClassParametersPatchTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ResourceClassParametersPatchType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Filters describes additional contraints that must be met when using the class.
+func (o ResourceClassParametersPatchTypeOutput) Filters() ResourceFilterPatchArrayOutput {
+	return o.ApplyT(func(v ResourceClassParametersPatchType) []ResourceFilterPatch { return v.Filters }).(ResourceFilterPatchArrayOutput)
+}
+
+// If this object was created from some other resource, then this links back to that resource. This field is used to find the in-tree representation of the class parameters when the parameter reference of the class refers to some unknown type.
+func (o ResourceClassParametersPatchTypeOutput) GeneratedFrom() ResourceClassParametersReferencePatchPtrOutput {
+	return o.ApplyT(func(v ResourceClassParametersPatchType) *ResourceClassParametersReferencePatch {
+		return v.GeneratedFrom
+	}).(ResourceClassParametersReferencePatchPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o ResourceClassParametersPatchTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ResourceClassParametersPatchType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object metadata
+func (o ResourceClassParametersPatchTypeOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
+	return o.ApplyT(func(v ResourceClassParametersPatchType) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
+}
+
+// VendorParameters are arbitrary setup parameters for all claims using this class. They are ignored while allocating the claim. There must not be more than one entry per driver.
+func (o ResourceClassParametersPatchTypeOutput) VendorParameters() VendorParametersPatchArrayOutput {
+	return o.ApplyT(func(v ResourceClassParametersPatchType) []VendorParametersPatch { return v.VendorParameters }).(VendorParametersPatchArrayOutput)
 }
 
 // ResourceClassParametersReference contains enough information to let you locate the parameters for a ResourceClass.
@@ -4290,6 +7727,8 @@ type ResourceClassPatchType struct {
 	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
 	// ParametersRef references an arbitrary separate object that may hold parameters that will be used by the driver when allocating a resource that uses this class. A dynamic resource driver can distinguish between parameters stored here and and those stored in ResourceClaimSpec.
 	ParametersRef *ResourceClassParametersReferencePatch `pulumi:"parametersRef"`
+	// If and only if allocation of claims using this class is handled via structured parameters, then StructuredParameters must be set to true.
+	StructuredParameters *bool `pulumi:"structuredParameters"`
 	// Only nodes matching the selector will be considered by the scheduler when trying to find a Node that fits a Pod when that Pod uses a ResourceClaim that has not been allocated yet.
 	//
 	// Setting this field is optional. If null, all nodes are candidates.
@@ -4323,6 +7762,8 @@ type ResourceClassPatchTypeArgs struct {
 	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
 	// ParametersRef references an arbitrary separate object that may hold parameters that will be used by the driver when allocating a resource that uses this class. A dynamic resource driver can distinguish between parameters stored here and and those stored in ResourceClaimSpec.
 	ParametersRef ResourceClassParametersReferencePatchPtrInput `pulumi:"parametersRef"`
+	// If and only if allocation of claims using this class is handled via structured parameters, then StructuredParameters must be set to true.
+	StructuredParameters pulumi.BoolPtrInput `pulumi:"structuredParameters"`
 	// Only nodes matching the selector will be considered by the scheduler when trying to find a Node that fits a Pod when that Pod uses a ResourceClaim that has not been allocated yet.
 	//
 	// Setting this field is optional. If null, all nodes are candidates.
@@ -4385,11 +7826,234 @@ func (o ResourceClassPatchTypeOutput) ParametersRef() ResourceClassParametersRef
 	return o.ApplyT(func(v ResourceClassPatchType) *ResourceClassParametersReferencePatch { return v.ParametersRef }).(ResourceClassParametersReferencePatchPtrOutput)
 }
 
+// If and only if allocation of claims using this class is handled via structured parameters, then StructuredParameters must be set to true.
+func (o ResourceClassPatchTypeOutput) StructuredParameters() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ResourceClassPatchType) *bool { return v.StructuredParameters }).(pulumi.BoolPtrOutput)
+}
+
 // Only nodes matching the selector will be considered by the scheduler when trying to find a Node that fits a Pod when that Pod uses a ResourceClaim that has not been allocated yet.
 //
 // Setting this field is optional. If null, all nodes are candidates.
 func (o ResourceClassPatchTypeOutput) SuitableNodes() corev1.NodeSelectorPatchPtrOutput {
 	return o.ApplyT(func(v ResourceClassPatchType) *corev1.NodeSelectorPatch { return v.SuitableNodes }).(corev1.NodeSelectorPatchPtrOutput)
+}
+
+// ResourceFilter is a filter for resources from one particular driver.
+type ResourceFilter struct {
+	// DriverName is the name used by the DRA driver kubelet plugin.
+	DriverName *string `pulumi:"driverName"`
+	// NamedResources describes a resource filter using the named resources model.
+	NamedResources *NamedResourcesFilter `pulumi:"namedResources"`
+}
+
+// ResourceFilterInput is an input type that accepts ResourceFilterArgs and ResourceFilterOutput values.
+// You can construct a concrete instance of `ResourceFilterInput` via:
+//
+//	ResourceFilterArgs{...}
+type ResourceFilterInput interface {
+	pulumi.Input
+
+	ToResourceFilterOutput() ResourceFilterOutput
+	ToResourceFilterOutputWithContext(context.Context) ResourceFilterOutput
+}
+
+// ResourceFilter is a filter for resources from one particular driver.
+type ResourceFilterArgs struct {
+	// DriverName is the name used by the DRA driver kubelet plugin.
+	DriverName pulumi.StringPtrInput `pulumi:"driverName"`
+	// NamedResources describes a resource filter using the named resources model.
+	NamedResources NamedResourcesFilterPtrInput `pulumi:"namedResources"`
+}
+
+func (ResourceFilterArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ResourceFilter)(nil)).Elem()
+}
+
+func (i ResourceFilterArgs) ToResourceFilterOutput() ResourceFilterOutput {
+	return i.ToResourceFilterOutputWithContext(context.Background())
+}
+
+func (i ResourceFilterArgs) ToResourceFilterOutputWithContext(ctx context.Context) ResourceFilterOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ResourceFilterOutput)
+}
+
+// ResourceFilterArrayInput is an input type that accepts ResourceFilterArray and ResourceFilterArrayOutput values.
+// You can construct a concrete instance of `ResourceFilterArrayInput` via:
+//
+//	ResourceFilterArray{ ResourceFilterArgs{...} }
+type ResourceFilterArrayInput interface {
+	pulumi.Input
+
+	ToResourceFilterArrayOutput() ResourceFilterArrayOutput
+	ToResourceFilterArrayOutputWithContext(context.Context) ResourceFilterArrayOutput
+}
+
+type ResourceFilterArray []ResourceFilterInput
+
+func (ResourceFilterArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ResourceFilter)(nil)).Elem()
+}
+
+func (i ResourceFilterArray) ToResourceFilterArrayOutput() ResourceFilterArrayOutput {
+	return i.ToResourceFilterArrayOutputWithContext(context.Background())
+}
+
+func (i ResourceFilterArray) ToResourceFilterArrayOutputWithContext(ctx context.Context) ResourceFilterArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ResourceFilterArrayOutput)
+}
+
+// ResourceFilter is a filter for resources from one particular driver.
+type ResourceFilterOutput struct{ *pulumi.OutputState }
+
+func (ResourceFilterOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ResourceFilter)(nil)).Elem()
+}
+
+func (o ResourceFilterOutput) ToResourceFilterOutput() ResourceFilterOutput {
+	return o
+}
+
+func (o ResourceFilterOutput) ToResourceFilterOutputWithContext(ctx context.Context) ResourceFilterOutput {
+	return o
+}
+
+// DriverName is the name used by the DRA driver kubelet plugin.
+func (o ResourceFilterOutput) DriverName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ResourceFilter) *string { return v.DriverName }).(pulumi.StringPtrOutput)
+}
+
+// NamedResources describes a resource filter using the named resources model.
+func (o ResourceFilterOutput) NamedResources() NamedResourcesFilterPtrOutput {
+	return o.ApplyT(func(v ResourceFilter) *NamedResourcesFilter { return v.NamedResources }).(NamedResourcesFilterPtrOutput)
+}
+
+type ResourceFilterArrayOutput struct{ *pulumi.OutputState }
+
+func (ResourceFilterArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ResourceFilter)(nil)).Elem()
+}
+
+func (o ResourceFilterArrayOutput) ToResourceFilterArrayOutput() ResourceFilterArrayOutput {
+	return o
+}
+
+func (o ResourceFilterArrayOutput) ToResourceFilterArrayOutputWithContext(ctx context.Context) ResourceFilterArrayOutput {
+	return o
+}
+
+func (o ResourceFilterArrayOutput) Index(i pulumi.IntInput) ResourceFilterOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ResourceFilter {
+		return vs[0].([]ResourceFilter)[vs[1].(int)]
+	}).(ResourceFilterOutput)
+}
+
+// ResourceFilter is a filter for resources from one particular driver.
+type ResourceFilterPatch struct {
+	// DriverName is the name used by the DRA driver kubelet plugin.
+	DriverName *string `pulumi:"driverName"`
+	// NamedResources describes a resource filter using the named resources model.
+	NamedResources *NamedResourcesFilterPatch `pulumi:"namedResources"`
+}
+
+// ResourceFilterPatchInput is an input type that accepts ResourceFilterPatchArgs and ResourceFilterPatchOutput values.
+// You can construct a concrete instance of `ResourceFilterPatchInput` via:
+//
+//	ResourceFilterPatchArgs{...}
+type ResourceFilterPatchInput interface {
+	pulumi.Input
+
+	ToResourceFilterPatchOutput() ResourceFilterPatchOutput
+	ToResourceFilterPatchOutputWithContext(context.Context) ResourceFilterPatchOutput
+}
+
+// ResourceFilter is a filter for resources from one particular driver.
+type ResourceFilterPatchArgs struct {
+	// DriverName is the name used by the DRA driver kubelet plugin.
+	DriverName pulumi.StringPtrInput `pulumi:"driverName"`
+	// NamedResources describes a resource filter using the named resources model.
+	NamedResources NamedResourcesFilterPatchPtrInput `pulumi:"namedResources"`
+}
+
+func (ResourceFilterPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ResourceFilterPatch)(nil)).Elem()
+}
+
+func (i ResourceFilterPatchArgs) ToResourceFilterPatchOutput() ResourceFilterPatchOutput {
+	return i.ToResourceFilterPatchOutputWithContext(context.Background())
+}
+
+func (i ResourceFilterPatchArgs) ToResourceFilterPatchOutputWithContext(ctx context.Context) ResourceFilterPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ResourceFilterPatchOutput)
+}
+
+// ResourceFilterPatchArrayInput is an input type that accepts ResourceFilterPatchArray and ResourceFilterPatchArrayOutput values.
+// You can construct a concrete instance of `ResourceFilterPatchArrayInput` via:
+//
+//	ResourceFilterPatchArray{ ResourceFilterPatchArgs{...} }
+type ResourceFilterPatchArrayInput interface {
+	pulumi.Input
+
+	ToResourceFilterPatchArrayOutput() ResourceFilterPatchArrayOutput
+	ToResourceFilterPatchArrayOutputWithContext(context.Context) ResourceFilterPatchArrayOutput
+}
+
+type ResourceFilterPatchArray []ResourceFilterPatchInput
+
+func (ResourceFilterPatchArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ResourceFilterPatch)(nil)).Elem()
+}
+
+func (i ResourceFilterPatchArray) ToResourceFilterPatchArrayOutput() ResourceFilterPatchArrayOutput {
+	return i.ToResourceFilterPatchArrayOutputWithContext(context.Background())
+}
+
+func (i ResourceFilterPatchArray) ToResourceFilterPatchArrayOutputWithContext(ctx context.Context) ResourceFilterPatchArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ResourceFilterPatchArrayOutput)
+}
+
+// ResourceFilter is a filter for resources from one particular driver.
+type ResourceFilterPatchOutput struct{ *pulumi.OutputState }
+
+func (ResourceFilterPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ResourceFilterPatch)(nil)).Elem()
+}
+
+func (o ResourceFilterPatchOutput) ToResourceFilterPatchOutput() ResourceFilterPatchOutput {
+	return o
+}
+
+func (o ResourceFilterPatchOutput) ToResourceFilterPatchOutputWithContext(ctx context.Context) ResourceFilterPatchOutput {
+	return o
+}
+
+// DriverName is the name used by the DRA driver kubelet plugin.
+func (o ResourceFilterPatchOutput) DriverName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ResourceFilterPatch) *string { return v.DriverName }).(pulumi.StringPtrOutput)
+}
+
+// NamedResources describes a resource filter using the named resources model.
+func (o ResourceFilterPatchOutput) NamedResources() NamedResourcesFilterPatchPtrOutput {
+	return o.ApplyT(func(v ResourceFilterPatch) *NamedResourcesFilterPatch { return v.NamedResources }).(NamedResourcesFilterPatchPtrOutput)
+}
+
+type ResourceFilterPatchArrayOutput struct{ *pulumi.OutputState }
+
+func (ResourceFilterPatchArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ResourceFilterPatch)(nil)).Elem()
+}
+
+func (o ResourceFilterPatchArrayOutput) ToResourceFilterPatchArrayOutput() ResourceFilterPatchArrayOutput {
+	return o
+}
+
+func (o ResourceFilterPatchArrayOutput) ToResourceFilterPatchArrayOutputWithContext(ctx context.Context) ResourceFilterPatchArrayOutput {
+	return o
+}
+
+func (o ResourceFilterPatchArrayOutput) Index(i pulumi.IntInput) ResourceFilterPatchOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ResourceFilterPatch {
+		return vs[0].([]ResourceFilterPatch)[vs[1].(int)]
+	}).(ResourceFilterPatchOutput)
 }
 
 // ResourceHandle holds opaque resource data for processing by a specific kubelet plugin.
@@ -4400,6 +8064,8 @@ type ResourceHandle struct {
 	Data *string `pulumi:"data"`
 	// DriverName specifies the name of the resource driver whose kubelet plugin should be invoked to process this ResourceHandle's data once it lands on a node. This may differ from the DriverName set in ResourceClaimStatus this ResourceHandle is embedded in.
 	DriverName *string `pulumi:"driverName"`
+	// If StructuredData is set, then it needs to be used instead of Data.
+	StructuredData *StructuredResourceHandle `pulumi:"structuredData"`
 }
 
 // ResourceHandleInput is an input type that accepts ResourceHandleArgs and ResourceHandleOutput values.
@@ -4421,6 +8087,8 @@ type ResourceHandleArgs struct {
 	Data pulumi.StringPtrInput `pulumi:"data"`
 	// DriverName specifies the name of the resource driver whose kubelet plugin should be invoked to process this ResourceHandle's data once it lands on a node. This may differ from the DriverName set in ResourceClaimStatus this ResourceHandle is embedded in.
 	DriverName pulumi.StringPtrInput `pulumi:"driverName"`
+	// If StructuredData is set, then it needs to be used instead of Data.
+	StructuredData StructuredResourceHandlePtrInput `pulumi:"structuredData"`
 }
 
 func (ResourceHandleArgs) ElementType() reflect.Type {
@@ -4487,6 +8155,11 @@ func (o ResourceHandleOutput) DriverName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ResourceHandle) *string { return v.DriverName }).(pulumi.StringPtrOutput)
 }
 
+// If StructuredData is set, then it needs to be used instead of Data.
+func (o ResourceHandleOutput) StructuredData() StructuredResourceHandlePtrOutput {
+	return o.ApplyT(func(v ResourceHandle) *StructuredResourceHandle { return v.StructuredData }).(StructuredResourceHandlePtrOutput)
+}
+
 type ResourceHandleArrayOutput struct{ *pulumi.OutputState }
 
 func (ResourceHandleArrayOutput) ElementType() reflect.Type {
@@ -4515,6 +8188,8 @@ type ResourceHandlePatch struct {
 	Data *string `pulumi:"data"`
 	// DriverName specifies the name of the resource driver whose kubelet plugin should be invoked to process this ResourceHandle's data once it lands on a node. This may differ from the DriverName set in ResourceClaimStatus this ResourceHandle is embedded in.
 	DriverName *string `pulumi:"driverName"`
+	// If StructuredData is set, then it needs to be used instead of Data.
+	StructuredData *StructuredResourceHandlePatch `pulumi:"structuredData"`
 }
 
 // ResourceHandlePatchInput is an input type that accepts ResourceHandlePatchArgs and ResourceHandlePatchOutput values.
@@ -4536,6 +8211,8 @@ type ResourceHandlePatchArgs struct {
 	Data pulumi.StringPtrInput `pulumi:"data"`
 	// DriverName specifies the name of the resource driver whose kubelet plugin should be invoked to process this ResourceHandle's data once it lands on a node. This may differ from the DriverName set in ResourceClaimStatus this ResourceHandle is embedded in.
 	DriverName pulumi.StringPtrInput `pulumi:"driverName"`
+	// If StructuredData is set, then it needs to be used instead of Data.
+	StructuredData StructuredResourceHandlePatchPtrInput `pulumi:"structuredData"`
 }
 
 func (ResourceHandlePatchArgs) ElementType() reflect.Type {
@@ -4602,6 +8279,11 @@ func (o ResourceHandlePatchOutput) DriverName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ResourceHandlePatch) *string { return v.DriverName }).(pulumi.StringPtrOutput)
 }
 
+// If StructuredData is set, then it needs to be used instead of Data.
+func (o ResourceHandlePatchOutput) StructuredData() StructuredResourceHandlePatchPtrOutput {
+	return o.ApplyT(func(v ResourceHandlePatch) *StructuredResourceHandlePatch { return v.StructuredData }).(StructuredResourceHandlePatchPtrOutput)
+}
+
 type ResourceHandlePatchArrayOutput struct{ *pulumi.OutputState }
 
 func (ResourceHandlePatchArrayOutput) ElementType() reflect.Type {
@@ -4622,11 +8304,1220 @@ func (o ResourceHandlePatchArrayOutput) Index(i pulumi.IntInput) ResourceHandleP
 	}).(ResourceHandlePatchOutput)
 }
 
+// ResourceRequest is a request for resources from one particular driver.
+type ResourceRequest struct {
+	// NamedResources describes a request for resources with the named resources model.
+	NamedResources *NamedResourcesRequest `pulumi:"namedResources"`
+	// VendorParameters are arbitrary setup parameters for the requested resource. They are ignored while allocating a claim.
+	VendorParameters interface{} `pulumi:"vendorParameters"`
+}
+
+// ResourceRequestInput is an input type that accepts ResourceRequestArgs and ResourceRequestOutput values.
+// You can construct a concrete instance of `ResourceRequestInput` via:
+//
+//	ResourceRequestArgs{...}
+type ResourceRequestInput interface {
+	pulumi.Input
+
+	ToResourceRequestOutput() ResourceRequestOutput
+	ToResourceRequestOutputWithContext(context.Context) ResourceRequestOutput
+}
+
+// ResourceRequest is a request for resources from one particular driver.
+type ResourceRequestArgs struct {
+	// NamedResources describes a request for resources with the named resources model.
+	NamedResources NamedResourcesRequestPtrInput `pulumi:"namedResources"`
+	// VendorParameters are arbitrary setup parameters for the requested resource. They are ignored while allocating a claim.
+	VendorParameters pulumi.Input `pulumi:"vendorParameters"`
+}
+
+func (ResourceRequestArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ResourceRequest)(nil)).Elem()
+}
+
+func (i ResourceRequestArgs) ToResourceRequestOutput() ResourceRequestOutput {
+	return i.ToResourceRequestOutputWithContext(context.Background())
+}
+
+func (i ResourceRequestArgs) ToResourceRequestOutputWithContext(ctx context.Context) ResourceRequestOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ResourceRequestOutput)
+}
+
+// ResourceRequestArrayInput is an input type that accepts ResourceRequestArray and ResourceRequestArrayOutput values.
+// You can construct a concrete instance of `ResourceRequestArrayInput` via:
+//
+//	ResourceRequestArray{ ResourceRequestArgs{...} }
+type ResourceRequestArrayInput interface {
+	pulumi.Input
+
+	ToResourceRequestArrayOutput() ResourceRequestArrayOutput
+	ToResourceRequestArrayOutputWithContext(context.Context) ResourceRequestArrayOutput
+}
+
+type ResourceRequestArray []ResourceRequestInput
+
+func (ResourceRequestArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ResourceRequest)(nil)).Elem()
+}
+
+func (i ResourceRequestArray) ToResourceRequestArrayOutput() ResourceRequestArrayOutput {
+	return i.ToResourceRequestArrayOutputWithContext(context.Background())
+}
+
+func (i ResourceRequestArray) ToResourceRequestArrayOutputWithContext(ctx context.Context) ResourceRequestArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ResourceRequestArrayOutput)
+}
+
+// ResourceRequest is a request for resources from one particular driver.
+type ResourceRequestOutput struct{ *pulumi.OutputState }
+
+func (ResourceRequestOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ResourceRequest)(nil)).Elem()
+}
+
+func (o ResourceRequestOutput) ToResourceRequestOutput() ResourceRequestOutput {
+	return o
+}
+
+func (o ResourceRequestOutput) ToResourceRequestOutputWithContext(ctx context.Context) ResourceRequestOutput {
+	return o
+}
+
+// NamedResources describes a request for resources with the named resources model.
+func (o ResourceRequestOutput) NamedResources() NamedResourcesRequestPtrOutput {
+	return o.ApplyT(func(v ResourceRequest) *NamedResourcesRequest { return v.NamedResources }).(NamedResourcesRequestPtrOutput)
+}
+
+// VendorParameters are arbitrary setup parameters for the requested resource. They are ignored while allocating a claim.
+func (o ResourceRequestOutput) VendorParameters() pulumi.AnyOutput {
+	return o.ApplyT(func(v ResourceRequest) interface{} { return v.VendorParameters }).(pulumi.AnyOutput)
+}
+
+type ResourceRequestArrayOutput struct{ *pulumi.OutputState }
+
+func (ResourceRequestArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ResourceRequest)(nil)).Elem()
+}
+
+func (o ResourceRequestArrayOutput) ToResourceRequestArrayOutput() ResourceRequestArrayOutput {
+	return o
+}
+
+func (o ResourceRequestArrayOutput) ToResourceRequestArrayOutputWithContext(ctx context.Context) ResourceRequestArrayOutput {
+	return o
+}
+
+func (o ResourceRequestArrayOutput) Index(i pulumi.IntInput) ResourceRequestOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ResourceRequest {
+		return vs[0].([]ResourceRequest)[vs[1].(int)]
+	}).(ResourceRequestOutput)
+}
+
+// ResourceRequest is a request for resources from one particular driver.
+type ResourceRequestPatch struct {
+	// NamedResources describes a request for resources with the named resources model.
+	NamedResources *NamedResourcesRequestPatch `pulumi:"namedResources"`
+	// VendorParameters are arbitrary setup parameters for the requested resource. They are ignored while allocating a claim.
+	VendorParameters interface{} `pulumi:"vendorParameters"`
+}
+
+// ResourceRequestPatchInput is an input type that accepts ResourceRequestPatchArgs and ResourceRequestPatchOutput values.
+// You can construct a concrete instance of `ResourceRequestPatchInput` via:
+//
+//	ResourceRequestPatchArgs{...}
+type ResourceRequestPatchInput interface {
+	pulumi.Input
+
+	ToResourceRequestPatchOutput() ResourceRequestPatchOutput
+	ToResourceRequestPatchOutputWithContext(context.Context) ResourceRequestPatchOutput
+}
+
+// ResourceRequest is a request for resources from one particular driver.
+type ResourceRequestPatchArgs struct {
+	// NamedResources describes a request for resources with the named resources model.
+	NamedResources NamedResourcesRequestPatchPtrInput `pulumi:"namedResources"`
+	// VendorParameters are arbitrary setup parameters for the requested resource. They are ignored while allocating a claim.
+	VendorParameters pulumi.Input `pulumi:"vendorParameters"`
+}
+
+func (ResourceRequestPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ResourceRequestPatch)(nil)).Elem()
+}
+
+func (i ResourceRequestPatchArgs) ToResourceRequestPatchOutput() ResourceRequestPatchOutput {
+	return i.ToResourceRequestPatchOutputWithContext(context.Background())
+}
+
+func (i ResourceRequestPatchArgs) ToResourceRequestPatchOutputWithContext(ctx context.Context) ResourceRequestPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ResourceRequestPatchOutput)
+}
+
+// ResourceRequestPatchArrayInput is an input type that accepts ResourceRequestPatchArray and ResourceRequestPatchArrayOutput values.
+// You can construct a concrete instance of `ResourceRequestPatchArrayInput` via:
+//
+//	ResourceRequestPatchArray{ ResourceRequestPatchArgs{...} }
+type ResourceRequestPatchArrayInput interface {
+	pulumi.Input
+
+	ToResourceRequestPatchArrayOutput() ResourceRequestPatchArrayOutput
+	ToResourceRequestPatchArrayOutputWithContext(context.Context) ResourceRequestPatchArrayOutput
+}
+
+type ResourceRequestPatchArray []ResourceRequestPatchInput
+
+func (ResourceRequestPatchArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ResourceRequestPatch)(nil)).Elem()
+}
+
+func (i ResourceRequestPatchArray) ToResourceRequestPatchArrayOutput() ResourceRequestPatchArrayOutput {
+	return i.ToResourceRequestPatchArrayOutputWithContext(context.Background())
+}
+
+func (i ResourceRequestPatchArray) ToResourceRequestPatchArrayOutputWithContext(ctx context.Context) ResourceRequestPatchArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ResourceRequestPatchArrayOutput)
+}
+
+// ResourceRequest is a request for resources from one particular driver.
+type ResourceRequestPatchOutput struct{ *pulumi.OutputState }
+
+func (ResourceRequestPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ResourceRequestPatch)(nil)).Elem()
+}
+
+func (o ResourceRequestPatchOutput) ToResourceRequestPatchOutput() ResourceRequestPatchOutput {
+	return o
+}
+
+func (o ResourceRequestPatchOutput) ToResourceRequestPatchOutputWithContext(ctx context.Context) ResourceRequestPatchOutput {
+	return o
+}
+
+// NamedResources describes a request for resources with the named resources model.
+func (o ResourceRequestPatchOutput) NamedResources() NamedResourcesRequestPatchPtrOutput {
+	return o.ApplyT(func(v ResourceRequestPatch) *NamedResourcesRequestPatch { return v.NamedResources }).(NamedResourcesRequestPatchPtrOutput)
+}
+
+// VendorParameters are arbitrary setup parameters for the requested resource. They are ignored while allocating a claim.
+func (o ResourceRequestPatchOutput) VendorParameters() pulumi.AnyOutput {
+	return o.ApplyT(func(v ResourceRequestPatch) interface{} { return v.VendorParameters }).(pulumi.AnyOutput)
+}
+
+type ResourceRequestPatchArrayOutput struct{ *pulumi.OutputState }
+
+func (ResourceRequestPatchArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ResourceRequestPatch)(nil)).Elem()
+}
+
+func (o ResourceRequestPatchArrayOutput) ToResourceRequestPatchArrayOutput() ResourceRequestPatchArrayOutput {
+	return o
+}
+
+func (o ResourceRequestPatchArrayOutput) ToResourceRequestPatchArrayOutputWithContext(ctx context.Context) ResourceRequestPatchArrayOutput {
+	return o
+}
+
+func (o ResourceRequestPatchArrayOutput) Index(i pulumi.IntInput) ResourceRequestPatchOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ResourceRequestPatch {
+		return vs[0].([]ResourceRequestPatch)[vs[1].(int)]
+	}).(ResourceRequestPatchOutput)
+}
+
+// ResourceSlice provides information about available resources on individual nodes.
+type ResourceSliceType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// DriverName identifies the DRA driver providing the capacity information. A field selector can be used to list only ResourceSlice objects with a certain driver name.
+	DriverName string `pulumi:"driverName"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard object metadata
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	// NamedResources describes available resources using the named resources model.
+	NamedResources *NamedResourcesResources `pulumi:"namedResources"`
+	// NodeName identifies the node which provides the resources if they are local to a node.
+	//
+	// A field selector can be used to list only ResourceSlice objects with a certain node name.
+	NodeName *string `pulumi:"nodeName"`
+}
+
+// ResourceSliceTypeInput is an input type that accepts ResourceSliceTypeArgs and ResourceSliceTypeOutput values.
+// You can construct a concrete instance of `ResourceSliceTypeInput` via:
+//
+//	ResourceSliceTypeArgs{...}
+type ResourceSliceTypeInput interface {
+	pulumi.Input
+
+	ToResourceSliceTypeOutput() ResourceSliceTypeOutput
+	ToResourceSliceTypeOutputWithContext(context.Context) ResourceSliceTypeOutput
+}
+
+// ResourceSlice provides information about available resources on individual nodes.
+type ResourceSliceTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// DriverName identifies the DRA driver providing the capacity information. A field selector can be used to list only ResourceSlice objects with a certain driver name.
+	DriverName pulumi.StringInput `pulumi:"driverName"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object metadata
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	// NamedResources describes available resources using the named resources model.
+	NamedResources NamedResourcesResourcesPtrInput `pulumi:"namedResources"`
+	// NodeName identifies the node which provides the resources if they are local to a node.
+	//
+	// A field selector can be used to list only ResourceSlice objects with a certain node name.
+	NodeName pulumi.StringPtrInput `pulumi:"nodeName"`
+}
+
+func (ResourceSliceTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ResourceSliceType)(nil)).Elem()
+}
+
+func (i ResourceSliceTypeArgs) ToResourceSliceTypeOutput() ResourceSliceTypeOutput {
+	return i.ToResourceSliceTypeOutputWithContext(context.Background())
+}
+
+func (i ResourceSliceTypeArgs) ToResourceSliceTypeOutputWithContext(ctx context.Context) ResourceSliceTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ResourceSliceTypeOutput)
+}
+
+// ResourceSliceTypeArrayInput is an input type that accepts ResourceSliceTypeArray and ResourceSliceTypeArrayOutput values.
+// You can construct a concrete instance of `ResourceSliceTypeArrayInput` via:
+//
+//	ResourceSliceTypeArray{ ResourceSliceTypeArgs{...} }
+type ResourceSliceTypeArrayInput interface {
+	pulumi.Input
+
+	ToResourceSliceTypeArrayOutput() ResourceSliceTypeArrayOutput
+	ToResourceSliceTypeArrayOutputWithContext(context.Context) ResourceSliceTypeArrayOutput
+}
+
+type ResourceSliceTypeArray []ResourceSliceTypeInput
+
+func (ResourceSliceTypeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ResourceSliceType)(nil)).Elem()
+}
+
+func (i ResourceSliceTypeArray) ToResourceSliceTypeArrayOutput() ResourceSliceTypeArrayOutput {
+	return i.ToResourceSliceTypeArrayOutputWithContext(context.Background())
+}
+
+func (i ResourceSliceTypeArray) ToResourceSliceTypeArrayOutputWithContext(ctx context.Context) ResourceSliceTypeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ResourceSliceTypeArrayOutput)
+}
+
+// ResourceSlice provides information about available resources on individual nodes.
+type ResourceSliceTypeOutput struct{ *pulumi.OutputState }
+
+func (ResourceSliceTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ResourceSliceType)(nil)).Elem()
+}
+
+func (o ResourceSliceTypeOutput) ToResourceSliceTypeOutput() ResourceSliceTypeOutput {
+	return o
+}
+
+func (o ResourceSliceTypeOutput) ToResourceSliceTypeOutputWithContext(ctx context.Context) ResourceSliceTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o ResourceSliceTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ResourceSliceType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// DriverName identifies the DRA driver providing the capacity information. A field selector can be used to list only ResourceSlice objects with a certain driver name.
+func (o ResourceSliceTypeOutput) DriverName() pulumi.StringOutput {
+	return o.ApplyT(func(v ResourceSliceType) string { return v.DriverName }).(pulumi.StringOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o ResourceSliceTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ResourceSliceType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object metadata
+func (o ResourceSliceTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v ResourceSliceType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// NamedResources describes available resources using the named resources model.
+func (o ResourceSliceTypeOutput) NamedResources() NamedResourcesResourcesPtrOutput {
+	return o.ApplyT(func(v ResourceSliceType) *NamedResourcesResources { return v.NamedResources }).(NamedResourcesResourcesPtrOutput)
+}
+
+// NodeName identifies the node which provides the resources if they are local to a node.
+//
+// A field selector can be used to list only ResourceSlice objects with a certain node name.
+func (o ResourceSliceTypeOutput) NodeName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ResourceSliceType) *string { return v.NodeName }).(pulumi.StringPtrOutput)
+}
+
+type ResourceSliceTypeArrayOutput struct{ *pulumi.OutputState }
+
+func (ResourceSliceTypeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ResourceSliceType)(nil)).Elem()
+}
+
+func (o ResourceSliceTypeArrayOutput) ToResourceSliceTypeArrayOutput() ResourceSliceTypeArrayOutput {
+	return o
+}
+
+func (o ResourceSliceTypeArrayOutput) ToResourceSliceTypeArrayOutputWithContext(ctx context.Context) ResourceSliceTypeArrayOutput {
+	return o
+}
+
+func (o ResourceSliceTypeArrayOutput) Index(i pulumi.IntInput) ResourceSliceTypeOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ResourceSliceType {
+		return vs[0].([]ResourceSliceType)[vs[1].(int)]
+	}).(ResourceSliceTypeOutput)
+}
+
+// ResourceSliceList is a collection of ResourceSlices.
+type ResourceSliceListType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Items is the list of node resource capacity objects.
+	Items []ResourceSliceType `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard list metadata
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
+}
+
+// ResourceSliceListTypeInput is an input type that accepts ResourceSliceListTypeArgs and ResourceSliceListTypeOutput values.
+// You can construct a concrete instance of `ResourceSliceListTypeInput` via:
+//
+//	ResourceSliceListTypeArgs{...}
+type ResourceSliceListTypeInput interface {
+	pulumi.Input
+
+	ToResourceSliceListTypeOutput() ResourceSliceListTypeOutput
+	ToResourceSliceListTypeOutputWithContext(context.Context) ResourceSliceListTypeOutput
+}
+
+// ResourceSliceList is a collection of ResourceSlices.
+type ResourceSliceListTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Items is the list of node resource capacity objects.
+	Items ResourceSliceTypeArrayInput `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard list metadata
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+}
+
+func (ResourceSliceListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ResourceSliceListType)(nil)).Elem()
+}
+
+func (i ResourceSliceListTypeArgs) ToResourceSliceListTypeOutput() ResourceSliceListTypeOutput {
+	return i.ToResourceSliceListTypeOutputWithContext(context.Background())
+}
+
+func (i ResourceSliceListTypeArgs) ToResourceSliceListTypeOutputWithContext(ctx context.Context) ResourceSliceListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ResourceSliceListTypeOutput)
+}
+
+// ResourceSliceList is a collection of ResourceSlices.
+type ResourceSliceListTypeOutput struct{ *pulumi.OutputState }
+
+func (ResourceSliceListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ResourceSliceListType)(nil)).Elem()
+}
+
+func (o ResourceSliceListTypeOutput) ToResourceSliceListTypeOutput() ResourceSliceListTypeOutput {
+	return o
+}
+
+func (o ResourceSliceListTypeOutput) ToResourceSliceListTypeOutputWithContext(ctx context.Context) ResourceSliceListTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o ResourceSliceListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ResourceSliceListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Items is the list of node resource capacity objects.
+func (o ResourceSliceListTypeOutput) Items() ResourceSliceTypeArrayOutput {
+	return o.ApplyT(func(v ResourceSliceListType) []ResourceSliceType { return v.Items }).(ResourceSliceTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o ResourceSliceListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ResourceSliceListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard list metadata
+func (o ResourceSliceListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v ResourceSliceListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+}
+
+// ResourceSlice provides information about available resources on individual nodes.
+type ResourceSlicePatchType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// DriverName identifies the DRA driver providing the capacity information. A field selector can be used to list only ResourceSlice objects with a certain driver name.
+	DriverName *string `pulumi:"driverName"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard object metadata
+	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
+	// NamedResources describes available resources using the named resources model.
+	NamedResources *NamedResourcesResourcesPatch `pulumi:"namedResources"`
+	// NodeName identifies the node which provides the resources if they are local to a node.
+	//
+	// A field selector can be used to list only ResourceSlice objects with a certain node name.
+	NodeName *string `pulumi:"nodeName"`
+}
+
+// ResourceSlicePatchTypeInput is an input type that accepts ResourceSlicePatchTypeArgs and ResourceSlicePatchTypeOutput values.
+// You can construct a concrete instance of `ResourceSlicePatchTypeInput` via:
+//
+//	ResourceSlicePatchTypeArgs{...}
+type ResourceSlicePatchTypeInput interface {
+	pulumi.Input
+
+	ToResourceSlicePatchTypeOutput() ResourceSlicePatchTypeOutput
+	ToResourceSlicePatchTypeOutputWithContext(context.Context) ResourceSlicePatchTypeOutput
+}
+
+// ResourceSlice provides information about available resources on individual nodes.
+type ResourceSlicePatchTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// DriverName identifies the DRA driver providing the capacity information. A field selector can be used to list only ResourceSlice objects with a certain driver name.
+	DriverName pulumi.StringPtrInput `pulumi:"driverName"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object metadata
+	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
+	// NamedResources describes available resources using the named resources model.
+	NamedResources NamedResourcesResourcesPatchPtrInput `pulumi:"namedResources"`
+	// NodeName identifies the node which provides the resources if they are local to a node.
+	//
+	// A field selector can be used to list only ResourceSlice objects with a certain node name.
+	NodeName pulumi.StringPtrInput `pulumi:"nodeName"`
+}
+
+func (ResourceSlicePatchTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ResourceSlicePatchType)(nil)).Elem()
+}
+
+func (i ResourceSlicePatchTypeArgs) ToResourceSlicePatchTypeOutput() ResourceSlicePatchTypeOutput {
+	return i.ToResourceSlicePatchTypeOutputWithContext(context.Background())
+}
+
+func (i ResourceSlicePatchTypeArgs) ToResourceSlicePatchTypeOutputWithContext(ctx context.Context) ResourceSlicePatchTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ResourceSlicePatchTypeOutput)
+}
+
+// ResourceSlice provides information about available resources on individual nodes.
+type ResourceSlicePatchTypeOutput struct{ *pulumi.OutputState }
+
+func (ResourceSlicePatchTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ResourceSlicePatchType)(nil)).Elem()
+}
+
+func (o ResourceSlicePatchTypeOutput) ToResourceSlicePatchTypeOutput() ResourceSlicePatchTypeOutput {
+	return o
+}
+
+func (o ResourceSlicePatchTypeOutput) ToResourceSlicePatchTypeOutputWithContext(ctx context.Context) ResourceSlicePatchTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o ResourceSlicePatchTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ResourceSlicePatchType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// DriverName identifies the DRA driver providing the capacity information. A field selector can be used to list only ResourceSlice objects with a certain driver name.
+func (o ResourceSlicePatchTypeOutput) DriverName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ResourceSlicePatchType) *string { return v.DriverName }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o ResourceSlicePatchTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ResourceSlicePatchType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object metadata
+func (o ResourceSlicePatchTypeOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
+	return o.ApplyT(func(v ResourceSlicePatchType) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
+}
+
+// NamedResources describes available resources using the named resources model.
+func (o ResourceSlicePatchTypeOutput) NamedResources() NamedResourcesResourcesPatchPtrOutput {
+	return o.ApplyT(func(v ResourceSlicePatchType) *NamedResourcesResourcesPatch { return v.NamedResources }).(NamedResourcesResourcesPatchPtrOutput)
+}
+
+// NodeName identifies the node which provides the resources if they are local to a node.
+//
+// A field selector can be used to list only ResourceSlice objects with a certain node name.
+func (o ResourceSlicePatchTypeOutput) NodeName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ResourceSlicePatchType) *string { return v.NodeName }).(pulumi.StringPtrOutput)
+}
+
+// StructuredResourceHandle is the in-tree representation of the allocation result.
+type StructuredResourceHandle struct {
+	// NodeName is the name of the node providing the necessary resources if the resources are local to a node.
+	NodeName *string `pulumi:"nodeName"`
+	// Results lists all allocated driver resources.
+	Results []DriverAllocationResult `pulumi:"results"`
+	// VendorClaimParameters are the per-claim configuration parameters from the resource claim parameters at the time that the claim was allocated.
+	VendorClaimParameters interface{} `pulumi:"vendorClaimParameters"`
+	// VendorClassParameters are the per-claim configuration parameters from the resource class at the time that the claim was allocated.
+	VendorClassParameters interface{} `pulumi:"vendorClassParameters"`
+}
+
+// StructuredResourceHandleInput is an input type that accepts StructuredResourceHandleArgs and StructuredResourceHandleOutput values.
+// You can construct a concrete instance of `StructuredResourceHandleInput` via:
+//
+//	StructuredResourceHandleArgs{...}
+type StructuredResourceHandleInput interface {
+	pulumi.Input
+
+	ToStructuredResourceHandleOutput() StructuredResourceHandleOutput
+	ToStructuredResourceHandleOutputWithContext(context.Context) StructuredResourceHandleOutput
+}
+
+// StructuredResourceHandle is the in-tree representation of the allocation result.
+type StructuredResourceHandleArgs struct {
+	// NodeName is the name of the node providing the necessary resources if the resources are local to a node.
+	NodeName pulumi.StringPtrInput `pulumi:"nodeName"`
+	// Results lists all allocated driver resources.
+	Results DriverAllocationResultArrayInput `pulumi:"results"`
+	// VendorClaimParameters are the per-claim configuration parameters from the resource claim parameters at the time that the claim was allocated.
+	VendorClaimParameters pulumi.Input `pulumi:"vendorClaimParameters"`
+	// VendorClassParameters are the per-claim configuration parameters from the resource class at the time that the claim was allocated.
+	VendorClassParameters pulumi.Input `pulumi:"vendorClassParameters"`
+}
+
+func (StructuredResourceHandleArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*StructuredResourceHandle)(nil)).Elem()
+}
+
+func (i StructuredResourceHandleArgs) ToStructuredResourceHandleOutput() StructuredResourceHandleOutput {
+	return i.ToStructuredResourceHandleOutputWithContext(context.Background())
+}
+
+func (i StructuredResourceHandleArgs) ToStructuredResourceHandleOutputWithContext(ctx context.Context) StructuredResourceHandleOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StructuredResourceHandleOutput)
+}
+
+func (i StructuredResourceHandleArgs) ToStructuredResourceHandlePtrOutput() StructuredResourceHandlePtrOutput {
+	return i.ToStructuredResourceHandlePtrOutputWithContext(context.Background())
+}
+
+func (i StructuredResourceHandleArgs) ToStructuredResourceHandlePtrOutputWithContext(ctx context.Context) StructuredResourceHandlePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StructuredResourceHandleOutput).ToStructuredResourceHandlePtrOutputWithContext(ctx)
+}
+
+// StructuredResourceHandlePtrInput is an input type that accepts StructuredResourceHandleArgs, StructuredResourceHandlePtr and StructuredResourceHandlePtrOutput values.
+// You can construct a concrete instance of `StructuredResourceHandlePtrInput` via:
+//
+//	        StructuredResourceHandleArgs{...}
+//
+//	or:
+//
+//	        nil
+type StructuredResourceHandlePtrInput interface {
+	pulumi.Input
+
+	ToStructuredResourceHandlePtrOutput() StructuredResourceHandlePtrOutput
+	ToStructuredResourceHandlePtrOutputWithContext(context.Context) StructuredResourceHandlePtrOutput
+}
+
+type structuredResourceHandlePtrType StructuredResourceHandleArgs
+
+func StructuredResourceHandlePtr(v *StructuredResourceHandleArgs) StructuredResourceHandlePtrInput {
+	return (*structuredResourceHandlePtrType)(v)
+}
+
+func (*structuredResourceHandlePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**StructuredResourceHandle)(nil)).Elem()
+}
+
+func (i *structuredResourceHandlePtrType) ToStructuredResourceHandlePtrOutput() StructuredResourceHandlePtrOutput {
+	return i.ToStructuredResourceHandlePtrOutputWithContext(context.Background())
+}
+
+func (i *structuredResourceHandlePtrType) ToStructuredResourceHandlePtrOutputWithContext(ctx context.Context) StructuredResourceHandlePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StructuredResourceHandlePtrOutput)
+}
+
+// StructuredResourceHandle is the in-tree representation of the allocation result.
+type StructuredResourceHandleOutput struct{ *pulumi.OutputState }
+
+func (StructuredResourceHandleOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*StructuredResourceHandle)(nil)).Elem()
+}
+
+func (o StructuredResourceHandleOutput) ToStructuredResourceHandleOutput() StructuredResourceHandleOutput {
+	return o
+}
+
+func (o StructuredResourceHandleOutput) ToStructuredResourceHandleOutputWithContext(ctx context.Context) StructuredResourceHandleOutput {
+	return o
+}
+
+func (o StructuredResourceHandleOutput) ToStructuredResourceHandlePtrOutput() StructuredResourceHandlePtrOutput {
+	return o.ToStructuredResourceHandlePtrOutputWithContext(context.Background())
+}
+
+func (o StructuredResourceHandleOutput) ToStructuredResourceHandlePtrOutputWithContext(ctx context.Context) StructuredResourceHandlePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v StructuredResourceHandle) *StructuredResourceHandle {
+		return &v
+	}).(StructuredResourceHandlePtrOutput)
+}
+
+// NodeName is the name of the node providing the necessary resources if the resources are local to a node.
+func (o StructuredResourceHandleOutput) NodeName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v StructuredResourceHandle) *string { return v.NodeName }).(pulumi.StringPtrOutput)
+}
+
+// Results lists all allocated driver resources.
+func (o StructuredResourceHandleOutput) Results() DriverAllocationResultArrayOutput {
+	return o.ApplyT(func(v StructuredResourceHandle) []DriverAllocationResult { return v.Results }).(DriverAllocationResultArrayOutput)
+}
+
+// VendorClaimParameters are the per-claim configuration parameters from the resource claim parameters at the time that the claim was allocated.
+func (o StructuredResourceHandleOutput) VendorClaimParameters() pulumi.AnyOutput {
+	return o.ApplyT(func(v StructuredResourceHandle) interface{} { return v.VendorClaimParameters }).(pulumi.AnyOutput)
+}
+
+// VendorClassParameters are the per-claim configuration parameters from the resource class at the time that the claim was allocated.
+func (o StructuredResourceHandleOutput) VendorClassParameters() pulumi.AnyOutput {
+	return o.ApplyT(func(v StructuredResourceHandle) interface{} { return v.VendorClassParameters }).(pulumi.AnyOutput)
+}
+
+type StructuredResourceHandlePtrOutput struct{ *pulumi.OutputState }
+
+func (StructuredResourceHandlePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**StructuredResourceHandle)(nil)).Elem()
+}
+
+func (o StructuredResourceHandlePtrOutput) ToStructuredResourceHandlePtrOutput() StructuredResourceHandlePtrOutput {
+	return o
+}
+
+func (o StructuredResourceHandlePtrOutput) ToStructuredResourceHandlePtrOutputWithContext(ctx context.Context) StructuredResourceHandlePtrOutput {
+	return o
+}
+
+func (o StructuredResourceHandlePtrOutput) Elem() StructuredResourceHandleOutput {
+	return o.ApplyT(func(v *StructuredResourceHandle) StructuredResourceHandle {
+		if v != nil {
+			return *v
+		}
+		var ret StructuredResourceHandle
+		return ret
+	}).(StructuredResourceHandleOutput)
+}
+
+// NodeName is the name of the node providing the necessary resources if the resources are local to a node.
+func (o StructuredResourceHandlePtrOutput) NodeName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *StructuredResourceHandle) *string {
+		if v == nil {
+			return nil
+		}
+		return v.NodeName
+	}).(pulumi.StringPtrOutput)
+}
+
+// Results lists all allocated driver resources.
+func (o StructuredResourceHandlePtrOutput) Results() DriverAllocationResultArrayOutput {
+	return o.ApplyT(func(v *StructuredResourceHandle) []DriverAllocationResult {
+		if v == nil {
+			return nil
+		}
+		return v.Results
+	}).(DriverAllocationResultArrayOutput)
+}
+
+// VendorClaimParameters are the per-claim configuration parameters from the resource claim parameters at the time that the claim was allocated.
+func (o StructuredResourceHandlePtrOutput) VendorClaimParameters() pulumi.AnyOutput {
+	return o.ApplyT(func(v *StructuredResourceHandle) interface{} {
+		if v == nil {
+			return nil
+		}
+		return v.VendorClaimParameters
+	}).(pulumi.AnyOutput)
+}
+
+// VendorClassParameters are the per-claim configuration parameters from the resource class at the time that the claim was allocated.
+func (o StructuredResourceHandlePtrOutput) VendorClassParameters() pulumi.AnyOutput {
+	return o.ApplyT(func(v *StructuredResourceHandle) interface{} {
+		if v == nil {
+			return nil
+		}
+		return v.VendorClassParameters
+	}).(pulumi.AnyOutput)
+}
+
+// StructuredResourceHandle is the in-tree representation of the allocation result.
+type StructuredResourceHandlePatch struct {
+	// NodeName is the name of the node providing the necessary resources if the resources are local to a node.
+	NodeName *string `pulumi:"nodeName"`
+	// Results lists all allocated driver resources.
+	Results []DriverAllocationResultPatch `pulumi:"results"`
+	// VendorClaimParameters are the per-claim configuration parameters from the resource claim parameters at the time that the claim was allocated.
+	VendorClaimParameters interface{} `pulumi:"vendorClaimParameters"`
+	// VendorClassParameters are the per-claim configuration parameters from the resource class at the time that the claim was allocated.
+	VendorClassParameters interface{} `pulumi:"vendorClassParameters"`
+}
+
+// StructuredResourceHandlePatchInput is an input type that accepts StructuredResourceHandlePatchArgs and StructuredResourceHandlePatchOutput values.
+// You can construct a concrete instance of `StructuredResourceHandlePatchInput` via:
+//
+//	StructuredResourceHandlePatchArgs{...}
+type StructuredResourceHandlePatchInput interface {
+	pulumi.Input
+
+	ToStructuredResourceHandlePatchOutput() StructuredResourceHandlePatchOutput
+	ToStructuredResourceHandlePatchOutputWithContext(context.Context) StructuredResourceHandlePatchOutput
+}
+
+// StructuredResourceHandle is the in-tree representation of the allocation result.
+type StructuredResourceHandlePatchArgs struct {
+	// NodeName is the name of the node providing the necessary resources if the resources are local to a node.
+	NodeName pulumi.StringPtrInput `pulumi:"nodeName"`
+	// Results lists all allocated driver resources.
+	Results DriverAllocationResultPatchArrayInput `pulumi:"results"`
+	// VendorClaimParameters are the per-claim configuration parameters from the resource claim parameters at the time that the claim was allocated.
+	VendorClaimParameters pulumi.Input `pulumi:"vendorClaimParameters"`
+	// VendorClassParameters are the per-claim configuration parameters from the resource class at the time that the claim was allocated.
+	VendorClassParameters pulumi.Input `pulumi:"vendorClassParameters"`
+}
+
+func (StructuredResourceHandlePatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*StructuredResourceHandlePatch)(nil)).Elem()
+}
+
+func (i StructuredResourceHandlePatchArgs) ToStructuredResourceHandlePatchOutput() StructuredResourceHandlePatchOutput {
+	return i.ToStructuredResourceHandlePatchOutputWithContext(context.Background())
+}
+
+func (i StructuredResourceHandlePatchArgs) ToStructuredResourceHandlePatchOutputWithContext(ctx context.Context) StructuredResourceHandlePatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StructuredResourceHandlePatchOutput)
+}
+
+func (i StructuredResourceHandlePatchArgs) ToStructuredResourceHandlePatchPtrOutput() StructuredResourceHandlePatchPtrOutput {
+	return i.ToStructuredResourceHandlePatchPtrOutputWithContext(context.Background())
+}
+
+func (i StructuredResourceHandlePatchArgs) ToStructuredResourceHandlePatchPtrOutputWithContext(ctx context.Context) StructuredResourceHandlePatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StructuredResourceHandlePatchOutput).ToStructuredResourceHandlePatchPtrOutputWithContext(ctx)
+}
+
+// StructuredResourceHandlePatchPtrInput is an input type that accepts StructuredResourceHandlePatchArgs, StructuredResourceHandlePatchPtr and StructuredResourceHandlePatchPtrOutput values.
+// You can construct a concrete instance of `StructuredResourceHandlePatchPtrInput` via:
+//
+//	        StructuredResourceHandlePatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type StructuredResourceHandlePatchPtrInput interface {
+	pulumi.Input
+
+	ToStructuredResourceHandlePatchPtrOutput() StructuredResourceHandlePatchPtrOutput
+	ToStructuredResourceHandlePatchPtrOutputWithContext(context.Context) StructuredResourceHandlePatchPtrOutput
+}
+
+type structuredResourceHandlePatchPtrType StructuredResourceHandlePatchArgs
+
+func StructuredResourceHandlePatchPtr(v *StructuredResourceHandlePatchArgs) StructuredResourceHandlePatchPtrInput {
+	return (*structuredResourceHandlePatchPtrType)(v)
+}
+
+func (*structuredResourceHandlePatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**StructuredResourceHandlePatch)(nil)).Elem()
+}
+
+func (i *structuredResourceHandlePatchPtrType) ToStructuredResourceHandlePatchPtrOutput() StructuredResourceHandlePatchPtrOutput {
+	return i.ToStructuredResourceHandlePatchPtrOutputWithContext(context.Background())
+}
+
+func (i *structuredResourceHandlePatchPtrType) ToStructuredResourceHandlePatchPtrOutputWithContext(ctx context.Context) StructuredResourceHandlePatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StructuredResourceHandlePatchPtrOutput)
+}
+
+// StructuredResourceHandle is the in-tree representation of the allocation result.
+type StructuredResourceHandlePatchOutput struct{ *pulumi.OutputState }
+
+func (StructuredResourceHandlePatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*StructuredResourceHandlePatch)(nil)).Elem()
+}
+
+func (o StructuredResourceHandlePatchOutput) ToStructuredResourceHandlePatchOutput() StructuredResourceHandlePatchOutput {
+	return o
+}
+
+func (o StructuredResourceHandlePatchOutput) ToStructuredResourceHandlePatchOutputWithContext(ctx context.Context) StructuredResourceHandlePatchOutput {
+	return o
+}
+
+func (o StructuredResourceHandlePatchOutput) ToStructuredResourceHandlePatchPtrOutput() StructuredResourceHandlePatchPtrOutput {
+	return o.ToStructuredResourceHandlePatchPtrOutputWithContext(context.Background())
+}
+
+func (o StructuredResourceHandlePatchOutput) ToStructuredResourceHandlePatchPtrOutputWithContext(ctx context.Context) StructuredResourceHandlePatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v StructuredResourceHandlePatch) *StructuredResourceHandlePatch {
+		return &v
+	}).(StructuredResourceHandlePatchPtrOutput)
+}
+
+// NodeName is the name of the node providing the necessary resources if the resources are local to a node.
+func (o StructuredResourceHandlePatchOutput) NodeName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v StructuredResourceHandlePatch) *string { return v.NodeName }).(pulumi.StringPtrOutput)
+}
+
+// Results lists all allocated driver resources.
+func (o StructuredResourceHandlePatchOutput) Results() DriverAllocationResultPatchArrayOutput {
+	return o.ApplyT(func(v StructuredResourceHandlePatch) []DriverAllocationResultPatch { return v.Results }).(DriverAllocationResultPatchArrayOutput)
+}
+
+// VendorClaimParameters are the per-claim configuration parameters from the resource claim parameters at the time that the claim was allocated.
+func (o StructuredResourceHandlePatchOutput) VendorClaimParameters() pulumi.AnyOutput {
+	return o.ApplyT(func(v StructuredResourceHandlePatch) interface{} { return v.VendorClaimParameters }).(pulumi.AnyOutput)
+}
+
+// VendorClassParameters are the per-claim configuration parameters from the resource class at the time that the claim was allocated.
+func (o StructuredResourceHandlePatchOutput) VendorClassParameters() pulumi.AnyOutput {
+	return o.ApplyT(func(v StructuredResourceHandlePatch) interface{} { return v.VendorClassParameters }).(pulumi.AnyOutput)
+}
+
+type StructuredResourceHandlePatchPtrOutput struct{ *pulumi.OutputState }
+
+func (StructuredResourceHandlePatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**StructuredResourceHandlePatch)(nil)).Elem()
+}
+
+func (o StructuredResourceHandlePatchPtrOutput) ToStructuredResourceHandlePatchPtrOutput() StructuredResourceHandlePatchPtrOutput {
+	return o
+}
+
+func (o StructuredResourceHandlePatchPtrOutput) ToStructuredResourceHandlePatchPtrOutputWithContext(ctx context.Context) StructuredResourceHandlePatchPtrOutput {
+	return o
+}
+
+func (o StructuredResourceHandlePatchPtrOutput) Elem() StructuredResourceHandlePatchOutput {
+	return o.ApplyT(func(v *StructuredResourceHandlePatch) StructuredResourceHandlePatch {
+		if v != nil {
+			return *v
+		}
+		var ret StructuredResourceHandlePatch
+		return ret
+	}).(StructuredResourceHandlePatchOutput)
+}
+
+// NodeName is the name of the node providing the necessary resources if the resources are local to a node.
+func (o StructuredResourceHandlePatchPtrOutput) NodeName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *StructuredResourceHandlePatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.NodeName
+	}).(pulumi.StringPtrOutput)
+}
+
+// Results lists all allocated driver resources.
+func (o StructuredResourceHandlePatchPtrOutput) Results() DriverAllocationResultPatchArrayOutput {
+	return o.ApplyT(func(v *StructuredResourceHandlePatch) []DriverAllocationResultPatch {
+		if v == nil {
+			return nil
+		}
+		return v.Results
+	}).(DriverAllocationResultPatchArrayOutput)
+}
+
+// VendorClaimParameters are the per-claim configuration parameters from the resource claim parameters at the time that the claim was allocated.
+func (o StructuredResourceHandlePatchPtrOutput) VendorClaimParameters() pulumi.AnyOutput {
+	return o.ApplyT(func(v *StructuredResourceHandlePatch) interface{} {
+		if v == nil {
+			return nil
+		}
+		return v.VendorClaimParameters
+	}).(pulumi.AnyOutput)
+}
+
+// VendorClassParameters are the per-claim configuration parameters from the resource class at the time that the claim was allocated.
+func (o StructuredResourceHandlePatchPtrOutput) VendorClassParameters() pulumi.AnyOutput {
+	return o.ApplyT(func(v *StructuredResourceHandlePatch) interface{} {
+		if v == nil {
+			return nil
+		}
+		return v.VendorClassParameters
+	}).(pulumi.AnyOutput)
+}
+
+// VendorParameters are opaque parameters for one particular driver.
+type VendorParameters struct {
+	// DriverName is the name used by the DRA driver kubelet plugin.
+	DriverName *string `pulumi:"driverName"`
+	// Parameters can be arbitrary setup parameters. They are ignored while allocating a claim.
+	Parameters interface{} `pulumi:"parameters"`
+}
+
+// VendorParametersInput is an input type that accepts VendorParametersArgs and VendorParametersOutput values.
+// You can construct a concrete instance of `VendorParametersInput` via:
+//
+//	VendorParametersArgs{...}
+type VendorParametersInput interface {
+	pulumi.Input
+
+	ToVendorParametersOutput() VendorParametersOutput
+	ToVendorParametersOutputWithContext(context.Context) VendorParametersOutput
+}
+
+// VendorParameters are opaque parameters for one particular driver.
+type VendorParametersArgs struct {
+	// DriverName is the name used by the DRA driver kubelet plugin.
+	DriverName pulumi.StringPtrInput `pulumi:"driverName"`
+	// Parameters can be arbitrary setup parameters. They are ignored while allocating a claim.
+	Parameters pulumi.Input `pulumi:"parameters"`
+}
+
+func (VendorParametersArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*VendorParameters)(nil)).Elem()
+}
+
+func (i VendorParametersArgs) ToVendorParametersOutput() VendorParametersOutput {
+	return i.ToVendorParametersOutputWithContext(context.Background())
+}
+
+func (i VendorParametersArgs) ToVendorParametersOutputWithContext(ctx context.Context) VendorParametersOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(VendorParametersOutput)
+}
+
+// VendorParametersArrayInput is an input type that accepts VendorParametersArray and VendorParametersArrayOutput values.
+// You can construct a concrete instance of `VendorParametersArrayInput` via:
+//
+//	VendorParametersArray{ VendorParametersArgs{...} }
+type VendorParametersArrayInput interface {
+	pulumi.Input
+
+	ToVendorParametersArrayOutput() VendorParametersArrayOutput
+	ToVendorParametersArrayOutputWithContext(context.Context) VendorParametersArrayOutput
+}
+
+type VendorParametersArray []VendorParametersInput
+
+func (VendorParametersArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]VendorParameters)(nil)).Elem()
+}
+
+func (i VendorParametersArray) ToVendorParametersArrayOutput() VendorParametersArrayOutput {
+	return i.ToVendorParametersArrayOutputWithContext(context.Background())
+}
+
+func (i VendorParametersArray) ToVendorParametersArrayOutputWithContext(ctx context.Context) VendorParametersArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(VendorParametersArrayOutput)
+}
+
+// VendorParameters are opaque parameters for one particular driver.
+type VendorParametersOutput struct{ *pulumi.OutputState }
+
+func (VendorParametersOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*VendorParameters)(nil)).Elem()
+}
+
+func (o VendorParametersOutput) ToVendorParametersOutput() VendorParametersOutput {
+	return o
+}
+
+func (o VendorParametersOutput) ToVendorParametersOutputWithContext(ctx context.Context) VendorParametersOutput {
+	return o
+}
+
+// DriverName is the name used by the DRA driver kubelet plugin.
+func (o VendorParametersOutput) DriverName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v VendorParameters) *string { return v.DriverName }).(pulumi.StringPtrOutput)
+}
+
+// Parameters can be arbitrary setup parameters. They are ignored while allocating a claim.
+func (o VendorParametersOutput) Parameters() pulumi.AnyOutput {
+	return o.ApplyT(func(v VendorParameters) interface{} { return v.Parameters }).(pulumi.AnyOutput)
+}
+
+type VendorParametersArrayOutput struct{ *pulumi.OutputState }
+
+func (VendorParametersArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]VendorParameters)(nil)).Elem()
+}
+
+func (o VendorParametersArrayOutput) ToVendorParametersArrayOutput() VendorParametersArrayOutput {
+	return o
+}
+
+func (o VendorParametersArrayOutput) ToVendorParametersArrayOutputWithContext(ctx context.Context) VendorParametersArrayOutput {
+	return o
+}
+
+func (o VendorParametersArrayOutput) Index(i pulumi.IntInput) VendorParametersOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) VendorParameters {
+		return vs[0].([]VendorParameters)[vs[1].(int)]
+	}).(VendorParametersOutput)
+}
+
+// VendorParameters are opaque parameters for one particular driver.
+type VendorParametersPatch struct {
+	// DriverName is the name used by the DRA driver kubelet plugin.
+	DriverName *string `pulumi:"driverName"`
+	// Parameters can be arbitrary setup parameters. They are ignored while allocating a claim.
+	Parameters interface{} `pulumi:"parameters"`
+}
+
+// VendorParametersPatchInput is an input type that accepts VendorParametersPatchArgs and VendorParametersPatchOutput values.
+// You can construct a concrete instance of `VendorParametersPatchInput` via:
+//
+//	VendorParametersPatchArgs{...}
+type VendorParametersPatchInput interface {
+	pulumi.Input
+
+	ToVendorParametersPatchOutput() VendorParametersPatchOutput
+	ToVendorParametersPatchOutputWithContext(context.Context) VendorParametersPatchOutput
+}
+
+// VendorParameters are opaque parameters for one particular driver.
+type VendorParametersPatchArgs struct {
+	// DriverName is the name used by the DRA driver kubelet plugin.
+	DriverName pulumi.StringPtrInput `pulumi:"driverName"`
+	// Parameters can be arbitrary setup parameters. They are ignored while allocating a claim.
+	Parameters pulumi.Input `pulumi:"parameters"`
+}
+
+func (VendorParametersPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*VendorParametersPatch)(nil)).Elem()
+}
+
+func (i VendorParametersPatchArgs) ToVendorParametersPatchOutput() VendorParametersPatchOutput {
+	return i.ToVendorParametersPatchOutputWithContext(context.Background())
+}
+
+func (i VendorParametersPatchArgs) ToVendorParametersPatchOutputWithContext(ctx context.Context) VendorParametersPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(VendorParametersPatchOutput)
+}
+
+// VendorParametersPatchArrayInput is an input type that accepts VendorParametersPatchArray and VendorParametersPatchArrayOutput values.
+// You can construct a concrete instance of `VendorParametersPatchArrayInput` via:
+//
+//	VendorParametersPatchArray{ VendorParametersPatchArgs{...} }
+type VendorParametersPatchArrayInput interface {
+	pulumi.Input
+
+	ToVendorParametersPatchArrayOutput() VendorParametersPatchArrayOutput
+	ToVendorParametersPatchArrayOutputWithContext(context.Context) VendorParametersPatchArrayOutput
+}
+
+type VendorParametersPatchArray []VendorParametersPatchInput
+
+func (VendorParametersPatchArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]VendorParametersPatch)(nil)).Elem()
+}
+
+func (i VendorParametersPatchArray) ToVendorParametersPatchArrayOutput() VendorParametersPatchArrayOutput {
+	return i.ToVendorParametersPatchArrayOutputWithContext(context.Background())
+}
+
+func (i VendorParametersPatchArray) ToVendorParametersPatchArrayOutputWithContext(ctx context.Context) VendorParametersPatchArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(VendorParametersPatchArrayOutput)
+}
+
+// VendorParameters are opaque parameters for one particular driver.
+type VendorParametersPatchOutput struct{ *pulumi.OutputState }
+
+func (VendorParametersPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*VendorParametersPatch)(nil)).Elem()
+}
+
+func (o VendorParametersPatchOutput) ToVendorParametersPatchOutput() VendorParametersPatchOutput {
+	return o
+}
+
+func (o VendorParametersPatchOutput) ToVendorParametersPatchOutputWithContext(ctx context.Context) VendorParametersPatchOutput {
+	return o
+}
+
+// DriverName is the name used by the DRA driver kubelet plugin.
+func (o VendorParametersPatchOutput) DriverName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v VendorParametersPatch) *string { return v.DriverName }).(pulumi.StringPtrOutput)
+}
+
+// Parameters can be arbitrary setup parameters. They are ignored while allocating a claim.
+func (o VendorParametersPatchOutput) Parameters() pulumi.AnyOutput {
+	return o.ApplyT(func(v VendorParametersPatch) interface{} { return v.Parameters }).(pulumi.AnyOutput)
+}
+
+type VendorParametersPatchArrayOutput struct{ *pulumi.OutputState }
+
+func (VendorParametersPatchArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]VendorParametersPatch)(nil)).Elem()
+}
+
+func (o VendorParametersPatchArrayOutput) ToVendorParametersPatchArrayOutput() VendorParametersPatchArrayOutput {
+	return o
+}
+
+func (o VendorParametersPatchArrayOutput) ToVendorParametersPatchArrayOutputWithContext(ctx context.Context) VendorParametersPatchArrayOutput {
+	return o
+}
+
+func (o VendorParametersPatchArrayOutput) Index(i pulumi.IntInput) VendorParametersPatchOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) VendorParametersPatch {
+		return vs[0].([]VendorParametersPatch)[vs[1].(int)]
+	}).(VendorParametersPatchOutput)
+}
+
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*AllocationResultInput)(nil)).Elem(), AllocationResultArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*AllocationResultPtrInput)(nil)).Elem(), AllocationResultArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*AllocationResultPatchInput)(nil)).Elem(), AllocationResultPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*AllocationResultPatchPtrInput)(nil)).Elem(), AllocationResultPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DriverAllocationResultInput)(nil)).Elem(), DriverAllocationResultArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DriverAllocationResultArrayInput)(nil)).Elem(), DriverAllocationResultArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DriverAllocationResultPatchInput)(nil)).Elem(), DriverAllocationResultPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DriverAllocationResultPatchArrayInput)(nil)).Elem(), DriverAllocationResultPatchArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DriverRequestsInput)(nil)).Elem(), DriverRequestsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DriverRequestsArrayInput)(nil)).Elem(), DriverRequestsArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DriverRequestsPatchInput)(nil)).Elem(), DriverRequestsPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DriverRequestsPatchArrayInput)(nil)).Elem(), DriverRequestsPatchArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NamedResourcesAllocationResultInput)(nil)).Elem(), NamedResourcesAllocationResultArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NamedResourcesAllocationResultPtrInput)(nil)).Elem(), NamedResourcesAllocationResultArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NamedResourcesAllocationResultPatchInput)(nil)).Elem(), NamedResourcesAllocationResultPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NamedResourcesAllocationResultPatchPtrInput)(nil)).Elem(), NamedResourcesAllocationResultPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NamedResourcesAttributeInput)(nil)).Elem(), NamedResourcesAttributeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NamedResourcesAttributeArrayInput)(nil)).Elem(), NamedResourcesAttributeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NamedResourcesAttributePatchInput)(nil)).Elem(), NamedResourcesAttributePatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NamedResourcesAttributePatchArrayInput)(nil)).Elem(), NamedResourcesAttributePatchArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NamedResourcesFilterInput)(nil)).Elem(), NamedResourcesFilterArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NamedResourcesFilterPtrInput)(nil)).Elem(), NamedResourcesFilterArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NamedResourcesFilterPatchInput)(nil)).Elem(), NamedResourcesFilterPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NamedResourcesFilterPatchPtrInput)(nil)).Elem(), NamedResourcesFilterPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NamedResourcesInstanceInput)(nil)).Elem(), NamedResourcesInstanceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NamedResourcesInstanceArrayInput)(nil)).Elem(), NamedResourcesInstanceArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NamedResourcesInstancePatchInput)(nil)).Elem(), NamedResourcesInstancePatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NamedResourcesInstancePatchArrayInput)(nil)).Elem(), NamedResourcesInstancePatchArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NamedResourcesIntSliceInput)(nil)).Elem(), NamedResourcesIntSliceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NamedResourcesIntSlicePtrInput)(nil)).Elem(), NamedResourcesIntSliceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NamedResourcesIntSlicePatchInput)(nil)).Elem(), NamedResourcesIntSlicePatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NamedResourcesIntSlicePatchPtrInput)(nil)).Elem(), NamedResourcesIntSlicePatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NamedResourcesRequestInput)(nil)).Elem(), NamedResourcesRequestArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NamedResourcesRequestPtrInput)(nil)).Elem(), NamedResourcesRequestArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NamedResourcesRequestPatchInput)(nil)).Elem(), NamedResourcesRequestPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NamedResourcesRequestPatchPtrInput)(nil)).Elem(), NamedResourcesRequestPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NamedResourcesResourcesInput)(nil)).Elem(), NamedResourcesResourcesArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NamedResourcesResourcesPtrInput)(nil)).Elem(), NamedResourcesResourcesArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NamedResourcesResourcesPatchInput)(nil)).Elem(), NamedResourcesResourcesPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NamedResourcesResourcesPatchPtrInput)(nil)).Elem(), NamedResourcesResourcesPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NamedResourcesStringSliceInput)(nil)).Elem(), NamedResourcesStringSliceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NamedResourcesStringSlicePtrInput)(nil)).Elem(), NamedResourcesStringSliceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NamedResourcesStringSlicePatchInput)(nil)).Elem(), NamedResourcesStringSlicePatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NamedResourcesStringSlicePatchPtrInput)(nil)).Elem(), NamedResourcesStringSlicePatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PodSchedulingContextTypeInput)(nil)).Elem(), PodSchedulingContextTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PodSchedulingContextTypeArrayInput)(nil)).Elem(), PodSchedulingContextTypeArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PodSchedulingContextListTypeInput)(nil)).Elem(), PodSchedulingContextListTypeArgs{})
@@ -4645,6 +9536,10 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ResourceClaimConsumerReferencePatchInput)(nil)).Elem(), ResourceClaimConsumerReferencePatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ResourceClaimConsumerReferencePatchArrayInput)(nil)).Elem(), ResourceClaimConsumerReferencePatchArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ResourceClaimListTypeInput)(nil)).Elem(), ResourceClaimListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ResourceClaimParametersTypeInput)(nil)).Elem(), ResourceClaimParametersTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ResourceClaimParametersTypeArrayInput)(nil)).Elem(), ResourceClaimParametersTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ResourceClaimParametersListTypeInput)(nil)).Elem(), ResourceClaimParametersListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ResourceClaimParametersPatchTypeInput)(nil)).Elem(), ResourceClaimParametersPatchTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ResourceClaimParametersReferenceInput)(nil)).Elem(), ResourceClaimParametersReferenceArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ResourceClaimParametersReferencePtrInput)(nil)).Elem(), ResourceClaimParametersReferenceArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ResourceClaimParametersReferencePatchInput)(nil)).Elem(), ResourceClaimParametersReferencePatchArgs{})
@@ -4671,19 +9566,83 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ResourceClassTypeInput)(nil)).Elem(), ResourceClassTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ResourceClassTypeArrayInput)(nil)).Elem(), ResourceClassTypeArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ResourceClassListTypeInput)(nil)).Elem(), ResourceClassListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ResourceClassParametersTypeInput)(nil)).Elem(), ResourceClassParametersTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ResourceClassParametersTypeArrayInput)(nil)).Elem(), ResourceClassParametersTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ResourceClassParametersListTypeInput)(nil)).Elem(), ResourceClassParametersListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ResourceClassParametersPatchTypeInput)(nil)).Elem(), ResourceClassParametersPatchTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ResourceClassParametersReferenceInput)(nil)).Elem(), ResourceClassParametersReferenceArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ResourceClassParametersReferencePtrInput)(nil)).Elem(), ResourceClassParametersReferenceArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ResourceClassParametersReferencePatchInput)(nil)).Elem(), ResourceClassParametersReferencePatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ResourceClassParametersReferencePatchPtrInput)(nil)).Elem(), ResourceClassParametersReferencePatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ResourceClassPatchTypeInput)(nil)).Elem(), ResourceClassPatchTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ResourceFilterInput)(nil)).Elem(), ResourceFilterArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ResourceFilterArrayInput)(nil)).Elem(), ResourceFilterArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ResourceFilterPatchInput)(nil)).Elem(), ResourceFilterPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ResourceFilterPatchArrayInput)(nil)).Elem(), ResourceFilterPatchArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ResourceHandleInput)(nil)).Elem(), ResourceHandleArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ResourceHandleArrayInput)(nil)).Elem(), ResourceHandleArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ResourceHandlePatchInput)(nil)).Elem(), ResourceHandlePatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ResourceHandlePatchArrayInput)(nil)).Elem(), ResourceHandlePatchArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ResourceRequestInput)(nil)).Elem(), ResourceRequestArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ResourceRequestArrayInput)(nil)).Elem(), ResourceRequestArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ResourceRequestPatchInput)(nil)).Elem(), ResourceRequestPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ResourceRequestPatchArrayInput)(nil)).Elem(), ResourceRequestPatchArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ResourceSliceTypeInput)(nil)).Elem(), ResourceSliceTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ResourceSliceTypeArrayInput)(nil)).Elem(), ResourceSliceTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ResourceSliceListTypeInput)(nil)).Elem(), ResourceSliceListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ResourceSlicePatchTypeInput)(nil)).Elem(), ResourceSlicePatchTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StructuredResourceHandleInput)(nil)).Elem(), StructuredResourceHandleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StructuredResourceHandlePtrInput)(nil)).Elem(), StructuredResourceHandleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StructuredResourceHandlePatchInput)(nil)).Elem(), StructuredResourceHandlePatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StructuredResourceHandlePatchPtrInput)(nil)).Elem(), StructuredResourceHandlePatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VendorParametersInput)(nil)).Elem(), VendorParametersArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VendorParametersArrayInput)(nil)).Elem(), VendorParametersArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VendorParametersPatchInput)(nil)).Elem(), VendorParametersPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VendorParametersPatchArrayInput)(nil)).Elem(), VendorParametersPatchArray{})
 	pulumi.RegisterOutputType(AllocationResultOutput{})
 	pulumi.RegisterOutputType(AllocationResultPtrOutput{})
 	pulumi.RegisterOutputType(AllocationResultPatchOutput{})
 	pulumi.RegisterOutputType(AllocationResultPatchPtrOutput{})
+	pulumi.RegisterOutputType(DriverAllocationResultOutput{})
+	pulumi.RegisterOutputType(DriverAllocationResultArrayOutput{})
+	pulumi.RegisterOutputType(DriverAllocationResultPatchOutput{})
+	pulumi.RegisterOutputType(DriverAllocationResultPatchArrayOutput{})
+	pulumi.RegisterOutputType(DriverRequestsOutput{})
+	pulumi.RegisterOutputType(DriverRequestsArrayOutput{})
+	pulumi.RegisterOutputType(DriverRequestsPatchOutput{})
+	pulumi.RegisterOutputType(DriverRequestsPatchArrayOutput{})
+	pulumi.RegisterOutputType(NamedResourcesAllocationResultOutput{})
+	pulumi.RegisterOutputType(NamedResourcesAllocationResultPtrOutput{})
+	pulumi.RegisterOutputType(NamedResourcesAllocationResultPatchOutput{})
+	pulumi.RegisterOutputType(NamedResourcesAllocationResultPatchPtrOutput{})
+	pulumi.RegisterOutputType(NamedResourcesAttributeOutput{})
+	pulumi.RegisterOutputType(NamedResourcesAttributeArrayOutput{})
+	pulumi.RegisterOutputType(NamedResourcesAttributePatchOutput{})
+	pulumi.RegisterOutputType(NamedResourcesAttributePatchArrayOutput{})
+	pulumi.RegisterOutputType(NamedResourcesFilterOutput{})
+	pulumi.RegisterOutputType(NamedResourcesFilterPtrOutput{})
+	pulumi.RegisterOutputType(NamedResourcesFilterPatchOutput{})
+	pulumi.RegisterOutputType(NamedResourcesFilterPatchPtrOutput{})
+	pulumi.RegisterOutputType(NamedResourcesInstanceOutput{})
+	pulumi.RegisterOutputType(NamedResourcesInstanceArrayOutput{})
+	pulumi.RegisterOutputType(NamedResourcesInstancePatchOutput{})
+	pulumi.RegisterOutputType(NamedResourcesInstancePatchArrayOutput{})
+	pulumi.RegisterOutputType(NamedResourcesIntSliceOutput{})
+	pulumi.RegisterOutputType(NamedResourcesIntSlicePtrOutput{})
+	pulumi.RegisterOutputType(NamedResourcesIntSlicePatchOutput{})
+	pulumi.RegisterOutputType(NamedResourcesIntSlicePatchPtrOutput{})
+	pulumi.RegisterOutputType(NamedResourcesRequestOutput{})
+	pulumi.RegisterOutputType(NamedResourcesRequestPtrOutput{})
+	pulumi.RegisterOutputType(NamedResourcesRequestPatchOutput{})
+	pulumi.RegisterOutputType(NamedResourcesRequestPatchPtrOutput{})
+	pulumi.RegisterOutputType(NamedResourcesResourcesOutput{})
+	pulumi.RegisterOutputType(NamedResourcesResourcesPtrOutput{})
+	pulumi.RegisterOutputType(NamedResourcesResourcesPatchOutput{})
+	pulumi.RegisterOutputType(NamedResourcesResourcesPatchPtrOutput{})
+	pulumi.RegisterOutputType(NamedResourcesStringSliceOutput{})
+	pulumi.RegisterOutputType(NamedResourcesStringSlicePtrOutput{})
+	pulumi.RegisterOutputType(NamedResourcesStringSlicePatchOutput{})
+	pulumi.RegisterOutputType(NamedResourcesStringSlicePatchPtrOutput{})
 	pulumi.RegisterOutputType(PodSchedulingContextTypeOutput{})
 	pulumi.RegisterOutputType(PodSchedulingContextTypeArrayOutput{})
 	pulumi.RegisterOutputType(PodSchedulingContextListTypeOutput{})
@@ -4702,6 +9661,10 @@ func init() {
 	pulumi.RegisterOutputType(ResourceClaimConsumerReferencePatchOutput{})
 	pulumi.RegisterOutputType(ResourceClaimConsumerReferencePatchArrayOutput{})
 	pulumi.RegisterOutputType(ResourceClaimListTypeOutput{})
+	pulumi.RegisterOutputType(ResourceClaimParametersTypeOutput{})
+	pulumi.RegisterOutputType(ResourceClaimParametersTypeArrayOutput{})
+	pulumi.RegisterOutputType(ResourceClaimParametersListTypeOutput{})
+	pulumi.RegisterOutputType(ResourceClaimParametersPatchTypeOutput{})
 	pulumi.RegisterOutputType(ResourceClaimParametersReferenceOutput{})
 	pulumi.RegisterOutputType(ResourceClaimParametersReferencePtrOutput{})
 	pulumi.RegisterOutputType(ResourceClaimParametersReferencePatchOutput{})
@@ -4728,13 +9691,37 @@ func init() {
 	pulumi.RegisterOutputType(ResourceClassTypeOutput{})
 	pulumi.RegisterOutputType(ResourceClassTypeArrayOutput{})
 	pulumi.RegisterOutputType(ResourceClassListTypeOutput{})
+	pulumi.RegisterOutputType(ResourceClassParametersTypeOutput{})
+	pulumi.RegisterOutputType(ResourceClassParametersTypeArrayOutput{})
+	pulumi.RegisterOutputType(ResourceClassParametersListTypeOutput{})
+	pulumi.RegisterOutputType(ResourceClassParametersPatchTypeOutput{})
 	pulumi.RegisterOutputType(ResourceClassParametersReferenceOutput{})
 	pulumi.RegisterOutputType(ResourceClassParametersReferencePtrOutput{})
 	pulumi.RegisterOutputType(ResourceClassParametersReferencePatchOutput{})
 	pulumi.RegisterOutputType(ResourceClassParametersReferencePatchPtrOutput{})
 	pulumi.RegisterOutputType(ResourceClassPatchTypeOutput{})
+	pulumi.RegisterOutputType(ResourceFilterOutput{})
+	pulumi.RegisterOutputType(ResourceFilterArrayOutput{})
+	pulumi.RegisterOutputType(ResourceFilterPatchOutput{})
+	pulumi.RegisterOutputType(ResourceFilterPatchArrayOutput{})
 	pulumi.RegisterOutputType(ResourceHandleOutput{})
 	pulumi.RegisterOutputType(ResourceHandleArrayOutput{})
 	pulumi.RegisterOutputType(ResourceHandlePatchOutput{})
 	pulumi.RegisterOutputType(ResourceHandlePatchArrayOutput{})
+	pulumi.RegisterOutputType(ResourceRequestOutput{})
+	pulumi.RegisterOutputType(ResourceRequestArrayOutput{})
+	pulumi.RegisterOutputType(ResourceRequestPatchOutput{})
+	pulumi.RegisterOutputType(ResourceRequestPatchArrayOutput{})
+	pulumi.RegisterOutputType(ResourceSliceTypeOutput{})
+	pulumi.RegisterOutputType(ResourceSliceTypeArrayOutput{})
+	pulumi.RegisterOutputType(ResourceSliceListTypeOutput{})
+	pulumi.RegisterOutputType(ResourceSlicePatchTypeOutput{})
+	pulumi.RegisterOutputType(StructuredResourceHandleOutput{})
+	pulumi.RegisterOutputType(StructuredResourceHandlePtrOutput{})
+	pulumi.RegisterOutputType(StructuredResourceHandlePatchOutput{})
+	pulumi.RegisterOutputType(StructuredResourceHandlePatchPtrOutput{})
+	pulumi.RegisterOutputType(VendorParametersOutput{})
+	pulumi.RegisterOutputType(VendorParametersArrayOutput{})
+	pulumi.RegisterOutputType(VendorParametersPatchOutput{})
+	pulumi.RegisterOutputType(VendorParametersPatchArrayOutput{})
 }

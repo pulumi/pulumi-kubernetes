@@ -123,13 +123,18 @@ const (
 	ReplicationControllerList            Kind = "ReplicationControllerList"
 	ResourceClaim                        Kind = "ResourceClaim"
 	ResourceClaimList                    Kind = "ResourceClaimList"
+	ResourceClaimParameters              Kind = "ResourceClaimParameters"
+	ResourceClaimParametersList          Kind = "ResourceClaimParametersList"
 	ResourceClaimTemplate                Kind = "ResourceClaimTemplate"
 	ResourceClaimTemplateList            Kind = "ResourceClaimTemplateList"
 	ResourceClass                        Kind = "ResourceClass"
 	ResourceClassList                    Kind = "ResourceClassList"
+	ResourceClassParameters              Kind = "ResourceClassParameters"
+	ResourceClassParametersList          Kind = "ResourceClassParametersList"
 	ResourceQuota                        Kind = "ResourceQuota"
 	ResourceQuotaList                    Kind = "ResourceQuotaList"
 	ResourceSlice                        Kind = "ResourceSlice"
+	ResourceSliceList                    Kind = "ResourceSliceList"
 	Role                                 Kind = "Role"
 	RoleBinding                          Kind = "RoleBinding"
 	RoleBindingList                      Kind = "RoleBindingList"
@@ -454,6 +459,7 @@ var ListQualifiedTypes = codegen.NewStringSet(
 	"kubernetes:networking.k8s.io/v1:NetworkPolicyList",
 	"kubernetes:networking.k8s.io/v1alpha1:ClusterCIDRList",
 	"kubernetes:networking.k8s.io/v1alpha1:IPAddressList",
+	"kubernetes:networking.k8s.io/v1alpha1:ServiceCIDRList",
 	"kubernetes:networking.k8s.io/v1beta1:IPAddressList",
 	"kubernetes:networking.k8s.io/v1beta1:IngressClassList",
 	"kubernetes:networking.k8s.io/v1beta1:IngressList",
@@ -482,8 +488,11 @@ var ListQualifiedTypes = codegen.NewStringSet(
 	"kubernetes:resource.k8s.io/v1alpha1:ResourceClassList",
 	"kubernetes:resource.k8s.io/v1alpha2:PodSchedulingContextList",
 	"kubernetes:resource.k8s.io/v1alpha2:ResourceClaimList",
+	"kubernetes:resource.k8s.io/v1alpha2:ResourceClaimParametersList",
 	"kubernetes:resource.k8s.io/v1alpha2:ResourceClaimTemplateList",
 	"kubernetes:resource.k8s.io/v1alpha2:ResourceClassList",
+	"kubernetes:resource.k8s.io/v1alpha2:ResourceClassParametersList",
+	"kubernetes:resource.k8s.io/v1alpha2:ResourceSliceList",
 	"kubernetes:resource.k8s.io/v1alpha3:DeviceClassList",
 	"kubernetes:resource.k8s.io/v1alpha3:PodSchedulingContextList",
 	"kubernetes:resource.k8s.io/v1alpha3:ResourceClaimList",

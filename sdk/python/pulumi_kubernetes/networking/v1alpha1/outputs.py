@@ -26,6 +26,11 @@ __all__ = [
     'IPAddressSpecPatch',
     'ParentReference',
     'ParentReferencePatch',
+    'ServiceCIDR',
+    'ServiceCIDRSpec',
+    'ServiceCIDRSpecPatch',
+    'ServiceCIDRStatus',
+    'ServiceCIDRStatusPatch',
 ]
 
 @pulumi.output_type
@@ -358,17 +363,16 @@ class IPAddressSpec(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
-                 parent_ref: Optional['outputs.ParentReference'] = None):
+                 parent_ref: 'outputs.ParentReference'):
         """
         IPAddressSpec describe the attributes in an IP Address.
         :param 'ParentReferenceArgs' parent_ref: ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
         """
-        if parent_ref is not None:
-            pulumi.set(__self__, "parent_ref", parent_ref)
+        pulumi.set(__self__, "parent_ref", parent_ref)
 
     @property
     @pulumi.getter(name="parentRef")
-    def parent_ref(self) -> Optional['outputs.ParentReference']:
+    def parent_ref(self) -> 'outputs.ParentReference':
         """
         ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
         """
@@ -421,29 +425,43 @@ class ParentReference(dict):
     ParentReference describes a reference to a parent object.
     """
     def __init__(__self__, *,
+                 name: str,
+                 resource: str,
                  group: Optional[str] = None,
-                 name: Optional[str] = None,
                  namespace: Optional[str] = None,
-                 resource: Optional[str] = None,
                  uid: Optional[str] = None):
         """
         ParentReference describes a reference to a parent object.
-        :param str group: Group is the group of the object being referenced.
         :param str name: Name is the name of the object being referenced.
-        :param str namespace: Namespace is the namespace of the object being referenced.
         :param str resource: Resource is the resource of the object being referenced.
+        :param str group: Group is the group of the object being referenced.
+        :param str namespace: Namespace is the namespace of the object being referenced.
         :param str uid: UID is the uid of the object being referenced.
         """
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "resource", resource)
         if group is not None:
             pulumi.set(__self__, "group", group)
-        if name is not None:
-            pulumi.set(__self__, "name", name)
         if namespace is not None:
             pulumi.set(__self__, "namespace", namespace)
-        if resource is not None:
-            pulumi.set(__self__, "resource", resource)
         if uid is not None:
             pulumi.set(__self__, "uid", uid)
+
+    @property
+    @pulumi.getter
+    def name(self) -> str:
+        """
+        Name is the name of the object being referenced.
+        """
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def resource(self) -> str:
+        """
+        Resource is the resource of the object being referenced.
+        """
+        return pulumi.get(self, "resource")
 
     @property
     @pulumi.getter
@@ -455,27 +473,11 @@ class ParentReference(dict):
 
     @property
     @pulumi.getter
-    def name(self) -> Optional[str]:
-        """
-        Name is the name of the object being referenced.
-        """
-        return pulumi.get(self, "name")
-
-    @property
-    @pulumi.getter
     def namespace(self) -> Optional[str]:
         """
         Namespace is the namespace of the object being referenced.
         """
         return pulumi.get(self, "namespace")
-
-    @property
-    @pulumi.getter
-    def resource(self) -> Optional[str]:
-        """
-        Resource is the resource of the object being referenced.
-        """
-        return pulumi.get(self, "resource")
 
     @property
     @pulumi.getter
@@ -555,5 +557,185 @@ class ParentReferencePatch(dict):
         UID is the uid of the object being referenced.
         """
         return pulumi.get(self, "uid")
+
+
+@pulumi.output_type
+class ServiceCIDR(dict):
+    """
+    ServiceCIDR defines a range of IP addresses using CIDR format (e.g. 192.168.0.0/24 or 2001:db2::/64). This range is used to allocate ClusterIPs to Service objects.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ServiceCIDR. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ServiceCIDR.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ServiceCIDR.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 api_version: Optional[str] = None,
+                 kind: Optional[str] = None,
+                 metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
+                 spec: Optional['outputs.ServiceCIDRSpec'] = None,
+                 status: Optional['outputs.ServiceCIDRStatus'] = None):
+        """
+        ServiceCIDR defines a range of IP addresses using CIDR format (e.g. 192.168.0.0/24 or 2001:db2::/64). This range is used to allocate ClusterIPs to Service objects.
+        :param str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        :param str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param '_meta.v1.ObjectMetaArgs' metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        :param 'ServiceCIDRSpecArgs' spec: spec is the desired state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        :param 'ServiceCIDRStatusArgs' status: status represents the current state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        """
+        if api_version is not None:
+            pulumi.set(__self__, "api_version", 'networking.k8s.io/v1alpha1')
+        if kind is not None:
+            pulumi.set(__self__, "kind", 'ServiceCIDR')
+        if metadata is not None:
+            pulumi.set(__self__, "metadata", metadata)
+        if spec is not None:
+            pulumi.set(__self__, "spec", spec)
+        if status is not None:
+            pulumi.set(__self__, "status", status)
+
+    @property
+    @pulumi.getter(name="apiVersion")
+    def api_version(self) -> Optional[str]:
+        """
+        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        """
+        return pulumi.get(self, "api_version")
+
+    @property
+    @pulumi.getter
+    def kind(self) -> Optional[str]:
+        """
+        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        """
+        return pulumi.get(self, "kind")
+
+    @property
+    @pulumi.getter
+    def metadata(self) -> Optional['_meta.v1.outputs.ObjectMeta']:
+        """
+        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        """
+        return pulumi.get(self, "metadata")
+
+    @property
+    @pulumi.getter
+    def spec(self) -> Optional['outputs.ServiceCIDRSpec']:
+        """
+        spec is the desired state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        """
+        return pulumi.get(self, "spec")
+
+    @property
+    @pulumi.getter
+    def status(self) -> Optional['outputs.ServiceCIDRStatus']:
+        """
+        status represents the current state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        """
+        return pulumi.get(self, "status")
+
+
+@pulumi.output_type
+class ServiceCIDRSpec(dict):
+    """
+    ServiceCIDRSpec define the CIDRs the user wants to use for allocating ClusterIPs for Services.
+    """
+    def __init__(__self__, *,
+                 cidrs: Optional[Sequence[str]] = None):
+        """
+        ServiceCIDRSpec define the CIDRs the user wants to use for allocating ClusterIPs for Services.
+        :param Sequence[str] cidrs: CIDRs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
+        """
+        if cidrs is not None:
+            pulumi.set(__self__, "cidrs", cidrs)
+
+    @property
+    @pulumi.getter
+    def cidrs(self) -> Optional[Sequence[str]]:
+        """
+        CIDRs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
+        """
+        return pulumi.get(self, "cidrs")
+
+
+@pulumi.output_type
+class ServiceCIDRSpecPatch(dict):
+    """
+    ServiceCIDRSpec define the CIDRs the user wants to use for allocating ClusterIPs for Services.
+    """
+    def __init__(__self__, *,
+                 cidrs: Optional[Sequence[str]] = None):
+        """
+        ServiceCIDRSpec define the CIDRs the user wants to use for allocating ClusterIPs for Services.
+        :param Sequence[str] cidrs: CIDRs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
+        """
+        if cidrs is not None:
+            pulumi.set(__self__, "cidrs", cidrs)
+
+    @property
+    @pulumi.getter
+    def cidrs(self) -> Optional[Sequence[str]]:
+        """
+        CIDRs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
+        """
+        return pulumi.get(self, "cidrs")
+
+
+@pulumi.output_type
+class ServiceCIDRStatus(dict):
+    """
+    ServiceCIDRStatus describes the current state of the ServiceCIDR.
+    """
+    def __init__(__self__, *,
+                 conditions: Optional[Sequence['_meta.v1.outputs.Condition']] = None):
+        """
+        ServiceCIDRStatus describes the current state of the ServiceCIDR.
+        :param Sequence['_meta.v1.ConditionArgs'] conditions: conditions holds an array of metav1.Condition that describe the state of the ServiceCIDR. Current service state
+        """
+        if conditions is not None:
+            pulumi.set(__self__, "conditions", conditions)
+
+    @property
+    @pulumi.getter
+    def conditions(self) -> Optional[Sequence['_meta.v1.outputs.Condition']]:
+        """
+        conditions holds an array of metav1.Condition that describe the state of the ServiceCIDR. Current service state
+        """
+        return pulumi.get(self, "conditions")
+
+
+@pulumi.output_type
+class ServiceCIDRStatusPatch(dict):
+    """
+    ServiceCIDRStatus describes the current state of the ServiceCIDR.
+    """
+    def __init__(__self__, *,
+                 conditions: Optional[Sequence['_meta.v1.outputs.ConditionPatch']] = None):
+        """
+        ServiceCIDRStatus describes the current state of the ServiceCIDR.
+        :param Sequence['_meta.v1.ConditionPatchArgs'] conditions: conditions holds an array of metav1.Condition that describe the state of the ServiceCIDR. Current service state
+        """
+        if conditions is not None:
+            pulumi.set(__self__, "conditions", conditions)
+
+    @property
+    @pulumi.getter
+    def conditions(self) -> Optional[Sequence['_meta.v1.outputs.ConditionPatch']]:
+        """
+        conditions holds an array of metav1.Condition that describe the state of the ServiceCIDR. Current service state
+        """
+        return pulumi.get(self, "conditions")
 
 

@@ -26,15 +26,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha2
         /// DriverName specifies the name of the resource driver whose kubelet plugin should be invoked to process this ResourceHandle's data once it lands on a node. This may differ from the DriverName set in ResourceClaimStatus this ResourceHandle is embedded in.
         /// </summary>
         public readonly string DriverName;
+        /// <summary>
+        /// If StructuredData is set, then it needs to be used instead of Data.
+        /// </summary>
+        public readonly Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha2.StructuredResourceHandle StructuredData;
 
         [OutputConstructor]
         private ResourceHandle(
             string data,
 
-            string driverName)
+            string driverName,
+
+            Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha2.StructuredResourceHandle structuredData)
         {
             Data = data;
             DriverName = driverName;
+            StructuredData = structuredData;
         }
     }
 }

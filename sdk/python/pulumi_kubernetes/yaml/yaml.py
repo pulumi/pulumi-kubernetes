@@ -1484,6 +1484,18 @@ def _parse_yaml_object(
         return [identifier.apply(
             lambda x: (f"networking.k8s.io/v1alpha1/IPAddressList:{x}",
                        IPAddressList(f"{x}", opts, **obj)))]
+    if gvk == "networking.k8s.io/v1alpha1/ServiceCIDR":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.networking.v1alpha1 import ServiceCIDR
+        return [identifier.apply(
+            lambda x: (f"networking.k8s.io/v1alpha1/ServiceCIDR:{x}",
+                       ServiceCIDR(f"{x}", opts, **obj)))]
+    if gvk == "networking.k8s.io/v1alpha1/ServiceCIDRList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.networking.v1alpha1 import ServiceCIDRList
+        return [identifier.apply(
+            lambda x: (f"networking.k8s.io/v1alpha1/ServiceCIDRList:{x}",
+                       ServiceCIDRList(f"{x}", opts, **obj)))]
     if gvk == "networking.k8s.io/v1beta1/IPAddress":
         # Import locally to avoid name collisions.
         from pulumi_kubernetes.networking.v1beta1 import IPAddress
@@ -1820,6 +1832,18 @@ def _parse_yaml_object(
         return [identifier.apply(
             lambda x: (f"resource.k8s.io/v1alpha2/ResourceClaimList:{x}",
                        ResourceClaimList(f"{x}", opts, **obj)))]
+    if gvk == "resource.k8s.io/v1alpha2/ResourceClaimParameters":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.resource.v1alpha2 import ResourceClaimParameters
+        return [identifier.apply(
+            lambda x: (f"resource.k8s.io/v1alpha2/ResourceClaimParameters:{x}",
+                       ResourceClaimParameters(f"{x}", opts, **obj)))]
+    if gvk == "resource.k8s.io/v1alpha2/ResourceClaimParametersList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.resource.v1alpha2 import ResourceClaimParametersList
+        return [identifier.apply(
+            lambda x: (f"resource.k8s.io/v1alpha2/ResourceClaimParametersList:{x}",
+                       ResourceClaimParametersList(f"{x}", opts, **obj)))]
     if gvk == "resource.k8s.io/v1alpha2/ResourceClaimTemplate":
         # Import locally to avoid name collisions.
         from pulumi_kubernetes.resource.v1alpha2 import ResourceClaimTemplate
@@ -1844,6 +1868,30 @@ def _parse_yaml_object(
         return [identifier.apply(
             lambda x: (f"resource.k8s.io/v1alpha2/ResourceClassList:{x}",
                        ResourceClassList(f"{x}", opts, **obj)))]
+    if gvk == "resource.k8s.io/v1alpha2/ResourceClassParameters":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.resource.v1alpha2 import ResourceClassParameters
+        return [identifier.apply(
+            lambda x: (f"resource.k8s.io/v1alpha2/ResourceClassParameters:{x}",
+                       ResourceClassParameters(f"{x}", opts, **obj)))]
+    if gvk == "resource.k8s.io/v1alpha2/ResourceClassParametersList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.resource.v1alpha2 import ResourceClassParametersList
+        return [identifier.apply(
+            lambda x: (f"resource.k8s.io/v1alpha2/ResourceClassParametersList:{x}",
+                       ResourceClassParametersList(f"{x}", opts, **obj)))]
+    if gvk == "resource.k8s.io/v1alpha2/ResourceSlice":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.resource.v1alpha2 import ResourceSlice
+        return [identifier.apply(
+            lambda x: (f"resource.k8s.io/v1alpha2/ResourceSlice:{x}",
+                       ResourceSlice(f"{x}", opts, **obj)))]
+    if gvk == "resource.k8s.io/v1alpha2/ResourceSliceList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.resource.v1alpha2 import ResourceSliceList
+        return [identifier.apply(
+            lambda x: (f"resource.k8s.io/v1alpha2/ResourceSliceList:{x}",
+                       ResourceSliceList(f"{x}", opts, **obj)))]
     if gvk == "resource.k8s.io/v1alpha3/DeviceClass":
         # Import locally to avoid name collisions.
         from pulumi_kubernetes.resource.v1alpha3 import DeviceClass

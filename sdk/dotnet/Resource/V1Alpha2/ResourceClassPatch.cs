@@ -56,6 +56,12 @@ namespace Pulumi.Kubernetes.Resource.V1Alpha2
         public Output<Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha2.ResourceClassParametersReferencePatch> ParametersRef { get; private set; } = null!;
 
         /// <summary>
+        /// If and only if allocation of claims using this class is handled via structured parameters, then StructuredParameters must be set to true.
+        /// </summary>
+        [Output("structuredParameters")]
+        public Output<bool> StructuredParameters { get; private set; } = null!;
+
+        /// <summary>
         /// Only nodes matching the selector will be considered by the scheduler when trying to find a Node that fits a Pod when that Pod uses a ResourceClaim that has not been allocated yet.
         /// 
         /// Setting this field is optional. If null, all nodes are candidates.
@@ -158,6 +164,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.Resource.V1Alpha2
         /// </summary>
         [Input("parametersRef")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Resource.V1Alpha2.ResourceClassParametersReferencePatchArgs>? ParametersRef { get; set; }
+
+        /// <summary>
+        /// If and only if allocation of claims using this class is handled via structured parameters, then StructuredParameters must be set to true.
+        /// </summary>
+        [Input("structuredParameters")]
+        public Input<bool>? StructuredParameters { get; set; }
 
         /// <summary>
         /// Only nodes matching the selector will be considered by the scheduler when trying to find a Node that fits a Pod when that Pod uses a ResourceClaim that has not been allocated yet.

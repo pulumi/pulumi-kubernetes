@@ -30,6 +30,21 @@ export type ResourceClaimList = import("./resourceClaimList").ResourceClaimList;
 export const ResourceClaimList: typeof import("./resourceClaimList").ResourceClaimList = null as any;
 utilities.lazyLoad(exports, ["ResourceClaimList"], () => require("./resourceClaimList"));
 
+export { ResourceClaimParametersArgs } from "./resourceClaimParameters";
+export type ResourceClaimParameters = import("./resourceClaimParameters").ResourceClaimParameters;
+export const ResourceClaimParameters: typeof import("./resourceClaimParameters").ResourceClaimParameters = null as any;
+utilities.lazyLoad(exports, ["ResourceClaimParameters"], () => require("./resourceClaimParameters"));
+
+export { ResourceClaimParametersListArgs } from "./resourceClaimParametersList";
+export type ResourceClaimParametersList = import("./resourceClaimParametersList").ResourceClaimParametersList;
+export const ResourceClaimParametersList: typeof import("./resourceClaimParametersList").ResourceClaimParametersList = null as any;
+utilities.lazyLoad(exports, ["ResourceClaimParametersList"], () => require("./resourceClaimParametersList"));
+
+export { ResourceClaimParametersPatchArgs } from "./resourceClaimParametersPatch";
+export type ResourceClaimParametersPatch = import("./resourceClaimParametersPatch").ResourceClaimParametersPatch;
+export const ResourceClaimParametersPatch: typeof import("./resourceClaimParametersPatch").ResourceClaimParametersPatch = null as any;
+utilities.lazyLoad(exports, ["ResourceClaimParametersPatch"], () => require("./resourceClaimParametersPatch"));
+
 export { ResourceClaimPatchArgs } from "./resourceClaimPatch";
 export type ResourceClaimPatch = import("./resourceClaimPatch").ResourceClaimPatch;
 export const ResourceClaimPatch: typeof import("./resourceClaimPatch").ResourceClaimPatch = null as any;
@@ -60,10 +75,40 @@ export type ResourceClassList = import("./resourceClassList").ResourceClassList;
 export const ResourceClassList: typeof import("./resourceClassList").ResourceClassList = null as any;
 utilities.lazyLoad(exports, ["ResourceClassList"], () => require("./resourceClassList"));
 
+export { ResourceClassParametersArgs } from "./resourceClassParameters";
+export type ResourceClassParameters = import("./resourceClassParameters").ResourceClassParameters;
+export const ResourceClassParameters: typeof import("./resourceClassParameters").ResourceClassParameters = null as any;
+utilities.lazyLoad(exports, ["ResourceClassParameters"], () => require("./resourceClassParameters"));
+
+export { ResourceClassParametersListArgs } from "./resourceClassParametersList";
+export type ResourceClassParametersList = import("./resourceClassParametersList").ResourceClassParametersList;
+export const ResourceClassParametersList: typeof import("./resourceClassParametersList").ResourceClassParametersList = null as any;
+utilities.lazyLoad(exports, ["ResourceClassParametersList"], () => require("./resourceClassParametersList"));
+
+export { ResourceClassParametersPatchArgs } from "./resourceClassParametersPatch";
+export type ResourceClassParametersPatch = import("./resourceClassParametersPatch").ResourceClassParametersPatch;
+export const ResourceClassParametersPatch: typeof import("./resourceClassParametersPatch").ResourceClassParametersPatch = null as any;
+utilities.lazyLoad(exports, ["ResourceClassParametersPatch"], () => require("./resourceClassParametersPatch"));
+
 export { ResourceClassPatchArgs } from "./resourceClassPatch";
 export type ResourceClassPatch = import("./resourceClassPatch").ResourceClassPatch;
 export const ResourceClassPatch: typeof import("./resourceClassPatch").ResourceClassPatch = null as any;
 utilities.lazyLoad(exports, ["ResourceClassPatch"], () => require("./resourceClassPatch"));
+
+export { ResourceSliceArgs } from "./resourceSlice";
+export type ResourceSlice = import("./resourceSlice").ResourceSlice;
+export const ResourceSlice: typeof import("./resourceSlice").ResourceSlice = null as any;
+utilities.lazyLoad(exports, ["ResourceSlice"], () => require("./resourceSlice"));
+
+export { ResourceSliceListArgs } from "./resourceSliceList";
+export type ResourceSliceList = import("./resourceSliceList").ResourceSliceList;
+export const ResourceSliceList: typeof import("./resourceSliceList").ResourceSliceList = null as any;
+utilities.lazyLoad(exports, ["ResourceSliceList"], () => require("./resourceSliceList"));
+
+export { ResourceSlicePatchArgs } from "./resourceSlicePatch";
+export type ResourceSlicePatch = import("./resourceSlicePatch").ResourceSlicePatch;
+export const ResourceSlicePatch: typeof import("./resourceSlicePatch").ResourceSlicePatch = null as any;
+utilities.lazyLoad(exports, ["ResourceSlicePatch"], () => require("./resourceSlicePatch"));
 
 
 const _module = {
@@ -80,6 +125,12 @@ const _module = {
                 return new ResourceClaim(name, <any>undefined, { urn })
             case "kubernetes:resource.k8s.io/v1alpha2:ResourceClaimList":
                 return new ResourceClaimList(name, <any>undefined, { urn })
+            case "kubernetes:resource.k8s.io/v1alpha2:ResourceClaimParameters":
+                return new ResourceClaimParameters(name, <any>undefined, { urn })
+            case "kubernetes:resource.k8s.io/v1alpha2:ResourceClaimParametersList":
+                return new ResourceClaimParametersList(name, <any>undefined, { urn })
+            case "kubernetes:resource.k8s.io/v1alpha2:ResourceClaimParametersPatch":
+                return new ResourceClaimParametersPatch(name, <any>undefined, { urn })
             case "kubernetes:resource.k8s.io/v1alpha2:ResourceClaimPatch":
                 return new ResourceClaimPatch(name, <any>undefined, { urn })
             case "kubernetes:resource.k8s.io/v1alpha2:ResourceClaimTemplate":
@@ -92,8 +143,20 @@ const _module = {
                 return new ResourceClass(name, <any>undefined, { urn })
             case "kubernetes:resource.k8s.io/v1alpha2:ResourceClassList":
                 return new ResourceClassList(name, <any>undefined, { urn })
+            case "kubernetes:resource.k8s.io/v1alpha2:ResourceClassParameters":
+                return new ResourceClassParameters(name, <any>undefined, { urn })
+            case "kubernetes:resource.k8s.io/v1alpha2:ResourceClassParametersList":
+                return new ResourceClassParametersList(name, <any>undefined, { urn })
+            case "kubernetes:resource.k8s.io/v1alpha2:ResourceClassParametersPatch":
+                return new ResourceClassParametersPatch(name, <any>undefined, { urn })
             case "kubernetes:resource.k8s.io/v1alpha2:ResourceClassPatch":
                 return new ResourceClassPatch(name, <any>undefined, { urn })
+            case "kubernetes:resource.k8s.io/v1alpha2:ResourceSlice":
+                return new ResourceSlice(name, <any>undefined, { urn })
+            case "kubernetes:resource.k8s.io/v1alpha2:ResourceSliceList":
+                return new ResourceSliceList(name, <any>undefined, { urn })
+            case "kubernetes:resource.k8s.io/v1alpha2:ResourceSlicePatch":
+                return new ResourceSlicePatch(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }
