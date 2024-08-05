@@ -147,7 +147,10 @@ func (o *observer) Range(yield func(watch.Event) bool) {
 		select {
 		case <-o.ctx.Done():
 			return
-		case e := <-events:
+		case e, ok := <-events:
+			if !ok {
+				return // Closed channel.
+			}
 			// Ignore events not matching our "keep" filter.
 			obj, ok := e.Object.(*unstructured.Unstructured)
 			if !ok || !o.keep(obj) {
