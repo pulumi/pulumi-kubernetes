@@ -20,6 +20,7 @@ import (
 	"fmt"
 	"net/http"
 	"strings"
+	"sync"
 	"sync/atomic"
 
 	checkerlog "github.com/pulumi/cloud-ready-checks/pkg/checker/logging"
@@ -62,22 +63,32 @@ func NewDeleted(
 // exhausted, we attempt a final lookup on the cluster to be absolutely sure it
 // still exists.
 func (dc *Deleted) Range(yield func(watch.Event) bool) {
+	// Start listening to events before we check if the resource has already
+	// been deleted. This avoids races where the object is deleted in-between
+	// the 404 check and this watch.
+	wg := sync.WaitGroup{}
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		dc.observer.Range(yield)
+	}()
+
 	dc.getClusterState()
 	if dc.deleted.Load() {
-		// Already deleted, nothing more to do.
+		// Already deleted, nothing more to do. Our informer will get cleaned up
+		// when its context is canceled.
 		return
 	}
 
-	// Iterate over the underlying Observer's events.
-	dc.observer.Range(yield)
+	wg.Wait()
 
 	if dc.deleted.Load() {
 		// Nothing more to do.
 		return
 	}
 
-	// Attempt one last lookup if the object still exists. (This is legacy behavior
-	// that might be unnecessary since we're using Informers instead of
+	// Attempt one last lookup if the object still exists. (This is legacy
+	// behavior that might be unnecessary since we're using Informers instead of
 	// Watches now.)
 	dc.getClusterState()
 	if dc.deleted.Load() {
