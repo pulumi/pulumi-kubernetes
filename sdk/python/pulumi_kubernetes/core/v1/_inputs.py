@@ -683,6 +683,15 @@ if not MYPY:
         Represents a Persistent Disk resource in AWS.
 
         An AWS EBS disk must exist before mounting to a container. The disk must also be in the same AWS zone as the kubelet. An AWS EBS disk can only be mounted as read/write once. AWS EBS volumes support ownership management and SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         fs_type: NotRequired[pulumi.Input[str]]
         """
@@ -714,6 +723,16 @@ class AWSElasticBlockStoreVolumeSourcePatchArgs:
         Represents a Persistent Disk resource in AWS.
 
         An AWS EBS disk must exist before mounting to a container. The disk must also be in the same AWS zone as the kubelet. An AWS EBS disk can only be mounted as read/write once. AWS EBS volumes support ownership management and SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] fs_type: fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
         :param pulumi.Input[int] partition: partition is the partition in the volume that you want to mount. If omitted, the default is to mount by volume name. Examples: For volume /dev/sda1, you specify the partition as "1". Similarly, the volume partition for /dev/sda is "0" (or you can leave the property empty).
         :param pulumi.Input[bool] read_only: readOnly value true will force the readOnly setting in VolumeMounts. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
@@ -783,6 +802,15 @@ if not MYPY:
         Represents a Persistent Disk resource in AWS.
 
         An AWS EBS disk must exist before mounting to a container. The disk must also be in the same AWS zone as the kubelet. An AWS EBS disk can only be mounted as read/write once. AWS EBS volumes support ownership management and SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         volume_id: pulumi.Input[str]
         """
@@ -814,6 +842,16 @@ class AWSElasticBlockStoreVolumeSourceArgs:
         Represents a Persistent Disk resource in AWS.
 
         An AWS EBS disk must exist before mounting to a container. The disk must also be in the same AWS zone as the kubelet. An AWS EBS disk can only be mounted as read/write once. AWS EBS volumes support ownership management and SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] volume_id: volumeID is unique ID of the persistent disk resource in AWS (Amazon EBS volume). More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
         :param pulumi.Input[str] fs_type: fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
         :param pulumi.Input[int] partition: partition is the partition in the volume that you want to mount. If omitted, the default is to mount by volume name. Examples: For volume /dev/sda1, you specify the partition as "1". Similarly, the volume partition for /dev/sda is "0" (or you can leave the property empty).
@@ -880,6 +918,15 @@ if not MYPY:
     class AffinityPatchArgsDict(TypedDict):
         """
         Affinity is a group of affinity scheduling rules.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         node_affinity: NotRequired[pulumi.Input['NodeAffinityPatchArgsDict']]
         """
@@ -904,6 +951,16 @@ class AffinityPatchArgs:
                  pod_anti_affinity: Optional[pulumi.Input['PodAntiAffinityPatchArgs']] = None):
         """
         Affinity is a group of affinity scheduling rules.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['NodeAffinityPatchArgs'] node_affinity: Describes node affinity scheduling rules for the pod.
         :param pulumi.Input['PodAffinityPatchArgs'] pod_affinity: Describes pod affinity scheduling rules (e.g. co-locate this pod in the same node, zone, etc. as some other pod(s)).
         :param pulumi.Input['PodAntiAffinityPatchArgs'] pod_anti_affinity: Describes pod anti-affinity scheduling rules (e.g. avoid putting this pod in the same node, zone, etc. as some other pod(s)).
@@ -956,6 +1013,15 @@ if not MYPY:
     class AffinityArgsDict(TypedDict):
         """
         Affinity is a group of affinity scheduling rules.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         node_affinity: NotRequired[pulumi.Input['NodeAffinityArgsDict']]
         """
@@ -980,6 +1046,16 @@ class AffinityArgs:
                  pod_anti_affinity: Optional[pulumi.Input['PodAntiAffinityArgs']] = None):
         """
         Affinity is a group of affinity scheduling rules.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['NodeAffinityArgs'] node_affinity: Describes node affinity scheduling rules for the pod.
         :param pulumi.Input['PodAffinityArgs'] pod_affinity: Describes pod affinity scheduling rules (e.g. co-locate this pod in the same node, zone, etc. as some other pod(s)).
         :param pulumi.Input['PodAntiAffinityArgs'] pod_anti_affinity: Describes pod anti-affinity scheduling rules (e.g. avoid putting this pod in the same node, zone, etc. as some other pod(s)).
@@ -1032,6 +1108,15 @@ if not MYPY:
     class AppArmorProfilePatchArgsDict(TypedDict):
         """
         AppArmorProfile defines a pod or container's AppArmor settings.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         localhost_profile: NotRequired[pulumi.Input[str]]
         """
@@ -1054,6 +1139,16 @@ class AppArmorProfilePatchArgs:
                  type: Optional[pulumi.Input[str]] = None):
         """
         AppArmorProfile defines a pod or container's AppArmor settings.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] localhost_profile: localhostProfile indicates a profile loaded on the node that should be used. The profile must be preconfigured on the node to work. Must match the loaded name of the profile. Must be set if and only if type is "Localhost".
         :param pulumi.Input[str] type: type indicates which kind of AppArmor profile will be applied. Valid options are:
                  Localhost - a profile pre-loaded on the node.
@@ -1097,6 +1192,15 @@ if not MYPY:
     class AppArmorProfileArgsDict(TypedDict):
         """
         AppArmorProfile defines a pod or container's AppArmor settings.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         type: pulumi.Input[str]
         """
@@ -1119,6 +1223,16 @@ class AppArmorProfileArgs:
                  localhost_profile: Optional[pulumi.Input[str]] = None):
         """
         AppArmorProfile defines a pod or container's AppArmor settings.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] type: type indicates which kind of AppArmor profile will be applied. Valid options are:
                  Localhost - a profile pre-loaded on the node.
                  RuntimeDefault - the container runtime's default profile.
@@ -1161,6 +1275,15 @@ if not MYPY:
     class AttachedVolumeArgsDict(TypedDict):
         """
         AttachedVolume describes a volume attached to a node
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         device_path: pulumi.Input[str]
         """
@@ -1180,6 +1303,16 @@ class AttachedVolumeArgs:
                  name: pulumi.Input[str]):
         """
         AttachedVolume describes a volume attached to a node
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] device_path: DevicePath represents the device path where the volume should be available
         :param pulumi.Input[str] name: Name of the attached volume
         """
@@ -1215,6 +1348,15 @@ if not MYPY:
     class AzureDiskVolumeSourcePatchArgsDict(TypedDict):
         """
         AzureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         caching_mode: NotRequired[pulumi.Input[str]]
         """
@@ -1254,6 +1396,16 @@ class AzureDiskVolumeSourcePatchArgs:
                  read_only: Optional[pulumi.Input[bool]] = None):
         """
         AzureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] caching_mode: cachingMode is the Host Caching mode: None, Read Only, Read Write.
         :param pulumi.Input[str] disk_name: diskName is the Name of the data disk in the blob storage
         :param pulumi.Input[str] disk_uri: diskURI is the URI of data disk in the blob storage
@@ -1351,6 +1503,15 @@ if not MYPY:
     class AzureDiskVolumeSourceArgsDict(TypedDict):
         """
         AzureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         disk_name: pulumi.Input[str]
         """
@@ -1390,6 +1551,16 @@ class AzureDiskVolumeSourceArgs:
                  read_only: Optional[pulumi.Input[bool]] = None):
         """
         AzureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] disk_name: diskName is the Name of the data disk in the blob storage
         :param pulumi.Input[str] disk_uri: diskURI is the URI of data disk in the blob storage
         :param pulumi.Input[str] caching_mode: cachingMode is the Host Caching mode: None, Read Only, Read Write.
@@ -1485,6 +1656,15 @@ if not MYPY:
     class AzureFilePersistentVolumeSourcePatchArgsDict(TypedDict):
         """
         AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         read_only: NotRequired[pulumi.Input[bool]]
         """
@@ -1514,6 +1694,16 @@ class AzureFilePersistentVolumeSourcePatchArgs:
                  share_name: Optional[pulumi.Input[str]] = None):
         """
         AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[bool] read_only: readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
         :param pulumi.Input[str] secret_name: secretName is the name of secret that contains Azure Storage Account Name and Key
         :param pulumi.Input[str] secret_namespace: secretNamespace is the namespace of the secret that contains Azure Storage Account Name and Key default is the same as the Pod
@@ -1581,6 +1771,15 @@ if not MYPY:
     class AzureFilePersistentVolumeSourceArgsDict(TypedDict):
         """
         AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         secret_name: pulumi.Input[str]
         """
@@ -1610,6 +1809,16 @@ class AzureFilePersistentVolumeSourceArgs:
                  secret_namespace: Optional[pulumi.Input[str]] = None):
         """
         AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] secret_name: secretName is the name of secret that contains Azure Storage Account Name and Key
         :param pulumi.Input[str] share_name: shareName is the azure Share Name
         :param pulumi.Input[bool] read_only: readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
@@ -1675,6 +1884,15 @@ if not MYPY:
     class AzureFileVolumeSourcePatchArgsDict(TypedDict):
         """
         AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         read_only: NotRequired[pulumi.Input[bool]]
         """
@@ -1699,6 +1917,16 @@ class AzureFileVolumeSourcePatchArgs:
                  share_name: Optional[pulumi.Input[str]] = None):
         """
         AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[bool] read_only: readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
         :param pulumi.Input[str] secret_name: secretName is the  name of secret that contains Azure Storage Account Name and Key
         :param pulumi.Input[str] share_name: shareName is the azure share Name
@@ -1751,6 +1979,15 @@ if not MYPY:
     class AzureFileVolumeSourceArgsDict(TypedDict):
         """
         AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         secret_name: pulumi.Input[str]
         """
@@ -1775,6 +2012,16 @@ class AzureFileVolumeSourceArgs:
                  read_only: Optional[pulumi.Input[bool]] = None):
         """
         AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] secret_name: secretName is the  name of secret that contains Azure Storage Account Name and Key
         :param pulumi.Input[str] share_name: shareName is the azure share Name
         :param pulumi.Input[bool] read_only: readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
@@ -1825,6 +2072,15 @@ if not MYPY:
     class CSIPersistentVolumeSourcePatchArgsDict(TypedDict):
         """
         Represents storage that is managed by an external CSI volume driver (Beta feature)
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         controller_expand_secret_ref: NotRequired[pulumi.Input['SecretReferencePatchArgsDict']]
         """
@@ -1884,6 +2140,16 @@ class CSIPersistentVolumeSourcePatchArgs:
                  volume_handle: Optional[pulumi.Input[str]] = None):
         """
         Represents storage that is managed by an external CSI volume driver (Beta feature)
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['SecretReferencePatchArgs'] controller_expand_secret_ref: controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         :param pulumi.Input['SecretReferencePatchArgs'] controller_publish_secret_ref: controllerPublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerPublishVolume and ControllerUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         :param pulumi.Input[str] driver: driver is the name of the driver to use for this volume. Required.
@@ -2041,6 +2307,15 @@ if not MYPY:
     class CSIPersistentVolumeSourceArgsDict(TypedDict):
         """
         Represents storage that is managed by an external CSI volume driver (Beta feature)
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         driver: pulumi.Input[str]
         """
@@ -2100,6 +2375,16 @@ class CSIPersistentVolumeSourceArgs:
                  volume_attributes: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None):
         """
         Represents storage that is managed by an external CSI volume driver (Beta feature)
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] driver: driver is the name of the driver to use for this volume. Required.
         :param pulumi.Input[str] volume_handle: volumeHandle is the unique volume name returned by the CSI volume plugin’s CreateVolume to refer to the volume on all subsequent calls. Required.
         :param pulumi.Input['SecretReferenceArgs'] controller_expand_secret_ref: controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
@@ -2255,6 +2540,15 @@ if not MYPY:
     class CSIVolumeSourcePatchArgsDict(TypedDict):
         """
         Represents a source location of a volume to mount, managed by an external CSI driver
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         driver: NotRequired[pulumi.Input[str]]
         """
@@ -2289,6 +2583,16 @@ class CSIVolumeSourcePatchArgs:
                  volume_attributes: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None):
         """
         Represents a source location of a volume to mount, managed by an external CSI driver
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] driver: driver is the name of the CSI driver that handles this volume. Consult with your admin for the correct name as registered in the cluster.
         :param pulumi.Input[str] fs_type: fsType to mount. Ex. "ext4", "xfs", "ntfs". If not provided, the empty value is passed to the associated CSI driver which will determine the default filesystem to apply.
         :param pulumi.Input['LocalObjectReferencePatchArgs'] node_publish_secret_ref: nodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and  may be empty if no secret is required. If the secret object contains more than one secret, all secret references are passed.
@@ -2371,6 +2675,15 @@ if not MYPY:
     class CSIVolumeSourceArgsDict(TypedDict):
         """
         Represents a source location of a volume to mount, managed by an external CSI driver
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         driver: pulumi.Input[str]
         """
@@ -2405,6 +2718,16 @@ class CSIVolumeSourceArgs:
                  volume_attributes: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None):
         """
         Represents a source location of a volume to mount, managed by an external CSI driver
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] driver: driver is the name of the CSI driver that handles this volume. Consult with your admin for the correct name as registered in the cluster.
         :param pulumi.Input[str] fs_type: fsType to mount. Ex. "ext4", "xfs", "ntfs". If not provided, the empty value is passed to the associated CSI driver which will determine the default filesystem to apply.
         :param pulumi.Input['LocalObjectReferenceArgs'] node_publish_secret_ref: nodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and  may be empty if no secret is required. If the secret object contains more than one secret, all secret references are passed.
@@ -2486,6 +2809,15 @@ if not MYPY:
     class CapabilitiesPatchArgsDict(TypedDict):
         """
         Adds and removes POSIX capabilities from running containers.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         add: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
         """
@@ -2505,6 +2837,16 @@ class CapabilitiesPatchArgs:
                  drop: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
         Adds and removes POSIX capabilities from running containers.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input[str]]] add: Added capabilities
         :param pulumi.Input[Sequence[pulumi.Input[str]]] drop: Removed capabilities
         """
@@ -2542,6 +2884,15 @@ if not MYPY:
     class CapabilitiesArgsDict(TypedDict):
         """
         Adds and removes POSIX capabilities from running containers.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         add: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
         """
@@ -2561,6 +2912,16 @@ class CapabilitiesArgs:
                  drop: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
         Adds and removes POSIX capabilities from running containers.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input[str]]] add: Added capabilities
         :param pulumi.Input[Sequence[pulumi.Input[str]]] drop: Removed capabilities
         """
@@ -2598,6 +2959,15 @@ if not MYPY:
     class CephFSPersistentVolumeSourcePatchArgsDict(TypedDict):
         """
         Represents a Ceph Filesystem mount that lasts the lifetime of a pod Cephfs volumes do not support ownership management or SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         monitors: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
         """
@@ -2637,6 +3007,16 @@ class CephFSPersistentVolumeSourcePatchArgs:
                  user: Optional[pulumi.Input[str]] = None):
         """
         Represents a Ceph Filesystem mount that lasts the lifetime of a pod Cephfs volumes do not support ownership management or SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input[str]]] monitors: monitors is Required: Monitors is a collection of Ceph monitors More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
         :param pulumi.Input[str] path: path is Optional: Used as the mounted root, rather than the full Ceph tree, default is /
         :param pulumi.Input[bool] read_only: readOnly is Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
@@ -2734,6 +3114,15 @@ if not MYPY:
     class CephFSPersistentVolumeSourceArgsDict(TypedDict):
         """
         Represents a Ceph Filesystem mount that lasts the lifetime of a pod Cephfs volumes do not support ownership management or SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         monitors: pulumi.Input[Sequence[pulumi.Input[str]]]
         """
@@ -2773,6 +3162,16 @@ class CephFSPersistentVolumeSourceArgs:
                  user: Optional[pulumi.Input[str]] = None):
         """
         Represents a Ceph Filesystem mount that lasts the lifetime of a pod Cephfs volumes do not support ownership management or SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input[str]]] monitors: monitors is Required: Monitors is a collection of Ceph monitors More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
         :param pulumi.Input[str] path: path is Optional: Used as the mounted root, rather than the full Ceph tree, default is /
         :param pulumi.Input[bool] read_only: readOnly is Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
@@ -2869,6 +3268,15 @@ if not MYPY:
     class CephFSVolumeSourcePatchArgsDict(TypedDict):
         """
         Represents a Ceph Filesystem mount that lasts the lifetime of a pod Cephfs volumes do not support ownership management or SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         monitors: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
         """
@@ -2908,6 +3316,16 @@ class CephFSVolumeSourcePatchArgs:
                  user: Optional[pulumi.Input[str]] = None):
         """
         Represents a Ceph Filesystem mount that lasts the lifetime of a pod Cephfs volumes do not support ownership management or SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input[str]]] monitors: monitors is Required: Monitors is a collection of Ceph monitors More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
         :param pulumi.Input[str] path: path is Optional: Used as the mounted root, rather than the full Ceph tree, default is /
         :param pulumi.Input[bool] read_only: readOnly is Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
@@ -3005,6 +3423,15 @@ if not MYPY:
     class CephFSVolumeSourceArgsDict(TypedDict):
         """
         Represents a Ceph Filesystem mount that lasts the lifetime of a pod Cephfs volumes do not support ownership management or SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         monitors: pulumi.Input[Sequence[pulumi.Input[str]]]
         """
@@ -3044,6 +3471,16 @@ class CephFSVolumeSourceArgs:
                  user: Optional[pulumi.Input[str]] = None):
         """
         Represents a Ceph Filesystem mount that lasts the lifetime of a pod Cephfs volumes do not support ownership management or SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input[str]]] monitors: monitors is Required: Monitors is a collection of Ceph monitors More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
         :param pulumi.Input[str] path: path is Optional: Used as the mounted root, rather than the full Ceph tree, default is /
         :param pulumi.Input[bool] read_only: readOnly is Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
@@ -3140,6 +3577,15 @@ if not MYPY:
     class CinderPersistentVolumeSourcePatchArgsDict(TypedDict):
         """
         Represents a cinder volume resource in Openstack. A Cinder volume must exist before mounting to a container. The volume must also be in the same region as the kubelet. Cinder volumes support ownership management and SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         fs_type: NotRequired[pulumi.Input[str]]
         """
@@ -3169,6 +3615,16 @@ class CinderPersistentVolumeSourcePatchArgs:
                  volume_id: Optional[pulumi.Input[str]] = None):
         """
         Represents a cinder volume resource in Openstack. A Cinder volume must exist before mounting to a container. The volume must also be in the same region as the kubelet. Cinder volumes support ownership management and SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] fs_type: fsType Filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
         :param pulumi.Input[bool] read_only: readOnly is Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
         :param pulumi.Input['SecretReferencePatchArgs'] secret_ref: secretRef is Optional: points to a secret object containing parameters used to connect to OpenStack.
@@ -3236,6 +3692,15 @@ if not MYPY:
     class CinderPersistentVolumeSourceArgsDict(TypedDict):
         """
         Represents a cinder volume resource in Openstack. A Cinder volume must exist before mounting to a container. The volume must also be in the same region as the kubelet. Cinder volumes support ownership management and SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         volume_id: pulumi.Input[str]
         """
@@ -3265,6 +3730,16 @@ class CinderPersistentVolumeSourceArgs:
                  secret_ref: Optional[pulumi.Input['SecretReferenceArgs']] = None):
         """
         Represents a cinder volume resource in Openstack. A Cinder volume must exist before mounting to a container. The volume must also be in the same region as the kubelet. Cinder volumes support ownership management and SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] volume_id: volumeID used to identify the volume in cinder. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
         :param pulumi.Input[str] fs_type: fsType Filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
         :param pulumi.Input[bool] read_only: readOnly is Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
@@ -3331,6 +3806,15 @@ if not MYPY:
     class CinderVolumeSourcePatchArgsDict(TypedDict):
         """
         Represents a cinder volume resource in Openstack. A Cinder volume must exist before mounting to a container. The volume must also be in the same region as the kubelet. Cinder volumes support ownership management and SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         fs_type: NotRequired[pulumi.Input[str]]
         """
@@ -3360,6 +3844,16 @@ class CinderVolumeSourcePatchArgs:
                  volume_id: Optional[pulumi.Input[str]] = None):
         """
         Represents a cinder volume resource in Openstack. A Cinder volume must exist before mounting to a container. The volume must also be in the same region as the kubelet. Cinder volumes support ownership management and SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] fs_type: fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
         :param pulumi.Input[bool] read_only: readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
         :param pulumi.Input['LocalObjectReferencePatchArgs'] secret_ref: secretRef is optional: points to a secret object containing parameters used to connect to OpenStack.
@@ -3427,6 +3921,15 @@ if not MYPY:
     class CinderVolumeSourceArgsDict(TypedDict):
         """
         Represents a cinder volume resource in Openstack. A Cinder volume must exist before mounting to a container. The volume must also be in the same region as the kubelet. Cinder volumes support ownership management and SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         volume_id: pulumi.Input[str]
         """
@@ -3456,6 +3959,16 @@ class CinderVolumeSourceArgs:
                  secret_ref: Optional[pulumi.Input['LocalObjectReferenceArgs']] = None):
         """
         Represents a cinder volume resource in Openstack. A Cinder volume must exist before mounting to a container. The volume must also be in the same region as the kubelet. Cinder volumes support ownership management and SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] volume_id: volumeID used to identify the volume in cinder. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
         :param pulumi.Input[str] fs_type: fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
         :param pulumi.Input[bool] read_only: readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
@@ -3524,6 +4037,15 @@ if not MYPY:
         ClaimSource describes a reference to a ResourceClaim.
 
         Exactly one of these fields should be set.  Consumers of this type must treat an empty object as if it has an unknown value.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         resource_claim_name: NotRequired[pulumi.Input[str]]
         """
@@ -3549,6 +4071,16 @@ class ClaimSourcePatchArgs:
         ClaimSource describes a reference to a ResourceClaim.
 
         Exactly one of these fields should be set.  Consumers of this type must treat an empty object as if it has an unknown value.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] resource_claim_name: ResourceClaimName is the name of a ResourceClaim object in the same namespace as this pod.
         :param pulumi.Input[str] resource_claim_template_name: ResourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace as this pod.
                
@@ -3596,6 +4128,15 @@ if not MYPY:
         ClaimSource describes a reference to a ResourceClaim.
 
         Exactly one of these fields should be set.  Consumers of this type must treat an empty object as if it has an unknown value.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         resource_claim_name: NotRequired[pulumi.Input[str]]
         """
@@ -3621,6 +4162,16 @@ class ClaimSourceArgs:
         ClaimSource describes a reference to a ResourceClaim.
 
         Exactly one of these fields should be set.  Consumers of this type must treat an empty object as if it has an unknown value.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] resource_claim_name: ResourceClaimName is the name of a ResourceClaim object in the same namespace as this pod.
         :param pulumi.Input[str] resource_claim_template_name: ResourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace as this pod.
                
@@ -3666,6 +4217,15 @@ if not MYPY:
     class ClientIPConfigPatchArgsDict(TypedDict):
         """
         ClientIPConfig represents the configurations of Client IP based session affinity.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         timeout_seconds: NotRequired[pulumi.Input[int]]
         """
@@ -3680,6 +4240,16 @@ class ClientIPConfigPatchArgs:
                  timeout_seconds: Optional[pulumi.Input[int]] = None):
         """
         ClientIPConfig represents the configurations of Client IP based session affinity.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[int] timeout_seconds: timeoutSeconds specifies the seconds of ClientIP type session sticky time. The value must be >0 && <=86400(for 1 day) if ServiceAffinity == "ClientIP". Default value is 10800(for 3 hours).
         """
         if timeout_seconds is not None:
@@ -3702,6 +4272,15 @@ if not MYPY:
     class ClientIPConfigArgsDict(TypedDict):
         """
         ClientIPConfig represents the configurations of Client IP based session affinity.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         timeout_seconds: NotRequired[pulumi.Input[int]]
         """
@@ -3716,6 +4295,16 @@ class ClientIPConfigArgs:
                  timeout_seconds: Optional[pulumi.Input[int]] = None):
         """
         ClientIPConfig represents the configurations of Client IP based session affinity.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[int] timeout_seconds: timeoutSeconds specifies the seconds of ClientIP type session sticky time. The value must be >0 && <=86400(for 1 day) if ServiceAffinity == "ClientIP". Default value is 10800(for 3 hours).
         """
         if timeout_seconds is not None:
@@ -3738,6 +4327,15 @@ if not MYPY:
     class ClusterTrustBundleProjectionPatchArgsDict(TypedDict):
         """
         ClusterTrustBundleProjection describes how to select a set of ClusterTrustBundle objects and project their contents into the pod filesystem.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         label_selector: NotRequired[pulumi.Input['_meta.v1.LabelSelectorPatchArgsDict']]
         """
@@ -3772,6 +4370,16 @@ class ClusterTrustBundleProjectionPatchArgs:
                  signer_name: Optional[pulumi.Input[str]] = None):
         """
         ClusterTrustBundleProjection describes how to select a set of ClusterTrustBundle objects and project their contents into the pod filesystem.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['_meta.v1.LabelSelectorPatchArgs'] label_selector: Select all ClusterTrustBundles that match this label selector.  Only has effect if signerName is set.  Mutually-exclusive with name.  If unset, interpreted as "match nothing".  If set but empty, interpreted as "match everything".
         :param pulumi.Input[str] name: Select a single ClusterTrustBundle by object name.  Mutually-exclusive with signerName and labelSelector.
         :param pulumi.Input[bool] optional: If true, don't block pod startup if the referenced ClusterTrustBundle(s) aren't available.  If using name, then the named ClusterTrustBundle is allowed not to exist.  If using signerName, then the combination of signerName and labelSelector is allowed to match zero ClusterTrustBundles.
@@ -3854,6 +4462,15 @@ if not MYPY:
     class ClusterTrustBundleProjectionArgsDict(TypedDict):
         """
         ClusterTrustBundleProjection describes how to select a set of ClusterTrustBundle objects and project their contents into the pod filesystem.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         path: pulumi.Input[str]
         """
@@ -3888,6 +4505,16 @@ class ClusterTrustBundleProjectionArgs:
                  signer_name: Optional[pulumi.Input[str]] = None):
         """
         ClusterTrustBundleProjection describes how to select a set of ClusterTrustBundle objects and project their contents into the pod filesystem.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] path: Relative path from the volume root to write the bundle.
         :param pulumi.Input['_meta.v1.LabelSelectorArgs'] label_selector: Select all ClusterTrustBundles that match this label selector.  Only has effect if signerName is set.  Mutually-exclusive with name.  If unset, interpreted as "match nothing".  If set but empty, interpreted as "match everything".
         :param pulumi.Input[str] name: Select a single ClusterTrustBundle by object name.  Mutually-exclusive with signerName and labelSelector.
@@ -3971,6 +4598,15 @@ if not MYPY:
         ConfigMapEnvSource selects a ConfigMap to populate the environment variables with.
 
         The contents of the target ConfigMap's Data field will represent the key-value pairs as environment variables.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         name: NotRequired[pulumi.Input[str]]
         """
@@ -3992,6 +4628,16 @@ class ConfigMapEnvSourcePatchArgs:
         ConfigMapEnvSource selects a ConfigMap to populate the environment variables with.
 
         The contents of the target ConfigMap's Data field will represent the key-value pairs as environment variables.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] name: Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
         :param pulumi.Input[bool] optional: Specify whether the ConfigMap must be defined
         """
@@ -4031,6 +4677,15 @@ if not MYPY:
         ConfigMapEnvSource selects a ConfigMap to populate the environment variables with.
 
         The contents of the target ConfigMap's Data field will represent the key-value pairs as environment variables.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         name: NotRequired[pulumi.Input[str]]
         """
@@ -4052,6 +4707,16 @@ class ConfigMapEnvSourceArgs:
         ConfigMapEnvSource selects a ConfigMap to populate the environment variables with.
 
         The contents of the target ConfigMap's Data field will represent the key-value pairs as environment variables.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] name: Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
         :param pulumi.Input[bool] optional: Specify whether the ConfigMap must be defined
         """
@@ -4089,6 +4754,15 @@ if not MYPY:
     class ConfigMapKeySelectorPatchArgsDict(TypedDict):
         """
         Selects a key from a ConfigMap.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         key: NotRequired[pulumi.Input[str]]
         """
@@ -4113,6 +4787,16 @@ class ConfigMapKeySelectorPatchArgs:
                  optional: Optional[pulumi.Input[bool]] = None):
         """
         Selects a key from a ConfigMap.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] key: The key to select.
         :param pulumi.Input[str] name: Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
         :param pulumi.Input[bool] optional: Specify whether the ConfigMap or its key must be defined
@@ -4165,6 +4849,15 @@ if not MYPY:
     class ConfigMapKeySelectorArgsDict(TypedDict):
         """
         Selects a key from a ConfigMap.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         key: pulumi.Input[str]
         """
@@ -4189,6 +4882,16 @@ class ConfigMapKeySelectorArgs:
                  optional: Optional[pulumi.Input[bool]] = None):
         """
         Selects a key from a ConfigMap.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] key: The key to select.
         :param pulumi.Input[str] name: Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
         :param pulumi.Input[bool] optional: Specify whether the ConfigMap or its key must be defined
@@ -4240,6 +4943,15 @@ if not MYPY:
     class ConfigMapNodeConfigSourcePatchArgsDict(TypedDict):
         """
         ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node. This API is deprecated since 1.22: https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         kubelet_config_key: NotRequired[pulumi.Input[str]]
         """
@@ -4274,6 +4986,16 @@ class ConfigMapNodeConfigSourcePatchArgs:
                  uid: Optional[pulumi.Input[str]] = None):
         """
         ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node. This API is deprecated since 1.22: https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] kubelet_config_key: KubeletConfigKey declares which key of the referenced ConfigMap corresponds to the KubeletConfiguration structure This field is required in all cases.
         :param pulumi.Input[str] name: Name is the metadata.name of the referenced ConfigMap. This field is required in all cases.
         :param pulumi.Input[str] namespace: Namespace is the metadata.namespace of the referenced ConfigMap. This field is required in all cases.
@@ -4356,6 +5078,15 @@ if not MYPY:
     class ConfigMapNodeConfigSourceArgsDict(TypedDict):
         """
         ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node. This API is deprecated since 1.22: https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         kubelet_config_key: pulumi.Input[str]
         """
@@ -4390,6 +5121,16 @@ class ConfigMapNodeConfigSourceArgs:
                  uid: Optional[pulumi.Input[str]] = None):
         """
         ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node. This API is deprecated since 1.22: https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] kubelet_config_key: KubeletConfigKey declares which key of the referenced ConfigMap corresponds to the KubeletConfiguration structure This field is required in all cases.
         :param pulumi.Input[str] name: Name is the metadata.name of the referenced ConfigMap. This field is required in all cases.
         :param pulumi.Input[str] namespace: Namespace is the metadata.namespace of the referenced ConfigMap. This field is required in all cases.
@@ -4471,6 +5212,15 @@ if not MYPY:
         Adapts a ConfigMap into a projected volume.
 
         The contents of the target ConfigMap's Data field will be presented in a projected volume as files using the keys in the Data field as the file names, unless the items element is populated with specific mappings of keys to paths. Note that this is identical to a configmap volume source without the default mode.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         items: NotRequired[pulumi.Input[Sequence[pulumi.Input['KeyToPathPatchArgsDict']]]]
         """
@@ -4497,6 +5247,16 @@ class ConfigMapProjectionPatchArgs:
         Adapts a ConfigMap into a projected volume.
 
         The contents of the target ConfigMap's Data field will be presented in a projected volume as files using the keys in the Data field as the file names, unless the items element is populated with specific mappings of keys to paths. Note that this is identical to a configmap volume source without the default mode.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input['KeyToPathPatchArgs']]] items: items if unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
         :param pulumi.Input[str] name: Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
         :param pulumi.Input[bool] optional: optional specify whether the ConfigMap or its keys must be defined
@@ -4551,6 +5311,15 @@ if not MYPY:
         Adapts a ConfigMap into a projected volume.
 
         The contents of the target ConfigMap's Data field will be presented in a projected volume as files using the keys in the Data field as the file names, unless the items element is populated with specific mappings of keys to paths. Note that this is identical to a configmap volume source without the default mode.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         items: NotRequired[pulumi.Input[Sequence[pulumi.Input['KeyToPathArgsDict']]]]
         """
@@ -4577,6 +5346,16 @@ class ConfigMapProjectionArgs:
         Adapts a ConfigMap into a projected volume.
 
         The contents of the target ConfigMap's Data field will be presented in a projected volume as files using the keys in the Data field as the file names, unless the items element is populated with specific mappings of keys to paths. Note that this is identical to a configmap volume source without the default mode.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input['KeyToPathArgs']]] items: items if unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
         :param pulumi.Input[str] name: Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
         :param pulumi.Input[bool] optional: optional specify whether the ConfigMap or its keys must be defined
@@ -4631,6 +5410,15 @@ if not MYPY:
         Adapts a ConfigMap into a volume.
 
         The contents of the target ConfigMap's Data field will be presented in a volume as files using the keys in the Data field as the file names, unless the items element is populated with specific mappings of keys to paths. ConfigMap volumes support ownership management and SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         default_mode: NotRequired[pulumi.Input[int]]
         """
@@ -4662,6 +5450,16 @@ class ConfigMapVolumeSourcePatchArgs:
         Adapts a ConfigMap into a volume.
 
         The contents of the target ConfigMap's Data field will be presented in a volume as files using the keys in the Data field as the file names, unless the items element is populated with specific mappings of keys to paths. ConfigMap volumes support ownership management and SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[int] default_mode: defaultMode is optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
         :param pulumi.Input[Sequence[pulumi.Input['KeyToPathPatchArgs']]] items: items if unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
         :param pulumi.Input[str] name: Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
@@ -4731,6 +5529,15 @@ if not MYPY:
         Adapts a ConfigMap into a volume.
 
         The contents of the target ConfigMap's Data field will be presented in a volume as files using the keys in the Data field as the file names, unless the items element is populated with specific mappings of keys to paths. ConfigMap volumes support ownership management and SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         default_mode: NotRequired[pulumi.Input[int]]
         """
@@ -4762,6 +5569,16 @@ class ConfigMapVolumeSourceArgs:
         Adapts a ConfigMap into a volume.
 
         The contents of the target ConfigMap's Data field will be presented in a volume as files using the keys in the Data field as the file names, unless the items element is populated with specific mappings of keys to paths. ConfigMap volumes support ownership management and SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[int] default_mode: defaultMode is optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
         :param pulumi.Input[Sequence[pulumi.Input['KeyToPathArgs']]] items: items if unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
         :param pulumi.Input[str] name: Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
@@ -4829,6 +5646,15 @@ if not MYPY:
     class ConfigMapArgsDict(TypedDict):
         """
         ConfigMap holds configuration data for pods to consume.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         api_version: NotRequired[pulumi.Input[str]]
         """
@@ -4868,6 +5694,16 @@ class ConfigMapArgs:
                  metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None):
         """
         ConfigMap holds configuration data for pods to consume.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] binary_data: BinaryData contains the binary data. Each key must consist of alphanumeric characters, '-', '_' or '.'. BinaryData can contain byte sequences that are not in the UTF-8 range. The keys stored in BinaryData must not overlap with the ones in the Data field, this is enforced during validation process. Using this field will require 1.10+ apiserver and kubelet.
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] data: Data contains the configuration data. Each key must consist of alphanumeric characters, '-', '_' or '.'. Values with non-UTF-8 byte sequences must use the BinaryData field. The keys stored in Data must not overlap with the keys in the BinaryData field, this is enforced during validation process.
@@ -4965,6 +5801,15 @@ if not MYPY:
     class ContainerImageArgsDict(TypedDict):
         """
         Describe a container image
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         names: pulumi.Input[Sequence[pulumi.Input[str]]]
         """
@@ -4984,6 +5829,16 @@ class ContainerImageArgs:
                  size_bytes: Optional[pulumi.Input[int]] = None):
         """
         Describe a container image
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input[str]]] names: Names by which this image is known. e.g. ["kubernetes.example/hyperkube:v1.0.7", "cloud-vendor.registry.example/cloud-vendor/hyperkube:v1.0.7"]
         :param pulumi.Input[int] size_bytes: The size of the image in bytes.
         """
@@ -5020,6 +5875,15 @@ if not MYPY:
     class ContainerPatchArgsDict(TypedDict):
         """
         A single application container that you want to run within a pod.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         args: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
         """
@@ -5149,6 +6013,16 @@ class ContainerPatchArgs:
                  working_dir: Optional[pulumi.Input[str]] = None):
         """
         A single application container that you want to run within a pod.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input[str]]] args: Arguments to the entrypoint. The container image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
         :param pulumi.Input[Sequence[pulumi.Input[str]]] command: Entrypoint array. Not executed within a shell. The container image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
         :param pulumi.Input[Sequence[pulumi.Input['EnvVarPatchArgs']]] env: List of environment variables to set in the container. Cannot be updated.
@@ -5516,6 +6390,15 @@ if not MYPY:
     class ContainerPortPatchArgsDict(TypedDict):
         """
         ContainerPort represents a network port in a single container.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         container_port: NotRequired[pulumi.Input[int]]
         """
@@ -5550,6 +6433,16 @@ class ContainerPortPatchArgs:
                  protocol: Optional[pulumi.Input[str]] = None):
         """
         ContainerPort represents a network port in a single container.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[int] container_port: Number of port to expose on the pod's IP address. This must be a valid port number, 0 < x < 65536.
         :param pulumi.Input[str] host_ip: What host IP to bind the external port to.
         :param pulumi.Input[int] host_port: Number of port to expose on the host. If specified, this must be a valid port number, 0 < x < 65536. If HostNetwork is specified, this must match ContainerPort. Most containers do not need this.
@@ -5632,6 +6525,15 @@ if not MYPY:
     class ContainerPortArgsDict(TypedDict):
         """
         ContainerPort represents a network port in a single container.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         container_port: pulumi.Input[int]
         """
@@ -5666,6 +6568,16 @@ class ContainerPortArgs:
                  protocol: Optional[pulumi.Input[str]] = None):
         """
         ContainerPort represents a network port in a single container.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[int] container_port: Number of port to expose on the pod's IP address. This must be a valid port number, 0 < x < 65536.
         :param pulumi.Input[str] host_ip: What host IP to bind the external port to.
         :param pulumi.Input[int] host_port: Number of port to expose on the host. If specified, this must be a valid port number, 0 < x < 65536. If HostNetwork is specified, this must match ContainerPort. Most containers do not need this.
@@ -5747,6 +6659,15 @@ if not MYPY:
     class ContainerResizePolicyPatchArgsDict(TypedDict):
         """
         ContainerResizePolicy represents resource resize policy for the container.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         resource_name: NotRequired[pulumi.Input[str]]
         """
@@ -5766,6 +6687,16 @@ class ContainerResizePolicyPatchArgs:
                  restart_policy: Optional[pulumi.Input[str]] = None):
         """
         ContainerResizePolicy represents resource resize policy for the container.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] resource_name: Name of the resource to which this resource resize policy applies. Supported values: cpu, memory.
         :param pulumi.Input[str] restart_policy: Restart policy to apply when specified resource is resized. If not specified, it defaults to NotRequired.
         """
@@ -5803,6 +6734,15 @@ if not MYPY:
     class ContainerResizePolicyArgsDict(TypedDict):
         """
         ContainerResizePolicy represents resource resize policy for the container.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         resource_name: pulumi.Input[str]
         """
@@ -5822,6 +6762,16 @@ class ContainerResizePolicyArgs:
                  restart_policy: pulumi.Input[str]):
         """
         ContainerResizePolicy represents resource resize policy for the container.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] resource_name: Name of the resource to which this resource resize policy applies. Supported values: cpu, memory.
         :param pulumi.Input[str] restart_policy: Restart policy to apply when specified resource is resized. If not specified, it defaults to NotRequired.
         """
@@ -5857,6 +6807,15 @@ if not MYPY:
     class ContainerStateRunningArgsDict(TypedDict):
         """
         ContainerStateRunning is a running state of a container.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         started_at: NotRequired[pulumi.Input[str]]
         """
@@ -5871,6 +6830,16 @@ class ContainerStateRunningArgs:
                  started_at: Optional[pulumi.Input[str]] = None):
         """
         ContainerStateRunning is a running state of a container.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] started_at: Time at which the container was last (re-)started
         """
         if started_at is not None:
@@ -5893,6 +6862,15 @@ if not MYPY:
     class ContainerStateTerminatedArgsDict(TypedDict):
         """
         ContainerStateTerminated is a terminated state of a container.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         exit_code: pulumi.Input[int]
         """
@@ -5937,6 +6915,16 @@ class ContainerStateTerminatedArgs:
                  started_at: Optional[pulumi.Input[str]] = None):
         """
         ContainerStateTerminated is a terminated state of a container.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[int] exit_code: Exit status from the last termination of the container
         :param pulumi.Input[str] container_id: Container's ID in the format '<type>://<container_id>'
         :param pulumi.Input[str] finished_at: Time at which the container last terminated
@@ -6048,6 +7036,15 @@ if not MYPY:
     class ContainerStateWaitingArgsDict(TypedDict):
         """
         ContainerStateWaiting is a waiting state of a container.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         message: NotRequired[pulumi.Input[str]]
         """
@@ -6067,6 +7064,16 @@ class ContainerStateWaitingArgs:
                  reason: Optional[pulumi.Input[str]] = None):
         """
         ContainerStateWaiting is a waiting state of a container.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] message: Message regarding why the container is not yet running.
         :param pulumi.Input[str] reason: (brief) reason the container is not yet running.
         """
@@ -6104,6 +7111,15 @@ if not MYPY:
     class ContainerStateArgsDict(TypedDict):
         """
         ContainerState holds a possible state of container. Only one of its members may be specified. If none of them is specified, the default one is ContainerStateWaiting.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         running: NotRequired[pulumi.Input['ContainerStateRunningArgsDict']]
         """
@@ -6128,6 +7144,16 @@ class ContainerStateArgs:
                  waiting: Optional[pulumi.Input['ContainerStateWaitingArgs']] = None):
         """
         ContainerState holds a possible state of container. Only one of its members may be specified. If none of them is specified, the default one is ContainerStateWaiting.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['ContainerStateRunningArgs'] running: Details about a running container
         :param pulumi.Input['ContainerStateTerminatedArgs'] terminated: Details about a terminated container
         :param pulumi.Input['ContainerStateWaitingArgs'] waiting: Details about a waiting container
@@ -6180,6 +7206,15 @@ if not MYPY:
     class ContainerStatusArgsDict(TypedDict):
         """
         ContainerStatus contains details for the current status of this container.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         image: pulumi.Input[str]
         """
@@ -6251,6 +7286,16 @@ class ContainerStatusArgs:
                  volume_mounts: Optional[pulumi.Input[Sequence[pulumi.Input['VolumeMountStatusArgs']]]] = None):
         """
         ContainerStatus contains details for the current status of this container.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] image: Image is the name of container image that the container is running. The container image may not match the image used in the PodSpec, as it may have been resolved by the runtime. More info: https://kubernetes.io/docs/concepts/containers/images.
         :param pulumi.Input[str] image_id: ImageID is the image ID of the container's image. The image ID may not match the image ID of the image used in the PodSpec, as it may have been resolved by the runtime.
         :param pulumi.Input[str] name: Name is a DNS_LABEL representing the unique name of the container. Each container in a pod must have a unique name across all container types. Cannot be updated.
@@ -6437,6 +7482,15 @@ if not MYPY:
     class ContainerArgsDict(TypedDict):
         """
         A single application container that you want to run within a pod.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         name: pulumi.Input[str]
         """
@@ -6566,6 +7620,16 @@ class ContainerArgs:
                  working_dir: Optional[pulumi.Input[str]] = None):
         """
         A single application container that you want to run within a pod.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] name: Name of the container specified as a DNS_LABEL. Each container in a pod must have a unique name (DNS_LABEL). Cannot be updated.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] args: Arguments to the entrypoint. The container image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
         :param pulumi.Input[Sequence[pulumi.Input[str]]] command: Entrypoint array. Not executed within a shell. The container image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
@@ -6932,6 +7996,15 @@ if not MYPY:
     class DaemonEndpointArgsDict(TypedDict):
         """
         DaemonEndpoint contains information about a single Daemon endpoint.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         port: pulumi.Input[int]
         """
@@ -6946,6 +8019,16 @@ class DaemonEndpointArgs:
                  port: pulumi.Input[int]):
         """
         DaemonEndpoint contains information about a single Daemon endpoint.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[int] port: Port number of the given endpoint.
         """
         pulumi.set(__self__, "port", port)
@@ -6967,6 +8050,15 @@ if not MYPY:
     class DownwardAPIProjectionPatchArgsDict(TypedDict):
         """
         Represents downward API info for projecting into a projected volume. Note that this is identical to a downwardAPI volume source without the default mode.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         items: NotRequired[pulumi.Input[Sequence[pulumi.Input['DownwardAPIVolumeFilePatchArgsDict']]]]
         """
@@ -6981,6 +8073,16 @@ class DownwardAPIProjectionPatchArgs:
                  items: Optional[pulumi.Input[Sequence[pulumi.Input['DownwardAPIVolumeFilePatchArgs']]]] = None):
         """
         Represents downward API info for projecting into a projected volume. Note that this is identical to a downwardAPI volume source without the default mode.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input['DownwardAPIVolumeFilePatchArgs']]] items: Items is a list of DownwardAPIVolume file
         """
         if items is not None:
@@ -7003,6 +8105,15 @@ if not MYPY:
     class DownwardAPIProjectionArgsDict(TypedDict):
         """
         Represents downward API info for projecting into a projected volume. Note that this is identical to a downwardAPI volume source without the default mode.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         items: NotRequired[pulumi.Input[Sequence[pulumi.Input['DownwardAPIVolumeFileArgsDict']]]]
         """
@@ -7017,6 +8128,16 @@ class DownwardAPIProjectionArgs:
                  items: Optional[pulumi.Input[Sequence[pulumi.Input['DownwardAPIVolumeFileArgs']]]] = None):
         """
         Represents downward API info for projecting into a projected volume. Note that this is identical to a downwardAPI volume source without the default mode.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input['DownwardAPIVolumeFileArgs']]] items: Items is a list of DownwardAPIVolume file
         """
         if items is not None:
@@ -7039,6 +8160,15 @@ if not MYPY:
     class DownwardAPIVolumeFilePatchArgsDict(TypedDict):
         """
         DownwardAPIVolumeFile represents information to create the file containing the pod field
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         field_ref: NotRequired[pulumi.Input['ObjectFieldSelectorPatchArgsDict']]
         """
@@ -7068,6 +8198,16 @@ class DownwardAPIVolumeFilePatchArgs:
                  resource_field_ref: Optional[pulumi.Input['ResourceFieldSelectorPatchArgs']] = None):
         """
         DownwardAPIVolumeFile represents information to create the file containing the pod field
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['ObjectFieldSelectorPatchArgs'] field_ref: Required: Selects a field of the pod: only annotations, labels, name, namespace and uid are supported.
         :param pulumi.Input[int] mode: Optional: mode bits used to set permissions on this file, must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
         :param pulumi.Input[str] path: Required: Path is  the relative path name of the file to be created. Must not be absolute or contain the '..' path. Must be utf-8 encoded. The first item of the relative path must not start with '..'
@@ -7135,6 +8275,15 @@ if not MYPY:
     class DownwardAPIVolumeFileArgsDict(TypedDict):
         """
         DownwardAPIVolumeFile represents information to create the file containing the pod field
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         path: pulumi.Input[str]
         """
@@ -7164,6 +8313,16 @@ class DownwardAPIVolumeFileArgs:
                  resource_field_ref: Optional[pulumi.Input['ResourceFieldSelectorArgs']] = None):
         """
         DownwardAPIVolumeFile represents information to create the file containing the pod field
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] path: Required: Path is  the relative path name of the file to be created. Must not be absolute or contain the '..' path. Must be utf-8 encoded. The first item of the relative path must not start with '..'
         :param pulumi.Input['ObjectFieldSelectorArgs'] field_ref: Required: Selects a field of the pod: only annotations, labels, name, namespace and uid are supported.
         :param pulumi.Input[int] mode: Optional: mode bits used to set permissions on this file, must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
@@ -7230,6 +8389,15 @@ if not MYPY:
     class DownwardAPIVolumeSourcePatchArgsDict(TypedDict):
         """
         DownwardAPIVolumeSource represents a volume containing downward API info. Downward API volumes support ownership management and SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         default_mode: NotRequired[pulumi.Input[int]]
         """
@@ -7249,6 +8417,16 @@ class DownwardAPIVolumeSourcePatchArgs:
                  items: Optional[pulumi.Input[Sequence[pulumi.Input['DownwardAPIVolumeFilePatchArgs']]]] = None):
         """
         DownwardAPIVolumeSource represents a volume containing downward API info. Downward API volumes support ownership management and SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[int] default_mode: Optional: mode bits to use on created files by default. Must be a Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
         :param pulumi.Input[Sequence[pulumi.Input['DownwardAPIVolumeFilePatchArgs']]] items: Items is a list of downward API volume file
         """
@@ -7286,6 +8464,15 @@ if not MYPY:
     class DownwardAPIVolumeSourceArgsDict(TypedDict):
         """
         DownwardAPIVolumeSource represents a volume containing downward API info. Downward API volumes support ownership management and SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         default_mode: NotRequired[pulumi.Input[int]]
         """
@@ -7305,6 +8492,16 @@ class DownwardAPIVolumeSourceArgs:
                  items: Optional[pulumi.Input[Sequence[pulumi.Input['DownwardAPIVolumeFileArgs']]]] = None):
         """
         DownwardAPIVolumeSource represents a volume containing downward API info. Downward API volumes support ownership management and SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[int] default_mode: Optional: mode bits to use on created files by default. Must be a Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
         :param pulumi.Input[Sequence[pulumi.Input['DownwardAPIVolumeFileArgs']]] items: Items is a list of downward API volume file
         """
@@ -7342,6 +8539,15 @@ if not MYPY:
     class EmptyDirVolumeSourcePatchArgsDict(TypedDict):
         """
         Represents an empty directory for a pod. Empty directory volumes support ownership management and SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         medium: NotRequired[pulumi.Input[str]]
         """
@@ -7361,6 +8567,16 @@ class EmptyDirVolumeSourcePatchArgs:
                  size_limit: Optional[pulumi.Input[str]] = None):
         """
         Represents an empty directory for a pod. Empty directory volumes support ownership management and SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] medium: medium represents what type of storage medium should back this directory. The default is "" which means to use the node's default medium. Must be an empty string (default) or Memory. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
         :param pulumi.Input[str] size_limit: sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
         """
@@ -7398,6 +8614,15 @@ if not MYPY:
     class EmptyDirVolumeSourceArgsDict(TypedDict):
         """
         Represents an empty directory for a pod. Empty directory volumes support ownership management and SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         medium: NotRequired[pulumi.Input[str]]
         """
@@ -7417,6 +8642,16 @@ class EmptyDirVolumeSourceArgs:
                  size_limit: Optional[pulumi.Input[str]] = None):
         """
         Represents an empty directory for a pod. Empty directory volumes support ownership management and SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] medium: medium represents what type of storage medium should back this directory. The default is "" which means to use the node's default medium. Must be an empty string (default) or Memory. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
         :param pulumi.Input[str] size_limit: sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
         """
@@ -7454,6 +8689,15 @@ if not MYPY:
     class EndpointAddressPatchArgsDict(TypedDict):
         """
         EndpointAddress is a tuple that describes single IP address.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         hostname: NotRequired[pulumi.Input[str]]
         """
@@ -7483,6 +8727,16 @@ class EndpointAddressPatchArgs:
                  target_ref: Optional[pulumi.Input['ObjectReferencePatchArgs']] = None):
         """
         EndpointAddress is a tuple that describes single IP address.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] hostname: The Hostname of this endpoint
         :param pulumi.Input[str] ip: The IP of this endpoint. May not be loopback (127.0.0.0/8 or ::1), link-local (169.254.0.0/16 or fe80::/10), or link-local multicast (224.0.0.0/24 or ff02::/16).
         :param pulumi.Input[str] node_name: Optional: Node hosting this endpoint. This can be used to determine endpoints local to a node.
@@ -7550,6 +8804,15 @@ if not MYPY:
     class EndpointAddressArgsDict(TypedDict):
         """
         EndpointAddress is a tuple that describes single IP address.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         ip: pulumi.Input[str]
         """
@@ -7579,6 +8842,16 @@ class EndpointAddressArgs:
                  target_ref: Optional[pulumi.Input['ObjectReferenceArgs']] = None):
         """
         EndpointAddress is a tuple that describes single IP address.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] ip: The IP of this endpoint. May not be loopback (127.0.0.0/8 or ::1), link-local (169.254.0.0/16 or fe80::/10), or link-local multicast (224.0.0.0/24 or ff02::/16).
         :param pulumi.Input[str] hostname: The Hostname of this endpoint
         :param pulumi.Input[str] node_name: Optional: Node hosting this endpoint. This can be used to determine endpoints local to a node.
@@ -7645,6 +8918,15 @@ if not MYPY:
     class EndpointPortPatchArgsDict(TypedDict):
         """
         EndpointPort is a tuple that describes a single port.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         app_protocol: NotRequired[pulumi.Input[str]]
         """
@@ -7683,6 +8965,16 @@ class EndpointPortPatchArgs:
                  protocol: Optional[pulumi.Input[str]] = None):
         """
         EndpointPort is a tuple that describes a single port.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] app_protocol: The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are either:
                
                * Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).
@@ -7768,6 +9060,15 @@ if not MYPY:
     class EndpointPortArgsDict(TypedDict):
         """
         EndpointPort is a tuple that describes a single port.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         port: pulumi.Input[int]
         """
@@ -7806,6 +9107,16 @@ class EndpointPortArgs:
                  protocol: Optional[pulumi.Input[str]] = None):
         """
         EndpointPort is a tuple that describes a single port.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[int] port: The port number of the endpoint.
         :param pulumi.Input[str] app_protocol: The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are either:
                
@@ -7900,6 +9211,15 @@ if not MYPY:
 
         	a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
         	b: [ 10.10.1.1:309, 10.10.2.2:309 ]
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         addresses: NotRequired[pulumi.Input[Sequence[pulumi.Input['EndpointAddressPatchArgsDict']]]]
         """
@@ -7934,6 +9254,16 @@ class EndpointSubsetPatchArgs:
 
         	a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
         	b: [ 10.10.1.1:309, 10.10.2.2:309 ]
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input['EndpointAddressPatchArgs']]] addresses: IP addresses which offer the related ports that are marked as ready. These endpoints should be considered safe for load balancers and clients to utilize.
         :param pulumi.Input[Sequence[pulumi.Input['EndpointAddressPatchArgs']]] not_ready_addresses: IP addresses which offer the related ports but are not currently marked as ready because they have not yet finished starting, have recently failed a readiness check, or have recently failed a liveness check.
         :param pulumi.Input[Sequence[pulumi.Input['EndpointPortPatchArgs']]] ports: Port numbers available on the related IP addresses.
@@ -7996,6 +9326,15 @@ if not MYPY:
 
         	a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
         	b: [ 10.10.1.1:309, 10.10.2.2:309 ]
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         addresses: NotRequired[pulumi.Input[Sequence[pulumi.Input['EndpointAddressArgsDict']]]]
         """
@@ -8030,6 +9369,16 @@ class EndpointSubsetArgs:
 
         	a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
         	b: [ 10.10.1.1:309, 10.10.2.2:309 ]
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input['EndpointAddressArgs']]] addresses: IP addresses which offer the related ports that are marked as ready. These endpoints should be considered safe for load balancers and clients to utilize.
         :param pulumi.Input[Sequence[pulumi.Input['EndpointAddressArgs']]] not_ready_addresses: IP addresses which offer the related ports but are not currently marked as ready because they have not yet finished starting, have recently failed a readiness check, or have recently failed a liveness check.
         :param pulumi.Input[Sequence[pulumi.Input['EndpointPortArgs']]] ports: Port numbers available on the related IP addresses.
@@ -8094,6 +9443,15 @@ if not MYPY:
         	     Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
         	   },
         	]
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         api_version: NotRequired[pulumi.Input[str]]
         """
@@ -8135,6 +9493,16 @@ class EndpointsArgs:
         	     Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
         	   },
         	]
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -8202,6 +9570,15 @@ if not MYPY:
     class EnvFromSourcePatchArgsDict(TypedDict):
         """
         EnvFromSource represents the source of a set of ConfigMaps
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         config_map_ref: NotRequired[pulumi.Input['ConfigMapEnvSourcePatchArgsDict']]
         """
@@ -8226,6 +9603,16 @@ class EnvFromSourcePatchArgs:
                  secret_ref: Optional[pulumi.Input['SecretEnvSourcePatchArgs']] = None):
         """
         EnvFromSource represents the source of a set of ConfigMaps
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['ConfigMapEnvSourcePatchArgs'] config_map_ref: The ConfigMap to select from
         :param pulumi.Input[str] prefix: An optional identifier to prepend to each key in the ConfigMap. Must be a C_IDENTIFIER.
         :param pulumi.Input['SecretEnvSourcePatchArgs'] secret_ref: The Secret to select from
@@ -8278,6 +9665,15 @@ if not MYPY:
     class EnvFromSourceArgsDict(TypedDict):
         """
         EnvFromSource represents the source of a set of ConfigMaps
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         config_map_ref: NotRequired[pulumi.Input['ConfigMapEnvSourceArgsDict']]
         """
@@ -8302,6 +9698,16 @@ class EnvFromSourceArgs:
                  secret_ref: Optional[pulumi.Input['SecretEnvSourceArgs']] = None):
         """
         EnvFromSource represents the source of a set of ConfigMaps
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['ConfigMapEnvSourceArgs'] config_map_ref: The ConfigMap to select from
         :param pulumi.Input[str] prefix: An optional identifier to prepend to each key in the ConfigMap. Must be a C_IDENTIFIER.
         :param pulumi.Input['SecretEnvSourceArgs'] secret_ref: The Secret to select from
@@ -8354,6 +9760,15 @@ if not MYPY:
     class EnvVarPatchArgsDict(TypedDict):
         """
         EnvVar represents an environment variable present in a Container.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         name: NotRequired[pulumi.Input[str]]
         """
@@ -8378,6 +9793,16 @@ class EnvVarPatchArgs:
                  value_from: Optional[pulumi.Input['EnvVarSourcePatchArgs']] = None):
         """
         EnvVar represents an environment variable present in a Container.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] name: Name of the environment variable. Must be a C_IDENTIFIER.
         :param pulumi.Input[str] value: Variable references $(VAR_NAME) are expanded using the previously defined environment variables in the container and any service environment variables. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Defaults to "".
         :param pulumi.Input['EnvVarSourcePatchArgs'] value_from: Source for the environment variable's value. Cannot be used if value is not empty.
@@ -8430,6 +9855,15 @@ if not MYPY:
     class EnvVarSourcePatchArgsDict(TypedDict):
         """
         EnvVarSource represents a source for the value of an EnvVar.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         config_map_key_ref: NotRequired[pulumi.Input['ConfigMapKeySelectorPatchArgsDict']]
         """
@@ -8459,6 +9893,16 @@ class EnvVarSourcePatchArgs:
                  secret_key_ref: Optional[pulumi.Input['SecretKeySelectorPatchArgs']] = None):
         """
         EnvVarSource represents a source for the value of an EnvVar.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['ConfigMapKeySelectorPatchArgs'] config_map_key_ref: Selects a key of a ConfigMap.
         :param pulumi.Input['ObjectFieldSelectorPatchArgs'] field_ref: Selects a field of the pod: supports metadata.name, metadata.namespace, `metadata.labels['<KEY>']`, `metadata.annotations['<KEY>']`, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.
         :param pulumi.Input['ResourceFieldSelectorPatchArgs'] resource_field_ref: Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.
@@ -8526,6 +9970,15 @@ if not MYPY:
     class EnvVarSourceArgsDict(TypedDict):
         """
         EnvVarSource represents a source for the value of an EnvVar.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         config_map_key_ref: NotRequired[pulumi.Input['ConfigMapKeySelectorArgsDict']]
         """
@@ -8555,6 +10008,16 @@ class EnvVarSourceArgs:
                  secret_key_ref: Optional[pulumi.Input['SecretKeySelectorArgs']] = None):
         """
         EnvVarSource represents a source for the value of an EnvVar.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['ConfigMapKeySelectorArgs'] config_map_key_ref: Selects a key of a ConfigMap.
         :param pulumi.Input['ObjectFieldSelectorArgs'] field_ref: Selects a field of the pod: supports metadata.name, metadata.namespace, `metadata.labels['<KEY>']`, `metadata.annotations['<KEY>']`, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.
         :param pulumi.Input['ResourceFieldSelectorArgs'] resource_field_ref: Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.
@@ -8622,6 +10085,15 @@ if not MYPY:
     class EnvVarArgsDict(TypedDict):
         """
         EnvVar represents an environment variable present in a Container.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         name: pulumi.Input[str]
         """
@@ -8646,6 +10118,16 @@ class EnvVarArgs:
                  value_from: Optional[pulumi.Input['EnvVarSourceArgs']] = None):
         """
         EnvVar represents an environment variable present in a Container.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] name: Name of the environment variable. Must be a C_IDENTIFIER.
         :param pulumi.Input[str] value: Variable references $(VAR_NAME) are expanded using the previously defined environment variables in the container and any service environment variables. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Defaults to "".
         :param pulumi.Input['EnvVarSourceArgs'] value_from: Source for the environment variable's value. Cannot be used if value is not empty.
@@ -8699,6 +10181,15 @@ if not MYPY:
         An EphemeralContainer is a temporary container that you may add to an existing Pod for user-initiated activities such as debugging. Ephemeral containers have no resource or scheduling guarantees, and they will not be restarted when they exit or when a Pod is removed or restarted. The kubelet may evict a Pod if an ephemeral container causes the Pod to exceed its resource allocation.
 
         To add an ephemeral container, use the ephemeralcontainers subresource of an existing Pod. Ephemeral containers may not be removed or restarted.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         args: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
         """
@@ -8837,6 +10328,16 @@ class EphemeralContainerPatchArgs:
         An EphemeralContainer is a temporary container that you may add to an existing Pod for user-initiated activities such as debugging. Ephemeral containers have no resource or scheduling guarantees, and they will not be restarted when they exit or when a Pod is removed or restarted. The kubelet may evict a Pod if an ephemeral container causes the Pod to exceed its resource allocation.
 
         To add an ephemeral container, use the ephemeralcontainers subresource of an existing Pod. Ephemeral containers may not be removed or restarted.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input[str]]] args: Arguments to the entrypoint. The image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
         :param pulumi.Input[Sequence[pulumi.Input[str]]] command: Entrypoint array. Not executed within a shell. The image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
         :param pulumi.Input[Sequence[pulumi.Input['EnvVarPatchArgs']]] env: List of environment variables to set in the container. Cannot be updated.
@@ -9225,6 +10726,15 @@ if not MYPY:
         An EphemeralContainer is a temporary container that you may add to an existing Pod for user-initiated activities such as debugging. Ephemeral containers have no resource or scheduling guarantees, and they will not be restarted when they exit or when a Pod is removed or restarted. The kubelet may evict a Pod if an ephemeral container causes the Pod to exceed its resource allocation.
 
         To add an ephemeral container, use the ephemeralcontainers subresource of an existing Pod. Ephemeral containers may not be removed or restarted.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         name: pulumi.Input[str]
         """
@@ -9363,6 +10873,16 @@ class EphemeralContainerArgs:
         An EphemeralContainer is a temporary container that you may add to an existing Pod for user-initiated activities such as debugging. Ephemeral containers have no resource or scheduling guarantees, and they will not be restarted when they exit or when a Pod is removed or restarted. The kubelet may evict a Pod if an ephemeral container causes the Pod to exceed its resource allocation.
 
         To add an ephemeral container, use the ephemeralcontainers subresource of an existing Pod. Ephemeral containers may not be removed or restarted.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] name: Name of the ephemeral container specified as a DNS_LABEL. This name must be unique among all containers, init containers and ephemeral containers.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] args: Arguments to the entrypoint. The image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
         :param pulumi.Input[Sequence[pulumi.Input[str]]] command: Entrypoint array. Not executed within a shell. The image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
@@ -9748,6 +11268,15 @@ if not MYPY:
     class EphemeralVolumeSourcePatchArgsDict(TypedDict):
         """
         Represents an ephemeral volume that is handled by a normal storage driver.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         read_only: NotRequired[pulumi.Input[bool]]
         """
@@ -9773,6 +11302,16 @@ class EphemeralVolumeSourcePatchArgs:
                  volume_claim_template: Optional[pulumi.Input['PersistentVolumeClaimTemplatePatchArgs']] = None):
         """
         Represents an ephemeral volume that is handled by a normal storage driver.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[bool] read_only: Specifies a read-only configuration for the volume. Defaults to false (read/write).
         :param pulumi.Input['PersistentVolumeClaimTemplatePatchArgs'] volume_claim_template: Will be used to create a stand-alone PVC to provision the volume. The pod in which this EphemeralVolumeSource is embedded will be the owner of the PVC, i.e. the PVC will be deleted together with the pod.  The name of the PVC will be `<pod name>-<volume name>` where `<volume name>` is the name from the `PodSpec.Volumes` array entry. Pod validation will reject the pod if the concatenated name is not valid for a PVC (for example, too long).
                
@@ -9822,6 +11361,15 @@ if not MYPY:
     class EphemeralVolumeSourceArgsDict(TypedDict):
         """
         Represents an ephemeral volume that is handled by a normal storage driver.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         read_only: NotRequired[pulumi.Input[bool]]
         """
@@ -9847,6 +11395,16 @@ class EphemeralVolumeSourceArgs:
                  volume_claim_template: Optional[pulumi.Input['PersistentVolumeClaimTemplateArgs']] = None):
         """
         Represents an ephemeral volume that is handled by a normal storage driver.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[bool] read_only: Specifies a read-only configuration for the volume. Defaults to false (read/write).
         :param pulumi.Input['PersistentVolumeClaimTemplateArgs'] volume_claim_template: Will be used to create a stand-alone PVC to provision the volume. The pod in which this EphemeralVolumeSource is embedded will be the owner of the PVC, i.e. the PVC will be deleted together with the pod.  The name of the PVC will be `<pod name>-<volume name>` where `<volume name>` is the name from the `PodSpec.Volumes` array entry. Pod validation will reject the pod if the concatenated name is not valid for a PVC (for example, too long).
                
@@ -9896,6 +11454,15 @@ if not MYPY:
     class EventSeriesPatchArgsDict(TypedDict):
         """
         EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         count: NotRequired[pulumi.Input[int]]
         """
@@ -9920,6 +11487,16 @@ class EventSeriesPatchArgs:
                  state: Optional[pulumi.Input[str]] = None):
         """
         EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[int] count: Number of occurrences in this series up to the last heartbeat time
         :param pulumi.Input[str] last_observed_time: Time of the last occurrence observed
         :param pulumi.Input[str] state: State of this Series: Ongoing or Finished Deprecated. Planned removal for 1.18
@@ -9972,6 +11549,15 @@ if not MYPY:
     class EventSeriesArgsDict(TypedDict):
         """
         EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         count: NotRequired[pulumi.Input[int]]
         """
@@ -9996,6 +11582,16 @@ class EventSeriesArgs:
                  state: Optional[pulumi.Input[str]] = None):
         """
         EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[int] count: Number of occurrences in this series up to the last heartbeat time
         :param pulumi.Input[str] last_observed_time: Time of the last occurrence observed
         :param pulumi.Input[str] state: State of this Series: Ongoing or Finished Deprecated. Planned removal for 1.18
@@ -10048,6 +11644,15 @@ if not MYPY:
     class EventSourcePatchArgsDict(TypedDict):
         """
         EventSource contains information for an event.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         component: NotRequired[pulumi.Input[str]]
         """
@@ -10067,6 +11672,16 @@ class EventSourcePatchArgs:
                  host: Optional[pulumi.Input[str]] = None):
         """
         EventSource contains information for an event.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] component: Component from which the event is generated.
         :param pulumi.Input[str] host: Node name on which the event is generated.
         """
@@ -10104,6 +11719,15 @@ if not MYPY:
     class EventSourceArgsDict(TypedDict):
         """
         EventSource contains information for an event.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         component: NotRequired[pulumi.Input[str]]
         """
@@ -10123,6 +11747,16 @@ class EventSourceArgs:
                  host: Optional[pulumi.Input[str]] = None):
         """
         EventSource contains information for an event.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] component: Component from which the event is generated.
         :param pulumi.Input[str] host: Node name on which the event is generated.
         """
@@ -10160,6 +11794,15 @@ if not MYPY:
     class EventArgsDict(TypedDict):
         """
         Event is a report of an event somewhere in the cluster.  Events have a limited retention time and triggers and messages may evolve with time.  Event consumers should not rely on the timing of an event with a given Reason reflecting a consistent underlying trigger, or the continued existence of events with that Reason.  Events should be treated as informative, best-effort, supplemental data.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         involved_object: pulumi.Input['ObjectReferenceArgsDict']
         """
@@ -10254,6 +11897,16 @@ class EventArgs:
                  type: Optional[pulumi.Input[str]] = None):
         """
         Event is a report of an event somewhere in the cluster.  Events have a limited retention time and triggers and messages may evolve with time.  Event consumers should not rely on the timing of an event with a given Reason reflecting a consistent underlying trigger, or the continued existence of events with that Reason.  Events should be treated as informative, best-effort, supplemental data.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['ObjectReferenceArgs'] involved_object: The object that this event is about.
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param pulumi.Input[str] action: What action was taken/failed regarding to the Regarding object.
@@ -10514,6 +12167,15 @@ if not MYPY:
     class ExecActionPatchArgsDict(TypedDict):
         """
         ExecAction describes a "run in container" action.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         command: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
         """
@@ -10528,6 +12190,16 @@ class ExecActionPatchArgs:
                  command: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
         ExecAction describes a "run in container" action.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input[str]]] command: Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
         """
         if command is not None:
@@ -10550,6 +12222,15 @@ if not MYPY:
     class ExecActionArgsDict(TypedDict):
         """
         ExecAction describes a "run in container" action.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         command: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
         """
@@ -10564,6 +12245,16 @@ class ExecActionArgs:
                  command: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
         ExecAction describes a "run in container" action.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input[str]]] command: Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
         """
         if command is not None:
@@ -10586,6 +12277,15 @@ if not MYPY:
     class FCVolumeSourcePatchArgsDict(TypedDict):
         """
         Represents a Fibre Channel volume. Fibre Channel volumes can only be mounted as read/write once. Fibre Channel volumes support ownership management and SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         fs_type: NotRequired[pulumi.Input[str]]
         """
@@ -10620,6 +12320,16 @@ class FCVolumeSourcePatchArgs:
                  wwids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
         Represents a Fibre Channel volume. Fibre Channel volumes can only be mounted as read/write once. Fibre Channel volumes support ownership management and SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] fs_type: fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
         :param pulumi.Input[int] lun: lun is Optional: FC target lun number
         :param pulumi.Input[bool] read_only: readOnly is Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
@@ -10702,6 +12412,15 @@ if not MYPY:
     class FCVolumeSourceArgsDict(TypedDict):
         """
         Represents a Fibre Channel volume. Fibre Channel volumes can only be mounted as read/write once. Fibre Channel volumes support ownership management and SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         fs_type: NotRequired[pulumi.Input[str]]
         """
@@ -10736,6 +12455,16 @@ class FCVolumeSourceArgs:
                  wwids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
         Represents a Fibre Channel volume. Fibre Channel volumes can only be mounted as read/write once. Fibre Channel volumes support ownership management and SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] fs_type: fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
         :param pulumi.Input[int] lun: lun is Optional: FC target lun number
         :param pulumi.Input[bool] read_only: readOnly is Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
@@ -10818,6 +12547,15 @@ if not MYPY:
     class FlexPersistentVolumeSourcePatchArgsDict(TypedDict):
         """
         FlexPersistentVolumeSource represents a generic persistent volume resource that is provisioned/attached using an exec based plugin.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         driver: NotRequired[pulumi.Input[str]]
         """
@@ -10852,6 +12590,16 @@ class FlexPersistentVolumeSourcePatchArgs:
                  secret_ref: Optional[pulumi.Input['SecretReferencePatchArgs']] = None):
         """
         FlexPersistentVolumeSource represents a generic persistent volume resource that is provisioned/attached using an exec based plugin.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] driver: driver is the name of the driver to use for this volume.
         :param pulumi.Input[str] fs_type: fsType is the Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default filesystem depends on FlexVolume script.
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] options: options is Optional: this field holds extra command options if any.
@@ -10934,6 +12682,15 @@ if not MYPY:
     class FlexPersistentVolumeSourceArgsDict(TypedDict):
         """
         FlexPersistentVolumeSource represents a generic persistent volume resource that is provisioned/attached using an exec based plugin.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         driver: pulumi.Input[str]
         """
@@ -10968,6 +12725,16 @@ class FlexPersistentVolumeSourceArgs:
                  secret_ref: Optional[pulumi.Input['SecretReferenceArgs']] = None):
         """
         FlexPersistentVolumeSource represents a generic persistent volume resource that is provisioned/attached using an exec based plugin.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] driver: driver is the name of the driver to use for this volume.
         :param pulumi.Input[str] fs_type: fsType is the Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default filesystem depends on FlexVolume script.
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] options: options is Optional: this field holds extra command options if any.
@@ -11049,6 +12816,15 @@ if not MYPY:
     class FlexVolumeSourcePatchArgsDict(TypedDict):
         """
         FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         driver: NotRequired[pulumi.Input[str]]
         """
@@ -11083,6 +12859,16 @@ class FlexVolumeSourcePatchArgs:
                  secret_ref: Optional[pulumi.Input['LocalObjectReferencePatchArgs']] = None):
         """
         FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] driver: driver is the name of the driver to use for this volume.
         :param pulumi.Input[str] fs_type: fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default filesystem depends on FlexVolume script.
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] options: options is Optional: this field holds extra command options if any.
@@ -11165,6 +12951,15 @@ if not MYPY:
     class FlexVolumeSourceArgsDict(TypedDict):
         """
         FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         driver: pulumi.Input[str]
         """
@@ -11199,6 +12994,16 @@ class FlexVolumeSourceArgs:
                  secret_ref: Optional[pulumi.Input['LocalObjectReferenceArgs']] = None):
         """
         FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] driver: driver is the name of the driver to use for this volume.
         :param pulumi.Input[str] fs_type: fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default filesystem depends on FlexVolume script.
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] options: options is Optional: this field holds extra command options if any.
@@ -11280,6 +13085,15 @@ if not MYPY:
     class FlockerVolumeSourcePatchArgsDict(TypedDict):
         """
         Represents a Flocker volume mounted by the Flocker agent. One and only one of datasetName and datasetUUID should be set. Flocker volumes do not support ownership management or SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         dataset_name: NotRequired[pulumi.Input[str]]
         """
@@ -11299,6 +13113,16 @@ class FlockerVolumeSourcePatchArgs:
                  dataset_uuid: Optional[pulumi.Input[str]] = None):
         """
         Represents a Flocker volume mounted by the Flocker agent. One and only one of datasetName and datasetUUID should be set. Flocker volumes do not support ownership management or SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] dataset_name: datasetName is Name of the dataset stored as metadata -> name on the dataset for Flocker should be considered as deprecated
         :param pulumi.Input[str] dataset_uuid: datasetUUID is the UUID of the dataset. This is unique identifier of a Flocker dataset
         """
@@ -11336,6 +13160,15 @@ if not MYPY:
     class FlockerVolumeSourceArgsDict(TypedDict):
         """
         Represents a Flocker volume mounted by the Flocker agent. One and only one of datasetName and datasetUUID should be set. Flocker volumes do not support ownership management or SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         dataset_name: NotRequired[pulumi.Input[str]]
         """
@@ -11355,6 +13188,16 @@ class FlockerVolumeSourceArgs:
                  dataset_uuid: Optional[pulumi.Input[str]] = None):
         """
         Represents a Flocker volume mounted by the Flocker agent. One and only one of datasetName and datasetUUID should be set. Flocker volumes do not support ownership management or SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] dataset_name: datasetName is Name of the dataset stored as metadata -> name on the dataset for Flocker should be considered as deprecated
         :param pulumi.Input[str] dataset_uuid: datasetUUID is the UUID of the dataset. This is unique identifier of a Flocker dataset
         """
@@ -11394,6 +13237,15 @@ if not MYPY:
         Represents a Persistent Disk resource in Google Compute Engine.
 
         A GCE PD must exist before mounting to a container. The disk must also be in the same GCE project and zone as the kubelet. A GCE PD can only be mounted as read/write once or read-only many times. GCE PDs support ownership management and SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         fs_type: NotRequired[pulumi.Input[str]]
         """
@@ -11425,6 +13277,16 @@ class GCEPersistentDiskVolumeSourcePatchArgs:
         Represents a Persistent Disk resource in Google Compute Engine.
 
         A GCE PD must exist before mounting to a container. The disk must also be in the same GCE project and zone as the kubelet. A GCE PD can only be mounted as read/write once or read-only many times. GCE PDs support ownership management and SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] fs_type: fsType is filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
         :param pulumi.Input[int] partition: partition is the partition in the volume that you want to mount. If omitted, the default is to mount by volume name. Examples: For volume /dev/sda1, you specify the partition as "1". Similarly, the volume partition for /dev/sda is "0" (or you can leave the property empty). More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
         :param pulumi.Input[str] pd_name: pdName is unique name of the PD resource in GCE. Used to identify the disk in GCE. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
@@ -11494,6 +13356,15 @@ if not MYPY:
         Represents a Persistent Disk resource in Google Compute Engine.
 
         A GCE PD must exist before mounting to a container. The disk must also be in the same GCE project and zone as the kubelet. A GCE PD can only be mounted as read/write once or read-only many times. GCE PDs support ownership management and SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         pd_name: pulumi.Input[str]
         """
@@ -11525,6 +13396,16 @@ class GCEPersistentDiskVolumeSourceArgs:
         Represents a Persistent Disk resource in Google Compute Engine.
 
         A GCE PD must exist before mounting to a container. The disk must also be in the same GCE project and zone as the kubelet. A GCE PD can only be mounted as read/write once or read-only many times. GCE PDs support ownership management and SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] pd_name: pdName is unique name of the PD resource in GCE. Used to identify the disk in GCE. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
         :param pulumi.Input[str] fs_type: fsType is filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
         :param pulumi.Input[int] partition: partition is the partition in the volume that you want to mount. If omitted, the default is to mount by volume name. Examples: For volume /dev/sda1, you specify the partition as "1". Similarly, the volume partition for /dev/sda is "0" (or you can leave the property empty). More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
@@ -11589,6 +13470,18 @@ class GCEPersistentDiskVolumeSourceArgs:
 
 if not MYPY:
     class GRPCActionPatchArgsDict(TypedDict):
+        """
+
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+        """
         port: NotRequired[pulumi.Input[int]]
         """
         Port number of the gRPC service. Number must be in the range 1 to 65535.
@@ -11608,6 +13501,17 @@ class GRPCActionPatchArgs:
                  port: Optional[pulumi.Input[int]] = None,
                  service: Optional[pulumi.Input[str]] = None):
         """
+
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[int] port: Port number of the gRPC service. Number must be in the range 1 to 65535.
         :param pulumi.Input[str] service: Service is the name of the service to place in the gRPC HealthCheckRequest (see https://github.com/grpc/grpc/blob/master/doc/health-checking.md).
                
@@ -11647,6 +13551,18 @@ class GRPCActionPatchArgs:
 
 if not MYPY:
     class GRPCActionArgsDict(TypedDict):
+        """
+
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+        """
         port: pulumi.Input[int]
         """
         Port number of the gRPC service. Number must be in the range 1 to 65535.
@@ -11666,6 +13582,17 @@ class GRPCActionArgs:
                  port: pulumi.Input[int],
                  service: Optional[pulumi.Input[str]] = None):
         """
+
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[int] port: Port number of the gRPC service. Number must be in the range 1 to 65535.
         :param pulumi.Input[str] service: Service is the name of the service to place in the gRPC HealthCheckRequest (see https://github.com/grpc/grpc/blob/master/doc/health-checking.md).
                
@@ -11708,6 +13635,15 @@ if not MYPY:
         Represents a volume that is populated with the contents of a git repository. Git repo volumes do not support ownership management. Git repo volumes support SELinux relabeling.
 
         DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         directory: NotRequired[pulumi.Input[str]]
         """
@@ -11734,6 +13670,16 @@ class GitRepoVolumeSourcePatchArgs:
         Represents a volume that is populated with the contents of a git repository. Git repo volumes do not support ownership management. Git repo volumes support SELinux relabeling.
 
         DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] directory: directory is the target directory name. Must not contain or start with '..'.  If '.' is supplied, the volume directory will be the git repository.  Otherwise, if specified, the volume will contain the git repository in the subdirectory with the given name.
         :param pulumi.Input[str] repository: repository is the URL
         :param pulumi.Input[str] revision: revision is the commit hash for the specified revision.
@@ -11788,6 +13734,15 @@ if not MYPY:
         Represents a volume that is populated with the contents of a git repository. Git repo volumes do not support ownership management. Git repo volumes support SELinux relabeling.
 
         DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         repository: pulumi.Input[str]
         """
@@ -11814,6 +13769,16 @@ class GitRepoVolumeSourceArgs:
         Represents a volume that is populated with the contents of a git repository. Git repo volumes do not support ownership management. Git repo volumes support SELinux relabeling.
 
         DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] repository: repository is the URL
         :param pulumi.Input[str] directory: directory is the target directory name. Must not contain or start with '..'.  If '.' is supplied, the volume directory will be the git repository.  Otherwise, if specified, the volume will contain the git repository in the subdirectory with the given name.
         :param pulumi.Input[str] revision: revision is the commit hash for the specified revision.
@@ -11865,6 +13830,15 @@ if not MYPY:
     class GlusterfsPersistentVolumeSourcePatchArgsDict(TypedDict):
         """
         Represents a Glusterfs mount that lasts the lifetime of a pod. Glusterfs volumes do not support ownership management or SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         endpoints: NotRequired[pulumi.Input[str]]
         """
@@ -11894,6 +13868,16 @@ class GlusterfsPersistentVolumeSourcePatchArgs:
                  read_only: Optional[pulumi.Input[bool]] = None):
         """
         Represents a Glusterfs mount that lasts the lifetime of a pod. Glusterfs volumes do not support ownership management or SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] endpoints: endpoints is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
         :param pulumi.Input[str] endpoints_namespace: endpointsNamespace is the namespace that contains Glusterfs endpoint. If this field is empty, the EndpointNamespace defaults to the same namespace as the bound PVC. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
         :param pulumi.Input[str] path: path is the Glusterfs volume path. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
@@ -11961,6 +13945,15 @@ if not MYPY:
     class GlusterfsPersistentVolumeSourceArgsDict(TypedDict):
         """
         Represents a Glusterfs mount that lasts the lifetime of a pod. Glusterfs volumes do not support ownership management or SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         endpoints: pulumi.Input[str]
         """
@@ -11990,6 +13983,16 @@ class GlusterfsPersistentVolumeSourceArgs:
                  read_only: Optional[pulumi.Input[bool]] = None):
         """
         Represents a Glusterfs mount that lasts the lifetime of a pod. Glusterfs volumes do not support ownership management or SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] endpoints: endpoints is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
         :param pulumi.Input[str] path: path is the Glusterfs volume path. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
         :param pulumi.Input[str] endpoints_namespace: endpointsNamespace is the namespace that contains Glusterfs endpoint. If this field is empty, the EndpointNamespace defaults to the same namespace as the bound PVC. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
@@ -12055,6 +14058,15 @@ if not MYPY:
     class GlusterfsVolumeSourcePatchArgsDict(TypedDict):
         """
         Represents a Glusterfs mount that lasts the lifetime of a pod. Glusterfs volumes do not support ownership management or SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         endpoints: NotRequired[pulumi.Input[str]]
         """
@@ -12079,6 +14091,16 @@ class GlusterfsVolumeSourcePatchArgs:
                  read_only: Optional[pulumi.Input[bool]] = None):
         """
         Represents a Glusterfs mount that lasts the lifetime of a pod. Glusterfs volumes do not support ownership management or SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] endpoints: endpoints is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
         :param pulumi.Input[str] path: path is the Glusterfs volume path. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
         :param pulumi.Input[bool] read_only: readOnly here will force the Glusterfs volume to be mounted with read-only permissions. Defaults to false. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
@@ -12131,6 +14153,15 @@ if not MYPY:
     class GlusterfsVolumeSourceArgsDict(TypedDict):
         """
         Represents a Glusterfs mount that lasts the lifetime of a pod. Glusterfs volumes do not support ownership management or SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         endpoints: pulumi.Input[str]
         """
@@ -12155,6 +14186,16 @@ class GlusterfsVolumeSourceArgs:
                  read_only: Optional[pulumi.Input[bool]] = None):
         """
         Represents a Glusterfs mount that lasts the lifetime of a pod. Glusterfs volumes do not support ownership management or SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] endpoints: endpoints is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
         :param pulumi.Input[str] path: path is the Glusterfs volume path. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
         :param pulumi.Input[bool] read_only: readOnly here will force the Glusterfs volume to be mounted with read-only permissions. Defaults to false. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
@@ -12205,6 +14246,15 @@ if not MYPY:
     class HTTPGetActionPatchArgsDict(TypedDict):
         """
         HTTPGetAction describes an action based on HTTP Get requests.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         host: NotRequired[pulumi.Input[str]]
         """
@@ -12239,6 +14289,16 @@ class HTTPGetActionPatchArgs:
                  scheme: Optional[pulumi.Input[str]] = None):
         """
         HTTPGetAction describes an action based on HTTP Get requests.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] host: Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
         :param pulumi.Input[Sequence[pulumi.Input['HTTPHeaderPatchArgs']]] http_headers: Custom headers to set in the request. HTTP allows repeated headers.
         :param pulumi.Input[str] path: Path to access on the HTTP server.
@@ -12321,6 +14381,15 @@ if not MYPY:
     class HTTPGetActionArgsDict(TypedDict):
         """
         HTTPGetAction describes an action based on HTTP Get requests.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         port: pulumi.Input[Union[int, str]]
         """
@@ -12355,6 +14424,16 @@ class HTTPGetActionArgs:
                  scheme: Optional[pulumi.Input[str]] = None):
         """
         HTTPGetAction describes an action based on HTTP Get requests.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Union[int, str]] port: Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
         :param pulumi.Input[str] host: Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
         :param pulumi.Input[Sequence[pulumi.Input['HTTPHeaderArgs']]] http_headers: Custom headers to set in the request. HTTP allows repeated headers.
@@ -12436,6 +14515,15 @@ if not MYPY:
     class HTTPHeaderPatchArgsDict(TypedDict):
         """
         HTTPHeader describes a custom header to be used in HTTP probes
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         name: NotRequired[pulumi.Input[str]]
         """
@@ -12455,6 +14543,16 @@ class HTTPHeaderPatchArgs:
                  value: Optional[pulumi.Input[str]] = None):
         """
         HTTPHeader describes a custom header to be used in HTTP probes
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] name: The header field name. This will be canonicalized upon output, so case-variant names will be understood as the same header.
         :param pulumi.Input[str] value: The header field value
         """
@@ -12492,6 +14590,15 @@ if not MYPY:
     class HTTPHeaderArgsDict(TypedDict):
         """
         HTTPHeader describes a custom header to be used in HTTP probes
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         name: pulumi.Input[str]
         """
@@ -12511,6 +14618,16 @@ class HTTPHeaderArgs:
                  value: pulumi.Input[str]):
         """
         HTTPHeader describes a custom header to be used in HTTP probes
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] name: The header field name. This will be canonicalized upon output, so case-variant names will be understood as the same header.
         :param pulumi.Input[str] value: The header field value
         """
@@ -12546,6 +14663,15 @@ if not MYPY:
     class HostAliasPatchArgsDict(TypedDict):
         """
         HostAlias holds the mapping between IP and hostnames that will be injected as an entry in the pod's hosts file.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         hostnames: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
         """
@@ -12565,6 +14691,16 @@ class HostAliasPatchArgs:
                  ip: Optional[pulumi.Input[str]] = None):
         """
         HostAlias holds the mapping between IP and hostnames that will be injected as an entry in the pod's hosts file.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input[str]]] hostnames: Hostnames for the above IP address.
         :param pulumi.Input[str] ip: IP address of the host file entry.
         """
@@ -12602,6 +14738,15 @@ if not MYPY:
     class HostAliasArgsDict(TypedDict):
         """
         HostAlias holds the mapping between IP and hostnames that will be injected as an entry in the pod's hosts file.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         hostnames: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
         """
@@ -12621,6 +14766,16 @@ class HostAliasArgs:
                  ip: Optional[pulumi.Input[str]] = None):
         """
         HostAlias holds the mapping between IP and hostnames that will be injected as an entry in the pod's hosts file.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input[str]]] hostnames: Hostnames for the above IP address.
         :param pulumi.Input[str] ip: IP address of the host file entry.
         """
@@ -12658,6 +14813,15 @@ if not MYPY:
     class HostIPArgsDict(TypedDict):
         """
         HostIP represents a single IP address allocated to the host.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         ip: NotRequired[pulumi.Input[str]]
         """
@@ -12672,6 +14836,16 @@ class HostIPArgs:
                  ip: Optional[pulumi.Input[str]] = None):
         """
         HostIP represents a single IP address allocated to the host.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] ip: IP is the IP address assigned to the host
         """
         if ip is not None:
@@ -12694,6 +14868,15 @@ if not MYPY:
     class HostPathVolumeSourcePatchArgsDict(TypedDict):
         """
         Represents a host path mapped into a pod. Host path volumes do not support ownership management or SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         path: NotRequired[pulumi.Input[str]]
         """
@@ -12713,6 +14896,16 @@ class HostPathVolumeSourcePatchArgs:
                  type: Optional[pulumi.Input[str]] = None):
         """
         Represents a host path mapped into a pod. Host path volumes do not support ownership management or SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] path: path of the directory on the host. If the path is a symlink, it will follow the link to the real path. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
         :param pulumi.Input[str] type: type for HostPath Volume Defaults to "" More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
         """
@@ -12750,6 +14943,15 @@ if not MYPY:
     class HostPathVolumeSourceArgsDict(TypedDict):
         """
         Represents a host path mapped into a pod. Host path volumes do not support ownership management or SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         path: pulumi.Input[str]
         """
@@ -12769,6 +14971,16 @@ class HostPathVolumeSourceArgs:
                  type: Optional[pulumi.Input[str]] = None):
         """
         Represents a host path mapped into a pod. Host path volumes do not support ownership management or SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] path: path of the directory on the host. If the path is a symlink, it will follow the link to the real path. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
         :param pulumi.Input[str] type: type for HostPath Volume Defaults to "" More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
         """
@@ -12805,6 +15017,15 @@ if not MYPY:
     class ISCSIPersistentVolumeSourcePatchArgsDict(TypedDict):
         """
         ISCSIPersistentVolumeSource represents an ISCSI disk. ISCSI volumes can only be mounted as read/write once. ISCSI volumes support ownership management and SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         chap_auth_discovery: NotRequired[pulumi.Input[bool]]
         """
@@ -12869,6 +15090,16 @@ class ISCSIPersistentVolumeSourcePatchArgs:
                  target_portal: Optional[pulumi.Input[str]] = None):
         """
         ISCSIPersistentVolumeSource represents an ISCSI disk. ISCSI volumes can only be mounted as read/write once. ISCSI volumes support ownership management and SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[bool] chap_auth_discovery: chapAuthDiscovery defines whether support iSCSI Discovery CHAP authentication
         :param pulumi.Input[bool] chap_auth_session: chapAuthSession defines whether support iSCSI Session CHAP authentication
         :param pulumi.Input[str] fs_type: fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#iscsi
@@ -13041,6 +15272,15 @@ if not MYPY:
     class ISCSIPersistentVolumeSourceArgsDict(TypedDict):
         """
         ISCSIPersistentVolumeSource represents an ISCSI disk. ISCSI volumes can only be mounted as read/write once. ISCSI volumes support ownership management and SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         iqn: pulumi.Input[str]
         """
@@ -13105,6 +15345,16 @@ class ISCSIPersistentVolumeSourceArgs:
                  secret_ref: Optional[pulumi.Input['SecretReferenceArgs']] = None):
         """
         ISCSIPersistentVolumeSource represents an ISCSI disk. ISCSI volumes can only be mounted as read/write once. ISCSI volumes support ownership management and SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] iqn: iqn is Target iSCSI Qualified Name.
         :param pulumi.Input[int] lun: lun is iSCSI Target Lun number.
         :param pulumi.Input[str] target_portal: targetPortal is iSCSI Target Portal. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
@@ -13274,6 +15524,15 @@ if not MYPY:
     class ISCSIVolumeSourcePatchArgsDict(TypedDict):
         """
         Represents an ISCSI disk. ISCSI volumes can only be mounted as read/write once. ISCSI volumes support ownership management and SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         chap_auth_discovery: NotRequired[pulumi.Input[bool]]
         """
@@ -13338,6 +15597,16 @@ class ISCSIVolumeSourcePatchArgs:
                  target_portal: Optional[pulumi.Input[str]] = None):
         """
         Represents an ISCSI disk. ISCSI volumes can only be mounted as read/write once. ISCSI volumes support ownership management and SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[bool] chap_auth_discovery: chapAuthDiscovery defines whether support iSCSI Discovery CHAP authentication
         :param pulumi.Input[bool] chap_auth_session: chapAuthSession defines whether support iSCSI Session CHAP authentication
         :param pulumi.Input[str] fs_type: fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#iscsi
@@ -13510,6 +15779,15 @@ if not MYPY:
     class ISCSIVolumeSourceArgsDict(TypedDict):
         """
         Represents an ISCSI disk. ISCSI volumes can only be mounted as read/write once. ISCSI volumes support ownership management and SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         iqn: pulumi.Input[str]
         """
@@ -13574,6 +15852,16 @@ class ISCSIVolumeSourceArgs:
                  secret_ref: Optional[pulumi.Input['LocalObjectReferenceArgs']] = None):
         """
         Represents an ISCSI disk. ISCSI volumes can only be mounted as read/write once. ISCSI volumes support ownership management and SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] iqn: iqn is the target iSCSI Qualified Name.
         :param pulumi.Input[int] lun: lun represents iSCSI Target Lun number.
         :param pulumi.Input[str] target_portal: targetPortal is iSCSI Target Portal. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
@@ -13743,6 +16031,15 @@ if not MYPY:
     class KeyToPathPatchArgsDict(TypedDict):
         """
         Maps a string key to a path within a volume.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         key: NotRequired[pulumi.Input[str]]
         """
@@ -13767,6 +16064,16 @@ class KeyToPathPatchArgs:
                  path: Optional[pulumi.Input[str]] = None):
         """
         Maps a string key to a path within a volume.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] key: key is the key to project.
         :param pulumi.Input[int] mode: mode is Optional: mode bits used to set permissions on this file. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
         :param pulumi.Input[str] path: path is the relative path of the file to map the key to. May not be an absolute path. May not contain the path element '..'. May not start with the string '..'.
@@ -13819,6 +16126,15 @@ if not MYPY:
     class KeyToPathArgsDict(TypedDict):
         """
         Maps a string key to a path within a volume.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         key: pulumi.Input[str]
         """
@@ -13843,6 +16159,16 @@ class KeyToPathArgs:
                  mode: Optional[pulumi.Input[int]] = None):
         """
         Maps a string key to a path within a volume.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] key: key is the key to project.
         :param pulumi.Input[str] path: path is the relative path of the file to map the key to. May not be an absolute path. May not contain the path element '..'. May not start with the string '..'.
         :param pulumi.Input[int] mode: mode is Optional: mode bits used to set permissions on this file. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
@@ -13893,6 +16219,15 @@ if not MYPY:
     class LifecycleHandlerPatchArgsDict(TypedDict):
         """
         LifecycleHandler defines a specific action that should be taken in a lifecycle hook. One and only one of the fields, except TCPSocket must be specified.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         exec_: NotRequired[pulumi.Input['ExecActionPatchArgsDict']]
         """
@@ -13922,6 +16257,16 @@ class LifecycleHandlerPatchArgs:
                  tcp_socket: Optional[pulumi.Input['TCPSocketActionPatchArgs']] = None):
         """
         LifecycleHandler defines a specific action that should be taken in a lifecycle hook. One and only one of the fields, except TCPSocket must be specified.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['ExecActionPatchArgs'] exec_: Exec specifies the action to take.
         :param pulumi.Input['HTTPGetActionPatchArgs'] http_get: HTTPGet specifies the http request to perform.
         :param pulumi.Input['SleepActionPatchArgs'] sleep: Sleep represents the duration that the container should sleep before being terminated.
@@ -13989,6 +16334,15 @@ if not MYPY:
     class LifecycleHandlerArgsDict(TypedDict):
         """
         LifecycleHandler defines a specific action that should be taken in a lifecycle hook. One and only one of the fields, except TCPSocket must be specified.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         exec_: NotRequired[pulumi.Input['ExecActionArgsDict']]
         """
@@ -14018,6 +16372,16 @@ class LifecycleHandlerArgs:
                  tcp_socket: Optional[pulumi.Input['TCPSocketActionArgs']] = None):
         """
         LifecycleHandler defines a specific action that should be taken in a lifecycle hook. One and only one of the fields, except TCPSocket must be specified.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['ExecActionArgs'] exec_: Exec specifies the action to take.
         :param pulumi.Input['HTTPGetActionArgs'] http_get: HTTPGet specifies the http request to perform.
         :param pulumi.Input['SleepActionArgs'] sleep: Sleep represents the duration that the container should sleep before being terminated.
@@ -14085,6 +16449,15 @@ if not MYPY:
     class LifecyclePatchArgsDict(TypedDict):
         """
         Lifecycle describes actions that the management system should take in response to container lifecycle events. For the PostStart and PreStop lifecycle handlers, management of the container blocks until the action is complete, unless the container process fails, in which case the handler is aborted.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         post_start: NotRequired[pulumi.Input['LifecycleHandlerPatchArgsDict']]
         """
@@ -14104,6 +16477,16 @@ class LifecyclePatchArgs:
                  pre_stop: Optional[pulumi.Input['LifecycleHandlerPatchArgs']] = None):
         """
         Lifecycle describes actions that the management system should take in response to container lifecycle events. For the PostStart and PreStop lifecycle handlers, management of the container blocks until the action is complete, unless the container process fails, in which case the handler is aborted.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['LifecycleHandlerPatchArgs'] post_start: PostStart is called immediately after a container is created. If the handler fails, the container is terminated and restarted according to its restart policy. Other management of the container blocks until the hook completes. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
         :param pulumi.Input['LifecycleHandlerPatchArgs'] pre_stop: PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The Pod's termination grace period countdown begins before the PreStop hook is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period (unless delayed by finalizers). Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
         """
@@ -14141,6 +16524,15 @@ if not MYPY:
     class LifecycleArgsDict(TypedDict):
         """
         Lifecycle describes actions that the management system should take in response to container lifecycle events. For the PostStart and PreStop lifecycle handlers, management of the container blocks until the action is complete, unless the container process fails, in which case the handler is aborted.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         post_start: NotRequired[pulumi.Input['LifecycleHandlerArgsDict']]
         """
@@ -14160,6 +16552,16 @@ class LifecycleArgs:
                  pre_stop: Optional[pulumi.Input['LifecycleHandlerArgs']] = None):
         """
         Lifecycle describes actions that the management system should take in response to container lifecycle events. For the PostStart and PreStop lifecycle handlers, management of the container blocks until the action is complete, unless the container process fails, in which case the handler is aborted.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['LifecycleHandlerArgs'] post_start: PostStart is called immediately after a container is created. If the handler fails, the container is terminated and restarted according to its restart policy. Other management of the container blocks until the hook completes. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
         :param pulumi.Input['LifecycleHandlerArgs'] pre_stop: PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The Pod's termination grace period countdown begins before the PreStop hook is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period (unless delayed by finalizers). Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
         """
@@ -14197,6 +16599,15 @@ if not MYPY:
     class LimitRangeItemPatchArgsDict(TypedDict):
         """
         LimitRangeItem defines a min/max usage limit for any resource that matches on kind.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         default: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[str]]]]
         """
@@ -14236,6 +16647,16 @@ class LimitRangeItemPatchArgs:
                  type: Optional[pulumi.Input[str]] = None):
         """
         LimitRangeItem defines a min/max usage limit for any resource that matches on kind.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] default: Default resource requirement limit value by resource name if resource limit is omitted.
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] default_request: DefaultRequest is the default resource requirement request value by resource name if resource request is omitted.
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] max: Max usage constraints on this kind by resource name.
@@ -14333,6 +16754,15 @@ if not MYPY:
     class LimitRangeItemArgsDict(TypedDict):
         """
         LimitRangeItem defines a min/max usage limit for any resource that matches on kind.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         type: pulumi.Input[str]
         """
@@ -14372,6 +16802,16 @@ class LimitRangeItemArgs:
                  min: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None):
         """
         LimitRangeItem defines a min/max usage limit for any resource that matches on kind.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] type: Type of resource that this limit applies to.
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] default: Default resource requirement limit value by resource name if resource limit is omitted.
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] default_request: DefaultRequest is the default resource requirement request value by resource name if resource request is omitted.
@@ -14468,6 +16908,15 @@ if not MYPY:
     class LimitRangeSpecPatchArgsDict(TypedDict):
         """
         LimitRangeSpec defines a min/max usage limit for resources that match on kind.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         limits: NotRequired[pulumi.Input[Sequence[pulumi.Input['LimitRangeItemPatchArgsDict']]]]
         """
@@ -14482,6 +16931,16 @@ class LimitRangeSpecPatchArgs:
                  limits: Optional[pulumi.Input[Sequence[pulumi.Input['LimitRangeItemPatchArgs']]]] = None):
         """
         LimitRangeSpec defines a min/max usage limit for resources that match on kind.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input['LimitRangeItemPatchArgs']]] limits: Limits is the list of LimitRangeItem objects that are enforced.
         """
         if limits is not None:
@@ -14504,6 +16963,15 @@ if not MYPY:
     class LimitRangeSpecArgsDict(TypedDict):
         """
         LimitRangeSpec defines a min/max usage limit for resources that match on kind.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         limits: pulumi.Input[Sequence[pulumi.Input['LimitRangeItemArgsDict']]]
         """
@@ -14518,6 +16986,16 @@ class LimitRangeSpecArgs:
                  limits: pulumi.Input[Sequence[pulumi.Input['LimitRangeItemArgs']]]):
         """
         LimitRangeSpec defines a min/max usage limit for resources that match on kind.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input['LimitRangeItemArgs']]] limits: Limits is the list of LimitRangeItem objects that are enforced.
         """
         pulumi.set(__self__, "limits", limits)
@@ -14539,6 +17017,15 @@ if not MYPY:
     class LimitRangeArgsDict(TypedDict):
         """
         LimitRange sets resource usage limits for each kind of resource in a Namespace.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         api_version: NotRequired[pulumi.Input[str]]
         """
@@ -14568,6 +17055,16 @@ class LimitRangeArgs:
                  spec: Optional[pulumi.Input['LimitRangeSpecArgs']] = None):
         """
         LimitRange sets resource usage limits for each kind of resource in a Namespace.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -14635,6 +17132,15 @@ if not MYPY:
     class LoadBalancerIngressArgsDict(TypedDict):
         """
         LoadBalancerIngress represents the status of a load-balancer ingress point: traffic intended for the service should be sent to an ingress point.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         hostname: NotRequired[pulumi.Input[str]]
         """
@@ -14664,6 +17170,16 @@ class LoadBalancerIngressArgs:
                  ports: Optional[pulumi.Input[Sequence[pulumi.Input['PortStatusArgs']]]] = None):
         """
         LoadBalancerIngress represents the status of a load-balancer ingress point: traffic intended for the service should be sent to an ingress point.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] hostname: Hostname is set for load-balancer ingress points that are DNS based (typically AWS load-balancers)
         :param pulumi.Input[str] ip: IP is set for load-balancer ingress points that are IP based (typically GCE or OpenStack load-balancers)
         :param pulumi.Input[str] ip_mode: IPMode specifies how the load-balancer IP behaves, and may only be specified when the ip field is specified. Setting this to "VIP" indicates that traffic is delivered to the node with the destination set to the load-balancer's IP and port. Setting this to "Proxy" indicates that traffic is delivered to the node or pod with the destination set to the node's IP and node port or the pod's IP and port. Service implementations may use this information to adjust traffic routing.
@@ -14731,6 +17247,15 @@ if not MYPY:
     class LoadBalancerStatusArgsDict(TypedDict):
         """
         LoadBalancerStatus represents the status of a load-balancer.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         ingress: NotRequired[pulumi.Input[Sequence[pulumi.Input['LoadBalancerIngressArgsDict']]]]
         """
@@ -14745,6 +17270,16 @@ class LoadBalancerStatusArgs:
                  ingress: Optional[pulumi.Input[Sequence[pulumi.Input['LoadBalancerIngressArgs']]]] = None):
         """
         LoadBalancerStatus represents the status of a load-balancer.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input['LoadBalancerIngressArgs']]] ingress: Ingress is a list containing ingress points for the load-balancer. Traffic intended for the service should be sent to these ingress points.
         """
         if ingress is not None:
@@ -14767,6 +17302,15 @@ if not MYPY:
     class LocalObjectReferencePatchArgsDict(TypedDict):
         """
         LocalObjectReference contains enough information to let you locate the referenced object inside the same namespace.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         name: NotRequired[pulumi.Input[str]]
         """
@@ -14781,6 +17325,16 @@ class LocalObjectReferencePatchArgs:
                  name: Optional[pulumi.Input[str]] = None):
         """
         LocalObjectReference contains enough information to let you locate the referenced object inside the same namespace.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] name: Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
         """
         if name is not None:
@@ -14803,6 +17357,15 @@ if not MYPY:
     class LocalObjectReferenceArgsDict(TypedDict):
         """
         LocalObjectReference contains enough information to let you locate the referenced object inside the same namespace.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         name: NotRequired[pulumi.Input[str]]
         """
@@ -14817,6 +17380,16 @@ class LocalObjectReferenceArgs:
                  name: Optional[pulumi.Input[str]] = None):
         """
         LocalObjectReference contains enough information to let you locate the referenced object inside the same namespace.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] name: Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
         """
         if name is not None:
@@ -14839,6 +17412,15 @@ if not MYPY:
     class LocalVolumeSourcePatchArgsDict(TypedDict):
         """
         Local represents directly-attached storage with node affinity (Beta feature)
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         fs_type: NotRequired[pulumi.Input[str]]
         """
@@ -14858,6 +17440,16 @@ class LocalVolumeSourcePatchArgs:
                  path: Optional[pulumi.Input[str]] = None):
         """
         Local represents directly-attached storage with node affinity (Beta feature)
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] fs_type: fsType is the filesystem type to mount. It applies only when the Path is a block device. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default value is to auto-select a filesystem if unspecified.
         :param pulumi.Input[str] path: path of the full path to the volume on the node. It can be either a directory or block device (disk, partition, ...).
         """
@@ -14895,6 +17487,15 @@ if not MYPY:
     class LocalVolumeSourceArgsDict(TypedDict):
         """
         Local represents directly-attached storage with node affinity (Beta feature)
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         path: pulumi.Input[str]
         """
@@ -14914,6 +17515,16 @@ class LocalVolumeSourceArgs:
                  fs_type: Optional[pulumi.Input[str]] = None):
         """
         Local represents directly-attached storage with node affinity (Beta feature)
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] path: path of the full path to the volume on the node. It can be either a directory or block device (disk, partition, ...).
         :param pulumi.Input[str] fs_type: fsType is the filesystem type to mount. It applies only when the Path is a block device. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default value is to auto-select a filesystem if unspecified.
         """
@@ -14950,6 +17561,15 @@ if not MYPY:
     class ModifyVolumeStatusPatchArgsDict(TypedDict):
         """
         ModifyVolumeStatus represents the status object of ControllerModifyVolume operation
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         status: NotRequired[pulumi.Input[str]]
         """
@@ -14978,6 +17598,16 @@ class ModifyVolumeStatusPatchArgs:
                  target_volume_attributes_class_name: Optional[pulumi.Input[str]] = None):
         """
         ModifyVolumeStatus represents the status object of ControllerModifyVolume operation
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] status: status is the status of the ControllerModifyVolume operation. It can be in any of following states:
                 - Pending
                   Pending indicates that the PersistentVolumeClaim cannot be modified due to unmet requirements, such as
@@ -15033,6 +17663,15 @@ if not MYPY:
     class ModifyVolumeStatusArgsDict(TypedDict):
         """
         ModifyVolumeStatus represents the status object of ControllerModifyVolume operation
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         status: pulumi.Input[str]
         """
@@ -15061,6 +17700,16 @@ class ModifyVolumeStatusArgs:
                  target_volume_attributes_class_name: Optional[pulumi.Input[str]] = None):
         """
         ModifyVolumeStatus represents the status object of ControllerModifyVolume operation
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] status: status is the status of the ControllerModifyVolume operation. It can be in any of following states:
                 - Pending
                   Pending indicates that the PersistentVolumeClaim cannot be modified due to unmet requirements, such as
@@ -15115,6 +17764,15 @@ if not MYPY:
     class NFSVolumeSourcePatchArgsDict(TypedDict):
         """
         Represents an NFS mount that lasts the lifetime of a pod. NFS volumes do not support ownership management or SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         path: NotRequired[pulumi.Input[str]]
         """
@@ -15139,6 +17797,16 @@ class NFSVolumeSourcePatchArgs:
                  server: Optional[pulumi.Input[str]] = None):
         """
         Represents an NFS mount that lasts the lifetime of a pod. NFS volumes do not support ownership management or SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] path: path that is exported by the NFS server. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
         :param pulumi.Input[bool] read_only: readOnly here will force the NFS export to be mounted with read-only permissions. Defaults to false. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
         :param pulumi.Input[str] server: server is the hostname or IP address of the NFS server. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
@@ -15191,6 +17859,15 @@ if not MYPY:
     class NFSVolumeSourceArgsDict(TypedDict):
         """
         Represents an NFS mount that lasts the lifetime of a pod. NFS volumes do not support ownership management or SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         path: pulumi.Input[str]
         """
@@ -15215,6 +17892,16 @@ class NFSVolumeSourceArgs:
                  read_only: Optional[pulumi.Input[bool]] = None):
         """
         Represents an NFS mount that lasts the lifetime of a pod. NFS volumes do not support ownership management or SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] path: path that is exported by the NFS server. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
         :param pulumi.Input[str] server: server is the hostname or IP address of the NFS server. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
         :param pulumi.Input[bool] read_only: readOnly here will force the NFS export to be mounted with read-only permissions. Defaults to false. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
@@ -15265,6 +17952,15 @@ if not MYPY:
     class NamespaceConditionArgsDict(TypedDict):
         """
         NamespaceCondition contains details about state of namespace.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         status: pulumi.Input[str]
         """
@@ -15290,6 +17986,16 @@ class NamespaceConditionArgs:
                  reason: Optional[pulumi.Input[str]] = None):
         """
         NamespaceCondition contains details about state of namespace.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] status: Status of the condition, one of True, False, Unknown.
         :param pulumi.Input[str] type: Type of namespace controller condition.
         """
@@ -15358,6 +18064,15 @@ if not MYPY:
     class NamespaceSpecPatchArgsDict(TypedDict):
         """
         NamespaceSpec describes the attributes on a Namespace.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         finalizers: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
         """
@@ -15372,6 +18087,16 @@ class NamespaceSpecPatchArgs:
                  finalizers: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
         NamespaceSpec describes the attributes on a Namespace.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input[str]]] finalizers: Finalizers is an opaque list of values that must be empty to permanently remove object from storage. More info: https://kubernetes.io/docs/tasks/administer-cluster/namespaces/
         """
         if finalizers is not None:
@@ -15394,6 +18119,15 @@ if not MYPY:
     class NamespaceSpecArgsDict(TypedDict):
         """
         NamespaceSpec describes the attributes on a Namespace.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         finalizers: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
         """
@@ -15408,6 +18142,16 @@ class NamespaceSpecArgs:
                  finalizers: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
         NamespaceSpec describes the attributes on a Namespace.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input[str]]] finalizers: Finalizers is an opaque list of values that must be empty to permanently remove object from storage. More info: https://kubernetes.io/docs/tasks/administer-cluster/namespaces/
         """
         if finalizers is not None:
@@ -15430,6 +18174,15 @@ if not MYPY:
     class NamespaceStatusArgsDict(TypedDict):
         """
         NamespaceStatus is information about the current status of a Namespace.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         conditions: NotRequired[pulumi.Input[Sequence[pulumi.Input['NamespaceConditionArgsDict']]]]
         """
@@ -15449,6 +18202,16 @@ class NamespaceStatusArgs:
                  phase: Optional[pulumi.Input[str]] = None):
         """
         NamespaceStatus is information about the current status of a Namespace.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input['NamespaceConditionArgs']]] conditions: Represents the latest available observations of a namespace's current state.
         :param pulumi.Input[str] phase: Phase is the current lifecycle phase of the namespace. More info: https://kubernetes.io/docs/tasks/administer-cluster/namespaces/
         """
@@ -15486,6 +18249,15 @@ if not MYPY:
     class NamespaceArgsDict(TypedDict):
         """
         Namespace provides a scope for Names. Use of multiple namespaces is optional.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         api_version: NotRequired[pulumi.Input[str]]
         """
@@ -15520,6 +18292,16 @@ class NamespaceArgs:
                  status: Optional[pulumi.Input['NamespaceStatusArgs']] = None):
         """
         Namespace provides a scope for Names. Use of multiple namespaces is optional.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -15602,6 +18384,15 @@ if not MYPY:
     class NodeAddressArgsDict(TypedDict):
         """
         NodeAddress contains information for the node's address.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         address: pulumi.Input[str]
         """
@@ -15621,6 +18412,16 @@ class NodeAddressArgs:
                  type: pulumi.Input[str]):
         """
         NodeAddress contains information for the node's address.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] address: The node address.
         :param pulumi.Input[str] type: Node address type, one of Hostname, ExternalIP or InternalIP.
         """
@@ -15656,6 +18457,15 @@ if not MYPY:
     class NodeAffinityPatchArgsDict(TypedDict):
         """
         Node affinity is a group of node affinity scheduling rules.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         preferred_during_scheduling_ignored_during_execution: NotRequired[pulumi.Input[Sequence[pulumi.Input['PreferredSchedulingTermPatchArgsDict']]]]
         """
@@ -15675,6 +18485,16 @@ class NodeAffinityPatchArgs:
                  required_during_scheduling_ignored_during_execution: Optional[pulumi.Input['NodeSelectorPatchArgs']] = None):
         """
         Node affinity is a group of node affinity scheduling rules.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input['PreferredSchedulingTermPatchArgs']]] preferred_during_scheduling_ignored_during_execution: The scheduler will prefer to schedule pods to nodes that satisfy the affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node matches the corresponding matchExpressions; the node(s) with the highest sum are the most preferred.
         :param pulumi.Input['NodeSelectorPatchArgs'] required_during_scheduling_ignored_during_execution: If the affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to an update), the system may or may not try to eventually evict the pod from its node.
         """
@@ -15712,6 +18532,15 @@ if not MYPY:
     class NodeAffinityArgsDict(TypedDict):
         """
         Node affinity is a group of node affinity scheduling rules.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         preferred_during_scheduling_ignored_during_execution: NotRequired[pulumi.Input[Sequence[pulumi.Input['PreferredSchedulingTermArgsDict']]]]
         """
@@ -15731,6 +18560,16 @@ class NodeAffinityArgs:
                  required_during_scheduling_ignored_during_execution: Optional[pulumi.Input['NodeSelectorArgs']] = None):
         """
         Node affinity is a group of node affinity scheduling rules.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input['PreferredSchedulingTermArgs']]] preferred_during_scheduling_ignored_during_execution: The scheduler will prefer to schedule pods to nodes that satisfy the affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node matches the corresponding matchExpressions; the node(s) with the highest sum are the most preferred.
         :param pulumi.Input['NodeSelectorArgs'] required_during_scheduling_ignored_during_execution: If the affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to an update), the system may or may not try to eventually evict the pod from its node.
         """
@@ -15768,6 +18607,15 @@ if not MYPY:
     class NodeConditionArgsDict(TypedDict):
         """
         NodeCondition contains condition information for a node.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         status: pulumi.Input[str]
         """
@@ -15807,6 +18655,16 @@ class NodeConditionArgs:
                  reason: Optional[pulumi.Input[str]] = None):
         """
         NodeCondition contains condition information for a node.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] status: Status of the condition, one of True, False, Unknown.
         :param pulumi.Input[str] type: Type of node condition.
         :param pulumi.Input[str] last_heartbeat_time: Last time we got an update on a given condition.
@@ -15902,6 +18760,15 @@ if not MYPY:
     class NodeConfigSourcePatchArgsDict(TypedDict):
         """
         NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil. This API is deprecated since 1.22
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         config_map: NotRequired[pulumi.Input['ConfigMapNodeConfigSourcePatchArgsDict']]
         """
@@ -15916,6 +18783,16 @@ class NodeConfigSourcePatchArgs:
                  config_map: Optional[pulumi.Input['ConfigMapNodeConfigSourcePatchArgs']] = None):
         """
         NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil. This API is deprecated since 1.22
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['ConfigMapNodeConfigSourcePatchArgs'] config_map: ConfigMap is a reference to a Node's ConfigMap
         """
         if config_map is not None:
@@ -15938,6 +18815,15 @@ if not MYPY:
     class NodeConfigSourceArgsDict(TypedDict):
         """
         NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil. This API is deprecated since 1.22
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         config_map: NotRequired[pulumi.Input['ConfigMapNodeConfigSourceArgsDict']]
         """
@@ -15952,6 +18838,16 @@ class NodeConfigSourceArgs:
                  config_map: Optional[pulumi.Input['ConfigMapNodeConfigSourceArgs']] = None):
         """
         NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil. This API is deprecated since 1.22
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['ConfigMapNodeConfigSourceArgs'] config_map: ConfigMap is a reference to a Node's ConfigMap
         """
         if config_map is not None:
@@ -15974,6 +18870,15 @@ if not MYPY:
     class NodeConfigStatusArgsDict(TypedDict):
         """
         NodeConfigStatus describes the status of the config assigned by Node.Spec.ConfigSource.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         active: NotRequired[pulumi.Input['NodeConfigSourceArgsDict']]
         """
@@ -16003,6 +18908,16 @@ class NodeConfigStatusArgs:
                  last_known_good: Optional[pulumi.Input['NodeConfigSourceArgs']] = None):
         """
         NodeConfigStatus describes the status of the config assigned by Node.Spec.ConfigSource.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['NodeConfigSourceArgs'] active: Active reports the checkpointed config the node is actively using. Active will represent either the current version of the Assigned config, or the current LastKnownGood config, depending on whether attempting to use the Assigned config results in an error.
         :param pulumi.Input['NodeConfigSourceArgs'] assigned: Assigned reports the checkpointed config the node will try to use. When Node.Spec.ConfigSource is updated, the node checkpoints the associated config payload to local disk, along with a record indicating intended config. The node refers to this record to choose its config checkpoint, and reports this record in Assigned. Assigned only updates in the status after the record has been checkpointed to disk. When the Kubelet is restarted, it tries to make the Assigned config the Active config by loading and validating the checkpointed payload identified by Assigned.
         :param pulumi.Input[str] error: Error describes any problems reconciling the Spec.ConfigSource to the Active config. Errors may occur, for example, attempting to checkpoint Spec.ConfigSource to the local Assigned record, attempting to checkpoint the payload associated with Spec.ConfigSource, attempting to load or validate the Assigned config, etc. Errors may occur at different points while syncing config. Earlier errors (e.g. download or checkpointing errors) will not result in a rollback to LastKnownGood, and may resolve across Kubelet retries. Later errors (e.g. loading or validating a checkpointed config) will result in a rollback to LastKnownGood. In the latter case, it is usually possible to resolve the error by fixing the config assigned in Spec.ConfigSource. You can find additional information for debugging by searching the error message in the Kubelet log. Error is a human-readable description of the error state; machines can check whether or not Error is empty, but should not rely on the stability of the Error text across Kubelet versions.
@@ -16070,6 +18985,15 @@ if not MYPY:
     class NodeDaemonEndpointsArgsDict(TypedDict):
         """
         NodeDaemonEndpoints lists ports opened by daemons running on the Node.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         kubelet_endpoint: NotRequired[pulumi.Input['DaemonEndpointArgsDict']]
         """
@@ -16084,6 +19008,16 @@ class NodeDaemonEndpointsArgs:
                  kubelet_endpoint: Optional[pulumi.Input['DaemonEndpointArgs']] = None):
         """
         NodeDaemonEndpoints lists ports opened by daemons running on the Node.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['DaemonEndpointArgs'] kubelet_endpoint: Endpoint on which Kubelet is listening.
         """
         if kubelet_endpoint is not None:
@@ -16106,6 +19040,15 @@ if not MYPY:
     class NodeRuntimeHandlerFeaturesArgsDict(TypedDict):
         """
         NodeRuntimeHandlerFeatures is a set of runtime features.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         recursive_read_only_mounts: NotRequired[pulumi.Input[bool]]
         """
@@ -16120,6 +19063,16 @@ class NodeRuntimeHandlerFeaturesArgs:
                  recursive_read_only_mounts: Optional[pulumi.Input[bool]] = None):
         """
         NodeRuntimeHandlerFeatures is a set of runtime features.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[bool] recursive_read_only_mounts: RecursiveReadOnlyMounts is set to true if the runtime handler supports RecursiveReadOnlyMounts.
         """
         if recursive_read_only_mounts is not None:
@@ -16142,6 +19095,15 @@ if not MYPY:
     class NodeRuntimeHandlerArgsDict(TypedDict):
         """
         NodeRuntimeHandler is a set of runtime handler information.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         features: NotRequired[pulumi.Input['NodeRuntimeHandlerFeaturesArgsDict']]
         """
@@ -16161,6 +19123,16 @@ class NodeRuntimeHandlerArgs:
                  name: Optional[pulumi.Input[str]] = None):
         """
         NodeRuntimeHandler is a set of runtime handler information.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['NodeRuntimeHandlerFeaturesArgs'] features: Supported features.
         :param pulumi.Input[str] name: Runtime handler name. Empty for the default runtime handler.
         """
@@ -16198,6 +19170,15 @@ if not MYPY:
     class NodeSelectorPatchArgsDict(TypedDict):
         """
         A node selector represents the union of the results of one or more label queries over a set of nodes; that is, it represents the OR of the selectors represented by the node selector terms.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         node_selector_terms: NotRequired[pulumi.Input[Sequence[pulumi.Input['NodeSelectorTermPatchArgsDict']]]]
         """
@@ -16212,6 +19193,16 @@ class NodeSelectorPatchArgs:
                  node_selector_terms: Optional[pulumi.Input[Sequence[pulumi.Input['NodeSelectorTermPatchArgs']]]] = None):
         """
         A node selector represents the union of the results of one or more label queries over a set of nodes; that is, it represents the OR of the selectors represented by the node selector terms.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input['NodeSelectorTermPatchArgs']]] node_selector_terms: Required. A list of node selector terms. The terms are ORed.
         """
         if node_selector_terms is not None:
@@ -16234,6 +19225,15 @@ if not MYPY:
     class NodeSelectorRequirementPatchArgsDict(TypedDict):
         """
         A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         key: NotRequired[pulumi.Input[str]]
         """
@@ -16258,6 +19258,16 @@ class NodeSelectorRequirementPatchArgs:
                  values: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
         A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] key: The label key that the selector applies to.
         :param pulumi.Input[str] operator: Represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. Gt, and Lt.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] values: An array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. If the operator is Gt or Lt, the values array must have a single element, which will be interpreted as an integer. This array is replaced during a strategic merge patch.
@@ -16310,6 +19320,15 @@ if not MYPY:
     class NodeSelectorRequirementArgsDict(TypedDict):
         """
         A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         key: pulumi.Input[str]
         """
@@ -16334,6 +19353,16 @@ class NodeSelectorRequirementArgs:
                  values: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
         A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] key: The label key that the selector applies to.
         :param pulumi.Input[str] operator: Represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. Gt, and Lt.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] values: An array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. If the operator is Gt or Lt, the values array must have a single element, which will be interpreted as an integer. This array is replaced during a strategic merge patch.
@@ -16384,6 +19413,15 @@ if not MYPY:
     class NodeSelectorTermPatchArgsDict(TypedDict):
         """
         A null or empty node selector term matches no objects. The requirements of them are ANDed. The TopologySelectorTerm type implements a subset of the NodeSelectorTerm.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         match_expressions: NotRequired[pulumi.Input[Sequence[pulumi.Input['NodeSelectorRequirementPatchArgsDict']]]]
         """
@@ -16403,6 +19441,16 @@ class NodeSelectorTermPatchArgs:
                  match_fields: Optional[pulumi.Input[Sequence[pulumi.Input['NodeSelectorRequirementPatchArgs']]]] = None):
         """
         A null or empty node selector term matches no objects. The requirements of them are ANDed. The TopologySelectorTerm type implements a subset of the NodeSelectorTerm.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input['NodeSelectorRequirementPatchArgs']]] match_expressions: A list of node selector requirements by node's labels.
         :param pulumi.Input[Sequence[pulumi.Input['NodeSelectorRequirementPatchArgs']]] match_fields: A list of node selector requirements by node's fields.
         """
@@ -16440,6 +19488,15 @@ if not MYPY:
     class NodeSelectorTermArgsDict(TypedDict):
         """
         A null or empty node selector term matches no objects. The requirements of them are ANDed. The TopologySelectorTerm type implements a subset of the NodeSelectorTerm.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         match_expressions: NotRequired[pulumi.Input[Sequence[pulumi.Input['NodeSelectorRequirementArgsDict']]]]
         """
@@ -16459,6 +19516,16 @@ class NodeSelectorTermArgs:
                  match_fields: Optional[pulumi.Input[Sequence[pulumi.Input['NodeSelectorRequirementArgs']]]] = None):
         """
         A null or empty node selector term matches no objects. The requirements of them are ANDed. The TopologySelectorTerm type implements a subset of the NodeSelectorTerm.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input['NodeSelectorRequirementArgs']]] match_expressions: A list of node selector requirements by node's labels.
         :param pulumi.Input[Sequence[pulumi.Input['NodeSelectorRequirementArgs']]] match_fields: A list of node selector requirements by node's fields.
         """
@@ -16496,6 +19563,15 @@ if not MYPY:
     class NodeSelectorArgsDict(TypedDict):
         """
         A node selector represents the union of the results of one or more label queries over a set of nodes; that is, it represents the OR of the selectors represented by the node selector terms.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         node_selector_terms: pulumi.Input[Sequence[pulumi.Input['NodeSelectorTermArgsDict']]]
         """
@@ -16510,6 +19586,16 @@ class NodeSelectorArgs:
                  node_selector_terms: pulumi.Input[Sequence[pulumi.Input['NodeSelectorTermArgs']]]):
         """
         A node selector represents the union of the results of one or more label queries over a set of nodes; that is, it represents the OR of the selectors represented by the node selector terms.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input['NodeSelectorTermArgs']]] node_selector_terms: Required. A list of node selector terms. The terms are ORed.
         """
         pulumi.set(__self__, "node_selector_terms", node_selector_terms)
@@ -16531,6 +19617,15 @@ if not MYPY:
     class NodeSpecPatchArgsDict(TypedDict):
         """
         NodeSpec describes the attributes that a node is created with.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         config_source: NotRequired[pulumi.Input['NodeConfigSourcePatchArgsDict']]
         """
@@ -16575,6 +19670,16 @@ class NodeSpecPatchArgs:
                  unschedulable: Optional[pulumi.Input[bool]] = None):
         """
         NodeSpec describes the attributes that a node is created with.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['NodeConfigSourcePatchArgs'] config_source: Deprecated: Previously used to specify the source of the node's configuration for the DynamicKubeletConfig feature. This feature is removed.
         :param pulumi.Input[str] external_id: Deprecated. Not all kubelets will set this field. Remove field after 1.13. see: https://issues.k8s.io/61966
         :param pulumi.Input[str] pod_cidr: PodCIDR represents the pod IP range assigned to the node.
@@ -16687,6 +19792,15 @@ if not MYPY:
     class NodeSpecArgsDict(TypedDict):
         """
         NodeSpec describes the attributes that a node is created with.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         config_source: NotRequired[pulumi.Input['NodeConfigSourceArgsDict']]
         """
@@ -16731,6 +19845,16 @@ class NodeSpecArgs:
                  unschedulable: Optional[pulumi.Input[bool]] = None):
         """
         NodeSpec describes the attributes that a node is created with.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['NodeConfigSourceArgs'] config_source: Deprecated: Previously used to specify the source of the node's configuration for the DynamicKubeletConfig feature. This feature is removed.
         :param pulumi.Input[str] external_id: Deprecated. Not all kubelets will set this field. Remove field after 1.13. see: https://issues.k8s.io/61966
         :param pulumi.Input[str] pod_cidr: PodCIDR represents the pod IP range assigned to the node.
@@ -16843,6 +19967,15 @@ if not MYPY:
     class NodeStatusArgsDict(TypedDict):
         """
         NodeStatus is information about the current status of a node.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         addresses: NotRequired[pulumi.Input[Sequence[pulumi.Input['NodeAddressArgsDict']]]]
         """
@@ -16912,6 +20045,16 @@ class NodeStatusArgs:
                  volumes_in_use: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
         NodeStatus is information about the current status of a node.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input['NodeAddressArgs']]] addresses: List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] allocatable: Allocatable represents the resources of a node that are available for scheduling. Defaults to Capacity.
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] capacity: Capacity represents the total resources of a node. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity
@@ -17099,6 +20242,15 @@ if not MYPY:
     class NodeSystemInfoArgsDict(TypedDict):
         """
         NodeSystemInfo is a set of ids/uuids to uniquely identify the node.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         architecture: pulumi.Input[str]
         """
@@ -17158,6 +20310,16 @@ class NodeSystemInfoArgs:
                  system_uuid: pulumi.Input[str]):
         """
         NodeSystemInfo is a set of ids/uuids to uniquely identify the node.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] architecture: The Architecture reported by the node
         :param pulumi.Input[str] boot_id: Boot ID reported by the node.
         :param pulumi.Input[str] container_runtime_version: ContainerRuntime Version reported by the node through runtime remote API (e.g. containerd://1.4.2).
@@ -17305,6 +20467,15 @@ if not MYPY:
     class NodeArgsDict(TypedDict):
         """
         Node is a worker node in Kubernetes. Each node will have a unique identifier in the cache (i.e. in etcd).
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         api_version: NotRequired[pulumi.Input[str]]
         """
@@ -17339,6 +20510,16 @@ class NodeArgs:
                  status: Optional[pulumi.Input['NodeStatusArgs']] = None):
         """
         Node is a worker node in Kubernetes. Each node will have a unique identifier in the cache (i.e. in etcd).
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -17421,6 +20602,15 @@ if not MYPY:
     class ObjectFieldSelectorPatchArgsDict(TypedDict):
         """
         ObjectFieldSelector selects an APIVersioned field of an object.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         api_version: NotRequired[pulumi.Input[str]]
         """
@@ -17440,6 +20630,16 @@ class ObjectFieldSelectorPatchArgs:
                  field_path: Optional[pulumi.Input[str]] = None):
         """
         ObjectFieldSelector selects an APIVersioned field of an object.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] api_version: Version of the schema the FieldPath is written in terms of, defaults to "v1".
         :param pulumi.Input[str] field_path: Path of the field to select in the specified API version.
         """
@@ -17477,6 +20677,15 @@ if not MYPY:
     class ObjectFieldSelectorArgsDict(TypedDict):
         """
         ObjectFieldSelector selects an APIVersioned field of an object.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         field_path: pulumi.Input[str]
         """
@@ -17496,6 +20705,16 @@ class ObjectFieldSelectorArgs:
                  api_version: Optional[pulumi.Input[str]] = None):
         """
         ObjectFieldSelector selects an APIVersioned field of an object.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] field_path: Path of the field to select in the specified API version.
         :param pulumi.Input[str] api_version: Version of the schema the FieldPath is written in terms of, defaults to "v1".
         """
@@ -17532,6 +20751,15 @@ if not MYPY:
     class ObjectReferencePatchArgsDict(TypedDict):
         """
         ObjectReference contains enough information to let you inspect or modify the referred object.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         api_version: NotRequired[pulumi.Input[str]]
         """
@@ -17576,6 +20804,16 @@ class ObjectReferencePatchArgs:
                  uid: Optional[pulumi.Input[str]] = None):
         """
         ObjectReference contains enough information to let you inspect or modify the referred object.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] api_version: API version of the referent.
         :param pulumi.Input[str] field_path: If referring to a piece of an object instead of an entire object, this string should contain a valid JSON/Go field access statement, such as desiredState.manifest.containers[2]. For example, if the object reference is to a container within a pod, this would take on a value like: "spec.containers{name}" (where "name" refers to the name of the container that triggered the event) or if no container name is specified "spec.containers[2]" (container with index 2 in this pod). This syntax is chosen only to have some well-defined way of referencing a part of an object.
         :param pulumi.Input[str] kind: Kind of the referent. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -17688,6 +20926,15 @@ if not MYPY:
     class ObjectReferenceArgsDict(TypedDict):
         """
         ObjectReference contains enough information to let you inspect or modify the referred object.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         api_version: NotRequired[pulumi.Input[str]]
         """
@@ -17732,6 +20979,16 @@ class ObjectReferenceArgs:
                  uid: Optional[pulumi.Input[str]] = None):
         """
         ObjectReference contains enough information to let you inspect or modify the referred object.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] api_version: API version of the referent.
         :param pulumi.Input[str] field_path: If referring to a piece of an object instead of an entire object, this string should contain a valid JSON/Go field access statement, such as desiredState.manifest.containers[2]. For example, if the object reference is to a container within a pod, this would take on a value like: "spec.containers{name}" (where "name" refers to the name of the container that triggered the event) or if no container name is specified "spec.containers[2]" (container with index 2 in this pod). This syntax is chosen only to have some well-defined way of referencing a part of an object.
         :param pulumi.Input[str] kind: Kind of the referent. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -17844,6 +21101,15 @@ if not MYPY:
     class PersistentVolumeClaimConditionPatchArgsDict(TypedDict):
         """
         PersistentVolumeClaimCondition contains details about state of pvc
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         last_probe_time: NotRequired[pulumi.Input[str]]
         """
@@ -17877,6 +21143,16 @@ class PersistentVolumeClaimConditionPatchArgs:
                  type: Optional[pulumi.Input[str]] = None):
         """
         PersistentVolumeClaimCondition contains details about state of pvc
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] last_probe_time: lastProbeTime is the time we probed the condition.
         :param pulumi.Input[str] last_transition_time: lastTransitionTime is the time the condition transitioned from one status to another.
         :param pulumi.Input[str] message: message is the human-readable message indicating details about last transition.
@@ -17966,6 +21242,15 @@ if not MYPY:
     class PersistentVolumeClaimConditionArgsDict(TypedDict):
         """
         PersistentVolumeClaimCondition contains details about state of pvc
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         status: pulumi.Input[str]
         type: pulumi.Input[str]
@@ -17999,6 +21284,16 @@ class PersistentVolumeClaimConditionArgs:
                  reason: Optional[pulumi.Input[str]] = None):
         """
         PersistentVolumeClaimCondition contains details about state of pvc
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] last_probe_time: lastProbeTime is the time we probed the condition.
         :param pulumi.Input[str] last_transition_time: lastTransitionTime is the time the condition transitioned from one status to another.
         :param pulumi.Input[str] message: message is the human-readable message indicating details about last transition.
@@ -18086,6 +21381,15 @@ if not MYPY:
     class PersistentVolumeClaimPatchArgsDict(TypedDict):
         """
         PersistentVolumeClaim is a user's request for and claim to a persistent volume
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         api_version: NotRequired[pulumi.Input[str]]
         """
@@ -18120,6 +21424,16 @@ class PersistentVolumeClaimPatchArgs:
                  status: Optional[pulumi.Input['PersistentVolumeClaimStatusPatchArgs']] = None):
         """
         PersistentVolumeClaim is a user's request for and claim to a persistent volume
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaPatchArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -18202,6 +21516,15 @@ if not MYPY:
     class PersistentVolumeClaimSpecPatchArgsDict(TypedDict):
         """
         PersistentVolumeClaimSpec describes the common attributes of storage devices and allows a Source for provider-specific attributes
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         access_modes: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
         """
@@ -18263,6 +21586,16 @@ class PersistentVolumeClaimSpecPatchArgs:
                  volume_name: Optional[pulumi.Input[str]] = None):
         """
         PersistentVolumeClaimSpec describes the common attributes of storage devices and allows a Source for provider-specific attributes
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input[str]]] access_modes: accessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
         :param pulumi.Input['TypedLocalObjectReferencePatchArgs'] data_source: dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. When the AnyVolumeDataSource feature gate is enabled, dataSource contents will be copied to dataSourceRef, and dataSourceRef contents will be copied to dataSource when dataSourceRef.namespace is not specified. If the namespace is specified, then dataSourceRef will not be copied to dataSource.
         :param pulumi.Input['TypedObjectReferencePatchArgs'] data_source_ref: dataSourceRef specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the dataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, when namespace isn't specified in dataSourceRef, both fields (dataSource and dataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. When namespace is specified in dataSourceRef, dataSource isn't set to the same value and must be empty. There are three important differences between dataSource and dataSourceRef: * While dataSource only allows two specific types of objects, dataSourceRef
@@ -18419,6 +21752,15 @@ if not MYPY:
     class PersistentVolumeClaimSpecArgsDict(TypedDict):
         """
         PersistentVolumeClaimSpec describes the common attributes of storage devices and allows a Source for provider-specific attributes
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         access_modes: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
         """
@@ -18480,6 +21822,16 @@ class PersistentVolumeClaimSpecArgs:
                  volume_name: Optional[pulumi.Input[str]] = None):
         """
         PersistentVolumeClaimSpec describes the common attributes of storage devices and allows a Source for provider-specific attributes
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input[str]]] access_modes: accessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
         :param pulumi.Input['TypedLocalObjectReferenceArgs'] data_source: dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. When the AnyVolumeDataSource feature gate is enabled, dataSource contents will be copied to dataSourceRef, and dataSourceRef contents will be copied to dataSource when dataSourceRef.namespace is not specified. If the namespace is specified, then dataSourceRef will not be copied to dataSource.
         :param pulumi.Input['TypedObjectReferenceArgs'] data_source_ref: dataSourceRef specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the dataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, when namespace isn't specified in dataSourceRef, both fields (dataSource and dataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. When namespace is specified in dataSourceRef, dataSource isn't set to the same value and must be empty. There are three important differences between dataSource and dataSourceRef: * While dataSource only allows two specific types of objects, dataSourceRef
@@ -18636,6 +21988,15 @@ if not MYPY:
     class PersistentVolumeClaimStatusPatchArgsDict(TypedDict):
         """
         PersistentVolumeClaimStatus is the current status of a persistent volume claim.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         access_modes: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
         """
@@ -18729,6 +22090,16 @@ class PersistentVolumeClaimStatusPatchArgs:
                  resize_status: Optional[pulumi.Input[str]] = None):
         """
         PersistentVolumeClaimStatus is the current status of a persistent volume claim.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input[str]]] access_modes: accessModes contains the actual access modes the volume backing the PVC has. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] allocated_resource_statuses: allocatedResourceStatuses stores status of resource being resized for the given PVC. Key names follow standard Kubernetes label syntax. Valid values are either:
                	* Un-prefixed keys:
@@ -18949,6 +22320,15 @@ if not MYPY:
     class PersistentVolumeClaimStatusArgsDict(TypedDict):
         """
         PersistentVolumeClaimStatus is the current status of a persistent volume claim.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         access_modes: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
         """
@@ -19042,6 +22422,16 @@ class PersistentVolumeClaimStatusArgs:
                  resize_status: Optional[pulumi.Input[str]] = None):
         """
         PersistentVolumeClaimStatus is the current status of a persistent volume claim.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input[str]]] access_modes: accessModes contains the actual access modes the volume backing the PVC has. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] allocated_resource_statuses: allocatedResourceStatuses stores status of resource being resized for the given PVC. Key names follow standard Kubernetes label syntax. Valid values are either:
                	* Un-prefixed keys:
@@ -19262,6 +22652,15 @@ if not MYPY:
     class PersistentVolumeClaimTemplatePatchArgsDict(TypedDict):
         """
         PersistentVolumeClaimTemplate is used to produce PersistentVolumeClaim objects as part of an EphemeralVolumeSource.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaPatchArgsDict']]
         """
@@ -19281,6 +22680,16 @@ class PersistentVolumeClaimTemplatePatchArgs:
                  spec: Optional[pulumi.Input['PersistentVolumeClaimSpecPatchArgs']] = None):
         """
         PersistentVolumeClaimTemplate is used to produce PersistentVolumeClaim objects as part of an EphemeralVolumeSource.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['_meta.v1.ObjectMetaPatchArgs'] metadata: May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
         :param pulumi.Input['PersistentVolumeClaimSpecPatchArgs'] spec: The specification for the PersistentVolumeClaim. The entire content is copied unchanged into the PVC that gets created from this template. The same fields as in a PersistentVolumeClaim are also valid here.
         """
@@ -19318,6 +22727,15 @@ if not MYPY:
     class PersistentVolumeClaimTemplateArgsDict(TypedDict):
         """
         PersistentVolumeClaimTemplate is used to produce PersistentVolumeClaim objects as part of an EphemeralVolumeSource.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         spec: pulumi.Input['PersistentVolumeClaimSpecArgsDict']
         """
@@ -19337,6 +22755,16 @@ class PersistentVolumeClaimTemplateArgs:
                  metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None):
         """
         PersistentVolumeClaimTemplate is used to produce PersistentVolumeClaim objects as part of an EphemeralVolumeSource.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['PersistentVolumeClaimSpecArgs'] spec: The specification for the PersistentVolumeClaim. The entire content is copied unchanged into the PVC that gets created from this template. The same fields as in a PersistentVolumeClaim are also valid here.
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
         """
@@ -19373,6 +22801,15 @@ if not MYPY:
     class PersistentVolumeClaimVolumeSourcePatchArgsDict(TypedDict):
         """
         PersistentVolumeClaimVolumeSource references the user's PVC in the same namespace. This volume finds the bound PV and mounts that volume for the pod. A PersistentVolumeClaimVolumeSource is, essentially, a wrapper around another type of volume that is owned by someone else (the system).
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         claim_name: NotRequired[pulumi.Input[str]]
         """
@@ -19392,6 +22829,16 @@ class PersistentVolumeClaimVolumeSourcePatchArgs:
                  read_only: Optional[pulumi.Input[bool]] = None):
         """
         PersistentVolumeClaimVolumeSource references the user's PVC in the same namespace. This volume finds the bound PV and mounts that volume for the pod. A PersistentVolumeClaimVolumeSource is, essentially, a wrapper around another type of volume that is owned by someone else (the system).
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] claim_name: claimName is the name of a PersistentVolumeClaim in the same namespace as the pod using this volume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
         :param pulumi.Input[bool] read_only: readOnly Will force the ReadOnly setting in VolumeMounts. Default false.
         """
@@ -19429,6 +22876,15 @@ if not MYPY:
     class PersistentVolumeClaimVolumeSourceArgsDict(TypedDict):
         """
         PersistentVolumeClaimVolumeSource references the user's PVC in the same namespace. This volume finds the bound PV and mounts that volume for the pod. A PersistentVolumeClaimVolumeSource is, essentially, a wrapper around another type of volume that is owned by someone else (the system).
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         claim_name: pulumi.Input[str]
         """
@@ -19448,6 +22904,16 @@ class PersistentVolumeClaimVolumeSourceArgs:
                  read_only: Optional[pulumi.Input[bool]] = None):
         """
         PersistentVolumeClaimVolumeSource references the user's PVC in the same namespace. This volume finds the bound PV and mounts that volume for the pod. A PersistentVolumeClaimVolumeSource is, essentially, a wrapper around another type of volume that is owned by someone else (the system).
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] claim_name: claimName is the name of a PersistentVolumeClaim in the same namespace as the pod using this volume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
         :param pulumi.Input[bool] read_only: readOnly Will force the ReadOnly setting in VolumeMounts. Default false.
         """
@@ -19484,6 +22950,15 @@ if not MYPY:
     class PersistentVolumeClaimArgsDict(TypedDict):
         """
         PersistentVolumeClaim is a user's request for and claim to a persistent volume
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         api_version: NotRequired[pulumi.Input[str]]
         """
@@ -19518,6 +22993,16 @@ class PersistentVolumeClaimArgs:
                  status: Optional[pulumi.Input['PersistentVolumeClaimStatusArgs']] = None):
         """
         PersistentVolumeClaim is a user's request for and claim to a persistent volume
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -19600,6 +23085,15 @@ if not MYPY:
     class PersistentVolumeSpecPatchArgsDict(TypedDict):
         """
         PersistentVolumeSpec is the specification of a persistent volume.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         access_modes: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
         """
@@ -19764,6 +23258,16 @@ class PersistentVolumeSpecPatchArgs:
                  vsphere_volume: Optional[pulumi.Input['VsphereVirtualDiskVolumeSourcePatchArgs']] = None):
         """
         PersistentVolumeSpec is the specification of a persistent volume.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input[str]]] access_modes: accessModes contains all ways the volume can be mounted. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes
         :param pulumi.Input['AWSElasticBlockStoreVolumeSourcePatchArgs'] aws_elastic_block_store: awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
         :param pulumi.Input['AzureDiskVolumeSourcePatchArgs'] azure_disk: azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
@@ -20236,6 +23740,15 @@ if not MYPY:
     class PersistentVolumeSpecArgsDict(TypedDict):
         """
         PersistentVolumeSpec is the specification of a persistent volume.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         access_modes: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
         """
@@ -20400,6 +23913,16 @@ class PersistentVolumeSpecArgs:
                  vsphere_volume: Optional[pulumi.Input['VsphereVirtualDiskVolumeSourceArgs']] = None):
         """
         PersistentVolumeSpec is the specification of a persistent volume.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input[str]]] access_modes: accessModes contains all ways the volume can be mounted. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes
         :param pulumi.Input['AWSElasticBlockStoreVolumeSourceArgs'] aws_elastic_block_store: awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
         :param pulumi.Input['AzureDiskVolumeSourceArgs'] azure_disk: azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
@@ -20872,6 +24395,15 @@ if not MYPY:
     class PersistentVolumeStatusArgsDict(TypedDict):
         """
         PersistentVolumeStatus is the current status of a persistent volume.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         last_phase_transition_time: NotRequired[pulumi.Input[str]]
         """
@@ -20901,6 +24433,16 @@ class PersistentVolumeStatusArgs:
                  reason: Optional[pulumi.Input[str]] = None):
         """
         PersistentVolumeStatus is the current status of a persistent volume.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] last_phase_transition_time: lastPhaseTransitionTime is the time the phase transitioned from one to another and automatically resets to current time everytime a volume phase transitions. This is a beta field and requires the PersistentVolumeLastPhaseTransitionTime feature to be enabled (enabled by default).
         :param pulumi.Input[str] message: message is a human-readable message indicating details about why the volume is in this state.
         :param pulumi.Input[str] phase: phase indicates if a volume is available, bound to a claim, or released by a claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#phase
@@ -20968,6 +24510,15 @@ if not MYPY:
     class PersistentVolumeArgsDict(TypedDict):
         """
         PersistentVolume (PV) is a storage resource provisioned by an administrator. It is analogous to a node. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         api_version: NotRequired[pulumi.Input[str]]
         """
@@ -21002,6 +24553,16 @@ class PersistentVolumeArgs:
                  status: Optional[pulumi.Input['PersistentVolumeStatusArgs']] = None):
         """
         PersistentVolume (PV) is a storage resource provisioned by an administrator. It is analogous to a node. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -21084,6 +24645,15 @@ if not MYPY:
     class PhotonPersistentDiskVolumeSourcePatchArgsDict(TypedDict):
         """
         Represents a Photon Controller persistent disk resource.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         fs_type: NotRequired[pulumi.Input[str]]
         """
@@ -21103,6 +24673,16 @@ class PhotonPersistentDiskVolumeSourcePatchArgs:
                  pd_id: Optional[pulumi.Input[str]] = None):
         """
         Represents a Photon Controller persistent disk resource.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] fs_type: fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
         :param pulumi.Input[str] pd_id: pdID is the ID that identifies Photon Controller persistent disk
         """
@@ -21140,6 +24720,15 @@ if not MYPY:
     class PhotonPersistentDiskVolumeSourceArgsDict(TypedDict):
         """
         Represents a Photon Controller persistent disk resource.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         pd_id: pulumi.Input[str]
         """
@@ -21159,6 +24748,16 @@ class PhotonPersistentDiskVolumeSourceArgs:
                  fs_type: Optional[pulumi.Input[str]] = None):
         """
         Represents a Photon Controller persistent disk resource.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] pd_id: pdID is the ID that identifies Photon Controller persistent disk
         :param pulumi.Input[str] fs_type: fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
         """
@@ -21195,6 +24794,15 @@ if not MYPY:
     class PodAffinityPatchArgsDict(TypedDict):
         """
         Pod affinity is a group of inter pod affinity scheduling rules.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         preferred_during_scheduling_ignored_during_execution: NotRequired[pulumi.Input[Sequence[pulumi.Input['WeightedPodAffinityTermPatchArgsDict']]]]
         """
@@ -21214,6 +24822,16 @@ class PodAffinityPatchArgs:
                  required_during_scheduling_ignored_during_execution: Optional[pulumi.Input[Sequence[pulumi.Input['PodAffinityTermPatchArgs']]]] = None):
         """
         Pod affinity is a group of inter pod affinity scheduling rules.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input['WeightedPodAffinityTermPatchArgs']]] preferred_during_scheduling_ignored_during_execution: The scheduler will prefer to schedule pods to nodes that satisfy the affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
         :param pulumi.Input[Sequence[pulumi.Input['PodAffinityTermPatchArgs']]] required_during_scheduling_ignored_during_execution: If the affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to a pod label update), the system may or may not try to eventually evict the pod from its node. When there are multiple elements, the lists of nodes corresponding to each podAffinityTerm are intersected, i.e. all terms must be satisfied.
         """
@@ -21251,6 +24869,15 @@ if not MYPY:
     class PodAffinityTermPatchArgsDict(TypedDict):
         """
         Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key <topologyKey> matches that of any node on which a pod of the set of pods is running
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         label_selector: NotRequired[pulumi.Input['_meta.v1.LabelSelectorPatchArgsDict']]
         """
@@ -21290,6 +24917,16 @@ class PodAffinityTermPatchArgs:
                  topology_key: Optional[pulumi.Input[str]] = None):
         """
         Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key <topologyKey> matches that of any node on which a pod of the set of pods is running
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['_meta.v1.LabelSelectorPatchArgs'] label_selector: A label query over a set of resources, in this case pods. If it's null, this PodAffinityTerm matches with no Pods.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] match_label_keys: MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] mismatch_label_keys: MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
@@ -21387,6 +25024,15 @@ if not MYPY:
     class PodAffinityTermArgsDict(TypedDict):
         """
         Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key <topologyKey> matches that of any node on which a pod of the set of pods is running
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         topology_key: pulumi.Input[str]
         """
@@ -21426,6 +25072,16 @@ class PodAffinityTermArgs:
                  namespaces: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
         Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key <topologyKey> matches that of any node on which a pod of the set of pods is running
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] topology_key: This pod should be co-located (affinity) or not co-located (anti-affinity) with the pods matching the labelSelector in the specified namespaces, where co-located is defined as running on a node whose value of the label with key topologyKey matches that of any node on which any of the selected pods is running. Empty topologyKey is not allowed.
         :param pulumi.Input['_meta.v1.LabelSelectorArgs'] label_selector: A label query over a set of resources, in this case pods. If it's null, this PodAffinityTerm matches with no Pods.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] match_label_keys: MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.
@@ -21522,6 +25178,15 @@ if not MYPY:
     class PodAffinityArgsDict(TypedDict):
         """
         Pod affinity is a group of inter pod affinity scheduling rules.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         preferred_during_scheduling_ignored_during_execution: NotRequired[pulumi.Input[Sequence[pulumi.Input['WeightedPodAffinityTermArgsDict']]]]
         """
@@ -21541,6 +25206,16 @@ class PodAffinityArgs:
                  required_during_scheduling_ignored_during_execution: Optional[pulumi.Input[Sequence[pulumi.Input['PodAffinityTermArgs']]]] = None):
         """
         Pod affinity is a group of inter pod affinity scheduling rules.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input['WeightedPodAffinityTermArgs']]] preferred_during_scheduling_ignored_during_execution: The scheduler will prefer to schedule pods to nodes that satisfy the affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
         :param pulumi.Input[Sequence[pulumi.Input['PodAffinityTermArgs']]] required_during_scheduling_ignored_during_execution: If the affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to a pod label update), the system may or may not try to eventually evict the pod from its node. When there are multiple elements, the lists of nodes corresponding to each podAffinityTerm are intersected, i.e. all terms must be satisfied.
         """
@@ -21578,6 +25253,15 @@ if not MYPY:
     class PodAntiAffinityPatchArgsDict(TypedDict):
         """
         Pod anti affinity is a group of inter pod anti affinity scheduling rules.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         preferred_during_scheduling_ignored_during_execution: NotRequired[pulumi.Input[Sequence[pulumi.Input['WeightedPodAffinityTermPatchArgsDict']]]]
         """
@@ -21597,6 +25281,16 @@ class PodAntiAffinityPatchArgs:
                  required_during_scheduling_ignored_during_execution: Optional[pulumi.Input[Sequence[pulumi.Input['PodAffinityTermPatchArgs']]]] = None):
         """
         Pod anti affinity is a group of inter pod anti affinity scheduling rules.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input['WeightedPodAffinityTermPatchArgs']]] preferred_during_scheduling_ignored_during_execution: The scheduler will prefer to schedule pods to nodes that satisfy the anti-affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling anti-affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
         :param pulumi.Input[Sequence[pulumi.Input['PodAffinityTermPatchArgs']]] required_during_scheduling_ignored_during_execution: If the anti-affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the anti-affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to a pod label update), the system may or may not try to eventually evict the pod from its node. When there are multiple elements, the lists of nodes corresponding to each podAffinityTerm are intersected, i.e. all terms must be satisfied.
         """
@@ -21634,6 +25328,15 @@ if not MYPY:
     class PodAntiAffinityArgsDict(TypedDict):
         """
         Pod anti affinity is a group of inter pod anti affinity scheduling rules.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         preferred_during_scheduling_ignored_during_execution: NotRequired[pulumi.Input[Sequence[pulumi.Input['WeightedPodAffinityTermArgsDict']]]]
         """
@@ -21653,6 +25356,16 @@ class PodAntiAffinityArgs:
                  required_during_scheduling_ignored_during_execution: Optional[pulumi.Input[Sequence[pulumi.Input['PodAffinityTermArgs']]]] = None):
         """
         Pod anti affinity is a group of inter pod anti affinity scheduling rules.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input['WeightedPodAffinityTermArgs']]] preferred_during_scheduling_ignored_during_execution: The scheduler will prefer to schedule pods to nodes that satisfy the anti-affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling anti-affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
         :param pulumi.Input[Sequence[pulumi.Input['PodAffinityTermArgs']]] required_during_scheduling_ignored_during_execution: If the anti-affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the anti-affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to a pod label update), the system may or may not try to eventually evict the pod from its node. When there are multiple elements, the lists of nodes corresponding to each podAffinityTerm are intersected, i.e. all terms must be satisfied.
         """
@@ -21690,6 +25403,15 @@ if not MYPY:
     class PodConditionArgsDict(TypedDict):
         """
         PodCondition contains details for the current condition of this pod.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         status: pulumi.Input[str]
         """
@@ -21729,6 +25451,16 @@ class PodConditionArgs:
                  reason: Optional[pulumi.Input[str]] = None):
         """
         PodCondition contains details for the current condition of this pod.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] status: Status is the status of the condition. Can be True, False, Unknown. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
         :param pulumi.Input[str] type: Type is the type of the condition. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
         :param pulumi.Input[str] last_probe_time: Last time we probed the condition.
@@ -21824,6 +25556,15 @@ if not MYPY:
     class PodDNSConfigOptionPatchArgsDict(TypedDict):
         """
         PodDNSConfigOption defines DNS resolver options of a pod.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         name: NotRequired[pulumi.Input[str]]
         """
@@ -21840,6 +25581,16 @@ class PodDNSConfigOptionPatchArgs:
                  value: Optional[pulumi.Input[str]] = None):
         """
         PodDNSConfigOption defines DNS resolver options of a pod.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] name: Required.
         """
         if name is not None:
@@ -21873,6 +25624,15 @@ if not MYPY:
     class PodDNSConfigOptionArgsDict(TypedDict):
         """
         PodDNSConfigOption defines DNS resolver options of a pod.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         name: NotRequired[pulumi.Input[str]]
         """
@@ -21889,6 +25649,16 @@ class PodDNSConfigOptionArgs:
                  value: Optional[pulumi.Input[str]] = None):
         """
         PodDNSConfigOption defines DNS resolver options of a pod.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] name: Required.
         """
         if name is not None:
@@ -21922,6 +25692,15 @@ if not MYPY:
     class PodDNSConfigPatchArgsDict(TypedDict):
         """
         PodDNSConfig defines the DNS parameters of a pod in addition to those generated from DNSPolicy.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         nameservers: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
         """
@@ -21946,6 +25725,16 @@ class PodDNSConfigPatchArgs:
                  searches: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
         PodDNSConfig defines the DNS parameters of a pod in addition to those generated from DNSPolicy.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input[str]]] nameservers: A list of DNS name server IP addresses. This will be appended to the base nameservers generated from DNSPolicy. Duplicated nameservers will be removed.
         :param pulumi.Input[Sequence[pulumi.Input['PodDNSConfigOptionPatchArgs']]] options: A list of DNS resolver options. This will be merged with the base options generated from DNSPolicy. Duplicated entries will be removed. Resolution options given in Options will override those that appear in the base DNSPolicy.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] searches: A list of DNS search domains for host-name lookup. This will be appended to the base search paths generated from DNSPolicy. Duplicated search paths will be removed.
@@ -21998,6 +25787,15 @@ if not MYPY:
     class PodDNSConfigArgsDict(TypedDict):
         """
         PodDNSConfig defines the DNS parameters of a pod in addition to those generated from DNSPolicy.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         nameservers: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
         """
@@ -22022,6 +25820,16 @@ class PodDNSConfigArgs:
                  searches: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
         PodDNSConfig defines the DNS parameters of a pod in addition to those generated from DNSPolicy.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input[str]]] nameservers: A list of DNS name server IP addresses. This will be appended to the base nameservers generated from DNSPolicy. Duplicated nameservers will be removed.
         :param pulumi.Input[Sequence[pulumi.Input['PodDNSConfigOptionArgs']]] options: A list of DNS resolver options. This will be merged with the base options generated from DNSPolicy. Duplicated entries will be removed. Resolution options given in Options will override those that appear in the base DNSPolicy.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] searches: A list of DNS search domains for host-name lookup. This will be appended to the base search paths generated from DNSPolicy. Duplicated search paths will be removed.
@@ -22074,6 +25882,15 @@ if not MYPY:
     class PodIPArgsDict(TypedDict):
         """
         PodIP represents a single IP address allocated to the pod.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         ip: NotRequired[pulumi.Input[str]]
         """
@@ -22088,6 +25905,16 @@ class PodIPArgs:
                  ip: Optional[pulumi.Input[str]] = None):
         """
         PodIP represents a single IP address allocated to the pod.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] ip: IP is the IP address assigned to the pod
         """
         if ip is not None:
@@ -22110,6 +25937,15 @@ if not MYPY:
     class PodOSPatchArgsDict(TypedDict):
         """
         PodOS defines the OS parameters of a pod.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         name: NotRequired[pulumi.Input[str]]
         """
@@ -22124,6 +25960,16 @@ class PodOSPatchArgs:
                  name: Optional[pulumi.Input[str]] = None):
         """
         PodOS defines the OS parameters of a pod.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] name: Name is the name of the operating system. The currently supported values are linux and windows. Additional value may be defined in future and can be one of: https://github.com/opencontainers/runtime-spec/blob/master/config.md#platform-specific-configuration Clients should expect to handle additional values and treat unrecognized values in this field as os: null
         """
         if name is not None:
@@ -22146,6 +25992,15 @@ if not MYPY:
     class PodOSArgsDict(TypedDict):
         """
         PodOS defines the OS parameters of a pod.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         name: pulumi.Input[str]
         """
@@ -22160,6 +26015,16 @@ class PodOSArgs:
                  name: pulumi.Input[str]):
         """
         PodOS defines the OS parameters of a pod.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] name: Name is the name of the operating system. The currently supported values are linux and windows. Additional value may be defined in future and can be one of: https://github.com/opencontainers/runtime-spec/blob/master/config.md#platform-specific-configuration Clients should expect to handle additional values and treat unrecognized values in this field as os: null
         """
         pulumi.set(__self__, "name", name)
@@ -22181,6 +26046,15 @@ if not MYPY:
     class PodReadinessGatePatchArgsDict(TypedDict):
         """
         PodReadinessGate contains the reference to a pod condition
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         condition_type: NotRequired[pulumi.Input[str]]
         """
@@ -22195,6 +26069,16 @@ class PodReadinessGatePatchArgs:
                  condition_type: Optional[pulumi.Input[str]] = None):
         """
         PodReadinessGate contains the reference to a pod condition
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] condition_type: ConditionType refers to a condition in the pod's condition list with matching type.
         """
         if condition_type is not None:
@@ -22217,6 +26101,15 @@ if not MYPY:
     class PodReadinessGateArgsDict(TypedDict):
         """
         PodReadinessGate contains the reference to a pod condition
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         condition_type: pulumi.Input[str]
         """
@@ -22231,6 +26124,16 @@ class PodReadinessGateArgs:
                  condition_type: pulumi.Input[str]):
         """
         PodReadinessGate contains the reference to a pod condition
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] condition_type: ConditionType refers to a condition in the pod's condition list with matching type.
         """
         pulumi.set(__self__, "condition_type", condition_type)
@@ -22252,6 +26155,15 @@ if not MYPY:
     class PodResourceClaimPatchArgsDict(TypedDict):
         """
         PodResourceClaim references exactly one ResourceClaim through a ClaimSource. It adds a name to it that uniquely identifies the ResourceClaim inside the Pod. Containers that need access to the ResourceClaim reference it with this name.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         name: NotRequired[pulumi.Input[str]]
         """
@@ -22271,6 +26183,16 @@ class PodResourceClaimPatchArgs:
                  source: Optional[pulumi.Input['ClaimSourcePatchArgs']] = None):
         """
         PodResourceClaim references exactly one ResourceClaim through a ClaimSource. It adds a name to it that uniquely identifies the ResourceClaim inside the Pod. Containers that need access to the ResourceClaim reference it with this name.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] name: Name uniquely identifies this resource claim inside the pod. This must be a DNS_LABEL.
         :param pulumi.Input['ClaimSourcePatchArgs'] source: Source describes where to find the ResourceClaim.
         """
@@ -22308,6 +26230,15 @@ if not MYPY:
     class PodResourceClaimStatusArgsDict(TypedDict):
         """
         PodResourceClaimStatus is stored in the PodStatus for each PodResourceClaim which references a ResourceClaimTemplate. It stores the generated name for the corresponding ResourceClaim.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         name: pulumi.Input[str]
         """
@@ -22327,6 +26258,16 @@ class PodResourceClaimStatusArgs:
                  resource_claim_name: Optional[pulumi.Input[str]] = None):
         """
         PodResourceClaimStatus is stored in the PodStatus for each PodResourceClaim which references a ResourceClaimTemplate. It stores the generated name for the corresponding ResourceClaim.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] name: Name uniquely identifies this resource claim inside the pod. This must match the name of an entry in pod.spec.resourceClaims, which implies that the string must be a DNS_LABEL.
         :param pulumi.Input[str] resource_claim_name: ResourceClaimName is the name of the ResourceClaim that was generated for the Pod in the namespace of the Pod. It this is unset, then generating a ResourceClaim was not necessary. The pod.spec.resourceClaims entry can be ignored in this case.
         """
@@ -22363,6 +26304,15 @@ if not MYPY:
     class PodResourceClaimArgsDict(TypedDict):
         """
         PodResourceClaim references exactly one ResourceClaim through a ClaimSource. It adds a name to it that uniquely identifies the ResourceClaim inside the Pod. Containers that need access to the ResourceClaim reference it with this name.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         name: pulumi.Input[str]
         """
@@ -22382,6 +26332,16 @@ class PodResourceClaimArgs:
                  source: Optional[pulumi.Input['ClaimSourceArgs']] = None):
         """
         PodResourceClaim references exactly one ResourceClaim through a ClaimSource. It adds a name to it that uniquely identifies the ResourceClaim inside the Pod. Containers that need access to the ResourceClaim reference it with this name.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] name: Name uniquely identifies this resource claim inside the pod. This must be a DNS_LABEL.
         :param pulumi.Input['ClaimSourceArgs'] source: Source describes where to find the ResourceClaim.
         """
@@ -22418,6 +26378,15 @@ if not MYPY:
     class PodSchedulingGatePatchArgsDict(TypedDict):
         """
         PodSchedulingGate is associated to a Pod to guard its scheduling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         name: NotRequired[pulumi.Input[str]]
         """
@@ -22432,6 +26401,16 @@ class PodSchedulingGatePatchArgs:
                  name: Optional[pulumi.Input[str]] = None):
         """
         PodSchedulingGate is associated to a Pod to guard its scheduling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] name: Name of the scheduling gate. Each scheduling gate must have a unique name field.
         """
         if name is not None:
@@ -22454,6 +26433,15 @@ if not MYPY:
     class PodSchedulingGateArgsDict(TypedDict):
         """
         PodSchedulingGate is associated to a Pod to guard its scheduling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         name: pulumi.Input[str]
         """
@@ -22468,6 +26456,16 @@ class PodSchedulingGateArgs:
                  name: pulumi.Input[str]):
         """
         PodSchedulingGate is associated to a Pod to guard its scheduling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] name: Name of the scheduling gate. Each scheduling gate must have a unique name field.
         """
         pulumi.set(__self__, "name", name)
@@ -22489,6 +26487,15 @@ if not MYPY:
     class PodSecurityContextPatchArgsDict(TypedDict):
         """
         PodSecurityContext holds pod-level security attributes and common container settings. Some fields are also present in container.securityContext.  Field values of container.securityContext take precedence over field values of PodSecurityContext.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         app_armor_profile: NotRequired[pulumi.Input['AppArmorProfilePatchArgsDict']]
         """
@@ -22557,6 +26564,16 @@ class PodSecurityContextPatchArgs:
                  windows_options: Optional[pulumi.Input['WindowsSecurityContextOptionsPatchArgs']] = None):
         """
         PodSecurityContext holds pod-level security attributes and common container settings. Some fields are also present in container.securityContext.  Field values of container.securityContext take precedence over field values of PodSecurityContext.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['AppArmorProfilePatchArgs'] app_armor_profile: appArmorProfile is the AppArmor options to use by the containers in this pod. Note that this field cannot be set when spec.os.name is windows.
         :param pulumi.Input[int] fs_group: A special supplemental group that applies to all containers in a pod. Some volume types allow the Kubelet to change the ownership of that volume to be owned by the pod:
                
@@ -22737,6 +26754,15 @@ if not MYPY:
     class PodSecurityContextArgsDict(TypedDict):
         """
         PodSecurityContext holds pod-level security attributes and common container settings. Some fields are also present in container.securityContext.  Field values of container.securityContext take precedence over field values of PodSecurityContext.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         app_armor_profile: NotRequired[pulumi.Input['AppArmorProfileArgsDict']]
         """
@@ -22805,6 +26831,16 @@ class PodSecurityContextArgs:
                  windows_options: Optional[pulumi.Input['WindowsSecurityContextOptionsArgs']] = None):
         """
         PodSecurityContext holds pod-level security attributes and common container settings. Some fields are also present in container.securityContext.  Field values of container.securityContext take precedence over field values of PodSecurityContext.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['AppArmorProfileArgs'] app_armor_profile: appArmorProfile is the AppArmor options to use by the containers in this pod. Note that this field cannot be set when spec.os.name is windows.
         :param pulumi.Input[int] fs_group: A special supplemental group that applies to all containers in a pod. Some volume types allow the Kubelet to change the ownership of that volume to be owned by the pod:
                
@@ -22985,6 +27021,15 @@ if not MYPY:
     class PodSpecPatchArgsDict(TypedDict):
         """
         PodSpec is a description of a pod.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         active_deadline_seconds: NotRequired[pulumi.Input[int]]
         """
@@ -23199,6 +27244,16 @@ class PodSpecPatchArgs:
                  volumes: Optional[pulumi.Input[Sequence[pulumi.Input['VolumePatchArgs']]]] = None):
         """
         PodSpec is a description of a pod.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[int] active_deadline_seconds: Optional duration in seconds the pod may be active on the node relative to StartTime before the system will actively try to mark it failed and kill associated containers. Value must be a positive integer.
         :param pulumi.Input['AffinityPatchArgs'] affinity: If specified, the pod's scheduling constraints
         :param pulumi.Input[bool] automount_service_account_token: AutomountServiceAccountToken indicates whether a service account token should be automatically mounted.
@@ -23811,6 +27866,15 @@ if not MYPY:
     class PodSpecArgsDict(TypedDict):
         """
         PodSpec is a description of a pod.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         containers: pulumi.Input[Sequence[pulumi.Input['ContainerArgsDict']]]
         """
@@ -24025,6 +28089,16 @@ class PodSpecArgs:
                  volumes: Optional[pulumi.Input[Sequence[pulumi.Input['VolumeArgs']]]] = None):
         """
         PodSpec is a description of a pod.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input['ContainerArgs']]] containers: List of containers belonging to the pod. Containers cannot currently be added or removed. There must be at least one container in a Pod. Cannot be updated.
         :param pulumi.Input[int] active_deadline_seconds: Optional duration in seconds the pod may be active on the node relative to StartTime before the system will actively try to mark it failed and kill associated containers. Value must be a positive integer.
         :param pulumi.Input['AffinityArgs'] affinity: If specified, the pod's scheduling constraints
@@ -24636,6 +28710,15 @@ if not MYPY:
     class PodStatusArgsDict(TypedDict):
         """
         PodStatus represents information about the status of a pod. Status may trail the actual state of a system, especially if the node that hosts the pod cannot contact the control plane.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         conditions: NotRequired[pulumi.Input[Sequence[pulumi.Input['PodConditionArgsDict']]]]
         """
@@ -24729,6 +28812,16 @@ class PodStatusArgs:
                  start_time: Optional[pulumi.Input[str]] = None):
         """
         PodStatus represents information about the status of a pod. Status may trail the actual state of a system, especially if the node that hosts the pod cannot contact the control plane.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input['PodConditionArgs']]] conditions: Current service state of pod. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
         :param pulumi.Input[Sequence[pulumi.Input['ContainerStatusArgs']]] container_statuses: The list has one entry per container in the manifest. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
         :param pulumi.Input[Sequence[pulumi.Input['ContainerStatusArgs']]] ephemeral_container_statuses: Status for any ephemeral containers that have run in this pod.
@@ -24984,6 +29077,15 @@ if not MYPY:
     class PodTemplateSpecPatchArgsDict(TypedDict):
         """
         PodTemplateSpec describes the data a pod should have when created from a template
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaPatchArgsDict']]
         """
@@ -25003,6 +29105,16 @@ class PodTemplateSpecPatchArgs:
                  spec: Optional[pulumi.Input['PodSpecPatchArgs']] = None):
         """
         PodTemplateSpec describes the data a pod should have when created from a template
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['_meta.v1.ObjectMetaPatchArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param pulumi.Input['PodSpecPatchArgs'] spec: Specification of the desired behavior of the pod. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
@@ -25040,6 +29152,15 @@ if not MYPY:
     class PodTemplateSpecArgsDict(TypedDict):
         """
         PodTemplateSpec describes the data a pod should have when created from a template
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
         """
@@ -25059,6 +29180,16 @@ class PodTemplateSpecArgs:
                  spec: Optional[pulumi.Input['PodSpecArgs']] = None):
         """
         PodTemplateSpec describes the data a pod should have when created from a template
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param pulumi.Input['PodSpecArgs'] spec: Specification of the desired behavior of the pod. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
@@ -25096,6 +29227,15 @@ if not MYPY:
     class PodTemplateArgsDict(TypedDict):
         """
         PodTemplate describes a template for creating copies of a predefined pod.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         api_version: NotRequired[pulumi.Input[str]]
         """
@@ -25125,6 +29265,16 @@ class PodTemplateArgs:
                  template: Optional[pulumi.Input['PodTemplateSpecArgs']] = None):
         """
         PodTemplate describes a template for creating copies of a predefined pod.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -25336,6 +29486,18 @@ class PodArgs:
 
 if not MYPY:
     class PortStatusArgsDict(TypedDict):
+        """
+
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+        """
         port: pulumi.Input[int]
         """
         Port is the port number of the service port of which status is recorded here
@@ -25361,6 +29523,17 @@ class PortStatusArgs:
                  protocol: pulumi.Input[str],
                  error: Optional[pulumi.Input[str]] = None):
         """
+
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[int] port: Port is the port number of the service port of which status is recorded here
         :param pulumi.Input[str] protocol: Protocol is the protocol of the service port of which status is recorded here The supported values are: "TCP", "UDP", "SCTP"
         :param pulumi.Input[str] error: Error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
@@ -25417,6 +29590,15 @@ if not MYPY:
     class PortworxVolumeSourcePatchArgsDict(TypedDict):
         """
         PortworxVolumeSource represents a Portworx volume resource.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         fs_type: NotRequired[pulumi.Input[str]]
         """
@@ -25441,6 +29623,16 @@ class PortworxVolumeSourcePatchArgs:
                  volume_id: Optional[pulumi.Input[str]] = None):
         """
         PortworxVolumeSource represents a Portworx volume resource.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] fs_type: fSType represents the filesystem type to mount Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs". Implicitly inferred to be "ext4" if unspecified.
         :param pulumi.Input[bool] read_only: readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
         :param pulumi.Input[str] volume_id: volumeID uniquely identifies a Portworx volume
@@ -25493,6 +29685,15 @@ if not MYPY:
     class PortworxVolumeSourceArgsDict(TypedDict):
         """
         PortworxVolumeSource represents a Portworx volume resource.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         volume_id: pulumi.Input[str]
         """
@@ -25517,6 +29718,16 @@ class PortworxVolumeSourceArgs:
                  read_only: Optional[pulumi.Input[bool]] = None):
         """
         PortworxVolumeSource represents a Portworx volume resource.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] volume_id: volumeID uniquely identifies a Portworx volume
         :param pulumi.Input[str] fs_type: fSType represents the filesystem type to mount Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs". Implicitly inferred to be "ext4" if unspecified.
         :param pulumi.Input[bool] read_only: readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
@@ -25568,6 +29779,15 @@ if not MYPY:
     class PreferredSchedulingTermPatchArgsDict(TypedDict):
         """
         An empty preferred scheduling term matches all objects with implicit weight 0 (i.e. it's a no-op). A null preferred scheduling term matches no objects (i.e. is also a no-op).
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         preference: NotRequired[pulumi.Input['NodeSelectorTermPatchArgsDict']]
         """
@@ -25587,6 +29807,16 @@ class PreferredSchedulingTermPatchArgs:
                  weight: Optional[pulumi.Input[int]] = None):
         """
         An empty preferred scheduling term matches all objects with implicit weight 0 (i.e. it's a no-op). A null preferred scheduling term matches no objects (i.e. is also a no-op).
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['NodeSelectorTermPatchArgs'] preference: A node selector term, associated with the corresponding weight.
         :param pulumi.Input[int] weight: Weight associated with matching the corresponding nodeSelectorTerm, in the range 1-100.
         """
@@ -25624,6 +29854,15 @@ if not MYPY:
     class PreferredSchedulingTermArgsDict(TypedDict):
         """
         An empty preferred scheduling term matches all objects with implicit weight 0 (i.e. it's a no-op). A null preferred scheduling term matches no objects (i.e. is also a no-op).
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         preference: pulumi.Input['NodeSelectorTermArgsDict']
         """
@@ -25643,6 +29882,16 @@ class PreferredSchedulingTermArgs:
                  weight: pulumi.Input[int]):
         """
         An empty preferred scheduling term matches all objects with implicit weight 0 (i.e. it's a no-op). A null preferred scheduling term matches no objects (i.e. is also a no-op).
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['NodeSelectorTermArgs'] preference: A node selector term, associated with the corresponding weight.
         :param pulumi.Input[int] weight: Weight associated with matching the corresponding nodeSelectorTerm, in the range 1-100.
         """
@@ -25678,6 +29927,15 @@ if not MYPY:
     class ProbePatchArgsDict(TypedDict):
         """
         Probe describes a health check to be performed against a container to determine whether it is alive or ready to receive traffic.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         exec_: NotRequired[pulumi.Input['ExecActionPatchArgsDict']]
         """
@@ -25737,6 +29995,16 @@ class ProbePatchArgs:
                  timeout_seconds: Optional[pulumi.Input[int]] = None):
         """
         Probe describes a health check to be performed against a container to determine whether it is alive or ready to receive traffic.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['ExecActionPatchArgs'] exec_: Exec specifies the action to take.
         :param pulumi.Input[int] failure_threshold: Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
         :param pulumi.Input['GRPCActionPatchArgs'] grpc: GRPC specifies an action involving a GRPC port.
@@ -25894,6 +30162,15 @@ if not MYPY:
     class ProbeArgsDict(TypedDict):
         """
         Probe describes a health check to be performed against a container to determine whether it is alive or ready to receive traffic.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         exec_: NotRequired[pulumi.Input['ExecActionArgsDict']]
         """
@@ -25953,6 +30230,16 @@ class ProbeArgs:
                  timeout_seconds: Optional[pulumi.Input[int]] = None):
         """
         Probe describes a health check to be performed against a container to determine whether it is alive or ready to receive traffic.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['ExecActionArgs'] exec_: Exec specifies the action to take.
         :param pulumi.Input[int] failure_threshold: Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
         :param pulumi.Input['GRPCActionArgs'] grpc: GRPC specifies an action involving a GRPC port.
@@ -26110,6 +30397,15 @@ if not MYPY:
     class ProjectedVolumeSourcePatchArgsDict(TypedDict):
         """
         Represents a projected volume source
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         default_mode: NotRequired[pulumi.Input[int]]
         """
@@ -26129,6 +30425,16 @@ class ProjectedVolumeSourcePatchArgs:
                  sources: Optional[pulumi.Input[Sequence[pulumi.Input['VolumeProjectionPatchArgs']]]] = None):
         """
         Represents a projected volume source
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[int] default_mode: defaultMode are the mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
         :param pulumi.Input[Sequence[pulumi.Input['VolumeProjectionPatchArgs']]] sources: sources is the list of volume projections
         """
@@ -26166,6 +30472,15 @@ if not MYPY:
     class ProjectedVolumeSourceArgsDict(TypedDict):
         """
         Represents a projected volume source
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         sources: pulumi.Input[Sequence[pulumi.Input['VolumeProjectionArgsDict']]]
         """
@@ -26185,6 +30500,16 @@ class ProjectedVolumeSourceArgs:
                  default_mode: Optional[pulumi.Input[int]] = None):
         """
         Represents a projected volume source
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input['VolumeProjectionArgs']]] sources: sources is the list of volume projections
         :param pulumi.Input[int] default_mode: defaultMode are the mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
         """
@@ -26221,6 +30546,15 @@ if not MYPY:
     class QuobyteVolumeSourcePatchArgsDict(TypedDict):
         """
         Represents a Quobyte mount that lasts the lifetime of a pod. Quobyte volumes do not support ownership management or SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         group: NotRequired[pulumi.Input[str]]
         """
@@ -26260,6 +30594,16 @@ class QuobyteVolumeSourcePatchArgs:
                  volume: Optional[pulumi.Input[str]] = None):
         """
         Represents a Quobyte mount that lasts the lifetime of a pod. Quobyte volumes do not support ownership management or SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] group: group to map volume access to Default is no group
         :param pulumi.Input[bool] read_only: readOnly here will force the Quobyte volume to be mounted with read-only permissions. Defaults to false.
         :param pulumi.Input[str] registry: registry represents a single or multiple Quobyte Registry services specified as a string as host:port pair (multiple entries are separated with commas) which acts as the central registry for volumes
@@ -26357,6 +30701,15 @@ if not MYPY:
     class QuobyteVolumeSourceArgsDict(TypedDict):
         """
         Represents a Quobyte mount that lasts the lifetime of a pod. Quobyte volumes do not support ownership management or SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         registry: pulumi.Input[str]
         """
@@ -26396,6 +30749,16 @@ class QuobyteVolumeSourceArgs:
                  user: Optional[pulumi.Input[str]] = None):
         """
         Represents a Quobyte mount that lasts the lifetime of a pod. Quobyte volumes do not support ownership management or SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] registry: registry represents a single or multiple Quobyte Registry services specified as a string as host:port pair (multiple entries are separated with commas) which acts as the central registry for volumes
         :param pulumi.Input[str] volume: volume is a string that references an already created Quobyte volume by name.
         :param pulumi.Input[str] group: group to map volume access to Default is no group
@@ -26491,6 +30854,15 @@ if not MYPY:
     class RBDPersistentVolumeSourcePatchArgsDict(TypedDict):
         """
         Represents a Rados Block Device mount that lasts the lifetime of a pod. RBD volumes support ownership management and SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         fs_type: NotRequired[pulumi.Input[str]]
         """
@@ -26540,6 +30912,16 @@ class RBDPersistentVolumeSourcePatchArgs:
                  user: Optional[pulumi.Input[str]] = None):
         """
         Represents a Rados Block Device mount that lasts the lifetime of a pod. RBD volumes support ownership management and SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] fs_type: fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#rbd
         :param pulumi.Input[str] image: image is the rados image name. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
         :param pulumi.Input[str] keyring: keyring is the path to key ring for RBDUser. Default is /etc/ceph/keyring. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
@@ -26667,6 +31049,15 @@ if not MYPY:
     class RBDPersistentVolumeSourceArgsDict(TypedDict):
         """
         Represents a Rados Block Device mount that lasts the lifetime of a pod. RBD volumes support ownership management and SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         image: pulumi.Input[str]
         """
@@ -26716,6 +31107,16 @@ class RBDPersistentVolumeSourceArgs:
                  user: Optional[pulumi.Input[str]] = None):
         """
         Represents a Rados Block Device mount that lasts the lifetime of a pod. RBD volumes support ownership management and SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] image: image is the rados image name. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
         :param pulumi.Input[Sequence[pulumi.Input[str]]] monitors: monitors is a collection of Ceph monitors. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
         :param pulumi.Input[str] fs_type: fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#rbd
@@ -26841,6 +31242,15 @@ if not MYPY:
     class RBDVolumeSourcePatchArgsDict(TypedDict):
         """
         Represents a Rados Block Device mount that lasts the lifetime of a pod. RBD volumes support ownership management and SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         fs_type: NotRequired[pulumi.Input[str]]
         """
@@ -26890,6 +31300,16 @@ class RBDVolumeSourcePatchArgs:
                  user: Optional[pulumi.Input[str]] = None):
         """
         Represents a Rados Block Device mount that lasts the lifetime of a pod. RBD volumes support ownership management and SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] fs_type: fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#rbd
         :param pulumi.Input[str] image: image is the rados image name. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
         :param pulumi.Input[str] keyring: keyring is the path to key ring for RBDUser. Default is /etc/ceph/keyring. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
@@ -27017,6 +31437,15 @@ if not MYPY:
     class RBDVolumeSourceArgsDict(TypedDict):
         """
         Represents a Rados Block Device mount that lasts the lifetime of a pod. RBD volumes support ownership management and SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         image: pulumi.Input[str]
         """
@@ -27066,6 +31495,16 @@ class RBDVolumeSourceArgs:
                  user: Optional[pulumi.Input[str]] = None):
         """
         Represents a Rados Block Device mount that lasts the lifetime of a pod. RBD volumes support ownership management and SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] image: image is the rados image name. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
         :param pulumi.Input[Sequence[pulumi.Input[str]]] monitors: monitors is a collection of Ceph monitors. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
         :param pulumi.Input[str] fs_type: fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#rbd
@@ -27191,6 +31630,15 @@ if not MYPY:
     class ReplicationControllerConditionArgsDict(TypedDict):
         """
         ReplicationControllerCondition describes the state of a replication controller at a certain point.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         status: pulumi.Input[str]
         """
@@ -27225,6 +31673,16 @@ class ReplicationControllerConditionArgs:
                  reason: Optional[pulumi.Input[str]] = None):
         """
         ReplicationControllerCondition describes the state of a replication controller at a certain point.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] status: Status of the condition, one of True, False, Unknown.
         :param pulumi.Input[str] type: Type of replication controller condition.
         :param pulumi.Input[str] last_transition_time: The last time the condition transitioned from one status to another.
@@ -27305,6 +31763,15 @@ if not MYPY:
     class ReplicationControllerSpecPatchArgsDict(TypedDict):
         """
         ReplicationControllerSpec is the specification of a replication controller.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         min_ready_seconds: NotRequired[pulumi.Input[int]]
         """
@@ -27334,6 +31801,16 @@ class ReplicationControllerSpecPatchArgs:
                  template: Optional[pulumi.Input['PodTemplateSpecPatchArgs']] = None):
         """
         ReplicationControllerSpec is the specification of a replication controller.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[int] min_ready_seconds: Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
         :param pulumi.Input[int] replicas: Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#what-is-a-replicationcontroller
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] selector: Selector is a label query over pods that should match the Replicas count. If Selector is empty, it is defaulted to the labels present on the Pod template. Label keys and values that must match in order to be controlled by this replication controller, if empty defaulted to labels on Pod template. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
@@ -27401,6 +31878,15 @@ if not MYPY:
     class ReplicationControllerSpecArgsDict(TypedDict):
         """
         ReplicationControllerSpec is the specification of a replication controller.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         min_ready_seconds: NotRequired[pulumi.Input[int]]
         """
@@ -27430,6 +31916,16 @@ class ReplicationControllerSpecArgs:
                  template: Optional[pulumi.Input['PodTemplateSpecArgs']] = None):
         """
         ReplicationControllerSpec is the specification of a replication controller.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[int] min_ready_seconds: Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
         :param pulumi.Input[int] replicas: Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#what-is-a-replicationcontroller
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] selector: Selector is a label query over pods that should match the Replicas count. If Selector is empty, it is defaulted to the labels present on the Pod template. Label keys and values that must match in order to be controlled by this replication controller, if empty defaulted to labels on Pod template. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
@@ -27497,6 +31993,15 @@ if not MYPY:
     class ReplicationControllerStatusArgsDict(TypedDict):
         """
         ReplicationControllerStatus represents the current status of a replication controller.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         replicas: pulumi.Input[int]
         """
@@ -27536,6 +32041,16 @@ class ReplicationControllerStatusArgs:
                  ready_replicas: Optional[pulumi.Input[int]] = None):
         """
         ReplicationControllerStatus represents the current status of a replication controller.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[int] replicas: Replicas is the most recently observed number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#what-is-a-replicationcontroller
         :param pulumi.Input[int] available_replicas: The number of available replicas (ready for at least minReadySeconds) for this replication controller.
         :param pulumi.Input[Sequence[pulumi.Input['ReplicationControllerConditionArgs']]] conditions: Represents the latest available observations of a replication controller's current state.
@@ -27632,6 +32147,15 @@ if not MYPY:
     class ReplicationControllerArgsDict(TypedDict):
         """
         ReplicationController represents the configuration of a replication controller.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         api_version: NotRequired[pulumi.Input[str]]
         """
@@ -27666,6 +32190,16 @@ class ReplicationControllerArgs:
                  status: Optional[pulumi.Input['ReplicationControllerStatusArgs']] = None):
         """
         ReplicationController represents the configuration of a replication controller.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: If the Labels of a ReplicationController are empty, they are defaulted to be the same as the Pod(s) that the replication controller manages. Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -27748,6 +32282,15 @@ if not MYPY:
     class ResourceClaimPatchArgsDict(TypedDict):
         """
         ResourceClaim references one entry in PodSpec.ResourceClaims.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         name: NotRequired[pulumi.Input[str]]
         """
@@ -27762,6 +32305,16 @@ class ResourceClaimPatchArgs:
                  name: Optional[pulumi.Input[str]] = None):
         """
         ResourceClaim references one entry in PodSpec.ResourceClaims.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] name: Name must match the name of one entry in pod.spec.resourceClaims of the Pod where this field is used. It makes that resource available inside a container.
         """
         if name is not None:
@@ -27784,6 +32337,15 @@ if not MYPY:
     class ResourceClaimArgsDict(TypedDict):
         """
         ResourceClaim references one entry in PodSpec.ResourceClaims.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         name: pulumi.Input[str]
         """
@@ -27798,6 +32360,16 @@ class ResourceClaimArgs:
                  name: pulumi.Input[str]):
         """
         ResourceClaim references one entry in PodSpec.ResourceClaims.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] name: Name must match the name of one entry in pod.spec.resourceClaims of the Pod where this field is used. It makes that resource available inside a container.
         """
         pulumi.set(__self__, "name", name)
@@ -27819,6 +32391,15 @@ if not MYPY:
     class ResourceFieldSelectorPatchArgsDict(TypedDict):
         """
         ResourceFieldSelector represents container resources (cpu, memory) and their output format
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         container_name: NotRequired[pulumi.Input[str]]
         """
@@ -27843,6 +32424,16 @@ class ResourceFieldSelectorPatchArgs:
                  resource: Optional[pulumi.Input[str]] = None):
         """
         ResourceFieldSelector represents container resources (cpu, memory) and their output format
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] container_name: Container name: required for volumes, optional for env vars
         :param pulumi.Input[str] divisor: Specifies the output format of the exposed resources, defaults to "1"
         :param pulumi.Input[str] resource: Required: resource to select
@@ -27895,6 +32486,15 @@ if not MYPY:
     class ResourceFieldSelectorArgsDict(TypedDict):
         """
         ResourceFieldSelector represents container resources (cpu, memory) and their output format
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         resource: pulumi.Input[str]
         """
@@ -27919,6 +32519,16 @@ class ResourceFieldSelectorArgs:
                  divisor: Optional[pulumi.Input[str]] = None):
         """
         ResourceFieldSelector represents container resources (cpu, memory) and their output format
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] resource: Required: resource to select
         :param pulumi.Input[str] container_name: Container name: required for volumes, optional for env vars
         :param pulumi.Input[str] divisor: Specifies the output format of the exposed resources, defaults to "1"
@@ -27970,6 +32580,15 @@ if not MYPY:
     class ResourceQuotaSpecPatchArgsDict(TypedDict):
         """
         ResourceQuotaSpec defines the desired hard limits to enforce for Quota.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         hard: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[str]]]]
         """
@@ -27994,6 +32613,16 @@ class ResourceQuotaSpecPatchArgs:
                  scopes: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
         ResourceQuotaSpec defines the desired hard limits to enforce for Quota.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] hard: hard is the set of desired hard limits for each named resource. More info: https://kubernetes.io/docs/concepts/policy/resource-quotas/
         :param pulumi.Input['ScopeSelectorPatchArgs'] scope_selector: scopeSelector is also a collection of filters like scopes that must match each object tracked by a quota but expressed using ScopeSelectorOperator in combination with possible values. For a resource to match, both scopes AND scopeSelector (if specified in spec), must be matched.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] scopes: A collection of filters that must match each object tracked by a quota. If not specified, the quota matches all objects.
@@ -28046,6 +32675,15 @@ if not MYPY:
     class ResourceQuotaSpecArgsDict(TypedDict):
         """
         ResourceQuotaSpec defines the desired hard limits to enforce for Quota.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         hard: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[str]]]]
         """
@@ -28070,6 +32708,16 @@ class ResourceQuotaSpecArgs:
                  scopes: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
         ResourceQuotaSpec defines the desired hard limits to enforce for Quota.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] hard: hard is the set of desired hard limits for each named resource. More info: https://kubernetes.io/docs/concepts/policy/resource-quotas/
         :param pulumi.Input['ScopeSelectorArgs'] scope_selector: scopeSelector is also a collection of filters like scopes that must match each object tracked by a quota but expressed using ScopeSelectorOperator in combination with possible values. For a resource to match, both scopes AND scopeSelector (if specified in spec), must be matched.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] scopes: A collection of filters that must match each object tracked by a quota. If not specified, the quota matches all objects.
@@ -28122,6 +32770,15 @@ if not MYPY:
     class ResourceQuotaStatusArgsDict(TypedDict):
         """
         ResourceQuotaStatus defines the enforced hard limits and observed use.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         hard: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[str]]]]
         """
@@ -28141,6 +32798,16 @@ class ResourceQuotaStatusArgs:
                  used: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None):
         """
         ResourceQuotaStatus defines the enforced hard limits and observed use.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] hard: Hard is the set of enforced hard limits for each named resource. More info: https://kubernetes.io/docs/concepts/policy/resource-quotas/
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] used: Used is the current observed total usage of the resource in the namespace.
         """
@@ -28178,6 +32845,15 @@ if not MYPY:
     class ResourceQuotaArgsDict(TypedDict):
         """
         ResourceQuota sets aggregate quota restrictions enforced per namespace
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         api_version: NotRequired[pulumi.Input[str]]
         """
@@ -28212,6 +32888,16 @@ class ResourceQuotaArgs:
                  status: Optional[pulumi.Input['ResourceQuotaStatusArgs']] = None):
         """
         ResourceQuota sets aggregate quota restrictions enforced per namespace
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -28294,6 +32980,15 @@ if not MYPY:
     class ResourceRequirementsPatchArgsDict(TypedDict):
         """
         ResourceRequirements describes the compute resource requirements.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         claims: NotRequired[pulumi.Input[Sequence[pulumi.Input['ResourceClaimPatchArgsDict']]]]
         """
@@ -28322,6 +33017,16 @@ class ResourceRequirementsPatchArgs:
                  requests: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None):
         """
         ResourceRequirements describes the compute resource requirements.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input['ResourceClaimPatchArgs']]] claims: Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
                
                This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
@@ -28382,6 +33087,15 @@ if not MYPY:
     class ResourceRequirementsArgsDict(TypedDict):
         """
         ResourceRequirements describes the compute resource requirements.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         claims: NotRequired[pulumi.Input[Sequence[pulumi.Input['ResourceClaimArgsDict']]]]
         """
@@ -28410,6 +33124,16 @@ class ResourceRequirementsArgs:
                  requests: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None):
         """
         ResourceRequirements describes the compute resource requirements.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input['ResourceClaimArgs']]] claims: Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
                
                This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
@@ -28470,6 +33194,15 @@ if not MYPY:
     class SELinuxOptionsPatchArgsDict(TypedDict):
         """
         SELinuxOptions are the labels to be applied to the container
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         level: NotRequired[pulumi.Input[str]]
         """
@@ -28499,6 +33232,16 @@ class SELinuxOptionsPatchArgs:
                  user: Optional[pulumi.Input[str]] = None):
         """
         SELinuxOptions are the labels to be applied to the container
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] level: Level is SELinux level label that applies to the container.
         :param pulumi.Input[str] role: Role is a SELinux role label that applies to the container.
         :param pulumi.Input[str] type: Type is a SELinux type label that applies to the container.
@@ -28566,6 +33309,15 @@ if not MYPY:
     class SELinuxOptionsArgsDict(TypedDict):
         """
         SELinuxOptions are the labels to be applied to the container
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         level: NotRequired[pulumi.Input[str]]
         """
@@ -28595,6 +33347,16 @@ class SELinuxOptionsArgs:
                  user: Optional[pulumi.Input[str]] = None):
         """
         SELinuxOptions are the labels to be applied to the container
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] level: Level is SELinux level label that applies to the container.
         :param pulumi.Input[str] role: Role is a SELinux role label that applies to the container.
         :param pulumi.Input[str] type: Type is a SELinux type label that applies to the container.
@@ -28662,6 +33424,15 @@ if not MYPY:
     class ScaleIOPersistentVolumeSourcePatchArgsDict(TypedDict):
         """
         ScaleIOPersistentVolumeSource represents a persistent ScaleIO volume
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         fs_type: NotRequired[pulumi.Input[str]]
         """
@@ -28721,6 +33492,16 @@ class ScaleIOPersistentVolumeSourcePatchArgs:
                  volume_name: Optional[pulumi.Input[str]] = None):
         """
         ScaleIOPersistentVolumeSource represents a persistent ScaleIO volume
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] fs_type: fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Default is "xfs"
         :param pulumi.Input[str] gateway: gateway is the host address of the ScaleIO API Gateway.
         :param pulumi.Input[str] protection_domain: protectionDomain is the name of the ScaleIO Protection Domain for the configured storage.
@@ -28878,6 +33659,15 @@ if not MYPY:
     class ScaleIOPersistentVolumeSourceArgsDict(TypedDict):
         """
         ScaleIOPersistentVolumeSource represents a persistent ScaleIO volume
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         gateway: pulumi.Input[str]
         """
@@ -28937,6 +33727,16 @@ class ScaleIOPersistentVolumeSourceArgs:
                  volume_name: Optional[pulumi.Input[str]] = None):
         """
         ScaleIOPersistentVolumeSource represents a persistent ScaleIO volume
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] gateway: gateway is the host address of the ScaleIO API Gateway.
         :param pulumi.Input['SecretReferenceArgs'] secret_ref: secretRef references to the secret for ScaleIO user and other sensitive information. If this is not provided, Login operation will fail.
         :param pulumi.Input[str] system: system is the name of the storage system as configured in ScaleIO.
@@ -29091,6 +33891,15 @@ if not MYPY:
     class ScaleIOVolumeSourcePatchArgsDict(TypedDict):
         """
         ScaleIOVolumeSource represents a persistent ScaleIO volume
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         fs_type: NotRequired[pulumi.Input[str]]
         """
@@ -29150,6 +33959,16 @@ class ScaleIOVolumeSourcePatchArgs:
                  volume_name: Optional[pulumi.Input[str]] = None):
         """
         ScaleIOVolumeSource represents a persistent ScaleIO volume
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] fs_type: fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Default is "xfs".
         :param pulumi.Input[str] gateway: gateway is the host address of the ScaleIO API Gateway.
         :param pulumi.Input[str] protection_domain: protectionDomain is the name of the ScaleIO Protection Domain for the configured storage.
@@ -29307,6 +34126,15 @@ if not MYPY:
     class ScaleIOVolumeSourceArgsDict(TypedDict):
         """
         ScaleIOVolumeSource represents a persistent ScaleIO volume
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         gateway: pulumi.Input[str]
         """
@@ -29366,6 +34194,16 @@ class ScaleIOVolumeSourceArgs:
                  volume_name: Optional[pulumi.Input[str]] = None):
         """
         ScaleIOVolumeSource represents a persistent ScaleIO volume
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] gateway: gateway is the host address of the ScaleIO API Gateway.
         :param pulumi.Input['LocalObjectReferenceArgs'] secret_ref: secretRef references to the secret for ScaleIO user and other sensitive information. If this is not provided, Login operation will fail.
         :param pulumi.Input[str] system: system is the name of the storage system as configured in ScaleIO.
@@ -29520,6 +34358,15 @@ if not MYPY:
     class ScopeSelectorPatchArgsDict(TypedDict):
         """
         A scope selector represents the AND of the selectors represented by the scoped-resource selector requirements.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         match_expressions: NotRequired[pulumi.Input[Sequence[pulumi.Input['ScopedResourceSelectorRequirementPatchArgsDict']]]]
         """
@@ -29534,6 +34381,16 @@ class ScopeSelectorPatchArgs:
                  match_expressions: Optional[pulumi.Input[Sequence[pulumi.Input['ScopedResourceSelectorRequirementPatchArgs']]]] = None):
         """
         A scope selector represents the AND of the selectors represented by the scoped-resource selector requirements.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input['ScopedResourceSelectorRequirementPatchArgs']]] match_expressions: A list of scope selector requirements by scope of the resources.
         """
         if match_expressions is not None:
@@ -29556,6 +34413,15 @@ if not MYPY:
     class ScopeSelectorArgsDict(TypedDict):
         """
         A scope selector represents the AND of the selectors represented by the scoped-resource selector requirements.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         match_expressions: NotRequired[pulumi.Input[Sequence[pulumi.Input['ScopedResourceSelectorRequirementArgsDict']]]]
         """
@@ -29570,6 +34436,16 @@ class ScopeSelectorArgs:
                  match_expressions: Optional[pulumi.Input[Sequence[pulumi.Input['ScopedResourceSelectorRequirementArgs']]]] = None):
         """
         A scope selector represents the AND of the selectors represented by the scoped-resource selector requirements.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input['ScopedResourceSelectorRequirementArgs']]] match_expressions: A list of scope selector requirements by scope of the resources.
         """
         if match_expressions is not None:
@@ -29592,6 +34468,15 @@ if not MYPY:
     class ScopedResourceSelectorRequirementPatchArgsDict(TypedDict):
         """
         A scoped-resource selector requirement is a selector that contains values, a scope name, and an operator that relates the scope name and values.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         operator: NotRequired[pulumi.Input[str]]
         """
@@ -29616,6 +34501,16 @@ class ScopedResourceSelectorRequirementPatchArgs:
                  values: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
         A scoped-resource selector requirement is a selector that contains values, a scope name, and an operator that relates the scope name and values.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] operator: Represents a scope's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist.
         :param pulumi.Input[str] scope_name: The name of the scope that the selector applies to.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] values: An array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch.
@@ -29668,6 +34563,15 @@ if not MYPY:
     class ScopedResourceSelectorRequirementArgsDict(TypedDict):
         """
         A scoped-resource selector requirement is a selector that contains values, a scope name, and an operator that relates the scope name and values.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         operator: pulumi.Input[str]
         """
@@ -29692,6 +34596,16 @@ class ScopedResourceSelectorRequirementArgs:
                  values: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
         A scoped-resource selector requirement is a selector that contains values, a scope name, and an operator that relates the scope name and values.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] operator: Represents a scope's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist.
         :param pulumi.Input[str] scope_name: The name of the scope that the selector applies to.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] values: An array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch.
@@ -29742,6 +34656,15 @@ if not MYPY:
     class SeccompProfilePatchArgsDict(TypedDict):
         """
         SeccompProfile defines a pod/container's seccomp profile settings. Only one profile source may be set.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         localhost_profile: NotRequired[pulumi.Input[str]]
         """
@@ -29763,6 +34686,16 @@ class SeccompProfilePatchArgs:
                  type: Optional[pulumi.Input[str]] = None):
         """
         SeccompProfile defines a pod/container's seccomp profile settings. Only one profile source may be set.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] localhost_profile: localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must be set if type is "Localhost". Must NOT be set for any other type.
         :param pulumi.Input[str] type: type indicates which kind of seccomp profile will be applied. Valid options are:
                
@@ -29804,6 +34737,15 @@ if not MYPY:
     class SeccompProfileArgsDict(TypedDict):
         """
         SeccompProfile defines a pod/container's seccomp profile settings. Only one profile source may be set.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         type: pulumi.Input[str]
         """
@@ -29825,6 +34767,16 @@ class SeccompProfileArgs:
                  localhost_profile: Optional[pulumi.Input[str]] = None):
         """
         SeccompProfile defines a pod/container's seccomp profile settings. Only one profile source may be set.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] type: type indicates which kind of seccomp profile will be applied. Valid options are:
                
                Localhost - a profile defined in a file on the node should be used. RuntimeDefault - the container runtime default profile should be used. Unconfined - no profile should be applied.
@@ -29867,6 +34819,15 @@ if not MYPY:
         SecretEnvSource selects a Secret to populate the environment variables with.
 
         The contents of the target Secret's Data field will represent the key-value pairs as environment variables.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         name: NotRequired[pulumi.Input[str]]
         """
@@ -29888,6 +34849,16 @@ class SecretEnvSourcePatchArgs:
         SecretEnvSource selects a Secret to populate the environment variables with.
 
         The contents of the target Secret's Data field will represent the key-value pairs as environment variables.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] name: Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
         :param pulumi.Input[bool] optional: Specify whether the Secret must be defined
         """
@@ -29927,6 +34898,15 @@ if not MYPY:
         SecretEnvSource selects a Secret to populate the environment variables with.
 
         The contents of the target Secret's Data field will represent the key-value pairs as environment variables.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         name: NotRequired[pulumi.Input[str]]
         """
@@ -29948,6 +34928,16 @@ class SecretEnvSourceArgs:
         SecretEnvSource selects a Secret to populate the environment variables with.
 
         The contents of the target Secret's Data field will represent the key-value pairs as environment variables.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] name: Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
         :param pulumi.Input[bool] optional: Specify whether the Secret must be defined
         """
@@ -29985,6 +34975,15 @@ if not MYPY:
     class SecretKeySelectorPatchArgsDict(TypedDict):
         """
         SecretKeySelector selects a key of a Secret.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         key: NotRequired[pulumi.Input[str]]
         """
@@ -30009,6 +35008,16 @@ class SecretKeySelectorPatchArgs:
                  optional: Optional[pulumi.Input[bool]] = None):
         """
         SecretKeySelector selects a key of a Secret.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] key: The key of the secret to select from.  Must be a valid secret key.
         :param pulumi.Input[str] name: Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
         :param pulumi.Input[bool] optional: Specify whether the Secret or its key must be defined
@@ -30061,6 +35070,15 @@ if not MYPY:
     class SecretKeySelectorArgsDict(TypedDict):
         """
         SecretKeySelector selects a key of a Secret.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         key: pulumi.Input[str]
         """
@@ -30085,6 +35103,16 @@ class SecretKeySelectorArgs:
                  optional: Optional[pulumi.Input[bool]] = None):
         """
         SecretKeySelector selects a key of a Secret.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] key: The key of the secret to select from.  Must be a valid secret key.
         :param pulumi.Input[str] name: Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
         :param pulumi.Input[bool] optional: Specify whether the Secret or its key must be defined
@@ -30138,6 +35166,15 @@ if not MYPY:
         Adapts a secret into a projected volume.
 
         The contents of the target Secret's Data field will be presented in a projected volume as files using the keys in the Data field as the file names. Note that this is identical to a secret volume source without the default mode.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         items: NotRequired[pulumi.Input[Sequence[pulumi.Input['KeyToPathPatchArgsDict']]]]
         """
@@ -30164,6 +35201,16 @@ class SecretProjectionPatchArgs:
         Adapts a secret into a projected volume.
 
         The contents of the target Secret's Data field will be presented in a projected volume as files using the keys in the Data field as the file names. Note that this is identical to a secret volume source without the default mode.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input['KeyToPathPatchArgs']]] items: items if unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
         :param pulumi.Input[str] name: Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
         :param pulumi.Input[bool] optional: optional field specify whether the Secret or its key must be defined
@@ -30218,6 +35265,15 @@ if not MYPY:
         Adapts a secret into a projected volume.
 
         The contents of the target Secret's Data field will be presented in a projected volume as files using the keys in the Data field as the file names. Note that this is identical to a secret volume source without the default mode.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         items: NotRequired[pulumi.Input[Sequence[pulumi.Input['KeyToPathArgsDict']]]]
         """
@@ -30244,6 +35300,16 @@ class SecretProjectionArgs:
         Adapts a secret into a projected volume.
 
         The contents of the target Secret's Data field will be presented in a projected volume as files using the keys in the Data field as the file names. Note that this is identical to a secret volume source without the default mode.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input['KeyToPathArgs']]] items: items if unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
         :param pulumi.Input[str] name: Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
         :param pulumi.Input[bool] optional: optional field specify whether the Secret or its key must be defined
@@ -30296,6 +35362,15 @@ if not MYPY:
     class SecretReferencePatchArgsDict(TypedDict):
         """
         SecretReference represents a Secret Reference. It has enough information to retrieve secret in any namespace
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         name: NotRequired[pulumi.Input[str]]
         """
@@ -30315,6 +35390,16 @@ class SecretReferencePatchArgs:
                  namespace: Optional[pulumi.Input[str]] = None):
         """
         SecretReference represents a Secret Reference. It has enough information to retrieve secret in any namespace
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] name: name is unique within a namespace to reference a secret resource.
         :param pulumi.Input[str] namespace: namespace defines the space within which the secret name must be unique.
         """
@@ -30352,6 +35437,15 @@ if not MYPY:
     class SecretReferenceArgsDict(TypedDict):
         """
         SecretReference represents a Secret Reference. It has enough information to retrieve secret in any namespace
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         name: NotRequired[pulumi.Input[str]]
         """
@@ -30371,6 +35465,16 @@ class SecretReferenceArgs:
                  namespace: Optional[pulumi.Input[str]] = None):
         """
         SecretReference represents a Secret Reference. It has enough information to retrieve secret in any namespace
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] name: name is unique within a namespace to reference a secret resource.
         :param pulumi.Input[str] namespace: namespace defines the space within which the secret name must be unique.
         """
@@ -30410,6 +35514,15 @@ if not MYPY:
         Adapts a Secret into a volume.
 
         The contents of the target Secret's Data field will be presented in a volume as files using the keys in the Data field as the file names. Secret volumes support ownership management and SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         default_mode: NotRequired[pulumi.Input[int]]
         """
@@ -30441,6 +35554,16 @@ class SecretVolumeSourcePatchArgs:
         Adapts a Secret into a volume.
 
         The contents of the target Secret's Data field will be presented in a volume as files using the keys in the Data field as the file names. Secret volumes support ownership management and SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[int] default_mode: defaultMode is Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
         :param pulumi.Input[Sequence[pulumi.Input['KeyToPathPatchArgs']]] items: items If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
         :param pulumi.Input[bool] optional: optional field specify whether the Secret or its keys must be defined
@@ -30510,6 +35633,15 @@ if not MYPY:
         Adapts a Secret into a volume.
 
         The contents of the target Secret's Data field will be presented in a volume as files using the keys in the Data field as the file names. Secret volumes support ownership management and SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         default_mode: NotRequired[pulumi.Input[int]]
         """
@@ -30541,6 +35673,16 @@ class SecretVolumeSourceArgs:
         Adapts a Secret into a volume.
 
         The contents of the target Secret's Data field will be presented in a volume as files using the keys in the Data field as the file names. Secret volumes support ownership management and SELinux relabeling.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[int] default_mode: defaultMode is Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
         :param pulumi.Input[Sequence[pulumi.Input['KeyToPathArgs']]] items: items If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
         :param pulumi.Input[bool] optional: optional field specify whether the Secret or its keys must be defined
@@ -30784,6 +35926,15 @@ if not MYPY:
     class SecurityContextPatchArgsDict(TypedDict):
         """
         SecurityContext holds security configuration that will be applied to a container. Some fields are present in both SecurityContext and PodSecurityContext.  When both are set, the values in SecurityContext take precedence.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         allow_privilege_escalation: NotRequired[pulumi.Input[bool]]
         """
@@ -30853,6 +36004,16 @@ class SecurityContextPatchArgs:
                  windows_options: Optional[pulumi.Input['WindowsSecurityContextOptionsPatchArgs']] = None):
         """
         SecurityContext holds security configuration that will be applied to a container. Some fields are present in both SecurityContext and PodSecurityContext.  When both are set, the values in SecurityContext take precedence.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[bool] allow_privilege_escalation: AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent process. This bool directly controls if the no_new_privs flag will be set on the container process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged 2) has CAP_SYS_ADMIN Note that this field cannot be set when spec.os.name is windows.
         :param pulumi.Input['AppArmorProfilePatchArgs'] app_armor_profile: appArmorProfile is the AppArmor options to use by this container. If set, this profile overrides the pod's appArmorProfile. Note that this field cannot be set when spec.os.name is windows.
         :param pulumi.Input['CapabilitiesPatchArgs'] capabilities: The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime. Note that this field cannot be set when spec.os.name is windows.
@@ -31040,6 +36201,15 @@ if not MYPY:
     class SecurityContextArgsDict(TypedDict):
         """
         SecurityContext holds security configuration that will be applied to a container. Some fields are present in both SecurityContext and PodSecurityContext.  When both are set, the values in SecurityContext take precedence.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         allow_privilege_escalation: NotRequired[pulumi.Input[bool]]
         """
@@ -31109,6 +36279,16 @@ class SecurityContextArgs:
                  windows_options: Optional[pulumi.Input['WindowsSecurityContextOptionsArgs']] = None):
         """
         SecurityContext holds security configuration that will be applied to a container. Some fields are present in both SecurityContext and PodSecurityContext.  When both are set, the values in SecurityContext take precedence.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[bool] allow_privilege_escalation: AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent process. This bool directly controls if the no_new_privs flag will be set on the container process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged 2) has CAP_SYS_ADMIN Note that this field cannot be set when spec.os.name is windows.
         :param pulumi.Input['AppArmorProfileArgs'] app_armor_profile: appArmorProfile is the AppArmor options to use by this container. If set, this profile overrides the pod's appArmorProfile. Note that this field cannot be set when spec.os.name is windows.
         :param pulumi.Input['CapabilitiesArgs'] capabilities: The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime. Note that this field cannot be set when spec.os.name is windows.
@@ -31296,6 +36476,15 @@ if not MYPY:
     class ServiceAccountTokenProjectionPatchArgsDict(TypedDict):
         """
         ServiceAccountTokenProjection represents a projected service account token volume. This projection can be used to insert a service account token into the pods runtime filesystem for use against APIs (Kubernetes API Server or otherwise).
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         audience: NotRequired[pulumi.Input[str]]
         """
@@ -31320,6 +36509,16 @@ class ServiceAccountTokenProjectionPatchArgs:
                  path: Optional[pulumi.Input[str]] = None):
         """
         ServiceAccountTokenProjection represents a projected service account token volume. This projection can be used to insert a service account token into the pods runtime filesystem for use against APIs (Kubernetes API Server or otherwise).
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] audience: audience is the intended audience of the token. A recipient of a token must identify itself with an identifier specified in the audience of the token, and otherwise should reject the token. The audience defaults to the identifier of the apiserver.
         :param pulumi.Input[int] expiration_seconds: expirationSeconds is the requested duration of validity of the service account token. As the token approaches expiration, the kubelet volume plugin will proactively rotate the service account token. The kubelet will start trying to rotate the token if the token is older than 80 percent of its time to live or if the token is older than 24 hours.Defaults to 1 hour and must be at least 10 minutes.
         :param pulumi.Input[str] path: path is the path relative to the mount point of the file to project the token into.
@@ -31372,6 +36571,15 @@ if not MYPY:
     class ServiceAccountTokenProjectionArgsDict(TypedDict):
         """
         ServiceAccountTokenProjection represents a projected service account token volume. This projection can be used to insert a service account token into the pods runtime filesystem for use against APIs (Kubernetes API Server or otherwise).
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         path: pulumi.Input[str]
         """
@@ -31396,6 +36604,16 @@ class ServiceAccountTokenProjectionArgs:
                  expiration_seconds: Optional[pulumi.Input[int]] = None):
         """
         ServiceAccountTokenProjection represents a projected service account token volume. This projection can be used to insert a service account token into the pods runtime filesystem for use against APIs (Kubernetes API Server or otherwise).
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] path: path is the path relative to the mount point of the file to project the token into.
         :param pulumi.Input[str] audience: audience is the intended audience of the token. A recipient of a token must identify itself with an identifier specified in the audience of the token, and otherwise should reject the token. The audience defaults to the identifier of the apiserver.
         :param pulumi.Input[int] expiration_seconds: expirationSeconds is the requested duration of validity of the service account token. As the token approaches expiration, the kubelet volume plugin will proactively rotate the service account token. The kubelet will start trying to rotate the token if the token is older than 80 percent of its time to live or if the token is older than 24 hours.Defaults to 1 hour and must be at least 10 minutes.
@@ -31447,6 +36665,15 @@ if not MYPY:
     class ServiceAccountArgsDict(TypedDict):
         """
         ServiceAccount binds together: * a name, understood by users, and perhaps by peripheral systems, for an identity * a principal that can be authenticated and authorized * a set of secrets
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         api_version: NotRequired[pulumi.Input[str]]
         """
@@ -31486,6 +36713,16 @@ class ServiceAccountArgs:
                  secrets: Optional[pulumi.Input[Sequence[pulumi.Input['ObjectReferenceArgs']]]] = None):
         """
         ServiceAccount binds together: * a name, understood by users, and perhaps by peripheral systems, for an identity * a principal that can be authenticated and authorized * a set of secrets
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[bool] automount_service_account_token: AutomountServiceAccountToken indicates whether pods running as this service account should have an API token automatically mounted. Can be overridden at the pod level.
         :param pulumi.Input[Sequence[pulumi.Input['LocalObjectReferenceArgs']]] image_pull_secrets: ImagePullSecrets is a list of references to secrets in the same namespace to use for pulling any images in pods that reference this ServiceAccount. ImagePullSecrets are distinct from Secrets because Secrets can be mounted in the pod, but ImagePullSecrets are only accessed by the kubelet. More info: https://kubernetes.io/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod
@@ -31583,6 +36820,15 @@ if not MYPY:
     class ServicePortPatchArgsDict(TypedDict):
         """
         ServicePort contains information on service's port.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         app_protocol: NotRequired[pulumi.Input[str]]
         """
@@ -31631,6 +36877,16 @@ class ServicePortPatchArgs:
                  target_port: Optional[pulumi.Input[Union[int, str]]] = None):
         """
         ServicePort contains information on service's port.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] app_protocol: The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are either:
                
                * Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).
@@ -31746,6 +37002,15 @@ if not MYPY:
     class ServicePortArgsDict(TypedDict):
         """
         ServicePort contains information on service's port.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         port: pulumi.Input[int]
         """
@@ -31794,6 +37059,16 @@ class ServicePortArgs:
                  target_port: Optional[pulumi.Input[Union[int, str]]] = None):
         """
         ServicePort contains information on service's port.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[int] port: The port that will be exposed by this service.
         :param pulumi.Input[str] app_protocol: The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are either:
                
@@ -31908,6 +37183,15 @@ if not MYPY:
     class ServiceSpecPatchArgsDict(TypedDict):
         """
         ServiceSpec describes the attributes that a user creates on a service.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         allocate_load_balancer_node_ports: NotRequired[pulumi.Input[bool]]
         """
@@ -32031,6 +37315,16 @@ class ServiceSpecPatchArgs:
                  type: Optional[pulumi.Input[Union[str, 'ServiceSpecType']]] = None):
         """
         ServiceSpec describes the attributes that a user creates on a service.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[bool] allocate_load_balancer_node_ports: allocateLoadBalancerNodePorts defines if NodePorts will be automatically allocated for services with type LoadBalancer.  Default is "true". It may be set to "false" if the cluster load-balancer does not rely on NodePorts.  If the caller requests specific NodePorts (by specifying a value), those requests will be respected, regardless of this field. This field may only be set for services with type LoadBalancer and will be cleared if the type is changed to any other type.
         :param pulumi.Input[str] cluster_ip: clusterIP is the IP address of the service and is usually assigned randomly. If an address is specified manually, is in-range (as per system configuration), and is not in use, it will be allocated to the service; otherwise creation of the service will fail. This field may not be changed through updates unless the type field is also being changed to ExternalName (which requires this field to be blank) or the type field is being changed from ExternalName (in which case this field may optionally be specified, as describe above).  Valid values are "None", empty string (""), or a valid IP address. Setting this to "None" makes a "headless service" (no virtual IP), which is useful when direct endpoint connections are preferred and proxying is not required.  Only applies to types ClusterIP, NodePort, and LoadBalancer. If this field is specified when creating a Service of type ExternalName, creation will fail. This field will be wiped when updating a Service to type ExternalName. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
         :param pulumi.Input[Sequence[pulumi.Input[str]]] cluster_ips: ClusterIPs is a list of IP addresses assigned to this service, and are usually assigned randomly.  If an address is specified manually, is in-range (as per system configuration), and is not in use, it will be allocated to the service; otherwise creation of the service will fail. This field may not be changed through updates unless the type field is also being changed to ExternalName (which requires this field to be empty) or the type field is being changed from ExternalName (in which case this field may optionally be specified, as describe above).  Valid values are "None", empty string (""), or a valid IP address.  Setting this to "None" makes a "headless service" (no virtual IP), which is useful when direct endpoint connections are preferred and proxying is not required.  Only applies to types ClusterIP, NodePort, and LoadBalancer. If this field is specified when creating a Service of type ExternalName, creation will fail. This field will be wiped when updating a Service to type ExternalName.  If this field is not specified, it will be initialized from the clusterIP field.  If this field is specified, clients must ensure that clusterIPs[0] and clusterIP have the same value.
@@ -32376,6 +37670,15 @@ if not MYPY:
     class ServiceSpecArgsDict(TypedDict):
         """
         ServiceSpec describes the attributes that a user creates on a service.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         allocate_load_balancer_node_ports: NotRequired[pulumi.Input[bool]]
         """
@@ -32499,6 +37802,16 @@ class ServiceSpecArgs:
                  type: Optional[pulumi.Input[Union[str, 'ServiceSpecType']]] = None):
         """
         ServiceSpec describes the attributes that a user creates on a service.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[bool] allocate_load_balancer_node_ports: allocateLoadBalancerNodePorts defines if NodePorts will be automatically allocated for services with type LoadBalancer.  Default is "true". It may be set to "false" if the cluster load-balancer does not rely on NodePorts.  If the caller requests specific NodePorts (by specifying a value), those requests will be respected, regardless of this field. This field may only be set for services with type LoadBalancer and will be cleared if the type is changed to any other type.
         :param pulumi.Input[str] cluster_ip: clusterIP is the IP address of the service and is usually assigned randomly. If an address is specified manually, is in-range (as per system configuration), and is not in use, it will be allocated to the service; otherwise creation of the service will fail. This field may not be changed through updates unless the type field is also being changed to ExternalName (which requires this field to be blank) or the type field is being changed from ExternalName (in which case this field may optionally be specified, as describe above).  Valid values are "None", empty string (""), or a valid IP address. Setting this to "None" makes a "headless service" (no virtual IP), which is useful when direct endpoint connections are preferred and proxying is not required.  Only applies to types ClusterIP, NodePort, and LoadBalancer. If this field is specified when creating a Service of type ExternalName, creation will fail. This field will be wiped when updating a Service to type ExternalName. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
         :param pulumi.Input[Sequence[pulumi.Input[str]]] cluster_ips: ClusterIPs is a list of IP addresses assigned to this service, and are usually assigned randomly.  If an address is specified manually, is in-range (as per system configuration), and is not in use, it will be allocated to the service; otherwise creation of the service will fail. This field may not be changed through updates unless the type field is also being changed to ExternalName (which requires this field to be empty) or the type field is being changed from ExternalName (in which case this field may optionally be specified, as describe above).  Valid values are "None", empty string (""), or a valid IP address.  Setting this to "None" makes a "headless service" (no virtual IP), which is useful when direct endpoint connections are preferred and proxying is not required.  Only applies to types ClusterIP, NodePort, and LoadBalancer. If this field is specified when creating a Service of type ExternalName, creation will fail. This field will be wiped when updating a Service to type ExternalName.  If this field is not specified, it will be initialized from the clusterIP field.  If this field is specified, clients must ensure that clusterIPs[0] and clusterIP have the same value.
@@ -32844,6 +38157,15 @@ if not MYPY:
     class ServiceStatusArgsDict(TypedDict):
         """
         ServiceStatus represents the current status of a service.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         conditions: NotRequired[pulumi.Input[Sequence[pulumi.Input['_meta.v1.ConditionArgsDict']]]]
         """
@@ -32863,6 +38185,16 @@ class ServiceStatusArgs:
                  load_balancer: Optional[pulumi.Input['LoadBalancerStatusArgs']] = None):
         """
         ServiceStatus represents the current status of a service.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]] conditions: Current service state
         :param pulumi.Input['LoadBalancerStatusArgs'] load_balancer: LoadBalancer contains the current status of the load-balancer, if one is present.
         """
@@ -33066,6 +38398,15 @@ if not MYPY:
     class SessionAffinityConfigPatchArgsDict(TypedDict):
         """
         SessionAffinityConfig represents the configurations of session affinity.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         client_ip: NotRequired[pulumi.Input['ClientIPConfigPatchArgsDict']]
         """
@@ -33080,6 +38421,16 @@ class SessionAffinityConfigPatchArgs:
                  client_ip: Optional[pulumi.Input['ClientIPConfigPatchArgs']] = None):
         """
         SessionAffinityConfig represents the configurations of session affinity.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['ClientIPConfigPatchArgs'] client_ip: clientIP contains the configurations of Client IP based session affinity.
         """
         if client_ip is not None:
@@ -33102,6 +38453,15 @@ if not MYPY:
     class SessionAffinityConfigArgsDict(TypedDict):
         """
         SessionAffinityConfig represents the configurations of session affinity.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         client_ip: NotRequired[pulumi.Input['ClientIPConfigArgsDict']]
         """
@@ -33116,6 +38476,16 @@ class SessionAffinityConfigArgs:
                  client_ip: Optional[pulumi.Input['ClientIPConfigArgs']] = None):
         """
         SessionAffinityConfig represents the configurations of session affinity.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['ClientIPConfigArgs'] client_ip: clientIP contains the configurations of Client IP based session affinity.
         """
         if client_ip is not None:
@@ -33138,6 +38508,15 @@ if not MYPY:
     class SleepActionPatchArgsDict(TypedDict):
         """
         SleepAction describes a "sleep" action.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         seconds: NotRequired[pulumi.Input[int]]
         """
@@ -33152,6 +38531,16 @@ class SleepActionPatchArgs:
                  seconds: Optional[pulumi.Input[int]] = None):
         """
         SleepAction describes a "sleep" action.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[int] seconds: Seconds is the number of seconds to sleep.
         """
         if seconds is not None:
@@ -33174,6 +38563,15 @@ if not MYPY:
     class SleepActionArgsDict(TypedDict):
         """
         SleepAction describes a "sleep" action.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         seconds: pulumi.Input[int]
         """
@@ -33188,6 +38586,16 @@ class SleepActionArgs:
                  seconds: pulumi.Input[int]):
         """
         SleepAction describes a "sleep" action.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[int] seconds: Seconds is the number of seconds to sleep.
         """
         pulumi.set(__self__, "seconds", seconds)
@@ -33209,6 +38617,15 @@ if not MYPY:
     class StorageOSPersistentVolumeSourcePatchArgsDict(TypedDict):
         """
         Represents a StorageOS persistent volume resource.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         fs_type: NotRequired[pulumi.Input[str]]
         """
@@ -33243,6 +38660,16 @@ class StorageOSPersistentVolumeSourcePatchArgs:
                  volume_namespace: Optional[pulumi.Input[str]] = None):
         """
         Represents a StorageOS persistent volume resource.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] fs_type: fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
         :param pulumi.Input[bool] read_only: readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
         :param pulumi.Input['ObjectReferencePatchArgs'] secret_ref: secretRef specifies the secret to use for obtaining the StorageOS API credentials.  If not specified, default values will be attempted.
@@ -33325,6 +38752,15 @@ if not MYPY:
     class StorageOSPersistentVolumeSourceArgsDict(TypedDict):
         """
         Represents a StorageOS persistent volume resource.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         fs_type: NotRequired[pulumi.Input[str]]
         """
@@ -33359,6 +38795,16 @@ class StorageOSPersistentVolumeSourceArgs:
                  volume_namespace: Optional[pulumi.Input[str]] = None):
         """
         Represents a StorageOS persistent volume resource.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] fs_type: fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
         :param pulumi.Input[bool] read_only: readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
         :param pulumi.Input['ObjectReferenceArgs'] secret_ref: secretRef specifies the secret to use for obtaining the StorageOS API credentials.  If not specified, default values will be attempted.
@@ -33441,6 +38887,15 @@ if not MYPY:
     class StorageOSVolumeSourcePatchArgsDict(TypedDict):
         """
         Represents a StorageOS persistent volume resource.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         fs_type: NotRequired[pulumi.Input[str]]
         """
@@ -33475,6 +38930,16 @@ class StorageOSVolumeSourcePatchArgs:
                  volume_namespace: Optional[pulumi.Input[str]] = None):
         """
         Represents a StorageOS persistent volume resource.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] fs_type: fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
         :param pulumi.Input[bool] read_only: readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
         :param pulumi.Input['LocalObjectReferencePatchArgs'] secret_ref: secretRef specifies the secret to use for obtaining the StorageOS API credentials.  If not specified, default values will be attempted.
@@ -33557,6 +39022,15 @@ if not MYPY:
     class StorageOSVolumeSourceArgsDict(TypedDict):
         """
         Represents a StorageOS persistent volume resource.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         fs_type: NotRequired[pulumi.Input[str]]
         """
@@ -33591,6 +39065,16 @@ class StorageOSVolumeSourceArgs:
                  volume_namespace: Optional[pulumi.Input[str]] = None):
         """
         Represents a StorageOS persistent volume resource.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] fs_type: fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
         :param pulumi.Input[bool] read_only: readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
         :param pulumi.Input['LocalObjectReferenceArgs'] secret_ref: secretRef specifies the secret to use for obtaining the StorageOS API credentials.  If not specified, default values will be attempted.
@@ -33673,6 +39157,15 @@ if not MYPY:
     class SysctlPatchArgsDict(TypedDict):
         """
         Sysctl defines a kernel parameter to be set
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         name: NotRequired[pulumi.Input[str]]
         """
@@ -33692,6 +39185,16 @@ class SysctlPatchArgs:
                  value: Optional[pulumi.Input[str]] = None):
         """
         Sysctl defines a kernel parameter to be set
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] name: Name of a property to set
         :param pulumi.Input[str] value: Value of a property to set
         """
@@ -33729,6 +39232,15 @@ if not MYPY:
     class SysctlArgsDict(TypedDict):
         """
         Sysctl defines a kernel parameter to be set
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         name: pulumi.Input[str]
         """
@@ -33748,6 +39260,16 @@ class SysctlArgs:
                  value: pulumi.Input[str]):
         """
         Sysctl defines a kernel parameter to be set
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] name: Name of a property to set
         :param pulumi.Input[str] value: Value of a property to set
         """
@@ -33783,6 +39305,15 @@ if not MYPY:
     class TCPSocketActionPatchArgsDict(TypedDict):
         """
         TCPSocketAction describes an action based on opening a socket
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         host: NotRequired[pulumi.Input[str]]
         """
@@ -33802,6 +39333,16 @@ class TCPSocketActionPatchArgs:
                  port: Optional[pulumi.Input[Union[int, str]]] = None):
         """
         TCPSocketAction describes an action based on opening a socket
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] host: Optional: Host name to connect to, defaults to the pod IP.
         :param pulumi.Input[Union[int, str]] port: Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
         """
@@ -33839,6 +39380,15 @@ if not MYPY:
     class TCPSocketActionArgsDict(TypedDict):
         """
         TCPSocketAction describes an action based on opening a socket
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         port: pulumi.Input[Union[int, str]]
         """
@@ -33858,6 +39408,16 @@ class TCPSocketActionArgs:
                  host: Optional[pulumi.Input[str]] = None):
         """
         TCPSocketAction describes an action based on opening a socket
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Union[int, str]] port: Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
         :param pulumi.Input[str] host: Optional: Host name to connect to, defaults to the pod IP.
         """
@@ -33894,6 +39454,15 @@ if not MYPY:
     class TaintPatchArgsDict(TypedDict):
         """
         The node this Taint is attached to has the "effect" on any pod that does not tolerate the Taint.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         effect: NotRequired[pulumi.Input[str]]
         """
@@ -33923,6 +39492,16 @@ class TaintPatchArgs:
                  value: Optional[pulumi.Input[str]] = None):
         """
         The node this Taint is attached to has the "effect" on any pod that does not tolerate the Taint.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] effect: Required. The effect of the taint on pods that do not tolerate the taint. Valid effects are NoSchedule, PreferNoSchedule and NoExecute.
         :param pulumi.Input[str] key: Required. The taint key to be applied to a node.
         :param pulumi.Input[str] time_added: TimeAdded represents the time at which the taint was added. It is only written for NoExecute taints.
@@ -33990,6 +39569,15 @@ if not MYPY:
     class TaintArgsDict(TypedDict):
         """
         The node this Taint is attached to has the "effect" on any pod that does not tolerate the Taint.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         effect: pulumi.Input[str]
         """
@@ -34019,6 +39607,16 @@ class TaintArgs:
                  value: Optional[pulumi.Input[str]] = None):
         """
         The node this Taint is attached to has the "effect" on any pod that does not tolerate the Taint.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] effect: Required. The effect of the taint on pods that do not tolerate the taint. Valid effects are NoSchedule, PreferNoSchedule and NoExecute.
         :param pulumi.Input[str] key: Required. The taint key to be applied to a node.
         :param pulumi.Input[str] time_added: TimeAdded represents the time at which the taint was added. It is only written for NoExecute taints.
@@ -34084,6 +39682,15 @@ if not MYPY:
     class TolerationPatchArgsDict(TypedDict):
         """
         The pod this Toleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         effect: NotRequired[pulumi.Input[str]]
         """
@@ -34118,6 +39725,16 @@ class TolerationPatchArgs:
                  value: Optional[pulumi.Input[str]] = None):
         """
         The pod this Toleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] effect: Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute.
         :param pulumi.Input[str] key: Key is the taint key that the toleration applies to. Empty means match all taint keys. If the key is empty, operator must be Exists; this combination means to match all values and all keys.
         :param pulumi.Input[str] operator: Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a pod can tolerate all taints of a particular category.
@@ -34200,6 +39817,15 @@ if not MYPY:
     class TolerationArgsDict(TypedDict):
         """
         The pod this Toleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         effect: NotRequired[pulumi.Input[str]]
         """
@@ -34234,6 +39860,16 @@ class TolerationArgs:
                  value: Optional[pulumi.Input[str]] = None):
         """
         The pod this Toleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] effect: Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute.
         :param pulumi.Input[str] key: Key is the taint key that the toleration applies to. Empty means match all taint keys. If the key is empty, operator must be Exists; this combination means to match all values and all keys.
         :param pulumi.Input[str] operator: Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a pod can tolerate all taints of a particular category.
@@ -34316,6 +39952,15 @@ if not MYPY:
     class TopologySelectorLabelRequirementPatchArgsDict(TypedDict):
         """
         A topology selector requirement is a selector that matches given label. This is an alpha feature and may change in the future.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         key: NotRequired[pulumi.Input[str]]
         """
@@ -34335,6 +39980,16 @@ class TopologySelectorLabelRequirementPatchArgs:
                  values: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
         A topology selector requirement is a selector that matches given label. This is an alpha feature and may change in the future.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] key: The label key that the selector applies to.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] values: An array of string values. One value must match the label to be selected. Each entry in Values is ORed.
         """
@@ -34372,6 +40027,15 @@ if not MYPY:
     class TopologySelectorLabelRequirementArgsDict(TypedDict):
         """
         A topology selector requirement is a selector that matches given label. This is an alpha feature and may change in the future.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         key: pulumi.Input[str]
         """
@@ -34391,6 +40055,16 @@ class TopologySelectorLabelRequirementArgs:
                  values: pulumi.Input[Sequence[pulumi.Input[str]]]):
         """
         A topology selector requirement is a selector that matches given label. This is an alpha feature and may change in the future.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] key: The label key that the selector applies to.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] values: An array of string values. One value must match the label to be selected. Each entry in Values is ORed.
         """
@@ -34426,6 +40100,15 @@ if not MYPY:
     class TopologySelectorTermPatchArgsDict(TypedDict):
         """
         A topology selector term represents the result of label queries. A null or empty topology selector term matches no objects. The requirements of them are ANDed. It provides a subset of functionality as NodeSelectorTerm. This is an alpha feature and may change in the future.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         match_label_expressions: NotRequired[pulumi.Input[Sequence[pulumi.Input['TopologySelectorLabelRequirementPatchArgsDict']]]]
         """
@@ -34440,6 +40123,16 @@ class TopologySelectorTermPatchArgs:
                  match_label_expressions: Optional[pulumi.Input[Sequence[pulumi.Input['TopologySelectorLabelRequirementPatchArgs']]]] = None):
         """
         A topology selector term represents the result of label queries. A null or empty topology selector term matches no objects. The requirements of them are ANDed. It provides a subset of functionality as NodeSelectorTerm. This is an alpha feature and may change in the future.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input['TopologySelectorLabelRequirementPatchArgs']]] match_label_expressions: A list of topology selector requirements by labels.
         """
         if match_label_expressions is not None:
@@ -34462,6 +40155,15 @@ if not MYPY:
     class TopologySelectorTermArgsDict(TypedDict):
         """
         A topology selector term represents the result of label queries. A null or empty topology selector term matches no objects. The requirements of them are ANDed. It provides a subset of functionality as NodeSelectorTerm. This is an alpha feature and may change in the future.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         match_label_expressions: NotRequired[pulumi.Input[Sequence[pulumi.Input['TopologySelectorLabelRequirementArgsDict']]]]
         """
@@ -34476,6 +40178,16 @@ class TopologySelectorTermArgs:
                  match_label_expressions: Optional[pulumi.Input[Sequence[pulumi.Input['TopologySelectorLabelRequirementArgs']]]] = None):
         """
         A topology selector term represents the result of label queries. A null or empty topology selector term matches no objects. The requirements of them are ANDed. It provides a subset of functionality as NodeSelectorTerm. This is an alpha feature and may change in the future.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input['TopologySelectorLabelRequirementArgs']]] match_label_expressions: A list of topology selector requirements by labels.
         """
         if match_label_expressions is not None:
@@ -34498,6 +40210,15 @@ if not MYPY:
     class TopologySpreadConstraintPatchArgsDict(TypedDict):
         """
         TopologySpreadConstraint specifies how to spread matching pods among the given topology.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         label_selector: NotRequired[pulumi.Input['_meta.v1.LabelSelectorPatchArgsDict']]
         """
@@ -34558,6 +40279,16 @@ class TopologySpreadConstraintPatchArgs:
                  when_unsatisfiable: Optional[pulumi.Input[str]] = None):
         """
         TopologySpreadConstraint specifies how to spread matching pods among the given topology.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['_meta.v1.LabelSelectorPatchArgs'] label_selector: LabelSelector is used to find matching pods. Pods that match this label selector are counted to determine the number of pods in their corresponding topology domain.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] match_label_keys: MatchLabelKeys is a set of pod label keys to select the pods over which spreading will be calculated. The keys are used to lookup values from the incoming pod labels, those key-value labels are ANDed with labelSelector to select the group of existing pods over which spreading will be calculated for the incoming pod. The same key is forbidden to exist in both MatchLabelKeys and LabelSelector. MatchLabelKeys cannot be set when LabelSelector isn't set. Keys that don't exist in the incoming pod labels will be ignored. A null or empty list means only match against labelSelector.
                
@@ -34707,6 +40438,15 @@ if not MYPY:
     class TopologySpreadConstraintArgsDict(TypedDict):
         """
         TopologySpreadConstraint specifies how to spread matching pods among the given topology.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         max_skew: pulumi.Input[int]
         """
@@ -34767,6 +40507,16 @@ class TopologySpreadConstraintArgs:
                  node_taints_policy: Optional[pulumi.Input[str]] = None):
         """
         TopologySpreadConstraint specifies how to spread matching pods among the given topology.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[int] max_skew: MaxSkew describes the degree to which pods may be unevenly distributed. When `whenUnsatisfiable=DoNotSchedule`, it is the maximum permitted difference between the number of matching pods in the target topology and the global minimum. The global minimum is the minimum number of matching pods in an eligible domain or zero if the number of eligible domains is less than MinDomains. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 2/2/1: In this case, the global minimum is 1. | zone1 | zone2 | zone3 | |  P P  |  P P  |   P   | - if MaxSkew is 1, incoming pod can only be scheduled to zone3 to become 2/2/2; scheduling it onto zone1(zone2) would make the ActualSkew(3-1) on zone1(zone2) violate MaxSkew(1). - if MaxSkew is 2, incoming pod can be scheduled onto any zone. When `whenUnsatisfiable=ScheduleAnyway`, it is used to give higher precedence to topologies that satisfy it. It's a required field. Default value is 1 and 0 is not allowed.
         :param pulumi.Input[str] topology_key: TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each <key, value> as a "bucket", and try to put balanced number of pods into each bucket. We define a domain as a particular instance of a topology. Also, we define an eligible domain as a domain whose nodes meet the requirements of nodeAffinityPolicy and nodeTaintsPolicy. e.g. If TopologyKey is "kubernetes.io/hostname", each Node is a domain of that topology. And, if TopologyKey is "topology.kubernetes.io/zone", each zone is a domain of that topology. It's a required field.
         :param pulumi.Input[str] when_unsatisfiable: WhenUnsatisfiable indicates how to deal with a pod if it doesn't satisfy the spread constraint. - DoNotSchedule (default) tells the scheduler not to schedule it. - ScheduleAnyway tells the scheduler to schedule the pod in any location,
@@ -34913,6 +40663,15 @@ if not MYPY:
     class TypedLocalObjectReferencePatchArgsDict(TypedDict):
         """
         TypedLocalObjectReference contains enough information to let you locate the typed referenced object inside the same namespace.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         api_group: NotRequired[pulumi.Input[str]]
         """
@@ -34937,6 +40696,16 @@ class TypedLocalObjectReferencePatchArgs:
                  name: Optional[pulumi.Input[str]] = None):
         """
         TypedLocalObjectReference contains enough information to let you locate the typed referenced object inside the same namespace.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] api_group: APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
         :param pulumi.Input[str] kind: Kind is the type of resource being referenced
         :param pulumi.Input[str] name: Name is the name of resource being referenced
@@ -34989,6 +40758,15 @@ if not MYPY:
     class TypedLocalObjectReferenceArgsDict(TypedDict):
         """
         TypedLocalObjectReference contains enough information to let you locate the typed referenced object inside the same namespace.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         kind: pulumi.Input[str]
         """
@@ -35013,6 +40791,16 @@ class TypedLocalObjectReferenceArgs:
                  api_group: Optional[pulumi.Input[str]] = None):
         """
         TypedLocalObjectReference contains enough information to let you locate the typed referenced object inside the same namespace.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] kind: Kind is the type of resource being referenced
         :param pulumi.Input[str] name: Name is the name of resource being referenced
         :param pulumi.Input[str] api_group: APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
@@ -35061,6 +40849,18 @@ class TypedLocalObjectReferenceArgs:
 
 if not MYPY:
     class TypedObjectReferencePatchArgsDict(TypedDict):
+        """
+
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+        """
         api_group: NotRequired[pulumi.Input[str]]
         """
         APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
@@ -35088,6 +40888,17 @@ class TypedObjectReferencePatchArgs:
                  name: Optional[pulumi.Input[str]] = None,
                  namespace: Optional[pulumi.Input[str]] = None):
         """
+
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] api_group: APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
         :param pulumi.Input[str] kind: Kind is the type of resource being referenced
         :param pulumi.Input[str] name: Name is the name of resource being referenced
@@ -35153,6 +40964,18 @@ class TypedObjectReferencePatchArgs:
 
 if not MYPY:
     class TypedObjectReferenceArgsDict(TypedDict):
+        """
+
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+        """
         kind: pulumi.Input[str]
         """
         Kind is the type of resource being referenced
@@ -35180,6 +41003,17 @@ class TypedObjectReferenceArgs:
                  api_group: Optional[pulumi.Input[str]] = None,
                  namespace: Optional[pulumi.Input[str]] = None):
         """
+
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] kind: Kind is the type of resource being referenced
         :param pulumi.Input[str] name: Name is the name of resource being referenced
         :param pulumi.Input[str] api_group: APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
@@ -35245,6 +41079,15 @@ if not MYPY:
     class VolumeDevicePatchArgsDict(TypedDict):
         """
         volumeDevice describes a mapping of a raw block device within a container.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         device_path: NotRequired[pulumi.Input[str]]
         """
@@ -35264,6 +41107,16 @@ class VolumeDevicePatchArgs:
                  name: Optional[pulumi.Input[str]] = None):
         """
         volumeDevice describes a mapping of a raw block device within a container.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] device_path: devicePath is the path inside of the container that the device will be mapped to.
         :param pulumi.Input[str] name: name must match the name of a persistentVolumeClaim in the pod
         """
@@ -35301,6 +41154,15 @@ if not MYPY:
     class VolumeDeviceArgsDict(TypedDict):
         """
         volumeDevice describes a mapping of a raw block device within a container.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         device_path: pulumi.Input[str]
         """
@@ -35320,6 +41182,16 @@ class VolumeDeviceArgs:
                  name: pulumi.Input[str]):
         """
         volumeDevice describes a mapping of a raw block device within a container.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] device_path: devicePath is the path inside of the container that the device will be mapped to.
         :param pulumi.Input[str] name: name must match the name of a persistentVolumeClaim in the pod
         """
@@ -35355,6 +41227,15 @@ if not MYPY:
     class VolumeMountPatchArgsDict(TypedDict):
         """
         VolumeMount describes a mounting of a Volume within a container.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         mount_path: NotRequired[pulumi.Input[str]]
         """
@@ -35407,6 +41288,16 @@ class VolumeMountPatchArgs:
                  sub_path_expr: Optional[pulumi.Input[str]] = None):
         """
         VolumeMount describes a mounting of a Volume within a container.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] mount_path: Path within the container at which the volume should be mounted.  Must not contain ':'.
         :param pulumi.Input[str] mount_propagation: mountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, MountPropagationNone is used. This field is beta in 1.10. When RecursiveReadOnly is set to IfPossible or to Enabled, MountPropagation must be None or unspecified (which defaults to None).
         :param pulumi.Input[str] name: This must match the Name of a Volume.
@@ -35535,6 +41426,15 @@ if not MYPY:
     class VolumeMountStatusArgsDict(TypedDict):
         """
         VolumeMountStatus shows status of volume mounts.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         mount_path: pulumi.Input[str]
         """
@@ -35564,6 +41464,16 @@ class VolumeMountStatusArgs:
                  recursive_read_only: Optional[pulumi.Input[str]] = None):
         """
         VolumeMountStatus shows status of volume mounts.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] mount_path: MountPath corresponds to the original VolumeMount.
         :param pulumi.Input[str] name: Name corresponds to the name of the original VolumeMount.
         :param pulumi.Input[bool] read_only: ReadOnly corresponds to the original VolumeMount.
@@ -35629,6 +41539,15 @@ if not MYPY:
     class VolumeMountArgsDict(TypedDict):
         """
         VolumeMount describes a mounting of a Volume within a container.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         mount_path: pulumi.Input[str]
         """
@@ -35681,6 +41600,16 @@ class VolumeMountArgs:
                  sub_path_expr: Optional[pulumi.Input[str]] = None):
         """
         VolumeMount describes a mounting of a Volume within a container.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] mount_path: Path within the container at which the volume should be mounted.  Must not contain ':'.
         :param pulumi.Input[str] name: This must match the Name of a Volume.
         :param pulumi.Input[str] mount_propagation: mountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, MountPropagationNone is used. This field is beta in 1.10. When RecursiveReadOnly is set to IfPossible or to Enabled, MountPropagation must be None or unspecified (which defaults to None).
@@ -35807,6 +41736,15 @@ if not MYPY:
     class VolumeNodeAffinityPatchArgsDict(TypedDict):
         """
         VolumeNodeAffinity defines constraints that limit what nodes this volume can be accessed from.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         required: NotRequired[pulumi.Input['NodeSelectorPatchArgsDict']]
         """
@@ -35821,6 +41759,16 @@ class VolumeNodeAffinityPatchArgs:
                  required: Optional[pulumi.Input['NodeSelectorPatchArgs']] = None):
         """
         VolumeNodeAffinity defines constraints that limit what nodes this volume can be accessed from.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['NodeSelectorPatchArgs'] required: required specifies hard node constraints that must be met.
         """
         if required is not None:
@@ -35843,6 +41791,15 @@ if not MYPY:
     class VolumeNodeAffinityArgsDict(TypedDict):
         """
         VolumeNodeAffinity defines constraints that limit what nodes this volume can be accessed from.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         required: NotRequired[pulumi.Input['NodeSelectorArgsDict']]
         """
@@ -35857,6 +41814,16 @@ class VolumeNodeAffinityArgs:
                  required: Optional[pulumi.Input['NodeSelectorArgs']] = None):
         """
         VolumeNodeAffinity defines constraints that limit what nodes this volume can be accessed from.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['NodeSelectorArgs'] required: required specifies hard node constraints that must be met.
         """
         if required is not None:
@@ -35879,6 +41846,15 @@ if not MYPY:
     class VolumePatchArgsDict(TypedDict):
         """
         Volume represents a named volume in a pod that may be accessed by any container in the pod.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         aws_elastic_block_store: NotRequired[pulumi.Input['AWSElasticBlockStoreVolumeSourcePatchArgsDict']]
         """
@@ -36051,6 +42027,16 @@ class VolumePatchArgs:
                  vsphere_volume: Optional[pulumi.Input['VsphereVirtualDiskVolumeSourcePatchArgs']] = None):
         """
         Volume represents a named volume in a pod that may be accessed by any container in the pod.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['AWSElasticBlockStoreVolumeSourcePatchArgs'] aws_elastic_block_store: awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
         :param pulumi.Input['AzureDiskVolumeSourcePatchArgs'] azure_disk: azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
         :param pulumi.Input['AzureFileVolumeSourcePatchArgs'] azure_file: azureFile represents an Azure File Service mount on the host and bind mount to the pod.
@@ -36534,6 +42520,15 @@ if not MYPY:
     class VolumeProjectionPatchArgsDict(TypedDict):
         """
         Projection that may be projected along with other supported volume types
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         cluster_trust_bundle: NotRequired[pulumi.Input['ClusterTrustBundleProjectionPatchArgsDict']]
         """
@@ -36574,6 +42569,16 @@ class VolumeProjectionPatchArgs:
                  service_account_token: Optional[pulumi.Input['ServiceAccountTokenProjectionPatchArgs']] = None):
         """
         Projection that may be projected along with other supported volume types
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['ClusterTrustBundleProjectionPatchArgs'] cluster_trust_bundle: ClusterTrustBundle allows a pod to access the `.spec.trustBundle` field of ClusterTrustBundle objects in an auto-updating file.
                
                Alpha, gated by the ClusterTrustBundleProjection feature gate.
@@ -36668,6 +42673,15 @@ if not MYPY:
     class VolumeProjectionArgsDict(TypedDict):
         """
         Projection that may be projected along with other supported volume types
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         cluster_trust_bundle: NotRequired[pulumi.Input['ClusterTrustBundleProjectionArgsDict']]
         """
@@ -36708,6 +42722,16 @@ class VolumeProjectionArgs:
                  service_account_token: Optional[pulumi.Input['ServiceAccountTokenProjectionArgs']] = None):
         """
         Projection that may be projected along with other supported volume types
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['ClusterTrustBundleProjectionArgs'] cluster_trust_bundle: ClusterTrustBundle allows a pod to access the `.spec.trustBundle` field of ClusterTrustBundle objects in an auto-updating file.
                
                Alpha, gated by the ClusterTrustBundleProjection feature gate.
@@ -36802,6 +42826,15 @@ if not MYPY:
     class VolumeResourceRequirementsPatchArgsDict(TypedDict):
         """
         VolumeResourceRequirements describes the storage resource requirements for a volume.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         limits: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[str]]]]
         """
@@ -36821,6 +42854,16 @@ class VolumeResourceRequirementsPatchArgs:
                  requests: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None):
         """
         VolumeResourceRequirements describes the storage resource requirements for a volume.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] limits: Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] requests: Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. Requests cannot exceed Limits. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
         """
@@ -36858,6 +42901,15 @@ if not MYPY:
     class VolumeResourceRequirementsArgsDict(TypedDict):
         """
         VolumeResourceRequirements describes the storage resource requirements for a volume.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         limits: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[str]]]]
         """
@@ -36877,6 +42929,16 @@ class VolumeResourceRequirementsArgs:
                  requests: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None):
         """
         VolumeResourceRequirements describes the storage resource requirements for a volume.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] limits: Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] requests: Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. Requests cannot exceed Limits. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
         """
@@ -36914,6 +42976,15 @@ if not MYPY:
     class VolumeArgsDict(TypedDict):
         """
         Volume represents a named volume in a pod that may be accessed by any container in the pod.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         name: pulumi.Input[str]
         """
@@ -37086,6 +43157,16 @@ class VolumeArgs:
                  vsphere_volume: Optional[pulumi.Input['VsphereVirtualDiskVolumeSourceArgs']] = None):
         """
         Volume represents a named volume in a pod that may be accessed by any container in the pod.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] name: name of the volume. Must be a DNS_LABEL and unique within the pod. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
         :param pulumi.Input['AWSElasticBlockStoreVolumeSourceArgs'] aws_elastic_block_store: awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
         :param pulumi.Input['AzureDiskVolumeSourceArgs'] azure_disk: azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
@@ -37568,6 +43649,15 @@ if not MYPY:
     class VsphereVirtualDiskVolumeSourcePatchArgsDict(TypedDict):
         """
         Represents a vSphere volume resource.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         fs_type: NotRequired[pulumi.Input[str]]
         """
@@ -37597,6 +43687,16 @@ class VsphereVirtualDiskVolumeSourcePatchArgs:
                  volume_path: Optional[pulumi.Input[str]] = None):
         """
         Represents a vSphere volume resource.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] fs_type: fsType is filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
         :param pulumi.Input[str] storage_policy_id: storagePolicyID is the storage Policy Based Management (SPBM) profile ID associated with the StoragePolicyName.
         :param pulumi.Input[str] storage_policy_name: storagePolicyName is the storage Policy Based Management (SPBM) profile name.
@@ -37664,6 +43764,15 @@ if not MYPY:
     class VsphereVirtualDiskVolumeSourceArgsDict(TypedDict):
         """
         Represents a vSphere volume resource.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         volume_path: pulumi.Input[str]
         """
@@ -37693,6 +43802,16 @@ class VsphereVirtualDiskVolumeSourceArgs:
                  storage_policy_name: Optional[pulumi.Input[str]] = None):
         """
         Represents a vSphere volume resource.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] volume_path: volumePath is the path that identifies vSphere volume vmdk
         :param pulumi.Input[str] fs_type: fsType is filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
         :param pulumi.Input[str] storage_policy_id: storagePolicyID is the storage Policy Based Management (SPBM) profile ID associated with the StoragePolicyName.
@@ -37759,6 +43878,15 @@ if not MYPY:
     class WeightedPodAffinityTermPatchArgsDict(TypedDict):
         """
         The weights of all of the matched WeightedPodAffinityTerm fields are added per-node to find the most preferred node(s)
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         pod_affinity_term: NotRequired[pulumi.Input['PodAffinityTermPatchArgsDict']]
         """
@@ -37778,6 +43906,16 @@ class WeightedPodAffinityTermPatchArgs:
                  weight: Optional[pulumi.Input[int]] = None):
         """
         The weights of all of the matched WeightedPodAffinityTerm fields are added per-node to find the most preferred node(s)
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['PodAffinityTermPatchArgs'] pod_affinity_term: Required. A pod affinity term, associated with the corresponding weight.
         :param pulumi.Input[int] weight: weight associated with matching the corresponding podAffinityTerm, in the range 1-100.
         """
@@ -37815,6 +43953,15 @@ if not MYPY:
     class WeightedPodAffinityTermArgsDict(TypedDict):
         """
         The weights of all of the matched WeightedPodAffinityTerm fields are added per-node to find the most preferred node(s)
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         pod_affinity_term: pulumi.Input['PodAffinityTermArgsDict']
         """
@@ -37834,6 +43981,16 @@ class WeightedPodAffinityTermArgs:
                  weight: pulumi.Input[int]):
         """
         The weights of all of the matched WeightedPodAffinityTerm fields are added per-node to find the most preferred node(s)
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['PodAffinityTermArgs'] pod_affinity_term: Required. A pod affinity term, associated with the corresponding weight.
         :param pulumi.Input[int] weight: weight associated with matching the corresponding podAffinityTerm, in the range 1-100.
         """
@@ -37869,6 +44026,15 @@ if not MYPY:
     class WindowsSecurityContextOptionsPatchArgsDict(TypedDict):
         """
         WindowsSecurityContextOptions contain Windows-specific options and credentials.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         gmsa_credential_spec: NotRequired[pulumi.Input[str]]
         """
@@ -37898,6 +44064,16 @@ class WindowsSecurityContextOptionsPatchArgs:
                  run_as_user_name: Optional[pulumi.Input[str]] = None):
         """
         WindowsSecurityContextOptions contain Windows-specific options and credentials.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] gmsa_credential_spec: GMSACredentialSpec is where the GMSA admission webhook (https://github.com/kubernetes-sigs/windows-gmsa) inlines the contents of the GMSA credential spec named by the GMSACredentialSpecName field.
         :param pulumi.Input[str] gmsa_credential_spec_name: GMSACredentialSpecName is the name of the GMSA credential spec to use.
         :param pulumi.Input[bool] host_process: HostProcess determines if a container should be run as a 'Host Process' container. All of a Pod's containers must have the same effective HostProcess value (it is not allowed to have a mix of HostProcess containers and non-HostProcess containers). In addition, if HostProcess is true then HostNetwork must also be set to true.
@@ -37965,6 +44141,15 @@ if not MYPY:
     class WindowsSecurityContextOptionsArgsDict(TypedDict):
         """
         WindowsSecurityContextOptions contain Windows-specific options and credentials.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         gmsa_credential_spec: NotRequired[pulumi.Input[str]]
         """
@@ -37994,6 +44179,16 @@ class WindowsSecurityContextOptionsArgs:
                  run_as_user_name: Optional[pulumi.Input[str]] = None):
         """
         WindowsSecurityContextOptions contain Windows-specific options and credentials.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] gmsa_credential_spec: GMSACredentialSpec is where the GMSA admission webhook (https://github.com/kubernetes-sigs/windows-gmsa) inlines the contents of the GMSA credential spec named by the GMSACredentialSpecName field.
         :param pulumi.Input[str] gmsa_credential_spec_name: GMSACredentialSpecName is the name of the GMSA credential spec to use.
         :param pulumi.Input[bool] host_process: HostProcess determines if a container should be run as a 'Host Process' container. All of a Pod's containers must have the same effective HostProcess value (it is not allowed to have a mix of HostProcess containers and non-HostProcess containers). In addition, if HostProcess is true then HostNetwork must also be set to true.

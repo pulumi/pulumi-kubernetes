@@ -14,6 +14,15 @@ import (
 var _ = utilities.GetEnvOrDefault
 
 // Info contains versioning information. how we'll want to distribute that information.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type Info struct {
 	BuildDate    string `pulumi:"buildDate"`
 	Compiler     string `pulumi:"compiler"`
@@ -38,6 +47,15 @@ type InfoInput interface {
 }
 
 // Info contains versioning information. how we'll want to distribute that information.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type InfoArgs struct {
 	BuildDate    pulumi.StringInput `pulumi:"buildDate"`
 	Compiler     pulumi.StringInput `pulumi:"compiler"`
@@ -63,6 +81,15 @@ func (i InfoArgs) ToInfoOutputWithContext(ctx context.Context) InfoOutput {
 }
 
 // Info contains versioning information. how we'll want to distribute that information.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type InfoOutput struct{ *pulumi.OutputState }
 
 func (InfoOutput) ElementType() reflect.Type {
@@ -114,6 +141,15 @@ func (o InfoOutput) Platform() pulumi.StringOutput {
 }
 
 // Info contains versioning information. how we'll want to distribute that information.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type InfoPatch struct {
 	BuildDate    *string `pulumi:"buildDate"`
 	Compiler     *string `pulumi:"compiler"`
@@ -138,6 +174,15 @@ type InfoPatchInput interface {
 }
 
 // Info contains versioning information. how we'll want to distribute that information.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type InfoPatchArgs struct {
 	BuildDate    pulumi.StringPtrInput `pulumi:"buildDate"`
 	Compiler     pulumi.StringPtrInput `pulumi:"compiler"`
@@ -163,6 +208,15 @@ func (i InfoPatchArgs) ToInfoPatchOutputWithContext(ctx context.Context) InfoPat
 }
 
 // Info contains versioning information. how we'll want to distribute that information.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type InfoPatchOutput struct{ *pulumi.OutputState }
 
 func (InfoPatchOutput) ElementType() reflect.Type {

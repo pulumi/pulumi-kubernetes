@@ -16,6 +16,15 @@ import (
 var _ = utilities.GetEnvOrDefault
 
 // SelfSubjectReview contains the user information that the kube-apiserver has about the user making this request. When using impersonation, users will receive the user info of the user being impersonated.  If impersonation or request header authentication is used, any extra keys will have their case ignored and returned as lowercase.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SelfSubjectReview struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -39,6 +48,15 @@ type SelfSubjectReviewInput interface {
 }
 
 // SelfSubjectReview contains the user information that the kube-apiserver has about the user making this request. When using impersonation, users will receive the user info of the user being impersonated.  If impersonation or request header authentication is used, any extra keys will have their case ignored and returned as lowercase.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SelfSubjectReviewArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -63,6 +81,15 @@ func (i SelfSubjectReviewArgs) ToSelfSubjectReviewOutputWithContext(ctx context.
 }
 
 // SelfSubjectReview contains the user information that the kube-apiserver has about the user making this request. When using impersonation, users will receive the user info of the user being impersonated.  If impersonation or request header authentication is used, any extra keys will have their case ignored and returned as lowercase.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SelfSubjectReviewOutput struct{ *pulumi.OutputState }
 
 func (SelfSubjectReviewOutput) ElementType() reflect.Type {
@@ -98,6 +125,15 @@ func (o SelfSubjectReviewOutput) Status() SelfSubjectReviewStatusPtrOutput {
 }
 
 // SelfSubjectReview contains the user information that the kube-apiserver has about the user making this request. When using impersonation, users will receive the user info of the user being impersonated.  If impersonation or request header authentication is used, any extra keys will have their case ignored and returned as lowercase.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SelfSubjectReviewPatch struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -121,6 +157,15 @@ type SelfSubjectReviewPatchInput interface {
 }
 
 // SelfSubjectReview contains the user information that the kube-apiserver has about the user making this request. When using impersonation, users will receive the user info of the user being impersonated.  If impersonation or request header authentication is used, any extra keys will have their case ignored and returned as lowercase.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SelfSubjectReviewPatchArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -145,6 +190,15 @@ func (i SelfSubjectReviewPatchArgs) ToSelfSubjectReviewPatchOutputWithContext(ct
 }
 
 // SelfSubjectReview contains the user information that the kube-apiserver has about the user making this request. When using impersonation, users will receive the user info of the user being impersonated.  If impersonation or request header authentication is used, any extra keys will have their case ignored and returned as lowercase.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SelfSubjectReviewPatchOutput struct{ *pulumi.OutputState }
 
 func (SelfSubjectReviewPatchOutput) ElementType() reflect.Type {
@@ -180,6 +234,15 @@ func (o SelfSubjectReviewPatchOutput) Status() SelfSubjectReviewStatusPatchPtrOu
 }
 
 // SelfSubjectReviewStatus is filled by the kube-apiserver and sent back to a user.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SelfSubjectReviewStatus struct {
 	// User attributes of the user making this request.
 	UserInfo *authenticationv1.UserInfo `pulumi:"userInfo"`
@@ -197,6 +260,15 @@ type SelfSubjectReviewStatusInput interface {
 }
 
 // SelfSubjectReviewStatus is filled by the kube-apiserver and sent back to a user.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SelfSubjectReviewStatusArgs struct {
 	// User attributes of the user making this request.
 	UserInfo authenticationv1.UserInfoPtrInput `pulumi:"userInfo"`
@@ -256,6 +328,15 @@ func (i *selfSubjectReviewStatusPtrType) ToSelfSubjectReviewStatusPtrOutputWithC
 }
 
 // SelfSubjectReviewStatus is filled by the kube-apiserver and sent back to a user.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SelfSubjectReviewStatusOutput struct{ *pulumi.OutputState }
 
 func (SelfSubjectReviewStatusOutput) ElementType() reflect.Type {
@@ -320,6 +401,15 @@ func (o SelfSubjectReviewStatusPtrOutput) UserInfo() authenticationv1.UserInfoPt
 }
 
 // SelfSubjectReviewStatus is filled by the kube-apiserver and sent back to a user.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SelfSubjectReviewStatusPatch struct {
 	// User attributes of the user making this request.
 	UserInfo *authenticationv1.UserInfoPatch `pulumi:"userInfo"`
@@ -337,6 +427,15 @@ type SelfSubjectReviewStatusPatchInput interface {
 }
 
 // SelfSubjectReviewStatus is filled by the kube-apiserver and sent back to a user.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SelfSubjectReviewStatusPatchArgs struct {
 	// User attributes of the user making this request.
 	UserInfo authenticationv1.UserInfoPatchPtrInput `pulumi:"userInfo"`
@@ -396,6 +495,15 @@ func (i *selfSubjectReviewStatusPatchPtrType) ToSelfSubjectReviewStatusPatchPtrO
 }
 
 // SelfSubjectReviewStatus is filled by the kube-apiserver and sent back to a user.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SelfSubjectReviewStatusPatchOutput struct{ *pulumi.OutputState }
 
 func (SelfSubjectReviewStatusPatchOutput) ElementType() reflect.Type {

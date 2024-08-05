@@ -16,6 +16,15 @@ import (
 var _ = utilities.GetEnvOrDefault
 
 // SelfSubjectReview contains the user information that the kube-apiserver has about the user making this request. When using impersonation, users will receive the user info of the user being impersonated.  If impersonation or request header authentication is used, any extra keys will have their case ignored and returned as lowercase.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SelfSubjectReview struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -39,6 +48,15 @@ type SelfSubjectReviewInput interface {
 }
 
 // SelfSubjectReview contains the user information that the kube-apiserver has about the user making this request. When using impersonation, users will receive the user info of the user being impersonated.  If impersonation or request header authentication is used, any extra keys will have their case ignored and returned as lowercase.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SelfSubjectReviewArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -63,6 +81,15 @@ func (i SelfSubjectReviewArgs) ToSelfSubjectReviewOutputWithContext(ctx context.
 }
 
 // SelfSubjectReview contains the user information that the kube-apiserver has about the user making this request. When using impersonation, users will receive the user info of the user being impersonated.  If impersonation or request header authentication is used, any extra keys will have their case ignored and returned as lowercase.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SelfSubjectReviewOutput struct{ *pulumi.OutputState }
 
 func (SelfSubjectReviewOutput) ElementType() reflect.Type {
@@ -98,6 +125,15 @@ func (o SelfSubjectReviewOutput) Status() SelfSubjectReviewStatusPtrOutput {
 }
 
 // SelfSubjectReview contains the user information that the kube-apiserver has about the user making this request. When using impersonation, users will receive the user info of the user being impersonated.  If impersonation or request header authentication is used, any extra keys will have their case ignored and returned as lowercase.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SelfSubjectReviewPatch struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -121,6 +157,15 @@ type SelfSubjectReviewPatchInput interface {
 }
 
 // SelfSubjectReview contains the user information that the kube-apiserver has about the user making this request. When using impersonation, users will receive the user info of the user being impersonated.  If impersonation or request header authentication is used, any extra keys will have their case ignored and returned as lowercase.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SelfSubjectReviewPatchArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -145,6 +190,15 @@ func (i SelfSubjectReviewPatchArgs) ToSelfSubjectReviewPatchOutputWithContext(ct
 }
 
 // SelfSubjectReview contains the user information that the kube-apiserver has about the user making this request. When using impersonation, users will receive the user info of the user being impersonated.  If impersonation or request header authentication is used, any extra keys will have their case ignored and returned as lowercase.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SelfSubjectReviewPatchOutput struct{ *pulumi.OutputState }
 
 func (SelfSubjectReviewPatchOutput) ElementType() reflect.Type {
@@ -180,6 +234,15 @@ func (o SelfSubjectReviewPatchOutput) Status() SelfSubjectReviewStatusPatchPtrOu
 }
 
 // SelfSubjectReviewStatus is filled by the kube-apiserver and sent back to a user.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SelfSubjectReviewStatus struct {
 	// User attributes of the user making this request.
 	UserInfo *authenticationv1.UserInfo `pulumi:"userInfo"`
@@ -197,6 +260,15 @@ type SelfSubjectReviewStatusInput interface {
 }
 
 // SelfSubjectReviewStatus is filled by the kube-apiserver and sent back to a user.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SelfSubjectReviewStatusArgs struct {
 	// User attributes of the user making this request.
 	UserInfo authenticationv1.UserInfoPtrInput `pulumi:"userInfo"`
@@ -256,6 +328,15 @@ func (i *selfSubjectReviewStatusPtrType) ToSelfSubjectReviewStatusPtrOutputWithC
 }
 
 // SelfSubjectReviewStatus is filled by the kube-apiserver and sent back to a user.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SelfSubjectReviewStatusOutput struct{ *pulumi.OutputState }
 
 func (SelfSubjectReviewStatusOutput) ElementType() reflect.Type {
@@ -320,6 +401,15 @@ func (o SelfSubjectReviewStatusPtrOutput) UserInfo() authenticationv1.UserInfoPt
 }
 
 // SelfSubjectReviewStatus is filled by the kube-apiserver and sent back to a user.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SelfSubjectReviewStatusPatch struct {
 	// User attributes of the user making this request.
 	UserInfo *authenticationv1.UserInfoPatch `pulumi:"userInfo"`
@@ -337,6 +427,15 @@ type SelfSubjectReviewStatusPatchInput interface {
 }
 
 // SelfSubjectReviewStatus is filled by the kube-apiserver and sent back to a user.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SelfSubjectReviewStatusPatchArgs struct {
 	// User attributes of the user making this request.
 	UserInfo authenticationv1.UserInfoPatchPtrInput `pulumi:"userInfo"`
@@ -396,6 +495,15 @@ func (i *selfSubjectReviewStatusPatchPtrType) ToSelfSubjectReviewStatusPatchPtrO
 }
 
 // SelfSubjectReviewStatus is filled by the kube-apiserver and sent back to a user.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SelfSubjectReviewStatusPatchOutput struct{ *pulumi.OutputState }
 
 func (SelfSubjectReviewStatusPatchOutput) ElementType() reflect.Type {
@@ -460,6 +568,15 @@ func (o SelfSubjectReviewStatusPatchPtrOutput) UserInfo() authenticationv1.UserI
 }
 
 // TokenReview attempts to authenticate a token to a known user. Note: TokenReview requests may be cached by the webhook token authenticator plugin in the kube-apiserver.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type TokenReview struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -484,6 +601,15 @@ type TokenReviewInput interface {
 }
 
 // TokenReview attempts to authenticate a token to a known user. Note: TokenReview requests may be cached by the webhook token authenticator plugin in the kube-apiserver.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type TokenReviewArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -509,6 +635,15 @@ func (i TokenReviewArgs) ToTokenReviewOutputWithContext(ctx context.Context) Tok
 }
 
 // TokenReview attempts to authenticate a token to a known user. Note: TokenReview requests may be cached by the webhook token authenticator plugin in the kube-apiserver.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type TokenReviewOutput struct{ *pulumi.OutputState }
 
 func (TokenReviewOutput) ElementType() reflect.Type {
@@ -548,6 +683,15 @@ func (o TokenReviewOutput) Status() TokenReviewStatusPtrOutput {
 }
 
 // TokenReview attempts to authenticate a token to a known user. Note: TokenReview requests may be cached by the webhook token authenticator plugin in the kube-apiserver.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type TokenReviewPatch struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -572,6 +716,15 @@ type TokenReviewPatchInput interface {
 }
 
 // TokenReview attempts to authenticate a token to a known user. Note: TokenReview requests may be cached by the webhook token authenticator plugin in the kube-apiserver.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type TokenReviewPatchArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -597,6 +750,15 @@ func (i TokenReviewPatchArgs) ToTokenReviewPatchOutputWithContext(ctx context.Co
 }
 
 // TokenReview attempts to authenticate a token to a known user. Note: TokenReview requests may be cached by the webhook token authenticator plugin in the kube-apiserver.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type TokenReviewPatchOutput struct{ *pulumi.OutputState }
 
 func (TokenReviewPatchOutput) ElementType() reflect.Type {
@@ -636,6 +798,15 @@ func (o TokenReviewPatchOutput) Status() TokenReviewStatusPatchPtrOutput {
 }
 
 // TokenReviewSpec is a description of the token authentication request.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type TokenReviewSpec struct {
 	// Audiences is a list of the identifiers that the resource server presented with the token identifies as. Audience-aware token authenticators will verify that the token was intended for at least one of the audiences in this list. If no audiences are provided, the audience will default to the audience of the Kubernetes apiserver.
 	Audiences []string `pulumi:"audiences"`
@@ -655,6 +826,15 @@ type TokenReviewSpecInput interface {
 }
 
 // TokenReviewSpec is a description of the token authentication request.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type TokenReviewSpecArgs struct {
 	// Audiences is a list of the identifiers that the resource server presented with the token identifies as. Audience-aware token authenticators will verify that the token was intended for at least one of the audiences in this list. If no audiences are provided, the audience will default to the audience of the Kubernetes apiserver.
 	Audiences pulumi.StringArrayInput `pulumi:"audiences"`
@@ -675,6 +855,15 @@ func (i TokenReviewSpecArgs) ToTokenReviewSpecOutputWithContext(ctx context.Cont
 }
 
 // TokenReviewSpec is a description of the token authentication request.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type TokenReviewSpecOutput struct{ *pulumi.OutputState }
 
 func (TokenReviewSpecOutput) ElementType() reflect.Type {
@@ -700,6 +889,15 @@ func (o TokenReviewSpecOutput) Token() pulumi.StringPtrOutput {
 }
 
 // TokenReviewSpec is a description of the token authentication request.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type TokenReviewSpecPatch struct {
 	// Audiences is a list of the identifiers that the resource server presented with the token identifies as. Audience-aware token authenticators will verify that the token was intended for at least one of the audiences in this list. If no audiences are provided, the audience will default to the audience of the Kubernetes apiserver.
 	Audiences []string `pulumi:"audiences"`
@@ -719,6 +917,15 @@ type TokenReviewSpecPatchInput interface {
 }
 
 // TokenReviewSpec is a description of the token authentication request.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type TokenReviewSpecPatchArgs struct {
 	// Audiences is a list of the identifiers that the resource server presented with the token identifies as. Audience-aware token authenticators will verify that the token was intended for at least one of the audiences in this list. If no audiences are provided, the audience will default to the audience of the Kubernetes apiserver.
 	Audiences pulumi.StringArrayInput `pulumi:"audiences"`
@@ -780,6 +987,15 @@ func (i *tokenReviewSpecPatchPtrType) ToTokenReviewSpecPatchPtrOutputWithContext
 }
 
 // TokenReviewSpec is a description of the token authentication request.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type TokenReviewSpecPatchOutput struct{ *pulumi.OutputState }
 
 func (TokenReviewSpecPatchOutput) ElementType() reflect.Type {
@@ -859,6 +1075,15 @@ func (o TokenReviewSpecPatchPtrOutput) Token() pulumi.StringPtrOutput {
 }
 
 // TokenReviewStatus is the result of the token authentication request.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type TokenReviewStatus struct {
 	// Audiences are audience identifiers chosen by the authenticator that are compatible with both the TokenReview and token. An identifier is any identifier in the intersection of the TokenReviewSpec audiences and the token's audiences. A client of the TokenReview API that sets the spec.audiences field should validate that a compatible audience identifier is returned in the status.audiences field to ensure that the TokenReview server is audience aware. If a TokenReview returns an empty status.audience field where status.authenticated is "true", the token is valid against the audience of the Kubernetes API server.
 	Audiences []string `pulumi:"audiences"`
@@ -882,6 +1107,15 @@ type TokenReviewStatusInput interface {
 }
 
 // TokenReviewStatus is the result of the token authentication request.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type TokenReviewStatusArgs struct {
 	// Audiences are audience identifiers chosen by the authenticator that are compatible with both the TokenReview and token. An identifier is any identifier in the intersection of the TokenReviewSpec audiences and the token's audiences. A client of the TokenReview API that sets the spec.audiences field should validate that a compatible audience identifier is returned in the status.audiences field to ensure that the TokenReview server is audience aware. If a TokenReview returns an empty status.audience field where status.authenticated is "true", the token is valid against the audience of the Kubernetes API server.
 	Audiences pulumi.StringArrayInput `pulumi:"audiences"`
@@ -947,6 +1181,15 @@ func (i *tokenReviewStatusPtrType) ToTokenReviewStatusPtrOutputWithContext(ctx c
 }
 
 // TokenReviewStatus is the result of the token authentication request.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type TokenReviewStatusOutput struct{ *pulumi.OutputState }
 
 func (TokenReviewStatusOutput) ElementType() reflect.Type {
@@ -1056,6 +1299,15 @@ func (o TokenReviewStatusPtrOutput) User() UserInfoPtrOutput {
 }
 
 // TokenReviewStatus is the result of the token authentication request.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type TokenReviewStatusPatch struct {
 	// Audiences are audience identifiers chosen by the authenticator that are compatible with both the TokenReview and token. An identifier is any identifier in the intersection of the TokenReviewSpec audiences and the token's audiences. A client of the TokenReview API that sets the spec.audiences field should validate that a compatible audience identifier is returned in the status.audiences field to ensure that the TokenReview server is audience aware. If a TokenReview returns an empty status.audience field where status.authenticated is "true", the token is valid against the audience of the Kubernetes API server.
 	Audiences []string `pulumi:"audiences"`
@@ -1079,6 +1331,15 @@ type TokenReviewStatusPatchInput interface {
 }
 
 // TokenReviewStatus is the result of the token authentication request.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type TokenReviewStatusPatchArgs struct {
 	// Audiences are audience identifiers chosen by the authenticator that are compatible with both the TokenReview and token. An identifier is any identifier in the intersection of the TokenReviewSpec audiences and the token's audiences. A client of the TokenReview API that sets the spec.audiences field should validate that a compatible audience identifier is returned in the status.audiences field to ensure that the TokenReview server is audience aware. If a TokenReview returns an empty status.audience field where status.authenticated is "true", the token is valid against the audience of the Kubernetes API server.
 	Audiences pulumi.StringArrayInput `pulumi:"audiences"`
@@ -1144,6 +1405,15 @@ func (i *tokenReviewStatusPatchPtrType) ToTokenReviewStatusPatchPtrOutputWithCon
 }
 
 // TokenReviewStatus is the result of the token authentication request.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type TokenReviewStatusPatchOutput struct{ *pulumi.OutputState }
 
 func (TokenReviewStatusPatchOutput) ElementType() reflect.Type {
@@ -1253,6 +1523,15 @@ func (o TokenReviewStatusPatchPtrOutput) User() UserInfoPatchPtrOutput {
 }
 
 // UserInfo holds the information about the user needed to implement the user.Info interface.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type UserInfo struct {
 	// Any additional information provided by the authenticator.
 	Extra map[string][]string `pulumi:"extra"`
@@ -1276,6 +1555,15 @@ type UserInfoInput interface {
 }
 
 // UserInfo holds the information about the user needed to implement the user.Info interface.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type UserInfoArgs struct {
 	// Any additional information provided by the authenticator.
 	Extra pulumi.StringArrayMapInput `pulumi:"extra"`
@@ -1341,6 +1629,15 @@ func (i *userInfoPtrType) ToUserInfoPtrOutputWithContext(ctx context.Context) Us
 }
 
 // UserInfo holds the information about the user needed to implement the user.Info interface.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type UserInfoOutput struct{ *pulumi.OutputState }
 
 func (UserInfoOutput) ElementType() reflect.Type {
@@ -1450,6 +1747,15 @@ func (o UserInfoPtrOutput) Username() pulumi.StringPtrOutput {
 }
 
 // UserInfo holds the information about the user needed to implement the user.Info interface.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type UserInfoPatch struct {
 	// Any additional information provided by the authenticator.
 	Extra map[string][]string `pulumi:"extra"`
@@ -1473,6 +1779,15 @@ type UserInfoPatchInput interface {
 }
 
 // UserInfo holds the information about the user needed to implement the user.Info interface.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type UserInfoPatchArgs struct {
 	// Any additional information provided by the authenticator.
 	Extra pulumi.StringArrayMapInput `pulumi:"extra"`
@@ -1538,6 +1853,15 @@ func (i *userInfoPatchPtrType) ToUserInfoPatchPtrOutputWithContext(ctx context.C
 }
 
 // UserInfo holds the information about the user needed to implement the user.Info interface.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type UserInfoPatchOutput struct{ *pulumi.OutputState }
 
 func (UserInfoPatchOutput) ElementType() reflect.Type {

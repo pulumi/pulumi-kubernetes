@@ -15,6 +15,15 @@ import * as utilities from "../../utilities";
  * [Server-Side Apply Docs](https://www.pulumi.com/registry/packages/kubernetes/how-to-guides/managing-resources-with-server-side-apply/) for
  * additional information about using Server-Side Apply to manage Kubernetes resources with Pulumi.
  * IPAddress represents a single IP of a single IP Family. The object is designed to be used by APIs that operate on IP addresses. The object is used by the Service core API for allocation of IP addresses. An IP address can be represented in different formats, to guarantee the uniqueness of the IP, the name of the object is the IP address in canonical format, four decimal digits separated by dots suppressing leading zeros for IPv4 and the representation defined by RFC 5952 for IPv6. Valid: 192.168.1.5 or 2001:db8::1 or 2001:db8:aaaa:bbbb:cccc:dddd:eeee:1 Invalid: 10.01.2.3 or 2001:db8:0:0:0::1
+ *
+ * By default Pulumi does _not_ wait for this resource to
+ * become ready when it is created or updated.
+ *
+ * If you want Pulumi to wait for this resource to become ready, you can use the
+ * 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+ * documentation
+ * (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+ * for a detailed description of the values this annotation accepts.
  */
 export class IPAddressPatch extends pulumi.CustomResource {
     /**

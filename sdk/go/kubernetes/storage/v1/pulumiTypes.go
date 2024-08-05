@@ -16,6 +16,15 @@ import (
 var _ = utilities.GetEnvOrDefault
 
 // CSIDriver captures information about a Container Storage Interface (CSI) volume driver deployed on the cluster. Kubernetes attach detach controller uses this object to determine whether attach is required. Kubelet uses this object to determine whether pod information needs to be passed on mount. CSIDriver objects are non-namespaced.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CSIDriverType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -39,6 +48,15 @@ type CSIDriverTypeInput interface {
 }
 
 // CSIDriver captures information about a Container Storage Interface (CSI) volume driver deployed on the cluster. Kubernetes attach detach controller uses this object to determine whether attach is required. Kubelet uses this object to determine whether pod information needs to be passed on mount. CSIDriver objects are non-namespaced.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CSIDriverTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -88,6 +106,15 @@ func (i CSIDriverTypeArray) ToCSIDriverTypeArrayOutputWithContext(ctx context.Co
 }
 
 // CSIDriver captures information about a Container Storage Interface (CSI) volume driver deployed on the cluster. Kubernetes attach detach controller uses this object to determine whether attach is required. Kubelet uses this object to determine whether pod information needs to be passed on mount. CSIDriver objects are non-namespaced.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CSIDriverTypeOutput struct{ *pulumi.OutputState }
 
 func (CSIDriverTypeOutput) ElementType() reflect.Type {
@@ -143,6 +170,15 @@ func (o CSIDriverTypeArrayOutput) Index(i pulumi.IntInput) CSIDriverTypeOutput {
 }
 
 // CSIDriverList is a collection of CSIDriver objects.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CSIDriverListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -166,6 +202,15 @@ type CSIDriverListTypeInput interface {
 }
 
 // CSIDriverList is a collection of CSIDriver objects.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CSIDriverListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -190,6 +235,15 @@ func (i CSIDriverListTypeArgs) ToCSIDriverListTypeOutputWithContext(ctx context.
 }
 
 // CSIDriverList is a collection of CSIDriver objects.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CSIDriverListTypeOutput struct{ *pulumi.OutputState }
 
 func (CSIDriverListTypeOutput) ElementType() reflect.Type {
@@ -225,6 +279,15 @@ func (o CSIDriverListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 }
 
 // CSIDriver captures information about a Container Storage Interface (CSI) volume driver deployed on the cluster. Kubernetes attach detach controller uses this object to determine whether attach is required. Kubelet uses this object to determine whether pod information needs to be passed on mount. CSIDriver objects are non-namespaced.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CSIDriverPatchType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -248,6 +311,15 @@ type CSIDriverPatchTypeInput interface {
 }
 
 // CSIDriver captures information about a Container Storage Interface (CSI) volume driver deployed on the cluster. Kubernetes attach detach controller uses this object to determine whether attach is required. Kubelet uses this object to determine whether pod information needs to be passed on mount. CSIDriver objects are non-namespaced.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CSIDriverPatchTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -272,6 +344,15 @@ func (i CSIDriverPatchTypeArgs) ToCSIDriverPatchTypeOutputWithContext(ctx contex
 }
 
 // CSIDriver captures information about a Container Storage Interface (CSI) volume driver deployed on the cluster. Kubernetes attach detach controller uses this object to determine whether attach is required. Kubelet uses this object to determine whether pod information needs to be passed on mount. CSIDriver objects are non-namespaced.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CSIDriverPatchTypeOutput struct{ *pulumi.OutputState }
 
 func (CSIDriverPatchTypeOutput) ElementType() reflect.Type {
@@ -307,6 +388,15 @@ func (o CSIDriverPatchTypeOutput) Spec() CSIDriverSpecPatchPtrOutput {
 }
 
 // CSIDriverSpec is the specification of a CSIDriver.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CSIDriverSpec struct {
 	// attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the CSIDriverRegistry feature gate is enabled and the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
 	//
@@ -381,6 +471,15 @@ type CSIDriverSpecInput interface {
 }
 
 // CSIDriverSpec is the specification of a CSIDriver.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CSIDriverSpecArgs struct {
 	// attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the CSIDriverRegistry feature gate is enabled and the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
 	//
@@ -456,6 +555,15 @@ func (i CSIDriverSpecArgs) ToCSIDriverSpecOutputWithContext(ctx context.Context)
 }
 
 // CSIDriverSpec is the specification of a CSIDriver.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CSIDriverSpecOutput struct{ *pulumi.OutputState }
 
 func (CSIDriverSpecOutput) ElementType() reflect.Type {
@@ -555,6 +663,15 @@ func (o CSIDriverSpecOutput) VolumeLifecycleModes() pulumi.StringArrayOutput {
 }
 
 // CSIDriverSpec is the specification of a CSIDriver.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CSIDriverSpecPatch struct {
 	// attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the CSIDriverRegistry feature gate is enabled and the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
 	//
@@ -629,6 +746,15 @@ type CSIDriverSpecPatchInput interface {
 }
 
 // CSIDriverSpec is the specification of a CSIDriver.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CSIDriverSpecPatchArgs struct {
 	// attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the CSIDriverRegistry feature gate is enabled and the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
 	//
@@ -745,6 +871,15 @@ func (i *csidriverSpecPatchPtrType) ToCSIDriverSpecPatchPtrOutputWithContext(ctx
 }
 
 // CSIDriverSpec is the specification of a CSIDriver.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CSIDriverSpecPatchOutput struct{ *pulumi.OutputState }
 
 func (CSIDriverSpecPatchOutput) ElementType() reflect.Type {
@@ -1002,6 +1137,15 @@ func (o CSIDriverSpecPatchPtrOutput) VolumeLifecycleModes() pulumi.StringArrayOu
 }
 
 // CSINode holds information about all CSI drivers installed on a node. CSI drivers do not need to create the CSINode object directly. As long as they use the node-driver-registrar sidecar container, the kubelet will automatically populate the CSINode object for the CSI driver as part of kubelet plugin registration. CSINode has the same name as a node. If the object is missing, it means either there are no CSI Drivers available on the node, or the Kubelet version is low enough that it doesn't create this object. CSINode has an OwnerReference that points to the corresponding node object.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CSINodeType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -1025,6 +1169,15 @@ type CSINodeTypeInput interface {
 }
 
 // CSINode holds information about all CSI drivers installed on a node. CSI drivers do not need to create the CSINode object directly. As long as they use the node-driver-registrar sidecar container, the kubelet will automatically populate the CSINode object for the CSI driver as part of kubelet plugin registration. CSINode has the same name as a node. If the object is missing, it means either there are no CSI Drivers available on the node, or the Kubelet version is low enough that it doesn't create this object. CSINode has an OwnerReference that points to the corresponding node object.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CSINodeTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -1074,6 +1227,15 @@ func (i CSINodeTypeArray) ToCSINodeTypeArrayOutputWithContext(ctx context.Contex
 }
 
 // CSINode holds information about all CSI drivers installed on a node. CSI drivers do not need to create the CSINode object directly. As long as they use the node-driver-registrar sidecar container, the kubelet will automatically populate the CSINode object for the CSI driver as part of kubelet plugin registration. CSINode has the same name as a node. If the object is missing, it means either there are no CSI Drivers available on the node, or the Kubelet version is low enough that it doesn't create this object. CSINode has an OwnerReference that points to the corresponding node object.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CSINodeTypeOutput struct{ *pulumi.OutputState }
 
 func (CSINodeTypeOutput) ElementType() reflect.Type {
@@ -1129,6 +1291,15 @@ func (o CSINodeTypeArrayOutput) Index(i pulumi.IntInput) CSINodeTypeOutput {
 }
 
 // CSINodeDriver holds information about the specification of one CSI driver installed on a node
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CSINodeDriver struct {
 	// allocatable represents the volume resources of a node that are available for scheduling. This field is beta.
 	Allocatable *VolumeNodeResources `pulumi:"allocatable"`
@@ -1152,6 +1323,15 @@ type CSINodeDriverInput interface {
 }
 
 // CSINodeDriver holds information about the specification of one CSI driver installed on a node
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CSINodeDriverArgs struct {
 	// allocatable represents the volume resources of a node that are available for scheduling. This field is beta.
 	Allocatable VolumeNodeResourcesPtrInput `pulumi:"allocatable"`
@@ -1201,6 +1381,15 @@ func (i CSINodeDriverArray) ToCSINodeDriverArrayOutputWithContext(ctx context.Co
 }
 
 // CSINodeDriver holds information about the specification of one CSI driver installed on a node
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CSINodeDriverOutput struct{ *pulumi.OutputState }
 
 func (CSINodeDriverOutput) ElementType() reflect.Type {
@@ -1256,6 +1445,15 @@ func (o CSINodeDriverArrayOutput) Index(i pulumi.IntInput) CSINodeDriverOutput {
 }
 
 // CSINodeDriver holds information about the specification of one CSI driver installed on a node
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CSINodeDriverPatch struct {
 	// allocatable represents the volume resources of a node that are available for scheduling. This field is beta.
 	Allocatable *VolumeNodeResourcesPatch `pulumi:"allocatable"`
@@ -1279,6 +1477,15 @@ type CSINodeDriverPatchInput interface {
 }
 
 // CSINodeDriver holds information about the specification of one CSI driver installed on a node
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CSINodeDriverPatchArgs struct {
 	// allocatable represents the volume resources of a node that are available for scheduling. This field is beta.
 	Allocatable VolumeNodeResourcesPatchPtrInput `pulumi:"allocatable"`
@@ -1328,6 +1535,15 @@ func (i CSINodeDriverPatchArray) ToCSINodeDriverPatchArrayOutputWithContext(ctx 
 }
 
 // CSINodeDriver holds information about the specification of one CSI driver installed on a node
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CSINodeDriverPatchOutput struct{ *pulumi.OutputState }
 
 func (CSINodeDriverPatchOutput) ElementType() reflect.Type {
@@ -1383,6 +1599,15 @@ func (o CSINodeDriverPatchArrayOutput) Index(i pulumi.IntInput) CSINodeDriverPat
 }
 
 // CSINodeList is a collection of CSINode objects.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CSINodeListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -1406,6 +1631,15 @@ type CSINodeListTypeInput interface {
 }
 
 // CSINodeList is a collection of CSINode objects.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CSINodeListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -1430,6 +1664,15 @@ func (i CSINodeListTypeArgs) ToCSINodeListTypeOutputWithContext(ctx context.Cont
 }
 
 // CSINodeList is a collection of CSINode objects.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CSINodeListTypeOutput struct{ *pulumi.OutputState }
 
 func (CSINodeListTypeOutput) ElementType() reflect.Type {
@@ -1465,6 +1708,15 @@ func (o CSINodeListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 }
 
 // CSINode holds information about all CSI drivers installed on a node. CSI drivers do not need to create the CSINode object directly. As long as they use the node-driver-registrar sidecar container, the kubelet will automatically populate the CSINode object for the CSI driver as part of kubelet plugin registration. CSINode has the same name as a node. If the object is missing, it means either there are no CSI Drivers available on the node, or the Kubelet version is low enough that it doesn't create this object. CSINode has an OwnerReference that points to the corresponding node object.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CSINodePatchType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -1488,6 +1740,15 @@ type CSINodePatchTypeInput interface {
 }
 
 // CSINode holds information about all CSI drivers installed on a node. CSI drivers do not need to create the CSINode object directly. As long as they use the node-driver-registrar sidecar container, the kubelet will automatically populate the CSINode object for the CSI driver as part of kubelet plugin registration. CSINode has the same name as a node. If the object is missing, it means either there are no CSI Drivers available on the node, or the Kubelet version is low enough that it doesn't create this object. CSINode has an OwnerReference that points to the corresponding node object.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CSINodePatchTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -1512,6 +1773,15 @@ func (i CSINodePatchTypeArgs) ToCSINodePatchTypeOutputWithContext(ctx context.Co
 }
 
 // CSINode holds information about all CSI drivers installed on a node. CSI drivers do not need to create the CSINode object directly. As long as they use the node-driver-registrar sidecar container, the kubelet will automatically populate the CSINode object for the CSI driver as part of kubelet plugin registration. CSINode has the same name as a node. If the object is missing, it means either there are no CSI Drivers available on the node, or the Kubelet version is low enough that it doesn't create this object. CSINode has an OwnerReference that points to the corresponding node object.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CSINodePatchTypeOutput struct{ *pulumi.OutputState }
 
 func (CSINodePatchTypeOutput) ElementType() reflect.Type {
@@ -1547,6 +1817,15 @@ func (o CSINodePatchTypeOutput) Spec() CSINodeSpecPatchPtrOutput {
 }
 
 // CSINodeSpec holds information about the specification of all CSI drivers installed on a node
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CSINodeSpec struct {
 	// drivers is a list of information of all CSI Drivers existing on a node. If all drivers in the list are uninstalled, this can become empty.
 	Drivers []CSINodeDriver `pulumi:"drivers"`
@@ -1564,6 +1843,15 @@ type CSINodeSpecInput interface {
 }
 
 // CSINodeSpec holds information about the specification of all CSI drivers installed on a node
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CSINodeSpecArgs struct {
 	// drivers is a list of information of all CSI Drivers existing on a node. If all drivers in the list are uninstalled, this can become empty.
 	Drivers CSINodeDriverArrayInput `pulumi:"drivers"`
@@ -1582,6 +1870,15 @@ func (i CSINodeSpecArgs) ToCSINodeSpecOutputWithContext(ctx context.Context) CSI
 }
 
 // CSINodeSpec holds information about the specification of all CSI drivers installed on a node
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CSINodeSpecOutput struct{ *pulumi.OutputState }
 
 func (CSINodeSpecOutput) ElementType() reflect.Type {
@@ -1602,6 +1899,15 @@ func (o CSINodeSpecOutput) Drivers() CSINodeDriverArrayOutput {
 }
 
 // CSINodeSpec holds information about the specification of all CSI drivers installed on a node
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CSINodeSpecPatch struct {
 	// drivers is a list of information of all CSI Drivers existing on a node. If all drivers in the list are uninstalled, this can become empty.
 	Drivers []CSINodeDriverPatch `pulumi:"drivers"`
@@ -1619,6 +1925,15 @@ type CSINodeSpecPatchInput interface {
 }
 
 // CSINodeSpec holds information about the specification of all CSI drivers installed on a node
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CSINodeSpecPatchArgs struct {
 	// drivers is a list of information of all CSI Drivers existing on a node. If all drivers in the list are uninstalled, this can become empty.
 	Drivers CSINodeDriverPatchArrayInput `pulumi:"drivers"`
@@ -1678,6 +1993,15 @@ func (i *csinodeSpecPatchPtrType) ToCSINodeSpecPatchPtrOutputWithContext(ctx con
 }
 
 // CSINodeSpec holds information about the specification of all CSI drivers installed on a node
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CSINodeSpecPatchOutput struct{ *pulumi.OutputState }
 
 func (CSINodeSpecPatchOutput) ElementType() reflect.Type {
@@ -1750,6 +2074,15 @@ func (o CSINodeSpecPatchPtrOutput) Drivers() CSINodeDriverPatchArrayOutput {
 // The producer of these objects can decide which approach is more suitable.
 //
 // They are consumed by the kube-scheduler when a CSI driver opts into capacity-aware scheduling with CSIDriverSpec.StorageCapacity. The scheduler compares the MaximumVolumeSize against the requested size of pending volumes to filter out unsuitable nodes. If MaximumVolumeSize is unset, it falls back to a comparison against the less precise Capacity. If that is also unset, the scheduler assumes that capacity is insufficient and tries some other node.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CSIStorageCapacityType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -1795,6 +2128,15 @@ type CSIStorageCapacityTypeInput interface {
 // The producer of these objects can decide which approach is more suitable.
 //
 // They are consumed by the kube-scheduler when a CSI driver opts into capacity-aware scheduling with CSIDriverSpec.StorageCapacity. The scheduler compares the MaximumVolumeSize against the requested size of pending volumes to filter out unsuitable nodes. If MaximumVolumeSize is unset, it falls back to a comparison against the less precise Capacity. If that is also unset, the scheduler assumes that capacity is insufficient and tries some other node.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CSIStorageCapacityTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -1866,6 +2208,15 @@ func (i CSIStorageCapacityTypeArray) ToCSIStorageCapacityTypeArrayOutputWithCont
 // The producer of these objects can decide which approach is more suitable.
 //
 // They are consumed by the kube-scheduler when a CSI driver opts into capacity-aware scheduling with CSIDriverSpec.StorageCapacity. The scheduler compares the MaximumVolumeSize against the requested size of pending volumes to filter out unsuitable nodes. If MaximumVolumeSize is unset, it falls back to a comparison against the less precise Capacity. If that is also unset, the scheduler assumes that capacity is insufficient and tries some other node.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CSIStorageCapacityTypeOutput struct{ *pulumi.OutputState }
 
 func (CSIStorageCapacityTypeOutput) ElementType() reflect.Type {
@@ -1944,6 +2295,15 @@ func (o CSIStorageCapacityTypeArrayOutput) Index(i pulumi.IntInput) CSIStorageCa
 }
 
 // CSIStorageCapacityList is a collection of CSIStorageCapacity objects.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CSIStorageCapacityListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -1967,6 +2327,15 @@ type CSIStorageCapacityListTypeInput interface {
 }
 
 // CSIStorageCapacityList is a collection of CSIStorageCapacity objects.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CSIStorageCapacityListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -1991,6 +2360,15 @@ func (i CSIStorageCapacityListTypeArgs) ToCSIStorageCapacityListTypeOutputWithCo
 }
 
 // CSIStorageCapacityList is a collection of CSIStorageCapacity objects.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CSIStorageCapacityListTypeOutput struct{ *pulumi.OutputState }
 
 func (CSIStorageCapacityListTypeOutput) ElementType() reflect.Type {
@@ -2034,6 +2412,15 @@ func (o CSIStorageCapacityListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 // The producer of these objects can decide which approach is more suitable.
 //
 // They are consumed by the kube-scheduler when a CSI driver opts into capacity-aware scheduling with CSIDriverSpec.StorageCapacity. The scheduler compares the MaximumVolumeSize against the requested size of pending volumes to filter out unsuitable nodes. If MaximumVolumeSize is unset, it falls back to a comparison against the less precise Capacity. If that is also unset, the scheduler assumes that capacity is insufficient and tries some other node.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CSIStorageCapacityPatchType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -2079,6 +2466,15 @@ type CSIStorageCapacityPatchTypeInput interface {
 // The producer of these objects can decide which approach is more suitable.
 //
 // They are consumed by the kube-scheduler when a CSI driver opts into capacity-aware scheduling with CSIDriverSpec.StorageCapacity. The scheduler compares the MaximumVolumeSize against the requested size of pending volumes to filter out unsuitable nodes. If MaximumVolumeSize is unset, it falls back to a comparison against the less precise Capacity. If that is also unset, the scheduler assumes that capacity is insufficient and tries some other node.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CSIStorageCapacityPatchTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -2125,6 +2521,15 @@ func (i CSIStorageCapacityPatchTypeArgs) ToCSIStorageCapacityPatchTypeOutputWith
 // The producer of these objects can decide which approach is more suitable.
 //
 // They are consumed by the kube-scheduler when a CSI driver opts into capacity-aware scheduling with CSIDriverSpec.StorageCapacity. The scheduler compares the MaximumVolumeSize against the requested size of pending volumes to filter out unsuitable nodes. If MaximumVolumeSize is unset, it falls back to a comparison against the less precise Capacity. If that is also unset, the scheduler assumes that capacity is insufficient and tries some other node.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CSIStorageCapacityPatchTypeOutput struct{ *pulumi.OutputState }
 
 func (CSIStorageCapacityPatchTypeOutput) ElementType() reflect.Type {
@@ -2185,6 +2590,15 @@ func (o CSIStorageCapacityPatchTypeOutput) StorageClassName() pulumi.StringPtrOu
 // StorageClass describes the parameters for a class of storage for which PersistentVolumes can be dynamically provisioned.
 //
 // StorageClasses are non-namespaced; the name of the storage class according to etcd is in ObjectMeta.Name.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StorageClassType struct {
 	// allowVolumeExpansion shows whether the storage class allow volume expand.
 	AllowVolumeExpansion *bool `pulumi:"allowVolumeExpansion"`
@@ -2222,6 +2636,15 @@ type StorageClassTypeInput interface {
 // StorageClass describes the parameters for a class of storage for which PersistentVolumes can be dynamically provisioned.
 //
 // StorageClasses are non-namespaced; the name of the storage class according to etcd is in ObjectMeta.Name.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StorageClassTypeArgs struct {
 	// allowVolumeExpansion shows whether the storage class allow volume expand.
 	AllowVolumeExpansion pulumi.BoolPtrInput `pulumi:"allowVolumeExpansion"`
@@ -2285,6 +2708,15 @@ func (i StorageClassTypeArray) ToStorageClassTypeArrayOutputWithContext(ctx cont
 // StorageClass describes the parameters for a class of storage for which PersistentVolumes can be dynamically provisioned.
 //
 // StorageClasses are non-namespaced; the name of the storage class according to etcd is in ObjectMeta.Name.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StorageClassTypeOutput struct{ *pulumi.OutputState }
 
 func (StorageClassTypeOutput) ElementType() reflect.Type {
@@ -2370,6 +2802,15 @@ func (o StorageClassTypeArrayOutput) Index(i pulumi.IntInput) StorageClassTypeOu
 }
 
 // StorageClassList is a collection of storage classes.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StorageClassListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -2393,6 +2834,15 @@ type StorageClassListTypeInput interface {
 }
 
 // StorageClassList is a collection of storage classes.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StorageClassListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -2417,6 +2867,15 @@ func (i StorageClassListTypeArgs) ToStorageClassListTypeOutputWithContext(ctx co
 }
 
 // StorageClassList is a collection of storage classes.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StorageClassListTypeOutput struct{ *pulumi.OutputState }
 
 func (StorageClassListTypeOutput) ElementType() reflect.Type {
@@ -2454,6 +2913,15 @@ func (o StorageClassListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 // StorageClass describes the parameters for a class of storage for which PersistentVolumes can be dynamically provisioned.
 //
 // StorageClasses are non-namespaced; the name of the storage class according to etcd is in ObjectMeta.Name.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StorageClassPatchType struct {
 	// allowVolumeExpansion shows whether the storage class allow volume expand.
 	AllowVolumeExpansion *bool `pulumi:"allowVolumeExpansion"`
@@ -2491,6 +2959,15 @@ type StorageClassPatchTypeInput interface {
 // StorageClass describes the parameters for a class of storage for which PersistentVolumes can be dynamically provisioned.
 //
 // StorageClasses are non-namespaced; the name of the storage class according to etcd is in ObjectMeta.Name.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StorageClassPatchTypeArgs struct {
 	// allowVolumeExpansion shows whether the storage class allow volume expand.
 	AllowVolumeExpansion pulumi.BoolPtrInput `pulumi:"allowVolumeExpansion"`
@@ -2529,6 +3006,15 @@ func (i StorageClassPatchTypeArgs) ToStorageClassPatchTypeOutputWithContext(ctx 
 // StorageClass describes the parameters for a class of storage for which PersistentVolumes can be dynamically provisioned.
 //
 // StorageClasses are non-namespaced; the name of the storage class according to etcd is in ObjectMeta.Name.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StorageClassPatchTypeOutput struct{ *pulumi.OutputState }
 
 func (StorageClassPatchTypeOutput) ElementType() reflect.Type {
@@ -2594,6 +3080,15 @@ func (o StorageClassPatchTypeOutput) VolumeBindingMode() pulumi.StringPtrOutput 
 }
 
 // TokenRequest contains parameters of a service account token.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type TokenRequest struct {
 	// audience is the intended audience of the token in "TokenRequestSpec". It will default to the audiences of kube apiserver.
 	Audience string `pulumi:"audience"`
@@ -2613,6 +3108,15 @@ type TokenRequestInput interface {
 }
 
 // TokenRequest contains parameters of a service account token.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type TokenRequestArgs struct {
 	// audience is the intended audience of the token in "TokenRequestSpec". It will default to the audiences of kube apiserver.
 	Audience pulumi.StringInput `pulumi:"audience"`
@@ -2658,6 +3162,15 @@ func (i TokenRequestArray) ToTokenRequestArrayOutputWithContext(ctx context.Cont
 }
 
 // TokenRequest contains parameters of a service account token.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type TokenRequestOutput struct{ *pulumi.OutputState }
 
 func (TokenRequestOutput) ElementType() reflect.Type {
@@ -2703,6 +3216,15 @@ func (o TokenRequestArrayOutput) Index(i pulumi.IntInput) TokenRequestOutput {
 }
 
 // TokenRequest contains parameters of a service account token.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type TokenRequestPatch struct {
 	// audience is the intended audience of the token in "TokenRequestSpec". It will default to the audiences of kube apiserver.
 	Audience *string `pulumi:"audience"`
@@ -2722,6 +3244,15 @@ type TokenRequestPatchInput interface {
 }
 
 // TokenRequest contains parameters of a service account token.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type TokenRequestPatchArgs struct {
 	// audience is the intended audience of the token in "TokenRequestSpec". It will default to the audiences of kube apiserver.
 	Audience pulumi.StringPtrInput `pulumi:"audience"`
@@ -2767,6 +3298,15 @@ func (i TokenRequestPatchArray) ToTokenRequestPatchArrayOutputWithContext(ctx co
 }
 
 // TokenRequest contains parameters of a service account token.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type TokenRequestPatchOutput struct{ *pulumi.OutputState }
 
 func (TokenRequestPatchOutput) ElementType() reflect.Type {
@@ -2814,6 +3354,15 @@ func (o TokenRequestPatchArrayOutput) Index(i pulumi.IntInput) TokenRequestPatch
 // VolumeAttachment captures the intent to attach or detach the specified volume to/from the specified node.
 //
 // VolumeAttachment objects are non-namespaced.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type VolumeAttachmentType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -2841,6 +3390,15 @@ type VolumeAttachmentTypeInput interface {
 // VolumeAttachment captures the intent to attach or detach the specified volume to/from the specified node.
 //
 // VolumeAttachment objects are non-namespaced.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type VolumeAttachmentTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -2894,6 +3452,15 @@ func (i VolumeAttachmentTypeArray) ToVolumeAttachmentTypeArrayOutputWithContext(
 // VolumeAttachment captures the intent to attach or detach the specified volume to/from the specified node.
 //
 // VolumeAttachment objects are non-namespaced.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type VolumeAttachmentTypeOutput struct{ *pulumi.OutputState }
 
 func (VolumeAttachmentTypeOutput) ElementType() reflect.Type {
@@ -2954,6 +3521,15 @@ func (o VolumeAttachmentTypeArrayOutput) Index(i pulumi.IntInput) VolumeAttachme
 }
 
 // VolumeAttachmentList is a collection of VolumeAttachment objects.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type VolumeAttachmentListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -2977,6 +3553,15 @@ type VolumeAttachmentListTypeInput interface {
 }
 
 // VolumeAttachmentList is a collection of VolumeAttachment objects.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type VolumeAttachmentListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -3001,6 +3586,15 @@ func (i VolumeAttachmentListTypeArgs) ToVolumeAttachmentListTypeOutputWithContex
 }
 
 // VolumeAttachmentList is a collection of VolumeAttachment objects.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type VolumeAttachmentListTypeOutput struct{ *pulumi.OutputState }
 
 func (VolumeAttachmentListTypeOutput) ElementType() reflect.Type {
@@ -3038,6 +3632,15 @@ func (o VolumeAttachmentListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 // VolumeAttachment captures the intent to attach or detach the specified volume to/from the specified node.
 //
 // VolumeAttachment objects are non-namespaced.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type VolumeAttachmentPatchType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -3065,6 +3668,15 @@ type VolumeAttachmentPatchTypeInput interface {
 // VolumeAttachment captures the intent to attach or detach the specified volume to/from the specified node.
 //
 // VolumeAttachment objects are non-namespaced.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type VolumeAttachmentPatchTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -3093,6 +3705,15 @@ func (i VolumeAttachmentPatchTypeArgs) ToVolumeAttachmentPatchTypeOutputWithCont
 // VolumeAttachment captures the intent to attach or detach the specified volume to/from the specified node.
 //
 // VolumeAttachment objects are non-namespaced.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type VolumeAttachmentPatchTypeOutput struct{ *pulumi.OutputState }
 
 func (VolumeAttachmentPatchTypeOutput) ElementType() reflect.Type {
@@ -3133,6 +3754,15 @@ func (o VolumeAttachmentPatchTypeOutput) Status() VolumeAttachmentStatusPatchPtr
 }
 
 // VolumeAttachmentSource represents a volume that should be attached. Right now only PersistenVolumes can be attached via external attacher, in future we may allow also inline volumes in pods. Exactly one member can be set.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type VolumeAttachmentSource struct {
 	// inlineVolumeSpec contains all the information necessary to attach a persistent volume defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration feature. It contains translated fields from a pod's inline VolumeSource to a PersistentVolumeSpec. This field is beta-level and is only honored by servers that enabled the CSIMigration feature.
 	InlineVolumeSpec *corev1.PersistentVolumeSpec `pulumi:"inlineVolumeSpec"`
@@ -3152,6 +3782,15 @@ type VolumeAttachmentSourceInput interface {
 }
 
 // VolumeAttachmentSource represents a volume that should be attached. Right now only PersistenVolumes can be attached via external attacher, in future we may allow also inline volumes in pods. Exactly one member can be set.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type VolumeAttachmentSourceArgs struct {
 	// inlineVolumeSpec contains all the information necessary to attach a persistent volume defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration feature. It contains translated fields from a pod's inline VolumeSource to a PersistentVolumeSpec. This field is beta-level and is only honored by servers that enabled the CSIMigration feature.
 	InlineVolumeSpec corev1.PersistentVolumeSpecPtrInput `pulumi:"inlineVolumeSpec"`
@@ -3172,6 +3811,15 @@ func (i VolumeAttachmentSourceArgs) ToVolumeAttachmentSourceOutputWithContext(ct
 }
 
 // VolumeAttachmentSource represents a volume that should be attached. Right now only PersistenVolumes can be attached via external attacher, in future we may allow also inline volumes in pods. Exactly one member can be set.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type VolumeAttachmentSourceOutput struct{ *pulumi.OutputState }
 
 func (VolumeAttachmentSourceOutput) ElementType() reflect.Type {
@@ -3197,6 +3845,15 @@ func (o VolumeAttachmentSourceOutput) PersistentVolumeName() pulumi.StringPtrOut
 }
 
 // VolumeAttachmentSource represents a volume that should be attached. Right now only PersistenVolumes can be attached via external attacher, in future we may allow also inline volumes in pods. Exactly one member can be set.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type VolumeAttachmentSourcePatch struct {
 	// inlineVolumeSpec contains all the information necessary to attach a persistent volume defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration feature. It contains translated fields from a pod's inline VolumeSource to a PersistentVolumeSpec. This field is beta-level and is only honored by servers that enabled the CSIMigration feature.
 	InlineVolumeSpec *corev1.PersistentVolumeSpecPatch `pulumi:"inlineVolumeSpec"`
@@ -3216,6 +3873,15 @@ type VolumeAttachmentSourcePatchInput interface {
 }
 
 // VolumeAttachmentSource represents a volume that should be attached. Right now only PersistenVolumes can be attached via external attacher, in future we may allow also inline volumes in pods. Exactly one member can be set.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type VolumeAttachmentSourcePatchArgs struct {
 	// inlineVolumeSpec contains all the information necessary to attach a persistent volume defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration feature. It contains translated fields from a pod's inline VolumeSource to a PersistentVolumeSpec. This field is beta-level and is only honored by servers that enabled the CSIMigration feature.
 	InlineVolumeSpec corev1.PersistentVolumeSpecPatchPtrInput `pulumi:"inlineVolumeSpec"`
@@ -3277,6 +3943,15 @@ func (i *volumeAttachmentSourcePatchPtrType) ToVolumeAttachmentSourcePatchPtrOut
 }
 
 // VolumeAttachmentSource represents a volume that should be attached. Right now only PersistenVolumes can be attached via external attacher, in future we may allow also inline volumes in pods. Exactly one member can be set.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type VolumeAttachmentSourcePatchOutput struct{ *pulumi.OutputState }
 
 func (VolumeAttachmentSourcePatchOutput) ElementType() reflect.Type {
@@ -3356,6 +4031,15 @@ func (o VolumeAttachmentSourcePatchPtrOutput) PersistentVolumeName() pulumi.Stri
 }
 
 // VolumeAttachmentSpec is the specification of a VolumeAttachment request.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type VolumeAttachmentSpec struct {
 	// attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
 	Attacher string `pulumi:"attacher"`
@@ -3377,6 +4061,15 @@ type VolumeAttachmentSpecInput interface {
 }
 
 // VolumeAttachmentSpec is the specification of a VolumeAttachment request.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type VolumeAttachmentSpecArgs struct {
 	// attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
 	Attacher pulumi.StringInput `pulumi:"attacher"`
@@ -3399,6 +4092,15 @@ func (i VolumeAttachmentSpecArgs) ToVolumeAttachmentSpecOutputWithContext(ctx co
 }
 
 // VolumeAttachmentSpec is the specification of a VolumeAttachment request.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type VolumeAttachmentSpecOutput struct{ *pulumi.OutputState }
 
 func (VolumeAttachmentSpecOutput) ElementType() reflect.Type {
@@ -3429,6 +4131,15 @@ func (o VolumeAttachmentSpecOutput) Source() VolumeAttachmentSourceOutput {
 }
 
 // VolumeAttachmentSpec is the specification of a VolumeAttachment request.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type VolumeAttachmentSpecPatch struct {
 	// attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
 	Attacher *string `pulumi:"attacher"`
@@ -3450,6 +4161,15 @@ type VolumeAttachmentSpecPatchInput interface {
 }
 
 // VolumeAttachmentSpec is the specification of a VolumeAttachment request.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type VolumeAttachmentSpecPatchArgs struct {
 	// attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
 	Attacher pulumi.StringPtrInput `pulumi:"attacher"`
@@ -3513,6 +4233,15 @@ func (i *volumeAttachmentSpecPatchPtrType) ToVolumeAttachmentSpecPatchPtrOutputW
 }
 
 // VolumeAttachmentSpec is the specification of a VolumeAttachment request.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type VolumeAttachmentSpecPatchOutput struct{ *pulumi.OutputState }
 
 func (VolumeAttachmentSpecPatchOutput) ElementType() reflect.Type {
@@ -3607,6 +4336,15 @@ func (o VolumeAttachmentSpecPatchPtrOutput) Source() VolumeAttachmentSourcePatch
 }
 
 // VolumeAttachmentStatus is the status of a VolumeAttachment request.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type VolumeAttachmentStatus struct {
 	// attachError represents the last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
 	AttachError *VolumeError `pulumi:"attachError"`
@@ -3630,6 +4368,15 @@ type VolumeAttachmentStatusInput interface {
 }
 
 // VolumeAttachmentStatus is the status of a VolumeAttachment request.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type VolumeAttachmentStatusArgs struct {
 	// attachError represents the last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
 	AttachError VolumeErrorPtrInput `pulumi:"attachError"`
@@ -3695,6 +4442,15 @@ func (i *volumeAttachmentStatusPtrType) ToVolumeAttachmentStatusPtrOutputWithCon
 }
 
 // VolumeAttachmentStatus is the status of a VolumeAttachment request.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type VolumeAttachmentStatusOutput struct{ *pulumi.OutputState }
 
 func (VolumeAttachmentStatusOutput) ElementType() reflect.Type {
@@ -3804,6 +4560,15 @@ func (o VolumeAttachmentStatusPtrOutput) DetachError() VolumeErrorPtrOutput {
 }
 
 // VolumeAttachmentStatus is the status of a VolumeAttachment request.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type VolumeAttachmentStatusPatch struct {
 	// attachError represents the last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
 	AttachError *VolumeErrorPatch `pulumi:"attachError"`
@@ -3827,6 +4592,15 @@ type VolumeAttachmentStatusPatchInput interface {
 }
 
 // VolumeAttachmentStatus is the status of a VolumeAttachment request.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type VolumeAttachmentStatusPatchArgs struct {
 	// attachError represents the last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
 	AttachError VolumeErrorPatchPtrInput `pulumi:"attachError"`
@@ -3892,6 +4666,15 @@ func (i *volumeAttachmentStatusPatchPtrType) ToVolumeAttachmentStatusPatchPtrOut
 }
 
 // VolumeAttachmentStatus is the status of a VolumeAttachment request.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type VolumeAttachmentStatusPatchOutput struct{ *pulumi.OutputState }
 
 func (VolumeAttachmentStatusPatchOutput) ElementType() reflect.Type {
@@ -4001,6 +4784,15 @@ func (o VolumeAttachmentStatusPatchPtrOutput) DetachError() VolumeErrorPatchPtrO
 }
 
 // VolumeError captures an error encountered during a volume operation.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type VolumeError struct {
 	// message represents the error encountered during Attach or Detach operation. This string may be logged, so it should not contain sensitive information.
 	Message *string `pulumi:"message"`
@@ -4020,6 +4812,15 @@ type VolumeErrorInput interface {
 }
 
 // VolumeError captures an error encountered during a volume operation.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type VolumeErrorArgs struct {
 	// message represents the error encountered during Attach or Detach operation. This string may be logged, so it should not contain sensitive information.
 	Message pulumi.StringPtrInput `pulumi:"message"`
@@ -4081,6 +4882,15 @@ func (i *volumeErrorPtrType) ToVolumeErrorPtrOutputWithContext(ctx context.Conte
 }
 
 // VolumeError captures an error encountered during a volume operation.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type VolumeErrorOutput struct{ *pulumi.OutputState }
 
 func (VolumeErrorOutput) ElementType() reflect.Type {
@@ -4160,6 +4970,15 @@ func (o VolumeErrorPtrOutput) Time() pulumi.StringPtrOutput {
 }
 
 // VolumeError captures an error encountered during a volume operation.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type VolumeErrorPatch struct {
 	// message represents the error encountered during Attach or Detach operation. This string may be logged, so it should not contain sensitive information.
 	Message *string `pulumi:"message"`
@@ -4179,6 +4998,15 @@ type VolumeErrorPatchInput interface {
 }
 
 // VolumeError captures an error encountered during a volume operation.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type VolumeErrorPatchArgs struct {
 	// message represents the error encountered during Attach or Detach operation. This string may be logged, so it should not contain sensitive information.
 	Message pulumi.StringPtrInput `pulumi:"message"`
@@ -4240,6 +5068,15 @@ func (i *volumeErrorPatchPtrType) ToVolumeErrorPatchPtrOutputWithContext(ctx con
 }
 
 // VolumeError captures an error encountered during a volume operation.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type VolumeErrorPatchOutput struct{ *pulumi.OutputState }
 
 func (VolumeErrorPatchOutput) ElementType() reflect.Type {
@@ -4319,6 +5156,15 @@ func (o VolumeErrorPatchPtrOutput) Time() pulumi.StringPtrOutput {
 }
 
 // VolumeNodeResources is a set of resource limits for scheduling of volumes.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type VolumeNodeResources struct {
 	// count indicates the maximum number of unique volumes managed by the CSI driver that can be used on a node. A volume that is both attached and mounted on a node is considered to be used once, not twice. The same rule applies for a unique volume that is shared among multiple pods on the same node. If this field is not specified, then the supported number of volumes on this node is unbounded.
 	Count *int `pulumi:"count"`
@@ -4336,6 +5182,15 @@ type VolumeNodeResourcesInput interface {
 }
 
 // VolumeNodeResources is a set of resource limits for scheduling of volumes.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type VolumeNodeResourcesArgs struct {
 	// count indicates the maximum number of unique volumes managed by the CSI driver that can be used on a node. A volume that is both attached and mounted on a node is considered to be used once, not twice. The same rule applies for a unique volume that is shared among multiple pods on the same node. If this field is not specified, then the supported number of volumes on this node is unbounded.
 	Count pulumi.IntPtrInput `pulumi:"count"`
@@ -4395,6 +5250,15 @@ func (i *volumeNodeResourcesPtrType) ToVolumeNodeResourcesPtrOutputWithContext(c
 }
 
 // VolumeNodeResources is a set of resource limits for scheduling of volumes.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type VolumeNodeResourcesOutput struct{ *pulumi.OutputState }
 
 func (VolumeNodeResourcesOutput) ElementType() reflect.Type {
@@ -4459,6 +5323,15 @@ func (o VolumeNodeResourcesPtrOutput) Count() pulumi.IntPtrOutput {
 }
 
 // VolumeNodeResources is a set of resource limits for scheduling of volumes.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type VolumeNodeResourcesPatch struct {
 	// count indicates the maximum number of unique volumes managed by the CSI driver that can be used on a node. A volume that is both attached and mounted on a node is considered to be used once, not twice. The same rule applies for a unique volume that is shared among multiple pods on the same node. If this field is not specified, then the supported number of volumes on this node is unbounded.
 	Count *int `pulumi:"count"`
@@ -4476,6 +5349,15 @@ type VolumeNodeResourcesPatchInput interface {
 }
 
 // VolumeNodeResources is a set of resource limits for scheduling of volumes.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type VolumeNodeResourcesPatchArgs struct {
 	// count indicates the maximum number of unique volumes managed by the CSI driver that can be used on a node. A volume that is both attached and mounted on a node is considered to be used once, not twice. The same rule applies for a unique volume that is shared among multiple pods on the same node. If this field is not specified, then the supported number of volumes on this node is unbounded.
 	Count pulumi.IntPtrInput `pulumi:"count"`
@@ -4535,6 +5417,15 @@ func (i *volumeNodeResourcesPatchPtrType) ToVolumeNodeResourcesPatchPtrOutputWit
 }
 
 // VolumeNodeResources is a set of resource limits for scheduling of volumes.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type VolumeNodeResourcesPatchOutput struct{ *pulumi.OutputState }
 
 func (VolumeNodeResourcesPatchOutput) ElementType() reflect.Type {

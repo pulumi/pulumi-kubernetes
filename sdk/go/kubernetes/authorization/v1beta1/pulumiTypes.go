@@ -15,6 +15,15 @@ import (
 var _ = utilities.GetEnvOrDefault
 
 // LocalSubjectAccessReview checks whether or not a user or group can perform an action in a given namespace. Having a namespace scoped resource makes it much easier to grant namespace scoped policy that includes permissions checking.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type LocalSubjectAccessReview struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -39,6 +48,15 @@ type LocalSubjectAccessReviewInput interface {
 }
 
 // LocalSubjectAccessReview checks whether or not a user or group can perform an action in a given namespace. Having a namespace scoped resource makes it much easier to grant namespace scoped policy that includes permissions checking.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type LocalSubjectAccessReviewArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -64,6 +82,15 @@ func (i LocalSubjectAccessReviewArgs) ToLocalSubjectAccessReviewOutputWithContex
 }
 
 // LocalSubjectAccessReview checks whether or not a user or group can perform an action in a given namespace. Having a namespace scoped resource makes it much easier to grant namespace scoped policy that includes permissions checking.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type LocalSubjectAccessReviewOutput struct{ *pulumi.OutputState }
 
 func (LocalSubjectAccessReviewOutput) ElementType() reflect.Type {
@@ -103,6 +130,15 @@ func (o LocalSubjectAccessReviewOutput) Status() SubjectAccessReviewStatusPtrOut
 }
 
 // LocalSubjectAccessReview checks whether or not a user or group can perform an action in a given namespace. Having a namespace scoped resource makes it much easier to grant namespace scoped policy that includes permissions checking.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type LocalSubjectAccessReviewPatch struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -127,6 +163,15 @@ type LocalSubjectAccessReviewPatchInput interface {
 }
 
 // LocalSubjectAccessReview checks whether or not a user or group can perform an action in a given namespace. Having a namespace scoped resource makes it much easier to grant namespace scoped policy that includes permissions checking.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type LocalSubjectAccessReviewPatchArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -152,6 +197,15 @@ func (i LocalSubjectAccessReviewPatchArgs) ToLocalSubjectAccessReviewPatchOutput
 }
 
 // LocalSubjectAccessReview checks whether or not a user or group can perform an action in a given namespace. Having a namespace scoped resource makes it much easier to grant namespace scoped policy that includes permissions checking.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type LocalSubjectAccessReviewPatchOutput struct{ *pulumi.OutputState }
 
 func (LocalSubjectAccessReviewPatchOutput) ElementType() reflect.Type {
@@ -191,6 +245,15 @@ func (o LocalSubjectAccessReviewPatchOutput) Status() SubjectAccessReviewStatusP
 }
 
 // NonResourceAttributes includes the authorization attributes available for non-resource requests to the Authorizer interface
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type NonResourceAttributes struct {
 	// Path is the URL path of the request
 	Path *string `pulumi:"path"`
@@ -210,6 +273,15 @@ type NonResourceAttributesInput interface {
 }
 
 // NonResourceAttributes includes the authorization attributes available for non-resource requests to the Authorizer interface
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type NonResourceAttributesArgs struct {
 	// Path is the URL path of the request
 	Path pulumi.StringPtrInput `pulumi:"path"`
@@ -271,6 +343,15 @@ func (i *nonResourceAttributesPtrType) ToNonResourceAttributesPtrOutputWithConte
 }
 
 // NonResourceAttributes includes the authorization attributes available for non-resource requests to the Authorizer interface
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type NonResourceAttributesOutput struct{ *pulumi.OutputState }
 
 func (NonResourceAttributesOutput) ElementType() reflect.Type {
@@ -350,6 +431,15 @@ func (o NonResourceAttributesPtrOutput) Verb() pulumi.StringPtrOutput {
 }
 
 // NonResourceAttributes includes the authorization attributes available for non-resource requests to the Authorizer interface
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type NonResourceAttributesPatch struct {
 	// Path is the URL path of the request
 	Path *string `pulumi:"path"`
@@ -369,6 +459,15 @@ type NonResourceAttributesPatchInput interface {
 }
 
 // NonResourceAttributes includes the authorization attributes available for non-resource requests to the Authorizer interface
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type NonResourceAttributesPatchArgs struct {
 	// Path is the URL path of the request
 	Path pulumi.StringPtrInput `pulumi:"path"`
@@ -430,6 +529,15 @@ func (i *nonResourceAttributesPatchPtrType) ToNonResourceAttributesPatchPtrOutpu
 }
 
 // NonResourceAttributes includes the authorization attributes available for non-resource requests to the Authorizer interface
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type NonResourceAttributesPatchOutput struct{ *pulumi.OutputState }
 
 func (NonResourceAttributesPatchOutput) ElementType() reflect.Type {
@@ -509,6 +617,15 @@ func (o NonResourceAttributesPatchPtrOutput) Verb() pulumi.StringPtrOutput {
 }
 
 // NonResourceRule holds information that describes a rule for the non-resource
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type NonResourceRule struct {
 	// NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path.  "*" means all.
 	NonResourceURLs []string `pulumi:"nonResourceURLs"`
@@ -528,6 +645,15 @@ type NonResourceRuleInput interface {
 }
 
 // NonResourceRule holds information that describes a rule for the non-resource
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type NonResourceRuleArgs struct {
 	// NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path.  "*" means all.
 	NonResourceURLs pulumi.StringArrayInput `pulumi:"nonResourceURLs"`
@@ -573,6 +699,15 @@ func (i NonResourceRuleArray) ToNonResourceRuleArrayOutputWithContext(ctx contex
 }
 
 // NonResourceRule holds information that describes a rule for the non-resource
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type NonResourceRuleOutput struct{ *pulumi.OutputState }
 
 func (NonResourceRuleOutput) ElementType() reflect.Type {
@@ -618,6 +753,15 @@ func (o NonResourceRuleArrayOutput) Index(i pulumi.IntInput) NonResourceRuleOutp
 }
 
 // NonResourceRule holds information that describes a rule for the non-resource
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type NonResourceRulePatch struct {
 	// NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path.  "*" means all.
 	NonResourceURLs []string `pulumi:"nonResourceURLs"`
@@ -637,6 +781,15 @@ type NonResourceRulePatchInput interface {
 }
 
 // NonResourceRule holds information that describes a rule for the non-resource
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type NonResourceRulePatchArgs struct {
 	// NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path.  "*" means all.
 	NonResourceURLs pulumi.StringArrayInput `pulumi:"nonResourceURLs"`
@@ -682,6 +835,15 @@ func (i NonResourceRulePatchArray) ToNonResourceRulePatchArrayOutputWithContext(
 }
 
 // NonResourceRule holds information that describes a rule for the non-resource
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type NonResourceRulePatchOutput struct{ *pulumi.OutputState }
 
 func (NonResourceRulePatchOutput) ElementType() reflect.Type {
@@ -727,6 +889,15 @@ func (o NonResourceRulePatchArrayOutput) Index(i pulumi.IntInput) NonResourceRul
 }
 
 // ResourceAttributes includes the authorization attributes available for resource requests to the Authorizer interface
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ResourceAttributes struct {
 	// Group is the API Group of the Resource.  "*" means all.
 	Group *string `pulumi:"group"`
@@ -756,6 +927,15 @@ type ResourceAttributesInput interface {
 }
 
 // ResourceAttributes includes the authorization attributes available for resource requests to the Authorizer interface
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ResourceAttributesArgs struct {
 	// Group is the API Group of the Resource.  "*" means all.
 	Group pulumi.StringPtrInput `pulumi:"group"`
@@ -827,6 +1007,15 @@ func (i *resourceAttributesPtrType) ToResourceAttributesPtrOutputWithContext(ctx
 }
 
 // ResourceAttributes includes the authorization attributes available for resource requests to the Authorizer interface
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ResourceAttributesOutput struct{ *pulumi.OutputState }
 
 func (ResourceAttributesOutput) ElementType() reflect.Type {
@@ -981,6 +1170,15 @@ func (o ResourceAttributesPtrOutput) Version() pulumi.StringPtrOutput {
 }
 
 // ResourceAttributes includes the authorization attributes available for resource requests to the Authorizer interface
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ResourceAttributesPatch struct {
 	// Group is the API Group of the Resource.  "*" means all.
 	Group *string `pulumi:"group"`
@@ -1010,6 +1208,15 @@ type ResourceAttributesPatchInput interface {
 }
 
 // ResourceAttributes includes the authorization attributes available for resource requests to the Authorizer interface
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ResourceAttributesPatchArgs struct {
 	// Group is the API Group of the Resource.  "*" means all.
 	Group pulumi.StringPtrInput `pulumi:"group"`
@@ -1081,6 +1288,15 @@ func (i *resourceAttributesPatchPtrType) ToResourceAttributesPatchPtrOutputWithC
 }
 
 // ResourceAttributes includes the authorization attributes available for resource requests to the Authorizer interface
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ResourceAttributesPatchOutput struct{ *pulumi.OutputState }
 
 func (ResourceAttributesPatchOutput) ElementType() reflect.Type {
@@ -1235,6 +1451,15 @@ func (o ResourceAttributesPatchPtrOutput) Version() pulumi.StringPtrOutput {
 }
 
 // ResourceRule is the list of actions the subject is allowed to perform on resources. The list ordering isn't significant, may contain duplicates, and possibly be incomplete.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ResourceRule struct {
 	// APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed.  "*" means all.
 	ApiGroups []string `pulumi:"apiGroups"`
@@ -1259,6 +1484,15 @@ type ResourceRuleInput interface {
 }
 
 // ResourceRule is the list of actions the subject is allowed to perform on resources. The list ordering isn't significant, may contain duplicates, and possibly be incomplete.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ResourceRuleArgs struct {
 	// APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed.  "*" means all.
 	ApiGroups pulumi.StringArrayInput `pulumi:"apiGroups"`
@@ -1309,6 +1543,15 @@ func (i ResourceRuleArray) ToResourceRuleArrayOutputWithContext(ctx context.Cont
 }
 
 // ResourceRule is the list of actions the subject is allowed to perform on resources. The list ordering isn't significant, may contain duplicates, and possibly be incomplete.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ResourceRuleOutput struct{ *pulumi.OutputState }
 
 func (ResourceRuleOutput) ElementType() reflect.Type {
@@ -1366,6 +1609,15 @@ func (o ResourceRuleArrayOutput) Index(i pulumi.IntInput) ResourceRuleOutput {
 }
 
 // ResourceRule is the list of actions the subject is allowed to perform on resources. The list ordering isn't significant, may contain duplicates, and possibly be incomplete.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ResourceRulePatch struct {
 	// APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed.  "*" means all.
 	ApiGroups []string `pulumi:"apiGroups"`
@@ -1390,6 +1642,15 @@ type ResourceRulePatchInput interface {
 }
 
 // ResourceRule is the list of actions the subject is allowed to perform on resources. The list ordering isn't significant, may contain duplicates, and possibly be incomplete.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ResourceRulePatchArgs struct {
 	// APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed.  "*" means all.
 	ApiGroups pulumi.StringArrayInput `pulumi:"apiGroups"`
@@ -1440,6 +1701,15 @@ func (i ResourceRulePatchArray) ToResourceRulePatchArrayOutputWithContext(ctx co
 }
 
 // ResourceRule is the list of actions the subject is allowed to perform on resources. The list ordering isn't significant, may contain duplicates, and possibly be incomplete.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ResourceRulePatchOutput struct{ *pulumi.OutputState }
 
 func (ResourceRulePatchOutput) ElementType() reflect.Type {
@@ -1497,6 +1767,15 @@ func (o ResourceRulePatchArrayOutput) Index(i pulumi.IntInput) ResourceRulePatch
 }
 
 // SelfSubjectAccessReview checks whether or the current user can perform an action.  Not filling in a spec.namespace means "in all namespaces".  Self is a special case, because users should always be able to check whether they can perform an action
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SelfSubjectAccessReview struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -1521,6 +1800,15 @@ type SelfSubjectAccessReviewInput interface {
 }
 
 // SelfSubjectAccessReview checks whether or the current user can perform an action.  Not filling in a spec.namespace means "in all namespaces".  Self is a special case, because users should always be able to check whether they can perform an action
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SelfSubjectAccessReviewArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -1546,6 +1834,15 @@ func (i SelfSubjectAccessReviewArgs) ToSelfSubjectAccessReviewOutputWithContext(
 }
 
 // SelfSubjectAccessReview checks whether or the current user can perform an action.  Not filling in a spec.namespace means "in all namespaces".  Self is a special case, because users should always be able to check whether they can perform an action
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SelfSubjectAccessReviewOutput struct{ *pulumi.OutputState }
 
 func (SelfSubjectAccessReviewOutput) ElementType() reflect.Type {
@@ -1585,6 +1882,15 @@ func (o SelfSubjectAccessReviewOutput) Status() SubjectAccessReviewStatusPtrOutp
 }
 
 // SelfSubjectAccessReview checks whether or the current user can perform an action.  Not filling in a spec.namespace means "in all namespaces".  Self is a special case, because users should always be able to check whether they can perform an action
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SelfSubjectAccessReviewPatch struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -1609,6 +1915,15 @@ type SelfSubjectAccessReviewPatchInput interface {
 }
 
 // SelfSubjectAccessReview checks whether or the current user can perform an action.  Not filling in a spec.namespace means "in all namespaces".  Self is a special case, because users should always be able to check whether they can perform an action
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SelfSubjectAccessReviewPatchArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -1634,6 +1949,15 @@ func (i SelfSubjectAccessReviewPatchArgs) ToSelfSubjectAccessReviewPatchOutputWi
 }
 
 // SelfSubjectAccessReview checks whether or the current user can perform an action.  Not filling in a spec.namespace means "in all namespaces".  Self is a special case, because users should always be able to check whether they can perform an action
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SelfSubjectAccessReviewPatchOutput struct{ *pulumi.OutputState }
 
 func (SelfSubjectAccessReviewPatchOutput) ElementType() reflect.Type {
@@ -1673,6 +1997,15 @@ func (o SelfSubjectAccessReviewPatchOutput) Status() SubjectAccessReviewStatusPa
 }
 
 // SelfSubjectAccessReviewSpec is a description of the access request.  Exactly one of ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SelfSubjectAccessReviewSpec struct {
 	// NonResourceAttributes describes information for a non-resource access request
 	NonResourceAttributes *NonResourceAttributes `pulumi:"nonResourceAttributes"`
@@ -1692,6 +2025,15 @@ type SelfSubjectAccessReviewSpecInput interface {
 }
 
 // SelfSubjectAccessReviewSpec is a description of the access request.  Exactly one of ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SelfSubjectAccessReviewSpecArgs struct {
 	// NonResourceAttributes describes information for a non-resource access request
 	NonResourceAttributes NonResourceAttributesPtrInput `pulumi:"nonResourceAttributes"`
@@ -1712,6 +2054,15 @@ func (i SelfSubjectAccessReviewSpecArgs) ToSelfSubjectAccessReviewSpecOutputWith
 }
 
 // SelfSubjectAccessReviewSpec is a description of the access request.  Exactly one of ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SelfSubjectAccessReviewSpecOutput struct{ *pulumi.OutputState }
 
 func (SelfSubjectAccessReviewSpecOutput) ElementType() reflect.Type {
@@ -1737,6 +2088,15 @@ func (o SelfSubjectAccessReviewSpecOutput) ResourceAttributes() ResourceAttribut
 }
 
 // SelfSubjectAccessReviewSpec is a description of the access request.  Exactly one of ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SelfSubjectAccessReviewSpecPatch struct {
 	// NonResourceAttributes describes information for a non-resource access request
 	NonResourceAttributes *NonResourceAttributesPatch `pulumi:"nonResourceAttributes"`
@@ -1756,6 +2116,15 @@ type SelfSubjectAccessReviewSpecPatchInput interface {
 }
 
 // SelfSubjectAccessReviewSpec is a description of the access request.  Exactly one of ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SelfSubjectAccessReviewSpecPatchArgs struct {
 	// NonResourceAttributes describes information for a non-resource access request
 	NonResourceAttributes NonResourceAttributesPatchPtrInput `pulumi:"nonResourceAttributes"`
@@ -1817,6 +2186,15 @@ func (i *selfSubjectAccessReviewSpecPatchPtrType) ToSelfSubjectAccessReviewSpecP
 }
 
 // SelfSubjectAccessReviewSpec is a description of the access request.  Exactly one of ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SelfSubjectAccessReviewSpecPatchOutput struct{ *pulumi.OutputState }
 
 func (SelfSubjectAccessReviewSpecPatchOutput) ElementType() reflect.Type {
@@ -1896,6 +2274,15 @@ func (o SelfSubjectAccessReviewSpecPatchPtrOutput) ResourceAttributes() Resource
 }
 
 // SelfSubjectRulesReview enumerates the set of actions the current user can perform within a namespace. The returned list of actions may be incomplete depending on the server's authorization mode, and any errors experienced during the evaluation. SelfSubjectRulesReview should be used by UIs to show/hide actions, or to quickly let an end user reason about their permissions. It should NOT Be used by external systems to drive authorization decisions as this raises confused deputy, cache lifetime/revocation, and correctness concerns. SubjectAccessReview, and LocalAccessReview are the correct way to defer authorization decisions to the API server.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SelfSubjectRulesReview struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -1920,6 +2307,15 @@ type SelfSubjectRulesReviewInput interface {
 }
 
 // SelfSubjectRulesReview enumerates the set of actions the current user can perform within a namespace. The returned list of actions may be incomplete depending on the server's authorization mode, and any errors experienced during the evaluation. SelfSubjectRulesReview should be used by UIs to show/hide actions, or to quickly let an end user reason about their permissions. It should NOT Be used by external systems to drive authorization decisions as this raises confused deputy, cache lifetime/revocation, and correctness concerns. SubjectAccessReview, and LocalAccessReview are the correct way to defer authorization decisions to the API server.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SelfSubjectRulesReviewArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -1945,6 +2341,15 @@ func (i SelfSubjectRulesReviewArgs) ToSelfSubjectRulesReviewOutputWithContext(ct
 }
 
 // SelfSubjectRulesReview enumerates the set of actions the current user can perform within a namespace. The returned list of actions may be incomplete depending on the server's authorization mode, and any errors experienced during the evaluation. SelfSubjectRulesReview should be used by UIs to show/hide actions, or to quickly let an end user reason about their permissions. It should NOT Be used by external systems to drive authorization decisions as this raises confused deputy, cache lifetime/revocation, and correctness concerns. SubjectAccessReview, and LocalAccessReview are the correct way to defer authorization decisions to the API server.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SelfSubjectRulesReviewOutput struct{ *pulumi.OutputState }
 
 func (SelfSubjectRulesReviewOutput) ElementType() reflect.Type {
@@ -1984,6 +2389,15 @@ func (o SelfSubjectRulesReviewOutput) Status() SubjectRulesReviewStatusPtrOutput
 }
 
 // SelfSubjectRulesReview enumerates the set of actions the current user can perform within a namespace. The returned list of actions may be incomplete depending on the server's authorization mode, and any errors experienced during the evaluation. SelfSubjectRulesReview should be used by UIs to show/hide actions, or to quickly let an end user reason about their permissions. It should NOT Be used by external systems to drive authorization decisions as this raises confused deputy, cache lifetime/revocation, and correctness concerns. SubjectAccessReview, and LocalAccessReview are the correct way to defer authorization decisions to the API server.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SelfSubjectRulesReviewPatch struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -2008,6 +2422,15 @@ type SelfSubjectRulesReviewPatchInput interface {
 }
 
 // SelfSubjectRulesReview enumerates the set of actions the current user can perform within a namespace. The returned list of actions may be incomplete depending on the server's authorization mode, and any errors experienced during the evaluation. SelfSubjectRulesReview should be used by UIs to show/hide actions, or to quickly let an end user reason about their permissions. It should NOT Be used by external systems to drive authorization decisions as this raises confused deputy, cache lifetime/revocation, and correctness concerns. SubjectAccessReview, and LocalAccessReview are the correct way to defer authorization decisions to the API server.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SelfSubjectRulesReviewPatchArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -2033,6 +2456,15 @@ func (i SelfSubjectRulesReviewPatchArgs) ToSelfSubjectRulesReviewPatchOutputWith
 }
 
 // SelfSubjectRulesReview enumerates the set of actions the current user can perform within a namespace. The returned list of actions may be incomplete depending on the server's authorization mode, and any errors experienced during the evaluation. SelfSubjectRulesReview should be used by UIs to show/hide actions, or to quickly let an end user reason about their permissions. It should NOT Be used by external systems to drive authorization decisions as this raises confused deputy, cache lifetime/revocation, and correctness concerns. SubjectAccessReview, and LocalAccessReview are the correct way to defer authorization decisions to the API server.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SelfSubjectRulesReviewPatchOutput struct{ *pulumi.OutputState }
 
 func (SelfSubjectRulesReviewPatchOutput) ElementType() reflect.Type {
@@ -2071,6 +2503,14 @@ func (o SelfSubjectRulesReviewPatchOutput) Status() SubjectRulesReviewStatusPatc
 	return o.ApplyT(func(v SelfSubjectRulesReviewPatch) *SubjectRulesReviewStatusPatch { return v.Status }).(SubjectRulesReviewStatusPatchPtrOutput)
 }
 
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SelfSubjectRulesReviewSpec struct {
 	// Namespace to evaluate rules for. Required.
 	Namespace *string `pulumi:"namespace"`
@@ -2087,6 +2527,14 @@ type SelfSubjectRulesReviewSpecInput interface {
 	ToSelfSubjectRulesReviewSpecOutputWithContext(context.Context) SelfSubjectRulesReviewSpecOutput
 }
 
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SelfSubjectRulesReviewSpecArgs struct {
 	// Namespace to evaluate rules for. Required.
 	Namespace pulumi.StringPtrInput `pulumi:"namespace"`
@@ -2104,6 +2552,14 @@ func (i SelfSubjectRulesReviewSpecArgs) ToSelfSubjectRulesReviewSpecOutputWithCo
 	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectRulesReviewSpecOutput)
 }
 
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SelfSubjectRulesReviewSpecOutput struct{ *pulumi.OutputState }
 
 func (SelfSubjectRulesReviewSpecOutput) ElementType() reflect.Type {
@@ -2123,6 +2579,14 @@ func (o SelfSubjectRulesReviewSpecOutput) Namespace() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v SelfSubjectRulesReviewSpec) *string { return v.Namespace }).(pulumi.StringPtrOutput)
 }
 
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SelfSubjectRulesReviewSpecPatch struct {
 	// Namespace to evaluate rules for. Required.
 	Namespace *string `pulumi:"namespace"`
@@ -2139,6 +2603,14 @@ type SelfSubjectRulesReviewSpecPatchInput interface {
 	ToSelfSubjectRulesReviewSpecPatchOutputWithContext(context.Context) SelfSubjectRulesReviewSpecPatchOutput
 }
 
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SelfSubjectRulesReviewSpecPatchArgs struct {
 	// Namespace to evaluate rules for. Required.
 	Namespace pulumi.StringPtrInput `pulumi:"namespace"`
@@ -2197,6 +2669,14 @@ func (i *selfSubjectRulesReviewSpecPatchPtrType) ToSelfSubjectRulesReviewSpecPat
 	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectRulesReviewSpecPatchPtrOutput)
 }
 
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SelfSubjectRulesReviewSpecPatchOutput struct{ *pulumi.OutputState }
 
 func (SelfSubjectRulesReviewSpecPatchOutput) ElementType() reflect.Type {
@@ -2261,6 +2741,15 @@ func (o SelfSubjectRulesReviewSpecPatchPtrOutput) Namespace() pulumi.StringPtrOu
 }
 
 // SubjectAccessReview checks whether or not a user or group can perform an action.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SubjectAccessReview struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -2285,6 +2774,15 @@ type SubjectAccessReviewInput interface {
 }
 
 // SubjectAccessReview checks whether or not a user or group can perform an action.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SubjectAccessReviewArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -2310,6 +2808,15 @@ func (i SubjectAccessReviewArgs) ToSubjectAccessReviewOutputWithContext(ctx cont
 }
 
 // SubjectAccessReview checks whether or not a user or group can perform an action.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SubjectAccessReviewOutput struct{ *pulumi.OutputState }
 
 func (SubjectAccessReviewOutput) ElementType() reflect.Type {
@@ -2349,6 +2856,15 @@ func (o SubjectAccessReviewOutput) Status() SubjectAccessReviewStatusPtrOutput {
 }
 
 // SubjectAccessReview checks whether or not a user or group can perform an action.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SubjectAccessReviewPatch struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -2373,6 +2889,15 @@ type SubjectAccessReviewPatchInput interface {
 }
 
 // SubjectAccessReview checks whether or not a user or group can perform an action.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SubjectAccessReviewPatchArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -2398,6 +2923,15 @@ func (i SubjectAccessReviewPatchArgs) ToSubjectAccessReviewPatchOutputWithContex
 }
 
 // SubjectAccessReview checks whether or not a user or group can perform an action.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SubjectAccessReviewPatchOutput struct{ *pulumi.OutputState }
 
 func (SubjectAccessReviewPatchOutput) ElementType() reflect.Type {
@@ -2437,6 +2971,15 @@ func (o SubjectAccessReviewPatchOutput) Status() SubjectAccessReviewStatusPatchP
 }
 
 // SubjectAccessReviewSpec is a description of the access request.  Exactly one of ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SubjectAccessReviewSpec struct {
 	// Extra corresponds to the user.Info.GetExtra() method from the authenticator.  Since that is input to the authorizer it needs a reflection here.
 	Extra map[string][]string `pulumi:"extra"`
@@ -2464,6 +3007,15 @@ type SubjectAccessReviewSpecInput interface {
 }
 
 // SubjectAccessReviewSpec is a description of the access request.  Exactly one of ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SubjectAccessReviewSpecArgs struct {
 	// Extra corresponds to the user.Info.GetExtra() method from the authenticator.  Since that is input to the authorizer it needs a reflection here.
 	Extra pulumi.StringArrayMapInput `pulumi:"extra"`
@@ -2492,6 +3044,15 @@ func (i SubjectAccessReviewSpecArgs) ToSubjectAccessReviewSpecOutputWithContext(
 }
 
 // SubjectAccessReviewSpec is a description of the access request.  Exactly one of ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SubjectAccessReviewSpecOutput struct{ *pulumi.OutputState }
 
 func (SubjectAccessReviewSpecOutput) ElementType() reflect.Type {
@@ -2537,6 +3098,15 @@ func (o SubjectAccessReviewSpecOutput) User() pulumi.StringPtrOutput {
 }
 
 // SubjectAccessReviewSpec is a description of the access request.  Exactly one of ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SubjectAccessReviewSpecPatch struct {
 	// Extra corresponds to the user.Info.GetExtra() method from the authenticator.  Since that is input to the authorizer it needs a reflection here.
 	Extra map[string][]string `pulumi:"extra"`
@@ -2564,6 +3134,15 @@ type SubjectAccessReviewSpecPatchInput interface {
 }
 
 // SubjectAccessReviewSpec is a description of the access request.  Exactly one of ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SubjectAccessReviewSpecPatchArgs struct {
 	// Extra corresponds to the user.Info.GetExtra() method from the authenticator.  Since that is input to the authorizer it needs a reflection here.
 	Extra pulumi.StringArrayMapInput `pulumi:"extra"`
@@ -2633,6 +3212,15 @@ func (i *subjectAccessReviewSpecPatchPtrType) ToSubjectAccessReviewSpecPatchPtrO
 }
 
 // SubjectAccessReviewSpec is a description of the access request.  Exactly one of ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SubjectAccessReviewSpecPatchOutput struct{ *pulumi.OutputState }
 
 func (SubjectAccessReviewSpecPatchOutput) ElementType() reflect.Type {
@@ -2772,6 +3360,15 @@ func (o SubjectAccessReviewSpecPatchPtrOutput) User() pulumi.StringPtrOutput {
 }
 
 // SubjectAccessReviewStatus
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SubjectAccessReviewStatus struct {
 	// Allowed is required. True if the action would be allowed, false otherwise.
 	Allowed bool `pulumi:"allowed"`
@@ -2795,6 +3392,15 @@ type SubjectAccessReviewStatusInput interface {
 }
 
 // SubjectAccessReviewStatus
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SubjectAccessReviewStatusArgs struct {
 	// Allowed is required. True if the action would be allowed, false otherwise.
 	Allowed pulumi.BoolInput `pulumi:"allowed"`
@@ -2860,6 +3466,15 @@ func (i *subjectAccessReviewStatusPtrType) ToSubjectAccessReviewStatusPtrOutputW
 }
 
 // SubjectAccessReviewStatus
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SubjectAccessReviewStatusOutput struct{ *pulumi.OutputState }
 
 func (SubjectAccessReviewStatusOutput) ElementType() reflect.Type {
@@ -2969,6 +3584,15 @@ func (o SubjectAccessReviewStatusPtrOutput) Reason() pulumi.StringPtrOutput {
 }
 
 // SubjectAccessReviewStatus
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SubjectAccessReviewStatusPatch struct {
 	// Allowed is required. True if the action would be allowed, false otherwise.
 	Allowed *bool `pulumi:"allowed"`
@@ -2992,6 +3616,15 @@ type SubjectAccessReviewStatusPatchInput interface {
 }
 
 // SubjectAccessReviewStatus
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SubjectAccessReviewStatusPatchArgs struct {
 	// Allowed is required. True if the action would be allowed, false otherwise.
 	Allowed pulumi.BoolPtrInput `pulumi:"allowed"`
@@ -3057,6 +3690,15 @@ func (i *subjectAccessReviewStatusPatchPtrType) ToSubjectAccessReviewStatusPatch
 }
 
 // SubjectAccessReviewStatus
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SubjectAccessReviewStatusPatchOutput struct{ *pulumi.OutputState }
 
 func (SubjectAccessReviewStatusPatchOutput) ElementType() reflect.Type {
@@ -3166,6 +3808,15 @@ func (o SubjectAccessReviewStatusPatchPtrOutput) Reason() pulumi.StringPtrOutput
 }
 
 // SubjectRulesReviewStatus contains the result of a rules check. This check can be incomplete depending on the set of authorizers the server is configured with and any errors experienced during evaluation. Because authorization rules are additive, if a rule appears in a list it's safe to assume the subject has that permission, even if that list is incomplete.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SubjectRulesReviewStatus struct {
 	// EvaluationError can appear in combination with Rules. It indicates an error occurred during rule evaluation, such as an authorizer that doesn't support rule evaluation, and that ResourceRules and/or NonResourceRules may be incomplete.
 	EvaluationError *string `pulumi:"evaluationError"`
@@ -3189,6 +3840,15 @@ type SubjectRulesReviewStatusInput interface {
 }
 
 // SubjectRulesReviewStatus contains the result of a rules check. This check can be incomplete depending on the set of authorizers the server is configured with and any errors experienced during evaluation. Because authorization rules are additive, if a rule appears in a list it's safe to assume the subject has that permission, even if that list is incomplete.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SubjectRulesReviewStatusArgs struct {
 	// EvaluationError can appear in combination with Rules. It indicates an error occurred during rule evaluation, such as an authorizer that doesn't support rule evaluation, and that ResourceRules and/or NonResourceRules may be incomplete.
 	EvaluationError pulumi.StringPtrInput `pulumi:"evaluationError"`
@@ -3254,6 +3914,15 @@ func (i *subjectRulesReviewStatusPtrType) ToSubjectRulesReviewStatusPtrOutputWit
 }
 
 // SubjectRulesReviewStatus contains the result of a rules check. This check can be incomplete depending on the set of authorizers the server is configured with and any errors experienced during evaluation. Because authorization rules are additive, if a rule appears in a list it's safe to assume the subject has that permission, even if that list is incomplete.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SubjectRulesReviewStatusOutput struct{ *pulumi.OutputState }
 
 func (SubjectRulesReviewStatusOutput) ElementType() reflect.Type {
@@ -3363,6 +4032,15 @@ func (o SubjectRulesReviewStatusPtrOutput) ResourceRules() ResourceRuleArrayOutp
 }
 
 // SubjectRulesReviewStatus contains the result of a rules check. This check can be incomplete depending on the set of authorizers the server is configured with and any errors experienced during evaluation. Because authorization rules are additive, if a rule appears in a list it's safe to assume the subject has that permission, even if that list is incomplete.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SubjectRulesReviewStatusPatch struct {
 	// EvaluationError can appear in combination with Rules. It indicates an error occurred during rule evaluation, such as an authorizer that doesn't support rule evaluation, and that ResourceRules and/or NonResourceRules may be incomplete.
 	EvaluationError *string `pulumi:"evaluationError"`
@@ -3386,6 +4064,15 @@ type SubjectRulesReviewStatusPatchInput interface {
 }
 
 // SubjectRulesReviewStatus contains the result of a rules check. This check can be incomplete depending on the set of authorizers the server is configured with and any errors experienced during evaluation. Because authorization rules are additive, if a rule appears in a list it's safe to assume the subject has that permission, even if that list is incomplete.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SubjectRulesReviewStatusPatchArgs struct {
 	// EvaluationError can appear in combination with Rules. It indicates an error occurred during rule evaluation, such as an authorizer that doesn't support rule evaluation, and that ResourceRules and/or NonResourceRules may be incomplete.
 	EvaluationError pulumi.StringPtrInput `pulumi:"evaluationError"`
@@ -3451,6 +4138,15 @@ func (i *subjectRulesReviewStatusPatchPtrType) ToSubjectRulesReviewStatusPatchPt
 }
 
 // SubjectRulesReviewStatus contains the result of a rules check. This check can be incomplete depending on the set of authorizers the server is configured with and any errors experienced during evaluation. Because authorization rules are additive, if a rule appears in a list it's safe to assume the subject has that permission, even if that list is incomplete.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SubjectRulesReviewStatusPatchOutput struct{ *pulumi.OutputState }
 
 func (SubjectRulesReviewStatusPatchOutput) ElementType() reflect.Type {

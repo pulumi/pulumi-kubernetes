@@ -15,6 +15,15 @@ import (
 var _ = utilities.GetEnvOrDefault
 
 // Lease defines a lease concept.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type LeaseType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -38,6 +47,15 @@ type LeaseTypeInput interface {
 }
 
 // Lease defines a lease concept.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type LeaseTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -87,6 +105,15 @@ func (i LeaseTypeArray) ToLeaseTypeArrayOutputWithContext(ctx context.Context) L
 }
 
 // Lease defines a lease concept.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type LeaseTypeOutput struct{ *pulumi.OutputState }
 
 func (LeaseTypeOutput) ElementType() reflect.Type {
@@ -142,6 +169,15 @@ func (o LeaseTypeArrayOutput) Index(i pulumi.IntInput) LeaseTypeOutput {
 }
 
 // LeaseList is a list of Lease objects.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type LeaseListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -165,6 +201,15 @@ type LeaseListTypeInput interface {
 }
 
 // LeaseList is a list of Lease objects.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type LeaseListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -189,6 +234,15 @@ func (i LeaseListTypeArgs) ToLeaseListTypeOutputWithContext(ctx context.Context)
 }
 
 // LeaseList is a list of Lease objects.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type LeaseListTypeOutput struct{ *pulumi.OutputState }
 
 func (LeaseListTypeOutput) ElementType() reflect.Type {
@@ -224,6 +278,15 @@ func (o LeaseListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 }
 
 // Lease defines a lease concept.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type LeasePatchType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -247,6 +310,15 @@ type LeasePatchTypeInput interface {
 }
 
 // Lease defines a lease concept.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type LeasePatchTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -271,6 +343,15 @@ func (i LeasePatchTypeArgs) ToLeasePatchTypeOutputWithContext(ctx context.Contex
 }
 
 // Lease defines a lease concept.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type LeasePatchTypeOutput struct{ *pulumi.OutputState }
 
 func (LeasePatchTypeOutput) ElementType() reflect.Type {
@@ -306,6 +387,15 @@ func (o LeasePatchTypeOutput) Spec() LeaseSpecPatchPtrOutput {
 }
 
 // LeaseSpec is a specification of a Lease.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type LeaseSpec struct {
 	// acquireTime is a time when the current lease was acquired.
 	AcquireTime *string `pulumi:"acquireTime"`
@@ -331,6 +421,15 @@ type LeaseSpecInput interface {
 }
 
 // LeaseSpec is a specification of a Lease.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type LeaseSpecArgs struct {
 	// acquireTime is a time when the current lease was acquired.
 	AcquireTime pulumi.StringPtrInput `pulumi:"acquireTime"`
@@ -398,6 +497,15 @@ func (i *leaseSpecPtrType) ToLeaseSpecPtrOutputWithContext(ctx context.Context) 
 }
 
 // LeaseSpec is a specification of a Lease.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type LeaseSpecOutput struct{ *pulumi.OutputState }
 
 func (LeaseSpecOutput) ElementType() reflect.Type {
@@ -522,6 +630,15 @@ func (o LeaseSpecPtrOutput) RenewTime() pulumi.StringPtrOutput {
 }
 
 // LeaseSpec is a specification of a Lease.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type LeaseSpecPatch struct {
 	// acquireTime is a time when the current lease was acquired.
 	AcquireTime *string `pulumi:"acquireTime"`
@@ -547,6 +664,15 @@ type LeaseSpecPatchInput interface {
 }
 
 // LeaseSpec is a specification of a Lease.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type LeaseSpecPatchArgs struct {
 	// acquireTime is a time when the current lease was acquired.
 	AcquireTime pulumi.StringPtrInput `pulumi:"acquireTime"`
@@ -614,6 +740,15 @@ func (i *leaseSpecPatchPtrType) ToLeaseSpecPatchPtrOutputWithContext(ctx context
 }
 
 // LeaseSpec is a specification of a Lease.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type LeaseSpecPatchOutput struct{ *pulumi.OutputState }
 
 func (LeaseSpecPatchOutput) ElementType() reflect.Type {

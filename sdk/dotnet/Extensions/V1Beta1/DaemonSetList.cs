@@ -11,6 +11,15 @@ namespace Pulumi.Kubernetes.Extensions.V1Beta1
 {
     /// <summary>
     /// DaemonSetList is a collection of daemon sets.
+    /// 
+    /// By default Pulumi does _not_ wait for this resource to
+    /// become ready when it is created or updated.
+    /// 
+    /// If you want Pulumi to wait for this resource to become ready, you can use the
+    /// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    /// documentation
+    /// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    /// for a detailed description of the values this annotation accepts.
     /// </summary>
     [KubernetesResourceType("kubernetes:extensions/v1beta1:DaemonSetList")]
     public partial class DaemonSetList : KubernetesResource

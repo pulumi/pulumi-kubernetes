@@ -15,6 +15,15 @@ import * as utilities from "../../utilities";
  * [Server-Side Apply Docs](https://www.pulumi.com/registry/packages/kubernetes/how-to-guides/managing-resources-with-server-side-apply/) for
  * additional information about using Server-Side Apply to manage Kubernetes resources with Pulumi.
  * DEPRECATED - This group version of PriorityClass is deprecated by scheduling.k8s.io/v1/PriorityClass. PriorityClass defines mapping from a priority class name to the priority integer value. The value can be any valid integer.
+ *
+ * By default Pulumi does _not_ wait for this resource to
+ * become ready when it is created or updated.
+ *
+ * If you want Pulumi to wait for this resource to become ready, you can use the
+ * 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+ * documentation
+ * (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+ * for a detailed description of the values this annotation accepts.
  */
 export class PriorityClassPatch extends pulumi.CustomResource {
     /**

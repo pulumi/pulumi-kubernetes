@@ -9,6 +9,15 @@ import * as utilities from "../../utilities";
 
 /**
  * VolumeAttachmentList is a collection of VolumeAttachment objects.
+ *
+ * By default Pulumi does _not_ wait for this resource to
+ * become ready when it is created or updated.
+ *
+ * If you want Pulumi to wait for this resource to become ready, you can use the
+ * 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+ * documentation
+ * (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+ * for a detailed description of the values this annotation accepts.
  */
 export class VolumeAttachmentList extends pulumi.CustomResource {
     /**

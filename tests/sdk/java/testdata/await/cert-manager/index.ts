@@ -24,7 +24,7 @@ const install = new kubernetes.yaml.v2.ConfigFile(
             "kubernetes:admissionregistration.k8s.io/v1:MutatingWebhookConfiguration"
         ) {
           args.props.metadata.annotations["pulumi.com/waitFor"] =
-            "jsonpath={.webhooks[].clientConfig.caBundle}";
+            "jsonpath={.webhooks[*].clientConfig.caBundle}";
           return {
             props: args.props,
             opts: args.opts,

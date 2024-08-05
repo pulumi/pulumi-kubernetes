@@ -11,6 +11,15 @@ namespace Pulumi.Kubernetes.Core.V1
 {
     /// <summary>
     /// LimitRangeList is a list of LimitRange items.
+    /// 
+    /// By default Pulumi does _not_ wait for this resource to
+    /// become ready when it is created or updated.
+    /// 
+    /// If you want Pulumi to wait for this resource to become ready, you can use the
+    /// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    /// documentation
+    /// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    /// for a detailed description of the values this annotation accepts.
     /// </summary>
     [KubernetesResourceType("kubernetes:core/v1:LimitRangeList")]
     public partial class LimitRangeList : KubernetesResource

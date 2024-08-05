@@ -14,6 +14,15 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
     /// ClaimSource describes a reference to a ResourceClaim.
     /// 
     /// Exactly one of these fields should be set.  Consumers of this type must treat an empty object as if it has an unknown value.
+    /// 
+    /// By default Pulumi does _not_ wait for this resource to
+    /// become ready when it is created or updated.
+    /// 
+    /// If you want Pulumi to wait for this resource to become ready, you can use the
+    /// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    /// documentation
+    /// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    /// for a detailed description of the values this annotation accepts.
     /// </summary>
     [OutputType]
     public sealed class ClaimSourcePatch

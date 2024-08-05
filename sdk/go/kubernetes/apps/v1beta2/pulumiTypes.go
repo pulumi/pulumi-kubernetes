@@ -16,6 +16,15 @@ import (
 var _ = utilities.GetEnvOrDefault
 
 // ControllerRevision implements an immutable snapshot of state data. Clients are responsible for serializing and deserializing the objects that contain their internal state. Once a ControllerRevision has been successfully created, it can not be updated. The API Server will fail validation of all requests that attempt to mutate the Data field. ControllerRevisions may, however, be deleted. Note that, due to its use by both the DaemonSet and StatefulSet controllers for update and rollback, this object is beta. However, it may be subject to name and representation changes in future releases, and clients should not depend on its stability. It is primarily for internal use by controllers.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ControllerRevisionType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -41,6 +50,15 @@ type ControllerRevisionTypeInput interface {
 }
 
 // ControllerRevision implements an immutable snapshot of state data. Clients are responsible for serializing and deserializing the objects that contain their internal state. Once a ControllerRevision has been successfully created, it can not be updated. The API Server will fail validation of all requests that attempt to mutate the Data field. ControllerRevisions may, however, be deleted. Note that, due to its use by both the DaemonSet and StatefulSet controllers for update and rollback, this object is beta. However, it may be subject to name and representation changes in future releases, and clients should not depend on its stability. It is primarily for internal use by controllers.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ControllerRevisionTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -92,6 +110,15 @@ func (i ControllerRevisionTypeArray) ToControllerRevisionTypeArrayOutputWithCont
 }
 
 // ControllerRevision implements an immutable snapshot of state data. Clients are responsible for serializing and deserializing the objects that contain their internal state. Once a ControllerRevision has been successfully created, it can not be updated. The API Server will fail validation of all requests that attempt to mutate the Data field. ControllerRevisions may, however, be deleted. Note that, due to its use by both the DaemonSet and StatefulSet controllers for update and rollback, this object is beta. However, it may be subject to name and representation changes in future releases, and clients should not depend on its stability. It is primarily for internal use by controllers.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ControllerRevisionTypeOutput struct{ *pulumi.OutputState }
 
 func (ControllerRevisionTypeOutput) ElementType() reflect.Type {
@@ -152,6 +179,15 @@ func (o ControllerRevisionTypeArrayOutput) Index(i pulumi.IntInput) ControllerRe
 }
 
 // ControllerRevisionList is a resource containing a list of ControllerRevision objects.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ControllerRevisionListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -175,6 +211,15 @@ type ControllerRevisionListTypeInput interface {
 }
 
 // ControllerRevisionList is a resource containing a list of ControllerRevision objects.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ControllerRevisionListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -199,6 +244,15 @@ func (i ControllerRevisionListTypeArgs) ToControllerRevisionListTypeOutputWithCo
 }
 
 // ControllerRevisionList is a resource containing a list of ControllerRevision objects.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ControllerRevisionListTypeOutput struct{ *pulumi.OutputState }
 
 func (ControllerRevisionListTypeOutput) ElementType() reflect.Type {
@@ -234,6 +288,15 @@ func (o ControllerRevisionListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 }
 
 // ControllerRevision implements an immutable snapshot of state data. Clients are responsible for serializing and deserializing the objects that contain their internal state. Once a ControllerRevision has been successfully created, it can not be updated. The API Server will fail validation of all requests that attempt to mutate the Data field. ControllerRevisions may, however, be deleted. Note that, due to its use by both the DaemonSet and StatefulSet controllers for update and rollback, this object is beta. However, it may be subject to name and representation changes in future releases, and clients should not depend on its stability. It is primarily for internal use by controllers.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ControllerRevisionPatchType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -259,6 +322,15 @@ type ControllerRevisionPatchTypeInput interface {
 }
 
 // ControllerRevision implements an immutable snapshot of state data. Clients are responsible for serializing and deserializing the objects that contain their internal state. Once a ControllerRevision has been successfully created, it can not be updated. The API Server will fail validation of all requests that attempt to mutate the Data field. ControllerRevisions may, however, be deleted. Note that, due to its use by both the DaemonSet and StatefulSet controllers for update and rollback, this object is beta. However, it may be subject to name and representation changes in future releases, and clients should not depend on its stability. It is primarily for internal use by controllers.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ControllerRevisionPatchTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -285,6 +357,15 @@ func (i ControllerRevisionPatchTypeArgs) ToControllerRevisionPatchTypeOutputWith
 }
 
 // ControllerRevision implements an immutable snapshot of state data. Clients are responsible for serializing and deserializing the objects that contain their internal state. Once a ControllerRevision has been successfully created, it can not be updated. The API Server will fail validation of all requests that attempt to mutate the Data field. ControllerRevisions may, however, be deleted. Note that, due to its use by both the DaemonSet and StatefulSet controllers for update and rollback, this object is beta. However, it may be subject to name and representation changes in future releases, and clients should not depend on its stability. It is primarily for internal use by controllers.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ControllerRevisionPatchTypeOutput struct{ *pulumi.OutputState }
 
 func (ControllerRevisionPatchTypeOutput) ElementType() reflect.Type {
@@ -325,6 +406,15 @@ func (o ControllerRevisionPatchTypeOutput) Revision() pulumi.IntPtrOutput {
 }
 
 // DaemonSet represents the configuration of a daemon set.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DaemonSetType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -350,6 +440,15 @@ type DaemonSetTypeInput interface {
 }
 
 // DaemonSet represents the configuration of a daemon set.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DaemonSetTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -401,6 +500,15 @@ func (i DaemonSetTypeArray) ToDaemonSetTypeArrayOutputWithContext(ctx context.Co
 }
 
 // DaemonSet represents the configuration of a daemon set.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DaemonSetTypeOutput struct{ *pulumi.OutputState }
 
 func (DaemonSetTypeOutput) ElementType() reflect.Type {
@@ -461,6 +569,15 @@ func (o DaemonSetTypeArrayOutput) Index(i pulumi.IntInput) DaemonSetTypeOutput {
 }
 
 // DaemonSetCondition describes the state of a DaemonSet at a certain point.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DaemonSetCondition struct {
 	// Last time the condition transitioned from one status to another.
 	LastTransitionTime *string `pulumi:"lastTransitionTime"`
@@ -486,6 +603,15 @@ type DaemonSetConditionInput interface {
 }
 
 // DaemonSetCondition describes the state of a DaemonSet at a certain point.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DaemonSetConditionArgs struct {
 	// Last time the condition transitioned from one status to another.
 	LastTransitionTime pulumi.StringPtrInput `pulumi:"lastTransitionTime"`
@@ -537,6 +663,15 @@ func (i DaemonSetConditionArray) ToDaemonSetConditionArrayOutputWithContext(ctx 
 }
 
 // DaemonSetCondition describes the state of a DaemonSet at a certain point.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DaemonSetConditionOutput struct{ *pulumi.OutputState }
 
 func (DaemonSetConditionOutput) ElementType() reflect.Type {
@@ -597,6 +732,15 @@ func (o DaemonSetConditionArrayOutput) Index(i pulumi.IntInput) DaemonSetConditi
 }
 
 // DaemonSetCondition describes the state of a DaemonSet at a certain point.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DaemonSetConditionPatch struct {
 	// Last time the condition transitioned from one status to another.
 	LastTransitionTime *string `pulumi:"lastTransitionTime"`
@@ -622,6 +766,15 @@ type DaemonSetConditionPatchInput interface {
 }
 
 // DaemonSetCondition describes the state of a DaemonSet at a certain point.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DaemonSetConditionPatchArgs struct {
 	// Last time the condition transitioned from one status to another.
 	LastTransitionTime pulumi.StringPtrInput `pulumi:"lastTransitionTime"`
@@ -673,6 +826,15 @@ func (i DaemonSetConditionPatchArray) ToDaemonSetConditionPatchArrayOutputWithCo
 }
 
 // DaemonSetCondition describes the state of a DaemonSet at a certain point.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DaemonSetConditionPatchOutput struct{ *pulumi.OutputState }
 
 func (DaemonSetConditionPatchOutput) ElementType() reflect.Type {
@@ -733,6 +895,15 @@ func (o DaemonSetConditionPatchArrayOutput) Index(i pulumi.IntInput) DaemonSetCo
 }
 
 // DaemonSetList is a collection of daemon sets.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DaemonSetListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -756,6 +927,15 @@ type DaemonSetListTypeInput interface {
 }
 
 // DaemonSetList is a collection of daemon sets.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DaemonSetListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -780,6 +960,15 @@ func (i DaemonSetListTypeArgs) ToDaemonSetListTypeOutputWithContext(ctx context.
 }
 
 // DaemonSetList is a collection of daemon sets.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DaemonSetListTypeOutput struct{ *pulumi.OutputState }
 
 func (DaemonSetListTypeOutput) ElementType() reflect.Type {
@@ -815,6 +1004,15 @@ func (o DaemonSetListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 }
 
 // DaemonSet represents the configuration of a daemon set.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DaemonSetPatchType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -840,6 +1038,15 @@ type DaemonSetPatchTypeInput interface {
 }
 
 // DaemonSet represents the configuration of a daemon set.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DaemonSetPatchTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -866,6 +1073,15 @@ func (i DaemonSetPatchTypeArgs) ToDaemonSetPatchTypeOutputWithContext(ctx contex
 }
 
 // DaemonSet represents the configuration of a daemon set.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DaemonSetPatchTypeOutput struct{ *pulumi.OutputState }
 
 func (DaemonSetPatchTypeOutput) ElementType() reflect.Type {
@@ -906,6 +1122,15 @@ func (o DaemonSetPatchTypeOutput) Status() DaemonSetStatusPatchPtrOutput {
 }
 
 // DaemonSetSpec is the specification of a daemon set.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DaemonSetSpec struct {
 	// The minimum number of seconds for which a newly created DaemonSet pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready).
 	MinReadySeconds *int `pulumi:"minReadySeconds"`
@@ -931,6 +1156,15 @@ type DaemonSetSpecInput interface {
 }
 
 // DaemonSetSpec is the specification of a daemon set.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DaemonSetSpecArgs struct {
 	// The minimum number of seconds for which a newly created DaemonSet pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready).
 	MinReadySeconds pulumi.IntPtrInput `pulumi:"minReadySeconds"`
@@ -998,6 +1232,15 @@ func (i *daemonSetSpecPtrType) ToDaemonSetSpecPtrOutputWithContext(ctx context.C
 }
 
 // DaemonSetSpec is the specification of a daemon set.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DaemonSetSpecOutput struct{ *pulumi.OutputState }
 
 func (DaemonSetSpecOutput) ElementType() reflect.Type {
@@ -1122,6 +1365,15 @@ func (o DaemonSetSpecPtrOutput) UpdateStrategy() DaemonSetUpdateStrategyPtrOutpu
 }
 
 // DaemonSetSpec is the specification of a daemon set.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DaemonSetSpecPatch struct {
 	// The minimum number of seconds for which a newly created DaemonSet pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready).
 	MinReadySeconds *int `pulumi:"minReadySeconds"`
@@ -1147,6 +1399,15 @@ type DaemonSetSpecPatchInput interface {
 }
 
 // DaemonSetSpec is the specification of a daemon set.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DaemonSetSpecPatchArgs struct {
 	// The minimum number of seconds for which a newly created DaemonSet pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready).
 	MinReadySeconds pulumi.IntPtrInput `pulumi:"minReadySeconds"`
@@ -1214,6 +1475,15 @@ func (i *daemonSetSpecPatchPtrType) ToDaemonSetSpecPatchPtrOutputWithContext(ctx
 }
 
 // DaemonSetSpec is the specification of a daemon set.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DaemonSetSpecPatchOutput struct{ *pulumi.OutputState }
 
 func (DaemonSetSpecPatchOutput) ElementType() reflect.Type {
@@ -1338,6 +1608,15 @@ func (o DaemonSetSpecPatchPtrOutput) UpdateStrategy() DaemonSetUpdateStrategyPat
 }
 
 // DaemonSetStatus represents the current status of a daemon set.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DaemonSetStatus struct {
 	// Count of hash collisions for the DaemonSet. The DaemonSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
 	CollisionCount *int `pulumi:"collisionCount"`
@@ -1373,6 +1652,15 @@ type DaemonSetStatusInput interface {
 }
 
 // DaemonSetStatus represents the current status of a daemon set.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DaemonSetStatusArgs struct {
 	// Count of hash collisions for the DaemonSet. The DaemonSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
 	CollisionCount pulumi.IntPtrInput `pulumi:"collisionCount"`
@@ -1450,6 +1738,15 @@ func (i *daemonSetStatusPtrType) ToDaemonSetStatusPtrOutputWithContext(ctx conte
 }
 
 // DaemonSetStatus represents the current status of a daemon set.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DaemonSetStatusOutput struct{ *pulumi.OutputState }
 
 func (DaemonSetStatusOutput) ElementType() reflect.Type {
@@ -1649,6 +1946,15 @@ func (o DaemonSetStatusPtrOutput) UpdatedNumberScheduled() pulumi.IntPtrOutput {
 }
 
 // DaemonSetStatus represents the current status of a daemon set.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DaemonSetStatusPatch struct {
 	// Count of hash collisions for the DaemonSet. The DaemonSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
 	CollisionCount *int `pulumi:"collisionCount"`
@@ -1684,6 +1990,15 @@ type DaemonSetStatusPatchInput interface {
 }
 
 // DaemonSetStatus represents the current status of a daemon set.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DaemonSetStatusPatchArgs struct {
 	// Count of hash collisions for the DaemonSet. The DaemonSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
 	CollisionCount pulumi.IntPtrInput `pulumi:"collisionCount"`
@@ -1761,6 +2076,15 @@ func (i *daemonSetStatusPatchPtrType) ToDaemonSetStatusPatchPtrOutputWithContext
 }
 
 // DaemonSetStatus represents the current status of a daemon set.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DaemonSetStatusPatchOutput struct{ *pulumi.OutputState }
 
 func (DaemonSetStatusPatchOutput) ElementType() reflect.Type {
@@ -1960,6 +2284,15 @@ func (o DaemonSetStatusPatchPtrOutput) UpdatedNumberScheduled() pulumi.IntPtrOut
 }
 
 // DaemonSetUpdateStrategy is a struct used to control the update strategy for a DaemonSet.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DaemonSetUpdateStrategy struct {
 	// Rolling update config params. Present only if type = "RollingUpdate".
 	RollingUpdate *RollingUpdateDaemonSet `pulumi:"rollingUpdate"`
@@ -1979,6 +2312,15 @@ type DaemonSetUpdateStrategyInput interface {
 }
 
 // DaemonSetUpdateStrategy is a struct used to control the update strategy for a DaemonSet.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DaemonSetUpdateStrategyArgs struct {
 	// Rolling update config params. Present only if type = "RollingUpdate".
 	RollingUpdate RollingUpdateDaemonSetPtrInput `pulumi:"rollingUpdate"`
@@ -2040,6 +2382,15 @@ func (i *daemonSetUpdateStrategyPtrType) ToDaemonSetUpdateStrategyPtrOutputWithC
 }
 
 // DaemonSetUpdateStrategy is a struct used to control the update strategy for a DaemonSet.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DaemonSetUpdateStrategyOutput struct{ *pulumi.OutputState }
 
 func (DaemonSetUpdateStrategyOutput) ElementType() reflect.Type {
@@ -2119,6 +2470,15 @@ func (o DaemonSetUpdateStrategyPtrOutput) Type() pulumi.StringPtrOutput {
 }
 
 // DaemonSetUpdateStrategy is a struct used to control the update strategy for a DaemonSet.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DaemonSetUpdateStrategyPatch struct {
 	// Rolling update config params. Present only if type = "RollingUpdate".
 	RollingUpdate *RollingUpdateDaemonSetPatch `pulumi:"rollingUpdate"`
@@ -2138,6 +2498,15 @@ type DaemonSetUpdateStrategyPatchInput interface {
 }
 
 // DaemonSetUpdateStrategy is a struct used to control the update strategy for a DaemonSet.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DaemonSetUpdateStrategyPatchArgs struct {
 	// Rolling update config params. Present only if type = "RollingUpdate".
 	RollingUpdate RollingUpdateDaemonSetPatchPtrInput `pulumi:"rollingUpdate"`
@@ -2199,6 +2568,15 @@ func (i *daemonSetUpdateStrategyPatchPtrType) ToDaemonSetUpdateStrategyPatchPtrO
 }
 
 // DaemonSetUpdateStrategy is a struct used to control the update strategy for a DaemonSet.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DaemonSetUpdateStrategyPatchOutput struct{ *pulumi.OutputState }
 
 func (DaemonSetUpdateStrategyPatchOutput) ElementType() reflect.Type {
@@ -2480,6 +2858,15 @@ func (o DeploymentTypeArrayOutput) Index(i pulumi.IntInput) DeploymentTypeOutput
 }
 
 // DeploymentCondition describes the state of a deployment at a certain point.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DeploymentCondition struct {
 	// Last time the condition transitioned from one status to another.
 	LastTransitionTime *string `pulumi:"lastTransitionTime"`
@@ -2507,6 +2894,15 @@ type DeploymentConditionInput interface {
 }
 
 // DeploymentCondition describes the state of a deployment at a certain point.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DeploymentConditionArgs struct {
 	// Last time the condition transitioned from one status to another.
 	LastTransitionTime pulumi.StringPtrInput `pulumi:"lastTransitionTime"`
@@ -2560,6 +2956,15 @@ func (i DeploymentConditionArray) ToDeploymentConditionArrayOutputWithContext(ct
 }
 
 // DeploymentCondition describes the state of a deployment at a certain point.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DeploymentConditionOutput struct{ *pulumi.OutputState }
 
 func (DeploymentConditionOutput) ElementType() reflect.Type {
@@ -2625,6 +3030,15 @@ func (o DeploymentConditionArrayOutput) Index(i pulumi.IntInput) DeploymentCondi
 }
 
 // DeploymentCondition describes the state of a deployment at a certain point.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DeploymentConditionPatch struct {
 	// Last time the condition transitioned from one status to another.
 	LastTransitionTime *string `pulumi:"lastTransitionTime"`
@@ -2652,6 +3066,15 @@ type DeploymentConditionPatchInput interface {
 }
 
 // DeploymentCondition describes the state of a deployment at a certain point.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DeploymentConditionPatchArgs struct {
 	// Last time the condition transitioned from one status to another.
 	LastTransitionTime pulumi.StringPtrInput `pulumi:"lastTransitionTime"`
@@ -2705,6 +3128,15 @@ func (i DeploymentConditionPatchArray) ToDeploymentConditionPatchArrayOutputWith
 }
 
 // DeploymentCondition describes the state of a deployment at a certain point.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DeploymentConditionPatchOutput struct{ *pulumi.OutputState }
 
 func (DeploymentConditionPatchOutput) ElementType() reflect.Type {
@@ -2770,6 +3202,15 @@ func (o DeploymentConditionPatchArrayOutput) Index(i pulumi.IntInput) Deployment
 }
 
 // DeploymentList is a list of Deployments.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DeploymentListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -2793,6 +3234,15 @@ type DeploymentListTypeInput interface {
 }
 
 // DeploymentList is a list of Deployments.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DeploymentListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -2817,6 +3267,15 @@ func (i DeploymentListTypeArgs) ToDeploymentListTypeOutputWithContext(ctx contex
 }
 
 // DeploymentList is a list of Deployments.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DeploymentListTypeOutput struct{ *pulumi.OutputState }
 
 func (DeploymentListTypeOutput) ElementType() reflect.Type {
@@ -3009,6 +3468,15 @@ func (o DeploymentPatchTypeOutput) Status() DeploymentStatusPatchPtrOutput {
 }
 
 // DeploymentSpec is the specification of the desired behavior of the Deployment.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DeploymentSpec struct {
 	// Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
 	MinReadySeconds *int `pulumi:"minReadySeconds"`
@@ -3040,6 +3508,15 @@ type DeploymentSpecInput interface {
 }
 
 // DeploymentSpec is the specification of the desired behavior of the Deployment.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DeploymentSpecArgs struct {
 	// Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
 	MinReadySeconds pulumi.IntPtrInput `pulumi:"minReadySeconds"`
@@ -3113,6 +3590,15 @@ func (i *deploymentSpecPtrType) ToDeploymentSpecPtrOutputWithContext(ctx context
 }
 
 // DeploymentSpec is the specification of the desired behavior of the Deployment.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DeploymentSpecOutput struct{ *pulumi.OutputState }
 
 func (DeploymentSpecOutput) ElementType() reflect.Type {
@@ -3282,6 +3768,15 @@ func (o DeploymentSpecPtrOutput) Template() corev1.PodTemplateSpecPtrOutput {
 }
 
 // DeploymentSpec is the specification of the desired behavior of the Deployment.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DeploymentSpecPatch struct {
 	// Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
 	MinReadySeconds *int `pulumi:"minReadySeconds"`
@@ -3313,6 +3808,15 @@ type DeploymentSpecPatchInput interface {
 }
 
 // DeploymentSpec is the specification of the desired behavior of the Deployment.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DeploymentSpecPatchArgs struct {
 	// Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
 	MinReadySeconds pulumi.IntPtrInput `pulumi:"minReadySeconds"`
@@ -3386,6 +3890,15 @@ func (i *deploymentSpecPatchPtrType) ToDeploymentSpecPatchPtrOutputWithContext(c
 }
 
 // DeploymentSpec is the specification of the desired behavior of the Deployment.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DeploymentSpecPatchOutput struct{ *pulumi.OutputState }
 
 func (DeploymentSpecPatchOutput) ElementType() reflect.Type {
@@ -3555,6 +4068,15 @@ func (o DeploymentSpecPatchPtrOutput) Template() corev1.PodTemplateSpecPatchPtrO
 }
 
 // DeploymentStatus is the most recently observed status of the Deployment.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DeploymentStatus struct {
 	// Total number of available pods (ready for at least minReadySeconds) targeted by this deployment.
 	AvailableReplicas *int `pulumi:"availableReplicas"`
@@ -3586,6 +4108,15 @@ type DeploymentStatusInput interface {
 }
 
 // DeploymentStatus is the most recently observed status of the Deployment.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DeploymentStatusArgs struct {
 	// Total number of available pods (ready for at least minReadySeconds) targeted by this deployment.
 	AvailableReplicas pulumi.IntPtrInput `pulumi:"availableReplicas"`
@@ -3659,6 +4190,15 @@ func (i *deploymentStatusPtrType) ToDeploymentStatusPtrOutputWithContext(ctx con
 }
 
 // DeploymentStatus is the most recently observed status of the Deployment.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DeploymentStatusOutput struct{ *pulumi.OutputState }
 
 func (DeploymentStatusOutput) ElementType() reflect.Type {
@@ -3828,6 +4368,15 @@ func (o DeploymentStatusPtrOutput) UpdatedReplicas() pulumi.IntPtrOutput {
 }
 
 // DeploymentStatus is the most recently observed status of the Deployment.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DeploymentStatusPatch struct {
 	// Total number of available pods (ready for at least minReadySeconds) targeted by this deployment.
 	AvailableReplicas *int `pulumi:"availableReplicas"`
@@ -3859,6 +4408,15 @@ type DeploymentStatusPatchInput interface {
 }
 
 // DeploymentStatus is the most recently observed status of the Deployment.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DeploymentStatusPatchArgs struct {
 	// Total number of available pods (ready for at least minReadySeconds) targeted by this deployment.
 	AvailableReplicas pulumi.IntPtrInput `pulumi:"availableReplicas"`
@@ -3932,6 +4490,15 @@ func (i *deploymentStatusPatchPtrType) ToDeploymentStatusPatchPtrOutputWithConte
 }
 
 // DeploymentStatus is the most recently observed status of the Deployment.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DeploymentStatusPatchOutput struct{ *pulumi.OutputState }
 
 func (DeploymentStatusPatchOutput) ElementType() reflect.Type {
@@ -4101,6 +4668,15 @@ func (o DeploymentStatusPatchPtrOutput) UpdatedReplicas() pulumi.IntPtrOutput {
 }
 
 // DeploymentStrategy describes how to replace existing pods with new ones.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DeploymentStrategy struct {
 	// Rolling update config params. Present only if DeploymentStrategyType = RollingUpdate.
 	RollingUpdate *RollingUpdateDeployment `pulumi:"rollingUpdate"`
@@ -4120,6 +4696,15 @@ type DeploymentStrategyInput interface {
 }
 
 // DeploymentStrategy describes how to replace existing pods with new ones.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DeploymentStrategyArgs struct {
 	// Rolling update config params. Present only if DeploymentStrategyType = RollingUpdate.
 	RollingUpdate RollingUpdateDeploymentPtrInput `pulumi:"rollingUpdate"`
@@ -4181,6 +4766,15 @@ func (i *deploymentStrategyPtrType) ToDeploymentStrategyPtrOutputWithContext(ctx
 }
 
 // DeploymentStrategy describes how to replace existing pods with new ones.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DeploymentStrategyOutput struct{ *pulumi.OutputState }
 
 func (DeploymentStrategyOutput) ElementType() reflect.Type {
@@ -4260,6 +4854,15 @@ func (o DeploymentStrategyPtrOutput) Type() pulumi.StringPtrOutput {
 }
 
 // DeploymentStrategy describes how to replace existing pods with new ones.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DeploymentStrategyPatch struct {
 	// Rolling update config params. Present only if DeploymentStrategyType = RollingUpdate.
 	RollingUpdate *RollingUpdateDeploymentPatch `pulumi:"rollingUpdate"`
@@ -4279,6 +4882,15 @@ type DeploymentStrategyPatchInput interface {
 }
 
 // DeploymentStrategy describes how to replace existing pods with new ones.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DeploymentStrategyPatchArgs struct {
 	// Rolling update config params. Present only if DeploymentStrategyType = RollingUpdate.
 	RollingUpdate RollingUpdateDeploymentPatchPtrInput `pulumi:"rollingUpdate"`
@@ -4340,6 +4952,15 @@ func (i *deploymentStrategyPatchPtrType) ToDeploymentStrategyPatchPtrOutputWithC
 }
 
 // DeploymentStrategy describes how to replace existing pods with new ones.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type DeploymentStrategyPatchOutput struct{ *pulumi.OutputState }
 
 func (DeploymentStrategyPatchOutput) ElementType() reflect.Type {
@@ -4419,6 +5040,15 @@ func (o DeploymentStrategyPatchPtrOutput) Type() pulumi.StringPtrOutput {
 }
 
 // ReplicaSet ensures that a specified number of pod replicas are running at any given time.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ReplicaSetType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -4444,6 +5074,15 @@ type ReplicaSetTypeInput interface {
 }
 
 // ReplicaSet ensures that a specified number of pod replicas are running at any given time.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ReplicaSetTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -4495,6 +5134,15 @@ func (i ReplicaSetTypeArray) ToReplicaSetTypeArrayOutputWithContext(ctx context.
 }
 
 // ReplicaSet ensures that a specified number of pod replicas are running at any given time.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ReplicaSetTypeOutput struct{ *pulumi.OutputState }
 
 func (ReplicaSetTypeOutput) ElementType() reflect.Type {
@@ -4555,6 +5203,15 @@ func (o ReplicaSetTypeArrayOutput) Index(i pulumi.IntInput) ReplicaSetTypeOutput
 }
 
 // ReplicaSetCondition describes the state of a replica set at a certain point.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ReplicaSetCondition struct {
 	// The last time the condition transitioned from one status to another.
 	LastTransitionTime *string `pulumi:"lastTransitionTime"`
@@ -4580,6 +5237,15 @@ type ReplicaSetConditionInput interface {
 }
 
 // ReplicaSetCondition describes the state of a replica set at a certain point.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ReplicaSetConditionArgs struct {
 	// The last time the condition transitioned from one status to another.
 	LastTransitionTime pulumi.StringPtrInput `pulumi:"lastTransitionTime"`
@@ -4631,6 +5297,15 @@ func (i ReplicaSetConditionArray) ToReplicaSetConditionArrayOutputWithContext(ct
 }
 
 // ReplicaSetCondition describes the state of a replica set at a certain point.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ReplicaSetConditionOutput struct{ *pulumi.OutputState }
 
 func (ReplicaSetConditionOutput) ElementType() reflect.Type {
@@ -4691,6 +5366,15 @@ func (o ReplicaSetConditionArrayOutput) Index(i pulumi.IntInput) ReplicaSetCondi
 }
 
 // ReplicaSetCondition describes the state of a replica set at a certain point.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ReplicaSetConditionPatch struct {
 	// The last time the condition transitioned from one status to another.
 	LastTransitionTime *string `pulumi:"lastTransitionTime"`
@@ -4716,6 +5400,15 @@ type ReplicaSetConditionPatchInput interface {
 }
 
 // ReplicaSetCondition describes the state of a replica set at a certain point.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ReplicaSetConditionPatchArgs struct {
 	// The last time the condition transitioned from one status to another.
 	LastTransitionTime pulumi.StringPtrInput `pulumi:"lastTransitionTime"`
@@ -4767,6 +5460,15 @@ func (i ReplicaSetConditionPatchArray) ToReplicaSetConditionPatchArrayOutputWith
 }
 
 // ReplicaSetCondition describes the state of a replica set at a certain point.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ReplicaSetConditionPatchOutput struct{ *pulumi.OutputState }
 
 func (ReplicaSetConditionPatchOutput) ElementType() reflect.Type {
@@ -4827,6 +5529,15 @@ func (o ReplicaSetConditionPatchArrayOutput) Index(i pulumi.IntInput) ReplicaSet
 }
 
 // ReplicaSetList is a collection of ReplicaSets.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ReplicaSetListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -4850,6 +5561,15 @@ type ReplicaSetListTypeInput interface {
 }
 
 // ReplicaSetList is a collection of ReplicaSets.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ReplicaSetListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -4874,6 +5594,15 @@ func (i ReplicaSetListTypeArgs) ToReplicaSetListTypeOutputWithContext(ctx contex
 }
 
 // ReplicaSetList is a collection of ReplicaSets.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ReplicaSetListTypeOutput struct{ *pulumi.OutputState }
 
 func (ReplicaSetListTypeOutput) ElementType() reflect.Type {
@@ -4909,6 +5638,15 @@ func (o ReplicaSetListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 }
 
 // ReplicaSet ensures that a specified number of pod replicas are running at any given time.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ReplicaSetPatchType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -4934,6 +5672,15 @@ type ReplicaSetPatchTypeInput interface {
 }
 
 // ReplicaSet ensures that a specified number of pod replicas are running at any given time.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ReplicaSetPatchTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -4960,6 +5707,15 @@ func (i ReplicaSetPatchTypeArgs) ToReplicaSetPatchTypeOutputWithContext(ctx cont
 }
 
 // ReplicaSet ensures that a specified number of pod replicas are running at any given time.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ReplicaSetPatchTypeOutput struct{ *pulumi.OutputState }
 
 func (ReplicaSetPatchTypeOutput) ElementType() reflect.Type {
@@ -5000,6 +5756,15 @@ func (o ReplicaSetPatchTypeOutput) Status() ReplicaSetStatusPatchPtrOutput {
 }
 
 // ReplicaSetSpec is the specification of a ReplicaSet.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ReplicaSetSpec struct {
 	// Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
 	MinReadySeconds *int `pulumi:"minReadySeconds"`
@@ -5023,6 +5788,15 @@ type ReplicaSetSpecInput interface {
 }
 
 // ReplicaSetSpec is the specification of a ReplicaSet.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ReplicaSetSpecArgs struct {
 	// Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
 	MinReadySeconds pulumi.IntPtrInput `pulumi:"minReadySeconds"`
@@ -5088,6 +5862,15 @@ func (i *replicaSetSpecPtrType) ToReplicaSetSpecPtrOutputWithContext(ctx context
 }
 
 // ReplicaSetSpec is the specification of a ReplicaSet.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ReplicaSetSpecOutput struct{ *pulumi.OutputState }
 
 func (ReplicaSetSpecOutput) ElementType() reflect.Type {
@@ -5197,6 +5980,15 @@ func (o ReplicaSetSpecPtrOutput) Template() corev1.PodTemplateSpecPtrOutput {
 }
 
 // ReplicaSetSpec is the specification of a ReplicaSet.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ReplicaSetSpecPatch struct {
 	// Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
 	MinReadySeconds *int `pulumi:"minReadySeconds"`
@@ -5220,6 +6012,15 @@ type ReplicaSetSpecPatchInput interface {
 }
 
 // ReplicaSetSpec is the specification of a ReplicaSet.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ReplicaSetSpecPatchArgs struct {
 	// Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
 	MinReadySeconds pulumi.IntPtrInput `pulumi:"minReadySeconds"`
@@ -5285,6 +6086,15 @@ func (i *replicaSetSpecPatchPtrType) ToReplicaSetSpecPatchPtrOutputWithContext(c
 }
 
 // ReplicaSetSpec is the specification of a ReplicaSet.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ReplicaSetSpecPatchOutput struct{ *pulumi.OutputState }
 
 func (ReplicaSetSpecPatchOutput) ElementType() reflect.Type {
@@ -5394,6 +6204,15 @@ func (o ReplicaSetSpecPatchPtrOutput) Template() corev1.PodTemplateSpecPatchPtrO
 }
 
 // ReplicaSetStatus represents the current status of a ReplicaSet.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ReplicaSetStatus struct {
 	// The number of available replicas (ready for at least minReadySeconds) for this replica set.
 	AvailableReplicas *int `pulumi:"availableReplicas"`
@@ -5421,6 +6240,15 @@ type ReplicaSetStatusInput interface {
 }
 
 // ReplicaSetStatus represents the current status of a ReplicaSet.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ReplicaSetStatusArgs struct {
 	// The number of available replicas (ready for at least minReadySeconds) for this replica set.
 	AvailableReplicas pulumi.IntPtrInput `pulumi:"availableReplicas"`
@@ -5490,6 +6318,15 @@ func (i *replicaSetStatusPtrType) ToReplicaSetStatusPtrOutputWithContext(ctx con
 }
 
 // ReplicaSetStatus represents the current status of a ReplicaSet.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ReplicaSetStatusOutput struct{ *pulumi.OutputState }
 
 func (ReplicaSetStatusOutput) ElementType() reflect.Type {
@@ -5629,6 +6466,15 @@ func (o ReplicaSetStatusPtrOutput) Replicas() pulumi.IntPtrOutput {
 }
 
 // ReplicaSetStatus represents the current status of a ReplicaSet.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ReplicaSetStatusPatch struct {
 	// The number of available replicas (ready for at least minReadySeconds) for this replica set.
 	AvailableReplicas *int `pulumi:"availableReplicas"`
@@ -5656,6 +6502,15 @@ type ReplicaSetStatusPatchInput interface {
 }
 
 // ReplicaSetStatus represents the current status of a ReplicaSet.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ReplicaSetStatusPatchArgs struct {
 	// The number of available replicas (ready for at least minReadySeconds) for this replica set.
 	AvailableReplicas pulumi.IntPtrInput `pulumi:"availableReplicas"`
@@ -5725,6 +6580,15 @@ func (i *replicaSetStatusPatchPtrType) ToReplicaSetStatusPatchPtrOutputWithConte
 }
 
 // ReplicaSetStatus represents the current status of a ReplicaSet.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ReplicaSetStatusPatchOutput struct{ *pulumi.OutputState }
 
 func (ReplicaSetStatusPatchOutput) ElementType() reflect.Type {
@@ -5864,6 +6728,15 @@ func (o ReplicaSetStatusPatchPtrOutput) Replicas() pulumi.IntPtrOutput {
 }
 
 // Spec to control the desired behavior of daemon set rolling update.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type RollingUpdateDaemonSet struct {
 	// The maximum number of DaemonSet pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of total number of DaemonSet pods at the start of the update (ex: 10%). Absolute number is calculated from percentage by rounding up. This cannot be 0. Default value is 1. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their pods stopped for an update at any given time. The update starts by stopping at most 30% of those DaemonSet pods and then brings up new DaemonSet pods in their place. Once the new pods are available, it then proceeds onto other DaemonSet pods, thus ensuring that at least 70% of original number of DaemonSet pods are available at all times during the update.
 	MaxUnavailable interface{} `pulumi:"maxUnavailable"`
@@ -5881,6 +6754,15 @@ type RollingUpdateDaemonSetInput interface {
 }
 
 // Spec to control the desired behavior of daemon set rolling update.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type RollingUpdateDaemonSetArgs struct {
 	// The maximum number of DaemonSet pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of total number of DaemonSet pods at the start of the update (ex: 10%). Absolute number is calculated from percentage by rounding up. This cannot be 0. Default value is 1. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their pods stopped for an update at any given time. The update starts by stopping at most 30% of those DaemonSet pods and then brings up new DaemonSet pods in their place. Once the new pods are available, it then proceeds onto other DaemonSet pods, thus ensuring that at least 70% of original number of DaemonSet pods are available at all times during the update.
 	MaxUnavailable pulumi.Input `pulumi:"maxUnavailable"`
@@ -5940,6 +6822,15 @@ func (i *rollingUpdateDaemonSetPtrType) ToRollingUpdateDaemonSetPtrOutputWithCon
 }
 
 // Spec to control the desired behavior of daemon set rolling update.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type RollingUpdateDaemonSetOutput struct{ *pulumi.OutputState }
 
 func (RollingUpdateDaemonSetOutput) ElementType() reflect.Type {
@@ -6004,6 +6895,15 @@ func (o RollingUpdateDaemonSetPtrOutput) MaxUnavailable() pulumi.AnyOutput {
 }
 
 // Spec to control the desired behavior of daemon set rolling update.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type RollingUpdateDaemonSetPatch struct {
 	// The maximum number of DaemonSet pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of total number of DaemonSet pods at the start of the update (ex: 10%). Absolute number is calculated from percentage by rounding up. This cannot be 0. Default value is 1. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their pods stopped for an update at any given time. The update starts by stopping at most 30% of those DaemonSet pods and then brings up new DaemonSet pods in their place. Once the new pods are available, it then proceeds onto other DaemonSet pods, thus ensuring that at least 70% of original number of DaemonSet pods are available at all times during the update.
 	MaxUnavailable interface{} `pulumi:"maxUnavailable"`
@@ -6021,6 +6921,15 @@ type RollingUpdateDaemonSetPatchInput interface {
 }
 
 // Spec to control the desired behavior of daemon set rolling update.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type RollingUpdateDaemonSetPatchArgs struct {
 	// The maximum number of DaemonSet pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of total number of DaemonSet pods at the start of the update (ex: 10%). Absolute number is calculated from percentage by rounding up. This cannot be 0. Default value is 1. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their pods stopped for an update at any given time. The update starts by stopping at most 30% of those DaemonSet pods and then brings up new DaemonSet pods in their place. Once the new pods are available, it then proceeds onto other DaemonSet pods, thus ensuring that at least 70% of original number of DaemonSet pods are available at all times during the update.
 	MaxUnavailable pulumi.Input `pulumi:"maxUnavailable"`
@@ -6080,6 +6989,15 @@ func (i *rollingUpdateDaemonSetPatchPtrType) ToRollingUpdateDaemonSetPatchPtrOut
 }
 
 // Spec to control the desired behavior of daemon set rolling update.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type RollingUpdateDaemonSetPatchOutput struct{ *pulumi.OutputState }
 
 func (RollingUpdateDaemonSetPatchOutput) ElementType() reflect.Type {
@@ -6144,6 +7062,15 @@ func (o RollingUpdateDaemonSetPatchPtrOutput) MaxUnavailable() pulumi.AnyOutput 
 }
 
 // Spec to control the desired behavior of rolling update.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type RollingUpdateDeployment struct {
 	// The maximum number of pods that can be scheduled above the desired number of pods. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up. Defaults to 25%. Example: when this is set to 30%, the new ReplicaSet can be scaled up immediately when the rolling update starts, such that the total number of old and new pods do not exceed 130% of desired pods. Once old pods have been killed, new ReplicaSet can be scaled up further, ensuring that total number of pods running at any time during the update is at most 130% of desired pods.
 	MaxSurge interface{} `pulumi:"maxSurge"`
@@ -6163,6 +7090,15 @@ type RollingUpdateDeploymentInput interface {
 }
 
 // Spec to control the desired behavior of rolling update.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type RollingUpdateDeploymentArgs struct {
 	// The maximum number of pods that can be scheduled above the desired number of pods. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up. Defaults to 25%. Example: when this is set to 30%, the new ReplicaSet can be scaled up immediately when the rolling update starts, such that the total number of old and new pods do not exceed 130% of desired pods. Once old pods have been killed, new ReplicaSet can be scaled up further, ensuring that total number of pods running at any time during the update is at most 130% of desired pods.
 	MaxSurge pulumi.Input `pulumi:"maxSurge"`
@@ -6224,6 +7160,15 @@ func (i *rollingUpdateDeploymentPtrType) ToRollingUpdateDeploymentPtrOutputWithC
 }
 
 // Spec to control the desired behavior of rolling update.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type RollingUpdateDeploymentOutput struct{ *pulumi.OutputState }
 
 func (RollingUpdateDeploymentOutput) ElementType() reflect.Type {
@@ -6303,6 +7248,15 @@ func (o RollingUpdateDeploymentPtrOutput) MaxUnavailable() pulumi.AnyOutput {
 }
 
 // Spec to control the desired behavior of rolling update.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type RollingUpdateDeploymentPatch struct {
 	// The maximum number of pods that can be scheduled above the desired number of pods. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up. Defaults to 25%. Example: when this is set to 30%, the new ReplicaSet can be scaled up immediately when the rolling update starts, such that the total number of old and new pods do not exceed 130% of desired pods. Once old pods have been killed, new ReplicaSet can be scaled up further, ensuring that total number of pods running at any time during the update is at most 130% of desired pods.
 	MaxSurge interface{} `pulumi:"maxSurge"`
@@ -6322,6 +7276,15 @@ type RollingUpdateDeploymentPatchInput interface {
 }
 
 // Spec to control the desired behavior of rolling update.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type RollingUpdateDeploymentPatchArgs struct {
 	// The maximum number of pods that can be scheduled above the desired number of pods. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up. Defaults to 25%. Example: when this is set to 30%, the new ReplicaSet can be scaled up immediately when the rolling update starts, such that the total number of old and new pods do not exceed 130% of desired pods. Once old pods have been killed, new ReplicaSet can be scaled up further, ensuring that total number of pods running at any time during the update is at most 130% of desired pods.
 	MaxSurge pulumi.Input `pulumi:"maxSurge"`
@@ -6383,6 +7346,15 @@ func (i *rollingUpdateDeploymentPatchPtrType) ToRollingUpdateDeploymentPatchPtrO
 }
 
 // Spec to control the desired behavior of rolling update.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type RollingUpdateDeploymentPatchOutput struct{ *pulumi.OutputState }
 
 func (RollingUpdateDeploymentPatchOutput) ElementType() reflect.Type {
@@ -6462,6 +7434,15 @@ func (o RollingUpdateDeploymentPatchPtrOutput) MaxUnavailable() pulumi.AnyOutput
 }
 
 // RollingUpdateStatefulSetStrategy is used to communicate parameter for RollingUpdateStatefulSetStrategyType.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type RollingUpdateStatefulSetStrategy struct {
 	// Partition indicates the ordinal at which the StatefulSet should be partitioned. Default value is 0.
 	Partition *int `pulumi:"partition"`
@@ -6479,6 +7460,15 @@ type RollingUpdateStatefulSetStrategyInput interface {
 }
 
 // RollingUpdateStatefulSetStrategy is used to communicate parameter for RollingUpdateStatefulSetStrategyType.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type RollingUpdateStatefulSetStrategyArgs struct {
 	// Partition indicates the ordinal at which the StatefulSet should be partitioned. Default value is 0.
 	Partition pulumi.IntPtrInput `pulumi:"partition"`
@@ -6538,6 +7528,15 @@ func (i *rollingUpdateStatefulSetStrategyPtrType) ToRollingUpdateStatefulSetStra
 }
 
 // RollingUpdateStatefulSetStrategy is used to communicate parameter for RollingUpdateStatefulSetStrategyType.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type RollingUpdateStatefulSetStrategyOutput struct{ *pulumi.OutputState }
 
 func (RollingUpdateStatefulSetStrategyOutput) ElementType() reflect.Type {
@@ -6602,6 +7601,15 @@ func (o RollingUpdateStatefulSetStrategyPtrOutput) Partition() pulumi.IntPtrOutp
 }
 
 // RollingUpdateStatefulSetStrategy is used to communicate parameter for RollingUpdateStatefulSetStrategyType.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type RollingUpdateStatefulSetStrategyPatch struct {
 	// Partition indicates the ordinal at which the StatefulSet should be partitioned. Default value is 0.
 	Partition *int `pulumi:"partition"`
@@ -6619,6 +7627,15 @@ type RollingUpdateStatefulSetStrategyPatchInput interface {
 }
 
 // RollingUpdateStatefulSetStrategy is used to communicate parameter for RollingUpdateStatefulSetStrategyType.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type RollingUpdateStatefulSetStrategyPatchArgs struct {
 	// Partition indicates the ordinal at which the StatefulSet should be partitioned. Default value is 0.
 	Partition pulumi.IntPtrInput `pulumi:"partition"`
@@ -6678,6 +7695,15 @@ func (i *rollingUpdateStatefulSetStrategyPatchPtrType) ToRollingUpdateStatefulSe
 }
 
 // RollingUpdateStatefulSetStrategy is used to communicate parameter for RollingUpdateStatefulSetStrategyType.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type RollingUpdateStatefulSetStrategyPatchOutput struct{ *pulumi.OutputState }
 
 func (RollingUpdateStatefulSetStrategyPatchOutput) ElementType() reflect.Type {
@@ -6742,6 +7768,15 @@ func (o RollingUpdateStatefulSetStrategyPatchPtrOutput) Partition() pulumi.IntPt
 }
 
 // Scale represents a scaling request for a resource.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type Scale struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -6767,6 +7802,15 @@ type ScaleInput interface {
 }
 
 // Scale represents a scaling request for a resource.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ScaleArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -6793,6 +7837,15 @@ func (i ScaleArgs) ToScaleOutputWithContext(ctx context.Context) ScaleOutput {
 }
 
 // Scale represents a scaling request for a resource.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ScaleOutput struct{ *pulumi.OutputState }
 
 func (ScaleOutput) ElementType() reflect.Type {
@@ -6833,6 +7886,15 @@ func (o ScaleOutput) Status() ScaleStatusPtrOutput {
 }
 
 // Scale represents a scaling request for a resource.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ScalePatch struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -6858,6 +7920,15 @@ type ScalePatchInput interface {
 }
 
 // Scale represents a scaling request for a resource.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ScalePatchArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -6884,6 +7955,15 @@ func (i ScalePatchArgs) ToScalePatchOutputWithContext(ctx context.Context) Scale
 }
 
 // Scale represents a scaling request for a resource.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ScalePatchOutput struct{ *pulumi.OutputState }
 
 func (ScalePatchOutput) ElementType() reflect.Type {
@@ -6924,6 +8004,15 @@ func (o ScalePatchOutput) Status() ScaleStatusPatchPtrOutput {
 }
 
 // ScaleSpec describes the attributes of a scale subresource
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ScaleSpec struct {
 	// desired number of instances for the scaled object.
 	Replicas *int `pulumi:"replicas"`
@@ -6941,6 +8030,15 @@ type ScaleSpecInput interface {
 }
 
 // ScaleSpec describes the attributes of a scale subresource
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ScaleSpecArgs struct {
 	// desired number of instances for the scaled object.
 	Replicas pulumi.IntPtrInput `pulumi:"replicas"`
@@ -7000,6 +8098,15 @@ func (i *scaleSpecPtrType) ToScaleSpecPtrOutputWithContext(ctx context.Context) 
 }
 
 // ScaleSpec describes the attributes of a scale subresource
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ScaleSpecOutput struct{ *pulumi.OutputState }
 
 func (ScaleSpecOutput) ElementType() reflect.Type {
@@ -7064,6 +8171,15 @@ func (o ScaleSpecPtrOutput) Replicas() pulumi.IntPtrOutput {
 }
 
 // ScaleSpec describes the attributes of a scale subresource
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ScaleSpecPatch struct {
 	// desired number of instances for the scaled object.
 	Replicas *int `pulumi:"replicas"`
@@ -7081,6 +8197,15 @@ type ScaleSpecPatchInput interface {
 }
 
 // ScaleSpec describes the attributes of a scale subresource
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ScaleSpecPatchArgs struct {
 	// desired number of instances for the scaled object.
 	Replicas pulumi.IntPtrInput `pulumi:"replicas"`
@@ -7140,6 +8265,15 @@ func (i *scaleSpecPatchPtrType) ToScaleSpecPatchPtrOutputWithContext(ctx context
 }
 
 // ScaleSpec describes the attributes of a scale subresource
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ScaleSpecPatchOutput struct{ *pulumi.OutputState }
 
 func (ScaleSpecPatchOutput) ElementType() reflect.Type {
@@ -7204,6 +8338,15 @@ func (o ScaleSpecPatchPtrOutput) Replicas() pulumi.IntPtrOutput {
 }
 
 // ScaleStatus represents the current status of a scale subresource.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ScaleStatus struct {
 	// actual number of observed instances of the scaled object.
 	Replicas int `pulumi:"replicas"`
@@ -7225,6 +8368,15 @@ type ScaleStatusInput interface {
 }
 
 // ScaleStatus represents the current status of a scale subresource.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ScaleStatusArgs struct {
 	// actual number of observed instances of the scaled object.
 	Replicas pulumi.IntInput `pulumi:"replicas"`
@@ -7288,6 +8440,15 @@ func (i *scaleStatusPtrType) ToScaleStatusPtrOutputWithContext(ctx context.Conte
 }
 
 // ScaleStatus represents the current status of a scale subresource.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ScaleStatusOutput struct{ *pulumi.OutputState }
 
 func (ScaleStatusOutput) ElementType() reflect.Type {
@@ -7382,6 +8543,15 @@ func (o ScaleStatusPtrOutput) TargetSelector() pulumi.StringPtrOutput {
 }
 
 // ScaleStatus represents the current status of a scale subresource.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ScaleStatusPatch struct {
 	// actual number of observed instances of the scaled object.
 	Replicas *int `pulumi:"replicas"`
@@ -7403,6 +8573,15 @@ type ScaleStatusPatchInput interface {
 }
 
 // ScaleStatus represents the current status of a scale subresource.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ScaleStatusPatchArgs struct {
 	// actual number of observed instances of the scaled object.
 	Replicas pulumi.IntPtrInput `pulumi:"replicas"`
@@ -7466,6 +8645,15 @@ func (i *scaleStatusPatchPtrType) ToScaleStatusPatchPtrOutputWithContext(ctx con
 }
 
 // ScaleStatus represents the current status of a scale subresource.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ScaleStatusPatchOutput struct{ *pulumi.OutputState }
 
 func (ScaleStatusPatchOutput) ElementType() reflect.Type {
@@ -7741,6 +8929,15 @@ func (o StatefulSetTypeArrayOutput) Index(i pulumi.IntInput) StatefulSetTypeOutp
 }
 
 // StatefulSetCondition describes the state of a statefulset at a certain point.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StatefulSetCondition struct {
 	// Last time the condition transitioned from one status to another.
 	LastTransitionTime *string `pulumi:"lastTransitionTime"`
@@ -7766,6 +8963,15 @@ type StatefulSetConditionInput interface {
 }
 
 // StatefulSetCondition describes the state of a statefulset at a certain point.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StatefulSetConditionArgs struct {
 	// Last time the condition transitioned from one status to another.
 	LastTransitionTime pulumi.StringPtrInput `pulumi:"lastTransitionTime"`
@@ -7817,6 +9023,15 @@ func (i StatefulSetConditionArray) ToStatefulSetConditionArrayOutputWithContext(
 }
 
 // StatefulSetCondition describes the state of a statefulset at a certain point.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StatefulSetConditionOutput struct{ *pulumi.OutputState }
 
 func (StatefulSetConditionOutput) ElementType() reflect.Type {
@@ -7877,6 +9092,15 @@ func (o StatefulSetConditionArrayOutput) Index(i pulumi.IntInput) StatefulSetCon
 }
 
 // StatefulSetCondition describes the state of a statefulset at a certain point.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StatefulSetConditionPatch struct {
 	// Last time the condition transitioned from one status to another.
 	LastTransitionTime *string `pulumi:"lastTransitionTime"`
@@ -7902,6 +9126,15 @@ type StatefulSetConditionPatchInput interface {
 }
 
 // StatefulSetCondition describes the state of a statefulset at a certain point.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StatefulSetConditionPatchArgs struct {
 	// Last time the condition transitioned from one status to another.
 	LastTransitionTime pulumi.StringPtrInput `pulumi:"lastTransitionTime"`
@@ -7953,6 +9186,15 @@ func (i StatefulSetConditionPatchArray) ToStatefulSetConditionPatchArrayOutputWi
 }
 
 // StatefulSetCondition describes the state of a statefulset at a certain point.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StatefulSetConditionPatchOutput struct{ *pulumi.OutputState }
 
 func (StatefulSetConditionPatchOutput) ElementType() reflect.Type {
@@ -8013,6 +9255,15 @@ func (o StatefulSetConditionPatchArrayOutput) Index(i pulumi.IntInput) StatefulS
 }
 
 // StatefulSetList is a collection of StatefulSets.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StatefulSetListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string           `pulumi:"apiVersion"`
@@ -8034,6 +9285,15 @@ type StatefulSetListTypeInput interface {
 }
 
 // StatefulSetList is a collection of StatefulSets.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StatefulSetListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput     `pulumi:"apiVersion"`
@@ -8056,6 +9316,15 @@ func (i StatefulSetListTypeArgs) ToStatefulSetListTypeOutputWithContext(ctx cont
 }
 
 // StatefulSetList is a collection of StatefulSets.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StatefulSetListTypeOutput struct{ *pulumi.OutputState }
 
 func (StatefulSetListTypeOutput) ElementType() reflect.Type {
@@ -8225,6 +9494,15 @@ func (o StatefulSetPatchTypeOutput) Status() StatefulSetStatusPatchPtrOutput {
 }
 
 // A StatefulSetSpec is the specification of a StatefulSet.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StatefulSetSpec struct {
 	// podManagementPolicy controls how pods are created during initial scale up, when replacing pods on nodes, or when scaling down. The default policy is `OrderedReady`, where pods are created in increasing order (pod-0, then pod-1, etc) and the controller will wait until each pod is ready before continuing. When scaling down, the pods are removed in the opposite order. The alternative policy is `Parallel` which will create pods in parallel to match the desired scale without waiting, and on scale down will delete all pods at once.
 	PodManagementPolicy *string `pulumi:"podManagementPolicy"`
@@ -8256,6 +9534,15 @@ type StatefulSetSpecInput interface {
 }
 
 // A StatefulSetSpec is the specification of a StatefulSet.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StatefulSetSpecArgs struct {
 	// podManagementPolicy controls how pods are created during initial scale up, when replacing pods on nodes, or when scaling down. The default policy is `OrderedReady`, where pods are created in increasing order (pod-0, then pod-1, etc) and the controller will wait until each pod is ready before continuing. When scaling down, the pods are removed in the opposite order. The alternative policy is `Parallel` which will create pods in parallel to match the desired scale without waiting, and on scale down will delete all pods at once.
 	PodManagementPolicy pulumi.StringPtrInput `pulumi:"podManagementPolicy"`
@@ -8329,6 +9616,15 @@ func (i *statefulSetSpecPtrType) ToStatefulSetSpecPtrOutputWithContext(ctx conte
 }
 
 // A StatefulSetSpec is the specification of a StatefulSet.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StatefulSetSpecOutput struct{ *pulumi.OutputState }
 
 func (StatefulSetSpecOutput) ElementType() reflect.Type {
@@ -8498,6 +9794,15 @@ func (o StatefulSetSpecPtrOutput) VolumeClaimTemplates() corev1.PersistentVolume
 }
 
 // A StatefulSetSpec is the specification of a StatefulSet.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StatefulSetSpecPatch struct {
 	// podManagementPolicy controls how pods are created during initial scale up, when replacing pods on nodes, or when scaling down. The default policy is `OrderedReady`, where pods are created in increasing order (pod-0, then pod-1, etc) and the controller will wait until each pod is ready before continuing. When scaling down, the pods are removed in the opposite order. The alternative policy is `Parallel` which will create pods in parallel to match the desired scale without waiting, and on scale down will delete all pods at once.
 	PodManagementPolicy *string `pulumi:"podManagementPolicy"`
@@ -8529,6 +9834,15 @@ type StatefulSetSpecPatchInput interface {
 }
 
 // A StatefulSetSpec is the specification of a StatefulSet.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StatefulSetSpecPatchArgs struct {
 	// podManagementPolicy controls how pods are created during initial scale up, when replacing pods on nodes, or when scaling down. The default policy is `OrderedReady`, where pods are created in increasing order (pod-0, then pod-1, etc) and the controller will wait until each pod is ready before continuing. When scaling down, the pods are removed in the opposite order. The alternative policy is `Parallel` which will create pods in parallel to match the desired scale without waiting, and on scale down will delete all pods at once.
 	PodManagementPolicy pulumi.StringPtrInput `pulumi:"podManagementPolicy"`
@@ -8602,6 +9916,15 @@ func (i *statefulSetSpecPatchPtrType) ToStatefulSetSpecPatchPtrOutputWithContext
 }
 
 // A StatefulSetSpec is the specification of a StatefulSet.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StatefulSetSpecPatchOutput struct{ *pulumi.OutputState }
 
 func (StatefulSetSpecPatchOutput) ElementType() reflect.Type {
@@ -8771,6 +10094,15 @@ func (o StatefulSetSpecPatchPtrOutput) VolumeClaimTemplates() corev1.PersistentV
 }
 
 // StatefulSetStatus represents the current state of a StatefulSet.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StatefulSetStatus struct {
 	// collisionCount is the count of hash collisions for the StatefulSet. The StatefulSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
 	CollisionCount *int `pulumi:"collisionCount"`
@@ -8804,6 +10136,15 @@ type StatefulSetStatusInput interface {
 }
 
 // StatefulSetStatus represents the current state of a StatefulSet.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StatefulSetStatusArgs struct {
 	// collisionCount is the count of hash collisions for the StatefulSet. The StatefulSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
 	CollisionCount pulumi.IntPtrInput `pulumi:"collisionCount"`
@@ -8879,6 +10220,15 @@ func (i *statefulSetStatusPtrType) ToStatefulSetStatusPtrOutputWithContext(ctx c
 }
 
 // StatefulSetStatus represents the current state of a StatefulSet.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StatefulSetStatusOutput struct{ *pulumi.OutputState }
 
 func (StatefulSetStatusOutput) ElementType() reflect.Type {
@@ -9063,6 +10413,15 @@ func (o StatefulSetStatusPtrOutput) UpdatedReplicas() pulumi.IntPtrOutput {
 }
 
 // StatefulSetStatus represents the current state of a StatefulSet.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StatefulSetStatusPatch struct {
 	// collisionCount is the count of hash collisions for the StatefulSet. The StatefulSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
 	CollisionCount *int `pulumi:"collisionCount"`
@@ -9096,6 +10455,15 @@ type StatefulSetStatusPatchInput interface {
 }
 
 // StatefulSetStatus represents the current state of a StatefulSet.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StatefulSetStatusPatchArgs struct {
 	// collisionCount is the count of hash collisions for the StatefulSet. The StatefulSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
 	CollisionCount pulumi.IntPtrInput `pulumi:"collisionCount"`
@@ -9171,6 +10539,15 @@ func (i *statefulSetStatusPatchPtrType) ToStatefulSetStatusPatchPtrOutputWithCon
 }
 
 // StatefulSetStatus represents the current state of a StatefulSet.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StatefulSetStatusPatchOutput struct{ *pulumi.OutputState }
 
 func (StatefulSetStatusPatchOutput) ElementType() reflect.Type {
@@ -9355,6 +10732,15 @@ func (o StatefulSetStatusPatchPtrOutput) UpdatedReplicas() pulumi.IntPtrOutput {
 }
 
 // StatefulSetUpdateStrategy indicates the strategy that the StatefulSet controller will use to perform updates. It includes any additional parameters necessary to perform the update for the indicated strategy.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StatefulSetUpdateStrategy struct {
 	// RollingUpdate is used to communicate parameters when Type is RollingUpdateStatefulSetStrategyType.
 	RollingUpdate *RollingUpdateStatefulSetStrategy `pulumi:"rollingUpdate"`
@@ -9374,6 +10760,15 @@ type StatefulSetUpdateStrategyInput interface {
 }
 
 // StatefulSetUpdateStrategy indicates the strategy that the StatefulSet controller will use to perform updates. It includes any additional parameters necessary to perform the update for the indicated strategy.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StatefulSetUpdateStrategyArgs struct {
 	// RollingUpdate is used to communicate parameters when Type is RollingUpdateStatefulSetStrategyType.
 	RollingUpdate RollingUpdateStatefulSetStrategyPtrInput `pulumi:"rollingUpdate"`
@@ -9435,6 +10830,15 @@ func (i *statefulSetUpdateStrategyPtrType) ToStatefulSetUpdateStrategyPtrOutputW
 }
 
 // StatefulSetUpdateStrategy indicates the strategy that the StatefulSet controller will use to perform updates. It includes any additional parameters necessary to perform the update for the indicated strategy.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StatefulSetUpdateStrategyOutput struct{ *pulumi.OutputState }
 
 func (StatefulSetUpdateStrategyOutput) ElementType() reflect.Type {
@@ -9514,6 +10918,15 @@ func (o StatefulSetUpdateStrategyPtrOutput) Type() pulumi.StringPtrOutput {
 }
 
 // StatefulSetUpdateStrategy indicates the strategy that the StatefulSet controller will use to perform updates. It includes any additional parameters necessary to perform the update for the indicated strategy.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StatefulSetUpdateStrategyPatch struct {
 	// RollingUpdate is used to communicate parameters when Type is RollingUpdateStatefulSetStrategyType.
 	RollingUpdate *RollingUpdateStatefulSetStrategyPatch `pulumi:"rollingUpdate"`
@@ -9533,6 +10946,15 @@ type StatefulSetUpdateStrategyPatchInput interface {
 }
 
 // StatefulSetUpdateStrategy indicates the strategy that the StatefulSet controller will use to perform updates. It includes any additional parameters necessary to perform the update for the indicated strategy.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StatefulSetUpdateStrategyPatchArgs struct {
 	// RollingUpdate is used to communicate parameters when Type is RollingUpdateStatefulSetStrategyType.
 	RollingUpdate RollingUpdateStatefulSetStrategyPatchPtrInput `pulumi:"rollingUpdate"`
@@ -9594,6 +11016,15 @@ func (i *statefulSetUpdateStrategyPatchPtrType) ToStatefulSetUpdateStrategyPatch
 }
 
 // StatefulSetUpdateStrategy indicates the strategy that the StatefulSet controller will use to perform updates. It includes any additional parameters necessary to perform the update for the indicated strategy.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StatefulSetUpdateStrategyPatchOutput struct{ *pulumi.OutputState }
 
 func (StatefulSetUpdateStrategyPatchOutput) ElementType() reflect.Type {

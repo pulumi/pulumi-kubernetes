@@ -12,6 +12,15 @@ namespace Pulumi.Kubernetes.Types.Inputs.Batch.V1
 
     /// <summary>
     /// UncountedTerminatedPods holds UIDs of Pods that have terminated but haven't been accounted in Job status counters.
+    /// 
+    /// By default Pulumi does _not_ wait for this resource to
+    /// become ready when it is created or updated.
+    /// 
+    /// If you want Pulumi to wait for this resource to become ready, you can use the
+    /// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    /// documentation
+    /// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    /// for a detailed description of the values this annotation accepts.
     /// </summary>
     public class UncountedTerminatedPodsArgs : global::Pulumi.ResourceArgs
     {

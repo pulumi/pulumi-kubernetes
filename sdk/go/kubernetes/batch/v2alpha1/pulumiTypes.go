@@ -17,6 +17,15 @@ import (
 var _ = utilities.GetEnvOrDefault
 
 // CronJob represents the configuration of a single cron job.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CronJobType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -42,6 +51,15 @@ type CronJobTypeInput interface {
 }
 
 // CronJob represents the configuration of a single cron job.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CronJobTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -93,6 +111,15 @@ func (i CronJobTypeArray) ToCronJobTypeArrayOutputWithContext(ctx context.Contex
 }
 
 // CronJob represents the configuration of a single cron job.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CronJobTypeOutput struct{ *pulumi.OutputState }
 
 func (CronJobTypeOutput) ElementType() reflect.Type {
@@ -153,6 +180,15 @@ func (o CronJobTypeArrayOutput) Index(i pulumi.IntInput) CronJobTypeOutput {
 }
 
 // CronJobList is a collection of cron jobs.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CronJobListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -176,6 +212,15 @@ type CronJobListTypeInput interface {
 }
 
 // CronJobList is a collection of cron jobs.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CronJobListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -200,6 +245,15 @@ func (i CronJobListTypeArgs) ToCronJobListTypeOutputWithContext(ctx context.Cont
 }
 
 // CronJobList is a collection of cron jobs.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CronJobListTypeOutput struct{ *pulumi.OutputState }
 
 func (CronJobListTypeOutput) ElementType() reflect.Type {
@@ -235,6 +289,15 @@ func (o CronJobListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 }
 
 // CronJob represents the configuration of a single cron job.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CronJobPatchType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -260,6 +323,15 @@ type CronJobPatchTypeInput interface {
 }
 
 // CronJob represents the configuration of a single cron job.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CronJobPatchTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -286,6 +358,15 @@ func (i CronJobPatchTypeArgs) ToCronJobPatchTypeOutputWithContext(ctx context.Co
 }
 
 // CronJob represents the configuration of a single cron job.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CronJobPatchTypeOutput struct{ *pulumi.OutputState }
 
 func (CronJobPatchTypeOutput) ElementType() reflect.Type {
@@ -326,6 +407,15 @@ func (o CronJobPatchTypeOutput) Status() CronJobStatusPatchPtrOutput {
 }
 
 // CronJobSpec describes how the job execution will look like and when it will actually run.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CronJobSpec struct {
 	// Specifies how to treat concurrent executions of a Job. Valid values are: - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
 	ConcurrencyPolicy *string `pulumi:"concurrencyPolicy"`
@@ -355,6 +445,15 @@ type CronJobSpecInput interface {
 }
 
 // CronJobSpec describes how the job execution will look like and when it will actually run.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CronJobSpecArgs struct {
 	// Specifies how to treat concurrent executions of a Job. Valid values are: - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
 	ConcurrencyPolicy pulumi.StringPtrInput `pulumi:"concurrencyPolicy"`
@@ -426,6 +525,15 @@ func (i *cronJobSpecPtrType) ToCronJobSpecPtrOutputWithContext(ctx context.Conte
 }
 
 // CronJobSpec describes how the job execution will look like and when it will actually run.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CronJobSpecOutput struct{ *pulumi.OutputState }
 
 func (CronJobSpecOutput) ElementType() reflect.Type {
@@ -580,6 +688,15 @@ func (o CronJobSpecPtrOutput) Suspend() pulumi.BoolPtrOutput {
 }
 
 // CronJobSpec describes how the job execution will look like and when it will actually run.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CronJobSpecPatch struct {
 	// Specifies how to treat concurrent executions of a Job. Valid values are: - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
 	ConcurrencyPolicy *string `pulumi:"concurrencyPolicy"`
@@ -609,6 +726,15 @@ type CronJobSpecPatchInput interface {
 }
 
 // CronJobSpec describes how the job execution will look like and when it will actually run.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CronJobSpecPatchArgs struct {
 	// Specifies how to treat concurrent executions of a Job. Valid values are: - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
 	ConcurrencyPolicy pulumi.StringPtrInput `pulumi:"concurrencyPolicy"`
@@ -680,6 +806,15 @@ func (i *cronJobSpecPatchPtrType) ToCronJobSpecPatchPtrOutputWithContext(ctx con
 }
 
 // CronJobSpec describes how the job execution will look like and when it will actually run.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CronJobSpecPatchOutput struct{ *pulumi.OutputState }
 
 func (CronJobSpecPatchOutput) ElementType() reflect.Type {
@@ -834,6 +969,15 @@ func (o CronJobSpecPatchPtrOutput) Suspend() pulumi.BoolPtrOutput {
 }
 
 // CronJobStatus represents the current state of a cron job.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CronJobStatus struct {
 	// A list of pointers to currently running jobs.
 	Active []corev1.ObjectReference `pulumi:"active"`
@@ -853,6 +997,15 @@ type CronJobStatusInput interface {
 }
 
 // CronJobStatus represents the current state of a cron job.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CronJobStatusArgs struct {
 	// A list of pointers to currently running jobs.
 	Active corev1.ObjectReferenceArrayInput `pulumi:"active"`
@@ -914,6 +1067,15 @@ func (i *cronJobStatusPtrType) ToCronJobStatusPtrOutputWithContext(ctx context.C
 }
 
 // CronJobStatus represents the current state of a cron job.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CronJobStatusOutput struct{ *pulumi.OutputState }
 
 func (CronJobStatusOutput) ElementType() reflect.Type {
@@ -993,6 +1155,15 @@ func (o CronJobStatusPtrOutput) LastScheduleTime() pulumi.StringPtrOutput {
 }
 
 // CronJobStatus represents the current state of a cron job.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CronJobStatusPatch struct {
 	// A list of pointers to currently running jobs.
 	Active []corev1.ObjectReferencePatch `pulumi:"active"`
@@ -1012,6 +1183,15 @@ type CronJobStatusPatchInput interface {
 }
 
 // CronJobStatus represents the current state of a cron job.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CronJobStatusPatchArgs struct {
 	// A list of pointers to currently running jobs.
 	Active corev1.ObjectReferencePatchArrayInput `pulumi:"active"`
@@ -1073,6 +1253,15 @@ func (i *cronJobStatusPatchPtrType) ToCronJobStatusPatchPtrOutputWithContext(ctx
 }
 
 // CronJobStatus represents the current state of a cron job.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CronJobStatusPatchOutput struct{ *pulumi.OutputState }
 
 func (CronJobStatusPatchOutput) ElementType() reflect.Type {
@@ -1152,6 +1341,15 @@ func (o CronJobStatusPatchPtrOutput) LastScheduleTime() pulumi.StringPtrOutput {
 }
 
 // JobTemplateSpec describes the data a Job should have when created from a template
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type JobTemplateSpec struct {
 	// Standard object's metadata of the jobs created from this template. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
@@ -1171,6 +1369,15 @@ type JobTemplateSpecInput interface {
 }
 
 // JobTemplateSpec describes the data a Job should have when created from a template
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type JobTemplateSpecArgs struct {
 	// Standard object's metadata of the jobs created from this template. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
@@ -1232,6 +1439,15 @@ func (i *jobTemplateSpecPtrType) ToJobTemplateSpecPtrOutputWithContext(ctx conte
 }
 
 // JobTemplateSpec describes the data a Job should have when created from a template
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type JobTemplateSpecOutput struct{ *pulumi.OutputState }
 
 func (JobTemplateSpecOutput) ElementType() reflect.Type {
@@ -1311,6 +1527,15 @@ func (o JobTemplateSpecPtrOutput) Spec() batchv1.JobSpecPtrOutput {
 }
 
 // JobTemplateSpec describes the data a Job should have when created from a template
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type JobTemplateSpecPatch struct {
 	// Standard object's metadata of the jobs created from this template. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
@@ -1330,6 +1555,15 @@ type JobTemplateSpecPatchInput interface {
 }
 
 // JobTemplateSpec describes the data a Job should have when created from a template
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type JobTemplateSpecPatchArgs struct {
 	// Standard object's metadata of the jobs created from this template. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
@@ -1391,6 +1625,15 @@ func (i *jobTemplateSpecPatchPtrType) ToJobTemplateSpecPatchPtrOutputWithContext
 }
 
 // JobTemplateSpec describes the data a Job should have when created from a template
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type JobTemplateSpecPatchOutput struct{ *pulumi.OutputState }
 
 func (JobTemplateSpecPatchOutput) ElementType() reflect.Type {

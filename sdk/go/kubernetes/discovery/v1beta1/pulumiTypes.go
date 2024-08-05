@@ -16,6 +16,15 @@ import (
 var _ = utilities.GetEnvOrDefault
 
 // Endpoint represents a single logical "backend" implementing a service.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type Endpoint struct {
 	// addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100.
 	Addresses []string `pulumi:"addresses"`
@@ -49,6 +58,15 @@ type EndpointInput interface {
 }
 
 // Endpoint represents a single logical "backend" implementing a service.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type EndpointArgs struct {
 	// addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100.
 	Addresses pulumi.StringArrayInput `pulumi:"addresses"`
@@ -108,6 +126,15 @@ func (i EndpointArray) ToEndpointArrayOutputWithContext(ctx context.Context) End
 }
 
 // Endpoint represents a single logical "backend" implementing a service.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type EndpointOutput struct{ *pulumi.OutputState }
 
 func (EndpointOutput) ElementType() reflect.Type {
@@ -180,6 +207,15 @@ func (o EndpointArrayOutput) Index(i pulumi.IntInput) EndpointOutput {
 }
 
 // EndpointConditions represents the current condition of an endpoint.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type EndpointConditions struct {
 	// ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready.
 	Ready *bool `pulumi:"ready"`
@@ -201,6 +237,15 @@ type EndpointConditionsInput interface {
 }
 
 // EndpointConditions represents the current condition of an endpoint.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type EndpointConditionsArgs struct {
 	// ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready.
 	Ready pulumi.BoolPtrInput `pulumi:"ready"`
@@ -264,6 +309,15 @@ func (i *endpointConditionsPtrType) ToEndpointConditionsPtrOutputWithContext(ctx
 }
 
 // EndpointConditions represents the current condition of an endpoint.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type EndpointConditionsOutput struct{ *pulumi.OutputState }
 
 func (EndpointConditionsOutput) ElementType() reflect.Type {
@@ -358,6 +412,15 @@ func (o EndpointConditionsPtrOutput) Terminating() pulumi.BoolPtrOutput {
 }
 
 // EndpointConditions represents the current condition of an endpoint.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type EndpointConditionsPatch struct {
 	// ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready.
 	Ready *bool `pulumi:"ready"`
@@ -379,6 +442,15 @@ type EndpointConditionsPatchInput interface {
 }
 
 // EndpointConditions represents the current condition of an endpoint.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type EndpointConditionsPatchArgs struct {
 	// ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready.
 	Ready pulumi.BoolPtrInput `pulumi:"ready"`
@@ -442,6 +514,15 @@ func (i *endpointConditionsPatchPtrType) ToEndpointConditionsPatchPtrOutputWithC
 }
 
 // EndpointConditions represents the current condition of an endpoint.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type EndpointConditionsPatchOutput struct{ *pulumi.OutputState }
 
 func (EndpointConditionsPatchOutput) ElementType() reflect.Type {
@@ -536,6 +617,15 @@ func (o EndpointConditionsPatchPtrOutput) Terminating() pulumi.BoolPtrOutput {
 }
 
 // Endpoint represents a single logical "backend" implementing a service.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type EndpointPatch struct {
 	// addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100.
 	Addresses []string `pulumi:"addresses"`
@@ -569,6 +659,15 @@ type EndpointPatchInput interface {
 }
 
 // Endpoint represents a single logical "backend" implementing a service.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type EndpointPatchArgs struct {
 	// addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100.
 	Addresses pulumi.StringArrayInput `pulumi:"addresses"`
@@ -628,6 +727,15 @@ func (i EndpointPatchArray) ToEndpointPatchArrayOutputWithContext(ctx context.Co
 }
 
 // Endpoint represents a single logical "backend" implementing a service.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type EndpointPatchOutput struct{ *pulumi.OutputState }
 
 func (EndpointPatchOutput) ElementType() reflect.Type {
@@ -700,6 +808,15 @@ func (o EndpointPatchArrayOutput) Index(i pulumi.IntInput) EndpointPatchOutput {
 }
 
 // EndpointPort represents a Port used by an EndpointSlice
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type EndpointPort struct {
 	// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names. Default is empty string.
 	AppProtocol *string `pulumi:"appProtocol"`
@@ -723,6 +840,15 @@ type EndpointPortInput interface {
 }
 
 // EndpointPort represents a Port used by an EndpointSlice
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type EndpointPortArgs struct {
 	// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names. Default is empty string.
 	AppProtocol pulumi.StringPtrInput `pulumi:"appProtocol"`
@@ -772,6 +898,15 @@ func (i EndpointPortArray) ToEndpointPortArrayOutputWithContext(ctx context.Cont
 }
 
 // EndpointPort represents a Port used by an EndpointSlice
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type EndpointPortOutput struct{ *pulumi.OutputState }
 
 func (EndpointPortOutput) ElementType() reflect.Type {
@@ -827,6 +962,15 @@ func (o EndpointPortArrayOutput) Index(i pulumi.IntInput) EndpointPortOutput {
 }
 
 // EndpointPort represents a Port used by an EndpointSlice
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type EndpointPortPatch struct {
 	// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names. Default is empty string.
 	AppProtocol *string `pulumi:"appProtocol"`
@@ -850,6 +994,15 @@ type EndpointPortPatchInput interface {
 }
 
 // EndpointPort represents a Port used by an EndpointSlice
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type EndpointPortPatchArgs struct {
 	// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names. Default is empty string.
 	AppProtocol pulumi.StringPtrInput `pulumi:"appProtocol"`
@@ -899,6 +1052,15 @@ func (i EndpointPortPatchArray) ToEndpointPortPatchArrayOutputWithContext(ctx co
 }
 
 // EndpointPort represents a Port used by an EndpointSlice
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type EndpointPortPatchOutput struct{ *pulumi.OutputState }
 
 func (EndpointPortPatchOutput) ElementType() reflect.Type {
@@ -954,6 +1116,15 @@ func (o EndpointPortPatchArrayOutput) Index(i pulumi.IntInput) EndpointPortPatch
 }
 
 // EndpointSlice represents a subset of the endpoints that implement a service. For a given service there may be multiple EndpointSlice objects, selected by labels, which must be joined to produce the full set of endpoints.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type EndpointSliceType struct {
 	// addressType specifies the type of address carried by this EndpointSlice. All addresses in this slice must be the same type. This field is immutable after creation. The following address types are currently supported: * IPv4: Represents an IPv4 Address. * IPv6: Represents an IPv6 Address. * FQDN: Represents a Fully Qualified Domain Name.
 	AddressType string `pulumi:"addressType"`
@@ -981,6 +1152,15 @@ type EndpointSliceTypeInput interface {
 }
 
 // EndpointSlice represents a subset of the endpoints that implement a service. For a given service there may be multiple EndpointSlice objects, selected by labels, which must be joined to produce the full set of endpoints.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type EndpointSliceTypeArgs struct {
 	// addressType specifies the type of address carried by this EndpointSlice. All addresses in this slice must be the same type. This field is immutable after creation. The following address types are currently supported: * IPv4: Represents an IPv4 Address. * IPv6: Represents an IPv6 Address. * FQDN: Represents a Fully Qualified Domain Name.
 	AddressType pulumi.StringInput `pulumi:"addressType"`
@@ -1034,6 +1214,15 @@ func (i EndpointSliceTypeArray) ToEndpointSliceTypeArrayOutputWithContext(ctx co
 }
 
 // EndpointSlice represents a subset of the endpoints that implement a service. For a given service there may be multiple EndpointSlice objects, selected by labels, which must be joined to produce the full set of endpoints.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type EndpointSliceTypeOutput struct{ *pulumi.OutputState }
 
 func (EndpointSliceTypeOutput) ElementType() reflect.Type {
@@ -1099,6 +1288,15 @@ func (o EndpointSliceTypeArrayOutput) Index(i pulumi.IntInput) EndpointSliceType
 }
 
 // EndpointSliceList represents a list of endpoint slices
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type EndpointSliceListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -1122,6 +1320,15 @@ type EndpointSliceListTypeInput interface {
 }
 
 // EndpointSliceList represents a list of endpoint slices
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type EndpointSliceListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -1146,6 +1353,15 @@ func (i EndpointSliceListTypeArgs) ToEndpointSliceListTypeOutputWithContext(ctx 
 }
 
 // EndpointSliceList represents a list of endpoint slices
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type EndpointSliceListTypeOutput struct{ *pulumi.OutputState }
 
 func (EndpointSliceListTypeOutput) ElementType() reflect.Type {
@@ -1181,6 +1397,15 @@ func (o EndpointSliceListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 }
 
 // EndpointSlice represents a subset of the endpoints that implement a service. For a given service there may be multiple EndpointSlice objects, selected by labels, which must be joined to produce the full set of endpoints.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type EndpointSlicePatchType struct {
 	// addressType specifies the type of address carried by this EndpointSlice. All addresses in this slice must be the same type. This field is immutable after creation. The following address types are currently supported: * IPv4: Represents an IPv4 Address. * IPv6: Represents an IPv6 Address. * FQDN: Represents a Fully Qualified Domain Name.
 	AddressType *string `pulumi:"addressType"`
@@ -1208,6 +1433,15 @@ type EndpointSlicePatchTypeInput interface {
 }
 
 // EndpointSlice represents a subset of the endpoints that implement a service. For a given service there may be multiple EndpointSlice objects, selected by labels, which must be joined to produce the full set of endpoints.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type EndpointSlicePatchTypeArgs struct {
 	// addressType specifies the type of address carried by this EndpointSlice. All addresses in this slice must be the same type. This field is immutable after creation. The following address types are currently supported: * IPv4: Represents an IPv4 Address. * IPv6: Represents an IPv6 Address. * FQDN: Represents a Fully Qualified Domain Name.
 	AddressType pulumi.StringPtrInput `pulumi:"addressType"`
@@ -1236,6 +1470,15 @@ func (i EndpointSlicePatchTypeArgs) ToEndpointSlicePatchTypeOutputWithContext(ct
 }
 
 // EndpointSlice represents a subset of the endpoints that implement a service. For a given service there may be multiple EndpointSlice objects, selected by labels, which must be joined to produce the full set of endpoints.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type EndpointSlicePatchTypeOutput struct{ *pulumi.OutputState }
 
 func (EndpointSlicePatchTypeOutput) ElementType() reflect.Type {

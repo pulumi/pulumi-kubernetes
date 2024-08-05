@@ -15,6 +15,15 @@ import (
 var _ = utilities.GetEnvOrDefault
 
 // CrossVersionObjectReference contains enough information to let you identify the referred resource.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CrossVersionObjectReference struct {
 	// apiVersion is the API version of the referent
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -36,6 +45,15 @@ type CrossVersionObjectReferenceInput interface {
 }
 
 // CrossVersionObjectReference contains enough information to let you identify the referred resource.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CrossVersionObjectReferenceArgs struct {
 	// apiVersion is the API version of the referent
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -99,6 +117,15 @@ func (i *crossVersionObjectReferencePtrType) ToCrossVersionObjectReferencePtrOut
 }
 
 // CrossVersionObjectReference contains enough information to let you identify the referred resource.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CrossVersionObjectReferenceOutput struct{ *pulumi.OutputState }
 
 func (CrossVersionObjectReferenceOutput) ElementType() reflect.Type {
@@ -193,6 +220,15 @@ func (o CrossVersionObjectReferencePtrOutput) Name() pulumi.StringPtrOutput {
 }
 
 // CrossVersionObjectReference contains enough information to let you identify the referred resource.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CrossVersionObjectReferencePatch struct {
 	// apiVersion is the API version of the referent
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -214,6 +250,15 @@ type CrossVersionObjectReferencePatchInput interface {
 }
 
 // CrossVersionObjectReference contains enough information to let you identify the referred resource.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CrossVersionObjectReferencePatchArgs struct {
 	// apiVersion is the API version of the referent
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -277,6 +322,15 @@ func (i *crossVersionObjectReferencePatchPtrType) ToCrossVersionObjectReferenceP
 }
 
 // CrossVersionObjectReference contains enough information to let you identify the referred resource.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CrossVersionObjectReferencePatchOutput struct{ *pulumi.OutputState }
 
 func (CrossVersionObjectReferencePatchOutput) ElementType() reflect.Type {
@@ -371,6 +425,15 @@ func (o CrossVersionObjectReferencePatchPtrOutput) Name() pulumi.StringPtrOutput
 }
 
 // configuration of a horizontal pod autoscaler.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type HorizontalPodAutoscalerType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -396,6 +459,15 @@ type HorizontalPodAutoscalerTypeInput interface {
 }
 
 // configuration of a horizontal pod autoscaler.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type HorizontalPodAutoscalerTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -447,6 +519,15 @@ func (i HorizontalPodAutoscalerTypeArray) ToHorizontalPodAutoscalerTypeArrayOutp
 }
 
 // configuration of a horizontal pod autoscaler.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type HorizontalPodAutoscalerTypeOutput struct{ *pulumi.OutputState }
 
 func (HorizontalPodAutoscalerTypeOutput) ElementType() reflect.Type {
@@ -507,6 +588,15 @@ func (o HorizontalPodAutoscalerTypeArrayOutput) Index(i pulumi.IntInput) Horizon
 }
 
 // list of horizontal pod autoscaler objects.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type HorizontalPodAutoscalerListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -530,6 +620,15 @@ type HorizontalPodAutoscalerListTypeInput interface {
 }
 
 // list of horizontal pod autoscaler objects.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type HorizontalPodAutoscalerListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -554,6 +653,15 @@ func (i HorizontalPodAutoscalerListTypeArgs) ToHorizontalPodAutoscalerListTypeOu
 }
 
 // list of horizontal pod autoscaler objects.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type HorizontalPodAutoscalerListTypeOutput struct{ *pulumi.OutputState }
 
 func (HorizontalPodAutoscalerListTypeOutput) ElementType() reflect.Type {
@@ -589,6 +697,15 @@ func (o HorizontalPodAutoscalerListTypeOutput) Metadata() metav1.ListMetaPtrOutp
 }
 
 // configuration of a horizontal pod autoscaler.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type HorizontalPodAutoscalerPatchType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -614,6 +731,15 @@ type HorizontalPodAutoscalerPatchTypeInput interface {
 }
 
 // configuration of a horizontal pod autoscaler.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type HorizontalPodAutoscalerPatchTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -640,6 +766,15 @@ func (i HorizontalPodAutoscalerPatchTypeArgs) ToHorizontalPodAutoscalerPatchType
 }
 
 // configuration of a horizontal pod autoscaler.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type HorizontalPodAutoscalerPatchTypeOutput struct{ *pulumi.OutputState }
 
 func (HorizontalPodAutoscalerPatchTypeOutput) ElementType() reflect.Type {
@@ -680,6 +815,15 @@ func (o HorizontalPodAutoscalerPatchTypeOutput) Status() HorizontalPodAutoscaler
 }
 
 // specification of a horizontal pod autoscaler.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type HorizontalPodAutoscalerSpec struct {
 	// maxReplicas is the upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
 	MaxReplicas int `pulumi:"maxReplicas"`
@@ -703,6 +847,15 @@ type HorizontalPodAutoscalerSpecInput interface {
 }
 
 // specification of a horizontal pod autoscaler.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type HorizontalPodAutoscalerSpecArgs struct {
 	// maxReplicas is the upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
 	MaxReplicas pulumi.IntInput `pulumi:"maxReplicas"`
@@ -768,6 +921,15 @@ func (i *horizontalPodAutoscalerSpecPtrType) ToHorizontalPodAutoscalerSpecPtrOut
 }
 
 // specification of a horizontal pod autoscaler.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type HorizontalPodAutoscalerSpecOutput struct{ *pulumi.OutputState }
 
 func (HorizontalPodAutoscalerSpecOutput) ElementType() reflect.Type {
@@ -877,6 +1039,15 @@ func (o HorizontalPodAutoscalerSpecPtrOutput) TargetCPUUtilizationPercentage() p
 }
 
 // specification of a horizontal pod autoscaler.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type HorizontalPodAutoscalerSpecPatch struct {
 	// maxReplicas is the upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
 	MaxReplicas *int `pulumi:"maxReplicas"`
@@ -900,6 +1071,15 @@ type HorizontalPodAutoscalerSpecPatchInput interface {
 }
 
 // specification of a horizontal pod autoscaler.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type HorizontalPodAutoscalerSpecPatchArgs struct {
 	// maxReplicas is the upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
 	MaxReplicas pulumi.IntPtrInput `pulumi:"maxReplicas"`
@@ -965,6 +1145,15 @@ func (i *horizontalPodAutoscalerSpecPatchPtrType) ToHorizontalPodAutoscalerSpecP
 }
 
 // specification of a horizontal pod autoscaler.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type HorizontalPodAutoscalerSpecPatchOutput struct{ *pulumi.OutputState }
 
 func (HorizontalPodAutoscalerSpecPatchOutput) ElementType() reflect.Type {
@@ -1074,6 +1263,15 @@ func (o HorizontalPodAutoscalerSpecPatchPtrOutput) TargetCPUUtilizationPercentag
 }
 
 // current status of a horizontal pod autoscaler
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type HorizontalPodAutoscalerStatus struct {
 	// currentCPUUtilizationPercentage is the current average CPU utilization over all pods, represented as a percentage of requested CPU, e.g. 70 means that an average pod is using now 70% of its requested CPU.
 	CurrentCPUUtilizationPercentage *int `pulumi:"currentCPUUtilizationPercentage"`
@@ -1099,6 +1297,15 @@ type HorizontalPodAutoscalerStatusInput interface {
 }
 
 // current status of a horizontal pod autoscaler
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type HorizontalPodAutoscalerStatusArgs struct {
 	// currentCPUUtilizationPercentage is the current average CPU utilization over all pods, represented as a percentage of requested CPU, e.g. 70 means that an average pod is using now 70% of its requested CPU.
 	CurrentCPUUtilizationPercentage pulumi.IntPtrInput `pulumi:"currentCPUUtilizationPercentage"`
@@ -1166,6 +1373,15 @@ func (i *horizontalPodAutoscalerStatusPtrType) ToHorizontalPodAutoscalerStatusPt
 }
 
 // current status of a horizontal pod autoscaler
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type HorizontalPodAutoscalerStatusOutput struct{ *pulumi.OutputState }
 
 func (HorizontalPodAutoscalerStatusOutput) ElementType() reflect.Type {
@@ -1290,6 +1506,15 @@ func (o HorizontalPodAutoscalerStatusPtrOutput) ObservedGeneration() pulumi.IntP
 }
 
 // current status of a horizontal pod autoscaler
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type HorizontalPodAutoscalerStatusPatch struct {
 	// currentCPUUtilizationPercentage is the current average CPU utilization over all pods, represented as a percentage of requested CPU, e.g. 70 means that an average pod is using now 70% of its requested CPU.
 	CurrentCPUUtilizationPercentage *int `pulumi:"currentCPUUtilizationPercentage"`
@@ -1315,6 +1540,15 @@ type HorizontalPodAutoscalerStatusPatchInput interface {
 }
 
 // current status of a horizontal pod autoscaler
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type HorizontalPodAutoscalerStatusPatchArgs struct {
 	// currentCPUUtilizationPercentage is the current average CPU utilization over all pods, represented as a percentage of requested CPU, e.g. 70 means that an average pod is using now 70% of its requested CPU.
 	CurrentCPUUtilizationPercentage pulumi.IntPtrInput `pulumi:"currentCPUUtilizationPercentage"`
@@ -1382,6 +1616,15 @@ func (i *horizontalPodAutoscalerStatusPatchPtrType) ToHorizontalPodAutoscalerSta
 }
 
 // current status of a horizontal pod autoscaler
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type HorizontalPodAutoscalerStatusPatchOutput struct{ *pulumi.OutputState }
 
 func (HorizontalPodAutoscalerStatusPatchOutput) ElementType() reflect.Type {
@@ -1506,6 +1749,15 @@ func (o HorizontalPodAutoscalerStatusPatchPtrOutput) ObservedGeneration() pulumi
 }
 
 // Scale represents a scaling request for a resource.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type Scale struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -1531,6 +1783,15 @@ type ScaleInput interface {
 }
 
 // Scale represents a scaling request for a resource.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ScaleArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -1557,6 +1818,15 @@ func (i ScaleArgs) ToScaleOutputWithContext(ctx context.Context) ScaleOutput {
 }
 
 // Scale represents a scaling request for a resource.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ScaleOutput struct{ *pulumi.OutputState }
 
 func (ScaleOutput) ElementType() reflect.Type {
@@ -1597,6 +1867,15 @@ func (o ScaleOutput) Status() ScaleStatusPtrOutput {
 }
 
 // Scale represents a scaling request for a resource.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ScalePatch struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -1622,6 +1901,15 @@ type ScalePatchInput interface {
 }
 
 // Scale represents a scaling request for a resource.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ScalePatchArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -1648,6 +1936,15 @@ func (i ScalePatchArgs) ToScalePatchOutputWithContext(ctx context.Context) Scale
 }
 
 // Scale represents a scaling request for a resource.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ScalePatchOutput struct{ *pulumi.OutputState }
 
 func (ScalePatchOutput) ElementType() reflect.Type {
@@ -1688,6 +1985,15 @@ func (o ScalePatchOutput) Status() ScaleStatusPatchPtrOutput {
 }
 
 // ScaleSpec describes the attributes of a scale subresource.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ScaleSpec struct {
 	// replicas is the desired number of instances for the scaled object.
 	Replicas *int `pulumi:"replicas"`
@@ -1705,6 +2011,15 @@ type ScaleSpecInput interface {
 }
 
 // ScaleSpec describes the attributes of a scale subresource.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ScaleSpecArgs struct {
 	// replicas is the desired number of instances for the scaled object.
 	Replicas pulumi.IntPtrInput `pulumi:"replicas"`
@@ -1764,6 +2079,15 @@ func (i *scaleSpecPtrType) ToScaleSpecPtrOutputWithContext(ctx context.Context) 
 }
 
 // ScaleSpec describes the attributes of a scale subresource.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ScaleSpecOutput struct{ *pulumi.OutputState }
 
 func (ScaleSpecOutput) ElementType() reflect.Type {
@@ -1828,6 +2152,15 @@ func (o ScaleSpecPtrOutput) Replicas() pulumi.IntPtrOutput {
 }
 
 // ScaleSpec describes the attributes of a scale subresource.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ScaleSpecPatch struct {
 	// replicas is the desired number of instances for the scaled object.
 	Replicas *int `pulumi:"replicas"`
@@ -1845,6 +2178,15 @@ type ScaleSpecPatchInput interface {
 }
 
 // ScaleSpec describes the attributes of a scale subresource.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ScaleSpecPatchArgs struct {
 	// replicas is the desired number of instances for the scaled object.
 	Replicas pulumi.IntPtrInput `pulumi:"replicas"`
@@ -1904,6 +2246,15 @@ func (i *scaleSpecPatchPtrType) ToScaleSpecPatchPtrOutputWithContext(ctx context
 }
 
 // ScaleSpec describes the attributes of a scale subresource.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ScaleSpecPatchOutput struct{ *pulumi.OutputState }
 
 func (ScaleSpecPatchOutput) ElementType() reflect.Type {
@@ -1968,6 +2319,15 @@ func (o ScaleSpecPatchPtrOutput) Replicas() pulumi.IntPtrOutput {
 }
 
 // ScaleStatus represents the current status of a scale subresource.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ScaleStatus struct {
 	// replicas is the actual number of observed instances of the scaled object.
 	Replicas int `pulumi:"replicas"`
@@ -1987,6 +2347,15 @@ type ScaleStatusInput interface {
 }
 
 // ScaleStatus represents the current status of a scale subresource.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ScaleStatusArgs struct {
 	// replicas is the actual number of observed instances of the scaled object.
 	Replicas pulumi.IntInput `pulumi:"replicas"`
@@ -2048,6 +2417,15 @@ func (i *scaleStatusPtrType) ToScaleStatusPtrOutputWithContext(ctx context.Conte
 }
 
 // ScaleStatus represents the current status of a scale subresource.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ScaleStatusOutput struct{ *pulumi.OutputState }
 
 func (ScaleStatusOutput) ElementType() reflect.Type {
@@ -2127,6 +2505,15 @@ func (o ScaleStatusPtrOutput) Selector() pulumi.StringPtrOutput {
 }
 
 // ScaleStatus represents the current status of a scale subresource.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ScaleStatusPatch struct {
 	// replicas is the actual number of observed instances of the scaled object.
 	Replicas *int `pulumi:"replicas"`
@@ -2146,6 +2533,15 @@ type ScaleStatusPatchInput interface {
 }
 
 // ScaleStatus represents the current status of a scale subresource.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ScaleStatusPatchArgs struct {
 	// replicas is the actual number of observed instances of the scaled object.
 	Replicas pulumi.IntPtrInput `pulumi:"replicas"`
@@ -2207,6 +2603,15 @@ func (i *scaleStatusPatchPtrType) ToScaleStatusPatchPtrOutputWithContext(ctx con
 }
 
 // ScaleStatus represents the current status of a scale subresource.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ScaleStatusPatchOutput struct{ *pulumi.OutputState }
 
 func (ScaleStatusPatchOutput) ElementType() reflect.Type {

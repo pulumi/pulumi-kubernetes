@@ -92,6 +92,15 @@ if not MYPY:
     class FlowDistinguisherMethodPatchArgsDict(TypedDict):
         """
         FlowDistinguisherMethod specifies the method of a flow distinguisher.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         type: NotRequired[pulumi.Input[str]]
         """
@@ -106,6 +115,16 @@ class FlowDistinguisherMethodPatchArgs:
                  type: Optional[pulumi.Input[str]] = None):
         """
         FlowDistinguisherMethod specifies the method of a flow distinguisher.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] type: `type` is the type of flow distinguisher method The supported types are "ByUser" and "ByNamespace". Required.
         """
         if type is not None:
@@ -128,6 +147,15 @@ if not MYPY:
     class FlowDistinguisherMethodArgsDict(TypedDict):
         """
         FlowDistinguisherMethod specifies the method of a flow distinguisher.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         type: pulumi.Input[str]
         """
@@ -142,6 +170,16 @@ class FlowDistinguisherMethodArgs:
                  type: pulumi.Input[str]):
         """
         FlowDistinguisherMethod specifies the method of a flow distinguisher.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] type: `type` is the type of flow distinguisher method The supported types are "ByUser" and "ByNamespace". Required.
         """
         pulumi.set(__self__, "type", type)
@@ -163,6 +201,15 @@ if not MYPY:
     class FlowSchemaConditionArgsDict(TypedDict):
         """
         FlowSchemaCondition describes conditions for a FlowSchema.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         last_transition_time: NotRequired[pulumi.Input[str]]
         """
@@ -197,6 +244,16 @@ class FlowSchemaConditionArgs:
                  type: Optional[pulumi.Input[str]] = None):
         """
         FlowSchemaCondition describes conditions for a FlowSchema.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] last_transition_time: `lastTransitionTime` is the last time the condition transitioned from one status to another.
         :param pulumi.Input[str] message: `message` is a human-readable message indicating details about last transition.
         :param pulumi.Input[str] reason: `reason` is a unique, one-word, CamelCase reason for the condition's last transition.
@@ -279,6 +336,15 @@ if not MYPY:
     class FlowSchemaSpecPatchArgsDict(TypedDict):
         """
         FlowSchemaSpec describes how the FlowSchema's specification looks like.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         distinguisher_method: NotRequired[pulumi.Input['FlowDistinguisherMethodPatchArgsDict']]
         """
@@ -308,6 +374,16 @@ class FlowSchemaSpecPatchArgs:
                  rules: Optional[pulumi.Input[Sequence[pulumi.Input['PolicyRulesWithSubjectsPatchArgs']]]] = None):
         """
         FlowSchemaSpec describes how the FlowSchema's specification looks like.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['FlowDistinguisherMethodPatchArgs'] distinguisher_method: `distinguisherMethod` defines how to compute the flow distinguisher for requests that match this schema. `nil` specifies that the distinguisher is disabled and thus will always be the empty string.
         :param pulumi.Input[int] matching_precedence: `matchingPrecedence` is used to choose among the FlowSchemas that match a given request. The chosen FlowSchema is among those with the numerically lowest (which we take to be logically highest) MatchingPrecedence.  Each MatchingPrecedence value must be ranged in [1,10000]. Note that if the precedence is not specified, it will be set to 1000 as default.
         :param pulumi.Input['PriorityLevelConfigurationReferencePatchArgs'] priority_level_configuration: `priorityLevelConfiguration` should reference a PriorityLevelConfiguration in the cluster. If the reference cannot be resolved, the FlowSchema will be ignored and marked as invalid in its status. Required.
@@ -375,6 +451,15 @@ if not MYPY:
     class FlowSchemaSpecArgsDict(TypedDict):
         """
         FlowSchemaSpec describes how the FlowSchema's specification looks like.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         priority_level_configuration: pulumi.Input['PriorityLevelConfigurationReferenceArgsDict']
         """
@@ -404,6 +489,16 @@ class FlowSchemaSpecArgs:
                  rules: Optional[pulumi.Input[Sequence[pulumi.Input['PolicyRulesWithSubjectsArgs']]]] = None):
         """
         FlowSchemaSpec describes how the FlowSchema's specification looks like.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['PriorityLevelConfigurationReferenceArgs'] priority_level_configuration: `priorityLevelConfiguration` should reference a PriorityLevelConfiguration in the cluster. If the reference cannot be resolved, the FlowSchema will be ignored and marked as invalid in its status. Required.
         :param pulumi.Input['FlowDistinguisherMethodArgs'] distinguisher_method: `distinguisherMethod` defines how to compute the flow distinguisher for requests that match this schema. `nil` specifies that the distinguisher is disabled and thus will always be the empty string.
         :param pulumi.Input[int] matching_precedence: `matchingPrecedence` is used to choose among the FlowSchemas that match a given request. The chosen FlowSchema is among those with the numerically lowest (which we take to be logically highest) MatchingPrecedence.  Each MatchingPrecedence value must be ranged in [1,10000]. Note that if the precedence is not specified, it will be set to 1000 as default.
@@ -470,6 +565,15 @@ if not MYPY:
     class FlowSchemaStatusArgsDict(TypedDict):
         """
         FlowSchemaStatus represents the current state of a FlowSchema.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         conditions: NotRequired[pulumi.Input[Sequence[pulumi.Input['FlowSchemaConditionArgsDict']]]]
         """
@@ -484,6 +588,16 @@ class FlowSchemaStatusArgs:
                  conditions: Optional[pulumi.Input[Sequence[pulumi.Input['FlowSchemaConditionArgs']]]] = None):
         """
         FlowSchemaStatus represents the current state of a FlowSchema.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input['FlowSchemaConditionArgs']]] conditions: `conditions` is a list of the current states of FlowSchema.
         """
         if conditions is not None:
@@ -506,6 +620,15 @@ if not MYPY:
     class FlowSchemaArgsDict(TypedDict):
         """
         FlowSchema defines the schema of a group of flows. Note that a flow is made up of a set of inbound API requests with similar attributes and is identified by a pair of strings: the name of the FlowSchema and a "flow distinguisher".
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         api_version: NotRequired[pulumi.Input[str]]
         """
@@ -540,6 +663,16 @@ class FlowSchemaArgs:
                  status: Optional[pulumi.Input['FlowSchemaStatusArgs']] = None):
         """
         FlowSchema defines the schema of a group of flows. Note that a flow is made up of a set of inbound API requests with similar attributes and is identified by a pair of strings: the name of the FlowSchema and a "flow distinguisher".
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -622,6 +755,15 @@ if not MYPY:
     class GroupSubjectPatchArgsDict(TypedDict):
         """
         GroupSubject holds detailed information for group-kind subject.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         name: NotRequired[pulumi.Input[str]]
         """
@@ -636,6 +778,16 @@ class GroupSubjectPatchArgs:
                  name: Optional[pulumi.Input[str]] = None):
         """
         GroupSubject holds detailed information for group-kind subject.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] name: name is the user group that matches, or "*" to match all user groups. See https://github.com/kubernetes/apiserver/blob/master/pkg/authentication/user/user.go for some well-known group names. Required.
         """
         if name is not None:
@@ -658,6 +810,15 @@ if not MYPY:
     class GroupSubjectArgsDict(TypedDict):
         """
         GroupSubject holds detailed information for group-kind subject.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         name: pulumi.Input[str]
         """
@@ -672,6 +833,16 @@ class GroupSubjectArgs:
                  name: pulumi.Input[str]):
         """
         GroupSubject holds detailed information for group-kind subject.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] name: name is the user group that matches, or "*" to match all user groups. See https://github.com/kubernetes/apiserver/blob/master/pkg/authentication/user/user.go for some well-known group names. Required.
         """
         pulumi.set(__self__, "name", name)
@@ -693,6 +864,15 @@ if not MYPY:
     class LimitResponsePatchArgsDict(TypedDict):
         """
         LimitResponse defines how to handle requests that can not be executed right now.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         queuing: NotRequired[pulumi.Input['QueuingConfigurationPatchArgsDict']]
         """
@@ -712,6 +892,16 @@ class LimitResponsePatchArgs:
                  type: Optional[pulumi.Input[str]] = None):
         """
         LimitResponse defines how to handle requests that can not be executed right now.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['QueuingConfigurationPatchArgs'] queuing: `queuing` holds the configuration parameters for queuing. This field may be non-empty only if `type` is `"Queue"`.
         :param pulumi.Input[str] type: `type` is "Queue" or "Reject". "Queue" means that requests that can not be executed upon arrival are held in a queue until they can be executed or a queuing limit is reached. "Reject" means that requests that can not be executed upon arrival are rejected. Required.
         """
@@ -749,6 +939,15 @@ if not MYPY:
     class LimitResponseArgsDict(TypedDict):
         """
         LimitResponse defines how to handle requests that can not be executed right now.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         type: pulumi.Input[str]
         """
@@ -768,6 +967,16 @@ class LimitResponseArgs:
                  queuing: Optional[pulumi.Input['QueuingConfigurationArgs']] = None):
         """
         LimitResponse defines how to handle requests that can not be executed right now.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] type: `type` is "Queue" or "Reject". "Queue" means that requests that can not be executed upon arrival are held in a queue until they can be executed or a queuing limit is reached. "Reject" means that requests that can not be executed upon arrival are rejected. Required.
         :param pulumi.Input['QueuingConfigurationArgs'] queuing: `queuing` holds the configuration parameters for queuing. This field may be non-empty only if `type` is `"Queue"`.
         """
@@ -806,6 +1015,15 @@ if not MYPY:
         LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to limits. It addresses two issues:
          * How are requests for this priority level limited?
          * What should be done with requests that exceed the limit?
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         assured_concurrency_shares: NotRequired[pulumi.Input[int]]
         """
@@ -831,6 +1049,16 @@ class LimitedPriorityLevelConfigurationPatchArgs:
         LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to limits. It addresses two issues:
          * How are requests for this priority level limited?
          * What should be done with requests that exceed the limit?
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[int] assured_concurrency_shares: `assuredConcurrencyShares` (ACS) configures the execution limit, which is a limit on the number of requests of this priority level that may be exeucting at a given time.  ACS must be a positive number. The server's concurrency limit (SCL) is divided among the concurrency-controlled priority levels in proportion to their assured concurrency shares. This produces the assured concurrency value (ACV) --- the number of requests that may be executing at a time --- for each such priority level:
                
                            ACV(l) = ceil( SCL * ACS(l) / ( sum[priority levels k] ACS(k) ) )
@@ -878,6 +1106,15 @@ if not MYPY:
         LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to limits. It addresses two issues:
          * How are requests for this priority level limited?
          * What should be done with requests that exceed the limit?
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         assured_concurrency_shares: NotRequired[pulumi.Input[int]]
         """
@@ -903,6 +1140,16 @@ class LimitedPriorityLevelConfigurationArgs:
         LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to limits. It addresses two issues:
          * How are requests for this priority level limited?
          * What should be done with requests that exceed the limit?
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[int] assured_concurrency_shares: `assuredConcurrencyShares` (ACS) configures the execution limit, which is a limit on the number of requests of this priority level that may be exeucting at a given time.  ACS must be a positive number. The server's concurrency limit (SCL) is divided among the concurrency-controlled priority levels in proportion to their assured concurrency shares. This produces the assured concurrency value (ACV) --- the number of requests that may be executing at a time --- for each such priority level:
                
                            ACV(l) = ceil( SCL * ACS(l) / ( sum[priority levels k] ACS(k) ) )
@@ -948,6 +1195,15 @@ if not MYPY:
     class NonResourcePolicyRulePatchArgsDict(TypedDict):
         """
         NonResourcePolicyRule is a predicate that matches non-resource requests according to their verb and the target non-resource URL. A NonResourcePolicyRule matches a request if and only if both (a) at least one member of verbs matches the request and (b) at least one member of nonResourceURLs matches the request.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         non_resource_urls: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
         """
@@ -973,6 +1229,16 @@ class NonResourcePolicyRulePatchArgs:
                  verbs: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
         NonResourcePolicyRule is a predicate that matches non-resource requests according to their verb and the target non-resource URL. A NonResourcePolicyRule matches a request if and only if both (a) at least one member of verbs matches the request and (b) at least one member of nonResourceURLs matches the request.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input[str]]] non_resource_urls: `nonResourceURLs` is a set of url prefixes that a user should have access to and may not be empty. For example:
                  - "/healthz" is legal
                  - "/hea*" is illegal
@@ -1022,6 +1288,15 @@ if not MYPY:
     class NonResourcePolicyRuleArgsDict(TypedDict):
         """
         NonResourcePolicyRule is a predicate that matches non-resource requests according to their verb and the target non-resource URL. A NonResourcePolicyRule matches a request if and only if both (a) at least one member of verbs matches the request and (b) at least one member of nonResourceURLs matches the request.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         non_resource_urls: pulumi.Input[Sequence[pulumi.Input[str]]]
         """
@@ -1047,6 +1322,16 @@ class NonResourcePolicyRuleArgs:
                  verbs: pulumi.Input[Sequence[pulumi.Input[str]]]):
         """
         NonResourcePolicyRule is a predicate that matches non-resource requests according to their verb and the target non-resource URL. A NonResourcePolicyRule matches a request if and only if both (a) at least one member of verbs matches the request and (b) at least one member of nonResourceURLs matches the request.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input[str]]] non_resource_urls: `nonResourceURLs` is a set of url prefixes that a user should have access to and may not be empty. For example:
                  - "/healthz" is legal
                  - "/hea*" is illegal
@@ -1094,6 +1379,15 @@ if not MYPY:
     class PolicyRulesWithSubjectsPatchArgsDict(TypedDict):
         """
         PolicyRulesWithSubjects prescribes a test that applies to a request to an apiserver. The test considers the subject making the request, the verb being requested, and the resource to be acted upon. This PolicyRulesWithSubjects matches a request if and only if both (a) at least one member of subjects matches the request and (b) at least one member of resourceRules or nonResourceRules matches the request.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         non_resource_rules: NotRequired[pulumi.Input[Sequence[pulumi.Input['NonResourcePolicyRulePatchArgsDict']]]]
         """
@@ -1118,6 +1412,16 @@ class PolicyRulesWithSubjectsPatchArgs:
                  subjects: Optional[pulumi.Input[Sequence[pulumi.Input['SubjectPatchArgs']]]] = None):
         """
         PolicyRulesWithSubjects prescribes a test that applies to a request to an apiserver. The test considers the subject making the request, the verb being requested, and the resource to be acted upon. This PolicyRulesWithSubjects matches a request if and only if both (a) at least one member of subjects matches the request and (b) at least one member of resourceRules or nonResourceRules matches the request.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input['NonResourcePolicyRulePatchArgs']]] non_resource_rules: `nonResourceRules` is a list of NonResourcePolicyRules that identify matching requests according to their verb and the target non-resource URL.
         :param pulumi.Input[Sequence[pulumi.Input['ResourcePolicyRulePatchArgs']]] resource_rules: `resourceRules` is a slice of ResourcePolicyRules that identify matching requests according to their verb and the target resource. At least one of `resourceRules` and `nonResourceRules` has to be non-empty.
         :param pulumi.Input[Sequence[pulumi.Input['SubjectPatchArgs']]] subjects: subjects is the list of normal user, serviceaccount, or group that this rule cares about. There must be at least one member in this slice. A slice that includes both the system:authenticated and system:unauthenticated user groups matches every request. Required.
@@ -1170,6 +1474,15 @@ if not MYPY:
     class PolicyRulesWithSubjectsArgsDict(TypedDict):
         """
         PolicyRulesWithSubjects prescribes a test that applies to a request to an apiserver. The test considers the subject making the request, the verb being requested, and the resource to be acted upon. This PolicyRulesWithSubjects matches a request if and only if both (a) at least one member of subjects matches the request and (b) at least one member of resourceRules or nonResourceRules matches the request.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         subjects: pulumi.Input[Sequence[pulumi.Input['SubjectArgsDict']]]
         """
@@ -1194,6 +1507,16 @@ class PolicyRulesWithSubjectsArgs:
                  resource_rules: Optional[pulumi.Input[Sequence[pulumi.Input['ResourcePolicyRuleArgs']]]] = None):
         """
         PolicyRulesWithSubjects prescribes a test that applies to a request to an apiserver. The test considers the subject making the request, the verb being requested, and the resource to be acted upon. This PolicyRulesWithSubjects matches a request if and only if both (a) at least one member of subjects matches the request and (b) at least one member of resourceRules or nonResourceRules matches the request.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input['SubjectArgs']]] subjects: subjects is the list of normal user, serviceaccount, or group that this rule cares about. There must be at least one member in this slice. A slice that includes both the system:authenticated and system:unauthenticated user groups matches every request. Required.
         :param pulumi.Input[Sequence[pulumi.Input['NonResourcePolicyRuleArgs']]] non_resource_rules: `nonResourceRules` is a list of NonResourcePolicyRules that identify matching requests according to their verb and the target non-resource URL.
         :param pulumi.Input[Sequence[pulumi.Input['ResourcePolicyRuleArgs']]] resource_rules: `resourceRules` is a slice of ResourcePolicyRules that identify matching requests according to their verb and the target resource. At least one of `resourceRules` and `nonResourceRules` has to be non-empty.
@@ -1245,6 +1568,15 @@ if not MYPY:
     class PriorityLevelConfigurationConditionArgsDict(TypedDict):
         """
         PriorityLevelConfigurationCondition defines the condition of priority level.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         last_transition_time: NotRequired[pulumi.Input[str]]
         """
@@ -1279,6 +1611,16 @@ class PriorityLevelConfigurationConditionArgs:
                  type: Optional[pulumi.Input[str]] = None):
         """
         PriorityLevelConfigurationCondition defines the condition of priority level.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] last_transition_time: `lastTransitionTime` is the last time the condition transitioned from one status to another.
         :param pulumi.Input[str] message: `message` is a human-readable message indicating details about last transition.
         :param pulumi.Input[str] reason: `reason` is a unique, one-word, CamelCase reason for the condition's last transition.
@@ -1361,6 +1703,15 @@ if not MYPY:
     class PriorityLevelConfigurationReferencePatchArgsDict(TypedDict):
         """
         PriorityLevelConfigurationReference contains information that points to the "request-priority" being used.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         name: NotRequired[pulumi.Input[str]]
         """
@@ -1375,6 +1726,16 @@ class PriorityLevelConfigurationReferencePatchArgs:
                  name: Optional[pulumi.Input[str]] = None):
         """
         PriorityLevelConfigurationReference contains information that points to the "request-priority" being used.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] name: `name` is the name of the priority level configuration being referenced Required.
         """
         if name is not None:
@@ -1397,6 +1758,15 @@ if not MYPY:
     class PriorityLevelConfigurationReferenceArgsDict(TypedDict):
         """
         PriorityLevelConfigurationReference contains information that points to the "request-priority" being used.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         name: pulumi.Input[str]
         """
@@ -1411,6 +1781,16 @@ class PriorityLevelConfigurationReferenceArgs:
                  name: pulumi.Input[str]):
         """
         PriorityLevelConfigurationReference contains information that points to the "request-priority" being used.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] name: `name` is the name of the priority level configuration being referenced Required.
         """
         pulumi.set(__self__, "name", name)
@@ -1432,6 +1812,15 @@ if not MYPY:
     class PriorityLevelConfigurationSpecPatchArgsDict(TypedDict):
         """
         PriorityLevelConfigurationSpec specifies the configuration of a priority level.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         limited: NotRequired[pulumi.Input['LimitedPriorityLevelConfigurationPatchArgsDict']]
         """
@@ -1451,6 +1840,16 @@ class PriorityLevelConfigurationSpecPatchArgs:
                  type: Optional[pulumi.Input[str]] = None):
         """
         PriorityLevelConfigurationSpec specifies the configuration of a priority level.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['LimitedPriorityLevelConfigurationPatchArgs'] limited: `limited` specifies how requests are handled for a Limited priority level. This field must be non-empty if and only if `type` is `"Limited"`.
         :param pulumi.Input[str] type: `type` indicates whether this priority level is subject to limitation on request execution.  A value of `"Exempt"` means that requests of this priority level are not subject to a limit (and thus are never queued) and do not detract from the capacity made available to other priority levels.  A value of `"Limited"` means that (a) requests of this priority level _are_ subject to limits and (b) some of the server's limited capacity is made available exclusively to this priority level. Required.
         """
@@ -1488,6 +1887,15 @@ if not MYPY:
     class PriorityLevelConfigurationSpecArgsDict(TypedDict):
         """
         PriorityLevelConfigurationSpec specifies the configuration of a priority level.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         type: pulumi.Input[str]
         """
@@ -1507,6 +1915,16 @@ class PriorityLevelConfigurationSpecArgs:
                  limited: Optional[pulumi.Input['LimitedPriorityLevelConfigurationArgs']] = None):
         """
         PriorityLevelConfigurationSpec specifies the configuration of a priority level.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] type: `type` indicates whether this priority level is subject to limitation on request execution.  A value of `"Exempt"` means that requests of this priority level are not subject to a limit (and thus are never queued) and do not detract from the capacity made available to other priority levels.  A value of `"Limited"` means that (a) requests of this priority level _are_ subject to limits and (b) some of the server's limited capacity is made available exclusively to this priority level. Required.
         :param pulumi.Input['LimitedPriorityLevelConfigurationArgs'] limited: `limited` specifies how requests are handled for a Limited priority level. This field must be non-empty if and only if `type` is `"Limited"`.
         """
@@ -1543,6 +1961,15 @@ if not MYPY:
     class PriorityLevelConfigurationStatusArgsDict(TypedDict):
         """
         PriorityLevelConfigurationStatus represents the current state of a "request-priority".
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         conditions: NotRequired[pulumi.Input[Sequence[pulumi.Input['PriorityLevelConfigurationConditionArgsDict']]]]
         """
@@ -1557,6 +1984,16 @@ class PriorityLevelConfigurationStatusArgs:
                  conditions: Optional[pulumi.Input[Sequence[pulumi.Input['PriorityLevelConfigurationConditionArgs']]]] = None):
         """
         PriorityLevelConfigurationStatus represents the current state of a "request-priority".
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input['PriorityLevelConfigurationConditionArgs']]] conditions: `conditions` is the current state of "request-priority".
         """
         if conditions is not None:
@@ -1579,6 +2016,15 @@ if not MYPY:
     class PriorityLevelConfigurationArgsDict(TypedDict):
         """
         PriorityLevelConfiguration represents the configuration of a priority level.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         api_version: NotRequired[pulumi.Input[str]]
         """
@@ -1613,6 +2059,16 @@ class PriorityLevelConfigurationArgs:
                  status: Optional[pulumi.Input['PriorityLevelConfigurationStatusArgs']] = None):
         """
         PriorityLevelConfiguration represents the configuration of a priority level.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -1695,6 +2151,15 @@ if not MYPY:
     class QueuingConfigurationPatchArgsDict(TypedDict):
         """
         QueuingConfiguration holds the configuration parameters for queuing
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         hand_size: NotRequired[pulumi.Input[int]]
         """
@@ -1719,6 +2184,16 @@ class QueuingConfigurationPatchArgs:
                  queues: Optional[pulumi.Input[int]] = None):
         """
         QueuingConfiguration holds the configuration parameters for queuing
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[int] hand_size: `handSize` is a small positive number that configures the shuffle sharding of requests into queues.  When enqueuing a request at this priority level the request's flow identifier (a string pair) is hashed and the hash value is used to shuffle the list of queues and deal a hand of the size specified here.  The request is put into one of the shortest queues in that hand. `handSize` must be no larger than `queues`, and should be significantly smaller (so that a few heavy flows do not saturate most of the queues).  See the user-facing documentation for more extensive guidance on setting this field.  This field has a default value of 8.
         :param pulumi.Input[int] queue_length_limit: `queueLengthLimit` is the maximum number of requests allowed to be waiting in a given queue of this priority level at a time; excess requests are rejected.  This value must be positive.  If not specified, it will be defaulted to 50.
         :param pulumi.Input[int] queues: `queues` is the number of queues for this priority level. The queues exist independently at each apiserver. The value must be positive.  Setting it to 1 effectively precludes shufflesharding and thus makes the distinguisher method of associated flow schemas irrelevant.  This field has a default value of 64.
@@ -1771,6 +2246,15 @@ if not MYPY:
     class QueuingConfigurationArgsDict(TypedDict):
         """
         QueuingConfiguration holds the configuration parameters for queuing
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         hand_size: NotRequired[pulumi.Input[int]]
         """
@@ -1795,6 +2279,16 @@ class QueuingConfigurationArgs:
                  queues: Optional[pulumi.Input[int]] = None):
         """
         QueuingConfiguration holds the configuration parameters for queuing
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[int] hand_size: `handSize` is a small positive number that configures the shuffle sharding of requests into queues.  When enqueuing a request at this priority level the request's flow identifier (a string pair) is hashed and the hash value is used to shuffle the list of queues and deal a hand of the size specified here.  The request is put into one of the shortest queues in that hand. `handSize` must be no larger than `queues`, and should be significantly smaller (so that a few heavy flows do not saturate most of the queues).  See the user-facing documentation for more extensive guidance on setting this field.  This field has a default value of 8.
         :param pulumi.Input[int] queue_length_limit: `queueLengthLimit` is the maximum number of requests allowed to be waiting in a given queue of this priority level at a time; excess requests are rejected.  This value must be positive.  If not specified, it will be defaulted to 50.
         :param pulumi.Input[int] queues: `queues` is the number of queues for this priority level. The queues exist independently at each apiserver. The value must be positive.  Setting it to 1 effectively precludes shufflesharding and thus makes the distinguisher method of associated flow schemas irrelevant.  This field has a default value of 64.
@@ -1847,6 +2341,15 @@ if not MYPY:
     class ResourcePolicyRulePatchArgsDict(TypedDict):
         """
         ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) least one member of namespaces matches the request.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         api_groups: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
         """
@@ -1881,6 +2384,16 @@ class ResourcePolicyRulePatchArgs:
                  verbs: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
         ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) least one member of namespaces matches the request.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input[str]]] api_groups: `apiGroups` is a list of matching API groups and may not be empty. "*" matches all API groups and, if present, must be the only entry. Required.
         :param pulumi.Input[bool] cluster_scope: `clusterScope` indicates whether to match requests that do not specify a namespace (which happens either because the resource is not namespaced or the request targets all namespaces). If this field is omitted or false then the `namespaces` field must contain a non-empty list.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] namespaces: `namespaces` is a list of target namespaces that restricts matches.  A request that specifies a target namespace matches only if either (a) this list contains that target namespace or (b) this list contains "*".  Note that "*" matches any specified namespace but does not match a request that _does not specify_ a namespace (see the `clusterScope` field for that). This list may be empty, but only if `clusterScope` is true.
@@ -1963,6 +2476,15 @@ if not MYPY:
     class ResourcePolicyRuleArgsDict(TypedDict):
         """
         ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) least one member of namespaces matches the request.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         api_groups: pulumi.Input[Sequence[pulumi.Input[str]]]
         """
@@ -1997,6 +2519,16 @@ class ResourcePolicyRuleArgs:
                  namespaces: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
         ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) least one member of namespaces matches the request.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input[str]]] api_groups: `apiGroups` is a list of matching API groups and may not be empty. "*" matches all API groups and, if present, must be the only entry. Required.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] resources: `resources` is a list of matching resources (i.e., lowercase and plural) with, if desired, subresource.  For example, [ "services", "nodes/status" ].  This list may not be empty. "*" matches all resources and, if present, must be the only entry. Required.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] verbs: `verbs` is a list of matching verbs and may not be empty. "*" matches all verbs and, if present, must be the only entry. Required.
@@ -2076,6 +2608,15 @@ if not MYPY:
     class ServiceAccountSubjectPatchArgsDict(TypedDict):
         """
         ServiceAccountSubject holds detailed information for service-account-kind subject.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         name: NotRequired[pulumi.Input[str]]
         """
@@ -2095,6 +2636,16 @@ class ServiceAccountSubjectPatchArgs:
                  namespace: Optional[pulumi.Input[str]] = None):
         """
         ServiceAccountSubject holds detailed information for service-account-kind subject.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] name: `name` is the name of matching ServiceAccount objects, or "*" to match regardless of name. Required.
         :param pulumi.Input[str] namespace: `namespace` is the namespace of matching ServiceAccount objects. Required.
         """
@@ -2132,6 +2683,15 @@ if not MYPY:
     class ServiceAccountSubjectArgsDict(TypedDict):
         """
         ServiceAccountSubject holds detailed information for service-account-kind subject.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         name: pulumi.Input[str]
         """
@@ -2151,6 +2711,16 @@ class ServiceAccountSubjectArgs:
                  namespace: pulumi.Input[str]):
         """
         ServiceAccountSubject holds detailed information for service-account-kind subject.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] name: `name` is the name of matching ServiceAccount objects, or "*" to match regardless of name. Required.
         :param pulumi.Input[str] namespace: `namespace` is the namespace of matching ServiceAccount objects. Required.
         """
@@ -2186,6 +2756,15 @@ if not MYPY:
     class SubjectPatchArgsDict(TypedDict):
         """
         Subject matches the originator of a request, as identified by the request authentication system. There are three ways of matching an originator; by user, group, or service account.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         group: NotRequired[pulumi.Input['GroupSubjectPatchArgsDict']]
         kind: NotRequired[pulumi.Input[str]]
@@ -2206,6 +2785,16 @@ class SubjectPatchArgs:
                  user: Optional[pulumi.Input['UserSubjectPatchArgs']] = None):
         """
         Subject matches the originator of a request, as identified by the request authentication system. There are three ways of matching an originator; by user, group, or service account.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] kind: Required
         """
         if group is not None:
@@ -2261,6 +2850,15 @@ if not MYPY:
     class SubjectArgsDict(TypedDict):
         """
         Subject matches the originator of a request, as identified by the request authentication system. There are three ways of matching an originator; by user, group, or service account.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         kind: pulumi.Input[str]
         """
@@ -2281,6 +2879,16 @@ class SubjectArgs:
                  user: Optional[pulumi.Input['UserSubjectArgs']] = None):
         """
         Subject matches the originator of a request, as identified by the request authentication system. There are three ways of matching an originator; by user, group, or service account.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] kind: Required
         """
         pulumi.set(__self__, "kind", kind)
@@ -2335,6 +2943,15 @@ if not MYPY:
     class UserSubjectPatchArgsDict(TypedDict):
         """
         UserSubject holds detailed information for user-kind subject.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         name: NotRequired[pulumi.Input[str]]
         """
@@ -2349,6 +2966,16 @@ class UserSubjectPatchArgs:
                  name: Optional[pulumi.Input[str]] = None):
         """
         UserSubject holds detailed information for user-kind subject.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] name: `name` is the username that matches, or "*" to match all usernames. Required.
         """
         if name is not None:
@@ -2371,6 +2998,15 @@ if not MYPY:
     class UserSubjectArgsDict(TypedDict):
         """
         UserSubject holds detailed information for user-kind subject.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         name: pulumi.Input[str]
         """
@@ -2385,6 +3021,16 @@ class UserSubjectArgs:
                  name: pulumi.Input[str]):
         """
         UserSubject holds detailed information for user-kind subject.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] name: `name` is the username that matches, or "*" to match all usernames. Required.
         """
         pulumi.set(__self__, "name", name)

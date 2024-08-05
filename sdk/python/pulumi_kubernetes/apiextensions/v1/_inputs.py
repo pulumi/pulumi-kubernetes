@@ -90,6 +90,15 @@ if not MYPY:
     class CustomResourceColumnDefinitionPatchArgsDict(TypedDict):
         """
         CustomResourceColumnDefinition specifies a column for server side printing.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         description: NotRequired[pulumi.Input[str]]
         """
@@ -129,6 +138,16 @@ class CustomResourceColumnDefinitionPatchArgs:
                  type: Optional[pulumi.Input[str]] = None):
         """
         CustomResourceColumnDefinition specifies a column for server side printing.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] description: description is a human readable description of this column.
         :param pulumi.Input[str] format: format is an optional OpenAPI type definition for this column. The 'name' format is applied to the primary identifier column to assist in clients identifying column is the resource name. See https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types for details.
         :param pulumi.Input[str] json_path: jsonPath is a simple JSON path (i.e. with array notation) which is evaluated against each custom resource to produce the value for this column.
@@ -226,6 +245,15 @@ if not MYPY:
     class CustomResourceColumnDefinitionArgsDict(TypedDict):
         """
         CustomResourceColumnDefinition specifies a column for server side printing.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         json_path: pulumi.Input[str]
         """
@@ -265,6 +293,16 @@ class CustomResourceColumnDefinitionArgs:
                  priority: Optional[pulumi.Input[int]] = None):
         """
         CustomResourceColumnDefinition specifies a column for server side printing.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] json_path: jsonPath is a simple JSON path (i.e. with array notation) which is evaluated against each custom resource to produce the value for this column.
         :param pulumi.Input[str] name: name is a human readable name for the column.
         :param pulumi.Input[str] type: type is an OpenAPI type definition for this column. See https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types for details.
@@ -359,6 +397,15 @@ if not MYPY:
     class CustomResourceConversionPatchArgsDict(TypedDict):
         """
         CustomResourceConversion describes how to convert different versions of a CR.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         strategy: NotRequired[pulumi.Input[str]]
         """
@@ -379,6 +426,16 @@ class CustomResourceConversionPatchArgs:
                  webhook: Optional[pulumi.Input['WebhookConversionPatchArgs']] = None):
         """
         CustomResourceConversion describes how to convert different versions of a CR.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] strategy: strategy specifies how custom resources are converted between versions. Allowed values are: - `"None"`: The converter only change the apiVersion and would not touch any other field in the custom resource. - `"Webhook"`: API Server will call to an external webhook to do the conversion. Additional information
                  is needed for this option. This requires spec.preserveUnknownFields to be false, and spec.conversion.webhook to be set.
         :param pulumi.Input['WebhookConversionPatchArgs'] webhook: webhook describes how to call the conversion webhook. Required when `strategy` is set to `"Webhook"`.
@@ -418,6 +475,15 @@ if not MYPY:
     class CustomResourceConversionArgsDict(TypedDict):
         """
         CustomResourceConversion describes how to convert different versions of a CR.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         strategy: pulumi.Input[str]
         """
@@ -438,6 +504,16 @@ class CustomResourceConversionArgs:
                  webhook: Optional[pulumi.Input['WebhookConversionArgs']] = None):
         """
         CustomResourceConversion describes how to convert different versions of a CR.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] strategy: strategy specifies how custom resources are converted between versions. Allowed values are: - `"None"`: The converter only change the apiVersion and would not touch any other field in the custom resource. - `"Webhook"`: API Server will call to an external webhook to do the conversion. Additional information
                  is needed for this option. This requires spec.preserveUnknownFields to be false, and spec.conversion.webhook to be set.
         :param pulumi.Input['WebhookConversionArgs'] webhook: webhook describes how to call the conversion webhook. Required when `strategy` is set to `"Webhook"`.
@@ -476,6 +552,15 @@ if not MYPY:
     class CustomResourceDefinitionConditionArgsDict(TypedDict):
         """
         CustomResourceDefinitionCondition contains details for the current condition of this pod.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         status: pulumi.Input[str]
         """
@@ -510,6 +595,16 @@ class CustomResourceDefinitionConditionArgs:
                  reason: Optional[pulumi.Input[str]] = None):
         """
         CustomResourceDefinitionCondition contains details for the current condition of this pod.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] status: status is the status of the condition. Can be True, False, Unknown.
         :param pulumi.Input[str] type: type is the type of the condition. Types include Established, NamesAccepted and Terminating.
         :param pulumi.Input[str] last_transition_time: lastTransitionTime last time the condition transitioned from one status to another.
@@ -590,6 +685,15 @@ if not MYPY:
     class CustomResourceDefinitionNamesPatchArgsDict(TypedDict):
         """
         CustomResourceDefinitionNames indicates the names to serve this CustomResourceDefinition
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         categories: NotRequired[pulumi.Input[Sequence[pulumi.Input[str]]]]
         """
@@ -629,6 +733,16 @@ class CustomResourceDefinitionNamesPatchArgs:
                  singular: Optional[pulumi.Input[str]] = None):
         """
         CustomResourceDefinitionNames indicates the names to serve this CustomResourceDefinition
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input[str]]] categories: categories is a list of grouped resources this custom resource belongs to (e.g. 'all'). This is published in API discovery documents, and used by clients to support invocations like `kubectl get all`.
         :param pulumi.Input[str] kind: kind is the serialized kind of the resource. It is normally CamelCase and singular. Custom resource instances will use this value as the `kind` attribute in API calls.
         :param pulumi.Input[str] list_kind: listKind is the serialized kind of the list for this resource. Defaults to "`kind`List".
@@ -726,6 +840,15 @@ if not MYPY:
     class CustomResourceDefinitionNamesArgsDict(TypedDict):
         """
         CustomResourceDefinitionNames indicates the names to serve this CustomResourceDefinition
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         kind: pulumi.Input[str]
         """
@@ -765,6 +888,16 @@ class CustomResourceDefinitionNamesArgs:
                  singular: Optional[pulumi.Input[str]] = None):
         """
         CustomResourceDefinitionNames indicates the names to serve this CustomResourceDefinition
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] kind: kind is the serialized kind of the resource. It is normally CamelCase and singular. Custom resource instances will use this value as the `kind` attribute in API calls.
         :param pulumi.Input[str] plural: plural is the plural name of the resource to serve. The custom resources are served under `/apis/<group>/<version>/.../<plural>`. Must match the name of the CustomResourceDefinition (in the form `<names.plural>.<group>`). Must be all lowercase.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] categories: categories is a list of grouped resources this custom resource belongs to (e.g. 'all'). This is published in API discovery documents, and used by clients to support invocations like `kubectl get all`.
@@ -860,6 +993,15 @@ if not MYPY:
     class CustomResourceDefinitionSpecPatchArgsDict(TypedDict):
         """
         CustomResourceDefinitionSpec describes how a user wants their resource to appear
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         conversion: NotRequired[pulumi.Input['CustomResourceConversionPatchArgsDict']]
         """
@@ -899,6 +1041,16 @@ class CustomResourceDefinitionSpecPatchArgs:
                  versions: Optional[pulumi.Input[Sequence[pulumi.Input['CustomResourceDefinitionVersionPatchArgs']]]] = None):
         """
         CustomResourceDefinitionSpec describes how a user wants their resource to appear
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['CustomResourceConversionPatchArgs'] conversion: conversion defines conversion settings for the CRD.
         :param pulumi.Input[str] group: group is the API group of the defined custom resource. The custom resources are served under `/apis/<group>/...`. Must match the name of the CustomResourceDefinition (in the form `<names.plural>.<group>`).
         :param pulumi.Input['CustomResourceDefinitionNamesPatchArgs'] names: names specify the resource and kind names for the custom resource.
@@ -996,6 +1148,15 @@ if not MYPY:
     class CustomResourceDefinitionSpecArgsDict(TypedDict):
         """
         CustomResourceDefinitionSpec describes how a user wants their resource to appear
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         group: pulumi.Input[str]
         """
@@ -1035,6 +1196,16 @@ class CustomResourceDefinitionSpecArgs:
                  preserve_unknown_fields: Optional[pulumi.Input[bool]] = None):
         """
         CustomResourceDefinitionSpec describes how a user wants their resource to appear
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] group: group is the API group of the defined custom resource. The custom resources are served under `/apis/<group>/...`. Must match the name of the CustomResourceDefinition (in the form `<names.plural>.<group>`).
         :param pulumi.Input['CustomResourceDefinitionNamesArgs'] names: names specify the resource and kind names for the custom resource.
         :param pulumi.Input[str] scope: scope indicates whether the defined custom resource is cluster- or namespace-scoped. Allowed values are `Cluster` and `Namespaced`.
@@ -1128,6 +1299,15 @@ if not MYPY:
     class CustomResourceDefinitionStatusArgsDict(TypedDict):
         """
         CustomResourceDefinitionStatus indicates the state of the CustomResourceDefinition
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         accepted_names: pulumi.Input['CustomResourceDefinitionNamesArgsDict']
         """
@@ -1152,6 +1332,16 @@ class CustomResourceDefinitionStatusArgs:
                  conditions: Optional[pulumi.Input[Sequence[pulumi.Input['CustomResourceDefinitionConditionArgs']]]] = None):
         """
         CustomResourceDefinitionStatus indicates the state of the CustomResourceDefinition
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['CustomResourceDefinitionNamesArgs'] accepted_names: acceptedNames are the names that are actually being used to serve discovery. They may be different than the names in spec.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] stored_versions: storedVersions lists all versions of CustomResources that were ever persisted. Tracking these versions allows a migration path for stored versions in etcd. The field is mutable so a migration controller can finish a migration to another version (ensuring no old objects are left in storage), and then remove the rest of the versions from this list. Versions may not be removed from `spec.versions` while they exist in this list.
         :param pulumi.Input[Sequence[pulumi.Input['CustomResourceDefinitionConditionArgs']]] conditions: conditions indicate state for particular aspects of a CustomResourceDefinition
@@ -1202,6 +1392,15 @@ if not MYPY:
     class CustomResourceDefinitionVersionPatchArgsDict(TypedDict):
         """
         CustomResourceDefinitionVersion describes a version for CRD.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         additional_printer_columns: NotRequired[pulumi.Input[Sequence[pulumi.Input['CustomResourceColumnDefinitionPatchArgsDict']]]]
         """
@@ -1256,6 +1455,16 @@ class CustomResourceDefinitionVersionPatchArgs:
                  subresources: Optional[pulumi.Input['CustomResourceSubresourcesPatchArgs']] = None):
         """
         CustomResourceDefinitionVersion describes a version for CRD.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input['CustomResourceColumnDefinitionPatchArgs']]] additional_printer_columns: additionalPrinterColumns specifies additional columns returned in Table output. See https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables for details. If no columns are specified, a single column displaying the age of the custom resource is used.
         :param pulumi.Input[bool] deprecated: deprecated indicates this version of the custom resource API is deprecated. When set to true, API requests to this version receive a warning header in the server response. Defaults to false.
         :param pulumi.Input[str] deprecation_warning: deprecationWarning overrides the default warning returned to API clients. May only be set when `deprecated` is true. The default warning indicates this version is deprecated and recommends use of the newest served version of equal or greater stability, if one exists.
@@ -1398,6 +1607,15 @@ if not MYPY:
     class CustomResourceDefinitionVersionArgsDict(TypedDict):
         """
         CustomResourceDefinitionVersion describes a version for CRD.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         name: pulumi.Input[str]
         """
@@ -1452,6 +1670,16 @@ class CustomResourceDefinitionVersionArgs:
                  subresources: Optional[pulumi.Input['CustomResourceSubresourcesArgs']] = None):
         """
         CustomResourceDefinitionVersion describes a version for CRD.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] name: name is the version name, e.g. “v1”, “v2beta1”, etc. The custom resources are served under this version at `/apis/<group>/<version>/...` if `served` is true.
         :param pulumi.Input[bool] served: served is a flag enabling/disabling this version from being served via REST APIs
         :param pulumi.Input[bool] storage: storage indicates this version should be used when persisting custom resources to storage. There must be exactly one version with storage=true.
@@ -1591,6 +1819,15 @@ if not MYPY:
     class CustomResourceDefinitionArgsDict(TypedDict):
         """
         CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         spec: pulumi.Input['CustomResourceDefinitionSpecArgsDict']
         """
@@ -1625,6 +1862,16 @@ class CustomResourceDefinitionArgs:
                  status: Optional[pulumi.Input['CustomResourceDefinitionStatusArgs']] = None):
         """
         CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['CustomResourceDefinitionSpecArgs'] spec: spec describes how the user wants the resources to appear
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -1706,6 +1953,15 @@ if not MYPY:
     class CustomResourceSubresourceScalePatchArgsDict(TypedDict):
         """
         CustomResourceSubresourceScale defines how to serve the scale subresource for CustomResources.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         label_selector_path: NotRequired[pulumi.Input[str]]
         """
@@ -1730,6 +1986,16 @@ class CustomResourceSubresourceScalePatchArgs:
                  status_replicas_path: Optional[pulumi.Input[str]] = None):
         """
         CustomResourceSubresourceScale defines how to serve the scale subresource for CustomResources.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] label_selector_path: labelSelectorPath defines the JSON path inside of a custom resource that corresponds to Scale `status.selector`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.status` or `.spec`. Must be set to work with HorizontalPodAutoscaler. The field pointed by this JSON path must be a string field (not a complex selector struct) which contains a serialized label selector in string form. More info: https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions#scale-subresource If there is no value under the given path in the custom resource, the `status.selector` value in the `/scale` subresource will default to the empty string.
         :param pulumi.Input[str] spec_replicas_path: specReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale `spec.replicas`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.spec`. If there is no value under the given path in the custom resource, the `/scale` subresource will return an error on GET.
         :param pulumi.Input[str] status_replicas_path: statusReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale `status.replicas`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.status`. If there is no value under the given path in the custom resource, the `status.replicas` value in the `/scale` subresource will default to 0.
@@ -1782,6 +2048,15 @@ if not MYPY:
     class CustomResourceSubresourceScaleArgsDict(TypedDict):
         """
         CustomResourceSubresourceScale defines how to serve the scale subresource for CustomResources.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         spec_replicas_path: pulumi.Input[str]
         """
@@ -1806,6 +2081,16 @@ class CustomResourceSubresourceScaleArgs:
                  label_selector_path: Optional[pulumi.Input[str]] = None):
         """
         CustomResourceSubresourceScale defines how to serve the scale subresource for CustomResources.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] spec_replicas_path: specReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale `spec.replicas`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.spec`. If there is no value under the given path in the custom resource, the `/scale` subresource will return an error on GET.
         :param pulumi.Input[str] status_replicas_path: statusReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale `status.replicas`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.status`. If there is no value under the given path in the custom resource, the `status.replicas` value in the `/scale` subresource will default to 0.
         :param pulumi.Input[str] label_selector_path: labelSelectorPath defines the JSON path inside of a custom resource that corresponds to Scale `status.selector`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.status` or `.spec`. Must be set to work with HorizontalPodAutoscaler. The field pointed by this JSON path must be a string field (not a complex selector struct) which contains a serialized label selector in string form. More info: https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions#scale-subresource If there is no value under the given path in the custom resource, the `status.selector` value in the `/scale` subresource will default to the empty string.
@@ -1856,6 +2141,15 @@ if not MYPY:
     class CustomResourceSubresourcesPatchArgsDict(TypedDict):
         """
         CustomResourceSubresources defines the status and scale subresources for CustomResources.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         scale: NotRequired[pulumi.Input['CustomResourceSubresourceScalePatchArgsDict']]
         """
@@ -1875,6 +2169,16 @@ class CustomResourceSubresourcesPatchArgs:
                  status: Optional[Any] = None):
         """
         CustomResourceSubresources defines the status and scale subresources for CustomResources.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['CustomResourceSubresourceScalePatchArgs'] scale: scale indicates the custom resource should serve a `/scale` subresource that returns an `autoscaling/v1` Scale object.
         :param Any status: status indicates the custom resource should serve a `/status` subresource. When enabled: 1. requests to the custom resource primary endpoint ignore changes to the `status` stanza of the object. 2. requests to the custom resource `/status` subresource ignore changes to anything other than the `status` stanza of the object.
         """
@@ -1912,6 +2216,15 @@ if not MYPY:
     class CustomResourceSubresourcesArgsDict(TypedDict):
         """
         CustomResourceSubresources defines the status and scale subresources for CustomResources.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         scale: NotRequired[pulumi.Input['CustomResourceSubresourceScaleArgsDict']]
         """
@@ -1931,6 +2244,16 @@ class CustomResourceSubresourcesArgs:
                  status: Optional[Any] = None):
         """
         CustomResourceSubresources defines the status and scale subresources for CustomResources.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['CustomResourceSubresourceScaleArgs'] scale: scale indicates the custom resource should serve a `/scale` subresource that returns an `autoscaling/v1` Scale object.
         :param Any status: status indicates the custom resource should serve a `/status` subresource. When enabled: 1. requests to the custom resource primary endpoint ignore changes to the `status` stanza of the object. 2. requests to the custom resource `/status` subresource ignore changes to anything other than the `status` stanza of the object.
         """
@@ -1968,6 +2291,15 @@ if not MYPY:
     class CustomResourceValidationPatchArgsDict(TypedDict):
         """
         CustomResourceValidation is a list of validation methods for CustomResources.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         open_apiv3_schema: NotRequired[pulumi.Input['JSONSchemaPropsPatchArgsDict']]
         """
@@ -1982,6 +2314,16 @@ class CustomResourceValidationPatchArgs:
                  open_apiv3_schema: Optional[pulumi.Input['JSONSchemaPropsPatchArgs']] = None):
         """
         CustomResourceValidation is a list of validation methods for CustomResources.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['JSONSchemaPropsPatchArgs'] open_apiv3_schema: openAPIV3Schema is the OpenAPI v3 schema to use for validation and pruning.
         """
         if open_apiv3_schema is not None:
@@ -2004,6 +2346,15 @@ if not MYPY:
     class CustomResourceValidationArgsDict(TypedDict):
         """
         CustomResourceValidation is a list of validation methods for CustomResources.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         open_apiv3_schema: NotRequired[pulumi.Input['JSONSchemaPropsArgsDict']]
         """
@@ -2018,6 +2369,16 @@ class CustomResourceValidationArgs:
                  open_apiv3_schema: Optional[pulumi.Input['JSONSchemaPropsArgs']] = None):
         """
         CustomResourceValidation is a list of validation methods for CustomResources.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['JSONSchemaPropsArgs'] open_apiv3_schema: openAPIV3Schema is the OpenAPI v3 schema to use for validation and pruning.
         """
         if open_apiv3_schema is not None:
@@ -2040,6 +2401,15 @@ if not MYPY:
     class ExternalDocumentationPatchArgsDict(TypedDict):
         """
         ExternalDocumentation allows referencing an external resource for extended documentation.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         description: NotRequired[pulumi.Input[str]]
         url: NotRequired[pulumi.Input[str]]
@@ -2053,6 +2423,15 @@ class ExternalDocumentationPatchArgs:
                  url: Optional[pulumi.Input[str]] = None):
         """
         ExternalDocumentation allows referencing an external resource for extended documentation.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         if description is not None:
             pulumi.set(__self__, "description", description)
@@ -2082,6 +2461,15 @@ if not MYPY:
     class ExternalDocumentationArgsDict(TypedDict):
         """
         ExternalDocumentation allows referencing an external resource for extended documentation.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         description: NotRequired[pulumi.Input[str]]
         url: NotRequired[pulumi.Input[str]]
@@ -2095,6 +2483,15 @@ class ExternalDocumentationArgs:
                  url: Optional[pulumi.Input[str]] = None):
         """
         ExternalDocumentation allows referencing an external resource for extended documentation.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         if description is not None:
             pulumi.set(__self__, "description", description)
@@ -2124,6 +2521,15 @@ if not MYPY:
     class JSONSchemaPropsPatchArgsDict(TypedDict):
         """
         JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-schema.org/).
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         _ref: NotRequired[pulumi.Input[str]]
         _schema: NotRequired[pulumi.Input[str]]
@@ -2283,6 +2689,16 @@ class JSONSchemaPropsPatchArgs:
                  x_kubernetes_validations: Optional[pulumi.Input[Sequence[pulumi.Input['ValidationRulePatchArgs']]]] = None):
         """
         JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-schema.org/).
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param Any default: default is a default value for undefined object fields. Defaulting is a beta feature under the CustomResourceDefaulting feature gate. Defaulting requires spec.preserveUnknownFields to be false.
         :param pulumi.Input[str] format: format is an OpenAPI v3 format string. Unknown formats are ignored. The following formats are validated:
                
@@ -2880,6 +3296,15 @@ if not MYPY:
     class JSONSchemaPropsArgsDict(TypedDict):
         """
         JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-schema.org/).
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         _ref: NotRequired[pulumi.Input[str]]
         _schema: NotRequired[pulumi.Input[str]]
@@ -3039,6 +3464,16 @@ class JSONSchemaPropsArgs:
                  x_kubernetes_validations: Optional[pulumi.Input[Sequence[pulumi.Input['ValidationRuleArgs']]]] = None):
         """
         JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-schema.org/).
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param Any default: default is a default value for undefined object fields. Defaulting is a beta feature under the CustomResourceDefaulting feature gate. Defaulting requires spec.preserveUnknownFields to be false.
         :param pulumi.Input[str] format: format is an OpenAPI v3 format string. Unknown formats are ignored. The following formats are validated:
                
@@ -3636,6 +4071,15 @@ if not MYPY:
     class SelectableFieldPatchArgsDict(TypedDict):
         """
         SelectableField specifies the JSON path of a field that may be used with field selectors.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         json_path: NotRequired[pulumi.Input[str]]
         """
@@ -3650,6 +4094,16 @@ class SelectableFieldPatchArgs:
                  json_path: Optional[pulumi.Input[str]] = None):
         """
         SelectableField specifies the JSON path of a field that may be used with field selectors.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] json_path: jsonPath is a simple JSON path which is evaluated against each custom resource to produce a field selector value. Only JSON paths without the array notation are allowed. Must point to a field of type string, boolean or integer. Types with enum values and strings with formats are allowed. If jsonPath refers to absent field in a resource, the jsonPath evaluates to an empty string. Must not point to metdata fields. Required.
         """
         if json_path is not None:
@@ -3672,6 +4126,15 @@ if not MYPY:
     class SelectableFieldArgsDict(TypedDict):
         """
         SelectableField specifies the JSON path of a field that may be used with field selectors.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         json_path: pulumi.Input[str]
         """
@@ -3686,6 +4149,16 @@ class SelectableFieldArgs:
                  json_path: pulumi.Input[str]):
         """
         SelectableField specifies the JSON path of a field that may be used with field selectors.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] json_path: jsonPath is a simple JSON path which is evaluated against each custom resource to produce a field selector value. Only JSON paths without the array notation are allowed. Must point to a field of type string, boolean or integer. Types with enum values and strings with formats are allowed. If jsonPath refers to absent field in a resource, the jsonPath evaluates to an empty string. Must not point to metdata fields. Required.
         """
         pulumi.set(__self__, "json_path", json_path)
@@ -3707,6 +4180,15 @@ if not MYPY:
     class ServiceReferencePatchArgsDict(TypedDict):
         """
         ServiceReference holds a reference to Service.legacy.k8s.io
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         name: NotRequired[pulumi.Input[str]]
         """
@@ -3736,6 +4218,16 @@ class ServiceReferencePatchArgs:
                  port: Optional[pulumi.Input[int]] = None):
         """
         ServiceReference holds a reference to Service.legacy.k8s.io
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] name: name is the name of the service. Required
         :param pulumi.Input[str] namespace: namespace is the namespace of the service. Required
         :param pulumi.Input[str] path: path is an optional URL path at which the webhook will be contacted.
@@ -3803,6 +4295,15 @@ if not MYPY:
     class ServiceReferenceArgsDict(TypedDict):
         """
         ServiceReference holds a reference to Service.legacy.k8s.io
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         name: pulumi.Input[str]
         """
@@ -3832,6 +4333,16 @@ class ServiceReferenceArgs:
                  port: Optional[pulumi.Input[int]] = None):
         """
         ServiceReference holds a reference to Service.legacy.k8s.io
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] name: name is the name of the service. Required
         :param pulumi.Input[str] namespace: namespace is the namespace of the service. Required
         :param pulumi.Input[str] path: path is an optional URL path at which the webhook will be contacted.
@@ -3897,6 +4408,15 @@ if not MYPY:
     class ValidationRulePatchArgsDict(TypedDict):
         """
         ValidationRule describes a validation rule written in the CEL expression language.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         field_path: NotRequired[pulumi.Input[str]]
         """
@@ -3974,6 +4494,16 @@ class ValidationRulePatchArgs:
                  rule: Optional[pulumi.Input[str]] = None):
         """
         ValidationRule describes a validation rule written in the CEL expression language.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] field_path: fieldPath represents the field path returned when the validation fails. It must be a relative JSON path (i.e. with array notation) scoped to the location of this x-kubernetes-validations extension in the schema and refer to an existing field. e.g. when validation checks if a specific attribute `foo` under a map `testMap`, the fieldPath could be set to `.testMap.foo` If the validation checks two lists must have unique attributes, the fieldPath could be set to either of the list: e.g. `.testList` It does not support list numeric index. It supports child operation to refer to an existing field currently. Refer to [JSONPath support in Kubernetes](https://kubernetes.io/docs/reference/kubectl/jsonpath/) for more info. Numeric index of array is not supported. For field name which contains special characters, use `['specialName']` to refer the field name. e.g. for attribute `foo.34$` appears in a list `testList`, the fieldPath could be set to `.testList['foo.34$']`
         :param pulumi.Input[str] message: Message represents the message displayed when validation fails. The message is required if the Rule contains line breaks. The message must not contain line breaks. If unset, the message is "failed rule: {Rule}". e.g. "must be a URL with the host matching spec.host"
         :param pulumi.Input[str] message_expression: MessageExpression declares a CEL expression that evaluates to the validation failure message that is returned when this rule fails. Since messageExpression is used as a failure message, it must evaluate to a string. If both message and messageExpression are present on a rule, then messageExpression will be used if validation fails. If messageExpression results in a runtime error, the runtime error is logged, and the validation failure message is produced as if the messageExpression field were unset. If messageExpression evaluates to an empty string, a string with only spaces, or a string that contains line breaks, then the validation failure message will also be produced as if the messageExpression field were unset, and the fact that messageExpression produced an empty string/string with only spaces/string with line breaks will be logged. messageExpression has access to all the same variables as the rule; the only difference is the return type. Example: "x must be less than max ("+string(self.max)+")"
@@ -4147,6 +4677,15 @@ if not MYPY:
     class ValidationRuleArgsDict(TypedDict):
         """
         ValidationRule describes a validation rule written in the CEL expression language.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         rule: pulumi.Input[str]
         """
@@ -4224,6 +4763,16 @@ class ValidationRuleArgs:
                  reason: Optional[pulumi.Input[str]] = None):
         """
         ValidationRule describes a validation rule written in the CEL expression language.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] rule: Rule represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec The Rule is scoped to the location of the x-kubernetes-validations extension in the schema. The `self` variable in the CEL expression is bound to the scoped value. Example: - Rule scoped to the root of a resource with a status subresource: {"rule": "self.status.actual <= self.spec.maxDesired"}
                
                If the Rule is scoped to an object with properties, the accessible properties of the object are field selectable via `self.field` and field presence can be checked via `has(self.field)`. Null valued fields are treated as absent fields in CEL expressions. If the Rule is scoped to an object with additionalProperties (i.e. a map) the value of the map are accessible via `self[mapKey]`, map containment can be checked via `mapKey in self` and all entries of the map are accessible via CEL macros and functions such as `self.all(...)`. If the Rule is scoped to an array, the elements of the array are accessible via `self[i]` and also by macros and functions. If the Rule is scoped to a scalar, `self` is bound to the scalar value. Examples: - Rule scoped to a map of objects: {"rule": "self.components['Widget'].priority < 10"} - Rule scoped to a list of integers: {"rule": "self.values.all(value, value >= 0 && value < 100)"} - Rule scoped to a string value: {"rule": "self.startsWith('kube')"}
@@ -4396,6 +4945,15 @@ if not MYPY:
     class WebhookClientConfigPatchArgsDict(TypedDict):
         """
         WebhookClientConfig contains the information to make a TLS connection with the webhook.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         ca_bundle: NotRequired[pulumi.Input[str]]
         """
@@ -4432,6 +4990,16 @@ class WebhookClientConfigPatchArgs:
                  url: Optional[pulumi.Input[str]] = None):
         """
         WebhookClientConfig contains the information to make a TLS connection with the webhook.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] ca_bundle: caBundle is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
         :param pulumi.Input['ServiceReferencePatchArgs'] service: service is a reference to the service for this webhook. Either service or url must be specified.
                
@@ -4508,6 +5076,15 @@ if not MYPY:
     class WebhookClientConfigArgsDict(TypedDict):
         """
         WebhookClientConfig contains the information to make a TLS connection with the webhook.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         ca_bundle: NotRequired[pulumi.Input[str]]
         """
@@ -4544,6 +5121,16 @@ class WebhookClientConfigArgs:
                  url: Optional[pulumi.Input[str]] = None):
         """
         WebhookClientConfig contains the information to make a TLS connection with the webhook.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] ca_bundle: caBundle is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
         :param pulumi.Input['ServiceReferenceArgs'] service: service is a reference to the service for this webhook. Either service or url must be specified.
                
@@ -4620,6 +5207,15 @@ if not MYPY:
     class WebhookConversionPatchArgsDict(TypedDict):
         """
         WebhookConversion describes how to call a conversion webhook
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         client_config: NotRequired[pulumi.Input['WebhookClientConfigPatchArgsDict']]
         """
@@ -4639,6 +5235,16 @@ class WebhookConversionPatchArgs:
                  conversion_review_versions: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
         WebhookConversion describes how to call a conversion webhook
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['WebhookClientConfigPatchArgs'] client_config: clientConfig is the instructions for how to call the webhook if strategy is `Webhook`.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] conversion_review_versions: conversionReviewVersions is an ordered list of preferred `ConversionReview` versions the Webhook expects. The API server will use the first version in the list which it supports. If none of the versions specified in this list are supported by API server, conversion will fail for the custom resource. If a persisted Webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail.
         """
@@ -4676,6 +5282,15 @@ if not MYPY:
     class WebhookConversionArgsDict(TypedDict):
         """
         WebhookConversion describes how to call a conversion webhook
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         conversion_review_versions: pulumi.Input[Sequence[pulumi.Input[str]]]
         """
@@ -4695,6 +5310,16 @@ class WebhookConversionArgs:
                  client_config: Optional[pulumi.Input['WebhookClientConfigArgs']] = None):
         """
         WebhookConversion describes how to call a conversion webhook
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input[str]]] conversion_review_versions: conversionReviewVersions is an ordered list of preferred `ConversionReview` versions the Webhook expects. The API server will use the first version in the list which it supports. If none of the versions specified in this list are supported by API server, conversion will fail for the custom resource. If a persisted Webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail.
         :param pulumi.Input['WebhookClientConfigArgs'] client_config: clientConfig is the instructions for how to call the webhook if strategy is `Webhook`.
         """

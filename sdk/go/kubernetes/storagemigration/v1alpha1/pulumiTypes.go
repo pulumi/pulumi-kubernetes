@@ -15,6 +15,15 @@ import (
 var _ = utilities.GetEnvOrDefault
 
 // The names of the group, the version, and the resource.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type GroupVersionResource struct {
 	// The name of the group.
 	Group *string `pulumi:"group"`
@@ -36,6 +45,15 @@ type GroupVersionResourceInput interface {
 }
 
 // The names of the group, the version, and the resource.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type GroupVersionResourceArgs struct {
 	// The name of the group.
 	Group pulumi.StringPtrInput `pulumi:"group"`
@@ -99,6 +117,15 @@ func (i *groupVersionResourcePtrType) ToGroupVersionResourcePtrOutputWithContext
 }
 
 // The names of the group, the version, and the resource.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type GroupVersionResourceOutput struct{ *pulumi.OutputState }
 
 func (GroupVersionResourceOutput) ElementType() reflect.Type {
@@ -193,6 +220,15 @@ func (o GroupVersionResourcePtrOutput) Version() pulumi.StringPtrOutput {
 }
 
 // The names of the group, the version, and the resource.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type GroupVersionResourcePatch struct {
 	// The name of the group.
 	Group *string `pulumi:"group"`
@@ -214,6 +250,15 @@ type GroupVersionResourcePatchInput interface {
 }
 
 // The names of the group, the version, and the resource.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type GroupVersionResourcePatchArgs struct {
 	// The name of the group.
 	Group pulumi.StringPtrInput `pulumi:"group"`
@@ -277,6 +322,15 @@ func (i *groupVersionResourcePatchPtrType) ToGroupVersionResourcePatchPtrOutputW
 }
 
 // The names of the group, the version, and the resource.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type GroupVersionResourcePatchOutput struct{ *pulumi.OutputState }
 
 func (GroupVersionResourcePatchOutput) ElementType() reflect.Type {
@@ -371,6 +425,15 @@ func (o GroupVersionResourcePatchPtrOutput) Version() pulumi.StringPtrOutput {
 }
 
 // Describes the state of a migration at a certain point.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type MigrationCondition struct {
 	// The last time this condition was updated.
 	LastUpdateTime *string `pulumi:"lastUpdateTime"`
@@ -396,6 +459,15 @@ type MigrationConditionInput interface {
 }
 
 // Describes the state of a migration at a certain point.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type MigrationConditionArgs struct {
 	// The last time this condition was updated.
 	LastUpdateTime pulumi.StringPtrInput `pulumi:"lastUpdateTime"`
@@ -447,6 +519,15 @@ func (i MigrationConditionArray) ToMigrationConditionArrayOutputWithContext(ctx 
 }
 
 // Describes the state of a migration at a certain point.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type MigrationConditionOutput struct{ *pulumi.OutputState }
 
 func (MigrationConditionOutput) ElementType() reflect.Type {
@@ -507,6 +588,15 @@ func (o MigrationConditionArrayOutput) Index(i pulumi.IntInput) MigrationConditi
 }
 
 // Describes the state of a migration at a certain point.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type MigrationConditionPatch struct {
 	// The last time this condition was updated.
 	LastUpdateTime *string `pulumi:"lastUpdateTime"`
@@ -532,6 +622,15 @@ type MigrationConditionPatchInput interface {
 }
 
 // Describes the state of a migration at a certain point.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type MigrationConditionPatchArgs struct {
 	// The last time this condition was updated.
 	LastUpdateTime pulumi.StringPtrInput `pulumi:"lastUpdateTime"`
@@ -583,6 +682,15 @@ func (i MigrationConditionPatchArray) ToMigrationConditionPatchArrayOutputWithCo
 }
 
 // Describes the state of a migration at a certain point.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type MigrationConditionPatchOutput struct{ *pulumi.OutputState }
 
 func (MigrationConditionPatchOutput) ElementType() reflect.Type {
@@ -643,6 +751,15 @@ func (o MigrationConditionPatchArrayOutput) Index(i pulumi.IntInput) MigrationCo
 }
 
 // StorageVersionMigration represents a migration of stored data to the latest storage version.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StorageVersionMigrationType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -668,6 +785,15 @@ type StorageVersionMigrationTypeInput interface {
 }
 
 // StorageVersionMigration represents a migration of stored data to the latest storage version.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StorageVersionMigrationTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -719,6 +845,15 @@ func (i StorageVersionMigrationTypeArray) ToStorageVersionMigrationTypeArrayOutp
 }
 
 // StorageVersionMigration represents a migration of stored data to the latest storage version.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StorageVersionMigrationTypeOutput struct{ *pulumi.OutputState }
 
 func (StorageVersionMigrationTypeOutput) ElementType() reflect.Type {
@@ -779,6 +914,15 @@ func (o StorageVersionMigrationTypeArrayOutput) Index(i pulumi.IntInput) Storage
 }
 
 // StorageVersionMigrationList is a collection of storage version migrations.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StorageVersionMigrationListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -802,6 +946,15 @@ type StorageVersionMigrationListTypeInput interface {
 }
 
 // StorageVersionMigrationList is a collection of storage version migrations.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StorageVersionMigrationListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -826,6 +979,15 @@ func (i StorageVersionMigrationListTypeArgs) ToStorageVersionMigrationListTypeOu
 }
 
 // StorageVersionMigrationList is a collection of storage version migrations.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StorageVersionMigrationListTypeOutput struct{ *pulumi.OutputState }
 
 func (StorageVersionMigrationListTypeOutput) ElementType() reflect.Type {
@@ -861,6 +1023,15 @@ func (o StorageVersionMigrationListTypeOutput) Metadata() metav1.ListMetaPtrOutp
 }
 
 // StorageVersionMigration represents a migration of stored data to the latest storage version.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StorageVersionMigrationPatchType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -886,6 +1057,15 @@ type StorageVersionMigrationPatchTypeInput interface {
 }
 
 // StorageVersionMigration represents a migration of stored data to the latest storage version.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StorageVersionMigrationPatchTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -912,6 +1092,15 @@ func (i StorageVersionMigrationPatchTypeArgs) ToStorageVersionMigrationPatchType
 }
 
 // StorageVersionMigration represents a migration of stored data to the latest storage version.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StorageVersionMigrationPatchTypeOutput struct{ *pulumi.OutputState }
 
 func (StorageVersionMigrationPatchTypeOutput) ElementType() reflect.Type {
@@ -952,6 +1141,15 @@ func (o StorageVersionMigrationPatchTypeOutput) Status() StorageVersionMigration
 }
 
 // Spec of the storage version migration.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StorageVersionMigrationSpec struct {
 	// The token used in the list options to get the next chunk of objects to migrate. When the .status.conditions indicates the migration is "Running", users can use this token to check the progress of the migration.
 	ContinueToken *string `pulumi:"continueToken"`
@@ -971,6 +1169,15 @@ type StorageVersionMigrationSpecInput interface {
 }
 
 // Spec of the storage version migration.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StorageVersionMigrationSpecArgs struct {
 	// The token used in the list options to get the next chunk of objects to migrate. When the .status.conditions indicates the migration is "Running", users can use this token to check the progress of the migration.
 	ContinueToken pulumi.StringPtrInput `pulumi:"continueToken"`
@@ -1032,6 +1239,15 @@ func (i *storageVersionMigrationSpecPtrType) ToStorageVersionMigrationSpecPtrOut
 }
 
 // Spec of the storage version migration.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StorageVersionMigrationSpecOutput struct{ *pulumi.OutputState }
 
 func (StorageVersionMigrationSpecOutput) ElementType() reflect.Type {
@@ -1111,6 +1327,15 @@ func (o StorageVersionMigrationSpecPtrOutput) Resource() GroupVersionResourcePtr
 }
 
 // Spec of the storage version migration.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StorageVersionMigrationSpecPatch struct {
 	// The token used in the list options to get the next chunk of objects to migrate. When the .status.conditions indicates the migration is "Running", users can use this token to check the progress of the migration.
 	ContinueToken *string `pulumi:"continueToken"`
@@ -1130,6 +1355,15 @@ type StorageVersionMigrationSpecPatchInput interface {
 }
 
 // Spec of the storage version migration.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StorageVersionMigrationSpecPatchArgs struct {
 	// The token used in the list options to get the next chunk of objects to migrate. When the .status.conditions indicates the migration is "Running", users can use this token to check the progress of the migration.
 	ContinueToken pulumi.StringPtrInput `pulumi:"continueToken"`
@@ -1191,6 +1425,15 @@ func (i *storageVersionMigrationSpecPatchPtrType) ToStorageVersionMigrationSpecP
 }
 
 // Spec of the storage version migration.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StorageVersionMigrationSpecPatchOutput struct{ *pulumi.OutputState }
 
 func (StorageVersionMigrationSpecPatchOutput) ElementType() reflect.Type {
@@ -1270,6 +1513,15 @@ func (o StorageVersionMigrationSpecPatchPtrOutput) Resource() GroupVersionResour
 }
 
 // Status of the storage version migration.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StorageVersionMigrationStatus struct {
 	// The latest available observations of the migration's current state.
 	Conditions []MigrationCondition `pulumi:"conditions"`
@@ -1289,6 +1541,15 @@ type StorageVersionMigrationStatusInput interface {
 }
 
 // Status of the storage version migration.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StorageVersionMigrationStatusArgs struct {
 	// The latest available observations of the migration's current state.
 	Conditions MigrationConditionArrayInput `pulumi:"conditions"`
@@ -1350,6 +1611,15 @@ func (i *storageVersionMigrationStatusPtrType) ToStorageVersionMigrationStatusPt
 }
 
 // Status of the storage version migration.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StorageVersionMigrationStatusOutput struct{ *pulumi.OutputState }
 
 func (StorageVersionMigrationStatusOutput) ElementType() reflect.Type {
@@ -1429,6 +1699,15 @@ func (o StorageVersionMigrationStatusPtrOutput) ResourceVersion() pulumi.StringP
 }
 
 // Status of the storage version migration.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StorageVersionMigrationStatusPatch struct {
 	// The latest available observations of the migration's current state.
 	Conditions []MigrationConditionPatch `pulumi:"conditions"`
@@ -1448,6 +1727,15 @@ type StorageVersionMigrationStatusPatchInput interface {
 }
 
 // Status of the storage version migration.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StorageVersionMigrationStatusPatchArgs struct {
 	// The latest available observations of the migration's current state.
 	Conditions MigrationConditionPatchArrayInput `pulumi:"conditions"`
@@ -1509,6 +1797,15 @@ func (i *storageVersionMigrationStatusPatchPtrType) ToStorageVersionMigrationSta
 }
 
 // Status of the storage version migration.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type StorageVersionMigrationStatusPatchOutput struct{ *pulumi.OutputState }
 
 func (StorageVersionMigrationStatusPatchOutput) ElementType() reflect.Type {

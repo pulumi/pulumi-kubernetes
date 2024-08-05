@@ -15,6 +15,15 @@ import (
 var _ = utilities.GetEnvOrDefault
 
 // ExemptPriorityLevelConfiguration describes the configurable aspects of the handling of exempt requests. In the mandatory exempt configuration object the values in the fields here can be modified by authorized users, unlike the rest of the `spec`.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ExemptPriorityLevelConfiguration struct {
 	// `lendablePercent` prescribes the fraction of the level's NominalCL that can be borrowed by other priority levels.  This value of this field must be between 0 and 100, inclusive, and it defaults to 0. The number of seats that other levels can borrow from this level, known as this level's LendableConcurrencyLimit (LendableCL), is defined as follows.
 	//
@@ -40,6 +49,15 @@ type ExemptPriorityLevelConfigurationInput interface {
 }
 
 // ExemptPriorityLevelConfiguration describes the configurable aspects of the handling of exempt requests. In the mandatory exempt configuration object the values in the fields here can be modified by authorized users, unlike the rest of the `spec`.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ExemptPriorityLevelConfigurationArgs struct {
 	// `lendablePercent` prescribes the fraction of the level's NominalCL that can be borrowed by other priority levels.  This value of this field must be between 0 and 100, inclusive, and it defaults to 0. The number of seats that other levels can borrow from this level, known as this level's LendableConcurrencyLimit (LendableCL), is defined as follows.
 	//
@@ -107,6 +125,15 @@ func (i *exemptPriorityLevelConfigurationPtrType) ToExemptPriorityLevelConfigura
 }
 
 // ExemptPriorityLevelConfiguration describes the configurable aspects of the handling of exempt requests. In the mandatory exempt configuration object the values in the fields here can be modified by authorized users, unlike the rest of the `spec`.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ExemptPriorityLevelConfigurationOutput struct{ *pulumi.OutputState }
 
 func (ExemptPriorityLevelConfigurationOutput) ElementType() reflect.Type {
@@ -198,6 +225,15 @@ func (o ExemptPriorityLevelConfigurationPtrOutput) NominalConcurrencyShares() pu
 }
 
 // ExemptPriorityLevelConfiguration describes the configurable aspects of the handling of exempt requests. In the mandatory exempt configuration object the values in the fields here can be modified by authorized users, unlike the rest of the `spec`.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ExemptPriorityLevelConfigurationPatch struct {
 	// `lendablePercent` prescribes the fraction of the level's NominalCL that can be borrowed by other priority levels.  This value of this field must be between 0 and 100, inclusive, and it defaults to 0. The number of seats that other levels can borrow from this level, known as this level's LendableConcurrencyLimit (LendableCL), is defined as follows.
 	//
@@ -223,6 +259,15 @@ type ExemptPriorityLevelConfigurationPatchInput interface {
 }
 
 // ExemptPriorityLevelConfiguration describes the configurable aspects of the handling of exempt requests. In the mandatory exempt configuration object the values in the fields here can be modified by authorized users, unlike the rest of the `spec`.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ExemptPriorityLevelConfigurationPatchArgs struct {
 	// `lendablePercent` prescribes the fraction of the level's NominalCL that can be borrowed by other priority levels.  This value of this field must be between 0 and 100, inclusive, and it defaults to 0. The number of seats that other levels can borrow from this level, known as this level's LendableConcurrencyLimit (LendableCL), is defined as follows.
 	//
@@ -290,6 +335,15 @@ func (i *exemptPriorityLevelConfigurationPatchPtrType) ToExemptPriorityLevelConf
 }
 
 // ExemptPriorityLevelConfiguration describes the configurable aspects of the handling of exempt requests. In the mandatory exempt configuration object the values in the fields here can be modified by authorized users, unlike the rest of the `spec`.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ExemptPriorityLevelConfigurationPatchOutput struct{ *pulumi.OutputState }
 
 func (ExemptPriorityLevelConfigurationPatchOutput) ElementType() reflect.Type {
@@ -381,6 +435,15 @@ func (o ExemptPriorityLevelConfigurationPatchPtrOutput) NominalConcurrencyShares
 }
 
 // FlowDistinguisherMethod specifies the method of a flow distinguisher.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type FlowDistinguisherMethod struct {
 	// `type` is the type of flow distinguisher method The supported types are "ByUser" and "ByNamespace". Required.
 	Type string `pulumi:"type"`
@@ -398,6 +461,15 @@ type FlowDistinguisherMethodInput interface {
 }
 
 // FlowDistinguisherMethod specifies the method of a flow distinguisher.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type FlowDistinguisherMethodArgs struct {
 	// `type` is the type of flow distinguisher method The supported types are "ByUser" and "ByNamespace". Required.
 	Type pulumi.StringInput `pulumi:"type"`
@@ -457,6 +529,15 @@ func (i *flowDistinguisherMethodPtrType) ToFlowDistinguisherMethodPtrOutputWithC
 }
 
 // FlowDistinguisherMethod specifies the method of a flow distinguisher.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type FlowDistinguisherMethodOutput struct{ *pulumi.OutputState }
 
 func (FlowDistinguisherMethodOutput) ElementType() reflect.Type {
@@ -521,6 +602,15 @@ func (o FlowDistinguisherMethodPtrOutput) Type() pulumi.StringPtrOutput {
 }
 
 // FlowDistinguisherMethod specifies the method of a flow distinguisher.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type FlowDistinguisherMethodPatch struct {
 	// `type` is the type of flow distinguisher method The supported types are "ByUser" and "ByNamespace". Required.
 	Type *string `pulumi:"type"`
@@ -538,6 +628,15 @@ type FlowDistinguisherMethodPatchInput interface {
 }
 
 // FlowDistinguisherMethod specifies the method of a flow distinguisher.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type FlowDistinguisherMethodPatchArgs struct {
 	// `type` is the type of flow distinguisher method The supported types are "ByUser" and "ByNamespace". Required.
 	Type pulumi.StringPtrInput `pulumi:"type"`
@@ -597,6 +696,15 @@ func (i *flowDistinguisherMethodPatchPtrType) ToFlowDistinguisherMethodPatchPtrO
 }
 
 // FlowDistinguisherMethod specifies the method of a flow distinguisher.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type FlowDistinguisherMethodPatchOutput struct{ *pulumi.OutputState }
 
 func (FlowDistinguisherMethodPatchOutput) ElementType() reflect.Type {
@@ -661,6 +769,15 @@ func (o FlowDistinguisherMethodPatchPtrOutput) Type() pulumi.StringPtrOutput {
 }
 
 // FlowSchema defines the schema of a group of flows. Note that a flow is made up of a set of inbound API requests with similar attributes and is identified by a pair of strings: the name of the FlowSchema and a "flow distinguisher".
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type FlowSchemaType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -686,6 +803,15 @@ type FlowSchemaTypeInput interface {
 }
 
 // FlowSchema defines the schema of a group of flows. Note that a flow is made up of a set of inbound API requests with similar attributes and is identified by a pair of strings: the name of the FlowSchema and a "flow distinguisher".
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type FlowSchemaTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -737,6 +863,15 @@ func (i FlowSchemaTypeArray) ToFlowSchemaTypeArrayOutputWithContext(ctx context.
 }
 
 // FlowSchema defines the schema of a group of flows. Note that a flow is made up of a set of inbound API requests with similar attributes and is identified by a pair of strings: the name of the FlowSchema and a "flow distinguisher".
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type FlowSchemaTypeOutput struct{ *pulumi.OutputState }
 
 func (FlowSchemaTypeOutput) ElementType() reflect.Type {
@@ -797,6 +932,15 @@ func (o FlowSchemaTypeArrayOutput) Index(i pulumi.IntInput) FlowSchemaTypeOutput
 }
 
 // FlowSchemaCondition describes conditions for a FlowSchema.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type FlowSchemaCondition struct {
 	// `lastTransitionTime` is the last time the condition transitioned from one status to another.
 	LastTransitionTime *string `pulumi:"lastTransitionTime"`
@@ -822,6 +966,15 @@ type FlowSchemaConditionInput interface {
 }
 
 // FlowSchemaCondition describes conditions for a FlowSchema.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type FlowSchemaConditionArgs struct {
 	// `lastTransitionTime` is the last time the condition transitioned from one status to another.
 	LastTransitionTime pulumi.StringPtrInput `pulumi:"lastTransitionTime"`
@@ -873,6 +1026,15 @@ func (i FlowSchemaConditionArray) ToFlowSchemaConditionArrayOutputWithContext(ct
 }
 
 // FlowSchemaCondition describes conditions for a FlowSchema.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type FlowSchemaConditionOutput struct{ *pulumi.OutputState }
 
 func (FlowSchemaConditionOutput) ElementType() reflect.Type {
@@ -933,6 +1095,15 @@ func (o FlowSchemaConditionArrayOutput) Index(i pulumi.IntInput) FlowSchemaCondi
 }
 
 // FlowSchemaCondition describes conditions for a FlowSchema.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type FlowSchemaConditionPatch struct {
 	// `lastTransitionTime` is the last time the condition transitioned from one status to another.
 	LastTransitionTime *string `pulumi:"lastTransitionTime"`
@@ -958,6 +1129,15 @@ type FlowSchemaConditionPatchInput interface {
 }
 
 // FlowSchemaCondition describes conditions for a FlowSchema.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type FlowSchemaConditionPatchArgs struct {
 	// `lastTransitionTime` is the last time the condition transitioned from one status to another.
 	LastTransitionTime pulumi.StringPtrInput `pulumi:"lastTransitionTime"`
@@ -1009,6 +1189,15 @@ func (i FlowSchemaConditionPatchArray) ToFlowSchemaConditionPatchArrayOutputWith
 }
 
 // FlowSchemaCondition describes conditions for a FlowSchema.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type FlowSchemaConditionPatchOutput struct{ *pulumi.OutputState }
 
 func (FlowSchemaConditionPatchOutput) ElementType() reflect.Type {
@@ -1069,6 +1258,15 @@ func (o FlowSchemaConditionPatchArrayOutput) Index(i pulumi.IntInput) FlowSchema
 }
 
 // FlowSchemaList is a list of FlowSchema objects.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type FlowSchemaListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -1092,6 +1290,15 @@ type FlowSchemaListTypeInput interface {
 }
 
 // FlowSchemaList is a list of FlowSchema objects.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type FlowSchemaListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -1116,6 +1323,15 @@ func (i FlowSchemaListTypeArgs) ToFlowSchemaListTypeOutputWithContext(ctx contex
 }
 
 // FlowSchemaList is a list of FlowSchema objects.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type FlowSchemaListTypeOutput struct{ *pulumi.OutputState }
 
 func (FlowSchemaListTypeOutput) ElementType() reflect.Type {
@@ -1151,6 +1367,15 @@ func (o FlowSchemaListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 }
 
 // FlowSchema defines the schema of a group of flows. Note that a flow is made up of a set of inbound API requests with similar attributes and is identified by a pair of strings: the name of the FlowSchema and a "flow distinguisher".
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type FlowSchemaPatchType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -1176,6 +1401,15 @@ type FlowSchemaPatchTypeInput interface {
 }
 
 // FlowSchema defines the schema of a group of flows. Note that a flow is made up of a set of inbound API requests with similar attributes and is identified by a pair of strings: the name of the FlowSchema and a "flow distinguisher".
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type FlowSchemaPatchTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -1202,6 +1436,15 @@ func (i FlowSchemaPatchTypeArgs) ToFlowSchemaPatchTypeOutputWithContext(ctx cont
 }
 
 // FlowSchema defines the schema of a group of flows. Note that a flow is made up of a set of inbound API requests with similar attributes and is identified by a pair of strings: the name of the FlowSchema and a "flow distinguisher".
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type FlowSchemaPatchTypeOutput struct{ *pulumi.OutputState }
 
 func (FlowSchemaPatchTypeOutput) ElementType() reflect.Type {
@@ -1242,6 +1485,15 @@ func (o FlowSchemaPatchTypeOutput) Status() FlowSchemaStatusPatchPtrOutput {
 }
 
 // FlowSchemaSpec describes how the FlowSchema's specification looks like.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type FlowSchemaSpec struct {
 	// `distinguisherMethod` defines how to compute the flow distinguisher for requests that match this schema. `nil` specifies that the distinguisher is disabled and thus will always be the empty string.
 	DistinguisherMethod *FlowDistinguisherMethod `pulumi:"distinguisherMethod"`
@@ -1265,6 +1517,15 @@ type FlowSchemaSpecInput interface {
 }
 
 // FlowSchemaSpec describes how the FlowSchema's specification looks like.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type FlowSchemaSpecArgs struct {
 	// `distinguisherMethod` defines how to compute the flow distinguisher for requests that match this schema. `nil` specifies that the distinguisher is disabled and thus will always be the empty string.
 	DistinguisherMethod FlowDistinguisherMethodPtrInput `pulumi:"distinguisherMethod"`
@@ -1330,6 +1591,15 @@ func (i *flowSchemaSpecPtrType) ToFlowSchemaSpecPtrOutputWithContext(ctx context
 }
 
 // FlowSchemaSpec describes how the FlowSchema's specification looks like.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type FlowSchemaSpecOutput struct{ *pulumi.OutputState }
 
 func (FlowSchemaSpecOutput) ElementType() reflect.Type {
@@ -1439,6 +1709,15 @@ func (o FlowSchemaSpecPtrOutput) Rules() PolicyRulesWithSubjectsArrayOutput {
 }
 
 // FlowSchemaSpec describes how the FlowSchema's specification looks like.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type FlowSchemaSpecPatch struct {
 	// `distinguisherMethod` defines how to compute the flow distinguisher for requests that match this schema. `nil` specifies that the distinguisher is disabled and thus will always be the empty string.
 	DistinguisherMethod *FlowDistinguisherMethodPatch `pulumi:"distinguisherMethod"`
@@ -1462,6 +1741,15 @@ type FlowSchemaSpecPatchInput interface {
 }
 
 // FlowSchemaSpec describes how the FlowSchema's specification looks like.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type FlowSchemaSpecPatchArgs struct {
 	// `distinguisherMethod` defines how to compute the flow distinguisher for requests that match this schema. `nil` specifies that the distinguisher is disabled and thus will always be the empty string.
 	DistinguisherMethod FlowDistinguisherMethodPatchPtrInput `pulumi:"distinguisherMethod"`
@@ -1527,6 +1815,15 @@ func (i *flowSchemaSpecPatchPtrType) ToFlowSchemaSpecPatchPtrOutputWithContext(c
 }
 
 // FlowSchemaSpec describes how the FlowSchema's specification looks like.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type FlowSchemaSpecPatchOutput struct{ *pulumi.OutputState }
 
 func (FlowSchemaSpecPatchOutput) ElementType() reflect.Type {
@@ -1638,6 +1935,15 @@ func (o FlowSchemaSpecPatchPtrOutput) Rules() PolicyRulesWithSubjectsPatchArrayO
 }
 
 // FlowSchemaStatus represents the current state of a FlowSchema.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type FlowSchemaStatus struct {
 	// `conditions` is a list of the current states of FlowSchema.
 	Conditions []FlowSchemaCondition `pulumi:"conditions"`
@@ -1655,6 +1961,15 @@ type FlowSchemaStatusInput interface {
 }
 
 // FlowSchemaStatus represents the current state of a FlowSchema.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type FlowSchemaStatusArgs struct {
 	// `conditions` is a list of the current states of FlowSchema.
 	Conditions FlowSchemaConditionArrayInput `pulumi:"conditions"`
@@ -1714,6 +2029,15 @@ func (i *flowSchemaStatusPtrType) ToFlowSchemaStatusPtrOutputWithContext(ctx con
 }
 
 // FlowSchemaStatus represents the current state of a FlowSchema.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type FlowSchemaStatusOutput struct{ *pulumi.OutputState }
 
 func (FlowSchemaStatusOutput) ElementType() reflect.Type {
@@ -1778,6 +2102,15 @@ func (o FlowSchemaStatusPtrOutput) Conditions() FlowSchemaConditionArrayOutput {
 }
 
 // FlowSchemaStatus represents the current state of a FlowSchema.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type FlowSchemaStatusPatch struct {
 	// `conditions` is a list of the current states of FlowSchema.
 	Conditions []FlowSchemaConditionPatch `pulumi:"conditions"`
@@ -1795,6 +2128,15 @@ type FlowSchemaStatusPatchInput interface {
 }
 
 // FlowSchemaStatus represents the current state of a FlowSchema.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type FlowSchemaStatusPatchArgs struct {
 	// `conditions` is a list of the current states of FlowSchema.
 	Conditions FlowSchemaConditionPatchArrayInput `pulumi:"conditions"`
@@ -1854,6 +2196,15 @@ func (i *flowSchemaStatusPatchPtrType) ToFlowSchemaStatusPatchPtrOutputWithConte
 }
 
 // FlowSchemaStatus represents the current state of a FlowSchema.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type FlowSchemaStatusPatchOutput struct{ *pulumi.OutputState }
 
 func (FlowSchemaStatusPatchOutput) ElementType() reflect.Type {
@@ -1918,6 +2269,15 @@ func (o FlowSchemaStatusPatchPtrOutput) Conditions() FlowSchemaConditionPatchArr
 }
 
 // GroupSubject holds detailed information for group-kind subject.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type GroupSubject struct {
 	// name is the user group that matches, or "*" to match all user groups. See https://github.com/kubernetes/apiserver/blob/master/pkg/authentication/user/user.go for some well-known group names. Required.
 	Name string `pulumi:"name"`
@@ -1935,6 +2295,15 @@ type GroupSubjectInput interface {
 }
 
 // GroupSubject holds detailed information for group-kind subject.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type GroupSubjectArgs struct {
 	// name is the user group that matches, or "*" to match all user groups. See https://github.com/kubernetes/apiserver/blob/master/pkg/authentication/user/user.go for some well-known group names. Required.
 	Name pulumi.StringInput `pulumi:"name"`
@@ -1994,6 +2363,15 @@ func (i *groupSubjectPtrType) ToGroupSubjectPtrOutputWithContext(ctx context.Con
 }
 
 // GroupSubject holds detailed information for group-kind subject.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type GroupSubjectOutput struct{ *pulumi.OutputState }
 
 func (GroupSubjectOutput) ElementType() reflect.Type {
@@ -2058,6 +2436,15 @@ func (o GroupSubjectPtrOutput) Name() pulumi.StringPtrOutput {
 }
 
 // GroupSubject holds detailed information for group-kind subject.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type GroupSubjectPatch struct {
 	// name is the user group that matches, or "*" to match all user groups. See https://github.com/kubernetes/apiserver/blob/master/pkg/authentication/user/user.go for some well-known group names. Required.
 	Name *string `pulumi:"name"`
@@ -2075,6 +2462,15 @@ type GroupSubjectPatchInput interface {
 }
 
 // GroupSubject holds detailed information for group-kind subject.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type GroupSubjectPatchArgs struct {
 	// name is the user group that matches, or "*" to match all user groups. See https://github.com/kubernetes/apiserver/blob/master/pkg/authentication/user/user.go for some well-known group names. Required.
 	Name pulumi.StringPtrInput `pulumi:"name"`
@@ -2134,6 +2530,15 @@ func (i *groupSubjectPatchPtrType) ToGroupSubjectPatchPtrOutputWithContext(ctx c
 }
 
 // GroupSubject holds detailed information for group-kind subject.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type GroupSubjectPatchOutput struct{ *pulumi.OutputState }
 
 func (GroupSubjectPatchOutput) ElementType() reflect.Type {
@@ -2198,6 +2603,15 @@ func (o GroupSubjectPatchPtrOutput) Name() pulumi.StringPtrOutput {
 }
 
 // LimitResponse defines how to handle requests that can not be executed right now.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type LimitResponse struct {
 	// `queuing` holds the configuration parameters for queuing. This field may be non-empty only if `type` is `"Queue"`.
 	Queuing *QueuingConfiguration `pulumi:"queuing"`
@@ -2217,6 +2631,15 @@ type LimitResponseInput interface {
 }
 
 // LimitResponse defines how to handle requests that can not be executed right now.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type LimitResponseArgs struct {
 	// `queuing` holds the configuration parameters for queuing. This field may be non-empty only if `type` is `"Queue"`.
 	Queuing QueuingConfigurationPtrInput `pulumi:"queuing"`
@@ -2278,6 +2701,15 @@ func (i *limitResponsePtrType) ToLimitResponsePtrOutputWithContext(ctx context.C
 }
 
 // LimitResponse defines how to handle requests that can not be executed right now.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type LimitResponseOutput struct{ *pulumi.OutputState }
 
 func (LimitResponseOutput) ElementType() reflect.Type {
@@ -2357,6 +2789,15 @@ func (o LimitResponsePtrOutput) Type() pulumi.StringPtrOutput {
 }
 
 // LimitResponse defines how to handle requests that can not be executed right now.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type LimitResponsePatch struct {
 	// `queuing` holds the configuration parameters for queuing. This field may be non-empty only if `type` is `"Queue"`.
 	Queuing *QueuingConfigurationPatch `pulumi:"queuing"`
@@ -2376,6 +2817,15 @@ type LimitResponsePatchInput interface {
 }
 
 // LimitResponse defines how to handle requests that can not be executed right now.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type LimitResponsePatchArgs struct {
 	// `queuing` holds the configuration parameters for queuing. This field may be non-empty only if `type` is `"Queue"`.
 	Queuing QueuingConfigurationPatchPtrInput `pulumi:"queuing"`
@@ -2437,6 +2887,15 @@ func (i *limitResponsePatchPtrType) ToLimitResponsePatchPtrOutputWithContext(ctx
 }
 
 // LimitResponse defines how to handle requests that can not be executed right now.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type LimitResponsePatchOutput struct{ *pulumi.OutputState }
 
 func (LimitResponsePatchOutput) ElementType() reflect.Type {
@@ -2518,6 +2977,15 @@ func (o LimitResponsePatchPtrOutput) Type() pulumi.StringPtrOutput {
 // LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to limits. It addresses two issues:
 //   - How are requests for this priority level limited?
 //   - What should be done with requests that exceed the limit?
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type LimitedPriorityLevelConfiguration struct {
 	// `borrowingLimitPercent`, if present, configures a limit on how many seats this priority level can borrow from other priority levels. The limit is known as this level's BorrowingConcurrencyLimit (BorrowingCL) and is a limit on the total number of seats that this level may borrow at any one time. This field holds the ratio of that limit to the level's nominal concurrency limit. When this field is non-nil, it must hold a non-negative integer and the limit is calculated as follows.
 	//
@@ -2557,6 +3025,15 @@ type LimitedPriorityLevelConfigurationInput interface {
 // LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to limits. It addresses two issues:
 //   - How are requests for this priority level limited?
 //   - What should be done with requests that exceed the limit?
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type LimitedPriorityLevelConfigurationArgs struct {
 	// `borrowingLimitPercent`, if present, configures a limit on how many seats this priority level can borrow from other priority levels. The limit is known as this level's BorrowingConcurrencyLimit (BorrowingCL) and is a limit on the total number of seats that this level may borrow at any one time. This field holds the ratio of that limit to the level's nominal concurrency limit. When this field is non-nil, it must hold a non-negative integer and the limit is calculated as follows.
 	//
@@ -2638,6 +3115,15 @@ func (i *limitedPriorityLevelConfigurationPtrType) ToLimitedPriorityLevelConfigu
 // LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to limits. It addresses two issues:
 //   - How are requests for this priority level limited?
 //   - What should be done with requests that exceed the limit?
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type LimitedPriorityLevelConfigurationOutput struct{ *pulumi.OutputState }
 
 func (LimitedPriorityLevelConfigurationOutput) ElementType() reflect.Type {
@@ -2777,6 +3263,15 @@ func (o LimitedPriorityLevelConfigurationPtrOutput) NominalConcurrencyShares() p
 // LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to limits. It addresses two issues:
 //   - How are requests for this priority level limited?
 //   - What should be done with requests that exceed the limit?
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type LimitedPriorityLevelConfigurationPatch struct {
 	// `borrowingLimitPercent`, if present, configures a limit on how many seats this priority level can borrow from other priority levels. The limit is known as this level's BorrowingConcurrencyLimit (BorrowingCL) and is a limit on the total number of seats that this level may borrow at any one time. This field holds the ratio of that limit to the level's nominal concurrency limit. When this field is non-nil, it must hold a non-negative integer and the limit is calculated as follows.
 	//
@@ -2816,6 +3311,15 @@ type LimitedPriorityLevelConfigurationPatchInput interface {
 // LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to limits. It addresses two issues:
 //   - How are requests for this priority level limited?
 //   - What should be done with requests that exceed the limit?
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type LimitedPriorityLevelConfigurationPatchArgs struct {
 	// `borrowingLimitPercent`, if present, configures a limit on how many seats this priority level can borrow from other priority levels. The limit is known as this level's BorrowingConcurrencyLimit (BorrowingCL) and is a limit on the total number of seats that this level may borrow at any one time. This field holds the ratio of that limit to the level's nominal concurrency limit. When this field is non-nil, it must hold a non-negative integer and the limit is calculated as follows.
 	//
@@ -2897,6 +3401,15 @@ func (i *limitedPriorityLevelConfigurationPatchPtrType) ToLimitedPriorityLevelCo
 // LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to limits. It addresses two issues:
 //   - How are requests for this priority level limited?
 //   - What should be done with requests that exceed the limit?
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type LimitedPriorityLevelConfigurationPatchOutput struct{ *pulumi.OutputState }
 
 func (LimitedPriorityLevelConfigurationPatchOutput) ElementType() reflect.Type {
@@ -3034,6 +3547,15 @@ func (o LimitedPriorityLevelConfigurationPatchPtrOutput) NominalConcurrencyShare
 }
 
 // NonResourcePolicyRule is a predicate that matches non-resource requests according to their verb and the target non-resource URL. A NonResourcePolicyRule matches a request if and only if both (a) at least one member of verbs matches the request and (b) at least one member of nonResourceURLs matches the request.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type NonResourcePolicyRule struct {
 	// `nonResourceURLs` is a set of url prefixes that a user should have access to and may not be empty. For example:
 	//   - "/healthz" is legal
@@ -3059,6 +3581,15 @@ type NonResourcePolicyRuleInput interface {
 }
 
 // NonResourcePolicyRule is a predicate that matches non-resource requests according to their verb and the target non-resource URL. A NonResourcePolicyRule matches a request if and only if both (a) at least one member of verbs matches the request and (b) at least one member of nonResourceURLs matches the request.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type NonResourcePolicyRuleArgs struct {
 	// `nonResourceURLs` is a set of url prefixes that a user should have access to and may not be empty. For example:
 	//   - "/healthz" is legal
@@ -3110,6 +3641,15 @@ func (i NonResourcePolicyRuleArray) ToNonResourcePolicyRuleArrayOutputWithContex
 }
 
 // NonResourcePolicyRule is a predicate that matches non-resource requests according to their verb and the target non-resource URL. A NonResourcePolicyRule matches a request if and only if both (a) at least one member of verbs matches the request and (b) at least one member of nonResourceURLs matches the request.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type NonResourcePolicyRuleOutput struct{ *pulumi.OutputState }
 
 func (NonResourcePolicyRuleOutput) ElementType() reflect.Type {
@@ -3161,6 +3701,15 @@ func (o NonResourcePolicyRuleArrayOutput) Index(i pulumi.IntInput) NonResourcePo
 }
 
 // NonResourcePolicyRule is a predicate that matches non-resource requests according to their verb and the target non-resource URL. A NonResourcePolicyRule matches a request if and only if both (a) at least one member of verbs matches the request and (b) at least one member of nonResourceURLs matches the request.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type NonResourcePolicyRulePatch struct {
 	// `nonResourceURLs` is a set of url prefixes that a user should have access to and may not be empty. For example:
 	//   - "/healthz" is legal
@@ -3186,6 +3735,15 @@ type NonResourcePolicyRulePatchInput interface {
 }
 
 // NonResourcePolicyRule is a predicate that matches non-resource requests according to their verb and the target non-resource URL. A NonResourcePolicyRule matches a request if and only if both (a) at least one member of verbs matches the request and (b) at least one member of nonResourceURLs matches the request.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type NonResourcePolicyRulePatchArgs struct {
 	// `nonResourceURLs` is a set of url prefixes that a user should have access to and may not be empty. For example:
 	//   - "/healthz" is legal
@@ -3237,6 +3795,15 @@ func (i NonResourcePolicyRulePatchArray) ToNonResourcePolicyRulePatchArrayOutput
 }
 
 // NonResourcePolicyRule is a predicate that matches non-resource requests according to their verb and the target non-resource URL. A NonResourcePolicyRule matches a request if and only if both (a) at least one member of verbs matches the request and (b) at least one member of nonResourceURLs matches the request.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type NonResourcePolicyRulePatchOutput struct{ *pulumi.OutputState }
 
 func (NonResourcePolicyRulePatchOutput) ElementType() reflect.Type {
@@ -3288,6 +3855,15 @@ func (o NonResourcePolicyRulePatchArrayOutput) Index(i pulumi.IntInput) NonResou
 }
 
 // PolicyRulesWithSubjects prescribes a test that applies to a request to an apiserver. The test considers the subject making the request, the verb being requested, and the resource to be acted upon. This PolicyRulesWithSubjects matches a request if and only if both (a) at least one member of subjects matches the request and (b) at least one member of resourceRules or nonResourceRules matches the request.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PolicyRulesWithSubjects struct {
 	// `nonResourceRules` is a list of NonResourcePolicyRules that identify matching requests according to their verb and the target non-resource URL.
 	NonResourceRules []NonResourcePolicyRule `pulumi:"nonResourceRules"`
@@ -3309,6 +3885,15 @@ type PolicyRulesWithSubjectsInput interface {
 }
 
 // PolicyRulesWithSubjects prescribes a test that applies to a request to an apiserver. The test considers the subject making the request, the verb being requested, and the resource to be acted upon. This PolicyRulesWithSubjects matches a request if and only if both (a) at least one member of subjects matches the request and (b) at least one member of resourceRules or nonResourceRules matches the request.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PolicyRulesWithSubjectsArgs struct {
 	// `nonResourceRules` is a list of NonResourcePolicyRules that identify matching requests according to their verb and the target non-resource URL.
 	NonResourceRules NonResourcePolicyRuleArrayInput `pulumi:"nonResourceRules"`
@@ -3356,6 +3941,15 @@ func (i PolicyRulesWithSubjectsArray) ToPolicyRulesWithSubjectsArrayOutputWithCo
 }
 
 // PolicyRulesWithSubjects prescribes a test that applies to a request to an apiserver. The test considers the subject making the request, the verb being requested, and the resource to be acted upon. This PolicyRulesWithSubjects matches a request if and only if both (a) at least one member of subjects matches the request and (b) at least one member of resourceRules or nonResourceRules matches the request.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PolicyRulesWithSubjectsOutput struct{ *pulumi.OutputState }
 
 func (PolicyRulesWithSubjectsOutput) ElementType() reflect.Type {
@@ -3406,6 +4000,15 @@ func (o PolicyRulesWithSubjectsArrayOutput) Index(i pulumi.IntInput) PolicyRules
 }
 
 // PolicyRulesWithSubjects prescribes a test that applies to a request to an apiserver. The test considers the subject making the request, the verb being requested, and the resource to be acted upon. This PolicyRulesWithSubjects matches a request if and only if both (a) at least one member of subjects matches the request and (b) at least one member of resourceRules or nonResourceRules matches the request.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PolicyRulesWithSubjectsPatch struct {
 	// `nonResourceRules` is a list of NonResourcePolicyRules that identify matching requests according to their verb and the target non-resource URL.
 	NonResourceRules []NonResourcePolicyRulePatch `pulumi:"nonResourceRules"`
@@ -3427,6 +4030,15 @@ type PolicyRulesWithSubjectsPatchInput interface {
 }
 
 // PolicyRulesWithSubjects prescribes a test that applies to a request to an apiserver. The test considers the subject making the request, the verb being requested, and the resource to be acted upon. This PolicyRulesWithSubjects matches a request if and only if both (a) at least one member of subjects matches the request and (b) at least one member of resourceRules or nonResourceRules matches the request.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PolicyRulesWithSubjectsPatchArgs struct {
 	// `nonResourceRules` is a list of NonResourcePolicyRules that identify matching requests according to their verb and the target non-resource URL.
 	NonResourceRules NonResourcePolicyRulePatchArrayInput `pulumi:"nonResourceRules"`
@@ -3474,6 +4086,15 @@ func (i PolicyRulesWithSubjectsPatchArray) ToPolicyRulesWithSubjectsPatchArrayOu
 }
 
 // PolicyRulesWithSubjects prescribes a test that applies to a request to an apiserver. The test considers the subject making the request, the verb being requested, and the resource to be acted upon. This PolicyRulesWithSubjects matches a request if and only if both (a) at least one member of subjects matches the request and (b) at least one member of resourceRules or nonResourceRules matches the request.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PolicyRulesWithSubjectsPatchOutput struct{ *pulumi.OutputState }
 
 func (PolicyRulesWithSubjectsPatchOutput) ElementType() reflect.Type {
@@ -3524,6 +4145,15 @@ func (o PolicyRulesWithSubjectsPatchArrayOutput) Index(i pulumi.IntInput) Policy
 }
 
 // PriorityLevelConfiguration represents the configuration of a priority level.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PriorityLevelConfigurationType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -3549,6 +4179,15 @@ type PriorityLevelConfigurationTypeInput interface {
 }
 
 // PriorityLevelConfiguration represents the configuration of a priority level.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PriorityLevelConfigurationTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -3600,6 +4239,15 @@ func (i PriorityLevelConfigurationTypeArray) ToPriorityLevelConfigurationTypeArr
 }
 
 // PriorityLevelConfiguration represents the configuration of a priority level.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PriorityLevelConfigurationTypeOutput struct{ *pulumi.OutputState }
 
 func (PriorityLevelConfigurationTypeOutput) ElementType() reflect.Type {
@@ -3660,6 +4308,15 @@ func (o PriorityLevelConfigurationTypeArrayOutput) Index(i pulumi.IntInput) Prio
 }
 
 // PriorityLevelConfigurationCondition defines the condition of priority level.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PriorityLevelConfigurationCondition struct {
 	// `lastTransitionTime` is the last time the condition transitioned from one status to another.
 	LastTransitionTime *string `pulumi:"lastTransitionTime"`
@@ -3685,6 +4342,15 @@ type PriorityLevelConfigurationConditionInput interface {
 }
 
 // PriorityLevelConfigurationCondition defines the condition of priority level.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PriorityLevelConfigurationConditionArgs struct {
 	// `lastTransitionTime` is the last time the condition transitioned from one status to another.
 	LastTransitionTime pulumi.StringPtrInput `pulumi:"lastTransitionTime"`
@@ -3736,6 +4402,15 @@ func (i PriorityLevelConfigurationConditionArray) ToPriorityLevelConfigurationCo
 }
 
 // PriorityLevelConfigurationCondition defines the condition of priority level.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PriorityLevelConfigurationConditionOutput struct{ *pulumi.OutputState }
 
 func (PriorityLevelConfigurationConditionOutput) ElementType() reflect.Type {
@@ -3796,6 +4471,15 @@ func (o PriorityLevelConfigurationConditionArrayOutput) Index(i pulumi.IntInput)
 }
 
 // PriorityLevelConfigurationCondition defines the condition of priority level.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PriorityLevelConfigurationConditionPatch struct {
 	// `lastTransitionTime` is the last time the condition transitioned from one status to another.
 	LastTransitionTime *string `pulumi:"lastTransitionTime"`
@@ -3821,6 +4505,15 @@ type PriorityLevelConfigurationConditionPatchInput interface {
 }
 
 // PriorityLevelConfigurationCondition defines the condition of priority level.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PriorityLevelConfigurationConditionPatchArgs struct {
 	// `lastTransitionTime` is the last time the condition transitioned from one status to another.
 	LastTransitionTime pulumi.StringPtrInput `pulumi:"lastTransitionTime"`
@@ -3872,6 +4565,15 @@ func (i PriorityLevelConfigurationConditionPatchArray) ToPriorityLevelConfigurat
 }
 
 // PriorityLevelConfigurationCondition defines the condition of priority level.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PriorityLevelConfigurationConditionPatchOutput struct{ *pulumi.OutputState }
 
 func (PriorityLevelConfigurationConditionPatchOutput) ElementType() reflect.Type {
@@ -3932,6 +4634,15 @@ func (o PriorityLevelConfigurationConditionPatchArrayOutput) Index(i pulumi.IntI
 }
 
 // PriorityLevelConfigurationList is a list of PriorityLevelConfiguration objects.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PriorityLevelConfigurationListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -3955,6 +4666,15 @@ type PriorityLevelConfigurationListTypeInput interface {
 }
 
 // PriorityLevelConfigurationList is a list of PriorityLevelConfiguration objects.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PriorityLevelConfigurationListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -3979,6 +4699,15 @@ func (i PriorityLevelConfigurationListTypeArgs) ToPriorityLevelConfigurationList
 }
 
 // PriorityLevelConfigurationList is a list of PriorityLevelConfiguration objects.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PriorityLevelConfigurationListTypeOutput struct{ *pulumi.OutputState }
 
 func (PriorityLevelConfigurationListTypeOutput) ElementType() reflect.Type {
@@ -4014,6 +4743,15 @@ func (o PriorityLevelConfigurationListTypeOutput) Metadata() metav1.ListMetaPtrO
 }
 
 // PriorityLevelConfiguration represents the configuration of a priority level.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PriorityLevelConfigurationPatchType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -4039,6 +4777,15 @@ type PriorityLevelConfigurationPatchTypeInput interface {
 }
 
 // PriorityLevelConfiguration represents the configuration of a priority level.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PriorityLevelConfigurationPatchTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -4065,6 +4812,15 @@ func (i PriorityLevelConfigurationPatchTypeArgs) ToPriorityLevelConfigurationPat
 }
 
 // PriorityLevelConfiguration represents the configuration of a priority level.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PriorityLevelConfigurationPatchTypeOutput struct{ *pulumi.OutputState }
 
 func (PriorityLevelConfigurationPatchTypeOutput) ElementType() reflect.Type {
@@ -4105,6 +4861,15 @@ func (o PriorityLevelConfigurationPatchTypeOutput) Status() PriorityLevelConfigu
 }
 
 // PriorityLevelConfigurationReference contains information that points to the "request-priority" being used.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PriorityLevelConfigurationReference struct {
 	// `name` is the name of the priority level configuration being referenced Required.
 	Name string `pulumi:"name"`
@@ -4122,6 +4887,15 @@ type PriorityLevelConfigurationReferenceInput interface {
 }
 
 // PriorityLevelConfigurationReference contains information that points to the "request-priority" being used.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PriorityLevelConfigurationReferenceArgs struct {
 	// `name` is the name of the priority level configuration being referenced Required.
 	Name pulumi.StringInput `pulumi:"name"`
@@ -4181,6 +4955,15 @@ func (i *priorityLevelConfigurationReferencePtrType) ToPriorityLevelConfiguratio
 }
 
 // PriorityLevelConfigurationReference contains information that points to the "request-priority" being used.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PriorityLevelConfigurationReferenceOutput struct{ *pulumi.OutputState }
 
 func (PriorityLevelConfigurationReferenceOutput) ElementType() reflect.Type {
@@ -4245,6 +5028,15 @@ func (o PriorityLevelConfigurationReferencePtrOutput) Name() pulumi.StringPtrOut
 }
 
 // PriorityLevelConfigurationReference contains information that points to the "request-priority" being used.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PriorityLevelConfigurationReferencePatch struct {
 	// `name` is the name of the priority level configuration being referenced Required.
 	Name *string `pulumi:"name"`
@@ -4262,6 +5054,15 @@ type PriorityLevelConfigurationReferencePatchInput interface {
 }
 
 // PriorityLevelConfigurationReference contains information that points to the "request-priority" being used.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PriorityLevelConfigurationReferencePatchArgs struct {
 	// `name` is the name of the priority level configuration being referenced Required.
 	Name pulumi.StringPtrInput `pulumi:"name"`
@@ -4321,6 +5122,15 @@ func (i *priorityLevelConfigurationReferencePatchPtrType) ToPriorityLevelConfigu
 }
 
 // PriorityLevelConfigurationReference contains information that points to the "request-priority" being used.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PriorityLevelConfigurationReferencePatchOutput struct{ *pulumi.OutputState }
 
 func (PriorityLevelConfigurationReferencePatchOutput) ElementType() reflect.Type {
@@ -4385,6 +5195,15 @@ func (o PriorityLevelConfigurationReferencePatchPtrOutput) Name() pulumi.StringP
 }
 
 // PriorityLevelConfigurationSpec specifies the configuration of a priority level.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PriorityLevelConfigurationSpec struct {
 	// `exempt` specifies how requests are handled for an exempt priority level. This field MUST be empty if `type` is `"Limited"`. This field MAY be non-empty if `type` is `"Exempt"`. If empty and `type` is `"Exempt"` then the default values for `ExemptPriorityLevelConfiguration` apply.
 	Exempt *ExemptPriorityLevelConfiguration `pulumi:"exempt"`
@@ -4406,6 +5225,15 @@ type PriorityLevelConfigurationSpecInput interface {
 }
 
 // PriorityLevelConfigurationSpec specifies the configuration of a priority level.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PriorityLevelConfigurationSpecArgs struct {
 	// `exempt` specifies how requests are handled for an exempt priority level. This field MUST be empty if `type` is `"Limited"`. This field MAY be non-empty if `type` is `"Exempt"`. If empty and `type` is `"Exempt"` then the default values for `ExemptPriorityLevelConfiguration` apply.
 	Exempt ExemptPriorityLevelConfigurationPtrInput `pulumi:"exempt"`
@@ -4469,6 +5297,15 @@ func (i *priorityLevelConfigurationSpecPtrType) ToPriorityLevelConfigurationSpec
 }
 
 // PriorityLevelConfigurationSpec specifies the configuration of a priority level.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PriorityLevelConfigurationSpecOutput struct{ *pulumi.OutputState }
 
 func (PriorityLevelConfigurationSpecOutput) ElementType() reflect.Type {
@@ -4563,6 +5400,15 @@ func (o PriorityLevelConfigurationSpecPtrOutput) Type() pulumi.StringPtrOutput {
 }
 
 // PriorityLevelConfigurationSpec specifies the configuration of a priority level.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PriorityLevelConfigurationSpecPatch struct {
 	// `exempt` specifies how requests are handled for an exempt priority level. This field MUST be empty if `type` is `"Limited"`. This field MAY be non-empty if `type` is `"Exempt"`. If empty and `type` is `"Exempt"` then the default values for `ExemptPriorityLevelConfiguration` apply.
 	Exempt *ExemptPriorityLevelConfigurationPatch `pulumi:"exempt"`
@@ -4584,6 +5430,15 @@ type PriorityLevelConfigurationSpecPatchInput interface {
 }
 
 // PriorityLevelConfigurationSpec specifies the configuration of a priority level.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PriorityLevelConfigurationSpecPatchArgs struct {
 	// `exempt` specifies how requests are handled for an exempt priority level. This field MUST be empty if `type` is `"Limited"`. This field MAY be non-empty if `type` is `"Exempt"`. If empty and `type` is `"Exempt"` then the default values for `ExemptPriorityLevelConfiguration` apply.
 	Exempt ExemptPriorityLevelConfigurationPatchPtrInput `pulumi:"exempt"`
@@ -4647,6 +5502,15 @@ func (i *priorityLevelConfigurationSpecPatchPtrType) ToPriorityLevelConfiguratio
 }
 
 // PriorityLevelConfigurationSpec specifies the configuration of a priority level.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PriorityLevelConfigurationSpecPatchOutput struct{ *pulumi.OutputState }
 
 func (PriorityLevelConfigurationSpecPatchOutput) ElementType() reflect.Type {
@@ -4741,6 +5605,15 @@ func (o PriorityLevelConfigurationSpecPatchPtrOutput) Type() pulumi.StringPtrOut
 }
 
 // PriorityLevelConfigurationStatus represents the current state of a "request-priority".
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PriorityLevelConfigurationStatus struct {
 	// `conditions` is the current state of "request-priority".
 	Conditions []PriorityLevelConfigurationCondition `pulumi:"conditions"`
@@ -4758,6 +5631,15 @@ type PriorityLevelConfigurationStatusInput interface {
 }
 
 // PriorityLevelConfigurationStatus represents the current state of a "request-priority".
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PriorityLevelConfigurationStatusArgs struct {
 	// `conditions` is the current state of "request-priority".
 	Conditions PriorityLevelConfigurationConditionArrayInput `pulumi:"conditions"`
@@ -4817,6 +5699,15 @@ func (i *priorityLevelConfigurationStatusPtrType) ToPriorityLevelConfigurationSt
 }
 
 // PriorityLevelConfigurationStatus represents the current state of a "request-priority".
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PriorityLevelConfigurationStatusOutput struct{ *pulumi.OutputState }
 
 func (PriorityLevelConfigurationStatusOutput) ElementType() reflect.Type {
@@ -4881,6 +5772,15 @@ func (o PriorityLevelConfigurationStatusPtrOutput) Conditions() PriorityLevelCon
 }
 
 // PriorityLevelConfigurationStatus represents the current state of a "request-priority".
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PriorityLevelConfigurationStatusPatch struct {
 	// `conditions` is the current state of "request-priority".
 	Conditions []PriorityLevelConfigurationConditionPatch `pulumi:"conditions"`
@@ -4898,6 +5798,15 @@ type PriorityLevelConfigurationStatusPatchInput interface {
 }
 
 // PriorityLevelConfigurationStatus represents the current state of a "request-priority".
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PriorityLevelConfigurationStatusPatchArgs struct {
 	// `conditions` is the current state of "request-priority".
 	Conditions PriorityLevelConfigurationConditionPatchArrayInput `pulumi:"conditions"`
@@ -4957,6 +5866,15 @@ func (i *priorityLevelConfigurationStatusPatchPtrType) ToPriorityLevelConfigurat
 }
 
 // PriorityLevelConfigurationStatus represents the current state of a "request-priority".
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PriorityLevelConfigurationStatusPatchOutput struct{ *pulumi.OutputState }
 
 func (PriorityLevelConfigurationStatusPatchOutput) ElementType() reflect.Type {
@@ -5023,6 +5941,15 @@ func (o PriorityLevelConfigurationStatusPatchPtrOutput) Conditions() PriorityLev
 }
 
 // QueuingConfiguration holds the configuration parameters for queuing
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type QueuingConfiguration struct {
 	// `handSize` is a small positive number that configures the shuffle sharding of requests into queues.  When enqueuing a request at this priority level the request's flow identifier (a string pair) is hashed and the hash value is used to shuffle the list of queues and deal a hand of the size specified here.  The request is put into one of the shortest queues in that hand. `handSize` must be no larger than `queues`, and should be significantly smaller (so that a few heavy flows do not saturate most of the queues).  See the user-facing documentation for more extensive guidance on setting this field.  This field has a default value of 8.
 	HandSize *int `pulumi:"handSize"`
@@ -5044,6 +5971,15 @@ type QueuingConfigurationInput interface {
 }
 
 // QueuingConfiguration holds the configuration parameters for queuing
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type QueuingConfigurationArgs struct {
 	// `handSize` is a small positive number that configures the shuffle sharding of requests into queues.  When enqueuing a request at this priority level the request's flow identifier (a string pair) is hashed and the hash value is used to shuffle the list of queues and deal a hand of the size specified here.  The request is put into one of the shortest queues in that hand. `handSize` must be no larger than `queues`, and should be significantly smaller (so that a few heavy flows do not saturate most of the queues).  See the user-facing documentation for more extensive guidance on setting this field.  This field has a default value of 8.
 	HandSize pulumi.IntPtrInput `pulumi:"handSize"`
@@ -5107,6 +6043,15 @@ func (i *queuingConfigurationPtrType) ToQueuingConfigurationPtrOutputWithContext
 }
 
 // QueuingConfiguration holds the configuration parameters for queuing
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type QueuingConfigurationOutput struct{ *pulumi.OutputState }
 
 func (QueuingConfigurationOutput) ElementType() reflect.Type {
@@ -5201,6 +6146,15 @@ func (o QueuingConfigurationPtrOutput) Queues() pulumi.IntPtrOutput {
 }
 
 // QueuingConfiguration holds the configuration parameters for queuing
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type QueuingConfigurationPatch struct {
 	// `handSize` is a small positive number that configures the shuffle sharding of requests into queues.  When enqueuing a request at this priority level the request's flow identifier (a string pair) is hashed and the hash value is used to shuffle the list of queues and deal a hand of the size specified here.  The request is put into one of the shortest queues in that hand. `handSize` must be no larger than `queues`, and should be significantly smaller (so that a few heavy flows do not saturate most of the queues).  See the user-facing documentation for more extensive guidance on setting this field.  This field has a default value of 8.
 	HandSize *int `pulumi:"handSize"`
@@ -5222,6 +6176,15 @@ type QueuingConfigurationPatchInput interface {
 }
 
 // QueuingConfiguration holds the configuration parameters for queuing
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type QueuingConfigurationPatchArgs struct {
 	// `handSize` is a small positive number that configures the shuffle sharding of requests into queues.  When enqueuing a request at this priority level the request's flow identifier (a string pair) is hashed and the hash value is used to shuffle the list of queues and deal a hand of the size specified here.  The request is put into one of the shortest queues in that hand. `handSize` must be no larger than `queues`, and should be significantly smaller (so that a few heavy flows do not saturate most of the queues).  See the user-facing documentation for more extensive guidance on setting this field.  This field has a default value of 8.
 	HandSize pulumi.IntPtrInput `pulumi:"handSize"`
@@ -5285,6 +6248,15 @@ func (i *queuingConfigurationPatchPtrType) ToQueuingConfigurationPatchPtrOutputW
 }
 
 // QueuingConfiguration holds the configuration parameters for queuing
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type QueuingConfigurationPatchOutput struct{ *pulumi.OutputState }
 
 func (QueuingConfigurationPatchOutput) ElementType() reflect.Type {
@@ -5379,6 +6351,15 @@ func (o QueuingConfigurationPatchPtrOutput) Queues() pulumi.IntPtrOutput {
 }
 
 // ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) either (d1) the request does not specify a namespace (i.e., `Namespace==""`) and clusterScope is true or (d2) the request specifies a namespace and least one member of namespaces matches the request's namespace.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ResourcePolicyRule struct {
 	// `apiGroups` is a list of matching API groups and may not be empty. "*" matches all API groups and, if present, must be the only entry. Required.
 	ApiGroups []string `pulumi:"apiGroups"`
@@ -5404,6 +6385,15 @@ type ResourcePolicyRuleInput interface {
 }
 
 // ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) either (d1) the request does not specify a namespace (i.e., `Namespace==""`) and clusterScope is true or (d2) the request specifies a namespace and least one member of namespaces matches the request's namespace.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ResourcePolicyRuleArgs struct {
 	// `apiGroups` is a list of matching API groups and may not be empty. "*" matches all API groups and, if present, must be the only entry. Required.
 	ApiGroups pulumi.StringArrayInput `pulumi:"apiGroups"`
@@ -5455,6 +6445,15 @@ func (i ResourcePolicyRuleArray) ToResourcePolicyRuleArrayOutputWithContext(ctx 
 }
 
 // ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) either (d1) the request does not specify a namespace (i.e., `Namespace==""`) and clusterScope is true or (d2) the request specifies a namespace and least one member of namespaces matches the request's namespace.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ResourcePolicyRuleOutput struct{ *pulumi.OutputState }
 
 func (ResourcePolicyRuleOutput) ElementType() reflect.Type {
@@ -5515,6 +6514,15 @@ func (o ResourcePolicyRuleArrayOutput) Index(i pulumi.IntInput) ResourcePolicyRu
 }
 
 // ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) either (d1) the request does not specify a namespace (i.e., `Namespace==""`) and clusterScope is true or (d2) the request specifies a namespace and least one member of namespaces matches the request's namespace.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ResourcePolicyRulePatch struct {
 	// `apiGroups` is a list of matching API groups and may not be empty. "*" matches all API groups and, if present, must be the only entry. Required.
 	ApiGroups []string `pulumi:"apiGroups"`
@@ -5540,6 +6548,15 @@ type ResourcePolicyRulePatchInput interface {
 }
 
 // ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) either (d1) the request does not specify a namespace (i.e., `Namespace==""`) and clusterScope is true or (d2) the request specifies a namespace and least one member of namespaces matches the request's namespace.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ResourcePolicyRulePatchArgs struct {
 	// `apiGroups` is a list of matching API groups and may not be empty. "*" matches all API groups and, if present, must be the only entry. Required.
 	ApiGroups pulumi.StringArrayInput `pulumi:"apiGroups"`
@@ -5591,6 +6608,15 @@ func (i ResourcePolicyRulePatchArray) ToResourcePolicyRulePatchArrayOutputWithCo
 }
 
 // ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) either (d1) the request does not specify a namespace (i.e., `Namespace==""`) and clusterScope is true or (d2) the request specifies a namespace and least one member of namespaces matches the request's namespace.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ResourcePolicyRulePatchOutput struct{ *pulumi.OutputState }
 
 func (ResourcePolicyRulePatchOutput) ElementType() reflect.Type {
@@ -5651,6 +6677,15 @@ func (o ResourcePolicyRulePatchArrayOutput) Index(i pulumi.IntInput) ResourcePol
 }
 
 // ServiceAccountSubject holds detailed information for service-account-kind subject.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ServiceAccountSubject struct {
 	// `name` is the name of matching ServiceAccount objects, or "*" to match regardless of name. Required.
 	Name string `pulumi:"name"`
@@ -5670,6 +6705,15 @@ type ServiceAccountSubjectInput interface {
 }
 
 // ServiceAccountSubject holds detailed information for service-account-kind subject.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ServiceAccountSubjectArgs struct {
 	// `name` is the name of matching ServiceAccount objects, or "*" to match regardless of name. Required.
 	Name pulumi.StringInput `pulumi:"name"`
@@ -5731,6 +6775,15 @@ func (i *serviceAccountSubjectPtrType) ToServiceAccountSubjectPtrOutputWithConte
 }
 
 // ServiceAccountSubject holds detailed information for service-account-kind subject.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ServiceAccountSubjectOutput struct{ *pulumi.OutputState }
 
 func (ServiceAccountSubjectOutput) ElementType() reflect.Type {
@@ -5810,6 +6863,15 @@ func (o ServiceAccountSubjectPtrOutput) Namespace() pulumi.StringPtrOutput {
 }
 
 // ServiceAccountSubject holds detailed information for service-account-kind subject.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ServiceAccountSubjectPatch struct {
 	// `name` is the name of matching ServiceAccount objects, or "*" to match regardless of name. Required.
 	Name *string `pulumi:"name"`
@@ -5829,6 +6891,15 @@ type ServiceAccountSubjectPatchInput interface {
 }
 
 // ServiceAccountSubject holds detailed information for service-account-kind subject.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ServiceAccountSubjectPatchArgs struct {
 	// `name` is the name of matching ServiceAccount objects, or "*" to match regardless of name. Required.
 	Name pulumi.StringPtrInput `pulumi:"name"`
@@ -5890,6 +6961,15 @@ func (i *serviceAccountSubjectPatchPtrType) ToServiceAccountSubjectPatchPtrOutpu
 }
 
 // ServiceAccountSubject holds detailed information for service-account-kind subject.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ServiceAccountSubjectPatchOutput struct{ *pulumi.OutputState }
 
 func (ServiceAccountSubjectPatchOutput) ElementType() reflect.Type {
@@ -5969,6 +7049,15 @@ func (o ServiceAccountSubjectPatchPtrOutput) Namespace() pulumi.StringPtrOutput 
 }
 
 // Subject matches the originator of a request, as identified by the request authentication system. There are three ways of matching an originator; by user, group, or service account.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type Subject struct {
 	// `group` matches based on user group name.
 	Group *GroupSubject `pulumi:"group"`
@@ -5992,6 +7081,15 @@ type SubjectInput interface {
 }
 
 // Subject matches the originator of a request, as identified by the request authentication system. There are three ways of matching an originator; by user, group, or service account.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SubjectArgs struct {
 	// `group` matches based on user group name.
 	Group GroupSubjectPtrInput `pulumi:"group"`
@@ -6041,6 +7139,15 @@ func (i SubjectArray) ToSubjectArrayOutputWithContext(ctx context.Context) Subje
 }
 
 // Subject matches the originator of a request, as identified by the request authentication system. There are three ways of matching an originator; by user, group, or service account.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SubjectOutput struct{ *pulumi.OutputState }
 
 func (SubjectOutput) ElementType() reflect.Type {
@@ -6096,6 +7203,15 @@ func (o SubjectArrayOutput) Index(i pulumi.IntInput) SubjectOutput {
 }
 
 // Subject matches the originator of a request, as identified by the request authentication system. There are three ways of matching an originator; by user, group, or service account.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SubjectPatch struct {
 	// `group` matches based on user group name.
 	Group *GroupSubjectPatch `pulumi:"group"`
@@ -6119,6 +7235,15 @@ type SubjectPatchInput interface {
 }
 
 // Subject matches the originator of a request, as identified by the request authentication system. There are three ways of matching an originator; by user, group, or service account.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SubjectPatchArgs struct {
 	// `group` matches based on user group name.
 	Group GroupSubjectPatchPtrInput `pulumi:"group"`
@@ -6168,6 +7293,15 @@ func (i SubjectPatchArray) ToSubjectPatchArrayOutputWithContext(ctx context.Cont
 }
 
 // Subject matches the originator of a request, as identified by the request authentication system. There are three ways of matching an originator; by user, group, or service account.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SubjectPatchOutput struct{ *pulumi.OutputState }
 
 func (SubjectPatchOutput) ElementType() reflect.Type {
@@ -6223,6 +7357,15 @@ func (o SubjectPatchArrayOutput) Index(i pulumi.IntInput) SubjectPatchOutput {
 }
 
 // UserSubject holds detailed information for user-kind subject.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type UserSubject struct {
 	// `name` is the username that matches, or "*" to match all usernames. Required.
 	Name string `pulumi:"name"`
@@ -6240,6 +7383,15 @@ type UserSubjectInput interface {
 }
 
 // UserSubject holds detailed information for user-kind subject.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type UserSubjectArgs struct {
 	// `name` is the username that matches, or "*" to match all usernames. Required.
 	Name pulumi.StringInput `pulumi:"name"`
@@ -6299,6 +7451,15 @@ func (i *userSubjectPtrType) ToUserSubjectPtrOutputWithContext(ctx context.Conte
 }
 
 // UserSubject holds detailed information for user-kind subject.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type UserSubjectOutput struct{ *pulumi.OutputState }
 
 func (UserSubjectOutput) ElementType() reflect.Type {
@@ -6363,6 +7524,15 @@ func (o UserSubjectPtrOutput) Name() pulumi.StringPtrOutput {
 }
 
 // UserSubject holds detailed information for user-kind subject.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type UserSubjectPatch struct {
 	// `name` is the username that matches, or "*" to match all usernames. Required.
 	Name *string `pulumi:"name"`
@@ -6380,6 +7550,15 @@ type UserSubjectPatchInput interface {
 }
 
 // UserSubject holds detailed information for user-kind subject.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type UserSubjectPatchArgs struct {
 	// `name` is the username that matches, or "*" to match all usernames. Required.
 	Name pulumi.StringPtrInput `pulumi:"name"`
@@ -6439,6 +7618,15 @@ func (i *userSubjectPatchPtrType) ToUserSubjectPatchPtrOutputWithContext(ctx con
 }
 
 // UserSubject holds detailed information for user-kind subject.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type UserSubjectPatchOutput struct{ *pulumi.OutputState }
 
 func (UserSubjectPatchOutput) ElementType() reflect.Type {

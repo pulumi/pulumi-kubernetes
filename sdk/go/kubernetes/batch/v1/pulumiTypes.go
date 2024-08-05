@@ -16,6 +16,15 @@ import (
 var _ = utilities.GetEnvOrDefault
 
 // CronJob represents the configuration of a single cron job.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CronJobType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -41,6 +50,15 @@ type CronJobTypeInput interface {
 }
 
 // CronJob represents the configuration of a single cron job.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CronJobTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -92,6 +110,15 @@ func (i CronJobTypeArray) ToCronJobTypeArrayOutputWithContext(ctx context.Contex
 }
 
 // CronJob represents the configuration of a single cron job.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CronJobTypeOutput struct{ *pulumi.OutputState }
 
 func (CronJobTypeOutput) ElementType() reflect.Type {
@@ -152,6 +179,15 @@ func (o CronJobTypeArrayOutput) Index(i pulumi.IntInput) CronJobTypeOutput {
 }
 
 // CronJobList is a collection of cron jobs.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CronJobListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -175,6 +211,15 @@ type CronJobListTypeInput interface {
 }
 
 // CronJobList is a collection of cron jobs.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CronJobListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -199,6 +244,15 @@ func (i CronJobListTypeArgs) ToCronJobListTypeOutputWithContext(ctx context.Cont
 }
 
 // CronJobList is a collection of cron jobs.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CronJobListTypeOutput struct{ *pulumi.OutputState }
 
 func (CronJobListTypeOutput) ElementType() reflect.Type {
@@ -234,6 +288,15 @@ func (o CronJobListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 }
 
 // CronJob represents the configuration of a single cron job.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CronJobPatchType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -259,6 +322,15 @@ type CronJobPatchTypeInput interface {
 }
 
 // CronJob represents the configuration of a single cron job.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CronJobPatchTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -285,6 +357,15 @@ func (i CronJobPatchTypeArgs) ToCronJobPatchTypeOutputWithContext(ctx context.Co
 }
 
 // CronJob represents the configuration of a single cron job.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CronJobPatchTypeOutput struct{ *pulumi.OutputState }
 
 func (CronJobPatchTypeOutput) ElementType() reflect.Type {
@@ -325,6 +406,15 @@ func (o CronJobPatchTypeOutput) Status() CronJobStatusPatchPtrOutput {
 }
 
 // CronJobSpec describes how the job execution will look like and when it will actually run.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CronJobSpec struct {
 	// Specifies how to treat concurrent executions of a Job. Valid values are:
 	//
@@ -358,6 +448,15 @@ type CronJobSpecInput interface {
 }
 
 // CronJobSpec describes how the job execution will look like and when it will actually run.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CronJobSpecArgs struct {
 	// Specifies how to treat concurrent executions of a Job. Valid values are:
 	//
@@ -433,6 +532,15 @@ func (i *cronJobSpecPtrType) ToCronJobSpecPtrOutputWithContext(ctx context.Conte
 }
 
 // CronJobSpec describes how the job execution will look like and when it will actually run.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CronJobSpecOutput struct{ *pulumi.OutputState }
 
 func (CronJobSpecOutput) ElementType() reflect.Type {
@@ -606,6 +714,15 @@ func (o CronJobSpecPtrOutput) TimeZone() pulumi.StringPtrOutput {
 }
 
 // CronJobSpec describes how the job execution will look like and when it will actually run.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CronJobSpecPatch struct {
 	// Specifies how to treat concurrent executions of a Job. Valid values are:
 	//
@@ -639,6 +756,15 @@ type CronJobSpecPatchInput interface {
 }
 
 // CronJobSpec describes how the job execution will look like and when it will actually run.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CronJobSpecPatchArgs struct {
 	// Specifies how to treat concurrent executions of a Job. Valid values are:
 	//
@@ -714,6 +840,15 @@ func (i *cronJobSpecPatchPtrType) ToCronJobSpecPatchPtrOutputWithContext(ctx con
 }
 
 // CronJobSpec describes how the job execution will look like and when it will actually run.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CronJobSpecPatchOutput struct{ *pulumi.OutputState }
 
 func (CronJobSpecPatchOutput) ElementType() reflect.Type {
@@ -887,6 +1022,15 @@ func (o CronJobSpecPatchPtrOutput) TimeZone() pulumi.StringPtrOutput {
 }
 
 // CronJobStatus represents the current state of a cron job.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CronJobStatus struct {
 	// A list of pointers to currently running jobs.
 	Active []corev1.ObjectReference `pulumi:"active"`
@@ -908,6 +1052,15 @@ type CronJobStatusInput interface {
 }
 
 // CronJobStatus represents the current state of a cron job.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CronJobStatusArgs struct {
 	// A list of pointers to currently running jobs.
 	Active corev1.ObjectReferenceArrayInput `pulumi:"active"`
@@ -971,6 +1124,15 @@ func (i *cronJobStatusPtrType) ToCronJobStatusPtrOutputWithContext(ctx context.C
 }
 
 // CronJobStatus represents the current state of a cron job.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CronJobStatusOutput struct{ *pulumi.OutputState }
 
 func (CronJobStatusOutput) ElementType() reflect.Type {
@@ -1065,6 +1227,15 @@ func (o CronJobStatusPtrOutput) LastSuccessfulTime() pulumi.StringPtrOutput {
 }
 
 // CronJobStatus represents the current state of a cron job.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CronJobStatusPatch struct {
 	// A list of pointers to currently running jobs.
 	Active []corev1.ObjectReferencePatch `pulumi:"active"`
@@ -1086,6 +1257,15 @@ type CronJobStatusPatchInput interface {
 }
 
 // CronJobStatus represents the current state of a cron job.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CronJobStatusPatchArgs struct {
 	// A list of pointers to currently running jobs.
 	Active corev1.ObjectReferencePatchArrayInput `pulumi:"active"`
@@ -1149,6 +1329,15 @@ func (i *cronJobStatusPatchPtrType) ToCronJobStatusPatchPtrOutputWithContext(ctx
 }
 
 // CronJobStatus represents the current state of a cron job.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CronJobStatusPatchOutput struct{ *pulumi.OutputState }
 
 func (CronJobStatusPatchOutput) ElementType() reflect.Type {
@@ -1439,6 +1628,15 @@ func (o JobTypeArrayOutput) Index(i pulumi.IntInput) JobTypeOutput {
 }
 
 // JobCondition describes current state of a job.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type JobCondition struct {
 	// Last time the condition was checked.
 	LastProbeTime *string `pulumi:"lastProbeTime"`
@@ -1466,6 +1664,15 @@ type JobConditionInput interface {
 }
 
 // JobCondition describes current state of a job.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type JobConditionArgs struct {
 	// Last time the condition was checked.
 	LastProbeTime pulumi.StringPtrInput `pulumi:"lastProbeTime"`
@@ -1519,6 +1726,15 @@ func (i JobConditionArray) ToJobConditionArrayOutputWithContext(ctx context.Cont
 }
 
 // JobCondition describes current state of a job.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type JobConditionOutput struct{ *pulumi.OutputState }
 
 func (JobConditionOutput) ElementType() reflect.Type {
@@ -1584,6 +1800,15 @@ func (o JobConditionArrayOutput) Index(i pulumi.IntInput) JobConditionOutput {
 }
 
 // JobCondition describes current state of a job.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type JobConditionPatch struct {
 	// Last time the condition was checked.
 	LastProbeTime *string `pulumi:"lastProbeTime"`
@@ -1611,6 +1836,15 @@ type JobConditionPatchInput interface {
 }
 
 // JobCondition describes current state of a job.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type JobConditionPatchArgs struct {
 	// Last time the condition was checked.
 	LastProbeTime pulumi.StringPtrInput `pulumi:"lastProbeTime"`
@@ -1664,6 +1898,15 @@ func (i JobConditionPatchArray) ToJobConditionPatchArrayOutputWithContext(ctx co
 }
 
 // JobCondition describes current state of a job.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type JobConditionPatchOutput struct{ *pulumi.OutputState }
 
 func (JobConditionPatchOutput) ElementType() reflect.Type {
@@ -1729,6 +1972,15 @@ func (o JobConditionPatchArrayOutput) Index(i pulumi.IntInput) JobConditionPatch
 }
 
 // JobList is a collection of jobs.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type JobListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -1752,6 +2004,15 @@ type JobListTypeInput interface {
 }
 
 // JobList is a collection of jobs.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type JobListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -1776,6 +2037,15 @@ func (i JobListTypeArgs) ToJobListTypeOutputWithContext(ctx context.Context) Job
 }
 
 // JobList is a collection of jobs.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type JobListTypeOutput struct{ *pulumi.OutputState }
 
 func (JobListTypeOutput) ElementType() reflect.Type {
@@ -1962,6 +2232,15 @@ func (o JobPatchTypeOutput) Status() JobStatusPatchPtrOutput {
 }
 
 // JobSpec describes how the job execution will look like.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type JobSpec struct {
 	// Specifies the duration in seconds relative to the startTime that the job may be continuously active before the system tries to terminate it; value must be positive integer. If a Job is suspended (at creation or through an update), this timer will effectively be stopped and reset when the Job is resumed again.
 	ActiveDeadlineSeconds *int `pulumi:"activeDeadlineSeconds"`
@@ -2026,6 +2305,15 @@ type JobSpecInput interface {
 }
 
 // JobSpec describes how the job execution will look like.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type JobSpecArgs struct {
 	// Specifies the duration in seconds relative to the startTime that the job may be continuously active before the system tries to terminate it; value must be positive integer. If a Job is suspended (at creation or through an update), this timer will effectively be stopped and reset when the Job is resumed again.
 	ActiveDeadlineSeconds pulumi.IntPtrInput `pulumi:"activeDeadlineSeconds"`
@@ -2132,6 +2420,15 @@ func (i *jobSpecPtrType) ToJobSpecPtrOutputWithContext(ctx context.Context) JobS
 }
 
 // JobSpec describes how the job execution will look like.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type JobSpecOutput struct{ *pulumi.OutputState }
 
 func (JobSpecOutput) ElementType() reflect.Type {
@@ -2457,6 +2754,15 @@ func (o JobSpecPtrOutput) TtlSecondsAfterFinished() pulumi.IntPtrOutput {
 }
 
 // JobSpec describes how the job execution will look like.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type JobSpecPatch struct {
 	// Specifies the duration in seconds relative to the startTime that the job may be continuously active before the system tries to terminate it; value must be positive integer. If a Job is suspended (at creation or through an update), this timer will effectively be stopped and reset when the Job is resumed again.
 	ActiveDeadlineSeconds *int `pulumi:"activeDeadlineSeconds"`
@@ -2521,6 +2827,15 @@ type JobSpecPatchInput interface {
 }
 
 // JobSpec describes how the job execution will look like.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type JobSpecPatchArgs struct {
 	// Specifies the duration in seconds relative to the startTime that the job may be continuously active before the system tries to terminate it; value must be positive integer. If a Job is suspended (at creation or through an update), this timer will effectively be stopped and reset when the Job is resumed again.
 	ActiveDeadlineSeconds pulumi.IntPtrInput `pulumi:"activeDeadlineSeconds"`
@@ -2627,6 +2942,15 @@ func (i *jobSpecPatchPtrType) ToJobSpecPatchPtrOutputWithContext(ctx context.Con
 }
 
 // JobSpec describes how the job execution will look like.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type JobSpecPatchOutput struct{ *pulumi.OutputState }
 
 func (JobSpecPatchOutput) ElementType() reflect.Type {
@@ -2952,6 +3276,15 @@ func (o JobSpecPatchPtrOutput) TtlSecondsAfterFinished() pulumi.IntPtrOutput {
 }
 
 // JobStatus represents the current state of a Job.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type JobStatus struct {
 	// The number of pending and running pods which are not terminating (without a deletionTimestamp). The value is zero for finished jobs.
 	Active *int `pulumi:"active"`
@@ -3006,6 +3339,15 @@ type JobStatusInput interface {
 }
 
 // JobStatus represents the current state of a Job.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type JobStatusArgs struct {
 	// The number of pending and running pods which are not terminating (without a deletionTimestamp). The value is zero for finished jobs.
 	Active pulumi.IntPtrInput `pulumi:"active"`
@@ -3102,6 +3444,15 @@ func (i *jobStatusPtrType) ToJobStatusPtrOutputWithContext(ctx context.Context) 
 }
 
 // JobStatus represents the current state of a Job.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type JobStatusOutput struct{ *pulumi.OutputState }
 
 func (JobStatusOutput) ElementType() reflect.Type {
@@ -3350,6 +3701,15 @@ func (o JobStatusPtrOutput) UncountedTerminatedPods() UncountedTerminatedPodsPtr
 }
 
 // JobStatus represents the current state of a Job.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type JobStatusPatch struct {
 	// The number of pending and running pods which are not terminating (without a deletionTimestamp). The value is zero for finished jobs.
 	Active *int `pulumi:"active"`
@@ -3404,6 +3764,15 @@ type JobStatusPatchInput interface {
 }
 
 // JobStatus represents the current state of a Job.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type JobStatusPatchArgs struct {
 	// The number of pending and running pods which are not terminating (without a deletionTimestamp). The value is zero for finished jobs.
 	Active pulumi.IntPtrInput `pulumi:"active"`
@@ -3500,6 +3869,15 @@ func (i *jobStatusPatchPtrType) ToJobStatusPatchPtrOutputWithContext(ctx context
 }
 
 // JobStatus represents the current state of a Job.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type JobStatusPatchOutput struct{ *pulumi.OutputState }
 
 func (JobStatusPatchOutput) ElementType() reflect.Type {
@@ -3748,6 +4126,15 @@ func (o JobStatusPatchPtrOutput) UncountedTerminatedPods() UncountedTerminatedPo
 }
 
 // JobTemplateSpec describes the data a Job should have when created from a template
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type JobTemplateSpec struct {
 	// Standard object's metadata of the jobs created from this template. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
@@ -3767,6 +4154,15 @@ type JobTemplateSpecInput interface {
 }
 
 // JobTemplateSpec describes the data a Job should have when created from a template
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type JobTemplateSpecArgs struct {
 	// Standard object's metadata of the jobs created from this template. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
@@ -3828,6 +4224,15 @@ func (i *jobTemplateSpecPtrType) ToJobTemplateSpecPtrOutputWithContext(ctx conte
 }
 
 // JobTemplateSpec describes the data a Job should have when created from a template
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type JobTemplateSpecOutput struct{ *pulumi.OutputState }
 
 func (JobTemplateSpecOutput) ElementType() reflect.Type {
@@ -3907,6 +4312,15 @@ func (o JobTemplateSpecPtrOutput) Spec() JobSpecPtrOutput {
 }
 
 // JobTemplateSpec describes the data a Job should have when created from a template
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type JobTemplateSpecPatch struct {
 	// Standard object's metadata of the jobs created from this template. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
@@ -3926,6 +4340,15 @@ type JobTemplateSpecPatchInput interface {
 }
 
 // JobTemplateSpec describes the data a Job should have when created from a template
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type JobTemplateSpecPatchArgs struct {
 	// Standard object's metadata of the jobs created from this template. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
@@ -3987,6 +4410,15 @@ func (i *jobTemplateSpecPatchPtrType) ToJobTemplateSpecPatchPtrOutputWithContext
 }
 
 // JobTemplateSpec describes the data a Job should have when created from a template
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type JobTemplateSpecPatchOutput struct{ *pulumi.OutputState }
 
 func (JobTemplateSpecPatchOutput) ElementType() reflect.Type {
@@ -4066,6 +4498,15 @@ func (o JobTemplateSpecPatchPtrOutput) Spec() JobSpecPatchPtrOutput {
 }
 
 // PodFailurePolicy describes how failed pods influence the backoffLimit.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodFailurePolicy struct {
 	// A list of pod failure policy rules. The rules are evaluated in order. Once a rule matches a Pod failure, the remaining of the rules are ignored. When no rule matches the Pod failure, the default handling applies - the counter of pod failures is incremented and it is checked against the backoffLimit. At most 20 elements are allowed.
 	Rules []PodFailurePolicyRule `pulumi:"rules"`
@@ -4083,6 +4524,15 @@ type PodFailurePolicyInput interface {
 }
 
 // PodFailurePolicy describes how failed pods influence the backoffLimit.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodFailurePolicyArgs struct {
 	// A list of pod failure policy rules. The rules are evaluated in order. Once a rule matches a Pod failure, the remaining of the rules are ignored. When no rule matches the Pod failure, the default handling applies - the counter of pod failures is incremented and it is checked against the backoffLimit. At most 20 elements are allowed.
 	Rules PodFailurePolicyRuleArrayInput `pulumi:"rules"`
@@ -4142,6 +4592,15 @@ func (i *podFailurePolicyPtrType) ToPodFailurePolicyPtrOutputWithContext(ctx con
 }
 
 // PodFailurePolicy describes how failed pods influence the backoffLimit.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodFailurePolicyOutput struct{ *pulumi.OutputState }
 
 func (PodFailurePolicyOutput) ElementType() reflect.Type {
@@ -4206,6 +4665,15 @@ func (o PodFailurePolicyPtrOutput) Rules() PodFailurePolicyRuleArrayOutput {
 }
 
 // PodFailurePolicyOnExitCodesRequirement describes the requirement for handling a failed pod based on its container exit codes. In particular, it lookups the .state.terminated.exitCode for each app container and init container status, represented by the .status.containerStatuses and .status.initContainerStatuses fields in the Pod status, respectively. Containers completed with success (exit code 0) are excluded from the requirement check.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodFailurePolicyOnExitCodesRequirement struct {
 	// Restricts the check for exit codes to the container with the specified name. When null, the rule applies to all containers. When specified, it should match one the container or initContainer names in the pod template.
 	ContainerName *string `pulumi:"containerName"`
@@ -4235,6 +4703,15 @@ type PodFailurePolicyOnExitCodesRequirementInput interface {
 }
 
 // PodFailurePolicyOnExitCodesRequirement describes the requirement for handling a failed pod based on its container exit codes. In particular, it lookups the .state.terminated.exitCode for each app container and init container status, represented by the .status.containerStatuses and .status.initContainerStatuses fields in the Pod status, respectively. Containers completed with success (exit code 0) are excluded from the requirement check.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodFailurePolicyOnExitCodesRequirementArgs struct {
 	// Restricts the check for exit codes to the container with the specified name. When null, the rule applies to all containers. When specified, it should match one the container or initContainer names in the pod template.
 	ContainerName pulumi.StringPtrInput `pulumi:"containerName"`
@@ -4306,6 +4783,15 @@ func (i *podFailurePolicyOnExitCodesRequirementPtrType) ToPodFailurePolicyOnExit
 }
 
 // PodFailurePolicyOnExitCodesRequirement describes the requirement for handling a failed pod based on its container exit codes. In particular, it lookups the .state.terminated.exitCode for each app container and init container status, represented by the .status.containerStatuses and .status.initContainerStatuses fields in the Pod status, respectively. Containers completed with success (exit code 0) are excluded from the requirement check.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodFailurePolicyOnExitCodesRequirementOutput struct{ *pulumi.OutputState }
 
 func (PodFailurePolicyOnExitCodesRequirementOutput) ElementType() reflect.Type {
@@ -4416,6 +4902,15 @@ func (o PodFailurePolicyOnExitCodesRequirementPtrOutput) Values() pulumi.IntArra
 }
 
 // PodFailurePolicyOnExitCodesRequirement describes the requirement for handling a failed pod based on its container exit codes. In particular, it lookups the .state.terminated.exitCode for each app container and init container status, represented by the .status.containerStatuses and .status.initContainerStatuses fields in the Pod status, respectively. Containers completed with success (exit code 0) are excluded from the requirement check.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodFailurePolicyOnExitCodesRequirementPatch struct {
 	// Restricts the check for exit codes to the container with the specified name. When null, the rule applies to all containers. When specified, it should match one the container or initContainer names in the pod template.
 	ContainerName *string `pulumi:"containerName"`
@@ -4445,6 +4940,15 @@ type PodFailurePolicyOnExitCodesRequirementPatchInput interface {
 }
 
 // PodFailurePolicyOnExitCodesRequirement describes the requirement for handling a failed pod based on its container exit codes. In particular, it lookups the .state.terminated.exitCode for each app container and init container status, represented by the .status.containerStatuses and .status.initContainerStatuses fields in the Pod status, respectively. Containers completed with success (exit code 0) are excluded from the requirement check.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodFailurePolicyOnExitCodesRequirementPatchArgs struct {
 	// Restricts the check for exit codes to the container with the specified name. When null, the rule applies to all containers. When specified, it should match one the container or initContainer names in the pod template.
 	ContainerName pulumi.StringPtrInput `pulumi:"containerName"`
@@ -4516,6 +5020,15 @@ func (i *podFailurePolicyOnExitCodesRequirementPatchPtrType) ToPodFailurePolicyO
 }
 
 // PodFailurePolicyOnExitCodesRequirement describes the requirement for handling a failed pod based on its container exit codes. In particular, it lookups the .state.terminated.exitCode for each app container and init container status, represented by the .status.containerStatuses and .status.initContainerStatuses fields in the Pod status, respectively. Containers completed with success (exit code 0) are excluded from the requirement check.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodFailurePolicyOnExitCodesRequirementPatchOutput struct{ *pulumi.OutputState }
 
 func (PodFailurePolicyOnExitCodesRequirementPatchOutput) ElementType() reflect.Type {
@@ -4626,6 +5139,15 @@ func (o PodFailurePolicyOnExitCodesRequirementPatchPtrOutput) Values() pulumi.In
 }
 
 // PodFailurePolicyOnPodConditionsPattern describes a pattern for matching an actual pod condition type.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodFailurePolicyOnPodConditionsPattern struct {
 	// Specifies the required Pod condition status. To match a pod condition it is required that the specified status equals the pod condition status. Defaults to True.
 	Status string `pulumi:"status"`
@@ -4645,6 +5167,15 @@ type PodFailurePolicyOnPodConditionsPatternInput interface {
 }
 
 // PodFailurePolicyOnPodConditionsPattern describes a pattern for matching an actual pod condition type.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodFailurePolicyOnPodConditionsPatternArgs struct {
 	// Specifies the required Pod condition status. To match a pod condition it is required that the specified status equals the pod condition status. Defaults to True.
 	Status pulumi.StringInput `pulumi:"status"`
@@ -4690,6 +5221,15 @@ func (i PodFailurePolicyOnPodConditionsPatternArray) ToPodFailurePolicyOnPodCond
 }
 
 // PodFailurePolicyOnPodConditionsPattern describes a pattern for matching an actual pod condition type.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodFailurePolicyOnPodConditionsPatternOutput struct{ *pulumi.OutputState }
 
 func (PodFailurePolicyOnPodConditionsPatternOutput) ElementType() reflect.Type {
@@ -4735,6 +5275,15 @@ func (o PodFailurePolicyOnPodConditionsPatternArrayOutput) Index(i pulumi.IntInp
 }
 
 // PodFailurePolicyOnPodConditionsPattern describes a pattern for matching an actual pod condition type.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodFailurePolicyOnPodConditionsPatternPatch struct {
 	// Specifies the required Pod condition status. To match a pod condition it is required that the specified status equals the pod condition status. Defaults to True.
 	Status *string `pulumi:"status"`
@@ -4754,6 +5303,15 @@ type PodFailurePolicyOnPodConditionsPatternPatchInput interface {
 }
 
 // PodFailurePolicyOnPodConditionsPattern describes a pattern for matching an actual pod condition type.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodFailurePolicyOnPodConditionsPatternPatchArgs struct {
 	// Specifies the required Pod condition status. To match a pod condition it is required that the specified status equals the pod condition status. Defaults to True.
 	Status pulumi.StringPtrInput `pulumi:"status"`
@@ -4799,6 +5357,15 @@ func (i PodFailurePolicyOnPodConditionsPatternPatchArray) ToPodFailurePolicyOnPo
 }
 
 // PodFailurePolicyOnPodConditionsPattern describes a pattern for matching an actual pod condition type.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodFailurePolicyOnPodConditionsPatternPatchOutput struct{ *pulumi.OutputState }
 
 func (PodFailurePolicyOnPodConditionsPatternPatchOutput) ElementType() reflect.Type {
@@ -4844,6 +5411,15 @@ func (o PodFailurePolicyOnPodConditionsPatternPatchArrayOutput) Index(i pulumi.I
 }
 
 // PodFailurePolicy describes how failed pods influence the backoffLimit.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodFailurePolicyPatch struct {
 	// A list of pod failure policy rules. The rules are evaluated in order. Once a rule matches a Pod failure, the remaining of the rules are ignored. When no rule matches the Pod failure, the default handling applies - the counter of pod failures is incremented and it is checked against the backoffLimit. At most 20 elements are allowed.
 	Rules []PodFailurePolicyRulePatch `pulumi:"rules"`
@@ -4861,6 +5437,15 @@ type PodFailurePolicyPatchInput interface {
 }
 
 // PodFailurePolicy describes how failed pods influence the backoffLimit.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodFailurePolicyPatchArgs struct {
 	// A list of pod failure policy rules. The rules are evaluated in order. Once a rule matches a Pod failure, the remaining of the rules are ignored. When no rule matches the Pod failure, the default handling applies - the counter of pod failures is incremented and it is checked against the backoffLimit. At most 20 elements are allowed.
 	Rules PodFailurePolicyRulePatchArrayInput `pulumi:"rules"`
@@ -4920,6 +5505,15 @@ func (i *podFailurePolicyPatchPtrType) ToPodFailurePolicyPatchPtrOutputWithConte
 }
 
 // PodFailurePolicy describes how failed pods influence the backoffLimit.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodFailurePolicyPatchOutput struct{ *pulumi.OutputState }
 
 func (PodFailurePolicyPatchOutput) ElementType() reflect.Type {
@@ -4984,6 +5578,15 @@ func (o PodFailurePolicyPatchPtrOutput) Rules() PodFailurePolicyRulePatchArrayOu
 }
 
 // PodFailurePolicyRule describes how a pod failure is handled when the requirements are met. One of onExitCodes and onPodConditions, but not both, can be used in each rule.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodFailurePolicyRule struct {
 	// Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are:
 	//
@@ -5017,6 +5620,15 @@ type PodFailurePolicyRuleInput interface {
 }
 
 // PodFailurePolicyRule describes how a pod failure is handled when the requirements are met. One of onExitCodes and onPodConditions, but not both, can be used in each rule.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodFailurePolicyRuleArgs struct {
 	// Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are:
 	//
@@ -5076,6 +5688,15 @@ func (i PodFailurePolicyRuleArray) ToPodFailurePolicyRuleArrayOutputWithContext(
 }
 
 // PodFailurePolicyRule describes how a pod failure is handled when the requirements are met. One of onExitCodes and onPodConditions, but not both, can be used in each rule.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodFailurePolicyRuleOutput struct{ *pulumi.OutputState }
 
 func (PodFailurePolicyRuleOutput) ElementType() reflect.Type {
@@ -5138,6 +5759,15 @@ func (o PodFailurePolicyRuleArrayOutput) Index(i pulumi.IntInput) PodFailurePoli
 }
 
 // PodFailurePolicyRule describes how a pod failure is handled when the requirements are met. One of onExitCodes and onPodConditions, but not both, can be used in each rule.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodFailurePolicyRulePatch struct {
 	// Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are:
 	//
@@ -5171,6 +5801,15 @@ type PodFailurePolicyRulePatchInput interface {
 }
 
 // PodFailurePolicyRule describes how a pod failure is handled when the requirements are met. One of onExitCodes and onPodConditions, but not both, can be used in each rule.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodFailurePolicyRulePatchArgs struct {
 	// Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are:
 	//
@@ -5230,6 +5869,15 @@ func (i PodFailurePolicyRulePatchArray) ToPodFailurePolicyRulePatchArrayOutputWi
 }
 
 // PodFailurePolicyRule describes how a pod failure is handled when the requirements are met. One of onExitCodes and onPodConditions, but not both, can be used in each rule.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodFailurePolicyRulePatchOutput struct{ *pulumi.OutputState }
 
 func (PodFailurePolicyRulePatchOutput) ElementType() reflect.Type {
@@ -5294,6 +5942,15 @@ func (o PodFailurePolicyRulePatchArrayOutput) Index(i pulumi.IntInput) PodFailur
 }
 
 // SuccessPolicy describes when a Job can be declared as succeeded based on the success of some indexes.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SuccessPolicy struct {
 	// rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SucceededCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
 	Rules []SuccessPolicyRule `pulumi:"rules"`
@@ -5311,6 +5968,15 @@ type SuccessPolicyInput interface {
 }
 
 // SuccessPolicy describes when a Job can be declared as succeeded based on the success of some indexes.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SuccessPolicyArgs struct {
 	// rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SucceededCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
 	Rules SuccessPolicyRuleArrayInput `pulumi:"rules"`
@@ -5370,6 +6036,15 @@ func (i *successPolicyPtrType) ToSuccessPolicyPtrOutputWithContext(ctx context.C
 }
 
 // SuccessPolicy describes when a Job can be declared as succeeded based on the success of some indexes.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SuccessPolicyOutput struct{ *pulumi.OutputState }
 
 func (SuccessPolicyOutput) ElementType() reflect.Type {
@@ -5434,6 +6109,15 @@ func (o SuccessPolicyPtrOutput) Rules() SuccessPolicyRuleArrayOutput {
 }
 
 // SuccessPolicy describes when a Job can be declared as succeeded based on the success of some indexes.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SuccessPolicyPatch struct {
 	// rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SucceededCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
 	Rules []SuccessPolicyRulePatch `pulumi:"rules"`
@@ -5451,6 +6135,15 @@ type SuccessPolicyPatchInput interface {
 }
 
 // SuccessPolicy describes when a Job can be declared as succeeded based on the success of some indexes.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SuccessPolicyPatchArgs struct {
 	// rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SucceededCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
 	Rules SuccessPolicyRulePatchArrayInput `pulumi:"rules"`
@@ -5510,6 +6203,15 @@ func (i *successPolicyPatchPtrType) ToSuccessPolicyPatchPtrOutputWithContext(ctx
 }
 
 // SuccessPolicy describes when a Job can be declared as succeeded based on the success of some indexes.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SuccessPolicyPatchOutput struct{ *pulumi.OutputState }
 
 func (SuccessPolicyPatchOutput) ElementType() reflect.Type {
@@ -5574,6 +6276,15 @@ func (o SuccessPolicyPatchPtrOutput) Rules() SuccessPolicyRulePatchArrayOutput {
 }
 
 // SuccessPolicyRule describes rule for declaring a Job as succeeded. Each rule must have at least one of the "succeededIndexes" or "succeededCount" specified.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SuccessPolicyRule struct {
 	// succeededCount specifies the minimal required size of the actual set of the succeeded indexes for the Job. When succeededCount is used along with succeededIndexes, the check is constrained only to the set of indexes specified by succeededIndexes. For example, given that succeededIndexes is "1-4", succeededCount is "3", and completed indexes are "1", "3", and "5", the Job isn't declared as succeeded because only "1" and "3" indexes are considered in that rules. When this field is null, this doesn't default to any value and is never evaluated at any time. When specified it needs to be a positive integer.
 	SucceededCount *int `pulumi:"succeededCount"`
@@ -5593,6 +6304,15 @@ type SuccessPolicyRuleInput interface {
 }
 
 // SuccessPolicyRule describes rule for declaring a Job as succeeded. Each rule must have at least one of the "succeededIndexes" or "succeededCount" specified.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SuccessPolicyRuleArgs struct {
 	// succeededCount specifies the minimal required size of the actual set of the succeeded indexes for the Job. When succeededCount is used along with succeededIndexes, the check is constrained only to the set of indexes specified by succeededIndexes. For example, given that succeededIndexes is "1-4", succeededCount is "3", and completed indexes are "1", "3", and "5", the Job isn't declared as succeeded because only "1" and "3" indexes are considered in that rules. When this field is null, this doesn't default to any value and is never evaluated at any time. When specified it needs to be a positive integer.
 	SucceededCount pulumi.IntPtrInput `pulumi:"succeededCount"`
@@ -5638,6 +6358,15 @@ func (i SuccessPolicyRuleArray) ToSuccessPolicyRuleArrayOutputWithContext(ctx co
 }
 
 // SuccessPolicyRule describes rule for declaring a Job as succeeded. Each rule must have at least one of the "succeededIndexes" or "succeededCount" specified.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SuccessPolicyRuleOutput struct{ *pulumi.OutputState }
 
 func (SuccessPolicyRuleOutput) ElementType() reflect.Type {
@@ -5683,6 +6412,15 @@ func (o SuccessPolicyRuleArrayOutput) Index(i pulumi.IntInput) SuccessPolicyRule
 }
 
 // SuccessPolicyRule describes rule for declaring a Job as succeeded. Each rule must have at least one of the "succeededIndexes" or "succeededCount" specified.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SuccessPolicyRulePatch struct {
 	// succeededCount specifies the minimal required size of the actual set of the succeeded indexes for the Job. When succeededCount is used along with succeededIndexes, the check is constrained only to the set of indexes specified by succeededIndexes. For example, given that succeededIndexes is "1-4", succeededCount is "3", and completed indexes are "1", "3", and "5", the Job isn't declared as succeeded because only "1" and "3" indexes are considered in that rules. When this field is null, this doesn't default to any value and is never evaluated at any time. When specified it needs to be a positive integer.
 	SucceededCount *int `pulumi:"succeededCount"`
@@ -5702,6 +6440,15 @@ type SuccessPolicyRulePatchInput interface {
 }
 
 // SuccessPolicyRule describes rule for declaring a Job as succeeded. Each rule must have at least one of the "succeededIndexes" or "succeededCount" specified.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SuccessPolicyRulePatchArgs struct {
 	// succeededCount specifies the minimal required size of the actual set of the succeeded indexes for the Job. When succeededCount is used along with succeededIndexes, the check is constrained only to the set of indexes specified by succeededIndexes. For example, given that succeededIndexes is "1-4", succeededCount is "3", and completed indexes are "1", "3", and "5", the Job isn't declared as succeeded because only "1" and "3" indexes are considered in that rules. When this field is null, this doesn't default to any value and is never evaluated at any time. When specified it needs to be a positive integer.
 	SucceededCount pulumi.IntPtrInput `pulumi:"succeededCount"`
@@ -5747,6 +6494,15 @@ func (i SuccessPolicyRulePatchArray) ToSuccessPolicyRulePatchArrayOutputWithCont
 }
 
 // SuccessPolicyRule describes rule for declaring a Job as succeeded. Each rule must have at least one of the "succeededIndexes" or "succeededCount" specified.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SuccessPolicyRulePatchOutput struct{ *pulumi.OutputState }
 
 func (SuccessPolicyRulePatchOutput) ElementType() reflect.Type {
@@ -5792,6 +6548,15 @@ func (o SuccessPolicyRulePatchArrayOutput) Index(i pulumi.IntInput) SuccessPolic
 }
 
 // UncountedTerminatedPods holds UIDs of Pods that have terminated but haven't been accounted in Job status counters.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type UncountedTerminatedPods struct {
 	// failed holds UIDs of failed Pods.
 	Failed []string `pulumi:"failed"`
@@ -5811,6 +6576,15 @@ type UncountedTerminatedPodsInput interface {
 }
 
 // UncountedTerminatedPods holds UIDs of Pods that have terminated but haven't been accounted in Job status counters.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type UncountedTerminatedPodsArgs struct {
 	// failed holds UIDs of failed Pods.
 	Failed pulumi.StringArrayInput `pulumi:"failed"`
@@ -5872,6 +6646,15 @@ func (i *uncountedTerminatedPodsPtrType) ToUncountedTerminatedPodsPtrOutputWithC
 }
 
 // UncountedTerminatedPods holds UIDs of Pods that have terminated but haven't been accounted in Job status counters.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type UncountedTerminatedPodsOutput struct{ *pulumi.OutputState }
 
 func (UncountedTerminatedPodsOutput) ElementType() reflect.Type {
@@ -5951,6 +6734,15 @@ func (o UncountedTerminatedPodsPtrOutput) Succeeded() pulumi.StringArrayOutput {
 }
 
 // UncountedTerminatedPods holds UIDs of Pods that have terminated but haven't been accounted in Job status counters.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type UncountedTerminatedPodsPatch struct {
 	// failed holds UIDs of failed Pods.
 	Failed []string `pulumi:"failed"`
@@ -5970,6 +6762,15 @@ type UncountedTerminatedPodsPatchInput interface {
 }
 
 // UncountedTerminatedPods holds UIDs of Pods that have terminated but haven't been accounted in Job status counters.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type UncountedTerminatedPodsPatchArgs struct {
 	// failed holds UIDs of failed Pods.
 	Failed pulumi.StringArrayInput `pulumi:"failed"`
@@ -6031,6 +6832,15 @@ func (i *uncountedTerminatedPodsPatchPtrType) ToUncountedTerminatedPodsPatchPtrO
 }
 
 // UncountedTerminatedPods holds UIDs of Pods that have terminated but haven't been accounted in Job status counters.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type UncountedTerminatedPodsPatchOutput struct{ *pulumi.OutputState }
 
 func (UncountedTerminatedPodsPatchOutput) ElementType() reflect.Type {

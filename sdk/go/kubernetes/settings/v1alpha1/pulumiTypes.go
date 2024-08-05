@@ -16,6 +16,15 @@ import (
 var _ = utilities.GetEnvOrDefault
 
 // PodPreset is a policy resource that defines additional runtime requirements for a Pod.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodPresetType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -37,6 +46,15 @@ type PodPresetTypeInput interface {
 }
 
 // PodPreset is a policy resource that defines additional runtime requirements for a Pod.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodPresetTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -84,6 +102,15 @@ func (i PodPresetTypeArray) ToPodPresetTypeArrayOutputWithContext(ctx context.Co
 }
 
 // PodPreset is a policy resource that defines additional runtime requirements for a Pod.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodPresetTypeOutput struct{ *pulumi.OutputState }
 
 func (PodPresetTypeOutput) ElementType() reflect.Type {
@@ -137,6 +164,15 @@ func (o PodPresetTypeArrayOutput) Index(i pulumi.IntInput) PodPresetTypeOutput {
 }
 
 // PodPresetList is a list of PodPreset objects.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodPresetListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -160,6 +196,15 @@ type PodPresetListTypeInput interface {
 }
 
 // PodPresetList is a list of PodPreset objects.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodPresetListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -184,6 +229,15 @@ func (i PodPresetListTypeArgs) ToPodPresetListTypeOutputWithContext(ctx context.
 }
 
 // PodPresetList is a list of PodPreset objects.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodPresetListTypeOutput struct{ *pulumi.OutputState }
 
 func (PodPresetListTypeOutput) ElementType() reflect.Type {
@@ -219,6 +273,15 @@ func (o PodPresetListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 }
 
 // PodPreset is a policy resource that defines additional runtime requirements for a Pod.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodPresetPatchType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -240,6 +303,15 @@ type PodPresetPatchTypeInput interface {
 }
 
 // PodPreset is a policy resource that defines additional runtime requirements for a Pod.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodPresetPatchTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -262,6 +334,15 @@ func (i PodPresetPatchTypeArgs) ToPodPresetPatchTypeOutputWithContext(ctx contex
 }
 
 // PodPreset is a policy resource that defines additional runtime requirements for a Pod.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodPresetPatchTypeOutput struct{ *pulumi.OutputState }
 
 func (PodPresetPatchTypeOutput) ElementType() reflect.Type {
@@ -295,6 +376,15 @@ func (o PodPresetPatchTypeOutput) Spec() PodPresetSpecPatchPtrOutput {
 }
 
 // PodPresetSpec is a description of a pod preset.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodPresetSpec struct {
 	// Env defines the collection of EnvVar to inject into containers.
 	Env []corev1.EnvVar `pulumi:"env"`
@@ -320,6 +410,15 @@ type PodPresetSpecInput interface {
 }
 
 // PodPresetSpec is a description of a pod preset.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodPresetSpecArgs struct {
 	// Env defines the collection of EnvVar to inject into containers.
 	Env corev1.EnvVarArrayInput `pulumi:"env"`
@@ -387,6 +486,15 @@ func (i *podPresetSpecPtrType) ToPodPresetSpecPtrOutputWithContext(ctx context.C
 }
 
 // PodPresetSpec is a description of a pod preset.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodPresetSpecOutput struct{ *pulumi.OutputState }
 
 func (PodPresetSpecOutput) ElementType() reflect.Type {
@@ -511,6 +619,15 @@ func (o PodPresetSpecPtrOutput) Volumes() corev1.VolumeArrayOutput {
 }
 
 // PodPresetSpec is a description of a pod preset.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodPresetSpecPatch struct {
 	// Env defines the collection of EnvVar to inject into containers.
 	Env []corev1.EnvVarPatch `pulumi:"env"`
@@ -536,6 +653,15 @@ type PodPresetSpecPatchInput interface {
 }
 
 // PodPresetSpec is a description of a pod preset.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodPresetSpecPatchArgs struct {
 	// Env defines the collection of EnvVar to inject into containers.
 	Env corev1.EnvVarPatchArrayInput `pulumi:"env"`
@@ -603,6 +729,15 @@ func (i *podPresetSpecPatchPtrType) ToPodPresetSpecPatchPtrOutputWithContext(ctx
 }
 
 // PodPresetSpec is a description of a pod preset.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodPresetSpecPatchOutput struct{ *pulumi.OutputState }
 
 func (PodPresetSpecPatchOutput) ElementType() reflect.Type {

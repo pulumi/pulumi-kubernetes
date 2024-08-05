@@ -11,6 +11,15 @@ namespace Pulumi.Kubernetes.ApiRegistration.V1
 {
     /// <summary>
     /// APIService represents a server for a particular GroupVersion. Name must be "version.group".
+    /// 
+    /// By default Pulumi does _not_ wait for this resource to
+    /// become ready when it is created or updated.
+    /// 
+    /// If you want Pulumi to wait for this resource to become ready, you can use the
+    /// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    /// documentation
+    /// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    /// for a detailed description of the values this annotation accepts.
     /// </summary>
     [KubernetesResourceType("kubernetes:apiregistration.k8s.io/v1:APIService")]
     public partial class APIService : KubernetesResource

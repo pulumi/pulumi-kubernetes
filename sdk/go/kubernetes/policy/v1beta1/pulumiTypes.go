@@ -16,6 +16,15 @@ import (
 var _ = utilities.GetEnvOrDefault
 
 // AllowedCSIDriver represents a single inline CSI Driver that is allowed to be used.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type AllowedCSIDriver struct {
 	// Name is the registered name of the CSI driver
 	Name string `pulumi:"name"`
@@ -33,6 +42,15 @@ type AllowedCSIDriverInput interface {
 }
 
 // AllowedCSIDriver represents a single inline CSI Driver that is allowed to be used.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type AllowedCSIDriverArgs struct {
 	// Name is the registered name of the CSI driver
 	Name pulumi.StringInput `pulumi:"name"`
@@ -76,6 +94,15 @@ func (i AllowedCSIDriverArray) ToAllowedCSIDriverArrayOutputWithContext(ctx cont
 }
 
 // AllowedCSIDriver represents a single inline CSI Driver that is allowed to be used.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type AllowedCSIDriverOutput struct{ *pulumi.OutputState }
 
 func (AllowedCSIDriverOutput) ElementType() reflect.Type {
@@ -116,6 +143,15 @@ func (o AllowedCSIDriverArrayOutput) Index(i pulumi.IntInput) AllowedCSIDriverOu
 }
 
 // AllowedCSIDriver represents a single inline CSI Driver that is allowed to be used.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type AllowedCSIDriverPatch struct {
 	// Name is the registered name of the CSI driver
 	Name *string `pulumi:"name"`
@@ -133,6 +169,15 @@ type AllowedCSIDriverPatchInput interface {
 }
 
 // AllowedCSIDriver represents a single inline CSI Driver that is allowed to be used.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type AllowedCSIDriverPatchArgs struct {
 	// Name is the registered name of the CSI driver
 	Name pulumi.StringPtrInput `pulumi:"name"`
@@ -176,6 +221,15 @@ func (i AllowedCSIDriverPatchArray) ToAllowedCSIDriverPatchArrayOutputWithContex
 }
 
 // AllowedCSIDriver represents a single inline CSI Driver that is allowed to be used.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type AllowedCSIDriverPatchOutput struct{ *pulumi.OutputState }
 
 func (AllowedCSIDriverPatchOutput) ElementType() reflect.Type {
@@ -216,6 +270,15 @@ func (o AllowedCSIDriverPatchArrayOutput) Index(i pulumi.IntInput) AllowedCSIDri
 }
 
 // AllowedFlexVolume represents a single Flexvolume that is allowed to be used.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type AllowedFlexVolume struct {
 	// driver is the name of the Flexvolume driver.
 	Driver string `pulumi:"driver"`
@@ -233,6 +296,15 @@ type AllowedFlexVolumeInput interface {
 }
 
 // AllowedFlexVolume represents a single Flexvolume that is allowed to be used.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type AllowedFlexVolumeArgs struct {
 	// driver is the name of the Flexvolume driver.
 	Driver pulumi.StringInput `pulumi:"driver"`
@@ -276,6 +348,15 @@ func (i AllowedFlexVolumeArray) ToAllowedFlexVolumeArrayOutputWithContext(ctx co
 }
 
 // AllowedFlexVolume represents a single Flexvolume that is allowed to be used.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type AllowedFlexVolumeOutput struct{ *pulumi.OutputState }
 
 func (AllowedFlexVolumeOutput) ElementType() reflect.Type {
@@ -316,6 +397,15 @@ func (o AllowedFlexVolumeArrayOutput) Index(i pulumi.IntInput) AllowedFlexVolume
 }
 
 // AllowedFlexVolume represents a single Flexvolume that is allowed to be used.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type AllowedFlexVolumePatch struct {
 	// driver is the name of the Flexvolume driver.
 	Driver *string `pulumi:"driver"`
@@ -333,6 +423,15 @@ type AllowedFlexVolumePatchInput interface {
 }
 
 // AllowedFlexVolume represents a single Flexvolume that is allowed to be used.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type AllowedFlexVolumePatchArgs struct {
 	// driver is the name of the Flexvolume driver.
 	Driver pulumi.StringPtrInput `pulumi:"driver"`
@@ -376,6 +475,15 @@ func (i AllowedFlexVolumePatchArray) ToAllowedFlexVolumePatchArrayOutputWithCont
 }
 
 // AllowedFlexVolume represents a single Flexvolume that is allowed to be used.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type AllowedFlexVolumePatchOutput struct{ *pulumi.OutputState }
 
 func (AllowedFlexVolumePatchOutput) ElementType() reflect.Type {
@@ -416,6 +524,15 @@ func (o AllowedFlexVolumePatchArrayOutput) Index(i pulumi.IntInput) AllowedFlexV
 }
 
 // AllowedHostPath defines the host volume conditions that will be enabled by a policy for pods to use. It requires the path prefix to be defined.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type AllowedHostPath struct {
 	// pathPrefix is the path prefix that the host volume must match. It does not support `*`. Trailing slashes are trimmed when validating the path prefix with a host path.
 	//
@@ -437,6 +554,15 @@ type AllowedHostPathInput interface {
 }
 
 // AllowedHostPath defines the host volume conditions that will be enabled by a policy for pods to use. It requires the path prefix to be defined.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type AllowedHostPathArgs struct {
 	// pathPrefix is the path prefix that the host volume must match. It does not support `*`. Trailing slashes are trimmed when validating the path prefix with a host path.
 	//
@@ -484,6 +610,15 @@ func (i AllowedHostPathArray) ToAllowedHostPathArrayOutputWithContext(ctx contex
 }
 
 // AllowedHostPath defines the host volume conditions that will be enabled by a policy for pods to use. It requires the path prefix to be defined.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type AllowedHostPathOutput struct{ *pulumi.OutputState }
 
 func (AllowedHostPathOutput) ElementType() reflect.Type {
@@ -531,6 +666,15 @@ func (o AllowedHostPathArrayOutput) Index(i pulumi.IntInput) AllowedHostPathOutp
 }
 
 // AllowedHostPath defines the host volume conditions that will be enabled by a policy for pods to use. It requires the path prefix to be defined.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type AllowedHostPathPatch struct {
 	// pathPrefix is the path prefix that the host volume must match. It does not support `*`. Trailing slashes are trimmed when validating the path prefix with a host path.
 	//
@@ -552,6 +696,15 @@ type AllowedHostPathPatchInput interface {
 }
 
 // AllowedHostPath defines the host volume conditions that will be enabled by a policy for pods to use. It requires the path prefix to be defined.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type AllowedHostPathPatchArgs struct {
 	// pathPrefix is the path prefix that the host volume must match. It does not support `*`. Trailing slashes are trimmed when validating the path prefix with a host path.
 	//
@@ -599,6 +752,15 @@ func (i AllowedHostPathPatchArray) ToAllowedHostPathPatchArrayOutputWithContext(
 }
 
 // AllowedHostPath defines the host volume conditions that will be enabled by a policy for pods to use. It requires the path prefix to be defined.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type AllowedHostPathPatchOutput struct{ *pulumi.OutputState }
 
 func (AllowedHostPathPatchOutput) ElementType() reflect.Type {
@@ -646,6 +808,15 @@ func (o AllowedHostPathPatchArrayOutput) Index(i pulumi.IntInput) AllowedHostPat
 }
 
 // Eviction evicts a pod from its node subject to certain policies and safety constraints. This is a subresource of Pod.  A request to cause such an eviction is created by POSTing to .../pods/<pod name>/evictions.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type Eviction struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -669,6 +840,15 @@ type EvictionInput interface {
 }
 
 // Eviction evicts a pod from its node subject to certain policies and safety constraints. This is a subresource of Pod.  A request to cause such an eviction is created by POSTing to .../pods/<pod name>/evictions.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type EvictionArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -693,6 +873,15 @@ func (i EvictionArgs) ToEvictionOutputWithContext(ctx context.Context) EvictionO
 }
 
 // Eviction evicts a pod from its node subject to certain policies and safety constraints. This is a subresource of Pod.  A request to cause such an eviction is created by POSTing to .../pods/<pod name>/evictions.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type EvictionOutput struct{ *pulumi.OutputState }
 
 func (EvictionOutput) ElementType() reflect.Type {
@@ -728,6 +917,15 @@ func (o EvictionOutput) Metadata() metav1.ObjectMetaPtrOutput {
 }
 
 // Eviction evicts a pod from its node subject to certain policies and safety constraints. This is a subresource of Pod.  A request to cause such an eviction is created by POSTing to .../pods/<pod name>/evictions.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type EvictionPatch struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -751,6 +949,15 @@ type EvictionPatchInput interface {
 }
 
 // Eviction evicts a pod from its node subject to certain policies and safety constraints. This is a subresource of Pod.  A request to cause such an eviction is created by POSTing to .../pods/<pod name>/evictions.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type EvictionPatchArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -775,6 +982,15 @@ func (i EvictionPatchArgs) ToEvictionPatchOutputWithContext(ctx context.Context)
 }
 
 // Eviction evicts a pod from its node subject to certain policies and safety constraints. This is a subresource of Pod.  A request to cause such an eviction is created by POSTing to .../pods/<pod name>/evictions.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type EvictionPatchOutput struct{ *pulumi.OutputState }
 
 func (EvictionPatchOutput) ElementType() reflect.Type {
@@ -810,6 +1026,15 @@ func (o EvictionPatchOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
 }
 
 // FSGroupStrategyOptions defines the strategy type and options used to create the strategy.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type FSGroupStrategyOptions struct {
 	// ranges are the allowed ranges of fs groups.  If you would like to force a single fs group then supply a single range with the same start and end. Required for MustRunAs.
 	Ranges []IDRange `pulumi:"ranges"`
@@ -829,6 +1054,15 @@ type FSGroupStrategyOptionsInput interface {
 }
 
 // FSGroupStrategyOptions defines the strategy type and options used to create the strategy.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type FSGroupStrategyOptionsArgs struct {
 	// ranges are the allowed ranges of fs groups.  If you would like to force a single fs group then supply a single range with the same start and end. Required for MustRunAs.
 	Ranges IDRangeArrayInput `pulumi:"ranges"`
@@ -890,6 +1124,15 @@ func (i *fsgroupStrategyOptionsPtrType) ToFSGroupStrategyOptionsPtrOutputWithCon
 }
 
 // FSGroupStrategyOptions defines the strategy type and options used to create the strategy.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type FSGroupStrategyOptionsOutput struct{ *pulumi.OutputState }
 
 func (FSGroupStrategyOptionsOutput) ElementType() reflect.Type {
@@ -969,6 +1212,15 @@ func (o FSGroupStrategyOptionsPtrOutput) Rule() pulumi.StringPtrOutput {
 }
 
 // FSGroupStrategyOptions defines the strategy type and options used to create the strategy.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type FSGroupStrategyOptionsPatch struct {
 	// ranges are the allowed ranges of fs groups.  If you would like to force a single fs group then supply a single range with the same start and end. Required for MustRunAs.
 	Ranges []IDRangePatch `pulumi:"ranges"`
@@ -988,6 +1240,15 @@ type FSGroupStrategyOptionsPatchInput interface {
 }
 
 // FSGroupStrategyOptions defines the strategy type and options used to create the strategy.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type FSGroupStrategyOptionsPatchArgs struct {
 	// ranges are the allowed ranges of fs groups.  If you would like to force a single fs group then supply a single range with the same start and end. Required for MustRunAs.
 	Ranges IDRangePatchArrayInput `pulumi:"ranges"`
@@ -1049,6 +1310,15 @@ func (i *fsgroupStrategyOptionsPatchPtrType) ToFSGroupStrategyOptionsPatchPtrOut
 }
 
 // FSGroupStrategyOptions defines the strategy type and options used to create the strategy.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type FSGroupStrategyOptionsPatchOutput struct{ *pulumi.OutputState }
 
 func (FSGroupStrategyOptionsPatchOutput) ElementType() reflect.Type {
@@ -1128,6 +1398,15 @@ func (o FSGroupStrategyOptionsPatchPtrOutput) Rule() pulumi.StringPtrOutput {
 }
 
 // HostPortRange defines a range of host ports that will be enabled by a policy for pods to use.  It requires both the start and end to be defined.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type HostPortRange struct {
 	// max is the end of the range, inclusive.
 	Max int `pulumi:"max"`
@@ -1147,6 +1426,15 @@ type HostPortRangeInput interface {
 }
 
 // HostPortRange defines a range of host ports that will be enabled by a policy for pods to use.  It requires both the start and end to be defined.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type HostPortRangeArgs struct {
 	// max is the end of the range, inclusive.
 	Max pulumi.IntInput `pulumi:"max"`
@@ -1192,6 +1480,15 @@ func (i HostPortRangeArray) ToHostPortRangeArrayOutputWithContext(ctx context.Co
 }
 
 // HostPortRange defines a range of host ports that will be enabled by a policy for pods to use.  It requires both the start and end to be defined.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type HostPortRangeOutput struct{ *pulumi.OutputState }
 
 func (HostPortRangeOutput) ElementType() reflect.Type {
@@ -1237,6 +1534,15 @@ func (o HostPortRangeArrayOutput) Index(i pulumi.IntInput) HostPortRangeOutput {
 }
 
 // HostPortRange defines a range of host ports that will be enabled by a policy for pods to use.  It requires both the start and end to be defined.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type HostPortRangePatch struct {
 	// max is the end of the range, inclusive.
 	Max *int `pulumi:"max"`
@@ -1256,6 +1562,15 @@ type HostPortRangePatchInput interface {
 }
 
 // HostPortRange defines a range of host ports that will be enabled by a policy for pods to use.  It requires both the start and end to be defined.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type HostPortRangePatchArgs struct {
 	// max is the end of the range, inclusive.
 	Max pulumi.IntPtrInput `pulumi:"max"`
@@ -1301,6 +1616,15 @@ func (i HostPortRangePatchArray) ToHostPortRangePatchArrayOutputWithContext(ctx 
 }
 
 // HostPortRange defines a range of host ports that will be enabled by a policy for pods to use.  It requires both the start and end to be defined.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type HostPortRangePatchOutput struct{ *pulumi.OutputState }
 
 func (HostPortRangePatchOutput) ElementType() reflect.Type {
@@ -1346,6 +1670,15 @@ func (o HostPortRangePatchArrayOutput) Index(i pulumi.IntInput) HostPortRangePat
 }
 
 // IDRange provides a min/max of an allowed range of IDs.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type IDRange struct {
 	// max is the end of the range, inclusive.
 	Max int `pulumi:"max"`
@@ -1365,6 +1698,15 @@ type IDRangeInput interface {
 }
 
 // IDRange provides a min/max of an allowed range of IDs.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type IDRangeArgs struct {
 	// max is the end of the range, inclusive.
 	Max pulumi.IntInput `pulumi:"max"`
@@ -1410,6 +1752,15 @@ func (i IDRangeArray) ToIDRangeArrayOutputWithContext(ctx context.Context) IDRan
 }
 
 // IDRange provides a min/max of an allowed range of IDs.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type IDRangeOutput struct{ *pulumi.OutputState }
 
 func (IDRangeOutput) ElementType() reflect.Type {
@@ -1455,6 +1806,15 @@ func (o IDRangeArrayOutput) Index(i pulumi.IntInput) IDRangeOutput {
 }
 
 // IDRange provides a min/max of an allowed range of IDs.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type IDRangePatch struct {
 	// max is the end of the range, inclusive.
 	Max *int `pulumi:"max"`
@@ -1474,6 +1834,15 @@ type IDRangePatchInput interface {
 }
 
 // IDRange provides a min/max of an allowed range of IDs.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type IDRangePatchArgs struct {
 	// max is the end of the range, inclusive.
 	Max pulumi.IntPtrInput `pulumi:"max"`
@@ -1519,6 +1888,15 @@ func (i IDRangePatchArray) ToIDRangePatchArrayOutputWithContext(ctx context.Cont
 }
 
 // IDRange provides a min/max of an allowed range of IDs.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type IDRangePatchOutput struct{ *pulumi.OutputState }
 
 func (IDRangePatchOutput) ElementType() reflect.Type {
@@ -1564,6 +1942,15 @@ func (o IDRangePatchArrayOutput) Index(i pulumi.IntInput) IDRangePatchOutput {
 }
 
 // PodDisruptionBudget is an object to define the max disruption that can be caused to a collection of pods
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodDisruptionBudgetType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -1588,6 +1975,15 @@ type PodDisruptionBudgetTypeInput interface {
 }
 
 // PodDisruptionBudget is an object to define the max disruption that can be caused to a collection of pods
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodDisruptionBudgetTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -1638,6 +2034,15 @@ func (i PodDisruptionBudgetTypeArray) ToPodDisruptionBudgetTypeArrayOutputWithCo
 }
 
 // PodDisruptionBudget is an object to define the max disruption that can be caused to a collection of pods
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodDisruptionBudgetTypeOutput struct{ *pulumi.OutputState }
 
 func (PodDisruptionBudgetTypeOutput) ElementType() reflect.Type {
@@ -1697,6 +2102,15 @@ func (o PodDisruptionBudgetTypeArrayOutput) Index(i pulumi.IntInput) PodDisrupti
 }
 
 // PodDisruptionBudgetList is a collection of PodDisruptionBudgets.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodDisruptionBudgetListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string                   `pulumi:"apiVersion"`
@@ -1718,6 +2132,15 @@ type PodDisruptionBudgetListTypeInput interface {
 }
 
 // PodDisruptionBudgetList is a collection of PodDisruptionBudgets.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodDisruptionBudgetListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput             `pulumi:"apiVersion"`
@@ -1740,6 +2163,15 @@ func (i PodDisruptionBudgetListTypeArgs) ToPodDisruptionBudgetListTypeOutputWith
 }
 
 // PodDisruptionBudgetList is a collection of PodDisruptionBudgets.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodDisruptionBudgetListTypeOutput struct{ *pulumi.OutputState }
 
 func (PodDisruptionBudgetListTypeOutput) ElementType() reflect.Type {
@@ -1773,6 +2205,15 @@ func (o PodDisruptionBudgetListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 }
 
 // PodDisruptionBudget is an object to define the max disruption that can be caused to a collection of pods
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodDisruptionBudgetPatchType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -1797,6 +2238,15 @@ type PodDisruptionBudgetPatchTypeInput interface {
 }
 
 // PodDisruptionBudget is an object to define the max disruption that can be caused to a collection of pods
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodDisruptionBudgetPatchTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -1822,6 +2272,15 @@ func (i PodDisruptionBudgetPatchTypeArgs) ToPodDisruptionBudgetPatchTypeOutputWi
 }
 
 // PodDisruptionBudget is an object to define the max disruption that can be caused to a collection of pods
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodDisruptionBudgetPatchTypeOutput struct{ *pulumi.OutputState }
 
 func (PodDisruptionBudgetPatchTypeOutput) ElementType() reflect.Type {
@@ -1861,6 +2320,15 @@ func (o PodDisruptionBudgetPatchTypeOutput) Status() PodDisruptionBudgetStatusPa
 }
 
 // PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodDisruptionBudgetSpec struct {
 	// An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
 	MaxUnavailable interface{} `pulumi:"maxUnavailable"`
@@ -1882,6 +2350,15 @@ type PodDisruptionBudgetSpecInput interface {
 }
 
 // PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodDisruptionBudgetSpecArgs struct {
 	// An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
 	MaxUnavailable pulumi.Input `pulumi:"maxUnavailable"`
@@ -1945,6 +2422,15 @@ func (i *podDisruptionBudgetSpecPtrType) ToPodDisruptionBudgetSpecPtrOutputWithC
 }
 
 // PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodDisruptionBudgetSpecOutput struct{ *pulumi.OutputState }
 
 func (PodDisruptionBudgetSpecOutput) ElementType() reflect.Type {
@@ -2039,6 +2525,15 @@ func (o PodDisruptionBudgetSpecPtrOutput) Selector() metav1.LabelSelectorPtrOutp
 }
 
 // PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodDisruptionBudgetSpecPatch struct {
 	// An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
 	MaxUnavailable interface{} `pulumi:"maxUnavailable"`
@@ -2060,6 +2555,15 @@ type PodDisruptionBudgetSpecPatchInput interface {
 }
 
 // PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodDisruptionBudgetSpecPatchArgs struct {
 	// An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
 	MaxUnavailable pulumi.Input `pulumi:"maxUnavailable"`
@@ -2123,6 +2627,15 @@ func (i *podDisruptionBudgetSpecPatchPtrType) ToPodDisruptionBudgetSpecPatchPtrO
 }
 
 // PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodDisruptionBudgetSpecPatchOutput struct{ *pulumi.OutputState }
 
 func (PodDisruptionBudgetSpecPatchOutput) ElementType() reflect.Type {
@@ -2217,6 +2730,15 @@ func (o PodDisruptionBudgetSpecPatchPtrOutput) Selector() metav1.LabelSelectorPa
 }
 
 // PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget. Status may trail the actual state of a system.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodDisruptionBudgetStatus struct {
 	// current number of healthy pods
 	CurrentHealthy int `pulumi:"currentHealthy"`
@@ -2244,6 +2766,15 @@ type PodDisruptionBudgetStatusInput interface {
 }
 
 // PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget. Status may trail the actual state of a system.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodDisruptionBudgetStatusArgs struct {
 	// current number of healthy pods
 	CurrentHealthy pulumi.IntInput `pulumi:"currentHealthy"`
@@ -2313,6 +2844,15 @@ func (i *podDisruptionBudgetStatusPtrType) ToPodDisruptionBudgetStatusPtrOutputW
 }
 
 // PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget. Status may trail the actual state of a system.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodDisruptionBudgetStatusOutput struct{ *pulumi.OutputState }
 
 func (PodDisruptionBudgetStatusOutput) ElementType() reflect.Type {
@@ -2452,6 +2992,15 @@ func (o PodDisruptionBudgetStatusPtrOutput) ObservedGeneration() pulumi.IntPtrOu
 }
 
 // PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget. Status may trail the actual state of a system.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodDisruptionBudgetStatusPatch struct {
 	// current number of healthy pods
 	CurrentHealthy *int `pulumi:"currentHealthy"`
@@ -2479,6 +3028,15 @@ type PodDisruptionBudgetStatusPatchInput interface {
 }
 
 // PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget. Status may trail the actual state of a system.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodDisruptionBudgetStatusPatchArgs struct {
 	// current number of healthy pods
 	CurrentHealthy pulumi.IntPtrInput `pulumi:"currentHealthy"`
@@ -2548,6 +3106,15 @@ func (i *podDisruptionBudgetStatusPatchPtrType) ToPodDisruptionBudgetStatusPatch
 }
 
 // PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget. Status may trail the actual state of a system.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodDisruptionBudgetStatusPatchOutput struct{ *pulumi.OutputState }
 
 func (PodDisruptionBudgetStatusPatchOutput) ElementType() reflect.Type {
@@ -2687,6 +3254,15 @@ func (o PodDisruptionBudgetStatusPatchPtrOutput) ObservedGeneration() pulumi.Int
 }
 
 // PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodSecurityPolicyType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -2710,6 +3286,15 @@ type PodSecurityPolicyTypeInput interface {
 }
 
 // PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodSecurityPolicyTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -2759,6 +3344,15 @@ func (i PodSecurityPolicyTypeArray) ToPodSecurityPolicyTypeArrayOutputWithContex
 }
 
 // PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodSecurityPolicyTypeOutput struct{ *pulumi.OutputState }
 
 func (PodSecurityPolicyTypeOutput) ElementType() reflect.Type {
@@ -2814,6 +3408,15 @@ func (o PodSecurityPolicyTypeArrayOutput) Index(i pulumi.IntInput) PodSecurityPo
 }
 
 // PodSecurityPolicyList is a list of PodSecurityPolicy objects.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodSecurityPolicyListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -2837,6 +3440,15 @@ type PodSecurityPolicyListTypeInput interface {
 }
 
 // PodSecurityPolicyList is a list of PodSecurityPolicy objects.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodSecurityPolicyListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -2861,6 +3473,15 @@ func (i PodSecurityPolicyListTypeArgs) ToPodSecurityPolicyListTypeOutputWithCont
 }
 
 // PodSecurityPolicyList is a list of PodSecurityPolicy objects.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodSecurityPolicyListTypeOutput struct{ *pulumi.OutputState }
 
 func (PodSecurityPolicyListTypeOutput) ElementType() reflect.Type {
@@ -2896,6 +3517,15 @@ func (o PodSecurityPolicyListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 }
 
 // PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodSecurityPolicyPatchType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -2919,6 +3549,15 @@ type PodSecurityPolicyPatchTypeInput interface {
 }
 
 // PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodSecurityPolicyPatchTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -2943,6 +3582,15 @@ func (i PodSecurityPolicyPatchTypeArgs) ToPodSecurityPolicyPatchTypeOutputWithCo
 }
 
 // PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodSecurityPolicyPatchTypeOutput struct{ *pulumi.OutputState }
 
 func (PodSecurityPolicyPatchTypeOutput) ElementType() reflect.Type {
@@ -2978,6 +3626,15 @@ func (o PodSecurityPolicyPatchTypeOutput) Spec() PodSecurityPolicySpecPatchPtrOu
 }
 
 // PodSecurityPolicySpec defines the policy enforced.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodSecurityPolicySpec struct {
 	// allowPrivilegeEscalation determines if a pod can request to allow privilege escalation. If unspecified, defaults to true.
 	AllowPrivilegeEscalation *bool `pulumi:"allowPrivilegeEscalation"`
@@ -3045,6 +3702,15 @@ type PodSecurityPolicySpecInput interface {
 }
 
 // PodSecurityPolicySpec defines the policy enforced.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodSecurityPolicySpecArgs struct {
 	// allowPrivilegeEscalation determines if a pod can request to allow privilege escalation. If unspecified, defaults to true.
 	AllowPrivilegeEscalation pulumi.BoolPtrInput `pulumi:"allowPrivilegeEscalation"`
@@ -3154,6 +3820,15 @@ func (i *podSecurityPolicySpecPtrType) ToPodSecurityPolicySpecPtrOutputWithConte
 }
 
 // PodSecurityPolicySpec defines the policy enforced.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodSecurityPolicySpecOutput struct{ *pulumi.OutputState }
 
 func (PodSecurityPolicySpecOutput) ElementType() reflect.Type {
@@ -3571,6 +4246,15 @@ func (o PodSecurityPolicySpecPtrOutput) Volumes() pulumi.StringArrayOutput {
 }
 
 // PodSecurityPolicySpec defines the policy enforced.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodSecurityPolicySpecPatch struct {
 	// allowPrivilegeEscalation determines if a pod can request to allow privilege escalation. If unspecified, defaults to true.
 	AllowPrivilegeEscalation *bool `pulumi:"allowPrivilegeEscalation"`
@@ -3638,6 +4322,15 @@ type PodSecurityPolicySpecPatchInput interface {
 }
 
 // PodSecurityPolicySpec defines the policy enforced.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodSecurityPolicySpecPatchArgs struct {
 	// allowPrivilegeEscalation determines if a pod can request to allow privilege escalation. If unspecified, defaults to true.
 	AllowPrivilegeEscalation pulumi.BoolPtrInput `pulumi:"allowPrivilegeEscalation"`
@@ -3747,6 +4440,15 @@ func (i *podSecurityPolicySpecPatchPtrType) ToPodSecurityPolicySpecPatchPtrOutpu
 }
 
 // PodSecurityPolicySpec defines the policy enforced.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type PodSecurityPolicySpecPatchOutput struct{ *pulumi.OutputState }
 
 func (PodSecurityPolicySpecPatchOutput) ElementType() reflect.Type {
@@ -4166,6 +4868,15 @@ func (o PodSecurityPolicySpecPatchPtrOutput) Volumes() pulumi.StringArrayOutput 
 }
 
 // RunAsGroupStrategyOptions defines the strategy type and any options used to create the strategy.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type RunAsGroupStrategyOptions struct {
 	// ranges are the allowed ranges of gids that may be used. If you would like to force a single gid then supply a single range with the same start and end. Required for MustRunAs.
 	Ranges []IDRange `pulumi:"ranges"`
@@ -4185,6 +4896,15 @@ type RunAsGroupStrategyOptionsInput interface {
 }
 
 // RunAsGroupStrategyOptions defines the strategy type and any options used to create the strategy.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type RunAsGroupStrategyOptionsArgs struct {
 	// ranges are the allowed ranges of gids that may be used. If you would like to force a single gid then supply a single range with the same start and end. Required for MustRunAs.
 	Ranges IDRangeArrayInput `pulumi:"ranges"`
@@ -4246,6 +4966,15 @@ func (i *runAsGroupStrategyOptionsPtrType) ToRunAsGroupStrategyOptionsPtrOutputW
 }
 
 // RunAsGroupStrategyOptions defines the strategy type and any options used to create the strategy.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type RunAsGroupStrategyOptionsOutput struct{ *pulumi.OutputState }
 
 func (RunAsGroupStrategyOptionsOutput) ElementType() reflect.Type {
@@ -4325,6 +5054,15 @@ func (o RunAsGroupStrategyOptionsPtrOutput) Rule() pulumi.StringPtrOutput {
 }
 
 // RunAsGroupStrategyOptions defines the strategy type and any options used to create the strategy.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type RunAsGroupStrategyOptionsPatch struct {
 	// ranges are the allowed ranges of gids that may be used. If you would like to force a single gid then supply a single range with the same start and end. Required for MustRunAs.
 	Ranges []IDRangePatch `pulumi:"ranges"`
@@ -4344,6 +5082,15 @@ type RunAsGroupStrategyOptionsPatchInput interface {
 }
 
 // RunAsGroupStrategyOptions defines the strategy type and any options used to create the strategy.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type RunAsGroupStrategyOptionsPatchArgs struct {
 	// ranges are the allowed ranges of gids that may be used. If you would like to force a single gid then supply a single range with the same start and end. Required for MustRunAs.
 	Ranges IDRangePatchArrayInput `pulumi:"ranges"`
@@ -4405,6 +5152,15 @@ func (i *runAsGroupStrategyOptionsPatchPtrType) ToRunAsGroupStrategyOptionsPatch
 }
 
 // RunAsGroupStrategyOptions defines the strategy type and any options used to create the strategy.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type RunAsGroupStrategyOptionsPatchOutput struct{ *pulumi.OutputState }
 
 func (RunAsGroupStrategyOptionsPatchOutput) ElementType() reflect.Type {
@@ -4484,6 +5240,15 @@ func (o RunAsGroupStrategyOptionsPatchPtrOutput) Rule() pulumi.StringPtrOutput {
 }
 
 // RunAsUserStrategyOptions defines the strategy type and any options used to create the strategy.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type RunAsUserStrategyOptions struct {
 	// ranges are the allowed ranges of uids that may be used. If you would like to force a single uid then supply a single range with the same start and end. Required for MustRunAs.
 	Ranges []IDRange `pulumi:"ranges"`
@@ -4503,6 +5268,15 @@ type RunAsUserStrategyOptionsInput interface {
 }
 
 // RunAsUserStrategyOptions defines the strategy type and any options used to create the strategy.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type RunAsUserStrategyOptionsArgs struct {
 	// ranges are the allowed ranges of uids that may be used. If you would like to force a single uid then supply a single range with the same start and end. Required for MustRunAs.
 	Ranges IDRangeArrayInput `pulumi:"ranges"`
@@ -4564,6 +5338,15 @@ func (i *runAsUserStrategyOptionsPtrType) ToRunAsUserStrategyOptionsPtrOutputWit
 }
 
 // RunAsUserStrategyOptions defines the strategy type and any options used to create the strategy.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type RunAsUserStrategyOptionsOutput struct{ *pulumi.OutputState }
 
 func (RunAsUserStrategyOptionsOutput) ElementType() reflect.Type {
@@ -4643,6 +5426,15 @@ func (o RunAsUserStrategyOptionsPtrOutput) Rule() pulumi.StringPtrOutput {
 }
 
 // RunAsUserStrategyOptions defines the strategy type and any options used to create the strategy.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type RunAsUserStrategyOptionsPatch struct {
 	// ranges are the allowed ranges of uids that may be used. If you would like to force a single uid then supply a single range with the same start and end. Required for MustRunAs.
 	Ranges []IDRangePatch `pulumi:"ranges"`
@@ -4662,6 +5454,15 @@ type RunAsUserStrategyOptionsPatchInput interface {
 }
 
 // RunAsUserStrategyOptions defines the strategy type and any options used to create the strategy.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type RunAsUserStrategyOptionsPatchArgs struct {
 	// ranges are the allowed ranges of uids that may be used. If you would like to force a single uid then supply a single range with the same start and end. Required for MustRunAs.
 	Ranges IDRangePatchArrayInput `pulumi:"ranges"`
@@ -4723,6 +5524,15 @@ func (i *runAsUserStrategyOptionsPatchPtrType) ToRunAsUserStrategyOptionsPatchPt
 }
 
 // RunAsUserStrategyOptions defines the strategy type and any options used to create the strategy.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type RunAsUserStrategyOptionsPatchOutput struct{ *pulumi.OutputState }
 
 func (RunAsUserStrategyOptionsPatchOutput) ElementType() reflect.Type {
@@ -4802,6 +5612,15 @@ func (o RunAsUserStrategyOptionsPatchPtrOutput) Rule() pulumi.StringPtrOutput {
 }
 
 // RuntimeClassStrategyOptions define the strategy that will dictate the allowable RuntimeClasses for a pod.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type RuntimeClassStrategyOptions struct {
 	// allowedRuntimeClassNames is a whitelist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
 	AllowedRuntimeClassNames []string `pulumi:"allowedRuntimeClassNames"`
@@ -4821,6 +5640,15 @@ type RuntimeClassStrategyOptionsInput interface {
 }
 
 // RuntimeClassStrategyOptions define the strategy that will dictate the allowable RuntimeClasses for a pod.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type RuntimeClassStrategyOptionsArgs struct {
 	// allowedRuntimeClassNames is a whitelist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
 	AllowedRuntimeClassNames pulumi.StringArrayInput `pulumi:"allowedRuntimeClassNames"`
@@ -4882,6 +5710,15 @@ func (i *runtimeClassStrategyOptionsPtrType) ToRuntimeClassStrategyOptionsPtrOut
 }
 
 // RuntimeClassStrategyOptions define the strategy that will dictate the allowable RuntimeClasses for a pod.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type RuntimeClassStrategyOptionsOutput struct{ *pulumi.OutputState }
 
 func (RuntimeClassStrategyOptionsOutput) ElementType() reflect.Type {
@@ -4961,6 +5798,15 @@ func (o RuntimeClassStrategyOptionsPtrOutput) DefaultRuntimeClassName() pulumi.S
 }
 
 // RuntimeClassStrategyOptions define the strategy that will dictate the allowable RuntimeClasses for a pod.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type RuntimeClassStrategyOptionsPatch struct {
 	// allowedRuntimeClassNames is a whitelist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
 	AllowedRuntimeClassNames []string `pulumi:"allowedRuntimeClassNames"`
@@ -4980,6 +5826,15 @@ type RuntimeClassStrategyOptionsPatchInput interface {
 }
 
 // RuntimeClassStrategyOptions define the strategy that will dictate the allowable RuntimeClasses for a pod.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type RuntimeClassStrategyOptionsPatchArgs struct {
 	// allowedRuntimeClassNames is a whitelist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
 	AllowedRuntimeClassNames pulumi.StringArrayInput `pulumi:"allowedRuntimeClassNames"`
@@ -5041,6 +5896,15 @@ func (i *runtimeClassStrategyOptionsPatchPtrType) ToRuntimeClassStrategyOptionsP
 }
 
 // RuntimeClassStrategyOptions define the strategy that will dictate the allowable RuntimeClasses for a pod.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type RuntimeClassStrategyOptionsPatchOutput struct{ *pulumi.OutputState }
 
 func (RuntimeClassStrategyOptionsPatchOutput) ElementType() reflect.Type {
@@ -5120,6 +5984,15 @@ func (o RuntimeClassStrategyOptionsPatchPtrOutput) DefaultRuntimeClassName() pul
 }
 
 // SELinuxStrategyOptions defines the strategy type and any options used to create the strategy.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SELinuxStrategyOptions struct {
 	// rule is the strategy that will dictate the allowable labels that may be set.
 	Rule string `pulumi:"rule"`
@@ -5139,6 +6012,15 @@ type SELinuxStrategyOptionsInput interface {
 }
 
 // SELinuxStrategyOptions defines the strategy type and any options used to create the strategy.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SELinuxStrategyOptionsArgs struct {
 	// rule is the strategy that will dictate the allowable labels that may be set.
 	Rule pulumi.StringInput `pulumi:"rule"`
@@ -5200,6 +6082,15 @@ func (i *selinuxStrategyOptionsPtrType) ToSELinuxStrategyOptionsPtrOutputWithCon
 }
 
 // SELinuxStrategyOptions defines the strategy type and any options used to create the strategy.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SELinuxStrategyOptionsOutput struct{ *pulumi.OutputState }
 
 func (SELinuxStrategyOptionsOutput) ElementType() reflect.Type {
@@ -5279,6 +6170,15 @@ func (o SELinuxStrategyOptionsPtrOutput) SeLinuxOptions() corev1.SELinuxOptionsP
 }
 
 // SELinuxStrategyOptions defines the strategy type and any options used to create the strategy.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SELinuxStrategyOptionsPatch struct {
 	// rule is the strategy that will dictate the allowable labels that may be set.
 	Rule *string `pulumi:"rule"`
@@ -5298,6 +6198,15 @@ type SELinuxStrategyOptionsPatchInput interface {
 }
 
 // SELinuxStrategyOptions defines the strategy type and any options used to create the strategy.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SELinuxStrategyOptionsPatchArgs struct {
 	// rule is the strategy that will dictate the allowable labels that may be set.
 	Rule pulumi.StringPtrInput `pulumi:"rule"`
@@ -5359,6 +6268,15 @@ func (i *selinuxStrategyOptionsPatchPtrType) ToSELinuxStrategyOptionsPatchPtrOut
 }
 
 // SELinuxStrategyOptions defines the strategy type and any options used to create the strategy.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SELinuxStrategyOptionsPatchOutput struct{ *pulumi.OutputState }
 
 func (SELinuxStrategyOptionsPatchOutput) ElementType() reflect.Type {
@@ -5438,6 +6356,15 @@ func (o SELinuxStrategyOptionsPatchPtrOutput) SeLinuxOptions() corev1.SELinuxOpt
 }
 
 // SupplementalGroupsStrategyOptions defines the strategy type and options used to create the strategy.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SupplementalGroupsStrategyOptions struct {
 	// ranges are the allowed ranges of supplemental groups.  If you would like to force a single supplemental group then supply a single range with the same start and end. Required for MustRunAs.
 	Ranges []IDRange `pulumi:"ranges"`
@@ -5457,6 +6384,15 @@ type SupplementalGroupsStrategyOptionsInput interface {
 }
 
 // SupplementalGroupsStrategyOptions defines the strategy type and options used to create the strategy.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SupplementalGroupsStrategyOptionsArgs struct {
 	// ranges are the allowed ranges of supplemental groups.  If you would like to force a single supplemental group then supply a single range with the same start and end. Required for MustRunAs.
 	Ranges IDRangeArrayInput `pulumi:"ranges"`
@@ -5518,6 +6454,15 @@ func (i *supplementalGroupsStrategyOptionsPtrType) ToSupplementalGroupsStrategyO
 }
 
 // SupplementalGroupsStrategyOptions defines the strategy type and options used to create the strategy.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SupplementalGroupsStrategyOptionsOutput struct{ *pulumi.OutputState }
 
 func (SupplementalGroupsStrategyOptionsOutput) ElementType() reflect.Type {
@@ -5597,6 +6542,15 @@ func (o SupplementalGroupsStrategyOptionsPtrOutput) Rule() pulumi.StringPtrOutpu
 }
 
 // SupplementalGroupsStrategyOptions defines the strategy type and options used to create the strategy.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SupplementalGroupsStrategyOptionsPatch struct {
 	// ranges are the allowed ranges of supplemental groups.  If you would like to force a single supplemental group then supply a single range with the same start and end. Required for MustRunAs.
 	Ranges []IDRangePatch `pulumi:"ranges"`
@@ -5616,6 +6570,15 @@ type SupplementalGroupsStrategyOptionsPatchInput interface {
 }
 
 // SupplementalGroupsStrategyOptions defines the strategy type and options used to create the strategy.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SupplementalGroupsStrategyOptionsPatchArgs struct {
 	// ranges are the allowed ranges of supplemental groups.  If you would like to force a single supplemental group then supply a single range with the same start and end. Required for MustRunAs.
 	Ranges IDRangePatchArrayInput `pulumi:"ranges"`
@@ -5677,6 +6640,15 @@ func (i *supplementalGroupsStrategyOptionsPatchPtrType) ToSupplementalGroupsStra
 }
 
 // SupplementalGroupsStrategyOptions defines the strategy type and options used to create the strategy.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SupplementalGroupsStrategyOptionsPatchOutput struct{ *pulumi.OutputState }
 
 func (SupplementalGroupsStrategyOptionsPatchOutput) ElementType() reflect.Type {
