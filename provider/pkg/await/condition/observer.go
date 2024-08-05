@@ -153,7 +153,9 @@ func (o *observer) Range(yield func(watch.Event) bool) {
 			if !ok || !o.keep(obj) {
 				continue
 			}
-			yield(e)
+			if !yield(e) {
+				return // Done iterating.
+			}
 		}
 	}
 }
