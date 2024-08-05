@@ -104,6 +104,7 @@ func (des *DynamicSource) Start(_ context.Context, gvk schema.GroupVersionKind) 
 		}
 	}
 	go informer.Informer().Run(des.stopper)
+	factory.WaitForCacheSync(des.stopper)
 
 	return events, nil
 }
