@@ -18,6 +18,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/condition"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/util/wait"
@@ -83,7 +84,6 @@ func (aw *Awaiter) Await(ctx context.Context) (err error) {
 
 	if err != nil {
 		return err
-
 	}
 
 	err = ctx.Err()
@@ -143,4 +143,8 @@ type errObject struct {
 
 func (e errObject) Object() *unstructured.Unstructured {
 	return e.object
+}
+
+func (e errObject) Unwrap() error {
+	return e.error
 }
