@@ -18,8 +18,6 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"sync"
-
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/condition"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/util/wait"
@@ -42,76 +40,58 @@ func NewAwaiter(options ...awaiterOption) (*Awaiter, error) {
 	return ea, nil
 }
 
-// Await blocks until the Condition is met or until the context is closed.
+// Await blocks until the Condition is met or until the context is canceled.
 // The operation's timeout should be applied to the provided Context.
-func (ea *Awaiter) Await(ctx context.Context) (err error) {
-	if ea.condition == nil {
+func (aw *Awaiter) Await(ctx context.Context) (err error) {
+	if aw.condition == nil {
 		return fmt.Errorf("missing condition")
 	}
 
-	// check channel is signaled when we should re-evaluate our condition.
-	check := make(chan struct{})
-
-	// We'll spawn a goroutine for our condition and each observer. We wait for
-	// them to tear down before returning because the condition might change
-	// during that time.
-	wg := sync.WaitGroup{}
-	wg.Add(len(ea.observers) + 1)
-	go func() {
-		wg.Wait()
-		close(check)
-	}()
-
-	// Start all of our observers.
-	observers := append([]condition.Observer{ea.condition}, ea.observers...)
-	for _, o := range observers {
+	// Start all of our observers. They'll continue until they're canceled.
+	for _, o := range aw.observers {
 		go func(o condition.Observer) {
-			defer wg.Done()
 			o.Range(func(e watch.Event) bool {
 				_ = o.Observe(e)
-				// Re-evaluate our condition if we see an event for it.
-				if _, ok := o.(condition.Satisfier); ok {
-					check <- struct{}{}
-				}
 				return true
 			})
 		}(o)
 	}
 
-	// Before returning we attempt to re-evaluate the condition a final time,
-	// and we wrap our error with our object's last known state so it can be
-	// checkpointed.
-	defer func() {
-		if err == nil {
-			// Nothing to do.
-			return
-		}
-		// Make sure Observers are all done.
-		wg.Wait()
-		if done, _ := ea.condition.Satisfied(); done {
-			err = nil
-		}
-		// Wrap our error with our object's state.
+	// Block until our condition is satisfied, or until our Context is canceled.
+	aw.condition.Range(func(e watch.Event) bool {
+		err = aw.condition.Observe(e)
 		if err != nil {
-			err = errObject{error: err, object: ea.condition.Object()}
+			return false
 		}
+		if done, _ := aw.condition.Satisfied(); done {
+			return false
+		}
+		return true
+	})
+
+	// Re-evaluate our condition since its state might have changed during the
+	// iterator's teardown.
+	done, err := aw.condition.Satisfied()
+	if done {
+		return nil
+	}
+
+	// Make sure the error we return includes the object's partial state.
+	defer func() {
+		err = errObject{error: err, object: aw.condition.Object()}
 	}()
 
-	for {
-		select {
-		case <-check:
-			done, err := ea.condition.Satisfied()
-			if done || err != nil {
-				return err
-			}
-		case <-ctx.Done():
-			err := ctx.Err()
-			if errors.Is(err, context.DeadlineExceeded) {
-				err = fmt.Errorf("timed out waiting for the condition")
-			}
-			return wait.ErrorInterrupted(err)
-		}
+	if err != nil {
+		return err
+
 	}
+
+	err = ctx.Err()
+	if errors.Is(err, context.DeadlineExceeded) {
+		// Preserve the default k8s "timed out waiting for the condition" error.
+		err = nil
+	}
+	return wait.ErrorInterrupted(err)
 }
 
 type awaiterOption interface {
