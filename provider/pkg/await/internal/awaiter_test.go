@@ -24,15 +24,18 @@ import (
 	"github.com/stretchr/testify/require"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
+	"k8s.io/apimachinery/pkg/util/wait"
 	"k8s.io/apimachinery/pkg/watch"
 )
 
 func TestCancel(t *testing.T) {
 	t.Parallel()
 
+	obj := &unstructured.Unstructured{Object: map[string]any{"foo": "bar"}}
+
 	awaiter, err := NewAwaiter(
-		WithCondition(condition.NewNever(nil)),
-		WithObservers(condition.NewNever(nil)),
+		WithCondition(condition.NewNever(obj)),
+		WithObservers(condition.NewNever(obj)),
 	)
 	require.NoError(t, err)
 
@@ -42,6 +45,14 @@ func TestCancel(t *testing.T) {
 	err = awaiter.Await(ctx)
 
 	assert.Error(t, err)
+	assert.True(t, wait.Interrupted(err))
+
+	// The error should include the object's partial state.
+	partial, ok := err.(interface {
+		Object() *unstructured.Unstructured
+	})
+	assert.True(t, ok)
+	assert.Equal(t, obj, partial.Object())
 }
 
 func TestCancelWithRecovery(t *testing.T) {
@@ -64,9 +75,11 @@ func TestCancelWithRecovery(t *testing.T) {
 func TestTimeout(t *testing.T) {
 	t.Parallel()
 
+	obj := &unstructured.Unstructured{Object: map[string]any{"foo": "bar"}}
+
 	awaiter, err := NewAwaiter(
-		WithCondition(condition.NewNever(nil)),
-		WithObservers(condition.NewNever(nil)),
+		WithCondition(condition.NewNever(obj)),
+		WithObservers(condition.NewNever(obj)),
 	)
 	require.NoError(t, err)
 
@@ -76,6 +89,14 @@ func TestTimeout(t *testing.T) {
 	err = awaiter.Await(ctx)
 
 	assert.Error(t, err)
+	assert.True(t, wait.Interrupted(err))
+
+	// The error should include the object's partial state.
+	partial, ok := err.(interface {
+		Object() *unstructured.Unstructured
+	})
+	assert.True(t, ok)
+	assert.Equal(t, obj, partial.Object())
 }
 
 func TestImmediateSuccess(t *testing.T) {
@@ -129,11 +150,13 @@ func TestEventualSuccess(t *testing.T) {
 
 	ctx := context.Background()
 
-	obj := &unstructured.Unstructured{Object: map[string]any{
-		"apiVersion": "v1",
-		"kind":       "Pod",
-		"metadata":   map[string]any{"name": "foo", "namespace": "default"},
-	}}
+	obj := &unstructured.Unstructured{
+		Object: map[string]any{
+			"apiVersion": "v1",
+			"kind":       "Pod",
+			"metadata":   map[string]any{"name": "foo", "namespace": "default"},
+		},
+	}
 	want := watch.Event{Type: watch.Modified, Object: obj}
 
 	events := make(chan watch.Event)
