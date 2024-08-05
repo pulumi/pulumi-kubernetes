@@ -31,6 +31,9 @@ var pulumiSchema []byte
 //go:embed terraform-mapping-embed.json
 var terraformMapping []byte
 
+//go:embed helm-mapping.json
+var helmMapping []byte
+
 func main() {
-	provider.Serve(providerName, version.Version, pulumiSchema, terraformMapping)
+	provider.Serve(providerName, version.Version, pulumiSchema, terraformMapping, helmMapping)
 }
