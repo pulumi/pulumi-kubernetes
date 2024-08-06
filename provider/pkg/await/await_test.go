@@ -496,7 +496,7 @@ func Test_Deletion(t *testing.T) {
 				name:    "foo",
 				objects: []runtime.Object{validPodUnstructured},
 				inputs:  withSkipAwait(validPodUnstructured),
-				outputs: withSkipAwait(validPodUnstructured),
+				outputs: validPodUnstructured,
 			},
 			reaction: []reactionF{suppressDeletion}, // suppress deletion to safeguard that the built-in watcher is not used.
 			expect:   []expectF{succeeded()},
