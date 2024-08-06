@@ -73,7 +73,13 @@ func (l *DedupLogger) GetNewMessages() []logging.Message {
 func (l *DedupLogger) LogNewMessages() {
 	if l.host != nil {
 		for _, msg := range l.GetNewMessages() {
-			_ = l.host.LogStatus(l.ctx, msg.Severity, l.urn, msg.S)
+			switch msg.Severity {
+			case diag.Warning, diag.Error:
+				// Persist warnings and errors.
+				_ = l.host.Log(l.ctx, msg.Severity, l.urn, msg.S)
+			default:
+				_ = l.host.LogStatus(l.ctx, msg.Severity, l.urn, msg.S)
+			}
 		}
 	}
 }
