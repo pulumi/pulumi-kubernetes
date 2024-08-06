@@ -18,7 +18,6 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"net/http"
 	"strings"
 	"sync"
 	"sync/atomic"
@@ -37,6 +36,7 @@ var _ Satisfier = (*Deleted)(nil)
 // event is received for the resource.
 type Deleted struct {
 	observer *ObjectObserver
+	ctx      context.Context
 	logger   logger
 	deleted  atomic.Bool
 	getter   objectGetter
@@ -51,6 +51,7 @@ func NewDeleted(
 	obj *unstructured.Unstructured,
 ) (*Deleted, error) {
 	dc := &Deleted{
+		ctx:      ctx,
 		observer: NewObjectObserver(ctx, source, obj),
 		logger:   logger,
 		getter:   getter,
@@ -58,7 +59,7 @@ func NewDeleted(
 	return dc, nil
 }
 
-// Range confirms the object exists before establishing an Informer.
+// Range establishes an Informer and confirms the object still existsr.
 // If a Deleted event isn't Observed by the time the underlying Observer is
 // exhausted, we attempt a final lookup on the cluster to be absolutely sure it
 // still exists.
@@ -98,9 +99,6 @@ func (dc *Deleted) Range(yield func(watch.Event) bool) {
 	// Let the user know we might be blocked if the object has finalizers.
 	// https://github.com/pulumi/pulumi-kubernetes/issues/1418
 	finalizers := dc.Object().GetFinalizers()
-	if len(finalizers) == 0 {
-		return
-	}
 	dc.logger.LogMessage(checkerlog.WarningMessage(
 		fmt.Sprintf("finalizers might be preventing deletion (%s)", strings.Join(finalizers, ", ")),
 	))
@@ -138,7 +136,10 @@ func (dc *Deleted) Object() *unstructured.Unstructured {
 // getClusterState performs a GET against the cluster and updates state to
 // reflect whether the object still exists or not.
 func (dc *Deleted) getClusterState() {
-	_, err := dc.getter.Get(context.Background(), dc.Object().GetName(), metav1.GetOptions{})
+	// Our context might be closed, but we still want to issue this request
+	// even if we're shutting down.
+	ctx := context.WithoutCancel(dc.ctx)
+	_, err := dc.getter.Get(ctx, dc.Object().GetName(), metav1.GetOptions{})
 	if err == nil {
 		// Still exists.
 		dc.deleted.Store(false)
@@ -146,6 +147,6 @@ func (dc *Deleted) getClusterState() {
 	}
 	var statusErr *k8serrors.StatusError
 	if errors.As(err, &statusErr) {
-		dc.deleted.Store(statusErr.ErrStatus.Code == http.StatusNotFound)
+		dc.deleted.Store(k8serrors.IsNotFound(err))
 	}
 }
