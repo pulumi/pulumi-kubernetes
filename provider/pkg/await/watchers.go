@@ -228,14 +228,11 @@ func NewEventAggregator(
 	observer := condition.NewObserver(ctx,
 		source,
 		corev1.SchemeGroupVersion.WithKind("Event"),
-		func(obj *unstructured.Unstructured) bool {
-			uid, _, _ := unstructured.NestedString(obj.Object, "involvedObject", "uid")
-			return uid == string(owner.GetUID())
-		},
+		relatedEvents(owner),
 	)
 	return NewAggregator(observer, logger,
 		func(l logMessager, e *corev1.Event) error {
-			if e == nil || e.Type != corev1.EventTypeWarning {
+			if e == nil {
 				return nil
 			}
 			msg := fmt.Sprintf(
@@ -245,7 +242,14 @@ func NewEventAggregator(
 				e.Reason,
 				e.Message,
 			)
-			logger.LogMessage(checkerlog.WarningMessage(msg))
+			m := checkerlog.WarningMessage(msg)
+			switch e.Type {
+			case corev1.EventTypeWarning:
+				logger.LogMessage(m)
+			default:
+				m.Severity = diag.Debug
+				logger.LogMessage(m)
+			}
 			return nil
 		},
 	)
@@ -253,4 +257,11 @@ func NewEventAggregator(
 
 type logMessager interface {
 	LogMessage(checkerlog.Message)
+}
+
+func relatedEvents(owner *unstructured.Unstructured) func(*unstructured.Unstructured) bool {
+	return func(obj *unstructured.Unstructured) bool {
+		uid, _, _ := unstructured.NestedString(obj.Object, "involvedObject", "uid")
+		return uid == string(owner.GetUID())
+	}
 }

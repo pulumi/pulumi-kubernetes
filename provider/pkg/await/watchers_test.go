@@ -20,10 +20,8 @@ import (
 	"io"
 	"strings"
 	"testing"
-	"time"
 
 	checkerlog "github.com/pulumi/cloud-ready-checks/pkg/checker/logging"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/condition"
 	"github.com/stretchr/testify/assert"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/watch"
@@ -46,7 +44,7 @@ func TestEventAggregator(t *testing.T) {
 		want  string
 	}{
 		{
-			name: "related warning",
+			name: "warning",
 			event: watch.Event{Type: watch.Added, Object: &unstructured.Unstructured{Object: map[string]any{
 				"apiVersion": "v1",
 				"kind":       "Event",
@@ -62,7 +60,7 @@ func TestEventAggregator(t *testing.T) {
 			want: "warning [stack/my-stack-28073241] StackUpdateFailure: Failed to update Stack",
 		},
 		{
-			name: "related info",
+			name: "normal",
 			event: watch.Event{Type: watch.Added, Object: &unstructured.Unstructured{Object: map[string]any{
 				"apiVersion": "v1",
 				"kind":       "Event",
@@ -75,11 +73,61 @@ func TestEventAggregator(t *testing.T) {
 					"uid":  "9bd08f1a-fa5b-40a5-ba41-bf69899a4416",
 				},
 			}}},
-			want: "",
+			want: "debug [pod/mypod-7854ff8877-p9ksk] Killing: frog blast the vent core",
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			buf := &strings.Builder{}
+			obs := NewEventAggregator(context.Background(), nil, log{buf}, owner)
+
+			err := obs.Observe(tt.event)
+
+			assert.NoError(t, err)
+			assert.Equal(t, buf.String(), tt.want)
+		})
+	}
+}
+
+func TestRelatedEvent(t *testing.T) {
+	owner := &unstructured.Unstructured{Object: map[string]any{
+		"apiVersion": "pulumi.com/v1",
+		"kind":       "Stack",
+		"metadata": map[string]any{
+			"name":      "my-stack-28073241",
+			"namespace": "operator",
+			"uid":       "9bd08f1a-fa5b-40a5-ba41-bf69899a4416",
+		},
+	}}
+
+	tests := []struct {
+		name  string
+		owner *unstructured.Unstructured
+		event *unstructured.Unstructured
+		want  bool
+	}{
+		{
+			name:  "related",
+			owner: owner,
+			event: &unstructured.Unstructured{Object: map[string]any{
+				"apiVersion": "v1",
+				"kind":       "Event",
+				"reason":     "StackUpdateFailure",
+				"type":       "Warning",
+				"message":    "Failed to update Stack",
+				"involvedObject": map[string]any{
+					"kind": "Stack",
+					"name": "my-stack-28073241",
+					"uid":  "9bd08f1a-fa5b-40a5-ba41-bf69899a4416",
+				},
+			}},
+			want: true,
 		},
 		{
-			name: "unrelated warning",
-			event: watch.Event{Type: watch.Added, Object: &unstructured.Unstructured{Object: map[string]any{
+			name:  "unrelated",
+			owner: owner,
+			event: &unstructured.Unstructured{Object: map[string]any{
 				"apiVersion": "v1",
 				"kind":       "Event",
 				"reason":     "Killing",
@@ -90,38 +138,16 @@ func TestEventAggregator(t *testing.T) {
 					"name": "some-other-name",
 					"uid":  "some-other-uid",
 				},
-			}}},
-			want: "",
+			}},
+			want: false,
 		},
 	}
 
 	for _, tt := range tests {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
-
-			source := condition.Static(make(chan watch.Event, 1))
-
-			buf := &strings.Builder{}
-
-			ctx, cancel := context.WithTimeout(context.Background(), time.Second)
-			defer cancel()
-
-			obs := NewEventAggregator(context.Background(), source, log{buf}, owner)
-
-			seen := make(chan struct{})
-			go obs.Range(func(e watch.Event) bool {
-				_ = obs.Observe(e)
-				seen <- struct{}{}
-				return true
-			})
-
-			source <- tt.event
-			select {
-			case <-seen:
-			case <-ctx.Done():
-			}
-			assert.Equal(t, buf.String(), tt.want)
+			actual := relatedEvents(tt.owner)(tt.event)
+			assert.Equal(t, tt.want, actual)
 		})
 	}
 }
