@@ -99,8 +99,8 @@ func TestSetAnnotation(t *testing.T) {
 func TestGetReadyCondition(t *testing.T) {
 	tests := []struct {
 		name           string
-		obj            *unstructured.Unstructured
 		inputs         *unstructured.Unstructured
+		obj            *unstructured.Unstructured
 		genericEnabled bool
 		want           any
 		wantErr        string
@@ -142,6 +142,52 @@ func TestGetReadyCondition(t *testing.T) {
 			},
 			genericEnabled: true,
 			want:           condition.Immediate{},
+		},
+		{
+			name: "skipAwait=ready, generic await disabled",
+			inputs: &unstructured.Unstructured{Object: map[string]any{
+				"metadata": map[string]any{
+					"annotations": map[string]any{
+						AnnotationSkipAwait: "ready",
+					},
+				},
+			}},
+			want: condition.Immediate{},
+		},
+		{
+			name: "skipAwait=ready, generic await enabled",
+			inputs: &unstructured.Unstructured{Object: map[string]any{
+				"metadata": map[string]any{
+					"annotations": map[string]any{
+						AnnotationSkipAwait: "ready",
+					},
+				},
+			}},
+			genericEnabled: true,
+			want:           condition.Immediate{},
+		},
+		{
+			name: "skipAwait=delete, generic await disabled",
+			inputs: &unstructured.Unstructured{Object: map[string]any{
+				"metadata": map[string]any{
+					"annotations": map[string]any{
+						AnnotationSkipAwait: "delete",
+					},
+				},
+			}},
+			want: condition.Immediate{},
+		},
+		{
+			name: "skipAwait=delete, generic await enabled",
+			inputs: &unstructured.Unstructured{Object: map[string]any{
+				"metadata": map[string]any{
+					"annotations": map[string]any{
+						AnnotationSkipAwait: "delete",
+					},
+				},
+			}},
+			genericEnabled: true,
+			want:           &condition.Ready{},
 		},
 	}
 
@@ -198,12 +244,43 @@ func TestGetDeletedCondition(t *testing.T) {
 			want: &condition.Deleted{},
 		},
 		{
-			name: "skipAwait unset",
-			inputs: &unstructured.Unstructured{
-				Object: map[string]any{
-					"metadata": map[string]any{},
+			name: "skipAwait=delete",
+			inputs: &unstructured.Unstructured{Object: map[string]any{
+				"metadata": map[string]any{
+					"annotations": map[string]any{
+						AnnotationSkipAwait: "delete",
+					},
 				},
-			},
+			}},
+			want: condition.Immediate{},
+		},
+		{
+			name: "skipAwait=ready",
+			inputs: &unstructured.Unstructured{Object: map[string]any{
+				"metadata": map[string]any{
+					"annotations": map[string]any{
+						AnnotationSkipAwait: "ready",
+					},
+				},
+			}},
+			want: &condition.Deleted{},
+		},
+		{
+			name: "skipAwait=false",
+			inputs: &unstructured.Unstructured{Object: map[string]any{
+				"metadata": map[string]any{
+					"annotations": map[string]any{
+						AnnotationSkipAwait: "false",
+					},
+				},
+			}},
+			want: &condition.Deleted{},
+		},
+		{
+			name: "skipAwait unset",
+			inputs: &unstructured.Unstructured{Object: map[string]any{
+				"metadata": map[string]any{},
+			}},
 			want: &condition.Deleted{},
 		},
 	}
