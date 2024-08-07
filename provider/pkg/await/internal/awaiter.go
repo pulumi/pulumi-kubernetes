@@ -43,7 +43,7 @@ func NewAwaiter(options ...awaiterOption) (*Awaiter, error) {
 
 // Await blocks until the Condition is met or until the context is canceled.
 // The operation's timeout should be applied to the provided Context.
-func (aw *Awaiter) Await(ctx context.Context) (err error) {
+func (aw *Awaiter) Await(ctx context.Context) error {
 	if aw.condition == nil {
 		return fmt.Errorf("missing condition")
 	}
@@ -60,7 +60,7 @@ func (aw *Awaiter) Await(ctx context.Context) (err error) {
 
 	// Block until our condition is satisfied, or until our Context is canceled.
 	aw.condition.Range(func(e watch.Event) bool {
-		err = aw.condition.Observe(e)
+		err := aw.condition.Observe(e)
 		if err != nil {
 			return false
 		}
@@ -78,12 +78,10 @@ func (aw *Awaiter) Await(ctx context.Context) (err error) {
 	}
 
 	// Make sure the error we return includes the object's partial state.
-	defer func() {
-		err = errObject{error: err, object: aw.condition.Object()}
-	}()
+	obj := aw.condition.Object()
 
 	if err != nil {
-		return err
+		return errObject{error: err, object: obj}
 	}
 
 	err = ctx.Err()
@@ -91,7 +89,7 @@ func (aw *Awaiter) Await(ctx context.Context) (err error) {
 		// Preserve the default k8s "timed out waiting for the condition" error.
 		err = nil
 	}
-	return wait.ErrorInterrupted(err)
+	return errObject{error: wait.ErrorInterrupted(err), object: obj}
 }
 
 type awaiterOption interface {
