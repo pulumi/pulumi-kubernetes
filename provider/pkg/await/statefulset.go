@@ -151,7 +151,7 @@ const (
 )
 
 type statefulsetInitAwaiter struct {
-	config            updateAwaitConfig
+	config            awaitConfig
 	revisionReady     bool
 	replicasReady     bool
 	currentGeneration int64
@@ -164,7 +164,7 @@ type statefulsetInitAwaiter struct {
 	targetRevision  string
 }
 
-func makeStatefulSetInitAwaiter(c updateAwaitConfig) *statefulsetInitAwaiter {
+func makeStatefulSetInitAwaiter(c awaitConfig) *statefulsetInitAwaiter {
 	return &statefulsetInitAwaiter{
 		config:        c,
 		revisionReady: false,
@@ -511,14 +511,12 @@ func (sia *statefulsetInitAwaiter) makeClients() (
 	if err != nil {
 		return nil, nil, fmt.Errorf("Could not make client to watch StatefulSet %q: %w",
 			sia.config.currentOutputs.GetName(), err)
-
 	}
 	podClient, err = clients.ResourceClient(
 		kinds.Pod, sia.config.currentOutputs.GetNamespace(), sia.config.clientSet)
 	if err != nil {
 		return nil, nil, fmt.Errorf("Could not make client to watch Pods associated with StatefulSet %q: %w",
 			sia.config.currentOutputs.GetName(), err)
-
 	}
 
 	return statefulSetClient, podClient, nil

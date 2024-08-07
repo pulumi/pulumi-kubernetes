@@ -599,9 +599,8 @@ func Test_Apps_Deployment(t *testing.T) {
 
 	for _, test := range tests {
 		awaiter := makeDeploymentInitAwaiter(
-			updateAwaitConfig{
-				createAwaitConfig: mockAwaitConfig(deploymentInput(inputNamespace, deploymentInputName)),
-			})
+			mockAwaitConfig(deploymentInput(inputNamespace, deploymentInputName)),
+		)
 		deployments := make(chan watch.Event)
 		replicaSets := make(chan watch.Event)
 		pods := make(chan watch.Event)
@@ -657,9 +656,8 @@ func Test_Apps_Deployment_With_PersistentVolumeClaims(t *testing.T) {
 
 	for _, test := range tests {
 		awaiter := makeDeploymentInitAwaiter(
-			updateAwaitConfig{
-				createAwaitConfig: mockAwaitConfig(deploymentWithPVCInput(inputNamespace, deploymentInputName, pvcInputName)),
-			})
+			mockAwaitConfig(deploymentWithPVCInput(inputNamespace, deploymentInputName, pvcInputName)),
+		)
 		// Channels should be buffered to avoid blocking.
 		deployments := make(chan watch.Event)
 		replicaSets := make(chan watch.Event)
@@ -711,9 +709,8 @@ func Test_Apps_Deployment_Without_PersistentVolumeClaims(t *testing.T) {
 
 	for _, test := range tests {
 		awaiter := makeDeploymentInitAwaiter(
-			updateAwaitConfig{
-				createAwaitConfig: mockAwaitConfig(deploymentInput(inputNamespace, deploymentInputName)),
-			})
+			mockAwaitConfig(deploymentInput(inputNamespace, deploymentInputName)),
+		)
 		deployments := make(chan watch.Event)
 		replicaSets := make(chan watch.Event)
 		pods := make(chan watch.Event)
@@ -782,10 +779,8 @@ func Test_Apps_Deployment_MultipleUpdates(t *testing.T) {
 
 	for _, test := range tests {
 		awaiter := makeDeploymentInitAwaiter(
-			updateAwaitConfig{
-				createAwaitConfig: mockAwaitConfig(test.outputs()),
-				lastOutputs:       test.outputs(),
-			})
+			mockUpdateConfig(test.outputs(), test.outputs()),
+		)
 		deployments := make(chan watch.Event)
 		replicaSets := make(chan watch.Event)
 		pods := make(chan watch.Event)
@@ -934,9 +929,8 @@ func Test_Core_Deployment_Read(t *testing.T) {
 
 	for _, test := range tests {
 		awaiter := makeDeploymentInitAwaiter(
-			updateAwaitConfig{
-				createAwaitConfig: mockAwaitConfig(deploymentInput("default", "foo-4setj4y6")),
-			})
+			mockAwaitConfig(deploymentInput("default", "foo-4setj4y6")),
+		)
 		service := test.deployment("default", "foo-4setj4y6", test.deploymentRevision)
 		replicaset := test.replicaset("default", "foo-4setj4y6", "foo-4setj4y6", test.replicaSetRevision)
 		err := awaiter.read(service, unstructuredList(*replicaset), unstructuredList(), unstructuredList())
