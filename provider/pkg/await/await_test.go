@@ -58,6 +58,24 @@ var (
 		},
 	}
 
+	unreadyNode = &unstructured.Unstructured{
+		Object: map[string]any{
+			"apiVersion": "v1",
+			"kind":       "Node",
+			"metadata": map[string]any{
+				"name": "foo",
+			},
+			"status": map[string]any{
+				"conditions": []any{
+					map[string]any{
+						"type":   "Ready",
+						"status": "False",
+					},
+				},
+			},
+		},
+	}
+
 	validClusterRoleUnstructured = &unstructured.Unstructured{
 		Object: map[string]any{
 			"apiVersion": "rbac.authorization.k8s.io/v1",
@@ -183,19 +201,24 @@ func TestCreation(t *testing.T) {
 			require.Equal(t, actualPhase, "Running", "Object should have status.phase of 'Running'")
 		}
 	}
-	logged := func() expectF {
-		return func(t *testing.T, ctx testCtx, actual *unstructured.Unstructured, err error) {
-			// FUTURE: assert that a log message was emitted to the fake host
-		}
-	}
 
 	tests := []struct {
-		name    string
-		client  client
-		args    args
-		expect  []expectF
-		awaiter func(t *testing.T, ctx testCtx) awaiter
+		name           string
+		client         client
+		args           args
+		expect         []expectF
+		genericEnabled bool
+		awaiter        func(t *testing.T, ctx testCtx) awaiter
 	}{
+		{
+			name: "AwaitError",
+			args: args{
+				resType: tokens.Type("kubernetes:core/v1:Pod"),
+				inputs:  validPodUnstructured,
+			},
+			awaiter: awaitError,
+			expect:  []expectF{failed(serviceUnavailableErr)},
+		},
 		{
 			name: "NoMatchError",
 			client: client{
@@ -208,7 +231,8 @@ func TestCreation(t *testing.T) {
 				resType: tokens.Type("kubernetes:core/v1:Pod"),
 				inputs:  validPodUnstructured,
 			},
-			expect: []expectF{created("default", "foo" /* after retry */)},
+			awaiter: touch,
+			expect:  []expectF{created("default", "foo" /* after retry */)},
 		},
 		{
 			name: "ServiceUnavailable",
@@ -270,11 +294,20 @@ func TestCreation(t *testing.T) {
 		{
 			name: "NoAwaiter",
 			args: args{
-				resType: tokens.Type("kubernetes:core/v1:Pod"),
-				inputs:  validPodUnstructured,
+				resType: tokens.Type("kubernetes:core/v1:Node"),
+				inputs:  unreadyNode,
 			},
 			awaiter: nil,
-			expect:  []expectF{created("default", "foo"), logged()},
+			expect:  []expectF{created("", "foo")},
+		},
+		{
+			name: "GenericAwaiter",
+			args: args{
+				resType: tokens.Type("kubernetes:core/v1:Node"),
+				inputs:  withReadyCondition(unreadyNode),
+			},
+			genericEnabled: true,
+			expect:         []expectF{created("", "foo")},
 		},
 		{
 			name: "AwaitError",
@@ -314,6 +347,9 @@ func TestCreation(t *testing.T) {
 			if tt.client.RESTMapperF != nil {
 				client.RESTMapper = tt.client.RESTMapperF(client.RESTMapper)
 			}
+			if tt.genericEnabled {
+				t.Setenv("PULUMI_K8S_AWAIT_ALL", "true")
+			}
 
 			urn := resource.NewURN(tokens.QName("teststack"), tokens.PackageName("testproj"), tokens.Type(""), tt.args.resType, "testresource")
 			config := CreateConfig{
@@ -343,7 +379,7 @@ func TestCreation(t *testing.T) {
 			if tt.awaiter != nil {
 				id := fmt.Sprintf("%s/%s", tt.args.inputs.GetAPIVersion(), tt.args.inputs.GetKind())
 				config.awaiters[id] = awaitSpec{
-					await: tt.awaiter(t, testCtx),
+					await: wrap(tt.awaiter(t, testCtx)),
 				}
 			}
 			actual, err := Creation(config)
@@ -459,11 +495,12 @@ func TestUpdate(t *testing.T) {
 	}
 
 	tests := []struct {
-		name    string
-		client  client
-		args    args
-		expect  []expectF
-		awaiter func(t *testing.T, ctx testCtx) awaiter
+		name           string
+		client         client
+		args           args
+		expect         []expectF
+		genericEnabled bool
+		awaiter        func(t *testing.T, ctx testCtx) awaiter
 	}{
 		{
 			name: "NoMatchError",
@@ -477,7 +514,8 @@ func TestUpdate(t *testing.T) {
 				resType: tokens.Type("kubernetes:core/v1:Pod"),
 				inputs:  validPodUnstructured,
 			},
-			expect: []expectF{updated("default", "foo" /* after retry */)},
+			awaiter: touch,
+			expect:  []expectF{updated("default", "foo" /* after retry */)},
 		},
 		{
 			name: "ServiceUnavailable",
@@ -527,14 +565,24 @@ func TestUpdate(t *testing.T) {
 			awaiter: awaitUnexpected,
 			expect:  []expectF{updated("default", "foo")},
 		},
+		// TODO: Handle this for create as well
 		{
 			name: "NoAwaiter",
 			args: args{
-				resType: tokens.Type("kubernetes:core/v1:Pod"),
-				inputs:  validPodUnstructured,
+				resType: tokens.Type("kubernetes:core/v1:Node"),
+				inputs:  unreadyNode,
 			},
 			awaiter: nil,
-			expect:  []expectF{updated("default", "foo"), logged()},
+			expect:  []expectF{updated("", "foo"), logged()},
+		},
+		{
+			name: "GenericAwaiter",
+			args: args{
+				resType: tokens.Type("kubernetes:core/v1:Node"),
+				inputs:  withReadyCondition(unreadyNode),
+			},
+			genericEnabled: true,
+			expect:         []expectF{updated("", "foo"), logged()},
 		},
 		{
 			name: "AwaitError",
@@ -572,6 +620,9 @@ func TestUpdate(t *testing.T) {
 				oldOutputs = tt.args.oldOutputs
 				oldOutputs = oldOutputs.DeepCopy()
 				oldOutputs.SetName("old-outputs-name")
+			}
+			if tt.genericEnabled {
+				t.Setenv("PULUMI_K8S_AWAIT_ALL", "true")
 			}
 			client, disco, mapper, clientset := fake.NewSimpleDynamicClient(fake.WithObjects(oldOutputs))
 			resources, err := openapi.GetResourceSchemasForClient(disco)
@@ -614,7 +665,7 @@ func TestUpdate(t *testing.T) {
 			if tt.awaiter != nil {
 				id := fmt.Sprintf("%s/%s", tt.args.inputs.GetAPIVersion(), tt.args.inputs.GetKind())
 				config.awaiters[id] = awaitSpec{
-					await: tt.awaiter(t, testCtx),
+					await: wrap(tt.awaiter(t, testCtx)),
 				}
 			}
 			actual, err := Update(config)
@@ -988,6 +1039,18 @@ func withGenerateName(obj *unstructured.Unstructured) *unstructured.Unstructured
 	copy := obj.DeepCopy()
 	copy.SetGenerateName(fmt.Sprintf("%s-", obj.GetName()))
 	copy.SetName("")
+	return copy
+}
+
+func withReadyCondition(obj *unstructured.Unstructured) *unstructured.Unstructured {
+	copy := obj.DeepCopy()
+	copy.Object["status"] = map[string]any{
+		"conditions": []any{map[string]any{
+			"type":   "Ready",
+			"status": "True",
+		}},
+		"phase": "Running",
+	}
 	return copy
 }
 

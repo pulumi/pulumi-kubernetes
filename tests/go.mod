@@ -22,8 +22,8 @@ require (
 	golang.org/x/exp v0.0.0-20240604190554-fc45aab8b7f8
 	google.golang.org/protobuf v1.33.0
 	helm.sh/helm/v3 v3.14.3
-	k8s.io/apimachinery v0.30.0
-	k8s.io/client-go v0.30.0
+	k8s.io/apimachinery v0.30.2
+	k8s.io/client-go v0.30.2
 )
 
 require (
@@ -109,6 +109,7 @@ require (
 	github.com/felixge/httpsnoop v1.0.4 // indirect
 	github.com/fluxcd/pkg/ssa v0.28.1 // indirect
 	github.com/fsnotify/fsnotify v1.7.0 // indirect
+	github.com/fvbommel/sortorder v1.1.0 // indirect
 	github.com/go-errors/errors v1.4.2 // indirect
 	github.com/go-git/gcfg v1.5.1-0.20230307220236-3a3c6141e376 // indirect
 	github.com/go-git/go-billy/v5 v5.5.0 // indirect
@@ -274,14 +275,14 @@ require (
 	gopkg.in/warnings.v0 v0.1.2 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
-	k8s.io/api v0.30.0 // indirect
+	k8s.io/api v0.30.2 // indirect
 	k8s.io/apiextensions-apiserver v0.29.0 // indirect
 	k8s.io/apiserver v0.29.0 // indirect
-	k8s.io/cli-runtime v0.30.0 // indirect
-	k8s.io/component-base v0.30.0 // indirect
+	k8s.io/cli-runtime v0.30.2 // indirect
+	k8s.io/component-base v0.30.2 // indirect
 	k8s.io/klog/v2 v2.120.1 // indirect
 	k8s.io/kube-openapi v0.0.0-20240411171206-dc4e619f62f3 // indirect
-	k8s.io/kubectl v0.30.0 // indirect
+	k8s.io/kubectl v0.30.2 // indirect
 	k8s.io/utils v0.0.0-20230726121419-3b25d923346b // indirect
 	lukechampine.com/frand v1.4.2 // indirect
 	oras.land/oras-go v1.2.4 // indirect

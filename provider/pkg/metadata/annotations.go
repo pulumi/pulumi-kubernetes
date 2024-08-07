@@ -16,6 +16,7 @@ package metadata
 
 import (
 	"context"
+	"os"
 	"strings"
 
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/condition"
@@ -129,6 +130,39 @@ func GetDeletedCondition(
 		return nil, err
 	}
 	return condition.NewDeleted(ctx, source, getter, logger, obj)
+}
+
+// GetReadyCondition reads annotations on the provided object and returns a
+// condition.Satisfier appropriate to await on for creates and updates:
+//   - If skipAwait is true, the ready condition will no-op.
+//   - If PULUMI_K8S_AWAIT_ALL=true a generic/heuristic Ready condition is
+//     returned.
+//   - Otherwise we no-op.
+//
+// The "inputs" parameter is the source of truth for user-provided annotations,
+// but it is not guaranteed to be named. The "obj" parameter should be used for
+// conditions.
+func GetReadyCondition(
+	ctx context.Context,
+	source condition.Source,
+	_ clientGetter,
+	logger *logging.DedupLogger,
+	inputs *unstructured.Unstructured,
+	obj *unstructured.Unstructured,
+) (condition.Satisfier, error) {
+	if SkipReadyCondition(inputs) {
+		return condition.NewImmediate(logger, obj), nil
+	}
+	if os.Getenv("PULUMI_K8S_AWAIT_ALL") != "true" {
+		return condition.NewImmediate(nil, obj), nil
+	}
+	return condition.NewReady(ctx, source, logger, obj), nil
+}
+
+// SkipReadyCondition returns true if the inputs are annotated such that we
+// should not await readiness.
+func SkipReadyCondition(inputs *unstructured.Unstructured) bool {
+	return IsAnnotationTrue(inputs, AnnotationSkipAwait)
 }
 
 func isComputedValue(v any) bool {
