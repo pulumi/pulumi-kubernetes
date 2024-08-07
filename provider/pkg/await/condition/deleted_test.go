@@ -52,6 +52,12 @@ func (get404) Get(ctx context.Context, name string, opts metav1.GetOptions, sub 
 	return nil, k8serrors.NewNotFound(schema.GroupResource{}, name)
 }
 
+type get503 struct{}
+
+func (get503) Get(ctx context.Context, name string, opts metav1.GetOptions, sub ...string) (*unstructured.Unstructured, error) {
+	return nil, k8serrors.NewServiceUnavailable("boom")
+}
+
 type get200 struct{ obj *unstructured.Unstructured }
 
 func (g *get200) Get(context.Context, string, metav1.GetOptions, ...string) (*unstructured.Unstructured, error) {
@@ -153,7 +159,7 @@ func TestDeleted(t *testing.T) {
 	// words, we needed this when we weren't handling the sort of watch errors
 	// Informers handle automatically.
 	t.Run("times out with recovery", func(t *testing.T) {
-		getter := &getsequence{[]objectGetter{&get200{pod}, &get404{}}, 0}
+		getter := &getsequence{[]objectGetter{&get200{pod}, get404{}}, 0}
 
 		ctx, cancel := context.WithCancel(context.Background())
 		cond, err := NewDeleted(ctx, Static(nil), getter, stdout{}, pod)
@@ -165,5 +171,21 @@ func TestDeleted(t *testing.T) {
 		done, err := cond.Satisfied()
 		assert.NoError(t, err)
 		assert.True(t, done)
+	})
+
+	t.Run("unexpected error", func(t *testing.T) {
+		ctx, cancel := context.WithCancel(context.Background())
+
+		buf := &strings.Builder{}
+		cond, err := NewDeleted(ctx, Static(nil), get503{}, logbuf{buf}, pod)
+		assert.NoError(t, err)
+
+		cancel()
+		cond.Range(nil)
+
+		done, err := cond.Satisfied()
+		assert.NoError(t, err)
+		assert.False(t, done)
+		assert.Contains(t, buf.String(), "boom")
 	})
 }

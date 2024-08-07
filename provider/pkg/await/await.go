@@ -831,6 +831,7 @@ func Deletion(c DeleteConfig) error {
 	awaiter, err := internal.NewAwaiter(
 		internal.WithCondition(deleted),
 		internal.WithNamespace(c.Outputs.GetNamespace()),
+		internal.WithLogger(c.DedupLogger),
 	)
 	if err != nil {
 		return err
