@@ -16,7 +16,6 @@ package condition
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"strings"
 	"sync"
@@ -145,8 +144,11 @@ func (dc *Deleted) getClusterState() {
 		dc.deleted.Store(false)
 		return
 	}
-	var statusErr *k8serrors.StatusError
-	if errors.As(err, &statusErr) {
-		dc.deleted.Store(k8serrors.IsNotFound(err))
+	if k8serrors.IsNotFound(err) {
+		dc.deleted.Store(true)
+	} else {
+		dc.logger.LogMessage(checkerlog.WarningMessage(
+			"unexpected error while checking cluster state: " + err.Error(),
+		))
 	}
 }

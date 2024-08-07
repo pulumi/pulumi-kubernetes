@@ -18,7 +18,9 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"os"
 
+	checkerlog "github.com/pulumi/cloud-ready-checks/pkg/checker/logging"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/condition"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/util/wait"
@@ -27,6 +29,7 @@ import (
 
 // Awaiter orchestrates a condition Satisfier and optional Observers.
 type Awaiter struct {
+	logger    logger
 	namespace string
 	condition condition.Satisfier
 	observers []condition.Observer
@@ -34,7 +37,7 @@ type Awaiter struct {
 
 // NewAwaiter creates a new Awaiter with the given options.
 func NewAwaiter(options ...awaiterOption) (*Awaiter, error) {
-	ea := &Awaiter{}
+	ea := &Awaiter{logger: stdout{}}
 	for _, opt := range options {
 		opt.apply(ea)
 	}
@@ -52,7 +55,9 @@ func (aw *Awaiter) Await(ctx context.Context) error {
 	for _, o := range aw.observers {
 		go func(o condition.Observer) {
 			o.Range(func(e watch.Event) bool {
-				_ = o.Observe(e)
+				if err := o.Observe(e); err != nil {
+					aw.logger.LogMessage(checkerlog.WarningMessage("observe error: " + err.Error()))
+				}
 				return true
 			})
 		}(o)
@@ -98,8 +103,8 @@ type awaiterOption interface {
 
 type withConditionOption struct{ condition condition.Satisfier }
 
-func (o withConditionOption) apply(ea *Awaiter) {
-	ea.condition = o.condition
+func (o withConditionOption) apply(aw *Awaiter) {
+	aw.condition = o.condition
 }
 
 // WithCondition sets the condition.Satisfier used by the Awaiter. This is
@@ -110,8 +115,8 @@ func WithCondition(c condition.Satisfier) awaiterOption {
 
 type withObserversOption struct{ observers []condition.Observer }
 
-func (o withObserversOption) apply(ea *Awaiter) {
-	ea.observers = o.observers
+func (o withObserversOption) apply(aw *Awaiter) {
+	aw.observers = o.observers
 }
 
 // WithObservers attaches optional condition.Observers to the Awaiter. This
@@ -123,8 +128,19 @@ func WithObservers(obs ...condition.Observer) awaiterOption {
 
 type withNamespaceOption struct{ ns string }
 
-func (o withNamespaceOption) apply(ea *Awaiter) {
-	ea.namespace = o.ns
+func (o withNamespaceOption) apply(aw *Awaiter) {
+	aw.namespace = o.ns
+}
+
+// WithLogger uses the provided logger. If not provided stdout is used.
+func WithLogger(l logger) awaiterOption {
+	return withLoggerOption{l}
+}
+
+type withLoggerOption struct{ l logger }
+
+func (o withLoggerOption) apply(aw *Awaiter) {
+	aw.logger = o.l
 }
 
 // WithNamespace configures the namespace used by Informers spawned by the
@@ -145,4 +161,15 @@ func (e errObject) Object() *unstructured.Unstructured {
 
 func (e errObject) Unwrap() error {
 	return e.error
+}
+
+type logger interface {
+	LogMessage(checkerlog.Message)
+}
+
+// stdout logs messages to stdout.
+type stdout struct{}
+
+func (stdout) LogMessage(m checkerlog.Message) {
+	_, _ = os.Stdout.WriteString(m.S)
 }
