@@ -23,6 +23,9 @@
 - Documentation is now generated for all languages supported by overlay types.
   (https://github.com/pulumi/pulumi-kubernetes/pull/3107)
 
+- A warning is now emitted if an object has finalizers which might be blocking
+  deletion. (https://github.com/pulumi/pulumi-kubernetes/issues/1418)
+
 ### Fixed
 
 - Updated logic to accurately detect if a resource is a Patch variant. (https://github.com/pulumi/pulumi-kubernetes/pull/3102)
@@ -31,7 +34,10 @@
   affected resource. (https://github.com/pulumi/pulumi-kubernetes/pull/3128)
 - `PersistentVolumeClaims` with a bind mode of `WaitForFirstConsumer` will no
   longer hang indefinitely. (https://github.com/pulumi/pulumi-kubernetes/pull/3130)
-- [sdk/java] Child resource cannot be registered by Chart v4 (https://github.com/pulumi/pulumi-kubernetes/pull/3119)
+- [sdk/java] Child resources are now registered with Chart v4.
+  (https://github.com/pulumi/pulumi-kubernetes/pull/3119)
+- Deletion now always respects the `pulumi.com/skipAwait: true` annotation.
+  (https://github.com/pulumi/pulumi-kubernetes/issues/1232)
 
 ## 4.15.0 (July 9, 2024)
 
