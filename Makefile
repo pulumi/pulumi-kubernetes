@@ -117,7 +117,7 @@ lint::
 		pushd $$DIR  > /dev/null; golangci-lint run -c ../.golangci.yml --timeout 10m; popd  > /dev/null; \
 	done
 
-install_provider::
+install_provider:: k8sprovider
 	cp $(WORKING_DIR)/bin/${PROVIDER} ${GOPATH}/bin
 
 install:: install_nodejs_sdk install_dotnet_sdk install_provider
