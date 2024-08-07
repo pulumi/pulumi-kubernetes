@@ -99,6 +99,15 @@ if not MYPY:
     class ControllerRevisionArgsDict(TypedDict):
         """
         ControllerRevision implements an immutable snapshot of state data. Clients are responsible for serializing and deserializing the objects that contain their internal state. Once a ControllerRevision has been successfully created, it can not be updated. The API Server will fail validation of all requests that attempt to mutate the Data field. ControllerRevisions may, however, be deleted. Note that, due to its use by both the DaemonSet and StatefulSet controllers for update and rollback, this object is beta. However, it may be subject to name and representation changes in future releases, and clients should not depend on its stability. It is primarily for internal use by controllers.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         revision: pulumi.Input[int]
         """
@@ -133,6 +142,16 @@ class ControllerRevisionArgs:
                  metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None):
         """
         ControllerRevision implements an immutable snapshot of state data. Clients are responsible for serializing and deserializing the objects that contain their internal state. Once a ControllerRevision has been successfully created, it can not be updated. The API Server will fail validation of all requests that attempt to mutate the Data field. ControllerRevisions may, however, be deleted. Note that, due to its use by both the DaemonSet and StatefulSet controllers for update and rollback, this object is beta. However, it may be subject to name and representation changes in future releases, and clients should not depend on its stability. It is primarily for internal use by controllers.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[int] revision: Revision indicates the revision of the state represented by Data.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param Any data: Data is the serialized representation of the state.
@@ -214,6 +233,15 @@ if not MYPY:
     class DaemonSetConditionArgsDict(TypedDict):
         """
         DaemonSetCondition describes the state of a DaemonSet at a certain point.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         status: pulumi.Input[str]
         """
@@ -248,6 +276,16 @@ class DaemonSetConditionArgs:
                  reason: Optional[pulumi.Input[str]] = None):
         """
         DaemonSetCondition describes the state of a DaemonSet at a certain point.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] status: Status of the condition, one of True, False, Unknown.
         :param pulumi.Input[str] type: Type of DaemonSet condition.
         :param pulumi.Input[str] last_transition_time: Last time the condition transitioned from one status to another.
@@ -328,6 +366,15 @@ if not MYPY:
     class DaemonSetSpecPatchArgsDict(TypedDict):
         """
         DaemonSetSpec is the specification of a daemon set.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         min_ready_seconds: NotRequired[pulumi.Input[int]]
         """
@@ -362,6 +409,16 @@ class DaemonSetSpecPatchArgs:
                  update_strategy: Optional[pulumi.Input['DaemonSetUpdateStrategyPatchArgs']] = None):
         """
         DaemonSetSpec is the specification of a daemon set.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[int] min_ready_seconds: The minimum number of seconds for which a newly created DaemonSet pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready).
         :param pulumi.Input[int] revision_history_limit: The number of old history to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.
         :param pulumi.Input['_meta.v1.LabelSelectorPatchArgs'] selector: A label query over pods that are managed by the daemon set. Must match in order to be controlled. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
@@ -444,6 +501,15 @@ if not MYPY:
     class DaemonSetSpecArgsDict(TypedDict):
         """
         DaemonSetSpec is the specification of a daemon set.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         selector: pulumi.Input['_meta.v1.LabelSelectorArgsDict']
         """
@@ -478,6 +544,16 @@ class DaemonSetSpecArgs:
                  update_strategy: Optional[pulumi.Input['DaemonSetUpdateStrategyArgs']] = None):
         """
         DaemonSetSpec is the specification of a daemon set.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['_meta.v1.LabelSelectorArgs'] selector: A label query over pods that are managed by the daemon set. Must match in order to be controlled. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
         :param pulumi.Input['_core.v1.PodTemplateSpecArgs'] template: An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). The only allowed template.spec.restartPolicy value is "Always". More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
         :param pulumi.Input[int] min_ready_seconds: The minimum number of seconds for which a newly created DaemonSet pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready).
@@ -558,6 +634,15 @@ if not MYPY:
     class DaemonSetStatusArgsDict(TypedDict):
         """
         DaemonSetStatus represents the current status of a daemon set.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         current_number_scheduled: pulumi.Input[int]
         """
@@ -617,6 +702,16 @@ class DaemonSetStatusArgs:
                  updated_number_scheduled: Optional[pulumi.Input[int]] = None):
         """
         DaemonSetStatus represents the current status of a daemon set.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[int] current_number_scheduled: The number of nodes that are running at least 1 daemon pod and are supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
         :param pulumi.Input[int] desired_number_scheduled: The total number of nodes that should be running the daemon pod (including nodes correctly running the daemon pod). More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
         :param pulumi.Input[int] number_misscheduled: The number of nodes that are running the daemon pod, but are not supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
@@ -770,6 +865,15 @@ if not MYPY:
     class DaemonSetUpdateStrategyPatchArgsDict(TypedDict):
         """
         DaemonSetUpdateStrategy is a struct used to control the update strategy for a DaemonSet.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         rolling_update: NotRequired[pulumi.Input['RollingUpdateDaemonSetPatchArgsDict']]
         """
@@ -789,6 +893,16 @@ class DaemonSetUpdateStrategyPatchArgs:
                  type: Optional[pulumi.Input[str]] = None):
         """
         DaemonSetUpdateStrategy is a struct used to control the update strategy for a DaemonSet.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['RollingUpdateDaemonSetPatchArgs'] rolling_update: Rolling update config params. Present only if type = "RollingUpdate".
         :param pulumi.Input[str] type: Type of daemon set update. Can be "RollingUpdate" or "OnDelete". Default is RollingUpdate.
         """
@@ -826,6 +940,15 @@ if not MYPY:
     class DaemonSetUpdateStrategyArgsDict(TypedDict):
         """
         DaemonSetUpdateStrategy is a struct used to control the update strategy for a DaemonSet.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         rolling_update: NotRequired[pulumi.Input['RollingUpdateDaemonSetArgsDict']]
         """
@@ -845,6 +968,16 @@ class DaemonSetUpdateStrategyArgs:
                  type: Optional[pulumi.Input[str]] = None):
         """
         DaemonSetUpdateStrategy is a struct used to control the update strategy for a DaemonSet.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['RollingUpdateDaemonSetArgs'] rolling_update: Rolling update config params. Present only if type = "RollingUpdate".
         :param pulumi.Input[str] type: Type of daemon set update. Can be "RollingUpdate" or "OnDelete". Default is RollingUpdate.
         """
@@ -882,6 +1015,15 @@ if not MYPY:
     class DaemonSetArgsDict(TypedDict):
         """
         DaemonSet represents the configuration of a daemon set.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         api_version: NotRequired[pulumi.Input[str]]
         """
@@ -916,6 +1058,16 @@ class DaemonSetArgs:
                  status: Optional[pulumi.Input['DaemonSetStatusArgs']] = None):
         """
         DaemonSet represents the configuration of a daemon set.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -998,6 +1150,15 @@ if not MYPY:
     class DeploymentConditionArgsDict(TypedDict):
         """
         DeploymentCondition describes the state of a deployment at a certain point.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         status: pulumi.Input[str]
         """
@@ -1037,6 +1198,16 @@ class DeploymentConditionArgs:
                  reason: Optional[pulumi.Input[str]] = None):
         """
         DeploymentCondition describes the state of a deployment at a certain point.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] status: Status of the condition, one of True, False, Unknown.
         :param pulumi.Input[str] type: Type of deployment condition.
         :param pulumi.Input[str] last_transition_time: Last time the condition transitioned from one status to another.
@@ -1132,6 +1303,15 @@ if not MYPY:
     class DeploymentSpecPatchArgsDict(TypedDict):
         """
         DeploymentSpec is the specification of the desired behavior of the Deployment.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         min_ready_seconds: NotRequired[pulumi.Input[int]]
         """
@@ -1181,6 +1361,16 @@ class DeploymentSpecPatchArgs:
                  template: Optional[pulumi.Input['_core.v1.PodTemplateSpecPatchArgs']] = None):
         """
         DeploymentSpec is the specification of the desired behavior of the Deployment.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[int] min_ready_seconds: Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
         :param pulumi.Input[bool] paused: Indicates that the deployment is paused.
         :param pulumi.Input[int] progress_deadline_seconds: The maximum time in seconds for a deployment to make progress before it is considered to be failed. The deployment controller will continue to process failed deployments and a condition with a ProgressDeadlineExceeded reason will be surfaced in the deployment status. Note that progress will not be estimated during the time a deployment is paused. Defaults to 600s.
@@ -1308,6 +1498,15 @@ if not MYPY:
     class DeploymentSpecArgsDict(TypedDict):
         """
         DeploymentSpec is the specification of the desired behavior of the Deployment.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         selector: pulumi.Input['_meta.v1.LabelSelectorArgsDict']
         """
@@ -1357,6 +1556,16 @@ class DeploymentSpecArgs:
                  strategy: Optional[pulumi.Input['DeploymentStrategyArgs']] = None):
         """
         DeploymentSpec is the specification of the desired behavior of the Deployment.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['_meta.v1.LabelSelectorArgs'] selector: Label selector for pods. Existing ReplicaSets whose pods are selected by this will be the ones affected by this deployment. It must match the pod template's labels.
         :param pulumi.Input['_core.v1.PodTemplateSpecArgs'] template: Template describes the pods that will be created. The only allowed template.spec.restartPolicy value is "Always".
         :param pulumi.Input[int] min_ready_seconds: Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
@@ -1482,6 +1691,15 @@ if not MYPY:
     class DeploymentStatusArgsDict(TypedDict):
         """
         DeploymentStatus is the most recently observed status of the Deployment.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         available_replicas: NotRequired[pulumi.Input[int]]
         """
@@ -1531,6 +1749,16 @@ class DeploymentStatusArgs:
                  updated_replicas: Optional[pulumi.Input[int]] = None):
         """
         DeploymentStatus is the most recently observed status of the Deployment.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[int] available_replicas: Total number of available pods (ready for at least minReadySeconds) targeted by this deployment.
         :param pulumi.Input[int] collision_count: Count of hash collisions for the Deployment. The Deployment controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ReplicaSet.
         :param pulumi.Input[Sequence[pulumi.Input['DeploymentConditionArgs']]] conditions: Represents the latest available observations of a deployment's current state.
@@ -1658,6 +1886,15 @@ if not MYPY:
     class DeploymentStrategyPatchArgsDict(TypedDict):
         """
         DeploymentStrategy describes how to replace existing pods with new ones.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         rolling_update: NotRequired[pulumi.Input['RollingUpdateDeploymentPatchArgsDict']]
         """
@@ -1677,6 +1914,16 @@ class DeploymentStrategyPatchArgs:
                  type: Optional[pulumi.Input[str]] = None):
         """
         DeploymentStrategy describes how to replace existing pods with new ones.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['RollingUpdateDeploymentPatchArgs'] rolling_update: Rolling update config params. Present only if DeploymentStrategyType = RollingUpdate.
         :param pulumi.Input[str] type: Type of deployment. Can be "Recreate" or "RollingUpdate". Default is RollingUpdate.
         """
@@ -1714,6 +1961,15 @@ if not MYPY:
     class DeploymentStrategyArgsDict(TypedDict):
         """
         DeploymentStrategy describes how to replace existing pods with new ones.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         rolling_update: NotRequired[pulumi.Input['RollingUpdateDeploymentArgsDict']]
         """
@@ -1733,6 +1989,16 @@ class DeploymentStrategyArgs:
                  type: Optional[pulumi.Input[str]] = None):
         """
         DeploymentStrategy describes how to replace existing pods with new ones.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['RollingUpdateDeploymentArgs'] rolling_update: Rolling update config params. Present only if DeploymentStrategyType = RollingUpdate.
         :param pulumi.Input[str] type: Type of deployment. Can be "Recreate" or "RollingUpdate". Default is RollingUpdate.
         """
@@ -1930,6 +2196,15 @@ if not MYPY:
     class ReplicaSetConditionArgsDict(TypedDict):
         """
         ReplicaSetCondition describes the state of a replica set at a certain point.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         status: pulumi.Input[str]
         """
@@ -1964,6 +2239,16 @@ class ReplicaSetConditionArgs:
                  reason: Optional[pulumi.Input[str]] = None):
         """
         ReplicaSetCondition describes the state of a replica set at a certain point.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] status: Status of the condition, one of True, False, Unknown.
         :param pulumi.Input[str] type: Type of replica set condition.
         :param pulumi.Input[str] last_transition_time: The last time the condition transitioned from one status to another.
@@ -2044,6 +2329,15 @@ if not MYPY:
     class ReplicaSetSpecPatchArgsDict(TypedDict):
         """
         ReplicaSetSpec is the specification of a ReplicaSet.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         min_ready_seconds: NotRequired[pulumi.Input[int]]
         """
@@ -2073,6 +2367,16 @@ class ReplicaSetSpecPatchArgs:
                  template: Optional[pulumi.Input['_core.v1.PodTemplateSpecPatchArgs']] = None):
         """
         ReplicaSetSpec is the specification of a ReplicaSet.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[int] min_ready_seconds: Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
         :param pulumi.Input[int] replicas: Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
         :param pulumi.Input['_meta.v1.LabelSelectorPatchArgs'] selector: Selector is a label query over pods that should match the replica count. Label keys and values that must match in order to be controlled by this replica set. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
@@ -2140,6 +2444,15 @@ if not MYPY:
     class ReplicaSetSpecArgsDict(TypedDict):
         """
         ReplicaSetSpec is the specification of a ReplicaSet.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         selector: pulumi.Input['_meta.v1.LabelSelectorArgsDict']
         """
@@ -2169,6 +2482,16 @@ class ReplicaSetSpecArgs:
                  template: Optional[pulumi.Input['_core.v1.PodTemplateSpecArgs']] = None):
         """
         ReplicaSetSpec is the specification of a ReplicaSet.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['_meta.v1.LabelSelectorArgs'] selector: Selector is a label query over pods that should match the replica count. Label keys and values that must match in order to be controlled by this replica set. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
         :param pulumi.Input[int] min_ready_seconds: Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
         :param pulumi.Input[int] replicas: Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
@@ -2235,6 +2558,15 @@ if not MYPY:
     class ReplicaSetStatusArgsDict(TypedDict):
         """
         ReplicaSetStatus represents the current status of a ReplicaSet.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         replicas: pulumi.Input[int]
         """
@@ -2274,6 +2606,16 @@ class ReplicaSetStatusArgs:
                  ready_replicas: Optional[pulumi.Input[int]] = None):
         """
         ReplicaSetStatus represents the current status of a ReplicaSet.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[int] replicas: Replicas is the most recently observed number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
         :param pulumi.Input[int] available_replicas: The number of available replicas (ready for at least minReadySeconds) for this replica set.
         :param pulumi.Input[Sequence[pulumi.Input['ReplicaSetConditionArgs']]] conditions: Represents the latest available observations of a replica set's current state.
@@ -2370,6 +2712,15 @@ if not MYPY:
     class ReplicaSetArgsDict(TypedDict):
         """
         ReplicaSet ensures that a specified number of pod replicas are running at any given time.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         api_version: NotRequired[pulumi.Input[str]]
         """
@@ -2404,6 +2755,16 @@ class ReplicaSetArgs:
                  status: Optional[pulumi.Input['ReplicaSetStatusArgs']] = None):
         """
         ReplicaSet ensures that a specified number of pod replicas are running at any given time.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: If the Labels of a ReplicaSet are empty, they are defaulted to be the same as the Pod(s) that the ReplicaSet manages. Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -2486,6 +2847,15 @@ if not MYPY:
     class RollingUpdateDaemonSetPatchArgsDict(TypedDict):
         """
         Spec to control the desired behavior of daemon set rolling update.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         max_surge: NotRequired[pulumi.Input[Union[int, str]]]
         """
@@ -2505,6 +2875,16 @@ class RollingUpdateDaemonSetPatchArgs:
                  max_unavailable: Optional[pulumi.Input[Union[int, str]]] = None):
         """
         Spec to control the desired behavior of daemon set rolling update.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Union[int, str]] max_surge: The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediatedly created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption.
         :param pulumi.Input[Union[int, str]] max_unavailable: The maximum number of DaemonSet pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of total number of DaemonSet pods at the start of the update (ex: 10%). Absolute number is calculated from percentage by rounding up. This cannot be 0 if MaxSurge is 0 Default value is 1. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their pods stopped for an update at any given time. The update starts by stopping at most 30% of those DaemonSet pods and then brings up new DaemonSet pods in their place. Once the new pods are available, it then proceeds onto other DaemonSet pods, thus ensuring that at least 70% of original number of DaemonSet pods are available at all times during the update.
         """
@@ -2542,6 +2922,15 @@ if not MYPY:
     class RollingUpdateDaemonSetArgsDict(TypedDict):
         """
         Spec to control the desired behavior of daemon set rolling update.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         max_surge: NotRequired[pulumi.Input[Union[int, str]]]
         """
@@ -2561,6 +2950,16 @@ class RollingUpdateDaemonSetArgs:
                  max_unavailable: Optional[pulumi.Input[Union[int, str]]] = None):
         """
         Spec to control the desired behavior of daemon set rolling update.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Union[int, str]] max_surge: The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediatedly created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption.
         :param pulumi.Input[Union[int, str]] max_unavailable: The maximum number of DaemonSet pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of total number of DaemonSet pods at the start of the update (ex: 10%). Absolute number is calculated from percentage by rounding up. This cannot be 0 if MaxSurge is 0 Default value is 1. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their pods stopped for an update at any given time. The update starts by stopping at most 30% of those DaemonSet pods and then brings up new DaemonSet pods in their place. Once the new pods are available, it then proceeds onto other DaemonSet pods, thus ensuring that at least 70% of original number of DaemonSet pods are available at all times during the update.
         """
@@ -2598,6 +2997,15 @@ if not MYPY:
     class RollingUpdateDeploymentPatchArgsDict(TypedDict):
         """
         Spec to control the desired behavior of rolling update.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         max_surge: NotRequired[pulumi.Input[Union[int, str]]]
         """
@@ -2617,6 +3025,16 @@ class RollingUpdateDeploymentPatchArgs:
                  max_unavailable: Optional[pulumi.Input[Union[int, str]]] = None):
         """
         Spec to control the desired behavior of rolling update.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Union[int, str]] max_surge: The maximum number of pods that can be scheduled above the desired number of pods. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up. Defaults to 25%. Example: when this is set to 30%, the new ReplicaSet can be scaled up immediately when the rolling update starts, such that the total number of old and new pods do not exceed 130% of desired pods. Once old pods have been killed, new ReplicaSet can be scaled up further, ensuring that total number of pods running at any time during the update is at most 130% of desired pods.
         :param pulumi.Input[Union[int, str]] max_unavailable: The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding down. This can not be 0 if MaxSurge is 0. Defaults to 25%. Example: when this is set to 30%, the old ReplicaSet can be scaled down to 70% of desired pods immediately when the rolling update starts. Once new pods are ready, old ReplicaSet can be scaled down further, followed by scaling up the new ReplicaSet, ensuring that the total number of pods available at all times during the update is at least 70% of desired pods.
         """
@@ -2654,6 +3072,15 @@ if not MYPY:
     class RollingUpdateDeploymentArgsDict(TypedDict):
         """
         Spec to control the desired behavior of rolling update.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         max_surge: NotRequired[pulumi.Input[Union[int, str]]]
         """
@@ -2673,6 +3100,16 @@ class RollingUpdateDeploymentArgs:
                  max_unavailable: Optional[pulumi.Input[Union[int, str]]] = None):
         """
         Spec to control the desired behavior of rolling update.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Union[int, str]] max_surge: The maximum number of pods that can be scheduled above the desired number of pods. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up. Defaults to 25%. Example: when this is set to 30%, the new ReplicaSet can be scaled up immediately when the rolling update starts, such that the total number of old and new pods do not exceed 130% of desired pods. Once old pods have been killed, new ReplicaSet can be scaled up further, ensuring that total number of pods running at any time during the update is at most 130% of desired pods.
         :param pulumi.Input[Union[int, str]] max_unavailable: The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding down. This can not be 0 if MaxSurge is 0. Defaults to 25%. Example: when this is set to 30%, the old ReplicaSet can be scaled down to 70% of desired pods immediately when the rolling update starts. Once new pods are ready, old ReplicaSet can be scaled down further, followed by scaling up the new ReplicaSet, ensuring that the total number of pods available at all times during the update is at least 70% of desired pods.
         """
@@ -2710,6 +3147,15 @@ if not MYPY:
     class RollingUpdateStatefulSetStrategyPatchArgsDict(TypedDict):
         """
         RollingUpdateStatefulSetStrategy is used to communicate parameter for RollingUpdateStatefulSetStrategyType.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         max_unavailable: NotRequired[pulumi.Input[Union[int, str]]]
         """
@@ -2729,6 +3175,16 @@ class RollingUpdateStatefulSetStrategyPatchArgs:
                  partition: Optional[pulumi.Input[int]] = None):
         """
         RollingUpdateStatefulSetStrategy is used to communicate parameter for RollingUpdateStatefulSetStrategyType.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Union[int, str]] max_unavailable: The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding up. This can not be 0. Defaults to 1. This field is alpha-level and is only honored by servers that enable the MaxUnavailableStatefulSet feature. The field applies to all pods in the range 0 to Replicas-1. That means if there is any unavailable pod in the range 0 to Replicas-1, it will be counted towards MaxUnavailable.
         :param pulumi.Input[int] partition: Partition indicates the ordinal at which the StatefulSet should be partitioned for updates. During a rolling update, all pods from ordinal Replicas-1 to Partition are updated. All pods from ordinal Partition-1 to 0 remain untouched. This is helpful in being able to do a canary based deployment. The default value is 0.
         """
@@ -2766,6 +3222,15 @@ if not MYPY:
     class RollingUpdateStatefulSetStrategyArgsDict(TypedDict):
         """
         RollingUpdateStatefulSetStrategy is used to communicate parameter for RollingUpdateStatefulSetStrategyType.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         max_unavailable: NotRequired[pulumi.Input[Union[int, str]]]
         """
@@ -2785,6 +3250,16 @@ class RollingUpdateStatefulSetStrategyArgs:
                  partition: Optional[pulumi.Input[int]] = None):
         """
         RollingUpdateStatefulSetStrategy is used to communicate parameter for RollingUpdateStatefulSetStrategyType.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Union[int, str]] max_unavailable: The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding up. This can not be 0. Defaults to 1. This field is alpha-level and is only honored by servers that enable the MaxUnavailableStatefulSet feature. The field applies to all pods in the range 0 to Replicas-1. That means if there is any unavailable pod in the range 0 to Replicas-1, it will be counted towards MaxUnavailable.
         :param pulumi.Input[int] partition: Partition indicates the ordinal at which the StatefulSet should be partitioned for updates. During a rolling update, all pods from ordinal Replicas-1 to Partition are updated. All pods from ordinal Partition-1 to 0 remain untouched. This is helpful in being able to do a canary based deployment. The default value is 0.
         """
@@ -2822,6 +3297,15 @@ if not MYPY:
     class StatefulSetConditionArgsDict(TypedDict):
         """
         StatefulSetCondition describes the state of a statefulset at a certain point.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         status: pulumi.Input[str]
         """
@@ -2856,6 +3340,16 @@ class StatefulSetConditionArgs:
                  reason: Optional[pulumi.Input[str]] = None):
         """
         StatefulSetCondition describes the state of a statefulset at a certain point.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] status: Status of the condition, one of True, False, Unknown.
         :param pulumi.Input[str] type: Type of statefulset condition.
         :param pulumi.Input[str] last_transition_time: Last time the condition transitioned from one status to another.
@@ -2936,6 +3430,15 @@ if not MYPY:
     class StatefulSetOrdinalsPatchArgsDict(TypedDict):
         """
         StatefulSetOrdinals describes the policy used for replica ordinal assignment in this StatefulSet.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         start: NotRequired[pulumi.Input[int]]
         """
@@ -2953,6 +3456,16 @@ class StatefulSetOrdinalsPatchArgs:
                  start: Optional[pulumi.Input[int]] = None):
         """
         StatefulSetOrdinals describes the policy used for replica ordinal assignment in this StatefulSet.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[int] start: start is the number representing the first replica's index. It may be used to number replicas from an alternate index (eg: 1-indexed) over the default 0-indexed names, or to orchestrate progressive movement of replicas from one StatefulSet to another. If set, replica indices will be in the range:
                  [.spec.ordinals.start, .spec.ordinals.start + .spec.replicas).
                If unset, defaults to 0. Replica indices will be in the range:
@@ -2981,6 +3494,15 @@ if not MYPY:
     class StatefulSetOrdinalsArgsDict(TypedDict):
         """
         StatefulSetOrdinals describes the policy used for replica ordinal assignment in this StatefulSet.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         start: NotRequired[pulumi.Input[int]]
         """
@@ -2998,6 +3520,16 @@ class StatefulSetOrdinalsArgs:
                  start: Optional[pulumi.Input[int]] = None):
         """
         StatefulSetOrdinals describes the policy used for replica ordinal assignment in this StatefulSet.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[int] start: start is the number representing the first replica's index. It may be used to number replicas from an alternate index (eg: 1-indexed) over the default 0-indexed names, or to orchestrate progressive movement of replicas from one StatefulSet to another. If set, replica indices will be in the range:
                  [.spec.ordinals.start, .spec.ordinals.start + .spec.replicas).
                If unset, defaults to 0. Replica indices will be in the range:
@@ -3026,6 +3558,15 @@ if not MYPY:
     class StatefulSetPersistentVolumeClaimRetentionPolicyPatchArgsDict(TypedDict):
         """
         StatefulSetPersistentVolumeClaimRetentionPolicy describes the policy used for PVCs created from the StatefulSet VolumeClaimTemplates.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         when_deleted: NotRequired[pulumi.Input[str]]
         """
@@ -3045,6 +3586,16 @@ class StatefulSetPersistentVolumeClaimRetentionPolicyPatchArgs:
                  when_scaled: Optional[pulumi.Input[str]] = None):
         """
         StatefulSetPersistentVolumeClaimRetentionPolicy describes the policy used for PVCs created from the StatefulSet VolumeClaimTemplates.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] when_deleted: WhenDeleted specifies what happens to PVCs created from StatefulSet VolumeClaimTemplates when the StatefulSet is deleted. The default policy of `Retain` causes PVCs to not be affected by StatefulSet deletion. The `Delete` policy causes those PVCs to be deleted.
         :param pulumi.Input[str] when_scaled: WhenScaled specifies what happens to PVCs created from StatefulSet VolumeClaimTemplates when the StatefulSet is scaled down. The default policy of `Retain` causes PVCs to not be affected by a scaledown. The `Delete` policy causes the associated PVCs for any excess pods above the replica count to be deleted.
         """
@@ -3082,6 +3633,15 @@ if not MYPY:
     class StatefulSetPersistentVolumeClaimRetentionPolicyArgsDict(TypedDict):
         """
         StatefulSetPersistentVolumeClaimRetentionPolicy describes the policy used for PVCs created from the StatefulSet VolumeClaimTemplates.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         when_deleted: NotRequired[pulumi.Input[str]]
         """
@@ -3101,6 +3661,16 @@ class StatefulSetPersistentVolumeClaimRetentionPolicyArgs:
                  when_scaled: Optional[pulumi.Input[str]] = None):
         """
         StatefulSetPersistentVolumeClaimRetentionPolicy describes the policy used for PVCs created from the StatefulSet VolumeClaimTemplates.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] when_deleted: WhenDeleted specifies what happens to PVCs created from StatefulSet VolumeClaimTemplates when the StatefulSet is deleted. The default policy of `Retain` causes PVCs to not be affected by StatefulSet deletion. The `Delete` policy causes those PVCs to be deleted.
         :param pulumi.Input[str] when_scaled: WhenScaled specifies what happens to PVCs created from StatefulSet VolumeClaimTemplates when the StatefulSet is scaled down. The default policy of `Retain` causes PVCs to not be affected by a scaledown. The `Delete` policy causes the associated PVCs for any excess pods above the replica count to be deleted.
         """
@@ -3138,6 +3708,15 @@ if not MYPY:
     class StatefulSetSpecPatchArgsDict(TypedDict):
         """
         A StatefulSetSpec is the specification of a StatefulSet.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         min_ready_seconds: NotRequired[pulumi.Input[int]]
         """
@@ -3202,6 +3781,16 @@ class StatefulSetSpecPatchArgs:
                  volume_claim_templates: Optional[pulumi.Input[Sequence[pulumi.Input['_core.v1.PersistentVolumeClaimPatchArgs']]]] = None):
         """
         A StatefulSetSpec is the specification of a StatefulSet.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[int] min_ready_seconds: Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
         :param pulumi.Input['StatefulSetOrdinalsPatchArgs'] ordinals: ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested. Using the ordinals field requires the StatefulSetStartOrdinal feature gate to be enabled, which is beta.
         :param pulumi.Input['StatefulSetPersistentVolumeClaimRetentionPolicyPatchArgs'] persistent_volume_claim_retention_policy: persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is alpha.  +optional
@@ -3374,6 +3963,15 @@ if not MYPY:
     class StatefulSetSpecArgsDict(TypedDict):
         """
         A StatefulSetSpec is the specification of a StatefulSet.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         selector: pulumi.Input['_meta.v1.LabelSelectorArgsDict']
         """
@@ -3438,6 +4036,16 @@ class StatefulSetSpecArgs:
                  volume_claim_templates: Optional[pulumi.Input[Sequence[pulumi.Input['_core.v1.PersistentVolumeClaimArgs']]]] = None):
         """
         A StatefulSetSpec is the specification of a StatefulSet.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['_meta.v1.LabelSelectorArgs'] selector: selector is a label query over pods that should match the replica count. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
         :param pulumi.Input[str] service_name: serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where "pod-specific-string" is managed by the StatefulSet controller.
         :param pulumi.Input['_core.v1.PodTemplateSpecArgs'] template: template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format <statefulsetname>-<podindex>. For example, a pod in a StatefulSet named "web" with index number "3" would be named "web-3". The only allowed template.spec.restartPolicy value is "Always".
@@ -3607,6 +4215,15 @@ if not MYPY:
     class StatefulSetStatusArgsDict(TypedDict):
         """
         StatefulSetStatus represents the current state of a StatefulSet.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         replicas: pulumi.Input[int]
         """
@@ -3666,6 +4283,16 @@ class StatefulSetStatusArgs:
                  updated_replicas: Optional[pulumi.Input[int]] = None):
         """
         StatefulSetStatus represents the current state of a StatefulSet.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[int] replicas: replicas is the number of Pods created by the StatefulSet controller.
         :param pulumi.Input[int] available_replicas: Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset.
         :param pulumi.Input[int] collision_count: collisionCount is the count of hash collisions for the StatefulSet. The StatefulSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
@@ -3822,6 +4449,15 @@ if not MYPY:
     class StatefulSetUpdateStrategyPatchArgsDict(TypedDict):
         """
         StatefulSetUpdateStrategy indicates the strategy that the StatefulSet controller will use to perform updates. It includes any additional parameters necessary to perform the update for the indicated strategy.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         rolling_update: NotRequired[pulumi.Input['RollingUpdateStatefulSetStrategyPatchArgsDict']]
         """
@@ -3841,6 +4477,16 @@ class StatefulSetUpdateStrategyPatchArgs:
                  type: Optional[pulumi.Input[str]] = None):
         """
         StatefulSetUpdateStrategy indicates the strategy that the StatefulSet controller will use to perform updates. It includes any additional parameters necessary to perform the update for the indicated strategy.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['RollingUpdateStatefulSetStrategyPatchArgs'] rolling_update: RollingUpdate is used to communicate parameters when Type is RollingUpdateStatefulSetStrategyType.
         :param pulumi.Input[str] type: Type indicates the type of the StatefulSetUpdateStrategy. Default is RollingUpdate.
         """
@@ -3878,6 +4524,15 @@ if not MYPY:
     class StatefulSetUpdateStrategyArgsDict(TypedDict):
         """
         StatefulSetUpdateStrategy indicates the strategy that the StatefulSet controller will use to perform updates. It includes any additional parameters necessary to perform the update for the indicated strategy.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         rolling_update: NotRequired[pulumi.Input['RollingUpdateStatefulSetStrategyArgsDict']]
         """
@@ -3897,6 +4552,16 @@ class StatefulSetUpdateStrategyArgs:
                  type: Optional[pulumi.Input[str]] = None):
         """
         StatefulSetUpdateStrategy indicates the strategy that the StatefulSet controller will use to perform updates. It includes any additional parameters necessary to perform the update for the indicated strategy.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['RollingUpdateStatefulSetStrategyArgs'] rolling_update: RollingUpdate is used to communicate parameters when Type is RollingUpdateStatefulSetStrategyType.
         :param pulumi.Input[str] type: Type indicates the type of the StatefulSetUpdateStrategy. Default is RollingUpdate.
         """

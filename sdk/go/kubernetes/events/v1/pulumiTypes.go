@@ -16,6 +16,15 @@ import (
 var _ = utilities.GetEnvOrDefault
 
 // Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system. Events have a limited retention time and triggers and messages may evolve with time.  Event consumers should not rely on the timing of an event with a given Reason reflecting a consistent underlying trigger, or the continued existence of events with that Reason.  Events should be treated as informative, best-effort, supplemental data.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type EventType struct {
 	// action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field cannot be empty for new Events and it can have at most 128 characters.
 	Action *string `pulumi:"action"`
@@ -65,6 +74,15 @@ type EventTypeInput interface {
 }
 
 // Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system. Events have a limited retention time and triggers and messages may evolve with time.  Event consumers should not rely on the timing of an event with a given Reason reflecting a consistent underlying trigger, or the continued existence of events with that Reason.  Events should be treated as informative, best-effort, supplemental data.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type EventTypeArgs struct {
 	// action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field cannot be empty for new Events and it can have at most 128 characters.
 	Action pulumi.StringPtrInput `pulumi:"action"`
@@ -140,6 +158,15 @@ func (i EventTypeArray) ToEventTypeArrayOutputWithContext(ctx context.Context) E
 }
 
 // Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system. Events have a limited retention time and triggers and messages may evolve with time.  Event consumers should not rely on the timing of an event with a given Reason reflecting a consistent underlying trigger, or the continued existence of events with that Reason.  Events should be treated as informative, best-effort, supplemental data.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type EventTypeOutput struct{ *pulumi.OutputState }
 
 func (EventTypeOutput) ElementType() reflect.Type {
@@ -260,6 +287,15 @@ func (o EventTypeArrayOutput) Index(i pulumi.IntInput) EventTypeOutput {
 }
 
 // EventList is a list of Event objects.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type EventListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -283,6 +319,15 @@ type EventListTypeInput interface {
 }
 
 // EventList is a list of Event objects.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type EventListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -307,6 +352,15 @@ func (i EventListTypeArgs) ToEventListTypeOutputWithContext(ctx context.Context)
 }
 
 // EventList is a list of Event objects.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type EventListTypeOutput struct{ *pulumi.OutputState }
 
 func (EventListTypeOutput) ElementType() reflect.Type {
@@ -342,6 +396,15 @@ func (o EventListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 }
 
 // Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system. Events have a limited retention time and triggers and messages may evolve with time.  Event consumers should not rely on the timing of an event with a given Reason reflecting a consistent underlying trigger, or the continued existence of events with that Reason.  Events should be treated as informative, best-effort, supplemental data.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type EventPatchType struct {
 	// action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field cannot be empty for new Events and it can have at most 128 characters.
 	Action *string `pulumi:"action"`
@@ -391,6 +454,15 @@ type EventPatchTypeInput interface {
 }
 
 // Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system. Events have a limited retention time and triggers and messages may evolve with time.  Event consumers should not rely on the timing of an event with a given Reason reflecting a consistent underlying trigger, or the continued existence of events with that Reason.  Events should be treated as informative, best-effort, supplemental data.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type EventPatchTypeArgs struct {
 	// action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field cannot be empty for new Events and it can have at most 128 characters.
 	Action pulumi.StringPtrInput `pulumi:"action"`
@@ -441,6 +513,15 @@ func (i EventPatchTypeArgs) ToEventPatchTypeOutputWithContext(ctx context.Contex
 }
 
 // Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system. Events have a limited retention time and triggers and messages may evolve with time.  Event consumers should not rely on the timing of an event with a given Reason reflecting a consistent underlying trigger, or the continued existence of events with that Reason.  Events should be treated as informative, best-effort, supplemental data.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type EventPatchTypeOutput struct{ *pulumi.OutputState }
 
 func (EventPatchTypeOutput) ElementType() reflect.Type {
@@ -541,6 +622,15 @@ func (o EventPatchTypeOutput) Type() pulumi.StringPtrOutput {
 }
 
 // EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time. How often to update the EventSeries is up to the event reporters. The default event reporter in "k8s.io/client-go/tools/events/event_broadcaster.go" shows how this struct is updated on heartbeats and can guide customized reporter implementations.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type EventSeries struct {
 	// count is the number of occurrences in this series up to the last heartbeat time.
 	Count int `pulumi:"count"`
@@ -560,6 +650,15 @@ type EventSeriesInput interface {
 }
 
 // EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time. How often to update the EventSeries is up to the event reporters. The default event reporter in "k8s.io/client-go/tools/events/event_broadcaster.go" shows how this struct is updated on heartbeats and can guide customized reporter implementations.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type EventSeriesArgs struct {
 	// count is the number of occurrences in this series up to the last heartbeat time.
 	Count pulumi.IntInput `pulumi:"count"`
@@ -621,6 +720,15 @@ func (i *eventSeriesPtrType) ToEventSeriesPtrOutputWithContext(ctx context.Conte
 }
 
 // EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time. How often to update the EventSeries is up to the event reporters. The default event reporter in "k8s.io/client-go/tools/events/event_broadcaster.go" shows how this struct is updated on heartbeats and can guide customized reporter implementations.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type EventSeriesOutput struct{ *pulumi.OutputState }
 
 func (EventSeriesOutput) ElementType() reflect.Type {
@@ -700,6 +808,15 @@ func (o EventSeriesPtrOutput) LastObservedTime() pulumi.StringPtrOutput {
 }
 
 // EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time. How often to update the EventSeries is up to the event reporters. The default event reporter in "k8s.io/client-go/tools/events/event_broadcaster.go" shows how this struct is updated on heartbeats and can guide customized reporter implementations.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type EventSeriesPatch struct {
 	// count is the number of occurrences in this series up to the last heartbeat time.
 	Count *int `pulumi:"count"`
@@ -719,6 +836,15 @@ type EventSeriesPatchInput interface {
 }
 
 // EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time. How often to update the EventSeries is up to the event reporters. The default event reporter in "k8s.io/client-go/tools/events/event_broadcaster.go" shows how this struct is updated on heartbeats and can guide customized reporter implementations.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type EventSeriesPatchArgs struct {
 	// count is the number of occurrences in this series up to the last heartbeat time.
 	Count pulumi.IntPtrInput `pulumi:"count"`
@@ -780,6 +906,15 @@ func (i *eventSeriesPatchPtrType) ToEventSeriesPatchPtrOutputWithContext(ctx con
 }
 
 // EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time. How often to update the EventSeries is up to the event reporters. The default event reporter in "k8s.io/client-go/tools/events/event_broadcaster.go" shows how this struct is updated on heartbeats and can guide customized reporter implementations.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type EventSeriesPatchOutput struct{ *pulumi.OutputState }
 
 func (EventSeriesPatchOutput) ElementType() reflect.Type {

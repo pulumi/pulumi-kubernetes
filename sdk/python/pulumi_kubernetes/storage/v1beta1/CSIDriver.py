@@ -103,6 +103,15 @@ class CSIDriver(pulumi.CustomResource):
         """
         CSIDriver captures information about a Container Storage Interface (CSI) volume driver deployed on the cluster. CSI drivers do not need to create the CSIDriver object directly. Instead they may use the cluster-driver-registrar sidecar container. When deployed with a CSI driver it automatically creates a CSIDriver object representing the driver. Kubernetes attach detach controller uses this object to determine whether attach is required. Kubelet uses this object to determine whether pod information needs to be passed on mount. CSIDriver objects are non-namespaced.
 
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -118,6 +127,15 @@ class CSIDriver(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         CSIDriver captures information about a Container Storage Interface (CSI) volume driver deployed on the cluster. CSI drivers do not need to create the CSIDriver object directly. Instead they may use the cluster-driver-registrar sidecar container. When deployed with a CSI driver it automatically creates a CSIDriver object representing the driver. Kubernetes attach detach controller uses this object to determine whether attach is required. Kubelet uses this object to determine whether pod information needs to be passed on mount. CSIDriver objects are non-namespaced.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
 
         :param str resource_name: The name of the resource.
         :param CSIDriverInitArgs args: The arguments to use to populate this resource's properties.

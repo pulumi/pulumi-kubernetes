@@ -12,6 +12,15 @@ namespace Pulumi.Kubernetes.Types.Inputs.FlowControl.V1
 
     /// <summary>
     /// ExemptPriorityLevelConfiguration describes the configurable aspects of the handling of exempt requests. In the mandatory exempt configuration object the values in the fields here can be modified by authorized users, unlike the rest of the `spec`.
+    /// 
+    /// By default Pulumi does _not_ wait for this resource to
+    /// become ready when it is created or updated.
+    /// 
+    /// If you want Pulumi to wait for this resource to become ready, you can use the
+    /// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    /// documentation
+    /// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    /// for a detailed description of the values this annotation accepts.
     /// </summary>
     public class ExemptPriorityLevelConfigurationArgs : global::Pulumi.ResourceArgs
     {

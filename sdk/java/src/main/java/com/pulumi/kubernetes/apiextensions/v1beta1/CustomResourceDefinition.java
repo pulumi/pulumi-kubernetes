@@ -21,6 +21,15 @@ import javax.annotation.Nullable;
 /**
  * CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format &lt;.spec.name&gt;.&lt;.spec.group&gt;. Deprecated in v1.16, planned for removal in v1.19. Use apiextensions.k8s.io/v1 CustomResourceDefinition instead.
  * 
+ * By default Pulumi does _not_ wait for this resource to
+ * become ready when it is created or updated.
+ * 
+ * If you want Pulumi to wait for this resource to become ready, you can use the
+ * &#39;pulumi.com/waitFor&#39; annotation to provide custom readiness criteria. See the
+ * documentation
+ * (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+ * for a detailed description of the values this annotation accepts.
+ * 
  */
 @ResourceType(type="kubernetes:apiextensions.k8s.io/v1beta1:CustomResourceDefinition")
 public class CustomResourceDefinition extends com.pulumi.resources.CustomResource {

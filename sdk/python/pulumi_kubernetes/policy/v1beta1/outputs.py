@@ -54,11 +54,30 @@ __all__ = [
 class AllowedCSIDriver(dict):
     """
     AllowedCSIDriver represents a single inline CSI Driver that is allowed to be used.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     def __init__(__self__, *,
                  name: str):
         """
         AllowedCSIDriver represents a single inline CSI Driver that is allowed to be used.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param str name: Name is the registered name of the CSI driver
         """
         pulumi.set(__self__, "name", name)
@@ -76,11 +95,30 @@ class AllowedCSIDriver(dict):
 class AllowedCSIDriverPatch(dict):
     """
     AllowedCSIDriver represents a single inline CSI Driver that is allowed to be used.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     def __init__(__self__, *,
                  name: Optional[str] = None):
         """
         AllowedCSIDriver represents a single inline CSI Driver that is allowed to be used.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param str name: Name is the registered name of the CSI driver
         """
         if name is not None:
@@ -99,11 +137,30 @@ class AllowedCSIDriverPatch(dict):
 class AllowedFlexVolume(dict):
     """
     AllowedFlexVolume represents a single Flexvolume that is allowed to be used.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     def __init__(__self__, *,
                  driver: str):
         """
         AllowedFlexVolume represents a single Flexvolume that is allowed to be used.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param str driver: driver is the name of the Flexvolume driver.
         """
         pulumi.set(__self__, "driver", driver)
@@ -121,11 +178,30 @@ class AllowedFlexVolume(dict):
 class AllowedFlexVolumePatch(dict):
     """
     AllowedFlexVolume represents a single Flexvolume that is allowed to be used.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     def __init__(__self__, *,
                  driver: Optional[str] = None):
         """
         AllowedFlexVolume represents a single Flexvolume that is allowed to be used.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param str driver: driver is the name of the Flexvolume driver.
         """
         if driver is not None:
@@ -144,6 +220,15 @@ class AllowedFlexVolumePatch(dict):
 class AllowedHostPath(dict):
     """
     AllowedHostPath defines the host volume conditions that will be enabled by a policy for pods to use. It requires the path prefix to be defined.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -169,6 +254,16 @@ class AllowedHostPath(dict):
                  read_only: Optional[bool] = None):
         """
         AllowedHostPath defines the host volume conditions that will be enabled by a policy for pods to use. It requires the path prefix to be defined.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param str path_prefix: pathPrefix is the path prefix that the host volume must match. It does not support `*`. Trailing slashes are trimmed when validating the path prefix with a host path.
                
                Examples: `/foo` would allow `/foo`, `/foo/` and `/foo/bar` `/foo` would not allow `/food` or `/etc/foo`
@@ -202,6 +297,15 @@ class AllowedHostPath(dict):
 class AllowedHostPathPatch(dict):
     """
     AllowedHostPath defines the host volume conditions that will be enabled by a policy for pods to use. It requires the path prefix to be defined.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -227,6 +331,16 @@ class AllowedHostPathPatch(dict):
                  read_only: Optional[bool] = None):
         """
         AllowedHostPath defines the host volume conditions that will be enabled by a policy for pods to use. It requires the path prefix to be defined.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param str path_prefix: pathPrefix is the path prefix that the host volume must match. It does not support `*`. Trailing slashes are trimmed when validating the path prefix with a host path.
                
                Examples: `/foo` would allow `/foo`, `/foo/` and `/foo/bar` `/foo` would not allow `/food` or `/etc/foo`
@@ -260,12 +374,31 @@ class AllowedHostPathPatch(dict):
 class FSGroupStrategyOptions(dict):
     """
     FSGroupStrategyOptions defines the strategy type and options used to create the strategy.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     def __init__(__self__, *,
                  ranges: Optional[Sequence['outputs.IDRange']] = None,
                  rule: Optional[str] = None):
         """
         FSGroupStrategyOptions defines the strategy type and options used to create the strategy.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param Sequence['IDRangeArgs'] ranges: ranges are the allowed ranges of fs groups.  If you would like to force a single fs group then supply a single range with the same start and end. Required for MustRunAs.
         :param str rule: rule is the strategy that will dictate what FSGroup is used in the SecurityContext.
         """
@@ -295,12 +428,31 @@ class FSGroupStrategyOptions(dict):
 class FSGroupStrategyOptionsPatch(dict):
     """
     FSGroupStrategyOptions defines the strategy type and options used to create the strategy.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     def __init__(__self__, *,
                  ranges: Optional[Sequence['outputs.IDRangePatch']] = None,
                  rule: Optional[str] = None):
         """
         FSGroupStrategyOptions defines the strategy type and options used to create the strategy.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param Sequence['IDRangePatchArgs'] ranges: ranges are the allowed ranges of fs groups.  If you would like to force a single fs group then supply a single range with the same start and end. Required for MustRunAs.
         :param str rule: rule is the strategy that will dictate what FSGroup is used in the SecurityContext.
         """
@@ -330,12 +482,31 @@ class FSGroupStrategyOptionsPatch(dict):
 class HostPortRange(dict):
     """
     HostPortRange defines a range of host ports that will be enabled by a policy for pods to use.  It requires both the start and end to be defined.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     def __init__(__self__, *,
                  max: int,
                  min: int):
         """
         HostPortRange defines a range of host ports that will be enabled by a policy for pods to use.  It requires both the start and end to be defined.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param int max: max is the end of the range, inclusive.
         :param int min: min is the start of the range, inclusive.
         """
@@ -363,12 +534,31 @@ class HostPortRange(dict):
 class HostPortRangePatch(dict):
     """
     HostPortRange defines a range of host ports that will be enabled by a policy for pods to use.  It requires both the start and end to be defined.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     def __init__(__self__, *,
                  max: Optional[int] = None,
                  min: Optional[int] = None):
         """
         HostPortRange defines a range of host ports that will be enabled by a policy for pods to use.  It requires both the start and end to be defined.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param int max: max is the end of the range, inclusive.
         :param int min: min is the start of the range, inclusive.
         """
@@ -398,12 +588,31 @@ class HostPortRangePatch(dict):
 class IDRange(dict):
     """
     IDRange provides a min/max of an allowed range of IDs.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     def __init__(__self__, *,
                  max: int,
                  min: int):
         """
         IDRange provides a min/max of an allowed range of IDs.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param int max: max is the end of the range, inclusive.
         :param int min: min is the start of the range, inclusive.
         """
@@ -431,12 +640,31 @@ class IDRange(dict):
 class IDRangePatch(dict):
     """
     IDRange provides a min/max of an allowed range of IDs.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     def __init__(__self__, *,
                  max: Optional[int] = None,
                  min: Optional[int] = None):
         """
         IDRange provides a min/max of an allowed range of IDs.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param int max: max is the end of the range, inclusive.
         :param int min: min is the start of the range, inclusive.
         """
@@ -466,6 +694,15 @@ class IDRangePatch(dict):
 class PodDisruptionBudget(dict):
     """
     PodDisruptionBudget is an object to define the max disruption that can be caused to a collection of pods
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -492,6 +729,16 @@ class PodDisruptionBudget(dict):
                  status: Optional['outputs.PodDisruptionBudgetStatus'] = None):
         """
         PodDisruptionBudget is an object to define the max disruption that can be caused to a collection of pods
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param 'PodDisruptionBudgetSpecArgs' spec: Specification of the desired behavior of the PodDisruptionBudget.
@@ -550,6 +797,15 @@ class PodDisruptionBudget(dict):
 class PodDisruptionBudgetSpec(dict):
     """
     PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -576,6 +832,16 @@ class PodDisruptionBudgetSpec(dict):
                  selector: Optional['_meta.v1.outputs.LabelSelector'] = None):
         """
         PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param Union[int, str] max_unavailable: An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
         :param Union[int, str] min_available: An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
         :param '_meta.v1.LabelSelectorArgs' selector: Label query over pods whose evictions are managed by the disruption budget.
@@ -616,6 +882,15 @@ class PodDisruptionBudgetSpec(dict):
 class PodDisruptionBudgetSpecPatch(dict):
     """
     PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -642,6 +917,16 @@ class PodDisruptionBudgetSpecPatch(dict):
                  selector: Optional['_meta.v1.outputs.LabelSelectorPatch'] = None):
         """
         PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param Union[int, str] max_unavailable: An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
         :param Union[int, str] min_available: An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
         :param '_meta.v1.LabelSelectorPatchArgs' selector: Label query over pods whose evictions are managed by the disruption budget.
@@ -682,6 +967,15 @@ class PodDisruptionBudgetSpecPatch(dict):
 class PodDisruptionBudgetStatus(dict):
     """
     PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget. Status may trail the actual state of a system.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -719,6 +1013,16 @@ class PodDisruptionBudgetStatus(dict):
                  observed_generation: Optional[int] = None):
         """
         PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget. Status may trail the actual state of a system.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param int current_healthy: current number of healthy pods
         :param int desired_healthy: minimum desired number of healthy pods
         :param int disruptions_allowed: Number of pod disruptions that are currently allowed.
@@ -788,6 +1092,15 @@ class PodDisruptionBudgetStatus(dict):
 class PodDisruptionBudgetStatusPatch(dict):
     """
     PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget. Status may trail the actual state of a system.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -825,6 +1138,16 @@ class PodDisruptionBudgetStatusPatch(dict):
                  observed_generation: Optional[int] = None):
         """
         PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget. Status may trail the actual state of a system.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param int current_healthy: current number of healthy pods
         :param int desired_healthy: minimum desired number of healthy pods
         :param Mapping[str, str] disrupted_pods: DisruptedPods contains information about pods whose eviction was processed by the API server eviction subresource handler but has not yet been observed by the PodDisruptionBudget controller. A pod will be in this map from the time when the API server processed the eviction request to the time when the pod is seen by PDB controller as having been marked for deletion (or after a timeout). The key in the map is the name of the pod and the value is the time when the API server processed the eviction request. If the deletion didn't occur and a pod is still there it will be removed from the list automatically by PodDisruptionBudget controller after some time. If everything goes smooth this map should be empty for the most of the time. Large number of entries in the map may indicate problems with pod deletions.
@@ -898,6 +1221,15 @@ class PodDisruptionBudgetStatusPatch(dict):
 class PodSecurityPolicy(dict):
     """
     PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -923,6 +1255,16 @@ class PodSecurityPolicy(dict):
                  spec: Optional['outputs.PodSecurityPolicySpec'] = None):
         """
         PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param '_meta.v1.ObjectMetaArgs' metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -974,6 +1316,15 @@ class PodSecurityPolicy(dict):
 class PodSecurityPolicySpec(dict):
     """
     PodSecurityPolicySpec defines the policy enforced.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -1061,6 +1412,16 @@ class PodSecurityPolicySpec(dict):
                  volumes: Optional[Sequence[str]] = None):
         """
         PodSecurityPolicySpec defines the policy enforced.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param 'FSGroupStrategyOptionsArgs' fs_group: fsGroup is the strategy that will dictate what fs group is used by the SecurityContext.
         :param 'RunAsUserStrategyOptionsArgs' run_as_user: runAsUser is the strategy that will dictate the allowable RunAsUser values that may be set.
         :param 'SELinuxStrategyOptionsArgs' se_linux: seLinux is the strategy that will dictate the allowable labels that may be set.
@@ -1336,6 +1697,15 @@ class PodSecurityPolicySpec(dict):
 class PodSecurityPolicySpecPatch(dict):
     """
     PodSecurityPolicySpec defines the policy enforced.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -1423,6 +1793,16 @@ class PodSecurityPolicySpecPatch(dict):
                  volumes: Optional[Sequence[str]] = None):
         """
         PodSecurityPolicySpec defines the policy enforced.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param bool allow_privilege_escalation: allowPrivilegeEscalation determines if a pod can request to allow privilege escalation. If unspecified, defaults to true.
         :param Sequence['AllowedCSIDriverPatchArgs'] allowed_csi_drivers: AllowedCSIDrivers is a whitelist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is an alpha field, and is only honored if the API server enables the CSIInlineVolume feature gate.
         :param Sequence[str] allowed_capabilities: allowedCapabilities is a list of capabilities that can be requested to add to the container. Capabilities in this field may be added at the pod author's discretion. You must not list a capability in both allowedCapabilities and requiredDropCapabilities.
@@ -1702,12 +2082,31 @@ class PodSecurityPolicySpecPatch(dict):
 class RunAsGroupStrategyOptions(dict):
     """
     RunAsGroupStrategyOptions defines the strategy type and any options used to create the strategy.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     def __init__(__self__, *,
                  rule: str,
                  ranges: Optional[Sequence['outputs.IDRange']] = None):
         """
         RunAsGroupStrategyOptions defines the strategy type and any options used to create the strategy.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param str rule: rule is the strategy that will dictate the allowable RunAsGroup values that may be set.
         :param Sequence['IDRangeArgs'] ranges: ranges are the allowed ranges of gids that may be used. If you would like to force a single gid then supply a single range with the same start and end. Required for MustRunAs.
         """
@@ -1736,12 +2135,31 @@ class RunAsGroupStrategyOptions(dict):
 class RunAsGroupStrategyOptionsPatch(dict):
     """
     RunAsGroupStrategyOptions defines the strategy type and any options used to create the strategy.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     def __init__(__self__, *,
                  ranges: Optional[Sequence['outputs.IDRangePatch']] = None,
                  rule: Optional[str] = None):
         """
         RunAsGroupStrategyOptions defines the strategy type and any options used to create the strategy.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param Sequence['IDRangePatchArgs'] ranges: ranges are the allowed ranges of gids that may be used. If you would like to force a single gid then supply a single range with the same start and end. Required for MustRunAs.
         :param str rule: rule is the strategy that will dictate the allowable RunAsGroup values that may be set.
         """
@@ -1771,12 +2189,31 @@ class RunAsGroupStrategyOptionsPatch(dict):
 class RunAsUserStrategyOptions(dict):
     """
     RunAsUserStrategyOptions defines the strategy type and any options used to create the strategy.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     def __init__(__self__, *,
                  rule: str,
                  ranges: Optional[Sequence['outputs.IDRange']] = None):
         """
         RunAsUserStrategyOptions defines the strategy type and any options used to create the strategy.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param str rule: rule is the strategy that will dictate the allowable RunAsUser values that may be set.
         :param Sequence['IDRangeArgs'] ranges: ranges are the allowed ranges of uids that may be used. If you would like to force a single uid then supply a single range with the same start and end. Required for MustRunAs.
         """
@@ -1805,12 +2242,31 @@ class RunAsUserStrategyOptions(dict):
 class RunAsUserStrategyOptionsPatch(dict):
     """
     RunAsUserStrategyOptions defines the strategy type and any options used to create the strategy.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     def __init__(__self__, *,
                  ranges: Optional[Sequence['outputs.IDRangePatch']] = None,
                  rule: Optional[str] = None):
         """
         RunAsUserStrategyOptions defines the strategy type and any options used to create the strategy.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param Sequence['IDRangePatchArgs'] ranges: ranges are the allowed ranges of uids that may be used. If you would like to force a single uid then supply a single range with the same start and end. Required for MustRunAs.
         :param str rule: rule is the strategy that will dictate the allowable RunAsUser values that may be set.
         """
@@ -1840,6 +2296,15 @@ class RunAsUserStrategyOptionsPatch(dict):
 class RuntimeClassStrategyOptions(dict):
     """
     RuntimeClassStrategyOptions define the strategy that will dictate the allowable RuntimeClasses for a pod.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -1865,6 +2330,16 @@ class RuntimeClassStrategyOptions(dict):
                  default_runtime_class_name: Optional[str] = None):
         """
         RuntimeClassStrategyOptions define the strategy that will dictate the allowable RuntimeClasses for a pod.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param Sequence[str] allowed_runtime_class_names: allowedRuntimeClassNames is a whitelist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
         :param str default_runtime_class_name: defaultRuntimeClassName is the default RuntimeClassName to set on the pod. The default MUST be allowed by the allowedRuntimeClassNames list. A value of nil does not mutate the Pod.
         """
@@ -1893,6 +2368,15 @@ class RuntimeClassStrategyOptions(dict):
 class RuntimeClassStrategyOptionsPatch(dict):
     """
     RuntimeClassStrategyOptions define the strategy that will dictate the allowable RuntimeClasses for a pod.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -1918,6 +2402,16 @@ class RuntimeClassStrategyOptionsPatch(dict):
                  default_runtime_class_name: Optional[str] = None):
         """
         RuntimeClassStrategyOptions define the strategy that will dictate the allowable RuntimeClasses for a pod.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param Sequence[str] allowed_runtime_class_names: allowedRuntimeClassNames is a whitelist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
         :param str default_runtime_class_name: defaultRuntimeClassName is the default RuntimeClassName to set on the pod. The default MUST be allowed by the allowedRuntimeClassNames list. A value of nil does not mutate the Pod.
         """
@@ -1947,6 +2441,15 @@ class RuntimeClassStrategyOptionsPatch(dict):
 class SELinuxStrategyOptions(dict):
     """
     SELinuxStrategyOptions defines the strategy type and any options used to create the strategy.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -1970,6 +2473,16 @@ class SELinuxStrategyOptions(dict):
                  se_linux_options: Optional['_core.v1.outputs.SELinuxOptions'] = None):
         """
         SELinuxStrategyOptions defines the strategy type and any options used to create the strategy.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param str rule: rule is the strategy that will dictate the allowable labels that may be set.
         :param '_core.v1.SELinuxOptionsArgs' se_linux_options: seLinuxOptions required to run as; required for MustRunAs More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
         """
@@ -1998,6 +2511,15 @@ class SELinuxStrategyOptions(dict):
 class SELinuxStrategyOptionsPatch(dict):
     """
     SELinuxStrategyOptions defines the strategy type and any options used to create the strategy.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -2021,6 +2543,16 @@ class SELinuxStrategyOptionsPatch(dict):
                  se_linux_options: Optional['_core.v1.outputs.SELinuxOptionsPatch'] = None):
         """
         SELinuxStrategyOptions defines the strategy type and any options used to create the strategy.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param str rule: rule is the strategy that will dictate the allowable labels that may be set.
         :param '_core.v1.SELinuxOptionsPatchArgs' se_linux_options: seLinuxOptions required to run as; required for MustRunAs More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
         """
@@ -2050,12 +2582,31 @@ class SELinuxStrategyOptionsPatch(dict):
 class SupplementalGroupsStrategyOptions(dict):
     """
     SupplementalGroupsStrategyOptions defines the strategy type and options used to create the strategy.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     def __init__(__self__, *,
                  ranges: Optional[Sequence['outputs.IDRange']] = None,
                  rule: Optional[str] = None):
         """
         SupplementalGroupsStrategyOptions defines the strategy type and options used to create the strategy.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param Sequence['IDRangeArgs'] ranges: ranges are the allowed ranges of supplemental groups.  If you would like to force a single supplemental group then supply a single range with the same start and end. Required for MustRunAs.
         :param str rule: rule is the strategy that will dictate what supplemental groups is used in the SecurityContext.
         """
@@ -2085,12 +2636,31 @@ class SupplementalGroupsStrategyOptions(dict):
 class SupplementalGroupsStrategyOptionsPatch(dict):
     """
     SupplementalGroupsStrategyOptions defines the strategy type and options used to create the strategy.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     def __init__(__self__, *,
                  ranges: Optional[Sequence['outputs.IDRangePatch']] = None,
                  rule: Optional[str] = None):
         """
         SupplementalGroupsStrategyOptions defines the strategy type and options used to create the strategy.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param Sequence['IDRangePatchArgs'] ranges: ranges are the allowed ranges of supplemental groups.  If you would like to force a single supplemental group then supply a single range with the same start and end. Required for MustRunAs.
         :param str rule: rule is the strategy that will dictate what supplemental groups is used in the SecurityContext.
         """

@@ -28,6 +28,15 @@ __all__ = [
 class PodDisruptionBudget(dict):
     """
     PodDisruptionBudget is an object to define the max disruption that can be caused to a collection of pods
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -54,6 +63,16 @@ class PodDisruptionBudget(dict):
                  status: Optional['outputs.PodDisruptionBudgetStatus'] = None):
         """
         PodDisruptionBudget is an object to define the max disruption that can be caused to a collection of pods
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param '_meta.v1.ObjectMetaArgs' metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -116,6 +135,15 @@ class PodDisruptionBudget(dict):
 class PodDisruptionBudgetSpec(dict):
     """
     PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -145,6 +173,16 @@ class PodDisruptionBudgetSpec(dict):
                  unhealthy_pod_eviction_policy: Optional[str] = None):
         """
         PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param Union[int, str] max_unavailable: An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
         :param Union[int, str] min_available: An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
         :param '_meta.v1.LabelSelectorArgs' selector: Label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
@@ -216,6 +254,15 @@ class PodDisruptionBudgetSpec(dict):
 class PodDisruptionBudgetSpecPatch(dict):
     """
     PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -245,6 +292,16 @@ class PodDisruptionBudgetSpecPatch(dict):
                  unhealthy_pod_eviction_policy: Optional[str] = None):
         """
         PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param Union[int, str] max_unavailable: An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
         :param Union[int, str] min_available: An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
         :param '_meta.v1.LabelSelectorPatchArgs' selector: Label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
@@ -316,6 +373,15 @@ class PodDisruptionBudgetSpecPatch(dict):
 class PodDisruptionBudgetStatus(dict):
     """
     PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget. Status may trail the actual state of a system.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -354,6 +420,16 @@ class PodDisruptionBudgetStatus(dict):
                  observed_generation: Optional[int] = None):
         """
         PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget. Status may trail the actual state of a system.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param int current_healthy: current number of healthy pods
         :param int desired_healthy: minimum desired number of healthy pods
         :param int disruptions_allowed: Number of pod disruptions that are currently allowed.
@@ -450,6 +526,15 @@ class PodDisruptionBudgetStatus(dict):
 class PodDisruptionBudgetStatusPatch(dict):
     """
     PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget. Status may trail the actual state of a system.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -488,6 +573,16 @@ class PodDisruptionBudgetStatusPatch(dict):
                  observed_generation: Optional[int] = None):
         """
         PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget. Status may trail the actual state of a system.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param Sequence['_meta.v1.ConditionPatchArgs'] conditions: Conditions contain conditions for PDB. The disruption controller sets the DisruptionAllowed condition. The following are known values for the reason field (additional reasons could be added in the future): - SyncFailed: The controller encountered an error and wasn't able to compute
                              the number of allowed disruptions. Therefore no disruptions are
                              allowed and the status of the condition will be False.

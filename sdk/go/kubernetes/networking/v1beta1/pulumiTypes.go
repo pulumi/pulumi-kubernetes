@@ -16,6 +16,15 @@ import (
 var _ = utilities.GetEnvOrDefault
 
 // HTTPIngressPath associates a path regex with a backend. Incoming urls matching the path are forwarded to the backend.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type HTTPIngressPath struct {
 	// Backend defines the referenced service endpoint to which the traffic will be forwarded to.
 	Backend IngressBackend `pulumi:"backend"`
@@ -47,6 +56,15 @@ type HTTPIngressPathInput interface {
 }
 
 // HTTPIngressPath associates a path regex with a backend. Incoming urls matching the path are forwarded to the backend.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type HTTPIngressPathArgs struct {
 	// Backend defines the referenced service endpoint to which the traffic will be forwarded to.
 	Backend IngressBackendInput `pulumi:"backend"`
@@ -104,6 +122,15 @@ func (i HTTPIngressPathArray) ToHTTPIngressPathArrayOutputWithContext(ctx contex
 }
 
 // HTTPIngressPath associates a path regex with a backend. Incoming urls matching the path are forwarded to the backend.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type HTTPIngressPathOutput struct{ *pulumi.OutputState }
 
 func (HTTPIngressPathOutput) ElementType() reflect.Type {
@@ -165,6 +192,15 @@ func (o HTTPIngressPathArrayOutput) Index(i pulumi.IntInput) HTTPIngressPathOutp
 }
 
 // HTTPIngressPath associates a path regex with a backend. Incoming urls matching the path are forwarded to the backend.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type HTTPIngressPathPatch struct {
 	// Backend defines the referenced service endpoint to which the traffic will be forwarded to.
 	Backend *IngressBackendPatch `pulumi:"backend"`
@@ -196,6 +232,15 @@ type HTTPIngressPathPatchInput interface {
 }
 
 // HTTPIngressPath associates a path regex with a backend. Incoming urls matching the path are forwarded to the backend.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type HTTPIngressPathPatchArgs struct {
 	// Backend defines the referenced service endpoint to which the traffic will be forwarded to.
 	Backend IngressBackendPatchPtrInput `pulumi:"backend"`
@@ -253,6 +298,15 @@ func (i HTTPIngressPathPatchArray) ToHTTPIngressPathPatchArrayOutputWithContext(
 }
 
 // HTTPIngressPath associates a path regex with a backend. Incoming urls matching the path are forwarded to the backend.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type HTTPIngressPathPatchOutput struct{ *pulumi.OutputState }
 
 func (HTTPIngressPathPatchOutput) ElementType() reflect.Type {
@@ -314,6 +368,15 @@ func (o HTTPIngressPathPatchArrayOutput) Index(i pulumi.IntInput) HTTPIngressPat
 }
 
 // HTTPIngressRuleValue is a list of http selectors pointing to backends. In the example: http://<host>/<path>?<searchpart> -> backend where where parts of the url correspond to RFC 3986, this resource will be used to match against everything after the last '/' and before the first '?' or '#'.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type HTTPIngressRuleValue struct {
 	// A collection of paths that map requests to backends.
 	Paths []HTTPIngressPath `pulumi:"paths"`
@@ -331,6 +394,15 @@ type HTTPIngressRuleValueInput interface {
 }
 
 // HTTPIngressRuleValue is a list of http selectors pointing to backends. In the example: http://<host>/<path>?<searchpart> -> backend where where parts of the url correspond to RFC 3986, this resource will be used to match against everything after the last '/' and before the first '?' or '#'.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type HTTPIngressRuleValueArgs struct {
 	// A collection of paths that map requests to backends.
 	Paths HTTPIngressPathArrayInput `pulumi:"paths"`
@@ -390,6 +462,15 @@ func (i *httpingressRuleValuePtrType) ToHTTPIngressRuleValuePtrOutputWithContext
 }
 
 // HTTPIngressRuleValue is a list of http selectors pointing to backends. In the example: http://<host>/<path>?<searchpart> -> backend where where parts of the url correspond to RFC 3986, this resource will be used to match against everything after the last '/' and before the first '?' or '#'.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type HTTPIngressRuleValueOutput struct{ *pulumi.OutputState }
 
 func (HTTPIngressRuleValueOutput) ElementType() reflect.Type {
@@ -454,6 +535,15 @@ func (o HTTPIngressRuleValuePtrOutput) Paths() HTTPIngressPathArrayOutput {
 }
 
 // HTTPIngressRuleValue is a list of http selectors pointing to backends. In the example: http://<host>/<path>?<searchpart> -> backend where where parts of the url correspond to RFC 3986, this resource will be used to match against everything after the last '/' and before the first '?' or '#'.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type HTTPIngressRuleValuePatch struct {
 	// A collection of paths that map requests to backends.
 	Paths []HTTPIngressPathPatch `pulumi:"paths"`
@@ -471,6 +561,15 @@ type HTTPIngressRuleValuePatchInput interface {
 }
 
 // HTTPIngressRuleValue is a list of http selectors pointing to backends. In the example: http://<host>/<path>?<searchpart> -> backend where where parts of the url correspond to RFC 3986, this resource will be used to match against everything after the last '/' and before the first '?' or '#'.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type HTTPIngressRuleValuePatchArgs struct {
 	// A collection of paths that map requests to backends.
 	Paths HTTPIngressPathPatchArrayInput `pulumi:"paths"`
@@ -530,6 +629,15 @@ func (i *httpingressRuleValuePatchPtrType) ToHTTPIngressRuleValuePatchPtrOutputW
 }
 
 // HTTPIngressRuleValue is a list of http selectors pointing to backends. In the example: http://<host>/<path>?<searchpart> -> backend where where parts of the url correspond to RFC 3986, this resource will be used to match against everything after the last '/' and before the first '?' or '#'.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type HTTPIngressRuleValuePatchOutput struct{ *pulumi.OutputState }
 
 func (HTTPIngressRuleValuePatchOutput) ElementType() reflect.Type {
@@ -772,6 +880,15 @@ func (o IngressTypeArrayOutput) Index(i pulumi.IntInput) IngressTypeOutput {
 }
 
 // IngressBackend describes all endpoints for a given service and port.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type IngressBackend struct {
 	// Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, serviceName and servicePort must not be specified.
 	Resource *corev1.TypedLocalObjectReference `pulumi:"resource"`
@@ -793,6 +910,15 @@ type IngressBackendInput interface {
 }
 
 // IngressBackend describes all endpoints for a given service and port.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type IngressBackendArgs struct {
 	// Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, serviceName and servicePort must not be specified.
 	Resource corev1.TypedLocalObjectReferencePtrInput `pulumi:"resource"`
@@ -856,6 +982,15 @@ func (i *ingressBackendPtrType) ToIngressBackendPtrOutputWithContext(ctx context
 }
 
 // IngressBackend describes all endpoints for a given service and port.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type IngressBackendOutput struct{ *pulumi.OutputState }
 
 func (IngressBackendOutput) ElementType() reflect.Type {
@@ -950,6 +1085,15 @@ func (o IngressBackendPtrOutput) ServicePort() pulumi.AnyOutput {
 }
 
 // IngressBackend describes all endpoints for a given service and port.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type IngressBackendPatch struct {
 	// Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, serviceName and servicePort must not be specified.
 	Resource *corev1.TypedLocalObjectReferencePatch `pulumi:"resource"`
@@ -971,6 +1115,15 @@ type IngressBackendPatchInput interface {
 }
 
 // IngressBackend describes all endpoints for a given service and port.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type IngressBackendPatchArgs struct {
 	// Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, serviceName and servicePort must not be specified.
 	Resource corev1.TypedLocalObjectReferencePatchPtrInput `pulumi:"resource"`
@@ -1034,6 +1187,15 @@ func (i *ingressBackendPatchPtrType) ToIngressBackendPatchPtrOutputWithContext(c
 }
 
 // IngressBackend describes all endpoints for a given service and port.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type IngressBackendPatchOutput struct{ *pulumi.OutputState }
 
 func (IngressBackendPatchOutput) ElementType() reflect.Type {
@@ -1128,6 +1290,15 @@ func (o IngressBackendPatchPtrOutput) ServicePort() pulumi.AnyOutput {
 }
 
 // IngressClass represents the class of the Ingress, referenced by the Ingress Spec. The `ingressclass.kubernetes.io/is-default-class` annotation can be used to indicate that an IngressClass should be considered default. When a single IngressClass resource has this annotation set to true, new Ingress resources without a class specified will be assigned this default class.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type IngressClassType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -1151,6 +1322,15 @@ type IngressClassTypeInput interface {
 }
 
 // IngressClass represents the class of the Ingress, referenced by the Ingress Spec. The `ingressclass.kubernetes.io/is-default-class` annotation can be used to indicate that an IngressClass should be considered default. When a single IngressClass resource has this annotation set to true, new Ingress resources without a class specified will be assigned this default class.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type IngressClassTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -1200,6 +1380,15 @@ func (i IngressClassTypeArray) ToIngressClassTypeArrayOutputWithContext(ctx cont
 }
 
 // IngressClass represents the class of the Ingress, referenced by the Ingress Spec. The `ingressclass.kubernetes.io/is-default-class` annotation can be used to indicate that an IngressClass should be considered default. When a single IngressClass resource has this annotation set to true, new Ingress resources without a class specified will be assigned this default class.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type IngressClassTypeOutput struct{ *pulumi.OutputState }
 
 func (IngressClassTypeOutput) ElementType() reflect.Type {
@@ -1255,6 +1444,15 @@ func (o IngressClassTypeArrayOutput) Index(i pulumi.IntInput) IngressClassTypeOu
 }
 
 // IngressClassList is a collection of IngressClasses.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type IngressClassListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -1278,6 +1476,15 @@ type IngressClassListTypeInput interface {
 }
 
 // IngressClassList is a collection of IngressClasses.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type IngressClassListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -1302,6 +1509,15 @@ func (i IngressClassListTypeArgs) ToIngressClassListTypeOutputWithContext(ctx co
 }
 
 // IngressClassList is a collection of IngressClasses.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type IngressClassListTypeOutput struct{ *pulumi.OutputState }
 
 func (IngressClassListTypeOutput) ElementType() reflect.Type {
@@ -1337,6 +1553,15 @@ func (o IngressClassListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 }
 
 // IngressClass represents the class of the Ingress, referenced by the Ingress Spec. The `ingressclass.kubernetes.io/is-default-class` annotation can be used to indicate that an IngressClass should be considered default. When a single IngressClass resource has this annotation set to true, new Ingress resources without a class specified will be assigned this default class.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type IngressClassPatchType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -1360,6 +1585,15 @@ type IngressClassPatchTypeInput interface {
 }
 
 // IngressClass represents the class of the Ingress, referenced by the Ingress Spec. The `ingressclass.kubernetes.io/is-default-class` annotation can be used to indicate that an IngressClass should be considered default. When a single IngressClass resource has this annotation set to true, new Ingress resources without a class specified will be assigned this default class.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type IngressClassPatchTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -1384,6 +1618,15 @@ func (i IngressClassPatchTypeArgs) ToIngressClassPatchTypeOutputWithContext(ctx 
 }
 
 // IngressClass represents the class of the Ingress, referenced by the Ingress Spec. The `ingressclass.kubernetes.io/is-default-class` annotation can be used to indicate that an IngressClass should be considered default. When a single IngressClass resource has this annotation set to true, new Ingress resources without a class specified will be assigned this default class.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type IngressClassPatchTypeOutput struct{ *pulumi.OutputState }
 
 func (IngressClassPatchTypeOutput) ElementType() reflect.Type {
@@ -1419,6 +1662,15 @@ func (o IngressClassPatchTypeOutput) Spec() IngressClassSpecPatchPtrOutput {
 }
 
 // IngressClassSpec provides information about the class of an Ingress.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type IngressClassSpec struct {
 	// Controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different Parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
 	Controller *string `pulumi:"controller"`
@@ -1438,6 +1690,15 @@ type IngressClassSpecInput interface {
 }
 
 // IngressClassSpec provides information about the class of an Ingress.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type IngressClassSpecArgs struct {
 	// Controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different Parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
 	Controller pulumi.StringPtrInput `pulumi:"controller"`
@@ -1499,6 +1760,15 @@ func (i *ingressClassSpecPtrType) ToIngressClassSpecPtrOutputWithContext(ctx con
 }
 
 // IngressClassSpec provides information about the class of an Ingress.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type IngressClassSpecOutput struct{ *pulumi.OutputState }
 
 func (IngressClassSpecOutput) ElementType() reflect.Type {
@@ -1578,6 +1848,15 @@ func (o IngressClassSpecPtrOutput) Parameters() corev1.TypedLocalObjectReference
 }
 
 // IngressClassSpec provides information about the class of an Ingress.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type IngressClassSpecPatch struct {
 	// Controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different Parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
 	Controller *string `pulumi:"controller"`
@@ -1597,6 +1876,15 @@ type IngressClassSpecPatchInput interface {
 }
 
 // IngressClassSpec provides information about the class of an Ingress.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type IngressClassSpecPatchArgs struct {
 	// Controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different Parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
 	Controller pulumi.StringPtrInput `pulumi:"controller"`
@@ -1658,6 +1946,15 @@ func (i *ingressClassSpecPatchPtrType) ToIngressClassSpecPatchPtrOutputWithConte
 }
 
 // IngressClassSpec provides information about the class of an Ingress.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type IngressClassSpecPatchOutput struct{ *pulumi.OutputState }
 
 func (IngressClassSpecPatchOutput) ElementType() reflect.Type {
@@ -1737,6 +2034,15 @@ func (o IngressClassSpecPatchPtrOutput) Parameters() corev1.TypedLocalObjectRefe
 }
 
 // IngressList is a collection of Ingress.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type IngressListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -1760,6 +2066,15 @@ type IngressListTypeInput interface {
 }
 
 // IngressList is a collection of Ingress.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type IngressListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -1784,6 +2099,15 @@ func (i IngressListTypeArgs) ToIngressListTypeOutputWithContext(ctx context.Cont
 }
 
 // IngressList is a collection of Ingress.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type IngressListTypeOutput struct{ *pulumi.OutputState }
 
 func (IngressListTypeOutput) ElementType() reflect.Type {
@@ -1952,6 +2276,15 @@ func (o IngressPatchTypeOutput) Status() IngressStatusPatchPtrOutput {
 }
 
 // IngressRule represents the rules mapping the paths under a specified host to the related backend services. Incoming requests are first evaluated for a host match, then routed to the backend associated with the matching IngressRuleValue.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type IngressRule struct {
 	// Host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the following deviations from the "host" part of the URI as defined in the RFC: 1. IPs are not allowed. Currently an IngressRuleValue can only apply to the
 	// 	  IP in the Spec of the parent Ingress.
@@ -1975,6 +2308,15 @@ type IngressRuleInput interface {
 }
 
 // IngressRule represents the rules mapping the paths under a specified host to the related backend services. Incoming requests are first evaluated for a host match, then routed to the backend associated with the matching IngressRuleValue.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type IngressRuleArgs struct {
 	// Host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the following deviations from the "host" part of the URI as defined in the RFC: 1. IPs are not allowed. Currently an IngressRuleValue can only apply to the
 	// 	  IP in the Spec of the parent Ingress.
@@ -2024,6 +2366,15 @@ func (i IngressRuleArray) ToIngressRuleArrayOutputWithContext(ctx context.Contex
 }
 
 // IngressRule represents the rules mapping the paths under a specified host to the related backend services. Incoming requests are first evaluated for a host match, then routed to the backend associated with the matching IngressRuleValue.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type IngressRuleOutput struct{ *pulumi.OutputState }
 
 func (IngressRuleOutput) ElementType() reflect.Type {
@@ -2075,6 +2426,15 @@ func (o IngressRuleArrayOutput) Index(i pulumi.IntInput) IngressRuleOutput {
 }
 
 // IngressRule represents the rules mapping the paths under a specified host to the related backend services. Incoming requests are first evaluated for a host match, then routed to the backend associated with the matching IngressRuleValue.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type IngressRulePatch struct {
 	// Host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the following deviations from the "host" part of the URI as defined in the RFC: 1. IPs are not allowed. Currently an IngressRuleValue can only apply to the
 	// 	  IP in the Spec of the parent Ingress.
@@ -2098,6 +2458,15 @@ type IngressRulePatchInput interface {
 }
 
 // IngressRule represents the rules mapping the paths under a specified host to the related backend services. Incoming requests are first evaluated for a host match, then routed to the backend associated with the matching IngressRuleValue.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type IngressRulePatchArgs struct {
 	// Host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the following deviations from the "host" part of the URI as defined in the RFC: 1. IPs are not allowed. Currently an IngressRuleValue can only apply to the
 	// 	  IP in the Spec of the parent Ingress.
@@ -2147,6 +2516,15 @@ func (i IngressRulePatchArray) ToIngressRulePatchArrayOutputWithContext(ctx cont
 }
 
 // IngressRule represents the rules mapping the paths under a specified host to the related backend services. Incoming requests are first evaluated for a host match, then routed to the backend associated with the matching IngressRuleValue.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type IngressRulePatchOutput struct{ *pulumi.OutputState }
 
 func (IngressRulePatchOutput) ElementType() reflect.Type {
@@ -2198,6 +2576,15 @@ func (o IngressRulePatchArrayOutput) Index(i pulumi.IntInput) IngressRulePatchOu
 }
 
 // IngressSpec describes the Ingress the user wishes to exist.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type IngressSpec struct {
 	// A default backend capable of servicing requests that don't match any rule. At least one of 'backend' or 'rules' must be specified. This field is optional to allow the loadbalancer controller or defaulting logic to specify a global default.
 	Backend *IngressBackend `pulumi:"backend"`
@@ -2221,6 +2608,15 @@ type IngressSpecInput interface {
 }
 
 // IngressSpec describes the Ingress the user wishes to exist.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type IngressSpecArgs struct {
 	// A default backend capable of servicing requests that don't match any rule. At least one of 'backend' or 'rules' must be specified. This field is optional to allow the loadbalancer controller or defaulting logic to specify a global default.
 	Backend IngressBackendPtrInput `pulumi:"backend"`
@@ -2286,6 +2682,15 @@ func (i *ingressSpecPtrType) ToIngressSpecPtrOutputWithContext(ctx context.Conte
 }
 
 // IngressSpec describes the Ingress the user wishes to exist.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type IngressSpecOutput struct{ *pulumi.OutputState }
 
 func (IngressSpecOutput) ElementType() reflect.Type {
@@ -2395,6 +2800,15 @@ func (o IngressSpecPtrOutput) Tls() IngressTLSArrayOutput {
 }
 
 // IngressSpec describes the Ingress the user wishes to exist.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type IngressSpecPatch struct {
 	// A default backend capable of servicing requests that don't match any rule. At least one of 'backend' or 'rules' must be specified. This field is optional to allow the loadbalancer controller or defaulting logic to specify a global default.
 	Backend *IngressBackendPatch `pulumi:"backend"`
@@ -2418,6 +2832,15 @@ type IngressSpecPatchInput interface {
 }
 
 // IngressSpec describes the Ingress the user wishes to exist.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type IngressSpecPatchArgs struct {
 	// A default backend capable of servicing requests that don't match any rule. At least one of 'backend' or 'rules' must be specified. This field is optional to allow the loadbalancer controller or defaulting logic to specify a global default.
 	Backend IngressBackendPatchPtrInput `pulumi:"backend"`
@@ -2483,6 +2906,15 @@ func (i *ingressSpecPatchPtrType) ToIngressSpecPatchPtrOutputWithContext(ctx con
 }
 
 // IngressSpec describes the Ingress the user wishes to exist.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type IngressSpecPatchOutput struct{ *pulumi.OutputState }
 
 func (IngressSpecPatchOutput) ElementType() reflect.Type {
@@ -2592,6 +3024,15 @@ func (o IngressSpecPatchPtrOutput) Tls() IngressTLSPatchArrayOutput {
 }
 
 // IngressStatus describe the current state of the Ingress.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type IngressStatus struct {
 	// LoadBalancer contains the current status of the load-balancer.
 	LoadBalancer *corev1.LoadBalancerStatus `pulumi:"loadBalancer"`
@@ -2609,6 +3050,15 @@ type IngressStatusInput interface {
 }
 
 // IngressStatus describe the current state of the Ingress.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type IngressStatusArgs struct {
 	// LoadBalancer contains the current status of the load-balancer.
 	LoadBalancer corev1.LoadBalancerStatusPtrInput `pulumi:"loadBalancer"`
@@ -2668,6 +3118,15 @@ func (i *ingressStatusPtrType) ToIngressStatusPtrOutputWithContext(ctx context.C
 }
 
 // IngressStatus describe the current state of the Ingress.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type IngressStatusOutput struct{ *pulumi.OutputState }
 
 func (IngressStatusOutput) ElementType() reflect.Type {
@@ -2732,6 +3191,15 @@ func (o IngressStatusPtrOutput) LoadBalancer() corev1.LoadBalancerStatusPtrOutpu
 }
 
 // IngressStatus describe the current state of the Ingress.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type IngressStatusPatch struct {
 	// LoadBalancer contains the current status of the load-balancer.
 	LoadBalancer *corev1.LoadBalancerStatusPatch `pulumi:"loadBalancer"`
@@ -2749,6 +3217,15 @@ type IngressStatusPatchInput interface {
 }
 
 // IngressStatus describe the current state of the Ingress.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type IngressStatusPatchArgs struct {
 	// LoadBalancer contains the current status of the load-balancer.
 	LoadBalancer corev1.LoadBalancerStatusPatchPtrInput `pulumi:"loadBalancer"`
@@ -2808,6 +3285,15 @@ func (i *ingressStatusPatchPtrType) ToIngressStatusPatchPtrOutputWithContext(ctx
 }
 
 // IngressStatus describe the current state of the Ingress.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type IngressStatusPatchOutput struct{ *pulumi.OutputState }
 
 func (IngressStatusPatchOutput) ElementType() reflect.Type {
@@ -2872,6 +3358,15 @@ func (o IngressStatusPatchPtrOutput) LoadBalancer() corev1.LoadBalancerStatusPat
 }
 
 // IngressTLS describes the transport layer security associated with an Ingress.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type IngressTLS struct {
 	// Hosts are a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
 	Hosts []string `pulumi:"hosts"`
@@ -2891,6 +3386,15 @@ type IngressTLSInput interface {
 }
 
 // IngressTLS describes the transport layer security associated with an Ingress.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type IngressTLSArgs struct {
 	// Hosts are a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
 	Hosts pulumi.StringArrayInput `pulumi:"hosts"`
@@ -2936,6 +3440,15 @@ func (i IngressTLSArray) ToIngressTLSArrayOutputWithContext(ctx context.Context)
 }
 
 // IngressTLS describes the transport layer security associated with an Ingress.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type IngressTLSOutput struct{ *pulumi.OutputState }
 
 func (IngressTLSOutput) ElementType() reflect.Type {
@@ -2981,6 +3494,15 @@ func (o IngressTLSArrayOutput) Index(i pulumi.IntInput) IngressTLSOutput {
 }
 
 // IngressTLS describes the transport layer security associated with an Ingress.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type IngressTLSPatch struct {
 	// Hosts are a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
 	Hosts []string `pulumi:"hosts"`
@@ -3000,6 +3522,15 @@ type IngressTLSPatchInput interface {
 }
 
 // IngressTLS describes the transport layer security associated with an Ingress.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type IngressTLSPatchArgs struct {
 	// Hosts are a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
 	Hosts pulumi.StringArrayInput `pulumi:"hosts"`
@@ -3045,6 +3576,15 @@ func (i IngressTLSPatchArray) ToIngressTLSPatchArrayOutputWithContext(ctx contex
 }
 
 // IngressTLS describes the transport layer security associated with an Ingress.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type IngressTLSPatchOutput struct{ *pulumi.OutputState }
 
 func (IngressTLSPatchOutput) ElementType() reflect.Type {

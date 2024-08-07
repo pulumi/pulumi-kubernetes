@@ -68,6 +68,15 @@ __all__ = [
 class ContainerResourceMetricSource(dict):
     """
     ContainerResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  The values will be averaged together before being compared to the target.  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.  Only one "target" type should be set.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     def __init__(__self__, *,
                  container: str,
@@ -75,6 +84,16 @@ class ContainerResourceMetricSource(dict):
                  target: 'outputs.MetricTarget'):
         """
         ContainerResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  The values will be averaged together before being compared to the target.  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.  Only one "target" type should be set.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param str container: container is the name of the container in the pods of the scaling target
         :param str name: name is the name of the resource in question.
         :param 'MetricTargetArgs' target: target specifies the target value for the given metric
@@ -112,6 +131,15 @@ class ContainerResourceMetricSource(dict):
 class ContainerResourceMetricSourcePatch(dict):
     """
     ContainerResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  The values will be averaged together before being compared to the target.  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.  Only one "target" type should be set.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     def __init__(__self__, *,
                  container: Optional[str] = None,
@@ -119,6 +147,16 @@ class ContainerResourceMetricSourcePatch(dict):
                  target: Optional['outputs.MetricTargetPatch'] = None):
         """
         ContainerResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  The values will be averaged together before being compared to the target.  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.  Only one "target" type should be set.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param str container: container is the name of the container in the pods of the scaling target
         :param str name: name is the name of the resource in question.
         :param 'MetricTargetPatchArgs' target: target specifies the target value for the given metric
@@ -159,6 +197,15 @@ class ContainerResourceMetricSourcePatch(dict):
 class ContainerResourceMetricStatus(dict):
     """
     ContainerResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as specified in requests and limits, describing a single container in each pod in the current scale target (e.g. CPU or memory).  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     def __init__(__self__, *,
                  container: str,
@@ -166,6 +213,16 @@ class ContainerResourceMetricStatus(dict):
                  name: str):
         """
         ContainerResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as specified in requests and limits, describing a single container in each pod in the current scale target (e.g. CPU or memory).  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param str container: Container is the name of the container in the pods of the scaling target
         :param 'MetricValueStatusArgs' current: current contains the current value for the given metric
         :param str name: Name is the name of the resource in question.
@@ -203,6 +260,15 @@ class ContainerResourceMetricStatus(dict):
 class ContainerResourceMetricStatusPatch(dict):
     """
     ContainerResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as specified in requests and limits, describing a single container in each pod in the current scale target (e.g. CPU or memory).  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     def __init__(__self__, *,
                  container: Optional[str] = None,
@@ -210,6 +276,16 @@ class ContainerResourceMetricStatusPatch(dict):
                  name: Optional[str] = None):
         """
         ContainerResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as specified in requests and limits, describing a single container in each pod in the current scale target (e.g. CPU or memory).  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param str container: Container is the name of the container in the pods of the scaling target
         :param 'MetricValueStatusPatchArgs' current: current contains the current value for the given metric
         :param str name: Name is the name of the resource in question.
@@ -250,6 +326,15 @@ class ContainerResourceMetricStatusPatch(dict):
 class CrossVersionObjectReference(dict):
     """
     CrossVersionObjectReference contains enough information to let you identify the referred resource.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -274,6 +359,16 @@ class CrossVersionObjectReference(dict):
                  api_version: Optional[str] = None):
         """
         CrossVersionObjectReference contains enough information to let you identify the referred resource.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param str kind: Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
         :param str name: Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
         :param str api_version: API version of the referent
@@ -312,6 +407,15 @@ class CrossVersionObjectReference(dict):
 class CrossVersionObjectReferencePatch(dict):
     """
     CrossVersionObjectReference contains enough information to let you identify the referred resource.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -336,6 +440,16 @@ class CrossVersionObjectReferencePatch(dict):
                  name: Optional[str] = None):
         """
         CrossVersionObjectReference contains enough information to let you identify the referred resource.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param str api_version: API version of the referent
         :param str kind: Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
         :param str name: Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
@@ -376,12 +490,31 @@ class CrossVersionObjectReferencePatch(dict):
 class ExternalMetricSource(dict):
     """
     ExternalMetricSource indicates how to scale on a metric not associated with any Kubernetes object (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     def __init__(__self__, *,
                  metric: 'outputs.MetricIdentifier',
                  target: 'outputs.MetricTarget'):
         """
         ExternalMetricSource indicates how to scale on a metric not associated with any Kubernetes object (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param 'MetricIdentifierArgs' metric: metric identifies the target metric by name and selector
         :param 'MetricTargetArgs' target: target specifies the target value for the given metric
         """
@@ -409,12 +542,31 @@ class ExternalMetricSource(dict):
 class ExternalMetricSourcePatch(dict):
     """
     ExternalMetricSource indicates how to scale on a metric not associated with any Kubernetes object (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     def __init__(__self__, *,
                  metric: Optional['outputs.MetricIdentifierPatch'] = None,
                  target: Optional['outputs.MetricTargetPatch'] = None):
         """
         ExternalMetricSource indicates how to scale on a metric not associated with any Kubernetes object (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param 'MetricIdentifierPatchArgs' metric: metric identifies the target metric by name and selector
         :param 'MetricTargetPatchArgs' target: target specifies the target value for the given metric
         """
@@ -444,12 +596,31 @@ class ExternalMetricSourcePatch(dict):
 class ExternalMetricStatus(dict):
     """
     ExternalMetricStatus indicates the current value of a global metric not associated with any Kubernetes object.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     def __init__(__self__, *,
                  current: 'outputs.MetricValueStatus',
                  metric: 'outputs.MetricIdentifier'):
         """
         ExternalMetricStatus indicates the current value of a global metric not associated with any Kubernetes object.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param 'MetricValueStatusArgs' current: current contains the current value for the given metric
         :param 'MetricIdentifierArgs' metric: metric identifies the target metric by name and selector
         """
@@ -477,12 +648,31 @@ class ExternalMetricStatus(dict):
 class ExternalMetricStatusPatch(dict):
     """
     ExternalMetricStatus indicates the current value of a global metric not associated with any Kubernetes object.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     def __init__(__self__, *,
                  current: Optional['outputs.MetricValueStatusPatch'] = None,
                  metric: Optional['outputs.MetricIdentifierPatch'] = None):
         """
         ExternalMetricStatus indicates the current value of a global metric not associated with any Kubernetes object.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param 'MetricValueStatusPatchArgs' current: current contains the current value for the given metric
         :param 'MetricIdentifierPatchArgs' metric: metric identifies the target metric by name and selector
         """
@@ -512,6 +702,15 @@ class ExternalMetricStatusPatch(dict):
 class HPAScalingPolicy(dict):
     """
     HPAScalingPolicy is a single policy which must hold true for a specified past interval.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -536,6 +735,16 @@ class HPAScalingPolicy(dict):
                  value: int):
         """
         HPAScalingPolicy is a single policy which must hold true for a specified past interval.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param int period_seconds: PeriodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
         :param str type: Type is used to specify the scaling policy.
         :param int value: Value contains the amount of change which is permitted by the policy. It must be greater than zero
@@ -573,6 +782,15 @@ class HPAScalingPolicy(dict):
 class HPAScalingPolicyPatch(dict):
     """
     HPAScalingPolicy is a single policy which must hold true for a specified past interval.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -597,6 +815,16 @@ class HPAScalingPolicyPatch(dict):
                  value: Optional[int] = None):
         """
         HPAScalingPolicy is a single policy which must hold true for a specified past interval.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param int period_seconds: PeriodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
         :param str type: Type is used to specify the scaling policy.
         :param int value: Value contains the amount of change which is permitted by the policy. It must be greater than zero
@@ -637,6 +865,15 @@ class HPAScalingPolicyPatch(dict):
 class HPAScalingRules(dict):
     """
     HPAScalingRules configures the scaling behavior for one direction. These Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -663,6 +900,16 @@ class HPAScalingRules(dict):
                  stabilization_window_seconds: Optional[int] = None):
         """
         HPAScalingRules configures the scaling behavior for one direction. These Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param Sequence['HPAScalingPolicyArgs'] policies: policies is a list of potential scaling polices which can be used during scaling. At least one policy must be specified, otherwise the HPAScalingRules will be discarded as invalid
         :param str select_policy: selectPolicy is used to specify which policy should be used. If not set, the default value MaxPolicySelect is used.
         :param int stabilization_window_seconds: StabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
@@ -703,6 +950,15 @@ class HPAScalingRules(dict):
 class HPAScalingRulesPatch(dict):
     """
     HPAScalingRules configures the scaling behavior for one direction. These Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -729,6 +985,16 @@ class HPAScalingRulesPatch(dict):
                  stabilization_window_seconds: Optional[int] = None):
         """
         HPAScalingRules configures the scaling behavior for one direction. These Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param Sequence['HPAScalingPolicyPatchArgs'] policies: policies is a list of potential scaling polices which can be used during scaling. At least one policy must be specified, otherwise the HPAScalingRules will be discarded as invalid
         :param str select_policy: selectPolicy is used to specify which policy should be used. If not set, the default value MaxPolicySelect is used.
         :param int stabilization_window_seconds: StabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
@@ -769,6 +1035,15 @@ class HPAScalingRulesPatch(dict):
 class HorizontalPodAutoscaler(dict):
     """
     HorizontalPodAutoscaler is the configuration for a horizontal pod autoscaler, which automatically manages the replica count of any resource implementing the scale subresource based on the metrics specified.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -795,6 +1070,16 @@ class HorizontalPodAutoscaler(dict):
                  status: Optional['outputs.HorizontalPodAutoscalerStatus'] = None):
         """
         HorizontalPodAutoscaler is the configuration for a horizontal pod autoscaler, which automatically manages the replica count of any resource implementing the scale subresource based on the metrics specified.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param '_meta.v1.ObjectMetaArgs' metadata: metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -857,6 +1142,15 @@ class HorizontalPodAutoscaler(dict):
 class HorizontalPodAutoscalerBehavior(dict):
     """
     HorizontalPodAutoscalerBehavior configures the scaling behavior of the target in both Up and Down directions (scaleUp and scaleDown fields respectively).
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -882,6 +1176,16 @@ class HorizontalPodAutoscalerBehavior(dict):
                  scale_up: Optional['outputs.HPAScalingRules'] = None):
         """
         HorizontalPodAutoscalerBehavior configures the scaling behavior of the target in both Up and Down directions (scaleUp and scaleDown fields respectively).
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param 'HPAScalingRulesArgs' scale_down: scaleDown is scaling policy for scaling Down. If not set, the default value is to allow to scale down to minReplicas pods, with a 300 second stabilization window (i.e., the highest recommendation for the last 300sec is used).
         :param 'HPAScalingRulesArgs' scale_up: scaleUp is scaling policy for scaling Up. If not set, the default value is the higher of:
                  * increase no more than 4 pods per 60 seconds
@@ -917,6 +1221,15 @@ class HorizontalPodAutoscalerBehavior(dict):
 class HorizontalPodAutoscalerBehaviorPatch(dict):
     """
     HorizontalPodAutoscalerBehavior configures the scaling behavior of the target in both Up and Down directions (scaleUp and scaleDown fields respectively).
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -942,6 +1255,16 @@ class HorizontalPodAutoscalerBehaviorPatch(dict):
                  scale_up: Optional['outputs.HPAScalingRulesPatch'] = None):
         """
         HorizontalPodAutoscalerBehavior configures the scaling behavior of the target in both Up and Down directions (scaleUp and scaleDown fields respectively).
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param 'HPAScalingRulesPatchArgs' scale_down: scaleDown is scaling policy for scaling Down. If not set, the default value is to allow to scale down to minReplicas pods, with a 300 second stabilization window (i.e., the highest recommendation for the last 300sec is used).
         :param 'HPAScalingRulesPatchArgs' scale_up: scaleUp is scaling policy for scaling Up. If not set, the default value is the higher of:
                  * increase no more than 4 pods per 60 seconds
@@ -977,6 +1300,15 @@ class HorizontalPodAutoscalerBehaviorPatch(dict):
 class HorizontalPodAutoscalerCondition(dict):
     """
     HorizontalPodAutoscalerCondition describes the state of a HorizontalPodAutoscaler at a certain point.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -1003,6 +1335,16 @@ class HorizontalPodAutoscalerCondition(dict):
                  reason: Optional[str] = None):
         """
         HorizontalPodAutoscalerCondition describes the state of a HorizontalPodAutoscaler at a certain point.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param str status: status is the status of the condition (True, False, Unknown)
         :param str type: type describes the current condition
         :param str last_transition_time: lastTransitionTime is the last time the condition transitioned from one status to another
@@ -1063,6 +1405,15 @@ class HorizontalPodAutoscalerCondition(dict):
 class HorizontalPodAutoscalerConditionPatch(dict):
     """
     HorizontalPodAutoscalerCondition describes the state of a HorizontalPodAutoscaler at a certain point.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -1089,6 +1440,16 @@ class HorizontalPodAutoscalerConditionPatch(dict):
                  type: Optional[str] = None):
         """
         HorizontalPodAutoscalerCondition describes the state of a HorizontalPodAutoscaler at a certain point.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param str last_transition_time: lastTransitionTime is the last time the condition transitioned from one status to another
         :param str message: message is a human-readable explanation containing details about the transition
         :param str reason: reason is the reason for the condition's last transition.
@@ -1151,6 +1512,15 @@ class HorizontalPodAutoscalerConditionPatch(dict):
 class HorizontalPodAutoscalerSpec(dict):
     """
     HorizontalPodAutoscalerSpec describes the desired functionality of the HorizontalPodAutoscaler.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -1181,6 +1551,16 @@ class HorizontalPodAutoscalerSpec(dict):
                  min_replicas: Optional[int] = None):
         """
         HorizontalPodAutoscalerSpec describes the desired functionality of the HorizontalPodAutoscaler.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param int max_replicas: maxReplicas is the upper limit for the number of replicas to which the autoscaler can scale up. It cannot be less that minReplicas.
         :param 'CrossVersionObjectReferenceArgs' scale_target_ref: scaleTargetRef points to the target resource to scale, and is used to the pods for which metrics should be collected, as well as to actually change the replica count.
         :param 'HorizontalPodAutoscalerBehaviorArgs' behavior: behavior configures the scaling behavior of the target in both Up and Down directions (scaleUp and scaleDown fields respectively). If not set, the default HPAScalingRules for scale up and scale down are used.
@@ -1241,6 +1621,15 @@ class HorizontalPodAutoscalerSpec(dict):
 class HorizontalPodAutoscalerSpecPatch(dict):
     """
     HorizontalPodAutoscalerSpec describes the desired functionality of the HorizontalPodAutoscaler.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -1271,6 +1660,16 @@ class HorizontalPodAutoscalerSpecPatch(dict):
                  scale_target_ref: Optional['outputs.CrossVersionObjectReferencePatch'] = None):
         """
         HorizontalPodAutoscalerSpec describes the desired functionality of the HorizontalPodAutoscaler.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param 'HorizontalPodAutoscalerBehaviorPatchArgs' behavior: behavior configures the scaling behavior of the target in both Up and Down directions (scaleUp and scaleDown fields respectively). If not set, the default HPAScalingRules for scale up and scale down are used.
         :param int max_replicas: maxReplicas is the upper limit for the number of replicas to which the autoscaler can scale up. It cannot be less that minReplicas.
         :param Sequence['MetricSpecPatchArgs'] metrics: metrics contains the specifications for which to use to calculate the desired replica count (the maximum replica count across all metrics will be used).  The desired replica count is calculated multiplying the ratio between the target value and the current value by the current number of pods.  Ergo, metrics used must decrease as the pod count is increased, and vice-versa.  See the individual metric source types for more information about how each type of metric must respond. If not set, the default metric will be set to 80% average CPU utilization.
@@ -1333,6 +1732,15 @@ class HorizontalPodAutoscalerSpecPatch(dict):
 class HorizontalPodAutoscalerStatus(dict):
     """
     HorizontalPodAutoscalerStatus describes the current status of a horizontal pod autoscaler.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -1368,6 +1776,16 @@ class HorizontalPodAutoscalerStatus(dict):
                  observed_generation: Optional[int] = None):
         """
         HorizontalPodAutoscalerStatus describes the current status of a horizontal pod autoscaler.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param Sequence['HorizontalPodAutoscalerConditionArgs'] conditions: conditions is the set of conditions required for this autoscaler to scale its target, and indicates whether or not those conditions are met.
         :param int current_replicas: currentReplicas is current number of replicas of pods managed by this autoscaler, as last seen by the autoscaler.
         :param int desired_replicas: desiredReplicas is the desired number of replicas of pods managed by this autoscaler, as last calculated by the autoscaler.
@@ -1438,6 +1856,15 @@ class HorizontalPodAutoscalerStatus(dict):
 class HorizontalPodAutoscalerStatusPatch(dict):
     """
     HorizontalPodAutoscalerStatus describes the current status of a horizontal pod autoscaler.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -1473,6 +1900,16 @@ class HorizontalPodAutoscalerStatusPatch(dict):
                  observed_generation: Optional[int] = None):
         """
         HorizontalPodAutoscalerStatus describes the current status of a horizontal pod autoscaler.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param Sequence['HorizontalPodAutoscalerConditionPatchArgs'] conditions: conditions is the set of conditions required for this autoscaler to scale its target, and indicates whether or not those conditions are met.
         :param Sequence['MetricStatusPatchArgs'] current_metrics: currentMetrics is the last read state of the metrics used by this autoscaler.
         :param int current_replicas: currentReplicas is current number of replicas of pods managed by this autoscaler, as last seen by the autoscaler.
@@ -1546,12 +1983,31 @@ class HorizontalPodAutoscalerStatusPatch(dict):
 class MetricIdentifier(dict):
     """
     MetricIdentifier defines the name and optionally selector for a metric
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     def __init__(__self__, *,
                  name: str,
                  selector: Optional['_meta.v1.outputs.LabelSelector'] = None):
         """
         MetricIdentifier defines the name and optionally selector for a metric
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param str name: name is the name of the given metric
         :param '_meta.v1.LabelSelectorArgs' selector: selector is the string-encoded form of a standard kubernetes label selector for the given metric When set, it is passed as an additional parameter to the metrics server for more specific metrics scoping. When unset, just the metricName will be used to gather metrics.
         """
@@ -1580,12 +2036,31 @@ class MetricIdentifier(dict):
 class MetricIdentifierPatch(dict):
     """
     MetricIdentifier defines the name and optionally selector for a metric
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     def __init__(__self__, *,
                  name: Optional[str] = None,
                  selector: Optional['_meta.v1.outputs.LabelSelectorPatch'] = None):
         """
         MetricIdentifier defines the name and optionally selector for a metric
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param str name: name is the name of the given metric
         :param '_meta.v1.LabelSelectorPatchArgs' selector: selector is the string-encoded form of a standard kubernetes label selector for the given metric When set, it is passed as an additional parameter to the metrics server for more specific metrics scoping. When unset, just the metricName will be used to gather metrics.
         """
@@ -1615,6 +2090,15 @@ class MetricIdentifierPatch(dict):
 class MetricSpec(dict):
     """
     MetricSpec specifies how to scale based on a single metric (only `type` and one other matching field should be set at once).
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -1642,6 +2126,16 @@ class MetricSpec(dict):
                  resource: Optional['outputs.ResourceMetricSource'] = None):
         """
         MetricSpec specifies how to scale based on a single metric (only `type` and one other matching field should be set at once).
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param str type: type is the type of metric source.  It should be one of "Object", "Pods" or "Resource", each mapping to a matching field in the object.
         :param 'ContainerResourceMetricSourceArgs' container_resource: container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod of the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source. This is an alpha feature and can be enabled by the HPAContainerMetrics feature flag.
         :param 'ExternalMetricSourceArgs' external: external refers to a global metric that is not associated with any Kubernetes object. It allows autoscaling based on information coming from components running outside of cluster (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
@@ -1714,6 +2208,15 @@ class MetricSpec(dict):
 class MetricSpecPatch(dict):
     """
     MetricSpec specifies how to scale based on a single metric (only `type` and one other matching field should be set at once).
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -1741,6 +2244,16 @@ class MetricSpecPatch(dict):
                  type: Optional[str] = None):
         """
         MetricSpec specifies how to scale based on a single metric (only `type` and one other matching field should be set at once).
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param 'ContainerResourceMetricSourcePatchArgs' container_resource: container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod of the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source. This is an alpha feature and can be enabled by the HPAContainerMetrics feature flag.
         :param 'ExternalMetricSourcePatchArgs' external: external refers to a global metric that is not associated with any Kubernetes object. It allows autoscaling based on information coming from components running outside of cluster (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
         :param 'ObjectMetricSourcePatchArgs' object: object refers to a metric describing a single kubernetes object (for example, hits-per-second on an Ingress object).
@@ -1814,6 +2327,15 @@ class MetricSpecPatch(dict):
 class MetricStatus(dict):
     """
     MetricStatus describes the last-read state of a single metric.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -1841,6 +2363,16 @@ class MetricStatus(dict):
                  resource: Optional['outputs.ResourceMetricStatus'] = None):
         """
         MetricStatus describes the last-read state of a single metric.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param str type: type is the type of metric source.  It will be one of "Object", "Pods" or "Resource", each corresponds to a matching field in the object.
         :param 'ContainerResourceMetricStatusArgs' container_resource: container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
         :param 'ExternalMetricStatusArgs' external: external refers to a global metric that is not associated with any Kubernetes object. It allows autoscaling based on information coming from components running outside of cluster (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
@@ -1913,6 +2445,15 @@ class MetricStatus(dict):
 class MetricStatusPatch(dict):
     """
     MetricStatus describes the last-read state of a single metric.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -1940,6 +2481,16 @@ class MetricStatusPatch(dict):
                  type: Optional[str] = None):
         """
         MetricStatus describes the last-read state of a single metric.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param 'ContainerResourceMetricStatusPatchArgs' container_resource: container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
         :param 'ExternalMetricStatusPatchArgs' external: external refers to a global metric that is not associated with any Kubernetes object. It allows autoscaling based on information coming from components running outside of cluster (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
         :param 'ObjectMetricStatusPatchArgs' object: object refers to a metric describing a single kubernetes object (for example, hits-per-second on an Ingress object).
@@ -2013,6 +2564,15 @@ class MetricStatusPatch(dict):
 class MetricTarget(dict):
     """
     MetricTarget defines the target value, average value, or average utilization of a specific metric
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -2040,6 +2600,16 @@ class MetricTarget(dict):
                  value: Optional[str] = None):
         """
         MetricTarget defines the target value, average value, or average utilization of a specific metric
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param str type: type represents whether the metric type is Utilization, Value, or AverageValue
         :param int average_utilization: averageUtilization is the target value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods. Currently only valid for Resource metric source type
         :param str average_value: averageValue is the target value of the average of the metric across all relevant pods (as a quantity)
@@ -2090,6 +2660,15 @@ class MetricTarget(dict):
 class MetricTargetPatch(dict):
     """
     MetricTarget defines the target value, average value, or average utilization of a specific metric
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -2117,6 +2696,16 @@ class MetricTargetPatch(dict):
                  value: Optional[str] = None):
         """
         MetricTarget defines the target value, average value, or average utilization of a specific metric
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param int average_utilization: averageUtilization is the target value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods. Currently only valid for Resource metric source type
         :param str average_value: averageValue is the target value of the average of the metric across all relevant pods (as a quantity)
         :param str type: type represents whether the metric type is Utilization, Value, or AverageValue
@@ -2168,6 +2757,15 @@ class MetricTargetPatch(dict):
 class MetricValueStatus(dict):
     """
     MetricValueStatus holds the current value for a metric
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -2194,6 +2792,16 @@ class MetricValueStatus(dict):
                  value: Optional[str] = None):
         """
         MetricValueStatus holds the current value for a metric
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param int average_utilization: currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
         :param str average_value: averageValue is the current value of the average of the metric across all relevant pods (as a quantity)
         :param str value: value is the current value of the metric (as a quantity).
@@ -2234,6 +2842,15 @@ class MetricValueStatus(dict):
 class MetricValueStatusPatch(dict):
     """
     MetricValueStatus holds the current value for a metric
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -2260,6 +2877,16 @@ class MetricValueStatusPatch(dict):
                  value: Optional[str] = None):
         """
         MetricValueStatus holds the current value for a metric
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param int average_utilization: currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
         :param str average_value: averageValue is the current value of the average of the metric across all relevant pods (as a quantity)
         :param str value: value is the current value of the metric (as a quantity).
@@ -2300,6 +2927,15 @@ class MetricValueStatusPatch(dict):
 class ObjectMetricSource(dict):
     """
     ObjectMetricSource indicates how to scale on a metric describing a kubernetes object (for example, hits-per-second on an Ingress object).
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -2324,6 +2960,16 @@ class ObjectMetricSource(dict):
                  target: 'outputs.MetricTarget'):
         """
         ObjectMetricSource indicates how to scale on a metric describing a kubernetes object (for example, hits-per-second on an Ingress object).
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param 'MetricIdentifierArgs' metric: metric identifies the target metric by name and selector
         :param 'MetricTargetArgs' target: target specifies the target value for the given metric
         """
@@ -2357,6 +3003,15 @@ class ObjectMetricSource(dict):
 class ObjectMetricSourcePatch(dict):
     """
     ObjectMetricSource indicates how to scale on a metric describing a kubernetes object (for example, hits-per-second on an Ingress object).
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -2381,6 +3036,16 @@ class ObjectMetricSourcePatch(dict):
                  target: Optional['outputs.MetricTargetPatch'] = None):
         """
         ObjectMetricSource indicates how to scale on a metric describing a kubernetes object (for example, hits-per-second on an Ingress object).
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param 'MetricIdentifierPatchArgs' metric: metric identifies the target metric by name and selector
         :param 'MetricTargetPatchArgs' target: target specifies the target value for the given metric
         """
@@ -2417,6 +3082,15 @@ class ObjectMetricSourcePatch(dict):
 class ObjectMetricStatus(dict):
     """
     ObjectMetricStatus indicates the current value of a metric describing a kubernetes object (for example, hits-per-second on an Ingress object).
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -2441,6 +3115,16 @@ class ObjectMetricStatus(dict):
                  metric: 'outputs.MetricIdentifier'):
         """
         ObjectMetricStatus indicates the current value of a metric describing a kubernetes object (for example, hits-per-second on an Ingress object).
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param 'MetricValueStatusArgs' current: current contains the current value for the given metric
         :param 'MetricIdentifierArgs' metric: metric identifies the target metric by name and selector
         """
@@ -2474,6 +3158,15 @@ class ObjectMetricStatus(dict):
 class ObjectMetricStatusPatch(dict):
     """
     ObjectMetricStatus indicates the current value of a metric describing a kubernetes object (for example, hits-per-second on an Ingress object).
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -2498,6 +3191,16 @@ class ObjectMetricStatusPatch(dict):
                  metric: Optional['outputs.MetricIdentifierPatch'] = None):
         """
         ObjectMetricStatus indicates the current value of a metric describing a kubernetes object (for example, hits-per-second on an Ingress object).
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param 'MetricValueStatusPatchArgs' current: current contains the current value for the given metric
         :param 'MetricIdentifierPatchArgs' metric: metric identifies the target metric by name and selector
         """
@@ -2534,12 +3237,31 @@ class ObjectMetricStatusPatch(dict):
 class PodsMetricSource(dict):
     """
     PodsMetricSource indicates how to scale on a metric describing each pod in the current scale target (for example, transactions-processed-per-second). The values will be averaged together before being compared to the target value.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     def __init__(__self__, *,
                  metric: 'outputs.MetricIdentifier',
                  target: 'outputs.MetricTarget'):
         """
         PodsMetricSource indicates how to scale on a metric describing each pod in the current scale target (for example, transactions-processed-per-second). The values will be averaged together before being compared to the target value.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param 'MetricIdentifierArgs' metric: metric identifies the target metric by name and selector
         :param 'MetricTargetArgs' target: target specifies the target value for the given metric
         """
@@ -2567,12 +3289,31 @@ class PodsMetricSource(dict):
 class PodsMetricSourcePatch(dict):
     """
     PodsMetricSource indicates how to scale on a metric describing each pod in the current scale target (for example, transactions-processed-per-second). The values will be averaged together before being compared to the target value.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     def __init__(__self__, *,
                  metric: Optional['outputs.MetricIdentifierPatch'] = None,
                  target: Optional['outputs.MetricTargetPatch'] = None):
         """
         PodsMetricSource indicates how to scale on a metric describing each pod in the current scale target (for example, transactions-processed-per-second). The values will be averaged together before being compared to the target value.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param 'MetricIdentifierPatchArgs' metric: metric identifies the target metric by name and selector
         :param 'MetricTargetPatchArgs' target: target specifies the target value for the given metric
         """
@@ -2602,12 +3343,31 @@ class PodsMetricSourcePatch(dict):
 class PodsMetricStatus(dict):
     """
     PodsMetricStatus indicates the current value of a metric describing each pod in the current scale target (for example, transactions-processed-per-second).
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     def __init__(__self__, *,
                  current: 'outputs.MetricValueStatus',
                  metric: 'outputs.MetricIdentifier'):
         """
         PodsMetricStatus indicates the current value of a metric describing each pod in the current scale target (for example, transactions-processed-per-second).
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param 'MetricValueStatusArgs' current: current contains the current value for the given metric
         :param 'MetricIdentifierArgs' metric: metric identifies the target metric by name and selector
         """
@@ -2635,12 +3395,31 @@ class PodsMetricStatus(dict):
 class PodsMetricStatusPatch(dict):
     """
     PodsMetricStatus indicates the current value of a metric describing each pod in the current scale target (for example, transactions-processed-per-second).
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     def __init__(__self__, *,
                  current: Optional['outputs.MetricValueStatusPatch'] = None,
                  metric: Optional['outputs.MetricIdentifierPatch'] = None):
         """
         PodsMetricStatus indicates the current value of a metric describing each pod in the current scale target (for example, transactions-processed-per-second).
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param 'MetricValueStatusPatchArgs' current: current contains the current value for the given metric
         :param 'MetricIdentifierPatchArgs' metric: metric identifies the target metric by name and selector
         """
@@ -2670,12 +3449,31 @@ class PodsMetricStatusPatch(dict):
 class ResourceMetricSource(dict):
     """
     ResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  The values will be averaged together before being compared to the target.  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.  Only one "target" type should be set.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     def __init__(__self__, *,
                  name: str,
                  target: 'outputs.MetricTarget'):
         """
         ResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  The values will be averaged together before being compared to the target.  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.  Only one "target" type should be set.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param str name: name is the name of the resource in question.
         :param 'MetricTargetArgs' target: target specifies the target value for the given metric
         """
@@ -2703,12 +3501,31 @@ class ResourceMetricSource(dict):
 class ResourceMetricSourcePatch(dict):
     """
     ResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  The values will be averaged together before being compared to the target.  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.  Only one "target" type should be set.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     def __init__(__self__, *,
                  name: Optional[str] = None,
                  target: Optional['outputs.MetricTargetPatch'] = None):
         """
         ResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  The values will be averaged together before being compared to the target.  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.  Only one "target" type should be set.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param str name: name is the name of the resource in question.
         :param 'MetricTargetPatchArgs' target: target specifies the target value for the given metric
         """
@@ -2738,12 +3555,31 @@ class ResourceMetricSourcePatch(dict):
 class ResourceMetricStatus(dict):
     """
     ResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     def __init__(__self__, *,
                  current: 'outputs.MetricValueStatus',
                  name: str):
         """
         ResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param 'MetricValueStatusArgs' current: current contains the current value for the given metric
         :param str name: Name is the name of the resource in question.
         """
@@ -2771,12 +3607,31 @@ class ResourceMetricStatus(dict):
 class ResourceMetricStatusPatch(dict):
     """
     ResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     def __init__(__self__, *,
                  current: Optional['outputs.MetricValueStatusPatch'] = None,
                  name: Optional[str] = None):
         """
         ResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param 'MetricValueStatusPatchArgs' current: current contains the current value for the given metric
         :param str name: Name is the name of the resource in question.
         """

@@ -12,6 +12,15 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration.V1Beta1
 
     /// <summary>
     /// ParamRef describes how to locate the params to be used as input to expressions of rules applied by a policy binding.
+    /// 
+    /// By default Pulumi does _not_ wait for this resource to
+    /// become ready when it is created or updated.
+    /// 
+    /// If you want Pulumi to wait for this resource to become ready, you can use the
+    /// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    /// documentation
+    /// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    /// for a detailed description of the values this annotation accepts.
     /// </summary>
     [OutputType]
     public sealed class ParamRefPatch

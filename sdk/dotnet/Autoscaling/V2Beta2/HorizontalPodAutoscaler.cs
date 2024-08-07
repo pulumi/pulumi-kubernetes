@@ -11,6 +11,15 @@ namespace Pulumi.Kubernetes.Autoscaling.V2Beta2
 {
     /// <summary>
     /// HorizontalPodAutoscaler is the configuration for a horizontal pod autoscaler, which automatically manages the replica count of any resource implementing the scale subresource based on the metrics specified.
+    /// 
+    /// By default Pulumi does _not_ wait for this resource to
+    /// become ready when it is created or updated.
+    /// 
+    /// If you want Pulumi to wait for this resource to become ready, you can use the
+    /// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    /// documentation
+    /// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    /// for a detailed description of the values this annotation accepts.
     /// </summary>
     [KubernetesResourceType("kubernetes:autoscaling/v2beta2:HorizontalPodAutoscaler")]
     public partial class HorizontalPodAutoscaler : KubernetesResource

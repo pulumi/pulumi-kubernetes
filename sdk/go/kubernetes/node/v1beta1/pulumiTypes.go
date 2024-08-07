@@ -16,6 +16,15 @@ import (
 var _ = utilities.GetEnvOrDefault
 
 // Overhead structure represents the resource overhead associated with running a pod.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type Overhead struct {
 	// PodFixed represents the fixed resource overhead associated with running a pod.
 	PodFixed map[string]string `pulumi:"podFixed"`
@@ -33,6 +42,15 @@ type OverheadInput interface {
 }
 
 // Overhead structure represents the resource overhead associated with running a pod.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type OverheadArgs struct {
 	// PodFixed represents the fixed resource overhead associated with running a pod.
 	PodFixed pulumi.StringMapInput `pulumi:"podFixed"`
@@ -92,6 +110,15 @@ func (i *overheadPtrType) ToOverheadPtrOutputWithContext(ctx context.Context) Ov
 }
 
 // Overhead structure represents the resource overhead associated with running a pod.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type OverheadOutput struct{ *pulumi.OutputState }
 
 func (OverheadOutput) ElementType() reflect.Type {
@@ -156,6 +183,15 @@ func (o OverheadPtrOutput) PodFixed() pulumi.StringMapOutput {
 }
 
 // Overhead structure represents the resource overhead associated with running a pod.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type OverheadPatch struct {
 	// PodFixed represents the fixed resource overhead associated with running a pod.
 	PodFixed map[string]string `pulumi:"podFixed"`
@@ -173,6 +209,15 @@ type OverheadPatchInput interface {
 }
 
 // Overhead structure represents the resource overhead associated with running a pod.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type OverheadPatchArgs struct {
 	// PodFixed represents the fixed resource overhead associated with running a pod.
 	PodFixed pulumi.StringMapInput `pulumi:"podFixed"`
@@ -232,6 +277,15 @@ func (i *overheadPatchPtrType) ToOverheadPatchPtrOutputWithContext(ctx context.C
 }
 
 // Overhead structure represents the resource overhead associated with running a pod.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type OverheadPatchOutput struct{ *pulumi.OutputState }
 
 func (OverheadPatchOutput) ElementType() reflect.Type {
@@ -296,6 +350,15 @@ func (o OverheadPatchPtrOutput) PodFixed() pulumi.StringMapOutput {
 }
 
 // RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass is used to determine which container runtime is used to run all containers in a pod. RuntimeClasses are (currently) manually defined by a user or cluster provisioner, and referenced in the PodSpec. The Kubelet is responsible for resolving the RuntimeClassName reference before running the pod.  For more details, see https://git.k8s.io/enhancements/keps/sig-node/runtime-class.md
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type RuntimeClassType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -323,6 +386,15 @@ type RuntimeClassTypeInput interface {
 }
 
 // RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass is used to determine which container runtime is used to run all containers in a pod. RuntimeClasses are (currently) manually defined by a user or cluster provisioner, and referenced in the PodSpec. The Kubelet is responsible for resolving the RuntimeClassName reference before running the pod.  For more details, see https://git.k8s.io/enhancements/keps/sig-node/runtime-class.md
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type RuntimeClassTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -376,6 +448,15 @@ func (i RuntimeClassTypeArray) ToRuntimeClassTypeArrayOutputWithContext(ctx cont
 }
 
 // RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass is used to determine which container runtime is used to run all containers in a pod. RuntimeClasses are (currently) manually defined by a user or cluster provisioner, and referenced in the PodSpec. The Kubelet is responsible for resolving the RuntimeClassName reference before running the pod.  For more details, see https://git.k8s.io/enhancements/keps/sig-node/runtime-class.md
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type RuntimeClassTypeOutput struct{ *pulumi.OutputState }
 
 func (RuntimeClassTypeOutput) ElementType() reflect.Type {
@@ -441,6 +522,15 @@ func (o RuntimeClassTypeArrayOutput) Index(i pulumi.IntInput) RuntimeClassTypeOu
 }
 
 // RuntimeClassList is a list of RuntimeClass objects.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type RuntimeClassListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -464,6 +554,15 @@ type RuntimeClassListTypeInput interface {
 }
 
 // RuntimeClassList is a list of RuntimeClass objects.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type RuntimeClassListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -488,6 +587,15 @@ func (i RuntimeClassListTypeArgs) ToRuntimeClassListTypeOutputWithContext(ctx co
 }
 
 // RuntimeClassList is a list of RuntimeClass objects.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type RuntimeClassListTypeOutput struct{ *pulumi.OutputState }
 
 func (RuntimeClassListTypeOutput) ElementType() reflect.Type {
@@ -523,6 +631,15 @@ func (o RuntimeClassListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 }
 
 // RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass is used to determine which container runtime is used to run all containers in a pod. RuntimeClasses are (currently) manually defined by a user or cluster provisioner, and referenced in the PodSpec. The Kubelet is responsible for resolving the RuntimeClassName reference before running the pod.  For more details, see https://git.k8s.io/enhancements/keps/sig-node/runtime-class.md
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type RuntimeClassPatchType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -550,6 +667,15 @@ type RuntimeClassPatchTypeInput interface {
 }
 
 // RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass is used to determine which container runtime is used to run all containers in a pod. RuntimeClasses are (currently) manually defined by a user or cluster provisioner, and referenced in the PodSpec. The Kubelet is responsible for resolving the RuntimeClassName reference before running the pod.  For more details, see https://git.k8s.io/enhancements/keps/sig-node/runtime-class.md
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type RuntimeClassPatchTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -578,6 +704,15 @@ func (i RuntimeClassPatchTypeArgs) ToRuntimeClassPatchTypeOutputWithContext(ctx 
 }
 
 // RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass is used to determine which container runtime is used to run all containers in a pod. RuntimeClasses are (currently) manually defined by a user or cluster provisioner, and referenced in the PodSpec. The Kubelet is responsible for resolving the RuntimeClassName reference before running the pod.  For more details, see https://git.k8s.io/enhancements/keps/sig-node/runtime-class.md
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type RuntimeClassPatchTypeOutput struct{ *pulumi.OutputState }
 
 func (RuntimeClassPatchTypeOutput) ElementType() reflect.Type {
@@ -623,6 +758,15 @@ func (o RuntimeClassPatchTypeOutput) Scheduling() SchedulingPatchPtrOutput {
 }
 
 // Scheduling specifies the scheduling constraints for nodes supporting a RuntimeClass.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type Scheduling struct {
 	// nodeSelector lists labels that must be present on nodes that support this RuntimeClass. Pods using this RuntimeClass can only be scheduled to a node matched by this selector. The RuntimeClass nodeSelector is merged with a pod's existing nodeSelector. Any conflicts will cause the pod to be rejected in admission.
 	NodeSelector map[string]string `pulumi:"nodeSelector"`
@@ -642,6 +786,15 @@ type SchedulingInput interface {
 }
 
 // Scheduling specifies the scheduling constraints for nodes supporting a RuntimeClass.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SchedulingArgs struct {
 	// nodeSelector lists labels that must be present on nodes that support this RuntimeClass. Pods using this RuntimeClass can only be scheduled to a node matched by this selector. The RuntimeClass nodeSelector is merged with a pod's existing nodeSelector. Any conflicts will cause the pod to be rejected in admission.
 	NodeSelector pulumi.StringMapInput `pulumi:"nodeSelector"`
@@ -703,6 +856,15 @@ func (i *schedulingPtrType) ToSchedulingPtrOutputWithContext(ctx context.Context
 }
 
 // Scheduling specifies the scheduling constraints for nodes supporting a RuntimeClass.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SchedulingOutput struct{ *pulumi.OutputState }
 
 func (SchedulingOutput) ElementType() reflect.Type {
@@ -782,6 +944,15 @@ func (o SchedulingPtrOutput) Tolerations() corev1.TolerationArrayOutput {
 }
 
 // Scheduling specifies the scheduling constraints for nodes supporting a RuntimeClass.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SchedulingPatch struct {
 	// nodeSelector lists labels that must be present on nodes that support this RuntimeClass. Pods using this RuntimeClass can only be scheduled to a node matched by this selector. The RuntimeClass nodeSelector is merged with a pod's existing nodeSelector. Any conflicts will cause the pod to be rejected in admission.
 	NodeSelector map[string]string `pulumi:"nodeSelector"`
@@ -801,6 +972,15 @@ type SchedulingPatchInput interface {
 }
 
 // Scheduling specifies the scheduling constraints for nodes supporting a RuntimeClass.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SchedulingPatchArgs struct {
 	// nodeSelector lists labels that must be present on nodes that support this RuntimeClass. Pods using this RuntimeClass can only be scheduled to a node matched by this selector. The RuntimeClass nodeSelector is merged with a pod's existing nodeSelector. Any conflicts will cause the pod to be rejected in admission.
 	NodeSelector pulumi.StringMapInput `pulumi:"nodeSelector"`
@@ -862,6 +1042,15 @@ func (i *schedulingPatchPtrType) ToSchedulingPatchPtrOutputWithContext(ctx conte
 }
 
 // Scheduling specifies the scheduling constraints for nodes supporting a RuntimeClass.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type SchedulingPatchOutput struct{ *pulumi.OutputState }
 
 func (SchedulingPatchOutput) ElementType() reflect.Type {

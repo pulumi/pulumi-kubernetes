@@ -30,6 +30,15 @@ __all__ = [
 class CertificateSigningRequest(dict):
     """
     Describes a certificate signing request
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -56,6 +65,16 @@ class CertificateSigningRequest(dict):
                  status: Optional['outputs.CertificateSigningRequestStatus'] = None):
         """
         Describes a certificate signing request
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param 'CertificateSigningRequestSpecArgs' spec: The certificate request itself and any additional information.
@@ -112,6 +131,18 @@ class CertificateSigningRequest(dict):
 
 @pulumi.output_type
 class CertificateSigningRequestCondition(dict):
+    """
+
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
+    """
     @staticmethod
     def __key_warning(key: str):
         suggest = None
@@ -139,6 +170,17 @@ class CertificateSigningRequestCondition(dict):
                  reason: Optional[str] = None,
                  status: Optional[str] = None):
         """
+
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param str type: request approval state, currently Approved or Denied.
         :param str last_transition_time: lastTransitionTime is the time the condition last transitioned from one status to another. If unset, when a new condition type is added or an existing condition's status is changed, the server defaults this to the current time.
         :param str last_update_time: timestamp for the last update to this condition
@@ -209,6 +251,18 @@ class CertificateSigningRequestCondition(dict):
 
 @pulumi.output_type
 class CertificateSigningRequestConditionPatch(dict):
+    """
+
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
+    """
     @staticmethod
     def __key_warning(key: str):
         suggest = None
@@ -236,6 +290,17 @@ class CertificateSigningRequestConditionPatch(dict):
                  status: Optional[str] = None,
                  type: Optional[str] = None):
         """
+
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param str last_transition_time: lastTransitionTime is the time the condition last transitioned from one status to another. If unset, when a new condition type is added or an existing condition's status is changed, the server defaults this to the current time.
         :param str last_update_time: timestamp for the last update to this condition
         :param str message: human readable message with details about the request state
@@ -309,6 +374,15 @@ class CertificateSigningRequestConditionPatch(dict):
 class CertificateSigningRequestSpec(dict):
     """
     This information is immutable after the request is created. Only the Request and Usages fields can be set on creation, other fields are derived by Kubernetes and cannot be modified by users.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -337,6 +411,16 @@ class CertificateSigningRequestSpec(dict):
                  username: Optional[str] = None):
         """
         This information is immutable after the request is created. Only the Request and Usages fields can be set on creation, other fields are derived by Kubernetes and cannot be modified by users.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param str request: Base64-encoded PKCS#10 CSR data
         :param Mapping[str, Sequence[str]] extra: Extra information about the requesting user. See user.Info interface for details.
         :param Sequence[str] groups: Group information about the requesting user. See user.Info interface for details.
@@ -434,6 +518,15 @@ class CertificateSigningRequestSpec(dict):
 class CertificateSigningRequestSpecPatch(dict):
     """
     This information is immutable after the request is created. Only the Request and Usages fields can be set on creation, other fields are derived by Kubernetes and cannot be modified by users.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -462,6 +555,16 @@ class CertificateSigningRequestSpecPatch(dict):
                  username: Optional[str] = None):
         """
         This information is immutable after the request is created. Only the Request and Usages fields can be set on creation, other fields are derived by Kubernetes and cannot be modified by users.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param Mapping[str, Sequence[str]] extra: Extra information about the requesting user. See user.Info interface for details.
         :param Sequence[str] groups: Group information about the requesting user. See user.Info interface for details.
         :param str request: Base64-encoded PKCS#10 CSR data
@@ -558,10 +661,33 @@ class CertificateSigningRequestSpecPatch(dict):
 
 @pulumi.output_type
 class CertificateSigningRequestStatus(dict):
+    """
+
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
+    """
     def __init__(__self__, *,
                  certificate: Optional[str] = None,
                  conditions: Optional[Sequence['outputs.CertificateSigningRequestCondition']] = None):
         """
+
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param str certificate: If request was approved, the controller will place the issued certificate here.
         :param Sequence['CertificateSigningRequestConditionArgs'] conditions: Conditions applied to the request, such as approval or denial.
         """
@@ -589,10 +715,33 @@ class CertificateSigningRequestStatus(dict):
 
 @pulumi.output_type
 class CertificateSigningRequestStatusPatch(dict):
+    """
+
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
+    """
     def __init__(__self__, *,
                  certificate: Optional[str] = None,
                  conditions: Optional[Sequence['outputs.CertificateSigningRequestConditionPatch']] = None):
         """
+
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param str certificate: If request was approved, the controller will place the issued certificate here.
         :param Sequence['CertificateSigningRequestConditionPatchArgs'] conditions: Conditions applied to the request, such as approval or denial.
         """

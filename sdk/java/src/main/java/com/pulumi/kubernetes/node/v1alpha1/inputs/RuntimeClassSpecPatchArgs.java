@@ -16,6 +16,15 @@ import javax.annotation.Nullable;
 /**
  * RuntimeClassSpec is a specification of a RuntimeClass. It contains parameters that are required to describe the RuntimeClass to the Container Runtime Interface (CRI) implementation, as well as any other components that need to understand how the pod will be run. The RuntimeClassSpec is immutable.
  * 
+ * By default Pulumi does _not_ wait for this resource to
+ * become ready when it is created or updated.
+ * 
+ * If you want Pulumi to wait for this resource to become ready, you can use the
+ * &#39;pulumi.com/waitFor&#39; annotation to provide custom readiness criteria. See the
+ * documentation
+ * (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+ * for a detailed description of the values this annotation accepts.
+ * 
  */
 public final class RuntimeClassSpecPatchArgs extends com.pulumi.resources.ResourceArgs {
 

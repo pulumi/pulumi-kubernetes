@@ -27,6 +27,15 @@ __all__ = [
 class Event(dict):
     """
     Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -79,6 +88,16 @@ class Event(dict):
                  type: Optional[str] = None):
         """
         Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param str event_time: Required. Time when this Event was first observed.
         :param str action: What action was taken/failed regarding to the regarding object.
         :param str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -268,6 +287,15 @@ class Event(dict):
 class EventSeries(dict):
     """
     EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -292,6 +320,16 @@ class EventSeries(dict):
                  state: str):
         """
         EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param int count: Number of occurrences in this series up to the last heartbeat time
         :param str last_observed_time: Time when last Event from the series was seen before last heartbeat.
         :param str state: Information whether this series is ongoing or finished. Deprecated. Planned removal for 1.18
@@ -329,6 +367,15 @@ class EventSeries(dict):
 class EventSeriesPatch(dict):
     """
     EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -353,6 +400,16 @@ class EventSeriesPatch(dict):
                  state: Optional[str] = None):
         """
         EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param int count: Number of occurrences in this series up to the last heartbeat time
         :param str last_observed_time: Time when last Event from the series was seen before last heartbeat.
         :param str state: Information whether this series is ongoing or finished. Deprecated. Planned removal for 1.18

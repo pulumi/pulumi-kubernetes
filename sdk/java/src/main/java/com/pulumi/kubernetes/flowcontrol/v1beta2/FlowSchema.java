@@ -21,6 +21,15 @@ import javax.annotation.Nullable;
 /**
  * FlowSchema defines the schema of a group of flows. Note that a flow is made up of a set of inbound API requests with similar attributes and is identified by a pair of strings: the name of the FlowSchema and a &#34;flow distinguisher&#34;.
  * 
+ * By default Pulumi does _not_ wait for this resource to
+ * become ready when it is created or updated.
+ * 
+ * If you want Pulumi to wait for this resource to become ready, you can use the
+ * &#39;pulumi.com/waitFor&#39; annotation to provide custom readiness criteria. See the
+ * documentation
+ * (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+ * for a detailed description of the values this annotation accepts.
+ * 
  */
 @ResourceType(type="kubernetes:flowcontrol.apiserver.k8s.io/v1beta2:FlowSchema")
 public class FlowSchema extends com.pulumi.resources.CustomResource {

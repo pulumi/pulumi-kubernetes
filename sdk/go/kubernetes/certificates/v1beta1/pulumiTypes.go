@@ -15,6 +15,15 @@ import (
 var _ = utilities.GetEnvOrDefault
 
 // Describes a certificate signing request
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CertificateSigningRequestType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -39,6 +48,15 @@ type CertificateSigningRequestTypeInput interface {
 }
 
 // Describes a certificate signing request
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CertificateSigningRequestTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -89,6 +107,15 @@ func (i CertificateSigningRequestTypeArray) ToCertificateSigningRequestTypeArray
 }
 
 // Describes a certificate signing request
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CertificateSigningRequestTypeOutput struct{ *pulumi.OutputState }
 
 func (CertificateSigningRequestTypeOutput) ElementType() reflect.Type {
@@ -147,6 +174,14 @@ func (o CertificateSigningRequestTypeArrayOutput) Index(i pulumi.IntInput) Certi
 	}).(CertificateSigningRequestTypeOutput)
 }
 
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CertificateSigningRequestCondition struct {
 	// lastTransitionTime is the time the condition last transitioned from one status to another. If unset, when a new condition type is added or an existing condition's status is changed, the server defaults this to the current time.
 	LastTransitionTime *string `pulumi:"lastTransitionTime"`
@@ -173,6 +208,14 @@ type CertificateSigningRequestConditionInput interface {
 	ToCertificateSigningRequestConditionOutputWithContext(context.Context) CertificateSigningRequestConditionOutput
 }
 
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CertificateSigningRequestConditionArgs struct {
 	// lastTransitionTime is the time the condition last transitioned from one status to another. If unset, when a new condition type is added or an existing condition's status is changed, the server defaults this to the current time.
 	LastTransitionTime pulumi.StringPtrInput `pulumi:"lastTransitionTime"`
@@ -225,6 +268,14 @@ func (i CertificateSigningRequestConditionArray) ToCertificateSigningRequestCond
 	return pulumi.ToOutputWithContext(ctx, i).(CertificateSigningRequestConditionArrayOutput)
 }
 
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CertificateSigningRequestConditionOutput struct{ *pulumi.OutputState }
 
 func (CertificateSigningRequestConditionOutput) ElementType() reflect.Type {
@@ -289,6 +340,14 @@ func (o CertificateSigningRequestConditionArrayOutput) Index(i pulumi.IntInput) 
 	}).(CertificateSigningRequestConditionOutput)
 }
 
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CertificateSigningRequestConditionPatch struct {
 	// lastTransitionTime is the time the condition last transitioned from one status to another. If unset, when a new condition type is added or an existing condition's status is changed, the server defaults this to the current time.
 	LastTransitionTime *string `pulumi:"lastTransitionTime"`
@@ -315,6 +374,14 @@ type CertificateSigningRequestConditionPatchInput interface {
 	ToCertificateSigningRequestConditionPatchOutputWithContext(context.Context) CertificateSigningRequestConditionPatchOutput
 }
 
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CertificateSigningRequestConditionPatchArgs struct {
 	// lastTransitionTime is the time the condition last transitioned from one status to another. If unset, when a new condition type is added or an existing condition's status is changed, the server defaults this to the current time.
 	LastTransitionTime pulumi.StringPtrInput `pulumi:"lastTransitionTime"`
@@ -367,6 +434,14 @@ func (i CertificateSigningRequestConditionPatchArray) ToCertificateSigningReques
 	return pulumi.ToOutputWithContext(ctx, i).(CertificateSigningRequestConditionPatchArrayOutput)
 }
 
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CertificateSigningRequestConditionPatchOutput struct{ *pulumi.OutputState }
 
 func (CertificateSigningRequestConditionPatchOutput) ElementType() reflect.Type {
@@ -431,6 +506,14 @@ func (o CertificateSigningRequestConditionPatchArrayOutput) Index(i pulumi.IntIn
 	}).(CertificateSigningRequestConditionPatchOutput)
 }
 
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CertificateSigningRequestListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string                         `pulumi:"apiVersion"`
@@ -451,6 +534,14 @@ type CertificateSigningRequestListTypeInput interface {
 	ToCertificateSigningRequestListTypeOutputWithContext(context.Context) CertificateSigningRequestListTypeOutput
 }
 
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CertificateSigningRequestListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput                   `pulumi:"apiVersion"`
@@ -472,6 +563,14 @@ func (i CertificateSigningRequestListTypeArgs) ToCertificateSigningRequestListTy
 	return pulumi.ToOutputWithContext(ctx, i).(CertificateSigningRequestListTypeOutput)
 }
 
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CertificateSigningRequestListTypeOutput struct{ *pulumi.OutputState }
 
 func (CertificateSigningRequestListTypeOutput) ElementType() reflect.Type {
@@ -505,6 +604,15 @@ func (o CertificateSigningRequestListTypeOutput) Metadata() metav1.ListMetaPtrOu
 }
 
 // Describes a certificate signing request
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CertificateSigningRequestPatchType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -529,6 +637,15 @@ type CertificateSigningRequestPatchTypeInput interface {
 }
 
 // Describes a certificate signing request
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CertificateSigningRequestPatchTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -554,6 +671,15 @@ func (i CertificateSigningRequestPatchTypeArgs) ToCertificateSigningRequestPatch
 }
 
 // Describes a certificate signing request
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CertificateSigningRequestPatchTypeOutput struct{ *pulumi.OutputState }
 
 func (CertificateSigningRequestPatchTypeOutput) ElementType() reflect.Type {
@@ -593,6 +719,15 @@ func (o CertificateSigningRequestPatchTypeOutput) Status() CertificateSigningReq
 }
 
 // This information is immutable after the request is created. Only the Request and Usages fields can be set on creation, other fields are derived by Kubernetes and cannot be modified by users.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CertificateSigningRequestSpec struct {
 	// Extra information about the requesting user. See user.Info interface for details.
 	Extra map[string][]string `pulumi:"extra"`
@@ -629,6 +764,15 @@ type CertificateSigningRequestSpecInput interface {
 }
 
 // This information is immutable after the request is created. Only the Request and Usages fields can be set on creation, other fields are derived by Kubernetes and cannot be modified by users.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CertificateSigningRequestSpecArgs struct {
 	// Extra information about the requesting user. See user.Info interface for details.
 	Extra pulumi.StringArrayMapInput `pulumi:"extra"`
@@ -707,6 +851,15 @@ func (i *certificateSigningRequestSpecPtrType) ToCertificateSigningRequestSpecPt
 }
 
 // This information is immutable after the request is created. Only the Request and Usages fields can be set on creation, other fields are derived by Kubernetes and cannot be modified by users.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CertificateSigningRequestSpecOutput struct{ *pulumi.OutputState }
 
 func (CertificateSigningRequestSpecOutput) ElementType() reflect.Type {
@@ -877,6 +1030,15 @@ func (o CertificateSigningRequestSpecPtrOutput) Username() pulumi.StringPtrOutpu
 }
 
 // This information is immutable after the request is created. Only the Request and Usages fields can be set on creation, other fields are derived by Kubernetes and cannot be modified by users.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CertificateSigningRequestSpecPatch struct {
 	// Extra information about the requesting user. See user.Info interface for details.
 	Extra map[string][]string `pulumi:"extra"`
@@ -913,6 +1075,15 @@ type CertificateSigningRequestSpecPatchInput interface {
 }
 
 // This information is immutable after the request is created. Only the Request and Usages fields can be set on creation, other fields are derived by Kubernetes and cannot be modified by users.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CertificateSigningRequestSpecPatchArgs struct {
 	// Extra information about the requesting user. See user.Info interface for details.
 	Extra pulumi.StringArrayMapInput `pulumi:"extra"`
@@ -991,6 +1162,15 @@ func (i *certificateSigningRequestSpecPatchPtrType) ToCertificateSigningRequestS
 }
 
 // This information is immutable after the request is created. Only the Request and Usages fields can be set on creation, other fields are derived by Kubernetes and cannot be modified by users.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CertificateSigningRequestSpecPatchOutput struct{ *pulumi.OutputState }
 
 func (CertificateSigningRequestSpecPatchOutput) ElementType() reflect.Type {
@@ -1160,6 +1340,14 @@ func (o CertificateSigningRequestSpecPatchPtrOutput) Username() pulumi.StringPtr
 	}).(pulumi.StringPtrOutput)
 }
 
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CertificateSigningRequestStatus struct {
 	// If request was approved, the controller will place the issued certificate here.
 	Certificate *string `pulumi:"certificate"`
@@ -1178,6 +1366,14 @@ type CertificateSigningRequestStatusInput interface {
 	ToCertificateSigningRequestStatusOutputWithContext(context.Context) CertificateSigningRequestStatusOutput
 }
 
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CertificateSigningRequestStatusArgs struct {
 	// If request was approved, the controller will place the issued certificate here.
 	Certificate pulumi.StringPtrInput `pulumi:"certificate"`
@@ -1238,6 +1434,14 @@ func (i *certificateSigningRequestStatusPtrType) ToCertificateSigningRequestStat
 	return pulumi.ToOutputWithContext(ctx, i).(CertificateSigningRequestStatusPtrOutput)
 }
 
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CertificateSigningRequestStatusOutput struct{ *pulumi.OutputState }
 
 func (CertificateSigningRequestStatusOutput) ElementType() reflect.Type {
@@ -1316,6 +1520,14 @@ func (o CertificateSigningRequestStatusPtrOutput) Conditions() CertificateSignin
 	}).(CertificateSigningRequestConditionArrayOutput)
 }
 
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CertificateSigningRequestStatusPatch struct {
 	// If request was approved, the controller will place the issued certificate here.
 	Certificate *string `pulumi:"certificate"`
@@ -1334,6 +1546,14 @@ type CertificateSigningRequestStatusPatchInput interface {
 	ToCertificateSigningRequestStatusPatchOutputWithContext(context.Context) CertificateSigningRequestStatusPatchOutput
 }
 
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CertificateSigningRequestStatusPatchArgs struct {
 	// If request was approved, the controller will place the issued certificate here.
 	Certificate pulumi.StringPtrInput `pulumi:"certificate"`
@@ -1394,6 +1614,14 @@ func (i *certificateSigningRequestStatusPatchPtrType) ToCertificateSigningReques
 	return pulumi.ToOutputWithContext(ctx, i).(CertificateSigningRequestStatusPatchPtrOutput)
 }
 
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CertificateSigningRequestStatusPatchOutput struct{ *pulumi.OutputState }
 
 func (CertificateSigningRequestStatusPatchOutput) ElementType() reflect.Type {

@@ -17,6 +17,15 @@ namespace Pulumi.Kubernetes.Storage.V1
     /// [Server-Side Apply Docs](https://www.pulumi.com/registry/packages/kubernetes/how-to-guides/managing-resources-with-server-side-apply/) for
     /// additional information about using Server-Side Apply to manage Kubernetes resources with Pulumi.
     /// CSIDriver captures information about a Container Storage Interface (CSI) volume driver deployed on the cluster. Kubernetes attach detach controller uses this object to determine whether attach is required. Kubelet uses this object to determine whether pod information needs to be passed on mount. CSIDriver objects are non-namespaced.
+    /// 
+    /// By default Pulumi does _not_ wait for this resource to
+    /// become ready when it is created or updated.
+    /// 
+    /// If you want Pulumi to wait for this resource to become ready, you can use the
+    /// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    /// documentation
+    /// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    /// for a detailed description of the values this annotation accepts.
     /// </summary>
     [KubernetesResourceType("kubernetes:storage.k8s.io/v1:CSIDriverPatch")]
     public partial class CSIDriverPatch : KubernetesResource

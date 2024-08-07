@@ -27,6 +27,15 @@ __all__ = [
 class PodPreset(dict):
     """
     PodPreset is a policy resource that defines additional runtime requirements for a Pod.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -52,6 +61,16 @@ class PodPreset(dict):
                  spec: Optional['outputs.PodPresetSpec'] = None):
         """
         PodPreset is a policy resource that defines additional runtime requirements for a Pod.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
@@ -95,6 +114,15 @@ class PodPreset(dict):
 class PodPresetSpec(dict):
     """
     PodPresetSpec is a description of a pod preset.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -123,6 +151,16 @@ class PodPresetSpec(dict):
                  volumes: Optional[Sequence['_core.v1.outputs.Volume']] = None):
         """
         PodPresetSpec is a description of a pod preset.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param Sequence['_core.v1.EnvVarArgs'] env: Env defines the collection of EnvVar to inject into containers.
         :param Sequence['_core.v1.EnvFromSourceArgs'] env_from: EnvFrom defines the collection of EnvFromSource to inject into containers.
         :param '_meta.v1.LabelSelectorArgs' selector: Selector is a label query over a set of resources, in this case pods. Required.
@@ -185,6 +223,15 @@ class PodPresetSpec(dict):
 class PodPresetSpecPatch(dict):
     """
     PodPresetSpec is a description of a pod preset.
+
+    By default Pulumi does _not_ wait for this resource to
+    become ready when it is created or updated.
+
+    If you want Pulumi to wait for this resource to become ready, you can use the
+    'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    documentation
+    (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    for a detailed description of the values this annotation accepts.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -213,6 +260,16 @@ class PodPresetSpecPatch(dict):
                  volumes: Optional[Sequence['_core.v1.outputs.VolumePatch']] = None):
         """
         PodPresetSpec is a description of a pod preset.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param Sequence['_core.v1.EnvVarPatchArgs'] env: Env defines the collection of EnvVar to inject into containers.
         :param Sequence['_core.v1.EnvFromSourcePatchArgs'] env_from: EnvFrom defines the collection of EnvFromSource to inject into containers.
         :param '_meta.v1.LabelSelectorPatchArgs' selector: Selector is a label query over a set of resources, in this case pods. Required.

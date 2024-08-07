@@ -31,6 +31,15 @@ if not MYPY:
     class EventSeriesPatchArgsDict(TypedDict):
         """
         EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         count: NotRequired[pulumi.Input[int]]
         """
@@ -55,6 +64,16 @@ class EventSeriesPatchArgs:
                  state: Optional[pulumi.Input[str]] = None):
         """
         EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[int] count: Number of occurrences in this series up to the last heartbeat time
         :param pulumi.Input[str] last_observed_time: Time when last Event from the series was seen before last heartbeat.
         :param pulumi.Input[str] state: Information whether this series is ongoing or finished. Deprecated. Planned removal for 1.18
@@ -107,6 +126,15 @@ if not MYPY:
     class EventSeriesArgsDict(TypedDict):
         """
         EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         count: pulumi.Input[int]
         """
@@ -131,6 +159,16 @@ class EventSeriesArgs:
                  state: pulumi.Input[str]):
         """
         EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[int] count: Number of occurrences in this series up to the last heartbeat time
         :param pulumi.Input[str] last_observed_time: Time when last Event from the series was seen before last heartbeat.
         :param pulumi.Input[str] state: Information whether this series is ongoing or finished. Deprecated. Planned removal for 1.18
@@ -180,6 +218,15 @@ if not MYPY:
     class EventArgsDict(TypedDict):
         """
         Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         event_time: pulumi.Input[str]
         """
@@ -271,6 +318,16 @@ class EventArgs:
                  type: Optional[pulumi.Input[str]] = None):
         """
         Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] event_time: Required. Time when this Event was first observed.
         :param pulumi.Input[str] action: What action was taken/failed regarding to the regarding object.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources

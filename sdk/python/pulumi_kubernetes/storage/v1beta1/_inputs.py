@@ -67,6 +67,15 @@ if not MYPY:
     class CSIDriverSpecPatchArgsDict(TypedDict):
         """
         CSIDriverSpec is the specification of a CSIDriver.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         attach_required: NotRequired[pulumi.Input[bool]]
         """
@@ -134,6 +143,16 @@ class CSIDriverSpecPatchArgs:
                  volume_lifecycle_modes: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
         CSIDriverSpec is the specification of a CSIDriver.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[bool] attach_required: attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the CSIDriverRegistry feature gate is enabled and the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
         :param pulumi.Input[str] fs_group_policy: Defines if the underlying volume supports changing ownership and permission of the volume before being mounted. Refer to the specific FSGroupPolicy values for additional details. This field is alpha-level, and is only honored by servers that enable the CSIVolumeFSGroupPolicy feature gate.
         :param pulumi.Input[bool] pod_info_on_mount: If set to true, podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations. If set to false, pod information will not be passed on mount. Default is false. The CSI driver specifies podInfoOnMount as part of driver deployment. If true, Kubelet will pass pod information as VolumeContext in the CSI NodePublishVolume() calls. The CSI driver is responsible for parsing and validating the information passed in as VolumeContext. The following VolumeConext will be passed if podInfoOnMount is set to true. This list might grow, but the prefix will be used. "csi.storage.k8s.io/pod.name": pod.Name "csi.storage.k8s.io/pod.namespace": pod.Namespace "csi.storage.k8s.io/pod.uid": string(pod.UID) "csi.storage.k8s.io/ephemeral": "true" iff the volume is an ephemeral inline volume
@@ -292,6 +311,15 @@ if not MYPY:
     class CSIDriverSpecArgsDict(TypedDict):
         """
         CSIDriverSpec is the specification of a CSIDriver.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         attach_required: NotRequired[pulumi.Input[bool]]
         """
@@ -359,6 +387,16 @@ class CSIDriverSpecArgs:
                  volume_lifecycle_modes: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
         CSIDriverSpec is the specification of a CSIDriver.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[bool] attach_required: attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the CSIDriverRegistry feature gate is enabled and the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
         :param pulumi.Input[str] fs_group_policy: Defines if the underlying volume supports changing ownership and permission of the volume before being mounted. Refer to the specific FSGroupPolicy values for additional details. This field is alpha-level, and is only honored by servers that enable the CSIVolumeFSGroupPolicy feature gate.
         :param pulumi.Input[bool] pod_info_on_mount: If set to true, podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations. If set to false, pod information will not be passed on mount. Default is false. The CSI driver specifies podInfoOnMount as part of driver deployment. If true, Kubelet will pass pod information as VolumeContext in the CSI NodePublishVolume() calls. The CSI driver is responsible for parsing and validating the information passed in as VolumeContext. The following VolumeConext will be passed if podInfoOnMount is set to true. This list might grow, but the prefix will be used. "csi.storage.k8s.io/pod.name": pod.Name "csi.storage.k8s.io/pod.namespace": pod.Namespace "csi.storage.k8s.io/pod.uid": string(pod.UID) "csi.storage.k8s.io/ephemeral": "true" iff the volume is an ephemeral inline volume
@@ -517,6 +555,15 @@ if not MYPY:
     class CSIDriverArgsDict(TypedDict):
         """
         CSIDriver captures information about a Container Storage Interface (CSI) volume driver deployed on the cluster. CSI drivers do not need to create the CSIDriver object directly. Instead they may use the cluster-driver-registrar sidecar container. When deployed with a CSI driver it automatically creates a CSIDriver object representing the driver. Kubernetes attach detach controller uses this object to determine whether attach is required. Kubelet uses this object to determine whether pod information needs to be passed on mount. CSIDriver objects are non-namespaced.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         spec: pulumi.Input['CSIDriverSpecArgsDict']
         """
@@ -546,6 +593,16 @@ class CSIDriverArgs:
                  metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None):
         """
         CSIDriver captures information about a Container Storage Interface (CSI) volume driver deployed on the cluster. CSI drivers do not need to create the CSIDriver object directly. Instead they may use the cluster-driver-registrar sidecar container. When deployed with a CSI driver it automatically creates a CSIDriver object representing the driver. Kubernetes attach detach controller uses this object to determine whether attach is required. Kubelet uses this object to determine whether pod information needs to be passed on mount. CSIDriver objects are non-namespaced.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['CSIDriverSpecArgs'] spec: Specification of the CSI Driver.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -612,6 +669,15 @@ if not MYPY:
     class CSINodeDriverPatchArgsDict(TypedDict):
         """
         CSINodeDriver holds information about the specification of one CSI driver installed on a node
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         allocatable: NotRequired[pulumi.Input['VolumeNodeResourcesPatchArgsDict']]
         """
@@ -641,6 +707,16 @@ class CSINodeDriverPatchArgs:
                  topology_keys: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
         CSINodeDriver holds information about the specification of one CSI driver installed on a node
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['VolumeNodeResourcesPatchArgs'] allocatable: allocatable represents the volume resources of a node that are available for scheduling.
         :param pulumi.Input[str] name: This is the name of the CSI driver that this object refers to. This MUST be the same name returned by the CSI GetPluginName() call for that driver.
         :param pulumi.Input[str] node_id: nodeID of the node from the driver point of view. This field enables Kubernetes to communicate with storage systems that do not share the same nomenclature for nodes. For example, Kubernetes may refer to a given node as "node1", but the storage system may refer to the same node as "nodeA". When Kubernetes issues a command to the storage system to attach a volume to a specific node, it can use this field to refer to the node name using the ID that the storage system will understand, e.g. "nodeA" instead of "node1". This field is required.
@@ -708,6 +784,15 @@ if not MYPY:
     class CSINodeDriverArgsDict(TypedDict):
         """
         CSINodeDriver holds information about the specification of one CSI driver installed on a node
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         name: pulumi.Input[str]
         """
@@ -737,6 +822,16 @@ class CSINodeDriverArgs:
                  topology_keys: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
         CSINodeDriver holds information about the specification of one CSI driver installed on a node
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] name: This is the name of the CSI driver that this object refers to. This MUST be the same name returned by the CSI GetPluginName() call for that driver.
         :param pulumi.Input[str] node_id: nodeID of the node from the driver point of view. This field enables Kubernetes to communicate with storage systems that do not share the same nomenclature for nodes. For example, Kubernetes may refer to a given node as "node1", but the storage system may refer to the same node as "nodeA". When Kubernetes issues a command to the storage system to attach a volume to a specific node, it can use this field to refer to the node name using the ID that the storage system will understand, e.g. "nodeA" instead of "node1". This field is required.
         :param pulumi.Input['VolumeNodeResourcesArgs'] allocatable: allocatable represents the volume resources of a node that are available for scheduling.
@@ -802,6 +897,15 @@ if not MYPY:
     class CSINodeSpecPatchArgsDict(TypedDict):
         """
         CSINodeSpec holds information about the specification of all CSI drivers installed on a node
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         drivers: NotRequired[pulumi.Input[Sequence[pulumi.Input['CSINodeDriverPatchArgsDict']]]]
         """
@@ -816,6 +920,16 @@ class CSINodeSpecPatchArgs:
                  drivers: Optional[pulumi.Input[Sequence[pulumi.Input['CSINodeDriverPatchArgs']]]] = None):
         """
         CSINodeSpec holds information about the specification of all CSI drivers installed on a node
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input['CSINodeDriverPatchArgs']]] drivers: drivers is a list of information of all CSI Drivers existing on a node. If all drivers in the list are uninstalled, this can become empty.
         """
         if drivers is not None:
@@ -838,6 +952,15 @@ if not MYPY:
     class CSINodeSpecArgsDict(TypedDict):
         """
         CSINodeSpec holds information about the specification of all CSI drivers installed on a node
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         drivers: pulumi.Input[Sequence[pulumi.Input['CSINodeDriverArgsDict']]]
         """
@@ -852,6 +975,16 @@ class CSINodeSpecArgs:
                  drivers: pulumi.Input[Sequence[pulumi.Input['CSINodeDriverArgs']]]):
         """
         CSINodeSpec holds information about the specification of all CSI drivers installed on a node
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input['CSINodeDriverArgs']]] drivers: drivers is a list of information of all CSI Drivers existing on a node. If all drivers in the list are uninstalled, this can become empty.
         """
         pulumi.set(__self__, "drivers", drivers)
@@ -873,6 +1006,15 @@ if not MYPY:
     class CSINodeArgsDict(TypedDict):
         """
         CSINode holds information about all CSI drivers installed on a node. CSI drivers do not need to create the CSINode object directly. As long as they use the node-driver-registrar sidecar container, the kubelet will automatically populate the CSINode object for the CSI driver as part of kubelet plugin registration. CSINode has the same name as a node. If the object is missing, it means either there are no CSI Drivers available on the node, or the Kubelet version is low enough that it doesn't create this object. CSINode has an OwnerReference that points to the corresponding node object.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         spec: pulumi.Input['CSINodeSpecArgsDict']
         """
@@ -902,6 +1044,16 @@ class CSINodeArgs:
                  metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None):
         """
         CSINode holds information about all CSI drivers installed on a node. CSI drivers do not need to create the CSINode object directly. As long as they use the node-driver-registrar sidecar container, the kubelet will automatically populate the CSINode object for the CSI driver as part of kubelet plugin registration. CSINode has the same name as a node. If the object is missing, it means either there are no CSI Drivers available on the node, or the Kubelet version is low enough that it doesn't create this object. CSINode has an OwnerReference that points to the corresponding node object.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['CSINodeSpecArgs'] spec: spec is the specification of CSINode
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -976,6 +1128,15 @@ if not MYPY:
         The producer of these objects can decide which approach is more suitable.
 
         They are consumed by the kube-scheduler when a CSI driver opts into capacity-aware scheduling with CSIDriverSpec.StorageCapacity. The scheduler compares the MaximumVolumeSize against the requested size of pending volumes to filter out unsuitable nodes. If MaximumVolumeSize is unset, it falls back to a comparison against the less precise Capacity. If that is also unset, the scheduler assumes that capacity is insufficient and tries some other node.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         storage_class_name: pulumi.Input[str]
         """
@@ -1036,6 +1197,16 @@ class CSIStorageCapacityArgs:
         The producer of these objects can decide which approach is more suitable.
 
         They are consumed by the kube-scheduler when a CSI driver opts into capacity-aware scheduling with CSIDriverSpec.StorageCapacity. The scheduler compares the MaximumVolumeSize against the requested size of pending volumes to filter out unsuitable nodes. If MaximumVolumeSize is unset, it falls back to a comparison against the less precise Capacity. If that is also unset, the scheduler assumes that capacity is insufficient and tries some other node.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] storage_class_name: The name of the StorageClass that the reported capacity applies to. It must meet the same requirements as the name of a StorageClass object (non-empty, DNS subdomain). If that object no longer exists, the CSIStorageCapacity object is obsolete and should be removed by its creator. This field is immutable.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] capacity: Capacity is the value reported by the CSI driver in its GetCapacityResponse for a GetCapacityRequest with topology and parameters that match the previous fields.
@@ -1165,6 +1336,15 @@ if not MYPY:
         StorageClass describes the parameters for a class of storage for which PersistentVolumes can be dynamically provisioned.
 
         StorageClasses are non-namespaced; the name of the storage class according to etcd is in ObjectMeta.Name.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         provisioner: pulumi.Input[str]
         """
@@ -1226,6 +1406,16 @@ class StorageClassArgs:
         StorageClass describes the parameters for a class of storage for which PersistentVolumes can be dynamically provisioned.
 
         StorageClasses are non-namespaced; the name of the storage class according to etcd is in ObjectMeta.Name.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] provisioner: Provisioner indicates the type of the provisioner.
         :param pulumi.Input[bool] allow_volume_expansion: AllowVolumeExpansion shows whether the storage class allow volume expand
         :param pulumi.Input[Sequence[pulumi.Input['_core.v1.TopologySelectorTermArgs']]] allowed_topologies: Restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
@@ -1382,6 +1572,15 @@ if not MYPY:
     class TokenRequestPatchArgsDict(TypedDict):
         """
         TokenRequest contains parameters of a service account token.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         audience: NotRequired[pulumi.Input[str]]
         """
@@ -1401,6 +1600,16 @@ class TokenRequestPatchArgs:
                  expiration_seconds: Optional[pulumi.Input[int]] = None):
         """
         TokenRequest contains parameters of a service account token.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] audience: Audience is the intended audience of the token in "TokenRequestSpec". It will default to the audiences of kube apiserver.
         :param pulumi.Input[int] expiration_seconds: ExpirationSeconds is the duration of validity of the token in "TokenRequestSpec". It has the same default value of "ExpirationSeconds" in "TokenRequestSpec"
         """
@@ -1438,6 +1647,15 @@ if not MYPY:
     class TokenRequestArgsDict(TypedDict):
         """
         TokenRequest contains parameters of a service account token.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         audience: pulumi.Input[str]
         """
@@ -1457,6 +1675,16 @@ class TokenRequestArgs:
                  expiration_seconds: Optional[pulumi.Input[int]] = None):
         """
         TokenRequest contains parameters of a service account token.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] audience: Audience is the intended audience of the token in "TokenRequestSpec". It will default to the audiences of kube apiserver.
         :param pulumi.Input[int] expiration_seconds: ExpirationSeconds is the duration of validity of the token in "TokenRequestSpec". It has the same default value of "ExpirationSeconds" in "TokenRequestSpec"
         """
@@ -1493,6 +1721,15 @@ if not MYPY:
     class VolumeAttachmentSourcePatchArgsDict(TypedDict):
         """
         VolumeAttachmentSource represents a volume that should be attached. Right now only PersistenVolumes can be attached via external attacher, in future we may allow also inline volumes in pods. Exactly one member can be set.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         inline_volume_spec: NotRequired[pulumi.Input['_core.v1.PersistentVolumeSpecPatchArgsDict']]
         """
@@ -1512,6 +1749,16 @@ class VolumeAttachmentSourcePatchArgs:
                  persistent_volume_name: Optional[pulumi.Input[str]] = None):
         """
         VolumeAttachmentSource represents a volume that should be attached. Right now only PersistenVolumes can be attached via external attacher, in future we may allow also inline volumes in pods. Exactly one member can be set.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['_core.v1.PersistentVolumeSpecPatchArgs'] inline_volume_spec: inlineVolumeSpec contains all the information necessary to attach a persistent volume defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration feature. It contains translated fields from a pod's inline VolumeSource to a PersistentVolumeSpec. This field is alpha-level and is only honored by servers that enabled the CSIMigration feature.
         :param pulumi.Input[str] persistent_volume_name: Name of the persistent volume to attach.
         """
@@ -1549,6 +1796,15 @@ if not MYPY:
     class VolumeAttachmentSourceArgsDict(TypedDict):
         """
         VolumeAttachmentSource represents a volume that should be attached. Right now only PersistenVolumes can be attached via external attacher, in future we may allow also inline volumes in pods. Exactly one member can be set.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         inline_volume_spec: NotRequired[pulumi.Input['_core.v1.PersistentVolumeSpecArgsDict']]
         """
@@ -1568,6 +1824,16 @@ class VolumeAttachmentSourceArgs:
                  persistent_volume_name: Optional[pulumi.Input[str]] = None):
         """
         VolumeAttachmentSource represents a volume that should be attached. Right now only PersistenVolumes can be attached via external attacher, in future we may allow also inline volumes in pods. Exactly one member can be set.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['_core.v1.PersistentVolumeSpecArgs'] inline_volume_spec: inlineVolumeSpec contains all the information necessary to attach a persistent volume defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration feature. It contains translated fields from a pod's inline VolumeSource to a PersistentVolumeSpec. This field is alpha-level and is only honored by servers that enabled the CSIMigration feature.
         :param pulumi.Input[str] persistent_volume_name: Name of the persistent volume to attach.
         """
@@ -1605,6 +1871,15 @@ if not MYPY:
     class VolumeAttachmentSpecPatchArgsDict(TypedDict):
         """
         VolumeAttachmentSpec is the specification of a VolumeAttachment request.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         attacher: NotRequired[pulumi.Input[str]]
         """
@@ -1629,6 +1904,16 @@ class VolumeAttachmentSpecPatchArgs:
                  source: Optional[pulumi.Input['VolumeAttachmentSourcePatchArgs']] = None):
         """
         VolumeAttachmentSpec is the specification of a VolumeAttachment request.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] attacher: Attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
         :param pulumi.Input[str] node_name: The node that the volume should be attached to.
         :param pulumi.Input['VolumeAttachmentSourcePatchArgs'] source: Source represents the volume that should be attached.
@@ -1681,6 +1966,15 @@ if not MYPY:
     class VolumeAttachmentSpecArgsDict(TypedDict):
         """
         VolumeAttachmentSpec is the specification of a VolumeAttachment request.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         attacher: pulumi.Input[str]
         """
@@ -1705,6 +1999,16 @@ class VolumeAttachmentSpecArgs:
                  source: pulumi.Input['VolumeAttachmentSourceArgs']):
         """
         VolumeAttachmentSpec is the specification of a VolumeAttachment request.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] attacher: Attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
         :param pulumi.Input[str] node_name: The node that the volume should be attached to.
         :param pulumi.Input['VolumeAttachmentSourceArgs'] source: Source represents the volume that should be attached.
@@ -1754,6 +2058,15 @@ if not MYPY:
     class VolumeAttachmentStatusArgsDict(TypedDict):
         """
         VolumeAttachmentStatus is the status of a VolumeAttachment request.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         attached: pulumi.Input[bool]
         """
@@ -1783,6 +2096,16 @@ class VolumeAttachmentStatusArgs:
                  detach_error: Optional[pulumi.Input['VolumeErrorArgs']] = None):
         """
         VolumeAttachmentStatus is the status of a VolumeAttachment request.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[bool] attached: Indicates the volume is successfully attached. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
         :param pulumi.Input['VolumeErrorArgs'] attach_error: The last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] attachment_metadata: Upon successful attach, this field is populated with any information returned by the attach operation that must be passed into subsequent WaitForAttach or Mount calls. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
@@ -1851,6 +2174,15 @@ if not MYPY:
         VolumeAttachment captures the intent to attach or detach the specified volume to/from the specified node.
 
         VolumeAttachment objects are non-namespaced.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         spec: pulumi.Input['VolumeAttachmentSpecArgsDict']
         """
@@ -1887,6 +2219,16 @@ class VolumeAttachmentArgs:
         VolumeAttachment captures the intent to attach or detach the specified volume to/from the specified node.
 
         VolumeAttachment objects are non-namespaced.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['VolumeAttachmentSpecArgs'] spec: Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -1968,6 +2310,15 @@ if not MYPY:
     class VolumeErrorArgsDict(TypedDict):
         """
         VolumeError captures an error encountered during a volume operation.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         message: NotRequired[pulumi.Input[str]]
         """
@@ -1987,6 +2338,16 @@ class VolumeErrorArgs:
                  time: Optional[pulumi.Input[str]] = None):
         """
         VolumeError captures an error encountered during a volume operation.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] message: String detailing the error encountered during Attach or Detach operation. This string may be logged, so it should not contain sensitive information.
         :param pulumi.Input[str] time: Time the error was encountered.
         """
@@ -2024,6 +2385,15 @@ if not MYPY:
     class VolumeNodeResourcesPatchArgsDict(TypedDict):
         """
         VolumeNodeResources is a set of resource limits for scheduling of volumes.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         count: NotRequired[pulumi.Input[int]]
         """
@@ -2038,6 +2408,16 @@ class VolumeNodeResourcesPatchArgs:
                  count: Optional[pulumi.Input[int]] = None):
         """
         VolumeNodeResources is a set of resource limits for scheduling of volumes.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[int] count: Maximum number of unique volumes managed by the CSI driver that can be used on a node. A volume that is both attached and mounted on a node is considered to be used once, not twice. The same rule applies for a unique volume that is shared among multiple pods on the same node. If this field is nil, then the supported number of volumes on this node is unbounded.
         """
         if count is not None:
@@ -2060,6 +2440,15 @@ if not MYPY:
     class VolumeNodeResourcesArgsDict(TypedDict):
         """
         VolumeNodeResources is a set of resource limits for scheduling of volumes.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         count: NotRequired[pulumi.Input[int]]
         """
@@ -2074,6 +2463,16 @@ class VolumeNodeResourcesArgs:
                  count: Optional[pulumi.Input[int]] = None):
         """
         VolumeNodeResources is a set of resource limits for scheduling of volumes.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[int] count: Maximum number of unique volumes managed by the CSI driver that can be used on a node. A volume that is both attached and mounted on a node is considered to be used once, not twice. The same rule applies for a unique volume that is shared among multiple pods on the same node. If this field is nil, then the supported number of volumes on this node is unbounded.
         """
         if count is not None:

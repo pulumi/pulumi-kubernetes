@@ -38,6 +38,15 @@ if not MYPY:
     class GroupVersionResourcePatchArgsDict(TypedDict):
         """
         The names of the group, the version, and the resource.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         group: NotRequired[pulumi.Input[str]]
         """
@@ -62,6 +71,16 @@ class GroupVersionResourcePatchArgs:
                  version: Optional[pulumi.Input[str]] = None):
         """
         The names of the group, the version, and the resource.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] group: The name of the group.
         :param pulumi.Input[str] resource: The name of the resource.
         :param pulumi.Input[str] version: The name of the version.
@@ -114,6 +133,15 @@ if not MYPY:
     class GroupVersionResourceArgsDict(TypedDict):
         """
         The names of the group, the version, and the resource.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         group: NotRequired[pulumi.Input[str]]
         """
@@ -138,6 +166,16 @@ class GroupVersionResourceArgs:
                  version: Optional[pulumi.Input[str]] = None):
         """
         The names of the group, the version, and the resource.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] group: The name of the group.
         :param pulumi.Input[str] resource: The name of the resource.
         :param pulumi.Input[str] version: The name of the version.
@@ -190,6 +228,15 @@ if not MYPY:
     class MigrationConditionArgsDict(TypedDict):
         """
         Describes the state of a migration at a certain point.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         status: pulumi.Input[str]
         """
@@ -224,6 +271,16 @@ class MigrationConditionArgs:
                  reason: Optional[pulumi.Input[str]] = None):
         """
         Describes the state of a migration at a certain point.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] status: Status of the condition, one of True, False, Unknown.
         :param pulumi.Input[str] type: Type of the condition.
         :param pulumi.Input[str] last_update_time: The last time this condition was updated.
@@ -304,6 +361,15 @@ if not MYPY:
     class StorageVersionMigrationSpecPatchArgsDict(TypedDict):
         """
         Spec of the storage version migration.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         continue_token: NotRequired[pulumi.Input[str]]
         """
@@ -323,6 +389,16 @@ class StorageVersionMigrationSpecPatchArgs:
                  resource: Optional[pulumi.Input['GroupVersionResourcePatchArgs']] = None):
         """
         Spec of the storage version migration.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] continue_token: The token used in the list options to get the next chunk of objects to migrate. When the .status.conditions indicates the migration is "Running", users can use this token to check the progress of the migration.
         :param pulumi.Input['GroupVersionResourcePatchArgs'] resource: The resource that is being migrated. The migrator sends requests to the endpoint serving the resource. Immutable.
         """
@@ -360,6 +436,15 @@ if not MYPY:
     class StorageVersionMigrationSpecArgsDict(TypedDict):
         """
         Spec of the storage version migration.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         resource: pulumi.Input['GroupVersionResourceArgsDict']
         """
@@ -379,6 +464,16 @@ class StorageVersionMigrationSpecArgs:
                  continue_token: Optional[pulumi.Input[str]] = None):
         """
         Spec of the storage version migration.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['GroupVersionResourceArgs'] resource: The resource that is being migrated. The migrator sends requests to the endpoint serving the resource. Immutable.
         :param pulumi.Input[str] continue_token: The token used in the list options to get the next chunk of objects to migrate. When the .status.conditions indicates the migration is "Running", users can use this token to check the progress of the migration.
         """
@@ -415,6 +510,15 @@ if not MYPY:
     class StorageVersionMigrationStatusArgsDict(TypedDict):
         """
         Status of the storage version migration.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         conditions: NotRequired[pulumi.Input[Sequence[pulumi.Input['MigrationConditionArgsDict']]]]
         """
@@ -434,6 +538,16 @@ class StorageVersionMigrationStatusArgs:
                  resource_version: Optional[pulumi.Input[str]] = None):
         """
         Status of the storage version migration.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Sequence[pulumi.Input['MigrationConditionArgs']]] conditions: The latest available observations of the migration's current state.
         :param pulumi.Input[str] resource_version: ResourceVersion to compare with the GC cache for performing the migration. This is the current resource version of given group, version and resource when kube-controller-manager first observes this StorageVersionMigration resource.
         """
@@ -471,6 +585,15 @@ if not MYPY:
     class StorageVersionMigrationArgsDict(TypedDict):
         """
         StorageVersionMigration represents a migration of stored data to the latest storage version.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         api_version: NotRequired[pulumi.Input[str]]
         """
@@ -505,6 +628,16 @@ class StorageVersionMigrationArgs:
                  status: Optional[pulumi.Input['StorageVersionMigrationStatusArgs']] = None):
         """
         StorageVersionMigration represents a migration of stored data to the latest storage version.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata

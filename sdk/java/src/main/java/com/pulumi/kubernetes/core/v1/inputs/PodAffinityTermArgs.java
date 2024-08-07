@@ -17,6 +17,15 @@ import javax.annotation.Nullable;
 /**
  * Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key &lt;topologyKey&gt; matches that of any node on which a pod of the set of pods is running
  * 
+ * By default Pulumi does _not_ wait for this resource to
+ * become ready when it is created or updated.
+ * 
+ * If you want Pulumi to wait for this resource to become ready, you can use the
+ * &#39;pulumi.com/waitFor&#39; annotation to provide custom readiness criteria. See the
+ * documentation
+ * (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+ * for a detailed description of the values this annotation accepts.
+ * 
  */
 public final class PodAffinityTermArgs extends com.pulumi.resources.ResourceArgs {
 

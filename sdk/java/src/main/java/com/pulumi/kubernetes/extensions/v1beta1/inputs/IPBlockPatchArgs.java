@@ -15,6 +15,15 @@ import javax.annotation.Nullable;
 /**
  * DEPRECATED 1.9 - This group version of IPBlock is deprecated by networking/v1/IPBlock. IPBlock describes a particular CIDR (Ex. &#34;192.168.1.1/24&#34;) that is allowed to the pods matched by a NetworkPolicySpec&#39;s podSelector. The except entry describes CIDRs that should not be included within this rule.
  * 
+ * By default Pulumi does _not_ wait for this resource to
+ * become ready when it is created or updated.
+ * 
+ * If you want Pulumi to wait for this resource to become ready, you can use the
+ * &#39;pulumi.com/waitFor&#39; annotation to provide custom readiness criteria. See the
+ * documentation
+ * (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+ * for a detailed description of the values this annotation accepts.
+ * 
  */
 public final class IPBlockPatchArgs extends com.pulumi.resources.ResourceArgs {
 

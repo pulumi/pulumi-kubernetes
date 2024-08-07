@@ -11,6 +11,15 @@ namespace Pulumi.Kubernetes.Events.V1
 {
     /// <summary>
     /// Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system. Events have a limited retention time and triggers and messages may evolve with time.  Event consumers should not rely on the timing of an event with a given Reason reflecting a consistent underlying trigger, or the continued existence of events with that Reason.  Events should be treated as informative, best-effort, supplemental data.
+    /// 
+    /// By default Pulumi does _not_ wait for this resource to
+    /// become ready when it is created or updated.
+    /// 
+    /// If you want Pulumi to wait for this resource to become ready, you can use the
+    /// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+    /// documentation
+    /// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+    /// for a detailed description of the values this annotation accepts.
     /// </summary>
     [KubernetesResourceType("kubernetes:events.k8s.io/v1:Event")]
     public partial class Event : KubernetesResource

@@ -21,6 +21,15 @@ import javax.annotation.Nullable;
 /**
  * PriorityLevelConfiguration represents the configuration of a priority level.
  * 
+ * By default Pulumi does _not_ wait for this resource to
+ * become ready when it is created or updated.
+ * 
+ * If you want Pulumi to wait for this resource to become ready, you can use the
+ * &#39;pulumi.com/waitFor&#39; annotation to provide custom readiness criteria. See the
+ * documentation
+ * (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+ * for a detailed description of the values this annotation accepts.
+ * 
  */
 @ResourceType(type="kubernetes:flowcontrol.apiserver.k8s.io/v1:PriorityLevelConfiguration")
 public class PriorityLevelConfiguration extends com.pulumi.resources.CustomResource {

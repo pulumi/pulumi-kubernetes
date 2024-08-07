@@ -32,6 +32,18 @@ MYPY = False
 
 if not MYPY:
     class CertificateSigningRequestConditionArgsDict(TypedDict):
+        """
+
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+        """
         type: pulumi.Input[str]
         """
         request approval state, currently Approved or Denied.
@@ -69,6 +81,17 @@ class CertificateSigningRequestConditionArgs:
                  reason: Optional[pulumi.Input[str]] = None,
                  status: Optional[pulumi.Input[str]] = None):
         """
+
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] type: request approval state, currently Approved or Denied.
         :param pulumi.Input[str] last_transition_time: lastTransitionTime is the time the condition last transitioned from one status to another. If unset, when a new condition type is added or an existing condition's status is changed, the server defaults this to the current time.
         :param pulumi.Input[str] last_update_time: timestamp for the last update to this condition
@@ -165,6 +188,15 @@ if not MYPY:
     class CertificateSigningRequestSpecPatchArgsDict(TypedDict):
         """
         This information is immutable after the request is created. Only the Request and Usages fields can be set on creation, other fields are derived by Kubernetes and cannot be modified by users.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         extra: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[str]]]]]]
         """
@@ -216,6 +248,16 @@ class CertificateSigningRequestSpecPatchArgs:
                  username: Optional[pulumi.Input[str]] = None):
         """
         This information is immutable after the request is created. Only the Request and Usages fields can be set on creation, other fields are derived by Kubernetes and cannot be modified by users.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[str]]]]] extra: Extra information about the requesting user. See user.Info interface for details.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] groups: Group information about the requesting user. See user.Info interface for details.
         :param pulumi.Input[str] request: Base64-encoded PKCS#10 CSR data
@@ -342,6 +384,15 @@ if not MYPY:
     class CertificateSigningRequestSpecArgsDict(TypedDict):
         """
         This information is immutable after the request is created. Only the Request and Usages fields can be set on creation, other fields are derived by Kubernetes and cannot be modified by users.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         request: pulumi.Input[str]
         """
@@ -393,6 +444,16 @@ class CertificateSigningRequestSpecArgs:
                  username: Optional[pulumi.Input[str]] = None):
         """
         This information is immutable after the request is created. Only the Request and Usages fields can be set on creation, other fields are derived by Kubernetes and cannot be modified by users.
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] request: Base64-encoded PKCS#10 CSR data
         :param pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[str]]]]] extra: Extra information about the requesting user. See user.Info interface for details.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] groups: Group information about the requesting user. See user.Info interface for details.
@@ -516,6 +577,18 @@ class CertificateSigningRequestSpecArgs:
 
 if not MYPY:
     class CertificateSigningRequestStatusArgsDict(TypedDict):
+        """
+
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+        """
         certificate: NotRequired[pulumi.Input[str]]
         """
         If request was approved, the controller will place the issued certificate here.
@@ -533,6 +606,17 @@ class CertificateSigningRequestStatusArgs:
                  certificate: Optional[pulumi.Input[str]] = None,
                  conditions: Optional[pulumi.Input[Sequence[pulumi.Input['CertificateSigningRequestConditionArgs']]]] = None):
         """
+
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] certificate: If request was approved, the controller will place the issued certificate here.
         :param pulumi.Input[Sequence[pulumi.Input['CertificateSigningRequestConditionArgs']]] conditions: Conditions applied to the request, such as approval or denial.
         """
@@ -570,6 +654,15 @@ if not MYPY:
     class CertificateSigningRequestArgsDict(TypedDict):
         """
         Describes a certificate signing request
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         api_version: NotRequired[pulumi.Input[str]]
         """
@@ -601,6 +694,16 @@ class CertificateSigningRequestArgs:
                  status: Optional[pulumi.Input['CertificateSigningRequestStatusArgs']] = None):
         """
         Describes a certificate signing request
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['CertificateSigningRequestSpecArgs'] spec: The certificate request itself and any additional information.

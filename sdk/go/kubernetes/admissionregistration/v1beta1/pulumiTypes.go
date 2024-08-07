@@ -15,6 +15,15 @@ import (
 var _ = utilities.GetEnvOrDefault
 
 // AuditAnnotation describes how to produce an audit annotation for an API request.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type AuditAnnotation struct {
 	// key specifies the audit annotation key. The audit annotation keys of a ValidatingAdmissionPolicy must be unique. The key must be a qualified name ([A-Za-z0-9][-A-Za-z0-9_.]*) no more than 63 bytes in length.
 	//
@@ -44,6 +53,15 @@ type AuditAnnotationInput interface {
 }
 
 // AuditAnnotation describes how to produce an audit annotation for an API request.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type AuditAnnotationArgs struct {
 	// key specifies the audit annotation key. The audit annotation keys of a ValidatingAdmissionPolicy must be unique. The key must be a qualified name ([A-Za-z0-9][-A-Za-z0-9_.]*) no more than 63 bytes in length.
 	//
@@ -99,6 +117,15 @@ func (i AuditAnnotationArray) ToAuditAnnotationArrayOutputWithContext(ctx contex
 }
 
 // AuditAnnotation describes how to produce an audit annotation for an API request.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type AuditAnnotationOutput struct{ *pulumi.OutputState }
 
 func (AuditAnnotationOutput) ElementType() reflect.Type {
@@ -154,6 +181,15 @@ func (o AuditAnnotationArrayOutput) Index(i pulumi.IntInput) AuditAnnotationOutp
 }
 
 // AuditAnnotation describes how to produce an audit annotation for an API request.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type AuditAnnotationPatch struct {
 	// key specifies the audit annotation key. The audit annotation keys of a ValidatingAdmissionPolicy must be unique. The key must be a qualified name ([A-Za-z0-9][-A-Za-z0-9_.]*) no more than 63 bytes in length.
 	//
@@ -183,6 +219,15 @@ type AuditAnnotationPatchInput interface {
 }
 
 // AuditAnnotation describes how to produce an audit annotation for an API request.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type AuditAnnotationPatchArgs struct {
 	// key specifies the audit annotation key. The audit annotation keys of a ValidatingAdmissionPolicy must be unique. The key must be a qualified name ([A-Za-z0-9][-A-Za-z0-9_.]*) no more than 63 bytes in length.
 	//
@@ -238,6 +283,15 @@ func (i AuditAnnotationPatchArray) ToAuditAnnotationPatchArrayOutputWithContext(
 }
 
 // AuditAnnotation describes how to produce an audit annotation for an API request.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type AuditAnnotationPatchOutput struct{ *pulumi.OutputState }
 
 func (AuditAnnotationPatchOutput) ElementType() reflect.Type {
@@ -293,6 +347,15 @@ func (o AuditAnnotationPatchArrayOutput) Index(i pulumi.IntInput) AuditAnnotatio
 }
 
 // ExpressionWarning is a warning information that targets a specific expression.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ExpressionWarning struct {
 	// The path to the field that refers the expression. For example, the reference to the expression of the first item of validations is "spec.validations[0].expression"
 	FieldRef string `pulumi:"fieldRef"`
@@ -312,6 +375,15 @@ type ExpressionWarningInput interface {
 }
 
 // ExpressionWarning is a warning information that targets a specific expression.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ExpressionWarningArgs struct {
 	// The path to the field that refers the expression. For example, the reference to the expression of the first item of validations is "spec.validations[0].expression"
 	FieldRef pulumi.StringInput `pulumi:"fieldRef"`
@@ -357,6 +429,15 @@ func (i ExpressionWarningArray) ToExpressionWarningArrayOutputWithContext(ctx co
 }
 
 // ExpressionWarning is a warning information that targets a specific expression.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ExpressionWarningOutput struct{ *pulumi.OutputState }
 
 func (ExpressionWarningOutput) ElementType() reflect.Type {
@@ -402,6 +483,15 @@ func (o ExpressionWarningArrayOutput) Index(i pulumi.IntInput) ExpressionWarning
 }
 
 // ExpressionWarning is a warning information that targets a specific expression.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ExpressionWarningPatch struct {
 	// The path to the field that refers the expression. For example, the reference to the expression of the first item of validations is "spec.validations[0].expression"
 	FieldRef *string `pulumi:"fieldRef"`
@@ -421,6 +511,15 @@ type ExpressionWarningPatchInput interface {
 }
 
 // ExpressionWarning is a warning information that targets a specific expression.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ExpressionWarningPatchArgs struct {
 	// The path to the field that refers the expression. For example, the reference to the expression of the first item of validations is "spec.validations[0].expression"
 	FieldRef pulumi.StringPtrInput `pulumi:"fieldRef"`
@@ -466,6 +565,15 @@ func (i ExpressionWarningPatchArray) ToExpressionWarningPatchArrayOutputWithCont
 }
 
 // ExpressionWarning is a warning information that targets a specific expression.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ExpressionWarningPatchOutput struct{ *pulumi.OutputState }
 
 func (ExpressionWarningPatchOutput) ElementType() reflect.Type {
@@ -511,6 +619,15 @@ func (o ExpressionWarningPatchArrayOutput) Index(i pulumi.IntInput) ExpressionWa
 }
 
 // MatchCondition represents a condition which must be fulfilled for a request to be sent to a webhook.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type MatchCondition struct {
 	// Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
 	//
@@ -540,6 +657,15 @@ type MatchConditionInput interface {
 }
 
 // MatchCondition represents a condition which must be fulfilled for a request to be sent to a webhook.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type MatchConditionArgs struct {
 	// Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
 	//
@@ -595,6 +721,15 @@ func (i MatchConditionArray) ToMatchConditionArrayOutputWithContext(ctx context.
 }
 
 // MatchCondition represents a condition which must be fulfilled for a request to be sent to a webhook.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type MatchConditionOutput struct{ *pulumi.OutputState }
 
 func (MatchConditionOutput) ElementType() reflect.Type {
@@ -654,6 +789,15 @@ func (o MatchConditionArrayOutput) Index(i pulumi.IntInput) MatchConditionOutput
 }
 
 // MatchCondition represents a condition which must be fulfilled for a request to be sent to a webhook.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type MatchConditionPatch struct {
 	// Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
 	//
@@ -683,6 +827,15 @@ type MatchConditionPatchInput interface {
 }
 
 // MatchCondition represents a condition which must be fulfilled for a request to be sent to a webhook.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type MatchConditionPatchArgs struct {
 	// Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
 	//
@@ -738,6 +891,15 @@ func (i MatchConditionPatchArray) ToMatchConditionPatchArrayOutputWithContext(ct
 }
 
 // MatchCondition represents a condition which must be fulfilled for a request to be sent to a webhook.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type MatchConditionPatchOutput struct{ *pulumi.OutputState }
 
 func (MatchConditionPatchOutput) ElementType() reflect.Type {
@@ -797,6 +959,15 @@ func (o MatchConditionPatchArrayOutput) Index(i pulumi.IntInput) MatchConditionP
 }
 
 // MatchResources decides whether to run the admission control policy on an object based on whether it meets the match criteria. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type MatchResources struct {
 	// ExcludeResourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
 	ExcludeResourceRules []NamedRuleWithOperations `pulumi:"excludeResourceRules"`
@@ -858,6 +1029,15 @@ type MatchResourcesInput interface {
 }
 
 // MatchResources decides whether to run the admission control policy on an object based on whether it meets the match criteria. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type MatchResourcesArgs struct {
 	// ExcludeResourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
 	ExcludeResourceRules NamedRuleWithOperationsArrayInput `pulumi:"excludeResourceRules"`
@@ -961,6 +1141,15 @@ func (i *matchResourcesPtrType) ToMatchResourcesPtrOutputWithContext(ctx context
 }
 
 // MatchResources decides whether to run the admission control policy on an object based on whether it meets the match criteria. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type MatchResourcesOutput struct{ *pulumi.OutputState }
 
 func (MatchResourcesOutput) ElementType() reflect.Type {
@@ -1157,6 +1346,15 @@ func (o MatchResourcesPtrOutput) ResourceRules() NamedRuleWithOperationsArrayOut
 }
 
 // MatchResources decides whether to run the admission control policy on an object based on whether it meets the match criteria. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type MatchResourcesPatch struct {
 	// ExcludeResourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
 	ExcludeResourceRules []NamedRuleWithOperationsPatch `pulumi:"excludeResourceRules"`
@@ -1218,6 +1416,15 @@ type MatchResourcesPatchInput interface {
 }
 
 // MatchResources decides whether to run the admission control policy on an object based on whether it meets the match criteria. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type MatchResourcesPatchArgs struct {
 	// ExcludeResourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
 	ExcludeResourceRules NamedRuleWithOperationsPatchArrayInput `pulumi:"excludeResourceRules"`
@@ -1321,6 +1528,15 @@ func (i *matchResourcesPatchPtrType) ToMatchResourcesPatchPtrOutputWithContext(c
 }
 
 // MatchResources decides whether to run the admission control policy on an object based on whether it meets the match criteria. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type MatchResourcesPatchOutput struct{ *pulumi.OutputState }
 
 func (MatchResourcesPatchOutput) ElementType() reflect.Type {
@@ -1517,6 +1733,15 @@ func (o MatchResourcesPatchPtrOutput) ResourceRules() NamedRuleWithOperationsPat
 }
 
 // MutatingWebhook describes an admission webhook and the resources and operations it applies to.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type MutatingWebhook struct {
 	// AdmissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the Webhook expects. API server will try to use first version in the list which it supports. If none of the versions specified in this list supported by API server, validation will fail for this object. If a persisted webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail and be subject to the failure policy. Default to `['v1beta1']`.
 	AdmissionReviewVersions []string `pulumi:"admissionReviewVersions"`
@@ -1596,6 +1821,15 @@ type MutatingWebhookInput interface {
 }
 
 // MutatingWebhook describes an admission webhook and the resources and operations it applies to.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type MutatingWebhookArgs struct {
 	// AdmissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the Webhook expects. API server will try to use first version in the list which it supports. If none of the versions specified in this list supported by API server, validation will fail for this object. If a persisted webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail and be subject to the failure policy. Default to `['v1beta1']`.
 	AdmissionReviewVersions pulumi.StringArrayInput `pulumi:"admissionReviewVersions"`
@@ -1701,6 +1935,15 @@ func (i MutatingWebhookArray) ToMutatingWebhookArrayOutputWithContext(ctx contex
 }
 
 // MutatingWebhook describes an admission webhook and the resources and operations it applies to.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type MutatingWebhookOutput struct{ *pulumi.OutputState }
 
 func (MutatingWebhookOutput) ElementType() reflect.Type {
@@ -1833,6 +2076,15 @@ func (o MutatingWebhookArrayOutput) Index(i pulumi.IntInput) MutatingWebhookOutp
 }
 
 // MutatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and may change the object. Deprecated in v1.16, planned for removal in v1.19. Use admissionregistration.k8s.io/v1 MutatingWebhookConfiguration instead.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type MutatingWebhookConfigurationType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -1856,6 +2108,15 @@ type MutatingWebhookConfigurationTypeInput interface {
 }
 
 // MutatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and may change the object. Deprecated in v1.16, planned for removal in v1.19. Use admissionregistration.k8s.io/v1 MutatingWebhookConfiguration instead.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type MutatingWebhookConfigurationTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -1905,6 +2166,15 @@ func (i MutatingWebhookConfigurationTypeArray) ToMutatingWebhookConfigurationTyp
 }
 
 // MutatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and may change the object. Deprecated in v1.16, planned for removal in v1.19. Use admissionregistration.k8s.io/v1 MutatingWebhookConfiguration instead.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type MutatingWebhookConfigurationTypeOutput struct{ *pulumi.OutputState }
 
 func (MutatingWebhookConfigurationTypeOutput) ElementType() reflect.Type {
@@ -1960,6 +2230,15 @@ func (o MutatingWebhookConfigurationTypeArrayOutput) Index(i pulumi.IntInput) Mu
 }
 
 // MutatingWebhookConfigurationList is a list of MutatingWebhookConfiguration.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type MutatingWebhookConfigurationListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -1983,6 +2262,15 @@ type MutatingWebhookConfigurationListTypeInput interface {
 }
 
 // MutatingWebhookConfigurationList is a list of MutatingWebhookConfiguration.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type MutatingWebhookConfigurationListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -2007,6 +2295,15 @@ func (i MutatingWebhookConfigurationListTypeArgs) ToMutatingWebhookConfiguration
 }
 
 // MutatingWebhookConfigurationList is a list of MutatingWebhookConfiguration.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type MutatingWebhookConfigurationListTypeOutput struct{ *pulumi.OutputState }
 
 func (MutatingWebhookConfigurationListTypeOutput) ElementType() reflect.Type {
@@ -2042,6 +2339,15 @@ func (o MutatingWebhookConfigurationListTypeOutput) Metadata() metav1.ListMetaPt
 }
 
 // MutatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and may change the object. Deprecated in v1.16, planned for removal in v1.19. Use admissionregistration.k8s.io/v1 MutatingWebhookConfiguration instead.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type MutatingWebhookConfigurationPatchType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -2065,6 +2371,15 @@ type MutatingWebhookConfigurationPatchTypeInput interface {
 }
 
 // MutatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and may change the object. Deprecated in v1.16, planned for removal in v1.19. Use admissionregistration.k8s.io/v1 MutatingWebhookConfiguration instead.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type MutatingWebhookConfigurationPatchTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -2089,6 +2404,15 @@ func (i MutatingWebhookConfigurationPatchTypeArgs) ToMutatingWebhookConfiguratio
 }
 
 // MutatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and may change the object. Deprecated in v1.16, planned for removal in v1.19. Use admissionregistration.k8s.io/v1 MutatingWebhookConfiguration instead.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type MutatingWebhookConfigurationPatchTypeOutput struct{ *pulumi.OutputState }
 
 func (MutatingWebhookConfigurationPatchTypeOutput) ElementType() reflect.Type {
@@ -2124,6 +2448,15 @@ func (o MutatingWebhookConfigurationPatchTypeOutput) Webhooks() MutatingWebhookP
 }
 
 // MutatingWebhook describes an admission webhook and the resources and operations it applies to.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type MutatingWebhookPatch struct {
 	// AdmissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the Webhook expects. API server will try to use first version in the list which it supports. If none of the versions specified in this list supported by API server, validation will fail for this object. If a persisted webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail and be subject to the failure policy. Default to `['v1beta1']`.
 	AdmissionReviewVersions []string `pulumi:"admissionReviewVersions"`
@@ -2203,6 +2536,15 @@ type MutatingWebhookPatchInput interface {
 }
 
 // MutatingWebhook describes an admission webhook and the resources and operations it applies to.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type MutatingWebhookPatchArgs struct {
 	// AdmissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the Webhook expects. API server will try to use first version in the list which it supports. If none of the versions specified in this list supported by API server, validation will fail for this object. If a persisted webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail and be subject to the failure policy. Default to `['v1beta1']`.
 	AdmissionReviewVersions pulumi.StringArrayInput `pulumi:"admissionReviewVersions"`
@@ -2308,6 +2650,15 @@ func (i MutatingWebhookPatchArray) ToMutatingWebhookPatchArrayOutputWithContext(
 }
 
 // MutatingWebhook describes an admission webhook and the resources and operations it applies to.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type MutatingWebhookPatchOutput struct{ *pulumi.OutputState }
 
 func (MutatingWebhookPatchOutput) ElementType() reflect.Type {
@@ -2440,6 +2791,15 @@ func (o MutatingWebhookPatchArrayOutput) Index(i pulumi.IntInput) MutatingWebhoo
 }
 
 // NamedRuleWithOperations is a tuple of Operations and Resources with ResourceNames.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type NamedRuleWithOperations struct {
 	// APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
 	ApiGroups []string `pulumi:"apiGroups"`
@@ -2473,6 +2833,15 @@ type NamedRuleWithOperationsInput interface {
 }
 
 // NamedRuleWithOperations is a tuple of Operations and Resources with ResourceNames.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type NamedRuleWithOperationsArgs struct {
 	// APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
 	ApiGroups pulumi.StringArrayInput `pulumi:"apiGroups"`
@@ -2532,6 +2901,15 @@ func (i NamedRuleWithOperationsArray) ToNamedRuleWithOperationsArrayOutputWithCo
 }
 
 // NamedRuleWithOperations is a tuple of Operations and Resources with ResourceNames.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type NamedRuleWithOperationsOutput struct{ *pulumi.OutputState }
 
 func (NamedRuleWithOperationsOutput) ElementType() reflect.Type {
@@ -2603,6 +2981,15 @@ func (o NamedRuleWithOperationsArrayOutput) Index(i pulumi.IntInput) NamedRuleWi
 }
 
 // NamedRuleWithOperations is a tuple of Operations and Resources with ResourceNames.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type NamedRuleWithOperationsPatch struct {
 	// APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
 	ApiGroups []string `pulumi:"apiGroups"`
@@ -2636,6 +3023,15 @@ type NamedRuleWithOperationsPatchInput interface {
 }
 
 // NamedRuleWithOperations is a tuple of Operations and Resources with ResourceNames.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type NamedRuleWithOperationsPatchArgs struct {
 	// APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
 	ApiGroups pulumi.StringArrayInput `pulumi:"apiGroups"`
@@ -2695,6 +3091,15 @@ func (i NamedRuleWithOperationsPatchArray) ToNamedRuleWithOperationsPatchArrayOu
 }
 
 // NamedRuleWithOperations is a tuple of Operations and Resources with ResourceNames.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type NamedRuleWithOperationsPatchOutput struct{ *pulumi.OutputState }
 
 func (NamedRuleWithOperationsPatchOutput) ElementType() reflect.Type {
@@ -2766,6 +3171,15 @@ func (o NamedRuleWithOperationsPatchArrayOutput) Index(i pulumi.IntInput) NamedR
 }
 
 // ParamKind is a tuple of Group Kind and Version.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ParamKind struct {
 	// APIVersion is the API group version the resources belong to. In format of "group/version". Required.
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -2785,6 +3199,15 @@ type ParamKindInput interface {
 }
 
 // ParamKind is a tuple of Group Kind and Version.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ParamKindArgs struct {
 	// APIVersion is the API group version the resources belong to. In format of "group/version". Required.
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -2846,6 +3269,15 @@ func (i *paramKindPtrType) ToParamKindPtrOutputWithContext(ctx context.Context) 
 }
 
 // ParamKind is a tuple of Group Kind and Version.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ParamKindOutput struct{ *pulumi.OutputState }
 
 func (ParamKindOutput) ElementType() reflect.Type {
@@ -2925,6 +3357,15 @@ func (o ParamKindPtrOutput) Kind() pulumi.StringPtrOutput {
 }
 
 // ParamKind is a tuple of Group Kind and Version.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ParamKindPatch struct {
 	// APIVersion is the API group version the resources belong to. In format of "group/version". Required.
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -2944,6 +3385,15 @@ type ParamKindPatchInput interface {
 }
 
 // ParamKind is a tuple of Group Kind and Version.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ParamKindPatchArgs struct {
 	// APIVersion is the API group version the resources belong to. In format of "group/version". Required.
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -3005,6 +3455,15 @@ func (i *paramKindPatchPtrType) ToParamKindPatchPtrOutputWithContext(ctx context
 }
 
 // ParamKind is a tuple of Group Kind and Version.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ParamKindPatchOutput struct{ *pulumi.OutputState }
 
 func (ParamKindPatchOutput) ElementType() reflect.Type {
@@ -3084,6 +3543,15 @@ func (o ParamKindPatchPtrOutput) Kind() pulumi.StringPtrOutput {
 }
 
 // ParamRef describes how to locate the params to be used as input to expressions of rules applied by a policy binding.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ParamRef struct {
 	// name is the name of the resource being referenced.
 	//
@@ -3125,6 +3593,15 @@ type ParamRefInput interface {
 }
 
 // ParamRef describes how to locate the params to be used as input to expressions of rules applied by a policy binding.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ParamRefArgs struct {
 	// name is the name of the resource being referenced.
 	//
@@ -3208,6 +3685,15 @@ func (i *paramRefPtrType) ToParamRefPtrOutputWithContext(ctx context.Context) Pa
 }
 
 // ParamRef describes how to locate the params to be used as input to expressions of rules applied by a policy binding.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ParamRefOutput struct{ *pulumi.OutputState }
 
 func (ParamRefOutput) ElementType() reflect.Type {
@@ -3353,6 +3839,15 @@ func (o ParamRefPtrOutput) Selector() metav1.LabelSelectorPtrOutput {
 }
 
 // ParamRef describes how to locate the params to be used as input to expressions of rules applied by a policy binding.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ParamRefPatch struct {
 	// name is the name of the resource being referenced.
 	//
@@ -3394,6 +3889,15 @@ type ParamRefPatchInput interface {
 }
 
 // ParamRef describes how to locate the params to be used as input to expressions of rules applied by a policy binding.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ParamRefPatchArgs struct {
 	// name is the name of the resource being referenced.
 	//
@@ -3477,6 +3981,15 @@ func (i *paramRefPatchPtrType) ToParamRefPatchPtrOutputWithContext(ctx context.C
 }
 
 // ParamRef describes how to locate the params to be used as input to expressions of rules applied by a policy binding.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ParamRefPatchOutput struct{ *pulumi.OutputState }
 
 func (ParamRefPatchOutput) ElementType() reflect.Type {
@@ -3622,6 +4135,15 @@ func (o ParamRefPatchPtrOutput) Selector() metav1.LabelSelectorPatchPtrOutput {
 }
 
 // RuleWithOperations is a tuple of Operations and Resources. It is recommended to make sure that all the tuple expansions are valid.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type RuleWithOperations struct {
 	// APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
 	ApiGroups []string `pulumi:"apiGroups"`
@@ -3653,6 +4175,15 @@ type RuleWithOperationsInput interface {
 }
 
 // RuleWithOperations is a tuple of Operations and Resources. It is recommended to make sure that all the tuple expansions are valid.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type RuleWithOperationsArgs struct {
 	// APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
 	ApiGroups pulumi.StringArrayInput `pulumi:"apiGroups"`
@@ -3710,6 +4241,15 @@ func (i RuleWithOperationsArray) ToRuleWithOperationsArrayOutputWithContext(ctx 
 }
 
 // RuleWithOperations is a tuple of Operations and Resources. It is recommended to make sure that all the tuple expansions are valid.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type RuleWithOperationsOutput struct{ *pulumi.OutputState }
 
 func (RuleWithOperationsOutput) ElementType() reflect.Type {
@@ -3776,6 +4316,15 @@ func (o RuleWithOperationsArrayOutput) Index(i pulumi.IntInput) RuleWithOperatio
 }
 
 // RuleWithOperations is a tuple of Operations and Resources. It is recommended to make sure that all the tuple expansions are valid.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type RuleWithOperationsPatch struct {
 	// APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
 	ApiGroups []string `pulumi:"apiGroups"`
@@ -3807,6 +4356,15 @@ type RuleWithOperationsPatchInput interface {
 }
 
 // RuleWithOperations is a tuple of Operations and Resources. It is recommended to make sure that all the tuple expansions are valid.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type RuleWithOperationsPatchArgs struct {
 	// APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
 	ApiGroups pulumi.StringArrayInput `pulumi:"apiGroups"`
@@ -3864,6 +4422,15 @@ func (i RuleWithOperationsPatchArray) ToRuleWithOperationsPatchArrayOutputWithCo
 }
 
 // RuleWithOperations is a tuple of Operations and Resources. It is recommended to make sure that all the tuple expansions are valid.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type RuleWithOperationsPatchOutput struct{ *pulumi.OutputState }
 
 func (RuleWithOperationsPatchOutput) ElementType() reflect.Type {
@@ -3930,6 +4497,15 @@ func (o RuleWithOperationsPatchArrayOutput) Index(i pulumi.IntInput) RuleWithOpe
 }
 
 // ServiceReference holds a reference to Service.legacy.k8s.io
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ServiceReference struct {
 	// `name` is the name of the service. Required
 	Name string `pulumi:"name"`
@@ -3953,6 +4529,15 @@ type ServiceReferenceInput interface {
 }
 
 // ServiceReference holds a reference to Service.legacy.k8s.io
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ServiceReferenceArgs struct {
 	// `name` is the name of the service. Required
 	Name pulumi.StringInput `pulumi:"name"`
@@ -4018,6 +4603,15 @@ func (i *serviceReferencePtrType) ToServiceReferencePtrOutputWithContext(ctx con
 }
 
 // ServiceReference holds a reference to Service.legacy.k8s.io
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ServiceReferenceOutput struct{ *pulumi.OutputState }
 
 func (ServiceReferenceOutput) ElementType() reflect.Type {
@@ -4127,6 +4721,15 @@ func (o ServiceReferencePtrOutput) Port() pulumi.IntPtrOutput {
 }
 
 // ServiceReference holds a reference to Service.legacy.k8s.io
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ServiceReferencePatch struct {
 	// `name` is the name of the service. Required
 	Name *string `pulumi:"name"`
@@ -4150,6 +4753,15 @@ type ServiceReferencePatchInput interface {
 }
 
 // ServiceReference holds a reference to Service.legacy.k8s.io
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ServiceReferencePatchArgs struct {
 	// `name` is the name of the service. Required
 	Name pulumi.StringPtrInput `pulumi:"name"`
@@ -4215,6 +4827,15 @@ func (i *serviceReferencePatchPtrType) ToServiceReferencePatchPtrOutputWithConte
 }
 
 // ServiceReference holds a reference to Service.legacy.k8s.io
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ServiceReferencePatchOutput struct{ *pulumi.OutputState }
 
 func (ServiceReferencePatchOutput) ElementType() reflect.Type {
@@ -4324,6 +4945,15 @@ func (o ServiceReferencePatchPtrOutput) Port() pulumi.IntPtrOutput {
 }
 
 // TypeChecking contains results of type checking the expressions in the ValidatingAdmissionPolicy
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type TypeChecking struct {
 	// The type checking warnings for each expression.
 	ExpressionWarnings []ExpressionWarning `pulumi:"expressionWarnings"`
@@ -4341,6 +4971,15 @@ type TypeCheckingInput interface {
 }
 
 // TypeChecking contains results of type checking the expressions in the ValidatingAdmissionPolicy
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type TypeCheckingArgs struct {
 	// The type checking warnings for each expression.
 	ExpressionWarnings ExpressionWarningArrayInput `pulumi:"expressionWarnings"`
@@ -4400,6 +5039,15 @@ func (i *typeCheckingPtrType) ToTypeCheckingPtrOutputWithContext(ctx context.Con
 }
 
 // TypeChecking contains results of type checking the expressions in the ValidatingAdmissionPolicy
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type TypeCheckingOutput struct{ *pulumi.OutputState }
 
 func (TypeCheckingOutput) ElementType() reflect.Type {
@@ -4464,6 +5112,15 @@ func (o TypeCheckingPtrOutput) ExpressionWarnings() ExpressionWarningArrayOutput
 }
 
 // TypeChecking contains results of type checking the expressions in the ValidatingAdmissionPolicy
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type TypeCheckingPatch struct {
 	// The type checking warnings for each expression.
 	ExpressionWarnings []ExpressionWarningPatch `pulumi:"expressionWarnings"`
@@ -4481,6 +5138,15 @@ type TypeCheckingPatchInput interface {
 }
 
 // TypeChecking contains results of type checking the expressions in the ValidatingAdmissionPolicy
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type TypeCheckingPatchArgs struct {
 	// The type checking warnings for each expression.
 	ExpressionWarnings ExpressionWarningPatchArrayInput `pulumi:"expressionWarnings"`
@@ -4540,6 +5206,15 @@ func (i *typeCheckingPatchPtrType) ToTypeCheckingPatchPtrOutputWithContext(ctx c
 }
 
 // TypeChecking contains results of type checking the expressions in the ValidatingAdmissionPolicy
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type TypeCheckingPatchOutput struct{ *pulumi.OutputState }
 
 func (TypeCheckingPatchOutput) ElementType() reflect.Type {
@@ -4604,6 +5279,15 @@ func (o TypeCheckingPatchPtrOutput) ExpressionWarnings() ExpressionWarningPatchA
 }
 
 // ValidatingAdmissionPolicy describes the definition of an admission validation policy that accepts or rejects an object without changing it.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidatingAdmissionPolicyType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -4629,6 +5313,15 @@ type ValidatingAdmissionPolicyTypeInput interface {
 }
 
 // ValidatingAdmissionPolicy describes the definition of an admission validation policy that accepts or rejects an object without changing it.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidatingAdmissionPolicyTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -4680,6 +5373,15 @@ func (i ValidatingAdmissionPolicyTypeArray) ToValidatingAdmissionPolicyTypeArray
 }
 
 // ValidatingAdmissionPolicy describes the definition of an admission validation policy that accepts or rejects an object without changing it.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidatingAdmissionPolicyTypeOutput struct{ *pulumi.OutputState }
 
 func (ValidatingAdmissionPolicyTypeOutput) ElementType() reflect.Type {
@@ -4744,6 +5446,15 @@ func (o ValidatingAdmissionPolicyTypeArrayOutput) Index(i pulumi.IntInput) Valid
 // For a given admission request, each binding will cause its policy to be evaluated N times, where N is 1 for policies/bindings that don't use params, otherwise N is the number of parameters selected by the binding.
 //
 // The CEL expressions of a policy must have a computed CEL cost below the maximum CEL budget. Each evaluation of the policy is given an independent CEL cost budget. Adding/removing policies, bindings, or params can not affect whether a given (policy, binding, param) combination is within its own CEL budget.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidatingAdmissionPolicyBindingType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -4771,6 +5482,15 @@ type ValidatingAdmissionPolicyBindingTypeInput interface {
 // For a given admission request, each binding will cause its policy to be evaluated N times, where N is 1 for policies/bindings that don't use params, otherwise N is the number of parameters selected by the binding.
 //
 // The CEL expressions of a policy must have a computed CEL cost below the maximum CEL budget. Each evaluation of the policy is given an independent CEL cost budget. Adding/removing policies, bindings, or params can not affect whether a given (policy, binding, param) combination is within its own CEL budget.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidatingAdmissionPolicyBindingTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -4824,6 +5544,15 @@ func (i ValidatingAdmissionPolicyBindingTypeArray) ToValidatingAdmissionPolicyBi
 // For a given admission request, each binding will cause its policy to be evaluated N times, where N is 1 for policies/bindings that don't use params, otherwise N is the number of parameters selected by the binding.
 //
 // The CEL expressions of a policy must have a computed CEL cost below the maximum CEL budget. Each evaluation of the policy is given an independent CEL cost budget. Adding/removing policies, bindings, or params can not affect whether a given (policy, binding, param) combination is within its own CEL budget.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidatingAdmissionPolicyBindingTypeOutput struct{ *pulumi.OutputState }
 
 func (ValidatingAdmissionPolicyBindingTypeOutput) ElementType() reflect.Type {
@@ -4879,6 +5608,15 @@ func (o ValidatingAdmissionPolicyBindingTypeArrayOutput) Index(i pulumi.IntInput
 }
 
 // ValidatingAdmissionPolicyBindingList is a list of ValidatingAdmissionPolicyBinding.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidatingAdmissionPolicyBindingListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -4902,6 +5640,15 @@ type ValidatingAdmissionPolicyBindingListTypeInput interface {
 }
 
 // ValidatingAdmissionPolicyBindingList is a list of ValidatingAdmissionPolicyBinding.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidatingAdmissionPolicyBindingListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -4926,6 +5673,15 @@ func (i ValidatingAdmissionPolicyBindingListTypeArgs) ToValidatingAdmissionPolic
 }
 
 // ValidatingAdmissionPolicyBindingList is a list of ValidatingAdmissionPolicyBinding.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidatingAdmissionPolicyBindingListTypeOutput struct{ *pulumi.OutputState }
 
 func (ValidatingAdmissionPolicyBindingListTypeOutput) ElementType() reflect.Type {
@@ -4967,6 +5723,15 @@ func (o ValidatingAdmissionPolicyBindingListTypeOutput) Metadata() metav1.ListMe
 // For a given admission request, each binding will cause its policy to be evaluated N times, where N is 1 for policies/bindings that don't use params, otherwise N is the number of parameters selected by the binding.
 //
 // The CEL expressions of a policy must have a computed CEL cost below the maximum CEL budget. Each evaluation of the policy is given an independent CEL cost budget. Adding/removing policies, bindings, or params can not affect whether a given (policy, binding, param) combination is within its own CEL budget.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidatingAdmissionPolicyBindingPatchType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -4994,6 +5759,15 @@ type ValidatingAdmissionPolicyBindingPatchTypeInput interface {
 // For a given admission request, each binding will cause its policy to be evaluated N times, where N is 1 for policies/bindings that don't use params, otherwise N is the number of parameters selected by the binding.
 //
 // The CEL expressions of a policy must have a computed CEL cost below the maximum CEL budget. Each evaluation of the policy is given an independent CEL cost budget. Adding/removing policies, bindings, or params can not affect whether a given (policy, binding, param) combination is within its own CEL budget.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidatingAdmissionPolicyBindingPatchTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -5022,6 +5796,15 @@ func (i ValidatingAdmissionPolicyBindingPatchTypeArgs) ToValidatingAdmissionPoli
 // For a given admission request, each binding will cause its policy to be evaluated N times, where N is 1 for policies/bindings that don't use params, otherwise N is the number of parameters selected by the binding.
 //
 // The CEL expressions of a policy must have a computed CEL cost below the maximum CEL budget. Each evaluation of the policy is given an independent CEL cost budget. Adding/removing policies, bindings, or params can not affect whether a given (policy, binding, param) combination is within its own CEL budget.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidatingAdmissionPolicyBindingPatchTypeOutput struct{ *pulumi.OutputState }
 
 func (ValidatingAdmissionPolicyBindingPatchTypeOutput) ElementType() reflect.Type {
@@ -5059,6 +5842,15 @@ func (o ValidatingAdmissionPolicyBindingPatchTypeOutput) Spec() ValidatingAdmiss
 }
 
 // ValidatingAdmissionPolicyBindingSpec is the specification of the ValidatingAdmissionPolicyBinding.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidatingAdmissionPolicyBindingSpec struct {
 	// MatchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy's matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
 	MatchResources *MatchResources `pulumi:"matchResources"`
@@ -5100,6 +5892,15 @@ type ValidatingAdmissionPolicyBindingSpecInput interface {
 }
 
 // ValidatingAdmissionPolicyBindingSpec is the specification of the ValidatingAdmissionPolicyBinding.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidatingAdmissionPolicyBindingSpecArgs struct {
 	// MatchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy's matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
 	MatchResources MatchResourcesPtrInput `pulumi:"matchResources"`
@@ -5183,6 +5984,15 @@ func (i *validatingAdmissionPolicyBindingSpecPtrType) ToValidatingAdmissionPolic
 }
 
 // ValidatingAdmissionPolicyBindingSpec is the specification of the ValidatingAdmissionPolicyBinding.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidatingAdmissionPolicyBindingSpecOutput struct{ *pulumi.OutputState }
 
 func (ValidatingAdmissionPolicyBindingSpecOutput) ElementType() reflect.Type {
@@ -5328,6 +6138,15 @@ func (o ValidatingAdmissionPolicyBindingSpecPtrOutput) ValidationActions() pulum
 }
 
 // ValidatingAdmissionPolicyBindingSpec is the specification of the ValidatingAdmissionPolicyBinding.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidatingAdmissionPolicyBindingSpecPatch struct {
 	// MatchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy's matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
 	MatchResources *MatchResourcesPatch `pulumi:"matchResources"`
@@ -5369,6 +6188,15 @@ type ValidatingAdmissionPolicyBindingSpecPatchInput interface {
 }
 
 // ValidatingAdmissionPolicyBindingSpec is the specification of the ValidatingAdmissionPolicyBinding.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidatingAdmissionPolicyBindingSpecPatchArgs struct {
 	// MatchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy's matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
 	MatchResources MatchResourcesPatchPtrInput `pulumi:"matchResources"`
@@ -5452,6 +6280,15 @@ func (i *validatingAdmissionPolicyBindingSpecPatchPtrType) ToValidatingAdmission
 }
 
 // ValidatingAdmissionPolicyBindingSpec is the specification of the ValidatingAdmissionPolicyBinding.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidatingAdmissionPolicyBindingSpecPatchOutput struct{ *pulumi.OutputState }
 
 func (ValidatingAdmissionPolicyBindingSpecPatchOutput) ElementType() reflect.Type {
@@ -5597,6 +6434,15 @@ func (o ValidatingAdmissionPolicyBindingSpecPatchPtrOutput) ValidationActions() 
 }
 
 // ValidatingAdmissionPolicyList is a list of ValidatingAdmissionPolicy.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidatingAdmissionPolicyListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -5620,6 +6466,15 @@ type ValidatingAdmissionPolicyListTypeInput interface {
 }
 
 // ValidatingAdmissionPolicyList is a list of ValidatingAdmissionPolicy.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidatingAdmissionPolicyListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -5644,6 +6499,15 @@ func (i ValidatingAdmissionPolicyListTypeArgs) ToValidatingAdmissionPolicyListTy
 }
 
 // ValidatingAdmissionPolicyList is a list of ValidatingAdmissionPolicy.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidatingAdmissionPolicyListTypeOutput struct{ *pulumi.OutputState }
 
 func (ValidatingAdmissionPolicyListTypeOutput) ElementType() reflect.Type {
@@ -5679,6 +6543,15 @@ func (o ValidatingAdmissionPolicyListTypeOutput) Metadata() metav1.ListMetaPtrOu
 }
 
 // ValidatingAdmissionPolicy describes the definition of an admission validation policy that accepts or rejects an object without changing it.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidatingAdmissionPolicyPatchType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -5704,6 +6577,15 @@ type ValidatingAdmissionPolicyPatchTypeInput interface {
 }
 
 // ValidatingAdmissionPolicy describes the definition of an admission validation policy that accepts or rejects an object without changing it.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidatingAdmissionPolicyPatchTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -5730,6 +6612,15 @@ func (i ValidatingAdmissionPolicyPatchTypeArgs) ToValidatingAdmissionPolicyPatch
 }
 
 // ValidatingAdmissionPolicy describes the definition of an admission validation policy that accepts or rejects an object without changing it.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidatingAdmissionPolicyPatchTypeOutput struct{ *pulumi.OutputState }
 
 func (ValidatingAdmissionPolicyPatchTypeOutput) ElementType() reflect.Type {
@@ -5770,6 +6661,15 @@ func (o ValidatingAdmissionPolicyPatchTypeOutput) Status() ValidatingAdmissionPo
 }
 
 // ValidatingAdmissionPolicySpec is the specification of the desired behavior of the AdmissionPolicy.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidatingAdmissionPolicySpec struct {
 	// auditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the API request. validations and auditAnnotations may not both be empty; a least one of validations or auditAnnotations is required.
 	AuditAnnotations []AuditAnnotation `pulumi:"auditAnnotations"`
@@ -5818,6 +6718,15 @@ type ValidatingAdmissionPolicySpecInput interface {
 }
 
 // ValidatingAdmissionPolicySpec is the specification of the desired behavior of the AdmissionPolicy.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidatingAdmissionPolicySpecArgs struct {
 	// auditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the API request. validations and auditAnnotations may not both be empty; a least one of validations or auditAnnotations is required.
 	AuditAnnotations AuditAnnotationArrayInput `pulumi:"auditAnnotations"`
@@ -5908,6 +6817,15 @@ func (i *validatingAdmissionPolicySpecPtrType) ToValidatingAdmissionPolicySpecPt
 }
 
 // ValidatingAdmissionPolicySpec is the specification of the desired behavior of the AdmissionPolicy.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidatingAdmissionPolicySpecOutput struct{ *pulumi.OutputState }
 
 func (ValidatingAdmissionPolicySpecOutput) ElementType() reflect.Type {
@@ -6100,6 +7018,15 @@ func (o ValidatingAdmissionPolicySpecPtrOutput) Variables() VariableArrayOutput 
 }
 
 // ValidatingAdmissionPolicySpec is the specification of the desired behavior of the AdmissionPolicy.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidatingAdmissionPolicySpecPatch struct {
 	// auditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the API request. validations and auditAnnotations may not both be empty; a least one of validations or auditAnnotations is required.
 	AuditAnnotations []AuditAnnotationPatch `pulumi:"auditAnnotations"`
@@ -6148,6 +7075,15 @@ type ValidatingAdmissionPolicySpecPatchInput interface {
 }
 
 // ValidatingAdmissionPolicySpec is the specification of the desired behavior of the AdmissionPolicy.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidatingAdmissionPolicySpecPatchArgs struct {
 	// auditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the API request. validations and auditAnnotations may not both be empty; a least one of validations or auditAnnotations is required.
 	AuditAnnotations AuditAnnotationPatchArrayInput `pulumi:"auditAnnotations"`
@@ -6238,6 +7174,15 @@ func (i *validatingAdmissionPolicySpecPatchPtrType) ToValidatingAdmissionPolicyS
 }
 
 // ValidatingAdmissionPolicySpec is the specification of the desired behavior of the AdmissionPolicy.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidatingAdmissionPolicySpecPatchOutput struct{ *pulumi.OutputState }
 
 func (ValidatingAdmissionPolicySpecPatchOutput) ElementType() reflect.Type {
@@ -6430,6 +7375,15 @@ func (o ValidatingAdmissionPolicySpecPatchPtrOutput) Variables() VariablePatchAr
 }
 
 // ValidatingAdmissionPolicyStatus represents the status of an admission validation policy.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidatingAdmissionPolicyStatus struct {
 	// The conditions represent the latest available observations of a policy's current state.
 	Conditions []metav1.Condition `pulumi:"conditions"`
@@ -6451,6 +7405,15 @@ type ValidatingAdmissionPolicyStatusInput interface {
 }
 
 // ValidatingAdmissionPolicyStatus represents the status of an admission validation policy.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidatingAdmissionPolicyStatusArgs struct {
 	// The conditions represent the latest available observations of a policy's current state.
 	Conditions metav1.ConditionArrayInput `pulumi:"conditions"`
@@ -6514,6 +7477,15 @@ func (i *validatingAdmissionPolicyStatusPtrType) ToValidatingAdmissionPolicyStat
 }
 
 // ValidatingAdmissionPolicyStatus represents the status of an admission validation policy.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidatingAdmissionPolicyStatusOutput struct{ *pulumi.OutputState }
 
 func (ValidatingAdmissionPolicyStatusOutput) ElementType() reflect.Type {
@@ -6608,6 +7580,15 @@ func (o ValidatingAdmissionPolicyStatusPtrOutput) TypeChecking() TypeCheckingPtr
 }
 
 // ValidatingAdmissionPolicyStatus represents the status of an admission validation policy.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidatingAdmissionPolicyStatusPatch struct {
 	// The conditions represent the latest available observations of a policy's current state.
 	Conditions []metav1.ConditionPatch `pulumi:"conditions"`
@@ -6629,6 +7610,15 @@ type ValidatingAdmissionPolicyStatusPatchInput interface {
 }
 
 // ValidatingAdmissionPolicyStatus represents the status of an admission validation policy.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidatingAdmissionPolicyStatusPatchArgs struct {
 	// The conditions represent the latest available observations of a policy's current state.
 	Conditions metav1.ConditionPatchArrayInput `pulumi:"conditions"`
@@ -6692,6 +7682,15 @@ func (i *validatingAdmissionPolicyStatusPatchPtrType) ToValidatingAdmissionPolic
 }
 
 // ValidatingAdmissionPolicyStatus represents the status of an admission validation policy.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidatingAdmissionPolicyStatusPatchOutput struct{ *pulumi.OutputState }
 
 func (ValidatingAdmissionPolicyStatusPatchOutput) ElementType() reflect.Type {
@@ -6786,6 +7785,15 @@ func (o ValidatingAdmissionPolicyStatusPatchPtrOutput) TypeChecking() TypeChecki
 }
 
 // ValidatingWebhook describes an admission webhook and the resources and operations it applies to.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidatingWebhook struct {
 	// AdmissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the Webhook expects. API server will try to use first version in the list which it supports. If none of the versions specified in this list supported by API server, validation will fail for this object. If a persisted webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail and be subject to the failure policy. Default to `['v1beta1']`.
 	AdmissionReviewVersions []string `pulumi:"admissionReviewVersions"`
@@ -6857,6 +7865,15 @@ type ValidatingWebhookInput interface {
 }
 
 // ValidatingWebhook describes an admission webhook and the resources and operations it applies to.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidatingWebhookArgs struct {
 	// AdmissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the Webhook expects. API server will try to use first version in the list which it supports. If none of the versions specified in this list supported by API server, validation will fail for this object. If a persisted webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail and be subject to the failure policy. Default to `['v1beta1']`.
 	AdmissionReviewVersions pulumi.StringArrayInput `pulumi:"admissionReviewVersions"`
@@ -6954,6 +7971,15 @@ func (i ValidatingWebhookArray) ToValidatingWebhookArrayOutputWithContext(ctx co
 }
 
 // ValidatingWebhook describes an admission webhook and the resources and operations it applies to.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidatingWebhookOutput struct{ *pulumi.OutputState }
 
 func (ValidatingWebhookOutput) ElementType() reflect.Type {
@@ -7075,6 +8101,15 @@ func (o ValidatingWebhookArrayOutput) Index(i pulumi.IntInput) ValidatingWebhook
 }
 
 // ValidatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and object without changing it. Deprecated in v1.16, planned for removal in v1.19. Use admissionregistration.k8s.io/v1 ValidatingWebhookConfiguration instead.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidatingWebhookConfigurationType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -7098,6 +8133,15 @@ type ValidatingWebhookConfigurationTypeInput interface {
 }
 
 // ValidatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and object without changing it. Deprecated in v1.16, planned for removal in v1.19. Use admissionregistration.k8s.io/v1 ValidatingWebhookConfiguration instead.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidatingWebhookConfigurationTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -7147,6 +8191,15 @@ func (i ValidatingWebhookConfigurationTypeArray) ToValidatingWebhookConfiguratio
 }
 
 // ValidatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and object without changing it. Deprecated in v1.16, planned for removal in v1.19. Use admissionregistration.k8s.io/v1 ValidatingWebhookConfiguration instead.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidatingWebhookConfigurationTypeOutput struct{ *pulumi.OutputState }
 
 func (ValidatingWebhookConfigurationTypeOutput) ElementType() reflect.Type {
@@ -7202,6 +8255,15 @@ func (o ValidatingWebhookConfigurationTypeArrayOutput) Index(i pulumi.IntInput) 
 }
 
 // ValidatingWebhookConfigurationList is a list of ValidatingWebhookConfiguration.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidatingWebhookConfigurationListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -7225,6 +8287,15 @@ type ValidatingWebhookConfigurationListTypeInput interface {
 }
 
 // ValidatingWebhookConfigurationList is a list of ValidatingWebhookConfiguration.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidatingWebhookConfigurationListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -7249,6 +8320,15 @@ func (i ValidatingWebhookConfigurationListTypeArgs) ToValidatingWebhookConfigura
 }
 
 // ValidatingWebhookConfigurationList is a list of ValidatingWebhookConfiguration.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidatingWebhookConfigurationListTypeOutput struct{ *pulumi.OutputState }
 
 func (ValidatingWebhookConfigurationListTypeOutput) ElementType() reflect.Type {
@@ -7284,6 +8364,15 @@ func (o ValidatingWebhookConfigurationListTypeOutput) Metadata() metav1.ListMeta
 }
 
 // ValidatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and object without changing it. Deprecated in v1.16, planned for removal in v1.19. Use admissionregistration.k8s.io/v1 ValidatingWebhookConfiguration instead.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidatingWebhookConfigurationPatchType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -7307,6 +8396,15 @@ type ValidatingWebhookConfigurationPatchTypeInput interface {
 }
 
 // ValidatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and object without changing it. Deprecated in v1.16, planned for removal in v1.19. Use admissionregistration.k8s.io/v1 ValidatingWebhookConfiguration instead.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidatingWebhookConfigurationPatchTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -7331,6 +8429,15 @@ func (i ValidatingWebhookConfigurationPatchTypeArgs) ToValidatingWebhookConfigur
 }
 
 // ValidatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and object without changing it. Deprecated in v1.16, planned for removal in v1.19. Use admissionregistration.k8s.io/v1 ValidatingWebhookConfiguration instead.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidatingWebhookConfigurationPatchTypeOutput struct{ *pulumi.OutputState }
 
 func (ValidatingWebhookConfigurationPatchTypeOutput) ElementType() reflect.Type {
@@ -7366,6 +8473,15 @@ func (o ValidatingWebhookConfigurationPatchTypeOutput) Webhooks() ValidatingWebh
 }
 
 // ValidatingWebhook describes an admission webhook and the resources and operations it applies to.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidatingWebhookPatch struct {
 	// AdmissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the Webhook expects. API server will try to use first version in the list which it supports. If none of the versions specified in this list supported by API server, validation will fail for this object. If a persisted webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail and be subject to the failure policy. Default to `['v1beta1']`.
 	AdmissionReviewVersions []string `pulumi:"admissionReviewVersions"`
@@ -7437,6 +8553,15 @@ type ValidatingWebhookPatchInput interface {
 }
 
 // ValidatingWebhook describes an admission webhook and the resources and operations it applies to.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidatingWebhookPatchArgs struct {
 	// AdmissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the Webhook expects. API server will try to use first version in the list which it supports. If none of the versions specified in this list supported by API server, validation will fail for this object. If a persisted webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail and be subject to the failure policy. Default to `['v1beta1']`.
 	AdmissionReviewVersions pulumi.StringArrayInput `pulumi:"admissionReviewVersions"`
@@ -7534,6 +8659,15 @@ func (i ValidatingWebhookPatchArray) ToValidatingWebhookPatchArrayOutputWithCont
 }
 
 // ValidatingWebhook describes an admission webhook and the resources and operations it applies to.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidatingWebhookPatchOutput struct{ *pulumi.OutputState }
 
 func (ValidatingWebhookPatchOutput) ElementType() reflect.Type {
@@ -7655,6 +8789,15 @@ func (o ValidatingWebhookPatchArrayOutput) Index(i pulumi.IntInput) ValidatingWe
 }
 
 // Validation specifies the CEL expression which is used to apply the validation.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type Validation struct {
 	// Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
 	//
@@ -7703,6 +8846,15 @@ type ValidationInput interface {
 }
 
 // Validation specifies the CEL expression which is used to apply the validation.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidationArgs struct {
 	// Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
 	//
@@ -7777,6 +8929,15 @@ func (i ValidationArray) ToValidationArrayOutputWithContext(ctx context.Context)
 }
 
 // Validation specifies the CEL expression which is used to apply the validation.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidationOutput struct{ *pulumi.OutputState }
 
 func (ValidationOutput) ElementType() reflect.Type {
@@ -7859,6 +9020,15 @@ func (o ValidationArrayOutput) Index(i pulumi.IntInput) ValidationOutput {
 }
 
 // Validation specifies the CEL expression which is used to apply the validation.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidationPatch struct {
 	// Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
 	//
@@ -7907,6 +9077,15 @@ type ValidationPatchInput interface {
 }
 
 // Validation specifies the CEL expression which is used to apply the validation.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidationPatchArgs struct {
 	// Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
 	//
@@ -7981,6 +9160,15 @@ func (i ValidationPatchArray) ToValidationPatchArrayOutputWithContext(ctx contex
 }
 
 // Validation specifies the CEL expression which is used to apply the validation.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ValidationPatchOutput struct{ *pulumi.OutputState }
 
 func (ValidationPatchOutput) ElementType() reflect.Type {
@@ -8063,6 +9251,15 @@ func (o ValidationPatchArrayOutput) Index(i pulumi.IntInput) ValidationPatchOutp
 }
 
 // Variable is the definition of a variable that is used for composition. A variable is defined as a named expression.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type Variable struct {
 	// Expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
 	Expression string `pulumi:"expression"`
@@ -8082,6 +9279,15 @@ type VariableInput interface {
 }
 
 // Variable is the definition of a variable that is used for composition. A variable is defined as a named expression.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type VariableArgs struct {
 	// Expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
 	Expression pulumi.StringInput `pulumi:"expression"`
@@ -8127,6 +9333,15 @@ func (i VariableArray) ToVariableArrayOutputWithContext(ctx context.Context) Var
 }
 
 // Variable is the definition of a variable that is used for composition. A variable is defined as a named expression.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type VariableOutput struct{ *pulumi.OutputState }
 
 func (VariableOutput) ElementType() reflect.Type {
@@ -8172,6 +9387,15 @@ func (o VariableArrayOutput) Index(i pulumi.IntInput) VariableOutput {
 }
 
 // Variable is the definition of a variable that is used for composition. A variable is defined as a named expression.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type VariablePatch struct {
 	// Expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
 	Expression *string `pulumi:"expression"`
@@ -8191,6 +9415,15 @@ type VariablePatchInput interface {
 }
 
 // Variable is the definition of a variable that is used for composition. A variable is defined as a named expression.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type VariablePatchArgs struct {
 	// Expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
 	Expression pulumi.StringPtrInput `pulumi:"expression"`
@@ -8236,6 +9469,15 @@ func (i VariablePatchArray) ToVariablePatchArrayOutputWithContext(ctx context.Co
 }
 
 // Variable is the definition of a variable that is used for composition. A variable is defined as a named expression.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type VariablePatchOutput struct{ *pulumi.OutputState }
 
 func (VariablePatchOutput) ElementType() reflect.Type {
@@ -8281,6 +9523,15 @@ func (o VariablePatchArrayOutput) Index(i pulumi.IntInput) VariablePatchOutput {
 }
 
 // WebhookClientConfig contains the information to make a TLS connection with the webhook
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type WebhookClientConfig struct {
 	// `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
 	CaBundle *string `pulumi:"caBundle"`
@@ -8314,6 +9565,15 @@ type WebhookClientConfigInput interface {
 }
 
 // WebhookClientConfig contains the information to make a TLS connection with the webhook
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type WebhookClientConfigArgs struct {
 	// `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
 	CaBundle pulumi.StringPtrInput `pulumi:"caBundle"`
@@ -8348,6 +9608,15 @@ func (i WebhookClientConfigArgs) ToWebhookClientConfigOutputWithContext(ctx cont
 }
 
 // WebhookClientConfig contains the information to make a TLS connection with the webhook
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type WebhookClientConfigOutput struct{ *pulumi.OutputState }
 
 func (WebhookClientConfigOutput) ElementType() reflect.Type {
@@ -8390,6 +9659,15 @@ func (o WebhookClientConfigOutput) Url() pulumi.StringPtrOutput {
 }
 
 // WebhookClientConfig contains the information to make a TLS connection with the webhook
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type WebhookClientConfigPatch struct {
 	// `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
 	CaBundle *string `pulumi:"caBundle"`
@@ -8423,6 +9701,15 @@ type WebhookClientConfigPatchInput interface {
 }
 
 // WebhookClientConfig contains the information to make a TLS connection with the webhook
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type WebhookClientConfigPatchArgs struct {
 	// `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
 	CaBundle pulumi.StringPtrInput `pulumi:"caBundle"`
@@ -8498,6 +9785,15 @@ func (i *webhookClientConfigPatchPtrType) ToWebhookClientConfigPatchPtrOutputWit
 }
 
 // WebhookClientConfig contains the information to make a TLS connection with the webhook
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type WebhookClientConfigPatchOutput struct{ *pulumi.OutputState }
 
 func (WebhookClientConfigPatchOutput) ElementType() reflect.Type {

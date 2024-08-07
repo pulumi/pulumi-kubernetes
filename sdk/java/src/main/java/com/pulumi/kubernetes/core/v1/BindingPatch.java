@@ -24,6 +24,15 @@ import javax.annotation.Nullable;
  * additional information about using Server-Side Apply to manage Kubernetes resources with Pulumi.
  * Binding ties one object to another; for example, a pod is bound to a node by a scheduler. Deprecated in 1.7, please use the bindings subresource of pods instead.
  * 
+ * By default Pulumi does _not_ wait for this resource to
+ * become ready when it is created or updated.
+ * 
+ * If you want Pulumi to wait for this resource to become ready, you can use the
+ * &#39;pulumi.com/waitFor&#39; annotation to provide custom readiness criteria. See the
+ * documentation
+ * (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+ * for a detailed description of the values this annotation accepts.
+ * 
  */
 @ResourceType(type="kubernetes:core/v1:BindingPatch")
 public class BindingPatch extends com.pulumi.resources.CustomResource {

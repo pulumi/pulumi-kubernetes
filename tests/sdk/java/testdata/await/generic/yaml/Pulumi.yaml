@@ -35,8 +35,35 @@ resources:
           name: wants-ready-condition
           annotations:
             pulumi.com/patchForce: "true"
-            pulumi.com/timeoutSeconds: "20"
         status:
           conditions:
             - type: Ready
               status: "False"
+        ---
+        apiVersion: test.pulumi.com/v1
+        kind: GenericAwaiter
+        metadata:
+          name: wants-foo-condition
+          annotations:
+            pulumi.com/waitFor: "condition=Foo"
+            pulumi.com/patchForce: "true"
+        status:
+          conditions:
+            - type: Foo
+              status: "False"
+        ---
+        apiVersion: test.pulumi.com/v1
+        kind: GenericAwaiter
+        metadata:
+          name: wants-field
+          annotations:
+            pulumi.com/waitFor: "jsonpath={.spec.someField}"
+            pulumi.com/patchForce: "true"
+        ---
+        apiVersion: test.pulumi.com/v1
+        kind: GenericAwaiter
+        metadata:
+          name: wants-field-and-foo-condition
+          annotations:
+            pulumi.com/waitFor: '["jsonpath={.spec.someField}=expected", "condition=Foo"]'
+            pulumi.com/patchForce: "true"

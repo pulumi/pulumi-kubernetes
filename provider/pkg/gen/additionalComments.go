@@ -130,6 +130,16 @@ out. To work around this limitation, set 'pulumi.com/skipAwait: "true"' on
 	return comment
 }
 
+var awaitCustom = `By default Pulumi does _not_ wait for this resource to
+become ready when it is created or updated.
+
+If you want Pulumi to wait for this resource to become ready, you can use the
+'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+documentation
+(http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+for a detailed description of the values this annotation accepts.
+`
+
 func helpfulLinkComments(kind kinds.Kind) string {
 	switch kind {
 	case kinds.Secret:
@@ -168,7 +178,7 @@ func PulumiComment(kind string) string {
 	case kinds.Secret:
 		return prefix + helpfulLinkComments(k)
 	default:
-		return ""
+		return prefix + awaitCustom
 	}
 }
 

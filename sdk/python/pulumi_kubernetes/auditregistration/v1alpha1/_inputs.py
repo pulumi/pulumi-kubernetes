@@ -50,6 +50,15 @@ if not MYPY:
     class AuditSinkSpecPatchArgsDict(TypedDict):
         """
         AuditSinkSpec holds the spec for the audit sink
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         policy: NotRequired[pulumi.Input['PolicyPatchArgsDict']]
         """
@@ -69,6 +78,16 @@ class AuditSinkSpecPatchArgs:
                  webhook: Optional[pulumi.Input['WebhookPatchArgs']] = None):
         """
         AuditSinkSpec holds the spec for the audit sink
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['PolicyPatchArgs'] policy: Policy defines the policy for selecting which events should be sent to the webhook required
         :param pulumi.Input['WebhookPatchArgs'] webhook: Webhook to send events required
         """
@@ -106,6 +125,15 @@ if not MYPY:
     class AuditSinkSpecArgsDict(TypedDict):
         """
         AuditSinkSpec holds the spec for the audit sink
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         policy: pulumi.Input['PolicyArgsDict']
         """
@@ -125,6 +153,16 @@ class AuditSinkSpecArgs:
                  webhook: pulumi.Input['WebhookArgs']):
         """
         AuditSinkSpec holds the spec for the audit sink
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['PolicyArgs'] policy: Policy defines the policy for selecting which events should be sent to the webhook required
         :param pulumi.Input['WebhookArgs'] webhook: Webhook to send events required
         """
@@ -160,6 +198,15 @@ if not MYPY:
     class AuditSinkArgsDict(TypedDict):
         """
         AuditSink represents a cluster level audit sink
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         api_version: NotRequired[pulumi.Input[str]]
         """
@@ -186,6 +233,16 @@ class AuditSinkArgs:
                  spec: Optional[pulumi.Input['AuditSinkSpecArgs']] = None):
         """
         AuditSink represents a cluster level audit sink
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['AuditSinkSpecArgs'] spec: Spec defines the audit configuration spec
@@ -249,6 +306,15 @@ if not MYPY:
     class PolicyPatchArgsDict(TypedDict):
         """
         Policy defines the configuration of how audit events are logged
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         level: NotRequired[pulumi.Input[str]]
         """
@@ -268,6 +334,16 @@ class PolicyPatchArgs:
                  stages: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
         Policy defines the configuration of how audit events are logged
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] level: The Level that all requests are recorded at. available options: None, Metadata, Request, RequestResponse required
         :param pulumi.Input[Sequence[pulumi.Input[str]]] stages: Stages is a list of stages for which events are created.
         """
@@ -305,6 +381,15 @@ if not MYPY:
     class PolicyArgsDict(TypedDict):
         """
         Policy defines the configuration of how audit events are logged
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         level: pulumi.Input[str]
         """
@@ -324,6 +409,16 @@ class PolicyArgs:
                  stages: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
         Policy defines the configuration of how audit events are logged
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] level: The Level that all requests are recorded at. available options: None, Metadata, Request, RequestResponse required
         :param pulumi.Input[Sequence[pulumi.Input[str]]] stages: Stages is a list of stages for which events are created.
         """
@@ -360,6 +455,15 @@ if not MYPY:
     class ServiceReferencePatchArgsDict(TypedDict):
         """
         ServiceReference holds a reference to Service.legacy.k8s.io
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         name: NotRequired[pulumi.Input[str]]
         """
@@ -389,6 +493,16 @@ class ServiceReferencePatchArgs:
                  port: Optional[pulumi.Input[int]] = None):
         """
         ServiceReference holds a reference to Service.legacy.k8s.io
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] name: `name` is the name of the service. Required
         :param pulumi.Input[str] namespace: `namespace` is the namespace of the service. Required
         :param pulumi.Input[str] path: `path` is an optional URL path which will be sent in any request to this service.
@@ -456,6 +570,15 @@ if not MYPY:
     class ServiceReferenceArgsDict(TypedDict):
         """
         ServiceReference holds a reference to Service.legacy.k8s.io
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         name: pulumi.Input[str]
         """
@@ -485,6 +608,16 @@ class ServiceReferenceArgs:
                  port: Optional[pulumi.Input[int]] = None):
         """
         ServiceReference holds a reference to Service.legacy.k8s.io
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] name: `name` is the name of the service. Required
         :param pulumi.Input[str] namespace: `namespace` is the namespace of the service. Required
         :param pulumi.Input[str] path: `path` is an optional URL path which will be sent in any request to this service.
@@ -550,6 +683,15 @@ if not MYPY:
     class WebhookClientConfigPatchArgsDict(TypedDict):
         """
         WebhookClientConfig contains the information to make a connection with the webhook
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         ca_bundle: NotRequired[pulumi.Input[str]]
         """
@@ -586,6 +728,16 @@ class WebhookClientConfigPatchArgs:
                  url: Optional[pulumi.Input[str]] = None):
         """
         WebhookClientConfig contains the information to make a connection with the webhook
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] ca_bundle: `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
         :param pulumi.Input['ServiceReferencePatchArgs'] service: `service` is a reference to the service for this webhook. Either `service` or `url` must be specified.
                
@@ -662,6 +814,15 @@ if not MYPY:
     class WebhookClientConfigArgsDict(TypedDict):
         """
         WebhookClientConfig contains the information to make a connection with the webhook
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         ca_bundle: NotRequired[pulumi.Input[str]]
         """
@@ -698,6 +859,16 @@ class WebhookClientConfigArgs:
                  url: Optional[pulumi.Input[str]] = None):
         """
         WebhookClientConfig contains the information to make a connection with the webhook
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[str] ca_bundle: `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
         :param pulumi.Input['ServiceReferenceArgs'] service: `service` is a reference to the service for this webhook. Either `service` or `url` must be specified.
                
@@ -774,6 +945,15 @@ if not MYPY:
     class WebhookPatchArgsDict(TypedDict):
         """
         Webhook holds the configuration of the webhook
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         client_config: NotRequired[pulumi.Input['WebhookClientConfigPatchArgsDict']]
         """
@@ -793,6 +973,16 @@ class WebhookPatchArgs:
                  throttle: Optional[pulumi.Input['WebhookThrottleConfigPatchArgs']] = None):
         """
         Webhook holds the configuration of the webhook
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['WebhookClientConfigPatchArgs'] client_config: ClientConfig holds the connection parameters for the webhook required
         :param pulumi.Input['WebhookThrottleConfigPatchArgs'] throttle: Throttle holds the options for throttling the webhook
         """
@@ -830,6 +1020,15 @@ if not MYPY:
     class WebhookThrottleConfigPatchArgsDict(TypedDict):
         """
         WebhookThrottleConfig holds the configuration for throttling events
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         burst: NotRequired[pulumi.Input[int]]
         """
@@ -849,6 +1048,16 @@ class WebhookThrottleConfigPatchArgs:
                  qps: Optional[pulumi.Input[int]] = None):
         """
         WebhookThrottleConfig holds the configuration for throttling events
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[int] burst: ThrottleBurst is the maximum number of events sent at the same moment default 15 QPS
         :param pulumi.Input[int] qps: ThrottleQPS maximum number of batches per second default 10 QPS
         """
@@ -886,6 +1095,15 @@ if not MYPY:
     class WebhookThrottleConfigArgsDict(TypedDict):
         """
         WebhookThrottleConfig holds the configuration for throttling events
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         burst: NotRequired[pulumi.Input[int]]
         """
@@ -905,6 +1123,16 @@ class WebhookThrottleConfigArgs:
                  qps: Optional[pulumi.Input[int]] = None):
         """
         WebhookThrottleConfig holds the configuration for throttling events
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input[int] burst: ThrottleBurst is the maximum number of events sent at the same moment default 15 QPS
         :param pulumi.Input[int] qps: ThrottleQPS maximum number of batches per second default 10 QPS
         """
@@ -942,6 +1170,15 @@ if not MYPY:
     class WebhookArgsDict(TypedDict):
         """
         Webhook holds the configuration of the webhook
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
         """
         client_config: pulumi.Input['WebhookClientConfigArgsDict']
         """
@@ -961,6 +1198,16 @@ class WebhookArgs:
                  throttle: Optional[pulumi.Input['WebhookThrottleConfigArgs']] = None):
         """
         Webhook holds the configuration of the webhook
+
+        By default Pulumi does _not_ wait for this resource to
+        become ready when it is created or updated.
+
+        If you want Pulumi to wait for this resource to become ready, you can use the
+        'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+        documentation
+        (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+        for a detailed description of the values this annotation accepts.
+
         :param pulumi.Input['WebhookClientConfigArgs'] client_config: ClientConfig holds the connection parameters for the webhook required
         :param pulumi.Input['WebhookThrottleConfigArgs'] throttle: Throttle holds the options for throttling the webhook
         """

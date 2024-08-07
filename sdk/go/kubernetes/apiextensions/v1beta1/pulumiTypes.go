@@ -15,6 +15,15 @@ import (
 var _ = utilities.GetEnvOrDefault
 
 // CustomResourceColumnDefinition specifies a column for server side printing.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceColumnDefinition struct {
 	// JSONPath is a simple JSON path (i.e. with array notation) which is evaluated against each custom resource to produce the value for this column.
 	JSONPath string `pulumi:"JSONPath"`
@@ -42,6 +51,15 @@ type CustomResourceColumnDefinitionInput interface {
 }
 
 // CustomResourceColumnDefinition specifies a column for server side printing.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceColumnDefinitionArgs struct {
 	// JSONPath is a simple JSON path (i.e. with array notation) which is evaluated against each custom resource to produce the value for this column.
 	JSONPath pulumi.StringInput `pulumi:"JSONPath"`
@@ -95,6 +113,15 @@ func (i CustomResourceColumnDefinitionArray) ToCustomResourceColumnDefinitionArr
 }
 
 // CustomResourceColumnDefinition specifies a column for server side printing.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceColumnDefinitionOutput struct{ *pulumi.OutputState }
 
 func (CustomResourceColumnDefinitionOutput) ElementType() reflect.Type {
@@ -160,6 +187,15 @@ func (o CustomResourceColumnDefinitionArrayOutput) Index(i pulumi.IntInput) Cust
 }
 
 // CustomResourceColumnDefinition specifies a column for server side printing.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceColumnDefinitionPatch struct {
 	// JSONPath is a simple JSON path (i.e. with array notation) which is evaluated against each custom resource to produce the value for this column.
 	JSONPath *string `pulumi:"JSONPath"`
@@ -187,6 +223,15 @@ type CustomResourceColumnDefinitionPatchInput interface {
 }
 
 // CustomResourceColumnDefinition specifies a column for server side printing.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceColumnDefinitionPatchArgs struct {
 	// JSONPath is a simple JSON path (i.e. with array notation) which is evaluated against each custom resource to produce the value for this column.
 	JSONPath pulumi.StringPtrInput `pulumi:"JSONPath"`
@@ -240,6 +285,15 @@ func (i CustomResourceColumnDefinitionPatchArray) ToCustomResourceColumnDefiniti
 }
 
 // CustomResourceColumnDefinition specifies a column for server side printing.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceColumnDefinitionPatchOutput struct{ *pulumi.OutputState }
 
 func (CustomResourceColumnDefinitionPatchOutput) ElementType() reflect.Type {
@@ -305,6 +359,15 @@ func (o CustomResourceColumnDefinitionPatchArrayOutput) Index(i pulumi.IntInput)
 }
 
 // CustomResourceConversion describes how to convert different versions of a CR.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceConversion struct {
 	// conversionReviewVersions is an ordered list of preferred `ConversionReview` versions the Webhook expects. The API server will use the first version in the list which it supports. If none of the versions specified in this list are supported by API server, conversion will fail for the custom resource. If a persisted Webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail. Defaults to `["v1beta1"]`.
 	ConversionReviewVersions []string `pulumi:"conversionReviewVersions"`
@@ -327,6 +390,15 @@ type CustomResourceConversionInput interface {
 }
 
 // CustomResourceConversion describes how to convert different versions of a CR.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceConversionArgs struct {
 	// conversionReviewVersions is an ordered list of preferred `ConversionReview` versions the Webhook expects. The API server will use the first version in the list which it supports. If none of the versions specified in this list are supported by API server, conversion will fail for the custom resource. If a persisted Webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail. Defaults to `["v1beta1"]`.
 	ConversionReviewVersions pulumi.StringArrayInput `pulumi:"conversionReviewVersions"`
@@ -391,6 +463,15 @@ func (i *customResourceConversionPtrType) ToCustomResourceConversionPtrOutputWit
 }
 
 // CustomResourceConversion describes how to convert different versions of a CR.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceConversionOutput struct{ *pulumi.OutputState }
 
 func (CustomResourceConversionOutput) ElementType() reflect.Type {
@@ -489,6 +570,15 @@ func (o CustomResourceConversionPtrOutput) WebhookClientConfig() WebhookClientCo
 }
 
 // CustomResourceConversion describes how to convert different versions of a CR.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceConversionPatch struct {
 	// conversionReviewVersions is an ordered list of preferred `ConversionReview` versions the Webhook expects. The API server will use the first version in the list which it supports. If none of the versions specified in this list are supported by API server, conversion will fail for the custom resource. If a persisted Webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail. Defaults to `["v1beta1"]`.
 	ConversionReviewVersions []string `pulumi:"conversionReviewVersions"`
@@ -511,6 +601,15 @@ type CustomResourceConversionPatchInput interface {
 }
 
 // CustomResourceConversion describes how to convert different versions of a CR.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceConversionPatchArgs struct {
 	// conversionReviewVersions is an ordered list of preferred `ConversionReview` versions the Webhook expects. The API server will use the first version in the list which it supports. If none of the versions specified in this list are supported by API server, conversion will fail for the custom resource. If a persisted Webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail. Defaults to `["v1beta1"]`.
 	ConversionReviewVersions pulumi.StringArrayInput `pulumi:"conversionReviewVersions"`
@@ -575,6 +674,15 @@ func (i *customResourceConversionPatchPtrType) ToCustomResourceConversionPatchPt
 }
 
 // CustomResourceConversion describes how to convert different versions of a CR.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceConversionPatchOutput struct{ *pulumi.OutputState }
 
 func (CustomResourceConversionPatchOutput) ElementType() reflect.Type {
@@ -673,6 +781,15 @@ func (o CustomResourceConversionPatchPtrOutput) WebhookClientConfig() WebhookCli
 }
 
 // CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>. Deprecated in v1.16, planned for removal in v1.19. Use apiextensions.k8s.io/v1 CustomResourceDefinition instead.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceDefinitionType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -697,6 +814,15 @@ type CustomResourceDefinitionTypeInput interface {
 }
 
 // CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>. Deprecated in v1.16, planned for removal in v1.19. Use apiextensions.k8s.io/v1 CustomResourceDefinition instead.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceDefinitionTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -747,6 +873,15 @@ func (i CustomResourceDefinitionTypeArray) ToCustomResourceDefinitionTypeArrayOu
 }
 
 // CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>. Deprecated in v1.16, planned for removal in v1.19. Use apiextensions.k8s.io/v1 CustomResourceDefinition instead.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceDefinitionTypeOutput struct{ *pulumi.OutputState }
 
 func (CustomResourceDefinitionTypeOutput) ElementType() reflect.Type {
@@ -806,6 +941,15 @@ func (o CustomResourceDefinitionTypeArrayOutput) Index(i pulumi.IntInput) Custom
 }
 
 // CustomResourceDefinitionCondition contains details for the current condition of this pod.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceDefinitionCondition struct {
 	// lastTransitionTime last time the condition transitioned from one status to another.
 	LastTransitionTime *string `pulumi:"lastTransitionTime"`
@@ -831,6 +975,15 @@ type CustomResourceDefinitionConditionInput interface {
 }
 
 // CustomResourceDefinitionCondition contains details for the current condition of this pod.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceDefinitionConditionArgs struct {
 	// lastTransitionTime last time the condition transitioned from one status to another.
 	LastTransitionTime pulumi.StringPtrInput `pulumi:"lastTransitionTime"`
@@ -882,6 +1035,15 @@ func (i CustomResourceDefinitionConditionArray) ToCustomResourceDefinitionCondit
 }
 
 // CustomResourceDefinitionCondition contains details for the current condition of this pod.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceDefinitionConditionOutput struct{ *pulumi.OutputState }
 
 func (CustomResourceDefinitionConditionOutput) ElementType() reflect.Type {
@@ -942,6 +1104,15 @@ func (o CustomResourceDefinitionConditionArrayOutput) Index(i pulumi.IntInput) C
 }
 
 // CustomResourceDefinitionCondition contains details for the current condition of this pod.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceDefinitionConditionPatch struct {
 	// lastTransitionTime last time the condition transitioned from one status to another.
 	LastTransitionTime *string `pulumi:"lastTransitionTime"`
@@ -967,6 +1138,15 @@ type CustomResourceDefinitionConditionPatchInput interface {
 }
 
 // CustomResourceDefinitionCondition contains details for the current condition of this pod.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceDefinitionConditionPatchArgs struct {
 	// lastTransitionTime last time the condition transitioned from one status to another.
 	LastTransitionTime pulumi.StringPtrInput `pulumi:"lastTransitionTime"`
@@ -1018,6 +1198,15 @@ func (i CustomResourceDefinitionConditionPatchArray) ToCustomResourceDefinitionC
 }
 
 // CustomResourceDefinitionCondition contains details for the current condition of this pod.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceDefinitionConditionPatchOutput struct{ *pulumi.OutputState }
 
 func (CustomResourceDefinitionConditionPatchOutput) ElementType() reflect.Type {
@@ -1078,6 +1267,15 @@ func (o CustomResourceDefinitionConditionPatchArrayOutput) Index(i pulumi.IntInp
 }
 
 // CustomResourceDefinitionList is a list of CustomResourceDefinition objects.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceDefinitionListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -1100,6 +1298,15 @@ type CustomResourceDefinitionListTypeInput interface {
 }
 
 // CustomResourceDefinitionList is a list of CustomResourceDefinition objects.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceDefinitionListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -1123,6 +1330,15 @@ func (i CustomResourceDefinitionListTypeArgs) ToCustomResourceDefinitionListType
 }
 
 // CustomResourceDefinitionList is a list of CustomResourceDefinition objects.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceDefinitionListTypeOutput struct{ *pulumi.OutputState }
 
 func (CustomResourceDefinitionListTypeOutput) ElementType() reflect.Type {
@@ -1157,6 +1373,15 @@ func (o CustomResourceDefinitionListTypeOutput) Metadata() metav1.ListMetaPtrOut
 }
 
 // CustomResourceDefinitionNames indicates the names to serve this CustomResourceDefinition
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceDefinitionNames struct {
 	// categories is a list of grouped resources this custom resource belongs to (e.g. 'all'). This is published in API discovery documents, and used by clients to support invocations like `kubectl get all`.
 	Categories []string `pulumi:"categories"`
@@ -1184,6 +1409,15 @@ type CustomResourceDefinitionNamesInput interface {
 }
 
 // CustomResourceDefinitionNames indicates the names to serve this CustomResourceDefinition
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceDefinitionNamesArgs struct {
 	// categories is a list of grouped resources this custom resource belongs to (e.g. 'all'). This is published in API discovery documents, and used by clients to support invocations like `kubectl get all`.
 	Categories pulumi.StringArrayInput `pulumi:"categories"`
@@ -1253,6 +1487,15 @@ func (i *customResourceDefinitionNamesPtrType) ToCustomResourceDefinitionNamesPt
 }
 
 // CustomResourceDefinitionNames indicates the names to serve this CustomResourceDefinition
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceDefinitionNamesOutput struct{ *pulumi.OutputState }
 
 func (CustomResourceDefinitionNamesOutput) ElementType() reflect.Type {
@@ -1392,6 +1635,15 @@ func (o CustomResourceDefinitionNamesPtrOutput) Singular() pulumi.StringPtrOutpu
 }
 
 // CustomResourceDefinitionNames indicates the names to serve this CustomResourceDefinition
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceDefinitionNamesPatch struct {
 	// categories is a list of grouped resources this custom resource belongs to (e.g. 'all'). This is published in API discovery documents, and used by clients to support invocations like `kubectl get all`.
 	Categories []string `pulumi:"categories"`
@@ -1419,6 +1671,15 @@ type CustomResourceDefinitionNamesPatchInput interface {
 }
 
 // CustomResourceDefinitionNames indicates the names to serve this CustomResourceDefinition
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceDefinitionNamesPatchArgs struct {
 	// categories is a list of grouped resources this custom resource belongs to (e.g. 'all'). This is published in API discovery documents, and used by clients to support invocations like `kubectl get all`.
 	Categories pulumi.StringArrayInput `pulumi:"categories"`
@@ -1488,6 +1749,15 @@ func (i *customResourceDefinitionNamesPatchPtrType) ToCustomResourceDefinitionNa
 }
 
 // CustomResourceDefinitionNames indicates the names to serve this CustomResourceDefinition
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceDefinitionNamesPatchOutput struct{ *pulumi.OutputState }
 
 func (CustomResourceDefinitionNamesPatchOutput) ElementType() reflect.Type {
@@ -1627,6 +1897,15 @@ func (o CustomResourceDefinitionNamesPatchPtrOutput) Singular() pulumi.StringPtr
 }
 
 // CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>. Deprecated in v1.16, planned for removal in v1.19. Use apiextensions.k8s.io/v1 CustomResourceDefinition instead.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceDefinitionPatchType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -1651,6 +1930,15 @@ type CustomResourceDefinitionPatchTypeInput interface {
 }
 
 // CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>. Deprecated in v1.16, planned for removal in v1.19. Use apiextensions.k8s.io/v1 CustomResourceDefinition instead.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceDefinitionPatchTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -1676,6 +1964,15 @@ func (i CustomResourceDefinitionPatchTypeArgs) ToCustomResourceDefinitionPatchTy
 }
 
 // CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>. Deprecated in v1.16, planned for removal in v1.19. Use apiextensions.k8s.io/v1 CustomResourceDefinition instead.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceDefinitionPatchTypeOutput struct{ *pulumi.OutputState }
 
 func (CustomResourceDefinitionPatchTypeOutput) ElementType() reflect.Type {
@@ -1715,6 +2012,15 @@ func (o CustomResourceDefinitionPatchTypeOutput) Status() CustomResourceDefiniti
 }
 
 // CustomResourceDefinitionSpec describes how a user wants their resource to appear
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceDefinitionSpec struct {
 	// additionalPrinterColumns specifies additional columns returned in Table output. See https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables for details. If present, this field configures columns for all versions. Top-level and per-version columns are mutually exclusive. If no top-level or per-version columns are specified, a single column displaying the age of the custom resource is used.
 	AdditionalPrinterColumns []CustomResourceColumnDefinition `pulumi:"additionalPrinterColumns"`
@@ -1750,6 +2056,15 @@ type CustomResourceDefinitionSpecInput interface {
 }
 
 // CustomResourceDefinitionSpec describes how a user wants their resource to appear
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceDefinitionSpecArgs struct {
 	// additionalPrinterColumns specifies additional columns returned in Table output. See https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables for details. If present, this field configures columns for all versions. Top-level and per-version columns are mutually exclusive. If no top-level or per-version columns are specified, a single column displaying the age of the custom resource is used.
 	AdditionalPrinterColumns CustomResourceColumnDefinitionArrayInput `pulumi:"additionalPrinterColumns"`
@@ -1786,6 +2101,15 @@ func (i CustomResourceDefinitionSpecArgs) ToCustomResourceDefinitionSpecOutputWi
 }
 
 // CustomResourceDefinitionSpec describes how a user wants their resource to appear
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceDefinitionSpecOutput struct{ *pulumi.OutputState }
 
 func (CustomResourceDefinitionSpecOutput) ElementType() reflect.Type {
@@ -1853,6 +2177,15 @@ func (o CustomResourceDefinitionSpecOutput) Versions() CustomResourceDefinitionV
 }
 
 // CustomResourceDefinitionSpec describes how a user wants their resource to appear
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceDefinitionSpecPatch struct {
 	// additionalPrinterColumns specifies additional columns returned in Table output. See https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables for details. If present, this field configures columns for all versions. Top-level and per-version columns are mutually exclusive. If no top-level or per-version columns are specified, a single column displaying the age of the custom resource is used.
 	AdditionalPrinterColumns []CustomResourceColumnDefinitionPatch `pulumi:"additionalPrinterColumns"`
@@ -1888,6 +2221,15 @@ type CustomResourceDefinitionSpecPatchInput interface {
 }
 
 // CustomResourceDefinitionSpec describes how a user wants their resource to appear
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceDefinitionSpecPatchArgs struct {
 	// additionalPrinterColumns specifies additional columns returned in Table output. See https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables for details. If present, this field configures columns for all versions. Top-level and per-version columns are mutually exclusive. If no top-level or per-version columns are specified, a single column displaying the age of the custom resource is used.
 	AdditionalPrinterColumns CustomResourceColumnDefinitionPatchArrayInput `pulumi:"additionalPrinterColumns"`
@@ -1965,6 +2307,15 @@ func (i *customResourceDefinitionSpecPatchPtrType) ToCustomResourceDefinitionSpe
 }
 
 // CustomResourceDefinitionSpec describes how a user wants their resource to appear
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceDefinitionSpecPatchOutput struct{ *pulumi.OutputState }
 
 func (CustomResourceDefinitionSpecPatchOutput) ElementType() reflect.Type {
@@ -2166,6 +2517,15 @@ func (o CustomResourceDefinitionSpecPatchPtrOutput) Versions() CustomResourceDef
 }
 
 // CustomResourceDefinitionStatus indicates the state of the CustomResourceDefinition
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceDefinitionStatus struct {
 	// acceptedNames are the names that are actually being used to serve discovery. They may be different than the names in spec.
 	AcceptedNames CustomResourceDefinitionNames `pulumi:"acceptedNames"`
@@ -2187,6 +2547,15 @@ type CustomResourceDefinitionStatusInput interface {
 }
 
 // CustomResourceDefinitionStatus indicates the state of the CustomResourceDefinition
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceDefinitionStatusArgs struct {
 	// acceptedNames are the names that are actually being used to serve discovery. They may be different than the names in spec.
 	AcceptedNames CustomResourceDefinitionNamesInput `pulumi:"acceptedNames"`
@@ -2250,6 +2619,15 @@ func (i *customResourceDefinitionStatusPtrType) ToCustomResourceDefinitionStatus
 }
 
 // CustomResourceDefinitionStatus indicates the state of the CustomResourceDefinition
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceDefinitionStatusOutput struct{ *pulumi.OutputState }
 
 func (CustomResourceDefinitionStatusOutput) ElementType() reflect.Type {
@@ -2344,6 +2722,15 @@ func (o CustomResourceDefinitionStatusPtrOutput) StoredVersions() pulumi.StringA
 }
 
 // CustomResourceDefinitionStatus indicates the state of the CustomResourceDefinition
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceDefinitionStatusPatch struct {
 	// acceptedNames are the names that are actually being used to serve discovery. They may be different than the names in spec.
 	AcceptedNames *CustomResourceDefinitionNamesPatch `pulumi:"acceptedNames"`
@@ -2365,6 +2752,15 @@ type CustomResourceDefinitionStatusPatchInput interface {
 }
 
 // CustomResourceDefinitionStatus indicates the state of the CustomResourceDefinition
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceDefinitionStatusPatchArgs struct {
 	// acceptedNames are the names that are actually being used to serve discovery. They may be different than the names in spec.
 	AcceptedNames CustomResourceDefinitionNamesPatchPtrInput `pulumi:"acceptedNames"`
@@ -2428,6 +2824,15 @@ func (i *customResourceDefinitionStatusPatchPtrType) ToCustomResourceDefinitionS
 }
 
 // CustomResourceDefinitionStatus indicates the state of the CustomResourceDefinition
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceDefinitionStatusPatchOutput struct{ *pulumi.OutputState }
 
 func (CustomResourceDefinitionStatusPatchOutput) ElementType() reflect.Type {
@@ -2526,6 +2931,15 @@ func (o CustomResourceDefinitionStatusPatchPtrOutput) StoredVersions() pulumi.St
 }
 
 // CustomResourceDefinitionVersion describes a version for CRD.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceDefinitionVersion struct {
 	// additionalPrinterColumns specifies additional columns returned in Table output. See https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables for details. Top-level and per-version columns are mutually exclusive. Per-version columns must not all be set to identical values (top-level columns should be used instead). If no top-level or per-version columns are specified, a single column displaying the age of the custom resource is used.
 	AdditionalPrinterColumns []CustomResourceColumnDefinition `pulumi:"additionalPrinterColumns"`
@@ -2557,6 +2971,15 @@ type CustomResourceDefinitionVersionInput interface {
 }
 
 // CustomResourceDefinitionVersion describes a version for CRD.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceDefinitionVersionArgs struct {
 	// additionalPrinterColumns specifies additional columns returned in Table output. See https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables for details. Top-level and per-version columns are mutually exclusive. Per-version columns must not all be set to identical values (top-level columns should be used instead). If no top-level or per-version columns are specified, a single column displaying the age of the custom resource is used.
 	AdditionalPrinterColumns CustomResourceColumnDefinitionArrayInput `pulumi:"additionalPrinterColumns"`
@@ -2614,6 +3037,15 @@ func (i CustomResourceDefinitionVersionArray) ToCustomResourceDefinitionVersionA
 }
 
 // CustomResourceDefinitionVersion describes a version for CRD.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceDefinitionVersionOutput struct{ *pulumi.OutputState }
 
 func (CustomResourceDefinitionVersionOutput) ElementType() reflect.Type {
@@ -2691,6 +3123,15 @@ func (o CustomResourceDefinitionVersionArrayOutput) Index(i pulumi.IntInput) Cus
 }
 
 // CustomResourceDefinitionVersion describes a version for CRD.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceDefinitionVersionPatch struct {
 	// additionalPrinterColumns specifies additional columns returned in Table output. See https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables for details. Top-level and per-version columns are mutually exclusive. Per-version columns must not all be set to identical values (top-level columns should be used instead). If no top-level or per-version columns are specified, a single column displaying the age of the custom resource is used.
 	AdditionalPrinterColumns []CustomResourceColumnDefinitionPatch `pulumi:"additionalPrinterColumns"`
@@ -2722,6 +3163,15 @@ type CustomResourceDefinitionVersionPatchInput interface {
 }
 
 // CustomResourceDefinitionVersion describes a version for CRD.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceDefinitionVersionPatchArgs struct {
 	// additionalPrinterColumns specifies additional columns returned in Table output. See https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables for details. Top-level and per-version columns are mutually exclusive. Per-version columns must not all be set to identical values (top-level columns should be used instead). If no top-level or per-version columns are specified, a single column displaying the age of the custom resource is used.
 	AdditionalPrinterColumns CustomResourceColumnDefinitionPatchArrayInput `pulumi:"additionalPrinterColumns"`
@@ -2779,6 +3229,15 @@ func (i CustomResourceDefinitionVersionPatchArray) ToCustomResourceDefinitionVer
 }
 
 // CustomResourceDefinitionVersion describes a version for CRD.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceDefinitionVersionPatchOutput struct{ *pulumi.OutputState }
 
 func (CustomResourceDefinitionVersionPatchOutput) ElementType() reflect.Type {
@@ -2856,6 +3315,15 @@ func (o CustomResourceDefinitionVersionPatchArrayOutput) Index(i pulumi.IntInput
 }
 
 // CustomResourceSubresourceScale defines how to serve the scale subresource for CustomResources.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceSubresourceScale struct {
 	// labelSelectorPath defines the JSON path inside of a custom resource that corresponds to Scale `status.selector`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.status` or `.spec`. Must be set to work with HorizontalPodAutoscaler. The field pointed by this JSON path must be a string field (not a complex selector struct) which contains a serialized label selector in string form. More info: https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions#scale-subresource If there is no value under the given path in the custom resource, the `status.selector` value in the `/scale` subresource will default to the empty string.
 	LabelSelectorPath *string `pulumi:"labelSelectorPath"`
@@ -2877,6 +3345,15 @@ type CustomResourceSubresourceScaleInput interface {
 }
 
 // CustomResourceSubresourceScale defines how to serve the scale subresource for CustomResources.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceSubresourceScaleArgs struct {
 	// labelSelectorPath defines the JSON path inside of a custom resource that corresponds to Scale `status.selector`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.status` or `.spec`. Must be set to work with HorizontalPodAutoscaler. The field pointed by this JSON path must be a string field (not a complex selector struct) which contains a serialized label selector in string form. More info: https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions#scale-subresource If there is no value under the given path in the custom resource, the `status.selector` value in the `/scale` subresource will default to the empty string.
 	LabelSelectorPath pulumi.StringPtrInput `pulumi:"labelSelectorPath"`
@@ -2940,6 +3417,15 @@ func (i *customResourceSubresourceScalePtrType) ToCustomResourceSubresourceScale
 }
 
 // CustomResourceSubresourceScale defines how to serve the scale subresource for CustomResources.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceSubresourceScaleOutput struct{ *pulumi.OutputState }
 
 func (CustomResourceSubresourceScaleOutput) ElementType() reflect.Type {
@@ -3034,6 +3520,15 @@ func (o CustomResourceSubresourceScalePtrOutput) StatusReplicasPath() pulumi.Str
 }
 
 // CustomResourceSubresourceScale defines how to serve the scale subresource for CustomResources.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceSubresourceScalePatch struct {
 	// labelSelectorPath defines the JSON path inside of a custom resource that corresponds to Scale `status.selector`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.status` or `.spec`. Must be set to work with HorizontalPodAutoscaler. The field pointed by this JSON path must be a string field (not a complex selector struct) which contains a serialized label selector in string form. More info: https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions#scale-subresource If there is no value under the given path in the custom resource, the `status.selector` value in the `/scale` subresource will default to the empty string.
 	LabelSelectorPath *string `pulumi:"labelSelectorPath"`
@@ -3055,6 +3550,15 @@ type CustomResourceSubresourceScalePatchInput interface {
 }
 
 // CustomResourceSubresourceScale defines how to serve the scale subresource for CustomResources.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceSubresourceScalePatchArgs struct {
 	// labelSelectorPath defines the JSON path inside of a custom resource that corresponds to Scale `status.selector`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.status` or `.spec`. Must be set to work with HorizontalPodAutoscaler. The field pointed by this JSON path must be a string field (not a complex selector struct) which contains a serialized label selector in string form. More info: https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions#scale-subresource If there is no value under the given path in the custom resource, the `status.selector` value in the `/scale` subresource will default to the empty string.
 	LabelSelectorPath pulumi.StringPtrInput `pulumi:"labelSelectorPath"`
@@ -3118,6 +3622,15 @@ func (i *customResourceSubresourceScalePatchPtrType) ToCustomResourceSubresource
 }
 
 // CustomResourceSubresourceScale defines how to serve the scale subresource for CustomResources.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceSubresourceScalePatchOutput struct{ *pulumi.OutputState }
 
 func (CustomResourceSubresourceScalePatchOutput) ElementType() reflect.Type {
@@ -3212,6 +3725,15 @@ func (o CustomResourceSubresourceScalePatchPtrOutput) StatusReplicasPath() pulum
 }
 
 // CustomResourceSubresources defines the status and scale subresources for CustomResources.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceSubresources struct {
 	// scale indicates the custom resource should serve a `/scale` subresource that returns an `autoscaling/v1` Scale object.
 	Scale *CustomResourceSubresourceScale `pulumi:"scale"`
@@ -3231,6 +3753,15 @@ type CustomResourceSubresourcesInput interface {
 }
 
 // CustomResourceSubresources defines the status and scale subresources for CustomResources.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceSubresourcesArgs struct {
 	// scale indicates the custom resource should serve a `/scale` subresource that returns an `autoscaling/v1` Scale object.
 	Scale CustomResourceSubresourceScalePtrInput `pulumi:"scale"`
@@ -3292,6 +3823,15 @@ func (i *customResourceSubresourcesPtrType) ToCustomResourceSubresourcesPtrOutpu
 }
 
 // CustomResourceSubresources defines the status and scale subresources for CustomResources.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceSubresourcesOutput struct{ *pulumi.OutputState }
 
 func (CustomResourceSubresourcesOutput) ElementType() reflect.Type {
@@ -3371,6 +3911,15 @@ func (o CustomResourceSubresourcesPtrOutput) Status() pulumi.AnyOutput {
 }
 
 // CustomResourceSubresources defines the status and scale subresources for CustomResources.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceSubresourcesPatch struct {
 	// scale indicates the custom resource should serve a `/scale` subresource that returns an `autoscaling/v1` Scale object.
 	Scale *CustomResourceSubresourceScalePatch `pulumi:"scale"`
@@ -3390,6 +3939,15 @@ type CustomResourceSubresourcesPatchInput interface {
 }
 
 // CustomResourceSubresources defines the status and scale subresources for CustomResources.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceSubresourcesPatchArgs struct {
 	// scale indicates the custom resource should serve a `/scale` subresource that returns an `autoscaling/v1` Scale object.
 	Scale CustomResourceSubresourceScalePatchPtrInput `pulumi:"scale"`
@@ -3451,6 +4009,15 @@ func (i *customResourceSubresourcesPatchPtrType) ToCustomResourceSubresourcesPat
 }
 
 // CustomResourceSubresources defines the status and scale subresources for CustomResources.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceSubresourcesPatchOutput struct{ *pulumi.OutputState }
 
 func (CustomResourceSubresourcesPatchOutput) ElementType() reflect.Type {
@@ -3530,6 +4097,15 @@ func (o CustomResourceSubresourcesPatchPtrOutput) Status() pulumi.AnyOutput {
 }
 
 // CustomResourceValidation is a list of validation methods for CustomResources.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceValidation struct {
 	// openAPIV3Schema is the OpenAPI v3 schema to use for validation and pruning.
 	OpenAPIV3Schema *JSONSchemaProps `pulumi:"openAPIV3Schema"`
@@ -3547,6 +4123,15 @@ type CustomResourceValidationInput interface {
 }
 
 // CustomResourceValidation is a list of validation methods for CustomResources.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceValidationArgs struct {
 	// openAPIV3Schema is the OpenAPI v3 schema to use for validation and pruning.
 	OpenAPIV3Schema JSONSchemaPropsPtrInput `pulumi:"openAPIV3Schema"`
@@ -3606,6 +4191,15 @@ func (i *customResourceValidationPtrType) ToCustomResourceValidationPtrOutputWit
 }
 
 // CustomResourceValidation is a list of validation methods for CustomResources.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceValidationOutput struct{ *pulumi.OutputState }
 
 func (CustomResourceValidationOutput) ElementType() reflect.Type {
@@ -3670,6 +4264,15 @@ func (o CustomResourceValidationPtrOutput) OpenAPIV3Schema() JSONSchemaPropsPtrO
 }
 
 // CustomResourceValidation is a list of validation methods for CustomResources.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceValidationPatch struct {
 	// openAPIV3Schema is the OpenAPI v3 schema to use for validation and pruning.
 	OpenAPIV3Schema *JSONSchemaPropsPatch `pulumi:"openAPIV3Schema"`
@@ -3687,6 +4290,15 @@ type CustomResourceValidationPatchInput interface {
 }
 
 // CustomResourceValidation is a list of validation methods for CustomResources.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceValidationPatchArgs struct {
 	// openAPIV3Schema is the OpenAPI v3 schema to use for validation and pruning.
 	OpenAPIV3Schema JSONSchemaPropsPatchPtrInput `pulumi:"openAPIV3Schema"`
@@ -3746,6 +4358,15 @@ func (i *customResourceValidationPatchPtrType) ToCustomResourceValidationPatchPt
 }
 
 // CustomResourceValidation is a list of validation methods for CustomResources.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type CustomResourceValidationPatchOutput struct{ *pulumi.OutputState }
 
 func (CustomResourceValidationPatchOutput) ElementType() reflect.Type {
@@ -3810,6 +4431,15 @@ func (o CustomResourceValidationPatchPtrOutput) OpenAPIV3Schema() JSONSchemaProp
 }
 
 // ExternalDocumentation allows referencing an external resource for extended documentation.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ExternalDocumentation struct {
 	Description *string `pulumi:"description"`
 	Url         *string `pulumi:"url"`
@@ -3827,6 +4457,15 @@ type ExternalDocumentationInput interface {
 }
 
 // ExternalDocumentation allows referencing an external resource for extended documentation.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ExternalDocumentationArgs struct {
 	Description pulumi.StringPtrInput `pulumi:"description"`
 	Url         pulumi.StringPtrInput `pulumi:"url"`
@@ -3886,6 +4525,15 @@ func (i *externalDocumentationPtrType) ToExternalDocumentationPtrOutputWithConte
 }
 
 // ExternalDocumentation allows referencing an external resource for extended documentation.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ExternalDocumentationOutput struct{ *pulumi.OutputState }
 
 func (ExternalDocumentationOutput) ElementType() reflect.Type {
@@ -3961,6 +4609,15 @@ func (o ExternalDocumentationPtrOutput) Url() pulumi.StringPtrOutput {
 }
 
 // ExternalDocumentation allows referencing an external resource for extended documentation.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ExternalDocumentationPatch struct {
 	Description *string `pulumi:"description"`
 	Url         *string `pulumi:"url"`
@@ -3978,6 +4635,15 @@ type ExternalDocumentationPatchInput interface {
 }
 
 // ExternalDocumentation allows referencing an external resource for extended documentation.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ExternalDocumentationPatchArgs struct {
 	Description pulumi.StringPtrInput `pulumi:"description"`
 	Url         pulumi.StringPtrInput `pulumi:"url"`
@@ -4037,6 +4703,15 @@ func (i *externalDocumentationPatchPtrType) ToExternalDocumentationPatchPtrOutpu
 }
 
 // ExternalDocumentation allows referencing an external resource for extended documentation.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ExternalDocumentationPatchOutput struct{ *pulumi.OutputState }
 
 func (ExternalDocumentationPatchOutput) ElementType() reflect.Type {
@@ -4112,6 +4787,15 @@ func (o ExternalDocumentationPatchPtrOutput) Url() pulumi.StringPtrOutput {
 }
 
 // JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-schema.org/).
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type JSONSchemaProps struct {
 	Ref                  *string           `pulumi:"$ref"`
 	Schema               *string           `pulumi:"$schema"`
@@ -4211,6 +4895,15 @@ type JSONSchemaPropsInput interface {
 }
 
 // JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-schema.org/).
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type JSONSchemaPropsArgs struct {
 	Ref                  pulumi.StringPtrInput     `pulumi:"$ref"`
 	Schema               pulumi.StringPtrInput     `pulumi:"$schema"`
@@ -4402,6 +5095,15 @@ func (i JSONSchemaPropsMap) ToJSONSchemaPropsMapOutputWithContext(ctx context.Co
 }
 
 // JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-schema.org/).
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type JSONSchemaPropsOutput struct{ *pulumi.OutputState }
 
 func (JSONSchemaPropsOutput) ElementType() reflect.Type {
@@ -5134,6 +5836,15 @@ func (o JSONSchemaPropsMapOutput) MapIndex(k pulumi.StringInput) JSONSchemaProps
 }
 
 // JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-schema.org/).
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type JSONSchemaPropsPatch struct {
 	Ref                  *string                `pulumi:"$ref"`
 	Schema               *string                `pulumi:"$schema"`
@@ -5233,6 +5944,15 @@ type JSONSchemaPropsPatchInput interface {
 }
 
 // JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-schema.org/).
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type JSONSchemaPropsPatchArgs struct {
 	Ref                  pulumi.StringPtrInput          `pulumi:"$ref"`
 	Schema               pulumi.StringPtrInput          `pulumi:"$schema"`
@@ -5399,6 +6119,15 @@ func (i JSONSchemaPropsPatchArray) ToJSONSchemaPropsPatchArrayOutputWithContext(
 }
 
 // JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-schema.org/).
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type JSONSchemaPropsPatchOutput struct{ *pulumi.OutputState }
 
 func (JSONSchemaPropsPatchOutput) ElementType() reflect.Type {
@@ -6111,6 +6840,15 @@ func (o JSONSchemaPropsPatchArrayOutput) Index(i pulumi.IntInput) JSONSchemaProp
 }
 
 // ServiceReference holds a reference to Service.legacy.k8s.io
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ServiceReference struct {
 	// name is the name of the service. Required
 	Name string `pulumi:"name"`
@@ -6134,6 +6872,15 @@ type ServiceReferenceInput interface {
 }
 
 // ServiceReference holds a reference to Service.legacy.k8s.io
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ServiceReferenceArgs struct {
 	// name is the name of the service. Required
 	Name pulumi.StringInput `pulumi:"name"`
@@ -6199,6 +6946,15 @@ func (i *serviceReferencePtrType) ToServiceReferencePtrOutputWithContext(ctx con
 }
 
 // ServiceReference holds a reference to Service.legacy.k8s.io
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ServiceReferenceOutput struct{ *pulumi.OutputState }
 
 func (ServiceReferenceOutput) ElementType() reflect.Type {
@@ -6308,6 +7064,15 @@ func (o ServiceReferencePtrOutput) Port() pulumi.IntPtrOutput {
 }
 
 // ServiceReference holds a reference to Service.legacy.k8s.io
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ServiceReferencePatch struct {
 	// name is the name of the service. Required
 	Name *string `pulumi:"name"`
@@ -6331,6 +7096,15 @@ type ServiceReferencePatchInput interface {
 }
 
 // ServiceReference holds a reference to Service.legacy.k8s.io
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ServiceReferencePatchArgs struct {
 	// name is the name of the service. Required
 	Name pulumi.StringPtrInput `pulumi:"name"`
@@ -6396,6 +7170,15 @@ func (i *serviceReferencePatchPtrType) ToServiceReferencePatchPtrOutputWithConte
 }
 
 // ServiceReference holds a reference to Service.legacy.k8s.io
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type ServiceReferencePatchOutput struct{ *pulumi.OutputState }
 
 func (ServiceReferencePatchOutput) ElementType() reflect.Type {
@@ -6505,6 +7288,15 @@ func (o ServiceReferencePatchPtrOutput) Port() pulumi.IntPtrOutput {
 }
 
 // WebhookClientConfig contains the information to make a TLS connection with the webhook.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type WebhookClientConfig struct {
 	// caBundle is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
 	CaBundle *string `pulumi:"caBundle"`
@@ -6538,6 +7330,15 @@ type WebhookClientConfigInput interface {
 }
 
 // WebhookClientConfig contains the information to make a TLS connection with the webhook.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type WebhookClientConfigArgs struct {
 	// caBundle is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
 	CaBundle pulumi.StringPtrInput `pulumi:"caBundle"`
@@ -6613,6 +7414,15 @@ func (i *webhookClientConfigPtrType) ToWebhookClientConfigPtrOutputWithContext(c
 }
 
 // WebhookClientConfig contains the information to make a TLS connection with the webhook.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type WebhookClientConfigOutput struct{ *pulumi.OutputState }
 
 func (WebhookClientConfigOutput) ElementType() reflect.Type {
@@ -6731,6 +7541,15 @@ func (o WebhookClientConfigPtrOutput) Url() pulumi.StringPtrOutput {
 }
 
 // WebhookClientConfig contains the information to make a TLS connection with the webhook.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type WebhookClientConfigPatch struct {
 	// caBundle is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
 	CaBundle *string `pulumi:"caBundle"`
@@ -6764,6 +7583,15 @@ type WebhookClientConfigPatchInput interface {
 }
 
 // WebhookClientConfig contains the information to make a TLS connection with the webhook.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type WebhookClientConfigPatchArgs struct {
 	// caBundle is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
 	CaBundle pulumi.StringPtrInput `pulumi:"caBundle"`
@@ -6839,6 +7667,15 @@ func (i *webhookClientConfigPatchPtrType) ToWebhookClientConfigPatchPtrOutputWit
 }
 
 // WebhookClientConfig contains the information to make a TLS connection with the webhook.
+//
+// By default Pulumi does _not_ wait for this resource to
+// become ready when it is created or updated.
+//
+// If you want Pulumi to wait for this resource to become ready, you can use the
+// 'pulumi.com/waitFor' annotation to provide custom readiness criteria. See the
+// documentation
+// (http://localhost:1313/registry/packages/kubernetes/installation-configuration/#pulumicomwaitfor)
+// for a detailed description of the values this annotation accepts.
 type WebhookClientConfigPatchOutput struct{ *pulumi.OutputState }
 
 func (WebhookClientConfigPatchOutput) ElementType() reflect.Type {
