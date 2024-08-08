@@ -362,7 +362,7 @@ func (dia *deploymentInitAwaiter) await(
 		case <-aggregateErrorTicker:
 			messages := dia.aggregatePodErrors()
 			for _, message := range messages {
-				dia.config.logMessage(message)
+				dia.config.logger.LogStatus(message.Severity, message.S)
 			}
 		case event := <-deploymentEvents:
 			dia.processDeploymentEvent(event)
@@ -440,7 +440,7 @@ func (dia *deploymentInitAwaiter) checkAndLogStatus() bool {
 				return false
 			}
 
-			dia.config.logStatus(diag.Info,
+			dia.config.logger.LogStatus(diag.Info,
 				fmt.Sprintf("%sDeployment initialization complete", cmdutil.EmojiOr("✅ ", "")))
 			return true
 		}
@@ -450,7 +450,7 @@ func (dia *deploymentInitAwaiter) checkAndLogStatus() bool {
 				return false
 			}
 
-			dia.config.logStatus(diag.Info,
+			dia.config.logger.LogStatus(diag.Info,
 				fmt.Sprintf("%sDeployment initialization complete", cmdutil.EmojiOr("✅ ", "")))
 			return true
 		}
@@ -546,7 +546,7 @@ func (dia *deploymentInitAwaiter) processDeploymentEvent(event watch.Event) {
 				}
 				message = fmt.Sprintf("[%s] %s", reason, message)
 				dia.deploymentErrors[reason] = message
-				dia.config.logStatus(diag.Warning, message)
+				dia.config.logger.LogStatus(diag.Warning, message)
 			}
 
 			dia.replicaSetAvailable = condition["reason"] == "NewReplicaSetAvailable" && isProgressing
@@ -567,7 +567,7 @@ func (dia *deploymentInitAwaiter) processDeploymentEvent(event watch.Event) {
 				}
 				message = fmt.Sprintf("[%s] %s", reason, message)
 				dia.deploymentErrors[reason] = message
-				dia.config.logStatus(diag.Warning, message)
+				dia.config.logger.LogStatus(diag.Warning, message)
 			}
 		}
 	}
@@ -714,14 +714,14 @@ func (dia *deploymentInitAwaiter) checkReplicaSetStatus() {
 	}
 
 	if !dia.updatedReplicaSetReady {
-		dia.config.logStatus(
+		dia.config.logger.LogStatus(
 			diag.Info,
 			fmt.Sprintf("Waiting for app ReplicaSet to be available (%d/%d Pods available)",
 				readyReplicas, specReplicas))
 	}
 
 	if dia.updatedReplicaSetReady && specReplicasExists && specReplicas == 0 {
-		dia.config.logStatus(
+		dia.config.logger.LogStatus(
 			diag.Warning,
 			fmt.Sprintf("Replicas scaled to 0 for Deployment %q", dia.deployment.GetName()))
 	}
@@ -754,7 +754,7 @@ func (dia *deploymentInitAwaiter) checkPersistentVolumeClaimStatus() {
 			allPVCsReady = false
 			message := fmt.Sprintf(
 				"PersistentVolumeClaim: [%s] is not ready. status.phase currently at: %s", pvc.GetName(), phase)
-			dia.config.logStatus(diag.Warning, message)
+			dia.config.logger.LogStatus(diag.Warning, message)
 		}
 	}
 

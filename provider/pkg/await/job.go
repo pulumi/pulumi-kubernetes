@@ -188,7 +188,7 @@ func (jia *jobInitAwaiter) Read() error {
 	messages := podAggregator.Read()
 	for _, message := range messages {
 		jia.errors.Add(message)
-		jia.config.logMessage(message)
+		jia.config.logger.LogStatus(message.Severity, message.S)
 	}
 
 	return &initializationError{
@@ -220,7 +220,7 @@ func (jia *jobInitAwaiter) processJobEvent(event watch.Event) error {
 		jia.errors.Add(message)
 	}
 	for _, result := range results {
-		jia.config.logStatus(diag.Info, result.Description)
+		jia.config.logger.LogStatus(diag.Info, result.Description)
 	}
 
 	if len(messages.Errors()) > 0 {
@@ -242,7 +242,7 @@ func (jia *jobInitAwaiter) processPodMessages(messages checkerlog.Messages) {
 		if strings.Contains(message.S, "containers with unready status") {
 			continue
 		}
-		jia.config.logMessage(message)
+		jia.config.logger.LogStatus(message.Severity, message.S)
 	}
 }
 

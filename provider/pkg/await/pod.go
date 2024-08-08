@@ -231,6 +231,6 @@ func (pia *podInitAwaiter) processPodEvent(event watch.Event) {
 	pia.ready, results = pia.checker.ReadyDetails(pod)
 	pia.messages = results.Messages()
 	for _, result := range results {
-		pia.config.logStatus(diag.Info, result.Description)
+		pia.config.logger.LogStatus(diag.Info, result.Description)
 	}
 }

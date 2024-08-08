@@ -177,7 +177,8 @@ func (iia *ingressInitAwaiter) Read() error {
 }
 
 func (iia *ingressInitAwaiter) read(ingress *unstructured.Unstructured, endpoints *unstructured.UnstructuredList,
-	services *unstructured.UnstructuredList) error {
+	services *unstructured.UnstructuredList,
+) error {
 	iia.processIngressEvent(watchAddedEvent(ingress))
 
 	err := services.EachListItem(func(service runtime.Object) error {
@@ -217,7 +218,7 @@ func (iia *ingressInitAwaiter) await(
 	settlementGracePeriodExpired <-chan time.Time,
 	timeout <-chan time.Time,
 ) error {
-	iia.config.logStatus(diag.Info, "[1/3] Finding a matching service for each Ingress path")
+	iia.config.logger.LogStatus(diag.Info, "[1/3] Finding a matching service for each Ingress path")
 
 	for {
 		// Check whether we've succeeded.
@@ -370,7 +371,7 @@ func (iia *ingressInitAwaiter) checkIfEndpointsReady() (string, bool) {
 					if iia.endpointsSettled {
 						// We haven't seen the target endpoint emit any events within the settlement period
 						// and there is a chance it may never exist.
-						iia.config.logStatus(diag.Warning, fmt.Sprintf("No matching service found for ingress rule: %s",
+						iia.config.logger.LogStatus(diag.Warning, fmt.Sprintf("No matching service found for ingress rule: %s",
 							expectedIngressPath(rule.Host, path.Path, path.Backend.ServiceName)))
 					} else {
 						// We may get more endpoint events, lets wait and retry.
@@ -408,7 +409,7 @@ func (iia *ingressInitAwaiter) checkIfEndpointsReady() (string, bool) {
 						// We haven't seen the target endpoint emit any events within the settlement period
 						// and there is a chance it may never exist
 						// (https://github.com/pulumi/pulumi-kubernetes/issues/1810)
-						iia.config.logStatus(diag.Warning, fmt.Sprintf("No matching service found for ingress rule: %s",
+						iia.config.logger.LogStatus(diag.Warning, fmt.Sprintf("No matching service found for ingress rule: %s",
 							expectedIngressPath(rule.Host, path.Path, path.Backend.Service.Name)))
 					} else {
 						// We may get more endpoint events, lets wait and retry.
@@ -494,10 +495,10 @@ func (iia *ingressInitAwaiter) checkAndLogStatus() bool {
 	_, ready := iia.checkIfEndpointsReady()
 	success := iia.ingressReady && ready
 	if success {
-		iia.config.logStatus(diag.Info,
+		iia.config.logger.LogStatus(diag.Info,
 			fmt.Sprintf("%sIngress initialization complete", cmdutil.EmojiOr("✅ ", "")))
 	} else if ready {
-		iia.config.logStatus(diag.Info, "[2/3] Waiting for update of .status.loadBalancer with hostname/IP")
+		iia.config.logger.LogStatus(diag.Info, "[2/3] Waiting for update of .status.loadBalancer with hostname/IP")
 	}
 
 	return success
@@ -511,21 +512,18 @@ func (iia *ingressInitAwaiter) makeClients() (
 	if err != nil {
 		return nil, nil, nil, fmt.Errorf("Could not make client to watch Ingress %q: %w",
 			iia.config.currentOutputs.GetName(), err)
-
 	}
 	endpointsClient, err = clients.ResourceClient(
 		kinds.Endpoints, iia.config.currentOutputs.GetNamespace(), iia.config.clientSet)
 	if err != nil {
 		return nil, nil, nil, fmt.Errorf("Could not make client to watch Endpoints associated with Ingress %q: %w",
 			iia.config.currentOutputs.GetName(), err)
-
 	}
 	servicesClient, err = clients.ResourceClient(
 		kinds.Service, iia.config.currentOutputs.GetNamespace(), iia.config.clientSet)
 	if err != nil {
 		return nil, nil, nil, fmt.Errorf("Could not make client to watch Services associated with Ingress %q: %w",
 			iia.config.currentOutputs.GetName(), err)
-
 	}
 
 	return
