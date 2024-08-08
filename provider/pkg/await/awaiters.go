@@ -21,7 +21,6 @@ import (
 	"time"
 
 	"github.com/jonboulle/clockwork"
-	checkerlog "github.com/pulumi/cloud-ready-checks/pkg/checker/logging"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/cluster"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/logging"
@@ -51,14 +50,6 @@ type createAwaitConfig struct {
 	timeout           *time.Duration
 	clusterVersion    *cluster.ServerVersion
 	clock             clockwork.Clock
-}
-
-func (cac *createAwaitConfig) logStatus(sev diag.Severity, message string) {
-	cac.logMessage(checkerlog.Message{S: message, Severity: sev})
-}
-
-func (cac *createAwaitConfig) logMessage(message checkerlog.Message) {
-	cac.logger.LogMessage(message)
 }
 
 // Clock returns a real or mock clock for the config as appropriate.
