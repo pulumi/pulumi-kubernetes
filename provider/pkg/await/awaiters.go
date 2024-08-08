@@ -453,9 +453,9 @@ func untilCoreV1PersistentVolumeInitialized(c createAwaitConfig) error {
 		phase, _ := openapi.Pluck(pv.Object, "status", "phase")
 		logger.V(3).Infof("Persistent volume %q status received: %#v", pv.GetName(), phase)
 		if phase == available {
-			c.logStatus(diag.Info, "✅ PV marked available")
+			c.logger.LogStatus(diag.Info, "✅ PV marked available")
 		} else if phase == bound {
-			c.logStatus(diag.Info, "✅ PV has been bound")
+			c.logger.LogStatus(diag.Info, "✅ PV has been bound")
 		}
 		return phase == available || phase == bound
 	}
@@ -481,7 +481,7 @@ func untilCoreV1PersistentVolumeClaimReady(c createAwaitConfig) error {
 		if bindMode == "" {
 			b, err := pvcBindMode(c.ctx, c.clientSet, pvc)
 			if err != nil {
-				c.logStatus(diag.Warning, err.Error())
+				c.logger.LogStatus(diag.Warning, err.Error())
 			}
 			bindMode = b
 		}

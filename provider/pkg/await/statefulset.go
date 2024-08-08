@@ -301,7 +301,7 @@ func (sia *statefulsetInitAwaiter) await(
 		case <-aggregateErrorTicker:
 			messages := sia.aggregatePodErrors()
 			for _, message := range messages {
-				sia.config.logMessage(message)
+				sia.config.logger.LogStatus(message.Severity, message.S)
 			}
 		case event := <-statefulsetEvents:
 			sia.processStatefulSetEvent(event)
@@ -315,7 +315,7 @@ func (sia *statefulsetInitAwaiter) await(
 // the provider.
 func (sia *statefulsetInitAwaiter) checkAndLogStatus() bool {
 	if sia.replicasReady && sia.revisionReady {
-		sia.config.logStatus(diag.Info,
+		sia.config.logger.LogStatus(diag.Info,
 			fmt.Sprintf("%sStatefulSet initialization complete", cmdutil.EmojiOr("✅ ", "")))
 		return true
 	}
@@ -324,15 +324,15 @@ func (sia *statefulsetInitAwaiter) checkAndLogStatus() bool {
 
 	// For initial generation, the revision doesn't need to be updated, so skip that step in the log.
 	if isInitialDeployment {
-		sia.config.logStatus(diag.Info, fmt.Sprintf("[1/2] Waiting for StatefulSet to create Pods (%d/%d Pods ready)",
+		sia.config.logger.LogStatus(diag.Info, fmt.Sprintf("[1/2] Waiting for StatefulSet to create Pods (%d/%d Pods ready)",
 			sia.currentReplicas, sia.targetReplicas))
 	} else {
 		switch {
 		case !sia.replicasReady:
-			sia.config.logStatus(diag.Info, fmt.Sprintf("[1/3] Waiting for StatefulSet update to roll out (%d/%d Pods ready)",
+			sia.config.logger.LogStatus(diag.Info, fmt.Sprintf("[1/3] Waiting for StatefulSet update to roll out (%d/%d Pods ready)",
 				sia.currentReplicas, sia.targetReplicas))
 		case !sia.revisionReady:
-			sia.config.logStatus(diag.Info,
+			sia.config.logger.LogStatus(diag.Info,
 				"[2/3] Waiting for StatefulSet to update .status.currentRevision")
 		}
 	}
@@ -511,14 +511,12 @@ func (sia *statefulsetInitAwaiter) makeClients() (
 	if err != nil {
 		return nil, nil, fmt.Errorf("Could not make client to watch StatefulSet %q: %w",
 			sia.config.currentOutputs.GetName(), err)
-
 	}
 	podClient, err = clients.ResourceClient(
 		kinds.Pod, sia.config.currentOutputs.GetNamespace(), sia.config.clientSet)
 	if err != nil {
 		return nil, nil, fmt.Errorf("Could not make client to watch Pods associated with StatefulSet %q: %w",
 			sia.config.currentOutputs.GetName(), err)
-
 	}
 
 	return statefulSetClient, podClient, nil

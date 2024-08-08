@@ -108,7 +108,7 @@ func (dsa *dsAwaiter) Delete() error {
 			return true
 		}
 		misscheduled, _ := openapi.Pluck(dsa.ds.Object, "status", "numberMisscheduled")
-		dsa.config.logStatus(
+		dsa.config.logger.LogStatus(
 			diag.Info,
 			fmt.Sprintf(
 				"DaemonSet %q still exists (%v pods misscheduled)",
@@ -240,18 +240,18 @@ func (dsa *dsAwaiter) await(done func() bool) error {
 func (dsa *dsAwaiter) rolloutComplete() bool {
 	res, err := status.Compute(dsa.ds)
 	if err != nil {
-		dsa.config.logStatus(diag.Error, err.Error())
+		dsa.config.logger.LogStatus(diag.Error, err.Error())
 		return false
 	}
 
 	done := res.Status == status.CurrentStatus
 
 	if done {
-		dsa.config.logStatus(diag.Info, fmt.Sprintf("%s%s", cmdutil.EmojiOr("✅ ", ""), res.Message))
+		dsa.config.logger.LogStatus(diag.Info, fmt.Sprintf("%s%s", cmdutil.EmojiOr("✅ ", ""), res.Message))
 		return true
 	}
 
-	dsa.config.logStatus(diag.Info, res.Message)
+	dsa.config.logger.LogStatus(diag.Info, res.Message)
 	return false
 }
 
@@ -284,7 +284,7 @@ func (dsa *dsAwaiter) processDaemonSetEvent(event watch.Event) {
 // processPodMessages logs pod messages from a PodAggregator.
 func (dsa *dsAwaiter) processPodMessages(messages logging.Messages) {
 	for _, message := range messages {
-		dsa.config.logMessage(message)
+		dsa.config.logger.LogStatus(message.Severity, message.S)
 	}
 }
 

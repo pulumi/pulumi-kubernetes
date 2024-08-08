@@ -232,7 +232,7 @@ func (sia *serviceInitAwaiter) await(
 	settled chan struct{},
 	version cluster.ServerVersion,
 ) error {
-	sia.config.logStatus(diag.Info, "[1/3] Finding Pods to direct traffic to")
+	sia.config.logger.LogStatus(diag.Info, "[1/3] Finding Pods to direct traffic to")
 
 	for {
 		// Check whether we've succeeded.
@@ -405,10 +405,10 @@ func (sia *serviceInitAwaiter) checkAndLogStatus() bool {
 
 	success := sia.serviceReady && sia.endpointsSettled && sia.endpointsReady
 	if success {
-		sia.config.logStatus(diag.Info,
+		sia.config.logger.LogStatus(diag.Info,
 			fmt.Sprintf("%sService initialization complete", cmdutil.EmojiOr("✅ ", "")))
 	} else if sia.endpointsSettled && sia.endpointsReady {
-		sia.config.logStatus(diag.Info, "[2/3] Attempting to allocate IP address to Service")
+		sia.config.logger.LogStatus(diag.Info, "[2/3] Attempting to allocate IP address to Service")
 	}
 
 	return success
@@ -422,14 +422,12 @@ func (sia *serviceInitAwaiter) makeClients() (
 	if err != nil {
 		return nil, nil, fmt.Errorf("Could not make client to read Service %q: %w",
 			sia.config.currentOutputs.GetName(), err)
-
 	}
 	endpointClient, err = clients.ResourceClient(
 		kinds.Endpoints, sia.config.currentOutputs.GetNamespace(), sia.config.clientSet)
 	if err != nil {
 		return nil, nil, fmt.Errorf("Could not make client to read Endpoints associated with Service %q: %w",
 			sia.config.currentOutputs.GetName(), err)
-
 	}
 
 	return serviceClient, endpointClient, nil
