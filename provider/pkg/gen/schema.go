@@ -491,10 +491,15 @@ additional information about using Server-Side Apply to manage Kubernetes resour
 	})
 
 	pkg.Language["java"] = rawMessage(map[string]any{
-		"packages": javaPackages,
+		"buildFiles":                      "gradle",
+		"gradleNexusPublishPluginVersion": "1.1.0",
+		"packages":                        javaPackages,
 		"dependencies": map[string]string{
-			"net.bytebuddy:byte-buddy": "1.14.15",
-			"com.google.guava:guava":   "32.1.2-jre",
+			"net.bytebuddy:byte-buddy":        "1.14.15",
+			"com.google.guava:guava":          "32.1.2-jre",
+			"com.google.code.gson:gson":       "2.8.9",
+			"com.google.code.findbugs:jsr305": "3.0.2",
+			"com.pulumi:pulumi":               "0.13.0",
 		},
 	})
 
