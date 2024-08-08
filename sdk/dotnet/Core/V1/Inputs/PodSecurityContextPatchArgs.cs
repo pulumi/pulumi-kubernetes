@@ -71,13 +71,19 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         private InputList<int>? _supplementalGroups;
 
         /// <summary>
-        /// A list of groups applied to the first process run in each container, in addition to the container's primary GID, the fsGroup (if specified), and group memberships defined in the container image for the uid of the container process. If unspecified, no additional groups are added to any container. Note that group memberships defined in the container image for the uid of the container process are still effective, even if they are not included in this list. Note that this field cannot be set when spec.os.name is windows.
+        /// A list of groups applied to the first process run in each container, in addition to the container's primary GID and fsGroup (if specified).  If the SupplementalGroupsPolicy feature is enabled, the supplementalGroupsPolicy field determines whether these are in addition to or instead of any group memberships defined in the container image. If unspecified, no additional groups are added, though group memberships defined in the container image may still be used, depending on the supplementalGroupsPolicy field. Note that this field cannot be set when spec.os.name is windows.
         /// </summary>
         public InputList<int> SupplementalGroups
         {
             get => _supplementalGroups ?? (_supplementalGroups = new InputList<int>());
             set => _supplementalGroups = value;
         }
+
+        /// <summary>
+        /// Defines how supplemental groups of the first container processes are calculated. Valid values are "Merge" and "Strict". If not specified, "Merge" is used. (Alpha) Using the field requires the SupplementalGroupsPolicy feature gate to be enabled and the container runtime must implement support for this feature. Note that this field cannot be set when spec.os.name is windows.
+        /// </summary>
+        [Input("supplementalGroupsPolicy")]
+        public Input<string>? SupplementalGroupsPolicy { get; set; }
 
         [Input("sysctls")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.SysctlPatchArgs>? _sysctls;

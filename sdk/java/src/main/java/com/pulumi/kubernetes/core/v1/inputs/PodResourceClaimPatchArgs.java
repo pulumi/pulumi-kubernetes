@@ -13,7 +13,9 @@ import javax.annotation.Nullable;
 
 
 /**
- * PodResourceClaim references exactly one ResourceClaim through a ClaimSource. It adds a name to it that uniquely identifies the ResourceClaim inside the Pod. Containers that need access to the ResourceClaim reference it with this name.
+ * PodResourceClaim references exactly one ResourceClaim, either directly or by naming a ResourceClaimTemplate which is then turned into a ResourceClaim for the pod.
+ * 
+ * It adds a name to it that uniquely identifies the ResourceClaim inside the Pod. Containers that need access to the ResourceClaim reference it with this name.
  * 
  */
 public final class PodResourceClaimPatchArgs extends com.pulumi.resources.ResourceArgs {
@@ -36,6 +38,52 @@ public final class PodResourceClaimPatchArgs extends com.pulumi.resources.Resour
     }
 
     /**
+     * ResourceClaimName is the name of a ResourceClaim object in the same namespace as this pod.
+     * 
+     * Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
+     * 
+     */
+    @Import(name="resourceClaimName")
+    private @Nullable Output<String> resourceClaimName;
+
+    /**
+     * @return ResourceClaimName is the name of a ResourceClaim object in the same namespace as this pod.
+     * 
+     * Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
+     * 
+     */
+    public Optional<Output<String>> resourceClaimName() {
+        return Optional.ofNullable(this.resourceClaimName);
+    }
+
+    /**
+     * ResourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace as this pod.
+     * 
+     * The template will be used to create a new ResourceClaim, which will be bound to this pod. When this pod is deleted, the ResourceClaim will also be deleted. The pod name and resource name, along with a generated component, will be used to form a unique name for the ResourceClaim, which will be recorded in pod.status.resourceClaimStatuses.
+     * 
+     * This field is immutable and no changes will be made to the corresponding ResourceClaim by the control plane after creating the ResourceClaim.
+     * 
+     * Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
+     * 
+     */
+    @Import(name="resourceClaimTemplateName")
+    private @Nullable Output<String> resourceClaimTemplateName;
+
+    /**
+     * @return ResourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace as this pod.
+     * 
+     * The template will be used to create a new ResourceClaim, which will be bound to this pod. When this pod is deleted, the ResourceClaim will also be deleted. The pod name and resource name, along with a generated component, will be used to form a unique name for the ResourceClaim, which will be recorded in pod.status.resourceClaimStatuses.
+     * 
+     * This field is immutable and no changes will be made to the corresponding ResourceClaim by the control plane after creating the ResourceClaim.
+     * 
+     * Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
+     * 
+     */
+    public Optional<Output<String>> resourceClaimTemplateName() {
+        return Optional.ofNullable(this.resourceClaimTemplateName);
+    }
+
+    /**
      * Source describes where to find the ResourceClaim.
      * 
      */
@@ -54,6 +102,8 @@ public final class PodResourceClaimPatchArgs extends com.pulumi.resources.Resour
 
     private PodResourceClaimPatchArgs(PodResourceClaimPatchArgs $) {
         this.name = $.name;
+        this.resourceClaimName = $.resourceClaimName;
+        this.resourceClaimTemplateName = $.resourceClaimTemplateName;
         this.source = $.source;
     }
 
@@ -94,6 +144,64 @@ public final class PodResourceClaimPatchArgs extends com.pulumi.resources.Resour
          */
         public Builder name(String name) {
             return name(Output.of(name));
+        }
+
+        /**
+         * @param resourceClaimName ResourceClaimName is the name of a ResourceClaim object in the same namespace as this pod.
+         * 
+         * Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder resourceClaimName(@Nullable Output<String> resourceClaimName) {
+            $.resourceClaimName = resourceClaimName;
+            return this;
+        }
+
+        /**
+         * @param resourceClaimName ResourceClaimName is the name of a ResourceClaim object in the same namespace as this pod.
+         * 
+         * Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder resourceClaimName(String resourceClaimName) {
+            return resourceClaimName(Output.of(resourceClaimName));
+        }
+
+        /**
+         * @param resourceClaimTemplateName ResourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace as this pod.
+         * 
+         * The template will be used to create a new ResourceClaim, which will be bound to this pod. When this pod is deleted, the ResourceClaim will also be deleted. The pod name and resource name, along with a generated component, will be used to form a unique name for the ResourceClaim, which will be recorded in pod.status.resourceClaimStatuses.
+         * 
+         * This field is immutable and no changes will be made to the corresponding ResourceClaim by the control plane after creating the ResourceClaim.
+         * 
+         * Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder resourceClaimTemplateName(@Nullable Output<String> resourceClaimTemplateName) {
+            $.resourceClaimTemplateName = resourceClaimTemplateName;
+            return this;
+        }
+
+        /**
+         * @param resourceClaimTemplateName ResourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace as this pod.
+         * 
+         * The template will be used to create a new ResourceClaim, which will be bound to this pod. When this pod is deleted, the ResourceClaim will also be deleted. The pod name and resource name, along with a generated component, will be used to form a unique name for the ResourceClaim, which will be recorded in pod.status.resourceClaimStatuses.
+         * 
+         * This field is immutable and no changes will be made to the corresponding ResourceClaim by the control plane after creating the ResourceClaim.
+         * 
+         * Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder resourceClaimTemplateName(String resourceClaimTemplateName) {
+            return resourceClaimTemplateName(Output.of(resourceClaimTemplateName));
         }
 
         /**

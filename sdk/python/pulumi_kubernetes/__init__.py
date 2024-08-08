@@ -372,6 +372,16 @@ _utilities.register(
  },
  {
   "pkg": "kubernetes",
+  "mod": "coordination.k8s.io/v1alpha1",
+  "fqn": "pulumi_kubernetes.coordination.v1alpha1",
+  "classes": {
+   "kubernetes:coordination.k8s.io/v1alpha1:LeaseCandidate": "LeaseCandidate",
+   "kubernetes:coordination.k8s.io/v1alpha1:LeaseCandidateList": "LeaseCandidateList",
+   "kubernetes:coordination.k8s.io/v1alpha1:LeaseCandidatePatch": "LeaseCandidatePatch"
+  }
+ },
+ {
+  "pkg": "kubernetes",
   "mod": "coordination.k8s.io/v1beta1",
   "fqn": "pulumi_kubernetes.coordination.v1beta1",
   "classes": {
@@ -634,12 +644,18 @@ _utilities.register(
   "mod": "networking.k8s.io/v1beta1",
   "fqn": "pulumi_kubernetes.networking.v1beta1",
   "classes": {
+   "kubernetes:networking.k8s.io/v1beta1:IPAddress": "IPAddress",
+   "kubernetes:networking.k8s.io/v1beta1:IPAddressList": "IPAddressList",
+   "kubernetes:networking.k8s.io/v1beta1:IPAddressPatch": "IPAddressPatch",
    "kubernetes:networking.k8s.io/v1beta1:Ingress": "Ingress",
    "kubernetes:networking.k8s.io/v1beta1:IngressClass": "IngressClass",
    "kubernetes:networking.k8s.io/v1beta1:IngressClassList": "IngressClassList",
    "kubernetes:networking.k8s.io/v1beta1:IngressClassPatch": "IngressClassPatch",
    "kubernetes:networking.k8s.io/v1beta1:IngressList": "IngressList",
-   "kubernetes:networking.k8s.io/v1beta1:IngressPatch": "IngressPatch"
+   "kubernetes:networking.k8s.io/v1beta1:IngressPatch": "IngressPatch",
+   "kubernetes:networking.k8s.io/v1beta1:ServiceCIDR": "ServiceCIDR",
+   "kubernetes:networking.k8s.io/v1beta1:ServiceCIDRList": "ServiceCIDRList",
+   "kubernetes:networking.k8s.io/v1beta1:ServiceCIDRPatch": "ServiceCIDRPatch"
   }
  },
  {
@@ -801,6 +817,27 @@ _utilities.register(
  },
  {
   "pkg": "kubernetes",
+  "mod": "resource.k8s.io/v1alpha3",
+  "fqn": "pulumi_kubernetes.resource.v1alpha3",
+  "classes": {
+   "kubernetes:resource.k8s.io/v1alpha3:DeviceClass": "DeviceClass",
+   "kubernetes:resource.k8s.io/v1alpha3:DeviceClassList": "DeviceClassList",
+   "kubernetes:resource.k8s.io/v1alpha3:DeviceClassPatch": "DeviceClassPatch",
+   "kubernetes:resource.k8s.io/v1alpha3:PodSchedulingContext": "PodSchedulingContext",
+   "kubernetes:resource.k8s.io/v1alpha3:PodSchedulingContextList": "PodSchedulingContextList",
+   "kubernetes:resource.k8s.io/v1alpha3:PodSchedulingContextPatch": "PodSchedulingContextPatch",
+   "kubernetes:resource.k8s.io/v1alpha3:ResourceClaim": "ResourceClaim",
+   "kubernetes:resource.k8s.io/v1alpha3:ResourceClaimList": "ResourceClaimList",
+   "kubernetes:resource.k8s.io/v1alpha3:ResourceClaimPatch": "ResourceClaimPatch",
+   "kubernetes:resource.k8s.io/v1alpha3:ResourceClaimTemplate": "ResourceClaimTemplate",
+   "kubernetes:resource.k8s.io/v1alpha3:ResourceClaimTemplateList": "ResourceClaimTemplateList",
+   "kubernetes:resource.k8s.io/v1alpha3:ResourceClaimTemplatePatch": "ResourceClaimTemplatePatch",
+   "kubernetes:resource.k8s.io/v1alpha3:ResourceSlice": "ResourceSlice",
+   "kubernetes:resource.k8s.io/v1alpha3:ResourceSlicePatch": "ResourceSlicePatch"
+  }
+ },
+ {
+  "pkg": "kubernetes",
   "mod": "scheduling.k8s.io/v1",
   "fqn": "pulumi_kubernetes.scheduling.v1",
   "classes": {
@@ -893,7 +930,10 @@ _utilities.register(
    "kubernetes:storage.k8s.io/v1beta1:StorageClassPatch": "StorageClassPatch",
    "kubernetes:storage.k8s.io/v1beta1:VolumeAttachment": "VolumeAttachment",
    "kubernetes:storage.k8s.io/v1beta1:VolumeAttachmentList": "VolumeAttachmentList",
-   "kubernetes:storage.k8s.io/v1beta1:VolumeAttachmentPatch": "VolumeAttachmentPatch"
+   "kubernetes:storage.k8s.io/v1beta1:VolumeAttachmentPatch": "VolumeAttachmentPatch",
+   "kubernetes:storage.k8s.io/v1beta1:VolumeAttributesClass": "VolumeAttributesClass",
+   "kubernetes:storage.k8s.io/v1beta1:VolumeAttributesClassList": "VolumeAttributesClassList",
+   "kubernetes:storage.k8s.io/v1beta1:VolumeAttributesClassPatch": "VolumeAttributesClassPatch"
   }
  },
  {

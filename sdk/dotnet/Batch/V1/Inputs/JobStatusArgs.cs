@@ -64,7 +64,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Batch.V1
         public Input<string>? FailedIndexes { get; set; }
 
         /// <summary>
-        /// The number of pods which have a Ready condition.
+        /// The number of active pods which have a Ready condition and are not terminating (without a deletionTimestamp).
         /// </summary>
         [Input("ready")]
         public Input<int>? Ready { get; set; }

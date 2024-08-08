@@ -87,6 +87,8 @@ export class PodSchedulingContext extends pulumi.CustomResource {
             resourceInputs["status"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const aliasOpts = { aliases: [{ type: "kubernetes:resource.k8s.io/v1alpha3:PodSchedulingContext" }] };
+        opts = pulumi.mergeOptions(opts, aliasOpts);
         super(PodSchedulingContext.__pulumiType, name, resourceInputs, opts);
     }
 }

@@ -26,12 +26,12 @@ public final class StatefulSetSpec {
      */
     private @Nullable Integer minReadySeconds;
     /**
-     * @return ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a &#34;0&#34; index to the first replica and increments the index by one for each additional replica requested. Using the ordinals field requires the StatefulSetStartOrdinal feature gate to be enabled, which is beta.
+     * @return ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a &#34;0&#34; index to the first replica and increments the index by one for each additional replica requested.
      * 
      */
     private @Nullable StatefulSetOrdinals ordinals;
     /**
-     * @return persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is alpha.  +optional
+     * @return persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is beta.
      * 
      */
     private @Nullable StatefulSetPersistentVolumeClaimRetentionPolicy persistentVolumeClaimRetentionPolicy;
@@ -85,14 +85,14 @@ public final class StatefulSetSpec {
         return Optional.ofNullable(this.minReadySeconds);
     }
     /**
-     * @return ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a &#34;0&#34; index to the first replica and increments the index by one for each additional replica requested. Using the ordinals field requires the StatefulSetStartOrdinal feature gate to be enabled, which is beta.
+     * @return ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a &#34;0&#34; index to the first replica and increments the index by one for each additional replica requested.
      * 
      */
     public Optional<StatefulSetOrdinals> ordinals() {
         return Optional.ofNullable(this.ordinals);
     }
     /**
-     * @return persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is alpha.  +optional
+     * @return persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is beta.
      * 
      */
     public Optional<StatefulSetPersistentVolumeClaimRetentionPolicy> persistentVolumeClaimRetentionPolicy() {

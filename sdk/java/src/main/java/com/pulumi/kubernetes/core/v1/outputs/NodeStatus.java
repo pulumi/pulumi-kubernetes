@@ -10,6 +10,7 @@ import com.pulumi.kubernetes.core.v1.outputs.NodeAddress;
 import com.pulumi.kubernetes.core.v1.outputs.NodeCondition;
 import com.pulumi.kubernetes.core.v1.outputs.NodeConfigStatus;
 import com.pulumi.kubernetes.core.v1.outputs.NodeDaemonEndpoints;
+import com.pulumi.kubernetes.core.v1.outputs.NodeFeatures;
 import com.pulumi.kubernetes.core.v1.outputs.NodeRuntimeHandler;
 import com.pulumi.kubernetes.core.v1.outputs.NodeSystemInfo;
 import java.lang.String;
@@ -32,7 +33,7 @@ public final class NodeStatus {
      */
     private @Nullable Map<String,String> allocatable;
     /**
-     * @return Capacity represents the total resources of a node. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity
+     * @return Capacity represents the total resources of a node. More info: https://kubernetes.io/docs/reference/node/node-status/#capacity
      * 
      */
     private @Nullable Map<String,String> capacity;
@@ -51,6 +52,11 @@ public final class NodeStatus {
      * 
      */
     private @Nullable NodeDaemonEndpoints daemonEndpoints;
+    /**
+     * @return Features describes the set of features implemented by the CRI implementation.
+     * 
+     */
+    private @Nullable NodeFeatures features;
     /**
      * @return List of container images on this node
      * 
@@ -98,7 +104,7 @@ public final class NodeStatus {
         return this.allocatable == null ? Map.of() : this.allocatable;
     }
     /**
-     * @return Capacity represents the total resources of a node. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity
+     * @return Capacity represents the total resources of a node. More info: https://kubernetes.io/docs/reference/node/node-status/#capacity
      * 
      */
     public Map<String,String> capacity() {
@@ -124,6 +130,13 @@ public final class NodeStatus {
      */
     public Optional<NodeDaemonEndpoints> daemonEndpoints() {
         return Optional.ofNullable(this.daemonEndpoints);
+    }
+    /**
+     * @return Features describes the set of features implemented by the CRI implementation.
+     * 
+     */
+    public Optional<NodeFeatures> features() {
+        return Optional.ofNullable(this.features);
     }
     /**
      * @return List of container images on this node
@@ -183,6 +196,7 @@ public final class NodeStatus {
         private @Nullable List<NodeCondition> conditions;
         private @Nullable NodeConfigStatus config;
         private @Nullable NodeDaemonEndpoints daemonEndpoints;
+        private @Nullable NodeFeatures features;
         private @Nullable List<ContainerImage> images;
         private @Nullable NodeSystemInfo nodeInfo;
         private @Nullable String phase;
@@ -198,6 +212,7 @@ public final class NodeStatus {
     	      this.conditions = defaults.conditions;
     	      this.config = defaults.config;
     	      this.daemonEndpoints = defaults.daemonEndpoints;
+    	      this.features = defaults.features;
     	      this.images = defaults.images;
     	      this.nodeInfo = defaults.nodeInfo;
     	      this.phase = defaults.phase;
@@ -246,6 +261,12 @@ public final class NodeStatus {
         public Builder daemonEndpoints(@Nullable NodeDaemonEndpoints daemonEndpoints) {
 
             this.daemonEndpoints = daemonEndpoints;
+            return this;
+        }
+        @CustomType.Setter
+        public Builder features(@Nullable NodeFeatures features) {
+
+            this.features = features;
             return this;
         }
         @CustomType.Setter
@@ -304,6 +325,7 @@ public final class NodeStatus {
             _resultValue.conditions = conditions;
             _resultValue.config = config;
             _resultValue.daemonEndpoints = daemonEndpoints;
+            _resultValue.features = features;
             _resultValue.images = images;
             _resultValue.nodeInfo = nodeInfo;
             _resultValue.phase = phase;

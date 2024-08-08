@@ -17,7 +17,7 @@ public final class PodResourceClaimStatusPatch {
      */
     private @Nullable String name;
     /**
-     * @return ResourceClaimName is the name of the ResourceClaim that was generated for the Pod in the namespace of the Pod. It this is unset, then generating a ResourceClaim was not necessary. The pod.spec.resourceClaims entry can be ignored in this case.
+     * @return ResourceClaimName is the name of the ResourceClaim that was generated for the Pod in the namespace of the Pod. If this is unset, then generating a ResourceClaim was not necessary. The pod.spec.resourceClaims entry can be ignored in this case.
      * 
      */
     private @Nullable String resourceClaimName;
@@ -31,7 +31,7 @@ public final class PodResourceClaimStatusPatch {
         return Optional.ofNullable(this.name);
     }
     /**
-     * @return ResourceClaimName is the name of the ResourceClaim that was generated for the Pod in the namespace of the Pod. It this is unset, then generating a ResourceClaim was not necessary. The pod.spec.resourceClaims entry can be ignored in this case.
+     * @return ResourceClaimName is the name of the ResourceClaim that was generated for the Pod in the namespace of the Pod. If this is unset, then generating a ResourceClaim was not necessary. The pod.spec.resourceClaims entry can be ignored in this case.
      * 
      */
     public Optional<String> resourceClaimName() {

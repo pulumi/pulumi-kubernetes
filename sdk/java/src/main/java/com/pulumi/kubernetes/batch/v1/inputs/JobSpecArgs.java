@@ -114,7 +114,7 @@ public final class JobSpecArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don&#39;t have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first &#34;/&#34; must be a valid subdomain as defined by RFC 1123. All characters trailing the first &#34;/&#34; must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 64 characters.
+     * ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don&#39;t have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first &#34;/&#34; must be a valid subdomain as defined by RFC 1123. All characters trailing the first &#34;/&#34; must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 63 characters. This field is immutable.
      * 
      * This field is alpha-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (disabled by default).
      * 
@@ -123,7 +123,7 @@ public final class JobSpecArgs extends com.pulumi.resources.ResourceArgs {
     private @Nullable Output<String> managedBy;
 
     /**
-     * @return ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don&#39;t have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first &#34;/&#34; must be a valid subdomain as defined by RFC 1123. All characters trailing the first &#34;/&#34; must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 64 characters.
+     * @return ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don&#39;t have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first &#34;/&#34; must be a valid subdomain as defined by RFC 1123. All characters trailing the first &#34;/&#34; must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 63 characters. This field is immutable.
      * 
      * This field is alpha-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (disabled by default).
      * 
@@ -180,16 +180,12 @@ public final class JobSpecArgs extends com.pulumi.resources.ResourceArgs {
     /**
      * Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed pods, represented by the jobs&#39;s .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure.
      * 
-     * This field is beta-level. It can be used when the `JobPodFailurePolicy` feature gate is enabled (enabled by default).
-     * 
      */
     @Import(name="podFailurePolicy")
     private @Nullable Output<PodFailurePolicyArgs> podFailurePolicy;
 
     /**
      * @return Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed pods, represented by the jobs&#39;s .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure.
-     * 
-     * This field is beta-level. It can be used when the `JobPodFailurePolicy` feature gate is enabled (enabled by default).
      * 
      */
     public Optional<Output<PodFailurePolicyArgs>> podFailurePolicy() {
@@ -239,7 +235,7 @@ public final class JobSpecArgs extends com.pulumi.resources.ResourceArgs {
     /**
      * successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.
      * 
-     * This field  is alpha-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (disabled by default).
+     * This field is beta-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (enabled by default).
      * 
      */
     @Import(name="successPolicy")
@@ -248,7 +244,7 @@ public final class JobSpecArgs extends com.pulumi.resources.ResourceArgs {
     /**
      * @return successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.
      * 
-     * This field  is alpha-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (disabled by default).
+     * This field is beta-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (enabled by default).
      * 
      */
     public Optional<Output<SuccessPolicyArgs>> successPolicy() {
@@ -457,7 +453,7 @@ public final class JobSpecArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param managedBy ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don&#39;t have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first &#34;/&#34; must be a valid subdomain as defined by RFC 1123. All characters trailing the first &#34;/&#34; must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 64 characters.
+         * @param managedBy ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don&#39;t have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first &#34;/&#34; must be a valid subdomain as defined by RFC 1123. All characters trailing the first &#34;/&#34; must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 63 characters. This field is immutable.
          * 
          * This field is alpha-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (disabled by default).
          * 
@@ -470,7 +466,7 @@ public final class JobSpecArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param managedBy ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don&#39;t have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first &#34;/&#34; must be a valid subdomain as defined by RFC 1123. All characters trailing the first &#34;/&#34; must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 64 characters.
+         * @param managedBy ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don&#39;t have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first &#34;/&#34; must be a valid subdomain as defined by RFC 1123. All characters trailing the first &#34;/&#34; must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 63 characters. This field is immutable.
          * 
          * This field is alpha-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (disabled by default).
          * 
@@ -547,8 +543,6 @@ public final class JobSpecArgs extends com.pulumi.resources.ResourceArgs {
         /**
          * @param podFailurePolicy Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed pods, represented by the jobs&#39;s .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure.
          * 
-         * This field is beta-level. It can be used when the `JobPodFailurePolicy` feature gate is enabled (enabled by default).
-         * 
          * @return builder
          * 
          */
@@ -559,8 +553,6 @@ public final class JobSpecArgs extends com.pulumi.resources.ResourceArgs {
 
         /**
          * @param podFailurePolicy Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed pods, represented by the jobs&#39;s .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure.
-         * 
-         * This field is beta-level. It can be used when the `JobPodFailurePolicy` feature gate is enabled (enabled by default).
          * 
          * @return builder
          * 
@@ -624,7 +616,7 @@ public final class JobSpecArgs extends com.pulumi.resources.ResourceArgs {
         /**
          * @param successPolicy successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.
          * 
-         * This field  is alpha-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (disabled by default).
+         * This field is beta-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (enabled by default).
          * 
          * @return builder
          * 
@@ -637,7 +629,7 @@ public final class JobSpecArgs extends com.pulumi.resources.ResourceArgs {
         /**
          * @param successPolicy successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.
          * 
-         * This field  is alpha-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (disabled by default).
+         * This field is beta-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (enabled by default).
          * 
          * @return builder
          * 

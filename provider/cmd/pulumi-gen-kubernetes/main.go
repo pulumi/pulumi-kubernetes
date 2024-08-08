@@ -144,11 +144,13 @@ func generateSchema(swaggerPath string) schema.PackageSpec {
 	// - apps/v1beta2/*
 	// - networking/v1beta1/IngressClass
 	// - flowcontrol/v1beta2/* (removed in v1.29, and has schema changes in v1.28)
+	// - resource.k8s.io/v1alpha2 (removed in v1.31)
+	// - networking.k8s.io/v1alpha1 (removed in v1.31)
 	// Since these resources will continue to be important to users for the foreseeable future, we will merge in
 	// newer specs on top of this spec so that these resources continue to be available in our SDKs.
 	urlFmt := "https://raw.githubusercontent.com/kubernetes/kubernetes/v1.%s.0/api/openapi-spec/swagger.json"
 	filenameFmt := "swagger-v1.%s.0.json"
-	for _, v := range []string{"17", "18", "19", "20", "26", "28"} {
+	for _, v := range []string{"17", "18", "19", "20", "26", "28", "30"} {
 		legacySwaggerPath := filepath.Join(swaggerDir, fmt.Sprintf(filenameFmt, v))
 		err = DownloadFile(legacySwaggerPath, fmt.Sprintf(urlFmt, v))
 		if err != nil {

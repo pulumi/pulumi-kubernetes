@@ -36,14 +36,14 @@ public final class PodResourceClaimStatusArgs extends com.pulumi.resources.Resou
     }
 
     /**
-     * ResourceClaimName is the name of the ResourceClaim that was generated for the Pod in the namespace of the Pod. It this is unset, then generating a ResourceClaim was not necessary. The pod.spec.resourceClaims entry can be ignored in this case.
+     * ResourceClaimName is the name of the ResourceClaim that was generated for the Pod in the namespace of the Pod. If this is unset, then generating a ResourceClaim was not necessary. The pod.spec.resourceClaims entry can be ignored in this case.
      * 
      */
     @Import(name="resourceClaimName")
     private @Nullable Output<String> resourceClaimName;
 
     /**
-     * @return ResourceClaimName is the name of the ResourceClaim that was generated for the Pod in the namespace of the Pod. It this is unset, then generating a ResourceClaim was not necessary. The pod.spec.resourceClaims entry can be ignored in this case.
+     * @return ResourceClaimName is the name of the ResourceClaim that was generated for the Pod in the namespace of the Pod. If this is unset, then generating a ResourceClaim was not necessary. The pod.spec.resourceClaims entry can be ignored in this case.
      * 
      */
     public Optional<Output<String>> resourceClaimName() {
@@ -97,7 +97,7 @@ public final class PodResourceClaimStatusArgs extends com.pulumi.resources.Resou
         }
 
         /**
-         * @param resourceClaimName ResourceClaimName is the name of the ResourceClaim that was generated for the Pod in the namespace of the Pod. It this is unset, then generating a ResourceClaim was not necessary. The pod.spec.resourceClaims entry can be ignored in this case.
+         * @param resourceClaimName ResourceClaimName is the name of the ResourceClaim that was generated for the Pod in the namespace of the Pod. If this is unset, then generating a ResourceClaim was not necessary. The pod.spec.resourceClaims entry can be ignored in this case.
          * 
          * @return builder
          * 
@@ -108,7 +108,7 @@ public final class PodResourceClaimStatusArgs extends com.pulumi.resources.Resou
         }
 
         /**
-         * @param resourceClaimName ResourceClaimName is the name of the ResourceClaim that was generated for the Pod in the namespace of the Pod. It this is unset, then generating a ResourceClaim was not necessary. The pod.spec.resourceClaims entry can be ignored in this case.
+         * @param resourceClaimName ResourceClaimName is the name of the ResourceClaim that was generated for the Pod in the namespace of the Pod. If this is unset, then generating a ResourceClaim was not necessary. The pod.spec.resourceClaims entry can be ignored in this case.
          * 
          * @return builder
          * 

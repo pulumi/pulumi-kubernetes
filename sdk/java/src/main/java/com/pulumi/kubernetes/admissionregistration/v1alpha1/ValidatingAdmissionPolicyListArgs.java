@@ -6,6 +6,7 @@ package com.pulumi.kubernetes.admissionregistration.v1alpha1;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.core.internal.Codegen;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.admissionregistration.v1alpha1.inputs.ValidatingAdmissionPolicyArgs;
 import com.pulumi.kubernetes.meta.v1.inputs.ListMetaArgs;
 import java.lang.String;
@@ -38,15 +39,15 @@ public final class ValidatingAdmissionPolicyListArgs extends com.pulumi.resource
      * List of ValidatingAdmissionPolicy.
      * 
      */
-    @Import(name="items")
-    private @Nullable Output<List<ValidatingAdmissionPolicyArgs>> items;
+    @Import(name="items", required=true)
+    private Output<List<ValidatingAdmissionPolicyArgs>> items;
 
     /**
      * @return List of ValidatingAdmissionPolicy.
      * 
      */
-    public Optional<Output<List<ValidatingAdmissionPolicyArgs>>> items() {
-        return Optional.ofNullable(this.items);
+    public Output<List<ValidatingAdmissionPolicyArgs>> items() {
+        return this.items;
     }
 
     /**
@@ -133,7 +134,7 @@ public final class ValidatingAdmissionPolicyListArgs extends com.pulumi.resource
          * @return builder
          * 
          */
-        public Builder items(@Nullable Output<List<ValidatingAdmissionPolicyArgs>> items) {
+        public Builder items(Output<List<ValidatingAdmissionPolicyArgs>> items) {
             $.items = items;
             return this;
         }
@@ -202,6 +203,9 @@ public final class ValidatingAdmissionPolicyListArgs extends com.pulumi.resource
 
         public ValidatingAdmissionPolicyListArgs build() {
             $.apiVersion = Codegen.stringProp("apiVersion").output().arg($.apiVersion).getNullable();
+            if ($.items == null) {
+                throw new MissingRequiredPropertyException("ValidatingAdmissionPolicyListArgs", "items");
+            }
             $.kind = Codegen.stringProp("kind").output().arg($.kind).getNullable();
             return $;
         }

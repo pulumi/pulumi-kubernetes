@@ -4,10 +4,9 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
-import java.util.Optional;
-import javax.annotation.Nullable;
 
 @CustomType
 public final class PodIP {
@@ -15,15 +14,15 @@ public final class PodIP {
      * @return IP is the IP address assigned to the pod
      * 
      */
-    private @Nullable String ip;
+    private String ip;
 
     private PodIP() {}
     /**
      * @return IP is the IP address assigned to the pod
      * 
      */
-    public Optional<String> ip() {
-        return Optional.ofNullable(this.ip);
+    public String ip() {
+        return this.ip;
     }
 
     public static Builder builder() {
@@ -35,7 +34,7 @@ public final class PodIP {
     }
     @CustomType.Builder
     public static final class Builder {
-        private @Nullable String ip;
+        private String ip;
         public Builder() {}
         public Builder(PodIP defaults) {
     	      Objects.requireNonNull(defaults);
@@ -43,8 +42,10 @@ public final class PodIP {
         }
 
         @CustomType.Setter
-        public Builder ip(@Nullable String ip) {
-
+        public Builder ip(String ip) {
+            if (ip == null) {
+              throw new MissingRequiredPropertyException("PodIP", "ip");
+            }
             this.ip = ip;
             return this;
         }

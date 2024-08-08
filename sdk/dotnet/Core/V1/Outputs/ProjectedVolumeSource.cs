@@ -21,7 +21,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly int DefaultMode;
         /// <summary>
-        /// sources is the list of volume projections
+        /// sources is the list of volume projections. Each entry in this list handles one source.
         /// </summary>
         public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.VolumeProjection> Sources;
 

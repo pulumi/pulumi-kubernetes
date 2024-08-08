@@ -12,7 +12,7 @@ import javax.annotation.Nullable;
 
 
 /**
- * NodeRuntimeHandlerFeatures is a set of runtime features.
+ * NodeRuntimeHandlerFeatures is a set of features implemented by the runtime handler.
  * 
  */
 public final class NodeRuntimeHandlerFeaturesArgs extends com.pulumi.resources.ResourceArgs {
@@ -34,10 +34,26 @@ public final class NodeRuntimeHandlerFeaturesArgs extends com.pulumi.resources.R
         return Optional.ofNullable(this.recursiveReadOnlyMounts);
     }
 
+    /**
+     * UserNamespaces is set to true if the runtime handler supports UserNamespaces, including for volumes.
+     * 
+     */
+    @Import(name="userNamespaces")
+    private @Nullable Output<Boolean> userNamespaces;
+
+    /**
+     * @return UserNamespaces is set to true if the runtime handler supports UserNamespaces, including for volumes.
+     * 
+     */
+    public Optional<Output<Boolean>> userNamespaces() {
+        return Optional.ofNullable(this.userNamespaces);
+    }
+
     private NodeRuntimeHandlerFeaturesArgs() {}
 
     private NodeRuntimeHandlerFeaturesArgs(NodeRuntimeHandlerFeaturesArgs $) {
         this.recursiveReadOnlyMounts = $.recursiveReadOnlyMounts;
+        this.userNamespaces = $.userNamespaces;
     }
 
     public static Builder builder() {
@@ -77,6 +93,27 @@ public final class NodeRuntimeHandlerFeaturesArgs extends com.pulumi.resources.R
          */
         public Builder recursiveReadOnlyMounts(Boolean recursiveReadOnlyMounts) {
             return recursiveReadOnlyMounts(Output.of(recursiveReadOnlyMounts));
+        }
+
+        /**
+         * @param userNamespaces UserNamespaces is set to true if the runtime handler supports UserNamespaces, including for volumes.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder userNamespaces(@Nullable Output<Boolean> userNamespaces) {
+            $.userNamespaces = userNamespaces;
+            return this;
+        }
+
+        /**
+         * @param userNamespaces UserNamespaces is set to true if the runtime handler supports UserNamespaces, including for volumes.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder userNamespaces(Boolean userNamespaces) {
+            return userNamespaces(Output.of(userNamespaces));
         }
 
         public NodeRuntimeHandlerFeaturesArgs build() {

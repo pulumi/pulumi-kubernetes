@@ -16,6 +16,11 @@ public final class NodeRuntimeHandlerFeatures {
      * 
      */
     private @Nullable Boolean recursiveReadOnlyMounts;
+    /**
+     * @return UserNamespaces is set to true if the runtime handler supports UserNamespaces, including for volumes.
+     * 
+     */
+    private @Nullable Boolean userNamespaces;
 
     private NodeRuntimeHandlerFeatures() {}
     /**
@@ -24,6 +29,13 @@ public final class NodeRuntimeHandlerFeatures {
      */
     public Optional<Boolean> recursiveReadOnlyMounts() {
         return Optional.ofNullable(this.recursiveReadOnlyMounts);
+    }
+    /**
+     * @return UserNamespaces is set to true if the runtime handler supports UserNamespaces, including for volumes.
+     * 
+     */
+    public Optional<Boolean> userNamespaces() {
+        return Optional.ofNullable(this.userNamespaces);
     }
 
     public static Builder builder() {
@@ -36,10 +48,12 @@ public final class NodeRuntimeHandlerFeatures {
     @CustomType.Builder
     public static final class Builder {
         private @Nullable Boolean recursiveReadOnlyMounts;
+        private @Nullable Boolean userNamespaces;
         public Builder() {}
         public Builder(NodeRuntimeHandlerFeatures defaults) {
     	      Objects.requireNonNull(defaults);
     	      this.recursiveReadOnlyMounts = defaults.recursiveReadOnlyMounts;
+    	      this.userNamespaces = defaults.userNamespaces;
         }
 
         @CustomType.Setter
@@ -48,9 +62,16 @@ public final class NodeRuntimeHandlerFeatures {
             this.recursiveReadOnlyMounts = recursiveReadOnlyMounts;
             return this;
         }
+        @CustomType.Setter
+        public Builder userNamespaces(@Nullable Boolean userNamespaces) {
+
+            this.userNamespaces = userNamespaces;
+            return this;
+        }
         public NodeRuntimeHandlerFeatures build() {
             final var _resultValue = new NodeRuntimeHandlerFeatures();
             _resultValue.recursiveReadOnlyMounts = recursiveReadOnlyMounts;
+            _resultValue.userNamespaces = userNamespaces;
             return _resultValue;
         }
     }

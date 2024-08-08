@@ -27,6 +27,18 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
             set => _allocatedResources = value;
         }
 
+        [Input("allocatedResourcesStatus")]
+        private InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.ResourceStatusArgs>? _allocatedResourcesStatus;
+
+        /// <summary>
+        /// AllocatedResourcesStatus represents the status of various resources allocated for this Pod.
+        /// </summary>
+        public InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.ResourceStatusArgs> AllocatedResourcesStatus
+        {
+            get => _allocatedResourcesStatus ?? (_allocatedResourcesStatus = new InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.ResourceStatusArgs>());
+            set => _allocatedResourcesStatus = value;
+        }
+
         /// <summary>
         /// ContainerID is the ID of the container in the format '&lt;type&gt;://&lt;container_id&gt;'. Where type is a container runtime identifier, returned from Version call of CRI API (for example "containerd").
         /// </summary>
@@ -88,6 +100,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         /// </summary>
         [Input("state")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.ContainerStateArgs>? State { get; set; }
+
+        /// <summary>
+        /// User represents user identity information initially attached to the first process of the container
+        /// </summary>
+        [Input("user")]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.ContainerUserArgs>? User { get; set; }
 
         [Input("volumeMounts")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.VolumeMountStatusArgs>? _volumeMounts;

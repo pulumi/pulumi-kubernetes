@@ -59,7 +59,7 @@ func StartEngineServer(t testing.TB, engine pulumirpc.EngineServer) (addr string
 }
 
 func ConnectToEngine(t testing.TB, addr string) *grpc.ClientConn {
-	conn, err := grpc.Dial(
+	conn, err := grpc.NewClient(
 		addr,
 		grpc.WithTransportCredentials(insecure.NewCredentials()),
 		grpc.WithUnaryInterceptor(rpcutil.OpenTracingClientInterceptor()),

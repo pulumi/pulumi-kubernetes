@@ -4072,7 +4072,7 @@ type JSONSchemaProps struct {
 	X_kubernetes_map_type *string `pulumi:"x_kubernetes_map_type"`
 	// x-kubernetes-preserve-unknown-fields stops the API server decoding step from pruning fields which are not specified in the validation schema. This affects fields recursively, but switches back to normal pruning behaviour if nested properties or additionalProperties are specified in the schema. This can either be true or undefined. False is forbidden.
 	X_kubernetes_preserve_unknown_fields *bool `pulumi:"x_kubernetes_preserve_unknown_fields"`
-	// x-kubernetes-validations describes a list of validation rules written in the CEL expression language. This field is an alpha-level. Using this field requires the feature gate `CustomResourceValidationExpressions` to be enabled.
+	// x-kubernetes-validations describes a list of validation rules written in the CEL expression language.
 	X_kubernetes_validations []ValidationRule `pulumi:"x_kubernetes_validations"`
 }
 
@@ -4175,7 +4175,7 @@ type JSONSchemaPropsArgs struct {
 	X_kubernetes_map_type pulumi.StringPtrInput `pulumi:"x_kubernetes_map_type"`
 	// x-kubernetes-preserve-unknown-fields stops the API server decoding step from pruning fields which are not specified in the validation schema. This affects fields recursively, but switches back to normal pruning behaviour if nested properties or additionalProperties are specified in the schema. This can either be true or undefined. False is forbidden.
 	X_kubernetes_preserve_unknown_fields pulumi.BoolPtrInput `pulumi:"x_kubernetes_preserve_unknown_fields"`
-	// x-kubernetes-validations describes a list of validation rules written in the CEL expression language. This field is an alpha-level. Using this field requires the feature gate `CustomResourceValidationExpressions` to be enabled.
+	// x-kubernetes-validations describes a list of validation rules written in the CEL expression language.
 	X_kubernetes_validations ValidationRuleArrayInput `pulumi:"x_kubernetes_validations"`
 }
 
@@ -4523,7 +4523,7 @@ func (o JSONSchemaPropsOutput) X_kubernetes_preserve_unknown_fields() pulumi.Boo
 	return o.ApplyT(func(v JSONSchemaProps) *bool { return v.X_kubernetes_preserve_unknown_fields }).(pulumi.BoolPtrOutput)
 }
 
-// x-kubernetes-validations describes a list of validation rules written in the CEL expression language. This field is an alpha-level. Using this field requires the feature gate `CustomResourceValidationExpressions` to be enabled.
+// x-kubernetes-validations describes a list of validation rules written in the CEL expression language.
 func (o JSONSchemaPropsOutput) X_kubernetes_validations() ValidationRuleArrayOutput {
 	return o.ApplyT(func(v JSONSchemaProps) []ValidationRule { return v.X_kubernetes_validations }).(ValidationRuleArrayOutput)
 }
@@ -4983,7 +4983,7 @@ func (o JSONSchemaPropsPtrOutput) X_kubernetes_preserve_unknown_fields() pulumi.
 	}).(pulumi.BoolPtrOutput)
 }
 
-// x-kubernetes-validations describes a list of validation rules written in the CEL expression language. This field is an alpha-level. Using this field requires the feature gate `CustomResourceValidationExpressions` to be enabled.
+// x-kubernetes-validations describes a list of validation rules written in the CEL expression language.
 func (o JSONSchemaPropsPtrOutput) X_kubernetes_validations() ValidationRuleArrayOutput {
 	return o.ApplyT(func(v *JSONSchemaProps) []ValidationRule {
 		if v == nil {
@@ -5121,7 +5121,7 @@ type JSONSchemaPropsPatch struct {
 	X_kubernetes_map_type *string `pulumi:"x_kubernetes_map_type"`
 	// x-kubernetes-preserve-unknown-fields stops the API server decoding step from pruning fields which are not specified in the validation schema. This affects fields recursively, but switches back to normal pruning behaviour if nested properties or additionalProperties are specified in the schema. This can either be true or undefined. False is forbidden.
 	X_kubernetes_preserve_unknown_fields *bool `pulumi:"x_kubernetes_preserve_unknown_fields"`
-	// x-kubernetes-validations describes a list of validation rules written in the CEL expression language. This field is an alpha-level. Using this field requires the feature gate `CustomResourceValidationExpressions` to be enabled.
+	// x-kubernetes-validations describes a list of validation rules written in the CEL expression language.
 	X_kubernetes_validations []ValidationRulePatch `pulumi:"x_kubernetes_validations"`
 }
 
@@ -5224,7 +5224,7 @@ type JSONSchemaPropsPatchArgs struct {
 	X_kubernetes_map_type pulumi.StringPtrInput `pulumi:"x_kubernetes_map_type"`
 	// x-kubernetes-preserve-unknown-fields stops the API server decoding step from pruning fields which are not specified in the validation schema. This affects fields recursively, but switches back to normal pruning behaviour if nested properties or additionalProperties are specified in the schema. This can either be true or undefined. False is forbidden.
 	X_kubernetes_preserve_unknown_fields pulumi.BoolPtrInput `pulumi:"x_kubernetes_preserve_unknown_fields"`
-	// x-kubernetes-validations describes a list of validation rules written in the CEL expression language. This field is an alpha-level. Using this field requires the feature gate `CustomResourceValidationExpressions` to be enabled.
+	// x-kubernetes-validations describes a list of validation rules written in the CEL expression language.
 	X_kubernetes_validations ValidationRulePatchArrayInput `pulumi:"x_kubernetes_validations"`
 }
 
@@ -5547,7 +5547,7 @@ func (o JSONSchemaPropsPatchOutput) X_kubernetes_preserve_unknown_fields() pulum
 	return o.ApplyT(func(v JSONSchemaPropsPatch) *bool { return v.X_kubernetes_preserve_unknown_fields }).(pulumi.BoolPtrOutput)
 }
 
-// x-kubernetes-validations describes a list of validation rules written in the CEL expression language. This field is an alpha-level. Using this field requires the feature gate `CustomResourceValidationExpressions` to be enabled.
+// x-kubernetes-validations describes a list of validation rules written in the CEL expression language.
 func (o JSONSchemaPropsPatchOutput) X_kubernetes_validations() ValidationRulePatchArrayOutput {
 	return o.ApplyT(func(v JSONSchemaPropsPatch) []ValidationRulePatch { return v.X_kubernetes_validations }).(ValidationRulePatchArrayOutput)
 }
@@ -6007,7 +6007,7 @@ func (o JSONSchemaPropsPatchPtrOutput) X_kubernetes_preserve_unknown_fields() pu
 	}).(pulumi.BoolPtrOutput)
 }
 
-// x-kubernetes-validations describes a list of validation rules written in the CEL expression language. This field is an alpha-level. Using this field requires the feature gate `CustomResourceValidationExpressions` to be enabled.
+// x-kubernetes-validations describes a list of validation rules written in the CEL expression language.
 func (o JSONSchemaPropsPatchPtrOutput) X_kubernetes_validations() ValidationRulePatchArrayOutput {
 	return o.ApplyT(func(v *JSONSchemaPropsPatch) []ValidationRulePatch {
 		if v == nil {

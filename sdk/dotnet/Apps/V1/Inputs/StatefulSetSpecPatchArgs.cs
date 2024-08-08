@@ -22,13 +22,13 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1
         public Input<int>? MinReadySeconds { get; set; }
 
         /// <summary>
-        /// ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested. Using the ordinals field requires the StatefulSetStartOrdinal feature gate to be enabled, which is beta.
+        /// ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested.
         /// </summary>
         [Input("ordinals")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Apps.V1.StatefulSetOrdinalsPatchArgs>? Ordinals { get; set; }
 
         /// <summary>
-        /// persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is alpha.  +optional
+        /// persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is beta.
         /// </summary>
         [Input("persistentVolumeClaimRetentionPolicy")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Apps.V1.StatefulSetPersistentVolumeClaimRetentionPolicyPatchArgs>? PersistentVolumeClaimRetentionPolicy { get; set; }
