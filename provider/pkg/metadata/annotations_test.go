@@ -94,9 +94,24 @@ func TestGetDeletedCondition(t *testing.T) {
 		want   condition.Satisfier
 	}{
 		{
-			name: "skipAwait=true",
+			name: "skipAwait=true doesn't affect generic resources",
 			inputs: &unstructured.Unstructured{
 				Object: map[string]any{
+					"metadata": map[string]any{
+						"annotations": map[string]any{
+							AnnotationSkipAwait: "true",
+						},
+					},
+				},
+			},
+			want: &condition.Deleted{},
+		},
+		{
+			name: "skipAwait=true does affect legacy resources",
+			inputs: &unstructured.Unstructured{
+				Object: map[string]any{
+					"apiVersion": "v1",
+					"kind":       "Namespace",
 					"metadata": map[string]any{
 						"annotations": map[string]any{
 							AnnotationSkipAwait: "true",
