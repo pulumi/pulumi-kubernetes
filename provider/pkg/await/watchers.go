@@ -245,10 +245,9 @@ func NewEventAggregator(
 			m := checkerlog.WarningMessage(msg)
 			switch e.Type {
 			case corev1.EventTypeWarning:
-				logger.LogMessage(m)
+				logger.LogStatus(diag.Warning, m.S)
 			default:
-				m.Severity = diag.Debug
-				logger.LogMessage(m)
+				logger.LogStatus(diag.Debug, m.S)
 			}
 			return nil
 		},
@@ -256,7 +255,8 @@ func NewEventAggregator(
 }
 
 type logMessager interface {
-	LogMessage(checkerlog.Message)
+	Log(diag.Severity, string)
+	LogStatus(diag.Severity, string)
 }
 
 func relatedEvents(owner *unstructured.Unstructured) func(*unstructured.Unstructured) bool {

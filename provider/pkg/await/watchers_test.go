@@ -21,7 +21,7 @@ import (
 	"strings"
 	"testing"
 
-	checkerlog "github.com/pulumi/cloud-ready-checks/pkg/checker/logging"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"github.com/stretchr/testify/assert"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/watch"
@@ -154,6 +154,9 @@ func TestRelatedEvent(t *testing.T) {
 
 type log struct{ io.Writer }
 
-func (l log) LogMessage(m checkerlog.Message) {
-	fmt.Fprintf(l, "%s %s", m.Severity, m.String())
+func (l log) Log(sev diag.Severity, msg string) {
+	fmt.Fprintf(l, "%s %s", sev, msg)
+}
+func (l log) LogStatus(sev diag.Severity, msg string) {
+	l.Log(sev, msg)
 }
