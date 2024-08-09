@@ -15,20 +15,11 @@
 package metadata
 
 import (
-	"context"
 	"strings"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/condition"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/logging"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/client-go/dynamic"
-
-	appsv1 "k8s.io/api/apps/v1"
-	appsv1beta1 "k8s.io/api/apps/v1beta1"
-	appsv1beta2 "k8s.io/api/apps/v1beta2"
-	batchv1 "k8s.io/api/batch/v1"
-	corev1 "k8s.io/api/core/v1"
 )
 
 const (
@@ -111,63 +102,6 @@ func IsAnnotationTrue(obj *unstructured.Unstructured, key string) bool {
 func GetAnnotationValue(obj *unstructured.Unstructured, key string) string {
 	annotations := obj.GetAnnotations()
 	return annotations[key]
-}
-
-// GetDeletedCondition inspects the object's annotations and returns a
-// condition.Satisfier appropriate for using when awaiting deletion.
-//
-// The "inputs" parameter is the source of truth for user-provided annotations,
-// but it is not guaranteed to be named. The "obj" parameter should be used for
-// conditions.
-func GetDeletedCondition(
-	ctx context.Context,
-	source condition.Source,
-	clientset clientGetter,
-	logger *logging.DedupLogger,
-	inputs *unstructured.Unstructured,
-	obj *unstructured.Unstructured,
-) (condition.Satisfier, error) {
-	if IsAnnotationTrue(inputs, AnnotationSkipAwait) && allowsSkipAwaitWithDelete(inputs) {
-		return condition.NewImmediate(logger, obj), nil
-	}
-	getter, err := clientset.ResourceClientForObject(obj)
-	if err != nil {
-		return nil, err
-	}
-	return condition.NewDeleted(ctx, source, getter, logger, obj)
-}
-
-// allowsSkipDelete returns true for legacy types which support buggy skipAwait behavior during delete.
-// See also:
-// https://github.com/pulumi/pulumi-kubernetes/issues/1232
-// https://github.com/pulumi/pulumi-kubernetes/issues/3154
-func allowsSkipAwaitWithDelete(inputs *unstructured.Unstructured) bool {
-
-}
-
-// allowsSkipDelete returns true for legacy types which support buggy skipAwait
-// behavior during delete.
-// See also:
-// https://github.com/pulumi/pulumi-kubernetes/issues/1232
-// https://github.com/pulumi/pulumi-kubernetes/issues/3154
-func allowsSkipAwaitWithDelete(inputs *unstructured.Unstructured) bool {
-	switch inputs.GroupVersionKind() {
-	case corev1.SchemeGroupVersion.WithKind("Namespace"),
-		corev1.SchemeGroupVersion.WithKind("Pod"),
-		corev1.SchemeGroupVersion.WithKind("ReplicationController"),
-		appsv1.SchemeGroupVersion.WithKind("DaemonSet"),
-		appsv1beta1.SchemeGroupVersion.WithKind("DaemonSet"),
-		appsv1beta2.SchemeGroupVersion.WithKind("DaemonSet"),
-		appsv1.SchemeGroupVersion.WithKind("Deployment"),
-		appsv1beta1.SchemeGroupVersion.WithKind("Deployment"),
-		appsv1beta2.SchemeGroupVersion.WithKind("Deployment"),
-		appsv1.SchemeGroupVersion.WithKind("StatefulSet"),
-		appsv1beta1.SchemeGroupVersion.WithKind("StatefulSet"),
-		appsv1beta2.SchemeGroupVersion.WithKind("StatefulSet"),
-		batchv1.SchemeGroupVersion.WithKind("Job"):
-		return true
-	}
-	return false
 }
 
 func isComputedValue(v any) bool {
