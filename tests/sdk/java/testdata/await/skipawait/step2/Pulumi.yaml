@@ -3,18 +3,16 @@ runtime: yaml
 description: |
   Tests the skipAwait annotation:
   - A slow-to-start deployment tests create/update/read.
-  - Delete is tested with a config map with a stuck finalizer.
+  - Delete is tested by a namespace with a stuck finalizer.
 resources:
-  stuck-config:
-    type: kubernetes:core/v1:ConfigMap
+  stuck-namespace:
+    type: kubernetes:core/v1:Namespace
     properties:
       metadata:
         finalizers:
           - pulumi.com/stuck
         annotations:
           pulumi.com/skipAwait: "true"
-      data:
-        foo: bar
 
   slow-pod:
     type: kubernetes:core/v1:Pod
