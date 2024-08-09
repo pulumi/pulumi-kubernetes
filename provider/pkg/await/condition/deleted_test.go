@@ -16,6 +16,7 @@ package condition
 
 import (
 	"context"
+	"os"
 	"strings"
 	"testing"
 
@@ -75,11 +76,13 @@ func (g *getsequence) Get(ctx context.Context, name string, opts metav1.GetOptio
 }
 
 func TestDeleted(t *testing.T) {
+	stdout := logbuf{os.Stdout}
+
 	t.Run("already deleted", func(t *testing.T) {
 		ctx := context.Background()
 		getter := get404{}
 
-		cond, err := NewDeleted(ctx, Static(nil), getter, stdout{}, pod)
+		cond, err := NewDeleted(ctx, Static(nil), getter, stdout, pod)
 		assert.NoError(t, err)
 
 		cond.Range(nil)
@@ -95,7 +98,7 @@ func TestDeleted(t *testing.T) {
 		getter := &get200{pod}
 		source := Static(make(chan watch.Event, 1))
 
-		cond, err := NewDeleted(ctx, source, getter, stdout{}, pod)
+		cond, err := NewDeleted(ctx, source, getter, stdout, pod)
 		assert.NoError(t, err)
 
 		seen := make(chan struct{})
@@ -125,7 +128,7 @@ func TestDeleted(t *testing.T) {
 		ctx, cancel := context.WithCancel(context.Background())
 		cancel()
 
-		cond, err := NewDeleted(ctx, Static(nil), getter, stdout{}, pod)
+		cond, err := NewDeleted(ctx, Static(nil), getter, stdout, pod)
 		assert.NoError(t, err)
 
 		cond.Range(nil)
@@ -162,7 +165,7 @@ func TestDeleted(t *testing.T) {
 		getter := &getsequence{[]objectGetter{&get200{pod}, get404{}}, 0}
 
 		ctx, cancel := context.WithCancel(context.Background())
-		cond, err := NewDeleted(ctx, Static(nil), getter, stdout{}, pod)
+		cond, err := NewDeleted(ctx, Static(nil), getter, stdout, pod)
 		assert.NoError(t, err)
 
 		cancel()

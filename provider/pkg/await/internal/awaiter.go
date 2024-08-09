@@ -20,8 +20,8 @@ import (
 	"fmt"
 	"os"
 
-	checkerlog "github.com/pulumi/cloud-ready-checks/pkg/checker/logging"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/condition"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/util/wait"
 	"k8s.io/apimachinery/pkg/watch"
@@ -56,7 +56,7 @@ func (aw *Awaiter) Await(ctx context.Context) error {
 		go func(o condition.Observer) {
 			o.Range(func(e watch.Event) bool {
 				if err := o.Observe(e); err != nil {
-					aw.logger.LogMessage(checkerlog.WarningMessage("observe error: " + err.Error()))
+					aw.logger.LogStatus(diag.Warning, "observe error: "+err.Error())
 				}
 				return true
 			})
@@ -164,12 +164,16 @@ func (e errObject) Unwrap() error {
 }
 
 type logger interface {
-	LogMessage(checkerlog.Message)
+	Log(diag.Severity, string)
+	LogStatus(diag.Severity, string)
 }
 
 // stdout logs messages to stdout.
 type stdout struct{}
 
-func (stdout) LogMessage(m checkerlog.Message) {
-	_, _ = os.Stdout.WriteString(m.S)
+func (stdout) Log(sev diag.Severity, msg string) {
+	_, _ = os.Stdout.WriteString(fmt.Sprintf("%s: %s\n", sev, msg))
+}
+func (s stdout) LogStatus(sev diag.Severity, msg string) {
+	s.Log(sev, msg)
 }

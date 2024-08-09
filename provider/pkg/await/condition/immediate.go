@@ -18,7 +18,7 @@ import (
 	"context"
 	"sync/atomic"
 
-	checkerlog "github.com/pulumi/cloud-ready-checks/pkg/checker/logging"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/watch"
 )
@@ -49,7 +49,7 @@ func (Immediate) Range(func(watch.Event) bool) {}
 // Satisfied always returns true for Immediately conditions.
 func (i Immediate) Satisfied() (bool, error) {
 	if i.logger != nil {
-		i.logger.LogMessage(checkerlog.StatusMessage("Skipping await logic"))
+		i.logger.LogStatus(diag.Info, "Skipping await logic")
 	}
 	return true, nil
 }
