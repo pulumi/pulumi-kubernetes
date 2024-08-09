@@ -27,40 +27,67 @@ import (
 // DedupLogger wraps a time-ordered log set to allow batched logging of unique messages.
 // Operations on DedupLogger are safe to use concurrently.
 type DedupLogger struct {
-	messages *TimeOrderedLogSet
-	index    int
-	ctx      context.Context
-	host     host.HostClient
-	urn      resource.URN
-	mux      sync.Mutex
+	statusLogger    *dedupLogger
+	permanentLogger *dedupLogger
 }
 
 // NewLogger returns an initialized DedupLogger.
 func NewLogger(ctx context.Context, host host.HostClient, urn resource.URN) *DedupLogger {
-	return &DedupLogger{
+	status := &dedupLogger{
 		messages: &TimeOrderedLogSet{},
 		ctx:      ctx,
-		host:     host,
 		urn:      urn,
 	}
+	permanent := &dedupLogger{
+		messages: &TimeOrderedLogSet{},
+		ctx:      ctx,
+		urn:      urn,
+	}
+	// Host might be nil in testing.
+	if host != nil {
+		status.logF = host.LogStatus
+		permanent.logF = host.Log
+	}
+	return &DedupLogger{statusLogger: status, permanentLogger: permanent}
 }
 
-// LogMessage adds a message to the log set and flushes the queue to the host.
-func (l *DedupLogger) LogMessage(msg logging.Message) {
-	l.EnqueueMessage(msg.Severity, msg.S)
-	l.LogNewMessages()
+// Log logs a permanent message. These are shown as status logs and displayed
+// at the end of an interactive session.
+func (l *DedupLogger) Log(sev diag.Severity, msg string) {
+	l.permanentLogger.logMessage(sev, msg)
 }
 
-// EnqueueMessage adds a message to the log set but does not log it to the host.
-func (l *DedupLogger) EnqueueMessage(severity diag.Severity, s string) {
+// LogStatus logs an ephemeral message. These are only shown temporally as
+// status messages.
+func (l *DedupLogger) LogStatus(sev diag.Severity, msg string) {
+	l.statusLogger.logMessage(sev, msg)
+}
+
+type dedupLogger struct {
+	messages *TimeOrderedLogSet
+	index    int
+	ctx      context.Context
+	logF     func(context.Context, diag.Severity, resource.URN, string) error
+	urn      resource.URN
+	mux      sync.Mutex
+}
+
+// logMessage adds a message to the log set and flushes the queue to the host.
+func (l *dedupLogger) logMessage(sev diag.Severity, msg string) {
+	l.enqueueMessage(sev, msg)
+	l.logNewMessages()
+}
+
+// enqueueMessage adds a message to the log set but does not log it to the host.
+func (l *dedupLogger) enqueueMessage(severity diag.Severity, s string) {
 	l.mux.Lock()
 	defer l.mux.Unlock()
 
 	l.messages.Add(logging.Message{S: s, Severity: severity})
 }
 
-// GetNewMessages returns the list of new messages since last calling GetNewMessages.
-func (l *DedupLogger) GetNewMessages() []logging.Message {
+// getNewMessages returns the list of new messages since last calling GetNewMessages.
+func (l *dedupLogger) getNewMessages() []logging.Message {
 	l.mux.Lock()
 	defer l.mux.Unlock()
 
@@ -69,11 +96,11 @@ func (l *DedupLogger) GetNewMessages() []logging.Message {
 	return l.messages.Messages[idx:]
 }
 
-// LogNewMessages logs any new messages to the host.
-func (l *DedupLogger) LogNewMessages() {
-	if l.host != nil {
-		for _, msg := range l.GetNewMessages() {
-			_ = l.host.LogStatus(l.ctx, msg.Severity, l.urn, msg.S)
+// logNewMessages logs any new messages to the host.
+func (l *dedupLogger) logNewMessages() {
+	if l.logF != nil {
+		for _, msg := range l.getNewMessages() {
+			_ = l.logF(l.ctx, msg.Severity, l.urn, msg.S)
 		}
 	}
 }

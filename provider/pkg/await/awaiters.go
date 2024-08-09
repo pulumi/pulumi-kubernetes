@@ -21,7 +21,6 @@ import (
 	"time"
 
 	"github.com/jonboulle/clockwork"
-	checkerlog "github.com/pulumi/cloud-ready-checks/pkg/checker/logging"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/cluster"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/logging"
@@ -51,14 +50,6 @@ type createAwaitConfig struct {
 	timeout           *time.Duration
 	clusterVersion    *cluster.ServerVersion
 	clock             clockwork.Clock
-}
-
-func (cac *createAwaitConfig) logStatus(sev diag.Severity, message string) {
-	cac.logMessage(checkerlog.Message{S: message, Severity: sev})
-}
-
-func (cac *createAwaitConfig) logMessage(message checkerlog.Message) {
-	cac.logger.LogMessage(message)
 }
 
 // Clock returns a real or mock clock for the config as appropriate.
@@ -462,9 +453,9 @@ func untilCoreV1PersistentVolumeInitialized(c createAwaitConfig) error {
 		phase, _ := openapi.Pluck(pv.Object, "status", "phase")
 		logger.V(3).Infof("Persistent volume %q status received: %#v", pv.GetName(), phase)
 		if phase == available {
-			c.logStatus(diag.Info, "✅ PV marked available")
+			c.logger.LogStatus(diag.Info, "✅ PV marked available")
 		} else if phase == bound {
-			c.logStatus(diag.Info, "✅ PV has been bound")
+			c.logger.LogStatus(diag.Info, "✅ PV has been bound")
 		}
 		return phase == available || phase == bound
 	}
@@ -490,7 +481,7 @@ func untilCoreV1PersistentVolumeClaimReady(c createAwaitConfig) error {
 		if bindMode == "" {
 			b, err := pvcBindMode(c.ctx, c.clientSet, pvc)
 			if err != nil {
-				c.logStatus(diag.Warning, err.Error())
+				c.logger.LogStatus(diag.Warning, err.Error())
 			}
 			bindMode = b
 		}
