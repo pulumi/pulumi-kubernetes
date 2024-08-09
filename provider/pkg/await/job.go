@@ -80,14 +80,14 @@ const (
 
 type jobInitAwaiter struct {
 	job      *unstructured.Unstructured
-	config   createAwaitConfig
+	config   awaitConfig
 	checker  *checker.StateChecker
 	errors   logging.TimeOrderedLogSet
 	resource *unstructured.Unstructured
 	ready    bool
 }
 
-func makeJobInitAwaiter(c createAwaitConfig) *jobInitAwaiter {
+func makeJobInitAwaiter(c awaitConfig) *jobInitAwaiter {
 	return &jobInitAwaiter{
 		config:   c,
 		job:      c.currentOutputs,

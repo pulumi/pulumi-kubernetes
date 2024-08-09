@@ -151,7 +151,7 @@ const (
 )
 
 type statefulsetInitAwaiter struct {
-	config            updateAwaitConfig
+	config            awaitConfig
 	revisionReady     bool
 	replicasReady     bool
 	currentGeneration int64
@@ -164,7 +164,7 @@ type statefulsetInitAwaiter struct {
 	targetRevision  string
 }
 
-func makeStatefulSetInitAwaiter(c updateAwaitConfig) *statefulsetInitAwaiter {
+func makeStatefulSetInitAwaiter(c awaitConfig) *statefulsetInitAwaiter {
 	return &statefulsetInitAwaiter{
 		config:        c,
 		revisionReady: false,
