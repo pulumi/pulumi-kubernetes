@@ -21,7 +21,7 @@ import (
 	"sync"
 	"sync/atomic"
 
-	checkerlog "github.com/pulumi/cloud-ready-checks/pkg/checker/logging"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	k8serrors "k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
@@ -98,9 +98,9 @@ func (dc *Deleted) Range(yield func(watch.Event) bool) {
 	// Let the user know we might be blocked if the object has finalizers.
 	// https://github.com/pulumi/pulumi-kubernetes/issues/1418
 	finalizers := dc.Object().GetFinalizers()
-	dc.logger.LogMessage(checkerlog.WarningMessage(
+	dc.logger.Log(diag.Warning,
 		fmt.Sprintf("finalizers might be preventing deletion (%s)", strings.Join(finalizers, ", ")),
-	))
+	)
 }
 
 // Observe watches for Deleted events.
@@ -121,7 +121,7 @@ func (dc *Deleted) Satisfied() (bool, error) {
 	uns := dc.Object()
 	r, _ := status.Compute(uns)
 	if r.Message != "" {
-		dc.logger.LogMessage(checkerlog.StatusMessage(r.Message))
+		dc.logger.LogStatus(diag.Info, r.Message)
 	}
 
 	return false, nil
@@ -147,8 +147,8 @@ func (dc *Deleted) getClusterState() {
 	if k8serrors.IsNotFound(err) {
 		dc.deleted.Store(true)
 	} else {
-		dc.logger.LogMessage(checkerlog.WarningMessage(
-			"unexpected error while checking cluster state: " + err.Error(),
-		))
+		dc.logger.LogStatus(diag.Warning,
+			"unexpected error while checking cluster state: "+err.Error(),
+		)
 	}
 }

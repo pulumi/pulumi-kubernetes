@@ -18,9 +18,8 @@ import (
 	"context"
 	"fmt"
 	"io"
-	"os"
 
-	checkerlog "github.com/pulumi/cloud-ready-checks/pkg/checker/logging"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
@@ -39,22 +38,19 @@ type Satisfier interface {
 
 // logger allows injecting custom log behavior.
 type logger interface {
-	LogMessage(checkerlog.Message)
+	Log(diag.Severity, string)
+	LogStatus(diag.Severity, string)
 }
 
 // logbuf logs messages to an io.Writter.
 type logbuf struct{ w io.Writer }
 
-func (l logbuf) LogMessage(m checkerlog.Message) {
-	fmt.Fprint(l.w, m.String()+"\n")
+func (l logbuf) Log(sev diag.Severity, msg string) {
+	fmt.Fprintln(l.w, sev, msg)
 }
 
-// stdout logs messages to stdout.
-type stdout struct{}
-
-func (stdout) LogMessage(m checkerlog.Message) {
-	l := logbuf{os.Stdout}
-	l.LogMessage(m)
+func (l logbuf) LogStatus(sev diag.Severity, msg string) {
+	l.Log(sev, msg)
 }
 
 // objectGetter allows injecting custom client behavior for fetching objects
