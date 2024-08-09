@@ -15,15 +15,11 @@
 package metadata
 
 import (
-	"context"
 	"testing"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/condition"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/stretchr/testify/assert"
-	"github.com/stretchr/testify/require"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
-	"k8s.io/client-go/dynamic"
 )
 
 func TestSetAnnotation(t *testing.T) {
@@ -84,83 +80,4 @@ func TestSetAnnotation(t *testing.T) {
 			}
 		})
 	}
-}
-
-func TestGetDeletedCondition(t *testing.T) {
-	tests := []struct {
-		name   string
-		inputs *unstructured.Unstructured
-		obj    *unstructured.Unstructured
-		want   condition.Satisfier
-	}{
-		{
-			name: "skipAwait=true doesn't affect generic resources",
-			inputs: &unstructured.Unstructured{
-				Object: map[string]any{
-					"metadata": map[string]any{
-						"annotations": map[string]any{
-							AnnotationSkipAwait: "true",
-						},
-					},
-				},
-			},
-			want: &condition.Deleted{},
-		},
-		{
-			name: "skipAwait=true does affect legacy resources",
-			inputs: &unstructured.Unstructured{
-				Object: map[string]any{
-					"apiVersion": "v1",
-					"kind":       "Namespace",
-					"metadata": map[string]any{
-						"annotations": map[string]any{
-							AnnotationSkipAwait: "true",
-						},
-					},
-				},
-			},
-			want: condition.Immediate{},
-		},
-		{
-			name: "skipAwait=false",
-			inputs: &unstructured.Unstructured{
-				Object: map[string]any{
-					"metadata": map[string]any{
-						"annotations": map[string]any{
-							AnnotationSkipAwait: "false",
-						},
-					},
-				},
-			},
-			want: &condition.Deleted{},
-		},
-		{
-			name: "skipAwait unset",
-			inputs: &unstructured.Unstructured{
-				Object: map[string]any{
-					"metadata": map[string]any{},
-				},
-			},
-			want: &condition.Deleted{},
-		},
-	}
-
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			obj := tt.obj
-			if obj == nil {
-				obj = tt.inputs
-			}
-			condition, err := GetDeletedCondition(context.Background(), nil, noopClientGetter{}, nil, tt.inputs, obj)
-			require.NoError(t, err)
-
-			assert.IsType(t, tt.want, condition)
-		})
-	}
-}
-
-type noopClientGetter struct{}
-
-func (noopClientGetter) ResourceClientForObject(*unstructured.Unstructured) (dynamic.ResourceInterface, error) {
-	return nil, nil
 }
