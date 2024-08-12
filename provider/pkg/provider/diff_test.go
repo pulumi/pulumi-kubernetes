@@ -195,6 +195,39 @@ func TestPatchToDiff(t *testing.T) {
 			},
 		},
 		{
+			name:  `Secret resources don't trigger a replace when mutable.`,
+			group: "core", version: "v1", kind: "Secret",
+			old: object{"data": object{"property1": "3"}},
+			new: object{"data": object{"property1": "4"}},
+			customizeProvider: func(p *kubeProvider) {
+				p.enableSecretMutable = true
+			},
+			expected: expected{
+				"data.property1": U,
+			},
+		},
+		{
+			name:  `Secret resources trigger a replace when enableSecretMutable is not set.`,
+			group: "core", version: "v1", kind: "Secret",
+			old: object{"data": object{"property1": "3"}},
+			new: object{"data": object{"property1": "4"}},
+			expected: expected{
+				"data.property1": UR,
+			},
+		},
+		{
+			name:  `Secret resources trigger a replace when type changes even if enableSecretMutable is set.`,
+			group: "core", version: "v1", kind: "Secret",
+			old: object{"type": "kubernetes.io/dockerconfigjson", "data": object{"property1": "3"}},
+			new: object{"type": "Opaque", "data": object{"property1": "3"}},
+			customizeProvider: func(p *kubeProvider) {
+				p.enableSecretMutable = true
+			},
+			expected: expected{
+				"type": UR,
+			},
+		},
+		{
 			name:  `Changing computed object values results in correct diff`,
 			group: "core", version: "v1", kind: "Pod",
 			old:    object{"spec": object{"containers": list{object{"name": "nginx", "image": "nginx"}}}},

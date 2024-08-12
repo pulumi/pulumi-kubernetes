@@ -33,6 +33,11 @@ func NewProvider(ctx *pulumi.Context,
 			args.EnableConfigMapMutable = pulumi.BoolPtr(d.(bool))
 		}
 	}
+	if args.EnableSecretMutable == nil {
+		if d := utilities.GetEnvOrDefault(nil, utilities.ParseEnvBool, "PULUMI_K8S_ENABLE_SECRET_MUTABLE"); d != nil {
+			args.EnableSecretMutable = pulumi.BoolPtr(d.(bool))
+		}
+	}
 	if args.EnableServerSideApply == nil {
 		if d := utilities.GetEnvOrDefault(nil, utilities.ParseEnvBool, "PULUMI_K8S_ENABLE_SERVER_SIDE_APPLY"); d != nil {
 			args.EnableServerSideApply = pulumi.BoolPtr(d.(bool))
@@ -93,6 +98,13 @@ type providerArgs struct {
 	// 1. This `enableConfigMapMutable` parameter.
 	// 2. The `PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE` environment variable.
 	EnableConfigMapMutable *bool `pulumi:"enableConfigMapMutable"`
+	// BETA FEATURE - If present and set to true, allow Secrets to be mutated.
+	// This feature is in developer preview, and is disabled by default.
+	//
+	// This config can be specified in the following ways using this precedence:
+	// 1. This `enableSecretMutable` parameter.
+	// 2. The `PULUMI_K8S_ENABLE_SECRET_MUTABLE` environment variable.
+	EnableSecretMutable *bool `pulumi:"enableSecretMutable"`
 	// If present and set to false, disable Server-Side Apply mode.
 	// See https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.
 	EnableServerSideApply *bool `pulumi:"enableServerSideApply"`
@@ -147,6 +159,13 @@ type ProviderArgs struct {
 	// 1. This `enableConfigMapMutable` parameter.
 	// 2. The `PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE` environment variable.
 	EnableConfigMapMutable pulumi.BoolPtrInput
+	// BETA FEATURE - If present and set to true, allow Secrets to be mutated.
+	// This feature is in developer preview, and is disabled by default.
+	//
+	// This config can be specified in the following ways using this precedence:
+	// 1. This `enableSecretMutable` parameter.
+	// 2. The `PULUMI_K8S_ENABLE_SECRET_MUTABLE` environment variable.
+	EnableSecretMutable pulumi.BoolPtrInput
 	// If present and set to false, disable Server-Side Apply mode.
 	// See https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.
 	EnableServerSideApply pulumi.BoolPtrInput

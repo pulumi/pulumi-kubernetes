@@ -133,6 +133,7 @@ type kubeProvider struct {
 	deleteUnreachable           bool
 	skipUpdateUnreachable       bool
 	enableConfigMapMutable      bool
+	enableSecretMutable         bool
 	enableSecrets               bool
 	suppressDeprecationWarnings bool
 	suppressHelmHookWarnings    bool
@@ -577,6 +578,22 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	}
 	if enableConfigMapMutable() {
 		k.enableConfigMapMutable = true
+	}
+
+	enableSecretMutable := func() bool {
+		// If the provider flag is set, use that value to determine behavior. This will override the ENV var.
+		if enabled, exists := vars["kubernetes:config:enableSecretMutable"]; exists {
+			return enabled == trueStr
+		}
+		// If the provider flag is not set, fall back to the ENV var.
+		if enabled, exists := os.LookupEnv("PULUMI_K8S_ENABLE_SECRET_MUTABLE"); exists {
+			return enabled == trueStr
+		}
+		// Default to false.
+		return false
+	}
+	if enableSecretMutable() {
+		k.enableSecretMutable = true
 	}
 
 	suppressDeprecationWarnings := func() bool {

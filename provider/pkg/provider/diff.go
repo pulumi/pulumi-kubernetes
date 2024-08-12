@@ -24,7 +24,9 @@ func (k *kubeProvider) forceNewProperties(obj *unstructured.Unstructured) []stri
 	props := metadataForceNewProperties(".metadata")
 	if group, groupExists := forceNew[gvk.Group]; groupExists {
 		if version, versionExists := group[gvk.Version]; versionExists {
-			if kindFields, kindExists := version[gvk.Kind]; kindExists {
+			if clients.IsSecret(obj) && !k.enableSecretMutable {
+				props = append(props, properties{".type", ".stringData", ".data"}...)
+			} else if kindFields, kindExists := version[gvk.Kind]; kindExists {
 				props = append(props, kindFields...)
 			} else if clients.IsConfigMap(obj) && !k.enableConfigMapMutable {
 				props = append(props, properties{".binaryData", ".data"}...)
@@ -151,8 +153,6 @@ var core = _versions{
 		},
 		"Secret": properties{
 			".type",
-			".stringData",
-			".data",
 		},
 		"Service": properties{
 			".spec.clusterIP",
