@@ -92,3 +92,26 @@ func TestAwaitPVC(t *testing.T) {
 	test.UpdateSource("testdata/await/pvc/step2")
 	up = test.Up()
 }
+
+func TestAwaitService(t *testing.T) {
+	t.Parallel()
+
+	test := pulumitest.NewPulumiTest(t,
+		"testdata/await/service",
+		opttest.SkipInstall(),
+	)
+	t.Cleanup(func() {
+		test.Destroy()
+	})
+
+	up := test.Up()
+	assert.Equal(t, float64(1), up.Outputs["replicas"].Value.(float64))
+	assert.Nil(t, up.Outputs["selector"].Value)
+	test.Refresh()
+
+	test.UpdateSource("testdata/await/service/step2")
+	up = test.Up()
+	assert.Equal(t, float64(0), up.Outputs["replicas"].Value.(float64))
+	assert.Equal(t, up.Outputs["selector"], up.Outputs["label"])
+	test.Refresh()
+}

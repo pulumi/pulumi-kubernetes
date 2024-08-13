@@ -4,6 +4,13 @@
 
 - Updated Kubernetes schemas and libraries to v1.31.0. (https://github.com/pulumi/pulumi-kubernetes/pull/3144)
 
+### Fixed
+
+- `Services` with selectors targeting 0 `Pods` will no longer hang indefinitely.
+  (https://github.com/pulumi/pulumi-kubernetes/issues/605)
+- `Services` without selectors will no longer hang indefinitely.
+  (https://github.com/pulumi/pulumi-kubernetes/issues/799)
+
 ## 4.16.0 (August 7, 2024)
 
 ### Added
