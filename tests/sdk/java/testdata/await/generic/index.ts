@@ -42,3 +42,34 @@ export const wantsReady = new kubernetes.apiextensions.CustomResource(
   },
   { provider: provider, dependsOn: [crds] }
 );
+
+export const wantsGenerationIncrement =
+  new kubernetes.apiextensions.CustomResource(
+    "wants-generation-increment",
+    {
+      apiVersion: "test.pulumi.com/v1",
+      kind: "GenericAwaiter",
+      metadata: {
+        name: "wants-generation-increment",
+        generation: 3,
+        annotations: {
+          "pulumi.com/patchForce": "true",
+          "pulumi.com/timeoutSeconds": "60",
+        },
+      },
+      spec: {
+        someField: "untouched",
+      },
+      status: {
+        observedGeneration: 2,
+        conditions: [
+          {
+            type: "Ready",
+            status: "True",
+          },
+        ],
+      },
+    },
+
+    { provider: provider, dependsOn: [crds] }
+  );

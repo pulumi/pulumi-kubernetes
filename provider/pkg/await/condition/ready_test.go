@@ -183,6 +183,24 @@ func TestReady(t *testing.T) {
 			}`,
 			wantReady: true,
 		},
+		{
+			name: "observed generation is too young",
+			given: `{
+				"apiVersion": "cert-manager.io/v1",
+				"kind": "Issuer",
+				"metadata": {
+					"generation": 2
+				},
+				"status": {
+					"observedGeneration": 1,
+					"conditions": [{
+						"type": "Ready",
+						"status": "True"
+					}]
+				}
+			}`,
+			wantReady: false,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

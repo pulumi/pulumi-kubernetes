@@ -27,6 +27,9 @@ spec:
             status:
               type: object
               properties:
+                observedGeneration:
+                  format: int64
+                  type: integer
                 conditions:
                   type: array
                   items:

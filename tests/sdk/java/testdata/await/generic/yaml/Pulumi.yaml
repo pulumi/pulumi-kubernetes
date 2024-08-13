@@ -36,7 +36,25 @@ resources:
           annotations:
             pulumi.com/patchForce: "true"
             pulumi.com/timeoutSeconds: "20"
+        spec:
+          someField: untouched
         status:
           conditions:
             - type: Ready
               status: "False"
+
+        apiVersion: test.pulumi.com/v1
+        kind: GenericAwaiter
+        metadata:
+          name: wants-generation-increment
+          generation: 3
+          annotations:
+            pulumi.com/patchForce: "true"
+            pulumi.com/timeoutSeconds: "20"
+        spec:
+          someField: untouched
+        status:
+          conditions:
+            - type: Ready
+              status: "True"
+          observedGeneration: 2

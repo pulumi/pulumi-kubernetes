@@ -271,6 +271,12 @@ func TestAwaitGeneric(t *testing.T) {
 				conditionType:   "Ready",
 				conditionStatus: "True",
 			},
+			{
+				name:            "wantsGenerationIncrement",
+				someField:       "touched",
+				conditionType:   "Ready",
+				conditionStatus: "True",
+			},
 		}
 		assertExpectations(t, outputs, expect)
 	}
@@ -283,6 +289,12 @@ func TestAwaitGeneric(t *testing.T) {
 				someField:       "untouched",
 				conditionType:   "Ready",
 				conditionStatus: "False",
+			},
+			{
+				name:            "wantsGenerationIncrement",
+				someField:       "untouched",
+				conditionType:   "Ready",
+				conditionStatus: "True",
 			},
 		}
 		assertExpectations(t, outputs, expect)
