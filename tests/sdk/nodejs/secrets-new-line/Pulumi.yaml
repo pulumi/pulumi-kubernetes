@@ -1,3 +1,0 @@
-name: secrets-new-line
-description: Tests secrets support with newline at end of data
-runtime: nodejs

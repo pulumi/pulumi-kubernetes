@@ -1,3 +1,0 @@
-name: local-chart-panic
-runtime: nodejs
-description: A minimal Kubernetes TypeScript Pulumi program
