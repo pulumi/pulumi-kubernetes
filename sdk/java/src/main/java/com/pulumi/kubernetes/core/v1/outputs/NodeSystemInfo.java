@@ -31,7 +31,7 @@ public final class NodeSystemInfo {
      */
     private String kernelVersion;
     /**
-     * @return KubeProxy Version reported by the node.
+     * @return Deprecated: KubeProxy Version reported by the node.
      * 
      */
     private String kubeProxyVersion;
@@ -91,7 +91,7 @@ public final class NodeSystemInfo {
         return this.kernelVersion;
     }
     /**
-     * @return KubeProxy Version reported by the node.
+     * @return Deprecated: KubeProxy Version reported by the node.
      * 
      */
     public String kubeProxyVersion() {

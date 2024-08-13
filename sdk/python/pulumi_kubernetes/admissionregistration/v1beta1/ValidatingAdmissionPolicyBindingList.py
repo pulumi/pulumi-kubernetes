@@ -22,25 +22,36 @@ __all__ = ['ValidatingAdmissionPolicyBindingListArgs', 'ValidatingAdmissionPolic
 @pulumi.input_type
 class ValidatingAdmissionPolicyBindingListArgs:
     def __init__(__self__, *,
+                 items: pulumi.Input[Sequence[pulumi.Input['ValidatingAdmissionPolicyBindingArgs']]],
                  api_version: Optional[pulumi.Input[str]] = None,
-                 items: Optional[pulumi.Input[Sequence[pulumi.Input['ValidatingAdmissionPolicyBindingArgs']]]] = None,
                  kind: Optional[pulumi.Input[str]] = None,
                  metadata: Optional[pulumi.Input['_meta.v1.ListMetaArgs']] = None):
         """
         The set of arguments for constructing a ValidatingAdmissionPolicyBindingList resource.
-        :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[Sequence[pulumi.Input['ValidatingAdmissionPolicyBindingArgs']]] items: List of PolicyBinding.
+        :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ListMetaArgs'] metadata: Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
+        pulumi.set(__self__, "items", items)
         if api_version is not None:
             pulumi.set(__self__, "api_version", 'admissionregistration.k8s.io/v1beta1')
-        if items is not None:
-            pulumi.set(__self__, "items", items)
         if kind is not None:
             pulumi.set(__self__, "kind", 'ValidatingAdmissionPolicyBindingList')
         if metadata is not None:
             pulumi.set(__self__, "metadata", metadata)
+
+    @property
+    @pulumi.getter
+    def items(self) -> pulumi.Input[Sequence[pulumi.Input['ValidatingAdmissionPolicyBindingArgs']]]:
+        """
+        List of PolicyBinding.
+        """
+        return pulumi.get(self, "items")
+
+    @items.setter
+    def items(self, value: pulumi.Input[Sequence[pulumi.Input['ValidatingAdmissionPolicyBindingArgs']]]):
+        pulumi.set(self, "items", value)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -53,18 +64,6 @@ class ValidatingAdmissionPolicyBindingListArgs:
     @api_version.setter
     def api_version(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "api_version", value)
-
-    @property
-    @pulumi.getter
-    def items(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ValidatingAdmissionPolicyBindingArgs']]]]:
-        """
-        List of PolicyBinding.
-        """
-        return pulumi.get(self, "items")
-
-    @items.setter
-    def items(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['ValidatingAdmissionPolicyBindingArgs']]]]):
-        pulumi.set(self, "items", value)
 
     @property
     @pulumi.getter
@@ -115,7 +114,7 @@ class ValidatingAdmissionPolicyBindingList(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: Optional[ValidatingAdmissionPolicyBindingListArgs] = None,
+                 args: ValidatingAdmissionPolicyBindingListArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         ValidatingAdmissionPolicyBindingList is a list of ValidatingAdmissionPolicyBinding.
@@ -149,6 +148,8 @@ class ValidatingAdmissionPolicyBindingList(pulumi.CustomResource):
             __props__ = ValidatingAdmissionPolicyBindingListArgs.__new__(ValidatingAdmissionPolicyBindingListArgs)
 
             __props__.__dict__["api_version"] = 'admissionregistration.k8s.io/v1beta1'
+            if items is None and not opts.urn:
+                raise TypeError("Missing required property 'items'")
             __props__.__dict__["items"] = items
             __props__.__dict__["kind"] = 'ValidatingAdmissionPolicyBindingList'
             __props__.__dict__["metadata"] = metadata

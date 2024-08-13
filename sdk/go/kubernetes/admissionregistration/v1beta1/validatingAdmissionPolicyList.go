@@ -7,6 +7,7 @@ import (
 	"context"
 	"reflect"
 
+	"errors"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
@@ -30,9 +31,12 @@ type ValidatingAdmissionPolicyList struct {
 func NewValidatingAdmissionPolicyList(ctx *pulumi.Context,
 	name string, args *ValidatingAdmissionPolicyListArgs, opts ...pulumi.ResourceOption) (*ValidatingAdmissionPolicyList, error) {
 	if args == nil {
-		args = &ValidatingAdmissionPolicyListArgs{}
+		return nil, errors.New("missing one or more required arguments")
 	}
 
+	if args.Items == nil {
+		return nil, errors.New("invalid value for required argument 'Items'")
+	}
 	args.ApiVersion = pulumi.StringPtr("admissionregistration.k8s.io/v1beta1")
 	args.Kind = pulumi.StringPtr("ValidatingAdmissionPolicyList")
 	opts = utilities.PkgResourceDefaultOpts(opts)

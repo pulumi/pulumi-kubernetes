@@ -45,6 +45,12 @@ func NewVolumeAttributesClassPatch(ctx *pulumi.Context,
 
 	args.ApiVersion = pulumi.StringPtr("storage.k8s.io/v1alpha1")
 	args.Kind = pulumi.StringPtr("VolumeAttributesClass")
+	aliases := pulumi.Aliases([]pulumi.Alias{
+		{
+			Type: pulumi.String("kubernetes:storage.k8s.io/v1beta1:VolumeAttributesClassPatch"),
+		},
+	})
+	opts = append(opts, aliases)
 	opts = utilities.PkgResourceDefaultOpts(opts)
 	var resource VolumeAttributesClassPatch
 	err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1alpha1:VolumeAttributesClassPatch", name, args, &resource, opts...)

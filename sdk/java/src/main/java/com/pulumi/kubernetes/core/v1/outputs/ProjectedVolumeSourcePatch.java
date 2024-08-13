@@ -19,7 +19,7 @@ public final class ProjectedVolumeSourcePatch {
      */
     private @Nullable Integer defaultMode;
     /**
-     * @return sources is the list of volume projections
+     * @return sources is the list of volume projections. Each entry in this list handles one source.
      * 
      */
     private @Nullable List<VolumeProjectionPatch> sources;
@@ -33,7 +33,7 @@ public final class ProjectedVolumeSourcePatch {
         return Optional.ofNullable(this.defaultMode);
     }
     /**
-     * @return sources is the list of volume projections
+     * @return sources is the list of volume projections. Each entry in this list handles one source.
      * 
      */
     public List<VolumeProjectionPatch> sources() {

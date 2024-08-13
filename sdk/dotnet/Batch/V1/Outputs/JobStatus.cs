@@ -47,7 +47,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch.V1
         /// </summary>
         public readonly string FailedIndexes;
         /// <summary>
-        /// The number of pods which have a Ready condition.
+        /// The number of active pods which have a Ready condition and are not terminating (without a deletionTimestamp).
         /// </summary>
         public readonly int Ready;
         /// <summary>

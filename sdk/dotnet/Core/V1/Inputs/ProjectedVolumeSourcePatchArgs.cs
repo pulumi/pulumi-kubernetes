@@ -25,7 +25,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         private InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.VolumeProjectionPatchArgs>? _sources;
 
         /// <summary>
-        /// sources is the list of volume projections
+        /// sources is the list of volume projections. Each entry in this list handles one source.
         /// </summary>
         public InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.VolumeProjectionPatchArgs> Sources
         {

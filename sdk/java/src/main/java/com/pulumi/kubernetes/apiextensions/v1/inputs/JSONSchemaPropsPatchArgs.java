@@ -465,14 +465,14 @@ public final class JSONSchemaPropsPatchArgs extends com.pulumi.resources.Resourc
     }
 
     /**
-     * x-kubernetes-validations describes a list of validation rules written in the CEL expression language. This field is an alpha-level. Using this field requires the feature gate `CustomResourceValidationExpressions` to be enabled.
+     * x-kubernetes-validations describes a list of validation rules written in the CEL expression language.
      * 
      */
     @Import(name="x_kubernetes_validations")
     private @Nullable Output<List<ValidationRulePatchArgs>> x_kubernetes_validations;
 
     /**
-     * @return x-kubernetes-validations describes a list of validation rules written in the CEL expression language. This field is an alpha-level. Using this field requires the feature gate `CustomResourceValidationExpressions` to be enabled.
+     * @return x-kubernetes-validations describes a list of validation rules written in the CEL expression language.
      * 
      */
     public Optional<Output<List<ValidationRulePatchArgs>>> x_kubernetes_validations() {
@@ -1158,7 +1158,7 @@ public final class JSONSchemaPropsPatchArgs extends com.pulumi.resources.Resourc
         }
 
         /**
-         * @param x_kubernetes_validations x-kubernetes-validations describes a list of validation rules written in the CEL expression language. This field is an alpha-level. Using this field requires the feature gate `CustomResourceValidationExpressions` to be enabled.
+         * @param x_kubernetes_validations x-kubernetes-validations describes a list of validation rules written in the CEL expression language.
          * 
          * @return builder
          * 
@@ -1169,7 +1169,7 @@ public final class JSONSchemaPropsPatchArgs extends com.pulumi.resources.Resourc
         }
 
         /**
-         * @param x_kubernetes_validations x-kubernetes-validations describes a list of validation rules written in the CEL expression language. This field is an alpha-level. Using this field requires the feature gate `CustomResourceValidationExpressions` to be enabled.
+         * @param x_kubernetes_validations x-kubernetes-validations describes a list of validation rules written in the CEL expression language.
          * 
          * @return builder
          * 
@@ -1179,7 +1179,7 @@ public final class JSONSchemaPropsPatchArgs extends com.pulumi.resources.Resourc
         }
 
         /**
-         * @param x_kubernetes_validations x-kubernetes-validations describes a list of validation rules written in the CEL expression language. This field is an alpha-level. Using this field requires the feature gate `CustomResourceValidationExpressions` to be enabled.
+         * @param x_kubernetes_validations x-kubernetes-validations describes a list of validation rules written in the CEL expression language.
          * 
          * @return builder
          * 

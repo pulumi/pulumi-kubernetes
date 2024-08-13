@@ -1878,7 +1878,7 @@ class JSONSchemaProps(dict):
                2) `atomic`: the list is treated as a single entity, like a scalar.
                     Atomic maps will be entirely replaced when updated.
         :param bool x_kubernetes_preserve_unknown_fields: x-kubernetes-preserve-unknown-fields stops the API server decoding step from pruning fields which are not specified in the validation schema. This affects fields recursively, but switches back to normal pruning behaviour if nested properties or additionalProperties are specified in the schema. This can either be true or undefined. False is forbidden.
-        :param Sequence['ValidationRuleArgs'] x_kubernetes_validations: x-kubernetes-validations describes a list of validation rules written in the CEL expression language. This field is an alpha-level. Using this field requires the feature gate `CustomResourceValidationExpressions` to be enabled.
+        :param Sequence['ValidationRuleArgs'] x_kubernetes_validations: x-kubernetes-validations describes a list of validation rules written in the CEL expression language.
         """
         if _ref is not None:
             pulumi.set(__self__, "_ref", _ref)
@@ -2247,7 +2247,7 @@ class JSONSchemaProps(dict):
     @pulumi.getter
     def x_kubernetes_validations(self) -> Optional[Sequence['outputs.ValidationRule']]:
         """
-        x-kubernetes-validations describes a list of validation rules written in the CEL expression language. This field is an alpha-level. Using this field requires the feature gate `CustomResourceValidationExpressions` to be enabled.
+        x-kubernetes-validations describes a list of validation rules written in the CEL expression language.
         """
         return pulumi.get(self, "x_kubernetes_validations")
 
@@ -2402,7 +2402,7 @@ class JSONSchemaPropsPatch(dict):
                2) `atomic`: the list is treated as a single entity, like a scalar.
                     Atomic maps will be entirely replaced when updated.
         :param bool x_kubernetes_preserve_unknown_fields: x-kubernetes-preserve-unknown-fields stops the API server decoding step from pruning fields which are not specified in the validation schema. This affects fields recursively, but switches back to normal pruning behaviour if nested properties or additionalProperties are specified in the schema. This can either be true or undefined. False is forbidden.
-        :param Sequence['ValidationRulePatchArgs'] x_kubernetes_validations: x-kubernetes-validations describes a list of validation rules written in the CEL expression language. This field is an alpha-level. Using this field requires the feature gate `CustomResourceValidationExpressions` to be enabled.
+        :param Sequence['ValidationRulePatchArgs'] x_kubernetes_validations: x-kubernetes-validations describes a list of validation rules written in the CEL expression language.
         """
         if _ref is not None:
             pulumi.set(__self__, "_ref", _ref)
@@ -2771,7 +2771,7 @@ class JSONSchemaPropsPatch(dict):
     @pulumi.getter
     def x_kubernetes_validations(self) -> Optional[Sequence['outputs.ValidationRulePatch']]:
         """
-        x-kubernetes-validations describes a list of validation rules written in the CEL expression language. This field is an alpha-level. Using this field requires the feature gate `CustomResourceValidationExpressions` to be enabled.
+        x-kubernetes-validations describes a list of validation rules written in the CEL expression language.
         """
         return pulumi.get(self, "x_kubernetes_validations")
 

@@ -90,7 +90,7 @@ public class ValidatingAdmissionPolicyBindingList extends com.pulumi.resources.C
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public ValidatingAdmissionPolicyBindingList(String name, @Nullable ValidatingAdmissionPolicyBindingListArgs args) {
+    public ValidatingAdmissionPolicyBindingList(String name, ValidatingAdmissionPolicyBindingListArgs args) {
         this(name, args, null);
     }
     /**
@@ -99,7 +99,7 @@ public class ValidatingAdmissionPolicyBindingList extends com.pulumi.resources.C
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public ValidatingAdmissionPolicyBindingList(String name, @Nullable ValidatingAdmissionPolicyBindingListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public ValidatingAdmissionPolicyBindingList(String name, ValidatingAdmissionPolicyBindingListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:admissionregistration.k8s.io/v1alpha1:ValidatingAdmissionPolicyBindingList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
     }
 
@@ -107,7 +107,7 @@ public class ValidatingAdmissionPolicyBindingList extends com.pulumi.resources.C
         super("kubernetes:admissionregistration.k8s.io/v1alpha1:ValidatingAdmissionPolicyBindingList", name, null, makeResourceOptions(options, id));
     }
 
-    private static ValidatingAdmissionPolicyBindingListArgs makeArgs(@Nullable ValidatingAdmissionPolicyBindingListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    private static ValidatingAdmissionPolicyBindingListArgs makeArgs(ValidatingAdmissionPolicyBindingListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         if (options != null && options.getUrn().isPresent()) {
             return null;
         }

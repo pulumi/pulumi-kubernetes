@@ -8,6 +8,8 @@ import com.pulumi.core.annotations.Import;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
+import java.util.Optional;
+import javax.annotation.Nullable;
 
 
 /**
@@ -33,10 +35,26 @@ public final class ResourceClaimArgs extends com.pulumi.resources.ResourceArgs {
         return this.name;
     }
 
+    /**
+     * Request is the name chosen for a request in the referenced claim. If empty, everything from the claim is made available, otherwise only the result of this request.
+     * 
+     */
+    @Import(name="request")
+    private @Nullable Output<String> request;
+
+    /**
+     * @return Request is the name chosen for a request in the referenced claim. If empty, everything from the claim is made available, otherwise only the result of this request.
+     * 
+     */
+    public Optional<Output<String>> request() {
+        return Optional.ofNullable(this.request);
+    }
+
     private ResourceClaimArgs() {}
 
     private ResourceClaimArgs(ResourceClaimArgs $) {
         this.name = $.name;
+        this.request = $.request;
     }
 
     public static Builder builder() {
@@ -76,6 +94,27 @@ public final class ResourceClaimArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder name(String name) {
             return name(Output.of(name));
+        }
+
+        /**
+         * @param request Request is the name chosen for a request in the referenced claim. If empty, everything from the claim is made available, otherwise only the result of this request.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder request(@Nullable Output<String> request) {
+            $.request = request;
+            return this;
+        }
+
+        /**
+         * @param request Request is the name chosen for a request in the referenced claim. If empty, everything from the claim is made available, otherwise only the result of this request.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder request(String request) {
+            return request(Output.of(request));
         }
 
         public ResourceClaimArgs build() {

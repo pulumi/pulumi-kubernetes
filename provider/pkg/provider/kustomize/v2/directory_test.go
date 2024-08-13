@@ -33,8 +33,10 @@ import (
 	kfilesys "sigs.k8s.io/kustomize/kyaml/filesys"
 )
 
-var depProvider = kprovider.NewDefaultDepProvider()
-var rf = depProvider.GetResourceFactory()
+var (
+	depProvider = kprovider.NewDefaultDepProvider()
+	rf          = depProvider.GetResourceFactory()
+)
 
 type fakeKustomizer struct {
 	resmap kresmap.ResMap
@@ -48,7 +50,7 @@ func (k *fakeKustomizer) Run(fSys kfilesys.FileSystem, path string) (kresmap.Res
 }
 
 func makeCm(i int) *kresource.Resource {
-	return rf.FromMap(
+	resource, err := rf.FromMap(
 		map[string]interface{}{
 			"apiVersion": "v1",
 			"kind":       "ConfigMap",
@@ -56,6 +58,10 @@ func makeCm(i int) *kresource.Resource {
 				"name": fmt.Sprintf("cm%03d", i),
 			},
 		})
+	if err != nil {
+		panic(err)
+	}
+	return resource
 }
 
 var _ = Describe("Construct", func() {

@@ -1,5 +1,9 @@
 ## Unreleased
 
+### Changed
+
+- Updated Kubernetes schemas and libraries to v1.31.0. (https://github.com/pulumi/pulumi-kubernetes/pull/3144)
+
 ## 4.16.0 (August 7, 2024)
 
 ### Added
@@ -40,6 +44,8 @@
 ### Changed
 
 - `CustomResource` should have plain `apiVersion` and `kind` properties (https://github.com/pulumi/pulumi-kubernetes/pull/3079)
+- Updated Kubernetes schema and libraries to v1.31.0.
+  (https://github.com/pulumi/pulumi-kubernetes/pull/3144)
 
 ### Fixed
 

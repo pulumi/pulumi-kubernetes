@@ -6,6 +6,7 @@ package com.pulumi.kubernetes.admissionregistration.v1beta1;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.core.internal.Codegen;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.admissionregistration.v1beta1.inputs.ValidatingAdmissionPolicyBindingArgs;
 import com.pulumi.kubernetes.meta.v1.inputs.ListMetaArgs;
 import java.lang.String;
@@ -38,15 +39,15 @@ public final class ValidatingAdmissionPolicyBindingListArgs extends com.pulumi.r
      * List of PolicyBinding.
      * 
      */
-    @Import(name="items")
-    private @Nullable Output<List<ValidatingAdmissionPolicyBindingArgs>> items;
+    @Import(name="items", required=true)
+    private Output<List<ValidatingAdmissionPolicyBindingArgs>> items;
 
     /**
      * @return List of PolicyBinding.
      * 
      */
-    public Optional<Output<List<ValidatingAdmissionPolicyBindingArgs>>> items() {
-        return Optional.ofNullable(this.items);
+    public Output<List<ValidatingAdmissionPolicyBindingArgs>> items() {
+        return this.items;
     }
 
     /**
@@ -133,7 +134,7 @@ public final class ValidatingAdmissionPolicyBindingListArgs extends com.pulumi.r
          * @return builder
          * 
          */
-        public Builder items(@Nullable Output<List<ValidatingAdmissionPolicyBindingArgs>> items) {
+        public Builder items(Output<List<ValidatingAdmissionPolicyBindingArgs>> items) {
             $.items = items;
             return this;
         }
@@ -202,6 +203,9 @@ public final class ValidatingAdmissionPolicyBindingListArgs extends com.pulumi.r
 
         public ValidatingAdmissionPolicyBindingListArgs build() {
             $.apiVersion = Codegen.stringProp("apiVersion").output().arg($.apiVersion).getNullable();
+            if ($.items == null) {
+                throw new MissingRequiredPropertyException("ValidatingAdmissionPolicyBindingListArgs", "items");
+            }
             $.kind = Codegen.stringProp("kind").output().arg($.kind).getNullable();
             return $;
         }

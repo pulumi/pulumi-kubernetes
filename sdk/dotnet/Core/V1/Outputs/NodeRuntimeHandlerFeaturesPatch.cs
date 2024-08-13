@@ -11,7 +11,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
     /// <summary>
-    /// NodeRuntimeHandlerFeatures is a set of runtime features.
+    /// NodeRuntimeHandlerFeatures is a set of features implemented by the runtime handler.
     /// </summary>
     [OutputType]
     public sealed class NodeRuntimeHandlerFeaturesPatch
@@ -20,11 +20,19 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// RecursiveReadOnlyMounts is set to true if the runtime handler supports RecursiveReadOnlyMounts.
         /// </summary>
         public readonly bool RecursiveReadOnlyMounts;
+        /// <summary>
+        /// UserNamespaces is set to true if the runtime handler supports UserNamespaces, including for volumes.
+        /// </summary>
+        public readonly bool UserNamespaces;
 
         [OutputConstructor]
-        private NodeRuntimeHandlerFeaturesPatch(bool recursiveReadOnlyMounts)
+        private NodeRuntimeHandlerFeaturesPatch(
+            bool recursiveReadOnlyMounts,
+
+            bool userNamespaces)
         {
             RecursiveReadOnlyMounts = recursiveReadOnlyMounts;
+            UserNamespaces = userNamespaces;
         }
     }
 }

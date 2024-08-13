@@ -105,7 +105,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1Beta1
         [Input("apiVersion")]
         public Input<string>? ApiVersion { get; set; }
 
-        [Input("items")]
+        [Input("items", required: true)]
         private InputList<Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1Beta1.ValidatingAdmissionPolicyBindingArgs>? _items;
 
         /// <summary>
