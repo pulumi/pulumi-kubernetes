@@ -7,7 +7,9 @@ import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.inputs.ContainerStateArgs;
+import com.pulumi.kubernetes.core.v1.inputs.ContainerUserArgs;
 import com.pulumi.kubernetes.core.v1.inputs.ResourceRequirementsArgs;
+import com.pulumi.kubernetes.core.v1.inputs.ResourceStatusArgs;
 import com.pulumi.kubernetes.core.v1.inputs.VolumeMountStatusArgs;
 import java.lang.Boolean;
 import java.lang.Integer;
@@ -40,6 +42,21 @@ public final class ContainerStatusArgs extends com.pulumi.resources.ResourceArgs
      */
     public Optional<Output<Map<String,String>>> allocatedResources() {
         return Optional.ofNullable(this.allocatedResources);
+    }
+
+    /**
+     * AllocatedResourcesStatus represents the status of various resources allocated for this Pod.
+     * 
+     */
+    @Import(name="allocatedResourcesStatus")
+    private @Nullable Output<List<ResourceStatusArgs>> allocatedResourcesStatus;
+
+    /**
+     * @return AllocatedResourcesStatus represents the status of various resources allocated for this Pod.
+     * 
+     */
+    public Optional<Output<List<ResourceStatusArgs>>> allocatedResourcesStatus() {
+        return Optional.ofNullable(this.allocatedResourcesStatus);
     }
 
     /**
@@ -197,6 +214,21 @@ public final class ContainerStatusArgs extends com.pulumi.resources.ResourceArgs
     }
 
     /**
+     * User represents user identity information initially attached to the first process of the container
+     * 
+     */
+    @Import(name="user")
+    private @Nullable Output<ContainerUserArgs> user;
+
+    /**
+     * @return User represents user identity information initially attached to the first process of the container
+     * 
+     */
+    public Optional<Output<ContainerUserArgs>> user() {
+        return Optional.ofNullable(this.user);
+    }
+
+    /**
      * Status of volume mounts.
      * 
      */
@@ -215,6 +247,7 @@ public final class ContainerStatusArgs extends com.pulumi.resources.ResourceArgs
 
     private ContainerStatusArgs(ContainerStatusArgs $) {
         this.allocatedResources = $.allocatedResources;
+        this.allocatedResourcesStatus = $.allocatedResourcesStatus;
         this.containerID = $.containerID;
         this.image = $.image;
         this.imageID = $.imageID;
@@ -225,6 +258,7 @@ public final class ContainerStatusArgs extends com.pulumi.resources.ResourceArgs
         this.restartCount = $.restartCount;
         this.started = $.started;
         this.state = $.state;
+        this.user = $.user;
         this.volumeMounts = $.volumeMounts;
     }
 
@@ -265,6 +299,37 @@ public final class ContainerStatusArgs extends com.pulumi.resources.ResourceArgs
          */
         public Builder allocatedResources(Map<String,String> allocatedResources) {
             return allocatedResources(Output.of(allocatedResources));
+        }
+
+        /**
+         * @param allocatedResourcesStatus AllocatedResourcesStatus represents the status of various resources allocated for this Pod.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder allocatedResourcesStatus(@Nullable Output<List<ResourceStatusArgs>> allocatedResourcesStatus) {
+            $.allocatedResourcesStatus = allocatedResourcesStatus;
+            return this;
+        }
+
+        /**
+         * @param allocatedResourcesStatus AllocatedResourcesStatus represents the status of various resources allocated for this Pod.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder allocatedResourcesStatus(List<ResourceStatusArgs> allocatedResourcesStatus) {
+            return allocatedResourcesStatus(Output.of(allocatedResourcesStatus));
+        }
+
+        /**
+         * @param allocatedResourcesStatus AllocatedResourcesStatus represents the status of various resources allocated for this Pod.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder allocatedResourcesStatus(ResourceStatusArgs... allocatedResourcesStatus) {
+            return allocatedResourcesStatus(List.of(allocatedResourcesStatus));
         }
 
         /**
@@ -479,6 +544,27 @@ public final class ContainerStatusArgs extends com.pulumi.resources.ResourceArgs
          */
         public Builder state(ContainerStateArgs state) {
             return state(Output.of(state));
+        }
+
+        /**
+         * @param user User represents user identity information initially attached to the first process of the container
+         * 
+         * @return builder
+         * 
+         */
+        public Builder user(@Nullable Output<ContainerUserArgs> user) {
+            $.user = user;
+            return this;
+        }
+
+        /**
+         * @param user User represents user identity information initially attached to the first process of the container
+         * 
+         * @return builder
+         * 
+         */
+        public Builder user(ContainerUserArgs user) {
+            return user(Output.of(user));
         }
 
         /**

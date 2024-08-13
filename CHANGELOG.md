@@ -1,5 +1,9 @@
 ## Unreleased
 
+### Changed
+
+- Updated Kubernetes schemas and libraries to v1.31.0. (https://github.com/pulumi/pulumi-kubernetes/pull/3144)
+
 ### Fixed
 
 - `Services` with selectors targeting 0 `Pods` will no longer hang indefinitely.
@@ -47,6 +51,8 @@
 ### Changed
 
 - `CustomResource` should have plain `apiVersion` and `kind` properties (https://github.com/pulumi/pulumi-kubernetes/pull/3079)
+- Updated Kubernetes schema and libraries to v1.31.0.
+  (https://github.com/pulumi/pulumi-kubernetes/pull/3144)
 
 ### Fixed
 

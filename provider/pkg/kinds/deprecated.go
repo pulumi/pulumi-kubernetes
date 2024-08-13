@@ -90,6 +90,7 @@ var v122 = cluster.ServerVersion{Major: 1, Minor: 22}
 var v124 = cluster.ServerVersion{Major: 1, Minor: 24}
 var v125 = cluster.ServerVersion{Major: 1, Minor: 25}
 var v127 = cluster.ServerVersion{Major: 1, Minor: 27}
+var v131 = cluster.ServerVersion{Major: 1, Minor: 31}
 
 func gvkStr(gvk schema.GroupVersionKind) string {
 	return gvk.GroupVersion().String() + "/" + gvk.Kind
@@ -288,6 +289,8 @@ func RemovedInVersion(gvk schema.GroupVersionKind) *cluster.ServerVersion {
 		return &v120
 	case RbacV1B1:
 		return &v122
+	case ResourceV1A2, NetworkingV1A1:
+		return &v131
 	case SchedulingV1A1, SchedulingV1B1:
 		return &v117
 	case StorageV1A1:

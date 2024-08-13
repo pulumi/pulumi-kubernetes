@@ -132,7 +132,7 @@ public final class JSONSchemaPropsPatch {
      */
     private @Nullable Boolean x_kubernetes_preserve_unknown_fields;
     /**
-     * @return x-kubernetes-validations describes a list of validation rules written in the CEL expression language. This field is an alpha-level. Using this field requires the feature gate `CustomResourceValidationExpressions` to be enabled.
+     * @return x-kubernetes-validations describes a list of validation rules written in the CEL expression language.
      * 
      */
     private @Nullable List<ValidationRulePatch> x_kubernetes_validations;
@@ -335,7 +335,7 @@ public final class JSONSchemaPropsPatch {
         return Optional.ofNullable(this.x_kubernetes_preserve_unknown_fields);
     }
     /**
-     * @return x-kubernetes-validations describes a list of validation rules written in the CEL expression language. This field is an alpha-level. Using this field requires the feature gate `CustomResourceValidationExpressions` to be enabled.
+     * @return x-kubernetes-validations describes a list of validation rules written in the CEL expression language.
      * 
      */
     public List<ValidationRulePatch> x_kubernetes_validations() {

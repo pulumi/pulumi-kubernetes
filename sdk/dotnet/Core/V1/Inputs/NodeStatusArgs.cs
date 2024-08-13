@@ -43,7 +43,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         private InputMap<string>? _capacity;
 
         /// <summary>
-        /// Capacity represents the total resources of a node. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity
+        /// Capacity represents the total resources of a node. More info: https://kubernetes.io/docs/reference/node/node-status/#capacity
         /// </summary>
         public InputMap<string> Capacity
         {
@@ -74,6 +74,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         /// </summary>
         [Input("daemonEndpoints")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.NodeDaemonEndpointsArgs>? DaemonEndpoints { get; set; }
+
+        /// <summary>
+        /// Features describes the set of features implemented by the CRI implementation.
+        /// </summary>
+        [Input("features")]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.NodeFeaturesArgs>? Features { get; set; }
 
         [Input("images")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.ContainerImageArgs>? _images;

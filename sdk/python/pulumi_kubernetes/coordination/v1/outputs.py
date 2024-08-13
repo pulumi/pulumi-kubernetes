@@ -114,6 +114,8 @@ class LeaseSpec(dict):
             suggest = "lease_duration_seconds"
         elif key == "leaseTransitions":
             suggest = "lease_transitions"
+        elif key == "preferredHolder":
+            suggest = "preferred_holder"
         elif key == "renewTime":
             suggest = "renew_time"
 
@@ -133,14 +135,18 @@ class LeaseSpec(dict):
                  holder_identity: Optional[str] = None,
                  lease_duration_seconds: Optional[int] = None,
                  lease_transitions: Optional[int] = None,
-                 renew_time: Optional[str] = None):
+                 preferred_holder: Optional[str] = None,
+                 renew_time: Optional[str] = None,
+                 strategy: Optional[str] = None):
         """
         LeaseSpec is a specification of a Lease.
         :param str acquire_time: acquireTime is a time when the current lease was acquired.
-        :param str holder_identity: holderIdentity contains the identity of the holder of a current lease.
-        :param int lease_duration_seconds: leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed renewTime.
+        :param str holder_identity: holderIdentity contains the identity of the holder of a current lease. If Coordinated Leader Election is used, the holder identity must be equal to the elected LeaseCandidate.metadata.name field.
+        :param int lease_duration_seconds: leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measured against the time of last observed renewTime.
         :param int lease_transitions: leaseTransitions is the number of transitions of a lease between holders.
+        :param str preferred_holder: PreferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
         :param str renew_time: renewTime is a time when the current holder of a lease has last updated the lease.
+        :param str strategy: Strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
         """
         if acquire_time is not None:
             pulumi.set(__self__, "acquire_time", acquire_time)
@@ -150,8 +156,12 @@ class LeaseSpec(dict):
             pulumi.set(__self__, "lease_duration_seconds", lease_duration_seconds)
         if lease_transitions is not None:
             pulumi.set(__self__, "lease_transitions", lease_transitions)
+        if preferred_holder is not None:
+            pulumi.set(__self__, "preferred_holder", preferred_holder)
         if renew_time is not None:
             pulumi.set(__self__, "renew_time", renew_time)
+        if strategy is not None:
+            pulumi.set(__self__, "strategy", strategy)
 
     @property
     @pulumi.getter(name="acquireTime")
@@ -165,7 +175,7 @@ class LeaseSpec(dict):
     @pulumi.getter(name="holderIdentity")
     def holder_identity(self) -> Optional[str]:
         """
-        holderIdentity contains the identity of the holder of a current lease.
+        holderIdentity contains the identity of the holder of a current lease. If Coordinated Leader Election is used, the holder identity must be equal to the elected LeaseCandidate.metadata.name field.
         """
         return pulumi.get(self, "holder_identity")
 
@@ -173,7 +183,7 @@ class LeaseSpec(dict):
     @pulumi.getter(name="leaseDurationSeconds")
     def lease_duration_seconds(self) -> Optional[int]:
         """
-        leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed renewTime.
+        leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measured against the time of last observed renewTime.
         """
         return pulumi.get(self, "lease_duration_seconds")
 
@@ -186,12 +196,28 @@ class LeaseSpec(dict):
         return pulumi.get(self, "lease_transitions")
 
     @property
+    @pulumi.getter(name="preferredHolder")
+    def preferred_holder(self) -> Optional[str]:
+        """
+        PreferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
+        """
+        return pulumi.get(self, "preferred_holder")
+
+    @property
     @pulumi.getter(name="renewTime")
     def renew_time(self) -> Optional[str]:
         """
         renewTime is a time when the current holder of a lease has last updated the lease.
         """
         return pulumi.get(self, "renew_time")
+
+    @property
+    @pulumi.getter
+    def strategy(self) -> Optional[str]:
+        """
+        Strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+        """
+        return pulumi.get(self, "strategy")
 
 
 @pulumi.output_type
@@ -210,6 +236,8 @@ class LeaseSpecPatch(dict):
             suggest = "lease_duration_seconds"
         elif key == "leaseTransitions":
             suggest = "lease_transitions"
+        elif key == "preferredHolder":
+            suggest = "preferred_holder"
         elif key == "renewTime":
             suggest = "renew_time"
 
@@ -229,14 +257,18 @@ class LeaseSpecPatch(dict):
                  holder_identity: Optional[str] = None,
                  lease_duration_seconds: Optional[int] = None,
                  lease_transitions: Optional[int] = None,
-                 renew_time: Optional[str] = None):
+                 preferred_holder: Optional[str] = None,
+                 renew_time: Optional[str] = None,
+                 strategy: Optional[str] = None):
         """
         LeaseSpec is a specification of a Lease.
         :param str acquire_time: acquireTime is a time when the current lease was acquired.
-        :param str holder_identity: holderIdentity contains the identity of the holder of a current lease.
-        :param int lease_duration_seconds: leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed renewTime.
+        :param str holder_identity: holderIdentity contains the identity of the holder of a current lease. If Coordinated Leader Election is used, the holder identity must be equal to the elected LeaseCandidate.metadata.name field.
+        :param int lease_duration_seconds: leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measured against the time of last observed renewTime.
         :param int lease_transitions: leaseTransitions is the number of transitions of a lease between holders.
+        :param str preferred_holder: PreferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
         :param str renew_time: renewTime is a time when the current holder of a lease has last updated the lease.
+        :param str strategy: Strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
         """
         if acquire_time is not None:
             pulumi.set(__self__, "acquire_time", acquire_time)
@@ -246,8 +278,12 @@ class LeaseSpecPatch(dict):
             pulumi.set(__self__, "lease_duration_seconds", lease_duration_seconds)
         if lease_transitions is not None:
             pulumi.set(__self__, "lease_transitions", lease_transitions)
+        if preferred_holder is not None:
+            pulumi.set(__self__, "preferred_holder", preferred_holder)
         if renew_time is not None:
             pulumi.set(__self__, "renew_time", renew_time)
+        if strategy is not None:
+            pulumi.set(__self__, "strategy", strategy)
 
     @property
     @pulumi.getter(name="acquireTime")
@@ -261,7 +297,7 @@ class LeaseSpecPatch(dict):
     @pulumi.getter(name="holderIdentity")
     def holder_identity(self) -> Optional[str]:
         """
-        holderIdentity contains the identity of the holder of a current lease.
+        holderIdentity contains the identity of the holder of a current lease. If Coordinated Leader Election is used, the holder identity must be equal to the elected LeaseCandidate.metadata.name field.
         """
         return pulumi.get(self, "holder_identity")
 
@@ -269,7 +305,7 @@ class LeaseSpecPatch(dict):
     @pulumi.getter(name="leaseDurationSeconds")
     def lease_duration_seconds(self) -> Optional[int]:
         """
-        leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed renewTime.
+        leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measured against the time of last observed renewTime.
         """
         return pulumi.get(self, "lease_duration_seconds")
 
@@ -282,11 +318,27 @@ class LeaseSpecPatch(dict):
         return pulumi.get(self, "lease_transitions")
 
     @property
+    @pulumi.getter(name="preferredHolder")
+    def preferred_holder(self) -> Optional[str]:
+        """
+        PreferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
+        """
+        return pulumi.get(self, "preferred_holder")
+
+    @property
     @pulumi.getter(name="renewTime")
     def renew_time(self) -> Optional[str]:
         """
         renewTime is a time when the current holder of a lease has last updated the lease.
         """
         return pulumi.get(self, "renew_time")
+
+    @property
+    @pulumi.getter
+    def strategy(self) -> Optional[str]:
+        """
+        Strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+        """
+        return pulumi.get(self, "strategy")
 
 

@@ -4,10 +4,10 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import javax.annotation.Nullable;
 
 @CustomType
@@ -21,7 +21,7 @@ public final class HostAlias {
      * @return IP address of the host file entry.
      * 
      */
-    private @Nullable String ip;
+    private String ip;
 
     private HostAlias() {}
     /**
@@ -35,8 +35,8 @@ public final class HostAlias {
      * @return IP address of the host file entry.
      * 
      */
-    public Optional<String> ip() {
-        return Optional.ofNullable(this.ip);
+    public String ip() {
+        return this.ip;
     }
 
     public static Builder builder() {
@@ -49,7 +49,7 @@ public final class HostAlias {
     @CustomType.Builder
     public static final class Builder {
         private @Nullable List<String> hostnames;
-        private @Nullable String ip;
+        private String ip;
         public Builder() {}
         public Builder(HostAlias defaults) {
     	      Objects.requireNonNull(defaults);
@@ -67,8 +67,10 @@ public final class HostAlias {
             return hostnames(List.of(hostnames));
         }
         @CustomType.Setter
-        public Builder ip(@Nullable String ip) {
-
+        public Builder ip(String ip) {
+            if (ip == null) {
+              throw new MissingRequiredPropertyException("HostAlias", "ip");
+            }
             this.ip = ip;
             return this;
         }

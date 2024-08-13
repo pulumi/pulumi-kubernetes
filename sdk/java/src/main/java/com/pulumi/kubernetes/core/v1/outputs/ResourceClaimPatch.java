@@ -16,6 +16,11 @@ public final class ResourceClaimPatch {
      * 
      */
     private @Nullable String name;
+    /**
+     * @return Request is the name chosen for a request in the referenced claim. If empty, everything from the claim is made available, otherwise only the result of this request.
+     * 
+     */
+    private @Nullable String request;
 
     private ResourceClaimPatch() {}
     /**
@@ -24,6 +29,13 @@ public final class ResourceClaimPatch {
      */
     public Optional<String> name() {
         return Optional.ofNullable(this.name);
+    }
+    /**
+     * @return Request is the name chosen for a request in the referenced claim. If empty, everything from the claim is made available, otherwise only the result of this request.
+     * 
+     */
+    public Optional<String> request() {
+        return Optional.ofNullable(this.request);
     }
 
     public static Builder builder() {
@@ -36,10 +48,12 @@ public final class ResourceClaimPatch {
     @CustomType.Builder
     public static final class Builder {
         private @Nullable String name;
+        private @Nullable String request;
         public Builder() {}
         public Builder(ResourceClaimPatch defaults) {
     	      Objects.requireNonNull(defaults);
     	      this.name = defaults.name;
+    	      this.request = defaults.request;
         }
 
         @CustomType.Setter
@@ -48,9 +62,16 @@ public final class ResourceClaimPatch {
             this.name = name;
             return this;
         }
+        @CustomType.Setter
+        public Builder request(@Nullable String request) {
+
+            this.request = request;
+            return this;
+        }
         public ResourceClaimPatch build() {
             final var _resultValue = new ResourceClaimPatch();
             _resultValue.name = name;
+            _resultValue.request = request;
             return _resultValue;
         }
     }

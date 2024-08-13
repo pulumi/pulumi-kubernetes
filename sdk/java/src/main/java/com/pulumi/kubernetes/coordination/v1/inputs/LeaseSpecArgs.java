@@ -36,14 +36,14 @@ public final class LeaseSpecArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * holderIdentity contains the identity of the holder of a current lease.
+     * holderIdentity contains the identity of the holder of a current lease. If Coordinated Leader Election is used, the holder identity must be equal to the elected LeaseCandidate.metadata.name field.
      * 
      */
     @Import(name="holderIdentity")
     private @Nullable Output<String> holderIdentity;
 
     /**
-     * @return holderIdentity contains the identity of the holder of a current lease.
+     * @return holderIdentity contains the identity of the holder of a current lease. If Coordinated Leader Election is used, the holder identity must be equal to the elected LeaseCandidate.metadata.name field.
      * 
      */
     public Optional<Output<String>> holderIdentity() {
@@ -51,14 +51,14 @@ public final class LeaseSpecArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed renewTime.
+     * leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measured against the time of last observed renewTime.
      * 
      */
     @Import(name="leaseDurationSeconds")
     private @Nullable Output<Integer> leaseDurationSeconds;
 
     /**
-     * @return leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed renewTime.
+     * @return leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measured against the time of last observed renewTime.
      * 
      */
     public Optional<Output<Integer>> leaseDurationSeconds() {
@@ -81,6 +81,21 @@ public final class LeaseSpecArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * PreferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
+     * 
+     */
+    @Import(name="preferredHolder")
+    private @Nullable Output<String> preferredHolder;
+
+    /**
+     * @return PreferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
+     * 
+     */
+    public Optional<Output<String>> preferredHolder() {
+        return Optional.ofNullable(this.preferredHolder);
+    }
+
+    /**
      * renewTime is a time when the current holder of a lease has last updated the lease.
      * 
      */
@@ -95,6 +110,21 @@ public final class LeaseSpecArgs extends com.pulumi.resources.ResourceArgs {
         return Optional.ofNullable(this.renewTime);
     }
 
+    /**
+     * Strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+     * 
+     */
+    @Import(name="strategy")
+    private @Nullable Output<String> strategy;
+
+    /**
+     * @return Strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+     * 
+     */
+    public Optional<Output<String>> strategy() {
+        return Optional.ofNullable(this.strategy);
+    }
+
     private LeaseSpecArgs() {}
 
     private LeaseSpecArgs(LeaseSpecArgs $) {
@@ -102,7 +132,9 @@ public final class LeaseSpecArgs extends com.pulumi.resources.ResourceArgs {
         this.holderIdentity = $.holderIdentity;
         this.leaseDurationSeconds = $.leaseDurationSeconds;
         this.leaseTransitions = $.leaseTransitions;
+        this.preferredHolder = $.preferredHolder;
         this.renewTime = $.renewTime;
+        this.strategy = $.strategy;
     }
 
     public static Builder builder() {
@@ -145,7 +177,7 @@ public final class LeaseSpecArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param holderIdentity holderIdentity contains the identity of the holder of a current lease.
+         * @param holderIdentity holderIdentity contains the identity of the holder of a current lease. If Coordinated Leader Election is used, the holder identity must be equal to the elected LeaseCandidate.metadata.name field.
          * 
          * @return builder
          * 
@@ -156,7 +188,7 @@ public final class LeaseSpecArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param holderIdentity holderIdentity contains the identity of the holder of a current lease.
+         * @param holderIdentity holderIdentity contains the identity of the holder of a current lease. If Coordinated Leader Election is used, the holder identity must be equal to the elected LeaseCandidate.metadata.name field.
          * 
          * @return builder
          * 
@@ -166,7 +198,7 @@ public final class LeaseSpecArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param leaseDurationSeconds leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed renewTime.
+         * @param leaseDurationSeconds leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measured against the time of last observed renewTime.
          * 
          * @return builder
          * 
@@ -177,7 +209,7 @@ public final class LeaseSpecArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param leaseDurationSeconds leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed renewTime.
+         * @param leaseDurationSeconds leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measured against the time of last observed renewTime.
          * 
          * @return builder
          * 
@@ -208,6 +240,27 @@ public final class LeaseSpecArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
+         * @param preferredHolder PreferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder preferredHolder(@Nullable Output<String> preferredHolder) {
+            $.preferredHolder = preferredHolder;
+            return this;
+        }
+
+        /**
+         * @param preferredHolder PreferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder preferredHolder(String preferredHolder) {
+            return preferredHolder(Output.of(preferredHolder));
+        }
+
+        /**
          * @param renewTime renewTime is a time when the current holder of a lease has last updated the lease.
          * 
          * @return builder
@@ -226,6 +279,27 @@ public final class LeaseSpecArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder renewTime(String renewTime) {
             return renewTime(Output.of(renewTime));
+        }
+
+        /**
+         * @param strategy Strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder strategy(@Nullable Output<String> strategy) {
+            $.strategy = strategy;
+            return this;
+        }
+
+        /**
+         * @param strategy Strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder strategy(String strategy) {
+            return strategy(Output.of(strategy));
         }
 
         public LeaseSpecArgs build() {

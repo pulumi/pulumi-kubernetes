@@ -35,6 +35,12 @@ func NewIPAddress(ctx *pulumi.Context,
 
 	args.ApiVersion = pulumi.StringPtr("networking.k8s.io/v1alpha1")
 	args.Kind = pulumi.StringPtr("IPAddress")
+	aliases := pulumi.Aliases([]pulumi.Alias{
+		{
+			Type: pulumi.String("kubernetes:networking.k8s.io/v1beta1:IPAddress"),
+		},
+	})
+	opts = append(opts, aliases)
 	opts = utilities.PkgResourceDefaultOpts(opts)
 	var resource IPAddress
 	err := ctx.RegisterResource("kubernetes:networking.k8s.io/v1alpha1:IPAddress", name, args, &resource, opts...)

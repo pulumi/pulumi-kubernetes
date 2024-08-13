@@ -18,12 +18,12 @@ public final class LeaseSpecPatch {
      */
     private @Nullable String acquireTime;
     /**
-     * @return holderIdentity contains the identity of the holder of a current lease.
+     * @return holderIdentity contains the identity of the holder of a current lease. If Coordinated Leader Election is used, the holder identity must be equal to the elected LeaseCandidate.metadata.name field.
      * 
      */
     private @Nullable String holderIdentity;
     /**
-     * @return leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed renewTime.
+     * @return leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measured against the time of last observed renewTime.
      * 
      */
     private @Nullable Integer leaseDurationSeconds;
@@ -33,10 +33,20 @@ public final class LeaseSpecPatch {
      */
     private @Nullable Integer leaseTransitions;
     /**
+     * @return PreferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
+     * 
+     */
+    private @Nullable String preferredHolder;
+    /**
      * @return renewTime is a time when the current holder of a lease has last updated the lease.
      * 
      */
     private @Nullable String renewTime;
+    /**
+     * @return Strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+     * 
+     */
+    private @Nullable String strategy;
 
     private LeaseSpecPatch() {}
     /**
@@ -47,14 +57,14 @@ public final class LeaseSpecPatch {
         return Optional.ofNullable(this.acquireTime);
     }
     /**
-     * @return holderIdentity contains the identity of the holder of a current lease.
+     * @return holderIdentity contains the identity of the holder of a current lease. If Coordinated Leader Election is used, the holder identity must be equal to the elected LeaseCandidate.metadata.name field.
      * 
      */
     public Optional<String> holderIdentity() {
         return Optional.ofNullable(this.holderIdentity);
     }
     /**
-     * @return leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed renewTime.
+     * @return leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measured against the time of last observed renewTime.
      * 
      */
     public Optional<Integer> leaseDurationSeconds() {
@@ -68,11 +78,25 @@ public final class LeaseSpecPatch {
         return Optional.ofNullable(this.leaseTransitions);
     }
     /**
+     * @return PreferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
+     * 
+     */
+    public Optional<String> preferredHolder() {
+        return Optional.ofNullable(this.preferredHolder);
+    }
+    /**
      * @return renewTime is a time when the current holder of a lease has last updated the lease.
      * 
      */
     public Optional<String> renewTime() {
         return Optional.ofNullable(this.renewTime);
+    }
+    /**
+     * @return Strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+     * 
+     */
+    public Optional<String> strategy() {
+        return Optional.ofNullable(this.strategy);
     }
 
     public static Builder builder() {
@@ -88,7 +112,9 @@ public final class LeaseSpecPatch {
         private @Nullable String holderIdentity;
         private @Nullable Integer leaseDurationSeconds;
         private @Nullable Integer leaseTransitions;
+        private @Nullable String preferredHolder;
         private @Nullable String renewTime;
+        private @Nullable String strategy;
         public Builder() {}
         public Builder(LeaseSpecPatch defaults) {
     	      Objects.requireNonNull(defaults);
@@ -96,7 +122,9 @@ public final class LeaseSpecPatch {
     	      this.holderIdentity = defaults.holderIdentity;
     	      this.leaseDurationSeconds = defaults.leaseDurationSeconds;
     	      this.leaseTransitions = defaults.leaseTransitions;
+    	      this.preferredHolder = defaults.preferredHolder;
     	      this.renewTime = defaults.renewTime;
+    	      this.strategy = defaults.strategy;
         }
 
         @CustomType.Setter
@@ -124,9 +152,21 @@ public final class LeaseSpecPatch {
             return this;
         }
         @CustomType.Setter
+        public Builder preferredHolder(@Nullable String preferredHolder) {
+
+            this.preferredHolder = preferredHolder;
+            return this;
+        }
+        @CustomType.Setter
         public Builder renewTime(@Nullable String renewTime) {
 
             this.renewTime = renewTime;
+            return this;
+        }
+        @CustomType.Setter
+        public Builder strategy(@Nullable String strategy) {
+
+            this.strategy = strategy;
             return this;
         }
         public LeaseSpecPatch build() {
@@ -135,7 +175,9 @@ public final class LeaseSpecPatch {
             _resultValue.holderIdentity = holderIdentity;
             _resultValue.leaseDurationSeconds = leaseDurationSeconds;
             _resultValue.leaseTransitions = leaseTransitions;
+            _resultValue.preferredHolder = preferredHolder;
             _resultValue.renewTime = renewTime;
+            _resultValue.strategy = strategy;
             return _resultValue;
         }
     }

@@ -21,11 +21,11 @@ namespace Pulumi.Kubernetes.Types.Outputs.Coordination.V1
         /// </summary>
         public readonly string AcquireTime;
         /// <summary>
-        /// holderIdentity contains the identity of the holder of a current lease.
+        /// holderIdentity contains the identity of the holder of a current lease. If Coordinated Leader Election is used, the holder identity must be equal to the elected LeaseCandidate.metadata.name field.
         /// </summary>
         public readonly string HolderIdentity;
         /// <summary>
-        /// leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed renewTime.
+        /// leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measured against the time of last observed renewTime.
         /// </summary>
         public readonly int LeaseDurationSeconds;
         /// <summary>
@@ -33,9 +33,17 @@ namespace Pulumi.Kubernetes.Types.Outputs.Coordination.V1
         /// </summary>
         public readonly int LeaseTransitions;
         /// <summary>
+        /// PreferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
+        /// </summary>
+        public readonly string PreferredHolder;
+        /// <summary>
         /// renewTime is a time when the current holder of a lease has last updated the lease.
         /// </summary>
         public readonly string RenewTime;
+        /// <summary>
+        /// Strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+        /// </summary>
+        public readonly string Strategy;
 
         [OutputConstructor]
         private LeaseSpec(
@@ -47,13 +55,19 @@ namespace Pulumi.Kubernetes.Types.Outputs.Coordination.V1
 
             int leaseTransitions,
 
-            string renewTime)
+            string preferredHolder,
+
+            string renewTime,
+
+            string strategy)
         {
             AcquireTime = acquireTime;
             HolderIdentity = holderIdentity;
             LeaseDurationSeconds = leaseDurationSeconds;
             LeaseTransitions = leaseTransitions;
+            PreferredHolder = preferredHolder;
             RenewTime = renewTime;
+            Strategy = strategy;
         }
     }
 }

@@ -33,7 +33,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly string KernelVersion;
         /// <summary>
-        /// KubeProxy Version reported by the node.
+        /// Deprecated: KubeProxy Version reported by the node.
         /// </summary>
         public readonly string KubeProxyVersion;
         /// <summary>

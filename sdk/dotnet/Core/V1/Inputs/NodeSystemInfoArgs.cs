@@ -40,7 +40,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public Input<string> KernelVersion { get; set; } = null!;
 
         /// <summary>
-        /// KubeProxy Version reported by the node.
+        /// Deprecated: KubeProxy Version reported by the node.
         /// </summary>
         [Input("kubeProxyVersion", required: true)]
         public Input<string> KubeProxyVersion { get; set; } = null!;

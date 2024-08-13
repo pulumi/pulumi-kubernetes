@@ -85,7 +85,7 @@ var (
 	removedAPIErr         = &kinds.RemovedAPIError{}
 )
 
-func Test_Creation(t *testing.T) {
+func TestCreation(t *testing.T) {
 	type testCtx struct {
 		host   *fakehost.HostClient
 		config *CreateConfig
@@ -108,8 +108,8 @@ func Test_Creation(t *testing.T) {
 
 	// awaiters
 
-	touch := func(t *testing.T, ctx testCtx) createAwaiter {
-		return func(cac createAwaitConfig) error {
+	touch := func(t *testing.T, ctx testCtx) awaiter {
+		return func(cac awaitConfig) error {
 			require.False(t, metadata.SkipAwaitLogic(cac.currentOutputs), "Await logic should not execute when SkipWait is set")
 
 			// get the live object from the fake API Server
@@ -131,14 +131,14 @@ func Test_Creation(t *testing.T) {
 		}
 	}
 
-	awaitError := func(t *testing.T, ctx testCtx) createAwaiter {
-		return func(cac createAwaitConfig) error {
+	awaitError := func(t *testing.T, ctx testCtx) awaiter {
+		return func(cac awaitConfig) error {
 			return serviceUnavailableErr
 		}
 	}
 
-	awaitUnexpected := func(t *testing.T, ctx testCtx) createAwaiter {
-		return func(cac createAwaitConfig) error {
+	awaitUnexpected := func(t *testing.T, ctx testCtx) awaiter {
+		return func(cac awaitConfig) error {
 			require.Fail(t, "Unexpected call to awaiter")
 			return nil
 		}
@@ -192,7 +192,7 @@ func Test_Creation(t *testing.T) {
 		client  client
 		args    args
 		expect  []expectF
-		awaiter func(t *testing.T, ctx testCtx) createAwaiter
+		awaiter func(t *testing.T, ctx testCtx) awaiter
 	}{
 		{
 			name: "NoMatchError",
@@ -341,7 +341,7 @@ func Test_Creation(t *testing.T) {
 			if tt.awaiter != nil {
 				id := fmt.Sprintf("%s/%s", tt.args.inputs.GetAPIVersion(), tt.args.inputs.GetKind())
 				config.awaiters[id] = awaitSpec{
-					awaitCreation: tt.awaiter(t, testCtx),
+					await: tt.awaiter(t, testCtx),
 				}
 			}
 			actual, err := Creation(config)
@@ -352,7 +352,278 @@ func Test_Creation(t *testing.T) {
 	}
 }
 
-func Test_Deletion(t *testing.T) {
+func TestUpdate(t *testing.T) {
+	type testCtx struct {
+		host   *fakehost.HostClient
+		config *UpdateConfig
+		disco  *fake.SimpleDiscovery
+		mapper *fake.SimpleRESTMapper
+		client *fake.SimpleDynamicClient
+	}
+	type args struct {
+		preview         bool
+		serverSideApply bool
+		resType         tokens.Type
+		inputs          *unstructured.Unstructured
+		oldInputs       *unstructured.Unstructured
+		oldOutputs      *unstructured.Unstructured
+	}
+	type client struct {
+		RESTMapperF    func(mapper meta.ResettableRESTMapper) meta.ResettableRESTMapper
+		GenericClientF func(client dynamic.Interface) dynamic.Interface
+	}
+
+	type expectF func(t *testing.T, ctx testCtx, actual *unstructured.Unstructured, err error)
+
+	// awaiters
+
+	touch := func(t *testing.T, ctx testCtx) awaiter {
+		return func(cac awaitConfig) error {
+			require.False(t, metadata.SkipAwaitLogic(cac.currentOutputs), "Await logic should not execute when SkipWait is set")
+
+			// get the live object from the fake API Server
+			require.Equal(t, cac.currentOutputs.GetNamespace(), cac.currentOutputs.GetNamespace(), "Live object should have a namespace")
+			require.Equal(t, cac.currentOutputs.GetName(), cac.currentOutputs.GetName(), "Live object should have a name")
+			gvr, err := clients.GVRForGVK(cac.clientSet.RESTMapper, cac.currentOutputs.GroupVersionKind())
+			require.NoError(t, err)
+			live, err := ctx.client.Tracker().Get(gvr, cac.currentOutputs.GetNamespace(), cac.currentOutputs.GetName())
+			require.NoError(t, err, "Live object should exist in the API Server")
+			pod, ok := live.(*unstructured.Unstructured)
+			require.True(t, ok)
+
+			// mutate the live object to simulate a observable status update.
+			err = unstructured.SetNestedField(pod.Object, "Running", "status", "phase")
+			require.NoError(t, err)
+			err = ctx.client.Tracker().Update(gvr, live, cac.currentOutputs.GetNamespace())
+			require.NoError(t, err)
+			return nil
+		}
+	}
+
+	awaitError := func(t *testing.T, ctx testCtx) awaiter {
+		return func(cac awaitConfig) error {
+			return serviceUnavailableErr
+		}
+	}
+
+	awaitUnexpected := func(t *testing.T, ctx testCtx) awaiter {
+		return func(cac awaitConfig) error {
+			require.Fail(t, "Unexpected call to awaiter")
+			return nil
+		}
+	}
+
+	// expectations
+
+	failed := func(target error) expectF {
+		return func(t *testing.T, ctx testCtx, actual *unstructured.Unstructured, err error) {
+			require.ErrorAs(t, err, &target)
+		}
+	}
+	previewed := func(ns, name string) expectF {
+		return func(t *testing.T, ctx testCtx, actual *unstructured.Unstructured, err error) {
+			require.NoError(t, err)
+			require.NotNil(t, actual)
+			require.Equal(t, ns, actual.GetNamespace(), "Object should have the expected namespace")
+			require.Equal(t, name, actual.GetName(), "Object should have the expected name")
+		}
+	}
+	updated := func(ns, name string) expectF {
+		return func(t *testing.T, ctx testCtx, actual *unstructured.Unstructured, err error) {
+			require.NoError(t, err)
+			require.NotNil(t, actual)
+			require.Equal(t, ns, actual.GetNamespace(), "Object should have the expected namespace")
+			require.Equal(t, name, actual.GetName(), "Object should have the expected name")
+
+			gvr, err := clients.GVRForGVK(ctx.mapper, ctx.config.Inputs.GroupVersionKind())
+			require.NoError(t, err)
+			_, err = ctx.client.Tracker().Get(gvr, ns, name)
+			require.NoError(t, err, "Live object should exist in the API Server")
+		}
+	}
+	touched := func() expectF {
+		return func(t *testing.T, ctx testCtx, actual *unstructured.Unstructured, err error) {
+			require.NoError(t, err)
+			actualPhase, ok, err := unstructured.NestedString(actual.Object, "status", "phase")
+			require.NoError(t, err)
+			require.True(t, ok, "Object should have a status.phase field")
+			require.Equal(t, actualPhase, "Running", "Object should have status.phase of 'Running'")
+		}
+	}
+	logged := func() expectF {
+		return func(t *testing.T, ctx testCtx, actual *unstructured.Unstructured, err error) {
+			// FUTURE: assert that a log message was emitted to the fake host
+		}
+	}
+
+	tests := []struct {
+		name    string
+		client  client
+		args    args
+		expect  []expectF
+		awaiter func(t *testing.T, ctx testCtx) awaiter
+	}{
+		{
+			name: "NoMatchError",
+			client: client{
+				RESTMapperF: func(mapper meta.ResettableRESTMapper) meta.ResettableRESTMapper {
+					// return a mapper that returns a NoMatchError until it is reset
+					return FlakyRESTMapper(mapper, &meta.NoResourceMatchError{PartialResource: podGVR})
+				},
+			},
+			args: args{
+				resType: tokens.Type("kubernetes:core/v1:Pod"),
+				inputs:  validPodUnstructured,
+			},
+			expect: []expectF{updated("default", "foo" /* after retry */)},
+		},
+		{
+			name: "ServiceUnavailable",
+			client: client{
+				RESTMapperF: func(mapper meta.ResettableRESTMapper) meta.ResettableRESTMapper {
+					return FailedRESTMapper(mapper, serviceUnavailableErr)
+				},
+			},
+			args: args{
+				resType: tokens.Type("kubernetes:core/v1:Pod"),
+				inputs:  validPodUnstructured,
+			},
+			expect: []expectF{failed(serviceUnavailableErr)},
+		},
+		{
+			name: "RemovedAPI",
+			args: args{
+				resType: tokens.Type("kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRole"),
+				inputs:  deprecatedClusterRoleUnstructured,
+			},
+			expect: []expectF{failed(removedAPIErr)},
+		},
+		{
+			name: "Namespaced",
+			args: args{
+				resType: tokens.Type("kubernetes:core/v1:Pod"),
+				inputs:  validPodUnstructured,
+			},
+			awaiter: touch,
+			expect:  []expectF{updated("default", "foo"), touched()},
+		},
+		{
+			name: "NonNamespaced",
+			args: args{
+				resType: tokens.Type("kubernetes:rbac.authorization.k8s.io/v1:ClusterRole"),
+				inputs:  validClusterRoleUnstructured,
+			},
+			awaiter: touch,
+			expect:  []expectF{updated("", "foo"), touched()},
+		},
+		{
+			name: "SkipAwait",
+			args: args{
+				resType: tokens.Type("kubernetes:core/v1:Pod"),
+				inputs:  withSkipAwait(validPodUnstructured),
+			},
+			awaiter: awaitUnexpected,
+			expect:  []expectF{updated("default", "foo")},
+		},
+		{
+			name: "NoAwaiter",
+			args: args{
+				resType: tokens.Type("kubernetes:core/v1:Pod"),
+				inputs:  validPodUnstructured,
+			},
+			awaiter: nil,
+			expect:  []expectF{updated("default", "foo"), logged()},
+		},
+		{
+			name: "AwaitError",
+			args: args{
+				resType: tokens.Type("kubernetes:core/v1:Pod"),
+				inputs:  validPodUnstructured,
+			},
+			awaiter: awaitError,
+			expect:  []expectF{failed(serviceUnavailableErr)},
+		},
+		{
+			name:   "Preview",
+			client: client{
+				// FUTURE: return a client that requires dry-run mode
+			},
+			args: args{
+				resType: tokens.Type("kubernetes:core/v1:Pod"),
+				inputs:  validPodUnstructured,
+				preview: true,
+			},
+			awaiter: awaitUnexpected,
+			expect:  []expectF{previewed("default", "foo")},
+		},
+		// FUTURE: test server-side apply (depends on https://github.com/kubernetes/kubernetes/issues/115598)
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			host := &fakehost.HostClient{}
+			oldInputs, oldOutputs := tt.args.inputs, tt.args.inputs
+			if tt.args.oldInputs != nil {
+				oldInputs = tt.args.oldInputs
+			}
+			if tt.args.oldOutputs != nil {
+				oldOutputs = tt.args.oldOutputs
+				oldOutputs = oldOutputs.DeepCopy()
+				oldOutputs.SetName("old-outputs-name")
+			}
+			client, disco, mapper, clientset := fake.NewSimpleDynamicClient(fake.WithObjects(oldOutputs))
+			resources, err := openapi.GetResourceSchemasForClient(disco)
+			require.NoError(t, err)
+
+			if tt.client.GenericClientF != nil {
+				client.GenericClient = tt.client.GenericClientF(client.GenericClient)
+			}
+			if tt.client.RESTMapperF != nil {
+				client.RESTMapper = tt.client.RESTMapperF(client.RESTMapper)
+			}
+
+			urn := resource.NewURN(tokens.QName("teststack"), tokens.PackageName("testproj"), tokens.Type(""), tt.args.resType, "testresource")
+			config := UpdateConfig{
+				ProviderConfig: ProviderConfig{
+					Context:           context.Background(),
+					Host:              host,
+					URN:               urn,
+					InitialAPIVersion: corev1.SchemeGroupVersion.String(),
+					FieldManager:      "test",
+					ClusterVersion:    testServerVersion,
+					ClientSet:         client,
+					DedupLogger:       logging.NewLogger(context.Background(), host, urn),
+					Resources:         resources,
+					ServerSideApply:   tt.args.serverSideApply,
+					awaiters:          map[string]awaitSpec{},
+				},
+				OldInputs:  oldInputs,
+				OldOutputs: oldOutputs,
+				Inputs:     tt.args.inputs,
+				Preview:    tt.args.preview,
+			}
+			testCtx := testCtx{
+				host:   host,
+				config: &config,
+				disco:  disco,
+				mapper: mapper,
+				client: clientset,
+			}
+			if tt.awaiter != nil {
+				id := fmt.Sprintf("%s/%s", tt.args.inputs.GetAPIVersion(), tt.args.inputs.GetKind())
+				config.awaiters[id] = awaitSpec{
+					await: tt.awaiter(t, testCtx),
+				}
+			}
+			actual, err := Update(config)
+			for _, e := range tt.expect {
+				e(t, testCtx, actual, err)
+			}
+		})
+	}
+}
+
+func TestDeletion(t *testing.T) {
 	type testCtx struct {
 		ctx    context.Context
 		cancel context.CancelFunc

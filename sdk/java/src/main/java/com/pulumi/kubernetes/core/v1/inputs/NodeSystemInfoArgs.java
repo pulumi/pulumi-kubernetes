@@ -79,14 +79,14 @@ public final class NodeSystemInfoArgs extends com.pulumi.resources.ResourceArgs 
     }
 
     /**
-     * KubeProxy Version reported by the node.
+     * Deprecated: KubeProxy Version reported by the node.
      * 
      */
     @Import(name="kubeProxyVersion", required=true)
     private Output<String> kubeProxyVersion;
 
     /**
-     * @return KubeProxy Version reported by the node.
+     * @return Deprecated: KubeProxy Version reported by the node.
      * 
      */
     public Output<String> kubeProxyVersion() {
@@ -286,7 +286,7 @@ public final class NodeSystemInfoArgs extends com.pulumi.resources.ResourceArgs 
         }
 
         /**
-         * @param kubeProxyVersion KubeProxy Version reported by the node.
+         * @param kubeProxyVersion Deprecated: KubeProxy Version reported by the node.
          * 
          * @return builder
          * 
@@ -297,7 +297,7 @@ public final class NodeSystemInfoArgs extends com.pulumi.resources.ResourceArgs 
         }
 
         /**
-         * @param kubeProxyVersion KubeProxy Version reported by the node.
+         * @param kubeProxyVersion Deprecated: KubeProxy Version reported by the node.
          * 
          * @return builder
          * 

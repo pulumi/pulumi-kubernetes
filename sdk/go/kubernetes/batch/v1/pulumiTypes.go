@@ -1979,7 +1979,7 @@ type JobSpec struct {
 	CompletionMode *string `pulumi:"completionMode"`
 	// Specifies the desired number of successfully finished pods the job should be run with.  Setting to null means that the success of any pod signals the success of all pods, and allows parallelism to have any positive value.  Setting to 1 means that parallelism is limited to 1 and the success of that pod signals the success of the job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 	Completions *int `pulumi:"completions"`
-	// ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don't have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first "/" must be a valid subdomain as defined by RFC 1123. All characters trailing the first "/" must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 64 characters.
+	// ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don't have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first "/" must be a valid subdomain as defined by RFC 1123. All characters trailing the first "/" must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 63 characters. This field is immutable.
 	//
 	// This field is alpha-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (disabled by default).
 	ManagedBy *string `pulumi:"managedBy"`
@@ -1990,8 +1990,6 @@ type JobSpec struct {
 	// Specifies the maximum desired number of pods the job should run at any given time. The actual number of pods running in steady state will be less than this number when ((.spec.completions - .status.successful) < .spec.parallelism), i.e. when the work left to do is less than max parallelism. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 	Parallelism *int `pulumi:"parallelism"`
 	// Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed pods, represented by the jobs's .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure.
-	//
-	// This field is beta-level. It can be used when the `JobPodFailurePolicy` feature gate is enabled (enabled by default).
 	PodFailurePolicy *PodFailurePolicy `pulumi:"podFailurePolicy"`
 	// podReplacementPolicy specifies when to create replacement Pods. Possible values are: - TerminatingOrFailed means that we recreate pods
 	//   when they are terminating (has a metadata.deletionTimestamp) or failed.
@@ -2004,7 +2002,7 @@ type JobSpec struct {
 	Selector *metav1.LabelSelector `pulumi:"selector"`
 	// successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.
 	//
-	// This field  is alpha-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (disabled by default).
+	// This field is beta-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (enabled by default).
 	SuccessPolicy *SuccessPolicy `pulumi:"successPolicy"`
 	// suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
 	Suspend *bool `pulumi:"suspend"`
@@ -2043,7 +2041,7 @@ type JobSpecArgs struct {
 	CompletionMode pulumi.StringPtrInput `pulumi:"completionMode"`
 	// Specifies the desired number of successfully finished pods the job should be run with.  Setting to null means that the success of any pod signals the success of all pods, and allows parallelism to have any positive value.  Setting to 1 means that parallelism is limited to 1 and the success of that pod signals the success of the job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 	Completions pulumi.IntPtrInput `pulumi:"completions"`
-	// ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don't have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first "/" must be a valid subdomain as defined by RFC 1123. All characters trailing the first "/" must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 64 characters.
+	// ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don't have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first "/" must be a valid subdomain as defined by RFC 1123. All characters trailing the first "/" must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 63 characters. This field is immutable.
 	//
 	// This field is alpha-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (disabled by default).
 	ManagedBy pulumi.StringPtrInput `pulumi:"managedBy"`
@@ -2054,8 +2052,6 @@ type JobSpecArgs struct {
 	// Specifies the maximum desired number of pods the job should run at any given time. The actual number of pods running in steady state will be less than this number when ((.spec.completions - .status.successful) < .spec.parallelism), i.e. when the work left to do is less than max parallelism. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 	Parallelism pulumi.IntPtrInput `pulumi:"parallelism"`
 	// Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed pods, represented by the jobs's .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure.
-	//
-	// This field is beta-level. It can be used when the `JobPodFailurePolicy` feature gate is enabled (enabled by default).
 	PodFailurePolicy PodFailurePolicyPtrInput `pulumi:"podFailurePolicy"`
 	// podReplacementPolicy specifies when to create replacement Pods. Possible values are: - TerminatingOrFailed means that we recreate pods
 	//   when they are terminating (has a metadata.deletionTimestamp) or failed.
@@ -2068,7 +2064,7 @@ type JobSpecArgs struct {
 	Selector metav1.LabelSelectorPtrInput `pulumi:"selector"`
 	// successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.
 	//
-	// This field  is alpha-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (disabled by default).
+	// This field is beta-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (enabled by default).
 	SuccessPolicy SuccessPolicyPtrInput `pulumi:"successPolicy"`
 	// suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
 	Suspend pulumi.BoolPtrInput `pulumi:"suspend"`
@@ -2187,7 +2183,7 @@ func (o JobSpecOutput) Completions() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v JobSpec) *int { return v.Completions }).(pulumi.IntPtrOutput)
 }
 
-// ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don't have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first "/" must be a valid subdomain as defined by RFC 1123. All characters trailing the first "/" must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 64 characters.
+// ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don't have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first "/" must be a valid subdomain as defined by RFC 1123. All characters trailing the first "/" must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 63 characters. This field is immutable.
 //
 // This field is alpha-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (disabled by default).
 func (o JobSpecOutput) ManagedBy() pulumi.StringPtrOutput {
@@ -2210,8 +2206,6 @@ func (o JobSpecOutput) Parallelism() pulumi.IntPtrOutput {
 }
 
 // Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed pods, represented by the jobs's .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure.
-//
-// This field is beta-level. It can be used when the `JobPodFailurePolicy` feature gate is enabled (enabled by default).
 func (o JobSpecOutput) PodFailurePolicy() PodFailurePolicyPtrOutput {
 	return o.ApplyT(func(v JobSpec) *PodFailurePolicy { return v.PodFailurePolicy }).(PodFailurePolicyPtrOutput)
 }
@@ -2234,7 +2228,7 @@ func (o JobSpecOutput) Selector() metav1.LabelSelectorPtrOutput {
 
 // successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.
 //
-// This field  is alpha-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (disabled by default).
+// This field is beta-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (enabled by default).
 func (o JobSpecOutput) SuccessPolicy() SuccessPolicyPtrOutput {
 	return o.ApplyT(func(v JobSpec) *SuccessPolicy { return v.SuccessPolicy }).(SuccessPolicyPtrOutput)
 }
@@ -2334,7 +2328,7 @@ func (o JobSpecPtrOutput) Completions() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don't have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first "/" must be a valid subdomain as defined by RFC 1123. All characters trailing the first "/" must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 64 characters.
+// ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don't have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first "/" must be a valid subdomain as defined by RFC 1123. All characters trailing the first "/" must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 63 characters. This field is immutable.
 //
 // This field is alpha-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (disabled by default).
 func (o JobSpecPtrOutput) ManagedBy() pulumi.StringPtrOutput {
@@ -2377,8 +2371,6 @@ func (o JobSpecPtrOutput) Parallelism() pulumi.IntPtrOutput {
 }
 
 // Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed pods, represented by the jobs's .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure.
-//
-// This field is beta-level. It can be used when the `JobPodFailurePolicy` feature gate is enabled (enabled by default).
 func (o JobSpecPtrOutput) PodFailurePolicy() PodFailurePolicyPtrOutput {
 	return o.ApplyT(func(v *JobSpec) *PodFailurePolicy {
 		if v == nil {
@@ -2416,7 +2408,7 @@ func (o JobSpecPtrOutput) Selector() metav1.LabelSelectorPtrOutput {
 
 // successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.
 //
-// This field  is alpha-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (disabled by default).
+// This field is beta-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (enabled by default).
 func (o JobSpecPtrOutput) SuccessPolicy() SuccessPolicyPtrOutput {
 	return o.ApplyT(func(v *JobSpec) *SuccessPolicy {
 		if v == nil {
@@ -2474,7 +2466,7 @@ type JobSpecPatch struct {
 	CompletionMode *string `pulumi:"completionMode"`
 	// Specifies the desired number of successfully finished pods the job should be run with.  Setting to null means that the success of any pod signals the success of all pods, and allows parallelism to have any positive value.  Setting to 1 means that parallelism is limited to 1 and the success of that pod signals the success of the job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 	Completions *int `pulumi:"completions"`
-	// ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don't have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first "/" must be a valid subdomain as defined by RFC 1123. All characters trailing the first "/" must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 64 characters.
+	// ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don't have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first "/" must be a valid subdomain as defined by RFC 1123. All characters trailing the first "/" must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 63 characters. This field is immutable.
 	//
 	// This field is alpha-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (disabled by default).
 	ManagedBy *string `pulumi:"managedBy"`
@@ -2485,8 +2477,6 @@ type JobSpecPatch struct {
 	// Specifies the maximum desired number of pods the job should run at any given time. The actual number of pods running in steady state will be less than this number when ((.spec.completions - .status.successful) < .spec.parallelism), i.e. when the work left to do is less than max parallelism. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 	Parallelism *int `pulumi:"parallelism"`
 	// Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed pods, represented by the jobs's .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure.
-	//
-	// This field is beta-level. It can be used when the `JobPodFailurePolicy` feature gate is enabled (enabled by default).
 	PodFailurePolicy *PodFailurePolicyPatch `pulumi:"podFailurePolicy"`
 	// podReplacementPolicy specifies when to create replacement Pods. Possible values are: - TerminatingOrFailed means that we recreate pods
 	//   when they are terminating (has a metadata.deletionTimestamp) or failed.
@@ -2499,7 +2489,7 @@ type JobSpecPatch struct {
 	Selector *metav1.LabelSelectorPatch `pulumi:"selector"`
 	// successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.
 	//
-	// This field  is alpha-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (disabled by default).
+	// This field is beta-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (enabled by default).
 	SuccessPolicy *SuccessPolicyPatch `pulumi:"successPolicy"`
 	// suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
 	Suspend *bool `pulumi:"suspend"`
@@ -2538,7 +2528,7 @@ type JobSpecPatchArgs struct {
 	CompletionMode pulumi.StringPtrInput `pulumi:"completionMode"`
 	// Specifies the desired number of successfully finished pods the job should be run with.  Setting to null means that the success of any pod signals the success of all pods, and allows parallelism to have any positive value.  Setting to 1 means that parallelism is limited to 1 and the success of that pod signals the success of the job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 	Completions pulumi.IntPtrInput `pulumi:"completions"`
-	// ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don't have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first "/" must be a valid subdomain as defined by RFC 1123. All characters trailing the first "/" must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 64 characters.
+	// ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don't have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first "/" must be a valid subdomain as defined by RFC 1123. All characters trailing the first "/" must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 63 characters. This field is immutable.
 	//
 	// This field is alpha-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (disabled by default).
 	ManagedBy pulumi.StringPtrInput `pulumi:"managedBy"`
@@ -2549,8 +2539,6 @@ type JobSpecPatchArgs struct {
 	// Specifies the maximum desired number of pods the job should run at any given time. The actual number of pods running in steady state will be less than this number when ((.spec.completions - .status.successful) < .spec.parallelism), i.e. when the work left to do is less than max parallelism. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 	Parallelism pulumi.IntPtrInput `pulumi:"parallelism"`
 	// Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed pods, represented by the jobs's .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure.
-	//
-	// This field is beta-level. It can be used when the `JobPodFailurePolicy` feature gate is enabled (enabled by default).
 	PodFailurePolicy PodFailurePolicyPatchPtrInput `pulumi:"podFailurePolicy"`
 	// podReplacementPolicy specifies when to create replacement Pods. Possible values are: - TerminatingOrFailed means that we recreate pods
 	//   when they are terminating (has a metadata.deletionTimestamp) or failed.
@@ -2563,7 +2551,7 @@ type JobSpecPatchArgs struct {
 	Selector metav1.LabelSelectorPatchPtrInput `pulumi:"selector"`
 	// successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.
 	//
-	// This field  is alpha-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (disabled by default).
+	// This field is beta-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (enabled by default).
 	SuccessPolicy SuccessPolicyPatchPtrInput `pulumi:"successPolicy"`
 	// suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
 	Suspend pulumi.BoolPtrInput `pulumi:"suspend"`
@@ -2682,7 +2670,7 @@ func (o JobSpecPatchOutput) Completions() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v JobSpecPatch) *int { return v.Completions }).(pulumi.IntPtrOutput)
 }
 
-// ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don't have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first "/" must be a valid subdomain as defined by RFC 1123. All characters trailing the first "/" must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 64 characters.
+// ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don't have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first "/" must be a valid subdomain as defined by RFC 1123. All characters trailing the first "/" must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 63 characters. This field is immutable.
 //
 // This field is alpha-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (disabled by default).
 func (o JobSpecPatchOutput) ManagedBy() pulumi.StringPtrOutput {
@@ -2705,8 +2693,6 @@ func (o JobSpecPatchOutput) Parallelism() pulumi.IntPtrOutput {
 }
 
 // Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed pods, represented by the jobs's .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure.
-//
-// This field is beta-level. It can be used when the `JobPodFailurePolicy` feature gate is enabled (enabled by default).
 func (o JobSpecPatchOutput) PodFailurePolicy() PodFailurePolicyPatchPtrOutput {
 	return o.ApplyT(func(v JobSpecPatch) *PodFailurePolicyPatch { return v.PodFailurePolicy }).(PodFailurePolicyPatchPtrOutput)
 }
@@ -2729,7 +2715,7 @@ func (o JobSpecPatchOutput) Selector() metav1.LabelSelectorPatchPtrOutput {
 
 // successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.
 //
-// This field  is alpha-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (disabled by default).
+// This field is beta-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (enabled by default).
 func (o JobSpecPatchOutput) SuccessPolicy() SuccessPolicyPatchPtrOutput {
 	return o.ApplyT(func(v JobSpecPatch) *SuccessPolicyPatch { return v.SuccessPolicy }).(SuccessPolicyPatchPtrOutput)
 }
@@ -2829,7 +2815,7 @@ func (o JobSpecPatchPtrOutput) Completions() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don't have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first "/" must be a valid subdomain as defined by RFC 1123. All characters trailing the first "/" must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 64 characters.
+// ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don't have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first "/" must be a valid subdomain as defined by RFC 1123. All characters trailing the first "/" must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 63 characters. This field is immutable.
 //
 // This field is alpha-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (disabled by default).
 func (o JobSpecPatchPtrOutput) ManagedBy() pulumi.StringPtrOutput {
@@ -2872,8 +2858,6 @@ func (o JobSpecPatchPtrOutput) Parallelism() pulumi.IntPtrOutput {
 }
 
 // Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed pods, represented by the jobs's .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure.
-//
-// This field is beta-level. It can be used when the `JobPodFailurePolicy` feature gate is enabled (enabled by default).
 func (o JobSpecPatchPtrOutput) PodFailurePolicy() PodFailurePolicyPatchPtrOutput {
 	return o.ApplyT(func(v *JobSpecPatch) *PodFailurePolicyPatch {
 		if v == nil {
@@ -2911,7 +2895,7 @@ func (o JobSpecPatchPtrOutput) Selector() metav1.LabelSelectorPatchPtrOutput {
 
 // successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.
 //
-// This field  is alpha-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (disabled by default).
+// This field is beta-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (enabled by default).
 func (o JobSpecPatchPtrOutput) SuccessPolicy() SuccessPolicyPatchPtrOutput {
 	return o.ApplyT(func(v *JobSpecPatch) *SuccessPolicyPatch {
 		if v == nil {
@@ -2971,7 +2955,7 @@ type JobStatus struct {
 	//
 	// This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
 	FailedIndexes *string `pulumi:"failedIndexes"`
-	// The number of pods which have a Ready condition.
+	// The number of active pods which have a Ready condition and are not terminating (without a deletionTimestamp).
 	Ready *int `pulumi:"ready"`
 	// Represents time when the job controller started processing a job. When a Job is created in the suspended state, this field is not set until the first time it is resumed. This field is reset every time a Job is resumed from suspension. It is represented in RFC3339 form and is in UTC.
 	//
@@ -3025,7 +3009,7 @@ type JobStatusArgs struct {
 	//
 	// This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
 	FailedIndexes pulumi.StringPtrInput `pulumi:"failedIndexes"`
-	// The number of pods which have a Ready condition.
+	// The number of active pods which have a Ready condition and are not terminating (without a deletionTimestamp).
 	Ready pulumi.IntPtrInput `pulumi:"ready"`
 	// Represents time when the job controller started processing a job. When a Job is created in the suspended state, this field is not set until the first time it is resumed. This field is reset every time a Job is resumed from suspension. It is represented in RFC3339 form and is in UTC.
 	//
@@ -3162,7 +3146,7 @@ func (o JobStatusOutput) FailedIndexes() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v JobStatus) *string { return v.FailedIndexes }).(pulumi.StringPtrOutput)
 }
 
-// The number of pods which have a Ready condition.
+// The number of active pods which have a Ready condition and are not terminating (without a deletionTimestamp).
 func (o JobStatusOutput) Ready() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v JobStatus) *int { return v.Ready }).(pulumi.IntPtrOutput)
 }
@@ -3288,7 +3272,7 @@ func (o JobStatusPtrOutput) FailedIndexes() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// The number of pods which have a Ready condition.
+// The number of active pods which have a Ready condition and are not terminating (without a deletionTimestamp).
 func (o JobStatusPtrOutput) Ready() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *JobStatus) *int {
 		if v == nil {
@@ -3369,7 +3353,7 @@ type JobStatusPatch struct {
 	//
 	// This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
 	FailedIndexes *string `pulumi:"failedIndexes"`
-	// The number of pods which have a Ready condition.
+	// The number of active pods which have a Ready condition and are not terminating (without a deletionTimestamp).
 	Ready *int `pulumi:"ready"`
 	// Represents time when the job controller started processing a job. When a Job is created in the suspended state, this field is not set until the first time it is resumed. This field is reset every time a Job is resumed from suspension. It is represented in RFC3339 form and is in UTC.
 	//
@@ -3423,7 +3407,7 @@ type JobStatusPatchArgs struct {
 	//
 	// This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
 	FailedIndexes pulumi.StringPtrInput `pulumi:"failedIndexes"`
-	// The number of pods which have a Ready condition.
+	// The number of active pods which have a Ready condition and are not terminating (without a deletionTimestamp).
 	Ready pulumi.IntPtrInput `pulumi:"ready"`
 	// Represents time when the job controller started processing a job. When a Job is created in the suspended state, this field is not set until the first time it is resumed. This field is reset every time a Job is resumed from suspension. It is represented in RFC3339 form and is in UTC.
 	//
@@ -3560,7 +3544,7 @@ func (o JobStatusPatchOutput) FailedIndexes() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v JobStatusPatch) *string { return v.FailedIndexes }).(pulumi.StringPtrOutput)
 }
 
-// The number of pods which have a Ready condition.
+// The number of active pods which have a Ready condition and are not terminating (without a deletionTimestamp).
 func (o JobStatusPatchOutput) Ready() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v JobStatusPatch) *int { return v.Ready }).(pulumi.IntPtrOutput)
 }
@@ -3686,7 +3670,7 @@ func (o JobStatusPatchPtrOutput) FailedIndexes() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// The number of pods which have a Ready condition.
+// The number of active pods which have a Ready condition and are not terminating (without a deletionTimestamp).
 func (o JobStatusPatchPtrOutput) Ready() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *JobStatusPatch) *int {
 		if v == nil {
