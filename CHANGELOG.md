@@ -1,5 +1,9 @@
 ## Unreleased
 
+### Fixed
+
+- Fixed a panic that could occur when using `clusterIdentifier` provider configuration. (https://github.com/pulumi/pulumi-kubernetes/issues/3168)
+
 ## 4.17.0 (August 13, 2024)
 
 ### Changed
