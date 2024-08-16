@@ -1,5 +1,9 @@
 ## Unreleased
 
+### Fixed
+
+- Fixed a panic that would occur when updating `ServiceAccounts`. (https://github.com/pulumi/pulumi-kubernetes/issues/3166)
+
 ## 4.17.0 (August 13, 2024)
 
 ### Changed
