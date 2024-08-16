@@ -18,6 +18,7 @@ import (
 	"context"
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
 
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
@@ -219,6 +220,7 @@ func TestDiffConfig(t *testing.T) {
 
 			var olds, news resource.PropertyMap
 			var wantDiffs, wantReplaces []string
+			var wantErr string
 
 			for _, f := range archive.Files {
 				var parsed map[string]any
@@ -236,6 +238,8 @@ func TestDiffConfig(t *testing.T) {
 				case "wantReplaces":
 					err = yaml.Unmarshal(f.Data, &wantReplaces)
 					require.NoError(t, err, f.Name)
+				case "wantErr":
+					wantErr = strings.TrimSpace(string(f.Data))
 				default:
 					t.Fatal("unrecognized filename", f.Name)
 				}
@@ -251,6 +255,10 @@ func TestDiffConfig(t *testing.T) {
 
 			k := kubeProvider{}
 			actual, err := k.DiffConfig(context.Background(), req)
+			if wantErr != "" {
+				assert.ErrorContains(t, err, wantErr)
+				return
+			}
 			assert.NoError(t, err)
 
 			assert.ElementsMatch(t, wantDiffs, actual.Diffs, "diff mismatch")

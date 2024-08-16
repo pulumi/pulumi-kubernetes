@@ -396,7 +396,11 @@ func (k *kubeProvider) DiffConfig(_ context.Context, req *pulumirpc.DiffRequest)
 	// what it was previously set to.
 	if diff.Same(clusterIdentifierKey) && news.HasValue(clusterIdentifierKey) {
 		// Modify our response to no longer replace anything.
-		defer func() { resp.Replaces = nil }()
+		defer func() {
+			if resp != nil {
+				resp.Replaces = nil
+			}
+		}()
 	}
 
 	// We can't tell for sure if a computed value has changed, so we make the conservative choice

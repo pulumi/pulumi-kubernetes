@@ -1,0 +1,22 @@
+-- olds --
+clusterIdentifier: foobar
+
+kubeconfig: |
+  kind: Config
+  apiVersion: v1
+  clusters: []
+  contexts: []
+  current-context: foo
+  preferences: {}
+  users: []
+
+
+-- news --
+clusterIdentifier: foobar
+
+kubeconfig: |
+  apiVersion: v1
+  clusters: { INVALID KUBECONFIG }
+
+-- wantErr --
+failed to parse kubeconfig
