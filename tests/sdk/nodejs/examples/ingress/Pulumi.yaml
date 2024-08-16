@@ -1,3 +1,0 @@
-name: ingress
-runtime: nodejs
-description: Create ingress resources using Kubernetes provider for Pulumi.
