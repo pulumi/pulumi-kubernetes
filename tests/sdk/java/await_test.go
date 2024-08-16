@@ -115,3 +115,20 @@ func TestAwaitService(t *testing.T) {
 	assert.Equal(t, up.Outputs["selector"], up.Outputs["label"])
 	test.Refresh()
 }
+
+func TestAwaitServiceAccount(t *testing.T) {
+	t.Parallel()
+
+	test := pulumitest.NewPulumiTest(t,
+		"testdata/await/service-account",
+		opttest.SkipInstall(),
+	)
+	t.Cleanup(func() {
+		test.Destroy()
+	})
+
+	test.Up()
+	test.UpdateSource("testdata/await/service-account/step2")
+	test.Up()
+	test.Refresh()
+}

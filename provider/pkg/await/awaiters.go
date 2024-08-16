@@ -28,6 +28,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/watcher"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
 	corev1 "k8s.io/api/core/v1"
 	storagev1 "k8s.io/api/storage/v1"
@@ -689,6 +690,7 @@ func untilCoreV1ServiceAccountInitialized(c awaitConfig) error {
 	// k8s v1.24 changed the default secret provisioning behavior for ServiceAccount resources, so don't wait for
 	// clusters >= v1.24 to provision a secret before marking the resource as ready.
 	// https://github.com/kubernetes/kubernetes/blob/v1.24.3/CHANGELOG/CHANGELOG-1.24.md#urgent-upgrade-notes
+	contract.Assertf(c.clusterVersion != nil, "clusterVersion must be set")
 	if c.clusterVersion.Compare(cluster.ServerVersion{Major: 1, Minor: 24}) >= 0 {
 		return nil
 	}

@@ -2,6 +2,7 @@
 
 ### Fixed
 
+- Fixed a panic that would occur when updating `ServiceAccounts`. (https://github.com/pulumi/pulumi-kubernetes/issues/3166)
 - Fixed a panic that could occur when using `clusterIdentifier` provider configuration. (https://github.com/pulumi/pulumi-kubernetes/issues/3168)
 
 ## 4.17.0 (August 13, 2024)
