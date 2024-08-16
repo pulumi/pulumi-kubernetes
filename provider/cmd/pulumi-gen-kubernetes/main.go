@@ -233,7 +233,7 @@ func writeNodeJSClient(pkg *schema.Package, outdir, templateDir string) {
 		"kustomize/kustomize.ts":               mustLoadFile(filepath.Join(templateDir, "kustomize", "kustomize.ts")),
 		"yaml/yaml.ts":                         mustRenderTemplate(filepath.Join(templateDir, "yaml", "yaml.tmpl"), templateResources),
 	}
-	files, err := nodejsgen.GeneratePackage("pulumigen", pkg, overlays, nil)
+	files, err := nodejsgen.GeneratePackage("pulumigen", pkg, overlays, nil, false)
 	if err != nil {
 		panic(err)
 	}
@@ -348,7 +348,7 @@ func writeDotnetClient(pkg *schema.Package, outdir, templateDir string) {
 }
 
 func writeGoClient(pkg *schema.Package, outdir string, templateDir string) {
-	files, err := gogen.GeneratePackage("pulumigen", pkg)
+	files, err := gogen.GeneratePackage("pulumigen", pkg, nil)
 	if err != nil {
 		panic(err)
 	}
