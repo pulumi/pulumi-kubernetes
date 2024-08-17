@@ -249,12 +249,17 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        language:
-        - nodejs
-        - python
-        - dotnet
-        - go
-        - java
+        shard:
+        - 0
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+        - 7
+        - 8
+        - 9
     name: test
     permissions:
       contents: read
@@ -316,14 +321,34 @@ jobs:
     - name: Restore Binary Permissions
       run: find ${{ github.workspace }} -name "pulumi-*-${{ env.PROVIDER }}" -print
         -exec chmod +x {} \;
-    - name: Download SDK
+    - name: Download nodejs SDK
       uses: actions/download-artifact@v4
       with:
-        name: ${{ matrix.language }}-sdk.tar.gz
+        name: nodejs-sdk.tar.gz
+        path: ${{ github.workspace}}/sdk/
+    - name: Download go SDK
+      uses: actions/download-artifact@v4
+      with:
+        name: go-sdk.tar.gz
+        path: ${{ github.workspace}}/sdk/
+    - name: Download dotnet SDK
+      uses: actions/download-artifact@v4
+      with:
+        name: dotnet-sdk.tar.gz
+        path: ${{ github.workspace}}/sdk/
+    - name: Download python SDK
+      uses: actions/download-artifact@v4
+      with:
+        name: python-sdk.tar.gz
+        path: ${{ github.workspace}}/sdk/
+    - name: Download java SDK
+      uses: actions/download-artifact@v4
+      with:
+        name: java-sdk.tar.gz
         path: ${{ github.workspace}}/sdk/
     - name: UnTar SDK folder
-      run: tar -zxf ${{ github.workspace}}/sdk/${{ matrix.language}}.tar.gz -C ${{
-        github.workspace}}/sdk/${{ matrix.language}}
+      run: for f in *.tar.gz; do tar -zxf "$f" -C "${f%.tar.gz}"; done
+      working-directory: ${{ github.workspace}}/sdk
     - name: Update path
       run: echo "${{ github.workspace }}/bin" >> $GITHUB_PATH
     - name: Install Node dependencies
@@ -334,7 +359,7 @@ jobs:
         pip3 install virtualenv==20.0.23
         pip3 install pipenv
     - name: Install dependencies
-      run: make install_${{ matrix.language}}_sdk
+      run: make install_sdks || make install
     - name: Make Kube Directory
       run: mkdir -p "~/.kube/"
     - name: Download Kubeconfig
@@ -384,9 +409,15 @@ jobs:
       with:
         version: v2.5.0
         token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Shard tests
+      run: echo go test -v -count=1 -cover -timeout 2h -parallel 4 "$(go run
+        github.com/blampe/shard@d7b2190cdca822cb0f7411a7c09cea8a429d7f9f --total
+        ${{ strategy.job-total }} --index ${{ strategy.job-index }})" >
+        test-command
+      working-directory: tests/sdk
     - name: Run tests
-      run: cd tests/sdk/${{ matrix.language }} && go test -v -count=1 -cover -timeout
-        2h -parallel 4 ./...
+      run: cat test-command && $(cat test-command)
+      working-directory: tests/sdk
     - if: failure() && github.event_name == 'push'
       name: Notify Slack
       uses: 8398a7/action-slack@v3
