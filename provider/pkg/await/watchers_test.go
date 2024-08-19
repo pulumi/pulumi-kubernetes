@@ -57,7 +57,7 @@ func TestEventAggregator(t *testing.T) {
 					"uid":  "9bd08f1a-fa5b-40a5-ba41-bf69899a4416",
 				},
 			}}},
-			want: "warning [stack/my-stack-28073241] StackUpdateFailure: Failed to update Stack",
+			want: "warning StackUpdateFailure: Failed to update Stack",
 		},
 		{
 			name: "normal",
@@ -73,7 +73,7 @@ func TestEventAggregator(t *testing.T) {
 					"uid":  "9bd08f1a-fa5b-40a5-ba41-bf69899a4416",
 				},
 			}}},
-			want: "debug [pod/mypod-7854ff8877-p9ksk] Killing: frog blast the vent core",
+			want: "debug Killing: frog blast the vent core",
 		},
 	}
 
@@ -157,6 +157,7 @@ type log struct{ io.Writer }
 func (l log) Log(sev diag.Severity, msg string) {
 	fmt.Fprintf(l, "%s %s", sev, msg)
 }
+
 func (l log) LogStatus(sev diag.Severity, msg string) {
 	l.Log(sev, msg)
 }

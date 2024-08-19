@@ -17,7 +17,6 @@ package await
 import (
 	"context"
 	"fmt"
-	"strings"
 	"sync"
 
 	"github.com/pulumi/cloud-ready-checks/pkg/checker"
@@ -236,9 +235,7 @@ func NewEventAggregator(
 				return nil
 			}
 			msg := fmt.Sprintf(
-				"[%s/%s] %s: %s",
-				strings.ToLower(e.InvolvedObject.Kind),
-				e.InvolvedObject.Name,
+				"%s: %s",
 				e.Reason,
 				e.Message,
 			)
