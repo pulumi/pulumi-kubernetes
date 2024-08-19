@@ -1,8 +1,11 @@
 ## Unreleased
 
--  Make Secrets mutable unless marked explicitly (enabled with provider config option) (https://github.com/pulumi/pulumi-kubernetes/pull/1926)
-   *NOTE*: With this change, once `enableSecretMutable` is enabled, all data changes to Secrets will be seen as mutable (changes to `type` will still trigger a replacement). In this mode, you can opt-in to the previous replacement behavior for a particular Secret by setting its `replaceOnChanges` resource option to `[".stringData", ".data"]`.
-   By default, the provider will continue to treat Secrets as immutable, and will replace them if the `stringData` or `data` properties are changed.
+### Added
+
+- A new provider configuration option `enableSecretMutable` allows treating changes to `Secrets` as updates instead of replacements.
+  This is similar to the `enableConfigMapMutable` option.
+  The default replacement behavior can be preserved for a particular Secret by setting its `replaceOnChanges` resource option to `[".stringData", ".data"]`.
+  (https://github.com/pulumi/pulumi-kubernetes/issues/2291)
 
 ## 4.17.1 (August 16, 2024)
 
