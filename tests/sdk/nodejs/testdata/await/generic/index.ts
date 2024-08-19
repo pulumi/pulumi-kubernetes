@@ -3,6 +3,9 @@ import * as kubernetes from "@pulumi/kubernetes";
 const ns = new kubernetes.core.v1.Namespace("ns", {
   metadata: {
     name: "generic-await",
+    annotations: {
+      "pulumi.com/deletionPropagationPolicy": "background",
+    },
   },
 });
 
@@ -24,7 +27,7 @@ export const wantsReady = new kubernetes.apiextensions.CustomResource(
     metadata: {
       name: "wants-ready-condition",
       annotations: {
-        "pulumi.com/patchForce": "true",
+        "pulumi.com/patchForce": "true", // Don't conflict with kubectl.
         "pulumi.com/timeoutSeconds": "60",
       },
     },
@@ -51,9 +54,9 @@ export const wantsGenerationIncrement =
       kind: "GenericAwaiter",
       metadata: {
         name: "wants-generation-increment",
-        generation: 3,
+        generation: 2,
         annotations: {
-          "pulumi.com/patchForce": "true",
+          "pulumi.com/patchForce": "true", // Don't conflict with kubectl.
           "pulumi.com/timeoutSeconds": "60",
         },
       },
@@ -61,7 +64,7 @@ export const wantsGenerationIncrement =
         someField: "untouched",
       },
       status: {
-        observedGeneration: 2,
+        observedGeneration: 1,
         conditions: [
           {
             type: "Ready",
