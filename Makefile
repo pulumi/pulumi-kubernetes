@@ -120,7 +120,9 @@ lint::
 install_provider:: k8sprovider
 	cp $(WORKING_DIR)/bin/${PROVIDER} ${GOPATH}/bin
 
-install:: install_nodejs_sdk install_dotnet_sdk install_provider
+install:: install_sdks install_provider
+
+install_sdks: install_nodejs_sdk install_dotnet_sdk
 
 GO_TEST_FAST := go test -short -v -cover -timeout 2h
 GO_TEST		 := go test -v -cover -timeout 2h
