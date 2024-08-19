@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	"github.com/pulumi/providertest/pulumitest"
+	"github.com/pulumi/providertest/pulumitest/opttest"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -12,7 +13,7 @@ import (
 func TestClusterIdentifier(t *testing.T) {
 	t.Parallel()
 	ctx := context.Background()
-	test := pulumitest.NewPulumiTest(t, "config/cluster-identifier")
+	test := pulumitest.NewPulumiTest(t, "config/cluster-identifier", opttest.SkipInstall())
 	t.Cleanup(func() {
 		test.Destroy()
 	})

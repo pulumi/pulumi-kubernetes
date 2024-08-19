@@ -21,6 +21,7 @@ import (
 	"testing"
 
 	"github.com/pulumi/providertest/pulumitest"
+	"github.com/pulumi/providertest/pulumitest/opttest"
 	"github.com/pulumi/pulumi-kubernetes/tests/v4"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 )
@@ -83,7 +84,7 @@ func TestPatchResources(t *testing.T) {
 	// works in all languages.
 	testRunnerF := func(t *testing.T, language string) {
 		// 1. Create the resources.
-		test := pulumitest.NewPulumiTest(t, filepath.Join(testFolder, language, "step1"))
+		test := pulumitest.NewPulumiTest(t, filepath.Join(testFolder, language, "step1"), opttest.SkipInstall())
 		if language != "yaml" {
 			test.Install()
 		}
