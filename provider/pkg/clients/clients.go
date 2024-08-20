@@ -316,10 +316,18 @@ func IsSecret(obj *unstructured.Unstructured) bool {
 	return (gvk.Group == corev1.GroupName || gvk.Group == "core") && gvk.Kind == string(kinds.Secret)
 }
 
-// IsConfigMap returns true if the resource is a configmap marked as immutable.
 func IsConfigMap(obj *unstructured.Unstructured) bool {
 	gvk := obj.GroupVersionKind()
 	return (gvk.Group == corev1.GroupName || gvk.Group == "core") && gvk.Kind == string(kinds.ConfigMap)
+}
+
+// Checks whether the given ConfigMap or Secret is marked as immutable.
+func IsImmutable(obj *unstructured.Unstructured) bool {
+	val, found, err := unstructured.NestedBool(obj.Object, "immutable")
+	if !found || err != nil {
+		val = false
+	}
+	return val
 }
 
 func GVRForGVK(mapper meta.RESTMapper, gvk schema.GroupVersionKind) (schema.GroupVersionResource, error) {

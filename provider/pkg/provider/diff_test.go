@@ -228,6 +228,18 @@ func TestPatchToDiff(t *testing.T) {
 			},
 		},
 		{
+			name:  `Secret resources trigger a replace when marked as immutable even if enableSecretMutable is set.`,
+			group: "core", version: "v1", kind: "Secret",
+			old: object{"data": object{"property1": "3"}, "immutable": true},
+			new: object{"data": object{"property1": "4"}, "immutable": true},
+			customizeProvider: func(p *kubeProvider) {
+				p.enableSecretMutable = true
+			},
+			expected: expected{
+				"data.property1": UR,
+			},
+		},
+		{
 			name:  `Changing computed object values results in correct diff`,
 			group: "core", version: "v1", kind: "Pod",
 			old:    object{"spec": object{"containers": list{object{"name": "nginx", "image": "nginx"}}}},
