@@ -28,7 +28,7 @@ func (k *kubeProvider) forceNewProperties(obj *unstructured.Unstructured) []stri
 				props = append(props, properties{".type", ".stringData", ".data"}...)
 			} else if kindFields, kindExists := version[gvk.Kind]; kindExists {
 				props = append(props, kindFields...)
-			} else if clients.IsConfigMap(obj) && !k.enableConfigMapMutable {
+			} else if clients.IsConfigMap(obj) && !(k.enableConfigMapMutable && !clients.IsImmutable(obj)) {
 				props = append(props, properties{".binaryData", ".data"}...)
 			}
 		}

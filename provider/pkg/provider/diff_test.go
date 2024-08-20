@@ -195,6 +195,18 @@ func TestPatchToDiff(t *testing.T) {
 			},
 		},
 		{
+			name:  `ConfigMap resources trigger a replace when marked as immutable even when enableConfigMapMutable is set.`,
+			group: "core", version: "v1", kind: "ConfigMap",
+			old: object{"data": object{"property1": "3"}, "immutable": true},
+			new: object{"data": object{"property1": "4"}, "immutable": true},
+			customizeProvider: func(p *kubeProvider) {
+				p.enableConfigMapMutable = true
+			},
+			expected: expected{
+				"data.property1": UR,
+			},
+		},
+		{
 			name:  `Secret resources don't trigger a replace when mutable.`,
 			group: "core", version: "v1", kind: "Secret",
 			old: object{"data": object{"property1": "3"}},
