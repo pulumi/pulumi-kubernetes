@@ -5,7 +5,8 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../../utilities";
 
 /**
- * ConfigFile creates a set of Kubernetes resources from a Kubernetes YAML file.
+ * ConfigFile creates a set of Kubernetes resources from a remote or on-disk Kubernetes YAML file.
+ * (If you have in-memory YAML a ConfigGroup may be more appropriate.)
  *
  * ## Dependency ordering
  * Sometimes resources must be applied in a specific order. For example, a namespace resource must be
