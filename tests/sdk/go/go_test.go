@@ -77,7 +77,7 @@ func TestBasic(t *testing.T) {
 	integration.ProgramTest(t, &options)
 }
 
-func TestYaml(t *testing.T) {
+func TestYamlGo(t *testing.T) {
 	options := baseOptions.With(integration.ProgramTestOptions{
 		Dir:                  filepath.Join(getCwd(t), "yaml"),
 		Quick:                true,
@@ -93,7 +93,7 @@ func TestYaml(t *testing.T) {
 	integration.ProgramTest(t, &options)
 }
 
-func TestHelmLocal(t *testing.T) {
+func TestHelmLocalGo(t *testing.T) {
 	options := baseOptions.With(integration.ProgramTestOptions{
 		Dir:                  filepath.Join(getCwd(t), "helm-local", "step1"),
 		Quick:                true,
@@ -401,7 +401,7 @@ func TestHelmRemote(t *testing.T) {
 	integration.ProgramTest(t, &options)
 }
 
-func TestHelmRelease(t *testing.T) {
+func TestHelmReleaseGo(t *testing.T) {
 	chart := bitnamiNginxChart
 	chartVersion := bitnamiNginxChart.Versions[0]
 
@@ -636,7 +636,7 @@ func TestHelmAPIVersions(t *testing.T) {
 	integration.ProgramTest(t, &options)
 }
 
-func TestHelmKubeVersion(t *testing.T) {
+func TestHelmKubeVersionGo(t *testing.T) {
 	options := baseOptions.With(integration.ProgramTestOptions{
 		Dir:                  filepath.Join(getCwd(t), "helm-kube-version", "step1"),
 		Quick:                true,
@@ -670,7 +670,7 @@ func TestHelmSkipCRDRendering(t *testing.T) {
 	integration.ProgramTest(t, &options)
 }
 
-func TestKustomize(t *testing.T) {
+func TestKustomizeGo(t *testing.T) {
 	options := baseOptions.With(integration.ProgramTestOptions{
 		Dir:   filepath.Join(getCwd(t), "kustomize"),
 		Quick: true,
@@ -685,7 +685,7 @@ func TestKustomize(t *testing.T) {
 	integration.ProgramTest(t, &options)
 }
 
-func TestSecrets(t *testing.T) {
+func TestSecretsGo(t *testing.T) {
 	secretMessage := "secret message for testing"
 
 	options := baseOptions.With(integration.ProgramTestOptions{
@@ -718,7 +718,7 @@ func TestSecretsWithUnknowns(t *testing.T) {
 	integration.ProgramTest(t, &options)
 }
 
-func TestServerSideApply(t *testing.T) {
+func TestServerSideApplyGo(t *testing.T) {
 	options := baseOptions.With(integration.ProgramTestOptions{
 		Dir:                  filepath.Join(getCwd(t), "server-side-apply"),
 		ExpectRefreshChanges: true,
@@ -812,10 +812,10 @@ func TestChartGetResource(t *testing.T) {
 	integration.ProgramTest(t, &options)
 }
 
-// TestOptionPropagation tests the handling of resource options by the various compoonent resources.
+// TestOptionPropagationGo tests the handling of resource options by the various compoonent resources.
 // Component resources are responsible for implementing option propagation logic when creating
 // child resources.
-func TestOptionPropagation(t *testing.T) {
+func TestOptionPropagationGo(t *testing.T) {
 	g := NewWithT(t)
 	format.MaxLength = 0
 	// format.MaxDepth = 6
