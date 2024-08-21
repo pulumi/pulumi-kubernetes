@@ -378,7 +378,7 @@ jobs:
         pip3 install virtualenv==20.0.23
         pip3 install pipenv
     - name: Install dependencies
-      run: make install_sdks || make install
+      run: make install_sdks
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v4
       with:
@@ -428,7 +428,7 @@ jobs:
         node_image: kindest/node:v1.29.2
     - name: Shard tests
       run: echo go test -v -count=1 -cover -timeout 2h -parallel 4 -short "$(go run
-        github.com/blampe/shard@d7b2190cdca822cb0f7411a7c09cea8a429d7f9f --total
+        github.com/blampe/shard@b251cf8da6a83022628496125f285095772ebe86 --total
         ${{ strategy.job-total }} --index ${{ strategy.job-index }})" >
         test-command
       working-directory: tests/sdk
