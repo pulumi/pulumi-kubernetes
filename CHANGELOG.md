@@ -19,7 +19,7 @@
 - A warning is now emitted if an object has finalizers which might be blocking
   deletion. (https://github.com/pulumi/pulumi-kubernetes/issues/1418)
 
-- Generic await logic is now available as an experimental opt-in feature.
+- **EXPERIMENTAL**: Generic await logic is now available as an opt-in feature.
   Running a program with `PULUMI_K8S_AWAIT_ALL=true` will now cause Pulumi to
   await readiness for _all_ resources, including custom resources.
   
@@ -33,9 +33,10 @@
   Existing readiness logic is unaffected by this setting.
   (https://github.com/pulumi/pulumi-kubernetes/issues/2996)
 
-- The `pulumi.com/waitFor` annotation was introduced to allow for custom
-  readiness checks. This override Pulumi's own await logic for the resource
-  (however the `pulumi.com/skipAwait` annotation still takes precedence).
+- **EXPERIMENTAL** The `pulumi.com/waitFor` annotation was introduced to allow
+  for custom readiness checks. This override Pulumi's own await logic for the
+  resource (however the `pulumi.com/skipAwait` annotation still takes
+  precedence).
   
   The value of this annotation can take 3 forms:
     1. A string prefixed with `jsonpath=` followed by a
@@ -52,14 +53,15 @@
            `pulumi.com/waitFor: "jsonpath={.phase}=Running"` 
        
        If a value is not provided, the resource will be considered ready when
-       any value exists at the given path. This resource will wait until it has
-       a webhook configured with a CA bundle:
+       any value exists at the given path, similar to `kubectl wait --for
+       jsonpath=...`. This resource will wait until it has a webhook configured
+       with a CA bundle:
     
            `pulumi.com/waitFor: "jsonpath={.webhooks[].clientConfig.caBundle}"` 
        
     2. A string prefixed with `condition=` followed by the type of the
        condition and an optional status. This matches the behavior of 
-       `kubectl --for=condition=...` and will wait until the resource has a
+       `kubectl wait --for=condition=...` and will wait until the resource has a
        matching condition. The expected status defaults to "True" if not
        specified.
      

@@ -36,6 +36,24 @@ func TestJSONPath(t *testing.T) {
 			wantReady: true,
 		},
 		{
+			name: "key present but empty",
+			uns: &unstructured.Unstructured{Object: map[string]any{
+				"foo": "",
+			}},
+			expr: "jsonpath={.foo}",
+			// Ref: https://github.com/kubernetes/kubectl/blob/c4be63c54b7188502c1a63bb884a0b05fac51ebd/pkg/cmd/wait/json.go#L72-L91
+			wantReady: true,
+		},
+		{
+			name: "key present but null",
+			uns: &unstructured.Unstructured{Object: map[string]any{
+				"foo": nil,
+			}},
+			expr: "jsonpath={.foo}",
+			// Ref: https://github.com/kubernetes/kubectl/blob/c4be63c54b7188502c1a63bb884a0b05fac51ebd/pkg/cmd/wait/json.go#L72-L91
+			wantReady: true,
+		},
+		{
 			name: "key present but observed generation is too young",
 			uns: &unstructured.Unstructured{Object: map[string]any{
 				"foo": "bar",
