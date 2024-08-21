@@ -55,15 +55,19 @@ func TestSetAnnotation(t *testing.T) {
 		args args
 	}{
 		{"set-with-no-annotation", args{
-			obj: noAnnotationObj, key: "foo", value: "bar", expectSet: true, expectKey: "foo", expectValue: "bar"}},
+			obj: noAnnotationObj, key: "foo", value: "bar", expectSet: true, expectKey: "foo", expectValue: "bar",
+		}},
 		{"set-with-existing-annotations", args{
-			obj: existingAnnotationObj, key: "foo", value: "bar", expectSet: true, expectKey: "foo", expectValue: "bar"}},
+			obj: existingAnnotationObj, key: "foo", value: "bar", expectSet: true, expectKey: "foo", expectValue: "bar",
+		}},
 
 		// Computed fields cannot be set, so SetAnnotation is a no-op.
 		{"set-with-computed-metadata", args{
-			obj: computedMetadataObj, key: "foo", value: "bar", expectSet: false}},
+			obj: computedMetadataObj, key: "foo", value: "bar", expectSet: false,
+		}},
 		{"set-with-computed-annotation", args{
-			obj: computedAnnotationObj, key: "foo", value: "bar", expectSet: false}},
+			obj: computedAnnotationObj, key: "foo", value: "bar", expectSet: false,
+		}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

@@ -17,6 +17,7 @@ package test
 import (
 	"context"
 	"testing"
+	"time"
 
 	"github.com/pulumi/providertest/pulumitest"
 	"github.com/pulumi/providertest/pulumitest/opttest"
@@ -131,4 +132,37 @@ func TestAwaitServiceAccount(t *testing.T) {
 	test.UpdateSource("testdata/await/service-account/step2")
 	test.Up()
 	test.Refresh()
+}
+
+func TestAwaitSkip(t *testing.T) {
+	t.Parallel()
+
+	test := pulumitest.NewPulumiTest(t,
+		"testdata/await/skipawait",
+		opttest.SkipInstall(),
+	)
+	t.Cleanup(func() {
+		test.Destroy()
+	})
+
+	start := time.Now()
+	_ = test.Up()
+	took := time.Since(start)
+	assert.Less(t, took, 2*time.Minute, "didn't skip pod's slow startup")
+
+	start = time.Now()
+	_ = test.Refresh()
+	took = time.Since(start)
+	assert.Less(t, took, 2*time.Minute, "didn't skip pod's slow read")
+
+	test.UpdateSource("testdata/await/skipawait/step2")
+	start = time.Now()
+	_ = test.Refresh()
+	took = time.Since(start)
+	assert.Less(t, took, 2*time.Minute, "didn't skip pod's slow update")
+
+	start = time.Now()
+	_ = test.Destroy()
+	took = time.Since(start)
+	assert.Less(t, took, 2*time.Minute, "didn't skip config map's stuck delete")
 }

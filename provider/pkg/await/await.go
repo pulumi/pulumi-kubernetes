@@ -21,9 +21,12 @@ import (
 	"fmt"
 	"os"
 	"strings"
+	"time"
 
 	fluxssa "github.com/fluxcd/pkg/ssa"
 	"github.com/jonboulle/clockwork"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/condition"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/internal"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/cluster"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/host"
@@ -42,10 +45,8 @@ import (
 	apivalidation "k8s.io/apimachinery/pkg/api/validation"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
-	"k8s.io/apimachinery/pkg/fields"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/types"
-	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/apiserver/pkg/storage/names"
 	"k8s.io/client-go/dynamic"
 	k8sopenapi "k8s.io/kubectl/pkg/util/openapi"
@@ -80,6 +81,9 @@ type ProviderConfig struct {
 
 	// explicit awaiters (for testing purposes)
 	awaiters map[string]awaitSpec
+
+	// explicit condition (for testing)
+	condition condition.Satisfier
 
 	clock clockwork.Clock
 }
@@ -791,129 +795,54 @@ func Deletion(c DeleteConfig) error {
 		return err
 	}
 
-	timeout := metadata.TimeoutDuration(c.Timeout, c.Inputs)
-	var timeoutSeconds int64 = 300
-	if timeout != nil {
-		timeoutSeconds = int64(timeout.Seconds())
-	}
-	listOpts := metav1.ListOptions{
-		FieldSelector:  fields.OneTermEqualSelector("metadata.name", c.Name).String(),
-		TimeoutSeconds: &timeoutSeconds,
-	}
-
-	// Set up a watcher for the selected resource.
-	watcher, err := client.Watch(c.Context, listOpts)
-	if err != nil {
-		return nilIfGVKDeleted(err)
-	}
-
 	// delete the specified resource (using foreground cascading delete by default).
 	deletePolicy := metadata.DeletionPropagation(c.Inputs)
 	deleteOpts := metav1.DeleteOptions{
 		PropagationPolicy: &deletePolicy,
 	}
+
 	err = client.Delete(c.Context, c.Name, deleteOpts)
 	if err != nil {
 		return nilIfGVKDeleted(err)
 	}
 
-	// Wait until delete resolves as success or error. Note that the conditional is set up to log only
-	// if we don't have an entry for the resource type; in the event that we do, but the await logic
-	// is blank, simply do nothing instead of logging.
-	var waitErr error
-	id := fmt.Sprintf("%s/%s", c.Outputs.GetAPIVersion(), c.Outputs.GetKind())
-	a := awaiters
-	if c.awaiters != nil {
-		a = c.awaiters
+	// Apply a timeout to the operation.
+	timeout := 10 * time.Minute
+	if t := metadata.TimeoutDuration(c.Timeout, c.Inputs); t != nil {
+		timeout = *t
 	}
-	if awaiter, exists := a[id]; exists && awaiter.awaitDeletion != nil {
-		if metadata.SkipAwaitLogic(c.Inputs) {
-			logger.V(1).Infof("Skipping await logic for %v", c.Name)
-		} else {
-			timeout := metadata.TimeoutDuration(c.Timeout, c.Inputs)
-			waitErr = awaiter.awaitDeletion(deleteAwaitConfig{
-				awaitConfig: awaitConfig{
-					ctx:               c.Context,
-					urn:               c.URN,
-					initialAPIVersion: c.InitialAPIVersion,
-					clientSet:         c.ClientSet,
-					currentOutputs:    c.Outputs,
-					logger:            c.DedupLogger,
-					timeout:           timeout,
-					clusterVersion:    c.ClusterVersion,
-					clock:             c.clock,
-				},
-				clientForResource: client,
-			})
-			if waitErr != nil {
-				return waitErr
-			}
-			_ = clearStatus(c.Context, c.Host, c.URN)
-		}
-	} else {
-		for {
-			select {
-			case event, ok := <-watcher.ResultChan():
-				if !ok {
-					deleted, obj := checkIfResourceDeleted(c.Context, c.Name, client)
-					if deleted {
-						_ = clearStatus(c.Context, c.Host, c.URN)
-						return nil
-					}
+	ctx, cancel := context.WithTimeout(c.Context, timeout)
+	defer cancel()
 
-					return &timeoutError{
-						object: obj,
-						subErrors: []string{
-							fmt.Sprintf("Timed out waiting for deletion of %s %q", id, c.Name),
-						},
-					}
-				}
+	// Setup our Informer factory.
+	source := condition.NewDynamicSource(ctx, c.ClientSet, c.Outputs.GetNamespace())
 
-				switch event.Type {
-				case watch.Deleted:
-					_ = clearStatus(c.Context, c.Host, c.URN)
-					return nil
-				case watch.Error:
-					deleted, obj := checkIfResourceDeleted(c.Context, c.Name, client)
-					if deleted {
-						_ = clearStatus(c.Context, c.Host, c.URN)
-						return nil
-					}
-					return &initializationError{
-						object:    obj,
-						subErrors: []string{apierrors.FromObject(event.Object).Error()},
-					}
-				}
-			case <-c.Context.Done(): // Handle user cancellation during watch for deletion.
-				watcher.Stop()
-				logger.V(3).Infof("Received error deleting object %q: %#v", id, err)
-				deleted, obj := checkIfResourceDeleted(c.Context, c.Name, client)
-				if deleted {
-					_ = clearStatus(c.Context, c.Host, c.URN)
-					return nil
-				}
-
-				return &cancellationError{
-					object: obj,
-				}
-			}
-		}
+	// Determine the condition to wait for.
+	deleted, err := metadata.DeletedCondition(ctx, source, c.ClientSet, c.DedupLogger, c.Inputs, c.Outputs)
+	if err != nil {
+		return err
 	}
+	if c.condition != nil {
+		deleted = c.condition
+	}
+
+	awaiter, err := internal.NewAwaiter(
+		internal.WithCondition(deleted),
+		internal.WithNamespace(c.Outputs.GetNamespace()),
+		internal.WithLogger(c.DedupLogger),
+	)
+	if err != nil {
+		return err
+	}
+
+	// Wait until the delete condition resolves.
+	err = awaiter.Await(ctx)
+	if err != nil {
+		return err
+	}
+	_ = clearStatus(c.Context, c.Host, c.URN)
 
 	return nil
-}
-
-// checkIfResourceDeleted attempts to get a k8s resource, and returns true if the resource is not found (was deleted).
-// Return the resource if it still exists.
-func checkIfResourceDeleted(
-	ctx context.Context, name string, client dynamic.ResourceInterface,
-) (bool, *unstructured.Unstructured) {
-	obj, err := client.Get(ctx, name, metav1.GetOptions{})
-	if err != nil && is404(err) { // In case of 404, the resource no longer exists, so return success.
-		return true, nil
-	}
-
-	return false, obj
 }
 
 // clearStatus will clear the `Info` column of the CLI of all statuses and messages.
