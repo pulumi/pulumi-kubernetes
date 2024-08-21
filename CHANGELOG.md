@@ -2,10 +2,24 @@
 
 ### Added
 
-- A new provider configuration option `enableSecretMutable` allows treating changes to `Secrets` as updates instead of replacements.
-  This is similar to the `enableConfigMapMutable` option.
-  The default replacement behavior can be preserved for a particular Secret by setting its `replaceOnChanges` resource option to `[".stringData", ".data"]`.
+- The new `enableSecretMutable` provider configuration option treats changes to
+  `Secrets` as updates instead of replacements (similar to the
+  `enableConfigMapMutable` option).
+
+  The default replacement behavior can be preserved for a particular `Secret`
+  by setting its `immutable` field to `true`.
   (https://github.com/pulumi/pulumi-kubernetes/issues/2291)
+
+  **Note:** These options (`enableSecretMutable` and `enableConfigMapMutable`)
+  may become the default behavior in a future v5 release of the provider.
+  Programs that depend on the replacement of `Secrets` and `ConfigMaps` (e.g.
+  to trigger updates for downstream dependencies like `Deployments`) are
+  recommended to explicitly specify `immutable: true`.
+
+### Fixed
+
+- The `immutable` field is now respected for `ConfigMaps` when the provider is configured with `enableConfigMapMutable`.
+  (https://github.com/pulumi/pulumi-kubernetes/issues/3181)
 
 ## 4.17.1 (August 16, 2024)
 
