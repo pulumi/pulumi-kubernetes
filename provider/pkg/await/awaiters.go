@@ -21,6 +21,7 @@ import (
 	"time"
 
 	"github.com/jonboulle/clockwork"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/condition"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/cluster"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/logging"
@@ -46,7 +47,8 @@ type awaitConfig struct {
 	initialAPIVersion string
 	logger            *logging.DedupLogger
 	clientSet         *clients.DynamicClientSet
-	currentOutputs    *unstructured.Unstructured // The result our our create/update.
+	inputs            *unstructured.Unstructured
+	currentOutputs    *unstructured.Unstructured // The result of our create/update.
 	lastOutputs       *unstructured.Unstructured // The state of the object before we changed it. `nil` if this is a create.
 	timeout           *time.Duration
 	clusterVersion    *cluster.ServerVersion
@@ -126,46 +128,46 @@ const (
 )
 
 type awaitSpec struct {
-	await     awaiter
+	await     func(awaitConfig) condition.Satisfier
 	awaitRead readAwaiter
 }
 
 var deploymentAwaiter = awaitSpec{
-	await: func(c awaitConfig) error {
+	await: wrap(func(c awaitConfig) error {
 		return makeDeploymentInitAwaiter(c).Await()
-	},
+	}),
 	awaitRead: func(c awaitConfig) error {
 		return makeDeploymentInitAwaiter(c).Read()
 	},
 }
 
 var ingressAwaiter = awaitSpec{
-	await:     awaitIngressInit,
+	await:     wrap(awaitIngressInit),
 	awaitRead: awaitIngressRead,
 }
 
 var jobAwaiter = awaitSpec{
-	await: func(c awaitConfig) error {
+	await: wrap(func(c awaitConfig) error {
 		return makeJobInitAwaiter(c).Await()
-	},
+	}),
 	awaitRead: func(c awaitConfig) error {
 		return makeJobInitAwaiter(c).Read()
 	},
 }
 
 var statefulsetAwaiter = awaitSpec{
-	await: func(c awaitConfig) error {
+	await: wrap(func(c awaitConfig) error {
 		return makeStatefulSetInitAwaiter(c).Await()
-	},
+	}),
 	awaitRead: func(c awaitConfig) error {
 		return makeStatefulSetInitAwaiter(c).Read()
 	},
 }
 
 var daemonsetAwaiter = awaitSpec{
-	await: func(c awaitConfig) error {
+	await: wrap(func(c awaitConfig) error {
 		return newDaemonSetAwaiter(c).Await()
-	},
+	}),
 	awaitRead: func(c awaitConfig) error {
 		return newDaemonSetAwaiter(c).Read()
 	},
@@ -189,30 +191,30 @@ var awaiters = map[string]awaitSpec{
 	coreV1ConfigMap:                      { /* NONE */ },
 	coreV1LimitRange:                     { /* NONE */ },
 	coreV1PersistentVolume: {
-		await: untilCoreV1PersistentVolumeInitialized,
+		await: wrap(untilCoreV1PersistentVolumeInitialized),
 	},
 	coreV1PersistentVolumeClaim: {
-		await: untilCoreV1PersistentVolumeClaimReady,
+		await: wrap(untilCoreV1PersistentVolumeClaimReady),
 	},
 	coreV1Pod: {
-		await:     awaitPodInit,
+		await:     wrap(awaitPodInit),
 		awaitRead: awaitPodRead,
 	},
 	coreV1ReplicationController: {
-		await: untilCoreV1ReplicationControllerInitialized,
+		await: wrap(untilCoreV1ReplicationControllerInitialized),
 	},
 	coreV1ResourceQuota: {
-		await: untilCoreV1ResourceQuotaInitialized,
+		await: wrap(untilCoreV1ResourceQuotaInitialized),
 	},
 	coreV1Secret: {
-		await: untilCoreV1SecretInitialized,
+		await: wrap(untilCoreV1SecretInitialized),
 	},
 	coreV1Service: {
-		await:     awaitServiceInit,
+		await:     wrap(awaitServiceInit),
 		awaitRead: awaitServiceRead,
 	},
 	coreV1ServiceAccount: {
-		await: untilCoreV1ServiceAccountInitialized,
+		await: wrap(untilCoreV1ServiceAccountInitialized),
 	},
 	extensionsV1Beta1DaemonSet:  daemonsetAwaiter,
 	extensionsV1Beta1Deployment: deploymentAwaiter,

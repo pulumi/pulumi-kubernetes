@@ -16,6 +16,7 @@ package metadata
 
 import (
 	"context"
+	"os"
 	"strconv"
 	"strings"
 	"time"
@@ -71,6 +72,33 @@ func DeletionPropagation(obj *unstructured.Unstructured) metav1.DeletionPropagat
 	default:
 		return metav1.DeletePropagationForeground
 	}
+}
+
+// ReadyCondition reads annotations on the provided object and returns a
+// condition.Satisfier appropriate to await on for creates and updates:
+//   - If skipAwait is true, the ready condition will no-op.
+//   - If PULUMI_K8S_AWAIT_ALL=true a generic/heuristic Ready condition is
+//     returned.
+//   - Otherwise we no-op.
+//
+// The "inputs" parameter is the source of truth for user-provided annotations,
+// but it is not guaranteed to be named. The "obj" parameter should be used for
+// conditions.
+func ReadyCondition(
+	ctx context.Context,
+	source condition.Source,
+	_ clientGetter,
+	logger *logging.DedupLogger,
+	inputs *unstructured.Unstructured,
+	obj *unstructured.Unstructured,
+) (condition.Satisfier, error) {
+	if SkipAwaitLogic(inputs) {
+		return condition.NewImmediate(logger, obj), nil
+	}
+	if os.Getenv("PULUMI_K8S_AWAIT_ALL") != "true" {
+		return condition.NewImmediate(nil, obj), nil
+	}
+	return condition.NewReady(ctx, source, logger, obj), nil
 }
 
 // DeletedCondition inspects the object's annotations and returns a

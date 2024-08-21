@@ -19,6 +19,20 @@
 - A warning is now emitted if an object has finalizers which might be blocking
   deletion. (https://github.com/pulumi/pulumi-kubernetes/issues/1418)
 
+- Generic await logic is now available as an experimental opt-in feature.
+  Running a program with `PULUMI_K8S_AWAIT_ALL=true` will now cause Pulumi to
+  await readiness for _all_ resources, including custom resources.
+  
+  Generic readiness is determined according to some well-known conventions (like
+  the "Ready" condition) as determined by [cli-utils](https://github.com/kubernetes-sigs/cli-utils/tree/master/pkg/kstatus).
+
+  Pulumi's current behavior, without this feature enabled, is to assume some
+  resources are immediately available, which can cause downstream resources to
+  fail.
+
+  Existing readiness logic is unaffected by this setting.
+  (https://github.com/pulumi/pulumi-kubernetes/issues/2996)
+
 ### Fixed
 
 - The `immutable` field is now respected for `ConfigMaps` when the provider is configured with `enableConfigMapMutable`.

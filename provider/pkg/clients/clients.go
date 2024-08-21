@@ -329,6 +329,7 @@ func IsImmutable(obj *unstructured.Unstructured) bool {
 	return val
 }
 
+// GVRForGVK queries the API server to determine the resource for the given GroupVersionKind.
 func GVRForGVK(mapper meta.RESTMapper, gvk schema.GroupVersionKind) (schema.GroupVersionResource, error) {
 	mapping, err := mapper.RESTMapping(gvk.GroupKind(), gvk.Version)
 	if err != nil {

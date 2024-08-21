@@ -153,7 +153,10 @@ func (o *observer) Range(yield func(watch.Event) bool) {
 			}
 			// Ignore events not matching our "keep" filter.
 			obj, ok := e.Object.(*unstructured.Unstructured)
-			if !ok || !o.keep(obj) {
+			if !ok {
+				continue
+			}
+			if !o.keep(obj) {
 				continue
 			}
 			if !yield(e) {
