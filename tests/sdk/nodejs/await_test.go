@@ -12,6 +12,7 @@ import (
 	"github.com/pulumi/providertest/pulumitest"
 	"github.com/pulumi/pulumi/sdk/v3/go/auto"
 	"github.com/pulumi/pulumi/sdk/v3/go/auto/events"
+	"github.com/pulumi/pulumi/sdk/v3/go/auto/optdestroy"
 	"github.com/pulumi/pulumi/sdk/v3/go/auto/optrefresh"
 	"github.com/pulumi/pulumi/sdk/v3/go/auto/optup"
 	"github.com/stretchr/testify/assert"
@@ -50,7 +51,8 @@ func TestAwaitGeneric(t *testing.T) {
 			if e.DiagnosticEvent == nil {
 				continue
 			}
-			if strings.Contains(e.DiagnosticEvent.Message, "Waiting for readiness") {
+			msg := e.DiagnosticEvent.Message
+			if strings.Contains(msg, "Waiting for") || strings.Contains(msg, "Missing") {
 				go func() {
 					for range events {
 						// Need to exhaust the channel otherwise things deadlock.
@@ -110,7 +112,31 @@ func TestAwaitGeneric(t *testing.T) {
 		}
 	}
 
-	assertReady := func(t *testing.T, outputs auto.OutputMap) {
+	// assert that the custom waitFor annotation worked.
+	assertWaitForResourcesReady := func(t *testing.T, outputs auto.OutputMap) {
+		t.Helper()
+		expect := []expectation{
+			{
+				name:            "wantsCondition",
+				someField:       "not-needed",
+				conditionType:   "Foo",
+				conditionStatus: "True",
+			},
+			{
+				name:      "wantsField",
+				someField: "foo",
+			},
+			{
+				name:            "wantsFieldAndCondition",
+				someField:       "expected",
+				conditionType:   "Foo",
+				conditionStatus: "True",
+			},
+		}
+		assertExpectations(t, outputs, expect)
+	}
+
+	assertAllResourcesReady := func(t *testing.T, outputs auto.OutputMap) {
 		t.Helper()
 		expect := []expectation{
 			{
@@ -122,9 +148,10 @@ func TestAwaitGeneric(t *testing.T) {
 		}
 
 		assertExpectations(t, outputs, expect)
+		assertWaitForResourcesReady(t, outputs)
 	}
 
-	assertUntouched := func(t *testing.T, outputs auto.OutputMap) {
+	assertGenericResourceUntouched := func(t *testing.T, outputs auto.OutputMap) {
 		t.Helper()
 		expect := []expectation{
 			{
@@ -164,13 +191,15 @@ func TestAwaitGeneric(t *testing.T) {
 
 		// Create
 		up := test.Up(optup.EventStreams(ch), optup.ProgressStreams(os.Stdout), optup.ErrorProgressStreams(os.Stderr))
-		assertReady(t, up.Outputs)
+		assertAllResourcesReady(t, up.Outputs)
 
 		// Touch our resources and refresh in order to trigger an update later.
 		touch(t, dir)
 
 		// Read
-		test.Refresh(optrefresh.ProgressStreams(os.Stdout))
+		refresh := test.Refresh(optrefresh.ProgressStreams(os.Stdout))
+		require.NotNil(t, refresh.Summary.ResourceChanges)
+		assert.Equal(t, 5, (*refresh.Summary.ResourceChanges)["update"])
 
 		ch = make(chan events.EngineEvent)
 		go func() {
@@ -180,12 +209,13 @@ func TestAwaitGeneric(t *testing.T) {
 
 		// Update
 		up = test.Up(optup.EventStreams(ch), optup.ProgressStreams(os.Stdout), optup.ErrorProgressStreams(os.Stderr))
-		assertReady(t, up.Outputs)
+		assertAllResourcesReady(t, up.Outputs)
 	})
 
 	t.Run("disabled", func(t *testing.T) {
 		// With generic await disabled, CustomResources and other types without
 		// custom await logic should no-op instead of waiting for readiness.
+		// However custom await logic via the waitFor annotation still applies.
 
 		test := pulumitest.NewPulumiTest(t,
 			"testdata/await/generic",
@@ -195,20 +225,49 @@ func TestAwaitGeneric(t *testing.T) {
 			test.Destroy()
 		})
 
-		// Create should return immediately.
-		up := test.Up(optup.ProgressStreams(os.Stdout))
-		assertUntouched(t, up.Outputs)
+		// Use kubectl to simulate an operator acting on our resources.
+		ch := make(chan events.EngineEvent)
+		go func() {
+			waitForCRDs(ch)
+			makeReady(t, dir)
+		}()
 
-		// Touch the resources and refresh to pick up the new state.
+		// Create
+		up := test.Up(optup.EventStreams(ch), optup.ProgressStreams(os.Stdout), optup.ErrorProgressStreams(os.Stderr))
+		assertGenericResourceUntouched(t, up.Outputs)
+		assertWaitForResourcesReady(t, up.Outputs)
+
+		// Touch our resources and refresh in order to trigger an update later.
 		touch(t, dir)
 
 		// Read
 		refresh := test.Refresh(optrefresh.ProgressStreams(os.Stdout))
 		require.NotNil(t, refresh.Summary.ResourceChanges)
-		assert.Equal(t, (*refresh.Summary.ResourceChanges)["update"], 2)
+		assert.Equal(t, 5, (*refresh.Summary.ResourceChanges)["update"])
 
-		// Update should exit immediately and reflect the inputs again.
-		up = test.Up(optup.ProgressStreams(os.Stdout))
-		assertUntouched(t, up.Outputs)
+		ch = make(chan events.EngineEvent)
+		go func() {
+			waitForCRDs(ch)
+			makeReady(t, dir)
+		}()
+
+		// Update
+		up = test.Up(optup.EventStreams(ch), optup.ProgressStreams(os.Stdout), optup.ErrorProgressStreams(os.Stderr))
+		assertGenericResourceUntouched(t, up.Outputs)
+		assertWaitForResourcesReady(t, up.Outputs)
 	})
+}
+
+func TestAwaitCertManager(t *testing.T) {
+	t.Setenv("PULUMI_K8S_AWAIT_ALL", "true")
+
+	test := pulumitest.NewPulumiTest(t,
+		"testdata/await/cert-manager",
+	)
+	t.Cleanup(func() {
+		test.Destroy()
+	})
+
+	test.Up(optup.ProgressStreams(os.Stdout))
+	test.Destroy(optdestroy.ProgressStreams(os.Stdout))
 }

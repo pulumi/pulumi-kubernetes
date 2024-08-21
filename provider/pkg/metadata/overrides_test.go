@@ -180,6 +180,74 @@ func TestReadyCondition(t *testing.T) {
 			genericEnabled: true,
 			want:           condition.Immediate{},
 		},
+		{
+			name: "skipAwait=true with custom ready condition",
+			inputs: &unstructured.Unstructured{Object: map[string]any{
+				"metadata": map[string]any{
+					"annotations": map[string]any{
+						AnnotationSkipAwait: "true",
+						AnnotationWaitFor:   "jsonpath={.baz}=boo",
+					},
+				},
+			}},
+			want: condition.Immediate{},
+		},
+		{
+			name: "skipAwait=false with custom ready condition",
+			inputs: &unstructured.Unstructured{Object: map[string]any{
+				"metadata": map[string]any{
+					"annotations": map[string]any{
+						AnnotationSkipAwait: "false",
+						AnnotationWaitFor:   "jsonpath={.baz}=boo",
+					},
+				},
+			}},
+			want: &condition.JSONPath{},
+		},
+		{
+			name: "parse JSON array",
+			inputs: &unstructured.Unstructured{Object: map[string]any{
+				"metadata": map[string]any{
+					"annotations": map[string]any{
+						AnnotationWaitFor: `["jsonpath={.foo.bar}", "condition=Custom"]`,
+					},
+				},
+			}},
+			want: &condition.All{},
+		},
+		{
+			name: "parse empty array",
+			inputs: &unstructured.Unstructured{Object: map[string]any{
+				"metadata": map[string]any{
+					"annotations": map[string]any{
+						AnnotationWaitFor: `[]`,
+					},
+				},
+			}},
+			wantErr: "condition must be specified",
+		},
+		{
+			name: "parse single value",
+			inputs: &unstructured.Unstructured{Object: map[string]any{
+				"metadata": map[string]any{
+					"annotations": map[string]any{
+						AnnotationWaitFor: "jsonpath={.baz}=boo",
+					},
+				},
+			}},
+			want: &condition.JSONPath{},
+		},
+		{
+			name: "invalid expression",
+			inputs: &unstructured.Unstructured{Object: map[string]any{
+				"metadata": map[string]any{
+					"annotations": map[string]any{
+						AnnotationWaitFor: "{.baz}=boo",
+					},
+				},
+			}},
+			wantErr: `expected a "jsonpath=" or "condition=" prefix`,
+		},
 	}
 
 	for _, tt := range tests {
@@ -256,6 +324,29 @@ func TestDeletedCondition(t *testing.T) {
 					"metadata": map[string]any{},
 				},
 			},
+			want: &condition.Deleted{},
+		},
+		{
+			name: "skipAwait=true with custom ready condition",
+			inputs: &unstructured.Unstructured{Object: map[string]any{
+				"metadata": map[string]any{
+					"annotations": map[string]any{
+						AnnotationSkipAwait: "true",
+						AnnotationWaitFor:   "jsonpath={.baz}=boo",
+					},
+				},
+			}},
+			want: &condition.Deleted{},
+		},
+		{
+			name: "custom ready condition",
+			inputs: &unstructured.Unstructured{Object: map[string]any{
+				"metadata": map[string]any{
+					"annotations": map[string]any{
+						AnnotationWaitFor: "jsonpath={.baz}=boo",
+					},
+				},
+			}},
 			want: &condition.Deleted{},
 		},
 	}
