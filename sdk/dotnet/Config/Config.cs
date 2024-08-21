@@ -101,6 +101,21 @@ namespace Pulumi.Kubernetes
             set => _enableReplaceCRD.Set(value);
         }
 
+        private static readonly __Value<bool?> _enableSecretMutable = new __Value<bool?>(() => __config.GetBoolean("enableSecretMutable"));
+        /// <summary>
+        /// BETA FEATURE - If present and set to true, allow Secrets to be mutated.
+        /// This feature is in developer preview, and is disabled by default.
+        /// 
+        /// This config can be specified in the following ways using this precedence:
+        /// 1. This `enableSecretMutable` parameter.
+        /// 2. The `PULUMI_K8S_ENABLE_SECRET_MUTABLE` environment variable.
+        /// </summary>
+        public static bool? EnableSecretMutable
+        {
+            get => _enableSecretMutable.Get();
+            set => _enableSecretMutable.Set(value);
+        }
+
         private static readonly __Value<bool?> _enableServerSideApply = new __Value<bool?>(() => __config.GetBoolean("enableServerSideApply"));
         /// <summary>
         /// If present and set to false, disable Server-Side Apply mode.

@@ -94,6 +94,10 @@ func PulumiSchema(swagger map[string]any) pschema.PackageSpec {
 					Description: "BETA FEATURE - If present and set to true, allow ConfigMaps to be mutated.\nThis feature is in developer preview, and is disabled by default.\n\nThis config can be specified in the following ways using this precedence:\n1. This `enableConfigMapMutable` parameter.\n2. The `PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE` environment variable.",
 					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
 				},
+				"enableSecretMutable": {
+					Description: "BETA FEATURE - If present and set to true, allow Secrets to be mutated.\nThis feature is in developer preview, and is disabled by default.\n\nThis config can be specified in the following ways using this precedence:\n1. This `enableSecretMutable` parameter.\n2. The `PULUMI_K8S_ENABLE_SECRET_MUTABLE` environment variable.",
+					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
+				},
 				"renderYamlToDirectory": {
 					Description: "BETA FEATURE - If present, render resource manifests to this directory. In this mode, resources will not\nbe created on a Kubernetes cluster, but the rendered manifests will be kept in sync with changes\nto the Pulumi program. This feature is in developer preview, and is disabled by default.\n\nNote that some computed Outputs such as status fields will not be populated\nsince the resources are not created on a Kubernetes cluster. These Output values will remain undefined,\nand may result in an error if they are referenced by other resources. Also note that any secret values\nused in these resources will be rendered in plaintext to the resulting YAML.",
 					TypeSpec:    pschema.TypeSpec{Type: "string"},
@@ -183,6 +187,15 @@ func PulumiSchema(swagger map[string]any) pschema.PackageSpec {
 						},
 					},
 					Description: "BETA FEATURE - If present and set to true, allow ConfigMaps to be mutated.\nThis feature is in developer preview, and is disabled by default.\n\nThis config can be specified in the following ways using this precedence:\n1. This `enableConfigMapMutable` parameter.\n2. The `PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE` environment variable.",
+					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
+				},
+				"enableSecretMutable": {
+					DefaultInfo: &pschema.DefaultSpec{
+						Environment: []string{
+							"PULUMI_K8S_ENABLE_SECRET_MUTABLE",
+						},
+					},
+					Description: "BETA FEATURE - If present and set to true, allow Secrets to be mutated.\nThis feature is in developer preview, and is disabled by default.\n\nThis config can be specified in the following ways using this precedence:\n1. This `enableSecretMutable` parameter.\n2. The `PULUMI_K8S_ENABLE_SECRET_MUTABLE` environment variable.",
 					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
 				},
 				"renderYamlToDirectory": {

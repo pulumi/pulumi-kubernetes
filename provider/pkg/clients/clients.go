@@ -311,15 +311,22 @@ func FindCRD(objs []unstructured.Unstructured, kind schema.GroupKind) *unstructu
 	return nil
 }
 
+// IsSecret returns true if the resource has a Secret GVK.
 func IsSecret(obj *unstructured.Unstructured) bool {
 	gvk := obj.GroupVersionKind()
 	return (gvk.Group == corev1.GroupName || gvk.Group == "core") && gvk.Kind == string(kinds.Secret)
 }
 
-// IsConfigMap returns true if the resource is a configmap marked as immutable.
+// IsConfigMap returns true if the resource has a ConfigMap GVK.
 func IsConfigMap(obj *unstructured.Unstructured) bool {
 	gvk := obj.GroupVersionKind()
 	return (gvk.Group == corev1.GroupName || gvk.Group == "core") && gvk.Kind == string(kinds.ConfigMap)
+}
+
+// IsMutable returns true if given ConfigMap or Secret is marked as immutable.
+func IsImmutable(obj *unstructured.Unstructured) bool {
+	val, _, _ := unstructured.NestedBool(obj.Object, "immutable")
+	return val
 }
 
 func GVRForGVK(mapper meta.RESTMapper, gvk schema.GroupVersionKind) (schema.GroupVersionResource, error) {

@@ -52,6 +52,16 @@ func GetEnableReplaceCRD(ctx *pulumi.Context) bool {
 	return config.GetBool(ctx, "kubernetes:enableReplaceCRD")
 }
 
+// BETA FEATURE - If present and set to true, allow Secrets to be mutated.
+// This feature is in developer preview, and is disabled by default.
+//
+// This config can be specified in the following ways using this precedence:
+// 1. This `enableSecretMutable` parameter.
+// 2. The `PULUMI_K8S_ENABLE_SECRET_MUTABLE` environment variable.
+func GetEnableSecretMutable(ctx *pulumi.Context) bool {
+	return config.GetBool(ctx, "kubernetes:enableSecretMutable")
+}
+
 // If present and set to false, disable Server-Side Apply mode.
 // See https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.
 func GetEnableServerSideApply(ctx *pulumi.Context) bool {
