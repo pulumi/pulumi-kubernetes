@@ -16,12 +16,17 @@
 package metadata
 
 import (
+	"context"
 	"reflect"
 	"testing"
 	"time"
 
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/condition"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
+	"k8s.io/client-go/dynamic"
 )
 
 func TestSkipAwaitLogic(t *testing.T) {
@@ -126,4 +131,242 @@ func TestDeletionPropagation(t *testing.T) {
 			}
 		})
 	}
+}
+
+func TestReadyCondition(t *testing.T) {
+	tests := []struct {
+		name           string
+		obj            *unstructured.Unstructured
+		inputs         *unstructured.Unstructured
+		genericEnabled bool
+		want           any
+		wantErr        string
+	}{
+		{
+			name:           "no annotation, generic await enabled",
+			inputs:         &unstructured.Unstructured{Object: map[string]any{}},
+			genericEnabled: true,
+			want:           &condition.Ready{},
+		},
+		{
+			name:   "no annotation, generic await disabled",
+			inputs: &unstructured.Unstructured{Object: map[string]any{}},
+			want:   condition.Immediate{},
+		},
+		{
+			name: "skipAwait=true, generic await disabled",
+			inputs: &unstructured.Unstructured{
+				Object: map[string]any{
+					"metadata": map[string]any{
+						"annotations": map[string]any{
+							AnnotationSkipAwait: "true",
+						},
+					},
+				},
+			},
+			want: condition.Immediate{},
+		},
+		{
+			name: "skipAwait=true, generic await enabled",
+			inputs: &unstructured.Unstructured{
+				Object: map[string]any{
+					"metadata": map[string]any{
+						"annotations": map[string]any{
+							AnnotationSkipAwait: "true",
+						},
+					},
+				},
+			},
+			genericEnabled: true,
+			want:           condition.Immediate{},
+		},
+		{
+			name: "skipAwait=true with custom ready condition",
+			inputs: &unstructured.Unstructured{Object: map[string]any{
+				"metadata": map[string]any{
+					"annotations": map[string]any{
+						AnnotationSkipAwait: "true",
+						AnnotationWaitFor:   "jsonpath={.baz}=boo",
+					},
+				},
+			}},
+			want: condition.Immediate{},
+		},
+		{
+			name: "skipAwait=false with custom ready condition",
+			inputs: &unstructured.Unstructured{Object: map[string]any{
+				"metadata": map[string]any{
+					"annotations": map[string]any{
+						AnnotationSkipAwait: "false",
+						AnnotationWaitFor:   "jsonpath={.baz}=boo",
+					},
+				},
+			}},
+			want: &condition.JSONPath{},
+		},
+		{
+			name: "parse JSON array",
+			inputs: &unstructured.Unstructured{Object: map[string]any{
+				"metadata": map[string]any{
+					"annotations": map[string]any{
+						AnnotationWaitFor: `["jsonpath={.foo.bar}", "condition=Custom"]`,
+					},
+				},
+			}},
+			want: &condition.All{},
+		},
+		{
+			name: "parse empty array",
+			inputs: &unstructured.Unstructured{Object: map[string]any{
+				"metadata": map[string]any{
+					"annotations": map[string]any{
+						AnnotationWaitFor: `[]`,
+					},
+				},
+			}},
+			wantErr: "condition must be specified",
+		},
+		{
+			name: "parse single value",
+			inputs: &unstructured.Unstructured{Object: map[string]any{
+				"metadata": map[string]any{
+					"annotations": map[string]any{
+						AnnotationWaitFor: "jsonpath={.baz}=boo",
+					},
+				},
+			}},
+			want: &condition.JSONPath{},
+		},
+		{
+			name: "invalid expression",
+			inputs: &unstructured.Unstructured{Object: map[string]any{
+				"metadata": map[string]any{
+					"annotations": map[string]any{
+						AnnotationWaitFor: "{.baz}=boo",
+					},
+				},
+			}},
+			wantErr: `expected a "jsonpath=" or "condition=" prefix`,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if tt.genericEnabled {
+				t.Setenv("PULUMI_K8S_AWAIT_ALL", "true")
+			}
+			obj := tt.obj
+			if obj == nil {
+				obj = tt.inputs
+			}
+			cond, err := ReadyCondition(context.Background(), nil, nil, nil, tt.inputs, obj)
+			if tt.wantErr != "" {
+				assert.ErrorContains(t, err, tt.wantErr)
+				return
+			}
+			assert.IsType(t, tt.want, cond)
+		})
+	}
+}
+
+func TestDeletedCondition(t *testing.T) {
+	tests := []struct {
+		name   string
+		inputs *unstructured.Unstructured
+		obj    *unstructured.Unstructured
+		want   condition.Satisfier
+	}{
+		{
+			name: "skipAwait=true doesn't affect generic resources",
+			inputs: &unstructured.Unstructured{
+				Object: map[string]any{
+					"metadata": map[string]any{
+						"annotations": map[string]any{
+							AnnotationSkipAwait: "true",
+						},
+					},
+				},
+			},
+			want: &condition.Deleted{},
+		},
+		{
+			name: "skipAwait=true does affect legacy resources",
+			inputs: &unstructured.Unstructured{
+				Object: map[string]any{
+					"apiVersion": "v1",
+					"kind":       "Namespace",
+					"metadata": map[string]any{
+						"annotations": map[string]any{
+							AnnotationSkipAwait: "true",
+						},
+					},
+				},
+			},
+			want: condition.Immediate{},
+		},
+		{
+			name: "skipAwait=false",
+			inputs: &unstructured.Unstructured{
+				Object: map[string]any{
+					"metadata": map[string]any{
+						"annotations": map[string]any{
+							AnnotationSkipAwait: "false",
+						},
+					},
+				},
+			},
+			want: &condition.Deleted{},
+		},
+		{
+			name: "skipAwait unset",
+			inputs: &unstructured.Unstructured{
+				Object: map[string]any{
+					"metadata": map[string]any{},
+				},
+			},
+			want: &condition.Deleted{},
+		},
+		{
+			name: "skipAwait=true with custom ready condition",
+			inputs: &unstructured.Unstructured{Object: map[string]any{
+				"metadata": map[string]any{
+					"annotations": map[string]any{
+						AnnotationSkipAwait: "true",
+						AnnotationWaitFor:   "jsonpath={.baz}=boo",
+					},
+				},
+			}},
+			want: &condition.Deleted{},
+		},
+		{
+			name: "custom ready condition",
+			inputs: &unstructured.Unstructured{Object: map[string]any{
+				"metadata": map[string]any{
+					"annotations": map[string]any{
+						AnnotationWaitFor: "jsonpath={.baz}=boo",
+					},
+				},
+			}},
+			want: &condition.Deleted{},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			obj := tt.obj
+			if obj == nil {
+				obj = tt.inputs
+			}
+			condition, err := DeletedCondition(context.Background(), nil, noopClientGetter{}, nil, tt.inputs, obj)
+			require.NoError(t, err)
+
+			assert.IsType(t, tt.want, condition)
+		})
+	}
+}
+
+type noopClientGetter struct{}
+
+func (noopClientGetter) ResourceClientForObject(*unstructured.Unstructured) (dynamic.ResourceInterface, error) {
+	return nil, nil
 }

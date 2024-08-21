@@ -1,5 +1,86 @@
 ## Unreleased
 
+### Added
+
+- The new `enableSecretMutable` provider configuration option treats changes to
+  `Secrets` as updates instead of replacements (similar to the
+  `enableConfigMapMutable` option).
+
+  The default replacement behavior can be preserved for a particular `Secret`
+  by setting its `immutable` field to `true`.
+  (https://github.com/pulumi/pulumi-kubernetes/issues/2291)
+
+  **Note:** These options (`enableSecretMutable` and `enableConfigMapMutable`)
+  may become the default behavior in a future v5 release of the provider.
+  Programs that depend on the replacement of `Secrets` and `ConfigMaps` (e.g.
+  to trigger updates for downstream dependencies like `Deployments`) are
+  recommended to explicitly specify `immutable: true`.
+
+- A warning is now emitted if an object has finalizers which might be blocking
+  deletion. (https://github.com/pulumi/pulumi-kubernetes/issues/1418)
+
+- **EXPERIMENTAL**: Generic await logic is now available as an opt-in feature.
+  Running a program with `PULUMI_K8S_AWAIT_ALL=true` will now cause Pulumi to
+  await readiness for _all_ resources, including custom resources.
+  
+  Generic readiness is determined according to some well-known conventions (like
+  the "Ready" condition) as determined by [cli-utils](https://github.com/kubernetes-sigs/cli-utils/tree/master/pkg/kstatus).
+
+  Pulumi's current behavior, without this feature enabled, is to assume some
+  resources are immediately available, which can cause downstream resources to
+  fail.
+
+  Existing readiness logic is unaffected by this setting.
+  (https://github.com/pulumi/pulumi-kubernetes/issues/2996)
+
+- **EXPERIMENTAL** The `pulumi.com/waitFor` annotation was introduced to allow
+  for custom readiness checks. This override Pulumi's own await logic for the
+  resource (however the `pulumi.com/skipAwait` annotation still takes
+  precedence).
+  
+  The value of this annotation can take 3 forms:
+    1. A string prefixed with `jsonpath=` followed by a
+       [JSONPath](https://kubernetes.io/docs/reference/kubectl/jsonpath/)
+       expression and an optional value.
+
+       The JSONPath expression accepts the same syntax as 
+       `kubectl get -o jsonpath={...}`.
+       
+       If a value is provided, the resource is considered ready when the
+       JSONPath expression evaluates to the same value. For example this
+       resource expects its "phase" field to have a value of "Running":
+     
+           `pulumi.com/waitFor: "jsonpath={.phase}=Running"` 
+       
+       If a value is not provided, the resource will be considered ready when
+       any value exists at the given path, similar to `kubectl wait --for
+       jsonpath=...`. This resource will wait until it has a webhook configured
+       with a CA bundle:
+    
+           `pulumi.com/waitFor: "jsonpath={.webhooks[].clientConfig.caBundle}"` 
+       
+    2. A string prefixed with `condition=` followed by the type of the
+       condition and an optional status. This matches the behavior of 
+       `kubectl wait --for=condition=...` and will wait until the resource has a
+       matching condition. The expected status defaults to "True" if not
+       specified.
+     
+           `pulumi.com/waitFor: "condition=Synced"`
+    
+           `pulumi.com/waitFor: "condition=Reconciling=False"`
+
+    3. A string containing a JSON array of multiple `jsonpath=` and
+       `condition=` expressions.
+    
+           `pulumi.com/waitFor: '["jsonpath={.foo}", "condition=Bar"]'` 
+
+### Fixed
+
+- The `immutable` field is now respected for `ConfigMaps` when the provider is configured with `enableConfigMapMutable`.
+  (https://github.com/pulumi/pulumi-kubernetes/issues/3181)
+
+- Fixed a panic that could occur during deletion. (https://github.com/pulumi/pulumi-kubernetes/issues/3157)
+
 ## 4.17.1 (August 16, 2024)
 
 ### Fixed

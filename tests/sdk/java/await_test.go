@@ -16,11 +16,17 @@ package test
 
 import (
 	"context"
+	_ "embed"
+	"os"
 	"testing"
+	"time"
 
 	"github.com/pulumi/providertest/pulumitest"
 	"github.com/pulumi/providertest/pulumitest/opttest"
 	"github.com/pulumi/pulumi/sdk/v3/go/auto"
+	"github.com/pulumi/pulumi/sdk/v3/go/auto/optdestroy"
+	"github.com/pulumi/pulumi/sdk/v3/go/auto/optrefresh"
+	"github.com/pulumi/pulumi/sdk/v3/go/auto/optup"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -131,4 +137,37 @@ func TestAwaitServiceAccount(t *testing.T) {
 	test.UpdateSource("testdata/await/service-account/step2")
 	test.Up()
 	test.Refresh()
+}
+
+func TestAwaitSkip(t *testing.T) {
+	t.Parallel()
+
+	test := pulumitest.NewPulumiTest(t,
+		"testdata/await/skipawait",
+		opttest.SkipInstall(),
+	)
+	t.Cleanup(func() {
+		test.Destroy()
+	})
+
+	start := time.Now()
+	_ = test.Up(optup.ProgressStreams(os.Stdout))
+	took := time.Since(start)
+	assert.Less(t, took, 2*time.Minute, "didn't skip pod's slow startup")
+
+	start = time.Now()
+	_ = test.Refresh(optrefresh.ProgressStreams(os.Stdout))
+	took = time.Since(start)
+	assert.Less(t, took, 2*time.Minute, "didn't skip pod's slow read")
+
+	test.UpdateSource("testdata/await/skipawait/step2")
+	start = time.Now()
+	_ = test.Refresh(optrefresh.ProgressStreams(os.Stdout))
+	took = time.Since(start)
+	assert.Less(t, took, 2*time.Minute, "didn't skip pod's slow update")
+
+	start = time.Now()
+	_ = test.Destroy(optdestroy.ProgressStreams(os.Stdout))
+	took = time.Since(start)
+	assert.Less(t, took, 2*time.Minute, "didn't skip config map's stuck delete")
 }

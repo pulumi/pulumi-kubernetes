@@ -8,6 +8,8 @@ import (
 	"testing"
 	"time"
 
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/condition"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/internal"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients/fake"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/cluster"
@@ -50,6 +52,24 @@ var (
 					map[string]any{
 						"name":  "foo",
 						"image": "nginx",
+					},
+				},
+			},
+		},
+	}
+
+	unreadyNode = &unstructured.Unstructured{
+		Object: map[string]any{
+			"apiVersion": "v1",
+			"kind":       "Node",
+			"metadata": map[string]any{
+				"name": "foo",
+			},
+			"status": map[string]any{
+				"conditions": []any{
+					map[string]any{
+						"type":   "Ready",
+						"status": "False",
 					},
 				},
 			},
@@ -181,19 +201,24 @@ func TestCreation(t *testing.T) {
 			require.Equal(t, actualPhase, "Running", "Object should have status.phase of 'Running'")
 		}
 	}
-	logged := func() expectF {
-		return func(t *testing.T, ctx testCtx, actual *unstructured.Unstructured, err error) {
-			// FUTURE: assert that a log message was emitted to the fake host
-		}
-	}
 
 	tests := []struct {
-		name    string
-		client  client
-		args    args
-		expect  []expectF
-		awaiter func(t *testing.T, ctx testCtx) awaiter
+		name           string
+		client         client
+		args           args
+		expect         []expectF
+		genericEnabled bool
+		awaiter        func(t *testing.T, ctx testCtx) awaiter
 	}{
+		{
+			name: "AwaitError",
+			args: args{
+				resType: tokens.Type("kubernetes:core/v1:Pod"),
+				inputs:  validPodUnstructured,
+			},
+			awaiter: awaitError,
+			expect:  []expectF{failed(serviceUnavailableErr)},
+		},
 		{
 			name: "NoMatchError",
 			client: client{
@@ -206,7 +231,8 @@ func TestCreation(t *testing.T) {
 				resType: tokens.Type("kubernetes:core/v1:Pod"),
 				inputs:  validPodUnstructured,
 			},
-			expect: []expectF{created("default", "foo" /* after retry */)},
+			awaiter: touch,
+			expect:  []expectF{created("default", "foo" /* after retry */)},
 		},
 		{
 			name: "ServiceUnavailable",
@@ -268,11 +294,20 @@ func TestCreation(t *testing.T) {
 		{
 			name: "NoAwaiter",
 			args: args{
-				resType: tokens.Type("kubernetes:core/v1:Pod"),
-				inputs:  validPodUnstructured,
+				resType: tokens.Type("kubernetes:core/v1:Node"),
+				inputs:  unreadyNode,
 			},
 			awaiter: nil,
-			expect:  []expectF{created("default", "foo"), logged()},
+			expect:  []expectF{created("", "foo")},
+		},
+		{
+			name: "GenericAwaiter",
+			args: args{
+				resType: tokens.Type("kubernetes:core/v1:Node"),
+				inputs:  withReadyCondition(unreadyNode),
+			},
+			genericEnabled: true,
+			expect:         []expectF{created("", "foo")},
 		},
 		{
 			name: "AwaitError",
@@ -312,6 +347,9 @@ func TestCreation(t *testing.T) {
 			if tt.client.RESTMapperF != nil {
 				client.RESTMapper = tt.client.RESTMapperF(client.RESTMapper)
 			}
+			if tt.genericEnabled {
+				t.Setenv("PULUMI_K8S_AWAIT_ALL", "true")
+			}
 
 			urn := resource.NewURN(tokens.QName("teststack"), tokens.PackageName("testproj"), tokens.Type(""), tt.args.resType, "testresource")
 			config := CreateConfig{
@@ -341,7 +379,7 @@ func TestCreation(t *testing.T) {
 			if tt.awaiter != nil {
 				id := fmt.Sprintf("%s/%s", tt.args.inputs.GetAPIVersion(), tt.args.inputs.GetKind())
 				config.awaiters[id] = awaitSpec{
-					await: tt.awaiter(t, testCtx),
+					await: wrap(tt.awaiter(t, testCtx)),
 				}
 			}
 			actual, err := Creation(config)
@@ -457,11 +495,12 @@ func TestUpdate(t *testing.T) {
 	}
 
 	tests := []struct {
-		name    string
-		client  client
-		args    args
-		expect  []expectF
-		awaiter func(t *testing.T, ctx testCtx) awaiter
+		name           string
+		client         client
+		args           args
+		expect         []expectF
+		genericEnabled bool
+		awaiter        func(t *testing.T, ctx testCtx) awaiter
 	}{
 		{
 			name: "NoMatchError",
@@ -475,7 +514,8 @@ func TestUpdate(t *testing.T) {
 				resType: tokens.Type("kubernetes:core/v1:Pod"),
 				inputs:  validPodUnstructured,
 			},
-			expect: []expectF{updated("default", "foo" /* after retry */)},
+			awaiter: touch,
+			expect:  []expectF{updated("default", "foo" /* after retry */)},
 		},
 		{
 			name: "ServiceUnavailable",
@@ -525,14 +565,24 @@ func TestUpdate(t *testing.T) {
 			awaiter: awaitUnexpected,
 			expect:  []expectF{updated("default", "foo")},
 		},
+		// TODO: Handle this for create as well
 		{
 			name: "NoAwaiter",
 			args: args{
-				resType: tokens.Type("kubernetes:core/v1:Pod"),
-				inputs:  validPodUnstructured,
+				resType: tokens.Type("kubernetes:core/v1:Node"),
+				inputs:  unreadyNode,
 			},
 			awaiter: nil,
-			expect:  []expectF{updated("default", "foo"), logged()},
+			expect:  []expectF{updated("", "foo"), logged()},
+		},
+		{
+			name: "GenericAwaiter",
+			args: args{
+				resType: tokens.Type("kubernetes:core/v1:Node"),
+				inputs:  withReadyCondition(unreadyNode),
+			},
+			genericEnabled: true,
+			expect:         []expectF{updated("", "foo"), logged()},
 		},
 		{
 			name: "AwaitError",
@@ -570,6 +620,9 @@ func TestUpdate(t *testing.T) {
 				oldOutputs = tt.args.oldOutputs
 				oldOutputs = oldOutputs.DeepCopy()
 				oldOutputs.SetName("old-outputs-name")
+			}
+			if tt.genericEnabled {
+				t.Setenv("PULUMI_K8S_AWAIT_ALL", "true")
 			}
 			client, disco, mapper, clientset := fake.NewSimpleDynamicClient(fake.WithObjects(oldOutputs))
 			resources, err := openapi.GetResourceSchemasForClient(disco)
@@ -612,7 +665,7 @@ func TestUpdate(t *testing.T) {
 			if tt.awaiter != nil {
 				id := fmt.Sprintf("%s/%s", tt.args.inputs.GetAPIVersion(), tt.args.inputs.GetKind())
 				config.awaiters[id] = awaitSpec{
-					await: tt.awaiter(t, testCtx),
+					await: wrap(tt.awaiter(t, testCtx)),
 				}
 			}
 			actual, err := Update(config)
@@ -653,7 +706,7 @@ func TestDeletion(t *testing.T) {
 	// reactions
 
 	suppressDeletion := func(t *testing.T, ctx testCtx, action kubetesting.Action) (bool, runtime.Object, error) {
-		return true, nil, nil
+		return true, ctx.config.Outputs, nil
 	}
 
 	cancelAwait := func(t *testing.T, ctx testCtx, action kubetesting.Action) (bool, runtime.Object, error) {
@@ -663,23 +716,16 @@ func TestDeletion(t *testing.T) {
 
 	// awaiters
 
-	awaitNoop := func(t *testing.T, ctx testCtx) deletionAwaiter {
-		return func(dac deleteAwaitConfig) error {
-			return nil
-		}
+	awaitNoop := func(t *testing.T, ctx testCtx) condition.Satisfier {
+		return condition.NewImmediate(ctx.config.DedupLogger, ctx.config.Inputs)
 	}
 
-	awaitError := func(t *testing.T, ctx testCtx) deletionAwaiter {
-		return func(dac deleteAwaitConfig) error {
-			return serviceUnavailableErr
-		}
+	awaitError := func(t *testing.T, ctx testCtx) condition.Satisfier {
+		return condition.NewFailure(serviceUnavailableErr)
 	}
 
-	awaitUnexpected := func(t *testing.T, ctx testCtx) deletionAwaiter {
-		return func(dac deleteAwaitConfig) error {
-			require.Fail(t, "Unexpected call to awaiter")
-			return nil
-		}
+	awaitUnexpected := func(t *testing.T, ctx testCtx) condition.Satisfier {
+		return condition.NewFailure(fmt.Errorf("unexpected call to await"))
 	}
 
 	// expectations
@@ -705,13 +751,13 @@ func TestDeletion(t *testing.T) {
 	}
 
 	tests := []struct {
-		name     string
-		client   client
-		args     args
-		expect   []expectF
-		reaction []reactionF
-		watcher  *watch.RaceFreeFakeWatcher
-		awaiter  func(t *testing.T, ctx testCtx) deletionAwaiter
+		name      string
+		client    client
+		args      args
+		expect    []expectF
+		reaction  []reactionF
+		watcher   *watch.RaceFreeFakeWatcher
+		condition func(*testing.T, testCtx) condition.Satisfier
 	}{
 		{
 			name: "ServiceUnavailable",
@@ -738,8 +784,8 @@ func TestDeletion(t *testing.T) {
 				inputs:  validPodUnstructured,
 				outputs: validPodUnstructured,
 			},
-			awaiter: awaitNoop,
-			expect:  []expectF{succeeded(), deleted("default", "foo")},
+			condition: awaitNoop,
+			expect:    []expectF{succeeded(), deleted("default", "foo")},
 		},
 		{
 			name: "NonNamespaced",
@@ -750,8 +796,8 @@ func TestDeletion(t *testing.T) {
 				inputs:  validClusterRoleUnstructured,
 				outputs: validClusterRoleUnstructured,
 			},
-			awaiter: awaitNoop,
-			expect:  []expectF{succeeded(), deleted("default", "foo")},
+			condition: awaitNoop,
+			expect:    []expectF{succeeded(), deleted("default", "foo")},
 		},
 		{
 			name: "Gone",
@@ -762,8 +808,8 @@ func TestDeletion(t *testing.T) {
 				inputs:  validPodUnstructured,
 				outputs: validPodUnstructured,
 			},
-			awaiter: awaitUnexpected,
-			expect:  []expectF{succeeded()},
+			condition: awaitUnexpected,
+			expect:    []expectF{succeeded()},
 		},
 		{
 			name: "SkipAwait",
@@ -775,7 +821,6 @@ func TestDeletion(t *testing.T) {
 				outputs: validPodUnstructured,
 			},
 			reaction: []reactionF{suppressDeletion}, // suppress deletion to safeguard that the built-in watcher is not used.
-			awaiter:  awaitUnexpected,
 			expect:   []expectF{succeeded()},
 		},
 		{
@@ -787,8 +832,8 @@ func TestDeletion(t *testing.T) {
 				inputs:  validPodUnstructured,
 				outputs: validPodUnstructured,
 			},
-			awaiter: awaitError,
-			expect:  []expectF{failed(serviceUnavailableErr)},
+			condition: awaitError,
+			expect:    []expectF{failed(serviceUnavailableErr)},
 		},
 		{
 			name: "Deleted",
@@ -799,64 +844,8 @@ func TestDeletion(t *testing.T) {
 				inputs:  validPodUnstructured,
 				outputs: validPodUnstructured,
 			},
-			awaiter: nil,
-			expect:  []expectF{succeeded(), deleted("default", "foo")},
-		},
-		{
-			name: "WatchTimeout",
-			args: args{
-				resType: tokens.Type("kubernetes:core/v1:Pod"),
-				name:    "foo",
-				objects: []runtime.Object{validPodUnstructured},
-				inputs:  validPodUnstructured,
-				outputs: validPodUnstructured,
-			},
-			reaction: []reactionF{suppressDeletion},
-			awaiter:  nil,
-			watcher:  withWatchClosed(watch.NewRaceFreeFake()),
-			expect:   []expectF{failed(&timeoutError{})},
-		},
-		{
-			name: "WatchTimeoutWithRecovery",
-			args: args{
-				resType: tokens.Type("kubernetes:core/v1:Pod"),
-				name:    "foo",
-				objects: []runtime.Object{validPodUnstructured},
-				inputs:  validPodUnstructured,
-				outputs: validPodUnstructured,
-			},
-			reaction: nil,
-			awaiter:  nil,
-			watcher:  withWatchClosed(watch.NewRaceFreeFake()),
-			expect:   []expectF{succeeded()},
-		},
-		{
-			name: "WatchError",
-			args: args{
-				resType: tokens.Type("kubernetes:core/v1:Pod"),
-				name:    "foo",
-				objects: []runtime.Object{validPodUnstructured},
-				inputs:  validPodUnstructured,
-				outputs: validPodUnstructured,
-			},
-			reaction: []reactionF{suppressDeletion},
-			awaiter:  nil,
-			watcher:  withWatchError(watch.NewRaceFreeFake(), apierrors.NewTimeoutError("test", 30)),
-			expect:   []expectF{failed(&initializationError{})},
-		},
-		{
-			name: "WatchErrorWithRecovery",
-			args: args{
-				resType: tokens.Type("kubernetes:core/v1:Pod"),
-				name:    "foo",
-				objects: []runtime.Object{validPodUnstructured},
-				inputs:  validPodUnstructured,
-				outputs: validPodUnstructured,
-			},
-			reaction: nil,
-			awaiter:  nil,
-			watcher:  withWatchError(watch.NewRaceFreeFake(), apierrors.NewTimeoutError("test", 30)),
-			expect:   []expectF{succeeded()},
+			condition: awaitNoop,
+			expect:    []expectF{succeeded(), deleted("default", "foo")},
 		},
 		{
 			name: "Cancel",
@@ -868,7 +857,6 @@ func TestDeletion(t *testing.T) {
 				outputs: validPodUnstructured,
 			},
 			reaction: []reactionF{cancelAwait, suppressDeletion},
-			awaiter:  nil,
 			expect:   []expectF{failed(&cancellationError{})},
 		},
 		{
@@ -880,9 +868,9 @@ func TestDeletion(t *testing.T) {
 				inputs:  validPodUnstructured,
 				outputs: validPodUnstructured,
 			},
-			reaction: []reactionF{cancelAwait},
-			awaiter:  nil,
-			expect:   []expectF{succeeded()},
+			reaction:  []reactionF{cancelAwait},
+			condition: awaitNoop,
+			expect:    []expectF{succeeded()},
 		},
 	}
 
@@ -945,11 +933,8 @@ func TestDeletion(t *testing.T) {
 					return true, tt.watcher, nil
 				})
 			}
-			if tt.awaiter != nil {
-				id := fmt.Sprintf("%s/%s", tt.args.inputs.GetAPIVersion(), tt.args.inputs.GetKind())
-				config.awaiters[id] = awaitSpec{
-					awaitDeletion: tt.awaiter(t, testCtx),
-				}
+			if tt.condition != nil {
+				config.condition = tt.condition(t, testCtx)
 			}
 			err = Deletion(config)
 			for _, e := range tt.expect {
@@ -1026,6 +1011,16 @@ func Test_Watcher_Interface_Timeout(t *testing.T) {
 	assert.Equal(t, "Timeout occurred polling for ''", err.Error())
 }
 
+func TestAwaiterInterfaceTimeout(t *testing.T) {
+	awaiter, err := internal.NewAwaiter(internal.WithCondition(condition.NewNever(nil)))
+	require.NoError(t, err)
+	ctx, cancel := context.WithCancel(context.Background())
+	cancel()
+	err = awaiter.Await(ctx)
+	_, isPartialErr := err.(PartialError)
+	assert.True(t, isPartialErr, "Timed out watcher should emit `await.PartialError`")
+}
+
 // --------------------------------------------------------------------------
 
 // Helpers
@@ -1047,15 +1042,16 @@ func withGenerateName(obj *unstructured.Unstructured) *unstructured.Unstructured
 	return copy
 }
 
-func withWatchError(watcher *watch.RaceFreeFakeWatcher, err *apierrors.StatusError) *watch.RaceFreeFakeWatcher {
-	obj := err.Status()
-	watcher.Error(&obj)
-	return watcher
-}
-
-func withWatchClosed(watcher *watch.RaceFreeFakeWatcher) *watch.RaceFreeFakeWatcher {
-	watcher.Stop()
-	return watcher
+func withReadyCondition(obj *unstructured.Unstructured) *unstructured.Unstructured {
+	copy := obj.DeepCopy()
+	copy.Object["status"] = map[string]any{
+		"conditions": []any{map[string]any{
+			"type":   "Ready",
+			"status": "True",
+		}},
+		"phase": "Running",
+	}
+	return copy
 }
 
 // --------------------------------------------------------------------------

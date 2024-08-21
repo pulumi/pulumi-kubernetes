@@ -15,10 +15,6 @@
 package await
 
 import (
-	"errors"
-	"net/http"
-
-	k8serrors "k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/watch"
@@ -74,22 +70,6 @@ func watchDeletedEvent(obj runtime.Object) watch.Event {
 		Type:   watch.Deleted,
 		Object: obj,
 	}
-}
-
-// --------------------------------------------------------------------------
-
-// Response helpers.
-
-// --------------------------------------------------------------------------
-
-// is404 returns true if any error in err's tree is a Kubernetes StatusError
-// with code 404.
-func is404(err error) bool {
-	var statusErr *k8serrors.StatusError
-	if errors.As(err, &statusErr) {
-		return statusErr.ErrStatus.Code == http.StatusNotFound
-	}
-	return false
 }
 
 // --------------------------------------------------------------------------

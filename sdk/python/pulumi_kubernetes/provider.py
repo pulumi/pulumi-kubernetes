@@ -25,6 +25,7 @@ class ProviderArgs:
                  context: Optional[pulumi.Input[str]] = None,
                  delete_unreachable: Optional[pulumi.Input[bool]] = None,
                  enable_config_map_mutable: Optional[pulumi.Input[bool]] = None,
+                 enable_secret_mutable: Optional[pulumi.Input[bool]] = None,
                  enable_server_side_apply: Optional[pulumi.Input[bool]] = None,
                  helm_release_settings: Optional[pulumi.Input['HelmReleaseSettingsArgs']] = None,
                  kube_client_settings: Optional[pulumi.Input['KubeClientSettingsArgs']] = None,
@@ -50,6 +51,12 @@ class ProviderArgs:
                This config can be specified in the following ways using this precedence:
                1. This `enableConfigMapMutable` parameter.
                2. The `PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE` environment variable.
+        :param pulumi.Input[bool] enable_secret_mutable: BETA FEATURE - If present and set to true, allow Secrets to be mutated.
+               This feature is in developer preview, and is disabled by default.
+               
+               This config can be specified in the following ways using this precedence:
+               1. This `enableSecretMutable` parameter.
+               2. The `PULUMI_K8S_ENABLE_SECRET_MUTABLE` environment variable.
         :param pulumi.Input[bool] enable_server_side_apply: If present and set to false, disable Server-Side Apply mode.
                See https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.
         :param pulumi.Input['HelmReleaseSettingsArgs'] helm_release_settings: Options to configure the Helm Release resource.
@@ -87,6 +94,10 @@ class ProviderArgs:
             enable_config_map_mutable = _utilities.get_env_bool('PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE')
         if enable_config_map_mutable is not None:
             pulumi.set(__self__, "enable_config_map_mutable", enable_config_map_mutable)
+        if enable_secret_mutable is None:
+            enable_secret_mutable = _utilities.get_env_bool('PULUMI_K8S_ENABLE_SECRET_MUTABLE')
+        if enable_secret_mutable is not None:
+            pulumi.set(__self__, "enable_secret_mutable", enable_secret_mutable)
         if enable_server_side_apply is None:
             enable_server_side_apply = _utilities.get_env_bool('PULUMI_K8S_ENABLE_SERVER_SIDE_APPLY')
         if enable_server_side_apply is not None:
@@ -184,6 +195,23 @@ class ProviderArgs:
     @enable_config_map_mutable.setter
     def enable_config_map_mutable(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "enable_config_map_mutable", value)
+
+    @property
+    @pulumi.getter(name="enableSecretMutable")
+    def enable_secret_mutable(self) -> Optional[pulumi.Input[bool]]:
+        """
+        BETA FEATURE - If present and set to true, allow Secrets to be mutated.
+        This feature is in developer preview, and is disabled by default.
+
+        This config can be specified in the following ways using this precedence:
+        1. This `enableSecretMutable` parameter.
+        2. The `PULUMI_K8S_ENABLE_SECRET_MUTABLE` environment variable.
+        """
+        return pulumi.get(self, "enable_secret_mutable")
+
+    @enable_secret_mutable.setter
+    def enable_secret_mutable(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "enable_secret_mutable", value)
 
     @property
     @pulumi.getter(name="enableServerSideApply")
@@ -317,6 +345,7 @@ class Provider(pulumi.ProviderResource):
                  context: Optional[pulumi.Input[str]] = None,
                  delete_unreachable: Optional[pulumi.Input[bool]] = None,
                  enable_config_map_mutable: Optional[pulumi.Input[bool]] = None,
+                 enable_secret_mutable: Optional[pulumi.Input[bool]] = None,
                  enable_server_side_apply: Optional[pulumi.Input[bool]] = None,
                  helm_release_settings: Optional[pulumi.Input[Union['HelmReleaseSettingsArgs', 'HelmReleaseSettingsArgsDict']]] = None,
                  kube_client_settings: Optional[pulumi.Input[Union['KubeClientSettingsArgs', 'KubeClientSettingsArgsDict']]] = None,
@@ -346,6 +375,12 @@ class Provider(pulumi.ProviderResource):
                This config can be specified in the following ways using this precedence:
                1. This `enableConfigMapMutable` parameter.
                2. The `PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE` environment variable.
+        :param pulumi.Input[bool] enable_secret_mutable: BETA FEATURE - If present and set to true, allow Secrets to be mutated.
+               This feature is in developer preview, and is disabled by default.
+               
+               This config can be specified in the following ways using this precedence:
+               1. This `enableSecretMutable` parameter.
+               2. The `PULUMI_K8S_ENABLE_SECRET_MUTABLE` environment variable.
         :param pulumi.Input[bool] enable_server_side_apply: If present and set to false, disable Server-Side Apply mode.
                See https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.
         :param pulumi.Input[Union['HelmReleaseSettingsArgs', 'HelmReleaseSettingsArgsDict']] helm_release_settings: Options to configure the Helm Release resource.
@@ -398,6 +433,7 @@ class Provider(pulumi.ProviderResource):
                  context: Optional[pulumi.Input[str]] = None,
                  delete_unreachable: Optional[pulumi.Input[bool]] = None,
                  enable_config_map_mutable: Optional[pulumi.Input[bool]] = None,
+                 enable_secret_mutable: Optional[pulumi.Input[bool]] = None,
                  enable_server_side_apply: Optional[pulumi.Input[bool]] = None,
                  helm_release_settings: Optional[pulumi.Input[Union['HelmReleaseSettingsArgs', 'HelmReleaseSettingsArgsDict']]] = None,
                  kube_client_settings: Optional[pulumi.Input[Union['KubeClientSettingsArgs', 'KubeClientSettingsArgsDict']]] = None,
@@ -425,6 +461,9 @@ class Provider(pulumi.ProviderResource):
             if enable_config_map_mutable is None:
                 enable_config_map_mutable = _utilities.get_env_bool('PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE')
             __props__.__dict__["enable_config_map_mutable"] = pulumi.Output.from_input(enable_config_map_mutable).apply(pulumi.runtime.to_json) if enable_config_map_mutable is not None else None
+            if enable_secret_mutable is None:
+                enable_secret_mutable = _utilities.get_env_bool('PULUMI_K8S_ENABLE_SECRET_MUTABLE')
+            __props__.__dict__["enable_secret_mutable"] = pulumi.Output.from_input(enable_secret_mutable).apply(pulumi.runtime.to_json) if enable_secret_mutable is not None else None
             if enable_server_side_apply is None:
                 enable_server_side_apply = _utilities.get_env_bool('PULUMI_K8S_ENABLE_SERVER_SIDE_APPLY')
             __props__.__dict__["enable_server_side_apply"] = pulumi.Output.from_input(enable_server_side_apply).apply(pulumi.runtime.to_json) if enable_server_side_apply is not None else None

@@ -1,0 +1,141 @@
+name: immutability
+runtime: yaml
+description: |
+  Test mutability and immutability for Secrets and ConfigMaps, as well as
+  replacement interactions with downstream dependencies.
+
+resources:
+  ns:
+    type: kubernetes:core/v1:Namespace
+
+  provider:
+    type: pulumi:providers:kubernetes
+    properties:
+      enableSecretMutable: true
+      enableConfigMapMutable: true
+      namespace: ${ns.metadata.name}
+
+  secret:
+    type: kubernetes:core/v1:Secret
+    options:
+      provider: ${provider}
+    properties:
+      metadata:
+        name: secret
+        # Add an annotation.
+        annotations:
+          boo: baz
+      immutable: true
+      stringData:
+        bar: "bar"
+
+  configmap:
+    type: kubernetes:core/v1:ConfigMap
+    options:
+      provider: ${provider}
+    properties:
+      metadata:
+        name: configmap
+        # Add an annotation.
+        annotations:
+          boo: baz
+      immutable: true
+      data:
+        bar: "bar"
+
+  autonamed-secret:
+    type: kubernetes:core/v1:Secret
+    options:
+      provider: ${provider}
+    properties:
+      metadata:
+        # Add an annotation.
+        annotations:
+          boo: baz
+      immutable: true
+      stringData:
+        bar: "bar"
+
+  autonamed-configmap:
+    type: kubernetes:core/v1:ConfigMap
+    options:
+      provider: ${provider}
+    properties:
+      metadata:
+        # Add an annotation.
+        annotations:
+          boo: baz
+      immutable: true
+      data:
+        bar: "bar"
+
+  mutable-secret:
+    type: kubernetes:core/v1:Secret
+    options:
+      provider: ${provider}
+    properties:
+      metadata:
+        # Add an annotation.
+        annotations:
+          boo: baz
+      stringData:
+        bar: "bar"
+
+  mutable-configmap:
+    type: kubernetes:core/v1:ConfigMap
+    options:
+      provider: ${provider}
+    properties:
+      metadata:
+        # Add an annotation.
+        annotations:
+          boo: baz
+      data:
+        bar: "bar"
+
+  # Downstreams should not be impacted by updates but should be updated when
+  # upstreams are replaced.
+
+  secret-downstream:
+    type: random:RandomPet
+    properties:
+      keepers:
+        upstream: ${secret.metadata.name}
+
+  configmap-downstream:
+    type: random:RandomPet
+    properties:
+      keepers:
+        upstream: ${configmap.metadata.name}
+
+  autonamed-secret-downstream:
+    type: random:RandomPet
+    properties:
+      keepers:
+        upstream: ${autonamed-secret.metadata.name}
+
+  autonamed-configmap-downstream:
+    type: random:RandomPet
+    properties:
+      keepers:
+        upstream: ${autonamed-configmap.metadata.name}
+
+  mutable-secret-downstream:
+    type: random:RandomPet
+    properties:
+      keepers:
+        upstream: ${mutable-secret.metadata.name}
+
+  mutable-configmap-downstream:
+    type: random:RandomPet
+    properties:
+      keepers:
+        upstream: ${mutable-configmap.metadata.name}
+
+outputs:
+  secret: ${secret-downstream.id}
+  configmap: ${configmap-downstream.id}
+  autonamedSecret: ${autonamed-secret-downstream.id}
+  autonamedConfigmap: ${autonamed-configmap-downstream.id}
+  mutableSecret: ${mutable-secret-downstream.id}
+  mutableConfigmap: ${mutable-configmap-downstream.id}

@@ -270,10 +270,11 @@ func TestAwaitDaemonSetDelete(t *testing.T) {
 	}
 
 	tests := []struct {
-		name   string
-		given  *unstructured.Unstructured
-		setup  []func(*fake.SimpleDynamicClient, *unstructured.Unstructured)
-		events func(clockwork.FakeClock, *unstructured.Unstructured) <-chan watch.Event
+		name    string
+		given   *unstructured.Unstructured
+		setup   []func(*fake.SimpleDynamicClient, *unstructured.Unstructured)
+		events  func(*unstructured.Unstructured) <-chan watch.Event
+		timeout time.Duration
 
 		wantErr string
 	}{
@@ -290,8 +291,7 @@ func TestAwaitDaemonSetDelete(t *testing.T) {
 				ensureExists,
 				dontDeleteImmediately,
 			},
-			events: func(clock clockwork.FakeClock, ds *unstructured.Unstructured) <-chan watch.Event {
-				clock.Advance(1 * time.Minute)
+			events: func(ds *unstructured.Unstructured) <-chan watch.Event {
 				c := make(chan watch.Event, 1)
 				c <- watchDeletedEvent(ds)
 				return c
@@ -304,11 +304,11 @@ func TestAwaitDaemonSetDelete(t *testing.T) {
 				ensureExists,
 				dontDeleteImmediately,
 			},
-			events: func(clock clockwork.FakeClock, ds *unstructured.Unstructured) <-chan watch.Event {
-				clock.Advance(_defaultDaemonSetTimeout)
+			events: func(ds *unstructured.Unstructured) <-chan watch.Event {
 				c := make(chan watch.Event, 1)
 				return c
 			},
+			timeout: 1 * time.Second,
 			wantErr: "timed out waiting for the condition",
 		},
 		{
@@ -320,20 +320,26 @@ func TestAwaitDaemonSetDelete(t *testing.T) {
 	}
 
 	for _, tt := range tests {
+		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
-			pconfig, clientset, clock := fakeProviderConfig(context.Background(), t)
+			t.Parallel()
+			pconfig, clientset, _ := fakeProviderConfig(context.Background(), t)
 			config := DeleteConfig{
 				ProviderConfig: pconfig,
 				Inputs:         tt.given,
 				Outputs:        tt.given,
 				Name:           tt.given.GetName(),
+				Timeout:        tt.timeout.Seconds(),
 			}
 
 			w := watch.NewRaceFreeFake()
 			clientset.PrependWatchReactor("daemonsets", testcore.DefaultWatchReactor(w, nil))
+
 			go func() {
-				clock.BlockUntil(1) // Timeout sleeper
-				for e := range tt.events(clock, tt.given) {
+				if tt.events == nil {
+					return
+				}
+				for e := range tt.events(tt.given) {
 					w.Action(e.Type, e.Object)
 				}
 			}()
