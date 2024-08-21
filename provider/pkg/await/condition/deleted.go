@@ -73,7 +73,7 @@ func (dc *Deleted) Range(yield func(watch.Event) bool) {
 		dc.observer.Range(yield)
 	}()
 
-	dc.getClusterState()
+	dc.refreshClusterState()
 	if dc.deleted.Load() {
 		// Already deleted, nothing more to do. Our informer will get cleaned up
 		// when its context is canceled.
@@ -90,7 +90,7 @@ func (dc *Deleted) Range(yield func(watch.Event) bool) {
 	// Attempt one last lookup if the object still exists. (This is legacy
 	// behavior that might be unnecessary since we're using Informers instead of
 	// Watches now.)
-	dc.getClusterState()
+	dc.refreshClusterState()
 	if dc.deleted.Load() {
 		return
 	}
@@ -132,9 +132,9 @@ func (dc *Deleted) Object() *unstructured.Unstructured {
 	return dc.observer.Object()
 }
 
-// getClusterState performs a GET against the cluster and updates state to
+// refreshClusterState performs a GET against the cluster and updates state to
 // reflect whether the object still exists or not.
-func (dc *Deleted) getClusterState() {
+func (dc *Deleted) refreshClusterState() {
 	// Our context might be closed, but we still want to issue this request
 	// even if we're shutting down.
 	ctx := context.WithoutCancel(dc.ctx)
