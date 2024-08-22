@@ -302,6 +302,9 @@ func PulumiSchema(swagger map[string]any, opts ...schemaGeneratorOption) pschema
 		Language:  map[string]pschema.RawMessage{},
 	}
 
+	// Parameterize the schema if the parameterization option is set.
+	pkg.Parameterization = gen.parameterization
+
 	goImportPath := "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes"
 
 	csharpNamespaces := map[string]string{
