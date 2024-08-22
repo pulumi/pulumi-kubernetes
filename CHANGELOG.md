@@ -85,6 +85,10 @@
 
 - Fixed a panic that could occur during deletion. (https://github.com/pulumi/pulumi-kubernetes/issues/3157)
 
+- Fixed an error that could occur when previewing `yaml/v2` resources which
+  depend on CRDs created in the same update.
+  (https://github.com/pulumi/pulumi-kubernetes/issues/3176)
+
 ## 4.17.1 (August 16, 2024)
 
 ### Fixed
