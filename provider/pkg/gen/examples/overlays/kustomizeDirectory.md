@@ -1,4 +1,6 @@
-_Note: a newer version is available: [kubernetes.kustomize/v2.Directory](/registry/packages/kubernetes/api-docs/kustomize/v2/directory/)_
+{{% notes type="info" %}}
+A newer version of this resource is available as [kubernetes.kustomize/v2.Directory](/registry/packages/kubernetes/api-docs/kustomize/v2/directory/).
+{{% /notes %}}
 
 Directory is a component representing a collection of resources described by a kustomize directory (kustomization).
 

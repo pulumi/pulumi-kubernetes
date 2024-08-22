@@ -15,7 +15,8 @@ import java.util.Optional;
 import javax.annotation.Nullable;
 
 /**
- * ConfigFile creates a set of Kubernetes resources from a Kubernetes YAML file.
+ * ConfigFile creates a set of Kubernetes resources from a remote or on-disk Kubernetes YAML file.
+ * (If you have in-memory YAML a ConfigGroup may be more appropriate.)
  * 
  * ## Dependency ordering
  * Sometimes resources must be applied in a specific order. For example, a namespace resource must be

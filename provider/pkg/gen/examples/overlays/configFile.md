@@ -1,7 +1,10 @@
-_Note: a newer version is available: [kubernetes.yaml/v2.ConfigFile](/registry/packages/kubernetes/api-docs/yaml/v2/configfile/#kubernetes-yaml-v2-configfile)_
-_See also: [New: ConfigGroup, ConfigFile resources for Java, YAML SDKs](/blog/kubernetes-yaml-v2/)_
+{{% notes type="info" %}}
+A newer version of this resource is available as [kubernetes.yaml/v2.ConfigFile](/registry/packages/kubernetes/api-docs/yaml/v2/configfile/#kubernetes-yaml-v2-configfile).
+See the corresponding [blog post](/blog/kubernetes-yaml-v2/) for more information.
+{{% /notes %}}
 
-ConfigFile creates a set of Kubernetes resources from a Kubernetes YAML file.
+ConfigFile creates a set of Kubernetes resources from a remote or on-disk Kubernetes YAML file.
+(If you have in-memory YAML a [ConfigGroup](../v2/configgroup) may be more appropriate.)
 
 This resource is provided for the following languages: Node.js (JavaScript, TypeScript), Python, Go, and .NET (C#, F#, VB).
 
