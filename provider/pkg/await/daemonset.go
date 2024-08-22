@@ -24,7 +24,6 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/informers"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/openapi"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/cmdutil"
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
@@ -82,44 +81,6 @@ func newDaemonSetAwaiter(c awaitConfig) *dsAwaiter {
 // Await blocks until a DaemonSet is ready or encounters an error.
 func (dsa *dsAwaiter) Await() error {
 	return dsa.await(dsa.rolloutComplete)
-}
-
-// Delete blocks until a DaemonSet has been deleted. Returns nil if the
-// DaemonSet does not exist.
-func (dsa *dsAwaiter) Delete() error {
-	// Perform a lookup in case the object has already been deleted
-	client, _, err := dsa.clients()
-	if err != nil {
-		return err
-	}
-	ds := dsa.config.currentOutputs
-	_, err = client.Get(dsa.config.ctx, ds.GetName(), metav1.GetOptions{})
-	if is404(err) {
-		return nil
-	}
-	if err != nil {
-		logger.V(3).Infof("Received error deleting DaemonSet %q: %#v", ds.GetName(), err)
-		return err
-	}
-
-	// Otherwise wait for a deletion event.
-	deleted := func() bool {
-		if dsa.deleted {
-			return true
-		}
-		misscheduled, _ := openapi.Pluck(dsa.ds.Object, "status", "numberMisscheduled")
-		dsa.config.logger.LogStatus(
-			diag.Info,
-			fmt.Sprintf(
-				"DaemonSet %q still exists (%v pods misscheduled)",
-				ds.GetName(),
-				misscheduled,
-			),
-		)
-		return false
-	}
-
-	return dsa.await(deleted)
 }
 
 // Read returns the current state of the DaemonSet and returns an error if it

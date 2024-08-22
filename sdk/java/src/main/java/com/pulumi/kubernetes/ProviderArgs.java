@@ -113,6 +113,31 @@ public final class ProviderArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * BETA FEATURE - If present and set to true, allow Secrets to be mutated.
+     * This feature is in developer preview, and is disabled by default.
+     * 
+     * This config can be specified in the following ways using this precedence:
+     * 1. This `enableSecretMutable` parameter.
+     * 2. The `PULUMI_K8S_ENABLE_SECRET_MUTABLE` environment variable.
+     * 
+     */
+    @Import(name="enableSecretMutable", json=true)
+    private @Nullable Output<Boolean> enableSecretMutable;
+
+    /**
+     * @return BETA FEATURE - If present and set to true, allow Secrets to be mutated.
+     * This feature is in developer preview, and is disabled by default.
+     * 
+     * This config can be specified in the following ways using this precedence:
+     * 1. This `enableSecretMutable` parameter.
+     * 2. The `PULUMI_K8S_ENABLE_SECRET_MUTABLE` environment variable.
+     * 
+     */
+    public Optional<Output<Boolean>> enableSecretMutable() {
+        return Optional.ofNullable(this.enableSecretMutable);
+    }
+
+    /**
      * If present and set to false, disable Server-Side Apply mode.
      * See https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.
      * 
@@ -281,6 +306,7 @@ public final class ProviderArgs extends com.pulumi.resources.ResourceArgs {
         this.context = $.context;
         this.deleteUnreachable = $.deleteUnreachable;
         this.enableConfigMapMutable = $.enableConfigMapMutable;
+        this.enableSecretMutable = $.enableSecretMutable;
         this.enableServerSideApply = $.enableServerSideApply;
         this.helmReleaseSettings = $.helmReleaseSettings;
         this.kubeClientSettings = $.kubeClientSettings;
@@ -431,6 +457,37 @@ public final class ProviderArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder enableConfigMapMutable(Boolean enableConfigMapMutable) {
             return enableConfigMapMutable(Output.of(enableConfigMapMutable));
+        }
+
+        /**
+         * @param enableSecretMutable BETA FEATURE - If present and set to true, allow Secrets to be mutated.
+         * This feature is in developer preview, and is disabled by default.
+         * 
+         * This config can be specified in the following ways using this precedence:
+         * 1. This `enableSecretMutable` parameter.
+         * 2. The `PULUMI_K8S_ENABLE_SECRET_MUTABLE` environment variable.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder enableSecretMutable(@Nullable Output<Boolean> enableSecretMutable) {
+            $.enableSecretMutable = enableSecretMutable;
+            return this;
+        }
+
+        /**
+         * @param enableSecretMutable BETA FEATURE - If present and set to true, allow Secrets to be mutated.
+         * This feature is in developer preview, and is disabled by default.
+         * 
+         * This config can be specified in the following ways using this precedence:
+         * 1. This `enableSecretMutable` parameter.
+         * 2. The `PULUMI_K8S_ENABLE_SECRET_MUTABLE` environment variable.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder enableSecretMutable(Boolean enableSecretMutable) {
+            return enableSecretMutable(Output.of(enableSecretMutable));
         }
 
         /**
@@ -651,6 +708,7 @@ public final class ProviderArgs extends com.pulumi.resources.ResourceArgs {
         public ProviderArgs build() {
             $.deleteUnreachable = Codegen.booleanProp("deleteUnreachable").output().arg($.deleteUnreachable).env("PULUMI_K8S_DELETE_UNREACHABLE").getNullable();
             $.enableConfigMapMutable = Codegen.booleanProp("enableConfigMapMutable").output().arg($.enableConfigMapMutable).env("PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE").getNullable();
+            $.enableSecretMutable = Codegen.booleanProp("enableSecretMutable").output().arg($.enableSecretMutable).env("PULUMI_K8S_ENABLE_SECRET_MUTABLE").getNullable();
             $.enableServerSideApply = Codegen.booleanProp("enableServerSideApply").output().arg($.enableServerSideApply).env("PULUMI_K8S_ENABLE_SERVER_SIDE_APPLY").getNullable();
             $.kubeconfig = Codegen.stringProp("kubeconfig").output().arg($.kubeconfig).env("KUBECONFIG").getNullable();
             $.skipUpdateUnreachable = Codegen.booleanProp("skipUpdateUnreachable").output().arg($.skipUpdateUnreachable).env("PULUMI_K8S_SKIP_UPDATE_UNREACHABLE").getNullable();

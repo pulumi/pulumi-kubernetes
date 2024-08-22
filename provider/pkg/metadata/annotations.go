@@ -19,6 +19,7 @@ import (
 
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
+	"k8s.io/client-go/dynamic"
 )
 
 const (
@@ -29,6 +30,7 @@ const (
 
 	AnnotationAutonamed      = AnnotationPrefix + "autonamed"
 	AnnotationSkipAwait      = AnnotationPrefix + "skipAwait"
+	AnnotationWaitFor        = AnnotationPrefix + "waitFor"
 	AnnotationTimeoutSeconds = AnnotationPrefix + "timeoutSeconds"
 	AnnotationReplaceUnready = AnnotationPrefix + "replaceUnready"
 
@@ -106,4 +108,8 @@ func GetAnnotationValue(obj *unstructured.Unstructured, key string) string {
 func isComputedValue(v any) bool {
 	_, isComputed := v.(resource.Computed)
 	return isComputed
+}
+
+type clientGetter interface {
+	ResourceClientForObject(*unstructured.Unstructured) (dynamic.ResourceInterface, error)
 }

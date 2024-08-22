@@ -21,9 +21,13 @@ import (
 	"fmt"
 	"os"
 	"strings"
+	"sync"
+	"time"
 
 	fluxssa "github.com/fluxcd/pkg/ssa"
 	"github.com/jonboulle/clockwork"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/condition"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/internal"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/cluster"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/host"
@@ -42,7 +46,6 @@ import (
 	apivalidation "k8s.io/apimachinery/pkg/api/validation"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
-	"k8s.io/apimachinery/pkg/fields"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/apimachinery/pkg/watch"
@@ -52,6 +55,8 @@ import (
 	"sigs.k8s.io/structured-merge-diff/v4/fieldpath"
 	"sigs.k8s.io/yaml"
 )
+
+var _ condition.Satisfier = (*legacyReadyCondition)(nil)
 
 // --------------------------------------------------------------------------
 
@@ -80,6 +85,9 @@ type ProviderConfig struct {
 
 	// explicit awaiters (for testing purposes)
 	awaiters map[string]awaitSpec
+
+	// explicit condition (for testing)
+	condition condition.Satisfier
 
 	clock clockwork.Clock
 }
@@ -186,7 +194,8 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 					return err
 				}
 				outputs, err = client.Patch(
-					c.Context, c.Inputs.GetName(), types.ApplyPatchType, objYAML, options)
+					c.Context, c.Inputs.GetName(), types.ApplyPatchType, objYAML, options,
+				)
 
 				// Handle the preview scenario where we need to re-create the object due to immutable fields.
 				// To avoid the immutable field error reported by the API server, we append "-preview" to the name
@@ -207,7 +216,8 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 					}
 
 					outputs, err = client.Patch(
-						c.Context, c.Inputs.GetName(), types.ApplyPatchType, objYAML, options)
+						c.Context, c.Inputs.GetName(), types.ApplyPatchType, objYAML, options,
+					)
 				}
 
 				err = handleSSAErr(err, c.FieldManager)
@@ -253,46 +263,57 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 		return outputs, nil
 	}
 
-	// Wait until create resolves as success or error. Note that the conditional is set up to log
-	// only if we don't have an entry for the resource type; in the event that we do, but the await
-	// logic is blank, simply do nothing instead of logging.
+	timeout := 10 * time.Minute
+	if t := metadata.TimeoutDuration(c.Timeout, c.Inputs); t != nil {
+		timeout = *t
+	}
+
+	ctx, cancel := context.WithTimeout(c.Context, timeout)
+	defer cancel()
+
+	source := condition.NewDynamicSource(ctx, c.ClientSet, outputs.GetNamespace())
+	ready, err := metadata.ReadyCondition(ctx, source, c.ClientSet, c.DedupLogger, c.Inputs, outputs)
+	if err != nil {
+		return outputs, err
+	}
 	id := fmt.Sprintf("%s/%s", outputs.GetAPIVersion(), outputs.GetKind())
 	a := awaiters
 	if c.awaiters != nil {
 		a = c.awaiters
 	}
-	if awaiter, exists := a[id]; exists {
-		if metadata.SkipAwaitLogic(c.Inputs) {
-			logger.V(1).Infof("Skipping await logic for %v", outputs.GetName())
-		} else {
-			if awaiter.await != nil {
-				timeout := metadata.TimeoutDuration(c.Timeout, c.Inputs)
-				conf := awaitConfig{
-					ctx:               c.Context,
-					urn:               c.URN,
-					initialAPIVersion: c.InitialAPIVersion,
-					clientSet:         c.ClientSet,
-					currentOutputs:    outputs,
-					logger:            c.DedupLogger,
-					timeout:           timeout,
-					clusterVersion:    c.ClusterVersion,
-					clock:             c.clock,
-				}
-				waitErr := awaiter.await(conf)
-				if waitErr != nil {
-					return nil, waitErr
-				}
-				_ = clearStatus(c.Context, c.Host, c.URN)
-			}
+	if spec, ok := a[id]; ok && spec.await != nil {
+		conf := awaitConfig{
+			ctx:               c.Context,
+			urn:               c.URN,
+			initialAPIVersion: c.InitialAPIVersion,
+			clientSet:         c.ClientSet,
+			inputs:            c.Inputs,
+			currentOutputs:    outputs,
+			logger:            c.DedupLogger,
+			timeout:           &timeout,
+			clusterVersion:    c.ClusterVersion,
+			clock:             c.clock,
 		}
-	} else {
-		logger.V(1).Infof(
-			"No initialization logic found for object of type %q; assuming initialization successful", id)
+		ready = spec.await(conf)
 	}
 
-	// If the client fails to get the live object for some reason, DO NOT return the error. This
-	// will leak the fact that the object was successfully created. Instead, fall back to the
-	// last-seen live object.
+	awaiter, err := internal.NewAwaiter(
+		internal.WithCondition(ready),
+		internal.WithObservers(
+			NewEventAggregator(ctx, source, c.DedupLogger, outputs),
+		),
+		internal.WithNamespace(outputs.GetNamespace()),
+		internal.WithLogger(c.DedupLogger),
+	)
+	if err != nil {
+		return outputs, err
+	}
+
+	err = awaiter.Await(ctx)
+	if err != nil {
+		return outputs, err
+	}
+	_ = clearStatus(c.Context, c.Host, c.URN)
 
 	// TODO: We should be able to use the last-seen object from the await's watch.
 	live, err := client.Get(c.Context, outputs.GetName(), metav1.GetOptions{})
@@ -402,50 +423,58 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 		return currentOutputs, nil
 	}
 
-	// Wait until patch resolves as success or error. Note that the conditional is set up to log only
-	// if we don't have an entry for the resource type; in the event that we do, but the await logic
-	// is blank, simply do nothing instead of logging.
+	timeout := 10 * time.Minute
+	if t := metadata.TimeoutDuration(c.Timeout, c.Inputs); t != nil {
+		timeout = *t
+	}
+
+	ctx, cancel := context.WithTimeout(c.Context, timeout)
+	defer cancel()
+
+	source := condition.NewDynamicSource(ctx, c.ClientSet, currentOutputs.GetNamespace())
+	ready, err := metadata.ReadyCondition(ctx, source, c.ClientSet, c.DedupLogger, c.Inputs, currentOutputs)
+	if err != nil {
+		return currentOutputs, err
+	}
 	id := fmt.Sprintf("%s/%s", currentOutputs.GetAPIVersion(), currentOutputs.GetKind())
 	a := awaiters
 	if c.awaiters != nil {
 		a = c.awaiters
 	}
-	if awaiter, exists := a[id]; exists {
-		if metadata.SkipAwaitLogic(c.Inputs) {
-			logger.V(1).Infof("Skipping await logic for %v", currentOutputs.GetName())
-		} else {
-			if awaiter.await != nil {
-				timeout := metadata.TimeoutDuration(c.Timeout, c.Inputs)
-				conf := awaitConfig{
-					ctx:               c.Context,
-					urn:               c.URN,
-					initialAPIVersion: c.InitialAPIVersion,
-					clientSet:         c.ClientSet,
-					currentOutputs:    currentOutputs,
-					lastOutputs:       liveOldObj,
-					logger:            c.DedupLogger,
-					timeout:           timeout,
-					clusterVersion:    c.ClusterVersion,
-					clock:             c.clock,
-				}
-				waitErr := awaiter.await(conf)
-				if waitErr != nil {
-					return nil, waitErr
-				}
-				_ = clearStatus(c.Context, c.Host, c.URN)
-			}
+	if spec, ok := a[id]; ok && spec.await != nil {
+		conf := awaitConfig{
+			ctx:               c.Context,
+			urn:               c.URN,
+			initialAPIVersion: c.InitialAPIVersion,
+			clientSet:         c.ClientSet,
+			inputs:            c.Inputs,
+			currentOutputs:    currentOutputs,
+			logger:            c.DedupLogger,
+			timeout:           &timeout,
+			clusterVersion:    c.ClusterVersion,
+			clock:             c.clock,
 		}
-	} else {
-		logger.V(1).Infof("No initialization logic found for object of type %q; assuming initialization successful", id)
+		ready = spec.await(conf)
 	}
 
-	gvk := currentOutputs.GroupVersionKind()
-	logger.V(3).Infof("Resource %s/%s/%s  '%s.%s' patched and updated", gvk.Group, gvk.Version,
-		gvk.Kind, currentOutputs.GetNamespace(), currentOutputs.GetName())
+	awaiter, err := internal.NewAwaiter(
+		internal.WithCondition(ready),
+		internal.WithObservers(
+			NewEventAggregator(ctx, source, c.DedupLogger, currentOutputs),
+		),
+		internal.WithNamespace(currentOutputs.GetNamespace()),
+		internal.WithLogger(c.DedupLogger),
+	)
+	if err != nil {
+		return currentOutputs, err
+	}
 
-	// If the client fails to get the live object for some reason, DO NOT return the error. This
-	// will leak the fact that the object was successfully created. Instead, fall back to the
-	// last-seen live object.
+	err = awaiter.Await(ctx)
+	if err != nil {
+		return currentOutputs, err
+	}
+	_ = clearStatus(c.Context, c.Host, c.URN)
+
 	live, err := client.Get(c.Context, currentOutputs.GetName(), metav1.GetOptions{})
 	if err != nil {
 		return currentOutputs, nil
@@ -791,129 +820,57 @@ func Deletion(c DeleteConfig) error {
 		return err
 	}
 
-	timeout := metadata.TimeoutDuration(c.Timeout, c.Inputs)
-	var timeoutSeconds int64 = 300
-	if timeout != nil {
-		timeoutSeconds = int64(timeout.Seconds())
-	}
-	listOpts := metav1.ListOptions{
-		FieldSelector:  fields.OneTermEqualSelector("metadata.name", c.Name).String(),
-		TimeoutSeconds: &timeoutSeconds,
-	}
-
-	// Set up a watcher for the selected resource.
-	watcher, err := client.Watch(c.Context, listOpts)
-	if err != nil {
-		return nilIfGVKDeleted(err)
-	}
-
 	// delete the specified resource (using foreground cascading delete by default).
 	deletePolicy := metadata.DeletionPropagation(c.Inputs)
 	deleteOpts := metav1.DeleteOptions{
 		PropagationPolicy: &deletePolicy,
 	}
+
 	err = client.Delete(c.Context, c.Name, deleteOpts)
 	if err != nil {
 		return nilIfGVKDeleted(err)
 	}
 
-	// Wait until delete resolves as success or error. Note that the conditional is set up to log only
-	// if we don't have an entry for the resource type; in the event that we do, but the await logic
-	// is blank, simply do nothing instead of logging.
-	var waitErr error
-	id := fmt.Sprintf("%s/%s", c.Outputs.GetAPIVersion(), c.Outputs.GetKind())
-	a := awaiters
-	if c.awaiters != nil {
-		a = c.awaiters
+	// Apply a timeout to the operation.
+	timeout := 10 * time.Minute
+	if t := metadata.TimeoutDuration(c.Timeout, c.Inputs); t != nil {
+		timeout = *t
 	}
-	if awaiter, exists := a[id]; exists && awaiter.awaitDeletion != nil {
-		if metadata.SkipAwaitLogic(c.Inputs) {
-			logger.V(1).Infof("Skipping await logic for %v", c.Name)
-		} else {
-			timeout := metadata.TimeoutDuration(c.Timeout, c.Inputs)
-			waitErr = awaiter.awaitDeletion(deleteAwaitConfig{
-				awaitConfig: awaitConfig{
-					ctx:               c.Context,
-					urn:               c.URN,
-					initialAPIVersion: c.InitialAPIVersion,
-					clientSet:         c.ClientSet,
-					currentOutputs:    c.Outputs,
-					logger:            c.DedupLogger,
-					timeout:           timeout,
-					clusterVersion:    c.ClusterVersion,
-					clock:             c.clock,
-				},
-				clientForResource: client,
-			})
-			if waitErr != nil {
-				return waitErr
-			}
-			_ = clearStatus(c.Context, c.Host, c.URN)
-		}
-	} else {
-		for {
-			select {
-			case event, ok := <-watcher.ResultChan():
-				if !ok {
-					deleted, obj := checkIfResourceDeleted(c.Context, c.Name, client)
-					if deleted {
-						_ = clearStatus(c.Context, c.Host, c.URN)
-						return nil
-					}
+	ctx, cancel := context.WithTimeout(c.Context, timeout)
+	defer cancel()
 
-					return &timeoutError{
-						object: obj,
-						subErrors: []string{
-							fmt.Sprintf("Timed out waiting for deletion of %s %q", id, c.Name),
-						},
-					}
-				}
+	// Setup our Informer factory.
+	source := condition.NewDynamicSource(ctx, c.ClientSet, c.Outputs.GetNamespace())
 
-				switch event.Type {
-				case watch.Deleted:
-					_ = clearStatus(c.Context, c.Host, c.URN)
-					return nil
-				case watch.Error:
-					deleted, obj := checkIfResourceDeleted(c.Context, c.Name, client)
-					if deleted {
-						_ = clearStatus(c.Context, c.Host, c.URN)
-						return nil
-					}
-					return &initializationError{
-						object:    obj,
-						subErrors: []string{apierrors.FromObject(event.Object).Error()},
-					}
-				}
-			case <-c.Context.Done(): // Handle user cancellation during watch for deletion.
-				watcher.Stop()
-				logger.V(3).Infof("Received error deleting object %q: %#v", id, err)
-				deleted, obj := checkIfResourceDeleted(c.Context, c.Name, client)
-				if deleted {
-					_ = clearStatus(c.Context, c.Host, c.URN)
-					return nil
-				}
-
-				return &cancellationError{
-					object: obj,
-				}
-			}
-		}
+	// Determine the condition to wait for.
+	deleted, err := metadata.DeletedCondition(ctx, source, c.ClientSet, c.DedupLogger, c.Inputs, c.Outputs)
+	if err != nil {
+		return err
 	}
+	if c.condition != nil {
+		deleted = c.condition
+	}
+
+	awaiter, err := internal.NewAwaiter(
+		internal.WithCondition(deleted),
+		internal.WithObservers(
+			NewEventAggregator(ctx, source, c.DedupLogger, c.Outputs),
+		),
+		internal.WithNamespace(c.Outputs.GetNamespace()),
+		internal.WithLogger(c.DedupLogger),
+	)
+	if err != nil {
+		return err
+	}
+
+	// Wait until the delete condition resolves.
+	err = awaiter.Await(ctx)
+	if err != nil {
+		return err
+	}
+	_ = clearStatus(c.Context, c.Host, c.URN)
 
 	return nil
-}
-
-// checkIfResourceDeleted attempts to get a k8s resource, and returns true if the resource is not found (was deleted).
-// Return the resource if it still exists.
-func checkIfResourceDeleted(
-	ctx context.Context, name string, client dynamic.ResourceInterface,
-) (bool, *unstructured.Unstructured) {
-	obj, err := client.Get(ctx, name, metav1.GetOptions{})
-	if err != nil && is404(err) { // In case of 404, the resource no longer exists, so return success.
-		return true, nil
-	}
-
-	return false, obj
 }
 
 // clearStatus will clear the `Info` column of the CLI of all statuses and messages.
@@ -948,4 +905,42 @@ func patchForce(inputs, live *unstructured.Unstructured, preview bool) bool {
 	}
 
 	return false
+}
+
+// legacyReadyCondition bridges legacy await logic with our composable
+// condition Satisfiers. It implements Satisfier by simply invoking the old
+// awaiter.
+type legacyReadyCondition struct {
+	*condition.ObjectObserver
+	await func() error
+}
+
+// Range invokes the legacy await condition.
+func (l *legacyReadyCondition) Range(func(watch.Event) bool) {
+	_ = l.await()
+}
+
+// Satisfied returns the result of our legacy await.
+func (l *legacyReadyCondition) Satisfied() (bool, error) {
+	err := l.await()
+	return err == nil, err
+}
+
+func newLegacyReadyCondition(c awaitConfig, await func(awaitConfig) error) condition.Satisfier {
+	if metadata.SkipAwaitLogic(c.inputs) {
+		return condition.NewImmediate(c.logger, c.currentOutputs)
+	}
+
+	source := condition.NewDynamicSource(c.ctx, c.clientSet, c.currentOutputs.GetNamespace())
+
+	return &legacyReadyCondition{
+		ObjectObserver: condition.NewObjectObserver(c.ctx, source, c.currentOutputs),
+		await:          sync.OnceValue(func() error { return await(c) }),
+	}
+}
+
+func wrap(f func(awaitConfig) error) func(awaitConfig) condition.Satisfier {
+	return func(c awaitConfig) condition.Satisfier {
+		return newLegacyReadyCondition(c, f)
+	}
 }

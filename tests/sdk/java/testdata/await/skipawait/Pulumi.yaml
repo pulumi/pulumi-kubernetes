@@ -1,0 +1,33 @@
+name: skipawait
+runtime: yaml
+description: |
+  Tests the skipAwait annotation:
+  - A slow-to-start deployment tests create/update/read.
+  - Delete is tested by a namespace with a stuck finalizer.
+resources:
+  stuck-namespace:
+    type: kubernetes:core/v1:Namespace
+    properties:
+      metadata:
+        finalizers:
+          - pulumi.com/stuck
+        annotations:
+          pulumi.com/skipAwait: "true"
+
+  slow-pod:
+    type: kubernetes:core/v1:Pod
+    properties:
+      metadata:
+        annotations:
+          pulumi.com/skipAwait: "true"
+      spec:
+        containers:
+          - image: busybox
+            name: busybox
+            command: ["sleep", "infinity"]
+            readinessProbe:
+              exec:
+                command:
+                  - ls
+              initialDelaySeconds: 600 # 10 minutes!
+              periodSeconds: 10

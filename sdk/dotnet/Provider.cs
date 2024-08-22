@@ -86,6 +86,17 @@ namespace Pulumi.Kubernetes
         public Input<bool>? EnableConfigMapMutable { get; set; }
 
         /// <summary>
+        /// BETA FEATURE - If present and set to true, allow Secrets to be mutated.
+        /// This feature is in developer preview, and is disabled by default.
+        /// 
+        /// This config can be specified in the following ways using this precedence:
+        /// 1. This `enableSecretMutable` parameter.
+        /// 2. The `PULUMI_K8S_ENABLE_SECRET_MUTABLE` environment variable.
+        /// </summary>
+        [Input("enableSecretMutable", json: true)]
+        public Input<bool>? EnableSecretMutable { get; set; }
+
+        /// <summary>
         /// If present and set to false, disable Server-Side Apply mode.
         /// See https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.
         /// </summary>
@@ -156,6 +167,7 @@ namespace Pulumi.Kubernetes
         {
             DeleteUnreachable = Utilities.GetEnvBoolean("PULUMI_K8S_DELETE_UNREACHABLE");
             EnableConfigMapMutable = Utilities.GetEnvBoolean("PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE");
+            EnableSecretMutable = Utilities.GetEnvBoolean("PULUMI_K8S_ENABLE_SECRET_MUTABLE");
             EnableServerSideApply = Utilities.GetEnvBoolean("PULUMI_K8S_ENABLE_SERVER_SIDE_APPLY");
             KubeConfig = Utilities.GetEnv("KUBECONFIG");
             SkipUpdateUnreachable = Utilities.GetEnvBoolean("PULUMI_K8S_SKIP_UPDATE_UNREACHABLE");
