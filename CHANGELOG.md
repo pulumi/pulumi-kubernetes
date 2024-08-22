@@ -74,6 +74,10 @@
     
            `pulumi.com/waitFor: '["jsonpath={.foo}", "condition=Bar"]'` 
 
+- Pulumi will now emit logs for any Kubernetes "Warning" Events associated with
+  resources being created, updated or deleted.
+  (https://github.com/pulumi/pulumi-kubernetes/pull/3135/files)
+
 ### Fixed
 
 - The `immutable` field is now respected for `ConfigMaps` when the provider is configured with `enableConfigMapMutable`.
