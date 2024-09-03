@@ -1,5 +1,7 @@
 ## Unreleased
 
+## 4.18 (September 3, 2024)
+
 ### Added
 
 - The new `enableSecretMutable` provider configuration option treats changes to
@@ -33,7 +35,7 @@
   Existing readiness logic is unaffected by this setting.
   (https://github.com/pulumi/pulumi-kubernetes/issues/2996)
 
-- **EXPERIMENTAL** The `pulumi.com/waitFor` annotation was introduced to allow
+- **EXPERIMENTAL**: The `pulumi.com/waitFor` annotation was introduced to allow
   for custom readiness checks. This override Pulumi's own await logic for the
   resource (however the `pulumi.com/skipAwait` annotation still takes
   precedence).
@@ -50,14 +52,14 @@
        JSONPath expression evaluates to the same value. For example this
        resource expects its "phase" field to have a value of "Running":
      
-           `pulumi.com/waitFor: "jsonpath={.phase}=Running"` 
+           `pulumi.com/waitFor: "jsonpath={.status.phase}=Running"`
        
        If a value is not provided, the resource will be considered ready when
        any value exists at the given path, similar to `kubectl wait --for
        jsonpath=...`. This resource will wait until it has a webhook configured
        with a CA bundle:
     
-           `pulumi.com/waitFor: "jsonpath={.webhooks[].clientConfig.caBundle}"` 
+           `pulumi.com/waitFor: "jsonpath={.webhooks[*].clientConfig.caBundle}"`
        
     2. A string prefixed with `condition=` followed by the type of the
        condition and an optional status. This matches the behavior of 
