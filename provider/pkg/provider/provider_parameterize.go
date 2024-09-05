@@ -142,7 +142,7 @@ func crdToOpenAPI(crd *extensionv1.CustomResourceDefinition) ([]*spec.Swagger, e
 }
 
 // readCRDManifestFile reads the CRD manifest from the given file path.
-func readCRDManifestFile(filepath string) (*extensionv1.CustomResourceDefinition, error) {
+func readCRDManifestFile(filepath string) ([]*extensionv1.CustomResourceDefinition, error) {
 	f, err := os.Open(filepath)
 	if err != nil {
 		return nil, fmt.Errorf("error opening CRD manifest file: %w", err)
@@ -150,19 +150,28 @@ func readCRDManifestFile(filepath string) (*extensionv1.CustomResourceDefinition
 	defer f.Close()
 
 	decoder := yaml.NewYAMLOrJSONDecoder(f, 4096)
-	crd := new(extensionv1.CustomResourceDefinition)
+	var crds []*extensionv1.CustomResourceDefinition
+
 	for {
+		crd := new(extensionv1.CustomResourceDefinition)
 		err = decoder.Decode(crd)
 		if err != nil {
 			if errors.Is(err, io.EOF) {
 				break
 			}
 
-			return nil, fmt.Errorf("error decoding CRD manifest: %w", err)
+			return nil, fmt.Errorf("error decoding CRD manifest within %q: %w", filepath, err)
 		}
+
+		if crd.Kind != "CustomResourceDefinition" {
+			logger.V(9).Info("Skipping document within manifest that could not be decoded as a CRD")
+			continue
+		}
+
+		crds = append(crds, crd)
 	}
 
-	return crd, nil
+	return crds, nil
 }
 
 // mergeSpecs merges a slice of OpenAPI specs into a single OpenAPI spec.
@@ -228,27 +237,30 @@ func (k *kubeProvider) parameterizeRequest_Args(p *pulumirpc.ParameterizeRequest
 		return nil, err
 	}
 
-	logger.V(9).Info("Parameterized Pulumi Kubernetes provider with user specified args: %s", args)
+	logger.V(9).Infof("Parameterized Pulumi Kubernetes provider with user specified args: %s", args)
 
 	var allCRDSpecs []*spec.Swagger
 
+	// We need to iterate through all filepaths provided by the user to generate the CRD schemas. Within each file, we can also have multiple CRDs.
 	for _, crdPath := range args.CRDManifestPaths {
-		crd, err := readCRDManifestFile(crdPath)
+		crds, err := readCRDManifestFile(crdPath)
 		if err != nil {
 			return nil, fmt.Errorf("error reading CRD manifest: %w", err)
 		}
 
-		crdVersionSpecs, err := crdToOpenAPI(crd)
-		if err != nil {
-			return nil, fmt.Errorf("error generating OpenAPI specs for given CRD %q: %w", crd.Name, err)
-		}
+		for _, crd := range crds {
+			crdVersionSpecs, err := crdToOpenAPI(crd)
+			if err != nil {
+				return nil, fmt.Errorf("error generating OpenAPI specs for given CRD %q: %w", crd.Name, err)
+			}
 
-		mergedCRDVersionSpecs, err := mergeSpecs(crdVersionSpecs)
-		if err != nil {
-			return nil, fmt.Errorf("error reading OpenAPI spec: %w", err)
-		}
+			mergedCRDVersionSpecs, err := mergeSpecs(crdVersionSpecs)
+			if err != nil {
+				return nil, fmt.Errorf("error reading OpenAPI spec: %w", err)
+			}
 
-		allCRDSpecs = append(allCRDSpecs, mergedCRDVersionSpecs)
+			allCRDSpecs = append(allCRDSpecs, mergedCRDVersionSpecs)
+		}
 	}
 
 	mergedSpecs, err := mergeSpecs(allCRDSpecs)
@@ -262,7 +274,7 @@ func (k *kubeProvider) parameterizeRequest_Args(p *pulumirpc.ParameterizeRequest
 		k.crdSchemas.add(crdPackageName, crdsPackageSpec)
 	}
 
-	return &pulumirpc.ParameterizeResponse{}, nil
+	return &pulumirpc.ParameterizeResponse{Name: crdPackageName, Version: args.PackageVersion}, nil
 }
 
 // parameterizeRequest_Value is a placeholder for the extension parameterization implementation. This allows the provider to reconstruct the necessary types for the CRD schemas
