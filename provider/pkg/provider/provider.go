@@ -16,7 +16,6 @@ package provider
 
 import (
 	"bufio"
-	"bytes"
 	"context"
 	"encoding/json"
 	"errors"
@@ -252,31 +251,26 @@ func (k *kubeProvider) GetMapping(ctx context.Context, request *pulumirpc.GetMap
 
 // GetSchema returns the JSON-encoded schema for this provider's package.
 func (k *kubeProvider) GetSchema(ctx context.Context, req *pulumirpc.GetSchemaRequest) (*pulumirpc.GetSchemaResponse, error) {
-	// TODO(rquitales): Do not hardcode the output schema. We need to merge the CRD schemas with the base provider schema.
 	if v := req.GetVersion(); v != 0 {
 		return nil, fmt.Errorf("unsupported schema version %d", v)
 	}
 
-	for _, p := range k.crdSchemas.crdSchemas {
-		if p == nil {
-			continue
+	if req.SubpackageName != "" && req.SubpackageVersion != "" {
+		spec := k.crdSchemas.get(req.SubpackageName, req.SubpackageVersion)
+		if spec == nil {
+			return nil, fmt.Errorf("no schema found for %s", req.SubpackageName)
 		}
 
-		p.Version = k.version
-
-		var out bytes.Buffer
-		encoder := json.NewEncoder(&out)
-		encoder.SetEscapeHTML(false)
-		encoder.SetIndent("", "    ")
-		if err := encoder.Encode(*p); err != nil {
+		// Encode into JSON string.
+		specJSON, err := json.Marshal(spec)
+		if err != nil {
 			return nil, err
 		}
-		return &pulumirpc.GetSchemaResponse{Schema: out.String()}, nil
+
+		return &pulumirpc.GetSchemaResponse{Schema: string(specJSON)}, nil
 	}
 
-	return nil, fmt.Errorf("no CRD schemas found")
-
-	// return &pulumirpc.GetSchemaResponse{Schema: string(k.pulumiSchema)}, nil
+	return &pulumirpc.GetSchemaResponse{Schema: string(k.pulumiSchema)}, nil
 }
 
 // CheckConfig validates the configuration for this provider.
