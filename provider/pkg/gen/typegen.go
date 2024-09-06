@@ -358,6 +358,24 @@ func makeSchemaTypeSpec(prop map[string]any, canonicalGroups map[string]string) 
 		}
 	}
 
+	// Handle objects with `x-preserve-unknown-fields` set to true.
+	if preserveUnknownFields, ok := prop["x-kubernetes-preserve-unknown-fields"]; ok {
+		if preserveUnknownFields.(bool) {
+			return pschema.TypeSpec{
+				Type:                 "object",
+				AdditionalProperties: &pschema.TypeSpec{Ref: "pulumi.json#/Any"},
+			}
+		}
+	}
+
+	// Handle objects with `x-kubernetes-int-or-string`.
+	if _, ok := prop["x-kubernetes-int-or-string"]; ok {
+		return pschema.TypeSpec{OneOf: []pschema.TypeSpec{
+			{Type: "integer"},
+			{Type: "string"},
+		}}
+	}
+
 	ref := stripPrefix(prop["$ref"].(string))
 	switch ref {
 	case quantity:

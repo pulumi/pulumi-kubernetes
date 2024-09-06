@@ -25,7 +25,9 @@ import (
 	"strings"
 	"sync"
 
+	"github.com/go-openapi/jsonreference"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/gen"
+	"github.com/pulumi/pulumi/pkg/v3/codegen/cgstrings"
 	pulumischema "github.com/pulumi/pulumi/pkg/v3/codegen/schema"
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
@@ -39,6 +41,8 @@ import (
 // TODO(rquitales): Remove the hardcoded package name once upstream extension parameterization is implemented and can be passed. For now, we can only "parameterize" with one package, but it is
 // intended to not be a upper bound on the number of packages that can be parameterized.
 const crdPackageName = "mycrd"
+
+const definitionPrefix = "#/definitions/"
 
 // parameterizedPackageMap is a map of packages to their respective Pulumi PackageSpecs. This is used to store the
 // CRD schemas that are generated from the CRD manifests with an internal lock to prevent concurrent access.
@@ -131,14 +135,84 @@ func crdToOpenAPI(crd *extensionv1.CustomResourceDefinition) ([]*spec.Swagger, e
 			continue
 		}
 		// Defaults are not pruned here, but before being served.
-		sw, err := builder.BuildOpenAPIV2(crd, v.Name, builder.Options{V2: true, StripValueValidation: false, StripNullable: false, AllowNonStructural: false})
+		sw, err := builder.BuildOpenAPIV2(crd, v.Name, builder.Options{V2: true, StripValueValidation: false, StripNullable: false, AllowNonStructural: true})
 		if err != nil {
 			return nil, err
 		}
+
+		err = flattenOpenAPI(sw)
+		if err != nil {
+			return nil, fmt.Errorf("error flattening OpenAPI spec: %w", err)
+		}
+
 		openAPIManifests = append(openAPIManifests, sw)
 	}
 
 	return openAPIManifests, nil
+}
+
+// flattenOpenAPI recursively finds all nested objects in the OpenAPI spec and flattens them into a single object as definitions.
+func flattenOpenAPI(sw *spec.Swagger) error {
+	// Create a stack of definition names to be processed.
+	definitionStack := make([]string, 0, len(sw.Definitions))
+
+	// Populate existing definitions into the stack.
+	for defName := range sw.Definitions {
+		definitionStack = append(definitionStack, defName)
+	}
+
+	for len(definitionStack) != 0 {
+		// Pop the last definition from the stack.
+		definitionName := definitionStack[len(definitionStack)-1]
+		definitionStack = definitionStack[:len(definitionStack)-1]
+		// Get the definition from the OpenAPI spec.
+		definition := sw.Definitions[definitionName]
+
+		for propertyName, propertySchema := range definition.Properties {
+			// If the property is already a reference to a URL, we can skip it.
+			if propertySchema.Ref.GetURL() != nil {
+				continue
+			}
+
+			// If the property is not an object, we can skip it.
+			if !propertySchema.Type.Contains("object") {
+				continue
+			}
+
+			if propertySchema.Properties == nil {
+				continue
+			}
+
+			// If the property is an object with additional properties, we can skip it. We only care about
+			// nested objects that are explicitly defined.
+			if propertySchema.AdditionalProperties != nil {
+				continue
+			}
+
+			// Create a new definition for the nested object by joining the parent definition name and the property name.
+			// This is to ensure that the nested object is unique and does not conflict with other definitions.
+			nestedDefinitionName := definitionName + cgstrings.UppercaseFirst(propertyName)
+			sw.Definitions[nestedDefinitionName] = propertySchema
+			// Add nested object to the stack to be recursively flattened.
+			definitionStack = append(definitionStack, nestedDefinitionName)
+
+			// Reset the property to be a reference to the nested object.
+			refName := definitionPrefix + nestedDefinitionName
+			ref, err := jsonreference.New(refName)
+			if err != nil {
+				return fmt.Errorf("error creating OpenAPI json reference for nested object: %w", err)
+			}
+
+			definition.Properties[propertyName] = spec.Schema{
+				SchemaProps: spec.SchemaProps{
+					Ref: spec.Ref{
+						Ref: ref,
+					},
+				},
+			}
+		}
+	}
+	return nil
 }
 
 // readCRDManifestFile reads the CRD manifest from the given file path.
@@ -190,6 +264,8 @@ func mergeSpecs(specs []*spec.Swagger) (*spec.Swagger, error) {
 
 // generateSchema generates the Pulumi schema with parameterization for the given OpenAPI spec.
 func generateSchema(swagger *spec.Swagger, baseProvName, baseProvVersion string) *pulumischema.PackageSpec {
+	// TODO(rquitales): We need to handle field name normalization here so that we can generate typed SDKs that contain valid field names,
+	// for example, not allowing hyphens.
 	marshaledOpenAPISchema, err := json.Marshal(swagger)
 	if err != nil {
 		log.Fatalf("error marshalling OpenAPI spec: %v", err)
