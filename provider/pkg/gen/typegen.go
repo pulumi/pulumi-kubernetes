@@ -28,6 +28,8 @@ import (
 	"k8s.io/apimachinery/pkg/util/sets"
 )
 
+var validCharRegex = regexp.MustCompile(`[^a-zA-Z0-9]`)
+
 // --------------------------------------------------------------------------
 
 // A collection of data structures and utility functions to transform an OpenAPI spec for the
@@ -684,6 +686,10 @@ func createGroups(definitionsJSON map[string]any, allowHyphens bool) []GroupConf
 				contract.Assertf(len(parts) == 2, "expected package name to have two parts: %s", pkgName)
 				g, v := parts[0], parts[1]
 				gParts := strings.Split(g, ".")
+
+				// We need to sanitize versions to be valid package names.
+				v = validCharRegex.ReplaceAllString(v, "_")
+
 				return fmt.Sprintf("%s/%s", gParts[0], v)
 			}
 			return linq.From([]KindConfig{
