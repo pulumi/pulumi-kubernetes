@@ -16,14 +16,13 @@ linters:
   disable:
     - lll
 run:
-  skip-files:
-    - schema.go
-  skip-dirs:
-    - provider/pkg/gen
-  skip-dirs-use-default: true
   modules-download-mode: readonly
   timeout: 10m
 issues:
   exclude-rules:
-    path: "provider/cmd/pulumi-resource-kubernetes"
-    source: "^//go:embed"
+    # The gosec linter is overly aggressive about integer conversions.
+    # Our retrier uses an unsigned int64 to represent the number of retries,
+    # which is safe to convert to a signed int64 as we don't expect it to be extremely large.
+    # https://github.com/securego/gosec/issues/1185
+    - path: "provider/pkg/retry/retry.go"
+      text: "integer overflow conversion"
