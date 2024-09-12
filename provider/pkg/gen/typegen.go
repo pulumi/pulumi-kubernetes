@@ -689,8 +689,9 @@ func createGroups(definitionsJSON map[string]any, allowHyphens bool) []GroupConf
 
 				// We need to sanitize versions to be valid package names.
 				v = validCharRegex.ReplaceAllString(v, "_")
+				gStripped := validCharRegex.ReplaceAllString(gParts[0], "_")
 
-				return fmt.Sprintf("%s/%s", gParts[0], v)
+				return fmt.Sprintf("%s/%s", gStripped, v)
 			}
 			return linq.From([]KindConfig{
 				{
