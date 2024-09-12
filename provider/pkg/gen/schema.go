@@ -39,6 +39,11 @@ type schemaGenerator struct {
 
 	// allowHyphens indicates whether hyphens should be allowed in property names.
 	allowHyphens bool
+
+	// pulumiKubernetesDependency indicates whether the Pulumi Kubernetes provider should be
+	// listed as a language dependency. The value is the version of the Pulumi Kubernetes provider
+	// to depend on.
+	pulumiKubernetesDependency string
 }
 
 type schemaGeneratorOption interface {
@@ -91,6 +96,18 @@ func (o *withAllowHyphensOption) apply(sg *schemaGenerator) {
 
 func WithAllowHyphens(allow bool) schemaGeneratorOption {
 	return &withAllowHyphensOption{allowHyphens: allow}
+}
+
+type WithPulumiKubernetesDependency struct {
+	pulumiVersion string
+}
+
+func (o *WithPulumiKubernetesDependency) apply(sg *schemaGenerator) {
+	sg.pulumiKubernetesDependency = o.pulumiVersion
+}
+
+func WithAddPulumiKubernetesDependency(version string) schemaGeneratorOption {
+	return &WithPulumiKubernetesDependency{pulumiVersion: version}
 }
 
 // PulumiSchema will generate a Pulumi schema for the given k8s schema.
@@ -560,23 +577,31 @@ additional information about using Server-Side Apply to manage Kubernetes resour
 	// Compatibility mode for Kubernetes 2.0 SDK
 	const kubernetes20 = "kubernetes20"
 
+	pkgReferences := map[string]string{
+		"Glob":   "1.1.5",
+		"Pulumi": "3.*",
+	}
+	if gen.pulumiKubernetesDependency != "" {
+		pkgReferences["Pulumi.Kubernetes"] = gen.pulumiKubernetesDependency
+	}
 	pkg.Language["csharp"] = rawMessage(map[string]any{
-		"respectSchemaVersion": true,
-		"packageReferences": map[string]string{
-			"Glob":   "1.1.5",
-			"Pulumi": "3.*",
-		},
+		"respectSchemaVersion":   true,
+		"packageReferences":      pkgReferences,
 		"namespaces":             csharpNamespaces,
 		"compatibility":          kubernetes20,
 		"dictionaryConstructors": true,
 	})
 
+	javaDeps := map[string]string{
+		"net.bytebuddy:byte-buddy": "1.14.15",
+		"com.google.guava:guava":   "32.1.2-jre",
+	}
+	if gen.pulumiKubernetesDependency != "" {
+		javaDeps["com.pulumi/kubernetes"] = gen.pulumiKubernetesDependency
+	}
 	pkg.Language["java"] = rawMessage(map[string]any{
-		"packages": javaPackages,
-		"dependencies": map[string]string{
-			"net.bytebuddy:byte-buddy": "1.14.15",
-			"com.google.guava:guava":   "32.1.2-jre",
-		},
+		"packages":     javaPackages,
+		"dependencies": javaDeps,
 	})
 
 	pkg.Language["go"] = rawMessage(map[string]any{
@@ -588,18 +613,23 @@ additional information about using Server-Side Apply to manage Kubernetes resour
 		"generateExtraInputTypes":        true,
 		"internalModuleName":             "utilities",
 	})
+
+	nodeDeps := map[string]string{
+		"@pulumi/pulumi":    "^3.25.0",
+		"shell-quote":       "^1.6.1",
+		"tmp":               "^0.0.33",
+		"@types/tmp":        "^0.0.33",
+		"glob":              "^10.3.10",
+		"node-fetch":        "^2.3.0",
+		"@types/node-fetch": "^2.1.4",
+	}
+	if gen.pulumiKubernetesDependency != "" {
+		nodeDeps["@pulumi/kubernetes"] = gen.pulumiKubernetesDependency
+	}
 	pkg.Language["nodejs"] = rawMessage(map[string]any{
 		"respectSchemaVersion": true,
 		"compatibility":        kubernetes20,
-		"dependencies": map[string]string{
-			"@pulumi/pulumi":    "^3.25.0",
-			"shell-quote":       "^1.6.1",
-			"tmp":               "^0.0.33",
-			"@types/tmp":        "^0.0.33",
-			"glob":              "^10.3.10",
-			"node-fetch":        "^2.3.0",
-			"@types/node-fetch": "^2.1.4",
-		},
+		"dependencies":         nodeDeps,
 		"devDependencies": map[string]string{
 			"mocha":              "^5.2.0",
 			"@types/mocha":       "^5.2.5",
@@ -622,12 +652,17 @@ If this is your first time using this package, these two resources may be helpfu
 Use the navigation below to see detailed documentation for each of the supported Kubernetes resources.
 `,
 	})
+
+	requires := map[string]string{
+		"pulumi":   ">=3.109.0,<4.0.0",
+		"requests": ">=2.21,<3.0",
+	}
+	if gen.pulumiKubernetesDependency != "" {
+		requires["pulumi-kubernetes"] = gen.pulumiKubernetesDependency
+	}
 	pkg.Language["python"] = rawMessage(map[string]any{
 		"respectSchemaVersion": true,
-		"requires": map[string]string{
-			"pulumi":   ">=3.109.0,<4.0.0",
-			"requests": ">=2.21,<3.0",
-		},
+		"requires":             requires,
 		"pyproject": map[string]bool{
 			"enabled": true,
 		},
