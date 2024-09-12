@@ -1657,26 +1657,31 @@ var apiextensionsCustomResourcePatch = pschema.ResourceSpec{
 	},
 }
 
-func init() {
-	typeOverlays["kubernetes:core/v1:ServiceSpec"] = serviceSpec
-	typeOverlays["kubernetes:core/v1:ServiceSpecType"] = serviceSpecType
-	typeOverlays["kubernetes:helm.sh/v3:FetchOpts"] = helmV3FetchOpts
-	typeOverlays["kubernetes:helm.sh/v3:RepositoryOpts"] = helmV3RepoOpts
-	typeOverlays["kubernetes:helm.sh/v3:ReleaseStatus"] = helmV3ReleaseStatus
-	typeOverlays["kubernetes:helm.sh/v4:PostRenderer"] = helmV4PostRenderer
-	typeOverlays["kubernetes:helm.sh/v4:RepositoryOpts"] = helmV4RepoOpts
-	typeOverlays["kubernetes:index:KubeClientSettings"] = kubeClientSettings
-	typeOverlays["kubernetes:index:HelmReleaseSettings"] = helmReleaseSettings
+var (
+	TypeOverlays     = map[string]pschema.ComplexTypeSpec{}
+	ResourceOverlays = map[string]pschema.ResourceSpec{}
+)
 
-	resourceOverlays["kubernetes:apiextensions.k8s.io:CustomResource"] = apiextensionsCustomResource
-	resourceOverlays["kubernetes:apiextensions.k8s.io:CustomResourcePatch"] = apiextensionsCustomResourcePatch
-	resourceOverlays["kubernetes:helm.sh/v3:Chart"] = helmV3ChartResource
-	resourceOverlays["kubernetes:helm.sh/v4:Chart"] = helmV4ChartResource
-	resourceOverlays["kubernetes:helm.sh/v3:Release"] = helmV3ReleaseResource
-	resourceOverlays["kubernetes:kustomize:Directory"] = kustomizeDirectoryResource
-	resourceOverlays["kubernetes:kustomize/v2:Directory"] = kustomizeDirectoryV2Resource
-	resourceOverlays["kubernetes:yaml:ConfigFile"] = yamlConfigFileResource
-	resourceOverlays["kubernetes:yaml/v2:ConfigFile"] = yamlConfigFileV2Resource
-	resourceOverlays["kubernetes:yaml:ConfigGroup"] = yamlConfigGroupResource
-	resourceOverlays["kubernetes:yaml/v2:ConfigGroup"] = yamlConfigGroupV2Resource
+func init() {
+	TypeOverlays["kubernetes:core/v1:ServiceSpec"] = serviceSpec
+	TypeOverlays["kubernetes:core/v1:ServiceSpecType"] = serviceSpecType
+	TypeOverlays["kubernetes:helm.sh/v3:FetchOpts"] = helmV3FetchOpts
+	TypeOverlays["kubernetes:helm.sh/v3:RepositoryOpts"] = helmV3RepoOpts
+	TypeOverlays["kubernetes:helm.sh/v3:ReleaseStatus"] = helmV3ReleaseStatus
+	TypeOverlays["kubernetes:helm.sh/v4:PostRenderer"] = helmV4PostRenderer
+	TypeOverlays["kubernetes:helm.sh/v4:RepositoryOpts"] = helmV4RepoOpts
+	TypeOverlays["kubernetes:index:KubeClientSettings"] = kubeClientSettings
+	TypeOverlays["kubernetes:index:HelmReleaseSettings"] = helmReleaseSettings
+
+	ResourceOverlays["kubernetes:apiextensions.k8s.io:CustomResource"] = apiextensionsCustomResource
+	ResourceOverlays["kubernetes:apiextensions.k8s.io:CustomResourcePatch"] = apiextensionsCustomResourcePatch
+	ResourceOverlays["kubernetes:helm.sh/v3:Chart"] = helmV3ChartResource
+	ResourceOverlays["kubernetes:helm.sh/v4:Chart"] = helmV4ChartResource
+	ResourceOverlays["kubernetes:helm.sh/v3:Release"] = helmV3ReleaseResource
+	ResourceOverlays["kubernetes:kustomize:Directory"] = kustomizeDirectoryResource
+	ResourceOverlays["kubernetes:kustomize/v2:Directory"] = kustomizeDirectoryV2Resource
+	ResourceOverlays["kubernetes:yaml:ConfigFile"] = yamlConfigFileResource
+	ResourceOverlays["kubernetes:yaml/v2:ConfigFile"] = yamlConfigFileV2Resource
+	ResourceOverlays["kubernetes:yaml:ConfigGroup"] = yamlConfigGroupResource
+	ResourceOverlays["kubernetes:yaml/v2:ConfigGroup"] = yamlConfigGroupV2Resource
 }

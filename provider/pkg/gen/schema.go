@@ -27,14 +27,79 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 )
 
-// typeOverlays augment the types defined by the kubernetes schema.
-var typeOverlays = map[string]pschema.ComplexTypeSpec{}
+type schemaGenerator struct {
+	// typeOverlays augment the types defined by the kubernetes schema.
+	typeOverlays map[string]pschema.ComplexTypeSpec
 
-// resourceOverlays augment the resources defined by the kubernetes schema.
-var resourceOverlays = map[string]pschema.ResourceSpec{}
+	// resourceOverlays augment the resources defined by the kubernetes schema.
+	resourceOverlays map[string]pschema.ResourceSpec
+
+	// parameterization indicates whether the schema should be parameterized.
+	parameterization *pschema.ParameterizationSpec
+
+	// allowHyphens indicates whether hyphens should be allowed in property names.
+	allowHyphens bool
+}
+
+type schemaGeneratorOption interface {
+	apply(*schemaGenerator)
+}
+
+type withTypeOverlaysOption struct {
+	typeOverlays map[string]pschema.ComplexTypeSpec
+}
+
+func (o *withTypeOverlaysOption) apply(sg *schemaGenerator) {
+	sg.typeOverlays = o.typeOverlays
+}
+
+func WithTypeOverlays(typeOverlays map[string]pschema.ComplexTypeSpec) schemaGeneratorOption {
+	return &withTypeOverlaysOption{typeOverlays: typeOverlays}
+}
+
+type withResourceOverlaysOption struct {
+	resourceOverlays map[string]pschema.ResourceSpec
+}
+
+func (o *withResourceOverlaysOption) apply(sg *schemaGenerator) {
+	sg.resourceOverlays = o.resourceOverlays
+}
+
+func WithResourceOverlays(resourceOverlays map[string]pschema.ResourceSpec) schemaGeneratorOption {
+	return &withResourceOverlaysOption{resourceOverlays: resourceOverlays}
+}
+
+type withParameterizationOption struct {
+	parameterization *pschema.ParameterizationSpec
+}
+
+func (o *withParameterizationOption) apply(sg *schemaGenerator) {
+	sg.parameterization = o.parameterization
+}
+
+func WithParameterization(parameterization *pschema.ParameterizationSpec) schemaGeneratorOption {
+	return &withParameterizationOption{parameterization: parameterization}
+}
+
+type withAllowHyphensOption struct {
+	allowHyphens bool
+}
+
+func (o *withAllowHyphensOption) apply(sg *schemaGenerator) {
+	sg.allowHyphens = o.allowHyphens
+}
+
+func WithAllowHyphens(allow bool) schemaGeneratorOption {
+	return &withAllowHyphensOption{allowHyphens: allow}
+}
 
 // PulumiSchema will generate a Pulumi schema for the given k8s schema.
-func PulumiSchema(swagger map[string]any) pschema.PackageSpec {
+func PulumiSchema(swagger map[string]any, opts ...schemaGeneratorOption) pschema.PackageSpec {
+	gen := &schemaGenerator{}
+	for _, o := range opts {
+		o.apply(gen)
+	}
+
 	pkg := pschema.PackageSpec{
 		Name:        "kubernetes",
 		Description: "A Pulumi package for creating and managing Kubernetes resources.",
@@ -237,6 +302,9 @@ func PulumiSchema(swagger map[string]any) pschema.PackageSpec {
 		Language:  map[string]pschema.RawMessage{},
 	}
 
+	// Parameterize the schema if the parameterization option is set.
+	pkg.Parameterization = gen.parameterization
+
 	goImportPath := "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes"
 
 	csharpNamespaces := map[string]string{
@@ -271,7 +339,7 @@ func PulumiSchema(swagger map[string]any) pschema.PackageSpec {
 	}
 
 	definitions := swagger["definitions"].(map[string]any)
-	groupsSlice := createGroups(definitions)
+	groupsSlice := createGroups(definitions, gen.allowHyphens)
 
 	for _, group := range groupsSlice {
 		if group.Group() == "apiserverinternal" {
@@ -285,7 +353,7 @@ func PulumiSchema(swagger map[string]any) pschema.PackageSpec {
 					patchTok = fmt.Sprintf("%sPatch", tok)
 				}
 
-				csharpNamespaces[kind.apiVersion] = fmt.Sprintf("%s.%s", pascalCase(group.Group()), pascalCase(version.Version()))
+				csharpNamespaces[kind.apiVersion] = fmt.Sprintf("%s.%s", PascalCaseMapping.Get(group.Group()), PascalCaseMapping.Get(version.Version()))
 				javaPackages[kind.apiVersion] = fmt.Sprintf("%s.%s", group.Group(), version.Version())
 				modToPkg[kind.apiVersion] = kind.schemaPkgName
 				pkgImportAliases[fmt.Sprintf("%s/%s", goImportPath, kind.schemaPkgName)] = strings.Replace(
@@ -309,7 +377,7 @@ func PulumiSchema(swagger map[string]any) pschema.PackageSpec {
 				objectSpec.Language["nodejs"] = rawMessage(map[string][]string{"requiredOutputs": propNames})
 
 				// Check if the current type exists in the overlays and overwrite types accordingly.
-				if overlaySpec, hasType := typeOverlays[tok]; hasType {
+				if overlaySpec, hasType := gen.typeOverlays[tok]; hasType {
 					for propName, overlayProp := range overlaySpec.Properties {
 						// If overlay prop types are defined, overwrite the k8s schema prop type.
 						if len(overlayProp.OneOf) > 1 {
@@ -348,7 +416,7 @@ func PulumiSchema(swagger map[string]any) pschema.PackageSpec {
 					patchSpec.Language["nodejs"] = rawMessage(map[string][]string{"requiredOutputs": propNames})
 
 					// Check if the current type exists in the overlays and overwrite types accordingly.
-					if overlaySpec, hasType := typeOverlays[tok]; hasType {
+					if overlaySpec, hasType := gen.typeOverlays[tok]; hasType {
 						for propName, overlayProp := range overlaySpec.Properties {
 							// If overlay prop types are defined, overwrite the k8s schema prop type.
 							if len(overlayProp.OneOf) > 1 {
@@ -398,7 +466,7 @@ func PulumiSchema(swagger map[string]any) pschema.PackageSpec {
 				}
 
 				// Check if the current resource exists in the overlays and overwrite types accordingly.
-				if overlaySpec, hasResource := resourceOverlays[tok]; hasResource {
+				if overlaySpec, hasResource := gen.resourceOverlays[tok]; hasResource {
 					for propName, overlayProp := range overlaySpec.InputProperties {
 						// If overlay prop types are defined, overwrite the k8s schema prop type.
 						if len(overlayProp.OneOf) > 1 {
@@ -437,7 +505,7 @@ func PulumiSchema(swagger map[string]any) pschema.PackageSpec {
 					}
 
 					// Check if the current resource exists in the overlays and overwrite types accordingly.
-					if overlaySpec, hasResource := resourceOverlays[patchTok]; hasResource {
+					if overlaySpec, hasResource := gen.resourceOverlays[patchTok]; hasResource {
 						for propName, overlayProp := range overlaySpec.InputProperties {
 							// If overlay prop types are defined, overwrite the k8s schema prop type.
 							if len(overlayProp.OneOf) > 1 {
@@ -467,16 +535,16 @@ additional information about using Server-Side Apply to manage Kubernetes resour
 		}
 
 		// If there are types in the overlays that do not exist in the schema (i.e. enum types), add them.
-		for tok, overlayType := range typeOverlays {
+		for tok, overlayType := range gen.typeOverlays {
 			if _, typeExists := pkg.Types[tok]; !typeExists {
 				pkg.Types[tok] = overlayType
 			}
 		}
 
 		// Finally, add overlay resources that weren't in the schema.
-		for tok := range resourceOverlays {
+		for tok := range gen.resourceOverlays {
 			if _, resourceExists := pkg.Resources[tok]; !resourceExists {
-				pkg.Resources[tok] = resourceOverlays[tok]
+				pkg.Resources[tok] = gen.resourceOverlays[tok]
 			}
 		}
 	}

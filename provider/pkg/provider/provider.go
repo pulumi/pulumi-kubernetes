@@ -162,6 +162,8 @@ type kubeProvider struct {
 	resourcesMutex sync.RWMutex
 
 	resourceProviders map[string]providerresource.ResourceProviderFactory
+
+	crdSchemas parameterizedPackageMap // In memory cache of CRD types from Parameterize calls.
 }
 
 var _ pulumirpc.ResourceProviderServer = (*kubeProvider)(nil)
@@ -251,6 +253,21 @@ func (k *kubeProvider) GetMapping(ctx context.Context, request *pulumirpc.GetMap
 func (k *kubeProvider) GetSchema(ctx context.Context, req *pulumirpc.GetSchemaRequest) (*pulumirpc.GetSchemaResponse, error) {
 	if v := req.GetVersion(); v != 0 {
 		return nil, fmt.Errorf("unsupported schema version %d", v)
+	}
+
+	if req.SubpackageName != "" && req.SubpackageVersion != "" {
+		spec := k.crdSchemas.get(req.SubpackageName, req.SubpackageVersion)
+		if spec == nil {
+			return nil, fmt.Errorf("no schema found for %s", req.SubpackageName)
+		}
+
+		// Encode into JSON string.
+		specJSON, err := json.Marshal(spec)
+		if err != nil {
+			return nil, err
+		}
+
+		return &pulumirpc.GetSchemaResponse{Schema: string(specJSON)}, nil
 	}
 
 	return &pulumirpc.GetSchemaResponse{Schema: string(k.pulumiSchema)}, nil

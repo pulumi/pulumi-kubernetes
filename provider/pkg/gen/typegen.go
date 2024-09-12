@@ -28,6 +28,8 @@ import (
 	"k8s.io/apimachinery/pkg/util/sets"
 )
 
+var validCharRegex = regexp.MustCompile(`[^a-zA-Z0-9]`)
+
 // --------------------------------------------------------------------------
 
 // A collection of data structures and utility functions to transform an OpenAPI spec for the
@@ -191,8 +193,7 @@ func (d definition) defaultAPIVersion() string {
 }
 
 func (d definition) isTopLevel() bool {
-	gvks, gvkExists :=
-		d.data["x-kubernetes-group-version-kind"].([]any)
+	gvks, gvkExists := d.data["x-kubernetes-group-version-kind"].([]any)
 	hasGVK := gvkExists && len(gvks) > 0
 	if !hasGVK {
 		return false
@@ -253,7 +254,7 @@ func (d definition) isTopLevel() bool {
 
 // --------------------------------------------------------------------------
 
-func gvkFromRef(ref string) schema.GroupVersionKind {
+func GVKFromRef(ref string) schema.GroupVersionKind {
 	split := strings.Split(ref, ".")
 	gvk := schema.GroupVersionKind{
 		Kind:    split[len(split)-1],
@@ -359,6 +360,24 @@ func makeSchemaTypeSpec(prop map[string]any, canonicalGroups map[string]string) 
 		}
 	}
 
+	// Handle objects with `x-preserve-unknown-fields` set to true.
+	if preserveUnknownFields, ok := prop["x-kubernetes-preserve-unknown-fields"]; ok {
+		if preserveUnknownFields.(bool) {
+			return pschema.TypeSpec{
+				Type:                 "object",
+				AdditionalProperties: &pschema.TypeSpec{Ref: "pulumi.json#/Any"},
+			}
+		}
+	}
+
+	// Handle objects with `x-kubernetes-int-or-string`.
+	if _, ok := prop["x-kubernetes-int-or-string"]; ok {
+		return pschema.TypeSpec{OneOf: []pschema.TypeSpec{
+			{Type: "integer"},
+			{Type: "string"},
+		}}
+	}
+
 	ref := stripPrefix(prop["$ref"].(string))
 	switch ref {
 	case quantity:
@@ -421,7 +440,7 @@ func makeSchemaTypeSpec(prop map[string]any, canonicalGroups map[string]string) 
 		return pschema.TypeSpec{Ref: "pulumi.json#/Json"}
 	}
 
-	gvk := gvkFromRef(ref)
+	gvk := GVKFromRef(ref)
 	if canonicalGroup, ok := canonicalGroups[gvk.Group]; ok {
 		return pschema.TypeSpec{Ref: fmt.Sprintf("#/types/kubernetes:%s/%s:%s",
 			canonicalGroup, gvk.Version, gvk.Kind)}
@@ -442,7 +461,7 @@ func makeSchemaType(prop map[string]any, canonicalGroups map[string]string) stri
 
 // --------------------------------------------------------------------------
 
-func createGroups(definitionsJSON map[string]any) []GroupConfig {
+func createGroups(definitionsJSON map[string]any, allowHyphens bool) []GroupConfig {
 	// Map Group -> canonical Group
 	// e.g., flowcontrol -> flowcontrol.apiserver.k8s.io
 	canonicalGroups := map[string]string{
@@ -451,7 +470,7 @@ func createGroups(definitionsJSON map[string]any) []GroupConfig {
 	linq.From(definitionsJSON).
 		SelectT(func(kv linq.KeyValue) definition {
 			defName := kv.Key.(string)
-			gvk := gvkFromRef(defName)
+			gvk := GVKFromRef(defName)
 			def := definition{
 				gvk:  gvk,
 				name: defName,
@@ -479,7 +498,7 @@ func createGroups(definitionsJSON map[string]any) []GroupConfig {
 	linq.From(definitionsJSON).
 		SelectT(func(kv linq.KeyValue) definition {
 			defName := kv.Key.(string)
-			gvk := gvkFromRef(defName)
+			gvk := GVKFromRef(defName)
 			def := definition{
 				gvk:  gvk,
 				name: defName,
@@ -600,7 +619,10 @@ func createGroups(definitionsJSON map[string]any) []GroupConfig {
 					case "x-kubernetes-validations":
 						propName = "x_kubernetes_validations" //nolint:gosec
 					}
-					contract.Assertf(!strings.Contains(propName, "-"), "property names may not contain `-`")
+
+					if !allowHyphens {
+						contract.Assertf(!strings.Contains(propName, "-"), "property names may not contain `-`")
+					}
 
 					// Create a const value for the field.
 					var constValue string
@@ -664,6 +686,10 @@ func createGroups(definitionsJSON map[string]any) []GroupConfig {
 				contract.Assertf(len(parts) == 2, "expected package name to have two parts: %s", pkgName)
 				g, v := parts[0], parts[1]
 				gParts := strings.Split(g, ".")
+
+				// We need to sanitize versions to be valid package names.
+				v = validCharRegex.ReplaceAllString(v, "_")
+
 				return fmt.Sprintf("%s/%s", gParts[0], v)
 			}
 			return linq.From([]KindConfig{
