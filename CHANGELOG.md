@@ -1,6 +1,16 @@
 ## Unreleased
 
-## 4.18 (September 3, 2024)
+## 4.18.1 (September 13, 2024)
+
+### Added
+
+- Schemagen is now a library that can be consumed by other packages. (https://github.com/pulumi/pulumi-kubernetes/pull/3187)
+
+### Changed
+
+- Updated beta Kubernetes client libraries to stable v1.31 release. (https://github.com/pulumi/pulumi-kubernetes/pull/3196)
+
+## 4.18.0 (September 3, 2024)
 
 ### Added
 
