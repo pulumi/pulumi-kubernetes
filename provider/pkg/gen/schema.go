@@ -366,7 +366,9 @@ func PulumiSchema(swagger map[string]any, opts ...schemaGeneratorOption) pschema
 			for _, kind := range version.Kinds() {
 				tok := fmt.Sprintf(`kubernetes:%s:%s`, kind.apiVersion, kind.kind)
 				var patchTok string
-				if !strings.HasSuffix(kind.kind, "List") {
+
+				// Generate patch variants for non-list resources.
+				if !kind.isList {
 					patchTok = fmt.Sprintf("%sPatch", tok)
 				}
 
