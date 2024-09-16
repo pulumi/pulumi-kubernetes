@@ -90,6 +90,7 @@ type KindConfig struct {
 	defaultAPIVersion string
 
 	isNested bool
+	isList   bool // Indicates if this kind is a list.
 
 	schemaPkgName string
 }
@@ -486,6 +487,7 @@ func createGroups(definitionsJSON map[string]any, allowHyphens bool) []GroupConf
 				}
 				def.canonicalGroup = group
 			}
+
 			return def
 		}).
 		WhereT(func(d definition) bool { return d.canonicalGroup != "" }).
@@ -593,12 +595,22 @@ func createGroups(definitionsJSON map[string]any, allowHyphens bool) []GroupConf
 
 			defaultAPIVersion := d.defaultAPIVersion()
 			isTopLevel := d.isTopLevel()
+			isList := false
 
 			ps := linq.From(d.data["properties"]).
 				OrderByT(func(kv linq.KeyValue) string { return kv.Key.(string) }).
 				SelectT(func(kv linq.KeyValue) Property {
 					propName := kv.Key.(string)
 					prop := d.data["properties"].(map[string]any)[propName].(map[string]any)
+
+					// Determine if kind is a list resource if it contains an `items` property that is an array and Kind name ends in `List`.
+					// Ref: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+					propType, ok := prop["type"].(string)
+					if ok {
+						if propName == "items" && propType == "array" && strings.HasSuffix(d.gvk.Kind, "List") {
+							isList = true
+						}
+					}
 
 					schemaType := makeSchemaType(prop, canonicalGroups)
 
@@ -693,6 +705,14 @@ func createGroups(definitionsJSON map[string]any, allowHyphens bool) []GroupConf
 
 				return fmt.Sprintf("%s/%s", gStripped, v)
 			}
+
+			// These resources are hard-coded as lists as they do not adhere to the normal conventions.
+			if d.gvk.Group == "meta" &&
+				d.gvk.Version == "v1" &&
+				(d.gvk.Kind == "APIResourceList" || d.gvk.Kind == "APIGroupList") {
+				isList = true
+			}
+
 			return linq.From([]KindConfig{
 				{
 					kind:                    d.gvk.Kind,
@@ -708,6 +728,7 @@ func createGroups(definitionsJSON map[string]any, allowHyphens bool) []GroupConf
 					defaultAPIVersion:       defaultAPIVersion,
 					isNested:                !isTopLevel,
 					schemaPkgName:           schemaPkgName(apiVersion),
+					isList:                  isList,
 				},
 			})
 		}).
