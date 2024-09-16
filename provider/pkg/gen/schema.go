@@ -98,16 +98,16 @@ func WithAllowHyphens(allow bool) schemaGeneratorOption {
 	return &withAllowHyphensOption{allowHyphens: allow}
 }
 
-type WithPulumiKubernetesDependency struct {
+type withPulumiKubernetesDependency struct {
 	pulumiVersion string
 }
 
-func (o *WithPulumiKubernetesDependency) apply(sg *schemaGenerator) {
+func (o *withPulumiKubernetesDependency) apply(sg *schemaGenerator) {
 	sg.pulumiKubernetesDependency = o.pulumiVersion
 }
 
-func WithAddPulumiKubernetesDependency(version string) schemaGeneratorOption {
-	return &WithPulumiKubernetesDependency{pulumiVersion: version}
+func WithPulumiKubernetesDependency(version string) schemaGeneratorOption {
+	return &withPulumiKubernetesDependency{pulumiVersion: version}
 }
 
 // PulumiSchema will generate a Pulumi schema for the given k8s schema.
@@ -660,7 +660,7 @@ Use the navigation below to see detailed documentation for each of the supported
 		"requests": ">=2.21,<3.0",
 	}
 	if gen.pulumiKubernetesDependency != "" {
-		requires["pulumi-kubernetes"] = gen.pulumiKubernetesDependency
+		requires["pulumi-kubernetes"] = "==" + gen.pulumiKubernetesDependency
 	}
 	pkg.Language["python"] = rawMessage(map[string]any{
 		"respectSchemaVersion": true,
