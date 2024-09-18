@@ -14,7 +14,7 @@ import javax.annotation.Nullable;
 
 /**
  * Specification defining the Helm chart repository to use.
- * 
+ *
  */
 public final class RepositoryOptsArgs extends com.pulumi.resources.ResourceArgs {
 
@@ -22,14 +22,14 @@ public final class RepositoryOptsArgs extends com.pulumi.resources.ResourceArgs 
 
     /**
      * The Repository&#39;s CA File
-     * 
+     *
      */
     @Import(name="caFile")
     private @Nullable Output<AssetOrArchive> caFile;
 
     /**
      * @return The Repository&#39;s CA File
-     * 
+     *
      */
     public Optional<Output<AssetOrArchive>> caFile() {
         return Optional.ofNullable(this.caFile);
@@ -37,14 +37,14 @@ public final class RepositoryOptsArgs extends com.pulumi.resources.ResourceArgs 
 
     /**
      * The repository&#39;s cert file
-     * 
+     *
      */
     @Import(name="certFile")
     private @Nullable Output<AssetOrArchive> certFile;
 
     /**
      * @return The repository&#39;s cert file
-     * 
+     *
      */
     public Optional<Output<AssetOrArchive>> certFile() {
         return Optional.ofNullable(this.certFile);
@@ -52,14 +52,14 @@ public final class RepositoryOptsArgs extends com.pulumi.resources.ResourceArgs 
 
     /**
      * The repository&#39;s cert key file
-     * 
+     *
      */
     @Import(name="keyFile")
     private @Nullable Output<AssetOrArchive> keyFile;
 
     /**
      * @return The repository&#39;s cert key file
-     * 
+     *
      */
     public Optional<Output<AssetOrArchive>> keyFile() {
         return Optional.ofNullable(this.keyFile);
@@ -67,29 +67,29 @@ public final class RepositoryOptsArgs extends com.pulumi.resources.ResourceArgs 
 
     /**
      * Password for HTTP basic authentication
-     * 
+     *
      */
     @Import(name="password")
     private @Nullable Output<String> password;
 
     /**
      * @return Password for HTTP basic authentication
-     * 
+     *
      */
     public Optional<Output<String>> password() {
         return Optional.ofNullable(this.password);
     }
 
     /**
-     * Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository.
-     * 
+     * Repository where to locate the requested chart. If it's a URL the chart is installed without installing the repository.
+     *
      */
     @Import(name="repo")
     private @Nullable Output<String> repo;
 
     /**
-     * @return Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository.
-     * 
+     * @return Repository where to locate the requested chart. If it's a URL the chart is installed without installing the repository.
+     *
      */
     public Optional<Output<String>> repo() {
         return Optional.ofNullable(this.repo);
@@ -97,14 +97,14 @@ public final class RepositoryOptsArgs extends com.pulumi.resources.ResourceArgs 
 
     /**
      * Username for HTTP basic authentication
-     * 
+     *
      */
     @Import(name="username")
     private @Nullable Output<String> username;
 
     /**
      * @return Username for HTTP basic authentication
-     * 
+     *
      */
     public Optional<Output<String>> username() {
         return Optional.ofNullable(this.username);
@@ -141,9 +141,9 @@ public final class RepositoryOptsArgs extends com.pulumi.resources.ResourceArgs 
 
         /**
          * @param caFile The Repository&#39;s CA File
-         * 
+         *
          * @return builder
-         * 
+         *
          */
         public Builder caFile(@Nullable Output<AssetOrArchive> caFile) {
             $.caFile = caFile;
@@ -152,9 +152,9 @@ public final class RepositoryOptsArgs extends com.pulumi.resources.ResourceArgs 
 
         /**
          * @param caFile The Repository&#39;s CA File
-         * 
+         *
          * @return builder
-         * 
+         *
          */
         public Builder caFile(AssetOrArchive caFile) {
             return caFile(Output.of(caFile));
@@ -162,9 +162,9 @@ public final class RepositoryOptsArgs extends com.pulumi.resources.ResourceArgs 
 
         /**
          * @param certFile The repository&#39;s cert file
-         * 
+         *
          * @return builder
-         * 
+         *
          */
         public Builder certFile(@Nullable Output<AssetOrArchive> certFile) {
             $.certFile = certFile;
@@ -173,9 +173,9 @@ public final class RepositoryOptsArgs extends com.pulumi.resources.ResourceArgs 
 
         /**
          * @param certFile The repository&#39;s cert file
-         * 
+         *
          * @return builder
-         * 
+         *
          */
         public Builder certFile(AssetOrArchive certFile) {
             return certFile(Output.of(certFile));
@@ -183,9 +183,9 @@ public final class RepositoryOptsArgs extends com.pulumi.resources.ResourceArgs 
 
         /**
          * @param keyFile The repository&#39;s cert key file
-         * 
+         *
          * @return builder
-         * 
+         *
          */
         public Builder keyFile(@Nullable Output<AssetOrArchive> keyFile) {
             $.keyFile = keyFile;
@@ -194,9 +194,9 @@ public final class RepositoryOptsArgs extends com.pulumi.resources.ResourceArgs 
 
         /**
          * @param keyFile The repository&#39;s cert key file
-         * 
+         *
          * @return builder
-         * 
+         *
          */
         public Builder keyFile(AssetOrArchive keyFile) {
             return keyFile(Output.of(keyFile));
@@ -204,9 +204,9 @@ public final class RepositoryOptsArgs extends com.pulumi.resources.ResourceArgs 
 
         /**
          * @param password Password for HTTP basic authentication
-         * 
+         *
          * @return builder
-         * 
+         *
          */
         public Builder password(@Nullable Output<String> password) {
             $.password = password;
@@ -215,19 +215,19 @@ public final class RepositoryOptsArgs extends com.pulumi.resources.ResourceArgs 
 
         /**
          * @param password Password for HTTP basic authentication
-         * 
+         *
          * @return builder
-         * 
+         *
          */
         public Builder password(String password) {
             return password(Output.of(password));
         }
 
         /**
-         * @param repo Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository.
-         * 
+         * @param repo Repository where to locate the requested chart. If it's a URL the chart is installed without installing the repository.
+         *
          * @return builder
-         * 
+         *
          */
         public Builder repo(@Nullable Output<String> repo) {
             $.repo = repo;
@@ -235,10 +235,10 @@ public final class RepositoryOptsArgs extends com.pulumi.resources.ResourceArgs 
         }
 
         /**
-         * @param repo Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository.
-         * 
+         * @param repo Repository where to locate the requested chart. If it's a URL the chart is installed without installing the repository.
+         *
          * @return builder
-         * 
+         *
          */
         public Builder repo(String repo) {
             return repo(Output.of(repo));
@@ -246,9 +246,9 @@ public final class RepositoryOptsArgs extends com.pulumi.resources.ResourceArgs 
 
         /**
          * @param username Username for HTTP basic authentication
-         * 
+         *
          * @return builder
-         * 
+         *
          */
         public Builder username(@Nullable Output<String> username) {
             $.username = username;
@@ -257,9 +257,9 @@ public final class RepositoryOptsArgs extends com.pulumi.resources.ResourceArgs 
 
         /**
          * @param username Username for HTTP basic authentication
-         * 
+         *
          * @return builder
-         * 
+         *
          */
         public Builder username(String username) {
             return username(Output.of(username));

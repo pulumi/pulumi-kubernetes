@@ -165,7 +165,7 @@ class RepositoryOpts(dict):
         :param str cert_file: The repository's cert file
         :param str key_file: The repository's cert key file
         :param str password: Password for HTTP basic authentication
-        :param str repo: Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository.
+        :param str repo: Repository where to locate the requested chart. If it's a URL the chart is installed without installing the repository.
         :param str username: Username for HTTP basic authentication
         """
         if ca_file is not None:
@@ -217,7 +217,7 @@ class RepositoryOpts(dict):
     @pulumi.getter
     def repo(self) -> Optional[str]:
         """
-        Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository.
+        Repository where to locate the requested chart. If it's a URL the chart is installed without installing the repository.
         """
         return pulumi.get(self, "repo")
 
@@ -228,5 +228,3 @@ class RepositoryOpts(dict):
         Username for HTTP basic authentication
         """
         return pulumi.get(self, "username")
-
-

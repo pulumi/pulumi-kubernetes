@@ -12050,7 +12050,7 @@ export namespace batch {
          * time out and mark the resource update as Failed. You can override the default timeout value
          * by setting the 'customTimeouts' option on the resource.
          *
-         * By default, if a resource failed to become ready in a previous update, 
+         * By default, if a resource failed to become ready in a previous update,
          * Pulumi will continue to wait for readiness on the next update. If you would prefer
          * to schedule a replacement for an unready resource on the next update, you can add the
          * "pulumi.com/replaceUnready": "true" annotation to the resource definition.
@@ -21542,7 +21542,7 @@ export namespace core {
          * Secret holds secret data of a certain type. The total bytes of the values in the Data field must be less than MaxSecretSize bytes.
          *
          * Note: While Pulumi automatically encrypts the 'data' and 'stringData'
-         * fields, this encryption only applies to Pulumi's context, including the state file, 
+         * fields, this encryption only applies to Pulumi's context, including the state file,
          * the Service, the CLI, etc. Kubernetes does not encrypt Secret resources by default,
          * and the contents are visible to users with access to the Secret in Kubernetes using
          * tools like 'kubectl'.
@@ -24944,7 +24944,7 @@ export namespace extensions {
         }
 
         /**
-         * Ingress is a collection of rules that allow inbound connections to reach the endpoints defined by a backend. An Ingress can be configured to give services externally-reachable urls, load balance traffic, terminate SSL, offer name based virtual hosting etc. 
+         * Ingress is a collection of rules that allow inbound connections to reach the endpoints defined by a backend. An Ingress can be configured to give services externally-reachable urls, load balance traffic, terminate SSL, offer name based virtual hosting etc.
          *
          * This resource waits until its status is ready before registering success
          * for create/update, and populating output properties from the current state of the resource.
@@ -29495,7 +29495,7 @@ export namespace helm {
              */
             password: string;
             /**
-             * Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository.
+             * Repository where to locate the requested chart. If it's a URL the chart is installed without installing the repository.
              */
             repo: string;
             /**
