@@ -50,7 +50,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Helm.V4
         }
 
         /// <summary>
-        /// Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository.
+        /// Repository where to locate the requested chart. If it's a URL the chart is installed without installing the repository.
         /// </summary>
         [Input("repo")]
         public Input<string>? Repo { get; set; }
