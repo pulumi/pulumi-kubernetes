@@ -101,7 +101,7 @@ if not MYPY:
         """
         repo: NotRequired[pulumi.Input[str]]
         """
-        Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository.
+        Repository where to locate the requested chart. If it's a URL the chart is installed without installing the repository.
         """
         username: NotRequired[pulumi.Input[str]]
         """
@@ -125,7 +125,7 @@ class RepositoryOptsArgs:
         :param pulumi.Input[Union[pulumi.Asset, pulumi.Archive]] cert_file: The repository's cert file
         :param pulumi.Input[Union[pulumi.Asset, pulumi.Archive]] key_file: The repository's cert key file
         :param pulumi.Input[str] password: Password for HTTP basic authentication
-        :param pulumi.Input[str] repo: Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository.
+        :param pulumi.Input[str] repo: Repository where to locate the requested chart. If it's a URL the chart is installed without installing the repository.
         :param pulumi.Input[str] username: Username for HTTP basic authentication
         """
         if ca_file is not None:
@@ -193,7 +193,7 @@ class RepositoryOptsArgs:
     @pulumi.getter
     def repo(self) -> Optional[pulumi.Input[str]]:
         """
-        Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository.
+        Repository where to locate the requested chart. If it's a URL the chart is installed without installing the repository.
         """
         return pulumi.get(self, "repo")
 

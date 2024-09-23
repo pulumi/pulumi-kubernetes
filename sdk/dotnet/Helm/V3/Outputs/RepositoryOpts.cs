@@ -33,7 +33,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Helm.V3
         /// </summary>
         public readonly string Password;
         /// <summary>
-        /// Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository.
+        /// Repository where to locate the requested chart. If it's a URL the chart is installed without installing the repository.
         /// </summary>
         public readonly string Repo;
         /// <summary>

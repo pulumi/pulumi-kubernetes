@@ -26331,7 +26331,7 @@ export namespace helm {
              */
             password?: pulumi.Input<string>;
             /**
-             * Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository.
+             * Repository where to locate the requested chart. If it's a URL the chart is installed without installing the repository.
              */
             repo?: pulumi.Input<string>;
             /**
@@ -26377,7 +26377,7 @@ export namespace helm {
              */
             password?: pulumi.Input<string>;
             /**
-             * Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository.
+             * Repository where to locate the requested chart. If it's a URL the chart is installed without installing the repository.
              */
             repo?: pulumi.Input<string>;
             /**

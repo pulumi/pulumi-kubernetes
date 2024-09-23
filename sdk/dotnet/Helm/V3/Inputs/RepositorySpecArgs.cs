@@ -16,7 +16,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Helm.V3
     public class RepositorySpecArgs : Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository.
+        /// Repository where to locate the requested chart. If it's a URL the chart is installed without installing the repository.
         /// </summary>
         [Input("repository")]
         public Input<string>? Repository { get; set; }

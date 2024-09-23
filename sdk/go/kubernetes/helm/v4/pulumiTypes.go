@@ -182,7 +182,7 @@ type RepositoryOpts struct {
 	KeyFile pulumi.AssetOrArchive `pulumi:"keyFile"`
 	// Password for HTTP basic authentication
 	Password *string `pulumi:"password"`
-	// Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository.
+	// Repository where to locate the requested chart. If it's a URL the chart is installed without installing the repository.
 	Repo *string `pulumi:"repo"`
 	// Username for HTTP basic authentication
 	Username *string `pulumi:"username"`
@@ -209,7 +209,7 @@ type RepositoryOptsArgs struct {
 	KeyFile pulumi.AssetOrArchiveInput `pulumi:"keyFile"`
 	// Password for HTTP basic authentication
 	Password pulumi.StringPtrInput `pulumi:"password"`
-	// Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository.
+	// Repository where to locate the requested chart. If it's a URL the chart is installed without installing the repository.
 	Repo pulumi.StringPtrInput `pulumi:"repo"`
 	// Username for HTTP basic authentication
 	Username pulumi.StringPtrInput `pulumi:"username"`
@@ -313,7 +313,7 @@ func (o RepositoryOptsOutput) Password() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v RepositoryOpts) *string { return v.Password }).(pulumi.StringPtrOutput)
 }
 
-// Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository.
+// Repository where to locate the requested chart. If it's a URL the chart is installed without installing the repository.
 func (o RepositoryOptsOutput) Repo() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v RepositoryOpts) *string { return v.Repo }).(pulumi.StringPtrOutput)
 }
@@ -387,7 +387,7 @@ func (o RepositoryOptsPtrOutput) Password() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository.
+// Repository where to locate the requested chart. If it's a URL the chart is installed without installing the repository.
 func (o RepositoryOptsPtrOutput) Repo() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *RepositoryOpts) *string {
 		if v == nil {

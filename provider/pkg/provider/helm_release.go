@@ -140,7 +140,7 @@ type ReleaseSpec struct{}
 
 // Specification defining the Helm chart repository to use.
 type RepositoryOpts struct {
-	// Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository.
+	// Repository where to locate the requested chart. If it's a URL the chart is installed without installing the repository.
 	Repo string `json:"repo,omitempty"`
 	// The Repositories CA File
 	CAFile string `json:"caFile,omitempty"`

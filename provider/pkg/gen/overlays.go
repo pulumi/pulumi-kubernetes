@@ -363,7 +363,7 @@ var helmV3RepoOpts = pschema.ComplexTypeSpec{
 				TypeSpec: pschema.TypeSpec{
 					Type: "string",
 				},
-				Description: "Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository.",
+				Description: "Repository where to locate the requested chart. If it's a URL the chart is installed without installing the repository.",
 			},
 			"keyFile": { // TODO: Content or file
 				TypeSpec: pschema.TypeSpec{
@@ -420,7 +420,7 @@ var helmV4RepoOpts = pschema.ComplexTypeSpec{
 				TypeSpec: pschema.TypeSpec{
 					Type: "string",
 				},
-				Description: "Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository.",
+				Description: "Repository where to locate the requested chart. If it's a URL the chart is installed without installing the repository.",
 			},
 			"keyFile": {
 				TypeSpec: pschema.TypeSpec{

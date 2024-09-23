@@ -81,14 +81,14 @@ public final class RepositoryOptsArgs extends com.pulumi.resources.ResourceArgs 
     }
 
     /**
-     * Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository.
+     * Repository where to locate the requested chart. If it&#39;s a URL the chart is installed without installing the repository.
      * 
      */
     @Import(name="repo")
     private @Nullable Output<String> repo;
 
     /**
-     * @return Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository.
+     * @return Repository where to locate the requested chart. If it&#39;s a URL the chart is installed without installing the repository.
      * 
      */
     public Optional<Output<String>> repo() {
@@ -224,7 +224,7 @@ public final class RepositoryOptsArgs extends com.pulumi.resources.ResourceArgs 
         }
 
         /**
-         * @param repo Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository.
+         * @param repo Repository where to locate the requested chart. If it&#39;s a URL the chart is installed without installing the repository.
          * 
          * @return builder
          * 
@@ -235,7 +235,7 @@ public final class RepositoryOptsArgs extends com.pulumi.resources.ResourceArgs 
         }
 
         /**
-         * @param repo Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository.
+         * @param repo Repository where to locate the requested chart. If it&#39;s a URL the chart is installed without installing the repository.
          * 
          * @return builder
          * 

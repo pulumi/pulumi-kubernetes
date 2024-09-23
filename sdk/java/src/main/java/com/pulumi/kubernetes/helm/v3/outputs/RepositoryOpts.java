@@ -32,7 +32,7 @@ public final class RepositoryOpts {
      */
     private @Nullable String password;
     /**
-     * @return Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository.
+     * @return Repository where to locate the requested chart. If it&#39;s a URL the chart is installed without installing the repository.
      * 
      */
     private @Nullable String repo;
@@ -72,7 +72,7 @@ public final class RepositoryOpts {
         return Optional.ofNullable(this.password);
     }
     /**
-     * @return Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository.
+     * @return Repository where to locate the requested chart. If it&#39;s a URL the chart is installed without installing the repository.
      * 
      */
     public Optional<String> repo() {

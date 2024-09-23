@@ -59,7 +59,7 @@ export interface RepositoryOpts {
      */
     password: string;
     /**
-     * Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository.
+     * Repository where to locate the requested chart. If it's a URL the chart is installed without installing the repository.
      */
     repo: string;
     /**
@@ -67,4 +67,3 @@ export interface RepositoryOpts {
      */
     username: string;
 }
-
