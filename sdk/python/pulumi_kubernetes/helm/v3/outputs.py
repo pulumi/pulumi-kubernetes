@@ -228,3 +228,5 @@ class RepositoryOpts(dict):
         Username for HTTP basic authentication
         """
         return pulumi.get(self, "username")
+
+

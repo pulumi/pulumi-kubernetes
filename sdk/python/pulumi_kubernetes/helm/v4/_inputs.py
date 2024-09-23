@@ -212,3 +212,5 @@ class RepositoryOptsArgs:
     @username.setter
     def username(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "username", value)
+
+
