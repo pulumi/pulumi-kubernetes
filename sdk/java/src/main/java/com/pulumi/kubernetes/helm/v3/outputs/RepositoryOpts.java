@@ -13,74 +13,74 @@ import javax.annotation.Nullable;
 public final class RepositoryOpts {
     /**
      * @return The Repository&#39;s CA File
-     *
+     * 
      */
     private @Nullable String caFile;
     /**
      * @return The repository&#39;s cert file
-     *
+     * 
      */
     private @Nullable String certFile;
     /**
      * @return The repository&#39;s cert key file
-     *
+     * 
      */
     private @Nullable String keyFile;
     /**
      * @return Password for HTTP basic authentication
-     *
+     * 
      */
     private @Nullable String password;
     /**
-     * @return Repository where to locate the requested chart. If it's a URL the chart is installed without installing the repository.
-     *
+     * @return Repository where to locate the requested chart. If it&#39;s a URL the chart is installed without installing the repository.
+     * 
      */
     private @Nullable String repo;
     /**
      * @return Username for HTTP basic authentication
-     *
+     * 
      */
     private @Nullable String username;
 
     private RepositoryOpts() {}
     /**
      * @return The Repository&#39;s CA File
-     *
+     * 
      */
     public Optional<String> caFile() {
         return Optional.ofNullable(this.caFile);
     }
     /**
      * @return The repository&#39;s cert file
-     *
+     * 
      */
     public Optional<String> certFile() {
         return Optional.ofNullable(this.certFile);
     }
     /**
      * @return The repository&#39;s cert key file
-     *
+     * 
      */
     public Optional<String> keyFile() {
         return Optional.ofNullable(this.keyFile);
     }
     /**
      * @return Password for HTTP basic authentication
-     *
+     * 
      */
     public Optional<String> password() {
         return Optional.ofNullable(this.password);
     }
     /**
-     * @return Repository where to locate the requested chart. If it's a URL the chart is installed without installing the repository.
-     *
+     * @return Repository where to locate the requested chart. If it&#39;s a URL the chart is installed without installing the repository.
+     * 
      */
     public Optional<String> repo() {
         return Optional.ofNullable(this.repo);
     }
     /**
      * @return Username for HTTP basic authentication
-     *
+     * 
      */
     public Optional<String> username() {
         return Optional.ofNullable(this.username);
