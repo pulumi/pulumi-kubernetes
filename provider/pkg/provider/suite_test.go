@@ -77,7 +77,7 @@ func WriteKubeconfigToFile(config *clientcmdapi.Config) string {
 
 // A mock engine for test purposes.
 type mockEngine struct {
-	pulumirpc.UnsafeEngineServer
+	pulumirpc.UnimplementedEngineServer
 	t            testing.TB
 	logger       *log.Logger
 	rootResource string

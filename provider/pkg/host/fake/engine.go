@@ -78,7 +78,7 @@ func ConnectToEngine(t testing.TB, addr string) *grpc.ClientConn {
 
 // A fake engine server for test purposes.
 type EngineServer struct {
-	pulumirpc.UnsafeEngineServer
+	pulumirpc.UnimplementedEngineServer
 	t testing.TB
 
 	mu           sync.Mutex
