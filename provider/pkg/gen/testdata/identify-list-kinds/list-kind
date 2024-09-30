@@ -145,9 +145,9 @@
 }
 
 -- kinds --
-- k8sversion.test.TestResource
-- k8sversion.test.TestResourceNotRealList
+- com.pulumi.k8sversion.test.TestResource
+- com.pulumi.k8sversion.test.TestResourceNotRealList
 
 -- listKinds --
-- k8sversion.test.TestResourceList
-- k8sversion.test.TestResourceNotRealListList
+- com.pulumi.k8sversion.test.TestResourceList
+- com.pulumi.k8sversion.test.TestResourceNotRealListList

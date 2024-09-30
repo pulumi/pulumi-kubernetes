@@ -19,9 +19,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"regexp"
+	"sort"
 	"strings"
 
-	"github.com/ahmetb/go-linq"
 	pschema "github.com/pulumi/pulumi/pkg/v3/codegen/schema"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 	"k8s.io/apimachinery/pkg/runtime/schema"
@@ -205,28 +205,28 @@ func (d definition) isTopLevel() bool {
 	switch fmt.Sprintf("%s/%s", d.gvk.GroupVersion().String(), d.gvk.Kind) {
 	case
 		"v1/Status",
-		"apps/v1beta1/Scale",
-		"apps/v1beta2/Scale",
-		"authentication/v1/TokenRequest",
-		"authentication/v1/TokenReview",
-		"authentication/v1alpha1/SelfSubjectReview",
-		"authentication/v1beta1/SelfSubjectReview",
-		"authentication/v1/SelfSubjectReview",
-		"authentication/v1beta1/TokenReview",
-		"authorization/v1/LocalSubjectAccessReview",
-		"authorization/v1/SelfSubjectAccessReview",
-		"authorization/v1/SelfSubjectRulesReview",
-		"authorization/v1/SubjectAccessReview",
-		"authorization/v1beta1/LocalSubjectAccessReview",
-		"authorization/v1beta1/SelfSubjectAccessReview",
-		"authorization/v1beta1/SelfSubjectRulesReview",
-		"authorization/v1beta1/SubjectAccessReview",
-		"autoscaling/v1/Scale",
-		"core/v1/ComponentStatus",
-		"core/v1/ComponentStatusList",
-		"extensions/v1beta1/Scale",
-		"policy/v1beta1/Eviction",
-		"policy/v1/Eviction":
+		"io.k8s.api.apps/v1beta1/Scale",
+		"io.k8s.api.apps/v1beta2/Scale",
+		"io.k8s.api.authentication/v1/TokenRequest",
+		"io.k8s.api.authentication/v1/TokenReview",
+		"io.k8s.api.authentication/v1alpha1/SelfSubjectReview",
+		"io.k8s.api.authentication/v1beta1/SelfSubjectReview",
+		"io.k8s.api.authentication/v1/SelfSubjectReview",
+		"io.k8s.api.authentication/v1beta1/TokenReview",
+		"io.k8s.api.authorization/v1/LocalSubjectAccessReview",
+		"io.k8s.api.authorization/v1/SelfSubjectAccessReview",
+		"io.k8s.api.authorization/v1/SelfSubjectRulesReview",
+		"io.k8s.api.authorization/v1/SubjectAccessReview",
+		"io.k8s.api.authorization/v1beta1/LocalSubjectAccessReview",
+		"io.k8s.api.authorization/v1beta1/SelfSubjectAccessReview",
+		"io.k8s.api.authorization/v1beta1/SelfSubjectRulesReview",
+		"io.k8s.api.authorization/v1beta1/SubjectAccessReview",
+		"io.k8s.api.autoscaling/v1/Scale",
+		"io.k8s.api.core/v1/ComponentStatus",
+		"io.k8s.api.core/v1/ComponentStatusList",
+		"io.k8s.api.extensions/v1beta1/Scale",
+		"io.k8s.api.policy/v1beta1/Eviction",
+		"io.k8s.api.policy/v1/Eviction":
 		return false
 	}
 
@@ -260,7 +260,7 @@ func GVKFromRef(ref string) schema.GroupVersionKind {
 	gvk := schema.GroupVersionKind{
 		Kind:    split[len(split)-1],
 		Version: split[len(split)-2],
-		Group:   split[len(split)-3],
+		Group:   strings.Join(split[:len(split)-2], "."),
 	}
 	return gvk
 }
@@ -463,339 +463,360 @@ func makeSchemaType(prop map[string]any, canonicalGroups map[string]string) stri
 // --------------------------------------------------------------------------
 
 func createGroups(definitionsJSON map[string]any, allowHyphens bool) []GroupConfig {
-	// Map Group -> canonical Group
-	// e.g., flowcontrol -> flowcontrol.apiserver.k8s.io
+	canonicalGroups := createCanonicalGroups(definitionsJSON)
+	definitions := createDefinitions(definitionsJSON, canonicalGroups)
+	aliases := createAliases(definitions, canonicalGroups)
+	kinds := createKinds(definitions, canonicalGroups, aliases, allowHyphens)
+	versions := createVersions(kinds)
+	groups := createGroupsFromVersions(versions)
+	return groups
+}
+
+// createCanonicalGroups creates a mapping of a parsed Swagger definition group to its
+// kubernetes canonical group as defined in the Swagger spec.
+// E.g., "meta" -> "meta", "flowcontrol" -> "flowcontrol.apiserver.k8s.io"
+func createCanonicalGroups(definitionsJSON map[string]any) map[string]string {
+	// Hard-code some canonical groups as they don't contain the `x-kubernetes-group-version-kind` field.
 	canonicalGroups := map[string]string{
-		"meta": "meta", // "meta" Group doesn't include the `x-kubernetes-group-version-kind` field.
+		"io.k8s.apimachinery.pkg.apis.meta": "meta",
+		"io.k8s.apimachinery.pkg":           "pkg",
 	}
-	linq.From(definitionsJSON).
-		SelectT(func(kv linq.KeyValue) definition {
-			defName := kv.Key.(string)
-			gvk := GVKFromRef(defName)
-			def := definition{
-				gvk:  gvk,
-				name: defName,
-				data: definitionsJSON[defName].(map[string]any),
-			}
-			// Top-level kinds include a canonical GVK.
-			if gvks, gvkExists := def.data["x-kubernetes-group-version-kind"].([]any); gvkExists && len(gvks) > 0 {
-				gvk := gvks[0].(map[string]any)
-				group := gvk["group"].(string)
-				// The "core" group shows up as "" in the OpenAPI spec.
-				if group == "" && def.gvk.Group == "core" {
-					group = "core"
-				}
-				def.canonicalGroup = group
-			}
 
-			return def
-		}).
-		WhereT(func(d definition) bool { return d.canonicalGroup != "" }).
-		ToMapByT(&canonicalGroups,
-			func(d definition) string { return d.gvk.Group },
-			func(d definition) string { return d.canonicalGroup })
+	for defName, defData := range definitionsJSON {
+		gvk := GVKFromRef(defName)
+		def := definition{
+			gvk:  gvk,
+			name: defName,
+			data: defData.(map[string]any),
+		}
+		// Top-level kinds include a canonical GVK.
+		if gvks, gvkExists := def.data["x-kubernetes-group-version-kind"].([]any); gvkExists && len(gvks) > 0 {
+			gvk := gvks[0].(map[string]any)
+			group := gvk["group"].(string)
+			// The "core" group shows up as "" in the OpenAPI spec.
+			if group == "" && def.gvk.Group == "io.k8s.api.core" {
+				group = "core"
+			}
+			def.canonicalGroup = group
+		}
+		if def.canonicalGroup != "" {
+			canonicalGroups[def.gvk.Group] = def.canonicalGroup
+		}
+	}
 
-	// Map definition JSON object -> `definition` with metadata.
+	return canonicalGroups
+}
+
+// createDefinitions creates a list of definitions objects from the parsed Swagger definitions.
+func createDefinitions(definitionsJSON map[string]any, canonicalGroups map[string]string) []definition {
 	var definitions []definition
-	linq.From(definitionsJSON).
-		SelectT(func(kv linq.KeyValue) definition {
-			defName := kv.Key.(string)
-			gvk := GVKFromRef(defName)
-			def := definition{
-				gvk:  gvk,
-				name: defName,
-				data: definitionsJSON[defName].(map[string]any),
-			}
-			if canonicalGroup, ok := canonicalGroups[gvk.Group]; ok {
-				def.canonicalGroup = canonicalGroup
-			} else {
-				def.canonicalGroup = gvk.Group
-			}
-			return def
-		}).
-		ToSlice(&definitions)
+	for defName, defData := range definitionsJSON {
+		gvk := GVKFromRef(defName)
+		def := definition{
+			gvk:  gvk,
+			name: defName,
+			data: defData.(map[string]any),
+		}
+		if canonicalGroup, ok := canonicalGroups[gvk.Group]; ok {
+			def.canonicalGroup = canonicalGroup
+		} else {
+			def.canonicalGroup = gvk.Group
+		}
+		definitions = append(definitions, def)
+	}
+	return definitions
+}
 
-	// Compute aliases for Kinds. Many k8s resources have multiple GVs, so create a map from Kind -> GV string.
-	// For Kinds with more than one GV, create aliases in the SDKs.
+// createAliases creates a mapping of Kubernetes kinds to their aliases. Many kubernetes resources
+// have multiple GVs, so create a map from Kind -> GV string.
+// For Kinds with more than one GV, create aliases in the SDKs.
+func createAliases(definitions []definition, canonicalGroups map[string]string) map[string][]any {
 	aliases := map[string][]any{}
-	linq.From(definitions).
-		WhereT(func(d definition) bool { return d.isTopLevel() && !strings.HasSuffix(d.gvk.Kind, "List") }).
-		OrderByT(func(d definition) string { return d.gvk.String() }).
-		SelectManyT(func(d definition) linq.Query {
-			return linq.From([]KindConfig{
-				{
-					kind:       d.gvk.Kind,
-					apiVersion: d.apiVersion(canonicalGroups),
-				},
-			})
-		}).
-		GroupByT(
-			func(kind KindConfig) string {
-				return kind.kind
-			},
-			func(kind KindConfig) string {
-				return fmt.Sprintf("kubernetes:%s:%s", kind.apiVersion, kind.kind)
-			}).
-		WhereT(func(group linq.Group) bool {
-			return len(group.Group) > 1
-		}).
-		ToMapBy(&aliases,
-			func(i any) any {
-				return i.(linq.Group).Key
-			},
-			func(i any) any {
-				return i.(linq.Group).Group
-			})
-	aliasesForKind := func(kind, apiVersion string) []string {
-		var results []string
 
-		for _, alias := range aliases[kind] {
-			aliasString := alias.(string)
-			re := fmt.Sprintf(`:%s:`, apiVersion)
-			match, err := regexp.MatchString(re, aliasString)
-			if err == nil && match {
-				continue
-			}
-			results = append(results, aliasString)
-
-			switch kind {
-			case "CSIStorageCapacity":
-				results = append(results, "kubernetes:storage.k8s.io/v1alpha1:CSIStorageCapacity")
-			}
-
-			// "apiregistration.k8s.io" was previously called "apiregistration", so create aliases for backward compat
-			if strings.Contains(apiVersion, "apiregistration.k8s.io") {
-				parts := strings.Split(aliasString, ":")
-				parts[1] = "apiregistration" + strings.TrimPrefix(parts[1], "apiregistration.k8s.io")
-				results = append(results, strings.Join(parts, ":"))
-			}
+	// Filter top-level definitions that are not lists
+	var topLevelDefs []definition
+	for _, d := range definitions {
+		if d.isTopLevel() && !strings.HasSuffix(d.gvk.Kind, "List") {
+			topLevelDefs = append(topLevelDefs, d)
 		}
-
-		// "apiregistration.k8s.io" was previously called "apiregistration", so create aliases for backward compat
-		if strings.Contains(apiVersion, "apiregistration.k8s.io") {
-			results = append(results, fmt.Sprintf("kubernetes:%s:%s",
-				"apiregistration"+strings.TrimPrefix(apiVersion, "apiregistration.k8s.io"), kind))
-		}
-
-		return results
 	}
 
-	//
-	// Assemble a `KindConfig` for each Kubernetes kind.
-	//
+	// Sort the definitions
+	sort.Slice(topLevelDefs, func(i, j int) bool {
+		return topLevelDefs[i].gvk.String() < topLevelDefs[j].gvk.String()
+	})
 
-	var kinds []KindConfig
-	linq.From(definitions).
-		OrderByT(func(d definition) string { return d.gvk.String() }).
-		SelectManyT(func(d definition) linq.Query {
-			// Skip if there are no properties on the type.
-			if _, exists := d.data["properties"]; !exists {
-				return linq.From([]KindConfig{})
+	// Group by kind and collect aliases
+	groupedByKind := map[string][]string{}
+	for _, d := range topLevelDefs {
+		kind := d.gvk.Kind
+		apiVersion := d.apiVersion(canonicalGroups)
+		groupedByKind[kind] = append(groupedByKind[kind], fmt.Sprintf("kubernetes:%s:%s", apiVersion, kind))
+	}
+
+	// Filter groups with more than one alias
+	for kind, group := range groupedByKind {
+		if len(group) > 1 {
+			aliases[kind] = make([]any, len(group))
+			for i, v := range group {
+				aliases[kind][i] = v
 			}
+		}
+	}
 
-			defaultAPIVersion := d.defaultAPIVersion()
-			isTopLevel := d.isTopLevel()
-			isList := false
+	return aliases
+}
 
-			ps := linq.From(d.data["properties"]).
-				OrderByT(func(kv linq.KeyValue) string { return kv.Key.(string) }).
-				SelectT(func(kv linq.KeyValue) Property {
-					propName := kv.Key.(string)
-					prop := d.data["properties"].(map[string]any)[propName].(map[string]any)
+// createKinds creates a list of KindConfig objects from the parsed Swagger definitions.
+func createKinds(definitions []definition, canonicalGroups map[string]string, aliases map[string][]any, allowHyphens bool) []KindConfig {
+	var kinds []KindConfig
 
-					// Determine if kind is a list resource if it contains an `items` property that is an array and Kind name ends in `List`.
-					// Ref: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-					propType, ok := prop["type"].(string)
-					if ok {
-						if propName == "items" && propType == "array" && strings.HasSuffix(d.gvk.Kind, "List") {
-							isList = true
-						}
-					}
+	for _, d := range definitions {
+		// Skip if there are no properties on the type.
+		if _, exists := d.data["properties"]; !exists {
+			continue
+		}
 
-					schemaType := makeSchemaType(prop, canonicalGroups)
+		defaultAPIVersion := d.defaultAPIVersion()
+		isTopLevel := d.isTopLevel()
+		isList := false
 
-					// `-` is invalid in variable names, so replace with `_`
-					switch propName {
-					case "x-kubernetes-embedded-resource":
-						propName = "x_kubernetes_embedded_resource"
-					case "x-kubernetes-int-or-string":
-						propName = "x_kubernetes_int_or_string"
-					case "x-kubernetes-list-map-keys":
-						propName = "x_kubernetes_list_map_keys"
-					case "x-kubernetes-list-type":
-						propName = "x_kubernetes_list_type"
-					case "x-kubernetes-map-type":
-						propName = "x_kubernetes_map_type"
-					case "x-kubernetes-preserve-unknown-fields":
-						propName = "x_kubernetes_preserve_unknown_fields"
-					case "x-kubernetes-validations":
-						propName = "x_kubernetes_validations" //nolint:gosec
-					}
+		var properties []Property
+		var requiredInputProperties []Property
+		var optionalInputProperties []Property
 
-					if !allowHyphens {
-						contract.Assertf(!strings.Contains(propName, "-"), "property names may not contain `-`")
-					}
+		propMap := d.data["properties"].(map[string]any)
+		var propNames []string
+		for propName := range propMap {
+			propNames = append(propNames, propName)
+		}
+		sort.Strings(propNames)
 
-					// Create a const value for the field.
-					var constValue string
+		reqdProps := sets.NewString()
+		if reqd, hasReqd := d.data["required"]; hasReqd {
+			for _, propName := range reqd.([]any) {
+				reqdProps.Insert(propName.(string))
+			}
+		}
 
-					// Create a default value for the field.
-					switch propName {
-					case "apiVersion":
-						if d.isTopLevel() {
-							constValue = defaultAPIVersion
-						}
-					case "kind":
-						if d.isTopLevel() {
-							constValue = d.gvk.Kind
-						}
-					}
+		for _, propName := range propNames {
+			prop := propMap[propName].(map[string]any)
 
-					return Property{
-						comment:    fmtComment(prop["description"]),
-						schemaType: schemaType,
-						name:       propName,
-						constValue: constValue,
-					}
-				})
-
-			// All properties.
-			var properties []Property
-			ps.ToSlice(&properties)
-
-			// Required properties.
-			reqdProps := sets.NewString()
-			if reqd, hasReqd := d.data["required"]; hasReqd {
-				for _, propName := range reqd.([]any) {
-					reqdProps.Insert(propName.(string))
+			// Determine if kind is a list resource if it contains an `items` property that is an array and Kind name ends in `List`.
+			// Ref: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+			propType, ok := prop["type"].(string)
+			if ok {
+				if propName == "items" && propType == "array" && strings.HasSuffix(d.gvk.Kind, "List") {
+					isList = true
 				}
 			}
 
-			var requiredInputProperties []Property
-			ps.
-				WhereT(func(p Property) bool {
-					return reqdProps.Has(p.name)
-				}).
-				ToSlice(&requiredInputProperties)
+			schemaType := makeSchemaType(prop, canonicalGroups)
 
-			var optionalInputProperties []Property
-			ps.
-				WhereT(func(p Property) bool {
-					return !reqdProps.Has(p.name) && p.name != "status"
-				}).
-				ToSlice(&optionalInputProperties)
-
-			if len(properties) == 0 {
-				return linq.From([]KindConfig{})
+			// `-` is invalid in variable names, so replace with `_`
+			switch propName {
+			case "x-kubernetes-embedded-resource":
+				propName = "x_kubernetes_embedded_resource"
+			case "x-kubernetes-int-or-string":
+				propName = "x_kubernetes_int_or_string"
+			case "x-kubernetes-list-map-keys":
+				propName = "x_kubernetes_list_map_keys"
+			case "x-kubernetes-list-type":
+				propName = "x_kubernetes_list_type"
+			case "x-kubernetes-map-type":
+				propName = "x_kubernetes_map_type"
+			case "x-kubernetes-preserve-unknown-fields":
+				propName = "x_kubernetes_preserve_unknown_fields"
+			case "x-kubernetes-validations":
+				propName = "x_kubernetes_validations" //nolint:gosec
 			}
 
-			comment, deprecationComment := extractDeprecationComment(d.data["description"], d.gvk)
-
-			apiVersion := d.apiVersion(canonicalGroups)
-			schemaPkgName := func(gv string) string {
-				pkgName := strings.Replace(gv, ".k8s.io", "", -1)
-				parts := strings.Split(pkgName, "/")
-				contract.Assertf(len(parts) == 2, "expected package name to have two parts: %s", pkgName)
-				g, v := parts[0], parts[1]
-				gParts := strings.Split(g, ".")
-
-				// We need to sanitize versions to be valid package names.
-				v = validCharRegex.ReplaceAllString(v, "_")
-				gStripped := validCharRegex.ReplaceAllString(gParts[0], "_")
-
-				return fmt.Sprintf("%s/%s", gStripped, v)
+			if !allowHyphens {
+				contract.Assertf(!strings.Contains(propName, "-"), "property names may not contain `-`")
 			}
 
-			// These resources are hard-coded as lists as they do not adhere to the normal conventions.
-			if d.gvk.Group == "meta" &&
-				d.gvk.Version == "v1" &&
-				(d.gvk.Kind == "APIResourceList" || d.gvk.Kind == "APIGroupList") {
-				isList = true
+			// Create a const value for the field.
+			var constValue string
+
+			// Create a default value for the field.
+			switch propName {
+			case "apiVersion":
+				if d.isTopLevel() {
+					constValue = defaultAPIVersion
+				}
+			case "kind":
+				if d.isTopLevel() {
+					constValue = d.gvk.Kind
+				}
 			}
 
-			return linq.From([]KindConfig{
-				{
-					kind:                    d.gvk.Kind,
-					deprecationComment:      fmtComment(deprecationComment),
-					comment:                 fmtComment(comment),
-					pulumiComment:           fmtComment(PulumiComment(d.gvk.Kind)),
-					properties:              properties,
-					requiredInputProperties: requiredInputProperties,
-					optionalInputProperties: optionalInputProperties,
-					aliases:                 aliasesForKind(d.gvk.Kind, apiVersion),
-					gvk:                     d.gvk,
-					apiVersion:              apiVersion,
-					defaultAPIVersion:       defaultAPIVersion,
-					isNested:                !isTopLevel,
-					schemaPkgName:           schemaPkgName(apiVersion),
-					isList:                  isList,
-				},
-			})
-		}).
-		ToSlice(&kinds)
+			property := Property{
+				comment:    fmtComment(prop["description"]),
+				schemaType: schemaType,
+				name:       propName,
+				constValue: constValue,
+			}
 
-	//
-	// Assemble a `VersionConfig` for each group of kinds.
-	//
+			properties = append(properties, property)
+
+			if reqdProps.Has(propName) {
+				requiredInputProperties = append(requiredInputProperties, property)
+			} else if propName != "status" {
+				optionalInputProperties = append(optionalInputProperties, property)
+			}
+		}
+
+		if len(properties) == 0 {
+			continue
+		}
+
+		comment, deprecationComment := extractDeprecationComment(d.data["description"], d.gvk)
+
+		apiVersion := d.apiVersion(canonicalGroups)
+		schemaPkgName := func(gv string) string {
+			pkgName := strings.Replace(gv, ".k8s.io", "", -1)
+			parts := strings.Split(pkgName, "/")
+			contract.Assertf(len(parts) == 2, "expected package name to have two parts: %s", pkgName)
+			g, v := parts[0], parts[1]
+			gParts := strings.Split(g, ".")
+
+			// We need to sanitize versions to be valid package names.
+			v = validCharRegex.ReplaceAllString(v, "_")
+			gStripped := validCharRegex.ReplaceAllString(gParts[0], "_")
+
+			return fmt.Sprintf("%s/%s", gStripped, v)
+		}
+
+		// These resources are hard-coded as lists as they do not adhere to the normal conventions.
+		if d.gvk.Group == "io.k8s.apimachinery.pkg.apis.meta" &&
+			d.gvk.Version == "v1" &&
+			(d.gvk.Kind == "APIResourceList" || d.gvk.Kind == "APIGroupList") {
+			isList = true
+		}
+
+		kindConfig := KindConfig{
+			kind:                    d.gvk.Kind,
+			deprecationComment:      fmtComment(deprecationComment),
+			comment:                 fmtComment(comment),
+			pulumiComment:           fmtComment(PulumiComment(d.gvk.Kind)),
+			properties:              properties,
+			requiredInputProperties: requiredInputProperties,
+			optionalInputProperties: optionalInputProperties,
+			aliases:                 aliasesForKind(d.gvk.Kind, apiVersion, aliases),
+			gvk:                     d.gvk,
+			apiVersion:              apiVersion,
+			defaultAPIVersion:       defaultAPIVersion,
+			isNested:                !isTopLevel,
+			schemaPkgName:           schemaPkgName(apiVersion),
+			isList:                  isList,
+		}
+
+		kinds = append(kinds, kindConfig)
+	}
+
+	sort.Slice(kinds, func(i, j int) bool {
+		return kinds[i].gvk.String() < kinds[j].gvk.String()
+	})
+
+	return kinds
+}
+
+// createVersions creates a `VersionConfig` for each versioned Kind.
+func createVersions(kinds []KindConfig) []VersionConfig {
+	groupedKinds := make(map[schema.GroupVersion][]KindConfig)
+	for _, kind := range kinds {
+		gv := kind.gvk.GroupVersion()
+		groupedKinds[gv] = append(groupedKinds[gv], kind)
+	}
 
 	var versions []VersionConfig
-	linq.From(kinds).
-		GroupByT(
-			func(e KindConfig) schema.GroupVersion { return e.gvk.GroupVersion() },
-			func(e KindConfig) KindConfig { return e }).
-		OrderByT(func(kinds linq.Group) string {
-			return kinds.Key.(schema.GroupVersion).String()
-		}).
-		SelectManyT(func(kinds linq.Group) linq.Query {
-			gv := kinds.Key.(schema.GroupVersion)
-			var kindsGroup []KindConfig
-			linq.From(kinds.Group).ToSlice(&kindsGroup)
-			if len(kindsGroup) == 0 {
-				return linq.From([]VersionConfig{})
-			}
+	for gv, kindsGroup := range groupedKinds {
+		if len(kindsGroup) == 0 {
+			continue
+		}
 
-			return linq.From([]VersionConfig{
-				{
-					version:           gv.Version,
-					kinds:             kindsGroup,
-					gv:                gv,
-					apiVersion:        kindsGroup[0].apiVersion,        // NOTE: This is safe.
-					defaultAPIVersion: kindsGroup[0].defaultAPIVersion, // NOTE: This is safe.
-				},
-			})
-		}).
-		ToSlice(&versions)
+		versions = append(versions, VersionConfig{
+			version:           gv.Version,
+			kinds:             kindsGroup,
+			gv:                gv,
+			apiVersion:        kindsGroup[0].apiVersion,        // NOTE: This is safe.
+			defaultAPIVersion: kindsGroup[0].defaultAPIVersion, // NOTE: This is safe.
+		})
+	}
 
-	//
-	// Assemble a `GroupConfig` for each group of versions.
-	//
+	sort.Slice(versions, func(i, j int) bool {
+		return versions[i].gv.String() < versions[j].gv.String()
+	})
+
+	return versions
+}
+
+// createGroupsFromVersions creates a `GroupConfig` for each group of versions.
+// Note: we have always stored the last segment of a Swagger definition as the group name,
+// but this resulted in collisions between packages that may have the same last segment.
+// For example, `io.k8s.testpackage` and `com.testpackage` would both be stored as `testpackage`.
+// To fix this, we now store the full path as the group name when keying the canonical group map.
+// However, to ensure we don't break users, we MUST ensure that the types are still generated in
+// the `testpackage` package, and not individual `io.k8s.testpackage` and `com.testpackage` packages.
+// It is here that we ensure that the group name is still just the last segment.
+func createGroupsFromVersions(versions []VersionConfig) []GroupConfig {
+	groupMap := make(map[string][]VersionConfig)
+	for _, version := range versions {
+		// Get the last segment of the group name so we don't break users.
+		groupBackwardsCompatible := version.gv.Group
+		s := strings.Split(groupBackwardsCompatible, ".")
+		groupBackwardsCompatible = s[len(s)-1]
+
+		groupMap[groupBackwardsCompatible] = append(groupMap[groupBackwardsCompatible], version)
+	}
 
 	var groups []GroupConfig
-	linq.From(versions).
-		GroupByT(
-			func(e VersionConfig) string { return e.gv.Group },
-			func(e VersionConfig) VersionConfig { return e }).
-		OrderByT(func(versions linq.Group) string { return versions.Key.(string) }).
-		SelectManyT(func(versions linq.Group) linq.Query {
-			var versionsGroup []VersionConfig
-			linq.From(versions.Group).ToSlice(&versionsGroup)
-			if len(versionsGroup) == 0 {
-				return linq.From([]GroupConfig{})
-			}
+	for group, versionsGroup := range groupMap {
+		if len(versionsGroup) == 0 {
+			continue
+		}
+		groups = append(groups, GroupConfig{
+			group:    group,
+			versions: versionsGroup,
+		})
+	}
 
-			group := versions.Key.(string)
-
-			return linq.From([]GroupConfig{
-				{
-					group:    group,
-					versions: versionsGroup,
-				},
-			})
-		}).
-		WhereT(func(gc GroupConfig) bool {
-			return len(gc.Versions()) != 0
-		}).
-		ToSlice(&groups)
+	sort.Slice(groups, func(i, j int) bool {
+		return groups[i].group < groups[j].group
+	})
 
 	return groups
+}
+
+// aliasesForKind returns a list of aliases for a given kind.
+func aliasesForKind(kind, apiVersion string, aliases map[string][]any) []string {
+	var results []string
+
+	for _, alias := range aliases[kind] {
+		aliasString := alias.(string)
+		re := fmt.Sprintf(`:%s:`, apiVersion)
+		match, err := regexp.MatchString(re, aliasString)
+		if err == nil && match {
+			continue
+		}
+		results = append(results, aliasString)
+
+		switch kind {
+		case "CSIStorageCapacity":
+			results = append(results, "kubernetes:storage.k8s.io/v1alpha1:CSIStorageCapacity")
+		}
+
+		if strings.Contains(apiVersion, "apiregistration.k8s.io") {
+			parts := strings.Split(aliasString, ":")
+			parts[1] = "apiregistration" + strings.TrimPrefix(parts[1], "apiregistration.k8s.io")
+			results = append(results, strings.Join(parts, ":"))
+		}
+	}
+
+	if strings.Contains(apiVersion, "apiregistration.k8s.io") {
+		results = append(results, fmt.Sprintf("kubernetes:%s:%s",
+			"apiregistration"+strings.TrimPrefix(apiVersion, "apiregistration.k8s.io"), kind))
+	}
+
+	return results
 }
