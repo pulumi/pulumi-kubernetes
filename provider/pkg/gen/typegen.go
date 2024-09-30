@@ -463,10 +463,22 @@ func makeSchemaType(prop map[string]any, canonicalGroups map[string]string) stri
 // --------------------------------------------------------------------------
 
 func createGroups(definitionsJSON map[string]any, allowHyphens bool) []GroupConfig {
-	// Map Group -> canonical Group
-	// e.g., flowcontrol -> flowcontrol.apiserver.k8s.io
+	canonicalGroups := createCanonicalGroups(definitionsJSON)
+	definitions := createDefinitions(definitionsJSON, canonicalGroups)
+	aliases := createAliases(definitions, canonicalGroups)
+	kinds := createKinds(definitions, canonicalGroups, aliases, allowHyphens)
+	versions := createVersions(kinds)
+	groups := createGroupsFromVersions(versions)
+	return groups
+}
+
+// createCanonicalGroups creates a mapping of a parsed Swagger definition group to its
+// kubernetes canonical group as defined in the Swagger spec.
+// E.g., "meta" -> "meta", "flowcontrol" -> "flowcontrol.apiserver.k8s.io"
+func createCanonicalGroups(definitionsJSON map[string]any) map[string]string {
+	// Hard-code some canonical groups as they don't contain the `x-kubernetes-group-version-kind` field.
 	canonicalGroups := map[string]string{
-		"meta": "meta", // "meta" Group doesn't include the `x-kubernetes-group-version-kind` field.
+		"meta": "meta",
 	}
 	linq.From(definitionsJSON).
 		SelectT(func(kv linq.KeyValue) definition {
@@ -487,15 +499,17 @@ func createGroups(definitionsJSON map[string]any, allowHyphens bool) []GroupConf
 				}
 				def.canonicalGroup = group
 			}
-
 			return def
 		}).
 		WhereT(func(d definition) bool { return d.canonicalGroup != "" }).
 		ToMapByT(&canonicalGroups,
 			func(d definition) string { return d.gvk.Group },
 			func(d definition) string { return d.canonicalGroup })
+	return canonicalGroups
+}
 
-	// Map definition JSON object -> `definition` with metadata.
+// createDefinitions creates a list of definitions objects from the parsed Swagger definitions.
+func createDefinitions(definitionsJSON map[string]any, canonicalGroups map[string]string) []definition {
 	var definitions []definition
 	linq.From(definitionsJSON).
 		SelectT(func(kv linq.KeyValue) definition {
@@ -514,9 +528,13 @@ func createGroups(definitionsJSON map[string]any, allowHyphens bool) []GroupConf
 			return def
 		}).
 		ToSlice(&definitions)
+	return definitions
+}
 
-	// Compute aliases for Kinds. Many k8s resources have multiple GVs, so create a map from Kind -> GV string.
-	// For Kinds with more than one GV, create aliases in the SDKs.
+// createAliases creates a mapping of Kubernetes kinds to their aliases. Many kubernetes resources
+// have multiple GVs, so create a map from Kind -> GV string.
+// For Kinds with more than one GV, create aliases in the SDKs.
+func createAliases(definitions []definition, canonicalGroups map[string]string) map[string][]any {
 	aliases := map[string][]any{}
 	linq.From(definitions).
 		WhereT(func(d definition) bool { return d.isTopLevel() && !strings.HasSuffix(d.gvk.Kind, "List") }).
@@ -546,44 +564,11 @@ func createGroups(definitionsJSON map[string]any, allowHyphens bool) []GroupConf
 			func(i any) any {
 				return i.(linq.Group).Group
 			})
-	aliasesForKind := func(kind, apiVersion string) []string {
-		var results []string
+	return aliases
+}
 
-		for _, alias := range aliases[kind] {
-			aliasString := alias.(string)
-			re := fmt.Sprintf(`:%s:`, apiVersion)
-			match, err := regexp.MatchString(re, aliasString)
-			if err == nil && match {
-				continue
-			}
-			results = append(results, aliasString)
-
-			switch kind {
-			case "CSIStorageCapacity":
-				results = append(results, "kubernetes:storage.k8s.io/v1alpha1:CSIStorageCapacity")
-			}
-
-			// "apiregistration.k8s.io" was previously called "apiregistration", so create aliases for backward compat
-			if strings.Contains(apiVersion, "apiregistration.k8s.io") {
-				parts := strings.Split(aliasString, ":")
-				parts[1] = "apiregistration" + strings.TrimPrefix(parts[1], "apiregistration.k8s.io")
-				results = append(results, strings.Join(parts, ":"))
-			}
-		}
-
-		// "apiregistration.k8s.io" was previously called "apiregistration", so create aliases for backward compat
-		if strings.Contains(apiVersion, "apiregistration.k8s.io") {
-			results = append(results, fmt.Sprintf("kubernetes:%s:%s",
-				"apiregistration"+strings.TrimPrefix(apiVersion, "apiregistration.k8s.io"), kind))
-		}
-
-		return results
-	}
-
-	//
-	// Assemble a `KindConfig` for each Kubernetes kind.
-	//
-
+// createKinds creates a list of KindConfig objects from the parsed Swagger definitions.
+func createKinds(definitions []definition, canonicalGroups map[string]string, aliases map[string][]any, allowHyphens bool) []KindConfig {
 	var kinds []KindConfig
 	linq.From(definitions).
 		OrderByT(func(d definition) string { return d.gvk.String() }).
@@ -722,7 +707,7 @@ func createGroups(definitionsJSON map[string]any, allowHyphens bool) []GroupConf
 					properties:              properties,
 					requiredInputProperties: requiredInputProperties,
 					optionalInputProperties: optionalInputProperties,
-					aliases:                 aliasesForKind(d.gvk.Kind, apiVersion),
+					aliases:                 aliasesForKind(d.gvk.Kind, apiVersion, aliases),
 					gvk:                     d.gvk,
 					apiVersion:              apiVersion,
 					defaultAPIVersion:       defaultAPIVersion,
@@ -733,11 +718,11 @@ func createGroups(definitionsJSON map[string]any, allowHyphens bool) []GroupConf
 			})
 		}).
 		ToSlice(&kinds)
+	return kinds
+}
 
-	//
-	// Assemble a `VersionConfig` for each group of kinds.
-	//
-
+// createVersions creates a `VersionConfig` for each versioned Kind.
+func createVersions(kinds []KindConfig) []VersionConfig {
 	var versions []VersionConfig
 	linq.From(kinds).
 		GroupByT(
@@ -765,11 +750,11 @@ func createGroups(definitionsJSON map[string]any, allowHyphens bool) []GroupConf
 			})
 		}).
 		ToSlice(&versions)
+	return versions
+}
 
-	//
-	// Assemble a `GroupConfig` for each group of versions.
-	//
-
+// createGroupsFromVersions creates a `GroupConfig` for each group of versions.
+func createGroupsFromVersions(versions []VersionConfig) []GroupConfig {
 	var groups []GroupConfig
 	linq.From(versions).
 		GroupByT(
@@ -796,6 +781,38 @@ func createGroups(definitionsJSON map[string]any, allowHyphens bool) []GroupConf
 			return len(gc.Versions()) != 0
 		}).
 		ToSlice(&groups)
-
 	return groups
+}
+
+// aliasesForKind returns a list of aliases for a given kind.
+func aliasesForKind(kind, apiVersion string, aliases map[string][]any) []string {
+	var results []string
+
+	for _, alias := range aliases[kind] {
+		aliasString := alias.(string)
+		re := fmt.Sprintf(`:%s:`, apiVersion)
+		match, err := regexp.MatchString(re, aliasString)
+		if err == nil && match {
+			continue
+		}
+		results = append(results, aliasString)
+
+		switch kind {
+		case "CSIStorageCapacity":
+			results = append(results, "kubernetes:storage.k8s.io/v1alpha1:CSIStorageCapacity")
+		}
+
+		if strings.Contains(apiVersion, "apiregistration.k8s.io") {
+			parts := strings.Split(aliasString, ":")
+			parts[1] = "apiregistration" + strings.TrimPrefix(parts[1], "apiregistration.k8s.io")
+			results = append(results, strings.Join(parts, ":"))
+		}
+	}
+
+	if strings.Contains(apiVersion, "apiregistration.k8s.io") {
+		results = append(results, fmt.Sprintf("kubernetes:%s:%s",
+			"apiregistration"+strings.TrimPrefix(apiVersion, "apiregistration.k8s.io"), kind))
+	}
+
+	return results
 }
