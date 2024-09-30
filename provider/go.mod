@@ -8,7 +8,6 @@ replace (
 )
 
 require (
-	github.com/ahmetb/go-linq v3.0.0+incompatible
 	github.com/evanphx/json-patch v5.7.0+incompatible
 	github.com/fluxcd/pkg/ssa v0.28.1
 	github.com/golang/protobuf v1.5.4
@@ -203,7 +202,7 @@ require (
 	google.golang.org/protobuf v1.34.2
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
-	gopkg.in/yaml.v2 v2.4.0 // indirect
+	gopkg.in/yaml.v2 v2.4.0
 	k8s.io/apiextensions-apiserver v0.31.0
 	k8s.io/apiserver v0.31.0
 	k8s.io/component-base v0.31.0 // indirect
