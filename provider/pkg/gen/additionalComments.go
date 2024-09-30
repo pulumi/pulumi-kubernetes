@@ -17,6 +17,7 @@ package gen
 import (
 	"fmt"
 	"strconv"
+	"strings"
 
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
@@ -167,6 +168,16 @@ func PulumiComment(kind string) string {
 func APIVersionComment(gvk schema.GroupVersionKind) string {
 	const deprecatedTemplate = `%s is deprecated by %s`
 	const notSupportedTemplate = ` and not supported by Kubernetes v%v+ clusters.`
+
+	// Get only the last segment of the group.
+	t := strings.Split(gvk.Group, ".")
+	groupBackwardsCompatible := t[len(t)-1]
+	gvk = schema.GroupVersionKind{
+		Group:   groupBackwardsCompatible,
+		Version: gvk.Version,
+		Kind:    gvk.Kind,
+	}
+
 	gvkStr := gvk.GroupVersion().String() + "/" + gvk.Kind
 	removedIn := kinds.RemovedInVersion(gvk)
 

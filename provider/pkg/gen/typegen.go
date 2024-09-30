@@ -205,28 +205,28 @@ func (d definition) isTopLevel() bool {
 	switch fmt.Sprintf("%s/%s", d.gvk.GroupVersion().String(), d.gvk.Kind) {
 	case
 		"v1/Status",
-		"apps/v1beta1/Scale",
-		"apps/v1beta2/Scale",
-		"authentication/v1/TokenRequest",
-		"authentication/v1/TokenReview",
-		"authentication/v1alpha1/SelfSubjectReview",
-		"authentication/v1beta1/SelfSubjectReview",
-		"authentication/v1/SelfSubjectReview",
-		"authentication/v1beta1/TokenReview",
-		"authorization/v1/LocalSubjectAccessReview",
-		"authorization/v1/SelfSubjectAccessReview",
-		"authorization/v1/SelfSubjectRulesReview",
-		"authorization/v1/SubjectAccessReview",
-		"authorization/v1beta1/LocalSubjectAccessReview",
-		"authorization/v1beta1/SelfSubjectAccessReview",
-		"authorization/v1beta1/SelfSubjectRulesReview",
-		"authorization/v1beta1/SubjectAccessReview",
-		"autoscaling/v1/Scale",
-		"core/v1/ComponentStatus",
-		"core/v1/ComponentStatusList",
-		"extensions/v1beta1/Scale",
-		"policy/v1beta1/Eviction",
-		"policy/v1/Eviction":
+		"io.k8s.api.apps/v1beta1/Scale",
+		"io.k8s.api.apps/v1beta2/Scale",
+		"io.k8s.api.authentication/v1/TokenRequest",
+		"io.k8s.api.authentication/v1/TokenReview",
+		"io.k8s.api.authentication/v1alpha1/SelfSubjectReview",
+		"io.k8s.api.authentication/v1beta1/SelfSubjectReview",
+		"io.k8s.api.authentication/v1/SelfSubjectReview",
+		"io.k8s.api.authentication/v1beta1/TokenReview",
+		"io.k8s.api.authorization/v1/LocalSubjectAccessReview",
+		"io.k8s.api.authorization/v1/SelfSubjectAccessReview",
+		"io.k8s.api.authorization/v1/SelfSubjectRulesReview",
+		"io.k8s.api.authorization/v1/SubjectAccessReview",
+		"io.k8s.api.authorization/v1beta1/LocalSubjectAccessReview",
+		"io.k8s.api.authorization/v1beta1/SelfSubjectAccessReview",
+		"io.k8s.api.authorization/v1beta1/SelfSubjectRulesReview",
+		"io.k8s.api.authorization/v1beta1/SubjectAccessReview",
+		"io.k8s.api.autoscaling/v1/Scale",
+		"io.k8s.api.core/v1/ComponentStatus",
+		"io.k8s.api.core/v1/ComponentStatusList",
+		"io.k8s.api.extensions/v1beta1/Scale",
+		"io.k8s.api.policy/v1beta1/Eviction",
+		"io.k8s.api.policy/v1/Eviction":
 		return false
 	}
 
@@ -260,7 +260,7 @@ func GVKFromRef(ref string) schema.GroupVersionKind {
 	gvk := schema.GroupVersionKind{
 		Kind:    split[len(split)-1],
 		Version: split[len(split)-2],
-		Group:   split[len(split)-3],
+		Group:   strings.Join(split[:len(split)-2], "."),
 	}
 	return gvk
 }
@@ -478,7 +478,8 @@ func createGroups(definitionsJSON map[string]any, allowHyphens bool) []GroupConf
 func createCanonicalGroups(definitionsJSON map[string]any) map[string]string {
 	// Hard-code some canonical groups as they don't contain the `x-kubernetes-group-version-kind` field.
 	canonicalGroups := map[string]string{
-		"meta": "meta",
+		"io.k8s.apimachinery.pkg.apis.meta": "meta",
+		"io.k8s.apimachinery.pkg":           "pkg",
 	}
 
 	for defName, defData := range definitionsJSON {
@@ -493,7 +494,7 @@ func createCanonicalGroups(definitionsJSON map[string]any) map[string]string {
 			gvk := gvks[0].(map[string]any)
 			group := gvk["group"].(string)
 			// The "core" group shows up as "" in the OpenAPI spec.
-			if group == "" && def.gvk.Group == "core" {
+			if group == "" && def.gvk.Group == "io.k8s.api.core" {
 				group = "core"
 			}
 			def.canonicalGroup = group
@@ -687,7 +688,7 @@ func createKinds(definitions []definition, canonicalGroups map[string]string, al
 		}
 
 		// These resources are hard-coded as lists as they do not adhere to the normal conventions.
-		if d.gvk.Group == "meta" &&
+		if d.gvk.Group == "io.k8s.apimachinery.pkg.apis.meta" &&
 			d.gvk.Version == "v1" &&
 			(d.gvk.Kind == "APIResourceList" || d.gvk.Kind == "APIGroupList") {
 			isList = true
@@ -751,10 +752,22 @@ func createVersions(kinds []KindConfig) []VersionConfig {
 }
 
 // createGroupsFromVersions creates a `GroupConfig` for each group of versions.
+// Note: we have always stored the last segment of a Swagger definition as the group name,
+// but this resulted in collisions between packages that may have the same last segment.
+// For example, `io.k8s.testpackage` and `com.testpackage` would both be stored as `testpackage`.
+// To fix this, we now store the full path as the group name when keying the canonical group map.
+// However, to ensure we don't break users, we MUST ensure that the types are still generated in
+// the `testpackage` package, and not individual `io.k8s.testpackage` and `com.testpackage` packages.
+// It is here that we ensure that the group name is still just the last segment.
 func createGroupsFromVersions(versions []VersionConfig) []GroupConfig {
 	groupMap := make(map[string][]VersionConfig)
 	for _, version := range versions {
-		groupMap[version.gv.Group] = append(groupMap[version.gv.Group], version)
+		// Get the last segment of the group name so we don't break users.
+		groupBackwardsCompatible := version.gv.Group
+		s := strings.Split(groupBackwardsCompatible, ".")
+		groupBackwardsCompatible = s[len(s)-1]
+
+		groupMap[groupBackwardsCompatible] = append(groupMap[groupBackwardsCompatible], version)
 	}
 
 	var groups []GroupConfig

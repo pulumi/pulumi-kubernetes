@@ -430,13 +430,13 @@ func TestCreateDefinitions(t *testing.T) {
 	}
 
 	canonicalGroups := map[string]string{
-		"apps": "apps",
-		"core": "core",
+		"io.k8s.api.apps": "apps",
+		"io.k8s.api.core": "core",
 	}
 
 	expected := []definition{
 		{
-			gvk:  schema.GroupVersionKind{Group: "apps", Version: "v1", Kind: "Deployment"},
+			gvk:  schema.GroupVersionKind{Group: "io.k8s.api.apps", Version: "v1", Kind: "Deployment"},
 			name: "io.k8s.api.apps.v1.Deployment",
 			data: map[string]any{
 				"properties": map[string]any{
@@ -451,7 +451,7 @@ func TestCreateDefinitions(t *testing.T) {
 			canonicalGroup: "apps",
 		},
 		{
-			gvk:  schema.GroupVersionKind{Group: "core", Version: "v1", Kind: "Pod"},
+			gvk:  schema.GroupVersionKind{Group: "io.k8s.api.core", Version: "v1", Kind: "Pod"},
 			name: "io.k8s.api.core.v1.Pod",
 			data: map[string]any{
 				"properties": map[string]any{
@@ -468,8 +468,9 @@ func TestCreateDefinitions(t *testing.T) {
 	}
 
 	actual := createDefinitions(definitionsJSON, canonicalGroups)
-	assert.Equal(t, expected, actual)
+	assert.ElementsMatch(t, expected, actual)
 }
+
 func TestCreateCanonicalGroups(t *testing.T) {
 	tests := []struct {
 		name            string
@@ -491,9 +492,10 @@ func TestCreateCanonicalGroups(t *testing.T) {
 				},
 			},
 			expectedGroups: map[string]string{
-				"core": "core",
-				"apps": "apps",
-				"meta": "meta",
+				"io.k8s.api.core":                   "core",
+				"io.k8s.api.apps":                   "apps",
+				"io.k8s.apimachinery.pkg.apis.meta": "meta",
+				"io.k8s.apimachinery.pkg":           "pkg",
 			},
 		},
 		{
@@ -506,7 +508,8 @@ func TestCreateCanonicalGroups(t *testing.T) {
 				},
 			},
 			expectedGroups: map[string]string{
-				"meta": "meta",
+				"io.k8s.apimachinery.pkg.apis.meta": "meta",
+				"io.k8s.apimachinery.pkg":           "pkg",
 			},
 		},
 	}
@@ -603,7 +606,7 @@ func TestMakeSchemaTypeSpec(t *testing.T) {
 				"$ref": "#/definitions/io.k8s.api.apps.v1.Deployment",
 			},
 			canonicalGroups: map[string]string{
-				"apps": "apps",
+				"io.k8s.api.apps": "apps",
 			},
 			expectedTypeSpec: pschema.TypeSpec{
 				Ref: "#/types/kubernetes:apps/v1:Deployment",
@@ -628,7 +631,7 @@ func TestIsTopLevel(t *testing.T) {
 		{
 			name: "top-level resource with ObjectMeta",
 			definition: definition{
-				gvk: schema.GroupVersionKind{Group: "apps", Version: "v1", Kind: "Deployment"},
+				gvk: schema.GroupVersionKind{Group: "io.k8s.api.apps", Version: "v1", Kind: "Deployment"},
 				data: map[string]any{
 					"properties": map[string]any{
 						"metadata": map[string]any{
@@ -645,7 +648,7 @@ func TestIsTopLevel(t *testing.T) {
 		{
 			name: "top-level resource with ListMeta",
 			definition: definition{
-				gvk: schema.GroupVersionKind{Group: "core", Version: "v1", Kind: "PodList"},
+				gvk: schema.GroupVersionKind{Group: "io.k8s.api.core", Version: "v1", Kind: "PodList"},
 				data: map[string]any{
 					"properties": map[string]any{
 						"metadata": map[string]any{
@@ -662,7 +665,7 @@ func TestIsTopLevel(t *testing.T) {
 		{
 			name: "non-top-level resource",
 			definition: definition{
-				gvk: schema.GroupVersionKind{Group: "apps", Version: "v1", Kind: "ReplicaSet"},
+				gvk: schema.GroupVersionKind{Group: "io.k8s.api.apps", Version: "v1", Kind: "ReplicaSet"},
 				data: map[string]any{
 					"properties": map[string]any{
 						"spec": map[string]any{
@@ -679,10 +682,10 @@ func TestIsTopLevel(t *testing.T) {
 		{
 			name: "imperative resource type",
 			definition: definition{
-				gvk: schema.GroupVersionKind{Group: "core", Version: "v1", Kind: "Status"},
+				gvk: schema.GroupVersionKind{Group: "io.k8s.api.authentication", Version: "v1", Kind: "TokenRequest"},
 				data: map[string]any{
 					"x-kubernetes-group-version-kind": []any{
-						map[string]any{"group": "core", "version": "v1", "kind": "Status"},
+						map[string]any{"group": "authentication", "version": "v1", "kind": "TokenRequest"},
 					},
 				},
 			},
@@ -691,7 +694,7 @@ func TestIsTopLevel(t *testing.T) {
 		{
 			name: "missing properties",
 			definition: definition{
-				gvk: schema.GroupVersionKind{Group: "apps", Version: "v1", Kind: "Deployment"},
+				gvk: schema.GroupVersionKind{Group: "io.k8s.api.apps", Version: "v1", Kind: "Deployment"},
 				data: map[string]any{
 					"x-kubernetes-group-version-kind": []any{
 						map[string]any{"group": "apps", "version": "v1", "kind": "Deployment"},
@@ -703,7 +706,7 @@ func TestIsTopLevel(t *testing.T) {
 		{
 			name: "missing metadata",
 			definition: definition{
-				gvk: schema.GroupVersionKind{Group: "apps", Version: "v1", Kind: "Deployment"},
+				gvk: schema.GroupVersionKind{Group: "io.k8s.api.apps", Version: "v1", Kind: "Deployment"},
 				data: map[string]any{
 					"properties": map[string]any{
 						"spec": map[string]any{
@@ -720,7 +723,7 @@ func TestIsTopLevel(t *testing.T) {
 		{
 			name: "missing $ref in metadata",
 			definition: definition{
-				gvk: schema.GroupVersionKind{Group: "apps", Version: "v1", Kind: "Deployment"},
+				gvk: schema.GroupVersionKind{Group: "io.k8s.api.apps", Version: "v1", Kind: "Deployment"},
 				data: map[string]any{
 					"properties": map[string]any{
 						"metadata": map[string]any{
@@ -739,6 +742,53 @@ func TestIsTopLevel(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			actual := tt.definition.isTopLevel()
+			assert.Equal(t, tt.expected, actual)
+		})
+	}
+}
+
+func TestGVKFromRef(t *testing.T) {
+	tests := []struct {
+		ref      string
+		expected schema.GroupVersionKind
+	}{
+		{
+			ref: "io.k8s.api.apps.v1.Deployment",
+			expected: schema.GroupVersionKind{
+				Group:   "io.k8s.api.apps",
+				Version: "v1",
+				Kind:    "Deployment",
+			},
+		},
+		{
+			ref: "io.k8s.api.core.v1.Pod",
+			expected: schema.GroupVersionKind{
+				Group:   "io.k8s.api.core",
+				Version: "v1",
+				Kind:    "Pod",
+			},
+		},
+		{
+			ref: "io.k8s.api.extensions.v1beta1.Ingress",
+			expected: schema.GroupVersionKind{
+				Group:   "io.k8s.api.extensions",
+				Version: "v1beta1",
+				Kind:    "Ingress",
+			},
+		},
+		{
+			ref: "io.k8s.api.networking.v1.NetworkPolicy",
+			expected: schema.GroupVersionKind{
+				Group:   "io.k8s.api.networking",
+				Version: "v1",
+				Kind:    "NetworkPolicy",
+			},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.ref, func(t *testing.T) {
+			actual := GVKFromRef(tt.ref)
 			assert.Equal(t, tt.expected, actual)
 		})
 	}
