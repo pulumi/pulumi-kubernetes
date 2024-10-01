@@ -580,7 +580,8 @@ additional information about using Server-Side Apply to manage Kubernetes resour
 	const kubernetes20 = "kubernetes20"
 
 	pkgReferences := map[string]string{
-		"Glob": "1.1.5",
+		"Pulumi": "3.*",
+		"Glob":   "1.1.5",
 	}
 	if gen.pulumiKubernetesDependency != "" {
 		pkgReferences["Pulumi.Kubernetes"] = gen.pulumiKubernetesDependency
