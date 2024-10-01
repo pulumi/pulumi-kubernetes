@@ -14,7 +14,7 @@
         "build": "tsc"
     },
     "dependencies": {
-        "@pulumi/pulumi": "^3.25.0",
+        "@pulumi/pulumi": "^3.134.1",
         "@types/node-fetch": "^2.1.4",
         "@types/tmp": "^0.0.33",
         "glob": "^10.3.10",
