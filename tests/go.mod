@@ -15,8 +15,8 @@ require (
 	github.com/pulumi/providertest v0.0.12
 	github.com/pulumi/pulumi-kubernetes/provider/v4 v4.0.0
 	github.com/pulumi/pulumi-kubernetes/sdk/v4 v4.0.0
-	github.com/pulumi/pulumi/pkg/v3 v3.134.1
-	github.com/pulumi/pulumi/sdk/v3 v3.134.1
+	github.com/pulumi/pulumi/pkg/v3 v3.135.0
+	github.com/pulumi/pulumi/sdk/v3 v3.135.0
 	github.com/pulumiverse/pulumi-time/sdk v0.0.0-20231010123146-089d7304da13
 	github.com/stretchr/testify v1.9.0
 	golang.org/x/exp v0.0.0-20240719175910-8a7402abbf56
@@ -53,7 +53,6 @@ require (
 	github.com/ProtonMail/go-crypto v1.0.0 // indirect
 	github.com/aead/chacha20 v0.0.0-20180709150244-8b13a72661da // indirect
 	github.com/agext/levenshtein v1.2.3 // indirect
-	github.com/ahmetb/go-linq v3.0.0+incompatible // indirect
 	github.com/antlr4-go/antlr/v4 v4.13.0 // indirect
 	github.com/apparentlymart/go-textseg/v13 v13.0.0 // indirect
 	github.com/asaskevich/govalidator v0.0.0-20230301143203-a9d515a09cc2 // indirect
