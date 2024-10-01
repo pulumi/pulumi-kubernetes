@@ -540,8 +540,8 @@ func PulumiSchema(swagger map[string]any, opts ...schemaGeneratorOption) pschema
 					}
 
 					patchDescription := `Patch resources are used to modify existing Kubernetes resources by using
-Server-Side Apply updates. The name of the resource must be specified, but all other properties are optional. More than 
-one patch may be applied to the same resource, and a random FieldManager name will be used for each Patch resource. 
+Server-Side Apply updates. The name of the resource must be specified, but all other properties are optional. More than
+one patch may be applied to the same resource, and a random FieldManager name will be used for each Patch resource.
 Conflicts will result in an error by default, but can be forced using the "pulumi.com/patchForce" annotation. See the
 [Server-Side Apply Docs](https://www.pulumi.com/registry/packages/kubernetes/how-to-guides/managing-resources-with-server-side-apply/) for
 additional information about using Server-Side Apply to manage Kubernetes resources with Pulumi.`
@@ -580,8 +580,7 @@ additional information about using Server-Side Apply to manage Kubernetes resour
 	const kubernetes20 = "kubernetes20"
 
 	pkgReferences := map[string]string{
-		"Glob":   "1.1.5",
-		"Pulumi": "3.*",
+		"Glob": "1.1.5",
 	}
 	if gen.pulumiKubernetesDependency != "" {
 		pkgReferences["Pulumi.Kubernetes"] = gen.pulumiKubernetesDependency
@@ -617,7 +616,6 @@ additional information about using Server-Side Apply to manage Kubernetes resour
 	})
 
 	nodeDeps := map[string]string{
-		"@pulumi/pulumi":    "^3.25.0",
 		"shell-quote":       "^1.6.1",
 		"tmp":               "^0.0.33",
 		"@types/tmp":        "^0.0.33",
@@ -656,7 +654,6 @@ Use the navigation below to see detailed documentation for each of the supported
 	})
 
 	requires := map[string]string{
-		"pulumi":   ">=3.109.0,<4.0.0",
 		"requests": ">=2.21,<3.0",
 	}
 	if gen.pulumiKubernetesDependency != "" {
