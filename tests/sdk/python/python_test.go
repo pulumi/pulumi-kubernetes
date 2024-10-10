@@ -76,7 +76,7 @@ func TestSmoke(t *testing.T) {
 }
 
 // Smoke test for .get support.
-func TestGet(t *testing.T) {
+func TestGetPython(t *testing.T) {
 	cwd, err := os.Getwd()
 	if !assert.NoError(t, err) {
 		t.FailNow()
@@ -131,7 +131,7 @@ func TestGetOneStep(t *testing.T) {
 	}
 }
 
-func TestYaml(t *testing.T) {
+func TestYamlPython(t *testing.T) {
 	cwd, err := os.Getwd()
 	if !assert.NoError(t, err) {
 		t.FailNow()
@@ -365,7 +365,7 @@ func TestGuestbook(t *testing.T) {
 }
 
 // Smoke test for first-class Kubernetes providers.
-func TestProvider(t *testing.T) {
+func TestProviderPython(t *testing.T) {
 	cwd, err := os.Getwd()
 	if !assert.NoError(t, err) {
 		t.FailNow()
@@ -393,7 +393,7 @@ func TestHelm(t *testing.T) {
 	integration.ProgramTest(t, &options)
 }
 
-func TestHelmRelease(t *testing.T) {
+func TestHelmReleasePython(t *testing.T) {
 	cwd, err := os.Getwd()
 	if !assert.NoError(t, err) {
 		t.FailNow()
@@ -412,7 +412,7 @@ func TestHelmRelease(t *testing.T) {
 	integration.ProgramTest(t, &options)
 }
 
-func TestHelmLocal(t *testing.T) {
+func TestHelmLocalPython(t *testing.T) {
 	cwd, err := os.Getwd()
 	if !assert.NoError(t, err) {
 		t.FailNow()
@@ -490,7 +490,7 @@ func TestHelmApiVersions(t *testing.T) {
 	integration.ProgramTest(t, &options)
 }
 
-func TestHelmKubeVersion(t *testing.T) {
+func TestHelmKubeVersionPython(t *testing.T) {
 	cwd, err := os.Getwd()
 	if !assert.NoError(t, err) {
 		t.FailNow()
@@ -527,7 +527,7 @@ func TestHelmAllowCRDRendering(t *testing.T) {
 	integration.ProgramTest(t, &test)
 }
 
-func TestKustomize(t *testing.T) {
+func TestKustomizePython(t *testing.T) {
 	cwd, err := os.Getwd()
 	if !assert.NoError(t, err) {
 		t.FailNow()
@@ -566,7 +566,7 @@ func TestKustomizeUnconfiguredProvider(t *testing.T) {
 	integration.ProgramTest(t, &options)
 }
 
-func TestSecrets(t *testing.T) {
+func TestSecretsPython(t *testing.T) {
 	cwd, err := os.Getwd()
 	if !assert.NoError(t, err) {
 		t.FailNow()
@@ -596,7 +596,7 @@ func TestSecrets(t *testing.T) {
 	integration.ProgramTest(t, &options)
 }
 
-func TestServerSideApply(t *testing.T) {
+func TestServerSideApplyPython(t *testing.T) {
 	cwd, err := os.Getwd()
 	if !assert.NoError(t, err) {
 		t.FailNow()
@@ -623,10 +623,10 @@ func TestServerSideApply(t *testing.T) {
 	integration.ProgramTest(t, &options)
 }
 
-// TestOptionPropagation tests the handling of resource options by the various compoonent resources.
+// TestOptionPropagationPython tests the handling of resource options by the various compoonent resources.
 // Component resources are responsible for implementing option propagation logic when creating
 // child resources.
-func TestOptionPropagation(t *testing.T) {
+func TestOptionPropagationPython(t *testing.T) {
 	g := NewWithT(t)
 	format.MaxLength = 0
 	format.RegisterCustomFormatter(pulumirpctesting.FormatDebugInterceptorLog)
@@ -970,9 +970,9 @@ func TestOptionPropagation(t *testing.T) {
 				// quirk: Python SDK applies resource_prefix ("chart-options") to the component itself.
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases":           ConsistOf(
-							Alias("chart-options-old"), 
-							Alias("chart-options-chart-options-aliased"), 
+						"Aliases": ConsistOf(
+							Alias("chart-options-old"),
+							Alias("chart-options-chart-options-aliased"),
 							Alias(tokens.Type("kubernetes:helm.sh/v2:Chart"))),
 						"Protect":           BeTrue(),
 						"Dependencies":      ConsistOf(string(sleep.URN)),

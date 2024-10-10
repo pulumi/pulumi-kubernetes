@@ -707,7 +707,7 @@ func TestEmptyArray(t *testing.T) {
 	integration.ProgramTest(t, &test)
 }
 
-func TestGet(t *testing.T) {
+func TestGetNode(t *testing.T) {
 	test := baseOptions.With(integration.ProgramTestOptions{
 		Dir:                  filepath.Join("get", "step1"),
 		Quick:                true,
@@ -1009,7 +1009,7 @@ func TestNamespace(t *testing.T) {
 //	integration.ProgramTest(t, &test)
 //}
 
-func TestProvider(t *testing.T) {
+func TestProviderNode(t *testing.T) {
 	test := baseOptions.With(integration.ProgramTestOptions{
 		Dir:   filepath.Join("provider", "step1"),
 		Quick: true,
@@ -1420,7 +1420,7 @@ func TestSecretDataNewLine(t *testing.T) {
 	integration.ProgramTest(t, &test)
 }
 
-func TestServerSideApply(t *testing.T) {
+func TestServerSideApplyNode(t *testing.T) {
 	test := baseOptions.With(integration.ProgramTestOptions{
 		Dir:                  filepath.Join("server-side-apply", "step1"),
 		ExpectRefreshChanges: true,
