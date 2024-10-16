@@ -1,5 +1,13 @@
 ## Unreleased
 
+## 4.18.2 (October 16, 2024)
+
+### Fixed
+
+- The provider's Pulumi dependency was updated to version v3.136.1 to address
+  potential "pulumi.runtime.invokeOutput is not a function" errors.
+  (https://github.com/pulumi/pulumi/issues/17518)
+
 ## 4.18.1 (September 13, 2024)
 
 ### Added
