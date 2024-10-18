@@ -1239,11 +1239,18 @@ func TestSSAUpgrade(t *testing.T) {
 		}
 	}`
 	require.NoError(t, json.Unmarshal([]byte(in), inputs))
+	// We need the last-applied-config annotation in order to trigger kubectl's
+	// graceful CSA->SSA upgrade path.
+	last, err := inputs.MarshalJSON()
+	require.NoError(t, err)
+	inputs.SetAnnotations(map[string]string{
+		"kubectl.kubernetes.io/last-applied-configuration": string(last),
+	})
 
 	// Create the object. As of 1.18 all objects are created with
 	// managedFields, even CSA.
 	obj := inputs.DeepCopy()
-	err := fm.Update(obj, "kubectl-create")
+	err = fm.Update(obj, "kubectl-create")
 	require.NoError(t, err)
 	require.NotEmpty(t, fm.ManagedFields())
 	assert.Len(t, fm.ManagedFields(), 1)
@@ -1251,7 +1258,7 @@ func TestSSAUpgrade(t *testing.T) {
 	// However we can still disable managed fields after creating the object.
 	obj = inputs.DeepCopy()
 	obj.SetManagedFields([]metav1.ManagedFieldsEntry{})
-	obj.SetUID("some-uid")
+
 	err = fm.Update(obj, "kubectl-update")
 	require.NoError(t, err)
 	assert.Empty(t, fm.ManagedFields())
@@ -1261,11 +1268,56 @@ func TestSSAUpgrade(t *testing.T) {
 	obj.SetLabels(map[string]string{
 		"helm.sh/chart": "cluster-autoscaler-9.36.0",
 	})
-	err = fm.Apply(obj, "pulumi-csa-update", false)
-	// Apply failed with 1 conflict: conflict with "before-first-apply" using v1: .metadata.labels.helm.sh/chart
+	// Despite having no field managers, our apply will still conflict with the
+	// legacy "before-first-apply" manager.
+	err = fm.Apply(obj, "pulumi-kubernetes", false)
+	assert.ErrorContains(t, err, `Apply failed with 1 conflict: conflict with "before-first-apply" using v1: .metadata.labels.helm.sh/chart`)
+
+	cfg := &UpdateConfig{
+		Inputs:  obj,
+		Preview: false,
+		ProviderConfig: ProviderConfig{
+			URN:             resource.NewURN(tokens.QName("teststack"), tokens.PackageName("testproj"), tokens.Type(""), "v1/Service", "testresource"),
+			FieldManager:    "pulumi-kubernetes",
+			ServerSideApply: true,
+		},
+	}
+	_, err = ssaUpdate(cfg, obj, fieldManagerPatcher{fm})
 	require.NoError(t, err)
-	require.NotEmpty(t, fm.ManagedFields())
-	require.Len(t, fm.ManagedFields(), 2)
-	assert.Equal(t, "pulumi-csa-update", fm.ManagedFields()[0].Manager)
-	assert.Equal(t, "before-first-apply", fm.ManagedFields()[1].Manager)
+
+	// TODO: We could resolve this by forcing the apply, or by impersonating kubectl
+	// err = fm.Apply(obj, "kubectl", false)
+}
+
+type fieldManagerPatcher struct {
+	fm managedfieldstest.TestFieldManager
+}
+
+func (p fieldManagerPatcher) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, options metav1.PatchOptions, subresources ...string) (*unstructured.Unstructured, error) {
+	if pt != types.ApplyPatchType {
+		return nil, fmt.Errorf("fieldManagerPatcher only handles Apply")
+	}
+
+	force := false
+	if options.Force != nil {
+		force = *options.Force
+	}
+
+	in, err := yaml.YAMLToJSON(data)
+	if err != nil {
+		return nil, err
+	}
+
+	obj, _, err := unstructured.UnstructuredJSONScheme.Decode(in, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	err = p.fm.Apply(obj, options.FieldManager, force)
+	if err != nil {
+		return nil, err
+	}
+
+	live := p.fm.Live()
+	return live.(*unstructured.Unstructured), err
 }
