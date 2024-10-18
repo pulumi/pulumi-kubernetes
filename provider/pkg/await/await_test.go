@@ -1,9 +1,22 @@
-// Copyright 2021, Pulumi Corporation.  All rights reserved.
+// Copyright 2021-2024, Pulumi Corporation.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 package await
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"testing"
 	"time"
@@ -31,9 +44,13 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/types"
+	"k8s.io/apimachinery/pkg/util/managedfields"
+	"k8s.io/apimachinery/pkg/util/managedfields/managedfieldstest"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/dynamic"
 	kubetesting "k8s.io/client-go/testing"
+	"k8s.io/kube-openapi/pkg/validation/spec"
+	"sigs.k8s.io/yaml"
 )
 
 var (
@@ -1150,4 +1167,105 @@ func FailedRESTMapper(mapper meta.ResettableRESTMapper, err error) *fake.StubRes
 			return nil, err
 		},
 	}
+}
+
+func fakeTypeConverter(t *testing.T) managedfields.TypeConverter {
+	t.Helper()
+
+	openapi, err := fake.LoadOpenAPISchema()
+	require.NoError(t, err)
+
+	swagger := spec.Swagger{}
+	raw, err := openapi.YAMLValue("")
+	require.NoError(t, err)
+	require.NoError(t, yaml.Unmarshal(raw, &swagger))
+
+	definitions := map[string]*spec.Schema{}
+	for k, v := range swagger.Definitions {
+		p := v
+		definitions[k] = &p
+	}
+
+	tc, err := managedfields.NewTypeConverter(definitions, false)
+	require.NoError(t, err)
+	return tc
+}
+
+func TestSSAUpgrade(t *testing.T) {
+	t.Parallel()
+
+	tc := fakeTypeConverter(t)
+	fm := managedfieldstest.NewTestFieldManager(tc, schema.FromAPIVersionAndKind("v1", "Service"))
+
+	inputs := &unstructured.Unstructured{}
+	in := `{
+		"apiVersion": "v1",
+		"kind": "Service",
+		"metadata": {
+			"labels": {
+				"app.kubernetes.io/instance": "autoscaler",
+				"app.kubernetes.io/managed-by": "pulumi",
+				"app.kubernetes.io/name": "aws-cluster-autoscaler",
+				"app.kubernetes.io/version": "1.28.2",
+				"helm.sh/chart": "cluster-autoscaler-9.34.1"
+			},
+			"name": "cluster-autoscaler",
+			"namespace": "kube-system"
+		},
+		"spec": {
+			"clusterIP": "172.20.94.37",
+			"clusterIPs": [
+				"172.20.94.37"
+			],
+			"internalTrafficPolicy": "Cluster",
+			"ipFamilies": [
+				"IPv4"
+			],
+			"ipFamilyPolicy": "SingleStack",
+			"ports": [
+				{
+					"name": "http",
+					"port": 8085,
+					"protocol": "TCP",
+					"targetPort": 8085
+				}
+			],
+			"selector": {
+				"app.kubernetes.io/instance": "autoscaler",
+				"app.kubernetes.io/name": "aws-cluster-autoscaler"
+			},
+			"sessionAffinity": "None",
+			"type": "ClusterIP"
+		}
+	}`
+	require.NoError(t, json.Unmarshal([]byte(in), inputs))
+
+	// Create the object. As of 1.18 all objects are created with
+	// managedFields, even CSA.
+	obj := inputs.DeepCopy()
+	err := fm.Update(obj, "kubectl-create")
+	require.NoError(t, err)
+	require.NotEmpty(t, fm.ManagedFields())
+	assert.Len(t, fm.ManagedFields(), 1)
+
+	// However we can still disable managed fields after creating the object.
+	obj = inputs.DeepCopy()
+	obj.SetManagedFields([]metav1.ManagedFieldsEntry{})
+	obj.SetUID("some-uid")
+	err = fm.Update(obj, "kubectl-update")
+	require.NoError(t, err)
+	assert.Empty(t, fm.ManagedFields())
+
+	// Perform our first update via an unforced apply.
+	obj = inputs.DeepCopy()
+	obj.SetLabels(map[string]string{
+		"helm.sh/chart": "cluster-autoscaler-9.36.0",
+	})
+	err = fm.Apply(obj, "pulumi-csa-update", false)
+	// Apply failed with 1 conflict: conflict with "before-first-apply" using v1: .metadata.labels.helm.sh/chart
+	require.NoError(t, err)
+	require.NotEmpty(t, fm.ManagedFields())
+	require.Len(t, fm.ManagedFields(), 2)
+	assert.Equal(t, "pulumi-csa-update", fm.ManagedFields()[0].Manager)
+	assert.Equal(t, "before-first-apply", fm.ManagedFields()[1].Manager)
 }
