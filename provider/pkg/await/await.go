@@ -547,6 +547,11 @@ func ssaUpdate(c *UpdateConfig, liveOldObj *unstructured.Unstructured, client pa
 		return nil, err
 	}
 
+	// fieldManager := c.FieldManager
+	// if len(liveOldObj.GetManagedFields()) == 0 {
+	// 	fieldManager = "kubectl"
+	// }
+
 	err = handleSSAIgnoreFields(c, liveOldObj)
 	if err != nil {
 		return nil, err
@@ -558,7 +563,7 @@ func ssaUpdate(c *UpdateConfig, liveOldObj *unstructured.Unstructured, client pa
 	}
 	force := patchForce(c.Inputs, liveOldObj, c.Preview)
 	options := metav1.PatchOptions{
-		FieldManager: c.FieldManager,
+		FieldManager: fieldManager,
 		Force:        &force,
 	}
 	if c.Preview {
@@ -567,7 +572,7 @@ func ssaUpdate(c *UpdateConfig, liveOldObj *unstructured.Unstructured, client pa
 
 	currentOutputs, err := client.Patch(c.Context, liveOldObj.GetName(), types.ApplyPatchType, objYAML, options)
 	if err != nil {
-		return nil, handleSSAErr(err, c.FieldManager)
+		return nil, handleSSAErr(err, fieldManager)
 	}
 
 	return currentOutputs, nil
@@ -908,10 +913,9 @@ func patchForce(inputs, live *unstructured.Unstructured, preview bool) bool {
 		}
 	}
 	// Legacy objects created before SSA don't record any managedFields, but
-	// can still have the "before-first-apply" manager. This manager owns every
-	// field that existed before the first SSA apply. In this case we will take
-	// control of the object. In order to work around this, we take
-	// ownership of one field before the first apply.
+	// they still have a default "before-first-apply" manager. This manager owns every
+	// field that existed before the first SSA apply. To work around this we will take
+	// control of the object.
 	if len(live.GetManagedFields()) == 0 {
 		return true
 	}
