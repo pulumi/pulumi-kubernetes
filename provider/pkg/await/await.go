@@ -547,7 +547,7 @@ func ssaUpdate(c *UpdateConfig, liveOldObj *unstructured.Unstructured, client pa
 		return nil, err
 	}
 
-	// fieldManager := c.FieldManager
+	fieldManager := c.FieldManager
 	// if len(liveOldObj.GetManagedFields()) == 0 {
 	// 	fieldManager = "kubectl"
 	// }
