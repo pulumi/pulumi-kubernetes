@@ -553,6 +553,28 @@ var _ = Describe("Normalize", func() {
 				))
 			})
 		})
+
+		Context("when the object is an unrecognized custom resource", func() {
+			BeforeEach(func() {
+				objs = []unstructured.Unstructured{{
+					Object: map[string]any{
+						"apiVersion": "test.pulumi.com/v1",
+						"kind":       "Unknown",
+						"metadata": map[string]any{
+							"name": "foo",
+						},
+					},
+				}}
+			})
+
+			It("should assume it is namespaced", func(ctx context.Context) {
+				objs, err := Normalize(objs, defaultNamespace, clientSet)
+				Expect(err).ShouldNot(HaveOccurred())
+				Expect(objs).To(HaveExactElements(
+					matchUnstructured(Keys{"metadata": MatchKeys(IgnoreExtras, Keys{"namespace": Equal("default")})}),
+				))
+			})
+		})
 	})
 
 	Describe("special-case kinds", func() {
