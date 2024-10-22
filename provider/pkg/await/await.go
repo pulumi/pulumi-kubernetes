@@ -916,7 +916,7 @@ func patchForce(inputs, live *unstructured.Unstructured, preview bool) bool {
 	// they still have a default "before-first-apply" manager. This manager owns every
 	// field that existed before the first SSA apply. To work around this we will take
 	// control of the object.
-	if len(live.GetManagedFields()) == 0 {
+	if live != nil && len(live.GetManagedFields()) == 0 {
 		return true
 	}
 
