@@ -288,6 +288,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.Helm.V4
         public Input<string>? Namespace { get; set; }
 
         /// <summary>
+        /// Use insecure HTTP for the chart download instead of HTTPS.
+        /// </summary>
+        [Input("plainHttp")]
+        public Input<bool>? PlainHttp { get; set; }
+
+        /// <summary>
         /// Specification defining the post-renderer to use.
         /// </summary>
         [Input("postRenderer")]
