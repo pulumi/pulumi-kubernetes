@@ -14,5 +14,39 @@
 
 package version
 
+import (
+	"fmt"
+	"runtime"
+	"runtime/debug"
+)
+
 // Version is initialized by the Go linker to contain the semver of this build.
 var Version string
+
+// UserAgent is how the provider identifies itself to the API server.
+var UserAgent string
+
+func init() {
+	bi, ok := debug.ReadBuildInfo()
+	if !ok {
+		panic("unable to read build info")
+	}
+	clientGoVersion := "unknown"
+	for _, dep := range bi.Deps {
+		if dep.Path != "k8s.io/client-go" {
+			continue
+		}
+		clientGoVersion = dep.Version
+	}
+	version := "dev"
+	if Version != "" {
+		version = Version
+	}
+	UserAgent = fmt.Sprintf("%s/%s (%s/%s) client-go/%s",
+		"pulumi-kubernetes",
+		version,
+		runtime.GOOS,
+		runtime.GOARCH,
+		clientGoVersion,
+	)
+}
