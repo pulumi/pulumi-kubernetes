@@ -442,6 +442,25 @@ var _ = Describe("Construct", func() {
 			})
 		})
 
+		Describe("Plain HTTP set", func() {
+			BeforeEach(func() {
+				inputs["plainHttp"] = resource.NewBoolProperty(true)
+			})
+			It("should use plain HTTP", func(ctx context.Context) {
+				_, err := pulumiprovider.Construct(ctx, req, tc.EngineConn(), k.Construct)
+				Expect(err).ShouldNot(HaveOccurred())
+				Expect(executor.Action().PlainHTTP).To(Equal(true))
+			})
+		})
+
+		Describe("Plain HTTP unset", func() {
+			It("should not use plain HTTP by default", func(ctx context.Context) {
+				_, err := pulumiprovider.Construct(ctx, req, tc.EngineConn(), k.Construct)
+				Expect(err).ShouldNot(HaveOccurred())
+				Expect(executor.Action().PlainHTTP).To(Equal(false))
+			})
+		})
+
 		Describe("helm.sh/resource-policy: keep", func() {
 			BeforeEach(func() {
 				inputs["values"] = resource.NewObjectProperty(resource.NewPropertyMapFromMap(map[string]any{
