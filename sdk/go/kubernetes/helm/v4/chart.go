@@ -288,6 +288,8 @@ type chartArgs struct {
 	Name *string `pulumi:"name"`
 	// Namespace for the release.
 	Namespace *string `pulumi:"namespace"`
+	// Use insecure HTTP for the chart download instead of HTTPS.
+	PlainHttp *bool `pulumi:"plainHttp"`
 	// Specification defining the post-renderer to use.
 	PostRenderer *PostRenderer `pulumi:"postRenderer"`
 	// Specification defining the Helm chart repository to use.
@@ -322,6 +324,8 @@ type ChartArgs struct {
 	Name pulumi.StringPtrInput
 	// Namespace for the release.
 	Namespace pulumi.StringPtrInput
+	// Use insecure HTTP for the chart download instead of HTTPS.
+	PlainHttp pulumi.BoolPtrInput
 	// Specification defining the post-renderer to use.
 	PostRenderer PostRendererPtrInput
 	// Specification defining the Helm chart repository to use.

@@ -243,6 +243,12 @@ var helmV4ChartResource = pschema.ResourceSpec{
 			},
 			Description: "By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic.",
 		},
+		"plainHttp": {
+			TypeSpec: pschema.TypeSpec{
+				Type: "boolean",
+			},
+			Description: "Use insecure HTTP for the chart download instead of HTTPS.",
+		},
 		"resourcePrefix": {
 			TypeSpec: pschema.TypeSpec{
 				Type: "string",

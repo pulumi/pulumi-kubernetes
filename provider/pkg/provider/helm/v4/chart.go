@@ -59,6 +59,7 @@ type ChartArgs struct {
 
 	ResourcePrefix pulumi.StringInput `pulumi:"resourcePrefix,optional"`
 	SkipAwait      pulumi.BoolInput   `pulumi:"skipAwait,optional"`
+	PlainHTTP      pulumi.BoolInput   `pulumi:"plainHttp,optional"`
 }
 
 type chartArgs struct {
@@ -79,6 +80,7 @@ type chartArgs struct {
 
 	ResourcePrefix *string
 	SkipAwait      bool
+	PlainHTTP      bool
 }
 
 func unwrapChartArgs(ctx context.Context, args *ChartArgs) (*chartArgs, internals.UnsafeAwaitOutputResult, error) {
@@ -86,7 +88,7 @@ func unwrapChartArgs(ctx context.Context, args *ChartArgs) (*chartArgs, internal
 		args.Name, args.Namespace,
 		args.Chart, args.Version, args.Devel, args.RepositoryOpts, args.DependencyUpdate, args.Verify, args.Keyring,
 		args.Values, args.ValuesFiles, args.SkipCrds, args.PostRenderer,
-		args.ResourcePrefix, args.SkipAwait))
+		args.ResourcePrefix, args.SkipAwait, args.PlainHTTP))
 	if err != nil || !result.Known {
 		return nil, result, err
 	}
@@ -118,6 +120,7 @@ func unwrapChartArgs(ctx context.Context, args *ChartArgs) (*chartArgs, internal
 		r.ResourcePrefix = &v
 	}
 	r.SkipAwait, _ = pop().(bool)
+	r.PlainHTTP, _ = pop().(bool)
 
 	return r, result, nil
 }
@@ -215,6 +218,7 @@ func (r *ChartProvider) Construct(ctx *pulumi.Context, typ, name string, inputs 
 	cmd.DisableHooks = true
 	cmd.ReleaseName = chartArgs.Name
 	cmd.Namespace = chartArgs.Namespace
+	cmd.PlainHTTP = chartArgs.PlainHTTP
 
 	if chartArgs.PostRenderer != nil {
 		postrenderer, err := postrender.NewExec(chartArgs.PostRenderer.Command, chartArgs.PostRenderer.Args...)
@@ -262,7 +266,8 @@ func (r *ChartProvider) Construct(ctx *pulumi.Context, typ, name string, inputs 
 		SkipAwait:       chartArgs.SkipAwait,
 		ResourceOptions: []pulumi.ResourceOption{pulumi.Parent(comp)},
 		PreRegisterF: func(ctx *pulumi.Context, apiVersion, kind, resourceName string, obj *unstructured.Unstructured,
-			resourceOpts []pulumi.ResourceOption) (*unstructured.Unstructured, []pulumi.ResourceOption) {
+			resourceOpts []pulumi.ResourceOption,
+		) (*unstructured.Unstructured, []pulumi.ResourceOption) {
 			return preregister(ctx, comp, obj, resourceOpts)
 		},
 	}
@@ -276,8 +281,8 @@ func (r *ChartProvider) Construct(ctx *pulumi.Context, typ, name string, inputs 
 }
 
 func preregister(ctx *pulumi.Context, comp *ChartState, obj *unstructured.Unstructured,
-	resourceOpts []pulumi.ResourceOption) (*unstructured.Unstructured, []pulumi.ResourceOption) {
-
+	resourceOpts []pulumi.ResourceOption,
+) (*unstructured.Unstructured, []pulumi.ResourceOption) {
 	// Implement support for Helm resource policies.
 	// https://helm.sh/docs/howto/charts_tips_and_tricks/#tell-helm-not-to-uninstall-a-resource
 	policy, hasPolicy, err := unstructured.NestedString(obj.Object, "metadata", "annotations", helmkube.ResourcePolicyAnno)
