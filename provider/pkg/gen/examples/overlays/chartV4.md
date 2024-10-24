@@ -56,7 +56,9 @@ Use the `dependencyUpdate` input to have Pulumi update the dependencies (see: [H
 The `Chart` resource renders the templates from your chart and then manages the resources directly with the
 Pulumi Kubernetes provider. A default namespace is applied based on the `namespace` input, the provider's
 configured namespace, and the active Kubernetes context. Use the `skipCrds` option to skip installing the
-Custom Resource Definition (CRD) objects located in the chart's `crds/` special directory.
+Custom Resource Definition (CRD) objects located in the chart's `crds/` special directory. By default,
+resources managed by helm hooks are ignored, use `deployHookedResources` to deploy them as regular resources,
+ignoring their `helm.sh/hook*` annotations.
 
 Use the `postRenderer` input to pipe the rendered manifest through a [post-rendering command](https://helm.sh/docs/topics/advanced/#post-rendering).
 

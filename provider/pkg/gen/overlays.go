@@ -231,6 +231,12 @@ var helmV4ChartResource = pschema.ResourceSpec{
 			},
 			Description: "If set, no CRDs will be installed. By default, CRDs are installed if not already present.",
 		},
+		"deployHookedResourcess": {
+			TypeSpec: pschema.TypeSpec{
+				Type: "boolean",
+			},
+			Description: "If set, deploy all resources that would be managed by Helm hooks as regular resources, ignoring their hook annotations. When disabled (default), these resources are ignored.",
+		},
 		"postRenderer": {
 			TypeSpec: pschema.TypeSpec{
 				Ref: "#/types/kubernetes:helm.sh/v4:PostRenderer",
