@@ -357,6 +357,24 @@ var _ = Describe("Construct", func() {
 			})
 		})
 
+		Describe("DeployHookedResources", func() {
+			Context("given deployHookedResources", func() {
+				BeforeEach(func() {
+					inputs["deployHookedResources"] = resource.NewBoolProperty(true)
+				})
+				It("should deploy hooked resources", func(ctx context.Context) {
+					resp, err := pulumiprovider.Construct(ctx, req, tc.EngineConn(), k.Construct)
+					Expect(err).ShouldNot(HaveOccurred())
+					outputs := unmarshalProperties(GinkgoTB(), resp.State)
+					Expect(outputs).To(MatchProps(IgnoreExtras, Props{
+						"resources": MatchArrayValue(ContainElements(
+							MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:policy/v1:PodDisruptionBudget::test:default/test-reference", "test:default/test-reference"),
+						)),
+					}))
+				})
+			})
+		})
+
 		Describe("Post Renderer", func() {
 			Context("given a postRenderer", func() {
 				var tempdir string
