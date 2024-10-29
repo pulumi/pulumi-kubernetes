@@ -208,6 +208,7 @@ export class Chart extends pulumi.ComponentResource {
             resourceInputs["keyring"] = args ? args.keyring : undefined;
             resourceInputs["name"] = args ? args.name : undefined;
             resourceInputs["namespace"] = args ? args.namespace : undefined;
+            resourceInputs["plainHttp"] = args ? args.plainHttp : undefined;
             resourceInputs["postRenderer"] = args ? args.postRenderer : undefined;
             resourceInputs["repositoryOpts"] = args ? args.repositoryOpts : undefined;
             resourceInputs["resourcePrefix"] = args ? args.resourcePrefix : undefined;
@@ -254,6 +255,10 @@ export interface ChartArgs {
      * Namespace for the release.
      */
     namespace?: pulumi.Input<string>;
+    /**
+     * Use insecure HTTP for the chart download instead of HTTPS.
+     */
+    plainHttp?: pulumi.Input<boolean>;
     /**
      * Specification defining the post-renderer to use.
      */
