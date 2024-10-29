@@ -34,7 +34,8 @@ func TestCaseMapping_Add(t *testing.T) {
 func TestCaseMapping_Get(t *testing.T) {
 	cm := CaseMapping{mapping: make(map[string]string)}
 
-	cm.Add("test", "Test")
+	err := cm.Add("test", "Test")
+	assert.NoError(t, err)
 	assert.Equal(t, "Test", cm.Get("test"))
 
 	assert.Equal(t, "Unknown", cm.Get("unknown"))
