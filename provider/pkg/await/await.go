@@ -547,11 +547,6 @@ func ssaUpdate(c *UpdateConfig, liveOldObj *unstructured.Unstructured, client pa
 		return nil, err
 	}
 
-	fieldManager := c.FieldManager
-	// if len(liveOldObj.GetManagedFields()) == 0 {
-	// 	fieldManager = "kubectl"
-	// }
-
 	err = handleSSAIgnoreFields(c, liveOldObj)
 	if err != nil {
 		return nil, err
@@ -563,7 +558,7 @@ func ssaUpdate(c *UpdateConfig, liveOldObj *unstructured.Unstructured, client pa
 	}
 	force := patchForce(c.Inputs, liveOldObj, c.Preview)
 	options := metav1.PatchOptions{
-		FieldManager: fieldManager,
+		FieldManager: c.FieldManager,
 		Force:        &force,
 	}
 	if c.Preview {
@@ -572,7 +567,7 @@ func ssaUpdate(c *UpdateConfig, liveOldObj *unstructured.Unstructured, client pa
 
 	currentOutputs, err := client.Patch(c.Context, liveOldObj.GetName(), types.ApplyPatchType, objYAML, options)
 	if err != nil {
-		return nil, handleSSAErr(err, fieldManager)
+		return nil, handleSSAErr(err, c.FieldManager)
 	}
 
 	return currentOutputs, nil
