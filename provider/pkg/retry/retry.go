@@ -24,10 +24,9 @@ type retrier struct {
 	waitTime      time.Duration
 	tries         uint
 	maxRetries    uint
-	backOffFactor uint
+	backOffFactor uint16
 }
 
-// nolint: golint
 func SleepingRetry(try func(uint) error) *retrier {
 	return &retrier{
 		try:           try,
@@ -53,7 +52,7 @@ func (r *retrier) WithSleep(s func(time.Duration)) *retrier {
 	return r
 }
 
-func (r *retrier) WithBackoffFactor(t uint) *retrier {
+func (r *retrier) WithBackoffFactor(t uint16) *retrier {
 	r.backOffFactor = t
 	return r
 }
