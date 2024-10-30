@@ -7,5 +7,5 @@ import (
 )
 
 func TestUserAgent(t *testing.T) {
-	assert.Equal(t, "pulumi-kubernetes/dev (darwin/arm64) client-go/unknown", UserAgent)
+	assert.Regexp(t, "^pulumi-kubernetes/dev (.*/.*) client-go/unknown$", UserAgent)
 }
