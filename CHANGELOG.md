@@ -2,6 +2,10 @@
 
 ### Fixed
 
+- Objects created on clusters older than 1.18 will no longer see a
+  `before-first-apply` conflict when Pulumi performs a server-side apply for
+  the first time. (https://github.com/pulumi/pulumi-kubernetes/pull/3275)
+
 - The provider's user agent is now set correctly when communicating with
   the Kubernetes API server.
   (https://github.com/pulumi/pulumi-kubernetes/issues/3267)

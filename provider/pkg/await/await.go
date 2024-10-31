@@ -536,8 +536,12 @@ func csaUpdate(c *UpdateConfig, liveOldObj *unstructured.Unstructured, client dy
 	return client.Patch(c.Context, liveOldObj.GetName(), patchType, patch, options)
 }
 
+type patcher interface {
+	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, options metav1.PatchOptions, subresources ...string) (*unstructured.Unstructured, error)
+}
+
 // ssaUpdate handles the logic for updating a resource using server-side apply.
-func ssaUpdate(c *UpdateConfig, liveOldObj *unstructured.Unstructured, client dynamic.ResourceInterface) (*unstructured.Unstructured, error) {
+func ssaUpdate(c *UpdateConfig, liveOldObj *unstructured.Unstructured, client patcher) (*unstructured.Unstructured, error) {
 	liveOldObj, err := fixCSAFieldManagers(c, liveOldObj, client)
 	if err != nil {
 		return nil, err
@@ -720,7 +724,7 @@ func ensureFieldsAreMembers(s *fieldpath.Set) *fieldpath.Set {
 
 // fixCSAFieldManagers patches the field managers for an existing resource that was managed using client-side apply.
 // The new server-side apply field manager takes ownership of all these fields to avoid conflicts.
-func fixCSAFieldManagers(c *UpdateConfig, liveOldObj *unstructured.Unstructured, client dynamic.ResourceInterface) (*unstructured.Unstructured, error) {
+func fixCSAFieldManagers(c *UpdateConfig, liveOldObj *unstructured.Unstructured, client patcher) (*unstructured.Unstructured, error) {
 	if kinds.IsPatchResource(c.URN, c.Inputs.GetKind()) {
 		// When dealing with a patch resource, there's no need to patch the field managers.
 		// Doing so would inadvertently make us responsible for managing fields that are not relevant to us during updates,
@@ -902,6 +906,13 @@ func patchForce(inputs, live *unstructured.Unstructured, preview bool) bool {
 				return true
 			}
 		}
+	}
+	// Legacy objects created before SSA don't record any managedFields, but
+	// they still have a default "before-first-apply" manager. This manager owns every
+	// field that existed before the first SSA apply. To work around this we will take
+	// control of the object.
+	if live != nil && len(live.GetManagedFields()) == 0 {
+		return true
 	}
 
 	return false
