@@ -6,6 +6,10 @@
   `before-first-apply` conflict when Pulumi performs a server-side apply for
   the first time. (https://github.com/pulumi/pulumi-kubernetes/pull/3275)
 
+- The provider's user agent is now set correctly when communicating with
+  the Kubernetes API server.
+  (https://github.com/pulumi/pulumi-kubernetes/issues/3267)
+
 ## 4.18.2 (October 16, 2024)
 
 ### Fixed

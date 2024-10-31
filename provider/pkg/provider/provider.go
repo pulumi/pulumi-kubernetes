@@ -48,6 +48,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/openapi"
 	providerresource "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/resource"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/ssa"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/version"
 	pulumischema "github.com/pulumi/pulumi/pkg/v3/codegen/schema"
 	"github.com/pulumi/pulumi/pkg/v3/resource/deploy/providers"
 	"github.com/pulumi/pulumi/pkg/v3/resource/provider"
@@ -852,6 +853,7 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 				logger.V(9).Infof("kube client timeout set to %v", config.Timeout)
 			}
 			config.WarningHandler = rest.NoWarnings{}
+			config.UserAgent = version.UserAgent
 		}
 	}
 
