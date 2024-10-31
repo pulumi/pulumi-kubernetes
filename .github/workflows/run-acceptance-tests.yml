@@ -443,8 +443,6 @@ jobs:
       with:
         go-version: ${{ env.GOVERSION }}
         cache-dependency-path: "**/*.sum"
-    - name: Touch empty generated files to ensure provider compiles
-      run: touch provider/cmd/pulumi-resource-kubernetes/{terraform-mapping,schema}-embed.json
     - name: golangci-lint provider pkg
       uses: golangci/golangci-lint-action@v4
       with:
