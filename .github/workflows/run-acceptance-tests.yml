@@ -443,6 +443,7 @@ jobs:
       with:
         go-version: ${{ env.GOVERSION }}
         cache-dependency-path: "**/*.sum"
+    - run: make k8sprovider
     - name: golangci-lint provider pkg
       uses: golangci/golangci-lint-action@v4
       with:
