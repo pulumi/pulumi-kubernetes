@@ -1,5 +1,11 @@
 ## Unreleased
 
+### Fixed
+
+- Objects created on clusters older than 1.18 will no longer see a
+  `before-first-apply` conflict when Pulumi performs a server-side apply for
+  the first time. (https://github.com/pulumi/pulumi-kubernetes/pull/3275)
+
 ## 4.18.2 (October 16, 2024)
 
 ### Fixed
