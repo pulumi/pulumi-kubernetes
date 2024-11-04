@@ -15,6 +15,9 @@ import java.util.Optional;
 import javax.annotation.Nullable;
 
 /**
+ * _Looking for the Release resource? Please use the [v3 package](/registry/packages/kubernetes/api-docs/helm/v3/release/)
+ * for production use cases, and stay tuned for an updated Release resource, coming soon._
+ * 
  * _See also: [New: Helm Chart v4 resource with new features and languages](/blog/kubernetes-chart-v4/)_
  * 
  * Chart is a component representing a collection of resources described by a Helm Chart.

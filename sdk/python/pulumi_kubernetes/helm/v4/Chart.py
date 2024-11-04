@@ -286,6 +286,9 @@ class Chart(pulumi.ComponentResource):
                  version: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
+        _Looking for the Release resource? Please use the [v3 package](/registry/packages/kubernetes/api-docs/helm/v3/release/)
+        for production use cases, and stay tuned for an updated Release resource, coming soon._
+
         _See also: [New: Helm Chart v4 resource with new features and languages](/blog/kubernetes-chart-v4/)_
 
         Chart is a component representing a collection of resources described by a Helm Chart.
@@ -475,6 +478,9 @@ class Chart(pulumi.ComponentResource):
                  args: ChartArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
+        _Looking for the Release resource? Please use the [v3 package](/registry/packages/kubernetes/api-docs/helm/v3/release/)
+        for production use cases, and stay tuned for an updated Release resource, coming soon._
+
         _See also: [New: Helm Chart v4 resource with new features and languages](/blog/kubernetes-chart-v4/)_
 
         Chart is a component representing a collection of resources described by a Helm Chart.
