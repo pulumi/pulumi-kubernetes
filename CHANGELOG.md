@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 4.18.4 (October 31, 2024)
+
+### Fixed
+
+- Updated documentation for Helm Chart/v4
+
 ## 4.18.3 (October 31, 2024)
 
 ### Fixed
