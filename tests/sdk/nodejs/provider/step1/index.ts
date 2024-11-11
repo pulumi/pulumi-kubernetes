@@ -39,7 +39,7 @@ const kubeconfigPathProvider = new k8s.Provider("kubeconfigPathProvider", {
 new k8s.core.v1.Pod("nginx1", {
     spec: {
         containers: [{
-            image: "nginx:1.7.9",
+            image: "nginx:1.27.2",
             name: "nginx",
             ports: [{ containerPort: 80 }],
         }],
@@ -51,7 +51,7 @@ new k8s.core.v1.Pod("nginx1", {
 new k8s.core.v1.Pod("nginx2", {
     spec: {
         containers: [{
-            image: "nginx:1.7.9",
+            image: "nginx:1.27.2",
             name: "nginx",
             ports: [{ containerPort: 80 }],
         }],
@@ -64,7 +64,7 @@ new k8s.core.v1.Pod("namespaced-nginx", {
     metadata: { namespace: ns2.metadata.name },
     spec: {
         containers: [{
-            image: "nginx:1.7.9",
+            image: "nginx:1.27.2",
             name: "nginx",
             ports: [{ containerPort: 80 }],
         }],
