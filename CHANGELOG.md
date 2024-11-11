@@ -1,5 +1,10 @@
 ## Unreleased
 
+### Changed
+
+- [nodejs] Updated `node-fetch` dependency and removed `tmp` dependency.
+  (https://github.com/pulumi/pulumi-kubernetes/issues/3301)
+
 ## 4.18.3 (October 31, 2024)
 
 ### Fixed
