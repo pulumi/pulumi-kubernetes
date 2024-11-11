@@ -617,10 +617,8 @@ additional information about using Server-Side Apply to manage Kubernetes resour
 	})
 
 	nodeDeps := map[string]string{
-		"shell-quote":       "^1.6.1",
-		"glob":              "^10.3.10",
-		"node-fetch":        "^3.3.2",
-		"@types/node-fetch": "^2.6.11",
+		"shell-quote": "^1.6.1",
+		"glob":        "^10.3.10",
 	}
 	if gen.pulumiKubernetesDependency != "" {
 		nodeDeps["@pulumi/kubernetes"] = gen.pulumiKubernetesDependency

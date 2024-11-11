@@ -15,9 +15,7 @@
     },
     "dependencies": {
         "@pulumi/pulumi": "^3.136.0",
-        "@types/node-fetch": "^2.6.11",
         "glob": "^10.3.10",
-        "node-fetch": "^3.3.2",
         "shell-quote": "^1.6.1"
     },
     "devDependencies": {
