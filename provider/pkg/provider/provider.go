@@ -995,7 +995,7 @@ func (k *kubeProvider) Invoke(ctx context.Context,
 			return nil, errors.New("missing required field 'directory' of type string")
 		}
 
-		result, err := kustomizeDirectory(directory, k.clientSet)
+		result, err := kustomizeDirectory(ctx, directory, k.clientSet)
 		if err != nil {
 			return nil, err
 		}
