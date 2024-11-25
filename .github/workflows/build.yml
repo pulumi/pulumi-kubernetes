@@ -536,58 +536,6 @@ jobs:
         author_name: Failure in publishing SDK
         fields: repo,commit,author,action
         status: ${{ job.status }}
-  publish_java_sdk:
-    runs-on: ubuntu-latest
-    continue-on-error: true
-    needs: publish
-    name: publish_java_sdk
-    steps:
-    - name: Checkout Repo
-      uses: actions/checkout@v4
-      with:
-        lfs: true
-    - id: version
-      name: Set Provider Version
-      uses: pulumi/provider-version-action@7c54f136703646f7d6eaa3d3b3c877e5a805d6ab # v1
-      with:
-        set-env: PROVIDER_VERSION
-    - name: Install Go
-      uses: actions/setup-go@v5
-      with:
-        go-version: ${{ env.GOVERSION }}
-        cache-dependency-path: "**/*.sum"
-    - name: Install pulumictl
-      uses: jaxxstorm/action-install-gh-release@v1.11.0
-      with:
-        repo: pulumi/pulumictl
-    - name: Install Pulumi CLI
-      uses: pulumi/actions@c7fad9e2f0b79653172b36538b8b34b3c0291952 # v6
-    - name: Setup Java
-      uses: actions/setup-java@v4
-      with:
-        java-version: ${{ env.JAVAVERSION }}
-        distribution: temurin
-        cache: gradle
-    - name: Setup Gradle
-      uses: gradle/gradle-build-action@v3
-      with:
-        gradle-version: "7.6"
-    - name: Download java SDK
-      uses: actions/download-artifact@v4
-      with:
-        name: java-sdk.tar.gz
-        path: ${{ github.workspace}}/sdk/
-    - name: Uncompress java SDK
-      run: tar -zxf ${{github.workspace}}/sdk/java.tar.gz -C
-        ${{github.workspace}}/sdk/java
-    - name: Publish Java SDK
-      uses: gradle/gradle-build-action@v3
-      env:
-        PACKAGE_VERSION: ${{ env.PROVIDER_VERSION }}
-      with:
-        arguments: publishToSonatype closeAndReleaseSonatypeStagingRepository
-        build-root-directory: ./sdk/java
-        gradle-version: 7.4.1
   lint:
     runs-on: ubuntu-latest
     steps:
@@ -601,6 +549,7 @@ jobs:
       with:
         go-version: ${{ env.GOVERSION }}
         cache-dependency-path: "**/*.sum"
+    - run: touch provider/cmd/pulumi-resource-kubernetes/{terraform-mapping,schema}-embed.json
     - name: golangci-lint provider pkg
       uses: golangci/golangci-lint-action@v4
       with:
