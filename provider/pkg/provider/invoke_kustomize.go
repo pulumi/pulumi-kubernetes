@@ -15,6 +15,7 @@
 package provider
 
 import (
+	"context"
 	"fmt"
 	"os"
 	"strings"
@@ -30,7 +31,7 @@ import (
 
 // kustomizeDirectory takes a path to a kustomization directory, either a local directory or a folder in a git repo,
 // and then returns a slice of untyped structs that can be marshalled into Pulumi RPC calls.
-func kustomizeDirectory(directory string, clientSet *clients.DynamicClientSet) ([]any, error) {
+func kustomizeDirectory(ctx context.Context, directory string, clientSet *clients.DynamicClientSet) ([]any, error) {
 	path := directory
 
 	// If provided directory doesn't exist locally, assume it's a git repo link.
@@ -44,7 +45,7 @@ func kustomizeDirectory(directory string, clientSet *clients.DynamicClientSet) (
 		}
 		defer contract.IgnoreError(os.RemoveAll(temp))
 
-		path, err = workspace.RetrieveGitFolder(directory, temp)
+		path, err = workspace.RetrieveGitFolder(ctx, directory, temp)
 		if err != nil {
 			return nil, fmt.Errorf("failed to retrieve specified kustomize directory: %q: %w", directory, err)
 		}
