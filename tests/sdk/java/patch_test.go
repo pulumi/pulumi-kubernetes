@@ -85,15 +85,15 @@ func TestPatchResources(t *testing.T) {
 		// 1. Create the resources.
 		test := pulumitest.NewPulumiTest(t, filepath.Join(testFolder, language, "step1"))
 		if language != "yaml" {
-			test.Install()
+			test.Install(t)
 		}
 		t.Logf("into %s", test.Source())
 		t.Cleanup(func() {
-			test.Destroy()
+			test.Destroy(t)
 		})
 
-		test.Preview()
-		outputs := test.Up().Outputs
+		test.Preview(t)
+		outputs := test.Up(t).Outputs
 		// Validate the resources do not contain the patch fields. Get the program outputs for use with `kubectl`.
 		namespace := outputs["nsName"].Value.(string)
 		resources := []rsc{
@@ -135,12 +135,12 @@ func TestPatchResources(t *testing.T) {
 		}
 
 		// 2. Patch the resources.
-		test.UpdateSource(testFolder, language, "step2")
+		test.UpdateSource(t, testFolder, language, "step2")
 		if language != "yaml" {
-			test.Install()
+			test.Install(t)
 		}
-		test.Preview()
-		test.Up()
+		test.Preview(t)
+		test.Up(t)
 
 		// Validate the resources contain the patch fields.
 		for _, resource := range resources {
@@ -166,13 +166,13 @@ func TestPatchResources(t *testing.T) {
 		}
 
 		// 3. Delete the Patch resources by reverting to the Pulumi program in step 1.
-		test.UpdateSource(testFolder, language, "step1")
+		test.UpdateSource(t, testFolder, language, "step1")
 		if language != "yaml" {
-			test.Install()
+			test.Install(t)
 		}
 
-		test.Preview()
-		test.Up()
+		test.Preview(t)
+		test.Up(t)
 
 		// Validate the resources do not contain the patch fields, and the object has not been deleted from cluster.
 		for _, resource := range resources {

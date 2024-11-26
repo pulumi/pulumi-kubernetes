@@ -54,19 +54,19 @@ func TestHelmUnknowns(t *testing.T) {
 
 	previewF := func(opts ...optpreview.Option) auto.PreviewResult {
 		clearGrpcLog(t, test)
-		preview := test.Preview(opts...)
+		preview := test.Preview(t, opts...)
 		t.Log(preview.StdOut)
 		return preview
 	}
 	upF := func() auto.UpResult {
 		clearGrpcLog(t, test)
-		up := test.Up()
+		up := test.Up(t)
 		t.Log(up.StdOut)
 		return up
 	}
 
 	lookup := func() grpclog.TypedEntry[rpc.CreateRequest, rpc.CreateResponse] {
-		creates, err := test.GrpcLog().Creates()
+		creates, err := test.GrpcLog(t).Creates()
 		g.Expect(err).ToNot(HaveOccurred())
 		release := findByUrn(t, creates, urn("kubernetes:helm.sh/v3:Release", "release"))
 		g.Expect(release).ToNot(BeNil())
@@ -190,8 +190,8 @@ func TestPreviewWithUnreachableCluster(t *testing.T) {
 
 	test := pulumitest.NewPulumiTest(t, "helm-preview-unreachable")
 	t.Cleanup(func() {
-		test.Destroy()
+		test.Destroy(t)
 	})
 
-	test.Preview()
+	test.Preview(t)
 }

@@ -40,10 +40,10 @@ func TestCSAToSSANoManagedFields(t *testing.T) {
 	test := pulumitest.NewPulumiTest(t, "testdata/csa-to-ssa", opttest.SkipInstall())
 	t.Logf("into %s", test.Source())
 	t.Cleanup(func() {
-		test.Destroy()
+		test.Destroy(t)
 	})
-	test.Preview()
-	test.Up()
+	test.Preview(t)
+	test.Up(t)
 
 	outputs, err := test.CurrentStack().Outputs(ctx)
 	require.NoError(t, err, "Failed to get outputs from stack")
@@ -85,8 +85,8 @@ func TestCSAToSSANoManagedFields(t *testing.T) {
 	require.Empty(t, dep.GetManagedFields(), "Failed to remove managedFields from deployment object")
 
 	// 3. Apply step 2 of testdata where SSA mode is enabled, with a change in the image spec field.
-	test.UpdateSource("testdata/csa-to-ssa/step2")
-	test.Preview()
-	test.Up()
-	test.Up(optup.ExpectNoChanges())
+	test.UpdateSource(t, "testdata/csa-to-ssa/step2")
+	test.Preview(t)
+	test.Up(t)
+	test.Up(t, optup.ExpectNoChanges())
 }
