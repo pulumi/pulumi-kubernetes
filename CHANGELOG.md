@@ -1,5 +1,10 @@
 ## Unreleased
 
+### Changed
+
+- [nodejs] Resolves `punycode` deprecation warnings by using native `fetch` instead of `node-fetch`.
+  (https://github.com/pulumi/pulumi-kubernetes/issues/3301)
+
 ## 4.18.3 (October 31, 2024)
 
 ### Fixed
