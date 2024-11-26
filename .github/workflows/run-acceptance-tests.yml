@@ -71,7 +71,7 @@ jobs:
         ref: ${{ env.PR_COMMIT_SHA }}
     - id: version
       name: Set Provider Version
-      uses: pulumi/provider-version-action@7c54f136703646f7d6eaa3d3b3c877e5a805d6ab # v1
+      uses: pulumi/provider-version-action@v1
       with:
         set-env: PROVIDER_VERSION
     - name: Install Go
@@ -84,7 +84,7 @@ jobs:
       with:
         repo: pulumi/pulumictl
     - name: Install Pulumi CLI
-      uses: pulumi/actions@c7fad9e2f0b79653172b36538b8b34b3c0291952 # v6
+      uses: pulumi/actions@v5
       with:
         pulumi-version-file: .pulumi.version
     - if: github.event_name == 'pull_request'
@@ -181,7 +181,7 @@ jobs:
         ref: ${{ env.PR_COMMIT_SHA }}
     - id: version
       name: Set Provider Version
-      uses: pulumi/provider-version-action@7c54f136703646f7d6eaa3d3b3c877e5a805d6ab # v1
+      uses: pulumi/provider-version-action@v1
       with:
         set-env: PROVIDER_VERSION
     - name: Install Go
@@ -194,7 +194,7 @@ jobs:
       with:
         repo: pulumi/pulumictl
     - name: Install Pulumi CLI
-      uses: pulumi/actions@c7fad9e2f0b79653172b36538b8b34b3c0291952 # v6
+      uses: pulumi/actions@v5
       with:
         pulumi-version-file: .pulumi.version
     - name: Setup Node
@@ -285,7 +285,7 @@ jobs:
         ref: ${{ env.PR_COMMIT_SHA }}
     - id: version
       name: Set Provider Version
-      uses: pulumi/provider-version-action@7c54f136703646f7d6eaa3d3b3c877e5a805d6ab # v1
+      uses: pulumi/provider-version-action@v1
       with:
         set-env: PROVIDER_VERSION
     - name: Install Go
@@ -298,7 +298,7 @@ jobs:
       with:
         repo: pulumi/pulumictl
     - name: Install Pulumi CLI
-      uses: pulumi/actions@c7fad9e2f0b79653172b36538b8b34b3c0291952 # v6
+      uses: pulumi/actions@v5
       with:
         pulumi-version-file: .pulumi.version
     - name: Setup Node
@@ -443,7 +443,6 @@ jobs:
       with:
         go-version: ${{ env.GOVERSION }}
         cache-dependency-path: "**/*.sum"
-    - run: touch provider/cmd/pulumi-resource-kubernetes/{terraform-mapping,schema}-embed.json
     - name: golangci-lint provider pkg
       uses: golangci/golangci-lint-action@v4
       with:
