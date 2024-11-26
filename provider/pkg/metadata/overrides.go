@@ -23,9 +23,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/condition"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/jsonpath"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/logging"
+	"github.com/pulumi/pulumi-kubernetes/v4/provider/pkg/await/condition"
+	"github.com/pulumi/pulumi-kubernetes/v4/provider/pkg/jsonpath"
+	"github.com/pulumi/pulumi-kubernetes/v4/provider/pkg/logging"
 	appsv1 "k8s.io/api/apps/v1"
 	appsv1beta1 "k8s.io/api/apps/v1beta1"
 	appsv1beta2 "k8s.io/api/apps/v1beta2"

@@ -19,8 +19,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
+	"github.com/pulumi/pulumi-kubernetes/v4/provider/pkg/await"
+	"github.com/pulumi/pulumi-kubernetes/v4/provider/pkg/kinds"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 )
 

@@ -15,7 +15,7 @@
 package resource
 
 import (
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
+	"github.com/pulumi/pulumi-kubernetes/v4/provider/pkg/clients"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	pulumiprovider "github.com/pulumi/pulumi/sdk/v3/go/pulumi/provider"
 	"helm.sh/helm/v3/pkg/cli"

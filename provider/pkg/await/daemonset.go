@@ -21,9 +21,9 @@ import (
 	"time"
 
 	"github.com/pulumi/cloud-ready-checks/pkg/checker/logging"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/informers"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
+	"github.com/pulumi/pulumi-kubernetes/v4/provider/pkg/await/informers"
+	"github.com/pulumi/pulumi-kubernetes/v4/provider/pkg/clients"
+	"github.com/pulumi/pulumi-kubernetes/v4/provider/pkg/kinds"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/cmdutil"
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"

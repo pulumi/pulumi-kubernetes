@@ -21,7 +21,7 @@ import (
 	structpb "github.com/golang/protobuf/ptypes/struct"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
-	fakehost "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/host/fake"
+	fakehost "github.com/pulumi/pulumi-kubernetes/v4/provider/pkg/host/fake"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource/plugin"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"

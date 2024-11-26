@@ -26,7 +26,7 @@ import (
 	"sync"
 
 	"github.com/go-openapi/jsonreference"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/gen"
+	"github.com/pulumi/pulumi-kubernetes/v4/provider/pkg/gen"
 	"github.com/pulumi/pulumi/pkg/v3/codegen/cgstrings"
 	pulumischema "github.com/pulumi/pulumi/pkg/v3/codegen/schema"
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"

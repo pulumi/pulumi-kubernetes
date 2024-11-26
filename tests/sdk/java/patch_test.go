@@ -21,7 +21,7 @@ import (
 	"testing"
 
 	"github.com/pulumi/providertest/pulumitest"
-	"github.com/pulumi/pulumi-kubernetes/tests/v4"
+	"github.com/pulumi/pulumi-kubernetes/v4/tests"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 )
 

@@ -5,7 +5,7 @@ import (
 
 	"github.com/pulumi/providertest/pulumitest"
 	"github.com/pulumi/providertest/pulumitest/opttest"
-	"github.com/pulumi/pulumi-kubernetes/tests/v4"
+	"github.com/pulumi/pulumi-kubernetes/v4/tests"
 	"github.com/stretchr/testify/require"
 )
 

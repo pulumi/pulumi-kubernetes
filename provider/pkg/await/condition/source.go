@@ -19,8 +19,8 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/informers"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
+	"github.com/pulumi/pulumi-kubernetes/v4/provider/pkg/await/informers"
+	"github.com/pulumi/pulumi-kubernetes/v4/provider/pkg/clients"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/dynamic/dynamicinformer"

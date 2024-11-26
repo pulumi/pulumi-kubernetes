@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/jsonpath"
+	"github.com/pulumi/pulumi-kubernetes/v4/provider/pkg/jsonpath"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/watch"

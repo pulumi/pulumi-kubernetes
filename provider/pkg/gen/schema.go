@@ -22,7 +22,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/gen/examples"
+	"github.com/pulumi/pulumi-kubernetes/v4/provider/pkg/gen/examples"
 	pschema "github.com/pulumi/pulumi/pkg/v3/codegen/schema"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 )

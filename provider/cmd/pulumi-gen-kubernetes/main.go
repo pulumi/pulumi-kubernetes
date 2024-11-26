@@ -29,8 +29,8 @@ import (
 	"text/template"
 	"unicode"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/gen"
-	providerVersion "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/version"
+	"github.com/pulumi/pulumi-kubernetes/v4/provider/pkg/gen"
+	providerVersion "github.com/pulumi/pulumi-kubernetes/v4/provider/pkg/version"
 	"github.com/pulumi/pulumi/pkg/v3/codegen"
 	dotnetgen "github.com/pulumi/pulumi/pkg/v3/codegen/dotnet"
 	gogen "github.com/pulumi/pulumi/pkg/v3/codegen/go"

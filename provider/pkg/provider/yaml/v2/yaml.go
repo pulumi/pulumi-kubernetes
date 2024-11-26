@@ -29,7 +29,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
+	"github.com/pulumi/pulumi-kubernetes/v4/provider/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes"
 	yamlv2 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/yaml/v2"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"

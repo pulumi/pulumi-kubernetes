@@ -27,7 +27,7 @@ import (
 	"time"
 
 	"github.com/pkg/errors"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider"
+	"github.com/pulumi/pulumi-kubernetes/v4/provider/pkg/provider"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/archive"
 	"helm.sh/helm/v3/pkg/action"
 	"helm.sh/helm/v3/pkg/chart/loader"

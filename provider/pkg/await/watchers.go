@@ -23,8 +23,8 @@ import (
 	checkerlog "github.com/pulumi/cloud-ready-checks/pkg/checker/logging"
 
 	"github.com/pulumi/cloud-ready-checks/pkg/kubernetes/pod"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/condition"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
+	"github.com/pulumi/pulumi-kubernetes/v4/provider/pkg/await/condition"
+	"github.com/pulumi/pulumi-kubernetes/v4/provider/pkg/clients"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
 	corev1 "k8s.io/api/core/v1"

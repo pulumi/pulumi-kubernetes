@@ -34,9 +34,7 @@ openapi_file::
 	test -f $(OPENAPI_FILE) || curl -s -L $(SWAGGER_URL) > $(OPENAPI_FILE)
 
 ensure::
-	cd provider && go mod tidy
-	cd sdk && go mod tidy
-	cd tests && go mod tidy
+	go mod tidy
 
 k8sgen::
 	(cd provider && CGO_ENABLED=1 go build -o $(WORKING_DIR)/bin/${CODEGEN} -ldflags "-X ${PROJECT}/${VERSION_PATH}=${VERSION_GENERIC}" ${PROJECT}/${PROVIDER_PATH}/cmd/$(CODEGEN))

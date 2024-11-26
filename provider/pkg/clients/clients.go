@@ -20,7 +20,7 @@ import (
 	"io"
 	"strings"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
+	"github.com/pulumi/pulumi-kubernetes/v4/provider/pkg/kinds"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/meta"

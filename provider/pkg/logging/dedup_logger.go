@@ -19,7 +19,7 @@ import (
 	"sync"
 
 	"github.com/pulumi/cloud-ready-checks/pkg/checker/logging"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/host"
+	"github.com/pulumi/pulumi-kubernetes/v4/provider/pkg/host"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 )

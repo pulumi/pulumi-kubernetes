@@ -18,8 +18,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
-	providerresource "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/resource"
+	"github.com/pulumi/pulumi-kubernetes/v4/provider/pkg/clients"
+	providerresource "github.com/pulumi/pulumi-kubernetes/v4/provider/pkg/provider/resource"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/internals"
 	pulumiprovider "github.com/pulumi/pulumi/sdk/v3/go/pulumi/provider"

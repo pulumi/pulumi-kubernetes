@@ -17,7 +17,7 @@ package openapi
 import (
 	"fmt"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
+	"github.com/pulumi/pulumi-kubernetes/v4/provider/pkg/kinds"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"

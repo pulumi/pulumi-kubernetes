@@ -18,7 +18,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/cluster"
+	"github.com/pulumi/pulumi-kubernetes/v4/provider/pkg/cluster"
 	. "k8s.io/apimachinery/pkg/runtime/schema"
 )
 
