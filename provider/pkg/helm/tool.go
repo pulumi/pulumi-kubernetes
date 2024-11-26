@@ -26,8 +26,8 @@ import (
 	"time"
 
 	"github.com/pkg/errors"
-	"github.com/pulumi/pulumi-kubernetes/v4/provider/pkg/logging"
 	helmv4 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v4"
+	"github.com/pulumi/pulumi-kubernetes/v4/provider/pkg/logging"
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"helm.sh/helm/v3/pkg/action"

@@ -20,8 +20,8 @@ import (
 	. "github.com/onsi/ginkgo/v2"      //nolint:golint // dot-imports
 	. "github.com/onsi/gomega"         //nolint:golint // dot-imports
 	. "github.com/onsi/gomega/gstruct" //nolint:golint // dot-imports
-	providerresource "github.com/pulumi/pulumi-kubernetes/v4/provider/pkg/provider/resource"
 	"github.com/pulumi/pulumi-kubernetes/v4/provider/pkg/clients/fake"
+	providerresource "github.com/pulumi/pulumi-kubernetes/v4/provider/pkg/provider/resource"
 	. "github.com/pulumi/pulumi-kubernetes/v4/tests/gomega"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource/plugin"

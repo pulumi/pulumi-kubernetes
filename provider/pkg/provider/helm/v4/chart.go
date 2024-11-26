@@ -18,11 +18,11 @@ import (
 	"context"
 	"fmt"
 
+	helmv4 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v4"
 	"github.com/pulumi/pulumi-kubernetes/v4/provider/pkg/clients"
 	kubehelm "github.com/pulumi/pulumi-kubernetes/v4/provider/pkg/helm"
 	providerresource "github.com/pulumi/pulumi-kubernetes/v4/provider/pkg/provider/resource"
 	provideryamlv2 "github.com/pulumi/pulumi-kubernetes/v4/provider/pkg/provider/yaml/v2"
-	helmv4 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v4"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/internals"
 	pulumiprovider "github.com/pulumi/pulumi/sdk/v3/go/pulumi/provider"
