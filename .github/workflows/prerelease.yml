@@ -44,16 +44,16 @@ jobs:
     name: prerequisites
     steps:
     - name: Checkout Repo
-      uses: actions/checkout@v4
+      uses: actions/checkout@v4.2.2
       with:
         lfs: true
     - id: version
       name: Set Provider Version
-      uses: pulumi/provider-version-action@7c54f136703646f7d6eaa3d3b3c877e5a805d6ab # v1
+      uses: pulumi/provider-version-action@v1.5.3
       with:
         set-env: PROVIDER_VERSION
     - name: Install Go
-      uses: actions/setup-go@v5
+      uses: actions/setup-go@v5.1.0
       with:
         go-version: ${{ env.GOVERSION }}
         cache-dependency-path: "**/*.sum"
@@ -62,7 +62,7 @@ jobs:
       with:
         repo: pulumi/pulumictl
     - name: Install Pulumi CLI
-      uses: pulumi/actions@c7fad9e2f0b79653172b36538b8b34b3c0291952 # v6
+      uses: pulumi/actions@v5.5.1
       with:
         pulumi-version-file: .pulumi.version
     - if: github.event_name == 'pull_request'
@@ -90,7 +90,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.PULUMI_BOT_TOKEN }}
     - if: github.event_name == 'pull_request'
       name: Comment on PR with Details of Schema Check
-      uses: thollander/actions-comment-pull-request@v2
+      uses: thollander/actions-comment-pull-request@v2.5.0
       with:
         message: |
           ${{ env.SCHEMA_CHANGES }}
@@ -105,7 +105,7 @@ jobs:
         number: ${{ github.event.issue.number }}
         github_token: ${{ secrets.GITHUB_TOKEN }}
     - name: Check worktree clean
-      uses: pulumi/git-status-check-action@v1
+      uses: pulumi/git-status-check-action@v1.1.1
       with:
         allowed-changes: |-
           sdk/**/pulumi-plugin.json
@@ -119,19 +119,19 @@ jobs:
         github.workspace}}/bin/ pulumi-resource-${{ env.PROVIDER }}
         pulumi-gen-${{ env.PROVIDER}}
     - name: Upload artifacts
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v4.4.3
       with:
         name: pulumi-${{ env.PROVIDER }}-provider.tar.gz
         path: ${{ github.workspace }}/bin/provider.tar.gz
     - name: Test Provider Library
       run: make test_provider
     - name: Upload coverage reports to Codecov
-      uses: codecov/codecov-action@v4
+      uses: codecov/codecov-action@v4.6.0
       env:
         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
     - if: failure() && github.event_name == 'push'
       name: Notify Slack
-      uses: 8398a7/action-slack@v3
+      uses: 8398a7/action-slack@v3.16.2
       with:
         author_name: Failure in building provider prerequisites
         fields: repo,commit,author,action
@@ -151,16 +151,16 @@ jobs:
     name: build_sdks
     steps:
     - name: Checkout Repo
-      uses: actions/checkout@v4
+      uses: actions/checkout@v4.2.2
       with:
         lfs: true
     - id: version
       name: Set Provider Version
-      uses: pulumi/provider-version-action@7c54f136703646f7d6eaa3d3b3c877e5a805d6ab # v1
+      uses: pulumi/provider-version-action@v1.5.3
       with:
         set-env: PROVIDER_VERSION
     - name: Install Go
-      uses: actions/setup-go@v5
+      uses: actions/setup-go@v5.1.0
       with:
         go-version: ${{ env.GOVERSION }}
         cache-dependency-path: "**/*.sum"
@@ -169,34 +169,34 @@ jobs:
       with:
         repo: pulumi/pulumictl
     - name: Install Pulumi CLI
-      uses: pulumi/actions@c7fad9e2f0b79653172b36538b8b34b3c0291952 # v6
+      uses: pulumi/actions@v5.5.1
       with:
         pulumi-version-file: .pulumi.version
     - name: Setup Node
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v4.1.0
       with:
         node-version: ${{ env.NODEVERSION }}
         registry-url: https://registry.npmjs.org
     - name: Setup DotNet
-      uses: actions/setup-dotnet@v4
+      uses: actions/setup-dotnet@v4.1.0
       with:
         dotnet-version: ${{ env.DOTNETVERSION }}
     - name: Setup Python
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v5.3.0
       with:
         python-version: ${{ env.PYTHONVERSION }}
     - name: Setup Java
-      uses: actions/setup-java@v4
+      uses: actions/setup-java@v4.5.0
       with:
         java-version: ${{ env.JAVAVERSION }}
         distribution: temurin
         cache: gradle
     - name: Setup Gradle
-      uses: gradle/gradle-build-action@v3
+      uses: gradle/gradle-build-action@v3.5.0
       with:
         gradle-version: "7.6"
     - name: Download provider + tfgen binaries
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v4.1.8
       with:
         name: pulumi-${{ env.PROVIDER }}-provider.tar.gz
         path: ${{ github.workspace }}/bin
@@ -209,7 +209,7 @@ jobs:
     - name: Generate SDK
       run: make ${{ matrix.language }}_sdk
     - name: Check worktree clean
-      uses: pulumi/git-status-check-action@v1
+      uses: pulumi/git-status-check-action@v1.1.1
       with:
         allowed-changes: |-
           sdk/**/pulumi-plugin.json
@@ -221,13 +221,13 @@ jobs:
     - name: Tar SDK folder
       run: tar -zcf sdk/${{ matrix.language }}.tar.gz -C sdk/${{ matrix.language }} .
     - name: Upload artifacts
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v4.4.3
       with:
         name: ${{ matrix.language  }}-sdk.tar.gz
         path: ${{ github.workspace}}/sdk/${{ matrix.language }}.tar.gz
     - if: failure() && github.event_name == 'push'
       name: Notify Slack
-      uses: 8398a7/action-slack@v3
+      uses: 8398a7/action-slack@v3.16.2
       with:
         author_name: Failure while building SDKs
         fields: repo,commit,author,action
@@ -252,16 +252,16 @@ jobs:
       id-token: write
     steps:
     - name: Checkout Repo
-      uses: actions/checkout@v4
+      uses: actions/checkout@v4.2.2
       with:
         lfs: true
     - id: version
       name: Set Provider Version
-      uses: pulumi/provider-version-action@7c54f136703646f7d6eaa3d3b3c877e5a805d6ab # v1
+      uses: pulumi/provider-version-action@v1.5.3
       with:
         set-env: PROVIDER_VERSION
     - name: Install Go
-      uses: actions/setup-go@v5
+      uses: actions/setup-go@v5.1.0
       with:
         go-version: ${{ env.GOVERSION }}
         cache-dependency-path: "**/*.sum"
@@ -270,34 +270,34 @@ jobs:
       with:
         repo: pulumi/pulumictl
     - name: Install Pulumi CLI
-      uses: pulumi/actions@c7fad9e2f0b79653172b36538b8b34b3c0291952 # v6
+      uses: pulumi/actions@v5.5.1
       with:
         pulumi-version-file: .pulumi.version
     - name: Setup Node
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v4.1.0
       with:
         node-version: ${{ env.NODEVERSION }}
         registry-url: https://registry.npmjs.org
     - name: Setup DotNet
-      uses: actions/setup-dotnet@v4
+      uses: actions/setup-dotnet@v4.1.0
       with:
         dotnet-version: ${{ env.DOTNETVERSION }}
     - name: Setup Python
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v5.3.0
       with:
         python-version: ${{ env.PYTHONVERSION }}
     - name: Setup Java
-      uses: actions/setup-java@v4
+      uses: actions/setup-java@v4.5.0
       with:
         java-version: ${{ env.JAVAVERSION }}
         distribution: temurin
         cache: gradle
     - name: Setup Gradle
-      uses: gradle/gradle-build-action@v3
+      uses: gradle/gradle-build-action@v3.5.0
       with:
         gradle-version: "7.6"
     - name: Download provider + tfgen binaries
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v4.1.8
       with:
         name: pulumi-${{ env.PROVIDER }}-provider.tar.gz
         path: ${{ github.workspace }}/bin
@@ -308,7 +308,7 @@ jobs:
       run: find ${{ github.workspace }} -name "pulumi-*-${{ env.PROVIDER }}" -print
         -exec chmod +x {} \;
     - name: Download SDK
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v4.1.8
       with:
         name: ${{ matrix.language }}-sdk.tar.gz
         path: ${{ github.workspace}}/sdk/
@@ -329,12 +329,12 @@ jobs:
     - name: Make Kube Directory
       run: mkdir -p "~/.kube/"
     - name: Download Kubeconfig
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v4.1.8
       with:
         name: config
         path: ~/.kube/
     - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v4
+      uses: aws-actions/configure-aws-credentials@v4.0.2
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-region: ${{ env.AWS_REGION }}
@@ -343,7 +343,7 @@ jobs:
         role-session-name: ${{ env.PROVIDER }}@githubActions
         role-to-assume: ${{ secrets.AWS_CI_ROLE_ARN }}
     - name: Authenticate to Google Cloud
-      uses: google-github-actions/auth@v0
+      uses: google-github-actions/auth@v2.1.7
       with:
         workload_identity_provider: projects/${{ env.GOOGLE_PROJECT_NUMBER
           }}/locations/global/workloadIdentityPools/${{
@@ -351,7 +351,7 @@ jobs:
           env.GOOGLE_CI_WORKLOAD_IDENTITY_PROVIDER }}
         service_account: ${{ env.GOOGLE_CI_SERVICE_ACCOUNT_EMAIL }}
     - name: Setup gcloud auth
-      uses: google-github-actions/setup-gcloud@v2
+      uses: google-github-actions/setup-gcloud@v2.1.2
       with:
         install_components: gke-gcloud-auth-plugin
     - name: Install Kubectl
@@ -380,7 +380,7 @@ jobs:
         2h -parallel 4 ./...
     - if: failure() && github.event_name == 'push'
       name: Notify Slack
-      uses: 8398a7/action-slack@v3
+      uses: 8398a7/action-slack@v3.16.2
       with:
         author_name: Failure in SDK tests
         fields: repo,commit,author,action
@@ -391,16 +391,16 @@ jobs:
     name: publish
     steps:
     - name: Checkout Repo
-      uses: actions/checkout@v4
+      uses: actions/checkout@v4.2.2
       with:
         lfs: true
     - id: version
       name: Set Provider Version
-      uses: pulumi/provider-version-action@7c54f136703646f7d6eaa3d3b3c877e5a805d6ab # v1
+      uses: pulumi/provider-version-action@v1.5.3
       with:
         set-env: PROVIDER_VERSION
     - name: Install Go
-      uses: actions/setup-go@v5
+      uses: actions/setup-go@v5.1.0
       with:
         go-version: ${{ env.GOVERSION }}
         cache-dependency-path: "**/*.sum"
@@ -418,11 +418,11 @@ jobs:
       with:
         repo: pulumi/pulumictl
     - name: Install Pulumi CLI
-      uses: pulumi/actions@c7fad9e2f0b79653172b36538b8b34b3c0291952 # v6
+      uses: pulumi/actions@v5.5.1
       with:
         pulumi-version-file: .pulumi.version
     - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v4
+      uses: aws-actions/configure-aws-credentials@v4.0.2
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-region: us-east-2
@@ -432,7 +432,7 @@ jobs:
         role-external-id: upload-pulumi-release
         role-to-assume: ${{ secrets.AWS_UPLOAD_ROLE_ARN }}
     - name: Run GoReleaser
-      uses: goreleaser/goreleaser-action@v5
+      uses: goreleaser/goreleaser-action@v5.1.0
       env:
         GORELEASER_CURRENT_TAG: v${{ steps.version.outputs.version }}
       with:
@@ -440,7 +440,7 @@ jobs:
         version: latest
     - if: failure() && github.event_name == 'push'
       name: Notify Slack
-      uses: 8398a7/action-slack@v3
+      uses: 8398a7/action-slack@v3.16.2
       with:
         author_name: Failure in publishing binaries
         fields: repo,commit,author,action
@@ -451,22 +451,22 @@ jobs:
     name: publish_sdk
     steps:
     - name: Checkout Repo
-      uses: actions/checkout@v4
+      uses: actions/checkout@v4.2.2
       with:
         lfs: true
     - id: version
       name: Set Provider Version
-      uses: pulumi/provider-version-action@7c54f136703646f7d6eaa3d3b3c877e5a805d6ab # v1
+      uses: pulumi/provider-version-action@v1.5.3
       with:
         set-env: PROVIDER_VERSION
     - name: Checkout Scripts Repo
-      uses: actions/checkout@v4
+      uses: actions/checkout@v4.2.2
       with:
         path: ci-scripts
         repository: pulumi/scripts
     - run: echo "ci-scripts" >> .git/info/exclude
     - name: Install Go
-      uses: actions/setup-go@v5
+      uses: actions/setup-go@v5.1.0
       with:
         go-version: ${{ env.GOVERSION }}
         cache-dependency-path: "**/*.sum"
@@ -475,22 +475,22 @@ jobs:
       with:
         repo: pulumi/pulumictl
     - name: Install Pulumi CLI
-      uses: pulumi/actions@c7fad9e2f0b79653172b36538b8b34b3c0291952 # v6
+      uses: pulumi/actions@v5.5.1
     - name: Setup Node
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v4.1.0
       with:
         node-version: ${{ env.NODEVERSION }}
         registry-url: https://registry.npmjs.org
     - name: Setup DotNet
-      uses: actions/setup-dotnet@v4
+      uses: actions/setup-dotnet@v4.1.0
       with:
         dotnet-version: ${{ env.DOTNETVERSION }}
     - name: Setup Python
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v5.3.0
       with:
         python-version: ${{ env.PYTHONVERSION }}
     - name: Download python SDK
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v4.1.8
       with:
         name: python-sdk.tar.gz
         path: ${{ github.workspace}}/sdk/
@@ -498,7 +498,7 @@ jobs:
       run: tar -zxf ${{github.workspace}}/sdk/python.tar.gz -C
         ${{github.workspace}}/sdk/python
     - name: Download dotnet SDK
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v4.1.8
       with:
         name: dotnet-sdk.tar.gz
         path: ${{ github.workspace}}/sdk/
@@ -506,7 +506,7 @@ jobs:
       run: tar -zxf ${{github.workspace}}/sdk/dotnet.tar.gz -C
         ${{github.workspace}}/sdk/dotnet
     - name: Download nodejs SDK
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v4.1.8
       with:
         name: nodejs-sdk.tar.gz
         path: ${{ github.workspace}}/sdk/
@@ -522,7 +522,7 @@ jobs:
         PYPI_PUBLISH_ARTIFACTS: all
     - if: failure() && github.event_name == 'push'
       name: Notify Slack
-      uses: 8398a7/action-slack@v3
+      uses: 8398a7/action-slack@v3.16.2
       with:
         author_name: Failure in publishing SDK
         fields: repo,commit,author,action
@@ -534,16 +534,16 @@ jobs:
     name: publish_java_sdk
     steps:
     - name: Checkout Repo
-      uses: actions/checkout@v4
+      uses: actions/checkout@v4.2.2
       with:
         lfs: true
     - id: version
       name: Set Provider Version
-      uses: pulumi/provider-version-action@7c54f136703646f7d6eaa3d3b3c877e5a805d6ab # v1
+      uses: pulumi/provider-version-action@v1.5.3
       with:
         set-env: PROVIDER_VERSION
     - name: Install Go
-      uses: actions/setup-go@v5
+      uses: actions/setup-go@v5.1.0
       with:
         go-version: ${{ env.GOVERSION }}
         cache-dependency-path: "**/*.sum"
@@ -552,19 +552,19 @@ jobs:
       with:
         repo: pulumi/pulumictl
     - name: Install Pulumi CLI
-      uses: pulumi/actions@c7fad9e2f0b79653172b36538b8b34b3c0291952 # v6
+      uses: pulumi/actions@v5.5.1
     - name: Setup Java
-      uses: actions/setup-java@v4
+      uses: actions/setup-java@v4.5.0
       with:
         java-version: ${{ env.JAVAVERSION }}
         distribution: temurin
         cache: gradle
     - name: Setup Gradle
-      uses: gradle/gradle-build-action@v3
+      uses: gradle/gradle-build-action@v3.5.0
       with:
         gradle-version: "7.6"
     - name: Download java SDK
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v4.1.8
       with:
         name: java-sdk.tar.gz
         path: ${{ github.workspace}}/sdk/
@@ -572,7 +572,7 @@ jobs:
       run: tar -zxf ${{github.workspace}}/sdk/java.tar.gz -C
         ${{github.workspace}}/sdk/java
     - name: Publish Java SDK
-      uses: gradle/gradle-build-action@v3
+      uses: gradle/gradle-build-action@v3.5.0
       env:
         PACKAGE_VERSION: ${{ env.PROVIDER_VERSION }}
       with:
@@ -585,16 +585,16 @@ jobs:
     needs: publish_sdk
     steps:
     - name: Checkout Repo
-      uses: actions/checkout@v4
+      uses: actions/checkout@v4.2.2
       with:
         lfs: true
     - id: version
       name: Set Provider Version
-      uses: pulumi/provider-version-action@7c54f136703646f7d6eaa3d3b3c877e5a805d6ab # v1
+      uses: pulumi/provider-version-action@v1.5.3
       with:
         set-env: PROVIDER_VERSION
     - name: Download go SDK
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v4.1.8
       with:
         name: go-sdk.tar.gz
         path: ${{ github.workspace}}/sdk/
@@ -624,25 +624,25 @@ jobs:
       id-token: write
     steps:
     - name: Checkout Repo
-      uses: actions/checkout@v4
+      uses: actions/checkout@v4.2.2
       with:
         lfs: true
     - name: Install Go
-      uses: actions/setup-go@v5
+      uses: actions/setup-go@v5.1.0
       with:
         go-version: ${{ env.GOVERSION }}
         cache-dependency-path: "**/*.sum"
     - name: Install Pulumi CLI
-      uses: pulumi/actions@c7fad9e2f0b79653172b36538b8b34b3c0291952 # v6
+      uses: pulumi/actions@v5.5.1
       with:
         pulumi-version-file: .pulumi.version
     - name: Setup Node
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v4.1.0
       with:
         node-version: ${{ env.NODEVERSION }}
         registry-url: https://registry.npmjs.org
     - name: Authenticate to Google Cloud
-      uses: google-github-actions/auth@v0
+      uses: google-github-actions/auth@v2.1.7
       with:
         workload_identity_provider: projects/${{ env.GOOGLE_PROJECT_NUMBER
           }}/locations/global/workloadIdentityPools/${{
@@ -650,7 +650,7 @@ jobs:
           env.GOOGLE_CI_WORKLOAD_IDENTITY_PROVIDER }}
         service_account: ${{ env.GOOGLE_CI_SERVICE_ACCOUNT_EMAIL }}
     - name: Setup gcloud auth
-      uses: google-github-actions/setup-gcloud@v2
+      uses: google-github-actions/setup-gcloud@v2.1.2
       with:
         install_components: gke-gcloud-auth-plugin
     - name: Install Kubectl
@@ -671,7 +671,7 @@ jobs:
     - name: Create test infrastructure
       run: ./scripts/ci-cluster-create.sh ${{ steps.stackname.outputs.stack-name }}
     - name: Upload Kubernetes Artifacts
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v4.4.3
       with:
         name: config
         path: ~/.kube/config
@@ -688,25 +688,25 @@ jobs:
       id-token: write
     steps:
     - name: Checkout Repo
-      uses: actions/checkout@v4
+      uses: actions/checkout@v4.2.2
       with:
         lfs: true
     - name: Install Go
-      uses: actions/setup-go@v5
+      uses: actions/setup-go@v5.1.0
       with:
         go-version: ${{ env.GOVERSION }}
         cache-dependency-path: "**/*.sum"
     - name: Install Pulumi CLI
-      uses: pulumi/actions@c7fad9e2f0b79653172b36538b8b34b3c0291952 # v6
+      uses: pulumi/actions@v5.5.1
       with:
         pulumi-version-file: .pulumi.version
     - name: Setup Node
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v4.1.0
       with:
         node-version: ${{ env.NODEVERSION }}
         registry-url: https://registry.npmjs.org
     - name: Authenticate to Google Cloud
-      uses: google-github-actions/auth@v0
+      uses: google-github-actions/auth@v2.1.7
       with:
         workload_identity_provider: projects/${{ env.GOOGLE_PROJECT_NUMBER
           }}/locations/global/workloadIdentityPools/${{
@@ -714,7 +714,7 @@ jobs:
           env.GOOGLE_CI_WORKLOAD_IDENTITY_PROVIDER }}
         service_account: ${{ env.GOOGLE_CI_SERVICE_ACCOUNT_EMAIL }}
     - name: Setup gcloud auth
-      uses: google-github-actions/setup-gcloud@v2
+      uses: google-github-actions/setup-gcloud@v2.1.2
       with:
         install_components: gke-gcloud-auth-plugin
     - name: Install Kubectl
@@ -731,6 +731,6 @@ jobs:
     - name: Destroy test infra
       run: ./scripts/ci-cluster-destroy.sh ${{
         needs.build-test-cluster.outputs.stack-name }}
-    - uses: geekyeggo/delete-artifact@v5
+    - uses: geekyeggo/delete-artifact@v5.1.0
       with:
         name: config

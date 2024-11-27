@@ -42,11 +42,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout Repo
-      uses: actions/checkout@v4
+      uses: actions/checkout@v4.2.2
       with:
         lfs: true
     - name: Install Go
-      uses: actions/setup-go@v5
+      uses: actions/setup-go@v5.1.0
       with:
         go-version: ${{ env.GOVERSION }}
         cache-dependency-path: "**/*.sum"
@@ -55,20 +55,20 @@ jobs:
       with:
         repo: pulumi/pulumictl
     - name: Install Pulumi CLI
-      uses: pulumi/actions@c7fad9e2f0b79653172b36538b8b34b3c0291952 # v6
+      uses: pulumi/actions@v5.5.1
       with:
         pulumi-version-file: .pulumi.version
     - name: Setup DotNet
-      uses: actions/setup-dotnet@v4
+      uses: actions/setup-dotnet@v4.1.0
       with:
         dotnet-version: ${{ env.DOTNETVERSION }}
     - name: Setup Node
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v4.1.0
       with:
         node-version: ${{ env.NODEVERSION }}
         registry-url: https://registry.npmjs.org
     - name: Setup Python
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v5.3.0
       with:
         python-version: ${{ env.PYTHONVERSION }}
     - name: Update Pulumi/Pulumi
