@@ -22,6 +22,8 @@ builds:
   ignore: []
   main: ./cmd/pulumi-resource-kubernetes/
   ldflags:
+  - -s
+  - -w
   - -X
     github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/version.Version={{.Tag}}
   binary: pulumi-resource-kubernetes
