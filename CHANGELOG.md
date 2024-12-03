@@ -10,6 +10,9 @@
 - `pulumi.com/waitFor` and other await annotations now correctly take precedence over default await logic.
   (https://github.com/pulumi/pulumi-kubernetes/issues/3329)
 
+- JSONPath expressions used with the `pulumi.com/waitFor` annotation will no longer hang indefinitely if they match non-primitive fields.
+  (https://github.com/pulumi/pulumi-kubernetes/issues/3345)
+
 ## 4.18.3 (October 31, 2024)
 
 ### Fixed
