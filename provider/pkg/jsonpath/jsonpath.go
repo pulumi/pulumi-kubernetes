@@ -38,6 +38,10 @@ func (i *Parsed) Matches(uns *unstructured.Unstructured) (MatchResult, error) {
 	value := results[0][0]
 	switch value.Interface().(type) {
 	case []any, map[string]any:
+		if i.Value == "" {
+			// We don't care about complex types if we're matching anything.
+			return MatchResult{Matched: true}, nil
+		}
 		return MatchResult{}, fmt.Errorf("%q has a non-primitive value (%v)", i.Path, value.String())
 	}
 	found := fmt.Sprint(value.Interface())
