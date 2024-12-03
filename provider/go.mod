@@ -20,7 +20,7 @@ require (
 	github.com/onsi/ginkgo/v2 v2.21.0
 	github.com/onsi/gomega v1.35.1
 	github.com/pkg/errors v0.9.1
-	github.com/pulumi/cloud-ready-checks v1.1.1-0.20241125001147-e1786eda07fe
+	github.com/pulumi/cloud-ready-checks v1.2.0
 	github.com/pulumi/pulumi-kubernetes/sdk/v4 v4.18.3
 	github.com/pulumi/pulumi-kubernetes/tests/v4 v4.0.0-20241104200401-686577876935
 	github.com/pulumi/pulumi/pkg/v3 v3.142.0
