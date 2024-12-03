@@ -981,9 +981,9 @@ if not MYPY:
         """
         `nominalConcurrencyShares` (NCS) contributes to the computation of the NominalConcurrencyLimit (NominalCL) of this level. This is the number of execution seats available at this priority level. This is used both for requests dispatched from this priority level as well as requests dispatched from other priority levels borrowing seats from this level. The server's concurrency limit (ServerCL) is divided among the Limited priority levels in proportion to their NCS values:
 
-        NominalCL(i)  = ceil( ServerCL * NCS(i) / sum_ncs ) sum_ncs = sum[priority level k] NCS(k)
+        NominalCL(i)  = ceil( ServerCL * NCS(i) / sum_ncs ) sum_ncs = sum[limited priority level k] NCS(k)
 
-        Bigger numbers mean a larger nominal concurrency limit, at the expense of every other priority level. This field has a default value of 30.
+        Bigger numbers mean a larger nominal concurrency limit, at the expense of every other Limited priority level. This field has a default value of 30.
         """
 elif False:
     LimitedPriorityLevelConfigurationPatchArgsDict: TypeAlias = Mapping[str, Any]
@@ -1010,9 +1010,9 @@ class LimitedPriorityLevelConfigurationPatchArgs:
         :param pulumi.Input['LimitResponsePatchArgs'] limit_response: `limitResponse` indicates what to do with requests that can not be executed right now
         :param pulumi.Input[int] nominal_concurrency_shares: `nominalConcurrencyShares` (NCS) contributes to the computation of the NominalConcurrencyLimit (NominalCL) of this level. This is the number of execution seats available at this priority level. This is used both for requests dispatched from this priority level as well as requests dispatched from other priority levels borrowing seats from this level. The server's concurrency limit (ServerCL) is divided among the Limited priority levels in proportion to their NCS values:
                
-               NominalCL(i)  = ceil( ServerCL * NCS(i) / sum_ncs ) sum_ncs = sum[priority level k] NCS(k)
+               NominalCL(i)  = ceil( ServerCL * NCS(i) / sum_ncs ) sum_ncs = sum[limited priority level k] NCS(k)
                
-               Bigger numbers mean a larger nominal concurrency limit, at the expense of every other priority level. This field has a default value of 30.
+               Bigger numbers mean a larger nominal concurrency limit, at the expense of every other Limited priority level. This field has a default value of 30.
         """
         if borrowing_limit_percent is not None:
             pulumi.set(__self__, "borrowing_limit_percent", borrowing_limit_percent)
@@ -1071,9 +1071,9 @@ class LimitedPriorityLevelConfigurationPatchArgs:
         """
         `nominalConcurrencyShares` (NCS) contributes to the computation of the NominalConcurrencyLimit (NominalCL) of this level. This is the number of execution seats available at this priority level. This is used both for requests dispatched from this priority level as well as requests dispatched from other priority levels borrowing seats from this level. The server's concurrency limit (ServerCL) is divided among the Limited priority levels in proportion to their NCS values:
 
-        NominalCL(i)  = ceil( ServerCL * NCS(i) / sum_ncs ) sum_ncs = sum[priority level k] NCS(k)
+        NominalCL(i)  = ceil( ServerCL * NCS(i) / sum_ncs ) sum_ncs = sum[limited priority level k] NCS(k)
 
-        Bigger numbers mean a larger nominal concurrency limit, at the expense of every other priority level. This field has a default value of 30.
+        Bigger numbers mean a larger nominal concurrency limit, at the expense of every other Limited priority level. This field has a default value of 30.
         """
         return pulumi.get(self, "nominal_concurrency_shares")
 
@@ -1111,9 +1111,9 @@ if not MYPY:
         """
         `nominalConcurrencyShares` (NCS) contributes to the computation of the NominalConcurrencyLimit (NominalCL) of this level. This is the number of execution seats available at this priority level. This is used both for requests dispatched from this priority level as well as requests dispatched from other priority levels borrowing seats from this level. The server's concurrency limit (ServerCL) is divided among the Limited priority levels in proportion to their NCS values:
 
-        NominalCL(i)  = ceil( ServerCL * NCS(i) / sum_ncs ) sum_ncs = sum[priority level k] NCS(k)
+        NominalCL(i)  = ceil( ServerCL * NCS(i) / sum_ncs ) sum_ncs = sum[limited priority level k] NCS(k)
 
-        Bigger numbers mean a larger nominal concurrency limit, at the expense of every other priority level. This field has a default value of 30.
+        Bigger numbers mean a larger nominal concurrency limit, at the expense of every other Limited priority level. This field has a default value of 30.
         """
 elif False:
     LimitedPriorityLevelConfigurationArgsDict: TypeAlias = Mapping[str, Any]
@@ -1140,9 +1140,9 @@ class LimitedPriorityLevelConfigurationArgs:
         :param pulumi.Input['LimitResponseArgs'] limit_response: `limitResponse` indicates what to do with requests that can not be executed right now
         :param pulumi.Input[int] nominal_concurrency_shares: `nominalConcurrencyShares` (NCS) contributes to the computation of the NominalConcurrencyLimit (NominalCL) of this level. This is the number of execution seats available at this priority level. This is used both for requests dispatched from this priority level as well as requests dispatched from other priority levels borrowing seats from this level. The server's concurrency limit (ServerCL) is divided among the Limited priority levels in proportion to their NCS values:
                
-               NominalCL(i)  = ceil( ServerCL * NCS(i) / sum_ncs ) sum_ncs = sum[priority level k] NCS(k)
+               NominalCL(i)  = ceil( ServerCL * NCS(i) / sum_ncs ) sum_ncs = sum[limited priority level k] NCS(k)
                
-               Bigger numbers mean a larger nominal concurrency limit, at the expense of every other priority level. This field has a default value of 30.
+               Bigger numbers mean a larger nominal concurrency limit, at the expense of every other Limited priority level. This field has a default value of 30.
         """
         if borrowing_limit_percent is not None:
             pulumi.set(__self__, "borrowing_limit_percent", borrowing_limit_percent)
@@ -1201,9 +1201,9 @@ class LimitedPriorityLevelConfigurationArgs:
         """
         `nominalConcurrencyShares` (NCS) contributes to the computation of the NominalConcurrencyLimit (NominalCL) of this level. This is the number of execution seats available at this priority level. This is used both for requests dispatched from this priority level as well as requests dispatched from other priority levels borrowing seats from this level. The server's concurrency limit (ServerCL) is divided among the Limited priority levels in proportion to their NCS values:
 
-        NominalCL(i)  = ceil( ServerCL * NCS(i) / sum_ncs ) sum_ncs = sum[priority level k] NCS(k)
+        NominalCL(i)  = ceil( ServerCL * NCS(i) / sum_ncs ) sum_ncs = sum[limited priority level k] NCS(k)
 
-        Bigger numbers mean a larger nominal concurrency limit, at the expense of every other priority level. This field has a default value of 30.
+        Bigger numbers mean a larger nominal concurrency limit, at the expense of every other Limited priority level. This field has a default value of 30.
         """
         return pulumi.get(self, "nominal_concurrency_shares")
 

@@ -120,6 +120,12 @@ _utilities.register(
   "mod": "admissionregistration.k8s.io/v1alpha1",
   "fqn": "pulumi_kubernetes.admissionregistration.v1alpha1",
   "classes": {
+   "kubernetes:admissionregistration.k8s.io/v1alpha1:MutatingAdmissionPolicy": "MutatingAdmissionPolicy",
+   "kubernetes:admissionregistration.k8s.io/v1alpha1:MutatingAdmissionPolicyBinding": "MutatingAdmissionPolicyBinding",
+   "kubernetes:admissionregistration.k8s.io/v1alpha1:MutatingAdmissionPolicyBindingList": "MutatingAdmissionPolicyBindingList",
+   "kubernetes:admissionregistration.k8s.io/v1alpha1:MutatingAdmissionPolicyBindingPatch": "MutatingAdmissionPolicyBindingPatch",
+   "kubernetes:admissionregistration.k8s.io/v1alpha1:MutatingAdmissionPolicyList": "MutatingAdmissionPolicyList",
+   "kubernetes:admissionregistration.k8s.io/v1alpha1:MutatingAdmissionPolicyPatch": "MutatingAdmissionPolicyPatch",
    "kubernetes:admissionregistration.k8s.io/v1alpha1:ValidatingAdmissionPolicy": "ValidatingAdmissionPolicy",
    "kubernetes:admissionregistration.k8s.io/v1alpha1:ValidatingAdmissionPolicyBinding": "ValidatingAdmissionPolicyBinding",
    "kubernetes:admissionregistration.k8s.io/v1alpha1:ValidatingAdmissionPolicyBindingList": "ValidatingAdmissionPolicyBindingList",
@@ -378,6 +384,16 @@ _utilities.register(
    "kubernetes:coordination.k8s.io/v1alpha1:LeaseCandidate": "LeaseCandidate",
    "kubernetes:coordination.k8s.io/v1alpha1:LeaseCandidateList": "LeaseCandidateList",
    "kubernetes:coordination.k8s.io/v1alpha1:LeaseCandidatePatch": "LeaseCandidatePatch"
+  }
+ },
+ {
+  "pkg": "kubernetes",
+  "mod": "coordination.k8s.io/v1alpha2",
+  "fqn": "pulumi_kubernetes.coordination.v1alpha2",
+  "classes": {
+   "kubernetes:coordination.k8s.io/v1alpha2:LeaseCandidate": "LeaseCandidate",
+   "kubernetes:coordination.k8s.io/v1alpha2:LeaseCandidateList": "LeaseCandidateList",
+   "kubernetes:coordination.k8s.io/v1alpha2:LeaseCandidatePatch": "LeaseCandidatePatch"
   }
  },
  {
@@ -833,7 +849,27 @@ _utilities.register(
    "kubernetes:resource.k8s.io/v1alpha3:ResourceClaimTemplateList": "ResourceClaimTemplateList",
    "kubernetes:resource.k8s.io/v1alpha3:ResourceClaimTemplatePatch": "ResourceClaimTemplatePatch",
    "kubernetes:resource.k8s.io/v1alpha3:ResourceSlice": "ResourceSlice",
+   "kubernetes:resource.k8s.io/v1alpha3:ResourceSliceList": "ResourceSliceList",
    "kubernetes:resource.k8s.io/v1alpha3:ResourceSlicePatch": "ResourceSlicePatch"
+  }
+ },
+ {
+  "pkg": "kubernetes",
+  "mod": "resource.k8s.io/v1beta1",
+  "fqn": "pulumi_kubernetes.resource.v1beta1",
+  "classes": {
+   "kubernetes:resource.k8s.io/v1beta1:DeviceClass": "DeviceClass",
+   "kubernetes:resource.k8s.io/v1beta1:DeviceClassList": "DeviceClassList",
+   "kubernetes:resource.k8s.io/v1beta1:DeviceClassPatch": "DeviceClassPatch",
+   "kubernetes:resource.k8s.io/v1beta1:ResourceClaim": "ResourceClaim",
+   "kubernetes:resource.k8s.io/v1beta1:ResourceClaimList": "ResourceClaimList",
+   "kubernetes:resource.k8s.io/v1beta1:ResourceClaimPatch": "ResourceClaimPatch",
+   "kubernetes:resource.k8s.io/v1beta1:ResourceClaimTemplate": "ResourceClaimTemplate",
+   "kubernetes:resource.k8s.io/v1beta1:ResourceClaimTemplateList": "ResourceClaimTemplateList",
+   "kubernetes:resource.k8s.io/v1beta1:ResourceClaimTemplatePatch": "ResourceClaimTemplatePatch",
+   "kubernetes:resource.k8s.io/v1beta1:ResourceSlice": "ResourceSlice",
+   "kubernetes:resource.k8s.io/v1beta1:ResourceSliceList": "ResourceSliceList",
+   "kubernetes:resource.k8s.io/v1beta1:ResourceSlicePatch": "ResourceSlicePatch"
   }
  },
  {

@@ -125,6 +125,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.PodResourceClaim> ResourceClaims;
         /// <summary>
+        /// Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for "cpu" and "memory" resource names only. ResourceClaims are not supported.
+        /// 
+        /// This field enables fine-grained control over resource allocation for the entire pod, allowing resource sharing among containers in a pod.
+        /// 
+        /// This is an alpha field and requires enabling the PodLevelResources feature gate.
+        /// </summary>
+        public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.ResourceRequirements Resources;
+        /// <summary>
         /// Restart policy for all containers within the pod. One of Always, OnFailure, Never. In some contexts, only a subset of those values may be permitted. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
         /// </summary>
         public readonly string RestartPolicy;
@@ -155,7 +163,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly string ServiceAccountName;
         /// <summary>
-        /// If true the pod's hostname will be configured as the pod's FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
+        /// If true the pod's hostname will be configured as the pod's FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
         /// </summary>
         public readonly bool SetHostnameAsFQDN;
         /// <summary>
@@ -235,6 +243,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 
             ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.PodResourceClaim> resourceClaims,
 
+            Pulumi.Kubernetes.Types.Outputs.Core.V1.ResourceRequirements resources,
+
             string restartPolicy,
 
             string runtimeClassName,
@@ -288,6 +298,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
             PriorityClassName = priorityClassName;
             ReadinessGates = readinessGates;
             ResourceClaims = resourceClaims;
+            Resources = resources;
             RestartPolicy = restartPolicy;
             RuntimeClassName = runtimeClassName;
             SchedulerName = schedulerName;

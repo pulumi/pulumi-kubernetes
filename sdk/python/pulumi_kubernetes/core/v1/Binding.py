@@ -101,7 +101,7 @@ class Binding(pulumi.CustomResource):
                  target: Optional[pulumi.Input[Union['ObjectReferenceArgs', 'ObjectReferenceArgsDict']]] = None,
                  __props__=None):
         """
-        Binding ties one object to another; for example, a pod is bound to a node by a scheduler. Deprecated in 1.7, please use the bindings subresource of pods instead.
+        Binding ties one object to another; for example, a pod is bound to a node by a scheduler.
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -117,7 +117,7 @@ class Binding(pulumi.CustomResource):
                  args: BindingArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Binding ties one object to another; for example, a pod is bound to a node by a scheduler. Deprecated in 1.7, please use the bindings subresource of pods instead.
+        Binding ties one object to another; for example, a pod is bound to a node by a scheduler.
 
         :param str resource_name: The name of the resource.
         :param BindingArgs args: The arguments to use to populate this resource's properties.

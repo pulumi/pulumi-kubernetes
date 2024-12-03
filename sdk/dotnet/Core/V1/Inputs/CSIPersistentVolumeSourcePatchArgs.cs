@@ -11,7 +11,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
 {
 
     /// <summary>
-    /// Represents storage that is managed by an external CSI volume driver (Beta feature)
+    /// Represents storage that is managed by an external CSI volume driver
     /// </summary>
     public class CSIPersistentVolumeSourcePatchArgs : global::Pulumi.ResourceArgs
     {

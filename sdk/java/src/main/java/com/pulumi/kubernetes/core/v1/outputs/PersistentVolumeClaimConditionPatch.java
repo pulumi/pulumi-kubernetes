@@ -31,7 +31,15 @@ public final class PersistentVolumeClaimConditionPatch {
      * 
      */
     private @Nullable String reason;
+    /**
+     * @return Status is the status of the condition. Can be True, False, Unknown. More info: https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-claim-v1/#:~:text=state%20of%20pvc-,conditions.status,-(string)%2C%20required
+     * 
+     */
     private @Nullable String status;
+    /**
+     * @return Type is the type of the condition. More info: https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-claim-v1/#:~:text=set%20to%20%27ResizeStarted%27.-,PersistentVolumeClaimCondition,-contains%20details%20about
+     * 
+     */
     private @Nullable String type;
 
     private PersistentVolumeClaimConditionPatch() {}
@@ -63,9 +71,17 @@ public final class PersistentVolumeClaimConditionPatch {
     public Optional<String> reason() {
         return Optional.ofNullable(this.reason);
     }
+    /**
+     * @return Status is the status of the condition. Can be True, False, Unknown. More info: https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-claim-v1/#:~:text=state%20of%20pvc-,conditions.status,-(string)%2C%20required
+     * 
+     */
     public Optional<String> status() {
         return Optional.ofNullable(this.status);
     }
+    /**
+     * @return Type is the type of the condition. More info: https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-claim-v1/#:~:text=set%20to%20%27ResizeStarted%27.-,PersistentVolumeClaimCondition,-contains%20details%20about
+     * 
+     */
     public Optional<String> type() {
         return Optional.ofNullable(this.type);
     }

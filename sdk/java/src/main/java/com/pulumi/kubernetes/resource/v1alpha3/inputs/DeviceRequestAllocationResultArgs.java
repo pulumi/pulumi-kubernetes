@@ -6,8 +6,11 @@ package com.pulumi.kubernetes.resource.v1alpha3.inputs;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
+import java.lang.Boolean;
 import java.lang.String;
 import java.util.Objects;
+import java.util.Optional;
+import javax.annotation.Nullable;
 
 
 /**
@@ -17,6 +20,25 @@ import java.util.Objects;
 public final class DeviceRequestAllocationResultArgs extends com.pulumi.resources.ResourceArgs {
 
     public static final DeviceRequestAllocationResultArgs Empty = new DeviceRequestAllocationResultArgs();
+
+    /**
+     * AdminAccess indicates that this device was allocated for administrative access. See the corresponding request field for a definition of mode.
+     * 
+     * This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+     * 
+     */
+    @Import(name="adminAccess")
+    private @Nullable Output<Boolean> adminAccess;
+
+    /**
+     * @return AdminAccess indicates that this device was allocated for administrative access. See the corresponding request field for a definition of mode.
+     * 
+     * This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+     * 
+     */
+    public Optional<Output<Boolean>> adminAccess() {
+        return Optional.ofNullable(this.adminAccess);
+    }
 
     /**
      * Device references one device instance via its name in the driver&#39;s resource pool. It must be a DNS label.
@@ -89,6 +111,7 @@ public final class DeviceRequestAllocationResultArgs extends com.pulumi.resource
     private DeviceRequestAllocationResultArgs() {}
 
     private DeviceRequestAllocationResultArgs(DeviceRequestAllocationResultArgs $) {
+        this.adminAccess = $.adminAccess;
         this.device = $.device;
         this.driver = $.driver;
         this.pool = $.pool;
@@ -111,6 +134,31 @@ public final class DeviceRequestAllocationResultArgs extends com.pulumi.resource
 
         public Builder(DeviceRequestAllocationResultArgs defaults) {
             $ = new DeviceRequestAllocationResultArgs(Objects.requireNonNull(defaults));
+        }
+
+        /**
+         * @param adminAccess AdminAccess indicates that this device was allocated for administrative access. See the corresponding request field for a definition of mode.
+         * 
+         * This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder adminAccess(@Nullable Output<Boolean> adminAccess) {
+            $.adminAccess = adminAccess;
+            return this;
+        }
+
+        /**
+         * @param adminAccess AdminAccess indicates that this device was allocated for administrative access. See the corresponding request field for a definition of mode.
+         * 
+         * This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder adminAccess(Boolean adminAccess) {
+            return adminAccess(Output.of(adminAccess));
         }
 
         /**

@@ -16,25 +16,25 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     public class LifecycleHandlerArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Exec specifies the action to take.
+        /// Exec specifies a command to execute in the container.
         /// </summary>
         [Input("exec")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.ExecActionArgs>? Exec { get; set; }
 
         /// <summary>
-        /// HTTPGet specifies the http request to perform.
+        /// HTTPGet specifies an HTTP GET request to perform.
         /// </summary>
         [Input("httpGet")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.HTTPGetActionArgs>? HttpGet { get; set; }
 
         /// <summary>
-        /// Sleep represents the duration that the container should sleep before being terminated.
+        /// Sleep represents a duration that the container should sleep.
         /// </summary>
         [Input("sleep")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.SleepActionArgs>? Sleep { get; set; }
 
         /// <summary>
-        /// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
+        /// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for backward compatibility. There is no validation of this field and lifecycle hooks will fail at runtime when it is specified.
         /// </summary>
         [Input("tcpSocket")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.TCPSocketActionArgs>? TcpSocket { get; set; }

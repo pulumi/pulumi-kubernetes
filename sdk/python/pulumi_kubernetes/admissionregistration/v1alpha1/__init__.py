@@ -5,6 +5,12 @@
 from ... import _utilities
 import typing
 # Export this package's modules as members:
+from .MutatingAdmissionPolicy import *
+from .MutatingAdmissionPolicyBinding import *
+from .MutatingAdmissionPolicyBindingList import *
+from .MutatingAdmissionPolicyBindingPatch import *
+from .MutatingAdmissionPolicyList import *
+from .MutatingAdmissionPolicyPatch import *
 from .ValidatingAdmissionPolicy import *
 from .ValidatingAdmissionPolicyBinding import *
 from .ValidatingAdmissionPolicyBindingList import *

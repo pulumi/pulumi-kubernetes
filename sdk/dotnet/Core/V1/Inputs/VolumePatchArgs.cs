@@ -16,31 +16,31 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     public class VolumePatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+        /// awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: AWSElasticBlockStore is deprecated. All operations for the in-tree awsElasticBlockStore type are redirected to the ebs.csi.aws.com CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
         /// </summary>
         [Input("awsElasticBlockStore")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.AWSElasticBlockStoreVolumeSourcePatchArgs>? AwsElasticBlockStore { get; set; }
 
         /// <summary>
-        /// azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+        /// azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod. Deprecated: AzureDisk is deprecated. All operations for the in-tree azureDisk type are redirected to the disk.csi.azure.com CSI driver.
         /// </summary>
         [Input("azureDisk")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.AzureDiskVolumeSourcePatchArgs>? AzureDisk { get; set; }
 
         /// <summary>
-        /// azureFile represents an Azure File Service mount on the host and bind mount to the pod.
+        /// azureFile represents an Azure File Service mount on the host and bind mount to the pod. Deprecated: AzureFile is deprecated. All operations for the in-tree azureFile type are redirected to the file.csi.azure.com CSI driver.
         /// </summary>
         [Input("azureFile")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.AzureFileVolumeSourcePatchArgs>? AzureFile { get; set; }
 
         /// <summary>
-        /// cephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+        /// cephFS represents a Ceph FS mount on the host that shares a pod's lifetime. Deprecated: CephFS is deprecated and the in-tree cephfs type is no longer supported.
         /// </summary>
         [Input("cephfs")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.CephFSVolumeSourcePatchArgs>? Cephfs { get; set; }
 
         /// <summary>
-        /// cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+        /// cinder represents a cinder volume attached and mounted on kubelets host machine. Deprecated: Cinder is deprecated. All operations for the in-tree cinder type are redirected to the cinder.csi.openstack.org CSI driver. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
         /// </summary>
         [Input("cinder")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.CinderVolumeSourcePatchArgs>? Cinder { get; set; }
@@ -52,7 +52,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.ConfigMapVolumeSourcePatchArgs>? ConfigMap { get; set; }
 
         /// <summary>
-        /// csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
+        /// csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers.
         /// </summary>
         [Input("csi")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.CSIVolumeSourcePatchArgs>? Csi { get; set; }
@@ -95,31 +95,31 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.FCVolumeSourcePatchArgs>? Fc { get; set; }
 
         /// <summary>
-        /// flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+        /// flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin. Deprecated: FlexVolume is deprecated. Consider using a CSIDriver instead.
         /// </summary>
         [Input("flexVolume")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.FlexVolumeSourcePatchArgs>? FlexVolume { get; set; }
 
         /// <summary>
-        /// flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running
+        /// flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running. Deprecated: Flocker is deprecated and the in-tree flocker type is no longer supported.
         /// </summary>
         [Input("flocker")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.FlockerVolumeSourcePatchArgs>? Flocker { get; set; }
 
         /// <summary>
-        /// gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+        /// gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: GCEPersistentDisk is deprecated. All operations for the in-tree gcePersistentDisk type are redirected to the pd.csi.storage.gke.io CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
         /// </summary>
         [Input("gcePersistentDisk")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.GCEPersistentDiskVolumeSourcePatchArgs>? GcePersistentDisk { get; set; }
 
         /// <summary>
-        /// gitRepo represents a git repository at a particular revision. DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
+        /// gitRepo represents a git repository at a particular revision. Deprecated: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
         /// </summary>
         [Input("gitRepo")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.GitRepoVolumeSourcePatchArgs>? GitRepo { get; set; }
 
         /// <summary>
-        /// glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+        /// glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
         /// </summary>
         [Input("glusterfs")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.GlusterfsVolumeSourcePatchArgs>? Glusterfs { get; set; }
@@ -165,13 +165,13 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.PersistentVolumeClaimVolumeSourcePatchArgs>? PersistentVolumeClaim { get; set; }
 
         /// <summary>
-        /// photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+        /// photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine. Deprecated: PhotonPersistentDisk is deprecated and the in-tree photonPersistentDisk type is no longer supported.
         /// </summary>
         [Input("photonPersistentDisk")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.PhotonPersistentDiskVolumeSourcePatchArgs>? PhotonPersistentDisk { get; set; }
 
         /// <summary>
-        /// portworxVolume represents a portworx volume attached and mounted on kubelets host machine
+        /// portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
         /// </summary>
         [Input("portworxVolume")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.PortworxVolumeSourcePatchArgs>? PortworxVolume { get; set; }
@@ -183,19 +183,19 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.ProjectedVolumeSourcePatchArgs>? Projected { get; set; }
 
         /// <summary>
-        /// quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+        /// quobyte represents a Quobyte mount on the host that shares a pod's lifetime. Deprecated: Quobyte is deprecated and the in-tree quobyte type is no longer supported.
         /// </summary>
         [Input("quobyte")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.QuobyteVolumeSourcePatchArgs>? Quobyte { get; set; }
 
         /// <summary>
-        /// rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+        /// rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
         /// </summary>
         [Input("rbd")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.RBDVolumeSourcePatchArgs>? Rbd { get; set; }
 
         /// <summary>
-        /// scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+        /// scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes. Deprecated: ScaleIO is deprecated and the in-tree scaleIO type is no longer supported.
         /// </summary>
         [Input("scaleIO")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.ScaleIOVolumeSourcePatchArgs>? ScaleIO { get; set; }
@@ -207,13 +207,13 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.SecretVolumeSourcePatchArgs>? Secret { get; set; }
 
         /// <summary>
-        /// storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes.
+        /// storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes. Deprecated: StorageOS is deprecated and the in-tree storageos type is no longer supported.
         /// </summary>
         [Input("storageos")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.StorageOSVolumeSourcePatchArgs>? Storageos { get; set; }
 
         /// <summary>
-        /// vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+        /// vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine. Deprecated: VsphereVolume is deprecated. All operations for the in-tree vsphereVolume type are redirected to the csi.vsphere.vmware.com CSI driver.
         /// </summary>
         [Input("vsphereVolume")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.VsphereVirtualDiskVolumeSourcePatchArgs>? VsphereVolume { get; set; }

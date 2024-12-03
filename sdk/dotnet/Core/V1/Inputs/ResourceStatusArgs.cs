@@ -10,10 +10,13 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
 {
 
+    /// <summary>
+    /// ResourceStatus represents the status of a single resource allocated to a Pod.
+    /// </summary>
     public class ResourceStatusArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Name of the resource. Must be unique within the pod and match one of the resources from the pod spec.
+        /// Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be "claim:&lt;claim_name&gt;/&lt;request&gt;". When this status is reported about a container, the "claim_name" and "request" must match one of the claims of this container.
         /// </summary>
         [Input("name", required: true)]
         public Input<string> Name { get; set; } = null!;
@@ -22,7 +25,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         private InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.ResourceHealthArgs>? _resources;
 
         /// <summary>
-        /// List of unique Resources health. Each element in the list contains an unique resource ID and resource health. At a minimum, ResourceID must uniquely identify the Resource allocated to the Pod on the Node for the lifetime of a Pod. See ResourceID type for it's definition.
+        /// List of unique resources health. Each element in the list contains an unique resource ID and its health. At a minimum, for the lifetime of a Pod, resource ID must uniquely identify the resource allocated to the Pod on the Node. If other Pod on the same Node reports the status with the same resource ID, it must be the same resource they share. See ResourceID type definition for a specific format it has in various use cases.
         /// </summary>
         public InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.ResourceHealthArgs> Resources
         {

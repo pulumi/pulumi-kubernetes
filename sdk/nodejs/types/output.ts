@@ -875,7 +875,7 @@ export namespace admissionregistration {
              *
              * "Warn" specifies that a validation failure is reported to the request client in HTTP Warning headers, with a warning code of 299. Warnings can be sent both for allowed or denied admission responses.
              *
-             * "Audit" specifies that a validation failure is included in the published audit event for the request. The audit event will contain a `validation.policy.admission.k8s.io/validation_failure` audit annotation with a value containing the details of the validation failures, formatted as a JSON list of objects, each with the following fields: - message: The validation failure message string - policy: The resource name of the ValidatingAdmissionPolicy - binding: The resource name of the ValidatingAdmissionPolicyBinding - expressionIndex: The index of the failed validations in the ValidatingAdmissionPolicy - validationActions: The enforcement actions enacted for the validation failure Example audit annotation: `"validation.policy.admission.k8s.io/validation_failure": "[{"message": "Invalid value", {"policy": "policy.example.com", {"binding": "policybinding.example.com", {"expressionIndex": "1", {"validationActions": ["Audit"]}]"`
+             * "Audit" specifies that a validation failure is included in the published audit event for the request. The audit event will contain a `validation.policy.admission.k8s.io/validation_failure` audit annotation with a value containing the details of the validation failures, formatted as a JSON list of objects, each with the following fields: - message: The validation failure message string - policy: The resource name of the ValidatingAdmissionPolicy - binding: The resource name of the ValidatingAdmissionPolicyBinding - expressionIndex: The index of the failed validations in the ValidatingAdmissionPolicy - validationActions: The enforcement actions enacted for the validation failure Example audit annotation: `"validation.policy.admission.k8s.io/validation_failure": "[{\"message\": \"Invalid value\", {\"policy\": \"policy.example.com\", {\"binding\": \"policybinding.example.com\", {\"expressionIndex\": \"1\", {\"validationActions\": [\"Audit\"]}]"`
              *
              * Clients should expect to handle additional values by ignoring any values not recognized.
              *
@@ -915,7 +915,7 @@ export namespace admissionregistration {
              *
              * "Warn" specifies that a validation failure is reported to the request client in HTTP Warning headers, with a warning code of 299. Warnings can be sent both for allowed or denied admission responses.
              *
-             * "Audit" specifies that a validation failure is included in the published audit event for the request. The audit event will contain a `validation.policy.admission.k8s.io/validation_failure` audit annotation with a value containing the details of the validation failures, formatted as a JSON list of objects, each with the following fields: - message: The validation failure message string - policy: The resource name of the ValidatingAdmissionPolicy - binding: The resource name of the ValidatingAdmissionPolicyBinding - expressionIndex: The index of the failed validations in the ValidatingAdmissionPolicy - validationActions: The enforcement actions enacted for the validation failure Example audit annotation: `"validation.policy.admission.k8s.io/validation_failure": "[{"message": "Invalid value", {"policy": "policy.example.com", {"binding": "policybinding.example.com", {"expressionIndex": "1", {"validationActions": ["Audit"]}]"`
+             * "Audit" specifies that a validation failure is included in the published audit event for the request. The audit event will contain a `validation.policy.admission.k8s.io/validation_failure` audit annotation with a value containing the details of the validation failures, formatted as a JSON list of objects, each with the following fields: - message: The validation failure message string - policy: The resource name of the ValidatingAdmissionPolicy - binding: The resource name of the ValidatingAdmissionPolicyBinding - expressionIndex: The index of the failed validations in the ValidatingAdmissionPolicy - validationActions: The enforcement actions enacted for the validation failure Example audit annotation: `"validation.policy.admission.k8s.io/validation_failure": "[{\"message\": \"Invalid value\", {\"policy\": \"policy.example.com\", {\"binding\": \"policybinding.example.com\", {\"expressionIndex\": \"1\", {\"validationActions\": [\"Audit\"]}]"`
              *
              * Clients should expect to handle additional values by ignoring any values not recognized.
              *
@@ -1462,6 +1462,80 @@ export namespace admissionregistration {
 
     export namespace v1alpha1 {
         /**
+         * ApplyConfiguration defines the desired configuration values of an object.
+         */
+        export interface ApplyConfiguration {
+            /**
+             * expression will be evaluated by CEL to create an apply configuration. ref: https://github.com/google/cel-spec
+             *
+             * Apply configurations are declared in CEL using object initialization. For example, this CEL expression returns an apply configuration to set a single field:
+             *
+             * 	Object{
+             * 	  spec: Object.spec{
+             * 	    serviceAccountName: "example"
+             * 	  }
+             * 	}
+             *
+             * Apply configurations may not modify atomic structs, maps or arrays due to the risk of accidental deletion of values not included in the apply configuration.
+             *
+             * CEL expressions have access to the object types needed to create apply configurations:
+             *
+             * - 'Object' - CEL type of the resource object. - 'Object.<fieldName>' - CEL type of object field (such as 'Object.spec') - 'Object.<fieldName1>.<fieldName2>...<fieldNameN>` - CEL type of nested field (such as 'Object.spec.containers')
+             *
+             * CEL expressions have access to the contents of the API request, organized into CEL variables as well as some other useful variables:
+             *
+             * - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
+             *   For example, a variable named 'foo' can be accessed as 'variables.foo'.
+             * - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+             *   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+             * - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+             *   request resource.
+             *
+             * The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
+             *
+             * Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Required.
+             */
+            expression: string;
+        }
+
+        /**
+         * ApplyConfiguration defines the desired configuration values of an object.
+         */
+        export interface ApplyConfigurationPatch {
+            /**
+             * expression will be evaluated by CEL to create an apply configuration. ref: https://github.com/google/cel-spec
+             *
+             * Apply configurations are declared in CEL using object initialization. For example, this CEL expression returns an apply configuration to set a single field:
+             *
+             * 	Object{
+             * 	  spec: Object.spec{
+             * 	    serviceAccountName: "example"
+             * 	  }
+             * 	}
+             *
+             * Apply configurations may not modify atomic structs, maps or arrays due to the risk of accidental deletion of values not included in the apply configuration.
+             *
+             * CEL expressions have access to the object types needed to create apply configurations:
+             *
+             * - 'Object' - CEL type of the resource object. - 'Object.<fieldName>' - CEL type of object field (such as 'Object.spec') - 'Object.<fieldName1>.<fieldName2>...<fieldNameN>` - CEL type of nested field (such as 'Object.spec.containers')
+             *
+             * CEL expressions have access to the contents of the API request, organized into CEL variables as well as some other useful variables:
+             *
+             * - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
+             *   For example, a variable named 'foo' can be accessed as 'variables.foo'.
+             * - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+             *   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+             * - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+             *   request resource.
+             *
+             * The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
+             *
+             * Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Required.
+             */
+            expression: string;
+        }
+
+        /**
          * AuditAnnotation describes how to produce an audit annotation for an API request.
          */
         export interface AuditAnnotation {
@@ -1535,6 +1609,132 @@ export namespace admissionregistration {
              * The content of type checking information in a human-readable form. Each line of the warning contains the type that the expression is checked against, followed by the type check error from the compiler.
              */
             warning: string;
+        }
+
+        /**
+         * JSONPatch defines a JSON Patch.
+         */
+        export interface JSONPatch {
+            /**
+             * expression will be evaluated by CEL to create a [JSON patch](https://jsonpatch.com/). ref: https://github.com/google/cel-spec
+             *
+             * expression must return an array of JSONPatch values.
+             *
+             * For example, this CEL expression returns a JSON patch to conditionally modify a value:
+             *
+             * 	  [
+             * 	    JSONPatch{op: "test", path: "/spec/example", value: "Red"},
+             * 	    JSONPatch{op: "replace", path: "/spec/example", value: "Green"}
+             * 	  ]
+             *
+             * To define an object for the patch value, use Object types. For example:
+             *
+             * 	  [
+             * 	    JSONPatch{
+             * 	      op: "add",
+             * 	      path: "/spec/selector",
+             * 	      value: Object.spec.selector{matchLabels: {"environment": "test"}}
+             * 	    }
+             * 	  ]
+             *
+             * To use strings containing '/' and '~' as JSONPatch path keys, use "jsonpatch.escapeKey". For example:
+             *
+             * 	  [
+             * 	    JSONPatch{
+             * 	      op: "add",
+             * 	      path: "/metadata/labels/" + jsonpatch.escapeKey("example.com/environment"),
+             * 	      value: "test"
+             * 	    },
+             * 	  ]
+             *
+             * CEL expressions have access to the types needed to create JSON patches and objects:
+             *
+             * - 'JSONPatch' - CEL type of JSON Patch operations. JSONPatch has the fields 'op', 'from', 'path' and 'value'.
+             *   See [JSON patch](https://jsonpatch.com/) for more details. The 'value' field may be set to any of: string,
+             *   integer, array, map or object.  If set, the 'path' and 'from' fields must be set to a
+             *   [JSON pointer](https://datatracker.ietf.org/doc/html/rfc6901/) string, where the 'jsonpatch.escapeKey()' CEL
+             *   function may be used to escape path keys containing '/' and '~'.
+             * - 'Object' - CEL type of the resource object. - 'Object.<fieldName>' - CEL type of object field (such as 'Object.spec') - 'Object.<fieldName1>.<fieldName2>...<fieldNameN>` - CEL type of nested field (such as 'Object.spec.containers')
+             *
+             * CEL expressions have access to the contents of the API request, organized into CEL variables as well as some other useful variables:
+             *
+             * - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
+             *   For example, a variable named 'foo' can be accessed as 'variables.foo'.
+             * - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+             *   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+             * - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+             *   request resource.
+             *
+             * CEL expressions have access to [Kubernetes CEL function libraries](https://kubernetes.io/docs/reference/using-api/cel/#cel-options-language-features-and-libraries) as well as:
+             *
+             * - 'jsonpatch.escapeKey' - Performs JSONPatch key escaping. '~' and  '/' are escaped as '~0' and `~1' respectively).
+             *
+             * Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Required.
+             */
+            expression: string;
+        }
+
+        /**
+         * JSONPatch defines a JSON Patch.
+         */
+        export interface JSONPatchPatch {
+            /**
+             * expression will be evaluated by CEL to create a [JSON patch](https://jsonpatch.com/). ref: https://github.com/google/cel-spec
+             *
+             * expression must return an array of JSONPatch values.
+             *
+             * For example, this CEL expression returns a JSON patch to conditionally modify a value:
+             *
+             * 	  [
+             * 	    JSONPatch{op: "test", path: "/spec/example", value: "Red"},
+             * 	    JSONPatch{op: "replace", path: "/spec/example", value: "Green"}
+             * 	  ]
+             *
+             * To define an object for the patch value, use Object types. For example:
+             *
+             * 	  [
+             * 	    JSONPatch{
+             * 	      op: "add",
+             * 	      path: "/spec/selector",
+             * 	      value: Object.spec.selector{matchLabels: {"environment": "test"}}
+             * 	    }
+             * 	  ]
+             *
+             * To use strings containing '/' and '~' as JSONPatch path keys, use "jsonpatch.escapeKey". For example:
+             *
+             * 	  [
+             * 	    JSONPatch{
+             * 	      op: "add",
+             * 	      path: "/metadata/labels/" + jsonpatch.escapeKey("example.com/environment"),
+             * 	      value: "test"
+             * 	    },
+             * 	  ]
+             *
+             * CEL expressions have access to the types needed to create JSON patches and objects:
+             *
+             * - 'JSONPatch' - CEL type of JSON Patch operations. JSONPatch has the fields 'op', 'from', 'path' and 'value'.
+             *   See [JSON patch](https://jsonpatch.com/) for more details. The 'value' field may be set to any of: string,
+             *   integer, array, map or object.  If set, the 'path' and 'from' fields must be set to a
+             *   [JSON pointer](https://datatracker.ietf.org/doc/html/rfc6901/) string, where the 'jsonpatch.escapeKey()' CEL
+             *   function may be used to escape path keys containing '/' and '~'.
+             * - 'Object' - CEL type of the resource object. - 'Object.<fieldName>' - CEL type of object field (such as 'Object.spec') - 'Object.<fieldName1>.<fieldName2>...<fieldNameN>` - CEL type of nested field (such as 'Object.spec.containers')
+             *
+             * CEL expressions have access to the contents of the API request, organized into CEL variables as well as some other useful variables:
+             *
+             * - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
+             *   For example, a variable named 'foo' can be accessed as 'variables.foo'.
+             * - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+             *   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+             * - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+             *   request resource.
+             *
+             * CEL expressions have access to [Kubernetes CEL function libraries](https://kubernetes.io/docs/reference/using-api/cel/#cel-options-language-features-and-libraries) as well as:
+             *
+             * - 'jsonpatch.escapeKey' - Performs JSONPatch key escaping. '~' and  '/' are escaped as '~0' and `~1' respectively).
+             *
+             * Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Required.
+             */
+            expression: string;
         }
 
         export interface MatchCondition {
@@ -1701,6 +1901,236 @@ export namespace admissionregistration {
              * ResourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy matches. The policy cares about an operation if it matches _any_ Rule.
              */
             resourceRules: outputs.admissionregistration.v1alpha1.NamedRuleWithOperationsPatch[];
+        }
+
+        /**
+         * MutatingAdmissionPolicy describes the definition of an admission mutation policy that mutates the object coming into admission chain.
+         */
+        export interface MutatingAdmissionPolicy {
+            /**
+             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+             */
+            apiVersion: "admissionregistration.k8s.io/v1alpha1";
+            /**
+             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             */
+            kind: "MutatingAdmissionPolicy";
+            /**
+             * Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+             */
+            metadata: outputs.meta.v1.ObjectMeta;
+            /**
+             * Specification of the desired behavior of the MutatingAdmissionPolicy.
+             */
+            spec: outputs.admissionregistration.v1alpha1.MutatingAdmissionPolicySpec;
+        }
+
+        /**
+         * MutatingAdmissionPolicyBinding binds the MutatingAdmissionPolicy with parametrized resources. MutatingAdmissionPolicyBinding and the optional parameter resource together define how cluster administrators configure policies for clusters.
+         *
+         * For a given admission request, each binding will cause its policy to be evaluated N times, where N is 1 for policies/bindings that don't use params, otherwise N is the number of parameters selected by the binding. Each evaluation is constrained by a [runtime cost budget](https://kubernetes.io/docs/reference/using-api/cel/#runtime-cost-budget).
+         *
+         * Adding/removing policies, bindings, or params can not affect whether a given (policy, binding, param) combination is within its own CEL budget.
+         */
+        export interface MutatingAdmissionPolicyBinding {
+            /**
+             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+             */
+            apiVersion: "admissionregistration.k8s.io/v1alpha1";
+            /**
+             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             */
+            kind: "MutatingAdmissionPolicyBinding";
+            /**
+             * Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+             */
+            metadata: outputs.meta.v1.ObjectMeta;
+            /**
+             * Specification of the desired behavior of the MutatingAdmissionPolicyBinding.
+             */
+            spec: outputs.admissionregistration.v1alpha1.MutatingAdmissionPolicyBindingSpec;
+        }
+
+        /**
+         * MutatingAdmissionPolicyBindingSpec is the specification of the MutatingAdmissionPolicyBinding.
+         */
+        export interface MutatingAdmissionPolicyBindingSpec {
+            /**
+             * matchResources limits what resources match this binding and may be mutated by it. Note that if matchResources matches a resource, the resource must also match a policy's matchConstraints and matchConditions before the resource may be mutated. When matchResources is unset, it does not constrain resource matching, and only the policy's matchConstraints and matchConditions must match for the resource to be mutated. Additionally, matchResources.resourceRules are optional and do not constraint matching when unset. Note that this is differs from MutatingAdmissionPolicy matchConstraints, where resourceRules are required. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT.
+             */
+            matchResources: outputs.admissionregistration.v1alpha1.MatchResources;
+            /**
+             * paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in spec.ParamKind of the bound MutatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the MutatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
+             */
+            paramRef: outputs.admissionregistration.v1alpha1.ParamRef;
+            /**
+             * policyName references a MutatingAdmissionPolicy name which the MutatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
+             */
+            policyName: string;
+        }
+
+        /**
+         * MutatingAdmissionPolicyBindingSpec is the specification of the MutatingAdmissionPolicyBinding.
+         */
+        export interface MutatingAdmissionPolicyBindingSpecPatch {
+            /**
+             * matchResources limits what resources match this binding and may be mutated by it. Note that if matchResources matches a resource, the resource must also match a policy's matchConstraints and matchConditions before the resource may be mutated. When matchResources is unset, it does not constrain resource matching, and only the policy's matchConstraints and matchConditions must match for the resource to be mutated. Additionally, matchResources.resourceRules are optional and do not constraint matching when unset. Note that this is differs from MutatingAdmissionPolicy matchConstraints, where resourceRules are required. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT.
+             */
+            matchResources: outputs.admissionregistration.v1alpha1.MatchResourcesPatch;
+            /**
+             * paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in spec.ParamKind of the bound MutatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the MutatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
+             */
+            paramRef: outputs.admissionregistration.v1alpha1.ParamRefPatch;
+            /**
+             * policyName references a MutatingAdmissionPolicy name which the MutatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
+             */
+            policyName: string;
+        }
+
+        /**
+         * MutatingAdmissionPolicySpec is the specification of the desired behavior of the admission policy.
+         */
+        export interface MutatingAdmissionPolicySpec {
+            /**
+             * failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
+             *
+             * A policy is invalid if paramKind refers to a non-existent Kind. A binding is invalid if paramRef.name refers to a non-existent resource.
+             *
+             * failurePolicy does not define how validations that evaluate to false are handled.
+             *
+             * Allowed values are Ignore or Fail. Defaults to Fail.
+             */
+            failurePolicy: string;
+            /**
+             * matchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the matchConstraints. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+             *
+             * If a parameter object is provided, it can be accessed via the `params` handle in the same manner as validation expressions.
+             *
+             * The exact matching logic is (in order):
+             *   1. If ANY matchCondition evaluates to FALSE, the policy is skipped.
+             *   2. If ALL matchConditions evaluate to TRUE, the policy is evaluated.
+             *   3. If any matchCondition evaluates to an error (but none are FALSE):
+             *      - If failurePolicy=Fail, reject the request
+             *      - If failurePolicy=Ignore, the policy is skipped
+             */
+            matchConditions: outputs.admissionregistration.v1alpha1.MatchCondition[];
+            /**
+             * matchConstraints specifies what resources this policy is designed to validate. The MutatingAdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API MutatingAdmissionPolicy cannot match MutatingAdmissionPolicy and MutatingAdmissionPolicyBinding. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT. Required.
+             */
+            matchConstraints: outputs.admissionregistration.v1alpha1.MatchResources;
+            /**
+             * mutations contain operations to perform on matching objects. mutations may not be empty; a minimum of one mutation is required. mutations are evaluated in order, and are reinvoked according to the reinvocationPolicy. The mutations of a policy are invoked for each binding of this policy and reinvocation of mutations occurs on a per binding basis.
+             */
+            mutations: outputs.admissionregistration.v1alpha1.Mutation[];
+            /**
+             * paramKind specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If paramKind refers to a non-existent kind, this policy definition is mis-configured and the FailurePolicy is applied. If paramKind is specified but paramRef is unset in MutatingAdmissionPolicyBinding, the params variable will be null.
+             */
+            paramKind: outputs.admissionregistration.v1alpha1.ParamKind;
+            /**
+             * reinvocationPolicy indicates whether mutations may be called multiple times per MutatingAdmissionPolicyBinding as part of a single admission evaluation. Allowed values are "Never" and "IfNeeded".
+             *
+             * Never: These mutations will not be called more than once per binding in a single admission evaluation.
+             *
+             * IfNeeded: These mutations may be invoked more than once per binding for a single admission request and there is no guarantee of order with respect to other admission plugins, admission webhooks, bindings of this policy and admission policies.  Mutations are only reinvoked when mutations change the object after this mutation is invoked. Required.
+             */
+            reinvocationPolicy: string;
+            /**
+             * variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except matchConditions because matchConditions are evaluated before the rest of the policy.
+             *
+             * The expression of a variable can refer to other variables defined earlier in the list but not those after. Thus, variables must be sorted by the order of first appearance and acyclic.
+             */
+            variables: outputs.admissionregistration.v1alpha1.Variable[];
+        }
+
+        /**
+         * MutatingAdmissionPolicySpec is the specification of the desired behavior of the admission policy.
+         */
+        export interface MutatingAdmissionPolicySpecPatch {
+            /**
+             * failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
+             *
+             * A policy is invalid if paramKind refers to a non-existent Kind. A binding is invalid if paramRef.name refers to a non-existent resource.
+             *
+             * failurePolicy does not define how validations that evaluate to false are handled.
+             *
+             * Allowed values are Ignore or Fail. Defaults to Fail.
+             */
+            failurePolicy: string;
+            /**
+             * matchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the matchConstraints. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+             *
+             * If a parameter object is provided, it can be accessed via the `params` handle in the same manner as validation expressions.
+             *
+             * The exact matching logic is (in order):
+             *   1. If ANY matchCondition evaluates to FALSE, the policy is skipped.
+             *   2. If ALL matchConditions evaluate to TRUE, the policy is evaluated.
+             *   3. If any matchCondition evaluates to an error (but none are FALSE):
+             *      - If failurePolicy=Fail, reject the request
+             *      - If failurePolicy=Ignore, the policy is skipped
+             */
+            matchConditions: outputs.admissionregistration.v1alpha1.MatchConditionPatch[];
+            /**
+             * matchConstraints specifies what resources this policy is designed to validate. The MutatingAdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API MutatingAdmissionPolicy cannot match MutatingAdmissionPolicy and MutatingAdmissionPolicyBinding. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT. Required.
+             */
+            matchConstraints: outputs.admissionregistration.v1alpha1.MatchResourcesPatch;
+            /**
+             * mutations contain operations to perform on matching objects. mutations may not be empty; a minimum of one mutation is required. mutations are evaluated in order, and are reinvoked according to the reinvocationPolicy. The mutations of a policy are invoked for each binding of this policy and reinvocation of mutations occurs on a per binding basis.
+             */
+            mutations: outputs.admissionregistration.v1alpha1.MutationPatch[];
+            /**
+             * paramKind specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If paramKind refers to a non-existent kind, this policy definition is mis-configured and the FailurePolicy is applied. If paramKind is specified but paramRef is unset in MutatingAdmissionPolicyBinding, the params variable will be null.
+             */
+            paramKind: outputs.admissionregistration.v1alpha1.ParamKindPatch;
+            /**
+             * reinvocationPolicy indicates whether mutations may be called multiple times per MutatingAdmissionPolicyBinding as part of a single admission evaluation. Allowed values are "Never" and "IfNeeded".
+             *
+             * Never: These mutations will not be called more than once per binding in a single admission evaluation.
+             *
+             * IfNeeded: These mutations may be invoked more than once per binding for a single admission request and there is no guarantee of order with respect to other admission plugins, admission webhooks, bindings of this policy and admission policies.  Mutations are only reinvoked when mutations change the object after this mutation is invoked. Required.
+             */
+            reinvocationPolicy: string;
+            /**
+             * variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except matchConditions because matchConditions are evaluated before the rest of the policy.
+             *
+             * The expression of a variable can refer to other variables defined earlier in the list but not those after. Thus, variables must be sorted by the order of first appearance and acyclic.
+             */
+            variables: outputs.admissionregistration.v1alpha1.VariablePatch[];
+        }
+
+        /**
+         * Mutation specifies the CEL expression which is used to apply the Mutation.
+         */
+        export interface Mutation {
+            /**
+             * applyConfiguration defines the desired configuration values of an object. The configuration is applied to the admission object using [structured merge diff](https://github.com/kubernetes-sigs/structured-merge-diff). A CEL expression is used to create apply configuration.
+             */
+            applyConfiguration: outputs.admissionregistration.v1alpha1.ApplyConfiguration;
+            /**
+             * jsonPatch defines a [JSON patch](https://jsonpatch.com/) operation to perform a mutation to the object. A CEL expression is used to create the JSON patch.
+             */
+            jsonPatch: outputs.admissionregistration.v1alpha1.JSONPatch;
+            /**
+             * patchType indicates the patch strategy used. Allowed values are "ApplyConfiguration" and "JSONPatch". Required.
+             */
+            patchType: string;
+        }
+
+        /**
+         * Mutation specifies the CEL expression which is used to apply the Mutation.
+         */
+        export interface MutationPatch {
+            /**
+             * applyConfiguration defines the desired configuration values of an object. The configuration is applied to the admission object using [structured merge diff](https://github.com/kubernetes-sigs/structured-merge-diff). A CEL expression is used to create apply configuration.
+             */
+            applyConfiguration: outputs.admissionregistration.v1alpha1.ApplyConfigurationPatch;
+            /**
+             * jsonPatch defines a [JSON patch](https://jsonpatch.com/) operation to perform a mutation to the object. A CEL expression is used to create the JSON patch.
+             */
+            jsonPatch: outputs.admissionregistration.v1alpha1.JSONPatchPatch;
+            /**
+             * patchType indicates the patch strategy used. Allowed values are "ApplyConfiguration" and "JSONPatch". Required.
+             */
+            patchType: string;
         }
 
         /**
@@ -1923,10 +2353,6 @@ export namespace admissionregistration {
 
         /**
          * ValidatingAdmissionPolicyBinding binds the ValidatingAdmissionPolicy with paramerized resources. ValidatingAdmissionPolicyBinding and parameter CRDs together define how cluster administrators configure policies for clusters.
-         *
-         * For a given admission request, each binding will cause its policy to be evaluated N times, where N is 1 for policies/bindings that don't use params, otherwise N is the number of parameters selected by the binding.
-         *
-         * The CEL expressions of a policy must have a computed CEL cost below the maximum CEL budget. Each evaluation of the policy is given an independent CEL cost budget. Adding/removing policies, bindings, or params can not affect whether a given (policy, binding, param) combination is within its own CEL budget.
          */
         export interface ValidatingAdmissionPolicyBinding {
             /**
@@ -1956,7 +2382,7 @@ export namespace admissionregistration {
              */
             matchResources: outputs.admissionregistration.v1alpha1.MatchResources;
             /**
-             * paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
+             * ParamRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied.
              */
             paramRef: outputs.admissionregistration.v1alpha1.ParamRef;
             /**
@@ -1996,7 +2422,7 @@ export namespace admissionregistration {
              */
             matchResources: outputs.admissionregistration.v1alpha1.MatchResourcesPatch;
             /**
-             * paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
+             * ParamRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied.
              */
             paramRef: outputs.admissionregistration.v1alpha1.ParamRefPatch;
             /**
@@ -2036,15 +2462,7 @@ export namespace admissionregistration {
              */
             auditAnnotations: outputs.admissionregistration.v1alpha1.AuditAnnotation[];
             /**
-             * failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
-             *
-             * A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource.
-             *
-             * failurePolicy does not define how validations that evaluate to false are handled.
-             *
-             * When failurePolicy is set to Fail, ValidatingAdmissionPolicyBinding validationActions define how failures are enforced.
-             *
-             * Allowed values are Ignore or Fail. Defaults to Fail.
+             * FailurePolicy defines how to handle failures for the admission policy. Failures can occur from invalid or mis-configured policy definitions or bindings. A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource. Allowed values are Ignore or Fail. Defaults to Fail.
              */
             failurePolicy: string;
             /**
@@ -2069,7 +2487,7 @@ export namespace admissionregistration {
              */
             paramKind: outputs.admissionregistration.v1alpha1.ParamKind;
             /**
-             * Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
+             * Validations contain CEL expressions which is used to apply the validation. A minimum of one validation is required for a policy definition. Required.
              */
             validations: outputs.admissionregistration.v1alpha1.Validation[];
             /**
@@ -2089,15 +2507,7 @@ export namespace admissionregistration {
              */
             auditAnnotations: outputs.admissionregistration.v1alpha1.AuditAnnotationPatch[];
             /**
-             * failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
-             *
-             * A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource.
-             *
-             * failurePolicy does not define how validations that evaluate to false are handled.
-             *
-             * When failurePolicy is set to Fail, ValidatingAdmissionPolicyBinding validationActions define how failures are enforced.
-             *
-             * Allowed values are Ignore or Fail. Defaults to Fail.
+             * FailurePolicy defines how to handle failures for the admission policy. Failures can occur from invalid or mis-configured policy definitions or bindings. A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource. Allowed values are Ignore or Fail. Defaults to Fail.
              */
             failurePolicy: string;
             /**
@@ -2122,7 +2532,7 @@ export namespace admissionregistration {
              */
             paramKind: outputs.admissionregistration.v1alpha1.ParamKindPatch;
             /**
-             * Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
+             * Validations contain CEL expressions which is used to apply the validation. A minimum of one validation is required for a policy definition. Required.
              */
             validations: outputs.admissionregistration.v1alpha1.ValidationPatch[];
             /**
@@ -2174,14 +2584,9 @@ export namespace admissionregistration {
          */
         export interface Validation {
             /**
-             * Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
+             * Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the Admission request/response, organized into CEL variables as well as some other useful variables:
              *
-             * - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
-             *   For example, a variable named 'foo' can be accessed as 'variables.foo'.
-             * - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
-             *   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
-             * - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
-             *   request resource.
+             * 'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind.
              *
              * The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
              *
@@ -2221,14 +2626,9 @@ export namespace admissionregistration {
          */
         export interface ValidationPatch {
             /**
-             * Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
+             * Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the Admission request/response, organized into CEL variables as well as some other useful variables:
              *
-             * - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
-             *   For example, a variable named 'foo' can be accessed as 'variables.foo'.
-             * - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
-             *   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
-             * - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
-             *   request resource.
+             * 'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind.
              *
              * The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
              *
@@ -3137,7 +3537,7 @@ export namespace admissionregistration {
              *
              * "Warn" specifies that a validation failure is reported to the request client in HTTP Warning headers, with a warning code of 299. Warnings can be sent both for allowed or denied admission responses.
              *
-             * "Audit" specifies that a validation failure is included in the published audit event for the request. The audit event will contain a `validation.policy.admission.k8s.io/validation_failure` audit annotation with a value containing the details of the validation failures, formatted as a JSON list of objects, each with the following fields: - message: The validation failure message string - policy: The resource name of the ValidatingAdmissionPolicy - binding: The resource name of the ValidatingAdmissionPolicyBinding - expressionIndex: The index of the failed validations in the ValidatingAdmissionPolicy - validationActions: The enforcement actions enacted for the validation failure Example audit annotation: `"validation.policy.admission.k8s.io/validation_failure": "[{"message": "Invalid value", {"policy": "policy.example.com", {"binding": "policybinding.example.com", {"expressionIndex": "1", {"validationActions": ["Audit"]}]"`
+             * "Audit" specifies that a validation failure is included in the published audit event for the request. The audit event will contain a `validation.policy.admission.k8s.io/validation_failure` audit annotation with a value containing the details of the validation failures, formatted as a JSON list of objects, each with the following fields: - message: The validation failure message string - policy: The resource name of the ValidatingAdmissionPolicy - binding: The resource name of the ValidatingAdmissionPolicyBinding - expressionIndex: The index of the failed validations in the ValidatingAdmissionPolicy - validationActions: The enforcement actions enacted for the validation failure Example audit annotation: `"validation.policy.admission.k8s.io/validation_failure": "[{\"message\": \"Invalid value\", {\"policy\": \"policy.example.com\", {\"binding\": \"policybinding.example.com\", {\"expressionIndex\": \"1\", {\"validationActions\": [\"Audit\"]}]"`
              *
              * Clients should expect to handle additional values by ignoring any values not recognized.
              *
@@ -3177,7 +3577,7 @@ export namespace admissionregistration {
              *
              * "Warn" specifies that a validation failure is reported to the request client in HTTP Warning headers, with a warning code of 299. Warnings can be sent both for allowed or denied admission responses.
              *
-             * "Audit" specifies that a validation failure is included in the published audit event for the request. The audit event will contain a `validation.policy.admission.k8s.io/validation_failure` audit annotation with a value containing the details of the validation failures, formatted as a JSON list of objects, each with the following fields: - message: The validation failure message string - policy: The resource name of the ValidatingAdmissionPolicy - binding: The resource name of the ValidatingAdmissionPolicyBinding - expressionIndex: The index of the failed validations in the ValidatingAdmissionPolicy - validationActions: The enforcement actions enacted for the validation failure Example audit annotation: `"validation.policy.admission.k8s.io/validation_failure": "[{"message": "Invalid value", {"policy": "policy.example.com", {"binding": "policybinding.example.com", {"expressionIndex": "1", {"validationActions": ["Audit"]}]"`
+             * "Audit" specifies that a validation failure is included in the published audit event for the request. The audit event will contain a `validation.policy.admission.k8s.io/validation_failure` audit annotation with a value containing the details of the validation failures, formatted as a JSON list of objects, each with the following fields: - message: The validation failure message string - policy: The resource name of the ValidatingAdmissionPolicy - binding: The resource name of the ValidatingAdmissionPolicyBinding - expressionIndex: The index of the failed validations in the ValidatingAdmissionPolicy - validationActions: The enforcement actions enacted for the validation failure Example audit annotation: `"validation.policy.admission.k8s.io/validation_failure": "[{\"message\": \"Invalid value\", {\"policy\": \"policy.example.com\", {\"binding\": \"policybinding.example.com\", {\"expressionIndex\": \"1\", {\"validationActions\": [\"Audit\"]}]"`
              *
              * Clients should expect to handle additional values by ignoring any values not recognized.
              *
@@ -4236,7 +4636,7 @@ export namespace apiextensions {
             /**
              * format is an OpenAPI v3 format string. Unknown formats are ignored. The following formats are validated:
              *
-             * - bsonobjectid: a bson object ID, i.e. a 24 characters hex string - uri: an URI as parsed by Golang net/url.ParseRequestURI - email: an email address as parsed by Golang net/mail.ParseAddress - hostname: a valid representation for an Internet host name, as defined by RFC 1034, section 3.1 [RFC1034]. - ipv4: an IPv4 IP as parsed by Golang net.ParseIP - ipv6: an IPv6 IP as parsed by Golang net.ParseIP - cidr: a CIDR as parsed by Golang net.ParseCIDR - mac: a MAC address as parsed by Golang net.ParseMAC - uuid: an UUID that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12}$ - uuid3: an UUID3 that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?3[0-9a-f]{3}-?[0-9a-f]{4}-?[0-9a-f]{12}$ - uuid4: an UUID4 that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?4[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$ - uuid5: an UUID5 that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?5[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$ - isbn: an ISBN10 or ISBN13 number string like "0321751043" or "978-0321751041" - isbn10: an ISBN10 number string like "0321751043" - isbn13: an ISBN13 number string like "978-0321751041" - creditcard: a credit card number defined by the regex ^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$ with any non digit characters mixed in - ssn: a U.S. social security number following the regex ^\d{3}[- ]?\d{2}[- ]?\d{4}$ - hexcolor: an hexadecimal color code like "#FFFFFF: following the regex ^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$ - rgbcolor: an RGB color code like rgb like "rgb(255,255,2559" - byte: base64 encoded binary data - password: any kind of string - date: a date string like "2006-01-02" as defined by full-date in RFC3339 - duration: a duration string like "22 ns" as parsed by Golang time.ParseDuration or compatible with Scala duration format - datetime: a date time string like "2014-12-15T19:30:20.000Z" as defined by date-time in RFC3339.
+             * - bsonobjectid: a bson object ID, i.e. a 24 characters hex string - uri: an URI as parsed by Golang net/url.ParseRequestURI - email: an email address as parsed by Golang net/mail.ParseAddress - hostname: a valid representation for an Internet host name, as defined by RFC 1034, section 3.1 [RFC1034]. - ipv4: an IPv4 IP as parsed by Golang net.ParseIP - ipv6: an IPv6 IP as parsed by Golang net.ParseIP - cidr: a CIDR as parsed by Golang net.ParseCIDR - mac: a MAC address as parsed by Golang net.ParseMAC - uuid: an UUID that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12}$ - uuid3: an UUID3 that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?3[0-9a-f]{3}-?[0-9a-f]{4}-?[0-9a-f]{12}$ - uuid4: an UUID4 that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?4[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$ - uuid5: an UUID5 that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?5[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$ - isbn: an ISBN10 or ISBN13 number string like "0321751043" or "978-0321751041" - isbn10: an ISBN10 number string like "0321751043" - isbn13: an ISBN13 number string like "978-0321751041" - creditcard: a credit card number defined by the regex ^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\\d{3})\\d{11})$ with any non digit characters mixed in - ssn: a U.S. social security number following the regex ^\\d{3}[- ]?\\d{2}[- ]?\\d{4}$ - hexcolor: an hexadecimal color code like "#FFFFFF: following the regex ^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$ - rgbcolor: an RGB color code like rgb like "rgb(255,255,2559" - byte: base64 encoded binary data - password: any kind of string - date: a date string like "2006-01-02" as defined by full-date in RFC3339 - duration: a duration string like "22 ns" as parsed by Golang time.ParseDuration or compatible with Scala duration format - datetime: a date time string like "2014-12-15T19:30:20.000Z" as defined by date-time in RFC3339.
              */
             format: string;
             id: string;
@@ -4348,7 +4748,7 @@ export namespace apiextensions {
             /**
              * format is an OpenAPI v3 format string. Unknown formats are ignored. The following formats are validated:
              *
-             * - bsonobjectid: a bson object ID, i.e. a 24 characters hex string - uri: an URI as parsed by Golang net/url.ParseRequestURI - email: an email address as parsed by Golang net/mail.ParseAddress - hostname: a valid representation for an Internet host name, as defined by RFC 1034, section 3.1 [RFC1034]. - ipv4: an IPv4 IP as parsed by Golang net.ParseIP - ipv6: an IPv6 IP as parsed by Golang net.ParseIP - cidr: a CIDR as parsed by Golang net.ParseCIDR - mac: a MAC address as parsed by Golang net.ParseMAC - uuid: an UUID that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12}$ - uuid3: an UUID3 that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?3[0-9a-f]{3}-?[0-9a-f]{4}-?[0-9a-f]{12}$ - uuid4: an UUID4 that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?4[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$ - uuid5: an UUID5 that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?5[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$ - isbn: an ISBN10 or ISBN13 number string like "0321751043" or "978-0321751041" - isbn10: an ISBN10 number string like "0321751043" - isbn13: an ISBN13 number string like "978-0321751041" - creditcard: a credit card number defined by the regex ^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$ with any non digit characters mixed in - ssn: a U.S. social security number following the regex ^\d{3}[- ]?\d{2}[- ]?\d{4}$ - hexcolor: an hexadecimal color code like "#FFFFFF: following the regex ^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$ - rgbcolor: an RGB color code like rgb like "rgb(255,255,2559" - byte: base64 encoded binary data - password: any kind of string - date: a date string like "2006-01-02" as defined by full-date in RFC3339 - duration: a duration string like "22 ns" as parsed by Golang time.ParseDuration or compatible with Scala duration format - datetime: a date time string like "2014-12-15T19:30:20.000Z" as defined by date-time in RFC3339.
+             * - bsonobjectid: a bson object ID, i.e. a 24 characters hex string - uri: an URI as parsed by Golang net/url.ParseRequestURI - email: an email address as parsed by Golang net/mail.ParseAddress - hostname: a valid representation for an Internet host name, as defined by RFC 1034, section 3.1 [RFC1034]. - ipv4: an IPv4 IP as parsed by Golang net.ParseIP - ipv6: an IPv6 IP as parsed by Golang net.ParseIP - cidr: a CIDR as parsed by Golang net.ParseCIDR - mac: a MAC address as parsed by Golang net.ParseMAC - uuid: an UUID that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12}$ - uuid3: an UUID3 that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?3[0-9a-f]{3}-?[0-9a-f]{4}-?[0-9a-f]{12}$ - uuid4: an UUID4 that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?4[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$ - uuid5: an UUID5 that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?5[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$ - isbn: an ISBN10 or ISBN13 number string like "0321751043" or "978-0321751041" - isbn10: an ISBN10 number string like "0321751043" - isbn13: an ISBN13 number string like "978-0321751041" - creditcard: a credit card number defined by the regex ^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\\d{3})\\d{11})$ with any non digit characters mixed in - ssn: a U.S. social security number following the regex ^\\d{3}[- ]?\\d{2}[- ]?\\d{4}$ - hexcolor: an hexadecimal color code like "#FFFFFF: following the regex ^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$ - rgbcolor: an RGB color code like rgb like "rgb(255,255,2559" - byte: base64 encoded binary data - password: any kind of string - date: a date string like "2006-01-02" as defined by full-date in RFC3339 - duration: a duration string like "22 ns" as parsed by Golang time.ParseDuration or compatible with Scala duration format - datetime: a date time string like "2014-12-15T19:30:20.000Z" as defined by date-time in RFC3339.
              */
             format: string;
             id: string;
@@ -6985,7 +7385,7 @@ export namespace apps {
              */
             ordinals: outputs.apps.v1.StatefulSetOrdinals;
             /**
-             * persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is beta.
+             * persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down.
              */
             persistentVolumeClaimRetentionPolicy: outputs.apps.v1.StatefulSetPersistentVolumeClaimRetentionPolicy;
             /**
@@ -7035,7 +7435,7 @@ export namespace apps {
              */
             ordinals: outputs.apps.v1.StatefulSetOrdinalsPatch;
             /**
-             * persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is beta.
+             * persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down.
              */
             persistentVolumeClaimRetentionPolicy: outputs.apps.v1.StatefulSetPersistentVolumeClaimRetentionPolicyPatch;
             /**
@@ -9878,7 +10278,7 @@ export namespace autoscaling {
          */
         export interface MetricSpec {
             /**
-             * containerResource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod of the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source. This is an alpha feature and can be enabled by the HPAContainerMetrics feature flag.
+             * containerResource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod of the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
              */
             containerResource: outputs.autoscaling.v2.ContainerResourceMetricSource;
             /**
@@ -9898,7 +10298,7 @@ export namespace autoscaling {
              */
             resource: outputs.autoscaling.v2.ResourceMetricSource;
             /**
-             * type is the type of metric source.  It should be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each mapping to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
+             * type is the type of metric source.  It should be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each mapping to a matching field in the object.
              */
             type: string;
         }
@@ -9908,7 +10308,7 @@ export namespace autoscaling {
          */
         export interface MetricSpecPatch {
             /**
-             * containerResource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod of the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source. This is an alpha feature and can be enabled by the HPAContainerMetrics feature flag.
+             * containerResource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod of the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
              */
             containerResource: outputs.autoscaling.v2.ContainerResourceMetricSourcePatch;
             /**
@@ -9928,7 +10328,7 @@ export namespace autoscaling {
              */
             resource: outputs.autoscaling.v2.ResourceMetricSourcePatch;
             /**
-             * type is the type of metric source.  It should be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each mapping to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
+             * type is the type of metric source.  It should be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each mapping to a matching field in the object.
              */
             type: string;
         }
@@ -9958,7 +10358,7 @@ export namespace autoscaling {
              */
             resource: outputs.autoscaling.v2.ResourceMetricStatus;
             /**
-             * type is the type of metric source.  It will be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each corresponds to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
+             * type is the type of metric source.  It will be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each corresponds to a matching field in the object.
              */
             type: string;
         }
@@ -9988,7 +10388,7 @@ export namespace autoscaling {
              */
             resource: outputs.autoscaling.v2.ResourceMetricStatusPatch;
             /**
-             * type is the type of metric source.  It will be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each corresponds to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
+             * type is the type of metric source.  It will be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each corresponds to a matching field in the object.
              */
             type: string;
         }
@@ -12171,7 +12571,7 @@ export namespace batch {
             /**
              * ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don't have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first "/" must be a valid subdomain as defined by RFC 1123. All characters trailing the first "/" must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 63 characters. This field is immutable.
              *
-             * This field is alpha-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (disabled by default).
+             * This field is beta-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (enabled by default).
              */
             managedBy: string;
             /**
@@ -12256,7 +12656,7 @@ export namespace batch {
             /**
              * ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don't have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first "/" must be a valid subdomain as defined by RFC 1123. All characters trailing the first "/" must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 63 characters. This field is immutable.
              *
-             * This field is alpha-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (disabled by default).
+             * This field is beta-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (enabled by default).
              */
             managedBy: string;
             /**
@@ -13815,6 +14215,91 @@ export namespace coordination {
 
     }
 
+    export namespace v1alpha2 {
+        /**
+         * LeaseCandidate defines a candidate for a Lease object. Candidates are created such that coordinated leader election will pick the best leader from the list of candidates.
+         */
+        export interface LeaseCandidate {
+            /**
+             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+             */
+            apiVersion: "coordination.k8s.io/v1alpha2";
+            /**
+             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             */
+            kind: "LeaseCandidate";
+            /**
+             * More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+             */
+            metadata: outputs.meta.v1.ObjectMeta;
+            /**
+             * spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+             */
+            spec: outputs.coordination.v1alpha2.LeaseCandidateSpec;
+        }
+
+        /**
+         * LeaseCandidateSpec is a specification of a Lease.
+         */
+        export interface LeaseCandidateSpec {
+            /**
+             * BinaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required.
+             */
+            binaryVersion: string;
+            /**
+             * EmulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is "OldestEmulationVersion"
+             */
+            emulationVersion: string;
+            /**
+             * LeaseName is the name of the lease for which this candidate is contending. This field is immutable.
+             */
+            leaseName: string;
+            /**
+             * PingTime is the last time that the server has requested the LeaseCandidate to renew. It is only done during leader election to check if any LeaseCandidates have become ineligible. When PingTime is updated, the LeaseCandidate will respond by updating RenewTime.
+             */
+            pingTime: string;
+            /**
+             * RenewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
+             */
+            renewTime: string;
+            /**
+             * Strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+             */
+            strategy: string;
+        }
+
+        /**
+         * LeaseCandidateSpec is a specification of a Lease.
+         */
+        export interface LeaseCandidateSpecPatch {
+            /**
+             * BinaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required.
+             */
+            binaryVersion: string;
+            /**
+             * EmulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is "OldestEmulationVersion"
+             */
+            emulationVersion: string;
+            /**
+             * LeaseName is the name of the lease for which this candidate is contending. This field is immutable.
+             */
+            leaseName: string;
+            /**
+             * PingTime is the last time that the server has requested the LeaseCandidate to renew. It is only done during leader election to check if any LeaseCandidates have become ineligible. When PingTime is updated, the LeaseCandidate will respond by updating RenewTime.
+             */
+            pingTime: string;
+            /**
+             * RenewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
+             */
+            renewTime: string;
+            /**
+             * Strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+             */
+            strategy: string;
+        }
+
+    }
+
     export namespace v1beta1 {
         /**
          * Lease defines a lease concept.
@@ -14182,7 +14667,7 @@ export namespace core {
         }
 
         /**
-         * Represents storage that is managed by an external CSI volume driver (Beta feature)
+         * Represents storage that is managed by an external CSI volume driver
          */
         export interface CSIPersistentVolumeSource {
             /**
@@ -14228,7 +14713,7 @@ export namespace core {
         }
 
         /**
-         * Represents storage that is managed by an external CSI volume driver (Beta feature)
+         * Represents storage that is managed by an external CSI volume driver
          */
         export interface CSIPersistentVolumeSourcePatch {
             /**
@@ -16629,6 +17114,9 @@ export namespace core {
             readOnly: boolean;
         }
 
+        /**
+         * GRPCAction specifies an action involving a GRPC service.
+         */
         export interface GRPCAction {
             /**
              * Port number of the gRPC service. Number must be in the range 1 to 65535.
@@ -16642,6 +17130,9 @@ export namespace core {
             service: string;
         }
 
+        /**
+         * GRPCAction specifies an action involving a GRPC service.
+         */
         export interface GRPCActionPatch {
             /**
              * Port number of the gRPC service. Number must be in the range 1 to 65535.
@@ -17214,19 +17705,19 @@ export namespace core {
          */
         export interface LifecycleHandler {
             /**
-             * Exec specifies the action to take.
+             * Exec specifies a command to execute in the container.
              */
             exec: outputs.core.v1.ExecAction;
             /**
-             * HTTPGet specifies the http request to perform.
+             * HTTPGet specifies an HTTP GET request to perform.
              */
             httpGet: outputs.core.v1.HTTPGetAction;
             /**
-             * Sleep represents the duration that the container should sleep before being terminated.
+             * Sleep represents a duration that the container should sleep.
              */
             sleep: outputs.core.v1.SleepAction;
             /**
-             * Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
+             * Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for backward compatibility. There is no validation of this field and lifecycle hooks will fail at runtime when it is specified.
              */
             tcpSocket: outputs.core.v1.TCPSocketAction;
         }
@@ -17236,19 +17727,19 @@ export namespace core {
          */
         export interface LifecycleHandlerPatch {
             /**
-             * Exec specifies the action to take.
+             * Exec specifies a command to execute in the container.
              */
             exec: outputs.core.v1.ExecActionPatch;
             /**
-             * HTTPGet specifies the http request to perform.
+             * HTTPGet specifies an HTTP GET request to perform.
              */
             httpGet: outputs.core.v1.HTTPGetActionPatch;
             /**
-             * Sleep represents the duration that the container should sleep before being terminated.
+             * Sleep represents a duration that the container should sleep.
              */
             sleep: outputs.core.v1.SleepActionPatch;
             /**
-             * Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
+             * Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for backward compatibility. There is no validation of this field and lifecycle hooks will fail at runtime when it is specified.
              */
             tcpSocket: outputs.core.v1.TCPSocketActionPatch;
         }
@@ -17490,7 +17981,7 @@ export namespace core {
         }
 
         /**
-         * Local represents directly-attached storage with node affinity (Beta feature)
+         * Local represents directly-attached storage with node affinity
          */
         export interface LocalVolumeSource {
             /**
@@ -17504,7 +17995,7 @@ export namespace core {
         }
 
         /**
-         * Local represents directly-attached storage with node affinity (Beta feature)
+         * Local represents directly-attached storage with node affinity
          */
         export interface LocalVolumeSourcePatch {
             /**
@@ -17629,8 +18120,17 @@ export namespace core {
          * NamespaceCondition contains details about state of namespace.
          */
         export interface NamespaceCondition {
+            /**
+             * Last time the condition transitioned from one status to another.
+             */
             lastTransitionTime: string;
+            /**
+             * Human-readable message indicating details about last transition.
+             */
             message: string;
+            /**
+             * Unique, one-word, CamelCase reason for the condition's last transition.
+             */
             reason: string;
             /**
              * Status of the condition, one of True, False, Unknown.
@@ -17646,8 +18146,17 @@ export namespace core {
          * NamespaceCondition contains details about state of namespace.
          */
         export interface NamespaceConditionPatch {
+            /**
+             * Last time the condition transitioned from one status to another.
+             */
             lastTransitionTime: string;
+            /**
+             * Human-readable message indicating details about last transition.
+             */
             message: string;
+            /**
+             * Unique, one-word, CamelCase reason for the condition's last transition.
+             */
             reason: string;
             /**
              * Status of the condition, one of True, False, Unknown.
@@ -18166,7 +18675,7 @@ export namespace core {
          */
         export interface NodeStatus {
             /**
-             * List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
+             * List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/reference/node/node-status/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
              */
             addresses: outputs.core.v1.NodeAddress[];
             /**
@@ -18178,7 +18687,7 @@ export namespace core {
              */
             capacity: {[key: string]: string};
             /**
-             * Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/concepts/nodes/node/#condition
+             * Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/reference/node/node-status/#condition
              */
             conditions: outputs.core.v1.NodeCondition[];
             /**
@@ -18198,7 +18707,7 @@ export namespace core {
              */
             images: outputs.core.v1.ContainerImage[];
             /**
-             * Set of ids/uuids to uniquely identify the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#info
+             * Set of ids/uuids to uniquely identify the node. More info: https://kubernetes.io/docs/reference/node/node-status/#info
              */
             nodeInfo: outputs.core.v1.NodeSystemInfo;
             /**
@@ -18224,7 +18733,7 @@ export namespace core {
          */
         export interface NodeStatusPatch {
             /**
-             * List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
+             * List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/reference/node/node-status/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
              */
             addresses: outputs.core.v1.NodeAddressPatch[];
             /**
@@ -18236,7 +18745,7 @@ export namespace core {
              */
             capacity: {[key: string]: string};
             /**
-             * Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/concepts/nodes/node/#condition
+             * Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/reference/node/node-status/#condition
              */
             conditions: outputs.core.v1.NodeConditionPatch[];
             /**
@@ -18256,7 +18765,7 @@ export namespace core {
              */
             images: outputs.core.v1.ContainerImagePatch[];
             /**
-             * Set of ids/uuids to uniquely identify the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#info
+             * Set of ids/uuids to uniquely identify the node. More info: https://kubernetes.io/docs/reference/node/node-status/#info
              */
             nodeInfo: outputs.core.v1.NodeSystemInfoPatch;
             /**
@@ -18537,7 +19046,13 @@ export namespace core {
              * reason is a unique, this should be a short, machine understandable string that gives the reason for condition's last transition. If it reports "Resizing" that means the underlying persistent volume is being resized.
              */
             reason: string;
+            /**
+             * Status is the status of the condition. Can be True, False, Unknown. More info: https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-claim-v1/#:~:text=state%20of%20pvc-,conditions.status,-(string)%2C%20required
+             */
             status: string;
+            /**
+             * Type is the type of the condition. More info: https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-claim-v1/#:~:text=set%20to%20%27ResizeStarted%27.-,PersistentVolumeClaimCondition,-contains%20details%20about
+             */
             type: string;
         }
 
@@ -18561,7 +19076,13 @@ export namespace core {
              * reason is a unique, this should be a short, machine understandable string that gives the reason for condition's last transition. If it reports "Resizing" that means the underlying persistent volume is being resized.
              */
             reason: string;
+            /**
+             * Status is the status of the condition. Can be True, False, Unknown. More info: https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-claim-v1/#:~:text=state%20of%20pvc-,conditions.status,-(string)%2C%20required
+             */
             status: string;
+            /**
+             * Type is the type of the condition. More info: https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-claim-v1/#:~:text=set%20to%20%27ResizeStarted%27.-,PersistentVolumeClaimCondition,-contains%20details%20about
+             */
             type: string;
         }
 
@@ -18916,15 +19437,15 @@ export namespace core {
              */
             accessModes: string[];
             /**
-             * awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+             * awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: AWSElasticBlockStore is deprecated. All operations for the in-tree awsElasticBlockStore type are redirected to the ebs.csi.aws.com CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
              */
             awsElasticBlockStore: outputs.core.v1.AWSElasticBlockStoreVolumeSource;
             /**
-             * azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+             * azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod. Deprecated: AzureDisk is deprecated. All operations for the in-tree azureDisk type are redirected to the disk.csi.azure.com CSI driver.
              */
             azureDisk: outputs.core.v1.AzureDiskVolumeSource;
             /**
-             * azureFile represents an Azure File Service mount on the host and bind mount to the pod.
+             * azureFile represents an Azure File Service mount on the host and bind mount to the pod. Deprecated: AzureFile is deprecated. All operations for the in-tree azureFile type are redirected to the file.csi.azure.com CSI driver.
              */
             azureFile: outputs.core.v1.AzureFilePersistentVolumeSource;
             /**
@@ -18932,11 +19453,11 @@ export namespace core {
              */
             capacity: {[key: string]: string};
             /**
-             * cephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+             * cephFS represents a Ceph FS mount on the host that shares a pod's lifetime. Deprecated: CephFS is deprecated and the in-tree cephfs type is no longer supported.
              */
             cephfs: outputs.core.v1.CephFSPersistentVolumeSource;
             /**
-             * cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+             * cinder represents a cinder volume attached and mounted on kubelets host machine. Deprecated: Cinder is deprecated. All operations for the in-tree cinder type are redirected to the cinder.csi.openstack.org CSI driver. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
              */
             cinder: outputs.core.v1.CinderPersistentVolumeSource;
             /**
@@ -18944,7 +19465,7 @@ export namespace core {
              */
             claimRef: outputs.core.v1.ObjectReference;
             /**
-             * csi represents storage that is handled by an external CSI driver (Beta feature).
+             * csi represents storage that is handled by an external CSI driver.
              */
             csi: outputs.core.v1.CSIPersistentVolumeSource;
             /**
@@ -18952,19 +19473,19 @@ export namespace core {
              */
             fc: outputs.core.v1.FCVolumeSource;
             /**
-             * flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+             * flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin. Deprecated: FlexVolume is deprecated. Consider using a CSIDriver instead.
              */
             flexVolume: outputs.core.v1.FlexPersistentVolumeSource;
             /**
-             * flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running
+             * flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running. Deprecated: Flocker is deprecated and the in-tree flocker type is no longer supported.
              */
             flocker: outputs.core.v1.FlockerVolumeSource;
             /**
-             * gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+             * gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. Deprecated: GCEPersistentDisk is deprecated. All operations for the in-tree gcePersistentDisk type are redirected to the pd.csi.storage.gke.io CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
              */
             gcePersistentDisk: outputs.core.v1.GCEPersistentDiskVolumeSource;
             /**
-             * glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+             * glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
              */
             glusterfs: outputs.core.v1.GlusterfsPersistentVolumeSource;
             /**
@@ -18996,23 +19517,23 @@ export namespace core {
              */
             persistentVolumeReclaimPolicy: string;
             /**
-             * photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+             * photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine. Deprecated: PhotonPersistentDisk is deprecated and the in-tree photonPersistentDisk type is no longer supported.
              */
             photonPersistentDisk: outputs.core.v1.PhotonPersistentDiskVolumeSource;
             /**
-             * portworxVolume represents a portworx volume attached and mounted on kubelets host machine
+             * portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
              */
             portworxVolume: outputs.core.v1.PortworxVolumeSource;
             /**
-             * quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+             * quobyte represents a Quobyte mount on the host that shares a pod's lifetime. Deprecated: Quobyte is deprecated and the in-tree quobyte type is no longer supported.
              */
             quobyte: outputs.core.v1.QuobyteVolumeSource;
             /**
-             * rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+             * rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
              */
             rbd: outputs.core.v1.RBDPersistentVolumeSource;
             /**
-             * scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+             * scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes. Deprecated: ScaleIO is deprecated and the in-tree scaleIO type is no longer supported.
              */
             scaleIO: outputs.core.v1.ScaleIOPersistentVolumeSource;
             /**
@@ -19020,7 +19541,7 @@ export namespace core {
              */
             storageClassName: string;
             /**
-             * storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod More info: https://examples.k8s.io/volumes/storageos/README.md
+             * storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod. Deprecated: StorageOS is deprecated and the in-tree storageos type is no longer supported. More info: https://examples.k8s.io/volumes/storageos/README.md
              */
             storageos: outputs.core.v1.StorageOSPersistentVolumeSource;
             /**
@@ -19032,7 +19553,7 @@ export namespace core {
              */
             volumeMode: string;
             /**
-             * vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+             * vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine. Deprecated: VsphereVolume is deprecated. All operations for the in-tree vsphereVolume type are redirected to the csi.vsphere.vmware.com CSI driver.
              */
             vsphereVolume: outputs.core.v1.VsphereVirtualDiskVolumeSource;
         }
@@ -19046,15 +19567,15 @@ export namespace core {
              */
             accessModes: string[];
             /**
-             * awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+             * awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: AWSElasticBlockStore is deprecated. All operations for the in-tree awsElasticBlockStore type are redirected to the ebs.csi.aws.com CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
              */
             awsElasticBlockStore: outputs.core.v1.AWSElasticBlockStoreVolumeSourcePatch;
             /**
-             * azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+             * azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod. Deprecated: AzureDisk is deprecated. All operations for the in-tree azureDisk type are redirected to the disk.csi.azure.com CSI driver.
              */
             azureDisk: outputs.core.v1.AzureDiskVolumeSourcePatch;
             /**
-             * azureFile represents an Azure File Service mount on the host and bind mount to the pod.
+             * azureFile represents an Azure File Service mount on the host and bind mount to the pod. Deprecated: AzureFile is deprecated. All operations for the in-tree azureFile type are redirected to the file.csi.azure.com CSI driver.
              */
             azureFile: outputs.core.v1.AzureFilePersistentVolumeSourcePatch;
             /**
@@ -19062,11 +19583,11 @@ export namespace core {
              */
             capacity: {[key: string]: string};
             /**
-             * cephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+             * cephFS represents a Ceph FS mount on the host that shares a pod's lifetime. Deprecated: CephFS is deprecated and the in-tree cephfs type is no longer supported.
              */
             cephfs: outputs.core.v1.CephFSPersistentVolumeSourcePatch;
             /**
-             * cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+             * cinder represents a cinder volume attached and mounted on kubelets host machine. Deprecated: Cinder is deprecated. All operations for the in-tree cinder type are redirected to the cinder.csi.openstack.org CSI driver. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
              */
             cinder: outputs.core.v1.CinderPersistentVolumeSourcePatch;
             /**
@@ -19074,7 +19595,7 @@ export namespace core {
              */
             claimRef: outputs.core.v1.ObjectReferencePatch;
             /**
-             * csi represents storage that is handled by an external CSI driver (Beta feature).
+             * csi represents storage that is handled by an external CSI driver.
              */
             csi: outputs.core.v1.CSIPersistentVolumeSourcePatch;
             /**
@@ -19082,19 +19603,19 @@ export namespace core {
              */
             fc: outputs.core.v1.FCVolumeSourcePatch;
             /**
-             * flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+             * flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin. Deprecated: FlexVolume is deprecated. Consider using a CSIDriver instead.
              */
             flexVolume: outputs.core.v1.FlexPersistentVolumeSourcePatch;
             /**
-             * flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running
+             * flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running. Deprecated: Flocker is deprecated and the in-tree flocker type is no longer supported.
              */
             flocker: outputs.core.v1.FlockerVolumeSourcePatch;
             /**
-             * gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+             * gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. Deprecated: GCEPersistentDisk is deprecated. All operations for the in-tree gcePersistentDisk type are redirected to the pd.csi.storage.gke.io CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
              */
             gcePersistentDisk: outputs.core.v1.GCEPersistentDiskVolumeSourcePatch;
             /**
-             * glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+             * glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
              */
             glusterfs: outputs.core.v1.GlusterfsPersistentVolumeSourcePatch;
             /**
@@ -19126,23 +19647,23 @@ export namespace core {
              */
             persistentVolumeReclaimPolicy: string;
             /**
-             * photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+             * photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine. Deprecated: PhotonPersistentDisk is deprecated and the in-tree photonPersistentDisk type is no longer supported.
              */
             photonPersistentDisk: outputs.core.v1.PhotonPersistentDiskVolumeSourcePatch;
             /**
-             * portworxVolume represents a portworx volume attached and mounted on kubelets host machine
+             * portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
              */
             portworxVolume: outputs.core.v1.PortworxVolumeSourcePatch;
             /**
-             * quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+             * quobyte represents a Quobyte mount on the host that shares a pod's lifetime. Deprecated: Quobyte is deprecated and the in-tree quobyte type is no longer supported.
              */
             quobyte: outputs.core.v1.QuobyteVolumeSourcePatch;
             /**
-             * rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+             * rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
              */
             rbd: outputs.core.v1.RBDPersistentVolumeSourcePatch;
             /**
-             * scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+             * scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes. Deprecated: ScaleIO is deprecated and the in-tree scaleIO type is no longer supported.
              */
             scaleIO: outputs.core.v1.ScaleIOPersistentVolumeSourcePatch;
             /**
@@ -19150,7 +19671,7 @@ export namespace core {
              */
             storageClassName: string;
             /**
-             * storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod More info: https://examples.k8s.io/volumes/storageos/README.md
+             * storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod. Deprecated: StorageOS is deprecated and the in-tree storageos type is no longer supported. More info: https://examples.k8s.io/volumes/storageos/README.md
              */
             storageos: outputs.core.v1.StorageOSPersistentVolumeSourcePatch;
             /**
@@ -19162,7 +19683,7 @@ export namespace core {
              */
             volumeMode: string;
             /**
-             * vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+             * vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine. Deprecated: VsphereVolume is deprecated. All operations for the in-tree vsphereVolume type are redirected to the csi.vsphere.vmware.com CSI driver.
              */
             vsphereVolume: outputs.core.v1.VsphereVirtualDiskVolumeSourcePatch;
         }
@@ -19479,9 +20000,12 @@ export namespace core {
          */
         export interface PodDNSConfigOption {
             /**
-             * Required.
+             * Name is this DNS resolver option's name. Required.
              */
             name: string;
+            /**
+             * Value is this DNS resolver option's value.
+             */
             value: string;
         }
 
@@ -19490,9 +20014,12 @@ export namespace core {
          */
         export interface PodDNSConfigOptionPatch {
             /**
-             * Required.
+             * Name is this DNS resolver option's name. Required.
              */
             name: string;
+            /**
+             * Value is this DNS resolver option's value.
+             */
             value: string;
         }
 
@@ -19719,6 +20246,20 @@ export namespace core {
              */
             runAsUser: number;
             /**
+             * seLinuxChangePolicy defines how the container's SELinux label is applied to all volumes used by the Pod. It has no effect on nodes that do not support SELinux or to volumes does not support SELinux. Valid values are "MountOption" and "Recursive".
+             *
+             * "Recursive" means relabeling of all files on all Pod volumes by the container runtime. This may be slow for large volumes, but allows mixing privileged and unprivileged Pods sharing the same volume on the same node.
+             *
+             * "MountOption" mounts all eligible Pod volumes with `-o context` mount option. This requires all Pods that share the same volume to use the same SELinux label. It is not possible to share the same volume among privileged and unprivileged Pods. Eligible volumes are in-tree FibreChannel and iSCSI volumes, and all CSI volumes whose CSI driver announces SELinux support by setting spec.seLinuxMount: true in their CSIDriver instance. Other volumes are always re-labelled recursively. "MountOption" value is allowed only when SELinuxMount feature gate is enabled.
+             *
+             * If not specified and SELinuxMount feature gate is enabled, "MountOption" is used. If not specified and SELinuxMount feature gate is disabled, "MountOption" is used for ReadWriteOncePod volumes and "Recursive" for all other volumes.
+             *
+             * This field affects only Pods that have SELinux label set, either in PodSecurityContext or in SecurityContext of all containers.
+             *
+             * All Pods that use the same volume should use the same seLinuxChangePolicy, otherwise some pods can get stuck in ContainerCreating state. Note that this field cannot be set when spec.os.name is windows.
+             */
+            seLinuxChangePolicy: string;
+            /**
              * The SELinux context to be applied to all containers. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
              */
             seLinuxOptions: outputs.core.v1.SELinuxOptions;
@@ -19776,6 +20317,20 @@ export namespace core {
              * The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
              */
             runAsUser: number;
+            /**
+             * seLinuxChangePolicy defines how the container's SELinux label is applied to all volumes used by the Pod. It has no effect on nodes that do not support SELinux or to volumes does not support SELinux. Valid values are "MountOption" and "Recursive".
+             *
+             * "Recursive" means relabeling of all files on all Pod volumes by the container runtime. This may be slow for large volumes, but allows mixing privileged and unprivileged Pods sharing the same volume on the same node.
+             *
+             * "MountOption" mounts all eligible Pod volumes with `-o context` mount option. This requires all Pods that share the same volume to use the same SELinux label. It is not possible to share the same volume among privileged and unprivileged Pods. Eligible volumes are in-tree FibreChannel and iSCSI volumes, and all CSI volumes whose CSI driver announces SELinux support by setting spec.seLinuxMount: true in their CSIDriver instance. Other volumes are always re-labelled recursively. "MountOption" value is allowed only when SELinuxMount feature gate is enabled.
+             *
+             * If not specified and SELinuxMount feature gate is enabled, "MountOption" is used. If not specified and SELinuxMount feature gate is disabled, "MountOption" is used for ReadWriteOncePod volumes and "Recursive" for all other volumes.
+             *
+             * This field affects only Pods that have SELinux label set, either in PodSecurityContext or in SecurityContext of all containers.
+             *
+             * All Pods that use the same volume should use the same seLinuxChangePolicy, otherwise some pods can get stuck in ContainerCreating state. Note that this field cannot be set when spec.os.name is windows.
+             */
+            seLinuxChangePolicy: string;
             /**
              * The SELinux context to be applied to all containers. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
              */
@@ -19915,6 +20470,14 @@ export namespace core {
              */
             resourceClaims: outputs.core.v1.PodResourceClaim[];
             /**
+             * Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for "cpu" and "memory" resource names only. ResourceClaims are not supported.
+             *
+             * This field enables fine-grained control over resource allocation for the entire pod, allowing resource sharing among containers in a pod.
+             *
+             * This is an alpha field and requires enabling the PodLevelResources feature gate.
+             */
+            resources: outputs.core.v1.ResourceRequirements;
+            /**
              * Restart policy for all containers within the pod. One of Always, OnFailure, Never. In some contexts, only a subset of those values may be permitted. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
              */
             restartPolicy: string;
@@ -19945,7 +20508,7 @@ export namespace core {
              */
             serviceAccountName: string;
             /**
-             * If true the pod's hostname will be configured as the pod's FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
+             * If true the pod's hostname will be configured as the pod's FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
              */
             setHostnameAsFQDN: boolean;
             /**
@@ -20087,6 +20650,14 @@ export namespace core {
              */
             resourceClaims: outputs.core.v1.PodResourceClaimPatch[];
             /**
+             * Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for "cpu" and "memory" resource names only. ResourceClaims are not supported.
+             *
+             * This field enables fine-grained control over resource allocation for the entire pod, allowing resource sharing among containers in a pod.
+             *
+             * This is an alpha field and requires enabling the PodLevelResources feature gate.
+             */
+            resources: outputs.core.v1.ResourceRequirementsPatch;
+            /**
              * Restart policy for all containers within the pod. One of Always, OnFailure, Never. In some contexts, only a subset of those values may be permitted. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
              */
             restartPolicy: string;
@@ -20117,7 +20688,7 @@ export namespace core {
              */
             serviceAccountName: string;
             /**
-             * If true the pod's hostname will be configured as the pod's FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
+             * If true the pod's hostname will be configured as the pod's FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
              */
             setHostnameAsFQDN: boolean;
             /**
@@ -20155,11 +20726,11 @@ export namespace core {
              */
             conditions: outputs.core.v1.PodCondition[];
             /**
-             * The list has one entry per container in the manifest. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+             * Statuses of containers in this pod. Each container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
              */
             containerStatuses: outputs.core.v1.ContainerStatus[];
             /**
-             * Status for any ephemeral containers that have run in this pod.
+             * Statuses for any ephemeral containers that have run in this pod. Each ephemeral container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
              */
             ephemeralContainerStatuses: outputs.core.v1.ContainerStatus[];
             /**
@@ -20171,7 +20742,7 @@ export namespace core {
              */
             hostIPs: outputs.core.v1.HostIP[];
             /**
-             * The list has one entry per init container in the manifest. The most recent successful init container will have ready = true, the most recently started container will have startTime set. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+             * Statuses of init containers in this pod. The most recent successful non-restartable init container will have ready = true, the most recently started container will have startTime set. Each init container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-and-container-status
              */
             initContainerStatuses: outputs.core.v1.ContainerStatus[];
             /**
@@ -20229,11 +20800,11 @@ export namespace core {
              */
             conditions: outputs.core.v1.PodConditionPatch[];
             /**
-             * The list has one entry per container in the manifest. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+             * Statuses of containers in this pod. Each container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
              */
             containerStatuses: outputs.core.v1.ContainerStatusPatch[];
             /**
-             * Status for any ephemeral containers that have run in this pod.
+             * Statuses for any ephemeral containers that have run in this pod. Each ephemeral container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
              */
             ephemeralContainerStatuses: outputs.core.v1.ContainerStatusPatch[];
             /**
@@ -20245,7 +20816,7 @@ export namespace core {
              */
             hostIPs: outputs.core.v1.HostIPPatch[];
             /**
-             * The list has one entry per init container in the manifest. The most recent successful init container will have ready = true, the most recently started container will have startTime set. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+             * Statuses of init containers in this pod. The most recent successful non-restartable init container will have ready = true, the most recently started container will have startTime set. Each init container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-and-container-status
              */
             initContainerStatuses: outputs.core.v1.ContainerStatusPatch[];
             /**
@@ -20344,6 +20915,9 @@ export namespace core {
             spec: outputs.core.v1.PodSpecPatch;
         }
 
+        /**
+         * PortStatus represents the error condition of a service port
+         */
         export interface PortStatus {
             /**
              * Error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
@@ -20362,6 +20936,9 @@ export namespace core {
             protocol: string;
         }
 
+        /**
+         * PortStatus represents the error condition of a service port
+         */
         export interface PortStatusPatch {
             /**
              * Error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
@@ -20449,7 +21026,7 @@ export namespace core {
          */
         export interface Probe {
             /**
-             * Exec specifies the action to take.
+             * Exec specifies a command to execute in the container.
              */
             exec: outputs.core.v1.ExecAction;
             /**
@@ -20457,11 +21034,11 @@ export namespace core {
              */
             failureThreshold: number;
             /**
-             * GRPC specifies an action involving a GRPC port.
+             * GRPC specifies a GRPC HealthCheckRequest.
              */
             grpc: outputs.core.v1.GRPCAction;
             /**
-             * HTTPGet specifies the http request to perform.
+             * HTTPGet specifies an HTTP GET request to perform.
              */
             httpGet: outputs.core.v1.HTTPGetAction;
             /**
@@ -20477,7 +21054,7 @@ export namespace core {
              */
             successThreshold: number;
             /**
-             * TCPSocket specifies an action involving a TCP port.
+             * TCPSocket specifies a connection to a TCP port.
              */
             tcpSocket: outputs.core.v1.TCPSocketAction;
             /**
@@ -20495,7 +21072,7 @@ export namespace core {
          */
         export interface ProbePatch {
             /**
-             * Exec specifies the action to take.
+             * Exec specifies a command to execute in the container.
              */
             exec: outputs.core.v1.ExecActionPatch;
             /**
@@ -20503,11 +21080,11 @@ export namespace core {
              */
             failureThreshold: number;
             /**
-             * GRPC specifies an action involving a GRPC port.
+             * GRPC specifies a GRPC HealthCheckRequest.
              */
             grpc: outputs.core.v1.GRPCActionPatch;
             /**
-             * HTTPGet specifies the http request to perform.
+             * HTTPGet specifies an HTTP GET request to perform.
              */
             httpGet: outputs.core.v1.HTTPGetActionPatch;
             /**
@@ -20523,7 +21100,7 @@ export namespace core {
              */
             successThreshold: number;
             /**
-             * TCPSocket specifies an action involving a TCP port.
+             * TCPSocket specifies a connection to a TCP port.
              */
             tcpSocket: outputs.core.v1.TCPSocketActionPatch;
             /**
@@ -21023,7 +21600,7 @@ export namespace core {
         }
 
         /**
-         * ResourceHealth represents the health of a resource. It has the latest device health information. This is a part of KEP https://kep.k8s.io/4680 and historical health changes are planned to be added in future iterations of a KEP.
+         * ResourceHealth represents the health of a resource. It has the latest device health information. This is a part of KEP https://kep.k8s.io/4680.
          */
         export interface ResourceHealth {
             /**
@@ -21045,7 +21622,7 @@ export namespace core {
         }
 
         /**
-         * ResourceHealth represents the health of a resource. It has the latest device health information. This is a part of KEP https://kep.k8s.io/4680 and historical health changes are planned to be added in future iterations of a KEP.
+         * ResourceHealth represents the health of a resource. It has the latest device health information. This is a part of KEP https://kep.k8s.io/4680.
          */
         export interface ResourceHealthPatch {
             /**
@@ -21200,24 +21777,30 @@ export namespace core {
             requests: {[key: string]: string};
         }
 
+        /**
+         * ResourceStatus represents the status of a single resource allocated to a Pod.
+         */
         export interface ResourceStatus {
             /**
-             * Name of the resource. Must be unique within the pod and match one of the resources from the pod spec.
+             * Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be "claim:<claim_name>/<request>". When this status is reported about a container, the "claim_name" and "request" must match one of the claims of this container.
              */
             name: string;
             /**
-             * List of unique Resources health. Each element in the list contains an unique resource ID and resource health. At a minimum, ResourceID must uniquely identify the Resource allocated to the Pod on the Node for the lifetime of a Pod. See ResourceID type for it's definition.
+             * List of unique resources health. Each element in the list contains an unique resource ID and its health. At a minimum, for the lifetime of a Pod, resource ID must uniquely identify the resource allocated to the Pod on the Node. If other Pod on the same Node reports the status with the same resource ID, it must be the same resource they share. See ResourceID type definition for a specific format it has in various use cases.
              */
             resources: outputs.core.v1.ResourceHealth[];
         }
 
+        /**
+         * ResourceStatus represents the status of a single resource allocated to a Pod.
+         */
         export interface ResourceStatusPatch {
             /**
-             * Name of the resource. Must be unique within the pod and match one of the resources from the pod spec.
+             * Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be "claim:<claim_name>/<request>". When this status is reported about a container, the "claim_name" and "request" must match one of the claims of this container.
              */
             name: string;
             /**
-             * List of unique Resources health. Each element in the list contains an unique resource ID and resource health. At a minimum, ResourceID must uniquely identify the Resource allocated to the Pod on the Node for the lifetime of a Pod. See ResourceID type for it's definition.
+             * List of unique resources health. Each element in the list contains an unique resource ID and its health. At a minimum, for the lifetime of a Pod, resource ID must uniquely identify the resource allocated to the Pod on the Node. If other Pod on the same Node reports the status with the same resource ID, it must be the same resource they share. See ResourceID type definition for a specific format it has in various use cases.
              */
             resources: outputs.core.v1.ResourceHealthPatch[];
         }
@@ -21942,7 +22525,7 @@ export namespace core {
              */
             metadata: outputs.meta.v1.ObjectMeta;
             /**
-             * Secrets is a list of the secrets in the same namespace that pods running using this ServiceAccount are allowed to use. Pods are only limited to this list if this service account has a "kubernetes.io/enforce-mountable-secrets" annotation set to "true". This field should not be used to find auto-generated service account token secrets for use outside of pods. Instead, tokens can be requested directly using the TokenRequest API, or service account token secrets can be manually created. More info: https://kubernetes.io/docs/concepts/configuration/secret
+             * Secrets is a list of the secrets in the same namespace that pods running using this ServiceAccount are allowed to use. Pods are only limited to this list if this service account has a "kubernetes.io/enforce-mountable-secrets" annotation set to "true". The "kubernetes.io/enforce-mountable-secrets" annotation is deprecated since v1.32. Prefer separate namespaces to isolate access to mounted secrets. This field should not be used to find auto-generated service account token secrets for use outside of pods. Instead, tokens can be requested directly using the TokenRequest API, or service account token secrets can be manually created. More info: https://kubernetes.io/docs/concepts/configuration/secret
              */
             secrets: outputs.core.v1.ObjectReference[];
         }
@@ -22150,7 +22733,7 @@ export namespace core {
              */
             topologyKeys: string[];
             /**
-             * TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are topologically close (e.g., same zone). This is an alpha field and requires enabling ServiceTrafficDistribution feature.
+             * TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are topologically close (e.g., same zone). This is a beta field and requires enabling ServiceTrafficDistribution feature.
              */
             trafficDistribution: string;
             /**
@@ -22248,7 +22831,7 @@ export namespace core {
              */
             topologyKeys: string[];
             /**
-             * TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are topologically close (e.g., same zone). This is an alpha field and requires enabling ServiceTrafficDistribution feature.
+             * TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are topologically close (e.g., same zone). This is a beta field and requires enabling ServiceTrafficDistribution feature.
              */
             trafficDistribution: string;
             /**
@@ -22763,6 +23346,9 @@ export namespace core {
             name: string;
         }
 
+        /**
+         * TypedObjectReference contains enough information to let you locate the typed referenced object
+         */
         export interface TypedObjectReference {
             /**
              * APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
@@ -22782,6 +23368,9 @@ export namespace core {
             namespace: string;
         }
 
+        /**
+         * TypedObjectReference contains enough information to let you locate the typed referenced object
+         */
         export interface TypedObjectReferencePatch {
             /**
              * APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
@@ -22806,23 +23395,23 @@ export namespace core {
          */
         export interface Volume {
             /**
-             * awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+             * awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: AWSElasticBlockStore is deprecated. All operations for the in-tree awsElasticBlockStore type are redirected to the ebs.csi.aws.com CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
              */
             awsElasticBlockStore: outputs.core.v1.AWSElasticBlockStoreVolumeSource;
             /**
-             * azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+             * azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod. Deprecated: AzureDisk is deprecated. All operations for the in-tree azureDisk type are redirected to the disk.csi.azure.com CSI driver.
              */
             azureDisk: outputs.core.v1.AzureDiskVolumeSource;
             /**
-             * azureFile represents an Azure File Service mount on the host and bind mount to the pod.
+             * azureFile represents an Azure File Service mount on the host and bind mount to the pod. Deprecated: AzureFile is deprecated. All operations for the in-tree azureFile type are redirected to the file.csi.azure.com CSI driver.
              */
             azureFile: outputs.core.v1.AzureFileVolumeSource;
             /**
-             * cephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+             * cephFS represents a Ceph FS mount on the host that shares a pod's lifetime. Deprecated: CephFS is deprecated and the in-tree cephfs type is no longer supported.
              */
             cephfs: outputs.core.v1.CephFSVolumeSource;
             /**
-             * cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+             * cinder represents a cinder volume attached and mounted on kubelets host machine. Deprecated: Cinder is deprecated. All operations for the in-tree cinder type are redirected to the cinder.csi.openstack.org CSI driver. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
              */
             cinder: outputs.core.v1.CinderVolumeSource;
             /**
@@ -22830,7 +23419,7 @@ export namespace core {
              */
             configMap: outputs.core.v1.ConfigMapVolumeSource;
             /**
-             * csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
+             * csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers.
              */
             csi: outputs.core.v1.CSIVolumeSource;
             /**
@@ -22863,23 +23452,23 @@ export namespace core {
              */
             fc: outputs.core.v1.FCVolumeSource;
             /**
-             * flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+             * flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin. Deprecated: FlexVolume is deprecated. Consider using a CSIDriver instead.
              */
             flexVolume: outputs.core.v1.FlexVolumeSource;
             /**
-             * flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running
+             * flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running. Deprecated: Flocker is deprecated and the in-tree flocker type is no longer supported.
              */
             flocker: outputs.core.v1.FlockerVolumeSource;
             /**
-             * gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+             * gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: GCEPersistentDisk is deprecated. All operations for the in-tree gcePersistentDisk type are redirected to the pd.csi.storage.gke.io CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
              */
             gcePersistentDisk: outputs.core.v1.GCEPersistentDiskVolumeSource;
             /**
-             * gitRepo represents a git repository at a particular revision. DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
+             * gitRepo represents a git repository at a particular revision. Deprecated: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
              */
             gitRepo: outputs.core.v1.GitRepoVolumeSource;
             /**
-             * glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+             * glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
              */
             glusterfs: outputs.core.v1.GlusterfsVolumeSource;
             /**
@@ -22911,11 +23500,11 @@ export namespace core {
              */
             persistentVolumeClaim: outputs.core.v1.PersistentVolumeClaimVolumeSource;
             /**
-             * photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+             * photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine. Deprecated: PhotonPersistentDisk is deprecated and the in-tree photonPersistentDisk type is no longer supported.
              */
             photonPersistentDisk: outputs.core.v1.PhotonPersistentDiskVolumeSource;
             /**
-             * portworxVolume represents a portworx volume attached and mounted on kubelets host machine
+             * portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
              */
             portworxVolume: outputs.core.v1.PortworxVolumeSource;
             /**
@@ -22923,15 +23512,15 @@ export namespace core {
              */
             projected: outputs.core.v1.ProjectedVolumeSource;
             /**
-             * quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+             * quobyte represents a Quobyte mount on the host that shares a pod's lifetime. Deprecated: Quobyte is deprecated and the in-tree quobyte type is no longer supported.
              */
             quobyte: outputs.core.v1.QuobyteVolumeSource;
             /**
-             * rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+             * rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
              */
             rbd: outputs.core.v1.RBDVolumeSource;
             /**
-             * scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+             * scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes. Deprecated: ScaleIO is deprecated and the in-tree scaleIO type is no longer supported.
              */
             scaleIO: outputs.core.v1.ScaleIOVolumeSource;
             /**
@@ -22939,11 +23528,11 @@ export namespace core {
              */
             secret: outputs.core.v1.SecretVolumeSource;
             /**
-             * storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes.
+             * storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes. Deprecated: StorageOS is deprecated and the in-tree storageos type is no longer supported.
              */
             storageos: outputs.core.v1.StorageOSVolumeSource;
             /**
-             * vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+             * vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine. Deprecated: VsphereVolume is deprecated. All operations for the in-tree vsphereVolume type are redirected to the csi.vsphere.vmware.com CSI driver.
              */
             vsphereVolume: outputs.core.v1.VsphereVirtualDiskVolumeSource;
         }
@@ -23129,23 +23718,23 @@ export namespace core {
          */
         export interface VolumePatch {
             /**
-             * awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+             * awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: AWSElasticBlockStore is deprecated. All operations for the in-tree awsElasticBlockStore type are redirected to the ebs.csi.aws.com CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
              */
             awsElasticBlockStore: outputs.core.v1.AWSElasticBlockStoreVolumeSourcePatch;
             /**
-             * azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+             * azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod. Deprecated: AzureDisk is deprecated. All operations for the in-tree azureDisk type are redirected to the disk.csi.azure.com CSI driver.
              */
             azureDisk: outputs.core.v1.AzureDiskVolumeSourcePatch;
             /**
-             * azureFile represents an Azure File Service mount on the host and bind mount to the pod.
+             * azureFile represents an Azure File Service mount on the host and bind mount to the pod. Deprecated: AzureFile is deprecated. All operations for the in-tree azureFile type are redirected to the file.csi.azure.com CSI driver.
              */
             azureFile: outputs.core.v1.AzureFileVolumeSourcePatch;
             /**
-             * cephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+             * cephFS represents a Ceph FS mount on the host that shares a pod's lifetime. Deprecated: CephFS is deprecated and the in-tree cephfs type is no longer supported.
              */
             cephfs: outputs.core.v1.CephFSVolumeSourcePatch;
             /**
-             * cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+             * cinder represents a cinder volume attached and mounted on kubelets host machine. Deprecated: Cinder is deprecated. All operations for the in-tree cinder type are redirected to the cinder.csi.openstack.org CSI driver. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
              */
             cinder: outputs.core.v1.CinderVolumeSourcePatch;
             /**
@@ -23153,7 +23742,7 @@ export namespace core {
              */
             configMap: outputs.core.v1.ConfigMapVolumeSourcePatch;
             /**
-             * csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
+             * csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers.
              */
             csi: outputs.core.v1.CSIVolumeSourcePatch;
             /**
@@ -23186,23 +23775,23 @@ export namespace core {
              */
             fc: outputs.core.v1.FCVolumeSourcePatch;
             /**
-             * flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+             * flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin. Deprecated: FlexVolume is deprecated. Consider using a CSIDriver instead.
              */
             flexVolume: outputs.core.v1.FlexVolumeSourcePatch;
             /**
-             * flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running
+             * flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running. Deprecated: Flocker is deprecated and the in-tree flocker type is no longer supported.
              */
             flocker: outputs.core.v1.FlockerVolumeSourcePatch;
             /**
-             * gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+             * gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: GCEPersistentDisk is deprecated. All operations for the in-tree gcePersistentDisk type are redirected to the pd.csi.storage.gke.io CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
              */
             gcePersistentDisk: outputs.core.v1.GCEPersistentDiskVolumeSourcePatch;
             /**
-             * gitRepo represents a git repository at a particular revision. DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
+             * gitRepo represents a git repository at a particular revision. Deprecated: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
              */
             gitRepo: outputs.core.v1.GitRepoVolumeSourcePatch;
             /**
-             * glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+             * glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
              */
             glusterfs: outputs.core.v1.GlusterfsVolumeSourcePatch;
             /**
@@ -23234,11 +23823,11 @@ export namespace core {
              */
             persistentVolumeClaim: outputs.core.v1.PersistentVolumeClaimVolumeSourcePatch;
             /**
-             * photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+             * photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine. Deprecated: PhotonPersistentDisk is deprecated and the in-tree photonPersistentDisk type is no longer supported.
              */
             photonPersistentDisk: outputs.core.v1.PhotonPersistentDiskVolumeSourcePatch;
             /**
-             * portworxVolume represents a portworx volume attached and mounted on kubelets host machine
+             * portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
              */
             portworxVolume: outputs.core.v1.PortworxVolumeSourcePatch;
             /**
@@ -23246,15 +23835,15 @@ export namespace core {
              */
             projected: outputs.core.v1.ProjectedVolumeSourcePatch;
             /**
-             * quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+             * quobyte represents a Quobyte mount on the host that shares a pod's lifetime. Deprecated: Quobyte is deprecated and the in-tree quobyte type is no longer supported.
              */
             quobyte: outputs.core.v1.QuobyteVolumeSourcePatch;
             /**
-             * rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+             * rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
              */
             rbd: outputs.core.v1.RBDVolumeSourcePatch;
             /**
-             * scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+             * scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes. Deprecated: ScaleIO is deprecated and the in-tree scaleIO type is no longer supported.
              */
             scaleIO: outputs.core.v1.ScaleIOVolumeSourcePatch;
             /**
@@ -23262,11 +23851,11 @@ export namespace core {
              */
             secret: outputs.core.v1.SecretVolumeSourcePatch;
             /**
-             * storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes.
+             * storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes. Deprecated: StorageOS is deprecated and the in-tree storageos type is no longer supported.
              */
             storageos: outputs.core.v1.StorageOSVolumeSourcePatch;
             /**
-             * vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+             * vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine. Deprecated: VsphereVolume is deprecated. All operations for the in-tree vsphereVolume type are redirected to the csi.vsphere.vmware.com CSI driver.
              */
             vsphereVolume: outputs.core.v1.VsphereVirtualDiskVolumeSourcePatch;
         }
@@ -28987,9 +29576,9 @@ export namespace flowcontrol {
             /**
              * `nominalConcurrencyShares` (NCS) contributes to the computation of the NominalConcurrencyLimit (NominalCL) of this level. This is the number of execution seats available at this priority level. This is used both for requests dispatched from this priority level as well as requests dispatched from other priority levels borrowing seats from this level. The server's concurrency limit (ServerCL) is divided among the Limited priority levels in proportion to their NCS values:
              *
-             * NominalCL(i)  = ceil( ServerCL * NCS(i) / sum_ncs ) sum_ncs = sum[priority level k] NCS(k)
+             * NominalCL(i)  = ceil( ServerCL * NCS(i) / sum_ncs ) sum_ncs = sum[limited priority level k] NCS(k)
              *
-             * Bigger numbers mean a larger nominal concurrency limit, at the expense of every other priority level. This field has a default value of 30.
+             * Bigger numbers mean a larger nominal concurrency limit, at the expense of every other Limited priority level. This field has a default value of 30.
              */
             nominalConcurrencyShares: number;
         }
@@ -29021,9 +29610,9 @@ export namespace flowcontrol {
             /**
              * `nominalConcurrencyShares` (NCS) contributes to the computation of the NominalConcurrencyLimit (NominalCL) of this level. This is the number of execution seats available at this priority level. This is used both for requests dispatched from this priority level as well as requests dispatched from other priority levels borrowing seats from this level. The server's concurrency limit (ServerCL) is divided among the Limited priority levels in proportion to their NCS values:
              *
-             * NominalCL(i)  = ceil( ServerCL * NCS(i) / sum_ncs ) sum_ncs = sum[priority level k] NCS(k)
+             * NominalCL(i)  = ceil( ServerCL * NCS(i) / sum_ncs ) sum_ncs = sum[limited priority level k] NCS(k)
              *
-             * Bigger numbers mean a larger nominal concurrency limit, at the expense of every other priority level. This field has a default value of 30.
+             * Bigger numbers mean a larger nominal concurrency limit, at the expense of every other Limited priority level. This field has a default value of 30.
              */
             nominalConcurrencyShares: number;
         }
@@ -35024,6 +35613,78 @@ export namespace resource {
 
     export namespace v1alpha3 {
         /**
+         * AllocatedDeviceStatus contains the status of an allocated device, if the driver chooses to report it. This may include driver-specific information.
+         */
+        export interface AllocatedDeviceStatus {
+            /**
+             * Conditions contains the latest observation of the device's state. If the device has been configured according to the class and claim config references, the `Ready` condition should be True.
+             */
+            conditions: outputs.meta.v1.Condition[];
+            /**
+             * Data contains arbitrary driver-specific data.
+             *
+             * The length of the raw data must be smaller or equal to 10 Ki.
+             */
+            data: any;
+            /**
+             * Device references one device instance via its name in the driver's resource pool. It must be a DNS label.
+             */
+            device: string;
+            /**
+             * Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
+             *
+             * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+             */
+            driver: string;
+            /**
+             * NetworkData contains network-related information specific to the device.
+             */
+            networkData: outputs.resource.v1alpha3.NetworkDeviceData;
+            /**
+             * This name together with the driver name and the device name field identify which device was allocated (`<driver name>/<pool name>/<device name>`).
+             *
+             * Must not be longer than 253 characters and may contain one or more DNS sub-domains separated by slashes.
+             */
+            pool: string;
+        }
+
+        /**
+         * AllocatedDeviceStatus contains the status of an allocated device, if the driver chooses to report it. This may include driver-specific information.
+         */
+        export interface AllocatedDeviceStatusPatch {
+            /**
+             * Conditions contains the latest observation of the device's state. If the device has been configured according to the class and claim config references, the `Ready` condition should be True.
+             */
+            conditions: outputs.meta.v1.ConditionPatch[];
+            /**
+             * Data contains arbitrary driver-specific data.
+             *
+             * The length of the raw data must be smaller or equal to 10 Ki.
+             */
+            data: any;
+            /**
+             * Device references one device instance via its name in the driver's resource pool. It must be a DNS label.
+             */
+            device: string;
+            /**
+             * Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
+             *
+             * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+             */
+            driver: string;
+            /**
+             * NetworkData contains network-related information specific to the device.
+             */
+            networkData: outputs.resource.v1alpha3.NetworkDeviceDataPatch;
+            /**
+             * This name together with the driver name and the device name field identify which device was allocated (`<driver name>/<pool name>/<device name>`).
+             *
+             * Must not be longer than 253 characters and may contain one or more DNS sub-domains separated by slashes.
+             */
+            pool: string;
+        }
+
+        /**
          * AllocationResult contains attributes of an allocated resource.
          */
         export interface AllocationResult {
@@ -35135,6 +35796,8 @@ export namespace resource {
              * For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
              *
              *     cel.bind(dra, device.attributes["dra.example.com"], dra.someBool && dra.anotherBool)
+             *
+             * The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
              */
             expression: string;
         }
@@ -35171,6 +35834,8 @@ export namespace resource {
              * For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
              *
              *     cel.bind(dra, device.attributes["dra.example.com"], dra.someBool && dra.anotherBool)
+             *
+             * The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
              */
             expression: string;
         }
@@ -35497,6 +36162,8 @@ export namespace resource {
         export interface DeviceRequest {
             /**
              * AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
+             *
+             * This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
              */
             adminAccess: boolean;
             /**
@@ -35544,6 +36211,12 @@ export namespace resource {
          */
         export interface DeviceRequestAllocationResult {
             /**
+             * AdminAccess indicates that this device was allocated for administrative access. See the corresponding request field for a definition of mode.
+             *
+             * This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+             */
+            adminAccess: boolean;
+            /**
              * Device references one device instance via its name in the driver's resource pool. It must be a DNS label.
              */
             device: string;
@@ -35569,6 +36242,12 @@ export namespace resource {
          * DeviceRequestAllocationResult contains the allocation result for one request.
          */
         export interface DeviceRequestAllocationResultPatch {
+            /**
+             * AdminAccess indicates that this device was allocated for administrative access. See the corresponding request field for a definition of mode.
+             *
+             * This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+             */
+            adminAccess: boolean;
             /**
              * Device references one device instance via its name in the driver's resource pool. It must be a DNS label.
              */
@@ -35599,6 +36278,8 @@ export namespace resource {
         export interface DeviceRequestPatch {
             /**
              * AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
+             *
+             * This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
              */
             adminAccess: boolean;
             /**
@@ -35662,6 +36343,50 @@ export namespace resource {
         }
 
         /**
+         * NetworkDeviceData provides network-related details for the allocated device. This information may be filled by drivers or other components to configure or identify the device within a network context.
+         */
+        export interface NetworkDeviceData {
+            /**
+             * HardwareAddress represents the hardware address (e.g. MAC Address) of the device's network interface.
+             *
+             * Must not be longer than 128 characters.
+             */
+            hardwareAddress: string;
+            /**
+             * InterfaceName specifies the name of the network interface associated with the allocated device. This might be the name of a physical or virtual network interface being configured in the pod.
+             *
+             * Must not be longer than 256 characters.
+             */
+            interfaceName: string;
+            /**
+             * IPs lists the network addresses assigned to the device's network interface. This can include both IPv4 and IPv6 addresses. The IPs are in the CIDR notation, which includes both the address and the associated subnet mask. e.g.: "192.0.2.5/24" for IPv4 and "2001:db8::5/64" for IPv6.
+             */
+            ips: string[];
+        }
+
+        /**
+         * NetworkDeviceData provides network-related details for the allocated device. This information may be filled by drivers or other components to configure or identify the device within a network context.
+         */
+        export interface NetworkDeviceDataPatch {
+            /**
+             * HardwareAddress represents the hardware address (e.g. MAC Address) of the device's network interface.
+             *
+             * Must not be longer than 128 characters.
+             */
+            hardwareAddress: string;
+            /**
+             * InterfaceName specifies the name of the network interface associated with the allocated device. This might be the name of a physical or virtual network interface being configured in the pod.
+             *
+             * Must not be longer than 256 characters.
+             */
+            interfaceName: string;
+            /**
+             * IPs lists the network addresses assigned to the device's network interface. This can include both IPv4 and IPv6 addresses. The IPs are in the CIDR notation, which includes both the address and the associated subnet mask. e.g.: "192.0.2.5/24" for IPv4 and "2001:db8::5/64" for IPv6.
+             */
+            ips: string[];
+        }
+
+        /**
          * OpaqueDeviceConfiguration contains configuration parameters for a driver in a format defined by the driver vendor.
          */
         export interface OpaqueDeviceConfiguration {
@@ -35675,6 +36400,8 @@ export namespace resource {
             driver: string;
             /**
              * Parameters can contain arbitrary data. It is the responsibility of the driver developer to handle validation and versioning. Typically this includes self-identification and a version ("kind" + "apiVersion" for Kubernetes types), with conversion between different versions.
+             *
+             * The length of the raw data must be smaller or equal to 10 Ki.
              */
             parameters: any;
         }
@@ -35693,6 +36420,8 @@ export namespace resource {
             driver: string;
             /**
              * Parameters can contain arbitrary data. It is the responsibility of the driver developer to handle validation and versioning. Typically this includes self-identification and a version ("kind" + "apiVersion" for Kubernetes types), with conversion between different versions.
+             *
+             * The length of the raw data must be smaller or equal to 10 Ki.
              */
             parameters: any;
         }
@@ -35934,6 +36663,10 @@ export namespace resource {
              */
             deallocationRequested: boolean;
             /**
+             * Devices contains the status of each device allocated for this claim, as reported by the driver. This can include driver-specific information. Entries are owned by their respective drivers.
+             */
+            devices: outputs.resource.v1alpha3.AllocatedDeviceStatus[];
+            /**
              * ReservedFor indicates which entities are currently allowed to use the claim. A Pod which references a ResourceClaim which is not reserved for that Pod will not be started. A claim that is in use or might be in use because it has been reserved must not get deallocated.
              *
              * In a cluster with multiple scheduler instances, two pods might get scheduled concurrently by different schedulers. When they reference the same ResourceClaim which already has reached its maximum number of consumers, only one pod can be scheduled.
@@ -35961,6 +36694,10 @@ export namespace resource {
              * This is an alpha field and requires enabling the DRAControlPlaneController feature gate.
              */
             deallocationRequested: boolean;
+            /**
+             * Devices contains the status of each device allocated for this claim, as reported by the driver. This can include driver-specific information. Entries are owned by their respective drivers.
+             */
+            devices: outputs.resource.v1alpha3.AllocatedDeviceStatusPatch[];
             /**
              * ReservedFor indicates which entities are currently allowed to use the claim. A Pod which references a ResourceClaim which is not reserved for that Pod will not be started. A claim that is in use or might be in use because it has been reserved must not get deallocated.
              *
@@ -36004,7 +36741,7 @@ export namespace resource {
          */
         export interface ResourceClaimTemplateSpec {
             /**
-             * ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
+             * ObjectMeta may contain labels and annotations that will be copied into the ResourceClaim when creating it. No other fields are allowed and will be rejected during validation.
              */
             metadata: outputs.meta.v1.ObjectMeta;
             /**
@@ -36018,7 +36755,7 @@ export namespace resource {
          */
         export interface ResourceClaimTemplateSpecPatch {
             /**
-             * ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
+             * ObjectMeta may contain labels and annotations that will be copied into the ResourceClaim when creating it. No other fields are allowed and will be rejected during validation.
              */
             metadata: outputs.meta.v1.ObjectMetaPatch;
             /**
@@ -36073,6 +36810,40 @@ export namespace resource {
              * Consumers can use this to check whether they have seen all ResourceSlices belonging to the same pool.
              */
             resourceSliceCount: number;
+        }
+
+        /**
+         * ResourceSlice represents one or more resources in a pool of similar resources, managed by a common driver. A pool may span more than one ResourceSlice, and exactly how many ResourceSlices comprise a pool is determined by the driver.
+         *
+         * At the moment, the only supported resources are devices with attributes and capacities. Each device in a given pool, regardless of how many ResourceSlices, must have a unique name. The ResourceSlice in which a device gets published may change over time. The unique identifier for a device is the tuple <driver name>, <pool name>, <device name>.
+         *
+         * Whenever a driver needs to update a pool, it increments the pool.Spec.Pool.Generation number and updates all ResourceSlices with that new number and new resource definitions. A consumer must only use ResourceSlices with the highest generation number and ignore all others.
+         *
+         * When allocating all resources in a pool matching certain criteria or when looking for the best solution among several different alternatives, a consumer should check the number of ResourceSlices in a pool (included in each ResourceSlice) to determine whether its view of a pool is complete and if not, should wait until the driver has completed updating the pool.
+         *
+         * For resources that are not local to a node, the node name is not set. Instead, the driver may use a node selector to specify where the devices are available.
+         *
+         * This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
+         */
+        export interface ResourceSlice {
+            /**
+             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+             */
+            apiVersion: "resource.k8s.io/v1alpha3";
+            /**
+             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             */
+            kind: "ResourceSlice";
+            /**
+             * Standard object metadata
+             */
+            metadata: outputs.meta.v1.ObjectMeta;
+            /**
+             * Contains the information published by the driver.
+             *
+             * Changing the spec automatically increments the metadata.generation number.
+             */
+            spec: outputs.resource.v1alpha3.ResourceSliceSpec;
         }
 
         /**
@@ -36161,6 +36932,1165 @@ export namespace resource {
              * Pool describes the pool that this ResourceSlice belongs to.
              */
             pool: outputs.resource.v1alpha3.ResourcePoolPatch;
+        }
+
+    }
+
+    export namespace v1beta1 {
+        /**
+         * AllocatedDeviceStatus contains the status of an allocated device, if the driver chooses to report it. This may include driver-specific information.
+         */
+        export interface AllocatedDeviceStatus {
+            /**
+             * Conditions contains the latest observation of the device's state. If the device has been configured according to the class and claim config references, the `Ready` condition should be True.
+             */
+            conditions: outputs.meta.v1.Condition[];
+            /**
+             * Data contains arbitrary driver-specific data.
+             *
+             * The length of the raw data must be smaller or equal to 10 Ki.
+             */
+            data: any;
+            /**
+             * Device references one device instance via its name in the driver's resource pool. It must be a DNS label.
+             */
+            device: string;
+            /**
+             * Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
+             *
+             * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+             */
+            driver: string;
+            /**
+             * NetworkData contains network-related information specific to the device.
+             */
+            networkData: outputs.resource.v1beta1.NetworkDeviceData;
+            /**
+             * This name together with the driver name and the device name field identify which device was allocated (`<driver name>/<pool name>/<device name>`).
+             *
+             * Must not be longer than 253 characters and may contain one or more DNS sub-domains separated by slashes.
+             */
+            pool: string;
+        }
+
+        /**
+         * AllocatedDeviceStatus contains the status of an allocated device, if the driver chooses to report it. This may include driver-specific information.
+         */
+        export interface AllocatedDeviceStatusPatch {
+            /**
+             * Conditions contains the latest observation of the device's state. If the device has been configured according to the class and claim config references, the `Ready` condition should be True.
+             */
+            conditions: outputs.meta.v1.ConditionPatch[];
+            /**
+             * Data contains arbitrary driver-specific data.
+             *
+             * The length of the raw data must be smaller or equal to 10 Ki.
+             */
+            data: any;
+            /**
+             * Device references one device instance via its name in the driver's resource pool. It must be a DNS label.
+             */
+            device: string;
+            /**
+             * Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
+             *
+             * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+             */
+            driver: string;
+            /**
+             * NetworkData contains network-related information specific to the device.
+             */
+            networkData: outputs.resource.v1beta1.NetworkDeviceDataPatch;
+            /**
+             * This name together with the driver name and the device name field identify which device was allocated (`<driver name>/<pool name>/<device name>`).
+             *
+             * Must not be longer than 253 characters and may contain one or more DNS sub-domains separated by slashes.
+             */
+            pool: string;
+        }
+
+        /**
+         * AllocationResult contains attributes of an allocated resource.
+         */
+        export interface AllocationResult {
+            /**
+             * Devices is the result of allocating devices.
+             */
+            devices: outputs.resource.v1beta1.DeviceAllocationResult;
+            /**
+             * NodeSelector defines where the allocated resources are available. If unset, they are available everywhere.
+             */
+            nodeSelector: outputs.core.v1.NodeSelector;
+        }
+
+        /**
+         * AllocationResult contains attributes of an allocated resource.
+         */
+        export interface AllocationResultPatch {
+            /**
+             * Devices is the result of allocating devices.
+             */
+            devices: outputs.resource.v1beta1.DeviceAllocationResultPatch;
+            /**
+             * NodeSelector defines where the allocated resources are available. If unset, they are available everywhere.
+             */
+            nodeSelector: outputs.core.v1.NodeSelectorPatch;
+        }
+
+        /**
+         * BasicDevice defines one device instance.
+         */
+        export interface BasicDevice {
+            /**
+             * Attributes defines the set of attributes for this device. The name of each attribute must be unique in that set.
+             *
+             * The maximum number of attributes and capacities combined is 32.
+             */
+            attributes: {[key: string]: outputs.resource.v1beta1.DeviceAttribute};
+            /**
+             * Capacity defines the set of capacities for this device. The name of each capacity must be unique in that set.
+             *
+             * The maximum number of attributes and capacities combined is 32.
+             */
+            capacity: {[key: string]: outputs.resource.v1beta1.DeviceCapacity};
+        }
+
+        /**
+         * BasicDevice defines one device instance.
+         */
+        export interface BasicDevicePatch {
+            /**
+             * Attributes defines the set of attributes for this device. The name of each attribute must be unique in that set.
+             *
+             * The maximum number of attributes and capacities combined is 32.
+             */
+            attributes: {[key: string]: outputs.resource.v1beta1.DeviceAttribute};
+            /**
+             * Capacity defines the set of capacities for this device. The name of each capacity must be unique in that set.
+             *
+             * The maximum number of attributes and capacities combined is 32.
+             */
+            capacity: {[key: string]: outputs.resource.v1beta1.DeviceCapacity};
+        }
+
+        /**
+         * CELDeviceSelector contains a CEL expression for selecting a device.
+         */
+        export interface CELDeviceSelector {
+            /**
+             * Expression is a CEL expression which evaluates a single device. It must evaluate to true when the device under consideration satisfies the desired criteria, and false when it does not. Any other result is an error and causes allocation of devices to abort.
+             *
+             * The expression's input is an object named "device", which carries the following properties:
+             *  - driver (string): the name of the driver which defines this device.
+             *  - attributes (map[string]object): the device's attributes, grouped by prefix
+             *    (e.g. device.attributes["dra.example.com"] evaluates to an object with all
+             *    of the attributes which were prefixed by "dra.example.com".
+             *  - capacity (map[string]object): the device's capacities, grouped by prefix.
+             *
+             * Example: Consider a device with driver="dra.example.com", which exposes two attributes named "model" and "ext.example.com/family" and which exposes one capacity named "modules". This input to this expression would have the following fields:
+             *
+             *     device.driver
+             *     device.attributes["dra.example.com"].model
+             *     device.attributes["ext.example.com"].family
+             *     device.capacity["dra.example.com"].modules
+             *
+             * The device.driver field can be used to check for a specific driver, either as a high-level precondition (i.e. you only want to consider devices from this driver) or as part of a multi-clause expression that is meant to consider devices from different drivers.
+             *
+             * The value type of each attribute is defined by the device definition, and users who write these expressions must consult the documentation for their specific drivers. The value type of each capacity is Quantity.
+             *
+             * If an unknown prefix is used as a lookup in either device.attributes or device.capacity, an empty map will be returned. Any reference to an unknown field will cause an evaluation error and allocation to abort.
+             *
+             * A robust expression should check for the existence of attributes before referencing them.
+             *
+             * For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
+             *
+             *     cel.bind(dra, device.attributes["dra.example.com"], dra.someBool && dra.anotherBool)
+             *
+             * The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
+             */
+            expression: string;
+        }
+
+        /**
+         * CELDeviceSelector contains a CEL expression for selecting a device.
+         */
+        export interface CELDeviceSelectorPatch {
+            /**
+             * Expression is a CEL expression which evaluates a single device. It must evaluate to true when the device under consideration satisfies the desired criteria, and false when it does not. Any other result is an error and causes allocation of devices to abort.
+             *
+             * The expression's input is an object named "device", which carries the following properties:
+             *  - driver (string): the name of the driver which defines this device.
+             *  - attributes (map[string]object): the device's attributes, grouped by prefix
+             *    (e.g. device.attributes["dra.example.com"] evaluates to an object with all
+             *    of the attributes which were prefixed by "dra.example.com".
+             *  - capacity (map[string]object): the device's capacities, grouped by prefix.
+             *
+             * Example: Consider a device with driver="dra.example.com", which exposes two attributes named "model" and "ext.example.com/family" and which exposes one capacity named "modules". This input to this expression would have the following fields:
+             *
+             *     device.driver
+             *     device.attributes["dra.example.com"].model
+             *     device.attributes["ext.example.com"].family
+             *     device.capacity["dra.example.com"].modules
+             *
+             * The device.driver field can be used to check for a specific driver, either as a high-level precondition (i.e. you only want to consider devices from this driver) or as part of a multi-clause expression that is meant to consider devices from different drivers.
+             *
+             * The value type of each attribute is defined by the device definition, and users who write these expressions must consult the documentation for their specific drivers. The value type of each capacity is Quantity.
+             *
+             * If an unknown prefix is used as a lookup in either device.attributes or device.capacity, an empty map will be returned. Any reference to an unknown field will cause an evaluation error and allocation to abort.
+             *
+             * A robust expression should check for the existence of attributes before referencing them.
+             *
+             * For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
+             *
+             *     cel.bind(dra, device.attributes["dra.example.com"], dra.someBool && dra.anotherBool)
+             *
+             * The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
+             */
+            expression: string;
+        }
+
+        /**
+         * Device represents one individual hardware instance that can be selected based on its attributes. Besides the name, exactly one field must be set.
+         */
+        export interface Device {
+            /**
+             * Basic defines one device instance.
+             */
+            basic: outputs.resource.v1beta1.BasicDevice;
+            /**
+             * Name is unique identifier among all devices managed by the driver in the pool. It must be a DNS label.
+             */
+            name: string;
+        }
+
+        /**
+         * DeviceAllocationConfiguration gets embedded in an AllocationResult.
+         */
+        export interface DeviceAllocationConfiguration {
+            /**
+             * Opaque provides driver-specific configuration parameters.
+             */
+            opaque: outputs.resource.v1beta1.OpaqueDeviceConfiguration;
+            /**
+             * Requests lists the names of requests where the configuration applies. If empty, its applies to all requests.
+             */
+            requests: string[];
+            /**
+             * Source records whether the configuration comes from a class and thus is not something that a normal user would have been able to set or from a claim.
+             */
+            source: string;
+        }
+
+        /**
+         * DeviceAllocationConfiguration gets embedded in an AllocationResult.
+         */
+        export interface DeviceAllocationConfigurationPatch {
+            /**
+             * Opaque provides driver-specific configuration parameters.
+             */
+            opaque: outputs.resource.v1beta1.OpaqueDeviceConfigurationPatch;
+            /**
+             * Requests lists the names of requests where the configuration applies. If empty, its applies to all requests.
+             */
+            requests: string[];
+            /**
+             * Source records whether the configuration comes from a class and thus is not something that a normal user would have been able to set or from a claim.
+             */
+            source: string;
+        }
+
+        /**
+         * DeviceAllocationResult is the result of allocating devices.
+         */
+        export interface DeviceAllocationResult {
+            /**
+             * This field is a combination of all the claim and class configuration parameters. Drivers can distinguish between those based on a flag.
+             *
+             * This includes configuration parameters for drivers which have no allocated devices in the result because it is up to the drivers which configuration parameters they support. They can silently ignore unknown configuration parameters.
+             */
+            config: outputs.resource.v1beta1.DeviceAllocationConfiguration[];
+            /**
+             * Results lists all allocated devices.
+             */
+            results: outputs.resource.v1beta1.DeviceRequestAllocationResult[];
+        }
+
+        /**
+         * DeviceAllocationResult is the result of allocating devices.
+         */
+        export interface DeviceAllocationResultPatch {
+            /**
+             * This field is a combination of all the claim and class configuration parameters. Drivers can distinguish between those based on a flag.
+             *
+             * This includes configuration parameters for drivers which have no allocated devices in the result because it is up to the drivers which configuration parameters they support. They can silently ignore unknown configuration parameters.
+             */
+            config: outputs.resource.v1beta1.DeviceAllocationConfigurationPatch[];
+            /**
+             * Results lists all allocated devices.
+             */
+            results: outputs.resource.v1beta1.DeviceRequestAllocationResultPatch[];
+        }
+
+        /**
+         * DeviceAttribute must have exactly one field set.
+         */
+        export interface DeviceAttribute {
+            /**
+             * BoolValue is a true/false value.
+             */
+            bool: boolean;
+            /**
+             * IntValue is a number.
+             */
+            int: number;
+            /**
+             * StringValue is a string. Must not be longer than 64 characters.
+             */
+            string: string;
+            /**
+             * VersionValue is a semantic version according to semver.org spec 2.0.0. Must not be longer than 64 characters.
+             */
+            version: string;
+        }
+
+        /**
+         * DeviceCapacity describes a quantity associated with a device.
+         */
+        export interface DeviceCapacity {
+            /**
+             * Value defines how much of a certain device capacity is available.
+             */
+            value: string;
+        }
+
+        /**
+         * DeviceClaim defines how to request devices with a ResourceClaim.
+         */
+        export interface DeviceClaim {
+            /**
+             * This field holds configuration for multiple potential drivers which could satisfy requests in this claim. It is ignored while allocating the claim.
+             */
+            config: outputs.resource.v1beta1.DeviceClaimConfiguration[];
+            /**
+             * These constraints must be satisfied by the set of devices that get allocated for the claim.
+             */
+            constraints: outputs.resource.v1beta1.DeviceConstraint[];
+            /**
+             * Requests represent individual requests for distinct devices which must all be satisfied. If empty, nothing needs to be allocated.
+             */
+            requests: outputs.resource.v1beta1.DeviceRequest[];
+        }
+
+        /**
+         * DeviceClaimConfiguration is used for configuration parameters in DeviceClaim.
+         */
+        export interface DeviceClaimConfiguration {
+            /**
+             * Opaque provides driver-specific configuration parameters.
+             */
+            opaque: outputs.resource.v1beta1.OpaqueDeviceConfiguration;
+            /**
+             * Requests lists the names of requests where the configuration applies. If empty, it applies to all requests.
+             */
+            requests: string[];
+        }
+
+        /**
+         * DeviceClaimConfiguration is used for configuration parameters in DeviceClaim.
+         */
+        export interface DeviceClaimConfigurationPatch {
+            /**
+             * Opaque provides driver-specific configuration parameters.
+             */
+            opaque: outputs.resource.v1beta1.OpaqueDeviceConfigurationPatch;
+            /**
+             * Requests lists the names of requests where the configuration applies. If empty, it applies to all requests.
+             */
+            requests: string[];
+        }
+
+        /**
+         * DeviceClaim defines how to request devices with a ResourceClaim.
+         */
+        export interface DeviceClaimPatch {
+            /**
+             * This field holds configuration for multiple potential drivers which could satisfy requests in this claim. It is ignored while allocating the claim.
+             */
+            config: outputs.resource.v1beta1.DeviceClaimConfigurationPatch[];
+            /**
+             * These constraints must be satisfied by the set of devices that get allocated for the claim.
+             */
+            constraints: outputs.resource.v1beta1.DeviceConstraintPatch[];
+            /**
+             * Requests represent individual requests for distinct devices which must all be satisfied. If empty, nothing needs to be allocated.
+             */
+            requests: outputs.resource.v1beta1.DeviceRequestPatch[];
+        }
+
+        /**
+         * DeviceClass is a vendor- or admin-provided resource that contains device configuration and selectors. It can be referenced in the device requests of a claim to apply these presets. Cluster scoped.
+         *
+         * This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
+         */
+        export interface DeviceClass {
+            /**
+             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+             */
+            apiVersion: "resource.k8s.io/v1beta1";
+            /**
+             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             */
+            kind: "DeviceClass";
+            /**
+             * Standard object metadata
+             */
+            metadata: outputs.meta.v1.ObjectMeta;
+            /**
+             * Spec defines what can be allocated and how to configure it.
+             *
+             * This is mutable. Consumers have to be prepared for classes changing at any time, either because they get updated or replaced. Claim allocations are done once based on whatever was set in classes at the time of allocation.
+             *
+             * Changing the spec automatically increments the metadata.generation number.
+             */
+            spec: outputs.resource.v1beta1.DeviceClassSpec;
+        }
+
+        /**
+         * DeviceClassConfiguration is used in DeviceClass.
+         */
+        export interface DeviceClassConfiguration {
+            /**
+             * Opaque provides driver-specific configuration parameters.
+             */
+            opaque: outputs.resource.v1beta1.OpaqueDeviceConfiguration;
+        }
+
+        /**
+         * DeviceClassConfiguration is used in DeviceClass.
+         */
+        export interface DeviceClassConfigurationPatch {
+            /**
+             * Opaque provides driver-specific configuration parameters.
+             */
+            opaque: outputs.resource.v1beta1.OpaqueDeviceConfigurationPatch;
+        }
+
+        /**
+         * DeviceClassSpec is used in a [DeviceClass] to define what can be allocated and how to configure it.
+         */
+        export interface DeviceClassSpec {
+            /**
+             * Config defines configuration parameters that apply to each device that is claimed via this class. Some classses may potentially be satisfied by multiple drivers, so each instance of a vendor configuration applies to exactly one driver.
+             *
+             * They are passed to the driver, but are not considered while allocating the claim.
+             */
+            config: outputs.resource.v1beta1.DeviceClassConfiguration[];
+            /**
+             * Each selector must be satisfied by a device which is claimed via this class.
+             */
+            selectors: outputs.resource.v1beta1.DeviceSelector[];
+        }
+
+        /**
+         * DeviceClassSpec is used in a [DeviceClass] to define what can be allocated and how to configure it.
+         */
+        export interface DeviceClassSpecPatch {
+            /**
+             * Config defines configuration parameters that apply to each device that is claimed via this class. Some classses may potentially be satisfied by multiple drivers, so each instance of a vendor configuration applies to exactly one driver.
+             *
+             * They are passed to the driver, but are not considered while allocating the claim.
+             */
+            config: outputs.resource.v1beta1.DeviceClassConfigurationPatch[];
+            /**
+             * Each selector must be satisfied by a device which is claimed via this class.
+             */
+            selectors: outputs.resource.v1beta1.DeviceSelectorPatch[];
+        }
+
+        /**
+         * DeviceConstraint must have exactly one field set besides Requests.
+         */
+        export interface DeviceConstraint {
+            /**
+             * MatchAttribute requires that all devices in question have this attribute and that its type and value are the same across those devices.
+             *
+             * For example, if you specified "dra.example.com/numa" (a hypothetical example!), then only devices in the same NUMA node will be chosen. A device which does not have that attribute will not be chosen. All devices should use a value of the same type for this attribute because that is part of its specification, but if one device doesn't, then it also will not be chosen.
+             *
+             * Must include the domain qualifier.
+             */
+            matchAttribute: string;
+            /**
+             * Requests is a list of the one or more requests in this claim which must co-satisfy this constraint. If a request is fulfilled by multiple devices, then all of the devices must satisfy the constraint. If this is not specified, this constraint applies to all requests in this claim.
+             */
+            requests: string[];
+        }
+
+        /**
+         * DeviceConstraint must have exactly one field set besides Requests.
+         */
+        export interface DeviceConstraintPatch {
+            /**
+             * MatchAttribute requires that all devices in question have this attribute and that its type and value are the same across those devices.
+             *
+             * For example, if you specified "dra.example.com/numa" (a hypothetical example!), then only devices in the same NUMA node will be chosen. A device which does not have that attribute will not be chosen. All devices should use a value of the same type for this attribute because that is part of its specification, but if one device doesn't, then it also will not be chosen.
+             *
+             * Must include the domain qualifier.
+             */
+            matchAttribute: string;
+            /**
+             * Requests is a list of the one or more requests in this claim which must co-satisfy this constraint. If a request is fulfilled by multiple devices, then all of the devices must satisfy the constraint. If this is not specified, this constraint applies to all requests in this claim.
+             */
+            requests: string[];
+        }
+
+        /**
+         * Device represents one individual hardware instance that can be selected based on its attributes. Besides the name, exactly one field must be set.
+         */
+        export interface DevicePatch {
+            /**
+             * Basic defines one device instance.
+             */
+            basic: outputs.resource.v1beta1.BasicDevicePatch;
+            /**
+             * Name is unique identifier among all devices managed by the driver in the pool. It must be a DNS label.
+             */
+            name: string;
+        }
+
+        /**
+         * DeviceRequest is a request for devices required for a claim. This is typically a request for a single resource like a device, but can also ask for several identical devices.
+         *
+         * A DeviceClassName is currently required. Clients must check that it is indeed set. It's absence indicates that something changed in a way that is not supported by the client yet, in which case it must refuse to handle the request.
+         */
+        export interface DeviceRequest {
+            /**
+             * AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
+             *
+             * This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+             */
+            adminAccess: boolean;
+            /**
+             * AllocationMode and its related fields define how devices are allocated to satisfy this request. Supported values are:
+             *
+             * - ExactCount: This request is for a specific number of devices.
+             *   This is the default. The exact number is provided in the
+             *   count field.
+             *
+             * - All: This request is for all of the matching devices in a pool.
+             *   Allocation will fail if some devices are already allocated,
+             *   unless adminAccess is requested.
+             *
+             * If AlloctionMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
+             *
+             * More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
+             */
+            allocationMode: string;
+            /**
+             * Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
+             */
+            count: number;
+            /**
+             * DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.
+             *
+             * A class is required. Which classes are available depends on the cluster.
+             *
+             * Administrators may use this to restrict which devices may get requested by only installing classes with selectors for permitted devices. If users are free to request anything without restrictions, then administrators can create an empty DeviceClass for users to reference.
+             */
+            deviceClassName: string;
+            /**
+             * Name can be used to reference this request in a pod.spec.containers[].resources.claims entry and in a constraint of the claim.
+             *
+             * Must be a DNS label.
+             */
+            name: string;
+            /**
+             * Selectors define criteria which must be satisfied by a specific device in order for that device to be considered for this request. All selectors must be satisfied for a device to be considered.
+             */
+            selectors: outputs.resource.v1beta1.DeviceSelector[];
+        }
+
+        /**
+         * DeviceRequestAllocationResult contains the allocation result for one request.
+         */
+        export interface DeviceRequestAllocationResult {
+            /**
+             * AdminAccess indicates that this device was allocated for administrative access. See the corresponding request field for a definition of mode.
+             *
+             * This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+             */
+            adminAccess: boolean;
+            /**
+             * Device references one device instance via its name in the driver's resource pool. It must be a DNS label.
+             */
+            device: string;
+            /**
+             * Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
+             *
+             * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+             */
+            driver: string;
+            /**
+             * This name together with the driver name and the device name field identify which device was allocated (`<driver name>/<pool name>/<device name>`).
+             *
+             * Must not be longer than 253 characters and may contain one or more DNS sub-domains separated by slashes.
+             */
+            pool: string;
+            /**
+             * Request is the name of the request in the claim which caused this device to be allocated. Multiple devices may have been allocated per request.
+             */
+            request: string;
+        }
+
+        /**
+         * DeviceRequestAllocationResult contains the allocation result for one request.
+         */
+        export interface DeviceRequestAllocationResultPatch {
+            /**
+             * AdminAccess indicates that this device was allocated for administrative access. See the corresponding request field for a definition of mode.
+             *
+             * This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+             */
+            adminAccess: boolean;
+            /**
+             * Device references one device instance via its name in the driver's resource pool. It must be a DNS label.
+             */
+            device: string;
+            /**
+             * Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
+             *
+             * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+             */
+            driver: string;
+            /**
+             * This name together with the driver name and the device name field identify which device was allocated (`<driver name>/<pool name>/<device name>`).
+             *
+             * Must not be longer than 253 characters and may contain one or more DNS sub-domains separated by slashes.
+             */
+            pool: string;
+            /**
+             * Request is the name of the request in the claim which caused this device to be allocated. Multiple devices may have been allocated per request.
+             */
+            request: string;
+        }
+
+        /**
+         * DeviceRequest is a request for devices required for a claim. This is typically a request for a single resource like a device, but can also ask for several identical devices.
+         *
+         * A DeviceClassName is currently required. Clients must check that it is indeed set. It's absence indicates that something changed in a way that is not supported by the client yet, in which case it must refuse to handle the request.
+         */
+        export interface DeviceRequestPatch {
+            /**
+             * AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
+             *
+             * This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+             */
+            adminAccess: boolean;
+            /**
+             * AllocationMode and its related fields define how devices are allocated to satisfy this request. Supported values are:
+             *
+             * - ExactCount: This request is for a specific number of devices.
+             *   This is the default. The exact number is provided in the
+             *   count field.
+             *
+             * - All: This request is for all of the matching devices in a pool.
+             *   Allocation will fail if some devices are already allocated,
+             *   unless adminAccess is requested.
+             *
+             * If AlloctionMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
+             *
+             * More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
+             */
+            allocationMode: string;
+            /**
+             * Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
+             */
+            count: number;
+            /**
+             * DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.
+             *
+             * A class is required. Which classes are available depends on the cluster.
+             *
+             * Administrators may use this to restrict which devices may get requested by only installing classes with selectors for permitted devices. If users are free to request anything without restrictions, then administrators can create an empty DeviceClass for users to reference.
+             */
+            deviceClassName: string;
+            /**
+             * Name can be used to reference this request in a pod.spec.containers[].resources.claims entry and in a constraint of the claim.
+             *
+             * Must be a DNS label.
+             */
+            name: string;
+            /**
+             * Selectors define criteria which must be satisfied by a specific device in order for that device to be considered for this request. All selectors must be satisfied for a device to be considered.
+             */
+            selectors: outputs.resource.v1beta1.DeviceSelectorPatch[];
+        }
+
+        /**
+         * DeviceSelector must have exactly one field set.
+         */
+        export interface DeviceSelector {
+            /**
+             * CEL contains a CEL expression for selecting a device.
+             */
+            cel: outputs.resource.v1beta1.CELDeviceSelector;
+        }
+
+        /**
+         * DeviceSelector must have exactly one field set.
+         */
+        export interface DeviceSelectorPatch {
+            /**
+             * CEL contains a CEL expression for selecting a device.
+             */
+            cel: outputs.resource.v1beta1.CELDeviceSelectorPatch;
+        }
+
+        /**
+         * NetworkDeviceData provides network-related details for the allocated device. This information may be filled by drivers or other components to configure or identify the device within a network context.
+         */
+        export interface NetworkDeviceData {
+            /**
+             * HardwareAddress represents the hardware address (e.g. MAC Address) of the device's network interface.
+             *
+             * Must not be longer than 128 characters.
+             */
+            hardwareAddress: string;
+            /**
+             * InterfaceName specifies the name of the network interface associated with the allocated device. This might be the name of a physical or virtual network interface being configured in the pod.
+             *
+             * Must not be longer than 256 characters.
+             */
+            interfaceName: string;
+            /**
+             * IPs lists the network addresses assigned to the device's network interface. This can include both IPv4 and IPv6 addresses. The IPs are in the CIDR notation, which includes both the address and the associated subnet mask. e.g.: "192.0.2.5/24" for IPv4 and "2001:db8::5/64" for IPv6.
+             */
+            ips: string[];
+        }
+
+        /**
+         * NetworkDeviceData provides network-related details for the allocated device. This information may be filled by drivers or other components to configure or identify the device within a network context.
+         */
+        export interface NetworkDeviceDataPatch {
+            /**
+             * HardwareAddress represents the hardware address (e.g. MAC Address) of the device's network interface.
+             *
+             * Must not be longer than 128 characters.
+             */
+            hardwareAddress: string;
+            /**
+             * InterfaceName specifies the name of the network interface associated with the allocated device. This might be the name of a physical or virtual network interface being configured in the pod.
+             *
+             * Must not be longer than 256 characters.
+             */
+            interfaceName: string;
+            /**
+             * IPs lists the network addresses assigned to the device's network interface. This can include both IPv4 and IPv6 addresses. The IPs are in the CIDR notation, which includes both the address and the associated subnet mask. e.g.: "192.0.2.5/24" for IPv4 and "2001:db8::5/64" for IPv6.
+             */
+            ips: string[];
+        }
+
+        /**
+         * OpaqueDeviceConfiguration contains configuration parameters for a driver in a format defined by the driver vendor.
+         */
+        export interface OpaqueDeviceConfiguration {
+            /**
+             * Driver is used to determine which kubelet plugin needs to be passed these configuration parameters.
+             *
+             * An admission policy provided by the driver developer could use this to decide whether it needs to validate them.
+             *
+             * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+             */
+            driver: string;
+            /**
+             * Parameters can contain arbitrary data. It is the responsibility of the driver developer to handle validation and versioning. Typically this includes self-identification and a version ("kind" + "apiVersion" for Kubernetes types), with conversion between different versions.
+             *
+             * The length of the raw data must be smaller or equal to 10 Ki.
+             */
+            parameters: any;
+        }
+
+        /**
+         * OpaqueDeviceConfiguration contains configuration parameters for a driver in a format defined by the driver vendor.
+         */
+        export interface OpaqueDeviceConfigurationPatch {
+            /**
+             * Driver is used to determine which kubelet plugin needs to be passed these configuration parameters.
+             *
+             * An admission policy provided by the driver developer could use this to decide whether it needs to validate them.
+             *
+             * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+             */
+            driver: string;
+            /**
+             * Parameters can contain arbitrary data. It is the responsibility of the driver developer to handle validation and versioning. Typically this includes self-identification and a version ("kind" + "apiVersion" for Kubernetes types), with conversion between different versions.
+             *
+             * The length of the raw data must be smaller or equal to 10 Ki.
+             */
+            parameters: any;
+        }
+
+        /**
+         * ResourceClaim describes a request for access to resources in the cluster, for use by workloads. For example, if a workload needs an accelerator device with specific properties, this is how that request is expressed. The status stanza tracks whether this claim has been satisfied and what specific resources have been allocated.
+         *
+         * This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
+         */
+        export interface ResourceClaim {
+            /**
+             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+             */
+            apiVersion: "resource.k8s.io/v1beta1";
+            /**
+             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             */
+            kind: "ResourceClaim";
+            /**
+             * Standard object metadata
+             */
+            metadata: outputs.meta.v1.ObjectMeta;
+            /**
+             * Spec describes what is being requested and how to configure it. The spec is immutable.
+             */
+            spec: outputs.resource.v1beta1.ResourceClaimSpec;
+            /**
+             * Status describes whether the claim is ready to use and what has been allocated.
+             */
+            status: outputs.resource.v1beta1.ResourceClaimStatus;
+        }
+
+        /**
+         * ResourceClaimConsumerReference contains enough information to let you locate the consumer of a ResourceClaim. The user must be a resource in the same namespace as the ResourceClaim.
+         */
+        export interface ResourceClaimConsumerReference {
+            /**
+             * APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
+             */
+            apiGroup: string;
+            /**
+             * Name is the name of resource being referenced.
+             */
+            name: string;
+            /**
+             * Resource is the type of resource being referenced, for example "pods".
+             */
+            resource: string;
+            /**
+             * UID identifies exactly one incarnation of the resource.
+             */
+            uid: string;
+        }
+
+        /**
+         * ResourceClaimConsumerReference contains enough information to let you locate the consumer of a ResourceClaim. The user must be a resource in the same namespace as the ResourceClaim.
+         */
+        export interface ResourceClaimConsumerReferencePatch {
+            /**
+             * APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
+             */
+            apiGroup: string;
+            /**
+             * Name is the name of resource being referenced.
+             */
+            name: string;
+            /**
+             * Resource is the type of resource being referenced, for example "pods".
+             */
+            resource: string;
+            /**
+             * UID identifies exactly one incarnation of the resource.
+             */
+            uid: string;
+        }
+
+        /**
+         * ResourceClaimSpec defines what is being requested in a ResourceClaim and how to configure it.
+         */
+        export interface ResourceClaimSpec {
+            /**
+             * Devices defines how to request devices.
+             */
+            devices: outputs.resource.v1beta1.DeviceClaim;
+        }
+
+        /**
+         * ResourceClaimSpec defines what is being requested in a ResourceClaim and how to configure it.
+         */
+        export interface ResourceClaimSpecPatch {
+            /**
+             * Devices defines how to request devices.
+             */
+            devices: outputs.resource.v1beta1.DeviceClaimPatch;
+        }
+
+        /**
+         * ResourceClaimStatus tracks whether the resource has been allocated and what the result of that was.
+         */
+        export interface ResourceClaimStatus {
+            /**
+             * Allocation is set once the claim has been allocated successfully.
+             */
+            allocation: outputs.resource.v1beta1.AllocationResult;
+            /**
+             * Devices contains the status of each device allocated for this claim, as reported by the driver. This can include driver-specific information. Entries are owned by their respective drivers.
+             */
+            devices: outputs.resource.v1beta1.AllocatedDeviceStatus[];
+            /**
+             * ReservedFor indicates which entities are currently allowed to use the claim. A Pod which references a ResourceClaim which is not reserved for that Pod will not be started. A claim that is in use or might be in use because it has been reserved must not get deallocated.
+             *
+             * In a cluster with multiple scheduler instances, two pods might get scheduled concurrently by different schedulers. When they reference the same ResourceClaim which already has reached its maximum number of consumers, only one pod can be scheduled.
+             *
+             * Both schedulers try to add their pod to the claim.status.reservedFor field, but only the update that reaches the API server first gets stored. The other one fails with an error and the scheduler which issued it knows that it must put the pod back into the queue, waiting for the ResourceClaim to become usable again.
+             *
+             * There can be at most 32 such reservations. This may get increased in the future, but not reduced.
+             */
+            reservedFor: outputs.resource.v1beta1.ResourceClaimConsumerReference[];
+        }
+
+        /**
+         * ResourceClaimStatus tracks whether the resource has been allocated and what the result of that was.
+         */
+        export interface ResourceClaimStatusPatch {
+            /**
+             * Allocation is set once the claim has been allocated successfully.
+             */
+            allocation: outputs.resource.v1beta1.AllocationResultPatch;
+            /**
+             * Devices contains the status of each device allocated for this claim, as reported by the driver. This can include driver-specific information. Entries are owned by their respective drivers.
+             */
+            devices: outputs.resource.v1beta1.AllocatedDeviceStatusPatch[];
+            /**
+             * ReservedFor indicates which entities are currently allowed to use the claim. A Pod which references a ResourceClaim which is not reserved for that Pod will not be started. A claim that is in use or might be in use because it has been reserved must not get deallocated.
+             *
+             * In a cluster with multiple scheduler instances, two pods might get scheduled concurrently by different schedulers. When they reference the same ResourceClaim which already has reached its maximum number of consumers, only one pod can be scheduled.
+             *
+             * Both schedulers try to add their pod to the claim.status.reservedFor field, but only the update that reaches the API server first gets stored. The other one fails with an error and the scheduler which issued it knows that it must put the pod back into the queue, waiting for the ResourceClaim to become usable again.
+             *
+             * There can be at most 32 such reservations. This may get increased in the future, but not reduced.
+             */
+            reservedFor: outputs.resource.v1beta1.ResourceClaimConsumerReferencePatch[];
+        }
+
+        /**
+         * ResourceClaimTemplate is used to produce ResourceClaim objects.
+         *
+         * This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
+         */
+        export interface ResourceClaimTemplate {
+            /**
+             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+             */
+            apiVersion: "resource.k8s.io/v1beta1";
+            /**
+             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             */
+            kind: "ResourceClaimTemplate";
+            /**
+             * Standard object metadata
+             */
+            metadata: outputs.meta.v1.ObjectMeta;
+            /**
+             * Describes the ResourceClaim that is to be generated.
+             *
+             * This field is immutable. A ResourceClaim will get created by the control plane for a Pod when needed and then not get updated anymore.
+             */
+            spec: outputs.resource.v1beta1.ResourceClaimTemplateSpec;
+        }
+
+        /**
+         * ResourceClaimTemplateSpec contains the metadata and fields for a ResourceClaim.
+         */
+        export interface ResourceClaimTemplateSpec {
+            /**
+             * ObjectMeta may contain labels and annotations that will be copied into the ResourceClaim when creating it. No other fields are allowed and will be rejected during validation.
+             */
+            metadata: outputs.meta.v1.ObjectMeta;
+            /**
+             * Spec for the ResourceClaim. The entire content is copied unchanged into the ResourceClaim that gets created from this template. The same fields as in a ResourceClaim are also valid here.
+             */
+            spec: outputs.resource.v1beta1.ResourceClaimSpec;
+        }
+
+        /**
+         * ResourceClaimTemplateSpec contains the metadata and fields for a ResourceClaim.
+         */
+        export interface ResourceClaimTemplateSpecPatch {
+            /**
+             * ObjectMeta may contain labels and annotations that will be copied into the ResourceClaim when creating it. No other fields are allowed and will be rejected during validation.
+             */
+            metadata: outputs.meta.v1.ObjectMetaPatch;
+            /**
+             * Spec for the ResourceClaim. The entire content is copied unchanged into the ResourceClaim that gets created from this template. The same fields as in a ResourceClaim are also valid here.
+             */
+            spec: outputs.resource.v1beta1.ResourceClaimSpecPatch;
+        }
+
+        /**
+         * ResourcePool describes the pool that ResourceSlices belong to.
+         */
+        export interface ResourcePool {
+            /**
+             * Generation tracks the change in a pool over time. Whenever a driver changes something about one or more of the resources in a pool, it must change the generation in all ResourceSlices which are part of that pool. Consumers of ResourceSlices should only consider resources from the pool with the highest generation number. The generation may be reset by drivers, which should be fine for consumers, assuming that all ResourceSlices in a pool are updated to match or deleted.
+             *
+             * Combined with ResourceSliceCount, this mechanism enables consumers to detect pools which are comprised of multiple ResourceSlices and are in an incomplete state.
+             */
+            generation: number;
+            /**
+             * Name is used to identify the pool. For node-local devices, this is often the node name, but this is not required.
+             *
+             * It must not be longer than 253 characters and must consist of one or more DNS sub-domains separated by slashes. This field is immutable.
+             */
+            name: string;
+            /**
+             * ResourceSliceCount is the total number of ResourceSlices in the pool at this generation number. Must be greater than zero.
+             *
+             * Consumers can use this to check whether they have seen all ResourceSlices belonging to the same pool.
+             */
+            resourceSliceCount: number;
+        }
+
+        /**
+         * ResourcePool describes the pool that ResourceSlices belong to.
+         */
+        export interface ResourcePoolPatch {
+            /**
+             * Generation tracks the change in a pool over time. Whenever a driver changes something about one or more of the resources in a pool, it must change the generation in all ResourceSlices which are part of that pool. Consumers of ResourceSlices should only consider resources from the pool with the highest generation number. The generation may be reset by drivers, which should be fine for consumers, assuming that all ResourceSlices in a pool are updated to match or deleted.
+             *
+             * Combined with ResourceSliceCount, this mechanism enables consumers to detect pools which are comprised of multiple ResourceSlices and are in an incomplete state.
+             */
+            generation: number;
+            /**
+             * Name is used to identify the pool. For node-local devices, this is often the node name, but this is not required.
+             *
+             * It must not be longer than 253 characters and must consist of one or more DNS sub-domains separated by slashes. This field is immutable.
+             */
+            name: string;
+            /**
+             * ResourceSliceCount is the total number of ResourceSlices in the pool at this generation number. Must be greater than zero.
+             *
+             * Consumers can use this to check whether they have seen all ResourceSlices belonging to the same pool.
+             */
+            resourceSliceCount: number;
+        }
+
+        /**
+         * ResourceSlice represents one or more resources in a pool of similar resources, managed by a common driver. A pool may span more than one ResourceSlice, and exactly how many ResourceSlices comprise a pool is determined by the driver.
+         *
+         * At the moment, the only supported resources are devices with attributes and capacities. Each device in a given pool, regardless of how many ResourceSlices, must have a unique name. The ResourceSlice in which a device gets published may change over time. The unique identifier for a device is the tuple <driver name>, <pool name>, <device name>.
+         *
+         * Whenever a driver needs to update a pool, it increments the pool.Spec.Pool.Generation number and updates all ResourceSlices with that new number and new resource definitions. A consumer must only use ResourceSlices with the highest generation number and ignore all others.
+         *
+         * When allocating all resources in a pool matching certain criteria or when looking for the best solution among several different alternatives, a consumer should check the number of ResourceSlices in a pool (included in each ResourceSlice) to determine whether its view of a pool is complete and if not, should wait until the driver has completed updating the pool.
+         *
+         * For resources that are not local to a node, the node name is not set. Instead, the driver may use a node selector to specify where the devices are available.
+         *
+         * This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
+         */
+        export interface ResourceSlice {
+            /**
+             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+             */
+            apiVersion: "resource.k8s.io/v1beta1";
+            /**
+             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             */
+            kind: "ResourceSlice";
+            /**
+             * Standard object metadata
+             */
+            metadata: outputs.meta.v1.ObjectMeta;
+            /**
+             * Contains the information published by the driver.
+             *
+             * Changing the spec automatically increments the metadata.generation number.
+             */
+            spec: outputs.resource.v1beta1.ResourceSliceSpec;
+        }
+
+        /**
+         * ResourceSliceSpec contains the information published by the driver in one ResourceSlice.
+         */
+        export interface ResourceSliceSpec {
+            /**
+             * AllNodes indicates that all nodes have access to the resources in the pool.
+             *
+             * Exactly one of NodeName, NodeSelector and AllNodes must be set.
+             */
+            allNodes: boolean;
+            /**
+             * Devices lists some or all of the devices in this pool.
+             *
+             * Must not have more than 128 entries.
+             */
+            devices: outputs.resource.v1beta1.Device[];
+            /**
+             * Driver identifies the DRA driver providing the capacity information. A field selector can be used to list only ResourceSlice objects with a certain driver name.
+             *
+             * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. This field is immutable.
+             */
+            driver: string;
+            /**
+             * NodeName identifies the node which provides the resources in this pool. A field selector can be used to list only ResourceSlice objects belonging to a certain node.
+             *
+             * This field can be used to limit access from nodes to ResourceSlices with the same node name. It also indicates to autoscalers that adding new nodes of the same type as some old node might also make new resources available.
+             *
+             * Exactly one of NodeName, NodeSelector and AllNodes must be set. This field is immutable.
+             */
+            nodeName: string;
+            /**
+             * NodeSelector defines which nodes have access to the resources in the pool, when that pool is not limited to a single node.
+             *
+             * Must use exactly one term.
+             *
+             * Exactly one of NodeName, NodeSelector and AllNodes must be set.
+             */
+            nodeSelector: outputs.core.v1.NodeSelector;
+            /**
+             * Pool describes the pool that this ResourceSlice belongs to.
+             */
+            pool: outputs.resource.v1beta1.ResourcePool;
+        }
+
+        /**
+         * ResourceSliceSpec contains the information published by the driver in one ResourceSlice.
+         */
+        export interface ResourceSliceSpecPatch {
+            /**
+             * AllNodes indicates that all nodes have access to the resources in the pool.
+             *
+             * Exactly one of NodeName, NodeSelector and AllNodes must be set.
+             */
+            allNodes: boolean;
+            /**
+             * Devices lists some or all of the devices in this pool.
+             *
+             * Must not have more than 128 entries.
+             */
+            devices: outputs.resource.v1beta1.DevicePatch[];
+            /**
+             * Driver identifies the DRA driver providing the capacity information. A field selector can be used to list only ResourceSlice objects with a certain driver name.
+             *
+             * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. This field is immutable.
+             */
+            driver: string;
+            /**
+             * NodeName identifies the node which provides the resources in this pool. A field selector can be used to list only ResourceSlice objects belonging to a certain node.
+             *
+             * This field can be used to limit access from nodes to ResourceSlices with the same node name. It also indicates to autoscalers that adding new nodes of the same type as some old node might also make new resources available.
+             *
+             * Exactly one of NodeName, NodeSelector and AllNodes must be set. This field is immutable.
+             */
+            nodeName: string;
+            /**
+             * NodeSelector defines which nodes have access to the resources in the pool, when that pool is not limited to a single node.
+             *
+             * Must use exactly one term.
+             *
+             * Exactly one of NodeName, NodeSelector and AllNodes must be set.
+             */
+            nodeSelector: outputs.core.v1.NodeSelectorPatch;
+            /**
+             * Pool describes the pool that this ResourceSlice belongs to.
+             */
+            pool: outputs.resource.v1beta1.ResourcePoolPatch;
         }
 
     }
@@ -36779,7 +38709,7 @@ export namespace storage {
         }
 
         /**
-         * VolumeAttachmentSource represents a volume that should be attached. Right now only PersistenVolumes can be attached via external attacher, in future we may allow also inline volumes in pods. Exactly one member can be set.
+         * VolumeAttachmentSource represents a volume that should be attached. Right now only PersistentVolumes can be attached via external attacher, in the future we may allow also inline volumes in pods. Exactly one member can be set.
          */
         export interface VolumeAttachmentSource {
             /**
@@ -36793,7 +38723,7 @@ export namespace storage {
         }
 
         /**
-         * VolumeAttachmentSource represents a volume that should be attached. Right now only PersistenVolumes can be attached via external attacher, in future we may allow also inline volumes in pods. Exactly one member can be set.
+         * VolumeAttachmentSource represents a volume that should be attached. Right now only PersistentVolumes can be attached via external attacher, in the future we may allow also inline volumes in pods. Exactly one member can be set.
          */
         export interface VolumeAttachmentSourcePatch {
             /**

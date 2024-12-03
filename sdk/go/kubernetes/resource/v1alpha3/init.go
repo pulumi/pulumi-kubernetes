@@ -47,6 +47,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &ResourceClaimTemplatePatch{}
 	case "kubernetes:resource.k8s.io/v1alpha3:ResourceSlice":
 		r = &ResourceSlice{}
+	case "kubernetes:resource.k8s.io/v1alpha3:ResourceSliceList":
+		r = &ResourceSliceList{}
 	case "kubernetes:resource.k8s.io/v1alpha3:ResourceSlicePatch":
 		r = &ResourceSlicePatch{}
 	default:

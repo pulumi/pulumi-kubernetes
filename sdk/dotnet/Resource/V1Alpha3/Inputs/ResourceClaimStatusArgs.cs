@@ -31,6 +31,18 @@ namespace Pulumi.Kubernetes.Types.Inputs.Resource.V1Alpha3
         [Input("deallocationRequested")]
         public Input<bool>? DeallocationRequested { get; set; }
 
+        [Input("devices")]
+        private InputList<Pulumi.Kubernetes.Types.Inputs.Resource.V1Alpha3.AllocatedDeviceStatusArgs>? _devices;
+
+        /// <summary>
+        /// Devices contains the status of each device allocated for this claim, as reported by the driver. This can include driver-specific information. Entries are owned by their respective drivers.
+        /// </summary>
+        public InputList<Pulumi.Kubernetes.Types.Inputs.Resource.V1Alpha3.AllocatedDeviceStatusArgs> Devices
+        {
+            get => _devices ?? (_devices = new InputList<Pulumi.Kubernetes.Types.Inputs.Resource.V1Alpha3.AllocatedDeviceStatusArgs>());
+            set => _devices = value;
+        }
+
         [Input("reservedFor")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.Resource.V1Alpha3.ResourceClaimConsumerReferenceArgs>? _reservedFor;
 

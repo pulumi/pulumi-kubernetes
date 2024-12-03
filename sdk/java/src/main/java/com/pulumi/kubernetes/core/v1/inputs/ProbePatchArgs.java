@@ -24,14 +24,14 @@ public final class ProbePatchArgs extends com.pulumi.resources.ResourceArgs {
     public static final ProbePatchArgs Empty = new ProbePatchArgs();
 
     /**
-     * Exec specifies the action to take.
+     * Exec specifies a command to execute in the container.
      * 
      */
     @Import(name="exec")
     private @Nullable Output<ExecActionPatchArgs> exec;
 
     /**
-     * @return Exec specifies the action to take.
+     * @return Exec specifies a command to execute in the container.
      * 
      */
     public Optional<Output<ExecActionPatchArgs>> exec() {
@@ -54,14 +54,14 @@ public final class ProbePatchArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * GRPC specifies an action involving a GRPC port.
+     * GRPC specifies a GRPC HealthCheckRequest.
      * 
      */
     @Import(name="grpc")
     private @Nullable Output<GRPCActionPatchArgs> grpc;
 
     /**
-     * @return GRPC specifies an action involving a GRPC port.
+     * @return GRPC specifies a GRPC HealthCheckRequest.
      * 
      */
     public Optional<Output<GRPCActionPatchArgs>> grpc() {
@@ -69,14 +69,14 @@ public final class ProbePatchArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * HTTPGet specifies the http request to perform.
+     * HTTPGet specifies an HTTP GET request to perform.
      * 
      */
     @Import(name="httpGet")
     private @Nullable Output<HTTPGetActionPatchArgs> httpGet;
 
     /**
-     * @return HTTPGet specifies the http request to perform.
+     * @return HTTPGet specifies an HTTP GET request to perform.
      * 
      */
     public Optional<Output<HTTPGetActionPatchArgs>> httpGet() {
@@ -129,14 +129,14 @@ public final class ProbePatchArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * TCPSocket specifies an action involving a TCP port.
+     * TCPSocket specifies a connection to a TCP port.
      * 
      */
     @Import(name="tcpSocket")
     private @Nullable Output<TCPSocketActionPatchArgs> tcpSocket;
 
     /**
-     * @return TCPSocket specifies an action involving a TCP port.
+     * @return TCPSocket specifies a connection to a TCP port.
      * 
      */
     public Optional<Output<TCPSocketActionPatchArgs>> tcpSocket() {
@@ -207,7 +207,7 @@ public final class ProbePatchArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param exec Exec specifies the action to take.
+         * @param exec Exec specifies a command to execute in the container.
          * 
          * @return builder
          * 
@@ -218,7 +218,7 @@ public final class ProbePatchArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param exec Exec specifies the action to take.
+         * @param exec Exec specifies a command to execute in the container.
          * 
          * @return builder
          * 
@@ -249,7 +249,7 @@ public final class ProbePatchArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param grpc GRPC specifies an action involving a GRPC port.
+         * @param grpc GRPC specifies a GRPC HealthCheckRequest.
          * 
          * @return builder
          * 
@@ -260,7 +260,7 @@ public final class ProbePatchArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param grpc GRPC specifies an action involving a GRPC port.
+         * @param grpc GRPC specifies a GRPC HealthCheckRequest.
          * 
          * @return builder
          * 
@@ -270,7 +270,7 @@ public final class ProbePatchArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param httpGet HTTPGet specifies the http request to perform.
+         * @param httpGet HTTPGet specifies an HTTP GET request to perform.
          * 
          * @return builder
          * 
@@ -281,7 +281,7 @@ public final class ProbePatchArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param httpGet HTTPGet specifies the http request to perform.
+         * @param httpGet HTTPGet specifies an HTTP GET request to perform.
          * 
          * @return builder
          * 
@@ -354,7 +354,7 @@ public final class ProbePatchArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param tcpSocket TCPSocket specifies an action involving a TCP port.
+         * @param tcpSocket TCPSocket specifies a connection to a TCP port.
          * 
          * @return builder
          * 
@@ -365,7 +365,7 @@ public final class ProbePatchArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param tcpSocket TCPSocket specifies an action involving a TCP port.
+         * @param tcpSocket TCPSocket specifies a connection to a TCP port.
          * 
          * @return builder
          * 

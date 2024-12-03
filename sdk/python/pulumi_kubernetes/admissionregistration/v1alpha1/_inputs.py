@@ -16,12 +16,20 @@ from ... import _utilities
 from ... import meta as _meta
 
 __all__ = [
+    'ApplyConfigurationPatchArgs',
+    'ApplyConfigurationPatchArgsDict',
+    'ApplyConfigurationArgs',
+    'ApplyConfigurationArgsDict',
     'AuditAnnotationPatchArgs',
     'AuditAnnotationPatchArgsDict',
     'AuditAnnotationArgs',
     'AuditAnnotationArgsDict',
     'ExpressionWarningArgs',
     'ExpressionWarningArgsDict',
+    'JSONPatchPatchArgs',
+    'JSONPatchPatchArgsDict',
+    'JSONPatchArgs',
+    'JSONPatchArgsDict',
     'MatchConditionPatchArgs',
     'MatchConditionPatchArgsDict',
     'MatchConditionArgs',
@@ -30,6 +38,22 @@ __all__ = [
     'MatchResourcesPatchArgsDict',
     'MatchResourcesArgs',
     'MatchResourcesArgsDict',
+    'MutatingAdmissionPolicyBindingSpecPatchArgs',
+    'MutatingAdmissionPolicyBindingSpecPatchArgsDict',
+    'MutatingAdmissionPolicyBindingSpecArgs',
+    'MutatingAdmissionPolicyBindingSpecArgsDict',
+    'MutatingAdmissionPolicyBindingArgs',
+    'MutatingAdmissionPolicyBindingArgsDict',
+    'MutatingAdmissionPolicySpecPatchArgs',
+    'MutatingAdmissionPolicySpecPatchArgsDict',
+    'MutatingAdmissionPolicySpecArgs',
+    'MutatingAdmissionPolicySpecArgsDict',
+    'MutatingAdmissionPolicyArgs',
+    'MutatingAdmissionPolicyArgsDict',
+    'MutationPatchArgs',
+    'MutationPatchArgsDict',
+    'MutationArgs',
+    'MutationArgsDict',
     'NamedRuleWithOperationsPatchArgs',
     'NamedRuleWithOperationsPatchArgsDict',
     'NamedRuleWithOperationsArgs',
@@ -69,6 +93,240 @@ __all__ = [
 ]
 
 MYPY = False
+
+if not MYPY:
+    class ApplyConfigurationPatchArgsDict(TypedDict):
+        """
+        ApplyConfiguration defines the desired configuration values of an object.
+        """
+        expression: NotRequired[pulumi.Input[str]]
+        """
+        expression will be evaluated by CEL to create an apply configuration. ref: https://github.com/google/cel-spec
+
+        Apply configurations are declared in CEL using object initialization. For example, this CEL expression returns an apply configuration to set a single field:
+
+        	Object{
+        	  spec: Object.spec{
+        	    serviceAccountName: "example"
+        	  }
+        	}
+
+        Apply configurations may not modify atomic structs, maps or arrays due to the risk of accidental deletion of values not included in the apply configuration.
+
+        CEL expressions have access to the object types needed to create apply configurations:
+
+        - 'Object' - CEL type of the resource object. - 'Object.<fieldName>' - CEL type of object field (such as 'Object.spec') - 'Object.<fieldName1>.<fieldName2>...<fieldNameN>` - CEL type of nested field (such as 'Object.spec.containers')
+
+        CEL expressions have access to the contents of the API request, organized into CEL variables as well as some other useful variables:
+
+        - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
+          For example, a variable named 'foo' can be accessed as 'variables.foo'.
+        - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+          See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+        - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+          request resource.
+
+        The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
+
+        Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Required.
+        """
+elif False:
+    ApplyConfigurationPatchArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class ApplyConfigurationPatchArgs:
+    def __init__(__self__, *,
+                 expression: Optional[pulumi.Input[str]] = None):
+        """
+        ApplyConfiguration defines the desired configuration values of an object.
+        :param pulumi.Input[str] expression: expression will be evaluated by CEL to create an apply configuration. ref: https://github.com/google/cel-spec
+               
+               Apply configurations are declared in CEL using object initialization. For example, this CEL expression returns an apply configuration to set a single field:
+               
+               	Object{
+               	  spec: Object.spec{
+               	    serviceAccountName: "example"
+               	  }
+               	}
+               
+               Apply configurations may not modify atomic structs, maps or arrays due to the risk of accidental deletion of values not included in the apply configuration.
+               
+               CEL expressions have access to the object types needed to create apply configurations:
+               
+               - 'Object' - CEL type of the resource object. - 'Object.<fieldName>' - CEL type of object field (such as 'Object.spec') - 'Object.<fieldName1>.<fieldName2>...<fieldNameN>` - CEL type of nested field (such as 'Object.spec.containers')
+               
+               CEL expressions have access to the contents of the API request, organized into CEL variables as well as some other useful variables:
+               
+               - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
+                 For example, a variable named 'foo' can be accessed as 'variables.foo'.
+               - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+                 See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+               - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+                 request resource.
+               
+               The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
+               
+               Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Required.
+        """
+        if expression is not None:
+            pulumi.set(__self__, "expression", expression)
+
+    @property
+    @pulumi.getter
+    def expression(self) -> Optional[pulumi.Input[str]]:
+        """
+        expression will be evaluated by CEL to create an apply configuration. ref: https://github.com/google/cel-spec
+
+        Apply configurations are declared in CEL using object initialization. For example, this CEL expression returns an apply configuration to set a single field:
+
+        	Object{
+        	  spec: Object.spec{
+        	    serviceAccountName: "example"
+        	  }
+        	}
+
+        Apply configurations may not modify atomic structs, maps or arrays due to the risk of accidental deletion of values not included in the apply configuration.
+
+        CEL expressions have access to the object types needed to create apply configurations:
+
+        - 'Object' - CEL type of the resource object. - 'Object.<fieldName>' - CEL type of object field (such as 'Object.spec') - 'Object.<fieldName1>.<fieldName2>...<fieldNameN>` - CEL type of nested field (such as 'Object.spec.containers')
+
+        CEL expressions have access to the contents of the API request, organized into CEL variables as well as some other useful variables:
+
+        - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
+          For example, a variable named 'foo' can be accessed as 'variables.foo'.
+        - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+          See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+        - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+          request resource.
+
+        The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
+
+        Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Required.
+        """
+        return pulumi.get(self, "expression")
+
+    @expression.setter
+    def expression(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "expression", value)
+
+
+if not MYPY:
+    class ApplyConfigurationArgsDict(TypedDict):
+        """
+        ApplyConfiguration defines the desired configuration values of an object.
+        """
+        expression: NotRequired[pulumi.Input[str]]
+        """
+        expression will be evaluated by CEL to create an apply configuration. ref: https://github.com/google/cel-spec
+
+        Apply configurations are declared in CEL using object initialization. For example, this CEL expression returns an apply configuration to set a single field:
+
+        	Object{
+        	  spec: Object.spec{
+        	    serviceAccountName: "example"
+        	  }
+        	}
+
+        Apply configurations may not modify atomic structs, maps or arrays due to the risk of accidental deletion of values not included in the apply configuration.
+
+        CEL expressions have access to the object types needed to create apply configurations:
+
+        - 'Object' - CEL type of the resource object. - 'Object.<fieldName>' - CEL type of object field (such as 'Object.spec') - 'Object.<fieldName1>.<fieldName2>...<fieldNameN>` - CEL type of nested field (such as 'Object.spec.containers')
+
+        CEL expressions have access to the contents of the API request, organized into CEL variables as well as some other useful variables:
+
+        - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
+          For example, a variable named 'foo' can be accessed as 'variables.foo'.
+        - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+          See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+        - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+          request resource.
+
+        The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
+
+        Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Required.
+        """
+elif False:
+    ApplyConfigurationArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class ApplyConfigurationArgs:
+    def __init__(__self__, *,
+                 expression: Optional[pulumi.Input[str]] = None):
+        """
+        ApplyConfiguration defines the desired configuration values of an object.
+        :param pulumi.Input[str] expression: expression will be evaluated by CEL to create an apply configuration. ref: https://github.com/google/cel-spec
+               
+               Apply configurations are declared in CEL using object initialization. For example, this CEL expression returns an apply configuration to set a single field:
+               
+               	Object{
+               	  spec: Object.spec{
+               	    serviceAccountName: "example"
+               	  }
+               	}
+               
+               Apply configurations may not modify atomic structs, maps or arrays due to the risk of accidental deletion of values not included in the apply configuration.
+               
+               CEL expressions have access to the object types needed to create apply configurations:
+               
+               - 'Object' - CEL type of the resource object. - 'Object.<fieldName>' - CEL type of object field (such as 'Object.spec') - 'Object.<fieldName1>.<fieldName2>...<fieldNameN>` - CEL type of nested field (such as 'Object.spec.containers')
+               
+               CEL expressions have access to the contents of the API request, organized into CEL variables as well as some other useful variables:
+               
+               - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
+                 For example, a variable named 'foo' can be accessed as 'variables.foo'.
+               - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+                 See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+               - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+                 request resource.
+               
+               The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
+               
+               Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Required.
+        """
+        if expression is not None:
+            pulumi.set(__self__, "expression", expression)
+
+    @property
+    @pulumi.getter
+    def expression(self) -> Optional[pulumi.Input[str]]:
+        """
+        expression will be evaluated by CEL to create an apply configuration. ref: https://github.com/google/cel-spec
+
+        Apply configurations are declared in CEL using object initialization. For example, this CEL expression returns an apply configuration to set a single field:
+
+        	Object{
+        	  spec: Object.spec{
+        	    serviceAccountName: "example"
+        	  }
+        	}
+
+        Apply configurations may not modify atomic structs, maps or arrays due to the risk of accidental deletion of values not included in the apply configuration.
+
+        CEL expressions have access to the object types needed to create apply configurations:
+
+        - 'Object' - CEL type of the resource object. - 'Object.<fieldName>' - CEL type of object field (such as 'Object.spec') - 'Object.<fieldName1>.<fieldName2>...<fieldNameN>` - CEL type of nested field (such as 'Object.spec.containers')
+
+        CEL expressions have access to the contents of the API request, organized into CEL variables as well as some other useful variables:
+
+        - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
+          For example, a variable named 'foo' can be accessed as 'variables.foo'.
+        - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+          See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+        - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+          request resource.
+
+        The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
+
+        Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Required.
+        """
+        return pulumi.get(self, "expression")
+
+    @expression.setter
+    def expression(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "expression", value)
+
 
 if not MYPY:
     class AuditAnnotationPatchArgsDict(TypedDict):
@@ -292,6 +550,396 @@ class ExpressionWarningArgs:
     @warning.setter
     def warning(self, value: pulumi.Input[str]):
         pulumi.set(self, "warning", value)
+
+
+if not MYPY:
+    class JSONPatchPatchArgsDict(TypedDict):
+        """
+        JSONPatch defines a JSON Patch.
+        """
+        expression: NotRequired[pulumi.Input[str]]
+        """
+        expression will be evaluated by CEL to create a [JSON patch](https://jsonpatch.com/). ref: https://github.com/google/cel-spec
+
+        expression must return an array of JSONPatch values.
+
+        For example, this CEL expression returns a JSON patch to conditionally modify a value:
+
+        	  [
+        	    JSONPatch{op: "test", path: "/spec/example", value: "Red"},
+        	    JSONPatch{op: "replace", path: "/spec/example", value: "Green"}
+        	  ]
+
+        To define an object for the patch value, use Object types. For example:
+
+        	  [
+        	    JSONPatch{
+        	      op: "add",
+        	      path: "/spec/selector",
+        	      value: Object.spec.selector{matchLabels: {"environment": "test"}}
+        	    }
+        	  ]
+
+        To use strings containing '/' and '~' as JSONPatch path keys, use "jsonpatch.escapeKey". For example:
+
+        	  [
+        	    JSONPatch{
+        	      op: "add",
+        	      path: "/metadata/labels/" + jsonpatch.escapeKey("example.com/environment"),
+        	      value: "test"
+        	    },
+        	  ]
+
+        CEL expressions have access to the types needed to create JSON patches and objects:
+
+        - 'JSONPatch' - CEL type of JSON Patch operations. JSONPatch has the fields 'op', 'from', 'path' and 'value'.
+          See [JSON patch](https://jsonpatch.com/) for more details. The 'value' field may be set to any of: string,
+          integer, array, map or object.  If set, the 'path' and 'from' fields must be set to a
+          [JSON pointer](https://datatracker.ietf.org/doc/html/rfc6901/) string, where the 'jsonpatch.escapeKey()' CEL
+          function may be used to escape path keys containing '/' and '~'.
+        - 'Object' - CEL type of the resource object. - 'Object.<fieldName>' - CEL type of object field (such as 'Object.spec') - 'Object.<fieldName1>.<fieldName2>...<fieldNameN>` - CEL type of nested field (such as 'Object.spec.containers')
+
+        CEL expressions have access to the contents of the API request, organized into CEL variables as well as some other useful variables:
+
+        - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
+          For example, a variable named 'foo' can be accessed as 'variables.foo'.
+        - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+          See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+        - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+          request resource.
+
+        CEL expressions have access to [Kubernetes CEL function libraries](https://kubernetes.io/docs/reference/using-api/cel/#cel-options-language-features-and-libraries) as well as:
+
+        - 'jsonpatch.escapeKey' - Performs JSONPatch key escaping. '~' and  '/' are escaped as '~0' and `~1' respectively).
+
+        Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Required.
+        """
+elif False:
+    JSONPatchPatchArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class JSONPatchPatchArgs:
+    def __init__(__self__, *,
+                 expression: Optional[pulumi.Input[str]] = None):
+        """
+        JSONPatch defines a JSON Patch.
+        :param pulumi.Input[str] expression: expression will be evaluated by CEL to create a [JSON patch](https://jsonpatch.com/). ref: https://github.com/google/cel-spec
+               
+               expression must return an array of JSONPatch values.
+               
+               For example, this CEL expression returns a JSON patch to conditionally modify a value:
+               
+               	  [
+               	    JSONPatch{op: "test", path: "/spec/example", value: "Red"},
+               	    JSONPatch{op: "replace", path: "/spec/example", value: "Green"}
+               	  ]
+               
+               To define an object for the patch value, use Object types. For example:
+               
+               	  [
+               	    JSONPatch{
+               	      op: "add",
+               	      path: "/spec/selector",
+               	      value: Object.spec.selector{matchLabels: {"environment": "test"}}
+               	    }
+               	  ]
+               
+               To use strings containing '/' and '~' as JSONPatch path keys, use "jsonpatch.escapeKey". For example:
+               
+               	  [
+               	    JSONPatch{
+               	      op: "add",
+               	      path: "/metadata/labels/" + jsonpatch.escapeKey("example.com/environment"),
+               	      value: "test"
+               	    },
+               	  ]
+               
+               CEL expressions have access to the types needed to create JSON patches and objects:
+               
+               - 'JSONPatch' - CEL type of JSON Patch operations. JSONPatch has the fields 'op', 'from', 'path' and 'value'.
+                 See [JSON patch](https://jsonpatch.com/) for more details. The 'value' field may be set to any of: string,
+                 integer, array, map or object.  If set, the 'path' and 'from' fields must be set to a
+                 [JSON pointer](https://datatracker.ietf.org/doc/html/rfc6901/) string, where the 'jsonpatch.escapeKey()' CEL
+                 function may be used to escape path keys containing '/' and '~'.
+               - 'Object' - CEL type of the resource object. - 'Object.<fieldName>' - CEL type of object field (such as 'Object.spec') - 'Object.<fieldName1>.<fieldName2>...<fieldNameN>` - CEL type of nested field (such as 'Object.spec.containers')
+               
+               CEL expressions have access to the contents of the API request, organized into CEL variables as well as some other useful variables:
+               
+               - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
+                 For example, a variable named 'foo' can be accessed as 'variables.foo'.
+               - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+                 See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+               - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+                 request resource.
+               
+               CEL expressions have access to [Kubernetes CEL function libraries](https://kubernetes.io/docs/reference/using-api/cel/#cel-options-language-features-and-libraries) as well as:
+               
+               - 'jsonpatch.escapeKey' - Performs JSONPatch key escaping. '~' and  '/' are escaped as '~0' and `~1' respectively).
+               
+               Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Required.
+        """
+        if expression is not None:
+            pulumi.set(__self__, "expression", expression)
+
+    @property
+    @pulumi.getter
+    def expression(self) -> Optional[pulumi.Input[str]]:
+        """
+        expression will be evaluated by CEL to create a [JSON patch](https://jsonpatch.com/). ref: https://github.com/google/cel-spec
+
+        expression must return an array of JSONPatch values.
+
+        For example, this CEL expression returns a JSON patch to conditionally modify a value:
+
+        	  [
+        	    JSONPatch{op: "test", path: "/spec/example", value: "Red"},
+        	    JSONPatch{op: "replace", path: "/spec/example", value: "Green"}
+        	  ]
+
+        To define an object for the patch value, use Object types. For example:
+
+        	  [
+        	    JSONPatch{
+        	      op: "add",
+        	      path: "/spec/selector",
+        	      value: Object.spec.selector{matchLabels: {"environment": "test"}}
+        	    }
+        	  ]
+
+        To use strings containing '/' and '~' as JSONPatch path keys, use "jsonpatch.escapeKey". For example:
+
+        	  [
+        	    JSONPatch{
+        	      op: "add",
+        	      path: "/metadata/labels/" + jsonpatch.escapeKey("example.com/environment"),
+        	      value: "test"
+        	    },
+        	  ]
+
+        CEL expressions have access to the types needed to create JSON patches and objects:
+
+        - 'JSONPatch' - CEL type of JSON Patch operations. JSONPatch has the fields 'op', 'from', 'path' and 'value'.
+          See [JSON patch](https://jsonpatch.com/) for more details. The 'value' field may be set to any of: string,
+          integer, array, map or object.  If set, the 'path' and 'from' fields must be set to a
+          [JSON pointer](https://datatracker.ietf.org/doc/html/rfc6901/) string, where the 'jsonpatch.escapeKey()' CEL
+          function may be used to escape path keys containing '/' and '~'.
+        - 'Object' - CEL type of the resource object. - 'Object.<fieldName>' - CEL type of object field (such as 'Object.spec') - 'Object.<fieldName1>.<fieldName2>...<fieldNameN>` - CEL type of nested field (such as 'Object.spec.containers')
+
+        CEL expressions have access to the contents of the API request, organized into CEL variables as well as some other useful variables:
+
+        - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
+          For example, a variable named 'foo' can be accessed as 'variables.foo'.
+        - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+          See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+        - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+          request resource.
+
+        CEL expressions have access to [Kubernetes CEL function libraries](https://kubernetes.io/docs/reference/using-api/cel/#cel-options-language-features-and-libraries) as well as:
+
+        - 'jsonpatch.escapeKey' - Performs JSONPatch key escaping. '~' and  '/' are escaped as '~0' and `~1' respectively).
+
+        Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Required.
+        """
+        return pulumi.get(self, "expression")
+
+    @expression.setter
+    def expression(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "expression", value)
+
+
+if not MYPY:
+    class JSONPatchArgsDict(TypedDict):
+        """
+        JSONPatch defines a JSON Patch.
+        """
+        expression: NotRequired[pulumi.Input[str]]
+        """
+        expression will be evaluated by CEL to create a [JSON patch](https://jsonpatch.com/). ref: https://github.com/google/cel-spec
+
+        expression must return an array of JSONPatch values.
+
+        For example, this CEL expression returns a JSON patch to conditionally modify a value:
+
+        	  [
+        	    JSONPatch{op: "test", path: "/spec/example", value: "Red"},
+        	    JSONPatch{op: "replace", path: "/spec/example", value: "Green"}
+        	  ]
+
+        To define an object for the patch value, use Object types. For example:
+
+        	  [
+        	    JSONPatch{
+        	      op: "add",
+        	      path: "/spec/selector",
+        	      value: Object.spec.selector{matchLabels: {"environment": "test"}}
+        	    }
+        	  ]
+
+        To use strings containing '/' and '~' as JSONPatch path keys, use "jsonpatch.escapeKey". For example:
+
+        	  [
+        	    JSONPatch{
+        	      op: "add",
+        	      path: "/metadata/labels/" + jsonpatch.escapeKey("example.com/environment"),
+        	      value: "test"
+        	    },
+        	  ]
+
+        CEL expressions have access to the types needed to create JSON patches and objects:
+
+        - 'JSONPatch' - CEL type of JSON Patch operations. JSONPatch has the fields 'op', 'from', 'path' and 'value'.
+          See [JSON patch](https://jsonpatch.com/) for more details. The 'value' field may be set to any of: string,
+          integer, array, map or object.  If set, the 'path' and 'from' fields must be set to a
+          [JSON pointer](https://datatracker.ietf.org/doc/html/rfc6901/) string, where the 'jsonpatch.escapeKey()' CEL
+          function may be used to escape path keys containing '/' and '~'.
+        - 'Object' - CEL type of the resource object. - 'Object.<fieldName>' - CEL type of object field (such as 'Object.spec') - 'Object.<fieldName1>.<fieldName2>...<fieldNameN>` - CEL type of nested field (such as 'Object.spec.containers')
+
+        CEL expressions have access to the contents of the API request, organized into CEL variables as well as some other useful variables:
+
+        - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
+          For example, a variable named 'foo' can be accessed as 'variables.foo'.
+        - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+          See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+        - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+          request resource.
+
+        CEL expressions have access to [Kubernetes CEL function libraries](https://kubernetes.io/docs/reference/using-api/cel/#cel-options-language-features-and-libraries) as well as:
+
+        - 'jsonpatch.escapeKey' - Performs JSONPatch key escaping. '~' and  '/' are escaped as '~0' and `~1' respectively).
+
+        Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Required.
+        """
+elif False:
+    JSONPatchArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class JSONPatchArgs:
+    def __init__(__self__, *,
+                 expression: Optional[pulumi.Input[str]] = None):
+        """
+        JSONPatch defines a JSON Patch.
+        :param pulumi.Input[str] expression: expression will be evaluated by CEL to create a [JSON patch](https://jsonpatch.com/). ref: https://github.com/google/cel-spec
+               
+               expression must return an array of JSONPatch values.
+               
+               For example, this CEL expression returns a JSON patch to conditionally modify a value:
+               
+               	  [
+               	    JSONPatch{op: "test", path: "/spec/example", value: "Red"},
+               	    JSONPatch{op: "replace", path: "/spec/example", value: "Green"}
+               	  ]
+               
+               To define an object for the patch value, use Object types. For example:
+               
+               	  [
+               	    JSONPatch{
+               	      op: "add",
+               	      path: "/spec/selector",
+               	      value: Object.spec.selector{matchLabels: {"environment": "test"}}
+               	    }
+               	  ]
+               
+               To use strings containing '/' and '~' as JSONPatch path keys, use "jsonpatch.escapeKey". For example:
+               
+               	  [
+               	    JSONPatch{
+               	      op: "add",
+               	      path: "/metadata/labels/" + jsonpatch.escapeKey("example.com/environment"),
+               	      value: "test"
+               	    },
+               	  ]
+               
+               CEL expressions have access to the types needed to create JSON patches and objects:
+               
+               - 'JSONPatch' - CEL type of JSON Patch operations. JSONPatch has the fields 'op', 'from', 'path' and 'value'.
+                 See [JSON patch](https://jsonpatch.com/) for more details. The 'value' field may be set to any of: string,
+                 integer, array, map or object.  If set, the 'path' and 'from' fields must be set to a
+                 [JSON pointer](https://datatracker.ietf.org/doc/html/rfc6901/) string, where the 'jsonpatch.escapeKey()' CEL
+                 function may be used to escape path keys containing '/' and '~'.
+               - 'Object' - CEL type of the resource object. - 'Object.<fieldName>' - CEL type of object field (such as 'Object.spec') - 'Object.<fieldName1>.<fieldName2>...<fieldNameN>` - CEL type of nested field (such as 'Object.spec.containers')
+               
+               CEL expressions have access to the contents of the API request, organized into CEL variables as well as some other useful variables:
+               
+               - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
+                 For example, a variable named 'foo' can be accessed as 'variables.foo'.
+               - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+                 See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+               - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+                 request resource.
+               
+               CEL expressions have access to [Kubernetes CEL function libraries](https://kubernetes.io/docs/reference/using-api/cel/#cel-options-language-features-and-libraries) as well as:
+               
+               - 'jsonpatch.escapeKey' - Performs JSONPatch key escaping. '~' and  '/' are escaped as '~0' and `~1' respectively).
+               
+               Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Required.
+        """
+        if expression is not None:
+            pulumi.set(__self__, "expression", expression)
+
+    @property
+    @pulumi.getter
+    def expression(self) -> Optional[pulumi.Input[str]]:
+        """
+        expression will be evaluated by CEL to create a [JSON patch](https://jsonpatch.com/). ref: https://github.com/google/cel-spec
+
+        expression must return an array of JSONPatch values.
+
+        For example, this CEL expression returns a JSON patch to conditionally modify a value:
+
+        	  [
+        	    JSONPatch{op: "test", path: "/spec/example", value: "Red"},
+        	    JSONPatch{op: "replace", path: "/spec/example", value: "Green"}
+        	  ]
+
+        To define an object for the patch value, use Object types. For example:
+
+        	  [
+        	    JSONPatch{
+        	      op: "add",
+        	      path: "/spec/selector",
+        	      value: Object.spec.selector{matchLabels: {"environment": "test"}}
+        	    }
+        	  ]
+
+        To use strings containing '/' and '~' as JSONPatch path keys, use "jsonpatch.escapeKey". For example:
+
+        	  [
+        	    JSONPatch{
+        	      op: "add",
+        	      path: "/metadata/labels/" + jsonpatch.escapeKey("example.com/environment"),
+        	      value: "test"
+        	    },
+        	  ]
+
+        CEL expressions have access to the types needed to create JSON patches and objects:
+
+        - 'JSONPatch' - CEL type of JSON Patch operations. JSONPatch has the fields 'op', 'from', 'path' and 'value'.
+          See [JSON patch](https://jsonpatch.com/) for more details. The 'value' field may be set to any of: string,
+          integer, array, map or object.  If set, the 'path' and 'from' fields must be set to a
+          [JSON pointer](https://datatracker.ietf.org/doc/html/rfc6901/) string, where the 'jsonpatch.escapeKey()' CEL
+          function may be used to escape path keys containing '/' and '~'.
+        - 'Object' - CEL type of the resource object. - 'Object.<fieldName>' - CEL type of object field (such as 'Object.spec') - 'Object.<fieldName1>.<fieldName2>...<fieldNameN>` - CEL type of nested field (such as 'Object.spec.containers')
+
+        CEL expressions have access to the contents of the API request, organized into CEL variables as well as some other useful variables:
+
+        - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
+          For example, a variable named 'foo' can be accessed as 'variables.foo'.
+        - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+          See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+        - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+          request resource.
+
+        CEL expressions have access to [Kubernetes CEL function libraries](https://kubernetes.io/docs/reference/using-api/cel/#cel-options-language-features-and-libraries) as well as:
+
+        - 'jsonpatch.escapeKey' - Performs JSONPatch key escaping. '~' and  '/' are escaped as '~0' and `~1' respectively).
+
+        Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Required.
+        """
+        return pulumi.get(self, "expression")
+
+    @expression.setter
+    def expression(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "expression", value)
 
 
 if not MYPY:
@@ -902,6 +1550,947 @@ class MatchResourcesArgs:
     @resource_rules.setter
     def resource_rules(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['NamedRuleWithOperationsArgs']]]]):
         pulumi.set(self, "resource_rules", value)
+
+
+if not MYPY:
+    class MutatingAdmissionPolicyBindingSpecPatchArgsDict(TypedDict):
+        """
+        MutatingAdmissionPolicyBindingSpec is the specification of the MutatingAdmissionPolicyBinding.
+        """
+        match_resources: NotRequired[pulumi.Input['MatchResourcesPatchArgsDict']]
+        """
+        matchResources limits what resources match this binding and may be mutated by it. Note that if matchResources matches a resource, the resource must also match a policy's matchConstraints and matchConditions before the resource may be mutated. When matchResources is unset, it does not constrain resource matching, and only the policy's matchConstraints and matchConditions must match for the resource to be mutated. Additionally, matchResources.resourceRules are optional and do not constraint matching when unset. Note that this is differs from MutatingAdmissionPolicy matchConstraints, where resourceRules are required. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT.
+        """
+        param_ref: NotRequired[pulumi.Input['ParamRefPatchArgsDict']]
+        """
+        paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in spec.ParamKind of the bound MutatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the MutatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
+        """
+        policy_name: NotRequired[pulumi.Input[str]]
+        """
+        policyName references a MutatingAdmissionPolicy name which the MutatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
+        """
+elif False:
+    MutatingAdmissionPolicyBindingSpecPatchArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class MutatingAdmissionPolicyBindingSpecPatchArgs:
+    def __init__(__self__, *,
+                 match_resources: Optional[pulumi.Input['MatchResourcesPatchArgs']] = None,
+                 param_ref: Optional[pulumi.Input['ParamRefPatchArgs']] = None,
+                 policy_name: Optional[pulumi.Input[str]] = None):
+        """
+        MutatingAdmissionPolicyBindingSpec is the specification of the MutatingAdmissionPolicyBinding.
+        :param pulumi.Input['MatchResourcesPatchArgs'] match_resources: matchResources limits what resources match this binding and may be mutated by it. Note that if matchResources matches a resource, the resource must also match a policy's matchConstraints and matchConditions before the resource may be mutated. When matchResources is unset, it does not constrain resource matching, and only the policy's matchConstraints and matchConditions must match for the resource to be mutated. Additionally, matchResources.resourceRules are optional and do not constraint matching when unset. Note that this is differs from MutatingAdmissionPolicy matchConstraints, where resourceRules are required. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT.
+        :param pulumi.Input['ParamRefPatchArgs'] param_ref: paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in spec.ParamKind of the bound MutatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the MutatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
+        :param pulumi.Input[str] policy_name: policyName references a MutatingAdmissionPolicy name which the MutatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
+        """
+        if match_resources is not None:
+            pulumi.set(__self__, "match_resources", match_resources)
+        if param_ref is not None:
+            pulumi.set(__self__, "param_ref", param_ref)
+        if policy_name is not None:
+            pulumi.set(__self__, "policy_name", policy_name)
+
+    @property
+    @pulumi.getter(name="matchResources")
+    def match_resources(self) -> Optional[pulumi.Input['MatchResourcesPatchArgs']]:
+        """
+        matchResources limits what resources match this binding and may be mutated by it. Note that if matchResources matches a resource, the resource must also match a policy's matchConstraints and matchConditions before the resource may be mutated. When matchResources is unset, it does not constrain resource matching, and only the policy's matchConstraints and matchConditions must match for the resource to be mutated. Additionally, matchResources.resourceRules are optional and do not constraint matching when unset. Note that this is differs from MutatingAdmissionPolicy matchConstraints, where resourceRules are required. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT.
+        """
+        return pulumi.get(self, "match_resources")
+
+    @match_resources.setter
+    def match_resources(self, value: Optional[pulumi.Input['MatchResourcesPatchArgs']]):
+        pulumi.set(self, "match_resources", value)
+
+    @property
+    @pulumi.getter(name="paramRef")
+    def param_ref(self) -> Optional[pulumi.Input['ParamRefPatchArgs']]:
+        """
+        paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in spec.ParamKind of the bound MutatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the MutatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
+        """
+        return pulumi.get(self, "param_ref")
+
+    @param_ref.setter
+    def param_ref(self, value: Optional[pulumi.Input['ParamRefPatchArgs']]):
+        pulumi.set(self, "param_ref", value)
+
+    @property
+    @pulumi.getter(name="policyName")
+    def policy_name(self) -> Optional[pulumi.Input[str]]:
+        """
+        policyName references a MutatingAdmissionPolicy name which the MutatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
+        """
+        return pulumi.get(self, "policy_name")
+
+    @policy_name.setter
+    def policy_name(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "policy_name", value)
+
+
+if not MYPY:
+    class MutatingAdmissionPolicyBindingSpecArgsDict(TypedDict):
+        """
+        MutatingAdmissionPolicyBindingSpec is the specification of the MutatingAdmissionPolicyBinding.
+        """
+        match_resources: NotRequired[pulumi.Input['MatchResourcesArgsDict']]
+        """
+        matchResources limits what resources match this binding and may be mutated by it. Note that if matchResources matches a resource, the resource must also match a policy's matchConstraints and matchConditions before the resource may be mutated. When matchResources is unset, it does not constrain resource matching, and only the policy's matchConstraints and matchConditions must match for the resource to be mutated. Additionally, matchResources.resourceRules are optional and do not constraint matching when unset. Note that this is differs from MutatingAdmissionPolicy matchConstraints, where resourceRules are required. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT.
+        """
+        param_ref: NotRequired[pulumi.Input['ParamRefArgsDict']]
+        """
+        paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in spec.ParamKind of the bound MutatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the MutatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
+        """
+        policy_name: NotRequired[pulumi.Input[str]]
+        """
+        policyName references a MutatingAdmissionPolicy name which the MutatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
+        """
+elif False:
+    MutatingAdmissionPolicyBindingSpecArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class MutatingAdmissionPolicyBindingSpecArgs:
+    def __init__(__self__, *,
+                 match_resources: Optional[pulumi.Input['MatchResourcesArgs']] = None,
+                 param_ref: Optional[pulumi.Input['ParamRefArgs']] = None,
+                 policy_name: Optional[pulumi.Input[str]] = None):
+        """
+        MutatingAdmissionPolicyBindingSpec is the specification of the MutatingAdmissionPolicyBinding.
+        :param pulumi.Input['MatchResourcesArgs'] match_resources: matchResources limits what resources match this binding and may be mutated by it. Note that if matchResources matches a resource, the resource must also match a policy's matchConstraints and matchConditions before the resource may be mutated. When matchResources is unset, it does not constrain resource matching, and only the policy's matchConstraints and matchConditions must match for the resource to be mutated. Additionally, matchResources.resourceRules are optional and do not constraint matching when unset. Note that this is differs from MutatingAdmissionPolicy matchConstraints, where resourceRules are required. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT.
+        :param pulumi.Input['ParamRefArgs'] param_ref: paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in spec.ParamKind of the bound MutatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the MutatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
+        :param pulumi.Input[str] policy_name: policyName references a MutatingAdmissionPolicy name which the MutatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
+        """
+        if match_resources is not None:
+            pulumi.set(__self__, "match_resources", match_resources)
+        if param_ref is not None:
+            pulumi.set(__self__, "param_ref", param_ref)
+        if policy_name is not None:
+            pulumi.set(__self__, "policy_name", policy_name)
+
+    @property
+    @pulumi.getter(name="matchResources")
+    def match_resources(self) -> Optional[pulumi.Input['MatchResourcesArgs']]:
+        """
+        matchResources limits what resources match this binding and may be mutated by it. Note that if matchResources matches a resource, the resource must also match a policy's matchConstraints and matchConditions before the resource may be mutated. When matchResources is unset, it does not constrain resource matching, and only the policy's matchConstraints and matchConditions must match for the resource to be mutated. Additionally, matchResources.resourceRules are optional and do not constraint matching when unset. Note that this is differs from MutatingAdmissionPolicy matchConstraints, where resourceRules are required. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT.
+        """
+        return pulumi.get(self, "match_resources")
+
+    @match_resources.setter
+    def match_resources(self, value: Optional[pulumi.Input['MatchResourcesArgs']]):
+        pulumi.set(self, "match_resources", value)
+
+    @property
+    @pulumi.getter(name="paramRef")
+    def param_ref(self) -> Optional[pulumi.Input['ParamRefArgs']]:
+        """
+        paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in spec.ParamKind of the bound MutatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the MutatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
+        """
+        return pulumi.get(self, "param_ref")
+
+    @param_ref.setter
+    def param_ref(self, value: Optional[pulumi.Input['ParamRefArgs']]):
+        pulumi.set(self, "param_ref", value)
+
+    @property
+    @pulumi.getter(name="policyName")
+    def policy_name(self) -> Optional[pulumi.Input[str]]:
+        """
+        policyName references a MutatingAdmissionPolicy name which the MutatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
+        """
+        return pulumi.get(self, "policy_name")
+
+    @policy_name.setter
+    def policy_name(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "policy_name", value)
+
+
+if not MYPY:
+    class MutatingAdmissionPolicyBindingArgsDict(TypedDict):
+        """
+        MutatingAdmissionPolicyBinding binds the MutatingAdmissionPolicy with parametrized resources. MutatingAdmissionPolicyBinding and the optional parameter resource together define how cluster administrators configure policies for clusters.
+
+        For a given admission request, each binding will cause its policy to be evaluated N times, where N is 1 for policies/bindings that don't use params, otherwise N is the number of parameters selected by the binding. Each evaluation is constrained by a [runtime cost budget](https://kubernetes.io/docs/reference/using-api/cel/#runtime-cost-budget).
+
+        Adding/removing policies, bindings, or params can not affect whether a given (policy, binding, param) combination is within its own CEL budget.
+        """
+        api_version: NotRequired[pulumi.Input[str]]
+        """
+        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        """
+        kind: NotRequired[pulumi.Input[str]]
+        """
+        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        """
+        metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
+        """
+        Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+        """
+        spec: NotRequired[pulumi.Input['MutatingAdmissionPolicyBindingSpecArgsDict']]
+        """
+        Specification of the desired behavior of the MutatingAdmissionPolicyBinding.
+        """
+elif False:
+    MutatingAdmissionPolicyBindingArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class MutatingAdmissionPolicyBindingArgs:
+    def __init__(__self__, *,
+                 api_version: Optional[pulumi.Input[str]] = None,
+                 kind: Optional[pulumi.Input[str]] = None,
+                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
+                 spec: Optional[pulumi.Input['MutatingAdmissionPolicyBindingSpecArgs']] = None):
+        """
+        MutatingAdmissionPolicyBinding binds the MutatingAdmissionPolicy with parametrized resources. MutatingAdmissionPolicyBinding and the optional parameter resource together define how cluster administrators configure policies for clusters.
+
+        For a given admission request, each binding will cause its policy to be evaluated N times, where N is 1 for policies/bindings that don't use params, otherwise N is the number of parameters selected by the binding. Each evaluation is constrained by a [runtime cost budget](https://kubernetes.io/docs/reference/using-api/cel/#runtime-cost-budget).
+
+        Adding/removing policies, bindings, or params can not affect whether a given (policy, binding, param) combination is within its own CEL budget.
+        :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+        :param pulumi.Input['MutatingAdmissionPolicyBindingSpecArgs'] spec: Specification of the desired behavior of the MutatingAdmissionPolicyBinding.
+        """
+        if api_version is not None:
+            pulumi.set(__self__, "api_version", 'admissionregistration.k8s.io/v1alpha1')
+        if kind is not None:
+            pulumi.set(__self__, "kind", 'MutatingAdmissionPolicyBinding')
+        if metadata is not None:
+            pulumi.set(__self__, "metadata", metadata)
+        if spec is not None:
+            pulumi.set(__self__, "spec", spec)
+
+    @property
+    @pulumi.getter(name="apiVersion")
+    def api_version(self) -> Optional[pulumi.Input[str]]:
+        """
+        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        """
+        return pulumi.get(self, "api_version")
+
+    @api_version.setter
+    def api_version(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "api_version", value)
+
+    @property
+    @pulumi.getter
+    def kind(self) -> Optional[pulumi.Input[str]]:
+        """
+        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        """
+        return pulumi.get(self, "kind")
+
+    @kind.setter
+    def kind(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "kind", value)
+
+    @property
+    @pulumi.getter
+    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
+        """
+        Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+        """
+        return pulumi.get(self, "metadata")
+
+    @metadata.setter
+    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
+        pulumi.set(self, "metadata", value)
+
+    @property
+    @pulumi.getter
+    def spec(self) -> Optional[pulumi.Input['MutatingAdmissionPolicyBindingSpecArgs']]:
+        """
+        Specification of the desired behavior of the MutatingAdmissionPolicyBinding.
+        """
+        return pulumi.get(self, "spec")
+
+    @spec.setter
+    def spec(self, value: Optional[pulumi.Input['MutatingAdmissionPolicyBindingSpecArgs']]):
+        pulumi.set(self, "spec", value)
+
+
+if not MYPY:
+    class MutatingAdmissionPolicySpecPatchArgsDict(TypedDict):
+        """
+        MutatingAdmissionPolicySpec is the specification of the desired behavior of the admission policy.
+        """
+        failure_policy: NotRequired[pulumi.Input[str]]
+        """
+        failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
+
+        A policy is invalid if paramKind refers to a non-existent Kind. A binding is invalid if paramRef.name refers to a non-existent resource.
+
+        failurePolicy does not define how validations that evaluate to false are handled.
+
+        Allowed values are Ignore or Fail. Defaults to Fail.
+        """
+        match_conditions: NotRequired[pulumi.Input[Sequence[pulumi.Input['MatchConditionPatchArgsDict']]]]
+        """
+        matchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the matchConstraints. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+
+        If a parameter object is provided, it can be accessed via the `params` handle in the same manner as validation expressions.
+
+        The exact matching logic is (in order):
+          1. If ANY matchCondition evaluates to FALSE, the policy is skipped.
+          2. If ALL matchConditions evaluate to TRUE, the policy is evaluated.
+          3. If any matchCondition evaluates to an error (but none are FALSE):
+             - If failurePolicy=Fail, reject the request
+             - If failurePolicy=Ignore, the policy is skipped
+        """
+        match_constraints: NotRequired[pulumi.Input['MatchResourcesPatchArgsDict']]
+        """
+        matchConstraints specifies what resources this policy is designed to validate. The MutatingAdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API MutatingAdmissionPolicy cannot match MutatingAdmissionPolicy and MutatingAdmissionPolicyBinding. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT. Required.
+        """
+        mutations: NotRequired[pulumi.Input[Sequence[pulumi.Input['MutationPatchArgsDict']]]]
+        """
+        mutations contain operations to perform on matching objects. mutations may not be empty; a minimum of one mutation is required. mutations are evaluated in order, and are reinvoked according to the reinvocationPolicy. The mutations of a policy are invoked for each binding of this policy and reinvocation of mutations occurs on a per binding basis.
+        """
+        param_kind: NotRequired[pulumi.Input['ParamKindPatchArgsDict']]
+        """
+        paramKind specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If paramKind refers to a non-existent kind, this policy definition is mis-configured and the FailurePolicy is applied. If paramKind is specified but paramRef is unset in MutatingAdmissionPolicyBinding, the params variable will be null.
+        """
+        reinvocation_policy: NotRequired[pulumi.Input[str]]
+        """
+        reinvocationPolicy indicates whether mutations may be called multiple times per MutatingAdmissionPolicyBinding as part of a single admission evaluation. Allowed values are "Never" and "IfNeeded".
+
+        Never: These mutations will not be called more than once per binding in a single admission evaluation.
+
+        IfNeeded: These mutations may be invoked more than once per binding for a single admission request and there is no guarantee of order with respect to other admission plugins, admission webhooks, bindings of this policy and admission policies.  Mutations are only reinvoked when mutations change the object after this mutation is invoked. Required.
+        """
+        variables: NotRequired[pulumi.Input[Sequence[pulumi.Input['VariablePatchArgsDict']]]]
+        """
+        variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except matchConditions because matchConditions are evaluated before the rest of the policy.
+
+        The expression of a variable can refer to other variables defined earlier in the list but not those after. Thus, variables must be sorted by the order of first appearance and acyclic.
+        """
+elif False:
+    MutatingAdmissionPolicySpecPatchArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class MutatingAdmissionPolicySpecPatchArgs:
+    def __init__(__self__, *,
+                 failure_policy: Optional[pulumi.Input[str]] = None,
+                 match_conditions: Optional[pulumi.Input[Sequence[pulumi.Input['MatchConditionPatchArgs']]]] = None,
+                 match_constraints: Optional[pulumi.Input['MatchResourcesPatchArgs']] = None,
+                 mutations: Optional[pulumi.Input[Sequence[pulumi.Input['MutationPatchArgs']]]] = None,
+                 param_kind: Optional[pulumi.Input['ParamKindPatchArgs']] = None,
+                 reinvocation_policy: Optional[pulumi.Input[str]] = None,
+                 variables: Optional[pulumi.Input[Sequence[pulumi.Input['VariablePatchArgs']]]] = None):
+        """
+        MutatingAdmissionPolicySpec is the specification of the desired behavior of the admission policy.
+        :param pulumi.Input[str] failure_policy: failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
+               
+               A policy is invalid if paramKind refers to a non-existent Kind. A binding is invalid if paramRef.name refers to a non-existent resource.
+               
+               failurePolicy does not define how validations that evaluate to false are handled.
+               
+               Allowed values are Ignore or Fail. Defaults to Fail.
+        :param pulumi.Input[Sequence[pulumi.Input['MatchConditionPatchArgs']]] match_conditions: matchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the matchConstraints. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+               
+               If a parameter object is provided, it can be accessed via the `params` handle in the same manner as validation expressions.
+               
+               The exact matching logic is (in order):
+                 1. If ANY matchCondition evaluates to FALSE, the policy is skipped.
+                 2. If ALL matchConditions evaluate to TRUE, the policy is evaluated.
+                 3. If any matchCondition evaluates to an error (but none are FALSE):
+                    - If failurePolicy=Fail, reject the request
+                    - If failurePolicy=Ignore, the policy is skipped
+        :param pulumi.Input['MatchResourcesPatchArgs'] match_constraints: matchConstraints specifies what resources this policy is designed to validate. The MutatingAdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API MutatingAdmissionPolicy cannot match MutatingAdmissionPolicy and MutatingAdmissionPolicyBinding. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT. Required.
+        :param pulumi.Input[Sequence[pulumi.Input['MutationPatchArgs']]] mutations: mutations contain operations to perform on matching objects. mutations may not be empty; a minimum of one mutation is required. mutations are evaluated in order, and are reinvoked according to the reinvocationPolicy. The mutations of a policy are invoked for each binding of this policy and reinvocation of mutations occurs on a per binding basis.
+        :param pulumi.Input['ParamKindPatchArgs'] param_kind: paramKind specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If paramKind refers to a non-existent kind, this policy definition is mis-configured and the FailurePolicy is applied. If paramKind is specified but paramRef is unset in MutatingAdmissionPolicyBinding, the params variable will be null.
+        :param pulumi.Input[str] reinvocation_policy: reinvocationPolicy indicates whether mutations may be called multiple times per MutatingAdmissionPolicyBinding as part of a single admission evaluation. Allowed values are "Never" and "IfNeeded".
+               
+               Never: These mutations will not be called more than once per binding in a single admission evaluation.
+               
+               IfNeeded: These mutations may be invoked more than once per binding for a single admission request and there is no guarantee of order with respect to other admission plugins, admission webhooks, bindings of this policy and admission policies.  Mutations are only reinvoked when mutations change the object after this mutation is invoked. Required.
+        :param pulumi.Input[Sequence[pulumi.Input['VariablePatchArgs']]] variables: variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except matchConditions because matchConditions are evaluated before the rest of the policy.
+               
+               The expression of a variable can refer to other variables defined earlier in the list but not those after. Thus, variables must be sorted by the order of first appearance and acyclic.
+        """
+        if failure_policy is not None:
+            pulumi.set(__self__, "failure_policy", failure_policy)
+        if match_conditions is not None:
+            pulumi.set(__self__, "match_conditions", match_conditions)
+        if match_constraints is not None:
+            pulumi.set(__self__, "match_constraints", match_constraints)
+        if mutations is not None:
+            pulumi.set(__self__, "mutations", mutations)
+        if param_kind is not None:
+            pulumi.set(__self__, "param_kind", param_kind)
+        if reinvocation_policy is not None:
+            pulumi.set(__self__, "reinvocation_policy", reinvocation_policy)
+        if variables is not None:
+            pulumi.set(__self__, "variables", variables)
+
+    @property
+    @pulumi.getter(name="failurePolicy")
+    def failure_policy(self) -> Optional[pulumi.Input[str]]:
+        """
+        failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
+
+        A policy is invalid if paramKind refers to a non-existent Kind. A binding is invalid if paramRef.name refers to a non-existent resource.
+
+        failurePolicy does not define how validations that evaluate to false are handled.
+
+        Allowed values are Ignore or Fail. Defaults to Fail.
+        """
+        return pulumi.get(self, "failure_policy")
+
+    @failure_policy.setter
+    def failure_policy(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "failure_policy", value)
+
+    @property
+    @pulumi.getter(name="matchConditions")
+    def match_conditions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['MatchConditionPatchArgs']]]]:
+        """
+        matchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the matchConstraints. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+
+        If a parameter object is provided, it can be accessed via the `params` handle in the same manner as validation expressions.
+
+        The exact matching logic is (in order):
+          1. If ANY matchCondition evaluates to FALSE, the policy is skipped.
+          2. If ALL matchConditions evaluate to TRUE, the policy is evaluated.
+          3. If any matchCondition evaluates to an error (but none are FALSE):
+             - If failurePolicy=Fail, reject the request
+             - If failurePolicy=Ignore, the policy is skipped
+        """
+        return pulumi.get(self, "match_conditions")
+
+    @match_conditions.setter
+    def match_conditions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['MatchConditionPatchArgs']]]]):
+        pulumi.set(self, "match_conditions", value)
+
+    @property
+    @pulumi.getter(name="matchConstraints")
+    def match_constraints(self) -> Optional[pulumi.Input['MatchResourcesPatchArgs']]:
+        """
+        matchConstraints specifies what resources this policy is designed to validate. The MutatingAdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API MutatingAdmissionPolicy cannot match MutatingAdmissionPolicy and MutatingAdmissionPolicyBinding. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT. Required.
+        """
+        return pulumi.get(self, "match_constraints")
+
+    @match_constraints.setter
+    def match_constraints(self, value: Optional[pulumi.Input['MatchResourcesPatchArgs']]):
+        pulumi.set(self, "match_constraints", value)
+
+    @property
+    @pulumi.getter
+    def mutations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['MutationPatchArgs']]]]:
+        """
+        mutations contain operations to perform on matching objects. mutations may not be empty; a minimum of one mutation is required. mutations are evaluated in order, and are reinvoked according to the reinvocationPolicy. The mutations of a policy are invoked for each binding of this policy and reinvocation of mutations occurs on a per binding basis.
+        """
+        return pulumi.get(self, "mutations")
+
+    @mutations.setter
+    def mutations(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['MutationPatchArgs']]]]):
+        pulumi.set(self, "mutations", value)
+
+    @property
+    @pulumi.getter(name="paramKind")
+    def param_kind(self) -> Optional[pulumi.Input['ParamKindPatchArgs']]:
+        """
+        paramKind specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If paramKind refers to a non-existent kind, this policy definition is mis-configured and the FailurePolicy is applied. If paramKind is specified but paramRef is unset in MutatingAdmissionPolicyBinding, the params variable will be null.
+        """
+        return pulumi.get(self, "param_kind")
+
+    @param_kind.setter
+    def param_kind(self, value: Optional[pulumi.Input['ParamKindPatchArgs']]):
+        pulumi.set(self, "param_kind", value)
+
+    @property
+    @pulumi.getter(name="reinvocationPolicy")
+    def reinvocation_policy(self) -> Optional[pulumi.Input[str]]:
+        """
+        reinvocationPolicy indicates whether mutations may be called multiple times per MutatingAdmissionPolicyBinding as part of a single admission evaluation. Allowed values are "Never" and "IfNeeded".
+
+        Never: These mutations will not be called more than once per binding in a single admission evaluation.
+
+        IfNeeded: These mutations may be invoked more than once per binding for a single admission request and there is no guarantee of order with respect to other admission plugins, admission webhooks, bindings of this policy and admission policies.  Mutations are only reinvoked when mutations change the object after this mutation is invoked. Required.
+        """
+        return pulumi.get(self, "reinvocation_policy")
+
+    @reinvocation_policy.setter
+    def reinvocation_policy(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "reinvocation_policy", value)
+
+    @property
+    @pulumi.getter
+    def variables(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['VariablePatchArgs']]]]:
+        """
+        variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except matchConditions because matchConditions are evaluated before the rest of the policy.
+
+        The expression of a variable can refer to other variables defined earlier in the list but not those after. Thus, variables must be sorted by the order of first appearance and acyclic.
+        """
+        return pulumi.get(self, "variables")
+
+    @variables.setter
+    def variables(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['VariablePatchArgs']]]]):
+        pulumi.set(self, "variables", value)
+
+
+if not MYPY:
+    class MutatingAdmissionPolicySpecArgsDict(TypedDict):
+        """
+        MutatingAdmissionPolicySpec is the specification of the desired behavior of the admission policy.
+        """
+        failure_policy: NotRequired[pulumi.Input[str]]
+        """
+        failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
+
+        A policy is invalid if paramKind refers to a non-existent Kind. A binding is invalid if paramRef.name refers to a non-existent resource.
+
+        failurePolicy does not define how validations that evaluate to false are handled.
+
+        Allowed values are Ignore or Fail. Defaults to Fail.
+        """
+        match_conditions: NotRequired[pulumi.Input[Sequence[pulumi.Input['MatchConditionArgsDict']]]]
+        """
+        matchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the matchConstraints. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+
+        If a parameter object is provided, it can be accessed via the `params` handle in the same manner as validation expressions.
+
+        The exact matching logic is (in order):
+          1. If ANY matchCondition evaluates to FALSE, the policy is skipped.
+          2. If ALL matchConditions evaluate to TRUE, the policy is evaluated.
+          3. If any matchCondition evaluates to an error (but none are FALSE):
+             - If failurePolicy=Fail, reject the request
+             - If failurePolicy=Ignore, the policy is skipped
+        """
+        match_constraints: NotRequired[pulumi.Input['MatchResourcesArgsDict']]
+        """
+        matchConstraints specifies what resources this policy is designed to validate. The MutatingAdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API MutatingAdmissionPolicy cannot match MutatingAdmissionPolicy and MutatingAdmissionPolicyBinding. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT. Required.
+        """
+        mutations: NotRequired[pulumi.Input[Sequence[pulumi.Input['MutationArgsDict']]]]
+        """
+        mutations contain operations to perform on matching objects. mutations may not be empty; a minimum of one mutation is required. mutations are evaluated in order, and are reinvoked according to the reinvocationPolicy. The mutations of a policy are invoked for each binding of this policy and reinvocation of mutations occurs on a per binding basis.
+        """
+        param_kind: NotRequired[pulumi.Input['ParamKindArgsDict']]
+        """
+        paramKind specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If paramKind refers to a non-existent kind, this policy definition is mis-configured and the FailurePolicy is applied. If paramKind is specified but paramRef is unset in MutatingAdmissionPolicyBinding, the params variable will be null.
+        """
+        reinvocation_policy: NotRequired[pulumi.Input[str]]
+        """
+        reinvocationPolicy indicates whether mutations may be called multiple times per MutatingAdmissionPolicyBinding as part of a single admission evaluation. Allowed values are "Never" and "IfNeeded".
+
+        Never: These mutations will not be called more than once per binding in a single admission evaluation.
+
+        IfNeeded: These mutations may be invoked more than once per binding for a single admission request and there is no guarantee of order with respect to other admission plugins, admission webhooks, bindings of this policy and admission policies.  Mutations are only reinvoked when mutations change the object after this mutation is invoked. Required.
+        """
+        variables: NotRequired[pulumi.Input[Sequence[pulumi.Input['VariableArgsDict']]]]
+        """
+        variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except matchConditions because matchConditions are evaluated before the rest of the policy.
+
+        The expression of a variable can refer to other variables defined earlier in the list but not those after. Thus, variables must be sorted by the order of first appearance and acyclic.
+        """
+elif False:
+    MutatingAdmissionPolicySpecArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class MutatingAdmissionPolicySpecArgs:
+    def __init__(__self__, *,
+                 failure_policy: Optional[pulumi.Input[str]] = None,
+                 match_conditions: Optional[pulumi.Input[Sequence[pulumi.Input['MatchConditionArgs']]]] = None,
+                 match_constraints: Optional[pulumi.Input['MatchResourcesArgs']] = None,
+                 mutations: Optional[pulumi.Input[Sequence[pulumi.Input['MutationArgs']]]] = None,
+                 param_kind: Optional[pulumi.Input['ParamKindArgs']] = None,
+                 reinvocation_policy: Optional[pulumi.Input[str]] = None,
+                 variables: Optional[pulumi.Input[Sequence[pulumi.Input['VariableArgs']]]] = None):
+        """
+        MutatingAdmissionPolicySpec is the specification of the desired behavior of the admission policy.
+        :param pulumi.Input[str] failure_policy: failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
+               
+               A policy is invalid if paramKind refers to a non-existent Kind. A binding is invalid if paramRef.name refers to a non-existent resource.
+               
+               failurePolicy does not define how validations that evaluate to false are handled.
+               
+               Allowed values are Ignore or Fail. Defaults to Fail.
+        :param pulumi.Input[Sequence[pulumi.Input['MatchConditionArgs']]] match_conditions: matchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the matchConstraints. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+               
+               If a parameter object is provided, it can be accessed via the `params` handle in the same manner as validation expressions.
+               
+               The exact matching logic is (in order):
+                 1. If ANY matchCondition evaluates to FALSE, the policy is skipped.
+                 2. If ALL matchConditions evaluate to TRUE, the policy is evaluated.
+                 3. If any matchCondition evaluates to an error (but none are FALSE):
+                    - If failurePolicy=Fail, reject the request
+                    - If failurePolicy=Ignore, the policy is skipped
+        :param pulumi.Input['MatchResourcesArgs'] match_constraints: matchConstraints specifies what resources this policy is designed to validate. The MutatingAdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API MutatingAdmissionPolicy cannot match MutatingAdmissionPolicy and MutatingAdmissionPolicyBinding. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT. Required.
+        :param pulumi.Input[Sequence[pulumi.Input['MutationArgs']]] mutations: mutations contain operations to perform on matching objects. mutations may not be empty; a minimum of one mutation is required. mutations are evaluated in order, and are reinvoked according to the reinvocationPolicy. The mutations of a policy are invoked for each binding of this policy and reinvocation of mutations occurs on a per binding basis.
+        :param pulumi.Input['ParamKindArgs'] param_kind: paramKind specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If paramKind refers to a non-existent kind, this policy definition is mis-configured and the FailurePolicy is applied. If paramKind is specified but paramRef is unset in MutatingAdmissionPolicyBinding, the params variable will be null.
+        :param pulumi.Input[str] reinvocation_policy: reinvocationPolicy indicates whether mutations may be called multiple times per MutatingAdmissionPolicyBinding as part of a single admission evaluation. Allowed values are "Never" and "IfNeeded".
+               
+               Never: These mutations will not be called more than once per binding in a single admission evaluation.
+               
+               IfNeeded: These mutations may be invoked more than once per binding for a single admission request and there is no guarantee of order with respect to other admission plugins, admission webhooks, bindings of this policy and admission policies.  Mutations are only reinvoked when mutations change the object after this mutation is invoked. Required.
+        :param pulumi.Input[Sequence[pulumi.Input['VariableArgs']]] variables: variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except matchConditions because matchConditions are evaluated before the rest of the policy.
+               
+               The expression of a variable can refer to other variables defined earlier in the list but not those after. Thus, variables must be sorted by the order of first appearance and acyclic.
+        """
+        if failure_policy is not None:
+            pulumi.set(__self__, "failure_policy", failure_policy)
+        if match_conditions is not None:
+            pulumi.set(__self__, "match_conditions", match_conditions)
+        if match_constraints is not None:
+            pulumi.set(__self__, "match_constraints", match_constraints)
+        if mutations is not None:
+            pulumi.set(__self__, "mutations", mutations)
+        if param_kind is not None:
+            pulumi.set(__self__, "param_kind", param_kind)
+        if reinvocation_policy is not None:
+            pulumi.set(__self__, "reinvocation_policy", reinvocation_policy)
+        if variables is not None:
+            pulumi.set(__self__, "variables", variables)
+
+    @property
+    @pulumi.getter(name="failurePolicy")
+    def failure_policy(self) -> Optional[pulumi.Input[str]]:
+        """
+        failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
+
+        A policy is invalid if paramKind refers to a non-existent Kind. A binding is invalid if paramRef.name refers to a non-existent resource.
+
+        failurePolicy does not define how validations that evaluate to false are handled.
+
+        Allowed values are Ignore or Fail. Defaults to Fail.
+        """
+        return pulumi.get(self, "failure_policy")
+
+    @failure_policy.setter
+    def failure_policy(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "failure_policy", value)
+
+    @property
+    @pulumi.getter(name="matchConditions")
+    def match_conditions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['MatchConditionArgs']]]]:
+        """
+        matchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the matchConstraints. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+
+        If a parameter object is provided, it can be accessed via the `params` handle in the same manner as validation expressions.
+
+        The exact matching logic is (in order):
+          1. If ANY matchCondition evaluates to FALSE, the policy is skipped.
+          2. If ALL matchConditions evaluate to TRUE, the policy is evaluated.
+          3. If any matchCondition evaluates to an error (but none are FALSE):
+             - If failurePolicy=Fail, reject the request
+             - If failurePolicy=Ignore, the policy is skipped
+        """
+        return pulumi.get(self, "match_conditions")
+
+    @match_conditions.setter
+    def match_conditions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['MatchConditionArgs']]]]):
+        pulumi.set(self, "match_conditions", value)
+
+    @property
+    @pulumi.getter(name="matchConstraints")
+    def match_constraints(self) -> Optional[pulumi.Input['MatchResourcesArgs']]:
+        """
+        matchConstraints specifies what resources this policy is designed to validate. The MutatingAdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API MutatingAdmissionPolicy cannot match MutatingAdmissionPolicy and MutatingAdmissionPolicyBinding. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT. Required.
+        """
+        return pulumi.get(self, "match_constraints")
+
+    @match_constraints.setter
+    def match_constraints(self, value: Optional[pulumi.Input['MatchResourcesArgs']]):
+        pulumi.set(self, "match_constraints", value)
+
+    @property
+    @pulumi.getter
+    def mutations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['MutationArgs']]]]:
+        """
+        mutations contain operations to perform on matching objects. mutations may not be empty; a minimum of one mutation is required. mutations are evaluated in order, and are reinvoked according to the reinvocationPolicy. The mutations of a policy are invoked for each binding of this policy and reinvocation of mutations occurs on a per binding basis.
+        """
+        return pulumi.get(self, "mutations")
+
+    @mutations.setter
+    def mutations(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['MutationArgs']]]]):
+        pulumi.set(self, "mutations", value)
+
+    @property
+    @pulumi.getter(name="paramKind")
+    def param_kind(self) -> Optional[pulumi.Input['ParamKindArgs']]:
+        """
+        paramKind specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If paramKind refers to a non-existent kind, this policy definition is mis-configured and the FailurePolicy is applied. If paramKind is specified but paramRef is unset in MutatingAdmissionPolicyBinding, the params variable will be null.
+        """
+        return pulumi.get(self, "param_kind")
+
+    @param_kind.setter
+    def param_kind(self, value: Optional[pulumi.Input['ParamKindArgs']]):
+        pulumi.set(self, "param_kind", value)
+
+    @property
+    @pulumi.getter(name="reinvocationPolicy")
+    def reinvocation_policy(self) -> Optional[pulumi.Input[str]]:
+        """
+        reinvocationPolicy indicates whether mutations may be called multiple times per MutatingAdmissionPolicyBinding as part of a single admission evaluation. Allowed values are "Never" and "IfNeeded".
+
+        Never: These mutations will not be called more than once per binding in a single admission evaluation.
+
+        IfNeeded: These mutations may be invoked more than once per binding for a single admission request and there is no guarantee of order with respect to other admission plugins, admission webhooks, bindings of this policy and admission policies.  Mutations are only reinvoked when mutations change the object after this mutation is invoked. Required.
+        """
+        return pulumi.get(self, "reinvocation_policy")
+
+    @reinvocation_policy.setter
+    def reinvocation_policy(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "reinvocation_policy", value)
+
+    @property
+    @pulumi.getter
+    def variables(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['VariableArgs']]]]:
+        """
+        variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except matchConditions because matchConditions are evaluated before the rest of the policy.
+
+        The expression of a variable can refer to other variables defined earlier in the list but not those after. Thus, variables must be sorted by the order of first appearance and acyclic.
+        """
+        return pulumi.get(self, "variables")
+
+    @variables.setter
+    def variables(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['VariableArgs']]]]):
+        pulumi.set(self, "variables", value)
+
+
+if not MYPY:
+    class MutatingAdmissionPolicyArgsDict(TypedDict):
+        """
+        MutatingAdmissionPolicy describes the definition of an admission mutation policy that mutates the object coming into admission chain.
+        """
+        api_version: NotRequired[pulumi.Input[str]]
+        """
+        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        """
+        kind: NotRequired[pulumi.Input[str]]
+        """
+        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        """
+        metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
+        """
+        Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+        """
+        spec: NotRequired[pulumi.Input['MutatingAdmissionPolicySpecArgsDict']]
+        """
+        Specification of the desired behavior of the MutatingAdmissionPolicy.
+        """
+elif False:
+    MutatingAdmissionPolicyArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class MutatingAdmissionPolicyArgs:
+    def __init__(__self__, *,
+                 api_version: Optional[pulumi.Input[str]] = None,
+                 kind: Optional[pulumi.Input[str]] = None,
+                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
+                 spec: Optional[pulumi.Input['MutatingAdmissionPolicySpecArgs']] = None):
+        """
+        MutatingAdmissionPolicy describes the definition of an admission mutation policy that mutates the object coming into admission chain.
+        :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+        :param pulumi.Input['MutatingAdmissionPolicySpecArgs'] spec: Specification of the desired behavior of the MutatingAdmissionPolicy.
+        """
+        if api_version is not None:
+            pulumi.set(__self__, "api_version", 'admissionregistration.k8s.io/v1alpha1')
+        if kind is not None:
+            pulumi.set(__self__, "kind", 'MutatingAdmissionPolicy')
+        if metadata is not None:
+            pulumi.set(__self__, "metadata", metadata)
+        if spec is not None:
+            pulumi.set(__self__, "spec", spec)
+
+    @property
+    @pulumi.getter(name="apiVersion")
+    def api_version(self) -> Optional[pulumi.Input[str]]:
+        """
+        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        """
+        return pulumi.get(self, "api_version")
+
+    @api_version.setter
+    def api_version(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "api_version", value)
+
+    @property
+    @pulumi.getter
+    def kind(self) -> Optional[pulumi.Input[str]]:
+        """
+        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        """
+        return pulumi.get(self, "kind")
+
+    @kind.setter
+    def kind(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "kind", value)
+
+    @property
+    @pulumi.getter
+    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
+        """
+        Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+        """
+        return pulumi.get(self, "metadata")
+
+    @metadata.setter
+    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
+        pulumi.set(self, "metadata", value)
+
+    @property
+    @pulumi.getter
+    def spec(self) -> Optional[pulumi.Input['MutatingAdmissionPolicySpecArgs']]:
+        """
+        Specification of the desired behavior of the MutatingAdmissionPolicy.
+        """
+        return pulumi.get(self, "spec")
+
+    @spec.setter
+    def spec(self, value: Optional[pulumi.Input['MutatingAdmissionPolicySpecArgs']]):
+        pulumi.set(self, "spec", value)
+
+
+if not MYPY:
+    class MutationPatchArgsDict(TypedDict):
+        """
+        Mutation specifies the CEL expression which is used to apply the Mutation.
+        """
+        apply_configuration: NotRequired[pulumi.Input['ApplyConfigurationPatchArgsDict']]
+        """
+        applyConfiguration defines the desired configuration values of an object. The configuration is applied to the admission object using [structured merge diff](https://github.com/kubernetes-sigs/structured-merge-diff). A CEL expression is used to create apply configuration.
+        """
+        json_patch: NotRequired[pulumi.Input['JSONPatchPatchArgsDict']]
+        """
+        jsonPatch defines a [JSON patch](https://jsonpatch.com/) operation to perform a mutation to the object. A CEL expression is used to create the JSON patch.
+        """
+        patch_type: NotRequired[pulumi.Input[str]]
+        """
+        patchType indicates the patch strategy used. Allowed values are "ApplyConfiguration" and "JSONPatch". Required.
+        """
+elif False:
+    MutationPatchArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class MutationPatchArgs:
+    def __init__(__self__, *,
+                 apply_configuration: Optional[pulumi.Input['ApplyConfigurationPatchArgs']] = None,
+                 json_patch: Optional[pulumi.Input['JSONPatchPatchArgs']] = None,
+                 patch_type: Optional[pulumi.Input[str]] = None):
+        """
+        Mutation specifies the CEL expression which is used to apply the Mutation.
+        :param pulumi.Input['ApplyConfigurationPatchArgs'] apply_configuration: applyConfiguration defines the desired configuration values of an object. The configuration is applied to the admission object using [structured merge diff](https://github.com/kubernetes-sigs/structured-merge-diff). A CEL expression is used to create apply configuration.
+        :param pulumi.Input['JSONPatchPatchArgs'] json_patch: jsonPatch defines a [JSON patch](https://jsonpatch.com/) operation to perform a mutation to the object. A CEL expression is used to create the JSON patch.
+        :param pulumi.Input[str] patch_type: patchType indicates the patch strategy used. Allowed values are "ApplyConfiguration" and "JSONPatch". Required.
+        """
+        if apply_configuration is not None:
+            pulumi.set(__self__, "apply_configuration", apply_configuration)
+        if json_patch is not None:
+            pulumi.set(__self__, "json_patch", json_patch)
+        if patch_type is not None:
+            pulumi.set(__self__, "patch_type", patch_type)
+
+    @property
+    @pulumi.getter(name="applyConfiguration")
+    def apply_configuration(self) -> Optional[pulumi.Input['ApplyConfigurationPatchArgs']]:
+        """
+        applyConfiguration defines the desired configuration values of an object. The configuration is applied to the admission object using [structured merge diff](https://github.com/kubernetes-sigs/structured-merge-diff). A CEL expression is used to create apply configuration.
+        """
+        return pulumi.get(self, "apply_configuration")
+
+    @apply_configuration.setter
+    def apply_configuration(self, value: Optional[pulumi.Input['ApplyConfigurationPatchArgs']]):
+        pulumi.set(self, "apply_configuration", value)
+
+    @property
+    @pulumi.getter(name="jsonPatch")
+    def json_patch(self) -> Optional[pulumi.Input['JSONPatchPatchArgs']]:
+        """
+        jsonPatch defines a [JSON patch](https://jsonpatch.com/) operation to perform a mutation to the object. A CEL expression is used to create the JSON patch.
+        """
+        return pulumi.get(self, "json_patch")
+
+    @json_patch.setter
+    def json_patch(self, value: Optional[pulumi.Input['JSONPatchPatchArgs']]):
+        pulumi.set(self, "json_patch", value)
+
+    @property
+    @pulumi.getter(name="patchType")
+    def patch_type(self) -> Optional[pulumi.Input[str]]:
+        """
+        patchType indicates the patch strategy used. Allowed values are "ApplyConfiguration" and "JSONPatch". Required.
+        """
+        return pulumi.get(self, "patch_type")
+
+    @patch_type.setter
+    def patch_type(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "patch_type", value)
+
+
+if not MYPY:
+    class MutationArgsDict(TypedDict):
+        """
+        Mutation specifies the CEL expression which is used to apply the Mutation.
+        """
+        patch_type: pulumi.Input[str]
+        """
+        patchType indicates the patch strategy used. Allowed values are "ApplyConfiguration" and "JSONPatch". Required.
+        """
+        apply_configuration: NotRequired[pulumi.Input['ApplyConfigurationArgsDict']]
+        """
+        applyConfiguration defines the desired configuration values of an object. The configuration is applied to the admission object using [structured merge diff](https://github.com/kubernetes-sigs/structured-merge-diff). A CEL expression is used to create apply configuration.
+        """
+        json_patch: NotRequired[pulumi.Input['JSONPatchArgsDict']]
+        """
+        jsonPatch defines a [JSON patch](https://jsonpatch.com/) operation to perform a mutation to the object. A CEL expression is used to create the JSON patch.
+        """
+elif False:
+    MutationArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class MutationArgs:
+    def __init__(__self__, *,
+                 patch_type: pulumi.Input[str],
+                 apply_configuration: Optional[pulumi.Input['ApplyConfigurationArgs']] = None,
+                 json_patch: Optional[pulumi.Input['JSONPatchArgs']] = None):
+        """
+        Mutation specifies the CEL expression which is used to apply the Mutation.
+        :param pulumi.Input[str] patch_type: patchType indicates the patch strategy used. Allowed values are "ApplyConfiguration" and "JSONPatch". Required.
+        :param pulumi.Input['ApplyConfigurationArgs'] apply_configuration: applyConfiguration defines the desired configuration values of an object. The configuration is applied to the admission object using [structured merge diff](https://github.com/kubernetes-sigs/structured-merge-diff). A CEL expression is used to create apply configuration.
+        :param pulumi.Input['JSONPatchArgs'] json_patch: jsonPatch defines a [JSON patch](https://jsonpatch.com/) operation to perform a mutation to the object. A CEL expression is used to create the JSON patch.
+        """
+        pulumi.set(__self__, "patch_type", patch_type)
+        if apply_configuration is not None:
+            pulumi.set(__self__, "apply_configuration", apply_configuration)
+        if json_patch is not None:
+            pulumi.set(__self__, "json_patch", json_patch)
+
+    @property
+    @pulumi.getter(name="patchType")
+    def patch_type(self) -> pulumi.Input[str]:
+        """
+        patchType indicates the patch strategy used. Allowed values are "ApplyConfiguration" and "JSONPatch". Required.
+        """
+        return pulumi.get(self, "patch_type")
+
+    @patch_type.setter
+    def patch_type(self, value: pulumi.Input[str]):
+        pulumi.set(self, "patch_type", value)
+
+    @property
+    @pulumi.getter(name="applyConfiguration")
+    def apply_configuration(self) -> Optional[pulumi.Input['ApplyConfigurationArgs']]:
+        """
+        applyConfiguration defines the desired configuration values of an object. The configuration is applied to the admission object using [structured merge diff](https://github.com/kubernetes-sigs/structured-merge-diff). A CEL expression is used to create apply configuration.
+        """
+        return pulumi.get(self, "apply_configuration")
+
+    @apply_configuration.setter
+    def apply_configuration(self, value: Optional[pulumi.Input['ApplyConfigurationArgs']]):
+        pulumi.set(self, "apply_configuration", value)
+
+    @property
+    @pulumi.getter(name="jsonPatch")
+    def json_patch(self) -> Optional[pulumi.Input['JSONPatchArgs']]:
+        """
+        jsonPatch defines a [JSON patch](https://jsonpatch.com/) operation to perform a mutation to the object. A CEL expression is used to create the JSON patch.
+        """
+        return pulumi.get(self, "json_patch")
+
+    @json_patch.setter
+    def json_patch(self, value: Optional[pulumi.Input['JSONPatchArgs']]):
+        pulumi.set(self, "json_patch", value)
 
 
 if not MYPY:
@@ -1647,7 +3236,7 @@ if not MYPY:
         """
         param_ref: NotRequired[pulumi.Input['ParamRefPatchArgsDict']]
         """
-        paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
+        ParamRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied.
         """
         policy_name: NotRequired[pulumi.Input[str]]
         """
@@ -1688,7 +3277,7 @@ class ValidatingAdmissionPolicyBindingSpecPatchArgs:
         """
         ValidatingAdmissionPolicyBindingSpec is the specification of the ValidatingAdmissionPolicyBinding.
         :param pulumi.Input['MatchResourcesPatchArgs'] match_resources: MatchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy's matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
-        :param pulumi.Input['ParamRefPatchArgs'] param_ref: paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
+        :param pulumi.Input['ParamRefPatchArgs'] param_ref: ParamRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied.
         :param pulumi.Input[str] policy_name: PolicyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] validation_actions: validationActions declares how Validations of the referenced ValidatingAdmissionPolicy are enforced. If a validation evaluates to false it is always enforced according to these actions.
                
@@ -1735,7 +3324,7 @@ class ValidatingAdmissionPolicyBindingSpecPatchArgs:
     @pulumi.getter(name="paramRef")
     def param_ref(self) -> Optional[pulumi.Input['ParamRefPatchArgs']]:
         """
-        paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
+        ParamRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied.
         """
         return pulumi.get(self, "param_ref")
 
@@ -1797,7 +3386,7 @@ if not MYPY:
         """
         param_ref: NotRequired[pulumi.Input['ParamRefArgsDict']]
         """
-        paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
+        ParamRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied.
         """
         policy_name: NotRequired[pulumi.Input[str]]
         """
@@ -1838,7 +3427,7 @@ class ValidatingAdmissionPolicyBindingSpecArgs:
         """
         ValidatingAdmissionPolicyBindingSpec is the specification of the ValidatingAdmissionPolicyBinding.
         :param pulumi.Input['MatchResourcesArgs'] match_resources: MatchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy's matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
-        :param pulumi.Input['ParamRefArgs'] param_ref: paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
+        :param pulumi.Input['ParamRefArgs'] param_ref: ParamRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied.
         :param pulumi.Input[str] policy_name: PolicyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] validation_actions: validationActions declares how Validations of the referenced ValidatingAdmissionPolicy are enforced. If a validation evaluates to false it is always enforced according to these actions.
                
@@ -1885,7 +3474,7 @@ class ValidatingAdmissionPolicyBindingSpecArgs:
     @pulumi.getter(name="paramRef")
     def param_ref(self) -> Optional[pulumi.Input['ParamRefArgs']]:
         """
-        paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
+        ParamRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied.
         """
         return pulumi.get(self, "param_ref")
 
@@ -1940,10 +3529,6 @@ if not MYPY:
     class ValidatingAdmissionPolicyBindingArgsDict(TypedDict):
         """
         ValidatingAdmissionPolicyBinding binds the ValidatingAdmissionPolicy with paramerized resources. ValidatingAdmissionPolicyBinding and parameter CRDs together define how cluster administrators configure policies for clusters.
-
-        For a given admission request, each binding will cause its policy to be evaluated N times, where N is 1 for policies/bindings that don't use params, otherwise N is the number of parameters selected by the binding.
-
-        The CEL expressions of a policy must have a computed CEL cost below the maximum CEL budget. Each evaluation of the policy is given an independent CEL cost budget. Adding/removing policies, bindings, or params can not affect whether a given (policy, binding, param) combination is within its own CEL budget.
         """
         api_version: NotRequired[pulumi.Input[str]]
         """
@@ -1973,10 +3558,6 @@ class ValidatingAdmissionPolicyBindingArgs:
                  spec: Optional[pulumi.Input['ValidatingAdmissionPolicyBindingSpecArgs']] = None):
         """
         ValidatingAdmissionPolicyBinding binds the ValidatingAdmissionPolicy with paramerized resources. ValidatingAdmissionPolicyBinding and parameter CRDs together define how cluster administrators configure policies for clusters.
-
-        For a given admission request, each binding will cause its policy to be evaluated N times, where N is 1 for policies/bindings that don't use params, otherwise N is the number of parameters selected by the binding.
-
-        The CEL expressions of a policy must have a computed CEL cost below the maximum CEL budget. Each evaluation of the policy is given an independent CEL cost budget. Adding/removing policies, bindings, or params can not affect whether a given (policy, binding, param) combination is within its own CEL budget.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
@@ -2051,15 +3632,7 @@ if not MYPY:
         """
         failure_policy: NotRequired[pulumi.Input[str]]
         """
-        failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
-
-        A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource.
-
-        failurePolicy does not define how validations that evaluate to false are handled.
-
-        When failurePolicy is set to Fail, ValidatingAdmissionPolicyBinding validationActions define how failures are enforced.
-
-        Allowed values are Ignore or Fail. Defaults to Fail.
+        FailurePolicy defines how to handle failures for the admission policy. Failures can occur from invalid or mis-configured policy definitions or bindings. A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource. Allowed values are Ignore or Fail. Defaults to Fail.
         """
         match_conditions: NotRequired[pulumi.Input[Sequence[pulumi.Input['MatchConditionPatchArgsDict']]]]
         """
@@ -2084,7 +3657,7 @@ if not MYPY:
         """
         validations: NotRequired[pulumi.Input[Sequence[pulumi.Input['ValidationPatchArgsDict']]]]
         """
-        Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
+        Validations contain CEL expressions which is used to apply the validation. A minimum of one validation is required for a policy definition. Required.
         """
         variables: NotRequired[pulumi.Input[Sequence[pulumi.Input['VariablePatchArgsDict']]]]
         """
@@ -2108,15 +3681,7 @@ class ValidatingAdmissionPolicySpecPatchArgs:
         """
         ValidatingAdmissionPolicySpec is the specification of the desired behavior of the AdmissionPolicy.
         :param pulumi.Input[Sequence[pulumi.Input['AuditAnnotationPatchArgs']]] audit_annotations: auditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the API request. validations and auditAnnotations may not both be empty; a least one of validations or auditAnnotations is required.
-        :param pulumi.Input[str] failure_policy: failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
-               
-               A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource.
-               
-               failurePolicy does not define how validations that evaluate to false are handled.
-               
-               When failurePolicy is set to Fail, ValidatingAdmissionPolicyBinding validationActions define how failures are enforced.
-               
-               Allowed values are Ignore or Fail. Defaults to Fail.
+        :param pulumi.Input[str] failure_policy: FailurePolicy defines how to handle failures for the admission policy. Failures can occur from invalid or mis-configured policy definitions or bindings. A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource. Allowed values are Ignore or Fail. Defaults to Fail.
         :param pulumi.Input[Sequence[pulumi.Input['MatchConditionPatchArgs']]] match_conditions: MatchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
                
                If a parameter object is provided, it can be accessed via the `params` handle in the same manner as validation expressions.
@@ -2129,7 +3694,7 @@ class ValidatingAdmissionPolicySpecPatchArgs:
                     - If failurePolicy=Ignore, the policy is skipped
         :param pulumi.Input['MatchResourcesPatchArgs'] match_constraints: MatchConstraints specifies what resources this policy is designed to validate. The AdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API ValidatingAdmissionPolicy cannot match ValidatingAdmissionPolicy and ValidatingAdmissionPolicyBinding. Required.
         :param pulumi.Input['ParamKindPatchArgs'] param_kind: ParamKind specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If ParamKind refers to a non-existent kind, this policy definition is mis-configured and the FailurePolicy is applied. If paramKind is specified but paramRef is unset in ValidatingAdmissionPolicyBinding, the params variable will be null.
-        :param pulumi.Input[Sequence[pulumi.Input['ValidationPatchArgs']]] validations: Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
+        :param pulumi.Input[Sequence[pulumi.Input['ValidationPatchArgs']]] validations: Validations contain CEL expressions which is used to apply the validation. A minimum of one validation is required for a policy definition. Required.
         :param pulumi.Input[Sequence[pulumi.Input['VariablePatchArgs']]] variables: Variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except MatchConditions because MatchConditions are evaluated before the rest of the policy.
                
                The expression of a variable can refer to other variables defined earlier in the list but not those after. Thus, Variables must be sorted by the order of first appearance and acyclic.
@@ -2165,15 +3730,7 @@ class ValidatingAdmissionPolicySpecPatchArgs:
     @pulumi.getter(name="failurePolicy")
     def failure_policy(self) -> Optional[pulumi.Input[str]]:
         """
-        failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
-
-        A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource.
-
-        failurePolicy does not define how validations that evaluate to false are handled.
-
-        When failurePolicy is set to Fail, ValidatingAdmissionPolicyBinding validationActions define how failures are enforced.
-
-        Allowed values are Ignore or Fail. Defaults to Fail.
+        FailurePolicy defines how to handle failures for the admission policy. Failures can occur from invalid or mis-configured policy definitions or bindings. A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource. Allowed values are Ignore or Fail. Defaults to Fail.
         """
         return pulumi.get(self, "failure_policy")
 
@@ -2230,7 +3787,7 @@ class ValidatingAdmissionPolicySpecPatchArgs:
     @pulumi.getter
     def validations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ValidationPatchArgs']]]]:
         """
-        Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
+        Validations contain CEL expressions which is used to apply the validation. A minimum of one validation is required for a policy definition. Required.
         """
         return pulumi.get(self, "validations")
 
@@ -2260,7 +3817,7 @@ if not MYPY:
         """
         validations: pulumi.Input[Sequence[pulumi.Input['ValidationArgsDict']]]
         """
-        Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
+        Validations contain CEL expressions which is used to apply the validation. A minimum of one validation is required for a policy definition. Required.
         """
         audit_annotations: NotRequired[pulumi.Input[Sequence[pulumi.Input['AuditAnnotationArgsDict']]]]
         """
@@ -2268,15 +3825,7 @@ if not MYPY:
         """
         failure_policy: NotRequired[pulumi.Input[str]]
         """
-        failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
-
-        A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource.
-
-        failurePolicy does not define how validations that evaluate to false are handled.
-
-        When failurePolicy is set to Fail, ValidatingAdmissionPolicyBinding validationActions define how failures are enforced.
-
-        Allowed values are Ignore or Fail. Defaults to Fail.
+        FailurePolicy defines how to handle failures for the admission policy. Failures can occur from invalid or mis-configured policy definitions or bindings. A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource. Allowed values are Ignore or Fail. Defaults to Fail.
         """
         match_conditions: NotRequired[pulumi.Input[Sequence[pulumi.Input['MatchConditionArgsDict']]]]
         """
@@ -2320,17 +3869,9 @@ class ValidatingAdmissionPolicySpecArgs:
                  variables: Optional[pulumi.Input[Sequence[pulumi.Input['VariableArgs']]]] = None):
         """
         ValidatingAdmissionPolicySpec is the specification of the desired behavior of the AdmissionPolicy.
-        :param pulumi.Input[Sequence[pulumi.Input['ValidationArgs']]] validations: Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
+        :param pulumi.Input[Sequence[pulumi.Input['ValidationArgs']]] validations: Validations contain CEL expressions which is used to apply the validation. A minimum of one validation is required for a policy definition. Required.
         :param pulumi.Input[Sequence[pulumi.Input['AuditAnnotationArgs']]] audit_annotations: auditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the API request. validations and auditAnnotations may not both be empty; a least one of validations or auditAnnotations is required.
-        :param pulumi.Input[str] failure_policy: failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
-               
-               A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource.
-               
-               failurePolicy does not define how validations that evaluate to false are handled.
-               
-               When failurePolicy is set to Fail, ValidatingAdmissionPolicyBinding validationActions define how failures are enforced.
-               
-               Allowed values are Ignore or Fail. Defaults to Fail.
+        :param pulumi.Input[str] failure_policy: FailurePolicy defines how to handle failures for the admission policy. Failures can occur from invalid or mis-configured policy definitions or bindings. A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource. Allowed values are Ignore or Fail. Defaults to Fail.
         :param pulumi.Input[Sequence[pulumi.Input['MatchConditionArgs']]] match_conditions: MatchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
                
                If a parameter object is provided, it can be accessed via the `params` handle in the same manner as validation expressions.
@@ -2365,7 +3906,7 @@ class ValidatingAdmissionPolicySpecArgs:
     @pulumi.getter
     def validations(self) -> pulumi.Input[Sequence[pulumi.Input['ValidationArgs']]]:
         """
-        Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
+        Validations contain CEL expressions which is used to apply the validation. A minimum of one validation is required for a policy definition. Required.
         """
         return pulumi.get(self, "validations")
 
@@ -2389,15 +3930,7 @@ class ValidatingAdmissionPolicySpecArgs:
     @pulumi.getter(name="failurePolicy")
     def failure_policy(self) -> Optional[pulumi.Input[str]]:
         """
-        failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
-
-        A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource.
-
-        failurePolicy does not define how validations that evaluate to false are handled.
-
-        When failurePolicy is set to Fail, ValidatingAdmissionPolicyBinding validationActions define how failures are enforced.
-
-        Allowed values are Ignore or Fail. Defaults to Fail.
+        FailurePolicy defines how to handle failures for the admission policy. Failures can occur from invalid or mis-configured policy definitions or bindings. A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource. Allowed values are Ignore or Fail. Defaults to Fail.
         """
         return pulumi.get(self, "failure_policy")
 
@@ -2664,14 +4197,9 @@ if not MYPY:
         """
         expression: NotRequired[pulumi.Input[str]]
         """
-        Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
+        Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the Admission request/response, organized into CEL variables as well as some other useful variables:
 
-        - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
-          For example, a variable named 'foo' can be accessed as 'variables.foo'.
-        - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
-          See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
-        - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
-          request resource.
+        'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind.
 
         The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
 
@@ -2715,14 +4243,9 @@ class ValidationPatchArgs:
                  reason: Optional[pulumi.Input[str]] = None):
         """
         Validation specifies the CEL expression which is used to apply the validation.
-        :param pulumi.Input[str] expression: Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
+        :param pulumi.Input[str] expression: Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the Admission request/response, organized into CEL variables as well as some other useful variables:
                
-               - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
-                 For example, a variable named 'foo' can be accessed as 'variables.foo'.
-               - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
-                 See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
-               - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
-                 request resource.
+               'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind.
                
                The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
                
@@ -2758,14 +4281,9 @@ class ValidationPatchArgs:
     @pulumi.getter
     def expression(self) -> Optional[pulumi.Input[str]]:
         """
-        Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
+        Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the Admission request/response, organized into CEL variables as well as some other useful variables:
 
-        - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
-          For example, a variable named 'foo' can be accessed as 'variables.foo'.
-        - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
-          See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
-        - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
-          request resource.
+        'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind.
 
         The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
 
@@ -2835,14 +4353,9 @@ if not MYPY:
         """
         expression: pulumi.Input[str]
         """
-        Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
+        Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the Admission request/response, organized into CEL variables as well as some other useful variables:
 
-        - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
-          For example, a variable named 'foo' can be accessed as 'variables.foo'.
-        - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
-          See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
-        - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
-          request resource.
+        'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind.
 
         The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
 
@@ -2886,14 +4399,9 @@ class ValidationArgs:
                  reason: Optional[pulumi.Input[str]] = None):
         """
         Validation specifies the CEL expression which is used to apply the validation.
-        :param pulumi.Input[str] expression: Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
+        :param pulumi.Input[str] expression: Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the Admission request/response, organized into CEL variables as well as some other useful variables:
                
-               - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
-                 For example, a variable named 'foo' can be accessed as 'variables.foo'.
-               - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
-                 See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
-               - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
-                 request resource.
+               'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind.
                
                The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
                
@@ -2928,14 +4436,9 @@ class ValidationArgs:
     @pulumi.getter
     def expression(self) -> pulumi.Input[str]:
         """
-        Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
+        Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the Admission request/response, organized into CEL variables as well as some other useful variables:
 
-        - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
-          For example, a variable named 'foo' can be accessed as 'variables.foo'.
-        - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
-          See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
-        - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
-          request resource.
+        'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind.
 
         The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
 

@@ -18,10 +18,10 @@ from ... import core as _core
 from ... import meta as _meta
 from ._inputs import *
 
-__all__ = ['ResourceSliceArgs', 'ResourceSlice']
+__all__ = ['ResourceSliceInitArgs', 'ResourceSlice']
 
 @pulumi.input_type
-class ResourceSliceArgs:
+class ResourceSliceInitArgs:
     def __init__(__self__, *,
                  spec: pulumi.Input['ResourceSliceSpecArgs'],
                  api_version: Optional[pulumi.Input[str]] = None,
@@ -131,7 +131,7 @@ class ResourceSlice(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: ResourceSliceArgs,
+                 args: ResourceSliceInitArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         ResourceSlice represents one or more resources in a pool of similar resources, managed by a common driver. A pool may span more than one ResourceSlice, and exactly how many ResourceSlices comprise a pool is determined by the driver.
@@ -147,12 +147,12 @@ class ResourceSlice(pulumi.CustomResource):
         This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
 
         :param str resource_name: The name of the resource.
-        :param ResourceSliceArgs args: The arguments to use to populate this resource's properties.
+        :param ResourceSliceInitArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
         """
         ...
     def __init__(__self__, resource_name: str, *args, **kwargs):
-        resource_args, opts = _utilities.get_resource_args_opts(ResourceSliceArgs, pulumi.ResourceOptions, *args, **kwargs)
+        resource_args, opts = _utilities.get_resource_args_opts(ResourceSliceInitArgs, pulumi.ResourceOptions, *args, **kwargs)
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
@@ -172,7 +172,7 @@ class ResourceSlice(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = ResourceSliceArgs.__new__(ResourceSliceArgs)
+            __props__ = ResourceSliceInitArgs.__new__(ResourceSliceInitArgs)
 
             __props__.__dict__["api_version"] = 'resource.k8s.io/v1alpha3'
             __props__.__dict__["kind"] = 'ResourceSlice'
@@ -180,7 +180,7 @@ class ResourceSlice(pulumi.CustomResource):
             if spec is None and not opts.urn:
                 raise TypeError("Missing required property 'spec'")
             __props__.__dict__["spec"] = spec
-        alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:resource.k8s.io/v1alpha2:ResourceSlice")])
+        alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:resource.k8s.io/v1alpha2:ResourceSlice"), pulumi.Alias(type_="kubernetes:resource.k8s.io/v1beta1:ResourceSlice")])
         opts = pulumi.ResourceOptions.merge(opts, alias_opts)
         super(ResourceSlice, __self__).__init__(
             'kubernetes:resource.k8s.io/v1alpha3:ResourceSlice',
@@ -202,7 +202,7 @@ class ResourceSlice(pulumi.CustomResource):
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
-        __props__ = ResourceSliceArgs.__new__(ResourceSliceArgs)
+        __props__ = ResourceSliceInitArgs.__new__(ResourceSliceInitArgs)
 
         __props__.__dict__["api_version"] = None
         __props__.__dict__["kind"] = None

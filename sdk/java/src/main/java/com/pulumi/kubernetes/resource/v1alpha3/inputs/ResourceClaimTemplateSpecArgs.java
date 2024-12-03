@@ -22,14 +22,14 @@ public final class ResourceClaimTemplateSpecArgs extends com.pulumi.resources.Re
     public static final ResourceClaimTemplateSpecArgs Empty = new ResourceClaimTemplateSpecArgs();
 
     /**
-     * ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
+     * ObjectMeta may contain labels and annotations that will be copied into the ResourceClaim when creating it. No other fields are allowed and will be rejected during validation.
      * 
      */
     @Import(name="metadata")
     private @Nullable Output<ObjectMetaArgs> metadata;
 
     /**
-     * @return ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
+     * @return ObjectMeta may contain labels and annotations that will be copied into the ResourceClaim when creating it. No other fields are allowed and will be rejected during validation.
      * 
      */
     public Optional<Output<ObjectMetaArgs>> metadata() {
@@ -77,7 +77,7 @@ public final class ResourceClaimTemplateSpecArgs extends com.pulumi.resources.Re
         }
 
         /**
-         * @param metadata ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
+         * @param metadata ObjectMeta may contain labels and annotations that will be copied into the ResourceClaim when creating it. No other fields are allowed and will be rejected during validation.
          * 
          * @return builder
          * 
@@ -88,7 +88,7 @@ public final class ResourceClaimTemplateSpecArgs extends com.pulumi.resources.Re
         }
 
         /**
-         * @param metadata ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
+         * @param metadata ObjectMeta may contain labels and annotations that will be copied into the ResourceClaim when creating it. No other fields are allowed and will be rejected during validation.
          * 
          * @return builder
          * 

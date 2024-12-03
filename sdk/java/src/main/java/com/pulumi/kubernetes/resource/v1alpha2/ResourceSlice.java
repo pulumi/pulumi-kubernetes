@@ -155,7 +155,8 @@ public class ResourceSlice extends com.pulumi.resources.CustomResource {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .aliases(List.of(
-                Output.of(Alias.builder().type("kubernetes:resource.k8s.io/v1alpha3:ResourceSlice").build())
+                Output.of(Alias.builder().type("kubernetes:resource.k8s.io/v1alpha3:ResourceSlice").build()),
+                Output.of(Alias.builder().type("kubernetes:resource.k8s.io/v1beta1:ResourceSlice").build())
             ))
             .build();
         return com.pulumi.resources.CustomResourceOptions.merge(defaultOptions, options, id);

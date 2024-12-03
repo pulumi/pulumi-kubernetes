@@ -15,7 +15,7 @@ import javax.annotation.Nullable;
 
 
 /**
- * Represents storage that is managed by an external CSI volume driver (Beta feature)
+ * Represents storage that is managed by an external CSI volume driver
  * 
  */
 public final class CSIPersistentVolumeSourcePatchArgs extends com.pulumi.resources.ResourceArgs {

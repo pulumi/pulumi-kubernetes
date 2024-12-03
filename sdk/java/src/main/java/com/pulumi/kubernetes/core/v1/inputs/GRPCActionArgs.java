@@ -13,6 +13,10 @@ import java.util.Optional;
 import javax.annotation.Nullable;
 
 
+/**
+ * GRPCAction specifies an action involving a GRPC service.
+ * 
+ */
 public final class GRPCActionArgs extends com.pulumi.resources.ResourceArgs {
 
     public static final GRPCActionArgs Empty = new GRPCActionArgs();
