@@ -5,6 +5,11 @@
 - [nodejs] Resolves `punycode` deprecation warnings by using native `fetch` instead of `node-fetch`.
   (https://github.com/pulumi/pulumi-kubernetes/issues/3301)
 
+### Fixed
+
+- `pulumi.com/waitFor` and other await annotations now correctly take precedence over default await logic.
+  (https://github.com/pulumi/pulumi-kubernetes/issues/3329)
+
 ## 4.18.3 (October 31, 2024)
 
 ### Fixed
