@@ -3049,7 +3049,7 @@ func parseCheckpointObject(obj resource.PropertyMap) (oldInputs, live *unstructu
 
 	oldInputs = &unstructured.Unstructured{Object: inputs.(map[string]any)}
 	live = &unstructured.Unstructured{Object: liveMap.(map[string]any)}
-	return
+	return oldInputs, live
 }
 
 // partialError creates an error for resources that did not complete an operation in progress.
