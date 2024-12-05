@@ -79,8 +79,8 @@ func TestParseOldCheckpointObject(t *testing.T) {
 	})
 
 	oldInputs, live := parseCheckpointObject(old)
-	assert.Equal(t, objInputs, oldInputs.Object)
-	assert.Equal(t, objLive, live.Object)
+	assert.Equal(t, objInputsWithDash, oldInputs.Object)
+	assert.Equal(t, objLiveWithDash, live.Object)
 }
 
 func TestParseNewCheckpointObject(t *testing.T) {
