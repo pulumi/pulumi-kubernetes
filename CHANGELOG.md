@@ -13,6 +13,9 @@
 - JSONPath expressions used with the `pulumi.com/waitFor` annotation will no longer hang indefinitely if they match non-primitive fields.
   (https://github.com/pulumi/pulumi-kubernetes/issues/3345)
 
+- [java] CRDs that contain any `x-kubernetes-*` fields can now be succesfully created and managed by Pulumi.
+  (https://github.com/pulumi/pulumi-kubernetes/issues/3325)
+
 ## 4.18.3 (October 31, 2024)
 
 ### Fixed
