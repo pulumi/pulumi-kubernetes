@@ -2925,29 +2925,42 @@ func mapReplStripComputed(v resource.PropertyValue) (any, bool) {
 	return nil, false
 }
 
-// mapReplUnderscoreToDash is needed to work around cases where SDKs don't allow dashes in variable names, and so the
-// parameter is renamed with an underscore during schema generation. This function normalizes those keys to the format
-// expected by the cluster.
-func mapReplUnderscoreToDash(v string) (string, bool) {
-	switch v {
-	case "x_kubernetes_embedded_resource":
-		return "x-kubernetes-embedded-resource", true
-	case "x_kubernetes_int_or_string":
-		return "x-kubernetes-int-or-string", true
-	case "x_kubernetes_list_map_keys":
-		return "x-kubernetes-list-map-keys", true
-	case "x_kubernetes_list_type":
-		return "x-kubernetes-list-type", true
-	case "x_kubernetes_map_type":
-		return "x-kubernetes-map-type", true
-	case "x_kubernetes_preserve_unknown_fields":
-		return "x-kubernetes-preserve-unknown-fields", true
-	case "x_kubernetes_validations":
-		return "x-kubernetes-validations", true
-	}
-	return "", false
+// underscoreToDashMap holds the mappings between underscore and dash keys.
+var underscoreToDashMap = map[string]string{
+	"x_kubernetes_embedded_resource":       "x-kubernetes-embedded-resource",
+	"x_kubernetes_int_or_string":           "x-kubernetes-int-or-string",
+	"x_kubernetes_list_map_keys":           "x-kubernetes-list-map-keys",
+	"x_kubernetes_list_type":               "x-kubernetes-list-type",
+	"x_kubernetes_map_type":                "x-kubernetes-map-type",
+	"x_kubernetes_preserve_unknown_fields": "x-kubernetes-preserve-unknown-fields",
+	"x_kubernetes_validations":             "x-kubernetes-validations",
 }
 
+// dashedToUnderscoreMap holds the reverse mappings between dash and underscore keys. This
+// is a precomputed map based on underscoreToDashMap at runtime to avoid duplicating
+// code, or extra passes over the map.
+var dashToUnderscoreMap map[string]string = func() map[string]string {
+	dashToUnderscoreMap := make(map[string]string, len(underscoreToDashMap))
+	for k, v := range underscoreToDashMap {
+		dashToUnderscoreMap[v] = k
+	}
+	return dashToUnderscoreMap
+}()
+
+// mapReplUnderscoreToDash denormalizes keys by replacing underscores with dashes.
+func mapReplUnderscoreToDash(v string) (string, bool) {
+	val, ok := underscoreToDashMap[v]
+	return val, ok
+}
+
+// mapReplDashToUnderscore normalizes keys by replacing dashes with underscores.
+func mapReplDashToUnderscore(v string) (resource.PropertyKey, bool) {
+	val, ok := dashToUnderscoreMap[v]
+	return resource.PropertyKey(val), ok
+}
+
+// propMapToUnstructured converts a resource.PropertyMap to an *unstructured.Unstructured; and applies field name denormalization
+// and secret stripping.
 func propMapToUnstructured(pm resource.PropertyMap) *unstructured.Unstructured {
 	return &unstructured.Unstructured{Object: pm.MapRepl(mapReplUnderscoreToDash, mapReplStripSecrets)}
 }
@@ -2962,11 +2975,17 @@ func initialAPIVersion(state resource.PropertyMap, oldInputs *unstructured.Unstr
 	return oldInputs.GetAPIVersion()
 }
 
+// checkpointObject generates a checkpointed PropertyMap from the live and input Kubernetes objects.
+// It normalizes `x-kubernetes-*` fields to their underscored equivalents, handles secret data annotations,
+// processes `stringData` for secret kinds by marking corresponding `data` fields as secrets,
+// and includes metadata such as the initial API version and field manager.
 func checkpointObject(inputs, live *unstructured.Unstructured, fromInputs resource.PropertyMap,
 	initialAPIVersion, fieldManager string,
 ) resource.PropertyMap {
-	object := resource.NewPropertyMapFromMap(live.Object)
-	inputsPM := resource.NewPropertyMapFromMap(inputs.Object)
+	// When checkpointing the live object, we need to ensure we normalize any `x-kubernetes-*` fields to their
+	// underscored versions so they can be correctly diffed, and deseriazlied to their typed SDK equivalents.
+	object := resource.NewPropertyMapFromMapRepl(live.Object, mapReplDashToUnderscore, nil)
+	inputsPM := resource.NewPropertyMapFromMapRepl(inputs.Object, mapReplDashToUnderscore, nil)
 
 	annotateSecrets(object, fromInputs)
 	annotateSecrets(inputsPM, fromInputs)
@@ -2998,10 +3017,14 @@ func checkpointObject(inputs, live *unstructured.Unstructured, fromInputs resour
 	return object
 }
 
+// parseCheckpointObject parses the given resource.PropertyMap, stripping sensitive information and normalizing field names.
+// It returns two unstructured.Unstructured objects: oldInputs containing the input properties and live containing the live state.
 func parseCheckpointObject(obj resource.PropertyMap) (oldInputs, live *unstructured.Unstructured) {
 	// Since we are converting everything to unstructured's, we need to strip out any secretness that
 	// may nested deep within the object.
-	pm := obj.MapRepl(nil, mapReplStripSecrets)
+	// Note: we also handle conversion of underscored `x_kubernetes_*` fields to their respective dashed
+	// versions here.
+	pm := obj.MapRepl(mapReplUnderscoreToDash, mapReplStripSecrets)
 
 	//
 	// NOTE: Inputs are now stored in `__inputs` to allow output properties to work. The inputs and
@@ -3026,7 +3049,7 @@ func parseCheckpointObject(obj resource.PropertyMap) (oldInputs, live *unstructu
 
 	oldInputs = &unstructured.Unstructured{Object: inputs.(map[string]any)}
 	live = &unstructured.Unstructured{Object: liveMap.(map[string]any)}
-	return
+	return oldInputs, live
 }
 
 // partialError creates an error for resources that did not complete an operation in progress.

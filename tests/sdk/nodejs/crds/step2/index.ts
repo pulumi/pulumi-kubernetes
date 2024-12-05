@@ -21,7 +21,7 @@ const namespace = new k8s.core.v1.Namespace("test-namespace");
 // Create a CustomResourceDefinition and a CustomResource.
 //
 
-new k8s.apiextensions.v1.CustomResourceDefinition("foobar", {
+const crd = new k8s.apiextensions.v1.CustomResourceDefinition("foobar", {
     metadata: { name: "foobars.stable.example.com" },
     spec: {
         group: "stable.example.com",
@@ -59,6 +59,8 @@ new k8s.apiextensions.v1.CustomResourceDefinition("foobar", {
         }
     }
 });
+
+export const preserveUnknownFields = crd.spec.versions[0].schema.openAPIV3Schema.x_kubernetes_preserve_unknown_fields
 
 new k8s.apiextensions.CustomResource(
     "my-new-foobar-object",
