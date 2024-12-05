@@ -1,5 +1,7 @@
 ## Unreleased
 
+## 4.18.4 (December 5, 2024)
+
 ### Changed
 
 - [nodejs] Resolves `punycode` deprecation warnings by using native `fetch` instead of `node-fetch`.
