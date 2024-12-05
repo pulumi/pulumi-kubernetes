@@ -414,6 +414,7 @@ func TestCRDs(t *testing.T) {
 			ct1 := stackInfo.Deployment.Resources[2]
 			provRes := stackInfo.Deployment.Resources[3]
 			stackRes := stackInfo.Deployment.Resources[4]
+			outputs := stackInfo.Outputs
 
 			assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
 			assert.True(t, providers.IsProviderType(provRes.URN.Type()))
@@ -426,6 +427,15 @@ func TestCRDs(t *testing.T) {
 
 			assert.Equal(t, "foobar", string(crd.URN.Name()))
 			assert.Equal(t, "my-new-foobar-object", string(ct1.URN.Name()))
+
+			// Assert that we can reference the x_kubernetes_preserve_unknown_fields field as we should correctly normalize the live object.
+			assert.NotNil(t, outputs["preserveUnknownFields"], "preserveUnknownFields should be present")
+			assert.True(t, outputs["preserveUnknownFields"].(bool), "preserveUnknownFields should be true")
+
+			// Verify with kubectl that the CRD has `x-kubernetes-*` fields set correctly.
+			output, err := tests.Kubectl("get crd foobars.stable.example.com -o json")
+			require.NoError(t, err)
+			assert.Contains(t, string(output), `"x-kubernetes-preserve-unknown-fields": true`)
 		},
 		EditDirs: []integration.EditDir{
 			{
@@ -433,12 +443,21 @@ func TestCRDs(t *testing.T) {
 				Additive: true,
 				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 					assert.NotNil(t, stackInfo.Deployment)
+					outputs := stackInfo.Outputs
 
 					//
 					// Assert that the CR was gotten.
 					//
 					ct1ref := tests.SearchResourcesByName(stackInfo, "", "kubernetes:stable.example.com/v1:FooBar", "my-new-foobar-object-ref")
 					assert.NotNil(t, ct1ref)
+
+					// Assert that the x_kubernetes_preserve_unknown_fields field is now nil, as we remove this in step 2.
+					assert.Nil(t, outputs["preserveUnknownFields"], "preserveUnknownFields should be present")
+
+					// Verify with kubectl that the CRD does not have `x-kubernetes-*` fields.
+					output, err := tests.Kubectl("get crd foobars.stable.example.com -o json")
+					require.NoError(t, err)
+					assert.NotContains(t, string(output), `"x-kubernetes-preserve-unknown-fields": true`)
 				},
 			},
 			{
