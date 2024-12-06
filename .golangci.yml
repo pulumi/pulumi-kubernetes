@@ -13,17 +13,11 @@ linters:
     - nakedret
     - unconvert
     - gosimple
-  disable:
-    - lll
 run:
-  skip-files:
-    - schema.go
-  skip-dirs:
-    - provider/pkg/gen
-  skip-dirs-use-default: true
   modules-download-mode: readonly
   timeout: 10m
 issues:
-  exclude-rules:
-    path: "provider/cmd/pulumi-resource-kubernetes"
-    source: "^//go:embed"
+  exclude-files:
+    - schema.go
+  exclude-dirs:
+    - provider/pkg/gen
