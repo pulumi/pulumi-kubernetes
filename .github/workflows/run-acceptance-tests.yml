@@ -444,8 +444,8 @@ jobs:
         go-version: ${{ env.GOVERSION }}
         cache-dependency-path: "**/*.sum"
     - name: disarm go:embed directives to enable linters that compile source code
-      run: |
-        git grep -l 'go:embed' -- provider | xargs --no-run-if-empty sed -i 's/go:embed/ goembed/g'
+      run: git grep -l 'go:embed' -- provider | xargs --no-run-if-empty sed -i
+        's/go:embed/ goembed/g'
     - name: golangci-lint provider pkg
       uses: golangci/golangci-lint-action@d6238b002a20823d52840fda27e2d4891c5952dc # v4.0.1
       with:
