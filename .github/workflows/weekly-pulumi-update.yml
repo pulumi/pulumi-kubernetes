@@ -42,33 +42,33 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout Repo
-      uses: actions/checkout@v4
+      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       with:
         lfs: true
     - name: Install Go
-      uses: actions/setup-go@v5
+      uses: actions/setup-go@41dfa10bad2bb2ae585af6ee5bb4d7d973ad74ed # v5.1.0
       with:
         go-version: ${{ env.GOVERSION }}
         cache-dependency-path: "**/*.sum"
     - name: Install pulumictl
-      uses: jaxxstorm/action-install-gh-release@v1.11.0
+      uses: jaxxstorm/action-install-gh-release@71d17cb091aa850acb2a1a4cf87258d183eb941b # v1.11.0
       with:
         repo: pulumi/pulumictl
     - name: Install Pulumi CLI
-      uses: pulumi/actions@c7fad9e2f0b79653172b36538b8b34b3c0291952 # v6
+      uses: pulumi/actions@c7fad9e2f0b79653172b36538b8b34b3c0291952 # v6.0.0
       with:
         pulumi-version-file: .pulumi.version
     - name: Setup DotNet
-      uses: actions/setup-dotnet@v4
+      uses: actions/setup-dotnet@3e891b0cb619bf60e2c25674b222b8940e2c1c25 # v4.1.0
       with:
         dotnet-version: ${{ env.DOTNETVERSION }}
     - name: Setup Node
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
       with:
         node-version: ${{ env.NODEVERSION }}
         registry-url: https://registry.npmjs.org
     - name: Setup Python
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b # v5.3.0
       with:
         python-version: ${{ env.PYTHONVERSION }}
     - name: Update Pulumi/Pulumi
