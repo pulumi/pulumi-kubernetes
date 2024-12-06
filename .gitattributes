@@ -1,3 +1,4 @@
 provider/cmd/pulumi-resource-kubernetes/schema-embed.json linguist-generated=true
+provider/cmd/pulumi-resource-kubernetes/terraform-mapping-embed.json linguist-generated=true
 # Mark contents under sdk directory as generated to keep PRs manageable
 sdk/** linguist-generated=true
